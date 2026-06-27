@@ -2,13 +2,45 @@
   "worksheet": "WS10",
   "note": "Numeric table from 7 energy values [28, 69, 219, 346, 359, 408, 489]. All items are numeric and checked deterministically in validation. Optimal threshold is the minimum-misclassification candidate.",
   "items": {
-    "WS10_B1": { "max_score": 1, "answer": 48.5, "check": "numeric", "tolerance": 10, "AI_CFT": ["LO3.2.1"] },
-    "WS10_B2": { "max_score": 1, "answer": 4, "check": "numeric", "AI_CFT": ["LO3.2.1"] },
-    "WS10_B3": { "max_score": 1, "answer": 144.0, "check": "numeric", "tolerance": 30, "AI_CFT": ["LO3.2.1"] },
-    "WS10_B4": { "max_score": 1, "answer": 3, "check": "numeric", "AI_CFT": ["LO3.2.1"] },
-    "WS10_B5": { "max_score": 1, "answer": 408, "check": "numeric_optimal", "AI_CFT": ["LO3.2.1"] },
-    "WS10_B6": { "max_score": 1, "check": "numeric", "AI_CFT": ["LO3.2.1"] },
-    "WS10_B7": { "max_score": 1, "check": "numeric", "AI_CFT": ["LO3.2.1"] },
-    "WS10_B8": { "max_score": 1, "answer": 408, "check": "numeric_optimal", "AI_CFT": ["LO3.2.1"] }
+    "WS10_B1": {
+      "max_score": 1,
+      "answer": 48.5,
+      "check": "numeric",
+      "tolerance": 10
+    },
+    "WS10_B2": {
+      "max_score": 1,
+      "answer": 4,
+      "check": "numeric"
+    },
+    "WS10_B3": {
+      "max_score": 1,
+      "answer": 144.0,
+      "check": "numeric",
+      "tolerance": 30
+    },
+    "WS10_B4": {
+      "max_score": 1,
+      "answer": 3,
+      "check": "numeric"
+    },
+    "WS10_B5": {
+      "max_score": 1,
+      "answer": 408,
+      "check": "numeric_optimal"
+    },
+    "WS10_B6": {
+      "max_score": 1,
+      "check": "numeric"
+    },
+    "WS10_B7": {
+      "max_score": 1,
+      "check": "numeric"
+    },
+    "WS10_B8": {
+      "max_score": 1,
+      "answer": 408,
+      "check": "numeric_optimal"
+    }
   }
 }

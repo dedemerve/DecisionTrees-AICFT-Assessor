@@ -2,13 +2,59 @@
   "worksheet": "WS3",
   "note": "Part 1 (B1-B6): apply Leo's fat rule, threshold 8.0g. Part 2 (B7-B8): own energy threshold. Classification items use 'answer'. Reason items use rubric.full. Threshold items check the variable and operator.",
   "items": {
-    "WS3_B1": { "max_score": 1, "answer": "tavsiye edilemez", "AI_CFT": ["LO3.1.1"] },
-    "WS3_B2": { "max_score": 1, "rubric": { "full": ["yağ değeri", "eşik karşılaştırması"] }, "need": 2, "AI_CFT": ["LO3.1.1"] },
-    "WS3_B3": { "max_score": 1, "answer": "tavsiye edilebilir", "AI_CFT": ["LO3.1.1"] },
-    "WS3_B4": { "max_score": 1, "rubric": { "full": ["yağ değeri", "eşik karşılaştırması"] }, "need": 2, "AI_CFT": ["LO3.1.1"] },
-    "WS3_B5": { "max_score": 1, "answer": "tavsiye edilemez", "AI_CFT": ["LO3.1.1"] },
-    "WS3_B6": { "max_score": 1, "rubric": { "full": ["yağ değeri", "eşik karşılaştırması"] }, "need": 2, "AI_CFT": ["LO3.1.1"] },
-    "WS3_B7": { "max_score": 1, "variable": "enerji", "operator": "≤", "check": "threshold", "AI_CFT": ["LO3.1.1", "LO3.1.3"] },
-    "WS3_B8": { "max_score": 1, "variable": "enerji", "operator": ">", "check": "threshold", "AI_CFT": ["LO3.1.1"] }
+    "WS3_B1": {
+      "max_score": 1,
+      "answer": "tavsiye edilemez"
+    },
+    "WS3_B2": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "yağ değeri",
+          "eşik karşılaştırması"
+        ]
+      },
+      "need": 2
+    },
+    "WS3_B3": {
+      "max_score": 1,
+      "answer": "tavsiye edilebilir"
+    },
+    "WS3_B4": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "yağ değeri",
+          "eşik karşılaştırması"
+        ]
+      },
+      "need": 2
+    },
+    "WS3_B5": {
+      "max_score": 1,
+      "answer": "tavsiye edilemez"
+    },
+    "WS3_B6": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "yağ değeri",
+          "eşik karşılaştırması"
+        ]
+      },
+      "need": 2
+    },
+    "WS3_B7": {
+      "max_score": 1,
+      "variable": "enerji",
+      "operator": "≤",
+      "check": "threshold"
+    },
+    "WS3_B8": {
+      "max_score": 1,
+      "variable": "enerji",
+      "operator": ">",
+      "check": "threshold"
+    }
   }
 }

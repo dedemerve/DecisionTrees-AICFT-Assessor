@@ -1,17 +1,121 @@
 {
   "worksheet": "WS1",
-  "note": "rubric.full lists key concepts a full answer should contain. 'need' = how many of full are required (default = all). Formula items use 'answer' + check. Score scale: full=1.0, partial=0.5, zero=0.0. AI_CFT lists the learning outcomes the item measures.",
+  "note": "rubric.full lists key concepts a full answer should contain. 'need' = how many of full are required (default = all). Formula items use 'answer' + check. Score scale: full=1.0, partial=0.5, zero=0.0.",
   "items": {
-    "WS1_B1": { "max_score": 1, "rubric": { "full": ["varlık", "örnek", "eleman"], "partial": ["gıda"] }, "need": 2, "AI_CFT": ["LO3.1.1"] },
-    "WS1_B2": { "max_score": 1, "rubric": { "full": ["ölçülebilir", "nitelik", "değişken"], "partial": ["şeker miktarı"] }, "need": 1, "AI_CFT": ["LO3.1.1"] },
-    "WS1_B3": { "max_score": 1, "rubric": { "full": ["sınıf", "kategori", "ait olduğu"], "partial": ["tavsiye edilen"] }, "need": 1, "AI_CFT": ["LO3.1.1"] },
-    "WS1_B4": { "max_score": 1, "rubric": { "full": ["sınır", "ayıran", "iki grup"] }, "need": 1, "AI_CFT": ["LO3.1.1"] },
-    "WS1_B5": { "max_score": 1, "rubric": { "full": ["eğer", "o zaman"] }, "need": 1, "AI_CFT": ["LO3.1.1"] },
-    "WS1_B6": { "max_score": 1, "rubric": { "full": ["model pozitif tahmin", "gerçekte pozitif"] }, "need": 2, "AI_CFT": ["LO3.1.1"] },
-    "WS1_B7": { "max_score": 1, "rubric": { "full": ["model pozitif tahmin", "gerçekte negatif"] }, "need": 2, "AI_CFT": ["LO3.1.1"] },
-    "WS1_B8": { "max_score": 1, "answer": "TP/(TP+FN)", "check": "formula", "AI_CFT": ["LO3.1.1"] },
-    "WS1_B9": { "max_score": 1, "answer": "(FP+FN)/N", "check": "formula", "AI_CFT": ["LO3.1.1"] },
-    "WS1_B10": { "max_score": 1, "rubric": { "full": ["eğitim verisinde iyi", "yeni veride kötü"] }, "need": 2, "AI_CFT": ["LO3.1.1"], "weak_signal": { "LO": "LO3.2.3", "when": "full" } },
-    "WS1_B11": { "max_score": 1, "rubric": { "full": ["veriden öğrenme", "dal", "yaprak", "düğüm"] }, "need": 2, "AI_CFT": ["LO3.1.1", "LO3.1.2"] }
+    "WS1_B1": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "varlık",
+          "örnek",
+          "eleman"
+        ],
+        "partial": [
+          "gıda"
+        ]
+      },
+      "need": 2
+    },
+    "WS1_B2": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "ölçülebilir",
+          "nitelik",
+          "değişken"
+        ],
+        "partial": [
+          "şeker miktarı"
+        ]
+      },
+      "need": 1
+    },
+    "WS1_B3": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "sınıf",
+          "kategori",
+          "ait olduğu"
+        ],
+        "partial": [
+          "tavsiye edilen"
+        ]
+      },
+      "need": 1
+    },
+    "WS1_B4": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "sınır",
+          "ayıran",
+          "iki grup"
+        ]
+      },
+      "need": 1
+    },
+    "WS1_B5": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "eğer",
+          "o zaman"
+        ]
+      },
+      "need": 1
+    },
+    "WS1_B6": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "model pozitif tahmin",
+          "gerçekte pozitif"
+        ]
+      },
+      "need": 2
+    },
+    "WS1_B7": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "model pozitif tahmin",
+          "gerçekte negatif"
+        ]
+      },
+      "need": 2
+    },
+    "WS1_B8": {
+      "max_score": 1,
+      "answer": "TP/(TP+FN)",
+      "check": "formula"
+    },
+    "WS1_B9": {
+      "max_score": 1,
+      "answer": "(FP+FN)/N",
+      "check": "formula"
+    },
+    "WS1_B10": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "eğitim verisinde iyi",
+          "yeni veride kötü"
+        ]
+      },
+      "need": 2
+    },
+    "WS1_B11": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "veriden öğrenme",
+          "dal",
+          "yaprak",
+          "düğüm"
+        ]
+      },
+      "need": 2
+    }
   }
 }

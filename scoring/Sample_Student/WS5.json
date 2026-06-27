@@ -1,14 +1,15 @@
 {
   "worksheet": "WS5",
   "student_id": "Sample_Student",
-  "model": "claude-haiku-4-5",
-  "items": {
-    "WS5_row1": { "score": 1.0, "confidence": 0.95, "matched": ["sum_ok", "mcr_ok"], "review": false },
-    "WS5_row2": { "score": 1.0, "confidence": 0.95, "matched": ["sum_ok", "mcr_ok"], "review": false },
-    "WS5_row3": { "score": 1.0, "confidence": 0.95, "matched": ["sum_ok", "mcr_ok"], "review": false },
-    "WS5_row4": { "score": 1.0, "confidence": 0.95, "matched": ["sum_ok", "mcr_ok"], "review": false },
-    "WS5_row5": { "score": 0.5, "confidence": 0.7, "matched": ["sum_ok"], "review": true },
-    "WS5_B25": { "score": 1.0, "confidence": 0.9, "matched": ["aynı MCR", "en küçük eşik"], "review": false }
-  },
-  "summary": { "score": 5.5, "max_score": 6, "needs_review": ["WS5_row5"] }
+  "items": [
+    { "item": "WS5_row1", "score": 1.0, "confidence": 0.95, "review": false, "learning_outcomes": [{ "LO": "LO3.2.1", "evidence_present": true, "evidence_strength": "moderate" }] },
+    { "item": "WS5_row2", "score": 1.0, "confidence": 0.95, "review": false, "learning_outcomes": [{ "LO": "LO3.2.1", "evidence_present": true, "evidence_strength": "moderate" }] },
+    { "item": "WS5_row3", "score": 1.0, "confidence": 0.95, "review": false, "learning_outcomes": [{ "LO": "LO3.2.1", "evidence_present": true, "evidence_strength": "moderate" }] },
+    { "item": "WS5_row4", "score": 1.0, "confidence": 0.95, "review": false, "learning_outcomes": [{ "LO": "LO3.2.1", "evidence_present": true, "evidence_strength": "moderate" }] },
+    { "item": "WS5_row5", "score": 0.5, "confidence": 0.85, "review": false, "learning_outcomes": [{ "LO": "LO3.2.1", "evidence_present": true, "evidence_strength": "weak" }] },
+    { "item": "WS5_B25", "score": 1.0, "confidence": 0.90, "review": false, "learning_outcomes": [
+      { "LO": "LO3.2.1", "evidence_present": true, "evidence_strength": "strong" },
+      { "LO": "LO3.2.2", "evidence_present": true, "evidence_strength": "strong" }
+    ] }
+  ]
 }

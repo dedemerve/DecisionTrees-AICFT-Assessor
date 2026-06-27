@@ -1,11 +1,30 @@
 {
   "worksheet": "WS7",
   "student_id": "Sample_Student",
-  "model": "claude-haiku-4-5",
-  "items": {
-    "WS7_B1": { "score": 1.0, "confidence": 0.95, "matched": ["şeker ≤ 10", "yağ ≤ 5", "tavsiye edilir"], "review": false },
-    "WS7_B2": { "score": 1.0, "confidence": 0.95, "matched": ["şeker ≤ 10", "yağ > 5", "tavsiye edilmez"], "review": false },
-    "WS7_B3": { "score": 1.0, "confidence": 0.95, "matched": ["şeker > 10", "tavsiye edilmez"], "review": false }
-  },
-  "summary": { "score": 3.0, "max_score": 3, "needs_review": ["WS7_P1_box1", "WS7_P1_box2", "WS7_P1_box3"] }
+  "items": [
+    { "item": "WS7_P1_box1", "score": null, "confidence": 0.25, "review": true, "learning_outcomes": [
+      { "LO": "LO3.1.1", "evidence_present": false, "evidence_strength": "none" },
+      { "LO": "LO3.2.2", "evidence_present": false, "evidence_strength": "none" }
+    ] },
+    { "item": "WS7_P1_box2", "score": null, "confidence": 0.25, "review": true, "learning_outcomes": [
+      { "LO": "LO3.1.1", "evidence_present": false, "evidence_strength": "none" },
+      { "LO": "LO3.2.2", "evidence_present": false, "evidence_strength": "none" }
+    ] },
+    { "item": "WS7_P1_box3", "score": null, "confidence": 0.25, "review": true, "learning_outcomes": [
+      { "LO": "LO3.1.1", "evidence_present": false, "evidence_strength": "none" },
+      { "LO": "LO3.2.2", "evidence_present": false, "evidence_strength": "none" }
+    ] },
+    { "item": "WS7_B1", "score": 1.0, "confidence": 0.95, "review": false, "learning_outcomes": [
+      { "LO": "LO3.1.1", "evidence_present": true, "evidence_strength": "strong" },
+      { "LO": "LO3.2.2", "evidence_present": true, "evidence_strength": "moderate" }
+    ] },
+    { "item": "WS7_B2", "score": 1.0, "confidence": 0.95, "review": false, "learning_outcomes": [
+      { "LO": "LO3.1.1", "evidence_present": true, "evidence_strength": "strong" },
+      { "LO": "LO3.2.2", "evidence_present": true, "evidence_strength": "moderate" }
+    ] },
+    { "item": "WS7_B3", "score": 1.0, "confidence": 0.95, "review": false, "learning_outcomes": [
+      { "LO": "LO3.1.1", "evidence_present": true, "evidence_strength": "strong" },
+      { "LO": "LO3.2.2", "evidence_present": true, "evidence_strength": "moderate" }
+    ] }
+  ]
 }

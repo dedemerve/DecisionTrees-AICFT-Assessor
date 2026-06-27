@@ -2,11 +2,59 @@
   "worksheet": "WS11",
   "note": "Only cognitive items are scored. Reflections (B1-B7), Likert (L10, L11) and demographics (L12) are descriptive_only and not in this rubric. Q10/Q12 are multi-select, Q11 is an ordering task, all checked deterministically.",
   "items": {
-    "WS11_B8a": { "max_score": 1, "answer": "tavsiye edilmez", "AI_CFT": ["LO3.1.1"] },
-    "WS11_B8b": { "max_score": 1, "rubric": { "full": ["şeker > 10", "tavsiye edilmez"] }, "need": 2, "AI_CFT": ["LO3.1.1", "LO3.2.2"] },
-    "WS11_B9": { "max_score": 1, "rubric": { "full": ["veriden öğrenme", "sınıflandırma", "ağaç yapısı"] }, "need": 2, "AI_CFT": ["LO3.1.2"] },
-    "WS11_Q10": { "max_score": 1, "answer_set": [1, 2, 4, 5, 8], "check": "multiselect", "AI_CFT": ["LO3.1.1", "LO3.1.2"] },
-    "WS11_Q11": { "max_score": 1, "answer_order": [1, 2, 3, 4], "check": "ordering", "AI_CFT": ["LO3.1.1"] },
-    "WS11_Q12": { "max_score": 1, "answer_set": [1, 5], "check": "multiselect", "AI_CFT": ["LO3.1.2", "LO3.1.5"] }
+    "WS11_B8a": {
+      "max_score": 1,
+      "answer": "tavsiye edilmez"
+    },
+    "WS11_B8b": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "şeker > 10",
+          "tavsiye edilmez"
+        ]
+      },
+      "need": 2
+    },
+    "WS11_B9": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "veriden öğrenme",
+          "sınıflandırma",
+          "ağaç yapısı"
+        ]
+      },
+      "need": 2
+    },
+    "WS11_Q10": {
+      "max_score": 1,
+      "answer_set": [
+        1,
+        2,
+        4,
+        5,
+        8
+      ],
+      "check": "multiselect"
+    },
+    "WS11_Q11": {
+      "max_score": 1,
+      "answer_order": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "check": "ordering"
+    },
+    "WS11_Q12": {
+      "max_score": 1,
+      "answer_set": [
+        1,
+        5
+      ],
+      "check": "multiselect"
+    }
   }
 }

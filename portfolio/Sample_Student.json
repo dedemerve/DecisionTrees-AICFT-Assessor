@@ -2,61 +2,60 @@
   "student_id": "Sample_Student",
   "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
   "aspect": "Aspect 3: AI foundations and applications",
-  "worksheets": ["WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS11", "WS_DT"],
+  "worksheets_scored": ["WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS11", "WS_DT"],
 
   "learning_outcomes": {
     "LO3.1.1": {
-      "status": "Achieved",
-      "evidence": ["WS1", "WS4", "WS5", "WS6", "WS7", "WS11", "WS_DT"]
+      "peak_strength": "strong",
+      "contributing_worksheets": ["WS1", "WS3", "WS4", "WS6", "WS7", "WS11", "WS_DT"]
     },
     "LO3.1.2": {
-      "status": "Achieved",
-      "evidence": ["WS1", "WS11"]
+      "peak_strength": "strong",
+      "contributing_worksheets": ["WS1", "WS11"]
     },
     "LO3.1.3": {
-      "status": "Not_demonstrated",
-      "evidence": [],
-      "note": "WS3 own-threshold used the wrong variable; operating the rule with correct parameters is unverified."
+      "peak_strength": "moderate",
+      "contributing_worksheets": ["WS4"],
+      "note": "WS3 own-threshold used the wrong variable; B7/B8 contribution unverified."
     },
     "LO3.1.5": {
-      "status": "Not_demonstrated",
-      "evidence": [],
+      "peak_strength": "none",
+      "contributing_worksheets": [],
       "note": "WS11 Q12 not captured."
     },
     "LO3.2.1": {
-      "status": "Achieved",
-      "evidence": ["WS4", "WS5"]
+      "peak_strength": "strong",
+      "contributing_worksheets": ["WS4", "WS5", "WS_DT"]
     },
     "LO3.2.2": {
-      "status": "Achieved",
-      "evidence": ["WS4", "WS5", "WS6", "WS_DT"]
+      "peak_strength": "strong",
+      "contributing_worksheets": ["WS4", "WS5", "WS6", "WS7", "WS_DT"]
     },
     "LO3.2.3": {
-      "status": "Achieved",
-      "evidence": ["WS_DT"],
-      "note": "WS_DT F_Q2 explains overfitting as a train/test gap."
+      "peak_strength": "strong",
+      "contributing_worksheets": ["WS_DT"],
+      "note": "WS1 B10 contributes weak signal only. DT F_Q2 is the primary strong evidence."
     },
     "LO3.3.1": {
-      "status": "Emerging",
-      "evidence": ["WS_DT"],
-      "note": "F_Q2 is a strong limitation-awareness signal, but E_Q4 (perfect classification impossible) was not answered and Sections A-D need re-extraction."
+      "peak_strength": "moderate",
+      "contributing_worksheets": ["WS_DT"],
+      "note": "DT E_Q4 not answered; Sections A-D need re-extraction. Treat as early indicator only."
     }
   },
 
   "ai_cft_proposal": {
     "Aspect3": "Deepen",
-    "rationale": "Acquire and Deepen learning outcomes are achieved across multiple worksheets with reliable extraction. Create (LO3.3.1) is only emerging.",
-    "confidence": "high_for_Acquire_and_Deepen"
+    "rationale": "All Acquire LOs (LO3.1.1, LO3.1.2) show strong evidence across multiple worksheets. Key Deepen LOs (LO3.2.1, LO3.2.2, LO3.2.3) also reach strong peak strength. Create level (LO3.3.1) is moderate and dependent on incomplete WS_DT data.",
+    "confidence": "provisional",
+    "is_final": false,
+    "decision_owner": "researcher",
+    "decision_note": "Level is not assigned from any single worksheet. This proposal aggregates LO evidence from all scored worksheets. The researcher makes the final holistic judgement after reviewing flagged items and filling data gaps."
   },
 
-  "is_final": false,
-  "decision_owner": "researcher",
-  "decision_note": "The system proposes a level from aggregated LO evidence. The researcher makes the final holistic judgement. Levels are not assigned from any single worksheet.",
-
   "data_gaps": [
-    { "worksheet": "WS_DT", "items": ["Section A", "Section B", "Section C", "Section D"], "priority": 1, "why": "Core data-driven Deepen items; also decide whether Create is reached." },
-    { "worksheet": "WS10", "items": ["numeric_table"], "priority": 2, "why": "Application of the systematic algorithm unverified." },
-    { "worksheet": "WS11", "items": ["Q10", "Q11", "Q12"], "priority": 3, "why": "Direct cognitive items for LO3.1.1 / LO3.1.5." },
-    { "worksheet": "WS7", "items": ["Part 1 path matching"], "priority": 4, "why": "Reading a given tree is a separate competency from writing one." }
+    { "worksheet": "WS_DT", "items": ["Section A", "Section B", "Section C", "Section D"], "priority": 1, "why": "Core Deepen items; required to resolve LO3.2.1 and determine whether LO3.3.1 reaches strong." },
+    { "worksheet": "WS10", "items": ["numeric_table"], "priority": 2, "why": "LO3.2.1 application of the systematic split algorithm is unverified." },
+    { "worksheet": "WS11", "items": ["Q10", "Q11", "Q12"], "priority": 3, "why": "Direct cognitive items for LO3.1.1 and LO3.1.5." },
+    { "worksheet": "WS7", "items": ["Part 1 path matching"], "priority": 4, "why": "Reading a given tree is a distinct competency from constructing one." }
   ]
 }

@@ -2,10 +2,45 @@
   "worksheet": "WS4",
   "note": "Item ids follow the captured layout: B1 best threshold, B2 criterion, B3 comparison, B4 MCR formula, B5 Pia evaluation. The visual circle task is not text-extractable.",
   "items": {
-    "WS4_B1": { "max_score": 1, "check": "numeric", "answer": "valid_midpoint_threshold_min_mcr", "AI_CFT": ["LO3.1.3", "LO3.2.1"] },
-    "WS4_B2": { "max_score": 1, "rubric": { "full": ["MCR", "en düşük"] }, "need": 1, "AI_CFT": ["LO3.2.1"] },
-    "WS4_B3": { "max_score": 1, "rubric": { "full": ["iki MCR değeri", "karşılaştırma"] }, "need": 2, "AI_CFT": ["LO3.2.1"] },
-    "WS4_B4": { "max_score": 1, "answer": "(FP+FN)/total", "check": "formula", "AI_CFT": ["LO3.1.1"] },
-    "WS4_B5": { "max_score": 1, "rubric": { "full": ["doğru", "en az hata"] }, "need": 2, "AI_CFT": ["LO3.2.2"] }
+    "WS4_B1": {
+      "max_score": 1,
+      "check": "numeric",
+      "answer": "valid_midpoint_threshold_min_mcr"
+    },
+    "WS4_B2": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "MCR",
+          "en düşük"
+        ]
+      },
+      "need": 1
+    },
+    "WS4_B3": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "iki MCR değeri",
+          "karşılaştırma"
+        ]
+      },
+      "need": 2
+    },
+    "WS4_B4": {
+      "max_score": 1,
+      "answer": "(FP+FN)/total",
+      "check": "formula"
+    },
+    "WS4_B5": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "doğru",
+          "en az hata"
+        ]
+      },
+      "need": 2
+    }
   }
 }

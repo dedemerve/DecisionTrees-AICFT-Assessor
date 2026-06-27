@@ -2,11 +2,35 @@
   "worksheet": "WS5",
   "note": "Grid of threshold trials. Each row is checked deterministically: counts sum to the dataset size and MCR is consistent. B25 is the final choice with a data-based reason. At least 2 complete rows are expected.",
   "items": {
-    "WS5_row1": { "max_score": 1, "check": "row_consistency", "AI_CFT": ["LO3.2.1"] },
-    "WS5_row2": { "max_score": 1, "check": "row_consistency", "AI_CFT": ["LO3.2.1"] },
-    "WS5_row3": { "max_score": 1, "check": "row_consistency", "AI_CFT": ["LO3.2.1"] },
-    "WS5_row4": { "max_score": 1, "check": "row_consistency", "AI_CFT": ["LO3.2.1"] },
-    "WS5_row5": { "max_score": 1, "check": "row_consistency", "AI_CFT": ["LO3.2.1"] },
-    "WS5_B25": { "max_score": 1, "rubric": { "full": ["belirli eşik", "veri temelli gerekçe"] }, "need": 2, "AI_CFT": ["LO3.2.1", "LO3.2.2"] }
+    "WS5_row1": {
+      "max_score": 1,
+      "check": "row_consistency"
+    },
+    "WS5_row2": {
+      "max_score": 1,
+      "check": "row_consistency"
+    },
+    "WS5_row3": {
+      "max_score": 1,
+      "check": "row_consistency"
+    },
+    "WS5_row4": {
+      "max_score": 1,
+      "check": "row_consistency"
+    },
+    "WS5_row5": {
+      "max_score": 1,
+      "check": "row_consistency"
+    },
+    "WS5_B25": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "belirli eşik",
+          "veri temelli gerekçe"
+        ]
+      },
+      "need": 2
+    }
   }
 }

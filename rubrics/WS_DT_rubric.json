@@ -2,20 +2,143 @@
   "worksheet": "WS_DT",
   "note": "CODAP inquiry, mostly open-ended. E sensitivity/MCR are checked for arithmetic consistency. Open-ended items use rubric.full key concepts. Off-topic answers should be flagged review:true by the scoring model.",
   "items": {
-    "DT_A_Q1": { "max_score": 1, "rubric": { "full": ["değişken", "ön tahmin"] }, "need": 1, "AI_CFT": ["LO3.1.1"] },
-    "DT_A_Q2": { "max_score": 1, "rubric": { "full": ["değişken", "veri kanıtı"] }, "need": 2, "AI_CFT": ["LO3.2.1"] },
-    "DT_A_Q4": { "max_score": 1, "rubric": { "full": ["değişken", "veri gerekçesi"] }, "need": 2, "AI_CFT": ["LO3.2.1"] },
-    "DT_B_Q4": { "max_score": 1, "rubric": { "full": ["en iyi değişken", "ölçüt"] }, "need": 2, "AI_CFT": ["LO3.2.1"] },
-    "DT_C_Q2": { "max_score": 1, "rubric": { "full": ["eşik", "performans etkisi"] }, "need": 2, "AI_CFT": ["LO3.2.1", "LO3.2.2"] },
-    "DT_C_Q3": { "max_score": 1, "rubric": { "full": ["eşik değeri", "yöntem"] }, "need": 2, "AI_CFT": ["LO3.2.1"] },
-    "DT_D_Q2": { "max_score": 1, "rubric": { "full": ["karşılaştırma", "sayısal"] }, "need": 2, "AI_CFT": ["LO3.2.1"] },
-    "DT_D_Q4": { "max_score": 1, "rubric": { "full": ["durdurma ölçütü"] }, "need": 1, "AI_CFT": ["LO3.2.1", "LO3.3.1"] },
-    "DT_E_sensitivity": { "max_score": 1, "answer": "TP/(TP+FN)", "check": "formula", "AI_CFT": ["LO3.1.1"] },
-    "DT_E_MCR": { "max_score": 1, "answer": "(FP+FN)/total", "check": "formula", "AI_CFT": ["LO3.1.1"] },
-    "DT_E_Q1": { "max_score": 1, "rubric": { "full": ["metrik tercihi", "amaç gerekçesi"] }, "need": 2, "AI_CFT": ["LO3.2.2"] },
-    "DT_E_Q4": { "max_score": 1, "rubric": { "full": ["hayır", "veri örtüşmesi"] }, "need": 2, "AI_CFT": ["LO3.2.3", "LO3.3.1"] },
-    "DT_F_Q2": { "max_score": 1, "rubric": { "full": ["eğitim iyi", "test kötü"] }, "need": 2, "AI_CFT": ["LO3.2.3", "LO3.3.1"] },
-    "DT_G_Q1": { "max_score": 1, "rubric": { "full": ["öğrenilen kural", "örüntü"] }, "need": 1, "AI_CFT": ["LO3.1.1", "LO3.3.1"] },
-    "DT_G_Q2": { "max_score": 1, "rubric": { "full": ["iki kavram"] }, "need": 1, "AI_CFT": ["LO3.2.2", "LO3.3.1"] }
+    "DT_A_Q1": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "değişken",
+          "ön tahmin"
+        ]
+      },
+      "need": 1
+    },
+    "DT_A_Q2": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "değişken",
+          "veri kanıtı"
+        ]
+      },
+      "need": 2
+    },
+    "DT_A_Q4": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "değişken",
+          "veri gerekçesi"
+        ]
+      },
+      "need": 2
+    },
+    "DT_B_Q4": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "en iyi değişken",
+          "ölçüt"
+        ]
+      },
+      "need": 2
+    },
+    "DT_C_Q2": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "eşik",
+          "performans etkisi"
+        ]
+      },
+      "need": 2
+    },
+    "DT_C_Q3": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "eşik değeri",
+          "yöntem"
+        ]
+      },
+      "need": 2
+    },
+    "DT_D_Q2": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "karşılaştırma",
+          "sayısal"
+        ]
+      },
+      "need": 2
+    },
+    "DT_D_Q4": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "durdurma ölçütü"
+        ]
+      },
+      "need": 1
+    },
+    "DT_E_sensitivity": {
+      "max_score": 1,
+      "answer": "TP/(TP+FN)",
+      "check": "formula"
+    },
+    "DT_E_MCR": {
+      "max_score": 1,
+      "answer": "(FP+FN)/total",
+      "check": "formula"
+    },
+    "DT_E_Q1": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "metrik tercihi",
+          "amaç gerekçesi"
+        ]
+      },
+      "need": 2
+    },
+    "DT_E_Q4": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "hayır",
+          "veri örtüşmesi"
+        ]
+      },
+      "need": 2
+    },
+    "DT_F_Q2": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "eğitim iyi",
+          "test kötü"
+        ]
+      },
+      "need": 2
+    },
+    "DT_G_Q1": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "öğrenilen kural",
+          "örüntü"
+        ]
+      },
+      "need": 1
+    },
+    "DT_G_Q2": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "iki kavram"
+        ]
+      },
+      "need": 1
+    }
   }
 }

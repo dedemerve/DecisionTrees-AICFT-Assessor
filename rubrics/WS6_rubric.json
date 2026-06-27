@@ -2,7 +2,21 @@
   "worksheet": "WS6",
   "note": "Decision tree graded structurally. tree_structure is validated deterministically (depth, different features, labeled leaves, consistent operators). branch_labels checks the evet/hayır and operator labels.",
   "items": {
-    "WS6_tree_structure": { "max_score": 1, "check": "tree_validity", "AI_CFT": ["LO3.2.2"] },
-    "WS6_branch_labels": { "max_score": 1, "rubric": { "full": ["evet", "hayır", "≤", ">"] }, "need": 2, "AI_CFT": ["LO3.1.1"] }
+    "WS6_tree_structure": {
+      "max_score": 1,
+      "check": "tree_validity"
+    },
+    "WS6_branch_labels": {
+      "max_score": 1,
+      "rubric": {
+        "full": [
+          "evet",
+          "hayır",
+          "≤",
+          ">"
+        ]
+      },
+      "need": 2
+    }
   }
 }
