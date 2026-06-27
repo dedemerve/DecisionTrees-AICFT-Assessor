@@ -1,107 +1,17 @@
 {
-  "schema_version": "2.0",
+  "worksheet": "WS1",
   "student_id": "Sample_Student",
-  "worksheet_id": "WS1",
-  "rubric_ref": "rubrics/WS1_rubric.json",
-
-  "gate_1_extraction": {
-    "status": "pass",
-    "model": "claude-sonnet-4-6",
-    "extracted_at": "2026-06-27T10:17:00Z",
-    "transcription": {
-      "WS1_B1": "Nesne: üzerinde çalışılan varlık ya da örnek (örn. bir yiyecek).",
-      "WS1_B2": "Özellik: nesnenin ölçülebilir bir niteliği (örn. şeker miktarı).",
-      "WS1_B3": "Etiket: nesnenin ait olduğu sınıf (tavsiye edilen / edilmeyen).",
-      "WS1_B4": "Eşik değeri: bir özelliği iki gruba ayıran sınır sayısı.",
-      "WS1_B5": "Kural: eğer-o zaman biçiminde ifade edilen karar cümlesi.",
-      "WS1_B6": "Doğru pozitif: modelin doğru sınıflandırdığı pozitif örnekler.",
-      "WS1_B7": "Yanlış pozitif: model pozitif dedi ama gerçekte negatif olan örnekler.",
-      "WS1_B8": "Duyarlılık: TP / (TP + FN)",
-      "WS1_B9": "MCR: (FP + FN) / toplam örnek sayısı",
-      "WS1_B10": "Aşırı öğrenme: modelin eğitim verisine çok uyum sağlayıp genelleyememesi.",
-      "WS1_B11": "Karar ağacı: veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model."
-    },
-    "page_flags": []
-  },
-
-  "gate_2_validation": {
-    "status": "pass",
-    "model": "python_deterministic",
-    "coverage": {
-      "answered": 11,
-      "total": 11,
-      "blank": 0,
-      "illegible": 0,
-      "completion_rate": 1.0
-    },
-    "deterministic_checks": {
-      "WS1_B8": {
-        "type": "formula",
-        "normalized": "TP/(TP+FN)",
-        "expected": "TP/(TP+FN)",
-        "matches_key": true
-      },
-      "WS1_B9": {
-        "type": "formula",
-        "normalized": "(FP+FN)/N",
-        "expected": "(FP+FN)/N",
-        "matches_key": true
-      }
-    },
-    "warnings": [],
-    "engagement_note": "All 11 blanks filled in the student's own words. Formulas written out. Completion is full."
-  },
-
-  "gate_3_scoring": {
-    "status": "complete",
-    "model": "claude-haiku-4-5",
-    "scored_at": "2026-06-27T12:00:00Z",
-    "items": {
-      "WS1_B1": { "score": 1.0, "credit": "full", "matched": ["varlık", "örnek"], "missing": [], "evidence": "üzerinde çalışılan varlık ya da örnek", "flag": null },
-      "WS1_B2": { "score": 1.0, "credit": "full", "matched": ["ölçülebilir", "nitelik"], "missing": [], "evidence": "nesnenin ölçülebilir bir niteliği", "flag": null },
-      "WS1_B3": { "score": 1.0, "credit": "full", "matched": ["sınıf", "ait olduğu"], "missing": [], "evidence": "nesnenin ait olduğu sınıf", "flag": null },
-      "WS1_B4": { "score": 1.0, "credit": "full", "matched": ["sınır", "iki grup", "ayıran"], "missing": [], "evidence": "bir özelliği iki gruba ayıran sınır sayısı", "flag": null },
-      "WS1_B5": { "score": 1.0, "credit": "full", "matched": ["eğer", "o zaman"], "missing": [], "evidence": "eğer-o zaman biçiminde ifade edilen karar cümlesi", "flag": null },
-      "WS1_B6": { "score": 0.5, "credit": "partial", "matched": ["pozitif"], "missing": ["gerçekte pozitif (explicit)"], "evidence": "modelin doğru sınıflandırdığı pozitif örnekler", "flag": "implicit_not_explicit" },
-      "WS1_B7": { "score": 1.0, "credit": "full", "matched": ["model pozitif tahmin", "gerçekte negatif"], "missing": [], "evidence": "model pozitif dedi ama gerçekte negatif olan örnekler", "flag": null },
-      "WS1_B8": { "score": 1.0, "credit": "full", "matched": ["TP/(TP+FN)"], "missing": [], "evidence": "TP / (TP + FN)", "flag": "verified_in_gate2" },
-      "WS1_B9": { "score": 1.0, "credit": "full", "matched": ["(FP+FN)/N"], "missing": [], "evidence": "(FP + FN) / toplam örnek sayısı", "flag": "verified_in_gate2" },
-      "WS1_B10": { "score": 0.5, "credit": "partial", "matched": ["yeni veride kötü"], "missing": ["eğitim verisinde iyi (explicit)"], "evidence": "modelin eğitim verisine çok uyum sağlayıp genelleyememesi", "flag": "one_sided_definition" },
-      "WS1_B11": { "score": 1.0, "credit": "full", "matched": ["veriden öğrenme", "dal", "yaprak"], "missing": [], "evidence": "veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model", "flag": null }
-    },
-    "totals": {
-      "max": 11,
-      "earned": 10.0,
-      "score_ratio": 0.91,
-      "full": 9,
-      "partial": 2,
-      "zero": 0,
-      "not_attempted": 0,
-      "credit_band": "full"
-    },
-    "scoring_note": "B6 and B10 are partial: definitions are implicit one-sided rather than explicit two-sided. All core vocabulary and both formulas are correct."
-  },
-
-  "gate_4_aicft_evidence": {
-    "status": "complete",
-    "scope_note": "Per-worksheet LO evidence only. WS1 does not assign an AI-CFT level. Level assignment is cumulative and happens at the portfolio level under researcher judgement.",
-    "lo_evidence": {
-      "LO3.1.1": {
-        "signal": "confirmed",
-        "from": ["WS1_B1", "WS1_B2", "WS1_B3", "WS1_B4", "WS1_B5", "WS1_B7", "WS1_B8", "WS1_B9"],
-        "note": "Core supervised-learning vocabulary and both evaluation formulas are correct."
-      },
-      "LO3.1.2": {
-        "signal": "confirmed",
-        "from": ["WS1_B11"],
-        "note": "Defines a decision tree as a data-learning model, not just a drawing."
-      },
-      "LO3.2.3": {
-        "signal": "weak",
-        "from": ["WS1_B10"],
-        "note": "Overfitting is one-sided (generalization failure only). Not a Deepen confirmation. Check WS_DT F_Q2 for whether the concept deepens in application."
-      }
-    },
-    "portfolio_contribution": "Establishes an Acquire-level vocabulary foundation. No direct Deepen evidence, since WS1 asks only for definitions."
+  "responses": {
+    "WS1_B1": "Nesne: üzerinde çalışılan varlık ya da örnek (örn. bir yiyecek).",
+    "WS1_B2": "Özellik: nesnenin ölçülebilir bir niteliği (örn. şeker miktarı).",
+    "WS1_B3": "Etiket: nesnenin ait olduğu sınıf (tavsiye edilen / edilmeyen).",
+    "WS1_B4": "Eşik değeri: bir özelliği iki gruba ayıran sınır sayısı.",
+    "WS1_B5": "Kural: eğer-o zaman biçiminde ifade edilen karar cümlesi.",
+    "WS1_B6": "Doğru pozitif: modelin doğru sınıflandırdığı pozitif örnekler.",
+    "WS1_B7": "Yanlış pozitif: model pozitif dedi ama gerçekte negatif olan örnekler.",
+    "WS1_B8": "Duyarlılık: TP / (TP + FN)",
+    "WS1_B9": "MCR: (FP + FN) / toplam örnek sayısı",
+    "WS1_B10": "Aşırı öğrenme: modelin eğitim verisine çok uyum sağlayıp genelleyememesi.",
+    "WS1_B11": "Karar ağacı: veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model."
   }
 }

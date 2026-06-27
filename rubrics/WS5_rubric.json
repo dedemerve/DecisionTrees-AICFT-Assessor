@@ -1,94 +1,12 @@
 {
-  "worksheet_id": "WS5",
-  "worksheet_title": "Trying Out Threshold Values",
-  "worksheet_type": "threshold_exploration_grid",
-  "total_items": 25,
-  "schema_version": "2.0",
-  "language": "tr",
-  "scoring_scale": { "full": 1.0, "partial": 0.5, "zero": 0.0 },
-  "scoring_model_policy": {
-    "deterministic_gate2": "All grid arithmetic (counts, row sums, MCR consistency) is verified in Python at Gate 2, not scored by an LLM.",
-    "claude-haiku-4-5": "Feature-name and threshold-form checks.",
-    "claude-sonnet-4-6": "The final decision-with-reasoning item (B25) and any tie-breaking justification."
-  },
-  "aicft_policy": "This rubric produces a worksheet-level credit band only. It is NOT an AI-CFT level. AI-CFT level is cumulative and assigned at the portfolio level under researcher judgement. Per item, Gate 4 emits LO evidence (confirmed / weak / none); it never assigns a level from a single worksheet.",
-  "answer_key_source": "Worksheet 5.pdf",
-  "context": {
-    "description": "Student selects a feature of their own choice and tries multiple threshold values. For each threshold trial: record (1) variable name, (2) left-branch threshold (≤), (3) right-branch threshold (>), (4) recommended count on left, (5) not-recommended count on left, (6) recommended count on right, (7) not-recommended count on right. Calculate misclassification count. Then write final chosen threshold in B25.",
-    "total_food_cards": 10,
-    "grid_structure": "5 rows x 5 columns = 25 blanks. Each row = one threshold trial. Columns per row: (1) variable name, (2) left threshold, (3) right threshold, (4) correctly classified left, (5) correctly classified right — OR (1) variable, (2) ≤ threshold, (3) > threshold, (4-5) counts left, (6-7) counts right, (8) MCR.",
-    "note": "Exact column structure depends on worksheet version. Item IDs B1-B24 = grid cells, B25 = final choice with reasoning."
-  },
-  "item_groups": {
-    "feature_name_items": {
-      "item_ids": ["WS5_B1", "WS5_B9", "WS5_B13", "WS5_B17"],
-      "item_type": "feature_name",
-      "valid_values": ["Enerji", "Yağ", "Doymuş Yağ", "Karbonhidrat", "Şeker", "Protein", "Tuz", "Energy", "Fat", "Saturated Fat", "Carbohydrates", "Sugar", "Protein", "Salt"],
-      "credit_rules": {
-        "full": "Names one of the 7 valid features from the food card dataset.",
-        "partial": null,
-        "zero": "Names a feature not in the dataset (e.g. 'renk/color', 'fiyat/price') or empty."
-      },
-      "ai_cft_links": ["LO3.2.1"],
-      "scoring_type": "vocabulary_check"
-    },
-    "threshold_items": {
-      "item_ids": ["WS5_B2", "WS5_B3", "WS5_B5", "WS5_B7", "WS5_B10", "WS5_B11", "WS5_B14", "WS5_B15", "WS5_B18", "WS5_B19"],
-      "item_type": "threshold_value",
-      "credit_rules": {
-        "full": "Numeric value plausible for the stated feature, with correct ≤ or > operator.",
-        "partial": "Numeric value plausible but operator missing or wrong.",
-        "zero": "Empty or value impossible for stated feature."
-      },
-      "ai_cft_links": ["LO3.2.1"],
-      "scoring_type": "threshold_with_operator"
-    },
-    "count_items": {
-      "item_ids": ["WS5_B4", "WS5_B6", "WS5_B8", "WS5_B12", "WS5_B16", "WS5_B20", "WS5_B22", "WS5_B24"],
-      "item_type": "count",
-      "arithmetic_check": "For each row: left_count + right_count must equal total food cards used (typically 10). Misclassification count = foods on wrong side of threshold.",
-      "credit_rules": {
-        "full": "Count is a non-negative integer. Row totals sum correctly (left + right = total).",
-        "partial": "Counts present but row total does not sum correctly.",
-        "zero": "Empty or non-numeric."
-      },
-      "ai_cft_links": ["LO3.2.1"],
-      "scoring_type": "arithmetic_consistency"
-    },
-    "mcr_items": {
-      "item_ids": ["WS5_B8", "WS5_B16", "WS5_B20"],
-      "item_type": "MCR_calculation",
-      "credit_rules": {
-        "full": "MCR = misclassifications / total. Value is consistent with the count values in the same row.",
-        "partial": "MCR formula attempted but computed incorrectly (arithmetic error, off by 1).",
-        "zero": "Empty or formula inverted."
-      },
-      "arithmetic_check": "MCR must equal (misclassification_count) / total_cards. Flag if inconsistent.",
-      "ai_cft_links": ["LO3.1.1", "LO3.2.1"],
-      "scoring_type": "arithmetic_consistency"
-    }
-  },
+  "worksheet": "WS5",
+  "note": "Grid of threshold trials. Each row is checked deterministically: counts sum to the dataset size and MCR is consistent. B25 is the final choice with a data-based reason. At least 2 complete rows are expected.",
   "items": {
-    "WS5_B25": {
-      "item_label": "Final Threshold Choice with Reasoning",
-      "item_type": "decision_with_reasoning",
-      "credit_rules": {
-        "full": "Names a specific threshold value from the grid AND gives a data-based reason (e.g. 'lowest MCR', 'fewest misclassifications'). If multiple thresholds tied, states tie-breaking rule.",
-        "partial": "Names a threshold but gives no reason, OR gives a reason but no specific threshold.",
-        "zero": "Empty or reason is not data-based ('I prefer this one')."
-      },
-      "tie_breaking_note": "If student notes that multiple thresholds give equal MCR, any principled tie-breaking rule (e.g. smallest threshold, largest threshold, middle value) is acceptable.",
-      "ai_cft_links": ["LO3.2.1"],
-      "scoring_type": "decision_with_reasoning"
-    }
-  },
-  "blank_handling": {
-    "B21_to_B24": "These correspond to the 5th threshold trial. If blank, check if student's grid only has 4 rows filled. If 4 rows are complete and consistent, B21-B24 being blank is acceptable (student chose not to try a 5th threshold). Do NOT score as errors unless context indicates the student was supposed to complete 5 trials.",
-    "partial_grid_policy": "Partial completion is acceptable if at least 2 threshold trials are filled with correct arithmetic."
-  },
-  "overall_scoring": {
-    "full": "At least 4 complete rows with arithmetic consistency AND B25 with data-based reasoning",
-    "partial": "At least 2 rows complete with arithmetic OR B25 present but no complete rows",
-    "zero": "Fewer than 2 rows attempted or all MCR values absent"
+    "WS5_row1": { "max_score": 1, "check": "row_consistency", "AI_CFT": ["LO3.2.1"] },
+    "WS5_row2": { "max_score": 1, "check": "row_consistency", "AI_CFT": ["LO3.2.1"] },
+    "WS5_row3": { "max_score": 1, "check": "row_consistency", "AI_CFT": ["LO3.2.1"] },
+    "WS5_row4": { "max_score": 1, "check": "row_consistency", "AI_CFT": ["LO3.2.1"] },
+    "WS5_row5": { "max_score": 1, "check": "row_consistency", "AI_CFT": ["LO3.2.1"] },
+    "WS5_B25": { "max_score": 1, "rubric": { "full": ["belirli eşik", "veri temelli gerekçe"] }, "need": 2, "AI_CFT": ["LO3.2.1", "LO3.2.2"] }
   }
 }

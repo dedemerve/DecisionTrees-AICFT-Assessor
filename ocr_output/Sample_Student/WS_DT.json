@@ -1,113 +1,21 @@
 {
-  "schema_version": "2.0",
+  "worksheet": "WS_DT",
   "student_id": "Sample_Student",
-  "worksheet_id": "WS_DT",
-  "rubric_ref": "rubrics/WS_DT_rubric.json",
-
-  "gate_1_extraction": {
-    "status": "partial",
-    "model": "claude-sonnet-4-6",
-    "extracted_at": "2026-06-27T10:15:00Z",
-    "source_pdf": "WorksheetDT.pdf",
-    "transcription": {
-      "DT_A_Q1": "Nesne, bir varlık veya örnek demektir. Yemekler birer nesnedir.",
-      "DT_A_Q2": "Özellik, nesnenin ölçülebilen bir niteliğidir. Örneğin kalori miktarı.",
-      "DT_A_Q4": "Etiket, nesnenin ait olduğu sınıftır. Tavsiye edilen ya da edilmeyen.",
-      "DT_B_Q4": "Şeker miktarı 10 gramdan az olan yiyecekler tavsiye edilir.",
-      "DT_C_Q2": "Karar ağacı veriye bakarak kurallar öğrenir.",
-      "DT_C_Q3": "Ağaç her adımda veriyi en iyi ayıran özelliği seçer.",
-      "DT_D_Q2": "Eşik değeri, bir özelliği iki gruba bölen sınır noktasıdır.",
-      "DT_D_Q4": "0.75",
-      "DT_E_sensitivity": "0.75",
-      "DT_E_MCR": "0.20",
-      "DT_E_Q1": "Duyarlılık, gerçek pozitiflerin tüm gerçek pozitiflere oranıdır.",
-      "DT_E_Q4": "MCR düşükse model daha az hata yapar, bu yüzden iyi bir modeldir.",
-      "DT_F_Q2": "Karar ağacı aşırı öğrenirse eğitim verisinde iyi, test verisinde kötü sonuç verir.",
-      "DT_G_Q1": "Algoritma veriyi tekrar tekrar bölerek her dalda saf gruplar oluşturmaya çalışır.",
-      "DT_G_Q2": "Eşik değerinin önemi ve modelin nasıl doğrulandığını öğrendim."
-    },
-    "page_flags": [
-      "Section-mapping problem: A_Q1/A_Q2/A_Q4 hold vocabulary definitions, not CODAP data-exploration answers.",
-      "B_Q4 holds a threshold rule, not a best-variable-with-criteria answer.",
-      "C_Q2/C_Q3 hold generic DT descriptions, not threshold-effect or method answers.",
-      "D_Q2 holds a threshold definition; D_Q4 holds '0.75' (a number, likely cross-contamination from Section E).",
-      "E_Q1 holds a sensitivity definition, not a metric-preference answer.",
-      "Correctly mapped: E_sensitivity, E_MCR, F_Q2, G_Q1, G_Q2. About 8 of 15 items need re-extraction with explicit section mapping."
-    ]
-  },
-
-  "gate_2_validation": {
-    "status": "partial",
-    "model": "python_deterministic",
-    "coverage": {
-      "answered": 15,
-      "total": 15,
-      "suspected_wrong_mapping": 8,
-      "completion_rate": 1.0,
-      "reliability_rate": 0.47
-    },
-    "deterministic_checks": {
-      "confusion_matrix": {
-        "sensitivity_claimed": 0.75,
-        "mcr_claimed": 0.20,
-        "consistent": true,
-        "implied": { "TP": 3, "FP": 3, "TN": 13, "FN": 1, "total": 20 },
-        "note": "sensitivity=3/(3+1)=0.75 and MCR=(3+1)/20=0.20 are simultaneously satisfiable. Consistent, though not verified against CODAP log data."
-      }
-    },
-    "warnings": [
-      "Sections A-D and E_Q1 likely come from wrong page regions; treat their scores as provisional.",
-      "F_Q2, G_Q1, G_Q2 appear correctly mapped."
-    ],
-    "engagement_note": "All 15 items have content, but reliability is roughly half due to section mismatch. The correctly mapped items (E metrics, overfitting, reflection) are strong."
-  },
-
-  "gate_3_scoring": {
-    "status": "partial_scored",
-    "model": "claude-sonnet-4-6",
-    "scored_at": "2026-06-27T12:00:00Z",
-    "scoring_note": "A_Q1 through E_Q1 are scored with a wrong-section flag; treat as provisional, not as the student's true answers.",
-    "items": {
-      "DT_A_Q1": { "score": 0.0, "credit": "zero", "evidence": "Nesne, bir varlık veya örnek demektir.", "flag": "wrong_section_extraction" },
-      "DT_A_Q2": { "score": 0.0, "credit": "zero", "evidence": "Özellik, nesnenin ölçülebilen bir niteliğidir.", "flag": "wrong_section_extraction" },
-      "DT_A_Q4": { "score": 0.0, "credit": "zero", "evidence": "Etiket, nesnenin ait olduğu sınıftır.", "flag": "wrong_section_extraction" },
-      "DT_B_Q4": { "score": 0.5, "credit": "partial", "evidence": "Şeker miktarı 10 gramdan az olan yiyecekler tavsiye edilir.", "flag": "may_be_wrong_section", "note": "Implies şeker as chosen variable but states no comparison criterion." },
-      "DT_C_Q2": { "score": 0.0, "credit": "zero", "evidence": "Karar ağacı veriye bakarak kurallar öğrenir.", "flag": "wrong_section_extraction", "note": "Generic description, does not address threshold effect." },
-      "DT_C_Q3": { "score": 0.0, "credit": "zero", "evidence": "Ağaç her adımda veriyi en iyi ayıran özelliği seçer.", "flag": "wrong_section_extraction" },
-      "DT_D_Q2": { "score": 0.0, "credit": "zero", "evidence": "Eşik değeri, bir özelliği iki gruba bölen sınır noktasıdır.", "flag": "wrong_section_extraction" },
-      "DT_D_Q4": { "score": 0.0, "credit": "zero", "evidence": "0.75", "flag": "likely_cross_contamination_from_E" },
-      "DT_E_sensitivity": { "score": 1.0, "credit": "full", "evidence": "0.75", "flag": "verified_in_gate2" },
-      "DT_E_MCR": { "score": 1.0, "credit": "full", "evidence": "0.20", "flag": "verified_in_gate2" },
-      "DT_E_Q1": { "score": 0.0, "credit": "zero", "evidence": "Duyarlılık, gerçek pozitiflerin tüm gerçek pozitiflere oranıdır.", "flag": "wrong_section_extraction" },
-      "DT_E_Q4": { "score": 0.5, "credit": "partial", "evidence": "MCR düşükse model daha az hata yapar, bu yüzden iyi bir modeldir.", "flag": "does_not_answer_the_question", "note": "Does not say whether perfect classification is possible; describes what low MCR means." },
-      "DT_F_Q2": { "score": 1.0, "credit": "full", "evidence": "Karar ağacı aşırı öğrenirse eğitim verisinde iyi, test verisinde kötü sonuç verir.", "flag": null, "note": "Two-sided overfitting: condition, training-good, test-poor. Strongest Create signal." },
-      "DT_G_Q1": { "score": 0.5, "credit": "partial", "evidence": "Algoritma veriyi tekrar tekrar bölerek her dalda saf gruplar oluşturmaya çalışır.", "flag": "describes_algorithm_not_learned_output", "note": "Describes how splitting works, not what rule the model learned." },
-      "DT_G_Q2": { "score": 1.0, "credit": "full", "evidence": "Eşik değerinin önemi ve modelin nasıl doğrulandığını öğrendim.", "flag": null, "note": "Two specific concepts: threshold importance and model validation." }
-    },
-    "totals": {
-      "earned": 6.5,
-      "scorable_max": 15,
-      "score_ratio": 0.43,
-      "full": 4,
-      "partial": 3,
-      "zero": 8,
-      "not_attempted": 0,
-      "credit_band": "partial",
-      "data_completeness": 0.47,
-      "note": "The 8 zeros are largely wrong-section extraction, not confirmed wrong answers. True A-D performance is unknown until re-extraction. The score_ratio understates the student because of this."
-    }
-  },
-
-  "gate_4_aicft_evidence": {
-    "status": "partial",
-    "scope_note": "Per-worksheet LO evidence only. No level is assigned here. deepen_signal / create_signal come from the rubric.",
-    "lo_evidence": {
-      "LO3.1.1": { "signal": "confirmed", "from": ["DT_E_sensitivity", "DT_E_MCR"], "note": "Correct, arithmetically consistent metric values." },
-      "LO3.2.1": { "signal": "weak", "from": ["DT_B_Q4"], "note": "Implies data-based variable choice but no stated criterion; pending re-extraction of A/B." },
-      "LO3.2.2": { "signal": "confirmed", "from": ["DT_G_Q2"], "note": "Names specific concepts learned." },
-      "LO3.2.3": { "signal": "confirmed", "from": ["DT_F_Q2"], "note": "Overfitting explained as a train/test gap." },
-      "LO3.3.1": { "signal": "weak", "from": ["DT_F_Q2", "DT_G_Q1"], "note": "F_Q2 is a strong limitation-awareness signal; E_Q4 (perfect classification impossible) was not answered, so Create is not confirmed." }
-    },
-    "portfolio_contribution": "F_Q2 is the strongest Create-direction signal in the whole sequence. Sections A-D extraction failures leave the core data-driven Deepen items unverified. Re-extraction of A-D is the highest priority for this student."
+  "responses": {
+    "DT_A_Q1": "Nesne, bir varlık veya örnek demektir. Yemekler birer nesnedir.",
+    "DT_A_Q2": "Özellik, nesnenin ölçülebilen bir niteliğidir. Örneğin kalori miktarı.",
+    "DT_A_Q4": "Etiket, nesnenin ait olduğu sınıftır. Tavsiye edilen ya da edilmeyen.",
+    "DT_B_Q4": "Şeker miktarı 10 gramdan az olan yiyecekler tavsiye edilir.",
+    "DT_C_Q2": "Karar ağacı veriye bakarak kurallar öğrenir.",
+    "DT_C_Q3": "Ağaç her adımda veriyi en iyi ayıran özelliği seçer.",
+    "DT_D_Q2": "Eşik değeri, bir özelliği iki gruba bölen sınır noktasıdır.",
+    "DT_D_Q4": "0.75",
+    "DT_E_sensitivity": "0.75",
+    "DT_E_MCR": "0.20",
+    "DT_E_Q1": "Duyarlılık, gerçek pozitiflerin tüm gerçek pozitiflere oranıdır.",
+    "DT_E_Q4": "MCR düşükse model daha az hata yapar, bu yüzden iyi bir modeldir.",
+    "DT_F_Q2": "Karar ağacı aşırı öğrenirse eğitim verisinde iyi, test verisinde kötü sonuç verir.",
+    "DT_G_Q1": "Algoritma veriyi tekrar tekrar bölerek her dalda saf gruplar oluşturmaya çalışır.",
+    "DT_G_Q2": "Eşik değerinin önemi ve modelin nasıl doğrulandığını öğrendim."
   }
 }

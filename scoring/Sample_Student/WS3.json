@@ -1,0 +1,13 @@
+{
+  "worksheet": "WS3",
+  "student_id": "Sample_Student",
+  "model": "claude-haiku-4-5",
+  "items": {
+    "WS3_B1": { "score": 0.0, "confidence": 0.55, "matched": [], "review": true },
+    "WS3_B3": { "score": 1.0, "confidence": 0.92, "matched": ["tavsiye edilir"], "review": false },
+    "WS3_B5": { "score": 1.0, "confidence": 0.93, "matched": ["tavsiye edilmez"], "review": false },
+    "WS3_B7": { "score": 0.0, "confidence": 0.9, "matched": [], "review": true },
+    "WS3_B8": { "score": 0.0, "confidence": 0.9, "matched": [], "review": true }
+  },
+  "summary": { "score": 2.0, "max_score": 5, "needs_review": ["WS3_B1", "WS3_B7", "WS3_B8"] }
+}

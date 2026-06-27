@@ -1,117 +1,19 @@
 {
-  "schema_version": "2.0",
+  "worksheet": "WS6",
   "student_id": "Sample_Student",
-  "worksheet_id": "WS6",
-  "rubric_ref": "rubrics/WS6_rubric.json",
-
-  "gate_1_extraction": {
-    "status": "pass",
-    "model": "claude-sonnet-4-6",
-    "extracted_at": "2026-06-27T10:24:00Z",
-    "source_pdf": "Worksheets1-10.pdf",
-    "transcription": {
-      "WS6_B1": "şeker",
-      "WS6_B2": "≤ 10",
-      "WS6_B3": "evet (≤ 10)",
-      "WS6_B4": "hayır (> 10)",
-      "WS6_B5": "Tavsiye edilir",
-      "WS6_B6": "yağ",
-      "WS6_B7": "≤ 5",
-      "WS6_B8": "evet (≤ 5)",
-      "WS6_B9": "hayır (> 5)",
-      "WS6_B10": "Tavsiye edilir",
-      "WS6_B11": "Tavsiye edilmez",
-      "WS6_B12": "(bos)",
-      "WS6_B13": "Tavsiye edilmez"
-    },
-    "tree_structure": {
-      "vision_model": "claude-sonnet-4-6",
-      "root_feature": "şeker",
-      "root_operator": "<=",
-      "root_threshold": "10",
-      "full_tree": {
-        "feature": "şeker", "operator": "<=", "threshold": "10",
-        "left": {
-          "feature": "yağ", "operator": "<=", "threshold": "5",
-          "left": { "label": "Tavsiye edilir" },
-          "right": { "label": "Tavsiye edilmez" }
-        },
-        "right": { "label": "Tavsiye edilmez" }
-      }
-    },
-    "page_flags": [
-      "B12 (a leaf count notation) blank; cannot tell whether left blank by student or missed in extraction."
-    ]
-  },
-
-  "gate_2_validation": {
-    "status": "pass",
-    "model": "python_deterministic",
-    "coverage": {
-      "answered": 12,
-      "total": 13,
-      "blank": 1,
-      "completion_rate": 0.923
-    },
-    "deterministic_checks": {
-      "tree_validity": {
-        "depth": 2,
-        "depth_meets_minimum": true,
-        "root_feature": "şeker",
-        "second_feature": "yağ",
-        "features_different": true,
-        "leaf_count": 3,
-        "all_leaves_labeled": true,
-        "operators_consistent": true
-      },
-      "cross_ws_WS5": {
-        "ws5_best_threshold": "şeker ≤ 8",
-        "ws6_root_threshold": "şeker ≤ 10",
-        "matches": "minor_discrepancy",
-        "note": "Both have MCR=0.20; within MCR-equivalent range."
-      },
-      "cross_ws_WS7": {
-        "matches": true,
-        "note": "WS7 rules reproduce this tree exactly."
-      }
-    },
-    "warnings": [
-      "B12 blank leaf-count notation; minor, does not affect structure.",
-      "WS5 best threshold (≤ 8) differs from WS6 root (≤ 10); both MCR=0.20."
-    ],
-    "engagement_note": "Valid 2-level tree: correct operator directions, two different features, three labeled leaves. Engagement high."
-  },
-
-  "gate_3_scoring": {
-    "status": "complete",
-    "model": "claude-haiku-4-5",
-    "scored_at": "2026-06-27T12:00:00Z",
-    "items": {
-      "WS6_tree_structure": { "score": 1.0, "credit": "full", "evidence": "Root şeker ≤ 10 → left yağ ≤ 5 → {Tavsiye edilir / Tavsiye edilmez}; right Tavsiye edilmez", "flag": null, "note": "Valid features, thresholds, leaves, operators, depth 2." },
-      "WS6_B3_B4_direction_labels": { "score": 1.0, "credit": "full", "evidence": "evet (≤ 10) / hayır (> 10)", "flag": null, "note": "Branch labels show understanding of the binary split." },
-      "WS6_B12": { "score": null, "credit": "not_attempted", "evidence": "(bos)", "flag": null }
-    },
-    "totals": {
-      "earned": 2.0,
-      "scorable_max": 2,
-      "score_ratio": 1.0,
-      "full": 2,
-      "partial": 0,
-      "zero": 0,
-      "not_attempted": 1,
-      "credit_band": "full",
-      "data_completeness": 0.923
-    },
-    "scoring_note": "Fully valid tree. B12 (count notation) is the only gap and is minor. This is the strongest structural artifact in the unplugged sequence."
-  },
-
-  "gate_4_aicft_evidence": {
-    "status": "complete",
-    "scope_note": "Per-worksheet LO evidence only. No level is assigned here.",
-    "lo_evidence": {
-      "LO3.1.1": { "signal": "confirmed", "from": ["WS6_B3_B4_direction_labels"], "note": "Correct binary split logic." },
-      "LO3.2.2": { "signal": "confirmed", "from": ["WS6_tree_structure"], "note": "A valid 2-level tree is a visual representation of how the DT classifies, derived from the student's own data-driven threshold." }
-    },
-    "portfolio_contribution": "Provides the structural artifact that WS7 rules are derived from. Consistent with WS7. The 8-vs-10 threshold difference from WS5 is within MCR-equivalent range, not an error."
+  "responses": {
+    "WS6_B1": "şeker",
+    "WS6_B2": "≤ 10",
+    "WS6_B3": "evet (≤ 10)",
+    "WS6_B4": "hayır (> 10)",
+    "WS6_B5": "Tavsiye edilir",
+    "WS6_B6": "yağ",
+    "WS6_B7": "≤ 5",
+    "WS6_B8": "evet (≤ 5)",
+    "WS6_B9": "hayır (> 5)",
+    "WS6_B10": "Tavsiye edilir",
+    "WS6_B11": "Tavsiye edilmez",
+    "WS6_B12": "",
+    "WS6_B13": "Tavsiye edilmez"
   }
 }

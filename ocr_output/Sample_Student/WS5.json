@@ -1,87 +1,13 @@
 {
-  "schema_version": "2.0",
+  "worksheet": "WS5",
   "student_id": "Sample_Student",
-  "worksheet_id": "WS5",
-  "rubric_ref": "rubrics/WS5_rubric.json",
-
-  "gate_1_extraction": {
-    "status": "partial",
-    "model": "claude-sonnet-4-6",
-    "extracted_at": "2026-06-27T10:22:00Z",
-    "source_pdf": "Worksheets1-10.pdf",
-    "transcription": {
-      "WS5_B1": "şeker ≤ 5", "WS5_B2": "3", "WS5_B3": "7", "WS5_B4": "0.30",
-      "WS5_B5": "şeker ≤ 8", "WS5_B6": "5", "WS5_B7": "5", "WS5_B8": "0.20",
-      "WS5_B9": "şeker ≤ 10", "WS5_B10": "8", "WS5_B11": "2", "WS5_B12": "0.20",
-      "WS5_B13": "şeker ≤ 12", "WS5_B14": "9", "WS5_B15": "1", "WS5_B16": "0.20",
-      "WS5_B17": "şeker ≤ 15", "WS5_B18": "10", "WS5_B19": "0", "WS5_B20": "0.25",
-      "WS5_B21": "(bos)", "WS5_B22": "(bos)", "WS5_B23": "(bos)", "WS5_B24": "(bos)",
-      "WS5_B25": "Eşik 8, 10 ve 12 aynı MCR'yi veriyor. En küçük eşik değeri olan 8'i tercih ederim."
-    },
-    "page_flags": [
-      "Row 6 (B21-B24) blank. Lower page region slightly skewed in scan; may be unattempted or illegible.",
-      "All five completed rows use 'şeker' as the feature, consistent with WS4 and WS6."
-    ]
-  },
-
-  "gate_2_validation": {
-    "status": "partial",
-    "model": "python_deterministic",
-    "coverage": {
-      "answered": 21,
-      "total": 25,
-      "blank": 4,
-      "completion_rate": 0.84
-    },
-    "deterministic_checks": {
-      "row_1": { "threshold": "şeker ≤ 5", "left": 3, "right": 7, "sum_ok": true, "mcr_claimed": 0.30, "mcr_consistent": true },
-      "row_2": { "threshold": "şeker ≤ 8", "left": 5, "right": 5, "sum_ok": true, "mcr_claimed": 0.20, "mcr_consistent": true },
-      "row_3": { "threshold": "şeker ≤ 10", "left": 8, "right": 2, "sum_ok": true, "mcr_claimed": 0.20, "mcr_consistent": true },
-      "row_4": { "threshold": "şeker ≤ 12", "left": 9, "right": 1, "sum_ok": true, "mcr_claimed": 0.20, "mcr_consistent": true },
-      "row_5": { "threshold": "şeker ≤ 15", "left": 10, "right": 0, "sum_ok": true, "mcr_claimed": 0.25, "mcr_consistent": false, "note": "0.25 is impossible on a 10-item set (2.5 errors). Expected 0.20 or 0.30." }
-    },
-    "warnings": [
-      "Row 5 MCR=0.25 is arithmetically impossible for 10 integer items.",
-      "Row 6 not completed; acceptable once a best threshold is identified."
-    ],
-    "engagement_note": "Five systematic threshold trials, all row sums correct. One MCR slip in row 5. Final choice applies a principled tie-break (smallest threshold among equal-MCR options). Engagement high."
-  },
-
-  "gate_3_scoring": {
-    "status": "complete",
-    "model": "claude-haiku-4-5",
-    "scored_at": "2026-06-27T12:00:00Z",
-    "items": {
-      "WS5_row1": { "score": 1.0, "credit": "full", "evidence": "şeker ≤ 5 | 3 | 7 | 0.30", "flag": null },
-      "WS5_row2": { "score": 1.0, "credit": "full", "evidence": "şeker ≤ 8 | 5 | 5 | 0.20", "flag": null },
-      "WS5_row3": { "score": 1.0, "credit": "full", "evidence": "şeker ≤ 10 | 8 | 2 | 0.20", "flag": null },
-      "WS5_row4": { "score": 1.0, "credit": "full", "evidence": "şeker ≤ 12 | 9 | 1 | 0.20", "flag": null },
-      "WS5_row5": { "score": 0.5, "credit": "partial", "evidence": "şeker ≤ 15 | 10 | 0 | 0.25", "flag": "arithmetic_error", "note": "Threshold and counts correct; MCR value impossible for 10 items." },
-      "WS5_row6": { "score": null, "credit": "not_attempted", "evidence": "(bos)", "flag": "possible_scan_issue" },
-      "WS5_B25": { "score": 1.0, "credit": "full", "evidence": "Eşik 8, 10 ve 12 aynı MCR'yi veriyor. En küçük eşik değeri olan 8'i tercih ederim.", "flag": null, "note": "Identifies the tie and applies a parsimony tie-break." }
-    },
-    "totals": {
-      "earned": 5.5,
-      "scorable_max": 6,
-      "score_ratio": 0.92,
-      "full": 5,
-      "partial": 1,
-      "zero": 0,
-      "not_attempted": 1,
-      "credit_band": "full",
-      "data_completeness": 0.84
-    },
-    "scoring_note": "Four rows fully correct, one partial (row 5 MCR slip), row 6 unattempted (acceptable). The tie-break justification in B25 is the standout."
-  },
-
-  "gate_4_aicft_evidence": {
-    "status": "complete",
-    "scope_note": "Per-worksheet LO evidence only. No level is assigned here.",
-    "lo_evidence": {
-      "LO3.1.1": { "signal": "confirmed", "from": ["WS5_row1", "WS5_row2", "WS5_row3", "WS5_row4"], "note": "MCR computed correctly across four trials." },
-      "LO3.2.1": { "signal": "confirmed", "from": ["WS5_B25"], "note": "Systematic multi-threshold comparison." },
-      "LO3.2.2": { "signal": "confirmed", "from": ["WS5_B25"], "note": "Tie-breaking reasoning beyond simple MCR minimization." }
-    },
-    "portfolio_contribution": "Confirms Deepen through systematic search and a principled tie-break. The row-5 MCR error is a slip, not a conceptual gap."
+  "responses": {
+    "WS5_B1": "şeker ≤ 5", "WS5_B2": "3", "WS5_B3": "7", "WS5_B4": "0.30",
+    "WS5_B5": "şeker ≤ 8", "WS5_B6": "5", "WS5_B7": "5", "WS5_B8": "0.20",
+    "WS5_B9": "şeker ≤ 10", "WS5_B10": "8", "WS5_B11": "2", "WS5_B12": "0.20",
+    "WS5_B13": "şeker ≤ 12", "WS5_B14": "9", "WS5_B15": "1", "WS5_B16": "0.20",
+    "WS5_B17": "şeker ≤ 15", "WS5_B18": "10", "WS5_B19": "0", "WS5_B20": "0.25",
+    "WS5_B21": "", "WS5_B22": "", "WS5_B23": "", "WS5_B24": "",
+    "WS5_B25": "Eşik 8, 10 ve 12 aynı MCR'yi veriyor. En küçük eşik değeri olan 8'i tercih ederim."
   }
 }

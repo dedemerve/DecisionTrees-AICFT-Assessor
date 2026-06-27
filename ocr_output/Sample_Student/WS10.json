@@ -1,78 +1,14 @@
 {
-  "schema_version": "2.0",
+  "worksheet": "WS10",
   "student_id": "Sample_Student",
-  "worksheet_id": "WS10",
-  "rubric_ref": "rubrics/WS10_rubric.json",
-
-  "gate_1_extraction": {
-    "status": "extraction_failure",
-    "model": "claude-sonnet-4-6",
-    "extracted_at": "2026-06-27T10:28:00Z",
-    "source_pdf": "Worksheets1-10.pdf",
-    "failure": {
-      "type": "wrong_region_extracted",
-      "expected": "Numeric table: 7 energy values [28, 69, 219, 346, 359, 408, 489], midpoint threshold candidates, left/right counts, MCR per threshold.",
-      "captured": "Conceptual prose describing the algorithm (steps, midpoint logic, complexity).",
-      "recommended_action": "Re-extract with an explicit instruction to read the data-table region, not the explanation text boxes. A vision pass on the table is preferable."
-    },
-    "transcription": {
-      "WS10_B1": "Tüm olası eşik değerlerini sırayla deneriz.",
-      "WS10_B2": "Her eşik için MCR hesaplanır.",
-      "WS10_B3": "En düşük MCR'yi veren eşik seçilir.",
-      "WS10_B4": "Sistematik arama, gözden kaçan değer kalmamasını sağlar.",
-      "WS10_B5": "Veri sıralanır ve her iki komşu değer arasındaki orta nokta eşik adayı olarak alınır.",
-      "WS10_B6": "Bu sayede sonsuz değil sonlu sayıda eşik denenir.",
-      "WS10_B7": "10 adet farklı değer varsa en fazla 9 eşik adayı olur.",
-      "WS10_B8": "Algoritma O(n log n) karmaşıklığında çalışır çünkü önce sıralama yapılır."
-    },
-    "page_flags": [
-      "The numeric table the student filled was not captured. The text above is the algorithm-explanation region."
-    ]
-  },
-
-  "gate_2_validation": {
-    "status": "blocked",
-    "model": "python_deterministic",
-    "blocked_reason": "Gate 1 captured the wrong region; the numeric table required for validation is missing.",
-    "coverage": {
-      "answered": 0,
-      "total": 8,
-      "note": "Counts refer to the required table cells, none of which were captured."
-    },
-    "engagement_note": "The captured prose (treated as student-written algorithm description) is conceptually strong: correct 3-step search, correct n-1 candidate bound, plausible O(n log n) claim. This is informative but cannot substitute for the table."
-  },
-
-  "gate_3_scoring": {
-    "status": "blocked_by_extraction",
-    "model": "claude-haiku-4-5",
-    "scored_at": "2026-06-27T12:00:00Z",
-    "best_effort_conceptual": {
-      "caveat": "Scored only as evidence of conceptual understanding. These cells are not the WS10 table and do not count toward the worksheet credit band.",
-      "items": {
-        "WS10_B1_B3": { "score": 1.0, "credit": "full", "evidence": "Tüm olası eşik değerlerini... Her eşik için MCR... En düşük MCR'yi veren eşik seçilir.", "flag": "conceptual_only" },
-        "WS10_B4": { "score": 1.0, "credit": "full", "evidence": "Sistematik arama, gözden kaçan değer kalmamasını sağlar.", "flag": "conceptual_only" },
-        "WS10_B5_B7": { "score": 1.0, "credit": "full", "evidence": "...orta nokta eşik adayı... 10 farklı değer varsa en fazla 9 eşik adayı olur.", "flag": "conceptual_only", "note": "Correct n-1 candidate bound." },
-        "WS10_B8": { "score": 1.0, "credit": "full", "evidence": "Algoritma O(n log n) karmaşıklığında çalışır çünkü önce sıralama yapılır.", "flag": "beyond_expected_level" }
-      }
-    },
-    "totals": {
-      "earned": null,
-      "scorable_max": 8,
-      "score_ratio": null,
-      "credit_band": "blocked",
-      "data_completeness": 0.0
-    },
-    "scoring_note": "Worksheet credit is blocked. The conceptual prose is strong but does not verify that the student applied the algorithm to the energy dataset. Re-extract the table."
-  },
-
-  "gate_4_aicft_evidence": {
-    "status": "partial",
-    "scope_note": "Per-worksheet LO evidence only, from conceptual text only. No level is assigned here.",
-    "lo_evidence": {
-      "LO3.1.1": { "signal": "confirmed", "from": ["WS10_B1_B3", "WS10_B4"], "note": "Correct systematic-search procedure." },
-      "LO3.2.1": { "signal": "confirmed", "from": ["WS10_B5_B7"], "note": "Finite candidate set understood (n-1 midpoints)." },
-      "LO3.2.2": { "signal": "weak", "from": ["WS10_B8"], "note": "O(n log n) complexity claim links sorting to efficiency; beyond expected level but from misextracted text." }
-    },
-    "portfolio_contribution": "Conceptual understanding looks strong, including a complexity insight unique in the sequence. The numeric table must be re-extracted before this counts as verified application."
+  "responses": {
+    "WS10_B1": "Tüm olası eşik değerlerini sırayla deneriz.",
+    "WS10_B2": "Her eşik için MCR hesaplanır.",
+    "WS10_B3": "En düşük MCR'yi veren eşik seçilir.",
+    "WS10_B4": "Sistematik arama, gözden kaçan değer kalmamasını sağlar.",
+    "WS10_B5": "Veri sıralanır ve her iki komşu değer arasındaki orta nokta eşik adayı olarak alınır.",
+    "WS10_B6": "Bu sayede sonsuz değil sonlu sayıda eşik denenir.",
+    "WS10_B7": "10 adet farklı değer varsa en fazla 9 eşik adayı olur.",
+    "WS10_B8": "Algoritma O(n log n) karmaşıklığında çalışır çünkü önce sıralama yapılır."
   }
 }

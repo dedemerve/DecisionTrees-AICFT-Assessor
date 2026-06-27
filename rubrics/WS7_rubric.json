@@ -1,119 +1,12 @@
 {
-  "worksheet_id": "WS7",
-  "worksheet_title": "Formulate Decision Rules",
-  "worksheet_type": "rule_formulation_two_parts",
-  "total_items": 10,
-  "schema_version": "2.0",
-  "language": "tr",
-  "scoring_scale": { "full": 1.0, "partial": 0.5, "zero": 0.0 },
-  "scoring_model_policy": {
-    "deterministic_gate2": "Part 1 path matching (A/B/C) is checked against the answer key in Python at Gate 2. Cross-consistency of Part 2 rules with the WS6 tree is also a deterministic check.",
-    "claude-haiku-4-5": "If-then form checks for own rules.",
-    "claude-sonnet-4-6": "Rule-consistency judgement when thresholds or outcomes need interpretation."
-  },
-  "aicft_policy": "This rubric produces a worksheet-level credit band only. It is NOT an AI-CFT level. AI-CFT level is cumulative and assigned at the portfolio level under researcher judgement. Per item, Gate 4 emits LO evidence (confirmed / weak / none); it never assigns a level from a single worksheet.",
-  "answer_key_source": "Worksheet 7.pdf",
-  "critical_extraction_note": "WS7 has TWO parts. Part 1 (path matching) is the more diagnostically important part for AI-CFT. Sample student JSON only shows Part 2 (own rules). Part 1 was not extracted. This must be flagged.",
-  "parts": {
-    "part_1": {
-      "description": "Match 3 given decision rules to paths A, B, C in a provided decision tree. The tree uses Energy (180 kcal) and Protein (7.7g) as variables.",
-      "answer_key": {
-        "WS7_P1_A": "A",
-        "WS7_P1_B": "B",
-        "WS7_P1_C": "C",
-        "path_A_rule": "Bir yiyeceğin enerji değeri 180 kcal'den azsa, muhtemelen tavsiye edilebilir.",
-        "path_B_rule": "Bir yiyeceğin enerji değeri 180 kcal'den büyük veya eşitse ve protein değeri 7.7 g'dan azsa, muhtemelen tavsiye edilemez.",
-        "path_C_rule": "Bir yiyeceğin enerji değeri 180 kcal'den büyük veya eşitse ve protein değeri 7.7 g'dan büyük veya eşitse, muhtemelen tavsiye edilebilir."
-      },
-      "items": {
-        "WS7_P1_box1": {
-          "item_label": "Match for Rule: enerji ≥ 180 AND protein < 7.7 → not recommended",
-          "expected_answer": "B",
-          "credit_rules": {
-            "full": "B",
-            "partial": null,
-            "zero": "A or C or empty"
-          },
-          "ai_cft_links": ["LO3.1.1", "LO3.2.2"]
-        },
-        "WS7_P1_box2": {
-          "item_label": "Match for Rule: enerji < 180 → recommended",
-          "expected_answer": "A",
-          "credit_rules": {
-            "full": "A",
-            "partial": null,
-            "zero": "B or C or empty"
-          },
-          "ai_cft_links": ["LO3.1.1", "LO3.2.2"]
-        },
-        "WS7_P1_box3": {
-          "item_label": "Match for Rule: enerji ≥ 180 AND protein ≥ 7.7 → recommended",
-          "expected_answer": "C",
-          "credit_rules": {
-            "full": "C",
-            "partial": null,
-            "zero": "A or B or empty"
-          },
-          "ai_cft_links": ["LO3.1.1", "LO3.2.2"]
-        }
-      },
-      "extraction_status_for_sample": "NOT_CAPTURED — items WS7_P1_box1/2/3 are absent from sample student JSON. This is a critical gap. B4-B7 being empty likely corresponds to this part."
-    },
-    "part_2": {
-      "description": "Student writes their own if-then rules based on their own decision tree (from WS6). Number of rules = number of paths in their tree. No single correct answer — evaluated on logical consistency with their WS6 tree.",
-      "items": {
-        "WS7_B1": {
-          "item_label": "Own Rule 1",
-          "item_type": "if_then_rule",
-          "credit_rules": {
-            "full": "Rule is a complete if-then statement. Variables and thresholds match WS6 tree. Operator directions are correct (e.g. ≤ for left branch, > for right). Classification outcome matches the corresponding leaf in WS6.",
-            "partial": "Rule is structurally if-then but threshold or outcome inconsistent with WS6 tree.",
-            "zero": "Empty or not in if-then form."
-          },
-          "ai_cft_links": ["LO3.1.1", "LO3.2.2"],
-          "scoring_type": "rule_formulation"
-        },
-        "WS7_B2": {
-          "item_label": "Own Rule 2",
-          "item_type": "if_then_rule",
-          "credit_rules": {
-            "full": "Complete if-then rule, consistent with WS6.",
-            "partial": "Structural rule but inconsistent with WS6.",
-            "zero": "Empty."
-          },
-          "ai_cft_links": ["LO3.1.1", "LO3.2.2"],
-          "scoring_type": "rule_formulation"
-        },
-        "WS7_B3": {
-          "item_label": "Own Rule 3",
-          "item_type": "if_then_rule",
-          "credit_rules": {
-            "full": "Complete if-then rule, consistent with WS6.",
-            "partial": "Structural rule but inconsistent with WS6.",
-            "zero": "Empty or not needed (acceptable if tree has fewer paths)."
-          },
-          "ai_cft_links": ["LO3.1.1", "LO3.2.2"],
-          "scoring_type": "rule_formulation"
-        },
-        "WS7_B4_to_B7": {
-          "item_label": "Own Rules 4-7 (if tree has more paths)",
-          "item_type": "if_then_rule",
-          "note": "If student's WS6 tree has only 3 paths, B4-B7 are legitimately empty. Do NOT score as zero — score as not_applicable if tree_path_count from WS6 is ≤ 3.",
-          "credit_rules": {
-            "full": "Complete rule consistent with WS6 if path exists.",
-            "partial": "Structural rule but inconsistent.",
-            "not_applicable": "Tree has fewer paths than this item's position.",
-            "zero": "Empty when tree should have more paths."
-          },
-          "ai_cft_links": ["LO3.1.1"],
-          "scoring_type": "rule_formulation"
-        }
-      }
-    }
-  },
-  "overall_scoring": {
-    "full": "Part 1: all 3 path matchings correct. Part 2: own rules match WS6 tree structure.",
-    "partial": "Part 1 missing OR Part 2 rules partially consistent with WS6.",
-    "zero": "Part 1 missing AND Part 2 empty or inconsistent."
+  "worksheet": "WS7",
+  "note": "Part 1 (P1 boxes): match the 3 given rules to tree paths A/B/C. Part 2 (B1-B3): own if-then rules, checked for consistency with the WS6 tree. B4-B7 are not_applicable when the tree has 3 paths.",
+  "items": {
+    "WS7_P1_box1": { "max_score": 1, "answer": "B", "AI_CFT": ["LO3.1.1", "LO3.2.2"] },
+    "WS7_P1_box2": { "max_score": 1, "answer": "A", "AI_CFT": ["LO3.1.1", "LO3.2.2"] },
+    "WS7_P1_box3": { "max_score": 1, "answer": "C", "AI_CFT": ["LO3.1.1", "LO3.2.2"] },
+    "WS7_B1": { "max_score": 1, "check": "rule_consistency_with_WS6", "AI_CFT": ["LO3.1.1", "LO3.2.2"] },
+    "WS7_B2": { "max_score": 1, "check": "rule_consistency_with_WS6", "AI_CFT": ["LO3.1.1", "LO3.2.2"] },
+    "WS7_B3": { "max_score": 1, "check": "rule_consistency_with_WS6", "AI_CFT": ["LO3.1.1", "LO3.2.2"] }
   }
 }

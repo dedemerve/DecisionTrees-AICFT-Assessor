@@ -1,0 +1,23 @@
+{
+  "worksheet": "WS_DT",
+  "student_id": "Sample_Student",
+  "model": "claude-sonnet-4-6",
+  "items": {
+    "DT_A_Q1": { "score": 0.0, "confidence": 0.35, "matched": [], "review": true },
+    "DT_A_Q2": { "score": 0.0, "confidence": 0.35, "matched": [], "review": true },
+    "DT_A_Q4": { "score": 0.0, "confidence": 0.35, "matched": [], "review": true },
+    "DT_B_Q4": { "score": 0.5, "confidence": 0.5, "matched": ["şeker"], "review": true },
+    "DT_C_Q2": { "score": 0.0, "confidence": 0.4, "matched": [], "review": true },
+    "DT_C_Q3": { "score": 0.0, "confidence": 0.4, "matched": [], "review": true },
+    "DT_D_Q2": { "score": 0.0, "confidence": 0.4, "matched": [], "review": true },
+    "DT_D_Q4": { "score": 0.0, "confidence": 0.4, "matched": [], "review": true },
+    "DT_E_sensitivity": { "score": 1.0, "confidence": 1.0, "matched": ["0.75"], "review": false },
+    "DT_E_MCR": { "score": 1.0, "confidence": 1.0, "matched": ["0.20"], "review": false },
+    "DT_E_Q1": { "score": 0.0, "confidence": 0.4, "matched": [], "review": true },
+    "DT_E_Q4": { "score": 0.5, "confidence": 0.55, "matched": ["hata"], "review": true },
+    "DT_F_Q2": { "score": 1.0, "confidence": 0.92, "matched": ["aşırı öğrenme", "eğitim iyi", "test kötü"], "review": false },
+    "DT_G_Q1": { "score": 0.5, "confidence": 0.6, "matched": ["bölme"], "review": true },
+    "DT_G_Q2": { "score": 1.0, "confidence": 0.9, "matched": ["eşik önemi", "model doğrulama"], "review": false }
+  },
+  "summary": { "score": 6.5, "max_score": 15, "needs_review": ["DT_A_Q1", "DT_A_Q2", "DT_A_Q4", "DT_B_Q4", "DT_C_Q2", "DT_C_Q3", "DT_D_Q2", "DT_D_Q4", "DT_E_Q1", "DT_E_Q4", "DT_G_Q1"] }
+}

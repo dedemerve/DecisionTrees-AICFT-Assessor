@@ -1,104 +1,11 @@
 {
-  "worksheet_id": "WS4",
-  "worksheet_title": "Searching for the Best Threshold Value",
-  "worksheet_type": "threshold_optimization",
-  "total_items": 5,
-  "schema_version": "2.0",
-  "language": "tr",
-  "scoring_scale": { "full": 1.0, "partial": 0.5, "zero": 0.0 },
-  "scoring_model_policy": {
-    "deterministic_gate2": "Numeric items (threshold validity, midpoint check, misclassification counts) are verified in Python at Gate 2, not scored by an LLM.",
-    "claude-haiku-4-5": "Short binary or single-concept items.",
-    "claude-sonnet-4-6": "Partial-credit, reasoning, or evaluation items (criterion quality, Pia evaluation)."
-  },
-  "aicft_policy": "This rubric produces a worksheet-level credit band only. It is NOT an AI-CFT level. AI-CFT level is cumulative and assigned at the portfolio level under researcher judgement. Per item, Gate 4 emits LO evidence (confirmed / weak / none); it never assigns a level from a single worksheet.",
-  "answer_key_source": "Worksheet 4.pdf",
-  "context": {
-    "dataset": "11 food cards sorted by fat value. Leo placed pencil between apple and raspberry jam.",
-    "leo_threshold_position": "Between apple and raspberry jam (same fat value — this is INVALID)",
-    "leo_misclassification_count": 4,
-    "correct_best_fat_threshold_range": "Between two adjacent fat values that minimizes misclassifications (answer key: 2 misclassifications at optimal position)",
-    "task1": "Circle 4 misclassified foods at Leo's threshold. Answer: Jelibon (Gummy Bears), Kraker (Crispbread), Yulaf (Oats), Avokado (Avocado)",
-    "task2": "Find a better threshold position with fewer misclassifications",
-    "task3": "Evaluate Pia's claim: apple and raspberry jam have same fat value so threshold cannot be placed between them",
-    "task4": "Find best energy threshold from the food cards"
-  },
+  "worksheet": "WS4",
+  "note": "Item ids follow the captured layout: B1 best threshold, B2 criterion, B3 comparison, B4 MCR formula, B5 Pia evaluation. The visual circle task is not text-extractable.",
   "items": {
-    "WS4_B1": {
-      "item_label": "Best Threshold Value Selected",
-      "item_type": "numeric_answer",
-      "task": 2,
-      "expected_value": "Any value between two adjacent fat values that yields minimum misclassifications",
-      "canonical_example": "A value between crispbread and oats fat values that gives 2 misclassifications",
-      "credit_rules": {
-        "full": "Names a specific numeric threshold that is a midpoint between two adjacent non-equal fat values, and that value gives fewer than 4 misclassifications.",
-        "partial": "Names a threshold that is a valid midpoint but not the optimal one, OR describes a position without a specific number.",
-        "zero": "Names Leo's position (apple-raspberry jam), or empty, or a threshold worse than Leo's."
-      },
-      "ai_cft_links": ["LO3.1.3", "LO3.2.1"],
-      "scoring_type": "numeric_with_validity_check"
-    },
-    "WS4_B2": {
-      "item_label": "Criterion for Best Threshold",
-      "item_type": "criterion_statement",
-      "task": 2,
-      "expected_concept": "MCR minimization",
-      "credit_rules": {
-        "full": "States that the best threshold is the one with lowest MCR / fewest misclassifications. Must reference a comparison criterion.",
-        "partial": "Gives vague criterion ('looks better', 'more accurate') without referencing MCR or misclassification count.",
-        "zero": "Empty or gives non-data-based criterion ('I prefer this one')."
-      },
-      "ai_cft_links": ["LO3.2.1"],
-      "scoring_type": "criterion_quality"
-    },
-    "WS4_B3": {
-      "item_label": "Comparison of Leo's vs Better Threshold",
-      "item_type": "quantitative_comparison",
-      "task": 2,
-      "expected_structure": "Leo's threshold: 4 misclassifications. Better threshold: 2 misclassifications. Therefore better.",
-      "credit_rules": {
-        "full": "Explicitly compares numeric misclassification counts before and after. Both numbers stated.",
-        "partial": "States that new threshold is better but only gives one count (not both).",
-        "zero": "Only qualitative comparison or empty."
-      },
-      "ai_cft_links": ["LO3.2.1"],
-      "scoring_type": "quantitative_comparison"
-    },
-    "WS4_B4": {
-      "item_label": "Pia is Correct — Evaluation",
-      "item_type": "evaluation_with_reasoning",
-      "task": 3,
-      "expected_answer": "Pia is correct. Apple and raspberry jam have the same fat value, so placing a threshold between them is impossible — the threshold would not separate them into different groups.",
-      "credit_rules": {
-        "full": "States Pia is correct AND explains WHY: equal fat values means threshold cannot separate them (or equivalent reasoning about identical values).",
-        "partial": "States Pia is correct but gives no explanation or a vague one.",
-        "zero": "States Pia is wrong, or empty, or provides incorrect reasoning."
-      },
-      "ai_cft_links": ["LO3.2.1"],
-      "scoring_type": "evaluation_with_reasoning"
-    },
-    "WS4_B5": {
-      "item_label": "Best Energy Threshold",
-      "item_type": "numeric_answer",
-      "task": 4,
-      "expected_value": "Between 160 and 223 kcal (answer key shows 160 or 223 as valid)",
-      "canonical_answer": "160 or 223 kcal (midpoint of the gap with fewest misclassifications)",
-      "credit_rules": {
-        "full": "Provides a specific energy threshold in kcal that is a valid midpoint between two adjacent energy values and minimizes misclassifications.",
-        "partial": "Provides an energy threshold that is in kcal but not at the optimal position.",
-        "zero": "Empty, uses wrong unit, or does not attempt energy threshold."
-      },
-      "ai_cft_links": ["LO3.2.1"],
-      "scoring_type": "numeric_with_validity_check"
-    }
-  },
-  "visual_task_note": {
-    "task1_circling": "Task 1 requires circling 4 food cards on the worksheet. This visual action cannot be captured from text extraction. Correct answer: Jelibon (Gummy Bears), Kraker (Crispbread), Yulaf (Oats), Avokado (Avocado). If OCR cannot capture circled items, this must be flagged as visual_task_not_captured.",
-    "impact": "Missing task 1 means the student's ability to read a misclassification from a visual representation is unverified."
-  },
-  "overall_scoring": {
-    "full": "B2 (criterion) + B4 (Pia evaluation with reasoning) correct, plus at least one numeric threshold correct",
-    "partial": "Correct classification labels but missing reasoning, OR correct threshold but no criterion stated",
-    "zero": "No criteria stated, wrong evaluation of Pia, or predominantly empty"
+    "WS4_B1": { "max_score": 1, "check": "numeric", "answer": "valid_midpoint_threshold_min_mcr", "AI_CFT": ["LO3.1.3", "LO3.2.1"] },
+    "WS4_B2": { "max_score": 1, "rubric": { "full": ["MCR", "en düşük"] }, "need": 1, "AI_CFT": ["LO3.2.1"] },
+    "WS4_B3": { "max_score": 1, "rubric": { "full": ["iki MCR değeri", "karşılaştırma"] }, "need": 2, "AI_CFT": ["LO3.2.1"] },
+    "WS4_B4": { "max_score": 1, "answer": "(FP+FN)/total", "check": "formula", "AI_CFT": ["LO3.1.1"] },
+    "WS4_B5": { "max_score": 1, "rubric": { "full": ["doğru", "en az hata"] }, "need": 2, "AI_CFT": ["LO3.2.2"] }
   }
 }

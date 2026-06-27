@@ -1,88 +1,11 @@
 {
-  "schema_version": "2.0",
+  "worksheet": "WS4",
   "student_id": "Sample_Student",
-  "worksheet_id": "WS4",
-  "rubric_ref": "rubrics/WS4_rubric.json",
-
-  "gate_1_extraction": {
-    "status": "partial",
-    "model": "claude-sonnet-4-6",
-    "extracted_at": "2026-06-27T10:20:00Z",
-    "source_pdf": "Worksheets1-10.pdf",
-    "transcription": {
-      "WS4_visual_task": "(not_captured — circle task on printed table)",
-      "WS4_B1": "10",
-      "WS4_B2": "MCR en düşük olan eşik değeri",
-      "WS4_B3": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 — 10 daha iyi.",
-      "WS4_B4": "MCR = (FP + FN) / toplam = (2 + 2) / 20 = 0.20",
-      "WS4_B5": "Pia'nın ifadesi doğru; en düşük MCR en az hata demektir."
-    },
-    "page_flags": [
-      "Visual circle task (4 misclassified items at Leo's threshold) cannot be captured from text. Expected: Jelibon, Kraker, Yulaf Ezmesi, Avokado."
-    ]
-  },
-
-  "gate_2_validation": {
-    "status": "partial",
-    "model": "python_deterministic",
-    "coverage": {
-      "answered": 5,
-      "total": 6,
-      "blank": 0,
-      "not_captured": 1,
-      "completion_rate": 0.833
-    },
-    "deterministic_checks": {
-      "WS4_B4": {
-        "type": "formula_arithmetic",
-        "expression": "(FP+FN)/total = (2+2)/20",
-        "student_result": 0.20,
-        "recomputed": 0.20,
-        "matches": true,
-        "note": "Internally consistent. Total=20 implies a 20-item dataset; cross-check against WS5 (10 items) for a possible version difference."
-      }
-    },
-    "warnings": [
-      "Circle task not captured: cannot verify the student read the 4 misclassified items from the table.",
-      "Denominator 20 vs WS5's 10-item dataset is a possible worksheet-version discrepancy."
-    ],
-    "engagement_note": "All text items complete. Best threshold chosen with an MCR criterion, comparison given, formula executed correctly, Pia evaluation reasoned. Engagement high."
-  },
-
-  "gate_3_scoring": {
-    "status": "complete",
-    "model": "claude-sonnet-4-6",
-    "scored_at": "2026-06-27T12:00:00Z",
-    "items": {
-      "WS4_visual_task": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "visual_task_not_captured" },
-      "WS4_B1": { "score": 1.0, "credit": "full", "evidence": "10", "flag": null, "note": "Valid best threshold; MCR=0.20 confirmed by B4." },
-      "WS4_B2": { "score": 1.0, "credit": "full", "evidence": "MCR en düşük olan eşik değeri", "flag": null, "note": "Criterion is explicitly metric-based." },
-      "WS4_B3": { "score": 1.0, "credit": "full", "evidence": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 — 10 daha iyi.", "flag": null, "note": "Both MCR values cited with their thresholds." },
-      "WS4_B4": { "score": 1.0, "credit": "full", "evidence": "MCR = (FP + FN) / toplam = (2 + 2) / 20 = 0.20", "flag": "verified_in_gate2" },
-      "WS4_B5": { "score": 1.0, "credit": "full", "evidence": "Pia'nın ifadesi doğru; en düşük MCR en az hata demektir.", "flag": null, "note": "Links MCR to its meaning, not bare agreement." }
-    },
-    "totals": {
-      "earned": 5.0,
-      "scorable_max": 5,
-      "score_ratio": 1.0,
-      "full": 5,
-      "partial": 0,
-      "zero": 0,
-      "not_attempted": 1,
-      "credit_band": "full",
-      "data_completeness": 0.833
-    },
-    "scoring_note": "All five text items full credit. The uncaptured circle task does not affect text-based scoring. Strong metric-based threshold selection and formula application."
-  },
-
-  "gate_4_aicft_evidence": {
-    "status": "complete",
-    "scope_note": "Per-worksheet LO evidence only. No level is assigned here.",
-    "lo_evidence": {
-      "LO3.1.1": { "signal": "confirmed", "from": ["WS4_B4"], "note": "MCR formula applied with correct arithmetic." },
-      "LO3.2.1": { "signal": "confirmed", "from": ["WS4_B2", "WS4_B3"], "note": "Threshold chosen by comparing MCR across alternatives, not by intuition." },
-      "LO3.2.2": { "signal": "confirmed", "from": ["WS4_B5"], "note": "MCR interpreted as classification error rate when evaluating a peer's claim." }
-    },
-    "portfolio_contribution": "Strongest single Deepen signal in the unplugged sequence. Moves from 'what is MCR' (WS1) to 'use MCR to choose between models' (WS4)."
+  "responses": {
+    "WS4_B1": "10",
+    "WS4_B2": "MCR en düşük olan eşik değeri",
+    "WS4_B3": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 — 10 daha iyi.",
+    "WS4_B4": "MCR = (FP + FN) / toplam = (2 + 2) / 20 = 0.20",
+    "WS4_B5": "Pia'nın ifadesi doğru; en düşük MCR en az hata demektir."
   }
 }

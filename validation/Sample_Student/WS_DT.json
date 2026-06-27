@@ -1,0 +1,17 @@
+{
+  "worksheet": "WS_DT",
+  "student_id": "Sample_Student",
+  "answered": 15,
+  "blank": 0,
+  "illegible": [],
+  "missing": [],
+  "numeric_checks": {
+    "confusion_matrix": {
+      "sensitivity": 0.75,
+      "mcr": 0.20,
+      "consistent": true,
+      "implied": { "TP": 3, "FP": 3, "TN": 13, "FN": 1, "total": 20 }
+    }
+  },
+  "note": "Several open-ended items may come from wrong page regions (semantic mismatch). That is not deterministically detectable; the scoring stage flags review:true on off-topic answers."
+}

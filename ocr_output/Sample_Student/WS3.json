@@ -1,86 +1,14 @@
 {
-  "schema_version": "2.0",
+  "worksheet": "WS3",
   "student_id": "Sample_Student",
-  "worksheet_id": "WS3",
-  "rubric_ref": "rubrics/WS3_rubric.json",
-
-  "gate_1_extraction": {
-    "status": "partial",
-    "model": "claude-sonnet-4-6",
-    "extracted_at": "2026-06-27T10:19:00Z",
-    "source_pdf": "Worksheets1-10.pdf",
-    "transcription": {
-      "WS3_B1": "Tavsiye edilir",
-      "WS3_B2": "(not_captured)",
-      "WS3_B3": "Tavsiye edilir",
-      "WS3_B4": "(not_captured)",
-      "WS3_B5": "Tavsiye edilmez",
-      "WS3_B6": "(not_captured)",
-      "WS3_B7": "şeker ≤ 10",
-      "WS3_B8": "şeker > 10"
-    },
-    "page_flags": [
-      "Reason blanks B2, B4, B6 not separately captured (only classification labels read).",
-      "B7 and B8 use variable 'şeker' (sugar) instead of the required 'enerji' (energy)."
-    ]
-  },
-
-  "gate_2_validation": {
-    "status": "partial",
-    "model": "python_deterministic",
-    "coverage": {
-      "answered": 5,
-      "total": 8,
-      "blank": 0,
-      "not_captured": 3,
-      "completion_rate": 0.625
-    },
-    "deterministic_checks": {
-      "WS3_B7": { "type": "variable_match", "expected": "enerji", "found": "şeker", "matches_key": false },
-      "WS3_B8": { "type": "variable_match", "expected": "enerji", "found": "şeker", "matches_key": false }
-    },
-    "warnings": [
-      "B1 'Tavsiye edilir' contradicts Leo's fat rule (popcorn has 23g fat > 8g, so it should be 'tavsiye edilemez'). The student may have applied a sugar threshold throughout Part 1 instead of Leo's fat rule.",
-      "Part 1 reason blanks (B2/B4/B6) need re-extraction."
-    ],
-    "engagement_note": "Classification labels filled, operators (≤, >) used correctly in Part 2. Engagement medium. A variable mismatch (sugar vs energy) runs through Part 2."
-  },
-
-  "gate_3_scoring": {
-    "status": "partial_scored",
-    "model": "claude-haiku-4-5",
-    "scored_at": "2026-06-27T12:00:00Z",
-    "items": {
-      "WS3_B1": { "score": 0.0, "credit": "zero", "evidence": "Tavsiye edilir", "flag": "possible_variable_mismatch", "note": "Leo's fat rule gives 'tavsiye edilemez' for popcorn (23g > 8g)." },
-      "WS3_B2": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "extraction_gap" },
-      "WS3_B3": { "score": 1.0, "credit": "full", "evidence": "Tavsiye edilir", "flag": null, "note": "Apple 0.2g fat ≤ 8g, correct." },
-      "WS3_B4": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "extraction_gap" },
-      "WS3_B5": { "score": 1.0, "credit": "full", "evidence": "Tavsiye edilmez", "flag": null, "note": "French fries 14g fat > 8g, correct." },
-      "WS3_B6": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "extraction_gap" },
-      "WS3_B7": { "score": 0.0, "credit": "zero", "evidence": "şeker ≤ 10", "flag": "variable_mismatch", "note": "Worksheet requires energy; operator form is correct but variable is wrong." },
-      "WS3_B8": { "score": 0.0, "credit": "zero", "evidence": "şeker > 10", "flag": "variable_mismatch" }
-    },
-    "totals": {
-      "earned": 2.0,
-      "scorable_max": 5,
-      "score_ratio": 0.40,
-      "full": 2,
-      "partial": 0,
-      "zero": 3,
-      "not_attempted": 3,
-      "credit_band": "partial",
-      "data_completeness": 0.625
-    },
-    "scoring_note": "Apple and french fries correct. Popcorn wrong and own threshold uses the wrong variable. Captured-item ratio is low (0.40) but driven by one systematic error (sugar vs energy). Re-extract reason blanks before finalizing."
-  },
-
-  "gate_4_aicft_evidence": {
-    "status": "partial",
-    "scope_note": "Per-worksheet LO evidence only. No level is assigned here.",
-    "lo_evidence": {
-      "LO3.1.1": { "signal": "weak", "from": ["WS3_B3", "WS3_B5"], "note": "2 of 3 classifications correct; popcorn wrong." },
-      "LO3.1.3": { "signal": "none", "from": ["WS3_B7", "WS3_B8"], "note": "Own threshold uses the wrong variable, so operating the rule with correct parameters is not confirmed." }
-    },
-    "portfolio_contribution": "Shows a concept-application gap: threshold is defined correctly in WS1 but the wrong variable is applied here. Likely a reading-comprehension slip (which variable the rule specifies), not a conceptual gap. Compare with WS4, where the MCR formula is applied correctly."
+  "responses": {
+    "WS3_B1": "Tavsiye edilir",
+    "WS3_B2": "",
+    "WS3_B3": "Tavsiye edilir",
+    "WS3_B4": "",
+    "WS3_B5": "Tavsiye edilmez",
+    "WS3_B6": "",
+    "WS3_B7": "şeker ≤ 10",
+    "WS3_B8": "şeker > 10"
   }
 }

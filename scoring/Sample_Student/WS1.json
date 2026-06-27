@@ -1,0 +1,19 @@
+{
+  "worksheet": "WS1",
+  "student_id": "Sample_Student",
+  "model": "claude-haiku-4-5",
+  "items": {
+    "WS1_B1": { "score": 1.0, "confidence": 0.96, "matched": ["varlık", "örnek"], "review": false },
+    "WS1_B2": { "score": 1.0, "confidence": 0.95, "matched": ["ölçülebilir", "nitelik"], "review": false },
+    "WS1_B3": { "score": 1.0, "confidence": 0.95, "matched": ["sınıf", "ait olduğu"], "review": false },
+    "WS1_B4": { "score": 1.0, "confidence": 0.96, "matched": ["sınır", "ayıran", "iki grup"], "review": false },
+    "WS1_B5": { "score": 1.0, "confidence": 0.97, "matched": ["eğer", "o zaman"], "review": false },
+    "WS1_B6": { "score": 0.5, "confidence": 0.58, "matched": ["pozitif"], "review": true },
+    "WS1_B7": { "score": 1.0, "confidence": 0.94, "matched": ["model pozitif", "gerçekte negatif"], "review": false },
+    "WS1_B8": { "score": 1.0, "confidence": 1.0, "matched": ["TP/(TP+FN)"], "review": false },
+    "WS1_B9": { "score": 1.0, "confidence": 1.0, "matched": ["(FP+FN)/N"], "review": false },
+    "WS1_B10": { "score": 0.5, "confidence": 0.6, "matched": ["yeni veride kötü"], "review": true },
+    "WS1_B11": { "score": 1.0, "confidence": 0.95, "matched": ["veriden öğrenme", "dal", "yaprak"], "review": false }
+  },
+  "summary": { "score": 10.0, "max_score": 11, "needs_review": ["WS1_B6", "WS1_B10"] }
+}
