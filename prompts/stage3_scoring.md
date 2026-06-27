@@ -12,9 +12,10 @@ Your task is NOT to determine the student's overall AI-CFT level. Your task is O
 
 1. Extracted student responses (`ocr_output/<student>/<WS>.json`).
 2. Worksheet rubric (`rubrics/<WS>_rubric.json`).
-3. AI-CFT labeling table (`aicft_labeling_table.json`).
+3. Worksheet AI-CFT mapping (`mappings/<WS>_AICFT_mapping.json`).
+4. Worksheet scoring context (`prompts/<WS>_scoring_prompt.md`).
 
-Treat the labeling table as ground truth. Do not infer additional item-to-LO mappings.
+Treat the mapping file as ground truth. Do not infer additional item-to-LO mappings beyond what it contains.
 
 ## Scoring
 
