@@ -1,0 +1,67 @@
+{
+  "student_name": "Sample_Student",
+  "worksheet": "WS1",
+  "pdf_source": "Worksheets1-10.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-06-27T10:17:00+00:00",
+    "ocr_model": "claude-sonnet-4-6",
+    "items": {
+      "WS1_B1": "Nesne: üzerinde çalışılan varlık ya da örnek (örn. bir yiyecek).",
+      "WS1_B2": "Özellik: nesnenin ölçülebilir bir niteliği (örn. şeker miktarı).",
+      "WS1_B3": "Etiket: nesnenin ait olduğu sınıf (tavsiye edilen / edilmeyen).",
+      "WS1_B4": "Eşik değeri: bir özelliği iki gruba ayıran sınır sayısı.",
+      "WS1_B5": "Kural: eğer-o zaman biçiminde ifade edilen karar cümlesi.",
+      "WS1_B6": "Doğru pozitif: modelin doğru sınıflandırdığı pozitif örnekler.",
+      "WS1_B7": "Yanlış pozitif: model pozitif dedi ama gerçekte negatif olan örnekler.",
+      "WS1_B8": "Duyarlılık: TP / (TP + FN)",
+      "WS1_B9": "MCR: (FP + FN) / toplam örnek sayısı",
+      "WS1_B10": "Aşırı öğrenme: modelin eğitim verisine çok uyum sağlayıp genelleyememesi.",
+      "WS1_B11": "Karar ağacı: veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model."
+    },
+    "raw_ocr": {
+      "student_name": "Sample_Student",
+      "WS1_B1": "Nesne: üzerinde çalışılan varlık ya da örnek (örn. bir yiyecek).",
+      "WS1_B2": "Özellik: nesnenin ölçülebilir bir niteliği (örn. şeker miktarı).",
+      "WS1_B3": "Etiket: nesnenin ait olduğu sınıf (tavsiye edilen / edilmeyen).",
+      "WS1_B4": "Eşik değeri: bir özelliği iki gruba ayıran sınır sayısı.",
+      "WS1_B5": "Kural: eğer-o zaman biçiminde ifade edilen karar cümlesi.",
+      "WS1_B6": "Doğru pozitif: modelin doğru sınıflandırdığı pozitif örnekler.",
+      "WS1_B7": "Yanlış pozitif: model pozitif dedi ama gerçekte negatif olan örnekler.",
+      "WS1_B8": "Duyarlılık: TP / (TP + FN)",
+      "WS1_B9": "MCR: (FP + FN) / toplam örnek sayısı",
+      "WS1_B10": "Aşırı öğrenme: modelin eğitim verisine çok uyum sağlayıp genelleyememesi.",
+      "WS1_B11": "Karar ağacı: veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model.",
+      "ws_snapshot": "Elif kavram tanımlarını kendi cümleleriyle ifade etmiş; formülleri (duyarlılık, MCR) doğru yazmış. Aşırı öğrenme tanımı kavramsal düzeyde doğru. 11 boşluğun tamamı doldurulmuş.",
+      "page_notes": "(bos)"
+    }
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 11,
+      "total": 11,
+      "blank_or_illegible": 0,
+      "missing": 0,
+      "completion_rate": 1.0
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 1.0,
+      "engagement_level": "high",
+      "llm_observations": "Elif kavram tanımlarını kendi cümleleriyle ifade etmiş; formülleri (duyarlılık, MCR) doğru yazmış. Aşırı öğrenme tanımı kavramsal düzeyde doğru. 11 boşluğun tamamı doldurulmuş.",
+      "page_quality_notes": "(bos)"
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

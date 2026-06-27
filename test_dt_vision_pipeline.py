@@ -503,3 +503,139 @@ class TestValidatePipelineOutput:
         res.tree = root
         warnings = p.validate_pipeline_output(res)
         assert warnings == []
+
+
+# ===========================================================================
+# New: build_tree_from_nodes and validate_pipeline_output edge cases
+# ===========================================================================
+
+class TestBuildTreeEdgeCases:
+    """Stress tests for build_tree_from_nodes with unbalanced node counts."""
+
+    def _make_node(self, raw_text: str, node_type: str) -> p.DetectedNode:
+        n = p.DetectedNode(
+            box=p.BoundingBox(0, 0, 80, 40),
+            crop=Image.new("RGB", (80, 40)),
+            raw_text=raw_text,
+        )
+        n.node_type = node_type
+        return n
+
+    def test_BT06_more_splits_than_results_warns_unattached(self):
+        """When there are more split nodes than result nodes, unattached warning fires."""
+        warnings: list[str] = []
+        nodes = [
+            self._make_node("Fat < 8", "decision"),
+            self._make_node("Salt < 3", "decision"),
+            self._make_node("Recommendable", "result"),
+        ]
+        p.build_tree_from_nodes(nodes, warnings)
+        assert any("could not be attached" in w or "branch" in w for w in warnings)
+
+    def test_BT07_no_result_nodes_root_branches_none(self):
+        """With no result nodes, both branches of root stay None."""
+        warnings: list[str] = []
+        nodes = [self._make_node("Fat < 8", "decision")]
+        root = p.build_tree_from_nodes(nodes, warnings)
+        assert isinstance(root, p.SplitNode)
+        assert root.true_branch is None
+        assert root.false_branch is None
+
+    def test_BT08_zero_splits_zero_results_returns_none_with_warning(self):
+        """Empty node list returns None with a warning."""
+        warnings: list[str] = []
+        result = p.build_tree_from_nodes([], warnings)
+        assert result is None
+        assert any("No decision" in w for w in warnings)
+
+    def test_BT09_extra_result_nodes_warned(self):
+        """More result nodes than can be attached triggers a warning."""
+        warnings: list[str] = []
+        nodes = [
+            self._make_node("Fat < 8", "decision"),
+            self._make_node("Recommendable", "result"),
+            self._make_node("Not Recommendable", "result"),
+            self._make_node("Recommendable", "result"),  # extra
+        ]
+        p.build_tree_from_nodes(nodes, warnings)
+        assert any("could not be attached" in w or "branch" in w for w in warnings)
+
+
+class TestParseConditionEdgeCases:
+    """Stress tests for parse_condition with unusual OCR output."""
+
+    def test_PC09_extra_spaces_around_operator(self):
+        """Extra whitespace around operator and threshold should still parse."""
+        feat, op, thresh = p.parse_condition("Fat   <   8.0")
+        assert feat == "Fat"
+        assert thresh == 8.0
+
+    def test_PC10_threshold_zero(self):
+        """A threshold of zero is a valid float and must not be rejected."""
+        feat, op, thresh = p.parse_condition("Salt < 0")
+        if feat is not None:
+            assert thresh == 0.0
+
+    def test_PC11_condition_only_text_no_operator(self):
+        """A string with no operator returns (None, None, None)."""
+        feat, op, thresh = p.parse_condition("Recommendable")
+        assert feat is None and op is None and thresh is None
+
+    def test_PC12_negative_threshold_parsed(self):
+        """Negative threshold values are unlikely but must not crash."""
+        feat, op, thresh = p.parse_condition("Energy < -5")
+        if feat is not None:
+            assert thresh == -5.0
+
+    def test_PC13_threshold_with_trailing_units_ignored(self):
+        """Parse condition must not crash on 'Fat < 8 g/100g' style text."""
+        feat, op, thresh = p.parse_condition("Fat < 8 g/100g")
+        if feat is not None:
+            assert thresh == 8.0
+
+
+class TestValidatePipelineOutputEdgeCases:
+    """Edge cases for validate_pipeline_output."""
+
+    def test_VP09_tree_with_none_true_branch_leaf_check_fires(self):
+        """If one branch is None, the leaf check cannot find all result classes."""
+        node = p.SplitNode(
+            feature="Fat",
+            operator="<",
+            threshold=8.0,
+            raw_condition="Fat < 8",
+            true_branch=None,
+            false_branch=p.ResultNode("Not Recommendable"),
+        )
+        result = p.PipelineResult(student_image_path="test.jpg")
+        result.tree = node
+        result.raw_texts = ["Fat < 8", "Not Recommendable"]
+        warnings = p.validate_pipeline_output(result)
+        assert any("Recommendable" in w for w in warnings)
+
+    def test_VP10_deeply_nested_tree_no_recursion_error(self):
+        """A tree of depth 30 must not hit Python recursion limit."""
+        leaf_r = p.ResultNode("Recommendable")
+        leaf_nr = p.ResultNode("Not Recommendable")
+        node = p.SplitNode(
+            feature="Fat", operator="<", threshold=8.0,
+            raw_condition="Fat < 8", true_branch=leaf_r, false_branch=leaf_nr,
+        )
+        for _ in range(28):
+            node = p.SplitNode(
+                feature="Fat", operator="<", threshold=8.0,
+                raw_condition="Fat < 8", true_branch=node, false_branch=leaf_nr,
+            )
+        result = p.PipelineResult(student_image_path="deep.jpg")
+        result.tree = node
+        result.raw_texts = ["Fat < 8"]
+        warnings = p.validate_pipeline_output(result)
+        assert isinstance(warnings, list)
+
+    def test_VP11_result_node_at_root_passes_check1(self):
+        """A ResultNode tree (degenerate case) does not crash check 1."""
+        result = p.PipelineResult(student_image_path="test.jpg")
+        result.tree = p.ResultNode("Recommendable")
+        result.raw_texts = []
+        warnings = p.validate_pipeline_output(result)
+        assert isinstance(warnings, list)

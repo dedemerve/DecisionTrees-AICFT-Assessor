@@ -58,6 +58,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 import anthropic
+from datetime import datetime, timezone
 from pdf2image import convert_from_path
 from PIL import Image, ImageEnhance, ImageFilter
 
@@ -112,16 +113,26 @@ ITEM_IDS_DT: list[str] = [
     "DT_G_Q1", "DT_G_Q2",
 ]
 
-ITEM_IDS_WS: list[str] = [
-    "WS1_objects", "WS1_features", "WS1_label",
-    "WS3_classification",
-    "WS4_T3",
-    "WS7_path_matching",
-]
+ITEM_IDS_WS1: list[str] = [f"WS1_B{i}" for i in range(1, 12)]   # 11 blanks
+ITEM_IDS_WS3: list[str] = [f"WS3_B{i}" for i in range(1, 9)]    # 8 blanks
+ITEM_IDS_WS4: list[str] = [f"WS4_B{i}" for i in range(1, 6)]    # 5 blanks
+ITEM_IDS_WS5: list[str] = [f"WS5_B{i}" for i in range(1, 26)]   # 25 blanks
+ITEM_IDS_WS6: list[str] = [f"WS6_B{i}" for i in range(1, 14)]   # 13 blanks
+ITEM_IDS_WS7: list[str] = [f"WS7_B{i}" for i in range(1, 8)]    # 7 blanks
+ITEM_IDS_WS10: list[str] = [f"WS10_B{i}" for i in range(1, 9)]  # 8 blanks
 
-ITEM_IDS_WS11: list[str] = [
-    "WS11_Q10", "WS11_Q11", "WS11_Q12",
-]
+ITEM_IDS_WS: list[str] = (
+    ITEM_IDS_WS1 + ITEM_IDS_WS3 + ITEM_IDS_WS4 +
+    ITEM_IDS_WS5 + ITEM_IDS_WS6 + ITEM_IDS_WS7 + ITEM_IDS_WS10
+)
+
+ITEM_IDS_WS11: list[str] = (
+    [f"WS11_B{i}" for i in range(1, 8)]         # B1-B7: open-ended
+    + ["WS11_B8a", "WS11_B8b", "WS11_B9"]       # classification task + definition
+    + [f"WS11_L10_{i}" for i in range(1, 9)]    # Likert group 10 (8 items)
+    + [f"WS11_L11_{i}" for i in range(1, 4)]    # Likert group 11 (3 items)
+    + [f"WS11_L12_{i}" for i in range(1, 6)]    # Likert/demographic group 12 (5 items)
+)
 
 ALL_ITEM_IDS: list[str] = ITEM_IDS_DT + ITEM_IDS_WS + ITEM_IDS_WS11
 
@@ -130,6 +141,34 @@ PDF_ITEM_IDS: dict[str, list[str]] = {
     "Worksheets1-10.pdf": ITEM_IDS_WS,
     "Worksheet11_ Feedbacks.pdf": ITEM_IDS_WS11,
 }
+
+# Worksheet-level grouping: each worksheet gets its own JSON file.
+WORKSHEET_ITEM_IDS: dict[str, list[str]] = {
+    "WS_DT":  ITEM_IDS_DT,
+    "WS1":    ITEM_IDS_WS1,
+    "WS3":    ITEM_IDS_WS3,
+    "WS4":    ITEM_IDS_WS4,
+    "WS5":    ITEM_IDS_WS5,
+    "WS6":    ITEM_IDS_WS6,
+    "WS7":    ITEM_IDS_WS7,
+    "WS10":   ITEM_IDS_WS10,
+    "WS11":   ITEM_IDS_WS11,
+}
+
+WORKSHEET_PDF_SOURCE: dict[str, str] = {
+    "WS_DT": "WorksheetDT.pdf",
+    "WS1":   "Worksheets1-10.pdf",
+    "WS3":   "Worksheets1-10.pdf",
+    "WS4":   "Worksheets1-10.pdf",
+    "WS5":   "Worksheets1-10.pdf",
+    "WS6":   "Worksheets1-10.pdf",
+    "WS7":   "Worksheets1-10.pdf",
+    "WS10":  "Worksheets1-10.pdf",
+    "WS11":  "Worksheet11_ Feedbacks.pdf",
+}
+
+# WS6 uses dt_vision_pipeline for structural tree extraction in addition to text OCR.
+WS6_VISION_ENABLED: bool = True
 
 # ---------------------------------------------------------------------------
 # Vision prompts
@@ -290,9 +329,8 @@ Return ONLY the following JSON object. No text before or after it.
 }}"""
 
 PROMPT_WS = f"""You are an expert at reading handwritten Turkish university student worksheets.
-Your task: transcribe one student's responses from ProDaBi decision tree worksheets (WS1–WS10).
-
-You will receive multiple page images belonging to ONE student.
+Your task: transcribe every blank from ProDaBi decision tree worksheets WS1, WS3, WS4, WS5,
+WS6, WS7, and WS10. You will receive multiple page images belonging to ONE student.
 
 {_NAME_INSTRUCTION}
 
@@ -300,56 +338,158 @@ You will receive multiple page images belonging to ONE student.
 
 {_SENTINEL_INSTRUCTION}
 
-WHAT TO EXTRACT:
+WORKSHEET STRUCTURE — each worksheet is a printed form with numbered blanks.
+Read each worksheet header and its numbered blanks. Extract exactly what the student wrote
+in each blank. Do not interpret or summarise — transcribe verbatim.
 
-"student_name"
-  Pseudonym written at the top of page 1 (see name list in the name instruction above).
+BLANKS TO EXTRACT:
 
-"WS1_objects"
-  Worksheet 1 (Important Terms). The blank labelled "nesne" (object).
-  What did the student write as the definition or example of an object?
+--- WORKSHEET 1: Önemli Terimler (Important Terms) ---
+WS1 has 11 numbered blanks asking students to define or give examples of key concepts.
+"WS1_B1"  Blank 1 — definition or example for the FIRST concept (typically "nesne" / object)
+"WS1_B2"  Blank 2 — second concept (typically "özellik" / feature or variable)
+"WS1_B3"  Blank 3 — third concept (typically "etiket" / label)
+"WS1_B4"  Blank 4 — fourth concept (typically "eşik değeri" / threshold value)
+"WS1_B5"  Blank 5 — fifth concept
+"WS1_B6"  Blank 6 — sixth concept
+"WS1_B7"  Blank 7 — seventh concept
+"WS1_B8"  Blank 8 — eighth concept
+"WS1_B9"  Blank 9 — ninth concept
+"WS1_B10" Blank 10 — tenth concept
+"WS1_B11" Blank 11 — eleventh concept (typically "karar ağacı" / decision tree)
 
-"WS1_features"
-  Worksheet 1. The blank labelled "özellik" or "değişken" (feature / variable).
-  What did the student write?
+--- WORKSHEET 3: Eşik Uygulama (Applying Thresholds) ---
+WS3 has 8 blanks. Students apply a threshold rule to classify foods as recommended/not.
+"WS3_B1"  Blank 1 — first classification result or rule
+"WS3_B2"  Blank 2
+"WS3_B3"  Blank 3
+"WS3_B4"  Blank 4
+"WS3_B5"  Blank 5
+"WS3_B6"  Blank 6
+"WS3_B7"  Blank 7 — likely involves threshold notation (≤, ≥, <, >)
+"WS3_B8"  Blank 8 — likely involves threshold notation
 
-"WS1_label"
-  Worksheet 1. The blank labelled "etiket" (label).
-  What did the student write?
+--- WORKSHEET 4: En İyi Eşik (Best Threshold) ---
+WS4 has 5 blanks about identifying and justifying the optimal threshold value.
+"WS4_B1"  Blank 1 — threshold value or variable chosen
+"WS4_B2"  Blank 2 — criterion used (accuracy, MCR, etc.)
+"WS4_B3"  Blank 3 — comparison of threshold options
+"WS4_B4"  Blank 4 — written justification or calculation
+"WS4_B5"  Blank 5 — conclusion or Pia's statement evaluation
 
-"WS3_classification"
-  Worksheet 3 (Applying Thresholds). The student applies a decision rule to 3 foods:
-  patlamış mısır (popcorn), elma (apple), patates kızartması (french fries).
-  Transcribe their written classification result for each food, e.g.
-  "patlamış mısır: tavsiye edilebilir | elma: tavsiye edilebilir | patates: tavsiye edilemez"
+--- WORKSHEET 5: Eşik Dene (Try Thresholds — 25 blanks) ---
+WS5 is a systematic exploration worksheet. Students test multiple threshold values.
+It contains a table or sequence of 25 numbered blanks. For threshold/comparison entries
+transcribe any threshold notation EXACTLY (≤, ≥, <, >) as written — do not normalise.
+"WS5_B1"  Blank 1
+"WS5_B2"  Blank 2
+"WS5_B3"  Blank 3
+"WS5_B4"  Blank 4
+"WS5_B5"  Blank 5
+"WS5_B6"  Blank 6
+"WS5_B7"  Blank 7
+"WS5_B8"  Blank 8
+"WS5_B9"  Blank 9
+"WS5_B10" Blank 10
+"WS5_B11" Blank 11
+"WS5_B12" Blank 12
+"WS5_B13" Blank 13
+"WS5_B14" Blank 14
+"WS5_B15" Blank 15
+"WS5_B16" Blank 16
+"WS5_B17" Blank 17
+"WS5_B18" Blank 18
+"WS5_B19" Blank 19
+"WS5_B20" Blank 20
+"WS5_B21" Blank 21
+"WS5_B22" Blank 22
+"WS5_B23" Blank 23
+"WS5_B24" Blank 24
+"WS5_B25" Blank 25
 
-"WS4_T3"
-  Worksheet 4, Task 3. The question is whether Pia is correct that a threshold cannot be
-  placed between apple and raspberry jam (because they have the same fat value).
-  Capture the student's full written answer.
+--- WORKSHEET 6: Karar Ağacı Çiz (Draw a Decision Tree — 13 blanks) ---
+WS6 has 13 blanks. The student DRAWS a decision tree and labels its components.
+Transcribe ONLY the written labels, threshold values, and annotations in the 13 blanks.
+The tree drawing itself will be analysed separately by a vision pipeline.
+For threshold/inequality expressions transcribe EXACTLY as written.
+"WS6_B1"  Blank 1 — root node label or feature name
+"WS6_B2"  Blank 2 — root threshold value or inequality
+"WS6_B3"  Blank 3 — first branch label or condition
+"WS6_B4"  Blank 4 — second branch label or condition
+"WS6_B5"  Blank 5 — result/leaf node on left branch
+"WS6_B6"  Blank 6 — result/leaf node on right branch
+"WS6_B7"  Blank 7
+"WS6_B8"  Blank 8
+"WS6_B9"  Blank 9
+"WS6_B10" Blank 10
+"WS6_B11" Blank 11
+"WS6_B12" Blank 12
+"WS6_B13" Blank 13
 
-"WS7_path_matching"
-  Worksheet 7 (Formulate Decision Rules). The student matches tree paths (A, B, C) to
-  written if-then rules. Capture what the student wrote for each path, e.g.
-  "A: energy < 180 → recommended | B: energy >= 180 AND protein < 7.7 → not recommended | C: ..."
+--- WORKSHEET 7: Kurallar (Decision Rules — 7 blanks) ---
+WS7 has 7 blanks. Students write if-then rules for each path in a given decision tree.
+Transcribe the full if-then rule the student wrote for each blank.
+"WS7_B1"  Blank 1 — decision rule for path/branch 1
+"WS7_B2"  Blank 2 — decision rule for path/branch 2
+"WS7_B3"  Blank 3
+"WS7_B4"  Blank 4
+"WS7_B5"  Blank 5
+"WS7_B6"  Blank 6
+"WS7_B7"  Blank 7
+
+--- WORKSHEET 10: Sistematik (Systematic Approach — 8 blanks) ---
+WS10 has 8 blanks about understanding systematic search for the best threshold.
+"WS10_B1" Blank 1
+"WS10_B2" Blank 2
+"WS10_B3" Blank 3
+"WS10_B4" Blank 4
+"WS10_B5" Blank 5
+"WS10_B6" Blank 6
+"WS10_B7" Blank 7
+"WS10_B8" Blank 8
+
+--- WORKSHEET SNAPSHOT ---
+"ws_snapshot"
+  Write 2-3 sentences summarising what this student's worksheets REVEAL about their
+  understanding of decision trees. Focus on:
+  - Completion level (which worksheets are fully vs. partially answered)
+  - Key strengths visible from their written responses
+  - Recurring errors or gaps (e.g. always omits inequality direction, only writes numbers
+    without context, leaves threshold questions blank)
+  - Notable features (e.g. "uses both English and Turkish terms", "writes complete sentences")
+  This snapshot is for the researcher — be specific and evidence-based, not generic.
 
 "page_notes"
-  Brief note about image quality or layout issues. Write (bos) if no issues.
+  Brief note about scan quality, pages that were very hard to read, or unusual layout.
+  Write (bos) if no issues.
 
-Return ONLY this JSON object. No text before or after it.
+Return ONLY the following JSON object. No text before or after it.
 {{
   "student_name": "...",
-  "WS1_objects": "...",
-  "WS1_features": "...",
-  "WS1_label": "...",
-  "WS3_classification": "...",
-  "WS4_T3": "...",
-  "WS7_path_matching": "...",
+  "WS1_B1": "...", "WS1_B2": "...", "WS1_B3": "...", "WS1_B4": "...", "WS1_B5": "...",
+  "WS1_B6": "...", "WS1_B7": "...", "WS1_B8": "...", "WS1_B9": "...", "WS1_B10": "...",
+  "WS1_B11": "...",
+  "WS3_B1": "...", "WS3_B2": "...", "WS3_B3": "...", "WS3_B4": "...",
+  "WS3_B5": "...", "WS3_B6": "...", "WS3_B7": "...", "WS3_B8": "...",
+  "WS4_B1": "...", "WS4_B2": "...", "WS4_B3": "...", "WS4_B4": "...", "WS4_B5": "...",
+  "WS5_B1": "...", "WS5_B2": "...", "WS5_B3": "...", "WS5_B4": "...", "WS5_B5": "...",
+  "WS5_B6": "...", "WS5_B7": "...", "WS5_B8": "...", "WS5_B9": "...", "WS5_B10": "...",
+  "WS5_B11": "...", "WS5_B12": "...", "WS5_B13": "...", "WS5_B14": "...", "WS5_B15": "...",
+  "WS5_B16": "...", "WS5_B17": "...", "WS5_B18": "...", "WS5_B19": "...", "WS5_B20": "...",
+  "WS5_B21": "...", "WS5_B22": "...", "WS5_B23": "...", "WS5_B24": "...", "WS5_B25": "...",
+  "WS6_B1": "...", "WS6_B2": "...", "WS6_B3": "...", "WS6_B4": "...", "WS6_B5": "...",
+  "WS6_B6": "...", "WS6_B7": "...", "WS6_B8": "...", "WS6_B9": "...", "WS6_B10": "...",
+  "WS6_B11": "...", "WS6_B12": "...", "WS6_B13": "...",
+  "WS7_B1": "...", "WS7_B2": "...", "WS7_B3": "...", "WS7_B4": "...",
+  "WS7_B5": "...", "WS7_B6": "...", "WS7_B7": "...",
+  "WS10_B1": "...", "WS10_B2": "...", "WS10_B3": "...", "WS10_B4": "...",
+  "WS10_B5": "...", "WS10_B6": "...", "WS10_B7": "...", "WS10_B8": "...",
+  "ws_snapshot": "...",
   "page_notes": "..."
 }}"""
 
 PROMPT_WS11 = f"""You are an expert at reading handwritten Turkish university student worksheets.
-Your task: transcribe one student's responses from Worksheet 11 (evaluation + feedback form).
+Your task: transcribe every blank from Worksheet 11 (evaluation + feedback form).
 
 You will receive multiple page images belonging to ONE student.
 
@@ -359,53 +499,81 @@ You will receive multiple page images belonging to ONE student.
 
 {_SENTINEL_INSTRUCTION}
 
-WHAT TO EXTRACT:
+WORKSHEET 11 STRUCTURE:
+- Blanks B1-B7: open-ended evaluation questions (written answers)
+- Blanks B8a, B8b: classification task
+- Blank B9: open-ended definition
+- Likert group L10 (8 items): students CIRCLE a number 1-5 on a printed scale
+- Likert group L11 (3 items): same format
+- Group L12 (5 items): may include demographic or self-assessment items
+
+For Likert/circled-number items, transcribe the number the student circled.
+If the scale shows options and the student ticked/circled one, write just that value.
+If the student wrote text instead of circling, transcribe the text.
+
+BLANKS TO EXTRACT:
 
 "student_name"
-  Pseudonym written at the top of page 1 (see name list in the name instruction above).
 
-"WS11_Q10"
-  Question 10: a multiple-select question about what a decision tree CAN do.
-  The student circles or ticks options from a printed list.
-  Write the LETTER or TEXT of every option they selected, comma-separated.
-  Example: "A, C, D" or "bir kategoriye tahmin etme, yeni nesneler için karar verme"
+--- Open-ended evaluation blanks ---
+"WS11_B1"  Blank 1 — first open-ended evaluation question
+"WS11_B2"  Blank 2
+"WS11_B3"  Blank 3
+"WS11_B4"  Blank 4
+"WS11_B5"  Blank 5
+"WS11_B6"  Blank 6
+"WS11_B7"  Blank 7
 
-"WS11_Q11"
-  Question 11: an ordering task. The student assigns the numbers 1, 2, 3, 4 to four printed steps.
-  The steps are roughly: (1) select a feature, (2) sort data by that feature,
-  (3) find a threshold with few errors, (4) make a decision.
-  Transcribe exactly what number the student wrote next to each step.
-  Format: "adim1=[number] | adim2=[number] | adim3=[number] | adim4=[number]"
-  or copy the step text with its assigned number.
+--- Classification and definition task ---
+"WS11_B8a" Blank 8a — classify a food item using the printed decision tree (student's result)
+"WS11_B8b" Blank 8b — write the decision RULE used for 8a (the if-then path the student traced)
+"WS11_B9"  Blank 9 — define a decision tree in the student's own words (full written text)
 
-"WS11_Q12"
-  Question 12: multiple-select about WHY a decision tree is considered AI.
-  Write the letter or text of every option the student circled.
+--- Likert group 10 (items 10.1 – 10.8) ---
+Each is a 1-5 scale item. Transcribe the circled/ticked number exactly.
+"WS11_L10_1"  Item 10.1 — circled scale value (1-5)
+"WS11_L10_2"  Item 10.2
+"WS11_L10_3"  Item 10.3
+"WS11_L10_4"  Item 10.4
+"WS11_L10_5"  Item 10.5
+"WS11_L10_6"  Item 10.6
+"WS11_L10_7"  Item 10.7
+"WS11_L10_8"  Item 10.8
 
-"WS11_Q8a"
-  Question 8a: classify strawberries using the printed decision tree.
-  Write the student's classification result.
+--- Likert group 11 (items 11.1 – 11.3) ---
+"WS11_L11_1"  Item 11.1 — circled scale value
+"WS11_L11_2"  Item 11.2
+"WS11_L11_3"  Item 11.3
 
-"WS11_Q8b"
-  Question 8b: write the decision RULE used in 8a.
-  Capture the full if-then rule the student wrote.
+--- Group 12 (items 12.1 – 12.5, may include demographic or self-assessment) ---
+"WS11_L12_1"  Item 12.1 — selected or written value
+"WS11_L12_2"  Item 12.2
+"WS11_L12_3"  Item 12.3
+"WS11_L12_4"  Item 12.4
+"WS11_L12_5"  Item 12.5
 
-"WS11_Q9"
-  Question 9: open-ended definition of decision tree in the student's own words.
-  Capture the full text.
+--- Snapshot ---
+"ws_snapshot"
+  Write 2-3 sentences summarising what Worksheet 11 reveals about this student.
+  Note engagement with the evaluation (did they answer all Likert items? any notable
+  patterns in their circled values?), quality of their definition in B9, and anything
+  distinctive about their responses (strong language, contradictions, unusually short/long).
 
 "page_notes"
-  Brief note about image quality or layout issues. Write (bos) if no issues.
+  Brief note about scan quality or layout issues. Write (bos) if no issues.
 
-Return ONLY this JSON object. No text before or after it.
+Return ONLY the following JSON object. No text before or after it.
 {{
   "student_name": "...",
-  "WS11_Q10": "...",
-  "WS11_Q11": "...",
-  "WS11_Q12": "...",
-  "WS11_Q8a": "...",
-  "WS11_Q8b": "...",
-  "WS11_Q9": "...",
+  "WS11_B1": "...", "WS11_B2": "...", "WS11_B3": "...", "WS11_B4": "...",
+  "WS11_B5": "...", "WS11_B6": "...", "WS11_B7": "...",
+  "WS11_B8a": "...", "WS11_B8b": "...", "WS11_B9": "...",
+  "WS11_L10_1": "...", "WS11_L10_2": "...", "WS11_L10_3": "...", "WS11_L10_4": "...",
+  "WS11_L10_5": "...", "WS11_L10_6": "...", "WS11_L10_7": "...", "WS11_L10_8": "...",
+  "WS11_L11_1": "...", "WS11_L11_2": "...", "WS11_L11_3": "...",
+  "WS11_L12_1": "...", "WS11_L12_2": "...", "WS11_L12_3": "...",
+  "WS11_L12_4": "...", "WS11_L12_5": "...",
+  "ws_snapshot": "...",
   "page_notes": "..."
 }}"""
 
@@ -607,6 +775,11 @@ def extract_item_responses(raw: dict[str, Any], pdf_name: str) -> dict[str, str]
     Pull only rubric item_id keys from a raw transcription dict.
     Distinguishes (bos) [student blank] from (missing) [model omitted key].
     """
+    if pdf_name not in PDF_ITEM_IDS:
+        raise KeyError(
+            f"extract_item_responses: unknown pdf_name {pdf_name!r}. "
+            f"Known names: {sorted(PDF_ITEM_IDS)}"
+        )
     result: dict[str, str] = {}
     for item_id in PDF_ITEM_IDS[pdf_name]:
         value = raw.get(item_id)
@@ -712,20 +885,23 @@ def validate_ocr_output(record: dict) -> list[str]:
             f"Possible prompt injection in items: {injected}"
         )
 
-    # 8. Improperly formed sentinel-like strings (e.g. "bos", "(bos )", "(missing )")
+    # 8. Sentinel-like but malformed (e.g. "bos" instead of "(bos)", "(missing )" with space)
+    # Only flag short values (<=25 chars) that look like a sentinel attempt, not real sentences.
+    _SENTINEL_CORES = ("bos", "missing", "okunamiyor", "not extracted", "transcription_error")
     sentinel_lower = {s.lower() for s in NO_ANSWER_SENTINELS}
     malformed = []
     for item_id, v in responses.items():
+        if not is_answered(v):
+            continue  # it is already a valid sentinel
         stripped = v.strip().lower()
-        if stripped in sentinel_lower:
-            continue
-        if is_answered(v):
-            continue
-        # is_answered is False but not a proper sentinel -- shouldn't happen but catch it
-        malformed.append(item_id)
+        if len(stripped) > 25:
+            continue  # real answer — too long to be a mistyped sentinel
+        if any(core == stripped or stripped in (f"({core})", f"({core} )", core)
+               for core in _SENTINEL_CORES) and stripped not in sentinel_lower:
+            malformed.append(item_id)
     if malformed:
         warnings.append(
-            f"Items with unrecognised non-answer values (check for sentinel typos): {malformed}"
+            f"Items with sentinel-like but malformed values (check for typos): {malformed}"
         )
 
     return warnings
@@ -981,6 +1157,171 @@ def mode_validate(student_name: str) -> None:
     print("\nTo verify: open the PDF, find this student's pages, and manually check flagged items.")
 
 
+def _extract_ws6_tree(
+    client: anthropic.Anthropic,
+    student_dir: Path,
+    ocr_model: str,
+) -> dict[str, Any]:
+    """
+    Run dt_vision_pipeline on the saved WS6 page image for this student.
+    Returns the tree_structure dict to embed in WS6.json gate_1_extraction.
+    Returns {} with a warning if image not found or pipeline fails.
+    """
+    try:
+        import dt_vision_pipeline as dvp
+    except ImportError:
+        return {"error": "dt_vision_pipeline not available"}
+
+    images_dir = student_dir / "_images"
+    ws6_candidates = sorted(images_dir.glob("ws6_*.jpg")) if images_dir.exists() else []
+    if not ws6_candidates:
+        return {"warning": "No WS6 page image found under _images/. Run dry_run first."}
+
+    warnings: list[str] = []
+    try:
+        result = dvp.run_pipeline(str(ws6_candidates[0]))
+        val_warnings = dvp.validate_pipeline_output(result)
+        tree_json = json.loads(result.to_json())
+        return {
+            "root_feature": tree_json.get("tree", {}).get("feature") if tree_json.get("tree") else None,
+            "root_operator": tree_json.get("tree", {}).get("operator") if tree_json.get("tree") else None,
+            "root_threshold": tree_json.get("tree", {}).get("threshold") if tree_json.get("tree") else None,
+            "full_tree": tree_json.get("tree"),
+            "raw_texts": result.raw_texts,
+            "pipeline_warnings": result.warnings + val_warnings,
+            "vision_model": ocr_model,
+        }
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def save_worksheet_jsons(
+    student_name: str,
+    all_responses: dict[str, str],
+    raw_by_pdf: dict[str, dict],
+    student_dir: Path,
+    ocr_model: str = "claude-sonnet-4-6",
+    client: Optional[anthropic.Anthropic] = None,
+) -> None:
+    """
+    Write one JSON file per worksheet under student_dir using a 4-gate structure.
+
+    Gate 1 — Extraction:  OCR items + raw_ocr + ws_snapshot from LLM
+    Gate 2 — Validation:  item_coverage metrics + warnings
+    Gate 3 — Scoring:     pending (filled by worksheet_assessor.py)
+    Gate 4 — AI-CFT:      pending (filled by competency assignment step)
+
+    Output files: WS_DT.json, WS1.json, WS3.json, WS4.json, WS5.json,
+                  WS6.json, WS7.json, WS10.json, WS11.json
+    """
+    extracted_at = datetime.now(timezone.utc).isoformat()
+
+    # Build raw_ocr lookup: pdf_name -> raw dict from OCR
+    raw_ws    = raw_by_pdf.get("Worksheets1-10.pdf", {})
+    raw_ws11  = raw_by_pdf.get("Worksheet11_ Feedbacks.pdf", {})
+    raw_dt    = raw_by_pdf.get("WorksheetDT.pdf", {})
+
+    ws_snapshot_ws    = raw_ws.get("ws_snapshot", "")
+    ws_snapshot_ws11  = raw_ws11.get("ws_snapshot", "")
+
+    for ws_label, item_ids in WORKSHEET_ITEM_IDS.items():
+        if not item_ids:
+            continue
+
+        items = {iid: all_responses.get(iid, "(not_extracted)") for iid in item_ids}
+        answered          = sum(1 for v in items.values() if is_answered(v))
+        blank_or_illegible = sum(1 for v in items.values() if v in {"(bos)", "(okunamiyor)"})
+        missing           = sum(1 for v in items.values() if v in {"(missing)", "(not_extracted)"})
+        total             = len(item_ids)
+        completion_rate   = round(answered / total, 3) if total else 0.0
+
+        # Choose raw OCR source for this worksheet
+        if ws_label == "WS_DT":
+            raw_source  = raw_dt
+            ws_snapshot = raw_dt.get("ws_snapshot", "")
+        elif ws_label == "WS11":
+            raw_source  = raw_ws11
+            ws_snapshot = ws_snapshot_ws11
+        else:
+            raw_source  = raw_ws
+            ws_snapshot = ws_snapshot_ws
+
+        # Gate 2 validation warnings
+        ocr_warnings = validate_ocr_output({
+            "student_name": student_name,
+            "responses": items,
+        })
+
+        # Determine gate_1 status
+        if missing == total:
+            g1_status = "fail"
+        elif missing > 0 or blank_or_illegible > answered:
+            g1_status = "partial"
+        else:
+            g1_status = "pass"
+
+        # Gate 2 status
+        g2_status = "fail" if completion_rate < 0.3 else ("partial" if completion_rate < 0.7 else "pass")
+
+        record: dict[str, Any] = {
+            "student_name": student_name,
+            "worksheet":    ws_label,
+            "pdf_source":   WORKSHEET_PDF_SOURCE[ws_label],
+
+            "gate_1_extraction": {
+                "status":       g1_status,
+                "extracted_at": extracted_at,
+                "ocr_model":    ocr_model,
+                "items":        items,
+                "raw_ocr":      {k: v for k, v in raw_source.items()
+                                 if k not in ("student_name", "page_notes", "ws_snapshot")},
+            },
+
+            "gate_2_validation": {
+                "status": g2_status,
+                "item_coverage": {
+                    "answered":           answered,
+                    "total":              total,
+                    "blank_or_illegible": blank_or_illegible,
+                    "missing":            missing,
+                    "completion_rate":    completion_rate,
+                },
+                "warnings": ocr_warnings,
+                "student_snapshot": {
+                    "completion_rate":       completion_rate,
+                    "engagement_level":      ("high" if completion_rate >= 0.7
+                                              else "medium" if completion_rate >= 0.4
+                                              else "low"),
+                    "llm_observations":      ws_snapshot,
+                    "page_quality_notes":    raw_source.get("page_notes", ""),
+                },
+            },
+
+            "gate_3_scoring": {
+                "status":        "pending",
+                "scored_at":     None,
+                "scoring_model": None,
+                "items":         {},
+            },
+
+            "gate_4_aicft": {
+                "status":   "pending",
+                "level":    None,
+                "evidence": None,
+            },
+        }
+
+        # WS6 — add structural tree extraction from dt_vision_pipeline
+        if ws_label == "WS6" and WS6_VISION_ENABLED and client is not None:
+            record["gate_1_extraction"]["tree_structure"] = _extract_ws6_tree(
+                client, student_dir, ocr_model
+            )
+
+        out_path = student_dir / f"{ws_label}.json"
+        with open(out_path, "w", encoding="utf-8") as f:
+            json.dump(record, f, ensure_ascii=False, indent=2)
+
+
 def mode_full(
     client: anthropic.Anthropic,
     pdfs: Optional[list[str]] = None,
@@ -994,18 +1335,32 @@ def mode_full(
         for key, raw in pdf_results.items():
             all_raw.setdefault(key, {})[pdf_name] = raw
 
-    print("\n=== Building responses.json per student ===")
+    print("\n=== Building per-student JSON files ===")
     for key, raw_by_pdf in sorted(all_raw.items()):
         record = build_responses(key, raw_by_pdf)
         student_dir = OUT_DIR / key
         student_dir.mkdir(exist_ok=True)
+
+        # Combined file — all items in one record
         out_path = student_dir / "responses.json"
         with open(out_path, "w", encoding="utf-8") as f:
             json.dump(record, f, ensure_ascii=False, indent=2)
+
+        # Per-worksheet files — one gated JSON per worksheet
+        save_worksheet_jsons(
+            student_name=key,
+            all_responses=record["responses"],
+            raw_by_pdf=raw_by_pdf,
+            student_dir=student_dir,
+            client=client,
+        )
+
         cov = record["item_coverage"]
+        ws_files = ", ".join(f"{ws}.json" for ws in WORKSHEET_ITEM_IDS)
         print(f"  {key}: {cov['answered']}/{cov['total']} answered "
               f"| {cov['blank_or_illegible']} blank "
-              f"| {cov['missing_from_model']} missing")
+              f"| {cov['missing_from_model']} missing "
+              f"| saved: responses.json + {ws_files}")
 
     print("\nDone. Run 'python ocr_pipeline.py validate <StudentName>' to spot-check.")
 

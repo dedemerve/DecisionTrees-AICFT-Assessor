@@ -1,0 +1,55 @@
+{
+  "student_name": "Sample_Student",
+  "worksheet": "WS4",
+  "pdf_source": "Worksheets1-10.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-06-27T10:20:00+00:00",
+    "ocr_model": "claude-sonnet-4-6",
+    "items": {
+      "WS4_B1": "10",
+      "WS4_B2": "MCR en düşük olan eşik değeri",
+      "WS4_B3": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 — 10 daha iyi.",
+      "WS4_B4": "MCR = (FP + FN) / toplam = (2 + 2) / 20 = 0.20",
+      "WS4_B5": "Pia'nın ifadesi doğru; en düşük MCR en az hata demektir."
+    },
+    "raw_ocr": {
+      "student_name": "Sample_Student",
+      "WS4_B1": "10",
+      "WS4_B2": "MCR en düşük olan eşik değeri",
+      "WS4_B3": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 — 10 daha iyi.",
+      "WS4_B4": "MCR = (FP + FN) / toplam = (2 + 2) / 20 = 0.20",
+      "WS4_B5": "Pia'nın ifadesi doğru; en düşük MCR en az hata demektir.",
+      "ws_snapshot": "Elif en iyi eşik değerini doğru belirlemiş ve MCR hesabını adım adım göstermiş. Pia'nın önerme değerlendirmesi de yerinde. Hesap doğru.",
+      "page_notes": "(bos)"
+    }
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 5,
+      "total": 5,
+      "blank_or_illegible": 0,
+      "missing": 0,
+      "completion_rate": 1.0
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 1.0,
+      "engagement_level": "high",
+      "llm_observations": "Elif en iyi eşik değerini doğru belirlemiş ve MCR hesabını adım adım göstermiş. Pia'nın önerme değerlendirmesi de yerinde. Hesap doğru.",
+      "page_quality_notes": "(bos)"
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

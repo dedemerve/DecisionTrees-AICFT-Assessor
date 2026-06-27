@@ -1650,14 +1650,13 @@ def _build_rubric_block(item_id: str) -> str:
 
 def _verify_sensitivity(tp: Optional[float], fn: Optional[float],
                          student_answer: Optional[float]) -> Optional[str]:
-    student_tp, student_fn = tp, fn
     """Returns a flag string if sensitivity answer is arithmetically wrong."""
-    if student_tp is None or student_fn is None or student_answer is None:
+    if tp is None or fn is None or student_answer is None:
         return None
-    denominator = student_tp + student_fn
+    denominator = tp + fn
     if denominator == 0:
         return "sensitivity_denominator_zero"
-    expected = student_tp / denominator
+    expected = tp / denominator
     if abs(expected - student_answer) > 0.01:
         return f"numeric_mismatch:expected_{expected:.3f}_got_{student_answer:.3f}"
     return None
@@ -1665,13 +1664,12 @@ def _verify_sensitivity(tp: Optional[float], fn: Optional[float],
 
 def _verify_mcr(fp: Optional[float], fn: Optional[float],
                 student_total: Optional[float], student_answer: Optional[float]) -> Optional[str]:
-    student_fp, student_fn = fp, fn
     """Returns a flag string if MCR answer is arithmetically wrong."""
-    if any(v is None for v in (student_fp, student_fn, student_total, student_answer)):
+    if any(v is None for v in (fp, fn, student_total, student_answer)):
         return None
     if student_total == 0:
         return "mcr_denominator_zero"
-    expected = (student_fp + student_fn) / student_total
+    expected = (fp + fn) / student_total
     if abs(expected - student_answer) > 0.01:
         return f"numeric_mismatch:expected_{expected:.3f}_got_{student_answer:.3f}"
     return None
@@ -1724,9 +1722,21 @@ def assess_item(
     raw = re.sub(r"^```(?:json)?\s*", "", raw)
     raw = re.sub(r"\s*```$", "", raw)
 
-    parsed = json.loads(raw)
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError(
+            f"assess_item: LLM returned non-JSON for {item_id!r}: {exc}\nraw={raw!r}"
+        ) from exc
+
     parsed["item_id"] = item_id  # enforce correct item_id regardless of LLM output
-    return ItemScore(**parsed)
+
+    try:
+        return ItemScore(**parsed)
+    except Exception as exc:
+        raise ValueError(
+            f"assess_item: LLM output failed schema validation for {item_id!r}: {exc}"
+        ) from exc
 
 
 # ---------------------------------------------------------------------------
@@ -1789,6 +1799,12 @@ def assess_worksheet(
                 score = score.model_copy(update={"flag": flag})
 
         item_scores.append(score)
+
+    if not item_scores:
+        raise ValueError(
+            f"assess_worksheet: no rubric items found for worksheet_id={worksheet_id!r}. "
+            f"Check that responses keys match RUBRICS entries."
+        )
 
     # Overall worksheet credit
     credits = [s.credit for s in item_scores]

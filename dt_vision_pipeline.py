@@ -590,6 +590,24 @@ def build_tree_from_nodes(
             f"{len(remaining_splits)} split node(s) could not be attached to the tree"
         )
 
+    # Warn when any split node ends up with a None branch (indicates missing nodes)
+    def _collect_null_branches(node: "SplitNode | ResultNode | None", count: list) -> None:
+        if node is None or isinstance(node, ResultNode):
+            return
+        if node.true_branch is None:
+            count.append("true_branch")
+        if node.false_branch is None:
+            count.append("false_branch")
+        _collect_null_branches(node.true_branch, count)
+        _collect_null_branches(node.false_branch, count)
+
+    null_branches: list[str] = []
+    _collect_null_branches(root, null_branches)
+    if null_branches:
+        warnings.append(
+            f"{len(null_branches)} branch(es) could not be filled — tree may be incomplete"
+        )
+
     return root
 
 

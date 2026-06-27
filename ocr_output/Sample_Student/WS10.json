@@ -1,0 +1,61 @@
+{
+  "student_name": "Sample_Student",
+  "worksheet": "WS10",
+  "pdf_source": "Worksheets1-10.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-06-27T10:28:00+00:00",
+    "ocr_model": "claude-sonnet-4-6",
+    "items": {
+      "WS10_B1": "Tüm olası eşik değerlerini sırayla deneriz.",
+      "WS10_B2": "Her eşik için MCR hesaplanır.",
+      "WS10_B3": "En düşük MCR'yi veren eşik seçilir.",
+      "WS10_B4": "Sistematik arama, gözden kaçan değer kalmamasını sağlar.",
+      "WS10_B5": "Veri sıralanır ve her iki komşu değer arasındaki orta nokta eşik adayı olarak alınır.",
+      "WS10_B6": "Bu sayede sonsuz değil sonlu sayıda eşik denenir.",
+      "WS10_B7": "10 adet farklı değer varsa en fazla 9 eşik adayı olur.",
+      "WS10_B8": "Algoritma O(n log n) karmaşıklığında çalışır çünkü önce sıralama yapılır."
+    },
+    "raw_ocr": {
+      "student_name": "Sample_Student",
+      "WS10_B1": "Tüm olası eşik değerlerini sırayla deneriz.",
+      "WS10_B2": "Her eşik için MCR hesaplanır.",
+      "WS10_B3": "En düşük MCR'yi veren eşik seçilir.",
+      "WS10_B4": "Sistematik arama, gözden kaçan değer kalmamasını sağlar.",
+      "WS10_B5": "Veri sıralanır ve her iki komşu değer arasındaki orta nokta eşik adayı olarak alınır.",
+      "WS10_B6": "Bu sayede sonsuz değil sonlu sayıda eşik denenir.",
+      "WS10_B7": "10 adet farklı değer varsa en fazla 9 eşik adayı olur.",
+      "WS10_B8": "Algoritma O(n log n) karmaşıklığında çalışır çünkü önce sıralama yapılır.",
+      "ws_snapshot": "Elif sistematik eşik arama mantığını sözlü olarak doğru açıklamış. B5-B7 özellikle güçlü: aday eşik sayısını ve orta nokta seçimini doğru ifade etmiş. B8'deki karmaşıklık ifadesi kavramsal düzeyde doğru.",
+      "page_notes": "(bos)"
+    }
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 8,
+      "total": 8,
+      "blank_or_illegible": 0,
+      "missing": 0,
+      "completion_rate": 1.0
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 1.0,
+      "engagement_level": "high",
+      "llm_observations": "Elif sistematik eşik arama mantığını sözlü olarak doğru açıklamış. B5-B7 özellikle güçlü: aday eşik sayısını ve orta nokta seçimini doğru ifade etmiş. B8'deki karmaşıklık ifadesi kavramsal düzeyde doğru.",
+      "page_quality_notes": "(bos)"
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

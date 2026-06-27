@@ -1,0 +1,61 @@
+{
+  "student_name": "Sample_Student",
+  "worksheet": "WS3",
+  "pdf_source": "Worksheets1-10.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-06-27T10:19:00+00:00",
+    "ocr_model": "claude-sonnet-4-6",
+    "items": {
+      "WS3_B1": "Tavsiye edilir",
+      "WS3_B2": "Tavsiye edilmez",
+      "WS3_B3": "Tavsiye edilir",
+      "WS3_B4": "Tavsiye edilmez",
+      "WS3_B5": "Tavsiye edilmez",
+      "WS3_B6": "Tavsiye edilir",
+      "WS3_B7": "şeker ≤ 10",
+      "WS3_B8": "şeker > 10"
+    },
+    "raw_ocr": {
+      "student_name": "Sample_Student",
+      "WS3_B1": "Tavsiye edilir",
+      "WS3_B2": "Tavsiye edilmez",
+      "WS3_B3": "Tavsiye edilir",
+      "WS3_B4": "Tavsiye edilmez",
+      "WS3_B5": "Tavsiye edilmez",
+      "WS3_B6": "Tavsiye edilir",
+      "WS3_B7": "şeker ≤ 10",
+      "WS3_B8": "şeker > 10",
+      "ws_snapshot": "Elif eşik uygulamasını doğru yapmış; tüm sınıflandırma sonuçlarını eksiksiz doldurmuş. B7 ve B8'deki eşik ifadelerinde ≤ ve > operatörlerini doğru kullanmış.",
+      "page_notes": "(bos)"
+    }
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 8,
+      "total": 8,
+      "blank_or_illegible": 0,
+      "missing": 0,
+      "completion_rate": 1.0
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 1.0,
+      "engagement_level": "high",
+      "llm_observations": "Elif eşik uygulamasını doğru yapmış; tüm sınıflandırma sonuçlarını eksiksiz doldurmuş. B7 ve B8'deki eşik ifadelerinde ≤ ve > operatörlerini doğru kullanmış.",
+      "page_quality_notes": "(bos)"
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

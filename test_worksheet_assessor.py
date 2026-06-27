@@ -519,3 +519,237 @@ class TestHTRQuality:
         ]
         ext = make_ext(splits=splits)
         assert any("3 level-1 splits" in w for w in validate_extraction(ext))
+
+
+# ===========================================================================
+# New: assess_worksheet and assess_item core logic tests
+# ===========================================================================
+
+class TestAssessCore:
+    """Tests for assess_worksheet, assess_item, _verify_sensitivity, _verify_mcr."""
+
+    # -----------------------------------------------------------------------
+    # _verify_sensitivity
+    # -----------------------------------------------------------------------
+
+    def test_AC01_verify_sensitivity_docstring_is_first_statement(self):
+        """_verify_sensitivity must have a proper docstring (not dead string literal)."""
+        import inspect
+        from worksheet_assessor import _verify_sensitivity
+        assert _verify_sensitivity.__doc__ is not None
+        assert "sensitivity" in _verify_sensitivity.__doc__.lower()
+
+    def test_AC02_verify_mcr_docstring_is_first_statement(self):
+        """_verify_mcr must have a proper docstring (not dead string literal)."""
+        import inspect
+        from worksheet_assessor import _verify_mcr
+        assert _verify_mcr.__doc__ is not None
+        assert "mcr" in _verify_mcr.__doc__.lower()
+
+    def test_AC03_verify_sensitivity_correct_answer_returns_none(self):
+        from worksheet_assessor import _verify_sensitivity
+        assert _verify_sensitivity(14.0, 3.0, 14.0 / 17.0) is None
+
+    def test_AC04_verify_sensitivity_wrong_answer_returns_flag(self):
+        from worksheet_assessor import _verify_sensitivity
+        flag = _verify_sensitivity(14.0, 3.0, 0.5)
+        assert flag is not None
+        assert "numeric_mismatch" in flag
+
+    def test_AC05_verify_sensitivity_zero_denominator_returns_flag(self):
+        from worksheet_assessor import _verify_sensitivity
+        assert _verify_sensitivity(0.0, 0.0, 0.0) == "sensitivity_denominator_zero"
+
+    def test_AC06_verify_sensitivity_none_inputs_returns_none(self):
+        from worksheet_assessor import _verify_sensitivity
+        assert _verify_sensitivity(None, 3.0, 0.8) is None
+        assert _verify_sensitivity(14.0, None, 0.8) is None
+        assert _verify_sensitivity(14.0, 3.0, None) is None
+
+    def test_AC07_verify_mcr_correct_answer_returns_none(self):
+        from worksheet_assessor import _verify_mcr
+        assert _verify_mcr(2.0, 3.0, 20.0, 0.25) is None
+
+    def test_AC08_verify_mcr_wrong_answer_flagged(self):
+        from worksheet_assessor import _verify_mcr
+        flag = _verify_mcr(2.0, 3.0, 20.0, 0.10)
+        assert flag is not None
+        assert "numeric_mismatch" in flag
+
+    def test_AC09_verify_mcr_zero_total_returns_flag(self):
+        from worksheet_assessor import _verify_mcr
+        assert _verify_mcr(1.0, 1.0, 0.0, 0.1) == "mcr_denominator_zero"
+
+    def test_AC10_verify_mcr_none_any_input_returns_none(self):
+        from worksheet_assessor import _verify_mcr
+        assert _verify_mcr(None, 3.0, 20.0, 0.25) is None
+        assert _verify_mcr(2.0, None, 20.0, 0.25) is None
+        assert _verify_mcr(2.0, 3.0, None, 0.25) is None
+        assert _verify_mcr(2.0, 3.0, 20.0, None) is None
+
+    def test_AC11_verify_sensitivity_large_values_no_overflow(self):
+        """Large but valid TP/FN should not cause arithmetic error."""
+        from worksheet_assessor import _verify_sensitivity
+        tp, fn = 1_000_000.0, 1_000_000.0
+        result = _verify_sensitivity(tp, fn, 0.5)
+        assert result is None
+
+    def test_AC12_verify_mcr_fractional_inputs(self):
+        """Fractional fp/fn/total should work correctly."""
+        from worksheet_assessor import _verify_mcr
+        result = _verify_mcr(0.5, 0.5, 4.0, 0.25)
+        assert result is None
+
+    # -----------------------------------------------------------------------
+    # assess_worksheet error handling
+    # -----------------------------------------------------------------------
+
+    def test_AC13_assess_worksheet_no_rubric_items_raises(self):
+        """assess_worksheet raises ValueError when no responses match RUBRICS."""
+        from unittest.mock import MagicMock
+        from worksheet_assessor import assess_worksheet
+        import pytest
+        client = MagicMock()
+        with pytest.raises(ValueError, match="no rubric items found"):
+            assess_worksheet(
+                client=client,
+                candidate_id="TestStudent",
+                worksheet_id="WS1",
+                responses={"NONEXISTENT_ITEM": "some answer"},
+            )
+
+    def test_AC14_assess_worksheet_empty_responses_raises(self):
+        """assess_worksheet raises ValueError when responses dict is empty."""
+        from unittest.mock import MagicMock
+        from worksheet_assessor import assess_worksheet
+        import pytest
+        client = MagicMock()
+        with pytest.raises(ValueError, match="no rubric items found"):
+            assess_worksheet(
+                client=client,
+                candidate_id="TestStudent",
+                worksheet_id="DT",
+                responses={},
+            )
+
+    # -----------------------------------------------------------------------
+    # assess_item error handling
+    # -----------------------------------------------------------------------
+
+    def test_AC15_assess_item_malformed_json_raises_value_error(self):
+        """assess_item wraps JSONDecodeError in ValueError with context."""
+        import json
+        from unittest.mock import MagicMock
+        from worksheet_assessor import assess_item
+        import pytest
+
+        mock_response = MagicMock()
+        mock_response.content = [MagicMock(text="this is not json at all }{")]
+        client = MagicMock()
+        client.messages.create.return_value = mock_response
+
+        with pytest.raises(ValueError, match="non-JSON"):
+            assess_item(client=client, item_id="DT_A_Q1", student_response="test answer")
+
+    def test_AC16_assess_item_invalid_credit_raises_value_error(self):
+        """assess_item wraps schema ValidationError in ValueError with context."""
+        import json
+        from unittest.mock import MagicMock
+        from worksheet_assessor import assess_item
+        import pytest
+
+        bad_payload = json.dumps({
+            "item_id": "DT_A_Q1",
+            "credit": "excellent",  # invalid credit level
+            "llm_rationale": "Student demonstrated correct understanding.",
+            "evidence_quote": "student wrote X",
+        })
+        mock_response = MagicMock()
+        mock_response.content = [MagicMock(text=bad_payload)]
+        client = MagicMock()
+        client.messages.create.return_value = mock_response
+
+        with pytest.raises(ValueError, match="schema validation"):
+            assess_item(client=client, item_id="DT_A_Q1", student_response="test answer")
+
+    def test_AC17_assess_item_enforces_item_id_overrides_llm(self):
+        """assess_item always uses the caller-supplied item_id, ignoring LLM's."""
+        import json
+        from unittest.mock import MagicMock
+        from worksheet_assessor import assess_item
+
+        payload = json.dumps({
+            "item_id": "HALLUCINATED_ITEM_ID",
+            "credit": "full",
+            "llm_rationale": "Student gave a complete and correct answer.",
+            "evidence_quote": "student wrote the answer",
+        })
+        mock_response = MagicMock()
+        mock_response.content = [MagicMock(text=payload)]
+        client = MagicMock()
+        client.messages.create.return_value = mock_response
+
+        result = assess_item(client=client, item_id="DT_A_Q1", student_response="test")
+        assert result.item_id == "DT_A_Q1"
+
+    def test_AC18_assess_item_code_fence_stripped(self):
+        """assess_item handles LLM wrapping JSON in markdown code fences."""
+        import json
+        from unittest.mock import MagicMock
+        from worksheet_assessor import assess_item
+
+        inner = json.dumps({
+            "item_id": "DT_A_Q1",
+            "credit": "partial",
+            "llm_rationale": "Student made partial progress on this item.",
+            "evidence_quote": "wrote something",
+        })
+        fenced = f"```json\n{inner}\n```"
+        mock_response = MagicMock()
+        mock_response.content = [MagicMock(text=fenced)]
+        client = MagicMock()
+        client.messages.create.return_value = mock_response
+
+        result = assess_item(client=client, item_id="DT_A_Q1", student_response="test")
+        assert result.credit == "partial"
+
+    def test_AC19_assess_item_missing_required_field_raises_value_error(self):
+        """assess_item raises ValueError when LLM omits a required field."""
+        import json
+        from unittest.mock import MagicMock
+        from worksheet_assessor import assess_item
+        import pytest
+
+        payload = json.dumps({
+            "item_id": "DT_A_Q1",
+            "credit": "full",
+            # missing llm_rationale and evidence_quote
+        })
+        mock_response = MagicMock()
+        mock_response.content = [MagicMock(text=payload)]
+        client = MagicMock()
+        client.messages.create.return_value = mock_response
+
+        with pytest.raises(ValueError, match="schema validation"):
+            assess_item(client=client, item_id="DT_A_Q1", student_response="test")
+
+    def test_AC20_assess_item_empty_rationale_raises_value_error(self):
+        """assess_item raises ValueError when llm_rationale is shorter than min_length."""
+        import json
+        from unittest.mock import MagicMock
+        from worksheet_assessor import assess_item
+        import pytest
+
+        payload = json.dumps({
+            "item_id": "DT_A_Q1",
+            "credit": "zero",
+            "llm_rationale": "ok",  # too short (min_length=10)
+            "evidence_quote": "x",
+        })
+        mock_response = MagicMock()
+        mock_response.content = [MagicMock(text=payload)]
+        client = MagicMock()
+        client.messages.create.return_value = mock_response
+
+        with pytest.raises(ValueError, match="schema validation"):
+            assess_item(client=client, item_id="DT_A_Q1", student_response="test")

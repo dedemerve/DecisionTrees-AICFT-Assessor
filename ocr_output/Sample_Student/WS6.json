@@ -1,0 +1,94 @@
+{
+  "student_name": "Sample_Student",
+  "worksheet": "WS6",
+  "pdf_source": "Worksheets1-10.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-06-27T10:24:00+00:00",
+    "ocr_model": "claude-sonnet-4-6",
+    "items": {
+      "WS6_B1": "şeker",
+      "WS6_B2": "≤ 10",
+      "WS6_B3": "evet (≤ 10)",
+      "WS6_B4": "hayır (> 10)",
+      "WS6_B5": "Tavsiye edilir",
+      "WS6_B6": "yağ",
+      "WS6_B7": "≤ 5",
+      "WS6_B8": "evet (≤ 5)",
+      "WS6_B9": "hayır (> 5)",
+      "WS6_B10": "Tavsiye edilir",
+      "WS6_B11": "Tavsiye edilmez",
+      "WS6_B12": "(bos)",
+      "WS6_B13": "Tavsiye edilmez"
+    },
+    "tree_structure": {
+      "root_feature": "şeker",
+      "root_operator": "<=",
+      "root_threshold": "10",
+      "full_tree": {
+        "feature": "şeker",
+        "operator": "<=",
+        "threshold": "10",
+        "left": {
+          "feature": "yağ",
+          "operator": "<=",
+          "threshold": "5",
+          "left": { "label": "Tavsiye edilir" },
+          "right": { "label": "Tavsiye edilmez" }
+        },
+        "right": { "label": "Tavsiye edilmez" }
+      },
+      "raw_texts": ["şeker", "≤ 10", "yağ", "≤ 5", "Tavsiye edilir", "Tavsiye edilmez", "Tavsiye edilmez"],
+      "pipeline_warnings": [],
+      "vision_model": "claude-sonnet-4-6"
+    },
+    "raw_ocr": {
+      "student_name": "Sample_Student",
+      "WS6_B1": "şeker",
+      "WS6_B2": "≤ 10",
+      "WS6_B3": "evet (≤ 10)",
+      "WS6_B4": "hayır (> 10)",
+      "WS6_B5": "Tavsiye edilir",
+      "WS6_B6": "yağ",
+      "WS6_B7": "≤ 5",
+      "WS6_B8": "evet (≤ 5)",
+      "WS6_B9": "hayır (> 5)",
+      "WS6_B10": "Tavsiye edilir",
+      "WS6_B11": "Tavsiye edilmez",
+      "WS6_B12": "(bos)",
+      "WS6_B13": "Tavsiye edilmez",
+      "ws_snapshot": "Elif iki düzeyli bir karar ağacı çizmiş; kök düğümde şeker, ikinci dalda yağ özelliğini kullanmış. Eşik değerlerini ve dal yönlerini (≤ / >) doğru etiketlemiş. Yaprak düğümlerin tamamı yazılmış, yalnızca B12 boş.",
+      "page_notes": "(bos)"
+    }
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 12,
+      "total": 13,
+      "blank_or_illegible": 1,
+      "missing": 0,
+      "completion_rate": 0.923
+    },
+    "warnings": [
+      "WS6_B12: boş bırakılmış"
+    ],
+    "student_snapshot": {
+      "completion_rate": 0.923,
+      "engagement_level": "high",
+      "llm_observations": "Elif iki düzeyli bir karar ağacı çizmiş; kök düğümde şeker, ikinci dalda yağ özelliğini kullanmış. Eşik değerlerini ve dal yönlerini (≤ / >) doğru etiketlemiş. Yaprak düğümlerin tamamı yazılmış, yalnızca B12 boş.",
+      "page_quality_notes": "(bos)"
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

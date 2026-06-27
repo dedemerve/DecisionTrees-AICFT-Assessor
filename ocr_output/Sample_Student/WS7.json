@@ -1,0 +1,61 @@
+{
+  "student_name": "Sample_Student",
+  "worksheet": "WS7",
+  "pdf_source": "Worksheets1-10.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-06-27T10:26:00+00:00",
+    "ocr_model": "claude-sonnet-4-6",
+    "items": {
+      "WS7_B1": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.",
+      "WS7_B2": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.",
+      "WS7_B3": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+      "WS7_B4": "(bos)",
+      "WS7_B5": "(bos)",
+      "WS7_B6": "(bos)",
+      "WS7_B7": "(bos)"
+    },
+    "raw_ocr": {
+      "student_name": "Sample_Student",
+      "WS7_B1": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.",
+      "WS7_B2": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.",
+      "WS7_B3": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+      "WS7_B4": "(bos)",
+      "WS7_B5": "(bos)",
+      "WS7_B6": "(bos)",
+      "WS7_B7": "(bos)",
+      "ws_snapshot": "Elif ilk üç if-then kuralını doğru ve eksiksiz yazmış; eşik yönlerini ve sonuçları doğru belirtmiş. B4-B7 boş, muhtemelen ağaçta yalnızca 3 dal yolu vardı ya da geri kalanları tamamlamamış.",
+      "page_notes": "(bos)"
+    }
+  },
+  "gate_2_validation": {
+    "status": "partial",
+    "item_coverage": {
+      "answered": 3,
+      "total": 7,
+      "blank_or_illegible": 4,
+      "missing": 0,
+      "completion_rate": 0.429
+    },
+    "warnings": [
+      "WS7_B4 through WS7_B7: boş bırakılmış (4 item)"
+    ],
+    "student_snapshot": {
+      "completion_rate": 0.429,
+      "engagement_level": "medium",
+      "llm_observations": "Elif ilk üç if-then kuralını doğru ve eksiksiz yazmış; eşik yönlerini ve sonuçları doğru belirtmiş. B4-B7 boş, muhtemelen ağaçta yalnızca 3 dal yolu vardı ya da geri kalanları tamamlamamış.",
+      "page_quality_notes": "(bos)"
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}
