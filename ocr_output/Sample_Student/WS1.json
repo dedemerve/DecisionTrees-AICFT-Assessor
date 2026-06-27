@@ -6,6 +6,7 @@
     "status": "pass",
     "extracted_at": "2026-06-27T10:17:00+00:00",
     "ocr_model": "claude-sonnet-4-6",
+    "worksheet_version_note": "Extended vocabulary version — 11 AI/ML concept definitions. Differs from original ProDaBi WS1 paragraph format. Extended to include eşik değeri, kural, TP, FP, sensitivity, MCR, aşırı öğrenme, karar ağacı.",
     "items": {
       "WS1_B1": "Nesne: üzerinde çalışılan varlık ya da örnek (örn. bir yiyecek).",
       "WS1_B2": "Özellik: nesnenin ölçülebilir bir niteliği (örn. şeker miktarı).",
@@ -32,7 +33,7 @@
       "WS1_B9": "MCR: (FP + FN) / toplam örnek sayısı",
       "WS1_B10": "Aşırı öğrenme: modelin eğitim verisine çok uyum sağlayıp genelleyememesi.",
       "WS1_B11": "Karar ağacı: veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model.",
-      "ws_snapshot": "Elif kavram tanımlarını kendi cümleleriyle ifade etmiş; formülleri (duyarlılık, MCR) doğru yazmış. Aşırı öğrenme tanımı kavramsal düzeyde doğru. 11 boşluğun tamamı doldurulmuş.",
+      "ws_snapshot": "Sample_Student kavram tanımlarını kendi cümleleriyle ifade etmiş; formülleri (duyarlılık, MCR) doğru yazmış. Aşırı öğrenme tanımı kavramsal düzeyde doğru. 11 boşluğun tamamı doldurulmuş.",
       "page_notes": "(bos)"
     }
   },
@@ -49,19 +50,113 @@
     "student_snapshot": {
       "completion_rate": 1.0,
       "engagement_level": "high",
-      "llm_observations": "Elif kavram tanımlarını kendi cümleleriyle ifade etmiş; formülleri (duyarlılık, MCR) doğru yazmış. Aşırı öğrenme tanımı kavramsal düzeyde doğru. 11 boşluğun tamamı doldurulmuş.",
+      "llm_observations": "Sample_Student kavram tanımlarını kendi cümleleriyle ifade etmiş; formülleri (duyarlılık, MCR) doğru yazmış. Aşırı öğrenme tanımı kavramsal düzeyde doğru. 11 boşluğun tamamı doldurulmuş.",
       "page_quality_notes": "(bos)"
     }
   },
   "gate_3_scoring": {
-    "status": "pending",
-    "scored_at": null,
-    "scoring_model": null,
-    "items": {}
+    "status": "complete",
+    "scored_at": "2026-06-27T12:00:00+00:00",
+    "scoring_model": "rubric_based",
+    "rubric_file": "rubrics/WS1_rubric.json",
+    "items": {
+      "WS1_B1": {
+        "credit": "full",
+        "rationale": "Contains both 'varlık' and 'örnek' — two of the required key elements. Definition is accurate and self-contained.",
+        "evidence_quote": "üzerinde çalışılan varlık ya da örnek",
+        "flag": null
+      },
+      "WS1_B2": {
+        "credit": "full",
+        "rationale": "'ölçülebilir nitelik' captures the measurement aspect of a feature. Includes a contextual example (şeker miktarı).",
+        "evidence_quote": "nesnenin ölçülebilir bir niteliği",
+        "flag": null
+      },
+      "WS1_B3": {
+        "credit": "full",
+        "rationale": "'ait olduğu sınıf' correctly defines etiket as the class a nesne belongs to. Includes example values.",
+        "evidence_quote": "nesnenin ait olduğu sınıf",
+        "flag": null
+      },
+      "WS1_B4": {
+        "credit": "full",
+        "rationale": "'iki gruba ayıran sınır sayısı' — contains both 'sınır' (boundary) and 'iki gruba ayıran' (separating into two groups). Correct.",
+        "evidence_quote": "bir özelliği iki gruba ayıran sınır sayısı",
+        "flag": null
+      },
+      "WS1_B5": {
+        "credit": "full",
+        "rationale": "'eğer-o zaman biçiminde' explicitly states the if-then structure. 'karar cümlesi' is accurate.",
+        "evidence_quote": "eğer-o zaman biçiminde ifade edilen karar cümlesi",
+        "flag": null
+      },
+      "WS1_B6": {
+        "credit": "partial",
+        "rationale": "Defines TP as 'modelin doğru sınıflandırdığı pozitif örnekler'. This is semantically correct but does not explicitly state the two-sided condition (model predicted positive AND actual is positive). The phrase 'doğru sınıflandırdığı' implies both but does not spell out the contrast with the actual label.",
+        "evidence_quote": "modelin doğru sınıflandırdığı pozitif örnekler",
+        "flag": "implicit_not_explicit"
+      },
+      "WS1_B7": {
+        "credit": "full",
+        "rationale": "Correctly states both sides: 'model pozitif dedi' (predicted positive) and 'gerçekte negatif' (actually negative). Full credit.",
+        "evidence_quote": "model pozitif dedi ama gerçekte negatif olan örnekler",
+        "flag": null
+      },
+      "WS1_B8": {
+        "credit": "full",
+        "rationale": "Formula TP / (TP + FN) is correct.",
+        "evidence_quote": "TP / (TP + FN)",
+        "flag": null
+      },
+      "WS1_B9": {
+        "credit": "full",
+        "rationale": "Formula (FP + FN) / toplam örnek sayısı is correct.",
+        "evidence_quote": "(FP + FN) / toplam örnek sayısı",
+        "flag": null
+      },
+      "WS1_B10": {
+        "credit": "partial",
+        "rationale": "'eğitim verisine çok uyum sağlayıp genelleyememesi' captures the generalization failure side but does not explicitly state the contrast: 'performs well on training but poorly on new data'. The phrase 'genelleyememesi' implies it but the training performance side is not explicitly stated.",
+        "evidence_quote": "modelin eğitim verisine çok uyum sağlayıp genelleyememesi",
+        "flag": "one_sided_definition"
+      },
+      "WS1_B11": {
+        "credit": "full",
+        "rationale": "Captures both: (1) learning from data ('veriden kural öğrenen') and (2) tree structure ('dal ve yaprak düğümlerden oluşan'). Complete definition.",
+        "evidence_quote": "veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model",
+        "flag": null
+      }
+    },
+    "summary": {
+      "full_count": 9,
+      "partial_count": 2,
+      "zero_count": 0,
+      "not_attempted_count": 0,
+      "overall_worksheet_credit": "full",
+      "scoring_note": "B6 and B10 are partial due to implicit rather than explicit two-sided definitions. All core vocabulary (nesne, özellik, etiket, eşik, kural) and formulas (sensitivity, MCR) fully correct. Overfitting and karar ağacı correct."
+    }
   },
   "gate_4_aicft": {
-    "status": "pending",
-    "level": null,
-    "evidence": null
+    "status": "complete",
+    "assessed_at": "2026-06-27T12:00:00+00:00",
+    "dimension": "Aspect 3: AI foundations and applications",
+    "level": "Acquire",
+    "approaching_next_level": "Deepen",
+    "evidence": {
+      "Acquire_confirmed": [
+        "WS1_B1-B5: Core DT vocabulary (nesne, özellik, etiket, eşik değeri, kural) all correct — LO3.1.1",
+        "WS1_B8-B9: Sensitivity and MCR formulas correct — LO3.1.1",
+        "WS1_B11: Karar ağacı defined as data-learning model — LO3.1.2"
+      ],
+      "Deepen_signal": [
+        "WS1_B10: Overfitting partially defined (generalization failure mentioned) — early signal for LO3.2.3, not yet full Deepen"
+      ],
+      "indicators": {
+        "LO3.1.1": "confirmed",
+        "LO3.1.2": "confirmed",
+        "LO3.2.3": "approaching"
+      }
+    },
+    "ws_contribution_to_portfolio": "WS1 establishes Acquire-level foundation. Vocabulary is solid. Overfitting definition is partial — check WS_DT F Q2 for whether the concept deepens in application context."
   }
 }

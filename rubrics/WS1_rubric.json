@@ -1,0 +1,171 @@
+{
+  "worksheet_id": "WS1",
+  "worksheet_title": "Important Terms",
+  "worksheet_type": "fill_in_blank_definition",
+  "version_note": "Extended version: 11 AI/ML concept definitions. Original ProDaBi WS1 uses a food-card paragraph format. This version includes additional AI concepts (TP, FP, sensitivity, MCR, overfitting, karar ağacı) beyond the original ProDaBi scope.",
+  "total_items": 11,
+  "answer_key_source": "Worksheet 1.pdf (original) + extended AI terms added for AI-CFT alignment",
+  "items": {
+    "WS1_B1": {
+      "item_label": "Nesne (Object)",
+      "item_type": "definition",
+      "expected_concept": "nesne",
+      "key_elements": ["varlık", "örnek", "tek tek", "gıda", "eleman"],
+      "credit_rules": {
+        "full": "Definition captures that a nesne is an individual entity/instance in the dataset. At least 2 of: varlık (entity), örnek (instance), üzerinde çalışılan (studied), bireysel (individual).",
+        "partial": "Gives a contextual example only (e.g. 'gıda') without formal definition, OR uses only one key element.",
+        "zero": "Empty, tautological ('nesne bir şeydir'), or defines a different concept."
+      },
+      "canonical_answer": "Üzerinde çalışılan varlık ya da örnek.",
+      "ai_cft_links": ["LO3.1.1"],
+      "scoring_type": "conceptual_definition"
+    },
+    "WS1_B2": {
+      "item_label": "Özellik / Karakteristik / Değişken (Feature)",
+      "item_type": "definition",
+      "expected_concept": "özellik",
+      "key_elements": ["ölçülebilir", "nitelik", "değişken", "karakteristik", "özellik"],
+      "credit_rules": {
+        "full": "Definition captures that özellik is a measurable attribute of the object. Must include ölçülebilir/measurable or nitelik/attribute or similar.",
+        "partial": "Names an example feature (e.g. 'şeker miktarı') without general definition.",
+        "zero": "Empty or defines nesne/etiket instead."
+      },
+      "canonical_answer": "Nesnenin ölçülebilir bir niteliği.",
+      "ai_cft_links": ["LO3.1.1"],
+      "scoring_type": "conceptual_definition"
+    },
+    "WS1_B3": {
+      "item_label": "Etiket (Label)",
+      "item_type": "definition",
+      "expected_concept": "etiket",
+      "key_elements": ["sınıf", "kategori", "tavsiye", "çıktı", "hedef"],
+      "credit_rules": {
+        "full": "Definition captures that etiket is the class/category a nesne belongs to. Must reference sınıf (class) or kategori or the outcome variable.",
+        "partial": "Gives only the example values ('tavsiye edilir/edilmez') without explaining what etiket is in general.",
+        "zero": "Empty or wrong concept."
+      },
+      "canonical_answer": "Nesnenin ait olduğu sınıf.",
+      "ai_cft_links": ["LO3.1.1"],
+      "scoring_type": "conceptual_definition"
+    },
+    "WS1_B4": {
+      "item_label": "Eşik Değeri (Threshold)",
+      "item_type": "definition",
+      "expected_concept": "eşik_degeri",
+      "key_elements": ["sınır", "ayıran", "iki grup", "bölme", "boundary"],
+      "credit_rules": {
+        "full": "Definition captures that eşik değeri is a numeric boundary that splits a feature into two groups. Must include sınır (boundary), ayıran (separating), or iki grup (two groups).",
+        "partial": "Gives only a numeric example without explaining the boundary function.",
+        "zero": "Empty or confuses with özellik/değişken."
+      },
+      "canonical_answer": "Bir özelliği iki gruba ayıran sınır sayısı.",
+      "ai_cft_links": ["LO3.1.1", "LO3.2.2"],
+      "scoring_type": "conceptual_definition"
+    },
+    "WS1_B5": {
+      "item_label": "Kural (Rule)",
+      "item_type": "definition",
+      "expected_concept": "kural",
+      "key_elements": ["eğer", "o zaman", "if-then", "koşul", "karar cümlesi"],
+      "credit_rules": {
+        "full": "Definition captures the if-then structure. Must mention eğer-o zaman or if-then or conditional structure.",
+        "partial": "Describes a rule in informal language without the conditional structure.",
+        "zero": "Empty or describes a formula instead of a rule."
+      },
+      "canonical_answer": "Eğer-o zaman biçiminde ifade edilen karar cümlesi.",
+      "ai_cft_links": ["LO3.1.1"],
+      "scoring_type": "conceptual_definition"
+    },
+    "WS1_B6": {
+      "item_label": "Doğru Pozitif (True Positive, TP)",
+      "item_type": "definition",
+      "expected_concept": "dogru_pozitif",
+      "key_elements": ["doğru", "pozitif", "tavsiye edilen", "model doğru", "gerçekte pozitif"],
+      "credit_rules": {
+        "full": "Must convey: model predicted positive AND actual is positive. Both components required.",
+        "partial": "Mentions only one side (model said positive OR actual is positive, not both).",
+        "zero": "Empty or confuses with FP (false positive)."
+      },
+      "canonical_answer": "Modelin pozitif olarak tahmin ettiği ve gerçekte de pozitif olan örnekler.",
+      "ai_cft_links": ["LO3.1.1", "LO3.2.2"],
+      "scoring_type": "conceptual_definition"
+    },
+    "WS1_B7": {
+      "item_label": "Yanlış Pozitif (False Positive, FP)",
+      "item_type": "definition",
+      "expected_concept": "yanlis_pozitif",
+      "key_elements": ["yanlış", "pozitif", "model pozitif dedi", "gerçekte negatif"],
+      "credit_rules": {
+        "full": "Must convey: model predicted positive BUT actual is negative. Both components required.",
+        "partial": "Mentions only prediction ('model pozitif dedi') without contrasting with actual.",
+        "zero": "Empty or confuses FP with TP."
+      },
+      "canonical_answer": "Modelin pozitif tahmin ettiği ama gerçekte negatif olan örnekler.",
+      "ai_cft_links": ["LO3.1.1", "LO3.2.2"],
+      "scoring_type": "conceptual_definition"
+    },
+    "WS1_B8": {
+      "item_label": "Duyarlılık / Sensitivity",
+      "item_type": "formula",
+      "expected_concept": "duyarlilik",
+      "key_elements": ["TP", "FN", "TP / (TP + FN)", "gerçek pozitif oran"],
+      "credit_rules": {
+        "full": "Formula TP / (TP + FN) stated correctly, or equivalent verbal definition (true positive rate).",
+        "partial": "Mentions TP and FN but formula incorrectly assembled (e.g. TP/FP, TP/total).",
+        "zero": "Empty, wrong formula, or confuses with MCR."
+      },
+      "canonical_answer": "TP / (TP + FN)",
+      "expected_value": "TP / (TP + FN)",
+      "ai_cft_links": ["LO3.1.1", "LO3.2.2"],
+      "scoring_type": "formula"
+    },
+    "WS1_B9": {
+      "item_label": "MCR (Misclassification Rate / Hata Oranı)",
+      "item_type": "formula",
+      "expected_concept": "MCR",
+      "key_elements": ["FP", "FN", "toplam", "(FP + FN) / toplam", "yanlış sınıflandırma"],
+      "credit_rules": {
+        "full": "Formula (FP + FN) / total stated correctly.",
+        "partial": "Mentions FP, FN, and total but formula assembled incorrectly.",
+        "zero": "Empty, wrong formula, or uses only FP or only FN."
+      },
+      "canonical_answer": "(FP + FN) / toplam örnek sayısı",
+      "expected_value": "(FP + FN) / total",
+      "ai_cft_links": ["LO3.1.1", "LO3.2.2"],
+      "scoring_type": "formula"
+    },
+    "WS1_B10": {
+      "item_label": "Aşırı Öğrenme (Overfitting)",
+      "item_type": "definition",
+      "expected_concept": "asiri_ogrenme",
+      "key_elements": ["eğitim", "genelleme", "test", "fazla uyum", "yeni veri"],
+      "credit_rules": {
+        "full": "Definition captures the two-sided nature: performs well on training data but poorly on new/test data. Both components required.",
+        "partial": "Only mentions one side (fits training data well OR can't generalize, not both).",
+        "zero": "Empty or confuses overfitting with underfitting."
+      },
+      "canonical_answer": "Modelin eğitim verisine aşırı uyum sağlaması sonucu yeni verilere genelleyememesi.",
+      "ai_cft_links": ["LO3.1.1", "LO3.2.3"],
+      "scoring_type": "conceptual_definition"
+    },
+    "WS1_B11": {
+      "item_label": "Karar Ağacı (Decision Tree)",
+      "item_type": "definition",
+      "expected_concept": "karar_agaci",
+      "key_elements": ["kural", "veri", "öğrenen", "dal", "yaprak", "sınıflandırma"],
+      "credit_rules": {
+        "full": "Definition captures: (1) learns from data and (2) tree structure (dal/yaprak or branches/leaves) or rule-based nature.",
+        "partial": "Mentions only one of: data learning OR tree structure, not both.",
+        "zero": "Empty or gives only a visual description without mentioning learning from data."
+      },
+      "canonical_answer": "Veriden kural öğrenen, dal ve yaprak düğümlerden oluşan sınıflandırma modeli.",
+      "ai_cft_links": ["LO3.1.1", "LO3.1.2"],
+      "scoring_type": "conceptual_definition"
+    }
+  },
+  "overall_scoring": {
+    "full": "9-11 items at full credit",
+    "partial": "5-8 items at full credit, or mix with partials",
+    "zero": "Fewer than 5 items attempted or predominantly wrong"
+  }
+}

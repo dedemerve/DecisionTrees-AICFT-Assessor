@@ -1,0 +1,269 @@
+{
+  "student_name": "Sample_Student",
+  "assessed_at": "2026-06-27T12:00:00+00:00",
+  "assessor_version": "1.0",
+  "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
+  "dimension": "Aspect 3: AI foundations and applications",
+  "student_profile": {
+    "gender": "Kadın",
+    "age": 21,
+    "field": "İlköğretim Matematik",
+    "year_in_program": 3,
+    "prior_programming": false,
+    "note": "Pre-service primary mathematics teacher, year 3, no programming background. This profile sets a realistic expected ceiling at Acquire, making Deepen evidence particularly noteworthy."
+  },
+
+  "data_quality_flags": {
+    "extraction_failures": [
+      {
+        "worksheet": "WS10",
+        "type": "wrong_region",
+        "description": "Numeric table not extracted. Conceptual text captured instead.",
+        "impact": "Gate 3/4 blocked for WS10 table items"
+      },
+      {
+        "worksheet": "WS_DT",
+        "type": "section_mismatch",
+        "description": "8 of 15 items appear to be extracted from wrong sections (A-D, E Q1). Vocabulary definitions extracted instead of CODAP inquiry answers.",
+        "impact": "Core Deepen items (A-D sections) cannot be scored"
+      },
+      {
+        "worksheet": "WS11",
+        "type": "missing_items",
+        "description": "Q10 multi-select, Q11 ordering, Q12 AI identification not captured.",
+        "impact": "3 cognitive items missing from final WS"
+      },
+      {
+        "worksheet": "WS7",
+        "type": "missing_section",
+        "description": "Part 1 path matching (A/B/C to given rules) not extracted.",
+        "impact": "Given-tree reading competency unverified"
+      }
+    ],
+    "reliability_note": "Portfolio synthesis draws on 6 worksheets with reliable data (WS1, WS3, WS4, WS5, WS6, WS7 Part 2) plus partial data from WS_DT (F_Q2, G_Q2, E metrics) and WS11 (B8a/b, B9). WS10 table and WS_DT A-D sections require re-extraction before the portfolio can be considered complete."
+  },
+
+  "worksheet_summary": {
+    "WS1": {
+      "topic": "Vocabulary",
+      "gate_3_credit": "full",
+      "gate_4_level": "Acquire",
+      "key_evidence": "9 full, 2 partial. All core DT vocabulary correct. Sensitivity/MCR formulas correct. Overfitting partial (one-sided)."
+    },
+    "WS3": {
+      "topic": "Applying Leo's threshold",
+      "gate_3_credit": "partial",
+      "gate_4_level": "Acquire_partial",
+      "key_evidence": "2 of 3 classifications correct (B1 wrong). Variable mismatch in B7/B8 (sugar used instead of energy for own threshold). Reason blanks not extracted."
+    },
+    "WS4": {
+      "topic": "Best threshold selection",
+      "gate_3_credit": "full",
+      "gate_4_level": "Deepen",
+      "key_evidence": "5 of 5 items full credit. MCR formula correct with arithmetic. Metric-based criterion. Correct peer claim evaluation with reasoning."
+    },
+    "WS5": {
+      "topic": "Systematic threshold exploration",
+      "gate_3_credit": "full",
+      "gate_4_level": "Deepen",
+      "key_evidence": "4 rows fully correct, 1 partial (row 5 MCR=0.25 error). Strong tie-breaking justification (chose smallest among equal-MCR thresholds)."
+    },
+    "WS6": {
+      "topic": "Tree construction",
+      "gate_3_credit": "full",
+      "gate_4_level": "Acquire",
+      "key_evidence": "Valid 2-level tree. Root=şeker, second=yağ. All leaves labeled. Correct operators. B12 (leaf count) blank — minor."
+    },
+    "WS7": {
+      "topic": "Rule formulation",
+      "gate_3_credit": "partial",
+      "gate_4_level": "Acquire_partial",
+      "key_evidence": "Part 2 (own rules): 3 of 3 full credit, all consistent with WS6 tree. Part 1 (path matching): not captured."
+    },
+    "WS10": {
+      "topic": "Systematic algorithm (table)",
+      "gate_3_credit": "partial_blocked",
+      "gate_4_level": "Deepen_strong_signal",
+      "key_evidence": "Extraction failure on table. Conceptual items show strong understanding: midpoint logic, n-1 candidates, O(n log n) complexity."
+    },
+    "WS11": {
+      "topic": "Transfer and reflection",
+      "gate_3_credit": "partial",
+      "gate_4_level": "Acquire",
+      "key_evidence": "B8a/b: correct rule application to new example (Çikolata). B9: complete DT definition. Q10/Q11/Q12: not captured."
+    },
+    "WS_DT": {
+      "topic": "CODAP inquiry (plugged)",
+      "gate_3_credit": "partial",
+      "gate_4_level": "Deepen_to_Create",
+      "key_evidence": "F_Q2: overfitting correctly explained (Create signal). E metrics consistent (0.75/0.20). A-D sections: extraction failure — not scored."
+    }
+  },
+
+  "cross_ws_patterns": {
+    "pattern_1_concept_application_gap": {
+      "name": "Vocabulary ahead of application",
+      "description": "Student defines concepts correctly in WS1 but shows gaps when applying them to real data in WS3.",
+      "evidence": {
+        "WS1_B4_threshold_definition": "full — 'bir özelliği iki gruba ayıran sınır sayısı'",
+        "WS3_B7_B8_threshold_application": "zero — used wrong variable (şeker instead of enerji for Leo's rule)",
+        "WS1_B8_sensitivity_formula": "full — formula correct",
+        "WS_DT_E_Q1_metric_preference": "zero — extracted as definition, not preference (extraction issue may mask true answer)"
+      },
+      "interpretation": "The gap between WS1 (define threshold correctly) and WS3 (apply the correct threshold variable) is the clearest concept-application gap. Student knows what a threshold IS but confused which variable Leo's rule uses. This may reflect reading comprehension issue (not checking which variable was specified) rather than a conceptual gap.",
+      "severity": "moderate",
+      "resolved_by_WS4": true,
+      "resolution_note": "WS4 MCR formula applied correctly with own chosen variable. Suggests the WS3 error was variable-specific (enerji vs. şeker) not formula-level."
+    },
+    "pattern_2_progression_curve": {
+      "name": "WS3 → WS4 → WS5 improvement",
+      "description": "Student shows clear progression from threshold application (WS3, partial) to best threshold selection (WS4, full) to systematic exploration (WS5, full).",
+      "evidence": {
+        "WS3": "partial — 2/3 classifications correct, variable mismatch in own threshold",
+        "WS4": "full — best threshold selected with MCR criterion and correct arithmetic",
+        "WS5": "full — 4/5 rows correct, principled tie-breaking"
+      },
+      "interpretation": "The three WS form a clear progression: apply a given rule → choose the best rule → systematically find the best rule. Student performance improves at each step. This is pedagogically coherent: the ProDaBi sequence is working as designed.",
+      "aicft_significance": "WS3 = Acquire (apply given rule). WS4 = Deepen (choose using criterion). WS5 = Deepen (systematic search + tie-breaking). Progression confirms consolidation of Deepen competency across the unplugged sequence."
+    },
+    "pattern_3_unplugged_plugged_consistency": {
+      "name": "WS7 rules vs. WS_DT C/D sections",
+      "description": "Check whether student's unplugged rule-writing (WS7) is consistent with their digital tree exploration (WS_DT).",
+      "evidence": {
+        "WS7_rules": "şeker ≤ 10 AND yağ ≤ 5 → recommended; şeker ≤ 10 AND yağ > 5 → not; şeker > 10 → not",
+        "WS6_tree_root": "şeker ≤ 10",
+        "WS_DT_B_Q4": "Şeker miktarı 10 gramdan az... (extraction likely wrong section)",
+        "WS_DT_sections_A_D": "extraction failure — cannot compare"
+      },
+      "interpretation": "WS7 rules are internally consistent with WS6. WS_DT A-D extraction failures prevent full plugged-unplugged consistency check. However, the WS_DT content referencing şeker as a variable (even if misextracted) suggests the same feature persisted into the digital activity.",
+      "confidence": "low — re-extraction needed for WS_DT A-D"
+    },
+    "pattern_4_overfitting_trajectory": {
+      "name": "Partial → full overfitting understanding",
+      "description": "Student's overfitting understanding deepens across the sequence.",
+      "evidence": {
+        "WS1_B10": "partial — 'eğitim verisine çok uyum sağlayıp genelleyememesi' — one-sided definition (mentions poor generalization but not the training-test performance contrast explicitly)",
+        "WS_DT_F_Q2": "full — 'aşırı öğrenirse eğitim verisinde iyi, test verisinde kötü sonuç verir' — explicit two-sided: train-good, test-poor"
+      },
+      "interpretation": "WS1 definition was one-sided. After hands-on CODAP train/test evaluation (Section F), student articulates the two-sided contrast clearly. The digital activity deepened the concept beyond what the unplugged vocabulary exercise captured. This is exactly the kind of learning trajectory the sequence is designed to produce.",
+      "aicft_significance": "WS1 → WS_DT F_Q2 trajectory is evidence of LO3.2.3 (Deepen) and approaching LO3.3.1 (Create). Student moved from one-sided definition to two-sided causal understanding with specific conditions."
+    },
+    "pattern_5_metacognitive_self_awareness": {
+      "name": "Accurate self-assessment in WS11 reflections",
+      "description": "WS11 reflections corroborate scoring pattern from other worksheets.",
+      "evidence": {
+        "WS11_B3_self_report": "Duyarlılık ve MCR formüllerini başta karıştırdım, sonunda netleşti.",
+        "WS1_B6_actual_score": "partial — implicit not explicit TP definition",
+        "WS11_B2_hardest_ws": "WS5 en çok zaman aldı ama en çok şeyi de orada öğrendim.",
+        "WS5_actual_score": "full — strongest Deepen evidence in unplugged sequence",
+        "WS11_B4_tree_difficulty": "Ağaç çizmek düşündüğümden zordu; dalları doğru yönde etiketlemek dikkat istedi.",
+        "WS6_B12_actual": "blank — only missing item in WS6"
+      },
+      "interpretation": "Student's self-reports are accurate: formula confusion (WS1 B6 partial) resolved by end; WS5 was hard but productive (confirmed by full credit); tree branch labeling was difficult (confirmed by WS6 B12 blank). This metacognitive accuracy is itself a positive sign — students who can accurately identify their struggles and learning are developing the reflective capacity relevant to AI-CFT Create level.",
+      "aicft_significance": "LO3.3.1 signal — accurate metacognition about AI learning process"
+    }
+  },
+
+  "aicft_evidence_chain": {
+    "Acquire": {
+      "status": "confirmed",
+      "required_minimum": "WS1 core vocabulary + WS3 threshold application + WS11 B8a (apply rule to new example)",
+      "evidence": [
+        "WS1: All 11 vocabulary items correct (9 full, 2 partial) — LO3.1.1, LO3.1.2",
+        "WS3: 2/3 classifications correct (B3, B5 full) — LO3.1.1 partial",
+        "WS6: Valid 2-level tree constructed — LO3.1.1",
+        "WS7 Part 2: 3 correct if-then rules — LO3.1.1",
+        "WS11 B8a: Correctly applies own rule to Çikolata (new example) — LO3.1.1",
+        "WS11 B9: Complete DT definition — LO3.1.2"
+      ],
+      "gaps": [
+        "WS3 B1: Popcorn misclassified (applied wrong variable)",
+        "WS7 Part 1: Path matching not captured — given-tree reading unverified",
+        "WS11 Q10/Q11/Q12: Not captured"
+      ]
+    },
+    "Deepen": {
+      "status": "confirmed",
+      "required_minimum": "Metric-based threshold comparison + systematic threshold search + two-sided overfitting understanding",
+      "evidence": [
+        "WS4 B2: Threshold selection criterion is explicitly MCR-based — LO3.2.1",
+        "WS4 B3: Two-threshold comparison with specific MCR values — LO3.2.1",
+        "WS4 B5: Correct evaluation of peer claim with reasoning — LO3.2.2",
+        "WS5 B25: Tie-breaking among equal-MCR thresholds (parsimony reasoning) — LO3.2.1, LO3.2.2",
+        "WS_DT F_Q2: Train/test performance gap explained — LO3.2.3",
+        "WS10 B5-B7: Finite threshold candidate set correctly explained — LO3.2.1"
+      ],
+      "gaps": [
+        "WS_DT A-D: Data-driven variable selection and model comparison not verifiable (extraction failure)",
+        "WS_DT E_Q1: Metric preference justification not captured (wrong extraction)"
+      ]
+    },
+    "Create": {
+      "status": "approaching",
+      "required_minimum": "Explanation of why perfect classification is impossible + overfitting trade-off articulation + metacognitive reflection on AI learning limitations",
+      "evidence_present": [
+        "WS_DT F_Q2: Overfitting articulated as train/test gap — strong Create signal — LO3.3.1",
+        "WS10 B8: O(n log n) complexity analysis — beyond expected level — LO3.3.1 signal",
+        "WS11 B3: Accurate self-diagnosis of prior confusion resolved — metacognitive awareness — LO3.3.1 signal"
+      ],
+      "evidence_missing": [
+        "WS_DT E_Q4: Did not answer 'No — DT cannot achieve perfect classification' with data overlap explanation — needed for LO3.3.1",
+        "WS_DT G_Q1: Described algorithm process, not what model 'learned' — needed for LO3.3.1",
+        "WS_DT A-D: Data-driven model design and evaluation — extraction failure"
+      ],
+      "create_conclusion": "Create evidence is present but insufficient for confirmation. F_Q2 is the strongest signal. E_Q4 and G_Q1 are the two items that would tip the assessment to confirmed Create — but E_Q4 did not address the question, and G_Q1 was process-focused. Pending re-extraction of WS_DT A-D sections."
+    }
+  },
+
+  "final_aicft_assessment": {
+    "current_level": "Deepen",
+    "confidence": "high_for_Acquire_and_Deepen",
+    "confidence_note": "Acquire and Deepen are confirmed across multiple worksheets with reliable extraction. Create is approaching but not confirmed.",
+    "justification": "Student consistently demonstrates metric-based reasoning (WS4, WS5), systematic exploration (WS5), valid tree construction (WS6), correct rule formulation (WS7), and hands-on application (WS11 B8a). Overfitting explanation in WS_DT F_Q2 is the single strongest Create signal. However, Create requires converging evidence from E_Q4 (impossibility of perfect classification), G_Q1 (model learning articulation), and full A-D data-driven reasoning — none of these are currently verified.",
+    "provisional_level_if_reextraction_confirms": "Create",
+    "pedagogical_note": "For a year-3 pre-service primary math teacher with no programming background, confirmed Deepen is a strong outcome. The ProDaBi sequence appears effective for this student — the unplugged-digital progression produced genuine conceptual deepening (WS1 overfitting partial → WS_DT F_Q2 full). The variable confusion in WS3 (enerji vs. şeker) is worth discussing in feedback: student applied her own variable instead of the given rule, which may reflect active sensemaking rather than rule-following error."
+  },
+
+  "priority_reextraction_list": [
+    {
+      "worksheet": "WS_DT",
+      "sections": ["A", "B", "C", "D", "E Q1"],
+      "why": "Core Deepen items unscored due to wrong-section extraction. These determine whether Create level is confirmed.",
+      "priority": 1
+    },
+    {
+      "worksheet": "WS10",
+      "sections": ["numeric_table"],
+      "why": "Student's algorithmic understanding is high from conceptual items but numeric table (the main task) not extracted.",
+      "priority": 2
+    },
+    {
+      "worksheet": "WS11",
+      "sections": ["Q10", "Q11", "Q12"],
+      "why": "Three cognitive items completely missing. These provide direct evidence of LO3.1.1 and LO3.1.5.",
+      "priority": 3
+    },
+    {
+      "worksheet": "WS7",
+      "sections": ["Part 1 path matching"],
+      "why": "Reading a given tree (vs. writing own) is a separate competency. Path matching boxes A/B/C not captured.",
+      "priority": 4
+    }
+  ],
+
+  "feedback_for_student": {
+    "strengths": [
+      "MCR calculation and interpretation is solid — applied formula correctly in WS4 with step-by-step working.",
+      "Systematic exploration in WS5 is exemplary — completed 5 threshold trials, identified the tie correctly, applied a principled tie-breaking rule.",
+      "Tree construction in WS6 is structurally valid — correct operators, two different features, labeled leaves.",
+      "Rule formulation in WS7 (Part 2) is consistent with the tree — shows ability to translate structure into language.",
+      "Overfitting explanation (WS_DT F_Q2) is clear and complete — you identified both sides of the train/test gap correctly."
+    ],
+    "areas_for_growth": [
+      "In WS3, the threshold was applied using the wrong variable (sugar instead of the required energy). When a worksheet specifies which variable to use, check before applying the rule.",
+      "Sensitivity definition (WS1 B6) mentioned 'correctly classified positives' but did not explicitly contrast with 'actual positives' — the two-sided condition is important for precision.",
+      "In WS_DT E Q4, the question asked whether a DT can achieve perfect classification. The answer should be No, with an explanation: some datasets have overlapping classes that no threshold can separate perfectly. This distinction is important for understanding model limitations.",
+      "In WS_DT G Q1, 'what did the model learn?' is asking about the output (the rules/patterns), not the process. The model learned: 'if sugar ≤ 10 AND fat ≤ 5 → recommended'. The how is the algorithm; the what is the learned rule."
+    ]
+  }
+}

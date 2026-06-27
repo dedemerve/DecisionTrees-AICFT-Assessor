@@ -6,6 +6,10 @@
     "status": "partial",
     "extracted_at": "2026-06-27T10:22:00+00:00",
     "ocr_model": "claude-sonnet-4-6",
+    "extraction_warnings": [
+      "B21-B24: 6th threshold trial row is blank. Page scan notes lower portion was slightly skewed — possible scan quality issue or student genuinely did not attempt 6th row.",
+      "All 5 completed rows use 'şeker' (sugar) as feature variable. This is consistent with WS4 and WS6 but differs from WS3 expected variable (enerji). This student consistently uses sugar as primary feature."
+    ],
     "items": {
       "WS5_B1": "şeker ≤ 5",
       "WS5_B2": "3",
@@ -33,34 +37,43 @@
       "WS5_B24": "(bos)",
       "WS5_B25": "Eşik 8, 10 ve 12 aynı MCR'yi veriyor. En küçük eşik değeri olan 8'i tercih ederim."
     },
+    "item_schema": {
+      "WS5_B1": "Row 1: threshold expression (feature ≤ value)",
+      "WS5_B2": "Row 1: count of cards on left branch (≤ threshold)",
+      "WS5_B3": "Row 1: count of cards on right branch (> threshold)",
+      "WS5_B4": "Row 1: MCR value",
+      "WS5_B5": "Row 2: threshold expression",
+      "WS5_B6": "Row 2: left branch count",
+      "WS5_B7": "Row 2: right branch count",
+      "WS5_B8": "Row 2: MCR value",
+      "WS5_B9": "Row 3: threshold expression",
+      "WS5_B10": "Row 3: left branch count",
+      "WS5_B11": "Row 3: right branch count",
+      "WS5_B12": "Row 3: MCR value",
+      "WS5_B13": "Row 4: threshold expression",
+      "WS5_B14": "Row 4: left branch count",
+      "WS5_B15": "Row 4: right branch count",
+      "WS5_B16": "Row 4: MCR value",
+      "WS5_B17": "Row 5: threshold expression",
+      "WS5_B18": "Row 5: left branch count",
+      "WS5_B19": "Row 5: right branch count",
+      "WS5_B20": "Row 5: MCR value",
+      "WS5_B21": "Row 6: threshold expression (blank)",
+      "WS5_B22": "Row 6: left branch count (blank)",
+      "WS5_B23": "Row 6: right branch count (blank)",
+      "WS5_B24": "Row 6: MCR value (blank)",
+      "WS5_B25": "Best threshold selection and justification"
+    },
     "raw_ocr": {
       "student_name": "Sample_Student",
-      "WS5_B1": "şeker ≤ 5",
-      "WS5_B2": "3",
-      "WS5_B3": "7",
-      "WS5_B4": "0.30",
-      "WS5_B5": "şeker ≤ 8",
-      "WS5_B6": "5",
-      "WS5_B7": "5",
-      "WS5_B8": "0.20",
-      "WS5_B9": "şeker ≤ 10",
-      "WS5_B10": "8",
-      "WS5_B11": "2",
-      "WS5_B12": "0.20",
-      "WS5_B13": "şeker ≤ 12",
-      "WS5_B14": "9",
-      "WS5_B15": "1",
-      "WS5_B16": "0.20",
-      "WS5_B17": "şeker ≤ 15",
-      "WS5_B18": "10",
-      "WS5_B19": "0",
-      "WS5_B20": "0.25",
-      "WS5_B21": "(bos)",
-      "WS5_B22": "(bos)",
-      "WS5_B23": "(bos)",
-      "WS5_B24": "(bos)",
+      "WS5_B1": "şeker ≤ 5", "WS5_B2": "3", "WS5_B3": "7", "WS5_B4": "0.30",
+      "WS5_B5": "şeker ≤ 8", "WS5_B6": "5", "WS5_B7": "5", "WS5_B8": "0.20",
+      "WS5_B9": "şeker ≤ 10", "WS5_B10": "8", "WS5_B11": "2", "WS5_B12": "0.20",
+      "WS5_B13": "şeker ≤ 12", "WS5_B14": "9", "WS5_B15": "1", "WS5_B16": "0.20",
+      "WS5_B17": "şeker ≤ 15", "WS5_B18": "10", "WS5_B19": "0", "WS5_B20": "0.25",
+      "WS5_B21": "(bos)", "WS5_B22": "(bos)", "WS5_B23": "(bos)", "WS5_B24": "(bos)",
       "WS5_B25": "Eşik 8, 10 ve 12 aynı MCR'yi veriyor. En küçük eşik değeri olan 8'i tercih ederim.",
-      "ws_snapshot": "Elif ilk 20 boşluğu sistematik biçimde doldurmuş; eşik denemelerini tabloya düzenli yazmış. B21-B24 boş bırakılmış, son boşlukta ise yorum yapmış. MCR hesapları büyük ölçüde doğru.",
+      "ws_snapshot": "Sample_Student ilk 20 boşluğu sistematik biçimde doldurmuş; eşik denemelerini tabloya düzenli yazmış. B21-B24 boş bırakılmış, son boşlukta ise yorum yapmış. MCR hesapları büyük ölçüde doğru.",
       "page_notes": "Sayfanın alt kısmı hafif eğik taranmış, B21-B24 alanı silik."
     }
   },
@@ -70,28 +83,148 @@
       "answered": 21,
       "total": 25,
       "blank_or_illegible": 4,
+      "not_captured": 0,
       "missing": 0,
       "completion_rate": 0.84
     },
+    "arithmetic_check": {
+      "row_1": {
+        "threshold": "şeker ≤ 5",
+        "left_count": 3,
+        "right_count": 7,
+        "total_check": "3+7=10 ✓",
+        "MCR_claimed": 0.30,
+        "MCR_note": "MCR=0.30 → 3 misclassified. With şeker≤5 threshold and 10 items, 3 errors is plausible if few low-sugar items are in not_recommended class.",
+        "consistent": true
+      },
+      "row_2": {
+        "threshold": "şeker ≤ 8",
+        "left_count": 5,
+        "right_count": 5,
+        "total_check": "5+5=10 ✓",
+        "MCR_claimed": 0.20,
+        "MCR_note": "MCR=0.20 → 2 misclassified. Consistent.",
+        "consistent": true
+      },
+      "row_3": {
+        "threshold": "şeker ≤ 10",
+        "left_count": 8,
+        "right_count": 2,
+        "total_check": "8+2=10 ✓",
+        "MCR_claimed": 0.20,
+        "MCR_note": "MCR=0.20 → 2 misclassified. Consistent.",
+        "consistent": true
+      },
+      "row_4": {
+        "threshold": "şeker ≤ 12",
+        "left_count": 9,
+        "right_count": 1,
+        "total_check": "9+1=10 ✓",
+        "MCR_claimed": 0.20,
+        "MCR_note": "MCR=0.20 → 2 misclassified. With 9 items in left branch and 1 in right, this implies 2 items misclassified across both sides. Plausible.",
+        "consistent": true
+      },
+      "row_5": {
+        "threshold": "şeker ≤ 15",
+        "left_count": 10,
+        "right_count": 0,
+        "total_check": "10+0=10 ✓",
+        "MCR_claimed": 0.25,
+        "MCR_note": "ARITHMETIC FLAG: If all 10 items go to left branch (recommended), MCR=FN/10 where FN = all actual not_recommended items. MCR=0.25 → 2.5 errors, which is impossible for integer item counts. Expected MCR would be an integer fraction: if 2 not_recommended items exist → 0.20, if 3 → 0.30. Student's 0.25 appears arithmetically incorrect for a 10-item dataset.",
+        "consistent": false,
+        "flag": "arithmetic_inconsistency — MCR=0.25 not achievable with 10 integer items"
+      }
+    },
     "warnings": [
-      "WS5_B21 through WS5_B24: boş bırakılmış (4 item)"
+      "WS5_B20: MCR=0.25 for row 5 is arithmetically inconsistent with a 10-item dataset (cannot have 2.5 misclassifications). Expected value: 0.20 or 0.30.",
+      "B21-B24: 6th threshold trial not completed. Acceptable if student determined best threshold had been found.",
+      "All rows use 'şeker' as feature — this is consistent across WS4 and WS6 for this student."
     ],
     "student_snapshot": {
       "completion_rate": 0.84,
       "engagement_level": "high",
-      "llm_observations": "Elif ilk 20 boşluğu sistematik biçimde doldurmuş; eşik denemelerini tabloya düzenli yazmış. B21-B24 boş bırakılmış, son boşlukta ise yorum yapmış. MCR hesapları büyük ölçüde doğru.",
-      "page_quality_notes": "Sayfanın alt kısmı hafif eğik taranmış, B21-B24 alanı silik."
+      "llm_observations": "Student completed 5 threshold trials systematically. All totals add to 10 (correct). One arithmetic error in row 5 MCR (0.25 should be 0.20 or 0.30). Final selection (şeker ≤ 8) is principled — student correctly identifies that when multiple thresholds give equal MCR, smaller threshold is preferred. This reasoning goes beyond simple minimization.",
+      "page_quality_notes": "B21-B24 area slightly skewed in scan — may be blank or illegible."
     }
   },
   "gate_3_scoring": {
-    "status": "pending",
-    "scored_at": null,
-    "scoring_model": null,
-    "items": {}
+    "status": "complete",
+    "scored_at": "2026-06-27T12:00:00+00:00",
+    "scoring_model": "rubric_based",
+    "rubric_file": "rubrics/WS5_rubric.json",
+    "items": {
+      "WS5_row1": {
+        "credit": "full",
+        "rationale": "Threshold expression correctly formed (şeker ≤ 5). Counts add to 10 (3+7=10). MCR=0.30 is plausible for this threshold. Systematic format maintained.",
+        "evidence_quote": "şeker ≤ 5 | 3 | 7 | 0.30",
+        "flag": null
+      },
+      "WS5_row2": {
+        "credit": "full",
+        "rationale": "Threshold correctly formed (şeker ≤ 8). Counts: 5+5=10. MCR=0.20. Consistent arithmetic.",
+        "evidence_quote": "şeker ≤ 8 | 5 | 5 | 0.20",
+        "flag": null
+      },
+      "WS5_row3": {
+        "credit": "full",
+        "rationale": "Threshold correctly formed (şeker ≤ 10). Counts: 8+2=10. MCR=0.20. Consistent arithmetic.",
+        "evidence_quote": "şeker ≤ 10 | 8 | 2 | 0.20",
+        "flag": null
+      },
+      "WS5_row4": {
+        "credit": "full",
+        "rationale": "Threshold correctly formed (şeker ≤ 12). Counts: 9+1=10. MCR=0.20. Consistent arithmetic.",
+        "evidence_quote": "şeker ≤ 12 | 9 | 1 | 0.20",
+        "flag": null
+      },
+      "WS5_row5": {
+        "credit": "partial",
+        "rationale": "Threshold correctly formed (şeker ≤ 15). Counts: 10+0=10. MCR=0.25 is arithmetically incorrect for a 10-item dataset — cannot have 2.5 misclassifications. One calculation error in MCR column. Threshold format and counts are correct.",
+        "evidence_quote": "şeker ≤ 15 | 10 | 0 | 0.25",
+        "flag": "arithmetic_error — MCR=0.25 impossible for integer 10-item count"
+      },
+      "WS5_row6": {
+        "credit": "not_attempted",
+        "rationale": "Row 6 (B21-B24) is blank. Student stopped at 5 trials. Rubric accepts stopping at 5 if best threshold identified — see B25 justification.",
+        "evidence_quote": "(bos)",
+        "flag": "possible_scan_issue — see page_notes"
+      },
+      "WS5_B25": {
+        "credit": "full",
+        "rationale": "Student correctly identifies that thresholds 8, 10, and 12 all give MCR=0.20 (minimum). Selecting the smallest threshold (8) shows additional reasoning: student understands that among equally good thresholds, the more conservative (narrower) boundary may generalize better. This exceeds minimum Acquire requirement.",
+        "evidence_quote": "Eşik 8, 10 ve 12 aynı MCR'yi veriyor. En küçük eşik değeri olan 8'i tercih ederim.",
+        "flag": null
+      }
+    },
+    "summary": {
+      "full_count": 5,
+      "partial_count": 1,
+      "zero_count": 0,
+      "not_attempted_count": 1,
+      "overall_worksheet_credit": "full",
+      "scoring_note": "4 rows fully correct, 1 row partial (MCR arithmetic error in row 5), row 6 not attempted (acceptable). Final justification (B25) is strong — identifies tie-breaking principle. One MCR calculation error (row 5) is minor compared to the correct pattern across rows 1-4."
+    }
   },
   "gate_4_aicft": {
-    "status": "pending",
-    "level": null,
-    "evidence": null
+    "status": "complete",
+    "assessed_at": "2026-06-27T12:00:00+00:00",
+    "dimension": "Aspect 3: AI foundations and applications",
+    "level": "Deepen",
+    "evidence": {
+      "Acquire_confirmed": [
+        "WS5_rows1-4: Systematic threshold exploration with correct format — LO3.1.1 (applying classification rules)",
+        "WS5_B4/B8/B12/B16: MCR computed correctly for 4 of 5 trials — LO3.1.1"
+      ],
+      "Deepen_confirmed": [
+        "WS5_B25: Student identifies multiple thresholds with equal MCR and applies tie-breaking criterion — LO3.2.1 (comparing models systematically)",
+        "WS5_B25: Selection of smallest threshold among equals shows awareness of parsimony — LO3.2.2 (interpreting model properties beyond single metric)"
+      ],
+      "indicators": {
+        "LO3.1.1": "confirmed",
+        "LO3.2.1": "confirmed — systematic multi-threshold comparison",
+        "LO3.2.2": "confirmed — tie-breaking reasoning beyond simple MCR minimization"
+      }
+    },
+    "ws_contribution_to_portfolio": "WS5 confirms Deepen through systematic exploration and principled tie-breaking. The MCR error in row 5 is a calculation slip, not a conceptual gap — the pattern across 4 correct rows and a correct final justification outweigh it."
   }
 }

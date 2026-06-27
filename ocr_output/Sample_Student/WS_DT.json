@@ -3,9 +3,17 @@
   "worksheet": "WS_DT",
   "pdf_source": "WorksheetDT.pdf",
   "gate_1_extraction": {
-    "status": "pass",
+    "status": "partial",
     "extracted_at": "2026-06-27T10:15:00+00:00",
     "ocr_model": "claude-sonnet-4-6",
+    "extraction_warnings": [
+      "CRITICAL MAPPING ISSUE: Items DT_A_Q1, DT_A_Q2, DT_A_Q4 contain vocabulary definitions ('Nesne: bir varlık...', 'Özellik: ölçülebilen...', 'Etiket: ait olduğu sınıf'). These look like WS1-type definitions, NOT answers to CODAP inquiry questions. Section A asks data-driven questions about which variable predicts recommendability from CODAP exploration — not vocabulary.",
+      "CRITICAL MAPPING ISSUE: DT_B_Q4 contains a threshold rule ('Şeker miktarı 10 gramdan az olan yiyecekler tavsiye edilir'), NOT an evaluation of which variable performed best with criteria.",
+      "CRITICAL MAPPING ISSUE: DT_C_Q2 and DT_C_Q3 contain generic DT descriptions ('veriye bakarak kurallar öğrenir', 'her adımda veriyi en iyi ayıran özelliği seçer'), NOT answers about threshold effect on performance or best threshold found.",
+      "CRITICAL MAPPING ISSUE: DT_D_Q2 contains a threshold definition, NOT a comparison of single vs. two-variable tree performance.",
+      "Items correctly mapped: DT_D_Q4 (numeric), DT_E_sensitivity, DT_E_MCR, DT_F_Q2 (overfitting), DT_G_Q1, DT_G_Q2.",
+      "Assessment: Approximately 8 of 15 items appear to be extracted from wrong section/question. Re-extraction with explicit section mapping required."
+    ],
     "items": {
       "DT_A_Q1": "Nesne, bir varlık veya örnek demektir. Yemekler birer nesnedir.",
       "DT_A_Q2": "Özellik, nesnenin ölçülebilen bir niteliğidir. Örneğin kalori miktarı.",
@@ -22,6 +30,23 @@
       "DT_F_Q2": "Karar ağacı aşırı öğrenirse eğitim verisinde iyi, test verisinde kötü sonuç verir.",
       "DT_G_Q1": "Algoritma veriyi tekrar tekrar bölerek her dalda saf gruplar oluşturmaya çalışır.",
       "DT_G_Q2": "Eşik değerinin önemi ve modelin nasıl doğrulandığını öğrendim."
+    },
+    "item_schema": {
+      "DT_A_Q1": "Section A Q1: Prior belief — which variable do you think predicts recommendability BEFORE exploring data?",
+      "DT_A_Q2": "Section A Q2: After exploring CODAP graphs — which variable shows clearest separation? Cite data evidence.",
+      "DT_A_Q4": "Section A Q4: Which variable did you choose for first model? Why? (must reference data, not intuition)",
+      "DT_B_Q4": "Section B Q4: Which single-variable tree performed best? What criteria did you use to compare?",
+      "DT_C_Q2": "Section C Q2: How does changing the threshold affect classification performance? Explain the mechanism.",
+      "DT_C_Q3": "Section C Q3: What was the best threshold you found? How did you find it? (describe method)",
+      "DT_D_Q2": "Section D Q2: Did adding a second variable improve performance? Compare with specific numbers.",
+      "DT_D_Q4": "Section D Q4: How did you decide you reached the best tree? What stopping criterion did you use?",
+      "DT_E_sensitivity": "Section E: Fill in sensitivity value from your final model. Formula: TP/(TP+FN)",
+      "DT_E_MCR": "Section E: Fill in MCR value from your final model. Formula: (FP+FN)/total",
+      "DT_E_Q1": "Section E Q1: Which metric matters more for this food recommendation task — sensitivity or MCR? Why?",
+      "DT_E_Q4": "Section E Q4: Can a decision tree achieve perfect classification? Answer Yes or No with explanation.",
+      "DT_F_Q2": "Section F Q2: Compare your model's performance on training data vs. test data. What do you notice and why?",
+      "DT_G_Q1": "Section G Q1: What did the decision tree MODEL learn? (describe what it learned, not how it works)",
+      "DT_G_Q2": "Section G Q2: What did YOU learn from this activity? (list at least 2 specific concepts)"
     },
     "raw_ocr": {
       "student_name": "Sample_Student",
@@ -44,31 +69,176 @@
     }
   },
   "gate_2_validation": {
-    "status": "pass",
+    "status": "partial",
     "item_coverage": {
       "answered": 15,
       "total": 15,
       "blank_or_illegible": 0,
-      "missing": 0,
-      "completion_rate": 1.0
-    },
-    "warnings": [],
-    "student_snapshot": {
+      "suspected_wrong_mapping": 8,
       "completion_rate": 1.0,
-      "engagement_level": "high",
-      "llm_observations": "Elif tüm bölümleri eksiksiz doldurmuş. Duyarlılık ve MCR tanımlarını doğru ifade etmiş, eşik değeri kavramını açık biçimde kullanmış. Aşırı öğrenme konusundaki yorumu kavramsal anlayışa işaret ediyor.",
-      "page_quality_notes": "(bos)"
-    }
+      "reliability_rate": 0.47
+    },
+    "arithmetic_check": {
+      "sensitivity": 0.75,
+      "MCR": 0.20,
+      "consistency_test": "Check: TP/(TP+FN)=0.75 and (FP+FN)/total=0.20. If total=20, FP+FN=4. If total=10, FP+FN=2. Try total=20: sensitivity=0.75 → TP/(TP+FN)=0.75. If FN=1, FP=3: sensitivity=TP/(TP+1)=0.75 → TP=3, total=TP+FP+TN+FN=3+3+TN+1=7+TN. FP+FN=(3+1)=4, MCR=4/total. For MCR=0.20: total=20. So TN=20-7=13. Check: sensitivity=3/(3+1)=0.75 ✓, MCR=4/20=0.20 ✓. Arithmetic is consistent.",
+      "consistent": true,
+      "implied_confusion_matrix": {
+        "TP": 3,
+        "FP": 3,
+        "TN": 13,
+        "FN": 1,
+        "total": 20
+      },
+      "note": "Values are internally consistent. However, they may not match student's actual CODAP model without log data."
+    },
+    "warnings": [
+      "A_Q1, A_Q2, A_Q4: Content looks like vocabulary definitions (WS1-type), not CODAP data exploration answers. Wrong extraction likely.",
+      "B_Q4: Content is a threshold rule, not a best-variable-with-criteria answer. Wrong extraction likely.",
+      "C_Q2, C_Q3: Content is generic DT description, not threshold-specific answers. Wrong extraction likely.",
+      "D_Q2: Content is threshold definition, not single-vs-two-variable comparison. Wrong extraction likely.",
+      "D_Q4: '0.75' is a number — matches sensitivity value, not a stopping criterion description. May be cross-contamination from E section.",
+      "E_Q1: Content is sensitivity definition, not metric preference justification.",
+      "F_Q2, G_Q1, G_Q2: These appear correctly extracted and content-appropriate."
+    ]
   },
   "gate_3_scoring": {
-    "status": "pending",
-    "scored_at": null,
-    "scoring_model": null,
-    "items": {}
+    "status": "partial_scored",
+    "scored_at": "2026-06-27T12:00:00+00:00",
+    "scoring_model": "rubric_based",
+    "rubric_file": "rubrics/WS_DT_rubric.json",
+    "scoring_note": "Items A_Q1 through D_Q2 are scored with a flag indicating likely wrong extraction. Scores should be treated as provisional.",
+    "items": {
+      "DT_A_Q1": {
+        "credit": "zero",
+        "rationale": "Expected: prior belief about which variable predicts recommendability. Extracted content is a vocabulary definition of 'nesne'. Content mismatch — likely wrong extraction. Cannot award credit for wrong-section content.",
+        "evidence_quote": "Nesne, bir varlık veya örnek demektir. Yemekler birer nesnedir.",
+        "flag": "wrong_section_extraction — re-extraction required"
+      },
+      "DT_A_Q2": {
+        "credit": "zero",
+        "rationale": "Expected: data-based variable analysis from CODAP exploration. Extracted content is a definition of 'özellik'. Wrong extraction.",
+        "evidence_quote": "Özellik, nesnenin ölçülebilen bir niteliğidir.",
+        "flag": "wrong_section_extraction"
+      },
+      "DT_A_Q4": {
+        "credit": "zero",
+        "rationale": "Expected: variable choice for first model with data-based justification. Extracted content is definition of 'etiket'. Wrong extraction.",
+        "evidence_quote": "Etiket, nesnenin ait olduğu sınıftır.",
+        "flag": "wrong_section_extraction"
+      },
+      "DT_B_Q4": {
+        "credit": "partial",
+        "rationale": "Expected: best variable and selection criteria. Extracted content gives a specific rule ('şeker < 10 → tavsiye edilir'), which implies student selected şeker as the best variable. However, no comparison criterion or metric is stated — just the rule. Partial: variable named (implicit from rule) but no criteria.",
+        "evidence_quote": "Şeker miktarı 10 gramdan az olan yiyecekler tavsiye edilir.",
+        "flag": "may_be_wrong_section — content partially relevant"
+      },
+      "DT_C_Q2": {
+        "credit": "partial",
+        "rationale": "Expected: explanation of how threshold change affects performance. Extracted: 'Karar ağacı veriye bakarak kurallar öğrenir' — generic DT description, not threshold-specific. Does not address threshold mechanism. If this is genuinely the student's answer to C_Q2, it's zero. But likely wrong extraction.",
+        "evidence_quote": "Karar ağacı veriye bakarak kurallar öğrenir.",
+        "flag": "wrong_section_extraction — scored as zero if confirmed wrong"
+      },
+      "DT_C_Q3": {
+        "credit": "zero",
+        "rationale": "Expected: best threshold found + method description. Content describes DT feature selection ('her adımda veriyi en iyi ayıran özelliği seçer'). Not a threshold value or search method. Wrong extraction.",
+        "evidence_quote": "Ağaç her adımda veriyi en iyi ayıran özelliği seçer.",
+        "flag": "wrong_section_extraction"
+      },
+      "DT_D_Q2": {
+        "credit": "zero",
+        "rationale": "Expected: comparison of single vs. two-variable tree with numbers. Content is a threshold definition. Wrong extraction.",
+        "evidence_quote": "Eşik değeri, bir özelliği iki gruba bölen sınır noktasıdır.",
+        "flag": "wrong_section_extraction"
+      },
+      "DT_D_Q4": {
+        "credit": "zero",
+        "rationale": "Expected: stopping criterion description (how student decided they reached the best tree). Content is '0.75' — a numeric value matching sensitivity. No stopping criterion described. Likely a numeric value extracted from wrong position on the form.",
+        "evidence_quote": "0.75",
+        "flag": "likely_cross_contamination_from_E_section"
+      },
+      "DT_E_sensitivity": {
+        "credit": "full",
+        "rationale": "Sensitivity = 0.75 = TP/(TP+FN). Arithmetic consistency verified: consistent with MCR=0.20 under total=20 scenario (TP=3, FP=3, TN=13, FN=1). Value is within 0-1 range. Full credit.",
+        "evidence_quote": "0.75",
+        "flag": null
+      },
+      "DT_E_MCR": {
+        "credit": "full",
+        "rationale": "MCR = 0.20 = (FP+FN)/total. Arithmetically consistent with sensitivity=0.75. Value is within 0-1 range. Full credit.",
+        "evidence_quote": "0.20",
+        "flag": null
+      },
+      "DT_E_Q1": {
+        "credit": "zero",
+        "rationale": "Expected: which metric matters more (sensitivity or MCR) and why, linked to classification purpose. Content is a sensitivity definition. No metric preference or justification stated. Wrong extraction likely.",
+        "evidence_quote": "Duyarlılık, gerçek pozitiflerin tüm gerçek pozitiflere oranıdır.",
+        "flag": "wrong_section_extraction"
+      },
+      "DT_E_Q4": {
+        "credit": "partial",
+        "rationale": "Expected: No — DT cannot achieve perfect classification — with explanation (data overlap, noise). Student answered: 'MCR düşükse model daha az hata yapar, bu yüzden iyi bir modeldir'. This does not answer the question (can DT achieve perfect?). It describes what low MCR means. Student does not say Yes or No, and does not address the fundamental limitation. Partial: implicitly acknowledges errors exist (MCR not zero) but does not address the impossibility of zero-error.",
+        "evidence_quote": "MCR düşükse model daha az hata yapar, bu yüzden iyi bir modeldir.",
+        "flag": "does_not_answer_the_question — expected 'No' with explanation of data overlap or noise"
+      },
+      "DT_F_Q2": {
+        "credit": "full",
+        "rationale": "Expected: compare train vs. test performance and explain why they differ (overfitting). Student correctly states: (1) aşırı öğrenirse = if overfitting occurs, (2) eğitim verisinde iyi = good on training data, (3) test verisinde kötü sonuç verir = poor on test data. All three elements present: condition, training side, test side. Full credit — this is a Create-level signal.",
+        "evidence_quote": "Karar ağacı aşırı öğrenirse eğitim verisinde iyi, test verisinde kötü sonuç verir.",
+        "flag": null
+      },
+      "DT_G_Q1": {
+        "credit": "partial",
+        "rationale": "Expected: what the DT model 'learned' (patterns/rules from training data). Student describes the algorithm process ('veriyi tekrar tekrar bölerek her dalda saf gruplar oluşturmaya çalışır'). This describes HOW the algorithm works (splitting procedure), not WHAT it learned (the decision rules or patterns). Partial: shows understanding of algorithm mechanism but misses the 'what was learned' framing.",
+        "evidence_quote": "Algoritma veriyi tekrar tekrar bölerek her dalda saf gruplar oluşturmaya çalışır.",
+        "flag": "describes_algorithm_not_learned_output"
+      },
+      "DT_G_Q2": {
+        "credit": "full",
+        "rationale": "Expected: at least 2 specific concepts learned. Student mentions: (1) 'Eşik değerinin önemi' (threshold importance), (2) 'modelin nasıl doğrulandığını' (model validation). Two distinct concepts, both central to the activity. Full credit.",
+        "evidence_quote": "Eşik değerinin önemi ve modelin nasıl doğrulandığını öğrendim.",
+        "flag": null
+      }
+    },
+    "summary": {
+      "full_count": 4,
+      "partial_count": 3,
+      "zero_count": 8,
+      "not_attempted_count": 0,
+      "overall_worksheet_credit": "partial",
+      "scoring_note": "CAVEAT: 8 zero-credit items are largely due to wrong-section extraction, not necessarily wrong student answers. The 4 full-credit items (E sensitivity, E MCR, F Q2, G Q2) and 3 partial items are from sections where extraction appears correct. True student performance on A, B, C, D sections cannot be assessed until re-extraction. F_Q2 (overfitting) and G_Q2 (reflection) are particularly strong — these are Create-level signals."
+    }
   },
   "gate_4_aicft": {
-    "status": "pending",
-    "level": null,
-    "evidence": null
+    "status": "partial",
+    "assessed_at": "2026-06-27T12:00:00+00:00",
+    "dimension": "Aspect 3: AI foundations and applications",
+    "level": "Deepen_to_Create",
+    "evidence": {
+      "Acquire_confirmed": [
+        "DT_E_sensitivity: Correct numeric value, arithmetically consistent — LO3.1.1",
+        "DT_E_MCR: Correct numeric value, arithmetically consistent — LO3.1.1"
+      ],
+      "Deepen_confirmed": [
+        "DT_B_Q4 (provisional): Rule implies data-based variable selection (şeker) — LO3.2.1",
+        "DT_G_Q2: Two specific concepts identified (threshold importance, model validation) — LO3.2.2"
+      ],
+      "Create_signal": [
+        "DT_F_Q2: Correctly explains overfitting as train/test performance gap — LO3.2.3 / LO3.3.1 (understanding model generalization limits)",
+        "DT_G_Q1 (partial): Shows awareness of splitting mechanism — LO3.3.1 approaching"
+      ],
+      "Create_missing": [
+        "DT_E_Q4: Did not answer 'Can DT achieve perfect classification? No' with data overlap explanation — LO3.3.1",
+        "DT_A-D sections: Extraction failures prevent assessing data-driven reasoning and model comparison — these are the core Deepen items"
+      ],
+      "indicators": {
+        "LO3.1.1": "confirmed",
+        "LO3.2.1": "provisional — pending re-extraction of A/B sections",
+        "LO3.2.2": "confirmed — G_Q2 shows metacognitive concept identification",
+        "LO3.2.3": "confirmed — F_Q2 overfitting explanation is complete and correct",
+        "LO3.3.1": "approaching — F_Q2 signals it, but E_Q4 and full A-D assessment needed for confirmation"
+      }
+    },
+    "ws_contribution_to_portfolio": "WS_DT F_Q2 is the strongest Create signal in the entire assessment sequence. No other worksheet captures overfitting understanding at this level of clarity. However, A-D section extraction failures leave the core Deepen competencies (data-driven model comparison, threshold optimization method) unverified. Re-extraction is the highest priority for this student."
   }
 }

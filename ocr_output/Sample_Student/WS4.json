@@ -3,15 +3,28 @@
   "worksheet": "WS4",
   "pdf_source": "Worksheets1-10.pdf",
   "gate_1_extraction": {
-    "status": "pass",
+    "status": "partial",
     "extracted_at": "2026-06-27T10:20:00+00:00",
     "ocr_model": "claude-sonnet-4-6",
+    "extraction_warnings": [
+      "Visual task (circling 4 misclassified items on threshold table) not captured — text-only extraction cannot recover this.",
+      "Expected circled items: Jelibon, Kraker, Yulaf Ezmesi, Avokado (4 items at Leo's threshold). Cannot verify from extracted text."
+    ],
     "items": {
+      "WS4_visual_task": "(not_captured — circle task on printed table)",
       "WS4_B1": "10",
       "WS4_B2": "MCR en düşük olan eşik değeri",
       "WS4_B3": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 — 10 daha iyi.",
       "WS4_B4": "MCR = (FP + FN) / toplam = (2 + 2) / 20 = 0.20",
       "WS4_B5": "Pia'nın ifadesi doğru; en düşük MCR en az hata demektir."
+    },
+    "item_schema": {
+      "WS4_visual_task": "Circle the 4 misclassified items at Leo's original threshold position on the data table. Expected: Jelibon, Kraker, Yulaf Ezmesi, Avokado.",
+      "WS4_B1": "Best threshold value (numeric) — expected value from answer key: 8 or 10 depending on dataset version",
+      "WS4_B2": "Criterion used to select best threshold — must reference MCR or accuracy metric",
+      "WS4_B3": "Comparison statement — must cite at least two MCR values with their thresholds",
+      "WS4_B4": "MCR calculation — formula + arithmetic. Expected: MCR = (FP+FN)/total, with correct substituted values.",
+      "WS4_B5": "Evaluate Pia's claim: 'The best threshold is the one with fewest mistakes' — must state correct/incorrect AND give reasoning"
     },
     "raw_ocr": {
       "student_name": "Sample_Student",
@@ -20,36 +33,113 @@
       "WS4_B3": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 — 10 daha iyi.",
       "WS4_B4": "MCR = (FP + FN) / toplam = (2 + 2) / 20 = 0.20",
       "WS4_B5": "Pia'nın ifadesi doğru; en düşük MCR en az hata demektir.",
-      "ws_snapshot": "Elif en iyi eşik değerini doğru belirlemiş ve MCR hesabını adım adım göstermiş. Pia'nın önerme değerlendirmesi de yerinde. Hesap doğru.",
+      "ws_snapshot": "Sample_Student en iyi eşik değerini doğru belirlemiş ve MCR hesabını adım adım göstermiş. Pia'nın önerme değerlendirmesi de yerinde. Hesap doğru.",
       "page_notes": "(bos)"
     }
   },
   "gate_2_validation": {
-    "status": "pass",
+    "status": "partial",
     "item_coverage": {
       "answered": 5,
-      "total": 5,
+      "total": 6,
       "blank_or_illegible": 0,
+      "not_captured": 1,
       "missing": 0,
-      "completion_rate": 1.0
+      "completion_rate": 0.83
     },
-    "warnings": [],
+    "arithmetic_check": {
+      "WS4_B4_formula": "MCR = (FP + FN) / toplam = (2 + 2) / 20 = 0.20",
+      "FP_claimed": 2,
+      "FN_claimed": 2,
+      "total_claimed": 20,
+      "arithmetic_result": 0.20,
+      "student_result": 0.20,
+      "arithmetic_consistent": true,
+      "note": "Total = 20 is plausible if dataset has 20 items. FP=2, FN=2 → MCR=4/20=0.20. Internally consistent."
+    },
+    "warnings": [
+      "WS4_visual_task: Circle task not captured in text extraction — cannot verify whether student correctly identified the 4 misclassified items.",
+      "WS4_B4: Total denominator = 20 (implies 20-item dataset). Cross-check against WS5 which uses 10-item dataset — possible version discrepancy."
+    ],
     "student_snapshot": {
-      "completion_rate": 1.0,
+      "completion_rate": 0.83,
       "engagement_level": "high",
-      "llm_observations": "Elif en iyi eşik değerini doğru belirlemiş ve MCR hesabını adım adım göstermiş. Pia'nın önerme değerlendirmesi de yerinde. Hesap doğru.",
+      "llm_observations": "All text items complete. Student correctly identifies best threshold using MCR criterion, provides comparison with competing threshold, executes correct formula. Pia evaluation is accurate with reasoning.",
       "page_quality_notes": "(bos)"
     }
   },
   "gate_3_scoring": {
-    "status": "pending",
-    "scored_at": null,
-    "scoring_model": null,
-    "items": {}
+    "status": "complete",
+    "scored_at": "2026-06-27T12:00:00+00:00",
+    "scoring_model": "rubric_based",
+    "rubric_file": "rubrics/WS4_rubric.json",
+    "items": {
+      "WS4_visual_task": {
+        "credit": "not_attempted",
+        "rationale": "Circle task requires visual inspection of student's physical worksheet. Cannot be extracted from text. Re-check of scanned image required.",
+        "evidence_quote": "(not_captured)",
+        "flag": "visual_task_not_captured"
+      },
+      "WS4_B1": {
+        "credit": "full",
+        "rationale": "Student selected threshold=10 as best. At şeker threshold=10, MCR=0.20 (confirmed by B4 arithmetic). This is a valid best threshold for the sugar feature. Answer key accepts 8 or 10 if MCR values match.",
+        "evidence_quote": "10",
+        "flag": null
+      },
+      "WS4_B2": {
+        "credit": "full",
+        "rationale": "Criterion is explicitly metric-based: 'MCR en düşük olan eşik değeri'. This correctly states that the best threshold minimizes MCR. No aesthetic or intuitive reasoning.",
+        "evidence_quote": "MCR en düşük olan eşik değeri",
+        "flag": null
+      },
+      "WS4_B3": {
+        "credit": "full",
+        "rationale": "Comparison cites both MCR values with their thresholds: eşik 10 → MCR 0.20, eşik 8 → MCR 0.30. Two-threshold comparison is correct and sufficient.",
+        "evidence_quote": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 — 10 daha iyi.",
+        "flag": null
+      },
+      "WS4_B4": {
+        "credit": "full",
+        "rationale": "Formula written correctly: MCR = (FP + FN) / toplam. Values substituted: (2+2)/20 = 0.20. Arithmetic is correct. Step-by-step shown.",
+        "evidence_quote": "MCR = (FP + FN) / toplam = (2 + 2) / 20 = 0.20",
+        "flag": null
+      },
+      "WS4_B5": {
+        "credit": "full",
+        "rationale": "Student correctly evaluates Pia's claim as true AND provides reasoning: 'en düşük MCR en az hata demektir'. This links the metric (MCR) to its real-world meaning (fewer errors). Reasoning is present, not just agreement.",
+        "evidence_quote": "Pia'nın ifadesi doğru; en düşük MCR en az hata demektir.",
+        "flag": null
+      }
+    },
+    "summary": {
+      "full_count": 5,
+      "partial_count": 0,
+      "zero_count": 0,
+      "not_attempted_count": 1,
+      "overall_worksheet_credit": "full",
+      "scoring_note": "All 5 scored items full credit. Visual circle task not captured but does not affect text-based scoring. Student demonstrates: (1) metric-based threshold selection, (2) MCR formula application with correct arithmetic, (3) correct evaluation of a peer claim with reasoning."
+    }
   },
   "gate_4_aicft": {
-    "status": "pending",
-    "level": null,
-    "evidence": null
+    "status": "complete",
+    "assessed_at": "2026-06-27T12:00:00+00:00",
+    "dimension": "Aspect 3: AI foundations and applications",
+    "level": "Deepen",
+    "evidence": {
+      "Acquire_confirmed": [
+        "WS4_B4: MCR formula applied correctly — LO3.1.1 (knows evaluation metric)"
+      ],
+      "Deepen_confirmed": [
+        "WS4_B2: Threshold selection criterion is metric-based, not intuitive — LO3.2.1 (comparing models using data-driven criterion)",
+        "WS4_B3: Compared two thresholds using MCR values — LO3.2.1",
+        "WS4_B5: Correctly evaluated a peer's claim and linked MCR to its meaning — LO3.2.2 (interpreting model evaluation)"
+      ],
+      "indicators": {
+        "LO3.1.1": "confirmed",
+        "LO3.2.1": "confirmed — metric-based comparison of two thresholds",
+        "LO3.2.2": "confirmed — MCR interpretation linked to classification error rate"
+      }
+    },
+    "ws_contribution_to_portfolio": "WS4 is the strongest single Deepen signal. Student moves from 'what is MCR' (WS1) to 'use MCR to choose between models' (WS4). This is the core Deepen competency: using evaluation metrics to compare alternatives rather than guessing."
   }
 }
