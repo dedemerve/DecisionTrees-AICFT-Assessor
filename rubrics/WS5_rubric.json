@@ -3,6 +3,15 @@
   "worksheet_title": "Trying Out Threshold Values",
   "worksheet_type": "threshold_exploration_grid",
   "total_items": 25,
+  "schema_version": "2.0",
+  "language": "tr",
+  "scoring_scale": { "full": 1.0, "partial": 0.5, "zero": 0.0 },
+  "scoring_model_policy": {
+    "deterministic_gate2": "All grid arithmetic (counts, row sums, MCR consistency) is verified in Python at Gate 2, not scored by an LLM.",
+    "claude-haiku-4-5": "Feature-name and threshold-form checks.",
+    "claude-sonnet-4-6": "The final decision-with-reasoning item (B25) and any tie-breaking justification."
+  },
+  "aicft_policy": "This rubric produces a worksheet-level credit band only. It is NOT an AI-CFT level. AI-CFT level is cumulative and assigned at the portfolio level under researcher judgement. Per item, Gate 4 emits LO evidence (confirmed / weak / none); it never assigns a level from a single worksheet.",
   "answer_key_source": "Worksheet 5.pdf",
   "context": {
     "description": "Student selects a feature of their own choice and tries multiple threshold values. For each threshold trial: record (1) variable name, (2) left-branch threshold (≤), (3) right-branch threshold (>), (4) recommended count on left, (5) not-recommended count on left, (6) recommended count on right, (7) not-recommended count on right. Calculate misclassification count. Then write final chosen threshold in B25.",

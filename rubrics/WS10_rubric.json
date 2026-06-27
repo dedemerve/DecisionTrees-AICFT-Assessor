@@ -3,6 +3,15 @@
   "worksheet_title": "Systematically Determine the Threshold Value",
   "worksheet_type": "systematic_threshold_table",
   "total_items": 8,
+  "schema_version": "2.0",
+  "language": "tr",
+  "scoring_scale": { "full": 1.0, "partial": 0.5, "zero": 0.0 },
+  "scoring_model_policy": {
+    "deterministic_gate2": "The entire table is numeric: midpoints, misclassification counts, and the optimal threshold are all computed and verified in Python at Gate 2. No LLM scoring for this worksheet once the table is correctly extracted.",
+    "claude-haiku-4-5": "Not used for numeric cells.",
+    "claude-sonnet-4-6": "Not used unless a verbal justification cell is present."
+  },
+  "aicft_policy": "This rubric produces a worksheet-level credit band only. It is NOT an AI-CFT level. AI-CFT level is cumulative and assigned at the portfolio level under researcher judgement. Per item, Gate 4 emits LO evidence (confirmed / weak / none); it never assigns a level from a single worksheet.",
   "answer_key_source": "Worksheet 10.pdf",
   "critical_extraction_note": "WS10 requires filling a numeric TABLE (threshold candidates and misclassification counts). The sample student JSON contains verbal/conceptual explanations of the algorithm (B1-B8), not the actual table values. This indicates a fundamental extraction failure — OCR captured the wrong content. The correct items are numeric: candidate thresholds and their misclassification counts.",
   "context": {

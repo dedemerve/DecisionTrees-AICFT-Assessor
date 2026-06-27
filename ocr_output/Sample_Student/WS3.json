@@ -1,16 +1,15 @@
 {
-  "student_name": "Sample_Student",
-  "worksheet": "WS3",
-  "pdf_source": "Worksheets1-10.pdf",
+  "schema_version": "2.0",
+  "student_id": "Sample_Student",
+  "worksheet_id": "WS3",
+  "rubric_ref": "rubrics/WS3_rubric.json",
+
   "gate_1_extraction": {
     "status": "partial",
-    "extracted_at": "2026-06-27T10:19:00+00:00",
-    "ocr_model": "claude-sonnet-4-6",
-    "extraction_warnings": [
-      "Reason blanks (B2, B4, B6) not separately extracted — only classification labels captured",
-      "B7 and B8 use variable 'şeker' (sugar) instead of 'enerji' (energy) as required by the worksheet"
-    ],
-    "items": {
+    "model": "claude-sonnet-4-6",
+    "extracted_at": "2026-06-27T10:19:00Z",
+    "source_pdf": "Worksheets1-10.pdf",
+    "transcription": {
       "WS3_B1": "Tavsiye edilir",
       "WS3_B2": "(not_captured)",
       "WS3_B3": "Tavsiye edilir",
@@ -20,136 +19,68 @@
       "WS3_B7": "şeker ≤ 10",
       "WS3_B8": "şeker > 10"
     },
-    "item_schema": {
-      "WS3_B1": "Part 1: Patlamış Mısır (Popcorn) classification using Leo's fat rule (fat ≤ 8.0g = recommended)",
-      "WS3_B2": "Part 1: Patlamış Mısır reason (fat value vs threshold)",
-      "WS3_B3": "Part 1: Elma (Apple) classification",
-      "WS3_B4": "Part 1: Elma reason",
-      "WS3_B5": "Part 1: Patates Kızartması (French Fries) classification",
-      "WS3_B6": "Part 1: Patates Kızartması reason",
-      "WS3_B7": "Part 2: Student's own Energy threshold — left branch (≤)",
-      "WS3_B8": "Part 2: Student's own Energy threshold — right branch (>)"
-    },
-    "raw_ocr": {
-      "student_name": "Sample_Student",
-      "WS3_B1": "Tavsiye edilir",
-      "WS3_B2": "Tavsiye edilmez",
-      "WS3_B3": "Tavsiye edilir",
-      "WS3_B4": "Tavsiye edilmez",
-      "WS3_B5": "Tavsiye edilmez",
-      "WS3_B6": "Tavsiye edilir",
-      "WS3_B7": "şeker ≤ 10",
-      "WS3_B8": "şeker > 10",
-      "ws_snapshot": "Sample_Student eşik uygulamasını doğru yapmış; tüm sınıflandırma sonuçlarını eksiksiz doldurmuş. B7 ve B8'deki eşik ifadelerinde ≤ ve > operatörlerini doğru kullanmış.",
-      "page_notes": "(bos)"
-    }
+    "page_flags": [
+      "Reason blanks B2, B4, B6 not separately captured (only classification labels read).",
+      "B7 and B8 use variable 'şeker' (sugar) instead of the required 'enerji' (energy)."
+    ]
   },
+
   "gate_2_validation": {
     "status": "partial",
-    "item_coverage": {
-      "answered": 6,
+    "model": "python_deterministic",
+    "coverage": {
+      "answered": 5,
       "total": 8,
-      "blank_or_illegible": 0,
-      "missing": 2,
+      "blank": 0,
       "not_captured": 3,
-      "completion_rate": 0.75
+      "completion_rate": 0.625
+    },
+    "deterministic_checks": {
+      "WS3_B7": { "type": "variable_match", "expected": "enerji", "found": "şeker", "matches_key": false },
+      "WS3_B8": { "type": "variable_match", "expected": "enerji", "found": "şeker", "matches_key": false }
     },
     "warnings": [
-      "WS3_B2, WS3_B4, WS3_B6: Reason blanks not captured in extraction — these exist on the worksheet but were not separately extracted",
-      "WS3_B7: Uses variable 'şeker' (sugar) instead of the required 'enerji' (energy) — variable_mismatch flag",
-      "WS3_B1: Raw OCR shows 'Tavsiye edilir' for Patlamış Mısır — answer key expects 'tavsiye edilemez' (popcorn has 23g fat > 8g). This may indicate either (a) student applied sugar rule not fat rule, or (b) extraction captured the wrong blank"
+      "B1 'Tavsiye edilir' contradicts Leo's fat rule (popcorn has 23g fat > 8g, so it should be 'tavsiye edilemez'). The student may have applied a sugar threshold throughout Part 1 instead of Leo's fat rule.",
+      "Part 1 reason blanks (B2/B4/B6) need re-extraction."
     ],
-    "numeric_consistency_check": "N/A — classification task, no arithmetic",
-    "student_snapshot": {
-      "completion_rate": 0.75,
-      "engagement_level": "medium",
-      "llm_observations": "Extraction shows classification labels only. Reason blanks (B2/B4/B6) were not captured. B7/B8 use sugar (şeker) instead of required energy (enerji). B1 classification for popcorn ('tavsiye edilir') contradicts Leo's fat rule — possible that student used their own threshold throughout.",
-      "page_quality_notes": "(bos)"
-    }
+    "engagement_note": "Classification labels filled, operators (≤, >) used correctly in Part 2. Engagement medium. A variable mismatch (sugar vs energy) runs through Part 2."
   },
+
   "gate_3_scoring": {
     "status": "partial_scored",
-    "scored_at": "2026-06-27T12:00:00+00:00",
-    "scoring_model": "rubric_based",
-    "rubric_file": "rubrics/WS3_rubric.json",
+    "model": "claude-haiku-4-5",
+    "scored_at": "2026-06-27T12:00:00Z",
     "items": {
-      "WS3_B1": {
-        "credit": "zero",
-        "rationale": "Answer key expects 'tavsiye edilemez' for Patlamış Mısır (23g fat > 8.0g = not recommended). Student wrote 'Tavsiye edilir'. This is incorrect for Leo's fat rule. Note: if student applied sugar rule (şeker ≤ 10), classification might differ depending on popcorn's sugar content in the dataset.",
-        "evidence_quote": "Tavsiye edilir",
-        "flag": "possible_variable_mismatch — student may have applied sugar threshold throughout Part 1, not Leo's fat rule"
-      },
-      "WS3_B2": {
-        "credit": "not_attempted",
-        "rationale": "Reason blank not captured in extraction. Cannot score.",
-        "evidence_quote": "(not_captured)",
-        "flag": "extraction_gap"
-      },
-      "WS3_B3": {
-        "credit": "full",
-        "rationale": "Apple has 0.2g fat ≤ 8.0g → tavsiye edilebilir. Student wrote 'Tavsiye edilir'. Correct.",
-        "evidence_quote": "Tavsiye edilir",
-        "flag": null
-      },
-      "WS3_B4": {
-        "credit": "not_attempted",
-        "rationale": "Reason blank not captured.",
-        "evidence_quote": "(not_captured)",
-        "flag": "extraction_gap"
-      },
-      "WS3_B5": {
-        "credit": "full",
-        "rationale": "French fries have 14g fat > 8.0g → tavsiye edilemez. Student wrote 'Tavsiye edilmez'. Correct.",
-        "evidence_quote": "Tavsiye edilmez",
-        "flag": null
-      },
-      "WS3_B6": {
-        "credit": "not_attempted",
-        "rationale": "Reason blank not captured.",
-        "evidence_quote": "(not_captured)",
-        "flag": "extraction_gap"
-      },
-      "WS3_B7": {
-        "credit": "zero",
-        "rationale": "Worksheet explicitly instructs: 'Enerji değişkeni için kartların dağılımına uyan bir eşik değeri seçin'. Student used 'şeker' (sugar) not 'enerji' (energy). This is a variable_mismatch error. Operator form (≤) is correct but variable is wrong.",
-        "evidence_quote": "şeker ≤ 10",
-        "flag": "variable_mismatch: expected enerji/kcal, got şeker/sugar"
-      },
-      "WS3_B8": {
-        "credit": "zero",
-        "rationale": "Same variable_mismatch as B7. Right branch uses 'şeker' not 'enerji'.",
-        "evidence_quote": "şeker > 10",
-        "flag": "variable_mismatch"
-      }
+      "WS3_B1": { "score": 0.0, "credit": "zero", "evidence": "Tavsiye edilir", "flag": "possible_variable_mismatch", "note": "Leo's fat rule gives 'tavsiye edilemez' for popcorn (23g > 8g)." },
+      "WS3_B2": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "extraction_gap" },
+      "WS3_B3": { "score": 1.0, "credit": "full", "evidence": "Tavsiye edilir", "flag": null, "note": "Apple 0.2g fat ≤ 8g, correct." },
+      "WS3_B4": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "extraction_gap" },
+      "WS3_B5": { "score": 1.0, "credit": "full", "evidence": "Tavsiye edilmez", "flag": null, "note": "French fries 14g fat > 8g, correct." },
+      "WS3_B6": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "extraction_gap" },
+      "WS3_B7": { "score": 0.0, "credit": "zero", "evidence": "şeker ≤ 10", "flag": "variable_mismatch", "note": "Worksheet requires energy; operator form is correct but variable is wrong." },
+      "WS3_B8": { "score": 0.0, "credit": "zero", "evidence": "şeker > 10", "flag": "variable_mismatch" }
     },
-    "summary": {
-      "full_count": 2,
-      "partial_count": 0,
-      "zero_count": 3,
-      "not_attempted_count": 3,
-      "overall_worksheet_credit": "partial",
-      "scoring_note": "B3 (apple) and B5 (french fries) correct. B1 (popcorn) wrong. All reason blanks (B2/B4/B6) missing from extraction — re-extraction needed. B7/B8 use wrong variable. Caution: B1 error may be a symptom of applying sugar threshold throughout Part 1, not of misunderstanding Leo's rule — this needs clarification."
-    }
+    "totals": {
+      "earned": 2.0,
+      "scorable_max": 5,
+      "score_ratio": 0.40,
+      "full": 2,
+      "partial": 0,
+      "zero": 3,
+      "not_attempted": 3,
+      "credit_band": "partial",
+      "data_completeness": 0.625
+    },
+    "scoring_note": "Apple and french fries correct. Popcorn wrong and own threshold uses the wrong variable. Captured-item ratio is low (0.40) but driven by one systematic error (sugar vs energy). Re-extract reason blanks before finalizing."
   },
-  "gate_4_aicft": {
+
+  "gate_4_aicft_evidence": {
     "status": "partial",
-    "assessed_at": "2026-06-27T12:00:00+00:00",
-    "dimension": "Aspect 3: AI foundations and applications",
-    "level": "Acquire_partial",
-    "evidence": {
-      "Acquire_confirmed": [
-        "WS3_B3: Apple correctly classified — LO3.1.1 (applying threshold rule)",
-        "WS3_B5: French fries correctly classified — LO3.1.1"
-      ],
-      "Acquire_missing": [
-        "WS3_B1: Popcorn classification wrong — application of Leo's fat rule failed",
-        "WS3_B7/B8: Own threshold uses wrong variable — cannot confirm LO3.1.3 (operating validated AI tool with correct parameters)"
-      ],
-      "indicators": {
-        "LO3.1.1": "partial",
-        "LO3.1.3": "not_confirmed"
-      }
+    "scope_note": "Per-worksheet LO evidence only. No level is assigned here.",
+    "lo_evidence": {
+      "LO3.1.1": { "signal": "weak", "from": ["WS3_B3", "WS3_B5"], "note": "2 of 3 classifications correct; popcorn wrong." },
+      "LO3.1.3": { "signal": "none", "from": ["WS3_B7", "WS3_B8"], "note": "Own threshold uses the wrong variable, so operating the rule with correct parameters is not confirmed." }
     },
-    "ws_contribution_to_portfolio": "WS3 shows partial Acquire — 2 of 3 classifications correct, but popcorn wrong and own threshold uses wrong variable. Re-extraction needed for full assessment. Variable mismatch (sugar vs energy) suggests possible confusion between Part 1 (Leo's fat rule) and Part 2 (student's own energy rule)."
+    "portfolio_contribution": "Shows a concept-application gap: threshold is defined correctly in WS1 but the wrong variable is applied here. Likely a reading-comprehension slip (which variable the rule specifies), not a conceptual gap. Compare with WS4, where the MCR formula is applied correctly."
   }
 }

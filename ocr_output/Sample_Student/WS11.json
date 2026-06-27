@@ -1,201 +1,114 @@
 {
-  "student_name": "Sample_Student",
-  "worksheet": "WS11",
-  "pdf_source": "Worksheet11_ Feedbacks.pdf",
+  "schema_version": "2.0",
+  "student_id": "Sample_Student",
+  "worksheet_id": "WS11",
+  "rubric_ref": "rubrics/WS11_rubric.json",
+
   "gate_1_extraction": {
     "status": "partial",
-    "extracted_at": "2026-06-27T10:30:00+00:00",
-    "ocr_model": "claude-sonnet-4-6",
-    "extraction_warnings": [
-      "CRITICAL: Q10 (multi-select: what can a DT do?) not extracted as multi-select. WS11_L10_1 through L10_8 appear to be Likert attitude ratings (1-5 scale), NOT Q10 cognitive items. These are different question types on the same worksheet.",
-      "CRITICAL: Q11 (algorithm step ordering: 1-4 sequence) not captured at all.",
-      "CRITICAL: Q12 (mark all that apply: which of these is AI?) not captured at all.",
-      "B9 contains a DT definition — this IS the expected content for Q9 (define karar agaci in your own words). B9 is correctly extracted.",
-      "L11 and L12 items are Likert scales and demographic fields respectively — correctly captured."
-    ],
-    "items": {
-      "WS11_B1": "Karar ağacı kavramını daha iyi anladım. Özellikle eşik değerinin nasıl seçildiğini öğrendim.",
-      "WS11_B2": "WS5 en çok zaman aldı ama en çok şeyi de orada öğrendim.",
-      "WS11_B3": "Duyarlılık ve MCR formüllerini başta karıştırdım, sonunda netleşti.",
-      "WS11_B4": "Ağaç çizmek düşündüğümden zordu; dalları doğru yönde etiketlemek dikkat istedi.",
-      "WS11_B5": "Gerçek veriyle çalışmak soyut kavramları somutlaştırdı.",
-      "WS11_B6": "Daha fazla örnek veri seti üzerinde pratik yapmak isterdim.",
-      "WS11_B7": "Bu etkinliği başka derslerde de görmek isterdim.",
-      "WS11_B8a": "Tavsiye edilmez",
-      "WS11_B8b": "Eğer şeker > 10 ise → Tavsiye edilmez.",
-      "WS11_B9": "Karar ağacı, verideki örüntüleri öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir makine öğrenmesi modelidir.",
-      "WS11_Q10_multiselect": "(not_captured — needs re-extraction as checkbox selection, not Likert)",
-      "WS11_Q11_ordering": "(not_captured — 4-step algorithm ordering task not extracted)",
-      "WS11_Q12_ai_identification": "(not_captured — multi-select AI identification task not extracted)",
-      "WS11_L10_1": "4",
-      "WS11_L10_2": "5",
-      "WS11_L10_3": "4",
-      "WS11_L10_4": "3",
-      "WS11_L10_5": "5",
-      "WS11_L10_6": "4",
-      "WS11_L10_7": "4",
-      "WS11_L10_8": "5",
-      "WS11_L11_1": "4",
-      "WS11_L11_2": "5",
-      "WS11_L11_3": "4",
-      "WS11_L12_1": "Kadın",
-      "WS11_L12_2": "21",
-      "WS11_L12_3": "İlköğretim Matematik",
-      "WS11_L12_4": "3",
-      "WS11_L12_5": "Daha önce programlama kursu almadım."
-    },
-    "item_schema": {
-      "WS11_B1_B7": "Open-ended reflections: what I learned, which WS was hardest, what I struggled with, what helped, what I would change",
-      "WS11_B8a": "Apply student's own rule: Çikolata (sugar=15g) → classification using student's WS6 tree (şeker > 10 → Tavsiye edilmez)",
-      "WS11_B8b": "Write the rule used for B8a in if-then form",
-      "WS11_B9": "Q9: Define 'karar ağacı' in your own words",
-      "WS11_Q10_multiselect": "Q10: Check all statements that a DT CAN do. Correct selections: {1,2,4,5,8}. Wrong: {3,6,7}. Not captured.",
-      "WS11_Q11_ordering": "Q11: Order the 4 algorithm steps correctly. Expected order: 1=feature selection, 2=sort data, 3=find threshold, 4=classify. Not captured.",
-      "WS11_Q12_ai_identification": "Q12: Which of these is AI? Correct: {1,5} (learning systems). Not captured.",
-      "WS11_L10_1_to_L10_8": "Likert scale (1-5): attitude toward activity items 1-8",
-      "WS11_L11_1_to_L11_3": "Likert scale (1-5): course integration attitude items 1-3",
-      "WS11_L12_1": "Demographics: gender",
-      "WS11_L12_2": "Demographics: age",
-      "WS11_L12_3": "Demographics: field of study",
-      "WS11_L12_4": "Demographics: year in program",
-      "WS11_L12_5": "Demographics: prior programming experience"
-    },
-    "raw_ocr": {
-      "student_name": "Sample_Student",
-      "WS11_B1": "Karar ağacı kavramını daha iyi anladım. Özellikle eşik değerinin nasıl seçildiğini öğrendim.",
-      "WS11_B2": "WS5 en çok zaman aldı ama en çok şeyi de orada öğrendim.",
-      "WS11_B3": "Duyarlılık ve MCR formüllerini başta karıştırdım, sonunda netleşti.",
-      "WS11_B4": "Ağaç çizmek düşündüğümden zordu; dalları doğru yönde etiketlemek dikkat istedi.",
-      "WS11_B5": "Gerçek veriyle çalışmak soyut kavramları somutlaştırdı.",
-      "WS11_B6": "Daha fazla örnek veri seti üzerinde pratik yapmak isterdim.",
-      "WS11_B7": "Bu etkinliği başka derslerde de görmek isterdim.",
-      "WS11_B8a": "Tavsiye edilmez",
-      "WS11_B8b": "Eğer şeker > 10 ise → Tavsiye edilmez.",
-      "WS11_B9": "Karar ağacı, verideki örüntüleri öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir makine öğrenmesi modelidir.",
-      "WS11_L10_1": "4", "WS11_L10_2": "5", "WS11_L10_3": "4", "WS11_L10_4": "3",
-      "WS11_L10_5": "5", "WS11_L10_6": "4", "WS11_L10_7": "4", "WS11_L10_8": "5",
-      "WS11_L11_1": "4", "WS11_L11_2": "5", "WS11_L11_3": "4",
-      "WS11_L12_1": "Kadın", "WS11_L12_2": "21", "WS11_L12_3": "İlköğretim Matematik",
-      "WS11_L12_4": "3", "WS11_L12_5": "Daha önce programlama kursu almadım.",
-      "ws_snapshot": "Sample_Student tüm bölümleri eksiksiz doldurmuş. Likert yanıtları genel olarak yüksek (4-5 arası); etkinliğe olumlu yaklaşmış. B9'daki karar ağacı tanımı kavramsal olarak doğru ve öz. B8b'deki kural ifadesi doğru.",
-      "page_notes": "(bos)"
-    }
-  },
-  "gate_2_validation": {
-    "status": "partial",
-    "item_coverage": {
-      "answered_scored": 12,
-      "likert_and_demographic": 14,
-      "not_captured": 3,
-      "total_cognitive_items": 15,
-      "completion_rate_cognitive": 0.80
-    },
-    "student_profile_from_demographics": {
-      "gender": "Kadın",
-      "age": 21,
-      "field": "İlköğretim Matematik",
-      "year": 3,
-      "prior_programming": false,
-      "note": "Pre-service primary mathematics teacher, year 3, no programming background. Important context for interpreting AI-CFT level: Acquire is the realistic target for this profile."
-    },
-    "warnings": [
-      "Q10, Q11, Q12 cognitive items not captured — these are the most direct measures of conceptual understanding in WS11.",
-      "L10 Likert items are attitude measures, not cognitive performance — do not use for AI-CFT level.",
-      "Re-extraction needed for checkbox/ordering questions."
-    ],
-    "student_snapshot": {
-      "completion_rate": 0.80,
-      "engagement_level": "high",
-      "llm_observations": "High engagement visible in reflections (B1-B7). Student spontaneously identifies WS5 as most informative, confirms sensitivity/MCR confusion resolved. B8a/b correctly applies own tree rule to new example. B9 DT definition is strong. Likert scores consistently 4-5.",
-      "page_quality_notes": "(bos)"
-    }
-  },
-  "gate_3_scoring": {
-    "status": "partial_scored",
-    "scored_at": "2026-06-27T12:00:00+00:00",
-    "scoring_model": "rubric_based",
-    "rubric_file": "rubrics/WS11_rubric.json",
-    "items": {
-      "WS11_B8a": {
-        "credit": "full",
-        "rationale": "Student correctly applies own tree rule to Çikolata. Çikolata has sugar=15g > 10g (student's threshold). Rule: şeker > 10 → Tavsiye edilmez. Student answered 'Tavsiye edilmez'. Correct.",
-        "evidence_quote": "Tavsiye edilmez",
-        "flag": null
+    "model": "claude-sonnet-4-6",
+    "extracted_at": "2026-06-27T10:30:00Z",
+    "source_pdf": "Worksheet11_Feedbacks.pdf",
+    "transcription": {
+      "reflections": {
+        "WS11_B1": "Karar ağacı kavramını daha iyi anladım. Özellikle eşik değerinin nasıl seçildiğini öğrendim.",
+        "WS11_B2": "WS5 en çok zaman aldı ama en çok şeyi de orada öğrendim.",
+        "WS11_B3": "Duyarlılık ve MCR formüllerini başta karıştırdım, sonunda netleşti.",
+        "WS11_B4": "Ağaç çizmek düşündüğümden zordu; dalları doğru yönde etiketlemek dikkat istedi.",
+        "WS11_B5": "Gerçek veriyle çalışmak soyut kavramları somutlaştırdı.",
+        "WS11_B6": "Daha fazla örnek veri seti üzerinde pratik yapmak isterdim.",
+        "WS11_B7": "Bu etkinliği başka derslerde de görmek isterdim."
       },
-      "WS11_B8b": {
-        "credit": "full",
-        "rationale": "If-then rule correctly formulated: 'Eğer şeker > 10 ise → Tavsiye edilmez.' Form is correct (if-then), condition is correct (şeker > 10), outcome is correct (Tavsiye edilmez). Consistent with WS6 tree right branch and WS7 B3.",
-        "evidence_quote": "Eğer şeker > 10 ise → Tavsiye edilmez.",
-        "flag": null
+      "cognitive": {
+        "WS11_B8a": "Tavsiye edilmez",
+        "WS11_B8b": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+        "WS11_B9": "Karar ağacı, verideki örüntüleri öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir makine öğrenmesi modelidir.",
+        "WS11_Q10_multiselect": "(not_captured)",
+        "WS11_Q11_ordering": "(not_captured)",
+        "WS11_Q12_ai_identification": "(not_captured)"
       },
-      "WS11_B9": {
-        "credit": "full",
-        "rationale": "DT definition contains both required elements: (1) 'verideki örüntüleri öğrenerek' — learning from data, (2) 'yeni örnekleri sınıflandıran' — classifies new examples, (3) 'dal ve yaprak düğümlerden oluşan' — tree structure, (4) 'makine öğrenmesi modelidir' — places within ML context. This is a complete and correct definition.",
-        "evidence_quote": "Karar ağacı, verideki örüntüleri öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir makine öğrenmesi modelidir.",
-        "flag": null
-      },
-      "WS11_Q10_multiselect": {
-        "credit": "not_attempted",
-        "rationale": "Q10 multi-select not extracted. Answer key: correct selections are {1,2,4,5,8} (things DT can do). Wrong: {3,6,7}. Cannot score without extraction.",
-        "evidence_quote": "(not_captured)",
-        "flag": "critical_extraction_gap — re-extraction required"
-      },
-      "WS11_Q11_ordering": {
-        "credit": "not_attempted",
-        "rationale": "Q11 step ordering not extracted. Expected correct order: 1=feature selection, 2=sort data, 3=find threshold, 4=classify new example. Cannot score.",
-        "evidence_quote": "(not_captured)",
-        "flag": "critical_extraction_gap"
-      },
-      "WS11_Q12_ai_identification": {
-        "credit": "not_attempted",
-        "rationale": "Q12 multi-select not extracted. Expected correct selections: {1,5} (systems that learn). Cannot score.",
-        "evidence_quote": "(not_captured)",
-        "flag": "critical_extraction_gap"
-      },
-      "WS11_reflections_B1_B7": {
-        "credit": "qualitative_only",
-        "rationale": "Reflections not scored for correctness — they are self-report data. Qualitative observations: (1) Student identifies WS5 as high-effort and high-learning, which aligns with our assessment that WS5 is the strongest Deepen activity. (2) Student acknowledges prior confusion with sensitivity/MCR formulas — consistent with WS1_B6 partial credit. (3) Student identifies 'tree branch labeling' as difficult — consistent with WS6 B12 blank. These reflections corroborate the scoring pattern.",
-        "evidence_quote": "WS5 en çok zaman aldı ama en çok şeyi de orada öğrendim. / Duyarlılık ve MCR formüllerini başta karıştırdım, sonunda netleşti.",
-        "flag": "qualitative — not counted in credit totals"
-      },
-      "WS11_Likert_L10_L11": {
-        "credit": "not_scored",
-        "rationale": "Likert attitude items (1-5 scale) are research instrument data, not cognitive performance items. Mean L10 = 4.25, mean L11 = 4.33. Indicates positive attitude toward the activity. Not used for AI-CFT level.",
-        "evidence_quote": "L10 scores: 4,5,4,3,5,4,4,5 — mean 4.25",
-        "flag": "attitude_data — not AI-CFT relevant"
+      "likert_L10": { "1": "4", "2": "5", "3": "4", "4": "3", "5": "5", "6": "4", "7": "4", "8": "5" },
+      "likert_L11": { "1": "4", "2": "5", "3": "4" },
+      "demographics": {
+        "gender": "Kadın",
+        "age": "21",
+        "field": "İlköğretim Matematik",
+        "year_in_program": "3",
+        "prior_programming": "Daha önce programlama kursu almadım."
       }
     },
-    "summary": {
-      "full_count": 3,
-      "partial_count": 0,
-      "zero_count": 0,
-      "not_attempted_count": 3,
-      "not_scored_count": 2,
-      "overall_worksheet_credit": "partial",
-      "scoring_note": "B8a, B8b, B9 all full credit — strong application and definition. Q10/Q11/Q12 not captured — these are the most direct cognitive assessment items on WS11 and must be re-extracted. Reflections qualitatively corroborate scoring pattern from other worksheets."
-    }
+    "page_flags": [
+      "Q10 (multi-select), Q11 (ordering), Q12 (AI identification) not captured. L10_1-8 are Likert attitude ratings, a different question type, not Q10.",
+      "B9 correctly holds the Q9 'define decision tree' answer."
+    ]
   },
-  "gate_4_aicft": {
+
+  "gate_2_validation": {
     "status": "partial",
-    "assessed_at": "2026-06-27T12:00:00+00:00",
-    "dimension": "Aspect 3: AI foundations and applications",
-    "level": "Acquire",
-    "evidence": {
-      "Acquire_confirmed": [
-        "WS11_B8a: Correctly applies own tree rule to new unseen example (Çikolata) — LO3.1.1 (applying classification rule to new data)",
-        "WS11_B8b: Correctly formulates if-then rule — LO3.1.1",
-        "WS11_B9: Complete and correct DT definition including data-learning aspect and tree structure — LO3.1.2"
-      ],
-      "Acquire_missing": [
-        "Q10 (DT capabilities), Q11 (algorithm steps), Q12 (AI identification) — not captured, cannot confirm or deny"
-      ],
-      "indicators": {
-        "LO3.1.1": "confirmed — rule application and formulation",
-        "LO3.1.2": "confirmed — complete DT definition",
-        "LO3.1.5": "approaching — Q12 would confirm but not extracted"
-      },
-      "student_profile_note": "Pre-service primary math teacher, no programming background, year 3. Acquire as final level is appropriate and meaningful for this profile. The reflections show metacognitive awareness of own learning gaps (formula confusion) and strengths (WS5 as peak learning moment)."
+    "model": "python_deterministic",
+    "coverage": {
+      "cognitive_answered": 3,
+      "cognitive_total": 6,
+      "not_captured": 3,
+      "completion_rate_cognitive": 0.5,
+      "likert_and_demographic_captured": 16
     },
-    "ws_contribution_to_portfolio": "WS11 B8a/b confirm transfer: student applies own tree rule to a genuinely new example (Çikolata was not in the WS6 dataset). B9 shows DT understanding is retained as genuine definition, not just rote formula. Q10/Q11/Q12 gaps mean the full cognitive profile is incomplete — re-extraction needed."
+    "deterministic_checks": {
+      "WS11_B8a": { "type": "classification", "expected": "tavsiye edilmez", "found": "Tavsiye edilmez", "matches_key": true, "note": "Çikolata sugar 15g > 10g threshold." },
+      "likert_L10_mean": 4.25,
+      "likert_L11_mean": 4.33
+    },
+    "warnings": [
+      "Q10, Q11, Q12 are the most direct cognitive items in WS11 and were not captured; re-extract as checkbox/ordering.",
+      "Likert items are attitude data, never used for LO evidence."
+    ],
+    "engagement_note": "High engagement in reflections. Student names WS5 as most informative and reports the sensitivity/MCR confusion resolving, both consistent with other worksheets. Likert consistently 4-5."
+  },
+
+  "gate_3_scoring": {
+    "status": "partial_scored",
+    "model": "claude-sonnet-4-6",
+    "scored_at": "2026-06-27T12:00:00Z",
+    "items": {
+      "WS11_B8a": { "score": 1.0, "credit": "full", "evidence": "Tavsiye edilmez", "flag": null, "note": "Correct rule application to a new example (Çikolata)." },
+      "WS11_B8b": { "score": 1.0, "credit": "full", "evidence": "Eğer şeker > 10 ise → Tavsiye edilmez.", "flag": null, "note": "Consistent with WS6 right branch and WS7 B3." },
+      "WS11_B9": { "score": 1.0, "credit": "full", "evidence": "...verideki örüntüleri öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir makine öğrenmesi modelidir.", "flag": null, "note": "Data-learning, classification, tree structure, ML framing all present." },
+      "WS11_Q10_multiselect": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "critical_extraction_gap" },
+      "WS11_Q11_ordering": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "critical_extraction_gap" },
+      "WS11_Q12_ai_identification": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "critical_extraction_gap" }
+    },
+    "reflections_qualitative": {
+      "scored": false,
+      "note": "Self-report, not scored. Reflections corroborate scoring: WS5 named as peak learning (matches WS5 full credit), formula confusion acknowledged (matches WS1 B6 partial), branch labeling called hard (matches WS6 B12 blank)."
+    },
+    "likert_descriptive": {
+      "scored": false,
+      "L10_mean": 4.25,
+      "L11_mean": 4.33,
+      "note": "Attitude data only."
+    },
+    "totals": {
+      "earned": 3.0,
+      "scorable_max": 6,
+      "score_ratio": 0.5,
+      "full": 3,
+      "partial": 0,
+      "zero": 0,
+      "not_attempted": 3,
+      "credit_band": "partial",
+      "data_completeness": 0.5
+    },
+    "scoring_note": "B8a, B8b, B9 all full credit. Q10/Q11/Q12 not captured caps the band at partial. Re-extract the three cognitive items."
+  },
+
+  "gate_4_aicft_evidence": {
+    "status": "partial",
+    "scope_note": "Per-worksheet LO evidence only. No level is assigned here.",
+    "lo_evidence": {
+      "LO3.1.1": { "signal": "confirmed", "from": ["WS11_B8a", "WS11_B8b"], "note": "Applies and formulates the rule for a genuinely new example." },
+      "LO3.1.2": { "signal": "confirmed", "from": ["WS11_B9"], "note": "Complete decision-tree definition, not rote formula." },
+      "LO3.1.5": { "signal": "none", "from": ["WS11_Q12_ai_identification"], "note": "Q12 would speak to this but was not captured." }
+    },
+    "portfolio_contribution": "Confirms transfer: applies own rule to Çikolata (not in the WS6 dataset). Full cognitive profile incomplete until Q10/Q11/Q12 are re-extracted. Note the metacognitive accuracy in the reflections."
   }
 }

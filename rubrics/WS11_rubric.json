@@ -3,6 +3,15 @@
   "worksheet_title": "Evaluation",
   "worksheet_type": "mixed_evaluation",
   "total_items": 26,
+  "schema_version": "2.0",
+  "language": "tr",
+  "scoring_scale": { "full": 1.0, "partial": 0.5, "zero": 0.0 },
+  "scoring_model_policy": {
+    "deterministic_gate2": "Multi-select (Q10, Q12) and ordering (Q11) are scored against the answer key in Python at Gate 2. Classification (B8a) is also deterministic.",
+    "claude-haiku-4-5": "Rule-formulation form check (B8b).",
+    "claude-sonnet-4-6": "Open-ended definition (B9) and any reasoning. Feedback and Likert items are descriptive only, never scored for correctness."
+  },
+  "aicft_policy": "This rubric produces a worksheet-level credit band only. It is NOT an AI-CFT level. AI-CFT level is cumulative and assigned at the portfolio level under researcher judgement. Per item, Gate 4 emits LO evidence (confirmed / weak / none); it never assigns a level from a single worksheet.",
   "answer_key_source": "Worksheet 11.pdf",
   "sections": {
     "feedback_section": {

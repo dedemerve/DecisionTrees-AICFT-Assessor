@@ -1,16 +1,15 @@
 {
-  "student_name": "Sample_Student",
-  "worksheet": "WS6",
-  "pdf_source": "Worksheets1-10.pdf",
+  "schema_version": "2.0",
+  "student_id": "Sample_Student",
+  "worksheet_id": "WS6",
+  "rubric_ref": "rubrics/WS6_rubric.json",
+
   "gate_1_extraction": {
     "status": "pass",
-    "extracted_at": "2026-06-27T10:24:00+00:00",
-    "ocr_model": "claude-sonnet-4-6",
-    "extraction_warnings": [
-      "WS6_B12: blank — likely the classification count notation inside a leaf node (e.g., '7 recommended / 1 not_recommended'). Cannot determine whether student left it blank or it was missed in extraction.",
-      "Tree structure successfully reconstructed from items — consistent with WS7 rules."
-    ],
-    "items": {
+    "model": "claude-sonnet-4-6",
+    "extracted_at": "2026-06-27T10:24:00Z",
+    "source_pdf": "Worksheets1-10.pdf",
+    "transcription": {
       "WS6_B1": "şeker",
       "WS6_B2": "≤ 10",
       "WS6_B3": "evet (≤ 10)",
@@ -25,162 +24,94 @@
       "WS6_B12": "(bos)",
       "WS6_B13": "Tavsiye edilmez"
     },
-    "item_schema": {
-      "WS6_B1": "Root node: feature name",
-      "WS6_B2": "Root node: threshold with operator (≤ value)",
-      "WS6_B3": "Root left branch label (condition that is true: ≤ threshold)",
-      "WS6_B4": "Root right branch label (condition that is false: > threshold)",
-      "WS6_B5": "Right branch of root: leaf label or intermediate node type",
-      "WS6_B6": "Left child of root: second feature name",
-      "WS6_B7": "Left child threshold with operator",
-      "WS6_B8": "Left child left branch label",
-      "WS6_B9": "Left child right branch label",
-      "WS6_B10": "Leaf: şeker ≤ 10 AND yağ ≤ 5 → label",
-      "WS6_B11": "Leaf: şeker ≤ 10 AND yağ > 5 → label",
-      "WS6_B12": "Count notation for one leaf node (blank — expected: items count per class)",
-      "WS6_B13": "Leaf: şeker > 10 → label"
-    },
     "tree_structure": {
+      "vision_model": "claude-sonnet-4-6",
       "root_feature": "şeker",
       "root_operator": "<=",
       "root_threshold": "10",
       "full_tree": {
-        "feature": "şeker",
-        "operator": "<=",
-        "threshold": "10",
+        "feature": "şeker", "operator": "<=", "threshold": "10",
         "left": {
-          "feature": "yağ",
-          "operator": "<=",
-          "threshold": "5",
+          "feature": "yağ", "operator": "<=", "threshold": "5",
           "left": { "label": "Tavsiye edilir" },
           "right": { "label": "Tavsiye edilmez" }
         },
         "right": { "label": "Tavsiye edilmez" }
-      },
-      "raw_texts": ["şeker", "≤ 10", "yağ", "≤ 5", "Tavsiye edilir", "Tavsiye edilmez", "Tavsiye edilmez"],
-      "pipeline_warnings": [],
-      "vision_model": "claude-sonnet-4-6"
+      }
     },
-    "raw_ocr": {
-      "student_name": "Sample_Student",
-      "WS6_B1": "şeker",
-      "WS6_B2": "≤ 10",
-      "WS6_B3": "evet (≤ 10)",
-      "WS6_B4": "hayır (> 10)",
-      "WS6_B5": "Tavsiye edilir",
-      "WS6_B6": "yağ",
-      "WS6_B7": "≤ 5",
-      "WS6_B8": "evet (≤ 5)",
-      "WS6_B9": "hayır (> 5)",
-      "WS6_B10": "Tavsiye edilir",
-      "WS6_B11": "Tavsiye edilmez",
-      "WS6_B12": "(bos)",
-      "WS6_B13": "Tavsiye edilmez",
-      "ws_snapshot": "Sample_Student iki düzeyli bir karar ağacı çizmiş; kök düğümde şeker, ikinci dalda yağ özelliğini kullanmış. Eşik değerlerini ve dal yönlerini (≤ / >) doğru etiketlemiş. Yaprak düğümlerin tamamı yazılmış, yalnızca B12 boş.",
-      "page_notes": "(bos)"
-    }
+    "page_flags": [
+      "B12 (a leaf count notation) blank; cannot tell whether left blank by student or missed in extraction."
+    ]
   },
+
   "gate_2_validation": {
     "status": "pass",
-    "item_coverage": {
+    "model": "python_deterministic",
+    "coverage": {
       "answered": 12,
       "total": 13,
-      "blank_or_illegible": 1,
-      "not_captured": 0,
-      "missing": 0,
+      "blank": 1,
       "completion_rate": 0.923
     },
-    "tree_validity_checks": {
-      "depth": 2,
-      "depth_meets_minimum": true,
-      "root_feature": "şeker",
-      "second_feature": "yağ",
-      "features_different": true,
-      "leaf_count": 3,
-      "all_leaves_labeled": true,
-      "operators_consistent": {
-        "root_left": "≤ (correct — left goes to ≤ branch)",
-        "root_right": "> (correct — right goes to > branch)",
-        "second_left": "≤ 5 (correct)",
-        "second_right": "> 5 (correct)"
+    "deterministic_checks": {
+      "tree_validity": {
+        "depth": 2,
+        "depth_meets_minimum": true,
+        "root_feature": "şeker",
+        "second_feature": "yağ",
+        "features_different": true,
+        "leaf_count": 3,
+        "all_leaves_labeled": true,
+        "operators_consistent": true
       },
-      "cross_ws_consistency_with_WS5": {
-        "WS5_best_threshold": "şeker ≤ 8",
-        "WS6_root_threshold": "şeker ≤ 10",
-        "consistency": "MINOR DISCREPANCY — WS5 concludes şeker ≤ 8 is best (tie-break). WS6 root uses şeker ≤ 10. Both have MCR=0.20 so this is within acceptable range. Student may have reconsidered or applied WS5 insights differently in WS6.",
-        "severity": "low"
+      "cross_ws_WS5": {
+        "ws5_best_threshold": "şeker ≤ 8",
+        "ws6_root_threshold": "şeker ≤ 10",
+        "matches": "minor_discrepancy",
+        "note": "Both have MCR=0.20; within MCR-equivalent range."
       },
-      "cross_ws_consistency_with_WS7": {
-        "WS7_B1": "şeker ≤ 10 AND yağ ≤ 5 → Tavsiye edilir",
-        "WS7_B2": "şeker ≤ 10 AND yağ > 5 → Tavsiye edilmez",
-        "WS7_B3": "şeker > 10 → Tavsiye edilmez",
-        "consistency": "CONSISTENT — WS7 rules match WS6 tree exactly"
+      "cross_ws_WS7": {
+        "matches": true,
+        "note": "WS7 rules reproduce this tree exactly."
       }
     },
     "warnings": [
-      "WS6_B12: blank leaf count notation. Minor — does not affect tree structure or AI-CFT assessment.",
-      "WS5 best threshold (şeker ≤ 8) differs from WS6 root (şeker ≤ 10) — both have MCR=0.20, minor discrepancy."
+      "B12 blank leaf-count notation; minor, does not affect structure.",
+      "WS5 best threshold (≤ 8) differs from WS6 root (≤ 10); both MCR=0.20."
     ],
-    "student_snapshot": {
-      "completion_rate": 0.923,
-      "engagement_level": "high",
-      "llm_observations": "Valid 2-level tree with correct operator directions, two different features, 3 correctly labeled leaf nodes. B12 blank (count notation) is a minor gap. Tree is well-structured and internally consistent.",
-      "page_quality_notes": "(bos)"
-    }
+    "engagement_note": "Valid 2-level tree: correct operator directions, two different features, three labeled leaves. Engagement high."
   },
+
   "gate_3_scoring": {
     "status": "complete",
-    "scored_at": "2026-06-27T12:00:00+00:00",
-    "scoring_model": "rubric_based",
-    "rubric_file": "rubrics/WS6_rubric.json",
+    "model": "claude-haiku-4-5",
+    "scored_at": "2026-06-27T12:00:00Z",
     "items": {
-      "WS6_tree_structure": {
-        "credit": "full",
-        "rationale": "Valid 2-level decision tree. Root = şeker (valid feature), threshold = ≤ 10 (valid threshold, consistent with WS5 exploration). Left branch uses yağ (second different feature, threshold ≤ 5). All 3 leaves correctly labeled. Left/right operators consistent throughout (≤ goes left, > goes right). Depth=2 meets minimum.",
-        "evidence_quote": "Root: şeker ≤ 10 → Left: yağ ≤ 5 → Tavsiye edilir / Tavsiye edilmez; Right: Tavsiye edilmez",
-        "flag": null
-      },
-      "WS6_B3_B4_direction_labels": {
-        "credit": "full",
-        "rationale": "Branch labels correctly distinguish evet (≤ condition = true) and hayır (> condition = false). This shows understanding of how the binary split works, not just filling boxes.",
-        "evidence_quote": "WS6_B3: evet (≤ 10), WS6_B4: hayır (> 10)",
-        "flag": null
-      },
-      "WS6_B12": {
-        "credit": "not_attempted",
-        "rationale": "Leaf count notation blank. This is a minor item — affects completeness but not structural understanding of the tree.",
-        "evidence_quote": "(bos)",
-        "flag": null
-      }
+      "WS6_tree_structure": { "score": 1.0, "credit": "full", "evidence": "Root şeker ≤ 10 → left yağ ≤ 5 → {Tavsiye edilir / Tavsiye edilmez}; right Tavsiye edilmez", "flag": null, "note": "Valid features, thresholds, leaves, operators, depth 2." },
+      "WS6_B3_B4_direction_labels": { "score": 1.0, "credit": "full", "evidence": "evet (≤ 10) / hayır (> 10)", "flag": null, "note": "Branch labels show understanding of the binary split." },
+      "WS6_B12": { "score": null, "credit": "not_attempted", "evidence": "(bos)", "flag": null }
     },
-    "summary": {
-      "full_count": 2,
-      "partial_count": 0,
-      "zero_count": 0,
-      "not_attempted_count": 1,
-      "overall_worksheet_credit": "full",
-      "scoring_note": "Tree structure is fully valid: correct features, correct operators, correct leaf labels, correct depth, two different features used. B12 (count notation) blank is the only gap — minor. This is the strongest structural evidence of Acquire-level AI-CFT understanding in the unplugged sequence."
-    }
+    "totals": {
+      "earned": 2.0,
+      "scorable_max": 2,
+      "score_ratio": 1.0,
+      "full": 2,
+      "partial": 0,
+      "zero": 0,
+      "not_attempted": 1,
+      "credit_band": "full",
+      "data_completeness": 0.923
+    },
+    "scoring_note": "Fully valid tree. B12 (count notation) is the only gap and is minor. This is the strongest structural artifact in the unplugged sequence."
   },
-  "gate_4_aicft": {
+
+  "gate_4_aicft_evidence": {
     "status": "complete",
-    "assessed_at": "2026-06-27T12:00:00+00:00",
-    "dimension": "Aspect 3: AI foundations and applications",
-    "level": "Acquire",
-    "approaching_next_level": "Deepen",
-    "evidence": {
-      "Acquire_confirmed": [
-        "WS6_tree_structure: Valid 2-level decision tree constructed from own chosen features and thresholds — LO3.1.1 (constructing decision rule tree)",
-        "WS6_B3/B4: Correct binary branch labeling (evet/hayır) — LO3.1.1"
-      ],
-      "Deepen_signal": [
-        "WS6 threshold choice (şeker ≤ 10) consistent with WS5 exploration — student applied data-driven threshold selection to construct own tree — LO3.2.1 early signal"
-      ],
-      "indicators": {
-        "LO3.1.1": "confirmed — tree construction with valid structure",
-        "LO3.2.1": "approaching — threshold derived from WS5 systematic search"
-      }
+    "scope_note": "Per-worksheet LO evidence only. No level is assigned here.",
+    "lo_evidence": {
+      "LO3.1.1": { "signal": "confirmed", "from": ["WS6_B3_B4_direction_labels"], "note": "Correct binary split logic." },
+      "LO3.2.2": { "signal": "confirmed", "from": ["WS6_tree_structure"], "note": "A valid 2-level tree is a visual representation of how the DT classifies, derived from the student's own data-driven threshold." }
     },
-    "ws_contribution_to_portfolio": "WS6 provides the structural artifact (the tree) that WS7 rules are derived from. The tree is valid, well-labeled, and data-grounded. Cross-WS consistency with WS7 is perfect. The slight threshold discrepancy with WS5 (8 vs 10) is within MCR-equivalent range and does not constitute an error."
+    "portfolio_contribution": "Provides the structural artifact that WS7 rules are derived from. Consistent with WS7. The 8-vs-10 threshold difference from WS5 is within MCR-equivalent range, not an error."
   }
 }

@@ -3,6 +3,15 @@
   "worksheet_title": "Searching for the Best Threshold Value",
   "worksheet_type": "threshold_optimization",
   "total_items": 5,
+  "schema_version": "2.0",
+  "language": "tr",
+  "scoring_scale": { "full": 1.0, "partial": 0.5, "zero": 0.0 },
+  "scoring_model_policy": {
+    "deterministic_gate2": "Numeric items (threshold validity, midpoint check, misclassification counts) are verified in Python at Gate 2, not scored by an LLM.",
+    "claude-haiku-4-5": "Short binary or single-concept items.",
+    "claude-sonnet-4-6": "Partial-credit, reasoning, or evaluation items (criterion quality, Pia evaluation)."
+  },
+  "aicft_policy": "This rubric produces a worksheet-level credit band only. It is NOT an AI-CFT level. AI-CFT level is cumulative and assigned at the portfolio level under researcher judgement. Per item, Gate 4 emits LO evidence (confirmed / weak / none); it never assigns a level from a single worksheet.",
   "answer_key_source": "Worksheet 4.pdf",
   "context": {
     "dataset": "11 food cards sorted by fat value. Leo placed pencil between apple and raspberry jam.",

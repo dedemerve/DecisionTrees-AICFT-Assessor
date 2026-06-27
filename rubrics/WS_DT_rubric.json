@@ -3,6 +3,15 @@
   "worksheet_title": "Classification with Decision Trees Activity (CODAP Arbor)",
   "worksheet_type": "open_ended_inquiry",
   "total_items": 15,
+  "schema_version": "2.0",
+  "language": "tr",
+  "scoring_scale": { "full": 1.0, "partial": 0.5, "zero": 0.0 },
+  "scoring_model_policy": {
+    "deterministic_gate2": "Section E numeric values (sensitivity, MCR) are checked for arithmetic consistency in Python at Gate 2.",
+    "claude-haiku-4-5": "Not the main model here; most items are open-ended.",
+    "claude-sonnet-4-6": "All quality-of-reasoning items (Sections A-D, E Q1/Q4, F, G). These need partial credit and context, so Sonnet is preferred."
+  },
+  "aicft_policy": "This rubric produces a worksheet-level credit band only. It is NOT an AI-CFT level. AI-CFT level is cumulative and assigned at the portfolio level under researcher judgement. Per item, Gate 4 emits LO evidence (confirmed / weak / none) plus the existing deepen_signal / create_signal flags; it never assigns a level from a single worksheet.",
   "answer_key_source": "Worksheet DT.pdf",
   "scoring_philosophy": "Most items are open-ended. No single correct answer for variable selection, threshold choice, or feature combination. Assessment is criteria-based: Does the student use data to justify decisions? Are claims consistent with their own log data? Is reasoning principled rather than intuitive?",
   "sections": {

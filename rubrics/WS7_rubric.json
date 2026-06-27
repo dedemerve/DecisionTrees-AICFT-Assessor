@@ -3,6 +3,15 @@
   "worksheet_title": "Formulate Decision Rules",
   "worksheet_type": "rule_formulation_two_parts",
   "total_items": 10,
+  "schema_version": "2.0",
+  "language": "tr",
+  "scoring_scale": { "full": 1.0, "partial": 0.5, "zero": 0.0 },
+  "scoring_model_policy": {
+    "deterministic_gate2": "Part 1 path matching (A/B/C) is checked against the answer key in Python at Gate 2. Cross-consistency of Part 2 rules with the WS6 tree is also a deterministic check.",
+    "claude-haiku-4-5": "If-then form checks for own rules.",
+    "claude-sonnet-4-6": "Rule-consistency judgement when thresholds or outcomes need interpretation."
+  },
+  "aicft_policy": "This rubric produces a worksheet-level credit band only. It is NOT an AI-CFT level. AI-CFT level is cumulative and assigned at the portfolio level under researcher judgement. Per item, Gate 4 emits LO evidence (confirmed / weak / none); it never assigns a level from a single worksheet.",
   "answer_key_source": "Worksheet 7.pdf",
   "critical_extraction_note": "WS7 has TWO parts. Part 1 (path matching) is the more diagnostically important part for AI-CFT. Sample student JSON only shows Part 2 (own rules). Part 1 was not extracted. This must be flagged.",
   "parts": {

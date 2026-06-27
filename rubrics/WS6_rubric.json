@@ -3,6 +3,15 @@
   "worksheet_title": "Documentation of the Decision Tree",
   "worksheet_type": "decision_tree_diagram",
   "total_items": 13,
+  "schema_version": "2.0",
+  "language": "tr",
+  "scoring_scale": { "full": 1.0, "partial": 0.5, "zero": 0.0 },
+  "scoring_model_policy": {
+    "deterministic_gate2": "Threshold-operator consistency and cross-worksheet threshold matching are checked in Python at Gate 2. The tree structure itself comes from the WS6 vision extraction.",
+    "claude-haiku-4-5": "Feature-name and leaf-label checks.",
+    "claude-sonnet-4-6": "Tree structure validity judgement when the layout is ambiguous."
+  },
+  "aicft_policy": "This rubric produces a worksheet-level credit band only. It is NOT an AI-CFT level. AI-CFT level is cumulative and assigned at the portfolio level under researcher judgement. Per item, Gate 4 emits LO evidence (confirmed / weak / none); it never assigns a level from a single worksheet.",
   "answer_key_source": "Worksheet 6.pdf",
   "context": {
     "description": "Student draws/fills in a decision tree diagram. The tree has two levels (depth 2). Root node splits on one variable; second level splits on another variable (only on one branch or both). Leaf nodes show classification outcome. Count notation [recommended][not-recommended] is expected in each leaf.",

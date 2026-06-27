@@ -1,9 +1,11 @@
 {
-  "student_name": "Sample_Student",
+  "schema_version": "2.0",
+  "student_id": "Sample_Student",
   "assessed_at": "2026-06-27T12:00:00+00:00",
-  "assessor_version": "1.0",
+  "assessor_version": "2.0",
   "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
   "dimension": "Aspect 3: AI foundations and applications",
+  "level_assignment_policy": "AI-CFT levels are cumulative and assigned only here, at the portfolio level, by aggregating per-worksheet LO evidence. Per-worksheet Gate 4 emits LO evidence (confirmed / weak / none); it never assigns a level. The level below is provisional. The researcher makes the final holistic judgement; the system does not finalize it automatically.",
   "student_profile": {
     "gender": "Kadın",
     "age": 21,
@@ -46,57 +48,66 @@
   "worksheet_summary": {
     "WS1": {
       "topic": "Vocabulary",
-      "gate_3_credit": "full",
-      "gate_4_level": "Acquire",
+      "credit_band": "full",
+      "score_ratio": 0.91,
+      "lo_evidence": { "LO3.1.1": "confirmed", "LO3.1.2": "confirmed", "LO3.2.3": "weak" },
       "key_evidence": "9 full, 2 partial. All core DT vocabulary correct. Sensitivity/MCR formulas correct. Overfitting partial (one-sided)."
     },
     "WS3": {
       "topic": "Applying Leo's threshold",
-      "gate_3_credit": "partial",
-      "gate_4_level": "Acquire_partial",
-      "key_evidence": "2 of 3 classifications correct (B1 wrong). Variable mismatch in B7/B8 (sugar used instead of energy for own threshold). Reason blanks not extracted."
+      "credit_band": "partial",
+      "score_ratio": 0.40,
+      "lo_evidence": { "LO3.1.1": "weak", "LO3.1.3": "none" },
+      "key_evidence": "2 of 3 classifications correct (B1 wrong). Variable mismatch in B7/B8 (sugar used instead of energy). Reason blanks not extracted."
     },
     "WS4": {
       "topic": "Best threshold selection",
-      "gate_3_credit": "full",
-      "gate_4_level": "Deepen",
-      "key_evidence": "5 of 5 items full credit. MCR formula correct with arithmetic. Metric-based criterion. Correct peer claim evaluation with reasoning."
+      "credit_band": "full",
+      "score_ratio": 1.0,
+      "lo_evidence": { "LO3.1.1": "confirmed", "LO3.2.1": "confirmed", "LO3.2.2": "confirmed" },
+      "key_evidence": "5 of 5 text items full credit. MCR formula correct with arithmetic. Metric-based criterion. Correct peer claim evaluation."
     },
     "WS5": {
       "topic": "Systematic threshold exploration",
-      "gate_3_credit": "full",
-      "gate_4_level": "Deepen",
-      "key_evidence": "4 rows fully correct, 1 partial (row 5 MCR=0.25 error). Strong tie-breaking justification (chose smallest among equal-MCR thresholds)."
+      "credit_band": "full",
+      "score_ratio": 0.92,
+      "lo_evidence": { "LO3.1.1": "confirmed", "LO3.2.1": "confirmed", "LO3.2.2": "confirmed" },
+      "key_evidence": "4 rows fully correct, 1 partial (row 5 MCR=0.25 error). Strong tie-breaking justification."
     },
     "WS6": {
       "topic": "Tree construction",
-      "gate_3_credit": "full",
-      "gate_4_level": "Acquire",
-      "key_evidence": "Valid 2-level tree. Root=şeker, second=yağ. All leaves labeled. Correct operators. B12 (leaf count) blank — minor."
+      "credit_band": "full",
+      "score_ratio": 1.0,
+      "lo_evidence": { "LO3.1.1": "confirmed", "LO3.2.2": "confirmed" },
+      "key_evidence": "Valid 2-level tree. Root=şeker, second=yağ. All leaves labeled. Correct operators. B12 (leaf count) blank, minor."
     },
     "WS7": {
       "topic": "Rule formulation",
-      "gate_3_credit": "partial",
-      "gate_4_level": "Acquire_partial",
-      "key_evidence": "Part 2 (own rules): 3 of 3 full credit, all consistent with WS6 tree. Part 1 (path matching): not captured."
+      "credit_band": "partial",
+      "score_ratio": 1.0,
+      "lo_evidence": { "LO3.1.1": "confirmed", "LO3.2.2": "weak" },
+      "key_evidence": "Part 2 (own rules): 3 of 3 full credit, consistent with WS6. Part 1 (path matching): not captured. Band partial due to data gap, not wrong answers."
     },
     "WS10": {
       "topic": "Systematic algorithm (table)",
-      "gate_3_credit": "partial_blocked",
-      "gate_4_level": "Deepen_strong_signal",
-      "key_evidence": "Extraction failure on table. Conceptual items show strong understanding: midpoint logic, n-1 candidates, O(n log n) complexity."
+      "credit_band": "blocked",
+      "score_ratio": null,
+      "lo_evidence": { "LO3.1.1": "confirmed", "LO3.2.1": "confirmed", "LO3.2.2": "weak" },
+      "key_evidence": "Extraction failure on the numeric table. Conceptual prose shows strong understanding: midpoint logic, n-1 candidates, O(n log n). Application unverified."
     },
     "WS11": {
       "topic": "Transfer and reflection",
-      "gate_3_credit": "partial",
-      "gate_4_level": "Acquire",
+      "credit_band": "partial",
+      "score_ratio": 0.5,
+      "lo_evidence": { "LO3.1.1": "confirmed", "LO3.1.2": "confirmed", "LO3.1.5": "none" },
       "key_evidence": "B8a/b: correct rule application to new example (Çikolata). B9: complete DT definition. Q10/Q11/Q12: not captured."
     },
     "WS_DT": {
       "topic": "CODAP inquiry (plugged)",
-      "gate_3_credit": "partial",
-      "gate_4_level": "Deepen_to_Create",
-      "key_evidence": "F_Q2: overfitting correctly explained (Create signal). E metrics consistent (0.75/0.20). A-D sections: extraction failure — not scored."
+      "credit_band": "partial",
+      "score_ratio": 0.43,
+      "lo_evidence": { "LO3.1.1": "confirmed", "LO3.2.1": "weak", "LO3.2.2": "confirmed", "LO3.2.3": "confirmed", "LO3.3.1": "weak" },
+      "key_evidence": "F_Q2: overfitting correctly explained (Create signal). E metrics consistent (0.75/0.20). A-D sections: wrong-section extraction, not scored. score_ratio understated."
     }
   },
 
@@ -216,7 +227,10 @@
   },
 
   "final_aicft_assessment": {
-    "current_level": "Deepen",
+    "provisional_level": "Deepen",
+    "researcher_final_level": null,
+    "is_final": false,
+    "decision_owner": "researcher",
     "confidence": "high_for_Acquire_and_Deepen",
     "confidence_note": "Acquire and Deepen are confirmed across multiple worksheets with reliable extraction. Create is approaching but not confirmed.",
     "justification": "Student consistently demonstrates metric-based reasoning (WS4, WS5), systematic exploration (WS5), valid tree construction (WS6), correct rule formulation (WS7), and hands-on application (WS11 B8a). Overfitting explanation in WS_DT F_Q2 is the single strongest Create signal. However, Create requires converging evidence from E_Q4 (impossibility of perfect classification), G_Q1 (model learning articulation), and full A-D data-driven reasoning — none of these are currently verified.",

@@ -1,160 +1,89 @@
 {
-  "student_name": "Sample_Student",
-  "worksheet": "WS7",
-  "pdf_source": "Worksheets1-10.pdf",
+  "schema_version": "2.0",
+  "student_id": "Sample_Student",
+  "worksheet_id": "WS7",
+  "rubric_ref": "rubrics/WS7_rubric.json",
+
   "gate_1_extraction": {
     "status": "partial",
-    "extracted_at": "2026-06-27T10:26:00+00:00",
-    "ocr_model": "claude-sonnet-4-6",
-    "extraction_warnings": [
-      "CRITICAL: Part 1 (path matching A/B/C) was not extracted. Items WS7_P1_box1, WS7_P1_box2, WS7_P1_box3 are absent.",
-      "B4-B7 (empty in original extraction) likely correspond to the Part 1 path matching boxes, not to additional own rules",
-      "Only Part 2 (own rules from student's WS6 tree) was captured"
-    ],
-    "items": {
+    "model": "claude-sonnet-4-6",
+    "extracted_at": "2026-06-27T10:26:00Z",
+    "source_pdf": "Worksheets1-10.pdf",
+    "transcription": {
       "WS7_P1_box1": "(not_captured)",
       "WS7_P1_box2": "(not_captured)",
       "WS7_P1_box3": "(not_captured)",
       "WS7_B1": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.",
       "WS7_B2": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.",
       "WS7_B3": "Eğer şeker > 10 ise → Tavsiye edilmez.",
-      "WS7_B4": "(not_applicable — tree has 3 paths, no additional rules needed)",
+      "WS7_B4": "(not_applicable — tree has 3 paths)",
       "WS7_B5": "(not_applicable)",
       "WS7_B6": "(not_applicable)",
       "WS7_B7": "(not_applicable)"
     },
-    "item_schema": {
-      "WS7_P1_box1": "Part 1: Path matching box — assign letter A, B, or C to given rule: enerji ≥ 180 AND protein < 7.7 → tavsiye edilemez",
-      "WS7_P1_box2": "Part 1: Path matching box — assign letter A, B, or C to given rule: enerji < 180 → tavsiye edilebilir",
-      "WS7_P1_box3": "Part 1: Path matching box — assign letter A, B, or C to given rule: enerji ≥ 180 AND protein ≥ 7.7 → tavsiye edilebilir",
-      "WS7_B1": "Part 2: Student's own rule 1 (from their WS6 tree)",
-      "WS7_B2": "Part 2: Student's own rule 2",
-      "WS7_B3": "Part 2: Student's own rule 3",
-      "WS7_B4_to_B7": "Part 2: Additional own rules if tree has more than 3 paths"
-    },
-    "raw_ocr": {
-      "student_name": "Sample_Student",
-      "WS7_B1": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.",
-      "WS7_B2": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.",
-      "WS7_B3": "Eğer şeker > 10 ise → Tavsiye edilmez.",
-      "WS7_B4": "(bos)",
-      "WS7_B5": "(bos)",
-      "WS7_B6": "(bos)",
-      "WS7_B7": "(bos)",
-      "ws_snapshot": "Sample_Student ilk üç if-then kuralını doğru ve eksiksiz yazmış; eşik yönlerini ve sonuçları doğru belirtmiş. B4-B7 boş, muhtemelen ağaçta yalnızca 3 dal yolu vardı ya da geri kalanları tamamlamamış.",
-      "page_notes": "(bos)"
-    }
+    "page_flags": [
+      "Part 1 path matching (boxes A/B/C) not captured. This is the more diagnostic part of WS7 and needs re-extraction.",
+      "B4-B7 are legitimately empty: the WS6 tree has 3 paths."
+    ]
   },
+
   "gate_2_validation": {
     "status": "partial",
-    "item_coverage": {
+    "model": "python_deterministic",
+    "coverage": {
       "answered": 3,
       "total": 10,
-      "blank_or_illegible": 0,
-      "missing": 0,
       "not_captured": 3,
       "not_applicable": 4,
       "completion_rate": 0.6
     },
-    "warnings": [
-      "CRITICAL: Part 1 path matching (3 boxes) not extracted — most important AI-CFT signal in WS7",
-      "B4-B7 are not_applicable (tree has 3 paths, consistent with WS6 two-level tree that produces 3 paths)"
-    ],
-    "cross_ws_consistency_check": {
-      "WS6_tree_root": "şeker (sugar), threshold ≤ 10",
-      "WS6_tree_left_branch": "yağ (fat), threshold ≤ 5",
-      "WS7_B1_root_variable": "şeker ≤ 10 AND yağ ≤ 5 → Tavsiye edilir",
-      "WS7_B2_root_variable": "şeker ≤ 10 AND yağ > 5 → Tavsiye edilmez",
-      "WS7_B3_root_variable": "şeker > 10 → Tavsiye edilmez",
-      "consistency": "WS7 rules are consistent with WS6 tree structure. Root = şeker, second level = yağ. Path count = 3, matching WS6."
+    "deterministic_checks": {
+      "cross_ws_WS6": {
+        "matches": true,
+        "note": "B1-B3 reproduce the WS6 tree exactly: root şeker ≤ 10, second level yağ ≤ 5, 3 paths."
+      }
     },
-    "student_snapshot": {
-      "completion_rate": 0.6,
-      "engagement_level": "medium",
-      "llm_observations": "Part 2 own rules are complete and consistent with WS6. Part 1 path matching not captured — cannot assess whether student can read a given tree vs write their own tree. This distinction matters for AI-CFT level.",
-      "page_quality_notes": "(bos)"
-    }
+    "warnings": [
+      "Part 1 path matching (3 boxes) not extracted; this is the main Part-1 signal."
+    ],
+    "engagement_note": "Part 2 own rules complete and consistent with WS6. Whether the student can read a given tree (Part 1) cannot be assessed yet."
   },
+
   "gate_3_scoring": {
     "status": "partial_scored",
-    "scored_at": "2026-06-27T12:00:00+00:00",
-    "scoring_model": "rubric_based",
-    "rubric_file": "rubrics/WS7_rubric.json",
+    "model": "claude-haiku-4-5",
+    "scored_at": "2026-06-27T12:00:00Z",
     "items": {
-      "WS7_P1_box1": {
-        "credit": "not_attempted",
-        "rationale": "Part 1 path matching not extracted. Cannot assess.",
-        "evidence_quote": "(not_captured)",
-        "flag": "critical_extraction_gap — re-extraction required"
-      },
-      "WS7_P1_box2": {
-        "credit": "not_attempted",
-        "rationale": "Part 1 path matching not extracted.",
-        "evidence_quote": "(not_captured)",
-        "flag": "critical_extraction_gap"
-      },
-      "WS7_P1_box3": {
-        "credit": "not_attempted",
-        "rationale": "Part 1 path matching not extracted.",
-        "evidence_quote": "(not_captured)",
-        "flag": "critical_extraction_gap"
-      },
-      "WS7_B1": {
-        "credit": "full",
-        "rationale": "Complete if-then rule: şeker ≤ 10 AND yağ ≤ 5 → Tavsiye edilir. Consistent with WS6 tree left-left leaf (recommended). Both conditions with correct operators.",
-        "evidence_quote": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.",
-        "flag": null
-      },
-      "WS7_B2": {
-        "credit": "full",
-        "rationale": "Complete if-then rule: şeker ≤ 10 AND yağ > 5 → Tavsiye edilmez. Consistent with WS6 tree left-right leaf. Both conditions with correct operators (mixed ≤ and >).",
-        "evidence_quote": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.",
-        "flag": null
-      },
-      "WS7_B3": {
-        "credit": "full",
-        "rationale": "Complete if-then rule: şeker > 10 → Tavsiye edilmez. Consistent with WS6 tree right branch (not recommended if sugar > 10). Single-condition rule appropriate for depth-1 right branch.",
-        "evidence_quote": "Eğer şeker > 10 ise → Tavsiye edilmez.",
-        "flag": null
-      },
-      "WS7_B4_to_B7": {
-        "credit": "not_applicable",
-        "rationale": "Student's WS6 tree has 3 paths (left-left, left-right, right). No additional rules needed. Empty is correct.",
-        "evidence_quote": "(bos — 3-path tree, correct)",
-        "flag": null
-      }
+      "WS7_P1_box1": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "critical_extraction_gap" },
+      "WS7_P1_box2": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "critical_extraction_gap" },
+      "WS7_P1_box3": { "score": null, "credit": "not_attempted", "evidence": "(not_captured)", "flag": "critical_extraction_gap" },
+      "WS7_B1": { "score": 1.0, "credit": "full", "evidence": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.", "flag": null },
+      "WS7_B2": { "score": 1.0, "credit": "full", "evidence": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.", "flag": null },
+      "WS7_B3": { "score": 1.0, "credit": "full", "evidence": "Eğer şeker > 10 ise → Tavsiye edilmez.", "flag": null },
+      "WS7_B4_to_B7": { "score": null, "credit": "not_applicable", "evidence": "(3-path tree)", "flag": null }
     },
-    "summary": {
-      "full_count": 3,
-      "partial_count": 0,
-      "zero_count": 0,
-      "not_attempted_count": 3,
-      "not_applicable_count": 1,
-      "overall_worksheet_credit": "partial",
-      "scoring_note": "Part 2 own rules: all 3 rules full credit, well-formed, consistent with WS6. Part 1 path matching: 0 out of 3 captured — overall cannot be scored as full. Re-extraction of Part 1 is critical."
-    }
+    "totals": {
+      "earned": 3.0,
+      "scorable_max": 3,
+      "score_ratio": 1.0,
+      "full": 3,
+      "partial": 0,
+      "zero": 0,
+      "not_attempted": 3,
+      "not_applicable": 4,
+      "credit_band": "partial",
+      "data_completeness": 0.6
+    },
+    "scoring_note": "Part 2 own rules all full credit and consistent with WS6. Part 1 (0 of 3 captured) keeps the overall band at partial. Re-extract Part 1."
   },
-  "gate_4_aicft": {
+
+  "gate_4_aicft_evidence": {
     "status": "partial",
-    "assessed_at": "2026-06-27T12:00:00+00:00",
-    "dimension": "Aspect 3: AI foundations and applications",
-    "level": "Acquire_partial",
-    "evidence": {
-      "Acquire_confirmed": [
-        "WS7_B1-B3: Three complete if-then rules from own tree, all correctly formed — LO3.1.1 (rule formulation)",
-        "Cross-WS consistency: WS7 rules match WS6 tree structure exactly"
-      ],
-      "Acquire_missing": [
-        "WS7_P1: Path matching not assessed — cannot confirm LO3.1.1 reading-a-given-tree competency"
-      ],
-      "deepen_signal": [
-        "WS7_B1-B3: Rules include compound conditions (şeker ≤ 10 AND yağ ≤ 5) — correct handling of multi-level tree logic signals early Deepen (LO3.2.2)"
-      ],
-      "indicators": {
-        "LO3.1.1": "partial — own rules confirmed, given-tree reading not confirmed",
-        "LO3.2.2": "approaching — compound rule formulation is correct"
-      }
+    "scope_note": "Per-worksheet LO evidence only. No level is assigned here.",
+    "lo_evidence": {
+      "LO3.1.1": { "signal": "confirmed", "from": ["WS7_B1", "WS7_B2", "WS7_B3"], "note": "Three well-formed if-then rules from own tree." },
+      "LO3.2.2": { "signal": "weak", "from": ["WS7_B1", "WS7_B2"], "note": "Compound conditions handled correctly; early signal for representing multi-level tree logic." }
     },
-    "ws_contribution_to_portfolio": "WS7 Part 2 demonstrates ability to express own tree as if-then rules (Acquire → Deepen transition). Part 1 (reading a given tree) not captured — this is a critical gap for confirming LO3.1.1."
+    "portfolio_contribution": "Demonstrates translating own tree into if-then rules. Reading a given tree (Part 1) is unverified due to the extraction gap."
   }
 }
