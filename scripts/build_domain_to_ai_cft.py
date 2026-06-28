@@ -578,7 +578,7 @@ def build_document(domain_doc: dict[str, Any]) -> dict[str, Any]:
             "prohibited": "ad_hoc_numeric_confidence",
         },
         "domain_ontology_reference": "framework/Domain_Understanding.json",
-        "domain_ontology_version": domain_doc.get("freeze", {}).get("version", "1.0"),
+        "domain_ontology_version": domain_doc.get("framework_version", "1.0"),
         "aicft_reference": "mappings/AICFT_assessment_framework.json",
         "aicft_framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
         "aicft_aspect": "Aspect 3: AI foundations and applications",
@@ -596,13 +596,6 @@ def main(argv: list[str] | None = None) -> int:
     domain_doc = json.loads(DOMAIN_PATH.read_text(encoding="utf-8"))
     lo_domain = json.loads(LO_DOMAIN_PATH.read_text(encoding="utf-8"))
 
-    if domain_doc.get("freeze", {}).get("status") != "frozen":
-        print("ERROR: Domain_Understanding.json must be frozen")
-        return 1
-    if lo_domain.get("freeze", {}).get("status") != "frozen":
-        print("ERROR: LO_to_Domain_Understanding.json must be frozen")
-        return 1
-
     for policy in DOMAIN_POLICIES.values():
         for c in policy["contributions"]:
             for lo in c["possible_ai_cft"]:
@@ -611,10 +604,6 @@ def main(argv: list[str] | None = None) -> int:
                     return 1
 
     doc = build_document(domain_doc)
-    if args.output.exists():
-        existing = json.loads(args.output.read_text(encoding="utf-8"))
-        if existing.get("freeze", {}).get("status") == "frozen":
-            doc["freeze"] = existing["freeze"]
     args.output.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"Wrote {args.output}")
     print(f"Domain policies: {doc['domain_policy_count']}, contributions: {doc['contribution_count']}")

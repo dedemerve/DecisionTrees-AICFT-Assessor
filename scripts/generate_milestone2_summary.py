@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
 """
-generate_milestone2_freeze_package.py — Milestone 2 human summary for ILO ontology.
+generate_milestone2_summary.py — Milestone 2 human summary for ILO ontology.
 
-Legacy script name; writes reports/milestone2_summary.md only.
+Writes reports/milestone2_summary.md only.
 
 Usage:
-  python scripts/generate_milestone2_freeze_package.py
-  python scripts/generate_milestone2_freeze_package.py --apply-freeze
+  python scripts/generate_milestone2_summary.py
 """
 
 from __future__ import annotations
 
 import argparse
-import json
 import sys
 from collections import defaultdict
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -26,7 +23,7 @@ VALIDATOR = REPO_ROOT / "scripts" / "validate_learning_objects.py"
 
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from milestone_reporting import (  # noqa: E402
-    freeze_status_label,
+    validation_status_label,
     load_json,
     load_validation,
     run_quiet_script,
@@ -59,35 +56,15 @@ def validate_dependency_graph(ilos: dict[str, Any], graph: dict[str, Any]) -> li
     return errors
 
 
-def apply_freeze_metadata(ilo_data: dict[str, Any]) -> dict[str, Any]:
-    now = datetime.now(timezone.utc).isoformat()
-    ilo_data["freeze"] = {
-        "status": "frozen",
-        "version": "1.0",
-        "frozen_at": now,
-        "freeze_package_dir": "reports",
-        "expert_review_status": "automated_review_complete; human_expert_review_pending",
-        "change_policy": "major_version_required_for_semantic_changes",
-        "downstream_artifacts_locked": [
-            "Behaviour_to_ILO.json",
-            "LO_to_Domain_Understanding.json",
-            "worksheet behaviour_opportunities.json",
-        ],
-    }
-    ilo_data["framework_version"] = "1.0"
-    return ilo_data
-
-
 def write_summary_md(
-    ilo_data: dict[str, Any],
+    validation: dict[str, Any],
     behaviours_covered: int,
     coverage: dict[str, Any],
     dep_errors: list[str],
     graph: dict[str, Any],
-    applying: bool,
 ) -> str:
     families = coverage.get("by_concept_family", {})
-    status = freeze_status_label(ilo_data, applying=applying)
+    val_label = validation_status_label(validation.get("status"))
     lines = [
         "# Milestone 2 Summary",
         "",
@@ -98,9 +75,9 @@ def write_summary_md(
         "| Artifact | `framework/Learning_Objects.json` |",
         "| Terminology | **ILO** — Instructional Learning Object |",
         "| Version | **1.0** |",
-        f"| Freeze status | **{status}** |",
+        f"| Validation status | **{val_label}** |",
         "| ILO count | 21 |",
-        "| Frozen behaviour input | Observable_Behaviours.json v1.0 |",
+        "| Upstream ontology | Observable_Behaviours.json v1.0 |",
         "",
         "## Contribution (publication)",
         "",
@@ -159,26 +136,21 @@ def write_summary_md(
         "| Behaviour→ILO matrix complete | complete |",
         "| Human expert review | **pending** |",
         "",
-        "## Freeze Decision",
+        "## Validation summary",
+        "",
+        "| Check | Status |",
+        "|-------|--------|",
+        f"| Automated validation (`milestone2_validation.json`) | {validation.get('status', 'unknown')} |",
+        f"| ILO dependency graph | {'pass' if not dep_errors else 'fail'} |",
+        f"| Behaviour→ILO coverage | {behaviours_covered}/28 |",
         "",
     ])
-
-    if not dep_errors and applying:
-        lines.append(
-            "**APPROVED:** Instructional Learning Object Ontology v1.0 is frozen. "
-            "Milestone 3 may proceed with `Behaviour_to_ILO.json` only — no new OB or ILO definitions."
-        )
-    elif not dep_errors:
-        lines.append("**READY:** Run with `--apply-freeze` to write freeze metadata.")
-    else:
-        lines.append("**BLOCKED:** Resolve dependency graph errors.")
 
     return "\n".join(lines) + "\n"
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Generate Milestone 2 ILO summary")
-    parser.add_argument("--apply-freeze", action="store_true")
     args = parser.parse_args(argv)
 
     ilo_data = load_json(ILO_PATH)
@@ -197,19 +169,10 @@ def main(argv: list[str] | None = None) -> int:
     cov = validation.get("coverage", {})
     behaviours_covered = cov.get("behaviours_covered", 0)
     coverage = build_coverage_hierarchy(ilos)
-    applying = args.apply_freeze and not errors
-
     report = write_summary_md(
-        ilo_data, behaviours_covered, coverage, dep_errors, graph, applying,
+        validation, behaviours_covered, coverage, dep_errors, graph,
     )
     summary_path = write_summary(2, report)
-
-    if applying:
-        ILO_PATH.write_text(
-            json.dumps(apply_freeze_metadata(ilo_data), indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
-        )
-        print("Freeze metadata applied to Learning_Objects.json")
 
     print(f"Summary: {summary_path}")
     print(f"Status: {'PASS' if not errors else 'FAIL'}")

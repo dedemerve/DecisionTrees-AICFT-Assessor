@@ -7,9 +7,9 @@
 | Artifact | `framework/Learning_Objects.json` |
 | Terminology | **ILO** — Instructional Learning Object |
 | Version | **1.0** |
-| Freeze status | **FROZEN** |
+| Validation status | **PASS** |
 | ILO count | 21 |
-| Frozen behaviour input | Observable_Behaviours.json v1.0 |
+| Upstream ontology | Observable_Behaviours.json v1.0 |
 
 ## Contribution (publication)
 
@@ -67,6 +67,11 @@ ILO_PRIOR_BELIEF → ILO_INSTANCE → ILO_FEATURE → ILO_LABEL → ILO_DATASET 
 | Behaviour→ILO matrix complete | complete |
 | Human expert review | **pending** |
 
-## Freeze Decision
+## Validation summary
 
-**READY:** Run with `--apply-freeze` to write freeze metadata.
+| Check | Status |
+|-------|--------|
+| Automated validation (`milestone2_validation.json`) | pass |
+| ILO dependency graph | pass |
+| Behaviour→ILO coverage | 28/28 |
+

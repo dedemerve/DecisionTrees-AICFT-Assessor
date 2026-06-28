@@ -1,6 +1,6 @@
 {
   "worksheet": "WS1",
-  "note": "Worksheet 1 — Important terms (nutrition label fill-in). Seven paragraph blanks (printed blanks 5–11). Short answers only. On this sheet, nesne and özellik are treated as equivalent; değişken and etiket are treated as equivalent — each blank accepts either term from its configured pair(s). Feature count: nutrition table shows 7 nutrient rows; accept 7 or 8 when students cite the full food-card corpus.",
+  "note": "Worksheet 1 — Important terms (nutrition label fill-in). Seven paragraph blanks (printed blanks 5–11). Short answers only. On this sheet, nesne and özellik are treated as equivalent; değişken and etiket are treated as equivalent — each blank accepts either term from its configured pair(s). Feature count: nutrition table has 7 nutrient rows; only 7 or yedi is accepted (8/sekiz is not scored).",
   "equivalence_sets": {
     "object_feature": {
       "note": "Nesne ve özellik eşdeğer — öğrenci ikisinden birini yazarsa puan alır.",
@@ -31,9 +31,7 @@
   "items": {
     "WS1_B1": {
       "max_score": 1,
-      "evaluation": "any_of_tokens",
       "check": "any_of_tokens",
-      "worksheet_blank": 5,
       "accept_sets": [
         "variable_label"
       ],
@@ -41,9 +39,7 @@
     },
     "WS1_B2": {
       "max_score": 1,
-      "evaluation": "any_of_tokens",
       "check": "any_of_tokens",
-      "worksheet_blank": 6,
       "accept_sets": [
         "object_feature"
       ],
@@ -51,9 +47,7 @@
     },
     "WS1_B3": {
       "max_score": 1,
-      "evaluation": "any_of_tokens",
       "check": "any_of_tokens",
-      "worksheet_blank": 7,
       "accept_sets": [
         "object_feature",
         "variable_label"
@@ -62,24 +56,17 @@
     },
     "WS1_B4": {
       "max_score": 1,
-      "evaluation": "single_concept",
-      "worksheet_blank": 8,
-      "components": [
-        {
-          "id": "feature_count",
-          "idea": "states 7 or 8 (yedi or sekiz) as the number of features in the table or card set",
-          "required": true
-        }
+      "check": "any_of_tokens",
+      "accepted_aliases": [
+        "7",
+        "yedi"
       ],
-      "need": 1,
       "example_answer": "7"
     },
     "WS1_B5": {
       "max_score": 1,
-      "evaluation": "unordered_token_set",
       "check": "unordered_token_set",
       "order_insensitive": true,
-      "worksheet_blank": 9,
       "need_tokens": 5,
       "partial_on_tokens": 3,
       "token_groups": [
@@ -146,7 +133,6 @@
     "WS1_B6": {
       "max_score": 1,
       "evaluation": "single_concept",
-      "worksheet_blank": 10,
       "components": [
         {
           "id": "example_object",
@@ -159,9 +145,7 @@
     },
     "WS1_B7": {
       "max_score": 1,
-      "evaluation": "any_of_tokens",
       "check": "any_of_tokens",
-      "worksheet_blank": 11,
       "accept_sets": [
         "variable_label"
       ],

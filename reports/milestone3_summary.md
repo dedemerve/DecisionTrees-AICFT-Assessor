@@ -6,7 +6,7 @@
 |-------|-------|
 | Artifact | `framework/Behaviour_to_ILO.json` |
 | Schema | **1.1** (qualitative confidence only) |
-| Freeze status | **PENDING_APPLY** |
+| Validation status | **PASS** |
 | Accepted pairs | 60 |
 | Behaviours covered | 28/28 |
 | Rejected alternatives | 18 |
@@ -55,6 +55,7 @@
 | Automated validation | complete |
 | Human expert review | **pending** |
 
-## Freeze decision
+## Validation summary
 
-**READY:** Run with `--apply-freeze` to write freeze metadata.
+Automated validation (`milestone3_validation.json`): **pass**.
+

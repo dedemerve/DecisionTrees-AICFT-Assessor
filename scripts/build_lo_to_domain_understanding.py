@@ -263,19 +263,14 @@ def main(argv: list[str] | None = None) -> int:
         },
         "design_constraint": domain_data.get("design_constraint"),
         "domain_ontology_reference": "framework/Domain_Understanding.json",
-        "domain_ontology_version": domain_data.get("freeze", {}).get("version", "1.0"),
+        "domain_ontology_version": domain_data.get("framework_version", "1.0"),
         "ilo_ontology_reference": "framework/Learning_Objects.json",
-        "ilo_ontology_version": ilo_data.get("freeze", {}).get("version", "1.0"),
+        "ilo_ontology_version": ilo_data.get("framework_version", "1.0"),
         "mapping_count": pair_count,
         "ilo_count": len(mappings),
         "rejected_alternative_count": sum(len(b["rejected_alternatives"]) for b in mappings.values()),
         "mappings": mappings,
     }
-
-    if args.output.exists():
-        existing = json.loads(args.output.read_text(encoding="utf-8"))
-        if existing.get("freeze", {}).get("status") == "frozen":
-            doc["freeze"] = existing["freeze"]
 
     args.output.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"Wrote {args.output}")

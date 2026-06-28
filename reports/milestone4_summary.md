@@ -6,7 +6,7 @@
 |-------|-------|
 | Artifacts | `Domain_Understanding.json`, `LO_to_Domain_Understanding.json` |
 | Version | **1.0** |
-| Freeze status | **FROZEN** |
+| Validation status | **PASS** |
 | Domains | 8 emergent assessment constructs |
 | ILO→Domain pairs | 37 |
 | Domain stress tests | 5/5 passed |
@@ -59,9 +59,9 @@ Each domain includes `construct_validation` with:
 2. `DU_GENERALISATION` partial ILO proxy coverage (v1.0 accepted limitation).
 3. Domain synthesis engine is provisional until `Aggregation_Policy.json` is authored.
 
-## Milestone 5 gate (not started)
+## Milestone 5 design constraint
 
-Domain_to_AI_CFT must follow the design constraint recorded in freeze metadata:
+Domain_to_AI_CFT must follow the design constraint in `Domain_Understanding.json`:
 
 > Domain_to_AI_CFT must not be implemented as a deterministic lookup table. AI-CFT claims are interpretive, provisional, and evidence-weighted. Each mapping must specify the theoretical rationale, minimum evidence requirements, convergence criteria, contradiction conditions, confidence ceiling, and explicit situations where escalation to the AI-CFT level is prohibited. No Domain may map directly to an AI-CFT competency solely because it is present. Domain evidence must satisfy sufficiency and coherence requirements before an AI-CFT interpretation becomes available.
 
@@ -74,6 +74,10 @@ Domain_to_AI_CFT must follow the design constraint recorded in freeze metadata:
 | Independence matrix | complete |
 | Human expert review | **pending** |
 
-## Freeze decision
+## Validation summary
 
-**READY:** Run with `--apply-freeze` to write freeze metadata.
+| Check | Status |
+|-------|--------|
+| `milestone4_validation.json` | pass |
+| Domain stress test | pass |
+

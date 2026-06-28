@@ -5,7 +5,6 @@
   "items": {
     "WS1_B1": {
       "check": "any_of_tokens",
-      "evaluation": "any_of_tokens",
       "example_answer": "etiket",
       "accept_sets": [
         "variable_label"
@@ -14,7 +13,6 @@
     },
     "WS1_B2": {
       "check": "any_of_tokens",
-      "evaluation": "any_of_tokens",
       "example_answer": "nesne",
       "accept_sets": [
         "object_feature"
@@ -23,7 +21,6 @@
     },
     "WS1_B3": {
       "check": "any_of_tokens",
-      "evaluation": "any_of_tokens",
       "example_answer": "özellik",
       "accept_sets": [
         "object_feature",
@@ -32,12 +29,16 @@
       "deterministic": true
     },
     "WS1_B4": {
-      "evaluation": "single_concept",
-      "example_answer": "7"
+      "check": "any_of_tokens",
+      "example_answer": "7",
+      "accepted_aliases": [
+        "7",
+        "yedi"
+      ],
+      "deterministic": true
     },
     "WS1_B5": {
       "check": "unordered_token_set",
-      "evaluation": "unordered_token_set",
       "example_answer": "Enerji, Yağ, Doymuş Yağ, Karbonhidrat, Şeker, Protein, Tuz",
       "token_groups": [
         {
@@ -109,7 +110,6 @@
     },
     "WS1_B7": {
       "check": "any_of_tokens",
-      "evaluation": "any_of_tokens",
       "example_answer": "etiket",
       "accept_sets": [
         "variable_label"

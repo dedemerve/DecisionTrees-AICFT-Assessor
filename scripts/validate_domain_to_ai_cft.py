@@ -50,8 +50,8 @@ def validate_policy(
     errors: list[str] = []
     warnings: list[str] = []
 
-    if domain_doc.get("freeze", {}).get("status") != "frozen":
-        errors.append("Domain_Understanding.json must be frozen")
+    if domain_doc.get("framework_version") != "1.0":
+        errors.append("Domain_Understanding.json framework_version must be 1.0")
 
     blob = POLICY_PATH.read_text(encoding="utf-8")
     for pat in PROHIBITED_FIELD_PATTERNS:

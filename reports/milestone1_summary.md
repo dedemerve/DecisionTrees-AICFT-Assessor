@@ -6,7 +6,7 @@
 |-------|-------|
 | Artifact | `framework/Observable_Behaviours.json` |
 | Version | **1.0** |
-| Freeze status | **FROZEN** |
+| Validation status | **PASS** |
 | Behaviour count | 28 |
 
 ## Coverage Summary
@@ -69,6 +69,13 @@ Construct → Knowledge Type → Cognitive Process → Behaviour (see `milestone
 | Automated semantic duplicate review | complete |
 | Human expert coding agreement | **pending** |
 
-## Freeze Decision
+## Validation summary
 
-**READY:** All checks pass. Run with `--apply-freeze` to write freeze metadata.
+| Check | Status |
+|-------|--------|
+| Automated structure (`milestone1_validation.json`) | pass |
+| Semantic duplicate review | pass |
+| Curriculum construct coverage | pass |
+| Behaviour dependency graph | pass |
+| Human expert coding agreement | pending |
+

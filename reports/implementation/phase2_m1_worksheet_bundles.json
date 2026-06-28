@@ -2,14 +2,13 @@
   "milestone": "Phase 2 — Milestone 1: Worksheet Engineering",
   "framework_version": "1.0",
   "status": "PASS",
-  "completed_at": "2026-06-28",
   "summary": "Rebuilt worksheets WS1–WS11 as pure evidence-collection bundles. Each deployed worksheet (WS1, WS3, WS4, WS5, WS6, WS7, WS10, WS11) contains five files with rubric, extraction schema, behaviour opportunities (OB_* only), validity notes, and answer key. WS2, WS8, WS9 are scaffolded as not_deployed. No ILO, Domain, or AI-CFT mappings appear in worksheet bundles.",
   "verification": {
     "build_worksheet_bundles": "PASS",
     "validate_worksheet_bundles": "PASS",
     "test_worksheet_bundles": "PASS (7 tests)",
     "validate_all_rubrics": "PASS",
-    "frozen_framework_files_modified": false
+    "framework_files_modified": false
   },
   "deployed_worksheets": ["WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS11"],
   "not_deployed_worksheets": ["WS2", "WS8", "WS9"],
@@ -24,7 +23,7 @@
     "eleven_worksheet_directories": true,
     "five_files_per_directory_only": true,
     "no_ilo_domain_aicft_in_bundles": true,
-    "behaviour_opportunities_reference_frozen_ob_ontology": true,
+    "behaviour_opportunities_reference_ob_ontology": true,
     "extraction_schema_interpretation_prohibited": true,
     "unit_tests_present": true,
     "schema_validation_present": true,

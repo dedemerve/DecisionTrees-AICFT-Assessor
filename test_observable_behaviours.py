@@ -77,13 +77,11 @@ class TestObservableBehaviours(unittest.TestCase):
             f"validator failed:\n{result.stdout}\n{result.stderr}",
         )
 
-    def test_ontology_is_frozen_v1(self) -> None:
-        freeze = self.data.get("freeze", {})
-        self.assertEqual(freeze.get("status"), "frozen")
-        self.assertEqual(freeze.get("version"), "1.0")
+    def test_framework_version_v1(self) -> None:
         self.assertEqual(self.data.get("framework_version"), "1.0")
+        self.assertNotIn("freeze", self.data)
 
-    def test_freeze_package_exists(self) -> None:
+    def test_milestone_summary_exists(self) -> None:
         summary = REPO / "reports" / "milestone1_summary.md"
         validation = REPO / "reports" / "milestone1_validation.json"
         self.assertTrue(summary.is_file())
@@ -91,8 +89,8 @@ class TestObservableBehaviours(unittest.TestCase):
         dep_graph = REPO / "framework" / "Behaviour_Dependency_Graph.json"
         self.assertTrue(dep_graph.is_file())
 
-    def test_freeze_package_generator_passes(self) -> None:
-        generator = REPO / "scripts" / "generate_milestone1_freeze_package.py"
+    def test_summary_generator_passes(self) -> None:
+        generator = REPO / "scripts" / "generate_milestone1_summary.py"
         result = subprocess.run(
             [sys.executable, str(generator)],
             cwd=REPO,

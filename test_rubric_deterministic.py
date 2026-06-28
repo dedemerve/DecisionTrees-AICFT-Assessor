@@ -55,6 +55,12 @@ WS1_B3_ITEM = {
     "accept_sets": ["object_feature", "variable_label"],
 }
 
+WS1_B4_ITEM = {
+    "check": "any_of_tokens",
+    "evaluation": "any_of_tokens",
+    "accepted_aliases": ["7", "yedi"],
+}
+
 
 class TestAnyOfTokens(unittest.TestCase):
     def test_b1_accepts_etiket_or_degisken(self):
@@ -92,6 +98,15 @@ class TestAnyOfTokens(unittest.TestCase):
             score_any_of_tokens("nesne", WS1_B3_ITEM, WS1_RUBRIC)["credit"],
             "full",
         )
+
+    def test_b4_accepts_seven_numeric_or_word(self):
+        self.assertEqual(score_any_of_tokens("7", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "full")
+        self.assertEqual(score_any_of_tokens("yedi", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "full")
+        self.assertEqual(score_any_of_tokens("Yedi", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "full")
+
+    def test_b4_rejects_eight(self):
+        self.assertEqual(score_any_of_tokens("8", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "zero")
+        self.assertEqual(score_any_of_tokens("sekiz", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "zero")
 
     def test_assessor_criteria_b1_lists_equivalents(self):
         criteria = get_assessor_rubric("WS1_B1", "WS1")

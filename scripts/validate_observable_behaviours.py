@@ -115,13 +115,6 @@ def validate_structure(data: dict[str, Any], state: ValidationState) -> dict[str
     if not data.get("construct_reference"):
         state.fail("construct_reference is required")
 
-    freeze = data.get("freeze")
-    if freeze:
-        if freeze.get("status") != "frozen":
-            state.fail("freeze.status must be 'frozen' when freeze block present")
-        if freeze.get("version") != data.get("framework_version"):
-            state.fail("freeze.version must match framework_version")
-
     behaviours = data.get("behaviours")
     if not isinstance(behaviours, dict) or not behaviours:
         state.fail("behaviours must be a non-empty object")

@@ -42,7 +42,7 @@ Python applies `any_of_tokens` deterministically when `check` is set. LLM compet
 | `WS1_B1` | 5 | `any_of_tokens` → `variable_label` | Deterministic. Example: *etiket* |
 | `WS1_B2` | 6 | `any_of_tokens` → `object_feature` | Deterministic. Example: *nesne* |
 | `WS1_B3` | 7 | `any_of_tokens` → either set | Deterministic. Example: *özellik* |
-| `WS1_B4` | 8 | `single_concept` — feature count | Semantic. Accept **7** (table rows) or **8** (full card corpus). |
+| `WS1_B4` | 8 | `any_of_tokens` — feature count | Deterministic. Accept **7** or **yedi** only (nutrition table rows). |
 | `WS1_B5` | 9 | `unordered_token_set` — nutrient names | Deterministic token groups; order-free. Need ≥5 of 7 groups for full; ≥3 partial. Groups: enerji, yağ, doymuş yağ, karbonhidrat, şeker, protein, tuz. |
 | `WS1_B6` | 10 | `single_concept` — example food object | Semantic. e.g. *Fındıklı Gofret* or any food named on the sheet. |
 | `WS1_B7` | 11 | `any_of_tokens` → `variable_label` | Deterministic + optional outcome phrases (*tavsiye edilir/edilmez*). Example: *etiket* |
@@ -66,7 +66,7 @@ All items map primarily to **LO3.1.2** (Acquire — conceptual vocabulary for da
 ## Validity constraints
 
 - Fill-in recall ≠ procedural competence — keep strength at mapping ceiling.
-- Feature count 7 vs 8 is a known scorer tolerance (see `validity_notes.json`).
+- Feature count accepts only 7 or yedi (see `validity_notes.json`).
 - No cross-worksheet dependencies.
 
 ---

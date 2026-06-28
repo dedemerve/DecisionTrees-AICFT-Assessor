@@ -3,7 +3,7 @@
 run_domain_stress_test.py — Adversarial domain synthesis verification (Milestone 4 gate).
 
 Five canonical scenarios validating that domain claims respect convergence,
-leakage guards, and source diversity before freeze.
+leakage guards, and source diversity before milestone sign-off.
 
 Usage:
   python scripts/run_domain_stress_test.py

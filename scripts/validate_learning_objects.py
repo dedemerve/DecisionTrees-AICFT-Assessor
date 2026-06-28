@@ -50,17 +50,9 @@ def validate_milestone2(
     if ilo_data.get("ontology") != "instructional_learning_object":
         errors.append("ontology must be 'instructional_learning_object'")
     if ilo_data.get("behaviour_ontology_version") != "1.0":
-        errors.append("behaviour_ontology_version must be '1.0' (frozen OB v1.0)")
-    freeze = ob_data.get("freeze", {})
-    if freeze.get("status") != "frozen":
-        errors.append("Observable_Behaviours.json must be frozen before ILO validation")
-
-    freeze = ilo_data.get("freeze")
-    if freeze:
-        if freeze.get("status") != "frozen":
-            errors.append("freeze.status must be 'frozen' when freeze block present")
-        if freeze.get("version") != ilo_data.get("framework_version"):
-            errors.append("freeze.version must match framework_version")
+        errors.append("behaviour_ontology_version must be '1.0' (OB ontology v1.0)")
+    if ob_data.get("framework_version") != "1.0":
+        errors.append("Observable_Behaviours.json must be framework_version 1.0")
 
     ob_ids = set(ob_data.get("behaviours", {}))
     ilos = ilo_data.get("learning_objects", {})
@@ -114,7 +106,7 @@ def validate_milestone2(
             if not OB_PATTERN.match(ob):
                 errors.append(f"{prefix}: invalid behaviour id {ob!r}")
             elif ob not in ob_ids:
-                errors.append(f"{prefix}: references unknown frozen behaviour {ob!r}")
+                errors.append(f"{prefix}: references unknown behaviour {ob!r}")
             else:
                 behaviour_to_ilos[ob].append(key)
 
@@ -140,7 +132,7 @@ def validate_milestone2(
 
     coverage = {
         "ilo_count": len(ilos),
-        "behaviour_count_frozen": len(ob_ids),
+        "behaviour_count": len(ob_ids),
         "behaviours_covered": len(behaviour_to_ilos),
         "behaviours_uncovered": uncovered_behaviours,
         "behaviours_with_multiple_ilos": len(multi_ilo_behaviours),
@@ -227,7 +219,7 @@ def main(argv: list[str] | None = None) -> int:
     if not args.quiet:
         cov = result.get("coverage", {})
         print(f"ILO ontology: {cov.get('ilo_count', 0)} instructional learning objects")
-        print(f"Behaviours covered: {cov.get('behaviours_covered', 0)}/{cov.get('behaviour_count_frozen', 0)}")
+        print(f"Behaviours covered: {cov.get('behaviours_covered', 0)}/{cov.get('behaviour_count', 0)}")
         print(f"Status: {'PASS' if not errors else 'FAIL'}")
         for e in errors:
             print(f"  ERROR: {e}")

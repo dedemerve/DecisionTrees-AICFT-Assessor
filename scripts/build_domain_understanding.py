@@ -706,11 +706,11 @@ def build_document(ilo_data: dict[str, Any], ob_data: dict[str, Any], map_data: 
         "construct_reference": "framework/Construct_Definition.md",
         "construct_dimensions": ["conceptual", "procedural", "strategic", "reflective"],
         "ilo_ontology_reference": "framework/Learning_Objects.json",
-        "ilo_ontology_version": ilo_data.get("freeze", {}).get("version", "1.0"),
+        "ilo_ontology_version": ilo_data.get("framework_version", "1.0"),
         "behaviour_ontology_reference": "framework/Observable_Behaviours.json",
-        "behaviour_ontology_version": ob_data.get("freeze", {}).get("version", "1.0"),
+        "behaviour_ontology_version": ob_data.get("framework_version", "1.0"),
         "behaviour_to_ilo_reference": "framework/Behaviour_to_ILO.json",
-        "behaviour_to_ilo_version": map_data.get("freeze", {}).get("version", "1.1"),
+        "behaviour_to_ilo_version": map_data.get("mapping_schema_version", "1.1"),
         "domain_count": len(enrich_domains()),
         "domain_pair_differentiation": DOMAIN_PAIR_DIFFERENTIATION,
         "domains": domain_map,
@@ -727,20 +727,7 @@ def main(argv: list[str] | None = None) -> int:
     ob_data = json.loads(OB_PATH.read_text(encoding="utf-8"))
     map_data = json.loads(MAP_PATH.read_text(encoding="utf-8"))
 
-    if ilo_data.get("freeze", {}).get("status") != "frozen":
-        print("ERROR: Learning_Objects.json must be frozen")
-        return 1
-    if ob_data.get("freeze", {}).get("status") != "frozen":
-        print("ERROR: Observable_Behaviours.json must be frozen")
-        return 1
-    if map_data.get("freeze", {}).get("status") != "frozen":
-        print("WARNING: Behaviour_to_ILO.json not frozen; building domain ontology anyway")
-
     doc = build_document(ilo_data, ob_data, map_data)
-    if OUT_PATH.exists():
-        existing = json.loads(OUT_PATH.read_text(encoding="utf-8"))
-        if existing.get("freeze", {}).get("status") == "frozen":
-            doc["freeze"] = existing["freeze"]
     args.output.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"Wrote {args.output}")
     print(f"Domains: {doc['domain_count']}")

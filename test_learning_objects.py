@@ -52,9 +52,9 @@ class TestLearningObjects(unittest.TestCase):
         for iid, ilo in self.ilos.items():
             self.assertGreaterEqual(len(ilo["related_behaviours"]), 1, iid)
 
-    def test_references_frozen_behaviour_ontology(self) -> None:
+    def test_references_behaviour_ontology_version(self) -> None:
         self.assertEqual(self.ilo["behaviour_ontology_version"], "1.0")
-        self.assertEqual(self.ob["freeze"]["status"], "frozen")
+        self.assertEqual(self.ob["framework_version"], "1.0")
 
     def test_concept_families_standardized(self) -> None:
         allowed = {
@@ -65,12 +65,11 @@ class TestLearningObjects(unittest.TestCase):
             self.assertIn(ilo["concept_family"], allowed, iid)
             self.assertIsInstance(ilo["instructional_sequence_order"], int)
 
-    def test_ontology_is_frozen_v1(self) -> None:
-        freeze = self.ilo.get("freeze", {})
-        self.assertEqual(freeze.get("status"), "frozen")
-        self.assertEqual(freeze.get("version"), "1.0")
+    def test_framework_version_v1(self) -> None:
+        self.assertEqual(self.ilo.get("framework_version"), "1.0")
+        self.assertNotIn("freeze", self.ilo)
 
-    def test_freeze_package_exists(self) -> None:
+    def test_milestone_summary_exists(self) -> None:
         report = REPO / "reports" / "milestone2_summary.md"
         validation = REPO / "reports" / "milestone2_validation.json"
         self.assertTrue(report.is_file())
@@ -87,8 +86,8 @@ class TestLearningObjects(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
 
-    def test_freeze_generator_passes(self) -> None:
-        gen = REPO / "scripts" / "generate_milestone2_freeze_package.py"
+    def test_summary_generator_passes(self) -> None:
+        gen = REPO / "scripts" / "generate_milestone2_summary.py"
         result = subprocess.run(
             [sys.executable, str(gen)],
             cwd=REPO,

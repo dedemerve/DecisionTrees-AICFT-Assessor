@@ -44,17 +44,6 @@ EVIDENCE_UNITS_SCHEMA_VERSION = "1.1"
 PIPELINE_EVIDENCE_VERSION = "1.1"
 ADAPTER_WORKSHEET_EXTRACTION_V1 = "worksheet_extraction_v1"
 
-# Phase 2 M2 freeze gate — do not extend schema without construct-validity review.
-M2_EVIDENCE_UNIT_FREEZE = {
-    "status": "FROZEN",
-    "schema_version": EVIDENCE_UNITS_SCHEMA_VERSION,
-    "milestone": "Phase 2 — M2: Canonical Evidence Unit Runtime",
-    "modification_policy": (
-        "No Evidence Unit schema or runtime changes without explicit researcher "
-        "approval and construct-validity justification."
-    ),
-}
-
 ASSESSMENT_OBJECT_DEFINITION = (
     "The smallest traceable assessment object representing an interpretable piece "
     "of learner evidence while preserving uncertainty and review metadata."

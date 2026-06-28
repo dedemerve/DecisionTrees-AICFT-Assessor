@@ -311,7 +311,7 @@ Transcribe short answers verbatim — not full definitions.
 "WS1_B1"  Blank 5 — variable/label term (değişken / etiket; typically "etiket")
 "WS1_B2"  Blank 6 — object/feature term (nesne / özellik; typically "nesne")
 "WS1_B3"  Blank 7 — feature term; accepts nesne|özellik OR değişken|etiket equivalents
-"WS1_B4"  Blank 8 — number of features (typically 7 or 8)
+"WS1_B4"  Blank 8 — number of features (7 or yedi only)
 "WS1_B5"  Blank 9 — list of nutrient/feature names from the table
 "WS1_B6"  Blank 10 — example food object name (e.g. Fındıklı Gofret)
 "WS1_B7"  Blank 11 — label/variable role (değişken / etiket; e.g. "etiket" or tavsiye edilemez/edilir)

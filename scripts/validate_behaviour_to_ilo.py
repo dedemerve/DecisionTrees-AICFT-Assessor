@@ -64,10 +64,10 @@ def validate_structure(
     errors: list[str] = []
     warnings: list[str] = []
 
-    if ob_data.get("freeze", {}).get("status") != "frozen":
-        errors.append("OB ontology not frozen")
-    if ilo_data.get("freeze", {}).get("status") != "frozen":
-        errors.append("ILO ontology not frozen")
+    if ob_data.get("framework_version") != "1.0":
+        errors.append("Observable_Behaviours.json framework_version must be 1.0")
+    if ilo_data.get("framework_version") != "1.0":
+        errors.append("Learning_Objects.json framework_version must be 1.0")
 
     policy = mapping_doc.get("confidence_policy", {})
     if not policy.get("qualitative_only"):

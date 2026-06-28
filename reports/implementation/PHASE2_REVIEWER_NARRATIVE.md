@@ -43,7 +43,7 @@ Evidence may **never** directly generate ILO, Domain, AI-CFT, or competency conc
 | Phase | Status | Role |
 |-------|--------|------|
 | **Phase 1 — Framework design** | FROZEN v1.0 | Scientific theory: ontologies, inference maps, review protocol |
-| **Phase 2 — Implementation** | In progress | Faithful runtime; one milestone at a time with freeze gates |
+| **Phase 2 — Implementation** | In progress | Faithful runtime; one milestone at a time with validation gates |
 
 Phase 1 artifacts (`Observable_Behaviours.json`, `Behaviour_to_ILO.json`, `Inference_Rules.md`, etc.) are **constraints**, not implementation targets. The implementation must not redesign them.
 
@@ -164,9 +164,9 @@ v1.1 adds **descriptive assessment metadata** (not inference):
 
 > **No further Evidence Unit fields without construct-validity justification.**
 
-Further metadata additions face diminishing returns and risk **ontology creep**. M2 is **FROZEN** at schema v1.1.
+Further metadata additions face diminishing returns and risk **ontology creep**. M2 schema is locked at v1.1 pending construct-validity review for any extension.
 
-Freeze package: `reports/implementation/m2_freeze/`
+Validation record: `reports/implementation/phase2_m2_evidence_unit_runtime.json`
 
 ---
 
@@ -215,7 +215,7 @@ LLM/OCR role: extract and organize. **Researcher** makes final competency judgem
 
 ### Q5: Replicability?
 
-Frozen framework JSON + versioned worksheet bundles + deterministic EU IDs + freeze manifests. A replication team can swap OCR adapters without touching M2 runtime.
+Versioned framework JSON + versioned worksheet bundles + deterministic EU IDs + phase validation JSON. A replication team can swap OCR adapters without touching M2 runtime.
 
 ---
 

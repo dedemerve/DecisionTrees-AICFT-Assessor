@@ -2,7 +2,7 @@
 Lightweight milestone reporting — one human summary + one validation JSON per milestone.
 
 Do not emit parallel audit shards (coverage matrices, duplicate-review JSON, etc.).
-Legacy outputs under reports/milestone*_freeze/ are deprecated and not regenerated.
+Summaries use validation status only.
 """
 
 from __future__ import annotations
@@ -46,12 +46,22 @@ def run_quiet_script(script: Path) -> int:
     ).returncode
 
 
-def freeze_status_label(doc: dict[str, Any], *, applying: bool) -> str:
-    """Human-readable freeze status for summary tables."""
-    if doc.get("freeze", {}).get("status") == "frozen":
-        return "FROZEN"
-    return "FROZEN" if applying else "PENDING_APPLY"
+def validation_status_label(status: str | None) -> str:
+    """Display label for validator status in human summaries."""
+    if status == "pass":
+        return "PASS"
+    if status == "fail":
+        return "FAIL"
+    return "UNKNOWN"
 
+
+def ontology_version(doc: dict[str, Any], *, default: str = "1.0") -> str:
+    """Canonical version string from a framework artifact (no freeze block)."""
+    for key in ("framework_version", "mapping_schema_version", "policy_version"):
+        value = doc.get(key)
+        if value is not None:
+            return str(value)
+    return default
 
 def write_validation(milestone: int, payload: dict[str, Any]) -> Path:
     """Write the single machine-readable validation artifact for a milestone."""

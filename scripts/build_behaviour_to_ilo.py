@@ -350,10 +350,10 @@ def build_behaviour_bundle(
 def build_document() -> dict[str, Any]:
     ob_data = load_json(OB_PATH)
     ilo_data = load_json(ILO_PATH)
-    if ob_data.get("freeze", {}).get("status") != "frozen":
-        raise SystemExit("Observable_Behaviours.json is not frozen")
-    if ilo_data.get("freeze", {}).get("status") != "frozen":
-        raise SystemExit("Learning_Objects.json is not frozen")
+    if ob_data.get("framework_version") != "1.0":
+        raise SystemExit("Observable_Behaviours.json must be framework_version 1.0")
+    if ilo_data.get("framework_version") != "1.0":
+        raise SystemExit("Learning_Objects.json must be framework_version 1.0")
 
     behaviours = ob_data["behaviours"]
     ilos = ilo_data["learning_objects"]

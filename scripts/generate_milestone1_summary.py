@@ -1,14 +1,11 @@
 #!/usr/bin/env python3
 """
-generate_milestone1_freeze_package.py — Milestone 1 human summary for Observable Behaviour ontology.
+generate_milestone1_summary.py — Milestone 1 human summary for Observable Behaviour ontology.
 
-Legacy script name; writes reports/milestone1_summary.md only.
-
-Does not modify behaviour definitions. Adds freeze metadata only when --apply-freeze.
+Writes reports/milestone1_summary.md only.
 
 Usage:
-  python scripts/generate_milestone1_freeze_package.py
-  python scripts/generate_milestone1_freeze_package.py --apply-freeze
+  python scripts/generate_milestone1_summary.py
 """
 
 from __future__ import annotations
@@ -16,7 +13,6 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -27,7 +23,7 @@ VALIDATOR = REPO_ROOT / "scripts" / "validate_observable_behaviours.py"
 
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from milestone_reporting import (  # noqa: E402
-    freeze_status_label,
+    validation_status_label,
     load_json,
     load_validation,
     run_quiet_script,
@@ -318,33 +314,18 @@ def validate_dependency_graph(behaviours: dict[str, Any], graph: dict[str, Any])
     return errors
 
 
-def apply_freeze_metadata(ontology: dict[str, Any]) -> dict[str, Any]:
-    now = datetime.now(timezone.utc).isoformat()
-    ontology["freeze"] = {
-        "status": "frozen",
-        "version": "1.0",
-        "frozen_at": now,
-        "freeze_package_dir": "reports",
-        "expert_review_status": "automated_review_complete; human_expert_review_pending",
-        "change_policy": "major_version_required_for_semantic_changes",
-    }
-    ontology["framework_version"] = "1.0"
-    return ontology
-
-
-def write_freeze_report_md(
+def write_summary_md(
     summary: dict[str, Any],
     semantic: dict[str, Any],
     construct_cov: dict[str, Any],
     dep_errors: list[str],
-    ontology: dict[str, Any],
-    applying: bool,
+    validation: dict[str, Any],
 ) -> str:
     by_construct = summary.get("by_construct_dimension", {})
     counts = list(by_construct.values()) or [0]
     construct_balance = "balanced" if max(counts) - min(counts) <= 5 else "moderate_imbalance"
     gaps = construct_cov["curriculum_gaps"]
-    status = freeze_status_label(ontology, applying=applying)
+    val_label = validation_status_label(validation.get("status"))
 
     lines = [
         "# Milestone 1 Summary",
@@ -355,7 +336,7 @@ def write_freeze_report_md(
         "|-------|-------|",
         "| Artifact | `framework/Observable_Behaviours.json` |",
         "| Version | **1.0** |",
-        f"| Freeze status | **{status}** |",
+        f"| Validation status | **{val_label}** |",
         "| Behaviour count | 28 |",
         "",
         "## Coverage Summary",
@@ -420,33 +401,23 @@ def write_freeze_report_md(
         "| Automated semantic duplicate review | complete |",
         "| Human expert coding agreement | **pending** |",
         "",
-        "## Freeze Decision",
+        "## Validation summary",
+        "",
+        "| Check | Status |",
+        "|-------|--------|",
+        f"| Automated structure (`milestone1_validation.json`) | {validation.get('status', 'unknown')} |",
+        f"| Semantic duplicate review | {'pass' if semantic['pass'] else 'fail'} |",
+        f"| Curriculum construct coverage | {'pass' if construct_cov['pass'] else 'fail'} |",
+        f"| Behaviour dependency graph | {'pass' if not dep_errors else 'fail'} |",
+        "| Human expert coding agreement | pending |",
         "",
     ])
-
-    all_pass = (
-        semantic["pass"]
-        and construct_cov["pass"]
-        and not dep_errors
-    )
-    if all_pass and applying:
-        lines.append(
-            "**APPROVED:** Observable Behaviour Ontology v1.0 is frozen. "
-            "Semantic changes require major version bump per Versioning_Policy.md."
-        )
-    elif all_pass:
-        lines.append(
-            "**READY:** All checks pass. Run with `--apply-freeze` to write freeze metadata."
-        )
-    else:
-        lines.append("**BLOCKED:** Resolve validation failures before freeze.")
 
     return "\n".join(lines) + "\n"
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Generate Milestone 1 summary")
-    parser.add_argument("--apply-freeze", action="store_true", help="Write freeze metadata to ontology")
     args = parser.parse_args(argv)
 
     ontology = load_json(ONTOLOGY_PATH)
@@ -470,22 +441,10 @@ def main(argv: list[str] | None = None) -> int:
     errors.extend(dep_errors)
 
     summary = validation.get("coverage", {}).get("summary", {})
-    applying = args.apply_freeze and not errors
-    report_md = write_freeze_report_md(
-        summary, semantic, construct_cov, dep_errors, ontology, applying,
+    report_md = write_summary_md(
+        summary, semantic, construct_cov, dep_errors, validation,
     )
     summary_path = write_summary(1, report_md)
-
-    if args.apply_freeze:
-        if errors:
-            print("FREEZE BLOCKED:", "; ".join(errors))
-            return 1
-        updated = apply_freeze_metadata(ontology)
-        ONTOLOGY_PATH.write_text(
-            json.dumps(updated, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8",
-        )
-        print("Freeze metadata applied to Observable_Behaviours.json")
 
     print(f"Summary: {summary_path}")
     print(f"Status: {'PASS' if not errors else 'FAIL'}")

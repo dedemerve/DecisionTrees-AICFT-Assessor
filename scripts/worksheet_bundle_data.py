@@ -249,7 +249,7 @@ VALIDITY_NOTES: dict[str, dict[str, Any]] = {
     "WS1": {
         "construct_threats": [
             "Fill-in recall may conflate vocabulary with procedural competence.",
-            "Feature count may be 7 (table rows) or 8 (card corpus) — scorer must accept both.",
+            "Feature count must be 7 or yedi (nutrition table rows); 8/sekiz is not accepted.",
         ],
         "leakage_risks": [],
         "evidence_limitations": [

@@ -7,7 +7,7 @@
 | Artifact | `framework/Domain_to_AI_CFT.json` |
 | Type | **Interpretive policy** (not deterministic mapping) |
 | Version | **1.0** |
-| Freeze status | **PENDING_APPLY** |
+| Validation status | **PASS** |
 | Domain policies | 8 |
 | Contribution records | 17 |
 | Interpretive stress tests | 6/6 passed |
@@ -32,15 +32,19 @@ The framework does **not** output final AI-CFT competencies. It outputs provisio
 
 - `reports/milestone5_validation.json` — single validation artifact (includes stress test when run)
 
-## Framework theory phase complete
+## Theory phase complete
 
-After this freeze, new theory artifacts should not be added without version bump. Next phase:
+With Milestone 5 validated, the framework theory chain is complete. New theory artifacts require a version bump. Next phase:
 
 1. Remodel WS1–WS11 bundles to new architecture
 2. Implement OCR → Evidence → … → interpretive recommendation pipeline
 3. Pilot on real student portfolios
 4. Reliability and validity analyses
 
-## Freeze decision
+## Validation summary
 
-**READY:** Run with `--apply-freeze`.
+| Check | Status |
+|-------|--------|
+| `milestone5_validation.json` | pass |
+| Interpretive stress test | pass |
+

@@ -791,28 +791,5 @@
       ],
       "domain_id": "DU_REFLECTIVE_UNDERSTANDING"
     }
-  },
-  "freeze": {
-    "status": "frozen",
-    "version": "1.0",
-    "frozen_at": "2026-06-28T11:19:41.642285+00:00",
-    "freeze_package_dir": "reports",
-    "expert_review_status": "automated_review_complete; interpretive_stress_test_passed; human_expert_review_pending",
-    "change_policy": "major_version_required_for_semantic_changes",
-    "interpretation_layer": true,
-    "artifact_role": "interpretive_policy_not_competency_output",
-    "upstream_frozen_inputs": [
-      "Domain_Understanding.json@1.0",
-      "LO_to_Domain_Understanding.json@1.0",
-      "Behaviour_to_ILO.json@1.1",
-      "Learning_Objects.json@1.0",
-      "Observable_Behaviours.json@1.0"
-    ],
-    "downstream_artifacts_locked": [
-      "Aggregation_Policy.json",
-      "portfolio interpretive pipeline"
-    ],
-    "framework_complete": true,
-    "next_phase": "pilot_implementation_not_new_theory"
   }
 }

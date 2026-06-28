@@ -1133,25 +1133,5 @@
       ],
       "rejected_alternatives": []
     }
-  },
-  "freeze": {
-    "status": "frozen",
-    "version": "1.0",
-    "frozen_at": "2026-06-28T11:19:37.191888+00:00",
-    "freeze_package_dir": "reports",
-    "expert_review_status": "automated_review_complete; domain_stress_test_passed; human_expert_review_pending",
-    "change_policy": "major_version_required_for_semantic_changes",
-    "inference_layer": true,
-    "upstream_frozen_inputs": [
-      "Observable_Behaviours.json@1.0",
-      "Learning_Objects.json@1.0",
-      "Behaviour_to_ILO.json@1.1"
-    ],
-    "downstream_artifacts_locked": [
-      "Domain_to_AI_CFT.json",
-      "Aggregation_Policy.json"
-    ],
-    "milestone5_design_constraint": "Domain_to_AI_CFT must not be implemented as a deterministic lookup table. AI-CFT claims are interpretive, provisional, and evidence-weighted. Each mapping must specify the theoretical rationale, minimum evidence requirements, convergence criteria, contradiction conditions, confidence ceiling, and explicit situations where escalation to the AI-CFT level is prohibited. No Domain may map directly to an AI-CFT competency solely because it is present. Domain evidence must satisfy sufficiency and coherence requirements before an AI-CFT interpretation becomes available.",
-    "artifact": "ilo_to_domain_understanding_mapping"
   }
 }
