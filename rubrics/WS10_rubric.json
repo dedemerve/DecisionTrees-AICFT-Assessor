@@ -13,10 +13,10 @@
     },
     "WS10_B2": {
       "max_score": 1,
-      "answer": 4,
+      "answer": 6,
       "check": "numeric",
-      "note": "Number of threshold candidates from 7 values = 6 midpoints, but candidate count depends on dataset; accept answers consistent with the student's table.",
-      "example_answer": "4 (veya öğrencinin tablosuna göre tutarlı bir değer)"
+      "note": "Number of midpoint threshold candidates from 7 sorted values = 6 (midpoints between each consecutive pair). Accept any integer consistent with the student's own table rows.",
+      "example_answer": "6"
     },
     "WS10_B3": {
       "max_score": 1,

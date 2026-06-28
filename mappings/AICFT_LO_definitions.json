@@ -137,12 +137,6 @@
             },
             {
               "worksheet": "WS7",
-              "item": "WS7_B1",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS7",
               "item": "WS7_P1_box1",
               "evidence_type": "direct",
               "weight": "strong"
@@ -156,6 +150,12 @@
             {
               "worksheet": "WS7",
               "item": "WS7_P1_box3",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS7",
+              "item": "WS7_B1",
               "evidence_type": "direct",
               "weight": "strong"
             },
@@ -197,7 +197,25 @@
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_E_MCR",
+              "item": "DT_A_Q1",
+              "evidence_type": "prior_belief",
+              "weight": "weak"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_A_Q3",
+              "evidence_type": "application",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_B_Q1",
+              "evidence_type": "application",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_E_Q2",
               "evidence_type": "direct",
               "weight": "strong"
             },
@@ -209,32 +227,14 @@
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_A_Q1",
-              "evidence_type": "prior_belief",
-              "weight": "weak"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_B_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_G_Q1",
-              "evidence_type": "reflective",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_E_Q2",
+              "item": "DT_E_MCR",
               "evidence_type": "direct",
               "weight": "strong"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_A_Q3",
-              "evidence_type": "application",
+              "item": "DT_G_Q1",
+              "evidence_type": "reflective",
               "weight": "moderate"
             }
           ]
@@ -293,7 +293,8 @@
         },
         "LO3.1.4": {
           "description": "Explain the importance of evaluating AI tools to ensure their accessibility, inclusivity, and reliability; undertake basic analyses of the appropriateness of specific AI tools for education in local contexts with particular attention to the impact on students with special needs.",
-          "worksheet_evidence": []
+          "worksheet_evidence": [],
+          "coverage_gap_note": "Not covered: no ProDaBi worksheet addresses evaluation of AI tools for accessibility, inclusivity, or reliability in educational contexts."
         },
         "LO3.1.5": {
           "description": "Start consolidating a personal collection of trustable AI tools that are necessary for life and work and relevant to the local language and culture. Investigate the extent to which locally relevant open-source AI tools are available or not.",
@@ -418,49 +419,31 @@
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_B_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_C_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_D_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
               "item": "DT_A_Q2",
               "evidence_type": "direct",
               "weight": "strong"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_B_Q2",
+              "item": "DT_A_Q3",
               "evidence_type": "application",
               "weight": "moderate"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_C_Q2",
+              "item": "DT_A_Q4",
               "evidence_type": "direct",
               "weight": "strong"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_D_Q2",
-              "evidence_type": "direct",
+              "item": "DT_B_Q1",
+              "evidence_type": "application",
               "weight": "moderate"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_A_Q3",
+              "item": "DT_B_Q2",
               "evidence_type": "application",
               "weight": "moderate"
             },
@@ -472,27 +455,45 @@
             },
             {
               "worksheet": "WS_DT",
+              "item": "DT_B_Q4",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_C_Q1",
+              "evidence_type": "application",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_C_Q2",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS_DT",
               "item": "DT_C_Q3",
               "evidence_type": "direct",
               "weight": "strong"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_D_Q3",
+              "item": "DT_D_Q1",
+              "evidence_type": "application",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_D_Q2",
               "evidence_type": "direct",
               "weight": "moderate"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_A_Q4",
+              "item": "DT_D_Q3",
               "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_B_Q4",
-              "evidence_type": "direct",
-              "weight": "strong"
+              "weight": "moderate"
             },
             {
               "worksheet": "WS_DT",
@@ -525,12 +526,6 @@
             },
             {
               "worksheet": "WS7",
-              "item": "WS7_B1",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS7",
               "item": "WS7_P1_box1",
               "evidence_type": "early_indicator",
               "weight": "moderate"
@@ -544,6 +539,12 @@
             {
               "worksheet": "WS7",
               "item": "WS7_P1_box3",
+              "evidence_type": "early_indicator",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS7",
+              "item": "WS7_B1",
               "evidence_type": "early_indicator",
               "weight": "moderate"
             },
@@ -567,15 +568,9 @@
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_D_Q1",
-              "evidence_type": "application",
+              "item": "DT_B_Q4",
+              "evidence_type": "early_indicator",
               "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_E_Q1",
-              "evidence_type": "direct",
-              "weight": "strong"
             },
             {
               "worksheet": "WS_DT",
@@ -585,7 +580,25 @@
             },
             {
               "worksheet": "WS_DT",
+              "item": "DT_D_Q1",
+              "evidence_type": "application",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
               "item": "DT_D_Q2",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_D_Q3",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_E_Q1",
               "evidence_type": "direct",
               "weight": "strong"
             },
@@ -597,26 +610,14 @@
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_G_Q2",
-              "evidence_type": "reflective",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_D_Q3",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS_DT",
               "item": "DT_E_Q3",
               "evidence_type": "direct",
               "weight": "strong"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_B_Q4",
-              "evidence_type": "early_indicator",
+              "item": "DT_G_Q2",
+              "evidence_type": "reflective",
               "weight": "moderate"
             }
           ]
@@ -632,6 +633,12 @@
             },
             {
               "worksheet": "WS_DT",
+              "item": "DT_E_Q4",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS_DT",
               "item": "DT_F_Q1",
               "evidence_type": "application",
               "weight": "moderate"
@@ -639,12 +646,6 @@
             {
               "worksheet": "WS_DT",
               "item": "DT_F_Q2",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_E_Q4",
               "evidence_type": "direct",
               "weight": "strong"
             }
@@ -660,19 +661,7 @@
           "worksheet_evidence": [
             {
               "worksheet": "WS_DT",
-              "item": "DT_G_Q1",
-              "evidence_type": "early_indicator",
-              "weight": "weak"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_F_Q2",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_G_Q2",
+              "item": "DT_D_Q4",
               "evidence_type": "early_indicator",
               "weight": "weak"
             },
@@ -684,29 +673,44 @@
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_D_Q4",
+              "item": "DT_E_Q4",
+              "evidence_type": "early_indicator",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_F_Q2",
+              "evidence_type": "early_indicator",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_G_Q1",
               "evidence_type": "early_indicator",
               "weight": "weak"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_E_Q4",
+              "item": "DT_G_Q2",
               "evidence_type": "early_indicator",
-              "weight": "moderate"
+              "weight": "weak"
             }
           ]
         },
         "LO3.3.2": {
           "description": "Apply appropriate knowledge and skills on data, algorithms, programming and AI models to customize and/or assemble existing AI tools or semi-finished AI models to create AI tools or fine-tune open-source AI systems to create solutions that are both relevant and affordable for local settings and specific use cases.",
-          "worksheet_evidence": []
+          "worksheet_evidence": [],
+          "coverage_gap_note": "Not covered: ProDaBi is an unplugged/plugged activity sequence, not an AI tool customization or assembly task; no worksheet requires building or fine-tuning an AI system."
         },
         "LO3.3.3": {
           "description": "Revise or define criteria for the comprehensive testing of a self-created AI tool and for the purpose of optimization and further iteration of the tool.",
-          "worksheet_evidence": []
+          "worksheet_evidence": [],
+          "coverage_gap_note": "Not covered: no worksheet asks students to define or revise testing criteria for a self-created AI tool; optimization and iteration are beyond the scope of the activity."
         },
         "LO3.3.4": {
           "description": "Contribute to a new or existing repository of user-created or tailored AI tools based on personal and institutional needs and promote a focus on only utilizing the most appropriate tools for education.",
-          "worksheet_evidence": []
+          "worksheet_evidence": [],
+          "coverage_gap_note": "Not covered: no worksheet involves contributing to a repository of AI tools or evaluating tool appropriateness for institutional contexts."
         }
       }
     }
