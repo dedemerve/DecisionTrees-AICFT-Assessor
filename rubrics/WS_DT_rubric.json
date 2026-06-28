@@ -1,156 +1,255 @@
 {
   "worksheet": "WS_DT",
-  "note": "CODAP inquiry activity. Open-ended items scored semantically. Formula items checked deterministically. If answer is off-topic or a wrong section was extracted, flag review:true. Partial 0.5 when one of two required components is present.",
+  "note": "CODAP Arbor inquiry activity (4 pages). Action items (B_Q1-3, C_Q1, D_Q1, F_Q1) record EMIT output values from CODAP; scored for arithmetic consistency (TP+FP+TN+FN = dataset size, sensitivity = TP/(TP+FN), MCR = (FP+FN)/N). Text items scored semantically. Partial 0.5 when one of two required components is present. Off-topic or wrong-section answers must be flagged review:true.",
+  "dataset_note": "Training set size assumed 16 items (10 recommended, 6 not). Test set size assumed 8 items.",
   "items": {
     "DT_A_Q1": {
       "max_score": 1,
-      "evaluation": "prediction",
+      "evaluation": "prior_belief",
       "components": [
-        { "id": "feature_named", "idea": "names a specific feature or variable from the dataset", "required": true },
-        { "id": "prediction_stated", "idea": "expresses a prior prediction or hypothesis about that feature", "required": false }
+        { "id": "feature_named", "idea": "names at least one specific feature or variable from the food dataset (şeker, yağ, enerji, protein, vb.)", "required": true },
+        { "id": "prediction_stated", "idea": "links that feature to a prediction about recommendation (tavsiye edilebilir/edilemez)", "required": false }
       ],
       "need": 1,
-      "example_answer": "Kalori miktarının yüksek olduğu yiyeceklerin tavsiye edilmeyeceğini düşünüyorum."
+      "note": "No data analysis required. Prior belief / general knowledge is acceptable. Any food feature named earns full credit.",
+      "example_answer": "Şeker ve yağ miktarının bir gıdanın tavsiye edilip edilmeyeceğini tahmin edebileceğini düşünüyorum. Yüksek şekerli gıdaların genellikle sağlıklı sayılmadığını biliyorum."
     },
     "DT_A_Q2": {
       "max_score": 1,
-      "evaluation": "evidence_based_claim",
+      "evaluation": "data_exploration",
       "components": [
-        { "id": "feature_named", "idea": "names a specific feature (değişken, özellik)", "required": true },
-        { "id": "data_evidence", "idea": "cites data or observed pattern as evidence (veri kanıtı)", "required": true }
+        { "id": "feature_named", "idea": "names a specific feature whose effect was explored in CODAP", "required": true },
+        { "id": "data_evidence", "idea": "cites observed pattern from data or graphs (not intuition)", "required": true }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "Şeker değeri yüksek olanlar tavsiye edilmemiş; bunu veriden gözlemledim."
+      "example_answer": "CODAP'ta grafik oluşturduğumda şeker miktarının iki grubu belirgin biçimde ayırdığını gördüm. Tavsiye edilen gıdalarda şeker değeri düşükken, edilmeyenlerde yüksekti."
+    },
+    "DT_A_Q3": {
+      "max_score": 1,
+      "evaluation": "feature_observation",
+      "components": [
+        { "id": "feature_identified", "idea": "identifies a specific feature showing a meaningful difference between classes", "required": true },
+        { "id": "difference_described", "idea": "describes the direction or nature of the difference (low vs high, tavsiye edilende düşük/yüksek)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Evet, şeker miktarı anlamlı bir fark gösterdi. Tavsiye edilen gıdalarda şeker değeri genellikle 10g'ın altında kalırken, tavsiye edilmeyenlerde bu değer daha yüksekti."
     },
     "DT_A_Q4": {
       "max_score": 1,
-      "evaluation": "evidence_based_claim",
+      "evaluation": "feature_selection_with_justification",
       "components": [
-        { "id": "feature_named", "idea": "names a specific feature to use in the tree", "required": true },
-        { "id": "data_justification", "idea": "justifies with data-based reasoning (veri gerekçesi, not intuition)", "required": true }
+        { "id": "feature_named", "idea": "names the feature chosen as first split variable", "required": true },
+        { "id": "data_justification", "idea": "justifies with data-based reasoning (not intuition alone): observed separation, low MCR, graph evidence", "required": true }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "Şekeri kullanırım çünkü tavsiye edilen ve edilmeyen grupları en iyi ayıran özellik o."
+      "example_answer": "İlk olarak şeker miktarını kullanırdım. CODAP'taki grafiklerde şekerin iki grubu en belirgin şekilde ayırdığını gözlemledim."
+    },
+    "DT_B_Q1": {
+      "max_score": 1,
+      "evaluation": "emit_output",
+      "check": "emit_consistency",
+      "fields": ["variable", "threshold", "TP", "FP", "TN", "FN"],
+      "consistency_rules": ["TP+FP+TN+FN = dataset_size", "sensitivity = TP/(TP+FN)", "MCR = (FP+FN)/(TP+FP+TN+FN)"],
+      "note": "Student builds first single-level tree in CODAP with one variable and records EMIT output. Full credit if counts sum correctly and derived metrics are consistent.",
+      "example_answer": "Değişken: şeker | Eşik: 10 | TP: 8 | FP: 2 | TN: 4 | FN: 2 | Duyarlılık: 0.80 | MCR: 0.25"
+    },
+    "DT_B_Q2": {
+      "max_score": 1,
+      "evaluation": "emit_output",
+      "check": "emit_consistency",
+      "fields": ["variable", "threshold", "TP", "FP", "TN", "FN"],
+      "consistency_rules": ["TP+FP+TN+FN = dataset_size", "variable must differ from B_Q1"],
+      "note": "Student builds second single-level tree with a different variable.",
+      "example_answer": "Değişken: yağ | Eşik: 8 | TP: 6 | FP: 4 | TN: 2 | FN: 4 | Duyarlılık: 0.60 | MCR: 0.50"
+    },
+    "DT_B_Q3": {
+      "max_score": 1,
+      "evaluation": "emit_output",
+      "check": "emit_consistency",
+      "fields": ["variable", "threshold", "TP", "FP", "TN", "FN"],
+      "consistency_rules": ["TP+FP+TN+FN = dataset_size", "variable must differ from B_Q1 and B_Q2"],
+      "note": "Student builds third single-level tree with a third variable.",
+      "example_answer": "Değişken: enerji | Eşik: 300 | TP: 5 | FP: 3 | TN: 3 | FN: 5 | Duyarlılık: 0.50 | MCR: 0.50"
     },
     "DT_B_Q4": {
       "max_score": 1,
-      "evaluation": "feature_selection",
+      "evaluation": "comparative_selection",
       "components": [
-        { "id": "best_feature", "idea": "identifies the best splitting feature (en iyi değişken)", "required": true },
-        { "id": "criterion", "idea": "states or implies a criterion for best (MCR, ayrıştırma gücü, hata, ölçüt)", "required": true }
+        { "id": "best_feature", "idea": "identifies which variable gave better results (en iyi değişken)", "required": true },
+        { "id": "criterion", "idea": "states the criterion used: MCR, sensitivity, error count, or overall accuracy", "required": true }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "Şeker miktarı en iyi değişken çünkü bu özelliğe göre bölünce en az hata oluşuyor."
+      "example_answer": "Şeker miktarı en iyi sonucu verdi çünkü bu değişkende MCR en düşük elde edildi. Duyarlılık da diğer ağaçlara göre daha yüksekti."
+    },
+    "DT_C_Q1": {
+      "max_score": 1,
+      "evaluation": "emit_output",
+      "check": "emit_consistency",
+      "fields": ["variable", "threshold", "TP", "FP", "TN", "FN"],
+      "note": "Student recalls best tree from EMIT, varies the threshold, and records the optimized output. Full credit if consistent and threshold differs from B_Q1 threshold (shows exploration).",
+      "example_answer": "Değişken: şeker | Eşik: 12 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13"
     },
     "DT_C_Q2": {
       "max_score": 1,
       "evaluation": "threshold_effect",
       "components": [
-        { "id": "threshold_reference", "idea": "mentions threshold value or changing the threshold", "required": true },
-        { "id": "performance_effect", "idea": "describes how threshold change affects error/MCR/performance", "required": true }
+        { "id": "threshold_change", "idea": "describes what happens when threshold is raised or lowered", "required": true },
+        { "id": "performance_effect", "idea": "links threshold change to MCR, sensitivity, or error count change", "required": true }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "Eşiği değiştirince MCR değişti; daha yüksek eşikte hata sayısı arttı."
+      "example_answer": "Eşiği yükseltince daha fazla gıda tavsiye edilir grubuna girdi; bu FP'yi artırıp MCR'yi yükseltti. Eşiği düşürünce ise FN arttı."
     },
     "DT_C_Q3": {
       "max_score": 1,
-      "evaluation": "threshold_method",
+      "evaluation": "threshold_selection",
       "components": [
-        { "id": "threshold_value", "idea": "states a specific threshold value chosen", "required": true },
-        { "id": "method", "idea": "describes the method for choosing it (min MCR, grid search, trial)", "required": true }
+        { "id": "threshold_value", "idea": "states a specific threshold value chosen as best", "required": true },
+        { "id": "method", "idea": "explains the method: tried multiple values, compared MCR or error counts, selected minimum error", "required": true }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "Eşik olarak 10 seçtim çünkü MCR en düşük bu değerde."
+      "example_answer": "Şeker için 12g eşiği en iyi sonucu verdi. Farklı değerleri deneyerek MCR'nin bu eşikte 0.13 ile en düşük olduğunu buldum."
+    },
+    "DT_D_Q1": {
+      "max_score": 1,
+      "evaluation": "emit_output",
+      "check": "emit_consistency",
+      "fields": ["variable_level1", "threshold_level1", "variable_level2", "threshold_level2", "TP", "FP", "TN", "FN"],
+      "note": "Student adds a second variable to best tree to create 2-level tree. Full credit if two distinct variables shown and counts sum correctly.",
+      "example_answer": "Düzey 1: şeker ≤ 12 | Düzey 2: yağ ≤ 8 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13"
     },
     "DT_D_Q2": {
       "max_score": 1,
-      "evaluation": "threshold_definition",
+      "evaluation": "improvement_analysis",
       "components": [
-        { "id": "comparison", "idea": "describes threshold as a comparison point or boundary", "required": true },
-        { "id": "numerical_aspect", "idea": "mentions a specific numeric value or range", "required": true }
+        { "id": "improvement_claimed", "idea": "states whether the 2nd variable improved classification (iyileştirdi / iyileştirmedi)", "required": true },
+        { "id": "evidence", "idea": "supports the claim with specific metrics: MCR, FP, FN, or sensitivity change", "required": true }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "Eşik değeri, veriyi iki gruba bölen sayısal sınır noktasıdır."
+      "example_answer": "Evet, ikinci değişken olarak yağı eklemek sınıflandırmayı iyileştirdi. Yanlış pozitif sayısı 2'den 1'e düştü ve MCR 0.25'ten 0.13'e geriledi."
+    },
+    "DT_D_Q3": {
+      "max_score": 1,
+      "evaluation": "combination_selection",
+      "components": [
+        { "id": "combination_named", "idea": "names the variable pair that gave the best result (iki değişken kombinasyonu)", "required": true },
+        { "id": "result_stated", "idea": "states the performance result (MCR, sensitivity, or error count)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Şeker ve yağ kombinasyonu en iyi sonucu verdi. Bu ağaçta MCR 0.13 ile en düşük değere ulaştı."
     },
     "DT_D_Q4": {
       "max_score": 1,
-      "evaluation": "stopping_criterion",
+      "evaluation": "decision_criterion",
       "components": [
-        { "id": "stopping_concept", "idea": "mentions a stopping criterion for tree growth (durdurma, derinlik sınırı, saf grup)", "required": true }
+        { "id": "criterion_stated", "idea": "names a criterion used to decide best tree: MCR threshold, comparison, stability", "required": true },
+        { "id": "process_described", "idea": "describes the process: compared multiple trees, used EMIT output, checked improvement", "required": false }
       ],
       "need": 1,
-      "example_answer": "Tüm yapraklar saf olduğunda veya belirli bir derinliğe ulaşıldığında ağaç büyümeyi durdurur."
+      "example_answer": "Farklı kombinasyonların MCR değerlerini EMIT çıktısıyla karşılaştırdım. MCR artık düşmediğinde en iyi ağaca ulaştığıma karar verdim."
     },
     "DT_E_sensitivity": {
       "max_score": 1,
-      "answer": "TP/(TP+FN)",
-      "check": "formula",
-      "accepted_forms": ["TP/(TP+FN)", "TP / (TP + FN)", "doğru_pozitif/(doğru_pozitif+yanlış_negatif)"],
-      "example_answer": "Duyarlılık = TP / (TP + FN)"
+      "evaluation": "numeric_value",
+      "check": "numeric_consistency",
+      "note": "Student fills in the numeric sensitivity value from EMIT output. Scored for consistency with TP and FN values recorded in D_Q1.",
+      "formula_reference": "TP / (TP + FN)",
+      "example_answer": "0.90"
     },
     "DT_E_MCR": {
       "max_score": 1,
-      "answer": "(FP+FN)/total",
-      "check": "formula",
-      "accepted_forms": ["(FP+FN)/total", "(FP+FN)/N", "(FP+FN)/toplam"],
-      "example_answer": "MCR = (FP + FN) / toplam"
+      "evaluation": "numeric_value",
+      "check": "numeric_consistency",
+      "note": "Student fills in the numeric MCR value from EMIT output. Scored for consistency with FP, FN, and total counts.",
+      "formula_reference": "(FP + FN) / total",
+      "example_answer": "0.13"
     },
     "DT_E_Q1": {
       "max_score": 1,
-      "evaluation": "metric_choice",
+      "evaluation": "metric_justification",
       "components": [
-        { "id": "metric_named", "idea": "names a specific metric (duyarlılık, MCR, kesinlik, F1)", "required": true },
-        { "id": "goal_justification", "idea": "justifies the choice with reference to the task goal or use case", "required": true }
+        { "id": "metric_named", "idea": "names a specific metric: duyarlılık, MCR, kesinlik, or another", "required": true },
+        { "id": "goal_justification", "idea": "justifies choice with reference to task goal or consequence of errors (e.g. missing recommended foods is worse than false alarm)", "required": true }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "Duyarlılığı tercih ederim çünkü gerçek pozitifleri kaçırmamak bu görevde daha önemli."
+      "example_answer": "Duyarlılık daha önemli; tavsiye edilmesi gereken bir gıdayı kaçırmak, gereksiz yere tavsiye etmekten daha riskli olabilir."
+    },
+    "DT_E_Q2": {
+      "max_score": 1,
+      "evaluation": "error_analysis",
+      "components": [
+        { "id": "error_type_identified", "idea": "identifies whether model made more FP or FN errors", "required": true },
+        { "id": "interpretation", "idea": "interprets what that means in context (tavsiye edilemezi tavsiye etti / tavsiye edilebiliri kaçırdı)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Modelim daha fazla yanlış negatif yaptı; tavsiye edilmesi gereken bazı gıdaları tavsiye edilemez olarak sınıflandırdı."
+    },
+    "DT_E_Q3": {
+      "max_score": 1,
+      "evaluation": "stopping_criterion",
+      "components": [
+        { "id": "threshold_concept", "idea": "mentions an acceptable error threshold, metric cutoff, or performance target", "required": true },
+        { "id": "comparison_process", "idea": "describes comparison of model performance to a baseline or target (eşik değeri karşılaştırması, hedef MCR)", "required": false }
+      ],
+      "need": 1,
+      "example_answer": "Bir yazılım, MCR gibi bir hata eşiği belirler. Model bu eşiğin altında kaldığında veya ek karmaşıklık hatayı azaltmadığında ağacın yeterince iyi olduğuna karar verilir."
     },
     "DT_E_Q4": {
       "max_score": 1,
-      "evaluation": "generalization_claim",
+      "evaluation": "perfect_classification_claim",
       "components": [
-        { "id": "negative_answer", "idea": "answers NO or expresses doubt (hayır, değil, olmayabilir)", "required": true },
-        { "id": "data_overlap_reason", "idea": "explains with data overlap, noise, or overfitting concept (veri örtüşmesi, gürültü, aşırı öğrenme)", "required": true }
+        { "id": "negative_answer", "idea": "answers NO or 'not always' (hayır, her zaman değil, mümkün olmayabilir)", "required": true },
+        { "id": "reason", "idea": "gives a reason: data overlap, noise, inherent ambiguity, or overfitting risk", "required": true }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "Hayır, çünkü eğitim verisinde örtüşen örnekler olduğunda model her zaman mükemmel sınıflandırma yapamaz."
+      "example_answer": "Hayır, karar ağaçları her zaman mükemmel sınıflandırma yapamaz. Farklı sınıflara ait örnekler aynı özellik değerlerine sahip olabilir; bu durumda hata kaçınılmazdır."
+    },
+    "DT_F_Q1": {
+      "max_score": 1,
+      "evaluation": "emit_output",
+      "check": "emit_consistency",
+      "fields": ["TP", "FP", "TN", "FN", "sensitivity", "MCR"],
+      "note": "Student applies best tree to the test dataset and records EMIT output. Full credit if counts sum to test dataset size and metrics are arithmetically consistent.",
+      "example_answer": "Test verisi EMIT: TP: 4 | FP: 2 | TN: 1 | FN: 1 | Duyarlılık: 0.80 | MCR: 0.38"
     },
     "DT_F_Q2": {
       "max_score": 1,
-      "evaluation": "overfitting",
+      "evaluation": "train_test_comparison",
       "components": [
-        { "id": "good_on_train", "idea": "performs well on training data (eğitim verisinde iyi)", "required": true },
-        { "id": "poor_on_test", "idea": "performs poorly on test/new data (test verisinde kötü, genelleyemiyor)", "required": true }
+        { "id": "performance_gap", "idea": "notes that test performance differs from training (test verisinde performans değişti / düştü)", "required": true },
+        { "id": "explanation", "idea": "explains the gap: overfitting, data difference, model generalization issue", "required": true }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "Aşırı öğrenmiş ağaç eğitim verisinde iyi ama test verisinde kötü sonuç verir."
+      "example_answer": "Test verisinde MCR 0.13'ten 0.38'e yükseldi. Bu fark muhtemelen aşırı öğrenmeden kaynaklanıyor; model eğitim verisine çok uyum sağladı ve yeni verilere genelleyemedi."
     },
     "DT_G_Q1": {
       "max_score": 1,
-      "evaluation": "reflection",
+      "evaluation": "reflection_model",
       "components": [
-        { "id": "learned_rule", "idea": "mentions learned rules, patterns, or decision boundaries (öğrenilen kural, örüntü, karar sınırı)", "required": true }
+        { "id": "learned_rule", "idea": "describes what the model learned: decision rules, patterns, or thresholds from data", "required": true }
       ],
       "need": 1,
-      "example_answer": "Algoritma veriden örüntüleri öğrenerek her dalda grupları daha saf hale getirmeye çalışır."
+      "example_answer": "Karar ağacı modeli, eğitim verisindeki şeker ve yağ değerlerine bakarak 'şeker ≤ 12 ise tavsiye edilebilir' gibi kurallar öğrendi."
     },
     "DT_G_Q2": {
       "max_score": 1,
-      "evaluation": "reflection",
+      "evaluation": "reflection_student",
       "components": [
-        { "id": "two_concepts", "idea": "names or describes at least two distinct concepts learned (iki kavram: eşik, aşırı öğrenme, MCR, sınıflandırma, dal, vb.)", "required": true }
+        { "id": "two_concepts", "idea": "names or describes at least two distinct concepts the student personally learned (iki kavram)", "required": true }
       ],
       "need": 1,
-      "example_answer": "Eşik değerinin önemi ve modelin aşırı öğrenme riskini öğrendim."
+      "example_answer": "Eşik değerinin sınıflandırma performansını nasıl etkilediğini ve iki değişken kullanmanın tek değişkenden neden daha iyi sonuç verebileceğini öğrendim."
     }
   }
 }
