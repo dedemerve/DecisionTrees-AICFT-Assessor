@@ -13,8 +13,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install layout dependencies
-        run: pip install -r requirements-layout.txt pytest
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-layout.txt pytest
       - name: Validate rubrics and pipeline outputs
         run: python validate_pipeline_outputs.py
       - name: Test layout isolator (Phase 1)
