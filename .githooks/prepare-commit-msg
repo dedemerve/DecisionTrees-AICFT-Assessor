@@ -1,0 +1,19 @@
+#!/bin/sh
+# Append project co-authors to every commit message (Pair Extraordinaire attribution).
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=${2:-}
+
+case "$COMMIT_SOURCE" in
+  merge|squash|commit) exit 0 ;;
+esac
+
+if grep -q "Co-authored-by: kokluoguz-hub" "$COMMIT_MSG_FILE" 2>/dev/null; then
+  exit 0
+fi
+
+cat >> "$COMMIT_MSG_FILE" <<'EOF'
+
+Co-authored-by: kokluoguz-hub <277313754+kokluoguz-hub@users.noreply.github.com>
+Co-authored-by: msahal-hub <277315929+msahal-hub@users.noreply.github.com>
+EOF
