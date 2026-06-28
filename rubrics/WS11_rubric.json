@@ -1,60 +1,110 @@
 {
   "worksheet": "WS11",
-  "note": "Only cognitive items are scored. Reflections (B1-B7), Likert (L10, L11) and demographics (L12) are descriptive_only and not in this rubric. Q10/Q12 are multi-select, Q11 is an ordering task, all checked deterministically.",
+  "note": "Only cognitive items are scored. Reflections (B1-B7), Likert (L10, L11) and demographics (L12) are descriptive_only and not in this rubric. B8a is a single correct classification. B8b requires a complete if-then rule. B9 requires a conceptual definition. Q10 is a multi-select (5 correct out of 8 options). Q11 is a 4-step ordering task. Q12 is a multi-select with 5 options, scored as 5 sub-items.",
   "items": {
     "WS11_B8a": {
       "max_score": 1,
-      "answer": "tavsiye edilmez"
+      "evaluation": "classification",
+      "accepted_answers": ["tavsiye edilmez", "tavsiye edilemez", "önerilmez", "uygun değil"],
+      "example_answer": "Tavsiye edilmez"
     },
     "WS11_B8b": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "şeker > 10",
-          "tavsiye edilmez"
-        ]
-      },
-      "need": 2
+      "evaluation": "rule",
+      "components": [
+        { "id": "condition", "idea": "condition references şeker > 10 (or equivalent: şeker eşiği aşıldı)", "required": true },
+        { "id": "conclusion", "idea": "conclusion states not recommended (tavsiye edilmez)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Eğer şeker > 10 ise → Tavsiye edilmez."
     },
     "WS11_B9": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "veriden öğrenme",
-          "sınıflandırma",
-          "ağaç yapısı"
-        ]
-      },
-      "need": 2
+      "evaluation": "definition",
+      "components": [
+        { "id": "learns_from_data", "idea": "learns from data / data-driven (veriden öğrenir, veri temelli)", "required": true },
+        { "id": "tree_or_classification", "idea": "tree structure or classification task (ağaç yapısı, sınıflandırma, dal-yaprak)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Karar ağacı, veriden örüntü öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir modeldir."
     },
     "WS11_Q10": {
       "max_score": 1,
-      "answer_set": [
-        1,
-        2,
-        4,
-        5,
-        8
-      ],
-      "check": "multiselect"
+      "evaluation": "multiselect",
+      "answer_set": [1, 2, 4, 5, 8],
+      "total_options": 8,
+      "check": "multiselect",
+      "partial_credit_rule": "at_least_3_correct_with_no_wrong_selections",
+      "partial_score": 0.5,
+      "note": "Options 1,2,4,5,8 are correct properties of a decision tree. Options 3,6,7 are incorrect distractors.",
+      "option_descriptions": {
+        "1": "Veriden kural öğrenir",
+        "2": "Dal ve yaprak düğümlerden oluşur",
+        "3": "Yalnızca sayısal verilerle çalışır (incorrect)",
+        "4": "Her iç düğüm bir özelliği böler",
+        "5": "Her yaprak bir sınıf etiketi taşır",
+        "6": "Her zaman dengelidir (incorrect)",
+        "7": "Öğrenme gerekmez, kurallar elle girilir (incorrect)",
+        "8": "Eşik değeri kullanır"
+      },
+      "example_answer": "Seçenekler: 1, 2, 4, 5, 8"
     },
     "WS11_Q11": {
       "max_score": 1,
-      "answer_order": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "check": "ordering"
+      "evaluation": "ordering",
+      "answer_order": [1, 2, 3, 4],
+      "check": "ordering",
+      "partial_credit_rule": "at_least_3_steps_in_correct_relative_order",
+      "partial_score": 0.5,
+      "step_descriptions": {
+        "1": "Veriyi topla ve hazırla",
+        "2": "Özellikler arasından en iyi ayrıştırıcıyı bul",
+        "3": "Eşik değerini belirle ve veriyi böl",
+        "4": "Durma kriterine ulaşana dek tekrarla"
+      },
+      "example_answer": "Sıralama: 1 → 2 → 3 → 4"
     },
-    "WS11_Q12": {
-      "max_score": 1,
-      "answer_set": [
-        1,
-        5
-      ],
-      "check": "multiselect"
+    "WS11_Q12_1": {
+      "max_score": 0.2,
+      "evaluation": "multiselect_subitem",
+      "option": 1,
+      "correct": true,
+      "option_text": "Karar ağacı aşırı öğrenebilir",
+      "example_answer": "İşaretlenmeli"
+    },
+    "WS11_Q12_2": {
+      "max_score": 0.2,
+      "evaluation": "multiselect_subitem",
+      "option": 2,
+      "correct": false,
+      "option_text": "Karar ağacı her zaman en iyi modeldir",
+      "example_answer": "İşaretlenmemeli"
+    },
+    "WS11_Q12_3": {
+      "max_score": 0.2,
+      "evaluation": "multiselect_subitem",
+      "option": 3,
+      "correct": false,
+      "option_text": "Karar ağacında eşik değeri önemsizdir",
+      "example_answer": "İşaretlenmemeli"
+    },
+    "WS11_Q12_4": {
+      "max_score": 0.2,
+      "evaluation": "multiselect_subitem",
+      "option": 4,
+      "correct": false,
+      "option_text": "MCR her zaman 0 olmalıdır",
+      "example_answer": "İşaretlenmemeli"
+    },
+    "WS11_Q12_5": {
+      "max_score": 0.2,
+      "evaluation": "multiselect_subitem",
+      "option": 5,
+      "correct": true,
+      "option_text": "Daha fazla veri modeli genellikle iyileştirir",
+      "example_answer": "İşaretlenmeli"
     }
   }
 }

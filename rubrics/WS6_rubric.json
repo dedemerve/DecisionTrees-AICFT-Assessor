@@ -1,22 +1,95 @@
 {
   "worksheet": "WS6",
-  "note": "Decision tree graded structurally. tree_structure is validated deterministically (depth, different features, labeled leaves, consistent operators). branch_labels checks the evet/hayır and operator labels.",
+  "note": "Student draws a 2-level decision tree. OCR captures 13 fields. Root node: feature (B1) and threshold (B2) with branch labels (B3=evet, B4=hayır). Left subtree inner node: feature (B6) and threshold (B7) with branch labels (B8=evet, B9=hayır) and leaves (B10, B11). Right subtree leaf: B13. B5 and B12 are additional leaves that may appear depending on tree shape. Partial 0.5 on any threshold item if variable is correct but operator is wrong or missing. tree_structure grades the overall validity holistically.",
   "items": {
+    "WS6_root_feature": {
+      "max_score": 1,
+      "fields": ["WS6_B1"],
+      "evaluation": "feature_name",
+      "accepted_answers": ["şeker", "yağ", "enerji", "protein"],
+      "note": "Any valid food feature name earns full credit. Consistency with threshold and leaves checked in tree_structure.",
+      "example_answer": "şeker"
+    },
+    "WS6_root_threshold": {
+      "max_score": 1,
+      "fields": ["WS6_B2"],
+      "evaluation": "threshold",
+      "variable": "matches WS6_B1",
+      "accepted_operators": ["≤", "<=", "<", "≥", ">=", ">"],
+      "check": "threshold_with_operator",
+      "partial_credit_rule": "variable_or_value_present_but_operator_missing",
+      "partial_score": 0.5,
+      "example_answer": "≤ 10"
+    },
+    "WS6_root_labels": {
+      "max_score": 1,
+      "fields": ["WS6_B3", "WS6_B4"],
+      "evaluation": "branch_labels",
+      "components": [
+        { "id": "yes_branch", "idea": "evet branch correctly labeled (evet veya true tarafı)", "required": true },
+        { "id": "no_branch", "idea": "hayır branch correctly labeled (hayır veya false tarafı)", "required": true }
+      ],
+      "accepted_yes": ["evet", "yes", "true", "doğru", "pozitif"],
+      "accepted_no": ["hayır", "no", "false", "yanlış", "negatif"],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "B3: evet (≤ 10) | B4: hayır (> 10)"
+    },
+    "WS6_inner_feature": {
+      "max_score": 1,
+      "fields": ["WS6_B6"],
+      "evaluation": "feature_name",
+      "note": "Must be a different feature than the root node.",
+      "accepted_answers": ["yağ", "şeker", "enerji", "protein"],
+      "consistency_check": "must differ from WS6_B1",
+      "example_answer": "yağ"
+    },
+    "WS6_inner_threshold": {
+      "max_score": 1,
+      "fields": ["WS6_B7"],
+      "evaluation": "threshold",
+      "variable": "matches WS6_B6",
+      "accepted_operators": ["≤", "<=", "<", "≥", ">=", ">"],
+      "check": "threshold_with_operator",
+      "partial_credit_rule": "variable_or_value_present_but_operator_missing",
+      "partial_score": 0.5,
+      "example_answer": "≤ 5"
+    },
+    "WS6_inner_labels": {
+      "max_score": 1,
+      "fields": ["WS6_B8", "WS6_B9"],
+      "evaluation": "branch_labels",
+      "components": [
+        { "id": "yes_branch", "idea": "evet branch correctly labeled", "required": true },
+        { "id": "no_branch", "idea": "hayır branch correctly labeled", "required": true }
+      ],
+      "accepted_yes": ["evet", "yes", "true", "doğru"],
+      "accepted_no": ["hayır", "no", "false", "yanlış"],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "B8: evet (≤ 5) | B9: hayır (> 5)"
+    },
+    "WS6_leaves": {
+      "max_score": 1,
+      "fields": ["WS6_B5", "WS6_B10", "WS6_B11", "WS6_B12", "WS6_B13"],
+      "evaluation": "leaf_labels",
+      "accepted_positive": ["tavsiye edilir", "tavsiye edilebilir", "önerilir", "uygun"],
+      "accepted_negative": ["tavsiye edilmez", "tavsiye edilemez", "önerilmez", "uygun değil"],
+      "check": "leaf_consistency_with_tree_logic",
+      "partial_credit_rule": "some_leaves_correct_some_missing",
+      "partial_score": 0.5,
+      "example_answer": "B10: Tavsiye edilir | B11: Tavsiye edilmez | B13: Tavsiye edilmez"
+    },
     "WS6_tree_structure": {
       "max_score": 1,
-      "check": "tree_validity"
-    },
-    "WS6_branch_labels": {
-      "max_score": 1,
-      "rubric": {
-        "full": [
-          "evet",
-          "hayır",
-          "≤",
-          ">"
-        ]
-      },
-      "need": 2
+      "check": "tree_validity",
+      "criteria": [
+        "depth >= 1 (at least one split)",
+        "at least 2 different features used across the tree",
+        "all leaf nodes have class labels",
+        "branch operators are consistent (≤ and > paired, or < and >= paired)"
+      ],
+      "example_answer": "Root splits on şeker ≤ 10; left subtree splits on yağ ≤ 5; all leaves labeled."
     }
   }
 }

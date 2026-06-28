@@ -1,144 +1,156 @@
 {
   "worksheet": "WS_DT",
-  "note": "CODAP inquiry, mostly open-ended. E sensitivity/MCR are checked for arithmetic consistency. Open-ended items use rubric.full key concepts. Off-topic answers should be flagged review:true by the scoring model.",
+  "note": "CODAP inquiry activity. Open-ended items scored semantically. Formula items checked deterministically. If answer is off-topic or a wrong section was extracted, flag review:true. Partial 0.5 when one of two required components is present.",
   "items": {
     "DT_A_Q1": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "değişken",
-          "ön tahmin"
-        ]
-      },
-      "need": 1
+      "evaluation": "prediction",
+      "components": [
+        { "id": "feature_named", "idea": "names a specific feature or variable from the dataset", "required": true },
+        { "id": "prediction_stated", "idea": "expresses a prior prediction or hypothesis about that feature", "required": false }
+      ],
+      "need": 1,
+      "example_answer": "Kalori miktarının yüksek olduğu yiyeceklerin tavsiye edilmeyeceğini düşünüyorum."
     },
     "DT_A_Q2": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "değişken",
-          "veri kanıtı"
-        ]
-      },
-      "need": 2
+      "evaluation": "evidence_based_claim",
+      "components": [
+        { "id": "feature_named", "idea": "names a specific feature (değişken, özellik)", "required": true },
+        { "id": "data_evidence", "idea": "cites data or observed pattern as evidence (veri kanıtı)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Şeker değeri yüksek olanlar tavsiye edilmemiş; bunu veriden gözlemledim."
     },
     "DT_A_Q4": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "değişken",
-          "veri gerekçesi"
-        ]
-      },
-      "need": 2
+      "evaluation": "evidence_based_claim",
+      "components": [
+        { "id": "feature_named", "idea": "names a specific feature to use in the tree", "required": true },
+        { "id": "data_justification", "idea": "justifies with data-based reasoning (veri gerekçesi, not intuition)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Şekeri kullanırım çünkü tavsiye edilen ve edilmeyen grupları en iyi ayıran özellik o."
     },
     "DT_B_Q4": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "en iyi değişken",
-          "ölçüt"
-        ]
-      },
-      "need": 2
+      "evaluation": "feature_selection",
+      "components": [
+        { "id": "best_feature", "idea": "identifies the best splitting feature (en iyi değişken)", "required": true },
+        { "id": "criterion", "idea": "states or implies a criterion for best (MCR, ayrıştırma gücü, hata, ölçüt)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Şeker miktarı en iyi değişken çünkü bu özelliğe göre bölünce en az hata oluşuyor."
     },
     "DT_C_Q2": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "eşik",
-          "performans etkisi"
-        ]
-      },
-      "need": 2
+      "evaluation": "threshold_effect",
+      "components": [
+        { "id": "threshold_reference", "idea": "mentions threshold value or changing the threshold", "required": true },
+        { "id": "performance_effect", "idea": "describes how threshold change affects error/MCR/performance", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Eşiği değiştirince MCR değişti; daha yüksek eşikte hata sayısı arttı."
     },
     "DT_C_Q3": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "eşik değeri",
-          "yöntem"
-        ]
-      },
-      "need": 2
+      "evaluation": "threshold_method",
+      "components": [
+        { "id": "threshold_value", "idea": "states a specific threshold value chosen", "required": true },
+        { "id": "method", "idea": "describes the method for choosing it (min MCR, grid search, trial)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Eşik olarak 10 seçtim çünkü MCR en düşük bu değerde."
     },
     "DT_D_Q2": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "karşılaştırma",
-          "sayısal"
-        ]
-      },
-      "need": 2
+      "evaluation": "threshold_definition",
+      "components": [
+        { "id": "comparison", "idea": "describes threshold as a comparison point or boundary", "required": true },
+        { "id": "numerical_aspect", "idea": "mentions a specific numeric value or range", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Eşik değeri, veriyi iki gruba bölen sayısal sınır noktasıdır."
     },
     "DT_D_Q4": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "durdurma ölçütü"
-        ]
-      },
-      "need": 1
+      "evaluation": "stopping_criterion",
+      "components": [
+        { "id": "stopping_concept", "idea": "mentions a stopping criterion for tree growth (durdurma, derinlik sınırı, saf grup)", "required": true }
+      ],
+      "need": 1,
+      "example_answer": "Tüm yapraklar saf olduğunda veya belirli bir derinliğe ulaşıldığında ağaç büyümeyi durdurur."
     },
     "DT_E_sensitivity": {
       "max_score": 1,
       "answer": "TP/(TP+FN)",
-      "check": "formula"
+      "check": "formula",
+      "accepted_forms": ["TP/(TP+FN)", "TP / (TP + FN)", "doğru_pozitif/(doğru_pozitif+yanlış_negatif)"],
+      "example_answer": "Duyarlılık = TP / (TP + FN)"
     },
     "DT_E_MCR": {
       "max_score": 1,
       "answer": "(FP+FN)/total",
-      "check": "formula"
+      "check": "formula",
+      "accepted_forms": ["(FP+FN)/total", "(FP+FN)/N", "(FP+FN)/toplam"],
+      "example_answer": "MCR = (FP + FN) / toplam"
     },
     "DT_E_Q1": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "metrik tercihi",
-          "amaç gerekçesi"
-        ]
-      },
-      "need": 2
+      "evaluation": "metric_choice",
+      "components": [
+        { "id": "metric_named", "idea": "names a specific metric (duyarlılık, MCR, kesinlik, F1)", "required": true },
+        { "id": "goal_justification", "idea": "justifies the choice with reference to the task goal or use case", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Duyarlılığı tercih ederim çünkü gerçek pozitifleri kaçırmamak bu görevde daha önemli."
     },
     "DT_E_Q4": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "hayır",
-          "veri örtüşmesi"
-        ]
-      },
-      "need": 2
+      "evaluation": "generalization_claim",
+      "components": [
+        { "id": "negative_answer", "idea": "answers NO or expresses doubt (hayır, değil, olmayabilir)", "required": true },
+        { "id": "data_overlap_reason", "idea": "explains with data overlap, noise, or overfitting concept (veri örtüşmesi, gürültü, aşırı öğrenme)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Hayır, çünkü eğitim verisinde örtüşen örnekler olduğunda model her zaman mükemmel sınıflandırma yapamaz."
     },
     "DT_F_Q2": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "eğitim iyi",
-          "test kötü"
-        ]
-      },
-      "need": 2
+      "evaluation": "overfitting",
+      "components": [
+        { "id": "good_on_train", "idea": "performs well on training data (eğitim verisinde iyi)", "required": true },
+        { "id": "poor_on_test", "idea": "performs poorly on test/new data (test verisinde kötü, genelleyemiyor)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Aşırı öğrenmiş ağaç eğitim verisinde iyi ama test verisinde kötü sonuç verir."
     },
     "DT_G_Q1": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "öğrenilen kural",
-          "örüntü"
-        ]
-      },
-      "need": 1
+      "evaluation": "reflection",
+      "components": [
+        { "id": "learned_rule", "idea": "mentions learned rules, patterns, or decision boundaries (öğrenilen kural, örüntü, karar sınırı)", "required": true }
+      ],
+      "need": 1,
+      "example_answer": "Algoritma veriden örüntüleri öğrenerek her dalda grupları daha saf hale getirmeye çalışır."
     },
     "DT_G_Q2": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "iki kavram"
-        ]
-      },
-      "need": 1
+      "evaluation": "reflection",
+      "components": [
+        { "id": "two_concepts", "idea": "names or describes at least two distinct concepts learned (iki kavram: eşik, aşırı öğrenme, MCR, sınıflandırma, dal, vb.)", "required": true }
+      ],
+      "need": 1,
+      "example_answer": "Eşik değerinin önemi ve modelin aşırı öğrenme riskini öğrendim."
     }
   }
 }

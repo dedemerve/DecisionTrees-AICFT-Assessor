@@ -1,46 +1,52 @@
 {
   "worksheet": "WS4",
-  "note": "Item ids follow the captured layout: B1 best threshold, B2 criterion, B3 comparison, B4 MCR formula, B5 Pia evaluation. The visual circle task is not text-extractable.",
+  "note": "B1: best threshold (numeric, from the grid). B2: selection criterion (MCR-based). B3: comparative justification of two threshold candidates. B4: MCR formula (deterministic). B5: evaluation of Pia's statement. The visual circle task is not text-extractable.",
   "items": {
     "WS4_B1": {
       "max_score": 1,
       "check": "numeric",
-      "answer": "valid_midpoint_threshold_min_mcr"
+      "answer": "valid_midpoint_threshold_min_mcr",
+      "note": "Accept any midpoint threshold that yields minimum MCR. Multiple valid answers are possible if several thresholds tie.",
+      "example_answer": "10 (veya MCR en düşük olan herhangi bir eşik)"
     },
     "WS4_B2": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "MCR",
-          "en düşük"
-        ]
-      },
-      "need": 1
+      "evaluation": "criterion",
+      "components": [
+        { "id": "mcr_reference", "idea": "references MCR or error rate as the criterion", "required": true },
+        { "id": "minimization", "idea": "states the goal is to minimize it (en düşük, en az hata)", "required": false }
+      ],
+      "need": 1,
+      "example_answer": "MCR değeri en düşük olan eşiği seçerim."
     },
     "WS4_B3": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "iki MCR değeri",
-          "karşılaştırma"
-        ]
-      },
-      "need": 2
+      "evaluation": "comparison",
+      "components": [
+        { "id": "two_values", "idea": "mentions two specific MCR values or threshold candidates", "required": true },
+        { "id": "comparison_conclusion", "idea": "concludes which is better and why", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 olduğu için 10 daha iyi."
     },
     "WS4_B4": {
       "max_score": 1,
       "answer": "(FP+FN)/total",
-      "check": "formula"
+      "check": "formula",
+      "accepted_forms": ["(FP+FN)/total", "(FP+FN)/N", "(FP+FN)/n", "(yanlış_pozitif+yanlış_negatif)/toplam"],
+      "example_answer": "MCR = (FP + FN) / toplam"
     },
     "WS4_B5": {
       "max_score": 1,
-      "rubric": {
-        "full": [
-          "doğru",
-          "en az hata"
-        ]
-      },
-      "need": 2
+      "evaluation": "agreement_with_reasoning",
+      "components": [
+        { "id": "agrees_pia_correct", "idea": "confirms Pia is correct / agrees with the statement", "required": true },
+        { "id": "reasoning", "idea": "explains why: minimum MCR means minimum errors (en az hata)", "required": true }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Pia haklı; en düşük MCR en az hata anlamına gelir."
     }
   }
 }
