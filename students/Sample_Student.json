@@ -1,0 +1,2654 @@
+{
+  "schema_version": "2.0",
+  "student_id": "Sample_Student",
+  "updated_at": "2026-06-28T06:58:49.213706+00:00",
+  "worksheets": {
+    "WS1": {
+      "extraction": {
+        "schema_version": "1.0",
+        "worksheet": "WS1",
+        "student_id": "Sample_Student",
+        "responses": {
+          "WS1_B1": "Nesne: üzerinde çalışılan varlık ya da örnek (örn. bir yiyecek).",
+          "WS1_B2": "Özellik: nesnenin ölçülebilir bir niteliği (örn. şeker miktarı).",
+          "WS1_B3": "Etiket: nesnenin ait olduğu sınıf (tavsiye edilen / edilmeyen).",
+          "WS1_B4": "Eşik değeri: bir özelliği iki gruba ayıran sınır sayısı.",
+          "WS1_B5": "Kural: eğer-o zaman biçiminde ifade edilen karar cümlesi.",
+          "WS1_B6": "Doğru pozitif: modelin doğru sınıflandırdığı pozitif örnekler.",
+          "WS1_B7": "Yanlış pozitif: model pozitif dedi ama gerçekte negatif olan örnekler.",
+          "WS1_B8": "Duyarlılık: TP / (TP + FN)",
+          "WS1_B9": "MCR: (FP + FN) / toplam örnek sayısı",
+          "WS1_B10": "Aşırı öğrenme: modelin eğitim verisine çok uyum sağlayıp genelleyememesi.",
+          "WS1_B11": "Karar ağacı: veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model."
+        }
+      },
+      "validation": {
+        "schema_version": "1.0",
+        "worksheet": "WS1",
+        "student_id": "Sample_Student",
+        "answered": 11,
+        "blank": 0,
+        "illegible": [],
+        "missing": [],
+        "numeric_checks": {
+          "WS1_B8": {
+            "expected": "TP/(TP+FN)",
+            "ok": true
+          },
+          "WS1_B9": {
+            "expected": "(FP+FN)/N",
+            "ok": true
+          }
+        }
+      },
+      "scoring": {
+        "worksheet": "WS1",
+        "student_id": "Sample_Student",
+        "items": [
+          {
+            "item": "WS1_B1",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS1_B2",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS1_B3",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS1_B4",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS1_B5",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS1_B6",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              }
+            ]
+          },
+          {
+            "item": "WS1_B7",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS1_B8",
+            "score": 1.0,
+            "confidence": 1.0,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS1_B9",
+            "score": 1.0,
+            "confidence": 1.0,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS1_B10",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              },
+              {
+                "LO": "LO3.2.3",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              }
+            ]
+          },
+          {
+            "item": "WS1_B11",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              },
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          }
+        ],
+        "schema_version": "1.0",
+        "calibration_note": "Confidence calibrated via confidence_calibration.py (review_threshold=0.7)."
+      },
+      "summary": {
+        "schema_version": "1.0",
+        "worksheet": "WS1",
+        "student_id": "Sample_Student",
+        "total_score": 10.0,
+        "max_score": 11,
+        "learning_outcomes": {
+          "LO3.1.1": "strong",
+          "LO3.1.2": "strong",
+          "LO3.2.3": "weak"
+        }
+      }
+    },
+    "WS10": {
+      "extraction": {
+        "schema_version": "1.0",
+        "worksheet": "WS10",
+        "student_id": "Sample_Student",
+        "responses": {
+          "WS10_B1": "48.5",
+          "WS10_B2": "6",
+          "WS10_B3": "144.0",
+          "WS10_B4": "3",
+          "WS10_B5": "408",
+          "WS10_B6": "408|1",
+          "WS10_B7": "408|1",
+          "WS10_B8": "408"
+        },
+        "numeric_table": {
+          "energy_values": [
+            28,
+            69,
+            219,
+            346,
+            359,
+            408,
+            489
+          ],
+          "thresholds": [
+            "28",
+            "69",
+            "219",
+            "346",
+            "359",
+            "408",
+            "489"
+          ],
+          "misclassifications": [
+            "4",
+            "3",
+            "2",
+            "3",
+            "2",
+            "1",
+            "2"
+          ],
+          "optimal_threshold": "408",
+          "calibration": true
+        },
+        "htr_status": "success",
+        "layout_roi": {
+          "schema_version": "1.0",
+          "student_id": "Sample_Student",
+          "worksheet": "WS10",
+          "source_image": "ocr_output/_images/_slot31_check/page_2.jpg",
+          "page_index": 2,
+          "status": "success",
+          "message": null,
+          "zone_count": 18,
+          "zones": [
+            {
+              "zone_id": "Sample_Student_ws10_table",
+              "type": "table_grid",
+              "coordinates": {
+                "x": 618,
+                "y": 293,
+                "w": 379,
+                "h": 473
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table.png",
+              "worksheet": "WS10"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r0c0",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 619,
+                "y": 294,
+                "w": 48,
+                "h": 251
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c0.png",
+              "worksheet": "WS10",
+              "row": 0,
+              "col": 0,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r0c1",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 667,
+                "y": 294,
+                "w": 47,
+                "h": 251
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c1.png",
+              "worksheet": "WS10",
+              "row": 0,
+              "col": 1,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r0c2",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 714,
+                "y": 294,
+                "w": 46,
+                "h": 251
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c2.png",
+              "worksheet": "WS10",
+              "row": 0,
+              "col": 2,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r0c3",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 760,
+                "y": 294,
+                "w": 46,
+                "h": 251
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c3.png",
+              "worksheet": "WS10",
+              "row": 0,
+              "col": 3,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r0c4",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 806,
+                "y": 294,
+                "w": 47,
+                "h": 251
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c4.png",
+              "worksheet": "WS10",
+              "row": 0,
+              "col": 4,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r0c5",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 853,
+                "y": 294,
+                "w": 47,
+                "h": 251
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c5.png",
+              "worksheet": "WS10",
+              "row": 0,
+              "col": 5,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r0c6",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 900,
+                "y": 294,
+                "w": 46,
+                "h": 251
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c6.png",
+              "worksheet": "WS10",
+              "row": 0,
+              "col": 6,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r0c7",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 946,
+                "y": 294,
+                "w": 46,
+                "h": 251
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c7.png",
+              "worksheet": "WS10",
+              "row": 0,
+              "col": 7,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r1c0",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 619,
+                "y": 545,
+                "w": 48,
+                "h": 217
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c0.png",
+              "worksheet": "WS10",
+              "row": 1,
+              "col": 0,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r1c1",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 667,
+                "y": 545,
+                "w": 47,
+                "h": 217
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c1.png",
+              "worksheet": "WS10",
+              "row": 1,
+              "col": 1,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r1c2",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 714,
+                "y": 545,
+                "w": 46,
+                "h": 217
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c2.png",
+              "worksheet": "WS10",
+              "row": 1,
+              "col": 2,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r1c3",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 760,
+                "y": 545,
+                "w": 46,
+                "h": 217
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c3.png",
+              "worksheet": "WS10",
+              "row": 1,
+              "col": 3,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r1c4",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 806,
+                "y": 545,
+                "w": 47,
+                "h": 217
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c4.png",
+              "worksheet": "WS10",
+              "row": 1,
+              "col": 4,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r1c5",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 853,
+                "y": 545,
+                "w": 47,
+                "h": 217
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c5.png",
+              "worksheet": "WS10",
+              "row": 1,
+              "col": 5,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r1c6",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 900,
+                "y": 545,
+                "w": 46,
+                "h": 217
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c6.png",
+              "worksheet": "WS10",
+              "row": 1,
+              "col": 6,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_table_r1c7",
+              "type": "table_cell",
+              "coordinates": {
+                "x": 946,
+                "y": 545,
+                "w": 46,
+                "h": 217
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c7.png",
+              "worksheet": "WS10",
+              "row": 1,
+              "col": 7,
+              "parent_zone_id": "Sample_Student_ws10_table"
+            },
+            {
+              "zone_id": "Sample_Student_ws10_optimal_answer",
+              "type": "handwriting",
+              "coordinates": {
+                "x": 556,
+                "y": 774,
+                "w": 270,
+                "h": 210
+              },
+              "status": "success",
+              "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_optimal_answer.png",
+              "worksheet": "WS10",
+              "item_id": "WS10_B8"
+            }
+          ]
+        }
+      },
+      "validation": {
+        "schema_version": "1.0",
+        "worksheet": "WS10",
+        "student_id": "Sample_Student",
+        "answered": 8,
+        "blank": 0,
+        "illegible": [],
+        "missing": [],
+        "type_checks": {
+          "WS10_B1": {
+            "expected_type": "number",
+            "found_type": "number",
+            "ok": true
+          },
+          "WS10_B2": {
+            "expected_type": "number",
+            "found_type": "number",
+            "ok": true
+          },
+          "WS10_B3": {
+            "expected_type": "number",
+            "found_type": "number",
+            "ok": true
+          },
+          "WS10_B4": {
+            "expected_type": "number",
+            "found_type": "number",
+            "ok": true
+          },
+          "WS10_B5": {
+            "expected_type": "number",
+            "found_type": "number",
+            "ok": true
+          },
+          "WS10_B6": {
+            "expected_type": "number",
+            "found_type": "number",
+            "ok": true
+          },
+          "WS10_B7": {
+            "expected_type": "number",
+            "found_type": "number",
+            "ok": true
+          },
+          "WS10_B8": {
+            "expected_type": "number",
+            "found_type": "number",
+            "ok": true
+          }
+        },
+        "numeric_table": {
+          "energy_values": [
+            28,
+            69,
+            219,
+            346,
+            359,
+            408,
+            489
+          ],
+          "thresholds": [
+            "28",
+            "69",
+            "219",
+            "346",
+            "359",
+            "408",
+            "489"
+          ],
+          "misclassifications": [
+            "4",
+            "3",
+            "2",
+            "3",
+            "2",
+            "1",
+            "2"
+          ],
+          "optimal_threshold": "408",
+          "calibration": true
+        },
+        "blocked": false,
+        "blocked_reason": null
+      },
+      "scoring": {
+        "schema_version": "1.0",
+        "worksheet": "WS10",
+        "student_id": "Sample_Student",
+        "blocked": false,
+        "items": [
+          {
+            "item": "WS10_B1",
+            "score": 1.0,
+            "confidence": 1.0,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS10_B2",
+            "score": 1.0,
+            "confidence": 1.0,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS10_B3",
+            "score": 1.0,
+            "confidence": 1.0,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS10_B4",
+            "score": 1.0,
+            "confidence": 1.0,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS10_B5",
+            "score": 1.0,
+            "confidence": 1.0,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS10_B6",
+            "score": 1.0,
+            "confidence": 0.85,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS10_B7",
+            "score": 1.0,
+            "confidence": 0.85,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS10_B8",
+            "score": 1.0,
+            "confidence": 1.0,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          }
+        ],
+        "total_score": 8.0,
+        "max_score": 8.0
+      },
+      "summary": {
+        "schema_version": "1.0",
+        "worksheet": "WS10",
+        "student_id": "Sample_Student",
+        "total_score": 8.0,
+        "max_score": 8.0,
+        "learning_outcomes": {
+          "LO3.2.1": "strong"
+        },
+        "blocked": false
+      }
+    },
+    "WS11": {
+      "extraction": {
+        "schema_version": "1.0",
+        "worksheet": "WS11",
+        "student_id": "Sample_Student",
+        "responses": {
+          "WS11_B1": "Karar ağacı kavramını daha iyi anladım. Özellikle eşik değerinin nasıl seçildiğini öğrendim.",
+          "WS11_B2": "WS5 en çok zaman aldı ama en çok şeyi de orada öğrendim.",
+          "WS11_B3": "Duyarlılık ve MCR formüllerini başta karıştırdım, sonunda netleşti.",
+          "WS11_B4": "Ağaç çizmek düşündüğümden zordu; dalları doğru yönde etiketlemek dikkat istedi.",
+          "WS11_B5": "Gerçek veriyle çalışmak soyut kavramları somutlaştırdı.",
+          "WS11_B6": "Daha fazla örnek veri seti üzerinde pratik yapmak isterdim.",
+          "WS11_B7": "Bu etkinliği başka derslerde de görmek isterdim.",
+          "WS11_B8a": "Tavsiye edilmez",
+          "WS11_B8b": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+          "WS11_B9": "Karar ağacı, verideki örüntüleri öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir makine öğrenmesi modelidir.",
+          "WS11_Q10_1": "",
+          "WS11_Q10_2": "",
+          "WS11_Q10_3": "",
+          "WS11_Q10_4": "",
+          "WS11_Q10_5": "",
+          "WS11_Q10_6": "",
+          "WS11_Q10_7": "",
+          "WS11_Q10_8": "",
+          "WS11_Q11_2": "",
+          "WS11_Q11_3": "",
+          "WS11_Q11_4": "",
+          "WS11_Q12_1": "",
+          "WS11_Q12_2": "",
+          "WS11_Q12_3": "",
+          "WS11_Q12_4": "",
+          "WS11_Q12_5": "",
+          "WS11_L10_1": "4",
+          "WS11_L10_2": "5",
+          "WS11_L10_3": "4",
+          "WS11_L10_4": "3",
+          "WS11_L10_5": "5",
+          "WS11_L10_6": "4",
+          "WS11_L10_7": "4",
+          "WS11_L10_8": "5",
+          "WS11_L11_1": "4",
+          "WS11_L11_2": "5",
+          "WS11_L11_3": "4",
+          "WS11_L12_1": "Kadın",
+          "WS11_L12_2": "21",
+          "WS11_L12_3": "İlköğretim Matematik",
+          "WS11_L12_4": "3",
+          "WS11_L12_5": "Daha önce programlama kursu almadım."
+        }
+      },
+      "validation": {
+        "schema_version": "1.0",
+        "worksheet": "WS11",
+        "student_id": "Sample_Student",
+        "answered": 3,
+        "blank": 16,
+        "illegible": [],
+        "missing": [
+          "WS11_Q10_1",
+          "WS11_Q10_2",
+          "WS11_Q10_3",
+          "WS11_Q10_4",
+          "WS11_Q10_5",
+          "WS11_Q10_6",
+          "WS11_Q10_7",
+          "WS11_Q10_8",
+          "WS11_Q11_2",
+          "WS11_Q11_3",
+          "WS11_Q11_4",
+          "WS11_Q12_1",
+          "WS11_Q12_2",
+          "WS11_Q12_3",
+          "WS11_Q12_4",
+          "WS11_Q12_5"
+        ],
+        "descriptive_only": [
+          "WS11_B1",
+          "WS11_B2",
+          "WS11_B3",
+          "WS11_B4",
+          "WS11_B5",
+          "WS11_B6",
+          "WS11_B7",
+          "WS11_L10_1",
+          "WS11_L10_2",
+          "WS11_L10_3",
+          "WS11_L10_4",
+          "WS11_L10_5",
+          "WS11_L10_6",
+          "WS11_L10_7",
+          "WS11_L10_8",
+          "WS11_L11_1",
+          "WS11_L11_2",
+          "WS11_L11_3",
+          "WS11_L12_1",
+          "WS11_L12_2",
+          "WS11_L12_3",
+          "WS11_L12_4",
+          "WS11_L12_5"
+        ],
+        "note": "answered/blank/missing count only the cognitive items (B8a, B8b, B9, Q10_1..Q10_8, Q11_2..Q11_4, Q12_1..Q12_5). Q11 step 1 is pre-filled on the worksheet and not extracted. Reflections, Likert, and demographics are descriptive_only."
+      },
+      "scoring": {
+        "worksheet": "WS11",
+        "student_id": "Sample_Student",
+        "items": [
+          {
+            "item": "WS11_B8a",
+            "score": 1.0,
+            "confidence": 0.9,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS11_B8b",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS11_B9",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q10_1",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q10_2",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q10_3",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q10_4",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q10_5",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q10_6",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q10_7",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q10_8",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q11_2",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q11_3",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q11_4",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q12_1",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.5",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q12_2",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.5",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q12_3",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.5",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q12_4",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.5",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS11_Q12_5",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.5",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          }
+        ],
+        "schema_version": "1.0",
+        "calibration_note": "Confidence calibrated via confidence_calibration.py (review_threshold=0.7)."
+      },
+      "summary": {
+        "schema_version": "1.0",
+        "worksheet": "WS11",
+        "student_id": "Sample_Student",
+        "total_score": 3.0,
+        "max_score": 6,
+        "learning_outcomes": {
+          "LO3.1.1": "strong",
+          "LO3.1.2": "strong"
+        },
+        "incomplete": true,
+        "incomplete_reason": "Q10 (8 items), Q11 (3 items), Q12 (5 items) not captured."
+      }
+    },
+    "WS3": {
+      "extraction": {
+        "schema_version": "1.0",
+        "worksheet": "WS3",
+        "student_id": "Sample_Student",
+        "responses": {
+          "WS3_B1": "Tavsiye edilir",
+          "WS3_B2": "",
+          "WS3_B3": "Tavsiye edilir",
+          "WS3_B4": "",
+          "WS3_B5": "Tavsiye edilmez",
+          "WS3_B6": "",
+          "WS3_B7": "şeker ≤ 10",
+          "WS3_B8": "şeker > 10"
+        }
+      },
+      "validation": {
+        "schema_version": "1.0",
+        "worksheet": "WS3",
+        "student_id": "Sample_Student",
+        "answered": 5,
+        "blank": 0,
+        "illegible": [],
+        "missing": [
+          "WS3_B2",
+          "WS3_B4",
+          "WS3_B6"
+        ],
+        "type_checks": {
+          "WS3_B7": {
+            "expected_variable": "enerji",
+            "found_variable": "şeker",
+            "ok": false
+          },
+          "WS3_B8": {
+            "expected_variable": "enerji",
+            "found_variable": "şeker",
+            "ok": false
+          }
+        }
+      },
+      "scoring": {
+        "worksheet": "WS3",
+        "student_id": "Sample_Student",
+        "items": [
+          {
+            "item": "WS3_B1",
+            "score": 0.0,
+            "confidence": 0.88,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS3_B2",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS3_B3",
+            "score": 1.0,
+            "confidence": 0.9,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS3_B4",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS3_B5",
+            "score": 1.0,
+            "confidence": 0.9,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS3_B6",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS3_B7",
+            "score": 0.0,
+            "confidence": 0.85,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.3",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS3_B8",
+            "score": 0.0,
+            "confidence": 0.85,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.3",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          }
+        ],
+        "schema_version": "1.0",
+        "calibration_note": "Confidence calibrated via confidence_calibration.py (review_threshold=0.7)."
+      },
+      "summary": {
+        "schema_version": "1.0",
+        "worksheet": "WS3",
+        "student_id": "Sample_Student",
+        "total_score": 2.0,
+        "max_score": 8,
+        "learning_outcomes": {
+          "LO3.1.1": "moderate"
+        },
+        "incomplete": true,
+        "incomplete_reason": "Reason blanks B2/B4/B6 not captured; B7/B8 wrong variable."
+      }
+    },
+    "WS4": {
+      "extraction": {
+        "schema_version": "1.0",
+        "worksheet": "WS4",
+        "student_id": "Sample_Student",
+        "responses": {
+          "WS4_B1": "10",
+          "WS4_B2": "MCR en düşük olan eşik değeri",
+          "WS4_B3": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 — 10 daha iyi.",
+          "WS4_B4": "MCR = (FP + FN) / toplam = (2 + 2) / 20 = 0.20",
+          "WS4_B5": "Pia'nın ifadesi doğru; en düşük MCR en az hata demektir."
+        }
+      },
+      "validation": {
+        "schema_version": "1.0",
+        "worksheet": "WS4",
+        "student_id": "Sample_Student",
+        "answered": 5,
+        "blank": 0,
+        "illegible": [],
+        "missing": [
+          "WS4_visual_task"
+        ],
+        "numeric_checks": {
+          "WS4_B4": {
+            "expression": "(2+2)/20",
+            "expected": 0.2,
+            "computed": 0.2,
+            "ok": true
+          }
+        }
+      },
+      "scoring": {
+        "worksheet": "WS4",
+        "student_id": "Sample_Student",
+        "items": [
+          {
+            "item": "WS4_B1",
+            "score": 1.0,
+            "confidence": 0.85,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              },
+              {
+                "LO": "LO3.1.3",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS4_B2",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS4_B3",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS4_B4",
+            "score": 1.0,
+            "confidence": 1.0,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "WS4_B5",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          }
+        ],
+        "schema_version": "1.0",
+        "calibration_note": "Confidence calibrated via confidence_calibration.py (review_threshold=0.7)."
+      },
+      "summary": {
+        "schema_version": "1.0",
+        "worksheet": "WS4",
+        "student_id": "Sample_Student",
+        "total_score": 5.0,
+        "max_score": 5,
+        "learning_outcomes": {
+          "LO3.1.1": "strong",
+          "LO3.1.3": "moderate",
+          "LO3.2.1": "strong",
+          "LO3.2.2": "strong"
+        }
+      }
+    },
+    "WS5": {
+      "extraction": {
+        "schema_version": "1.0",
+        "worksheet": "WS5",
+        "student_id": "Sample_Student",
+        "responses": {
+          "WS5_B1": "şeker ≤ 5",
+          "WS5_B2": "3",
+          "WS5_B3": "7",
+          "WS5_B4": "0.30",
+          "WS5_B5": "şeker ≤ 8",
+          "WS5_B6": "5",
+          "WS5_B7": "5",
+          "WS5_B8": "0.20",
+          "WS5_B9": "şeker ≤ 10",
+          "WS5_B10": "8",
+          "WS5_B11": "2",
+          "WS5_B12": "0.20",
+          "WS5_B13": "şeker ≤ 12",
+          "WS5_B14": "9",
+          "WS5_B15": "1",
+          "WS5_B16": "0.20",
+          "WS5_B17": "şeker ≤ 15",
+          "WS5_B18": "10",
+          "WS5_B19": "0",
+          "WS5_B20": "0.25",
+          "WS5_B21": "",
+          "WS5_B22": "",
+          "WS5_B23": "",
+          "WS5_B24": "",
+          "WS5_B25": "Eşik 8, 10 ve 12 aynı MCR'yi veriyor. En küçük eşik değeri olan 8'i tercih ederim."
+        }
+      },
+      "validation": {
+        "schema_version": "1.0",
+        "worksheet": "WS5",
+        "student_id": "Sample_Student",
+        "answered": 21,
+        "blank": 4,
+        "illegible": [],
+        "missing": [
+          "WS5_B21",
+          "WS5_B22",
+          "WS5_B23",
+          "WS5_B24"
+        ],
+        "numeric_checks": {
+          "row_1": {
+            "sum": "3+7=10",
+            "mcr": 0.3,
+            "ok": true
+          },
+          "row_2": {
+            "sum": "5+5=10",
+            "mcr": 0.2,
+            "ok": true
+          },
+          "row_3": {
+            "sum": "8+2=10",
+            "mcr": 0.2,
+            "ok": true
+          },
+          "row_4": {
+            "sum": "9+1=10",
+            "mcr": 0.2,
+            "ok": true
+          },
+          "row_5": {
+            "sum": "10+0=10",
+            "mcr": 0.25,
+            "ok": false,
+            "reason": "0.25 impossible for 10 integer items"
+          }
+        }
+      },
+      "scoring": {
+        "worksheet": "WS5",
+        "student_id": "Sample_Student",
+        "items": [
+          {
+            "item": "WS5_row1",
+            "score": 1.0,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS5_row2",
+            "score": 1.0,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS5_row3",
+            "score": 1.0,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS5_row4",
+            "score": 1.0,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS5_row5",
+            "score": 0.5,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              }
+            ]
+          },
+          {
+            "item": "WS5_B25",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          }
+        ],
+        "schema_version": "1.0",
+        "calibration_note": "Confidence calibrated via confidence_calibration.py (review_threshold=0.7)."
+      },
+      "summary": {
+        "schema_version": "1.0",
+        "worksheet": "WS5",
+        "student_id": "Sample_Student",
+        "total_score": 5.5,
+        "max_score": 6,
+        "learning_outcomes": {
+          "LO3.2.1": "strong",
+          "LO3.2.2": "strong"
+        }
+      }
+    },
+    "WS6": {
+      "extraction": {
+        "schema_version": "1.0",
+        "worksheet": "WS6",
+        "student_id": "Sample_Student",
+        "responses": {
+          "WS6_B1": "şeker",
+          "WS6_B2": "≤ 10",
+          "WS6_B3": "evet (≤ 10)",
+          "WS6_B4": "hayır (> 10)",
+          "WS6_B5": "Tavsiye edilir",
+          "WS6_B6": "yağ",
+          "WS6_B7": "≤ 5",
+          "WS6_B8": "evet (≤ 5)",
+          "WS6_B9": "hayır (> 5)",
+          "WS6_B10": "Tavsiye edilir",
+          "WS6_B11": "Tavsiye edilmez",
+          "WS6_B12": "",
+          "WS6_B13": "Tavsiye edilmez"
+        }
+      },
+      "validation": {
+        "schema_version": "1.0",
+        "worksheet": "WS6",
+        "student_id": "Sample_Student",
+        "answered": 12,
+        "blank": 1,
+        "illegible": [],
+        "missing": [
+          "WS6_B12"
+        ],
+        "structure_checks": {
+          "depth": 2,
+          "features_different": true,
+          "leaf_count": 3,
+          "all_leaves_labeled": true,
+          "operators_consistent": true
+        }
+      },
+      "scoring": {
+        "worksheet": "WS6",
+        "student_id": "Sample_Student",
+        "items": [
+          {
+            "item": "WS6_root_feature",
+            "score": 1.0,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS6_root_threshold",
+            "score": 1.0,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS6_root_labels",
+            "score": 1.0,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS6_inner_feature",
+            "score": 1.0,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS6_inner_threshold",
+            "score": 1.0,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS6_inner_labels",
+            "score": 1.0,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS6_leaves",
+            "score": 0.5,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              }
+            ]
+          },
+          {
+            "item": "WS6_tree_structure",
+            "score": 1.0,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          }
+        ],
+        "schema_version": "1.0",
+        "calibration_note": "Confidence calibrated via confidence_calibration.py (review_threshold=0.7)."
+      },
+      "summary": {
+        "schema_version": "1.0",
+        "worksheet": "WS6",
+        "student_id": "Sample_Student",
+        "total_score": 7.5,
+        "max_score": 8,
+        "learning_outcomes": {
+          "LO3.1.1": "moderate",
+          "LO3.2.2": "strong"
+        }
+      }
+    },
+    "WS7": {
+      "extraction": {
+        "schema_version": "1.0",
+        "worksheet": "WS7",
+        "student_id": "Sample_Student",
+        "responses": {
+          "WS7_P1_box1": "",
+          "WS7_P1_box2": "",
+          "WS7_P1_box3": "",
+          "WS7_B1": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.",
+          "WS7_B2": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.",
+          "WS7_B3": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+          "WS7_B4": "",
+          "WS7_B5": "",
+          "WS7_B6": "",
+          "WS7_B7": ""
+        }
+      },
+      "validation": {
+        "schema_version": "1.0",
+        "worksheet": "WS7",
+        "student_id": "Sample_Student",
+        "answered": 3,
+        "blank": 7,
+        "illegible": [],
+        "missing": [
+          "WS7_P1_box1",
+          "WS7_P1_box2",
+          "WS7_P1_box3"
+        ],
+        "not_applicable": [
+          "WS7_B4",
+          "WS7_B5",
+          "WS7_B6",
+          "WS7_B7"
+        ]
+      },
+      "scoring": {
+        "worksheet": "WS7",
+        "student_id": "Sample_Student",
+        "items": [
+          {
+            "item": "WS7_P1_box1",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS7_P1_box2",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS7_P1_box3",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "WS7_B1",
+            "score": 1.0,
+            "confidence": 0.85,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS7_B2",
+            "score": 1.0,
+            "confidence": 0.85,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "WS7_B3",
+            "score": 1.0,
+            "confidence": 0.85,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          }
+        ],
+        "schema_version": "1.0",
+        "calibration_note": "Confidence calibrated via confidence_calibration.py (review_threshold=0.7)."
+      },
+      "summary": {
+        "schema_version": "1.0",
+        "worksheet": "WS7",
+        "student_id": "Sample_Student",
+        "total_score": 3.0,
+        "max_score": 6,
+        "learning_outcomes": {
+          "LO3.1.1": "strong",
+          "LO3.2.2": "moderate"
+        },
+        "incomplete": true,
+        "incomplete_reason": "Part 1 path matching not captured."
+      }
+    },
+    "WS_DT": {
+      "extraction": {
+        "schema_version": "1.0",
+        "worksheet": "WS_DT",
+        "student_id": "Sample_Student",
+        "note": "Re-transcribed from student_09 (Michael) worksheet images. Previous file used rubric example answers mis-assigned across sections A-D.",
+        "responses": {
+          "DT_A_Q1": "Bence, sahip olduğu enerji ve yağ oranı sağlar.",
+          "DT_A_Q2": "Enerji, yağ, şeker...",
+          "DT_A_Q3": "Evet! Genel olarak enerji düzeyleri arasında büyük fark var.",
+          "DT_A_Q4": "(bos)",
+          "DT_B_Q1": "MCR: 0.2, sensitivity: 0.737",
+          "DT_B_Q2": "(bos)",
+          "DT_B_Q3": "Performansta değişiklik gözlemledim. -> MCR değerim ve sens değerimde azalma gözlemledim.",
+          "DT_B_Q4": "En iyi sonucu enerjide aldım. Onun yanında doymuş yağ miktarı da iyi ise yaradı.",
+          "DT_C_Q1": "(bos)",
+          "DT_C_Q2": "Seçtiğim değişken miktarının eşiklerini grafikte sıraladım ve",
+          "DT_C_Q3": "281 olarak aldım. Değerlerde oynama yaparak en iyi değere ulaşmaya çalıştım.",
+          "DT_D_Q1": "(bos)",
+          "DT_D_Q2": "Evet iyileştirdi ve doğruluk oranını artırdı.",
+          "DT_D_Q3": "Enerji ve doymuş yağ",
+          "DT_D_Q4": "Oranın artması sağladı",
+          "DT_E_sensitivity": "0.737",
+          "DT_E_MCR": "0.2",
+          "DT_E_Q1": "Hata oranı çünkü hata oluşması karar ağacını amaçsız kılar.",
+          "DT_E_Q2": "0.2 hata oranı ile bazılarını kaçırdı",
+          "DT_E_Q3": "Kesinliğe ulaşana kadar.",
+          "DT_E_Q4": "(bos)",
+          "DT_F_Q1": "(bos)",
+          "DT_F_Q2": "(bos)",
+          "DT_G_Q1": "Hangi besinleri seçmesi gerektiğini algoritmasını oluşturdu.",
+          "DT_G_Q2": "(bos)"
+        }
+      },
+      "validation": {
+        "schema_version": "1.0",
+        "worksheet": "WS_DT",
+        "student_id": "Sample_Student",
+        "answered": 17,
+        "blank": 8,
+        "illegible": [],
+        "missing": [
+          "DT_A_Q4",
+          "DT_B_Q2",
+          "DT_C_Q1",
+          "DT_D_Q1",
+          "DT_E_Q4",
+          "DT_F_Q1",
+          "DT_F_Q2",
+          "DT_G_Q2"
+        ],
+        "numeric_checks": {
+          "DT_E_sensitivity": {
+            "value": 0.737,
+            "consistent": null,
+            "note": "No TP/FN counts recorded to verify against D_Q1 or B_Q1."
+          },
+          "DT_E_MCR": {
+            "value": 0.2,
+            "consistent": null,
+            "note": "No confusion matrix counts recorded to verify."
+          }
+        },
+        "note": "OCR re-transcribed with section-accurate item keys. Section F (test data) not completed on this worksheet."
+      },
+      "scoring": {
+        "worksheet": "WS_DT",
+        "student_id": "Sample_Student",
+        "note": "Re-scored after section-accurate OCR re-transcription (student_09/Michael).",
+        "items": [
+          {
+            "item": "DT_A_Q1",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              }
+            ]
+          },
+          {
+            "item": "DT_A_Q2",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              }
+            ]
+          },
+          {
+            "item": "DT_A_Q3",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              },
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "moderate"
+              }
+            ]
+          },
+          {
+            "item": "DT_A_Q4",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_B_Q1",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              },
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              }
+            ]
+          },
+          {
+            "item": "DT_B_Q2",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_B_Q3",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              }
+            ]
+          },
+          {
+            "item": "DT_B_Q4",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_C_Q1",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_C_Q2",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_C_Q3",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "DT_D_Q1",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_D_Q2",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              },
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              }
+            ]
+          },
+          {
+            "item": "DT_D_Q3",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              },
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              }
+            ]
+          },
+          {
+            "item": "DT_D_Q4",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              },
+              {
+                "LO": "LO3.3.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_E_sensitivity",
+            "score": 1.0,
+            "confidence": 0.85,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "DT_E_MCR",
+            "score": 1.0,
+            "confidence": 0.85,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "DT_E_Q1",
+            "score": 1.0,
+            "confidence": 0.8,
+            "review": false,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "strong"
+              }
+            ]
+          },
+          {
+            "item": "DT_E_Q2",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              },
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              }
+            ]
+          },
+          {
+            "item": "DT_E_Q3",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              },
+              {
+                "LO": "LO3.3.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_E_Q4",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.3",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.3.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_F_Q1",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.3",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_F_Q2",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.3",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.3.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_G_Q1",
+            "score": 0.5,
+            "confidence": 0.59,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.1.1",
+                "evidence_present": true,
+                "evidence_strength": "weak"
+              },
+              {
+                "LO": "LO3.3.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          },
+          {
+            "item": "DT_G_Q2",
+            "score": null,
+            "confidence": 0.0,
+            "review": true,
+            "learning_outcomes": [
+              {
+                "LO": "LO3.2.2",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              },
+              {
+                "LO": "LO3.3.1",
+                "evidence_present": false,
+                "evidence_strength": "none"
+              }
+            ]
+          }
+        ],
+        "schema_version": "1.0",
+        "calibration_note": "Confidence calibrated via confidence_calibration.py (review_threshold=0.7)."
+      },
+      "summary": {
+        "schema_version": "1.0",
+        "worksheet": "WS_DT",
+        "student_id": "Sample_Student",
+        "total_score": 11.5,
+        "max_score": 25,
+        "learning_outcomes": {
+          "LO3.1.1": "strong",
+          "LO3.2.1": "moderate",
+          "LO3.2.2": "moderate",
+          "LO3.2.3": "none",
+          "LO3.3.1": "none"
+        },
+        "incomplete": true,
+        "incomplete_reason": "Section F (test data) not completed; 8 items blank including A_Q4, B_Q2, C_Q1, D_Q1, E_Q4, G_Q2."
+      }
+    }
+  },
+  "portfolio": {
+    "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
+    "aspect": "Aspect 3: AI foundations and applications",
+    "worksheets_scored": [
+      "WS1",
+      "WS3",
+      "WS4",
+      "WS5",
+      "WS6",
+      "WS7",
+      "WS10",
+      "WS11",
+      "WS_DT"
+    ],
+    "learning_outcomes": {
+      "LO3.1.1": {
+        "peak_strength": "strong",
+        "contributing_worksheets": [
+          "WS1",
+          "WS3",
+          "WS4",
+          "WS6",
+          "WS7",
+          "WS11",
+          "WS_DT"
+        ]
+      },
+      "LO3.1.2": {
+        "peak_strength": "strong",
+        "contributing_worksheets": [
+          "WS1",
+          "WS11"
+        ]
+      },
+      "LO3.1.3": {
+        "peak_strength": "moderate",
+        "contributing_worksheets": [
+          "WS4"
+        ],
+        "note": "WS3 own-threshold used the wrong variable; B7/B8 contribution unverified."
+      },
+      "LO3.1.5": {
+        "peak_strength": "none",
+        "contributing_worksheets": [],
+        "note": "WS11 Q12 sub-items (WS11_Q12_1..5) not captured."
+      },
+      "LO3.2.1": {
+        "peak_strength": "strong",
+        "contributing_worksheets": [
+          "WS4",
+          "WS5",
+          "WS10",
+          "WS_DT"
+        ],
+        "note": "WS10 numeric table re-extracted via layout+HTR (page 2); WS_DT contributes moderate evidence."
+      },
+      "LO3.2.2": {
+        "peak_strength": "strong",
+        "contributing_worksheets": [
+          "WS4",
+          "WS5",
+          "WS6",
+          "WS7",
+          "WS_DT"
+        ]
+      },
+      "LO3.2.3": {
+        "peak_strength": "weak",
+        "contributing_worksheets": [
+          "WS1"
+        ],
+        "note": "WS_DT Section F (test data / overfitting) not completed; no strong train-test evidence."
+      },
+      "LO3.3.1": {
+        "peak_strength": "none",
+        "contributing_worksheets": [],
+        "note": "WS_DT Section F and E_Q4 blank; Create-level signals not yet observed."
+      }
+    },
+    "ai_cft_proposal": {
+      "Aspect3": "Deepen",
+      "rationale": "Acquire LOs (LO3.1.1, LO3.1.2) show strong evidence across multiple worksheets. Deepen LOs (LO3.2.1, LO3.2.2) reach strong peak strength from WS4/WS5/WS6/WS10 with WS_DT contributing moderate support. LO3.2.3 remains weak only (WS1); WS_DT overfitting item not completed. Create level (LO3.3.1) has no evidence yet.",
+      "confidence": "provisional",
+      "is_final": false,
+      "decision_owner": "researcher",
+      "decision_note": "Level is not assigned from any single worksheet. This proposal aggregates LO evidence from all scored worksheets. The researcher makes the final holistic judgement after reviewing flagged items and filling data gaps."
+    },
+    "data_gaps": [
+      {
+        "worksheet": "WS_DT",
+        "items": [
+          "DT_F_Q1",
+          "DT_F_Q2",
+          "DT_E_Q4",
+          "DT_A_Q4",
+          "DT_B_Q2",
+          "DT_C_Q1",
+          "DT_D_Q1",
+          "DT_G_Q2"
+        ],
+        "priority": 1,
+        "why": "Section F (test/overfitting) not completed; key Create and LO3.2.3 evidence missing."
+      },
+      {
+        "worksheet": "WS11",
+        "items": [
+          "WS11_Q10_1..8",
+          "WS11_Q11_2..4",
+          "WS11_Q12_1..5"
+        ],
+        "priority": 3,
+        "why": "Direct cognitive sub-items for LO3.1.1, LO3.1.2, and LO3.1.5."
+      },
+      {
+        "worksheet": "WS7",
+        "items": [
+          "Part 1 path matching"
+        ],
+        "priority": 4,
+        "why": "Reading a given tree is a distinct competency from constructing one."
+      },
+      {
+        "worksheet": "WS3",
+        "items": [
+          "WS3_B2",
+          "WS3_B4",
+          "WS3_B6",
+          "WS3_B7",
+          "WS3_B8"
+        ],
+        "priority": 5,
+        "why": "Reason blanks missing; B7/B8 used wrong variable."
+      }
+    ]
+  },
+  "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
+  "aspect": "Aspect 3: AI foundations and applications"
+}

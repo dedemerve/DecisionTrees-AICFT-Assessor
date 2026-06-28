@@ -10,8 +10,8 @@ Your task is NOT to determine the student's overall AI-CFT level. Your task is O
 
 ## Inputs
 
-1. Extracted student responses (`ocr_output/<student>/<WS>.json`).
-2. Worksheet rubric (`rubrics/<WS>_rubric.json`).
+1. Extracted student responses (`students/<student>.json → worksheets.<WS>.extraction`).
+2. Worksheet rubric (`rubrics/<WS>_rubric.json`, `schema_version: "3.0"` — semantic items use `components[].idea`, not keyword lists).
 3. Worksheet AI-CFT mapping (`mappings/<WS>_AICFT_mapping.json`).
 4. Worksheet scoring context (`prompts/<WS>_scoring_prompt.md`).
 
@@ -38,9 +38,22 @@ A single worksheet can never prove mastery. Outcomes accumulate evidence across 
 
 ## Confidence
 
-Every item gets a confidence in [0.00, 1.00]. If confidence < 0.70, set `review: true`.
+Every item gets a confidence in [0.00, 1.00]. Confidence reflects scorer certainty in the assigned score, not student ability. If confidence < 0.70, set `review: true`.
 
-Note: confidence must be calibrated against a human-coded sample before publication. Sample values in this repo are illustrative.
+After scoring, run `python calibrate_scoring.py <student_id>` to apply rule-based tiers from `confidence_calibration.py` (anchor: `calibration/human_coding_reference.json`).
+
+| Situation | Confidence |
+|-----------|------------|
+| Missing OCR / null score | 0.00 |
+| Deterministic check passed, full credit | 1.00 |
+| Deterministic check failed, zero | 0.90 |
+| Discrete item, full credit | 0.90 |
+| Discrete item, zero with OCR present | 0.88 |
+| Semantic item, full credit | 0.80 |
+| Reflection item, full credit | 0.72 |
+| Partial credit (any type) | `min(0.68, 0.50 + 0.18 × score/max_score)` |
+
+Deterministic items: formula, numeric, tree validity, threshold, and related checks. Discrete: true/false, ordering, multiselect, path matching. Reflection: `reflect_*` evaluation types. All other rubric items are semantic.
 
 ## Semantic scoring
 

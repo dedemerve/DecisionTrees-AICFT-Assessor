@@ -1,0 +1,25 @@
+name: Validate pipeline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install layout dependencies
+        run: pip install -r requirements-layout.txt
+      - name: Validate rubrics and pipeline outputs
+        run: python validate_pipeline_outputs.py
+      - name: Test layout isolator (Phase 1)
+        run: python test_layout_isolator.py
+      - name: Test WS10 HTR (Phase 2)
+        run: python test_ws10_htr.py
+      - name: Test student bundle
+        run: python test_student_bundle.py

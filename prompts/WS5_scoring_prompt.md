@@ -6,7 +6,7 @@ This file is injected alongside `stage3_scoring.md` when scoring WS5.
 
 - Rubric: `rubrics/WS5_rubric.json`
 - Mapping: `mappings/WS5_AICFT_mapping.json`
-- Responses: `ocr_output/<student>/WS5.json`
+- Responses: `students/<student>.json → worksheets.WS5.extraction`
 
 ## Worksheet description
 

@@ -3,8 +3,10 @@ worksheet_assessor.py
 Phase 1 — Worksheet assessment agent using few-shot prompting.
 
 Covers:
-  - Worksheet DT (main CODAP Arbor worksheet, Sections A-G)
-  - ProDaBi worksheets: WS1, WS3, WS4, WS7, WS11
+  - Worksheet DT (WS_DT, Sections A-G)
+  - ProDaBi worksheets: WS1, WS3, WS4, WS5, WS6, WS7, WS10, WS11
+
+Rubrics and item IDs are loaded from pipeline_schema.py (rubrics/*.json).
 
 Assessment logic:
   - Binary correct / partial / wrong per item
@@ -25,6 +27,8 @@ from typing import Optional, Union
 import anthropic
 from PIL import Image
 from pydantic import BaseModel, Field, field_validator, model_validator
+
+from pipeline_schema import get_assessor_rubric, normalize_worksheet_id, scoring_item_ids
 
 # ---------------------------------------------------------------------------
 # Pydantic output schema
@@ -647,385 +651,8 @@ def extract_decision_tree_structure(
 # ---------------------------------------------------------------------------
 # Each rubric has:
 #   prompt_description: what to tell the LLM about this item
-#   full_credit_criteria: list of conditions for full credit
-#   partial_credit_criteria: list of conditions for partial credit
-#   zero_credit_criteria: list of conditions for zero credit
-#   arithmetic_check: optional Python lambda that verifies a numeric answer
-# ---------------------------------------------------------------------------
-
-RUBRICS: dict[str, dict] = {
-
-    # -----------------------------------------------------------------------
-    # Worksheet DT — Section A
-    # -----------------------------------------------------------------------
-    "DT_A_Q1": {
-        "prompt_description": (
-            "Student names variables they think will predict food recommendability "
-            "BEFORE doing any data analysis. This is a prior-belief question. "
-            "Any named variable from the dataset is acceptable."
-        ),
-        "full_credit_criteria": ["Names at least one nutritional variable (e.g. fat, energy, sugar, protein, fibre, salt, saturated fat)"],
-        "partial_credit_criteria": ["Names a non-specific characteristic like 'calories' or 'healthiness' without a dataset variable name"],
-        "zero_credit_criteria": ["Blank", "Names something outside the dataset (e.g. taste, colour, price)"],
-    },
-
-    "DT_A_Q2": {
-        "prompt_description": (
-            "Student names variables that ACTUALLY influence recommendability based on "
-            "exploring the data. Must reference a graph or visual observation."
-        ),
-        "full_credit_criteria": [
-            "Names at least one dataset variable",
-            "Justification references a graph, chart, or distribution (e.g. 'the scatter plot showed', 'I looked at the distribution')",
-        ],
-        "partial_credit_criteria": [
-            "Names a variable but justification is intuition-only without data reference",
-        ],
-        "zero_credit_criteria": ["Blank", "General claim with no variable named"],
-    },
-
-    "DT_A_Q4": {
-        "prompt_description": (
-            "Student explains which variable they would use first in a prediction model and WHY. "
-            "Key distinction: data-driven reason (graph showed separation) vs knowledge-based reason "
-            "(fat is unhealthy). Data-driven = full credit. Knowledge-based = partial."
-        ),
-        "full_credit_criteria": [
-            "Names a specific dataset variable",
-            "Justification is data-driven: references a graph, visualisation, or observed distribution",
-        ],
-        "partial_credit_criteria": [
-            "Names a specific variable but justification is general knowledge only",
-        ],
-        "zero_credit_criteria": ["Blank", "No specific variable named"],
-    },
-
-    # -----------------------------------------------------------------------
-    # Worksheet DT — Section B
-    # -----------------------------------------------------------------------
-    "DT_B_Q4": {
-        "prompt_description": (
-            "Student identifies which of the three variables they tested gave the best result "
-            "and states the criteria they used to decide. "
-            "Metric-based reasoning (accuracy, misclassification rate, TP/TN counts) = full credit."
-        ),
-        "full_credit_criteria": [
-            "Names a specific variable tested",
-            "Decision criterion is a performance metric (accuracy, error rate, TP/TN/FP/FN, or misclassification count)",
-        ],
-        "partial_credit_criteria": [
-            "Names a variable but criterion is subjective ('looked better', 'seemed more accurate')",
-        ],
-        "zero_credit_criteria": ["Blank", "No criterion stated"],
-    },
-
-    # -----------------------------------------------------------------------
-    # Worksheet DT — Section C
-    # -----------------------------------------------------------------------
-    "DT_C_Q2": {
-        "prompt_description": (
-            "Student explains how changing the threshold affects classification performance. "
-            "Must address direction (too high / too low causes more errors) or mechanism "
-            "(boundary moves, different items misclassified)."
-        ),
-        "full_credit_criteria": [
-            "States that threshold change affects which items are correctly/incorrectly classified",
-            "Addresses direction: too extreme a threshold increases errors",
-        ],
-        "partial_credit_criteria": [
-            "States 'it changes accuracy' or 'performance changes' without explaining how or why",
-        ],
-        "zero_credit_criteria": ["Blank", "'It does not matter'", "Incorrect claim that threshold has no effect"],
-    },
-
-    "DT_C_Q3": {
-        "prompt_description": (
-            "Student states the threshold value they found to be best AND describes "
-            "how they searched for it. Method matters."
-        ),
-        "full_credit_criteria": [
-            "States a specific threshold value",
-            "Describes a search method: tried multiple values, compared accuracy, or used systematic midpoint approach",
-        ],
-        "partial_credit_criteria": [
-            "States a threshold value but no method described",
-        ],
-        "zero_credit_criteria": ["Blank", "States 'I used the default' or describes no search"],
-    },
-
-    # -----------------------------------------------------------------------
-    # Worksheet DT — Section D
-    # -----------------------------------------------------------------------
-    "DT_D_Q2": {
-        "prompt_description": (
-            "Student explains whether adding a second variable improved classification. "
-            "Full credit requires a numeric comparison (accuracy before vs after)."
-        ),
-        "full_credit_criteria": [
-            "States whether accuracy improved or not",
-            "Provides numeric comparison (e.g. 'accuracy went from 0.73 to 0.82')",
-        ],
-        "partial_credit_criteria": [
-            "States yes/no without numeric comparison",
-        ],
-        "zero_credit_criteria": ["Blank", "Claims improvement without any check"],
-    },
-
-    "DT_D_Q4": {
-        "prompt_description": (
-            "Student explains how they decided they reached the best tree. "
-            "A stopping criterion must be present."
-        ),
-        "full_credit_criteria": [
-            "References a stopping criterion: accuracy plateau, comparison between models, or overfitting concern",
-        ],
-        "partial_credit_criteria": [
-            "'It had the highest accuracy I found' (acceptable if they mention comparison)",
-        ],
-        "zero_credit_criteria": ["'I just stopped'", "Blank", "No criterion"],
-    },
-
-    # -----------------------------------------------------------------------
-    # Worksheet DT — Section E
-    # -----------------------------------------------------------------------
-    "DT_E_sensitivity": {
-        "prompt_description": (
-            "Student computes sensitivity (true positive rate) = TP / (TP + FN). "
-            "The LLM should verify the formula used, not compute the value. "
-            "Python checks the arithmetic separately."
-        ),
-        "full_credit_criteria": [
-            "Uses correct formula: TP / (TP + FN)",
-            "Numeric answer is consistent with their stated TP and FN values",
-        ],
-        "partial_credit_criteria": [
-            "Uses a related but incorrect formula (e.g. TP / total instead of TP / (TP+FN))",
-        ],
-        "zero_credit_criteria": ["Blank", "Completely wrong formula", "Random number with no formula"],
-    },
-
-    "DT_E_MCR": {
-        "prompt_description": (
-            "Student computes misclassification rate (MCR) = (FP + FN) / total. "
-            "LLM checks formula; Python checks arithmetic."
-        ),
-        "full_credit_criteria": [
-            "Uses correct formula: (FP + FN) / total",
-            "Numeric answer consistent with their TP/TN/FP/FN values",
-        ],
-        "partial_credit_criteria": [
-            "Divides errors by wrong denominator (e.g. by TP+FP instead of total)",
-        ],
-        "zero_credit_criteria": ["Blank", "No formula"],
-    },
-
-    "DT_E_Q1": {
-        "prompt_description": (
-            "Student states which metric matters most for their model and justifies it "
-            "with reference to the classification goal (food recommendation context)."
-        ),
-        "full_credit_criteria": [
-            "Names a specific metric (sensitivity, MCR, accuracy, or FP/FN balance)",
-            "Justification ties metric choice to the classification context "
-            "(e.g. 'false negatives mean we miss recommendable foods, which matters more')",
-        ],
-        "partial_credit_criteria": [
-            "Names a metric but justification is generic ('accuracy is the most important metric')",
-        ],
-        "zero_credit_criteria": ["Blank", "Cannot name a metric"],
-    },
-
-    "DT_E_Q4": {
-        "prompt_description": (
-            "Student answers whether a decision tree can achieve perfect classification. "
-            "Correct answer: No. Reason must reference data overlap or noise."
-        ),
-        "full_credit_criteria": [
-            "Answers No",
-            "Gives a conceptually correct reason: data overlap, noise, or insufficiently discriminative features",
-        ],
-        "partial_credit_criteria": [
-            "Answers No without explanation",
-        ],
-        "zero_credit_criteria": ["Answers Yes (any justification)", "Blank"],
-    },
-
-    # -----------------------------------------------------------------------
-    # Worksheet DT — Section F
-    # -----------------------------------------------------------------------
-    "DT_F_Q2": {
-        "prompt_description": (
-            "Student compares test data performance to training data performance and explains "
-            "any difference. Full credit requires the overfitting concept "
-            "(model fitted training data too well, generalises less well to new data)."
-        ),
-        "full_credit_criteria": [
-            "Notes performance difference between train and test",
-            "Explains the direction: test accuracy is lower than train accuracy",
-            "Provides a conceptual reason: model is fitted to training data, overfitting, or generalisation",
-        ],
-        "partial_credit_criteria": [
-            "Notes a difference without conceptual explanation",
-            "States 'test accuracy was lower' with no reason given",
-        ],
-        "zero_credit_criteria": [
-            "Claims test and train accuracy are always identical",
-            "Blank",
-            "Cannot describe what comparing datasets means",
-        ],
-    },
-
-    # -----------------------------------------------------------------------
-    # Worksheet DT — Section G
-    # -----------------------------------------------------------------------
-    "DT_G_Q1": {
-        "prompt_description": (
-            "Student explains what their decision tree 'learned'. "
-            "Strong answer: model learned patterns/rules from training data to distinguish "
-            "recommended from not-recommended foods."
-        ),
-        "full_credit_criteria": [
-            "States model learned from data (not from the programmer)",
-            "Specifies what was learned: patterns, rules, or thresholds that separate classes",
-        ],
-        "partial_credit_criteria": [
-            "'It learned the data' — vague but not wrong",
-            "Describes what the tree does (classifies) rather than what it learned",
-        ],
-        "zero_credit_criteria": ["Blank", "States the programmer taught the model manually"],
-    },
-
-    "DT_G_Q2": {
-        "prompt_description": (
-            "Student reflects on what they personally learned. No wrong answer. "
-            "Evaluate depth of metacognitive awareness."
-        ),
-        "full_credit_criteria": [
-            "Mentions specific concepts learned: threshold, feature selection, overfitting, train/test, accuracy, or confusion matrix",
-        ],
-        "partial_credit_criteria": [
-            "General statement: 'I learned how to use the program' or 'I learned about decision trees'",
-        ],
-        "zero_credit_criteria": ["Blank", "'I did not learn anything'"],
-    },
-
-    # -----------------------------------------------------------------------
-    # Worksheet 1
-    # -----------------------------------------------------------------------
-    "WS1_objects": {
-        "prompt_description": "Student identifies what the 'objects' in the food data are.",
-        "full_credit_criteria": ["Individual foods / food items / specific food cards (e.g. apple, popcorn, french fries)"],
-        "partial_credit_criteria": ["'Foods' (correct category but not 'individual' or 'each food')"],
-        "zero_credit_criteria": ["Features / nutrients / columns", "Blank"],
-    },
-
-    "WS1_features": {
-        "prompt_description": "Student identifies what the 'features' (variables / characteristics) are.",
-        "full_credit_criteria": [
-            "Nutritional characteristics / columns of the table: fat, energy, sugar, protein, fibre, salt, saturated fat, etc."
-        ],
-        "partial_credit_criteria": ["'Information about the food' without naming a specific feature"],
-        "zero_credit_criteria": ["Confuses features with objects or labels", "Blank"],
-    },
-
-    "WS1_label": {
-        "prompt_description": "Student identifies what the 'label' (etiket) is.",
-        "full_credit_criteria": [
-            "Recommendability / tavsiye edilebilir-edilemez / the classification outcome"
-        ],
-        "partial_credit_criteria": ["'The answer' or 'the result' — vague but directionally correct"],
-        "zero_credit_criteria": ["Confuses label with a feature", "Names a feature as the label", "Blank"],
-    },
-
-    # -----------------------------------------------------------------------
-    # Worksheet 3
-    # -----------------------------------------------------------------------
-    "WS3_classification": {
-        "prompt_description": (
-            "Student applies a given threshold (fat ≤ 8.0g) to classify three foods. "
-            "Correct answers: popcorn = recommended, apple = recommended, french fries = not recommended."
-        ),
-        "full_credit_criteria": ["All three correctly classified with correct comparison operator"],
-        "partial_credit_criteria": ["Two of three correct", "All correct but operator stated wrong (e.g. < instead of ≤)"],
-        "zero_credit_criteria": ["One or zero correct", "Blank"],
-    },
-
-    # -----------------------------------------------------------------------
-    # Worksheet 4
-    # -----------------------------------------------------------------------
-    "WS4_T3": {
-        "prompt_description": (
-            "Student decides who is correct in a dispute about threshold placement. "
-            "Pia says threshold cannot go between apple and raspberry jam because they have "
-            "the same fat value. Pia is correct — you cannot split equal values."
-        ),
-        "full_credit_criteria": [
-            "States Pia is correct",
-            "Reason: the two foods have the same value for that feature, so no threshold can separate them",
-        ],
-        "partial_credit_criteria": ["States Pia is correct but gives incomplete or vague reason"],
-        "zero_credit_criteria": ["States Leo is correct", "Blank", "No reason given"],
-    },
-
-    # -----------------------------------------------------------------------
-    # Worksheet 7
-    # -----------------------------------------------------------------------
-    "WS7_path_matching": {
-        "prompt_description": (
-            "Student matches paths A, B, C to written decision rules. "
-            "Correct: A = energy < 180 → recommended, B = energy ≥ 180 AND protein < 7.7 → not recommended, "
-            "C = energy ≥ 180 AND protein ≥ 7.7 → recommended."
-        ),
-        "full_credit_criteria": ["All three paths correctly matched"],
-        "partial_credit_criteria": ["Two of three correctly matched"],
-        "zero_credit_criteria": ["One or zero correct", "Blank"],
-    },
-
-    # -----------------------------------------------------------------------
-    # Worksheet 11
-    # -----------------------------------------------------------------------
-    "WS11_Q10": {
-        "prompt_description": (
-            "Multiple select: What CAN a decision tree do? "
-            "Correct selections: predict feature category for a new object, make decisions, "
-            "model part of reality, determine recommendation status, understand decision quality. "
-            "Wrong selections: create a meal plan, tell someone what to eat, predict what features an object has."
-        ),
-        "full_credit_criteria": [
-            "Selects all correct options",
-            "Does not select any wrong options",
-        ],
-        "partial_credit_criteria": [
-            "Selects most correct options with at most one wrong option selected",
-        ],
-        "zero_credit_criteria": ["Selects majority of wrong options", "Blank"],
-    },
-
-    "WS11_Q11": {
-        "prompt_description": (
-            "Student orders the DT-building steps 1-4. "
-            "Correct order: 1=Select feature, 2=Arrange data, 3=Find threshold, 4=Make decision."
-        ),
-        "full_credit_criteria": ["All four steps in correct order"],
-        "partial_credit_criteria": ["Three of four in correct position", "Adjacent steps swapped"],
-        "zero_credit_criteria": ["Two or fewer correct positions", "Blank"],
-    },
-
-    "WS11_Q12": {
-        "prompt_description": (
-            "Multiple select: Why is DT considered AI? "
-            "Correct: computer can build DTs automatically, enables automatic decision-making. "
-            "Wrong: computer thinks correctly, as smart as human, DT never makes mistakes."
-        ),
-        "full_credit_criteria": [
-            "Selects both correct options, does not select any wrong options",
-        ],
-        "partial_credit_criteria": [
-            "Selects one correct option, does not select wrong options",
-        ],
-        "zero_credit_criteria": ["Selects any wrong option", "Blank"],
-    },
-}
+# Rubric criteria are loaded from rubrics/<WS>_rubric.json via pipeline_schema.
+# Few-shot examples below supplement LLM scoring for selected items.
 
 
 # ---------------------------------------------------------------------------
@@ -1609,8 +1236,23 @@ Respond ONLY with a valid JSON object matching this schema:
 }"""
 
 
+def _few_shot_parent_key(item_id: str) -> str | None:
+    """Map WS11 sub-items to legacy few-shot parent keys when needed."""
+    if item_id.startswith("WS11_Q10_"):
+        return "WS11_Q10"
+    if item_id.startswith("WS11_Q11_"):
+        return "WS11_Q11"
+    if item_id.startswith("WS11_Q12_"):
+        return "WS11_Q12"
+    return None
+
+
 def _build_few_shot_block(item_id: str) -> str:
-    examples = FEW_SHOT_EXAMPLES.get(item_id, [])
+    examples = FEW_SHOT_EXAMPLES.get(item_id)
+    if not examples:
+        parent = _few_shot_parent_key(item_id)
+        if parent:
+            examples = FEW_SHOT_EXAMPLES.get(parent, [])
     if not examples:
         return ""
     lines = ["\n--- Few-shot examples for this item ---"]
@@ -1623,10 +1265,9 @@ def _build_few_shot_block(item_id: str) -> str:
     return "\n".join(lines)
 
 
-def _build_rubric_block(item_id: str) -> str:
-    rubric = RUBRICS.get(item_id)
-    if not rubric:
-        raise KeyError(f"No rubric defined for item_id: {item_id!r}")
+def _build_rubric_block(item_id: str, worksheet_id: str | None = None) -> str:
+    worksheet = normalize_worksheet_id(worksheet_id) if worksheet_id else None
+    rubric = get_assessor_rubric(item_id, worksheet)
     lines = [
         f"Item: {item_id}",
         f"Description: {rubric['prompt_description']}",
@@ -1685,6 +1326,7 @@ def assess_item(
     student_response: str,
     log_context: Optional[str] = None,
     model: str = "claude-sonnet-4-6",
+    worksheet_id: str | None = None,
 ) -> ItemScore:
     """
     Assess one worksheet item for one student.
@@ -1700,7 +1342,7 @@ def assess_item(
     Returns:
         ItemScore with credit, rationale, evidence_quote, and optional flag.
     """
-    rubric_block = _build_rubric_block(item_id)
+    rubric_block = _build_rubric_block(item_id, worksheet_id)
     few_shot_block = _build_few_shot_block(item_id)
 
     user_content_parts = [rubric_block, few_shot_block]
@@ -1770,19 +1412,21 @@ def assess_worksheet(
     """
     log_contexts = log_contexts or {}
     numeric_checks = numeric_checks or {}
+    worksheet = normalize_worksheet_id(worksheet_id)
+    scored_ids = scoring_item_ids(worksheet)
+    target_ids = [iid for iid in scored_ids if iid in responses]
 
     item_scores: list[ItemScore] = []
 
-    for item_id, response_text in responses.items():
-        if item_id not in RUBRICS:
-            continue  # skip items without a rubric
-
+    for item_id in target_ids:
+        response_text = responses[item_id]
         score = assess_item(
             client=client,
             item_id=item_id,
             student_response=response_text,
             log_context=log_contexts.get(item_id),
             model=model,
+            worksheet_id=worksheet,
         )
 
         # Python arithmetic checks (override LLM on numerical items)
@@ -1803,7 +1447,7 @@ def assess_worksheet(
     if not item_scores:
         raise ValueError(
             f"assess_worksheet: no rubric items found for worksheet_id={worksheet_id!r}. "
-            f"Check that responses keys match RUBRICS entries."
+            f"Check that responses keys match scoring items for {worksheet!r}."
         )
 
     # Overall worksheet credit

@@ -1,28 +1,44 @@
 # Assessment pipeline
 
-Each stage produces only its own output. JSON holds student data, not workflow state. The same files are read by different models, so each one is kept minimal.
+Each student has **one output file**: `students/<student_id>.json`. Worksheet stages are sections inside that file, not separate folders.
 
-## Stages
+## Student bundle (`students/<student>.json`)
 
-| Stage | Producer | Folder | Job |
-|-------|----------|--------|-----|
-| 1. Extraction | Claude Sonnet 4.6 Vision (WS6 uses Opus 4.8) | `ocr_output/<student>/WSx.json` | Transcribe what is on the page. No interpretation. |
-| 2. Validation | Python | `validation/<student>/WSx.json` | Deterministic checks: answered, blank, illegible, missing, formula and arithmetic verification. |
-| 3. Scoring | Claude Haiku 4.5 or Sonnet 4.6 | `scoring/<student>/WSx.json` | Score each item against the rubric: score, confidence, matched, review. |
-| 4. Worksheet summary | Python | `summary/<student>/WSx.json` | total_score, max_score, and the learning outcomes the worksheet evidenced. |
-| 5. Portfolio | AI-CFT assessor (after all worksheets) | `portfolio/<student>.json` | Aggregate LO evidence, propose an AI-CFT level. Researcher makes the final call. |
+| Section | Producer | Job |
+|---------|----------|-----|
+| `worksheets.<WS>.extraction` | Claude Sonnet 4.6 Vision (WS6 tree: Opus 4.8) | Transcribe what is on the page. Layout/HTR for WS5, WS6, WS10. |
+| `worksheets.<WS>.validation` | Python | Answered / blank / missing checks; formula and numeric verification. |
+| `worksheets.<WS>.scoring` | Claude Haiku 4.5 or Sonnet 4.6 | Score each item: score, confidence, learning outcomes, review flag. |
+| `worksheets.<WS>.summary` | Python | `total_score`, `max_score`, worksheet-level LO peaks. |
+| `portfolio` | AI-CFT assessor | Aggregate LO evidence, propose an AI-CFT level. Researcher makes the final call. |
+| `combined_responses` | OCR pipeline | Flat `item_id → answer` map across all worksheets. |
+
+## Supporting artifacts (not per-worksheet JSON)
+
+| Path | Purpose |
+|------|---------|
+| `ocr_output/<student>/` | Raw OCR dumps + page images from PDF conversion |
+| `layout_rois/<student>/` | OpenCV crops and layout manifests (WS5, WS6, WS10) |
 
 ## Rules
 
-1. A single worksheet never assigns an AI-CFT level. It only reports which learning outcomes it measured. Level assignment is cumulative and happens only at the portfolio stage.
-2. The portfolio proposal is not final. `is_final: false`, `decision_owner: researcher`. The system presents evidence and a suggestion; the researcher decides.
-3. Extraction never interprets. No snapshots, no observations, no completion judgments. That avoids hallucinated commentary and keeps the OCR output small.
-4. Numeric and formula items are verified in Python at stage 2, never scored by an LLM.
-5. Rubrics carry only what the scoring model needs: `max_score`, key concept lists (`rubric.full` / `rubric.partial`), `need` count, and `AI_CFT` outcomes. Formula and numeric items carry an `answer` and a `check`.
+1. A single worksheet never assigns an AI-CFT level. Level assignment is cumulative and happens only in `portfolio`.
+2. The portfolio proposal is not final: `is_final: false`, `decision_owner: researcher`.
+3. Extraction never interprets student ability — only transcribes.
+4. Numeric and formula items are verified in Python at validation, not scored by an LLM.
+5. Rubrics use Schema 3.0 (`components[].idea` for semantic items).
 
-## Models
+## Commands
 
-- Extraction: Sonnet 4.6 Vision for short symbolic worksheets, Opus 4.8 for the WS6 tree drawing.
-- Validation and summary: Python only.
-- Scoring: Haiku 4.5 for short binary or single-concept items, Sonnet 4.6 for partial-credit and free-text items.
-- Portfolio: an AI-CFT assessor that proposes a level from aggregated evidence; the researcher finalizes.
+```bash
+python ocr_pipeline.py full              # OCR → students/<id>.json
+python run_phase2.py Sample_Student      # layout + WS10 HTR → bundle
+python calibrate_scoring.py Sample_Student # confidence calibration
+python validate_pipeline_outputs.py      # CI contract check
+```
+
+Migrate old per-folder JSON (one-time):
+
+```bash
+python student_bundle.py migrate <student_id>
+```

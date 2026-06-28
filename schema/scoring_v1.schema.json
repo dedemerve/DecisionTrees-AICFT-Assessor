@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/scoring_v1.schema.json",
+  "title": "Stage 3 Scoring Output Schema 1.0",
+  "type": "object",
+  "required": ["schema_version", "worksheet", "student_id"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "worksheet": { "type": "string" },
+    "student_id": { "type": "string" },
+    "blocked": { "type": "boolean" },
+    "blocked_reason": { "type": "string" },
+    "calibration_note": { "type": "string" },
+    "note": { "type": "string" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item", "score", "confidence", "review", "learning_outcomes"],
+        "properties": {
+          "item": { "type": "string" },
+          "score": { "type": ["number", "null"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "review": { "type": "boolean" },
+          "learning_outcomes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["LO", "evidence_present", "evidence_strength"],
+              "properties": {
+                "LO": { "type": "string", "pattern": "^LO3\\." },
+                "evidence_present": { "type": "boolean" },
+                "evidence_strength": {
+                  "enum": ["none", "weak", "moderate", "strong"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

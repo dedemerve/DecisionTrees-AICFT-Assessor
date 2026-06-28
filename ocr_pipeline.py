@@ -2,7 +2,7 @@
 ocr_pipeline.py
 
 Transcribes handwritten Turkish student worksheets using Claude vision,
-maps each answer to a rubric item_id, and saves per-student responses.json
+maps each answer to a rubric item_id, and saves a single student bundle JSON
 that feeds directly into worksheet_assessor.py.
 
 Modes
@@ -14,7 +14,7 @@ pilot     One student from one PDF. Prints item-by-item response summary.
           python ocr_pipeline.py pilot WorksheetDT.pdf 0
           (student_index=0 -> pages 1-4, index=1 -> pages 5-8, etc.)
 
-validate  Human-readable review of a student's responses.json.
+validate  Human-readable review of a student's bundle (combined responses).
           python ocr_pipeline.py validate Daniella
 
 full      Process all three PDFs. Skips students already processed (resume-safe).
@@ -22,8 +22,8 @@ full      Process all three PDFs. Skips students already processed (resume-safe)
 
 Output per student
 ------------------
-ocr_output/{student_key}/
-  responses.json           -- {item_id: answer} for all 24 rubric items + metadata
+students/{student_key}.json   -- single bundle: worksheets + portfolio sections
+ocr_output/{student_key}/     -- raw OCR artifacts + page images only
   worksheet_dt_raw.json
   worksheets_1_10_raw.json
   worksheet11__feedbacks_raw.json
@@ -99,73 +99,22 @@ NO_ANSWER_SENTINELS: frozenset[str] = frozenset({
     "(bos)", "(okunamiyor)", "(missing)", "(not_extracted)", "(transcription_error)",
 })
 
-# ---------------------------------------------------------------------------
-# Item ID master list — must match worksheet_assessor.py RUBRICS keys exactly
-# ---------------------------------------------------------------------------
-
-ITEM_IDS_DT: list[str] = [
-    "DT_A_Q1", "DT_A_Q2", "DT_A_Q4",
-    "DT_B_Q4",
-    "DT_C_Q2", "DT_C_Q3",
-    "DT_D_Q2", "DT_D_Q4",
-    "DT_E_sensitivity", "DT_E_MCR", "DT_E_Q1", "DT_E_Q4",
-    "DT_F_Q2",
-    "DT_G_Q1", "DT_G_Q2",
-]
-
-ITEM_IDS_WS1: list[str] = [f"WS1_B{i}" for i in range(1, 12)]   # 11 blanks
-ITEM_IDS_WS3: list[str] = [f"WS3_B{i}" for i in range(1, 9)]    # 8 blanks
-ITEM_IDS_WS4: list[str] = [f"WS4_B{i}" for i in range(1, 6)]    # 5 blanks
-ITEM_IDS_WS5: list[str] = [f"WS5_B{i}" for i in range(1, 26)]   # 25 blanks
-ITEM_IDS_WS6: list[str] = [f"WS6_B{i}" for i in range(1, 14)]   # 13 blanks
-ITEM_IDS_WS7: list[str] = [f"WS7_B{i}" for i in range(1, 8)]    # 7 blanks
-ITEM_IDS_WS10: list[str] = [f"WS10_B{i}" for i in range(1, 9)]  # 8 blanks
-
-ITEM_IDS_WS: list[str] = (
-    ITEM_IDS_WS1 + ITEM_IDS_WS3 + ITEM_IDS_WS4 +
-    ITEM_IDS_WS5 + ITEM_IDS_WS6 + ITEM_IDS_WS7 + ITEM_IDS_WS10
+from pipeline_schema import (
+    ALL_ITEM_IDS,
+    ITEM_IDS_DT,
+    ITEM_IDS_WS,
+    ITEM_IDS_WS1,
+    ITEM_IDS_WS11,
+    PDF_ITEM_IDS,
+    WORKSHEET_ITEM_IDS,
+    WORKSHEET_PDF_SOURCE,
+    WORKSHEETS_1_10_PAGE_INDEX,
+    layout_manifest_path,
 )
 
-ITEM_IDS_WS11: list[str] = (
-    [f"WS11_B{i}" for i in range(1, 8)]         # B1-B7: open-ended
-    + ["WS11_B8a", "WS11_B8b", "WS11_B9"]       # classification task + definition
-    + [f"WS11_L10_{i}" for i in range(1, 9)]    # Likert group 10 (8 items)
-    + [f"WS11_L11_{i}" for i in range(1, 4)]    # Likert group 11 (3 items)
-    + [f"WS11_L12_{i}" for i in range(1, 6)]    # Likert/demographic group 12 (5 items)
-)
-
-ALL_ITEM_IDS: list[str] = ITEM_IDS_DT + ITEM_IDS_WS + ITEM_IDS_WS11
-
-PDF_ITEM_IDS: dict[str, list[str]] = {
-    "WorksheetDT.pdf": ITEM_IDS_DT,
-    "Worksheets1-10.pdf": ITEM_IDS_WS,
-    "Worksheet11_ Feedbacks.pdf": ITEM_IDS_WS11,
-}
-
-# Worksheet-level grouping: each worksheet gets its own JSON file.
-WORKSHEET_ITEM_IDS: dict[str, list[str]] = {
-    "WS_DT":  ITEM_IDS_DT,
-    "WS1":    ITEM_IDS_WS1,
-    "WS3":    ITEM_IDS_WS3,
-    "WS4":    ITEM_IDS_WS4,
-    "WS5":    ITEM_IDS_WS5,
-    "WS6":    ITEM_IDS_WS6,
-    "WS7":    ITEM_IDS_WS7,
-    "WS10":   ITEM_IDS_WS10,
-    "WS11":   ITEM_IDS_WS11,
-}
-
-WORKSHEET_PDF_SOURCE: dict[str, str] = {
-    "WS_DT": "WorksheetDT.pdf",
-    "WS1":   "Worksheets1-10.pdf",
-    "WS3":   "Worksheets1-10.pdf",
-    "WS4":   "Worksheets1-10.pdf",
-    "WS5":   "Worksheets1-10.pdf",
-    "WS6":   "Worksheets1-10.pdf",
-    "WS7":   "Worksheets1-10.pdf",
-    "WS10":  "Worksheets1-10.pdf",
-    "WS11":  "Worksheet11_ Feedbacks.pdf",
-}
+# ---------------------------------------------------------------------------
+# Item ID master list — defined in pipeline_schema.py (single source of truth)
+# ---------------------------------------------------------------------------
 
 # WS6 uses dt_vision_pipeline for structural tree extraction in addition to text OCR.
 WS6_VISION_ENABLED: bool = True
@@ -226,8 +175,17 @@ PROMPT_DT = f"""You are an expert at reading handwritten Turkish university stud
 Your task: transcribe one student's completed CODAP Arbor decision tree worksheet.
 
 You will receive 4 page images belonging to ONE student. Treat all 4 pages as one document.
-The worksheet is divided into 7 sections labelled A through G. Each section has numbered questions.
-Students filled in answers in blank spaces below or beside each question number.
+The worksheet has 7 sections labelled A through G (4 pages total).
+
+CRITICAL — printed question numbers do NOT always equal rubric item suffixes.
+Use the section headings and question text below to assign each answer to the correct key.
+Never shift an answer from one section into another item_id.
+
+Page layout (typical):
+  Page 1 — Section A (Q1–Q4), Section B begins (Q1–Q2)
+  Page 2 — Section B continues (Q3–Q4), Section C (action + Q2–Q3), Section D begins (Q1)
+  Page 3 — Section D continues (Q2–Q4), Section E (metric blanks + Q1–Q3)
+  Page 4 — Section E Q4, Section F (test EMIT Q1–Q2), Section G (reflection Q1–Q2)
 
 {_NAME_INSTRUCTION}
 
@@ -238,70 +196,47 @@ Students filled in answers in blank spaces below or beside each question number.
 WHAT TO EXTRACT — return exactly these JSON keys with verbatim student answers:
 
 "student_name"
-  The pseudonym written at the top of page 1. (See name list above.)
+  The pseudonym written at the top of page 1.
 
-"DT_A_Q1"
-  Section A, Question 1. The student writes which variable(s) they initially THINK will
-  predict whether a food is recommended — this is their hypothesis BEFORE doing any analysis.
-  Look for text after "1." in Section A.
+--- SECTION A (prior beliefs and data exploration) ---
+"DT_A_Q1"  Section A Q1 — which variable(s) might predict recommendation BEFORE analysis (prior belief).
+"DT_A_Q2"  Section A Q2 — which variable(s) affect recommendation based on data/graphs explored in CODAP.
+"DT_A_Q3"  Section A Q3 — is there a meaningful difference between recommended and not-recommended foods? Explain.
+"DT_A_Q4"  Section A Q4 — which variable would you use FIRST in a model AND why (both choice and justification).
 
-"DT_A_Q2"
-  Section A, Question 2. Which variables actually INFLUENCE recommendability based on the
-  data or graphs the student explored. Must reference data, not just personal opinion.
+--- SECTION B (three single-level trees) ---
+"DT_B_Q1"  Section B Q1 — EMIT output after first single-variable tree (variable, threshold, TP, FP, TN, FN, metrics).
+"DT_B_Q2"  Section B Q2 — EMIT output after second single-variable tree (different variable from B_Q1).
+"DT_B_Q3"  Section B Q3 — EMIT output after third single-variable tree (different variable from B_Q1 and B_Q2).
+"DT_B_Q4"  Section B Q4 — which variable performed best and what criteria were used to decide.
 
-"DT_A_Q4"
-  Section A, Question 4. Which variable the student chose FIRST for their model, AND their
-  written justification (WHY they chose it). Both parts are required — capture both.
+--- SECTION C (threshold tuning on best single-level tree) ---
+"DT_C_Q1"  Section C action block — EMIT output after recalling the best tree and varying its threshold.
+             Look for recorded counts/metrics near the Section C instructions, before printed Q2.
+"DT_C_Q2"  Section C printed Q2 — how changing threshold values affects tree performance.
+"DT_C_Q3"  Section C printed Q3 — which threshold value best separates classes and how you found it.
 
-"DT_B_Q4"
-  Section B, Question 4. After building three single-variable trees, which variable gave the
-  BEST result, and what CRITERION (metric) the student used to judge (e.g. accuracy, MCR,
-  sensitivity). Both the variable name and the criterion must be captured.
+--- SECTION D (two-level tree) ---
+"DT_D_Q1"  Section D action block — EMIT output after adding a second variable to create a 2-level tree.
+"DT_D_Q2"  Section D printed Q2 — did the second variable improve classification? How?
+"DT_D_Q3"  Section D printed Q3 — which variable combination gave the best result?
+"DT_D_Q4"  Section D printed Q4 — how did you decide you reached the best tree (stopping criterion)?
 
-"DT_C_Q2"
-  Section C, Question 2. How does CHANGING THE THRESHOLD value affect the classification
-  performance of the tree? The student should explain the mechanism (more/fewer errors, why).
+--- SECTION E (evaluate best 2-level tree) ---
+"DT_E_sensitivity"  Numeric sensitivity (duyarlılık) value filled in the Section E metric blank.
+"DT_E_MCR"          Numeric MCR (hata oranı) value filled in the Section E metric blank.
+"DT_E_Q1"  Section E Q1 — which metric matters most for this model's purpose and why.
+"DT_E_Q2"  Section E Q2 — did the model make more false positives or false negatives?
+"DT_E_Q3"  Section E Q3 — when should software stop building the tree?
+"DT_E_Q4"  Section E Q4 — can decision trees achieve perfect classification (zero errors)? Answer + reason.
 
-"DT_C_Q3"
-  Section C, Question 3. Which threshold VALUE best separates recommended from not-recommended,
-  and HOW the student found that threshold (systematic search, visual inspection, trial-error).
+--- SECTION F (apply tree to test data) ---
+"DT_F_Q1"  Section F Q1 — EMIT output when applying the best tree to the TEST dataset.
+"DT_F_Q2"  Section F Q2 — compare test vs training performance; explain any difference (overfitting).
 
-"DT_D_Q2"
-  Section D, Question 2. Did adding a SECOND VARIABLE (depth-2 tree) improve classification?
-  How much? Include any numeric values (accuracy before/after) the student wrote.
-
-"DT_D_Q4"
-  Section D, Question 4. How did the student decide they had reached the BEST tree — what
-  stopping criterion did they use? (e.g. "accuracy stopped improving", "overfitting concern")
-
-"DT_E_sensitivity"
-  Section E. The sensitivity (duyarlılık) FORMULA the student wrote AND the numeric value.
-  Formula is typically TP / (TP+FN). Capture both formula and number, e.g. "TP/(TP+FN) = 0,82".
-  If only the number is written without a formula, capture just the number.
-
-"DT_E_MCR"
-  Section E. The MCR (hata oranı / misclassification rate) FORMULA and numeric value.
-  Formula is typically (FP+FN) / total. Capture both, e.g. "(FP+FN)/toplam = 0,18".
-
-"DT_E_Q1"
-  Section E, Question 1. Which metric (sensitivity, MCR, or other) matters MORE for this
-  model's purpose, and the student's written reason WHY.
-
-"DT_E_Q4"
-  Section E, Question 4. Can a decision tree achieve PERFECT classification (zero errors)?
-  Capture the student's answer (yes/no) AND their explanation.
-
-"DT_F_Q2"
-  Section F, Question 2. Comparison of TEST dataset performance vs TRAINING performance.
-  Why are they different? Does the student mention overfitting (aşırı öğrenme)?
-
-"DT_G_Q1"
-  Section G, Question 1. What did the DT MODEL "learn" from the data?
-  (What patterns/rules did it discover?)
-
-"DT_G_Q2"
-  Section G, Question 2. What did the STUDENT learn while building decision trees?
-  Open reflection — any length.
+--- SECTION G (reflection) ---
+"DT_G_Q1"  Section G Q1 — what did the decision tree MODEL learn from the data?
+"DT_G_Q2"  Section G Q2 — what did the STUDENT learn while building decision trees?
 
 "page_notes"
   Brief note about image quality, pages that were very hard to read, or unusual layout.
@@ -312,16 +247,26 @@ Return ONLY the following JSON object. No text before or after it.
   "student_name": "...",
   "DT_A_Q1": "...",
   "DT_A_Q2": "...",
+  "DT_A_Q3": "...",
   "DT_A_Q4": "...",
+  "DT_B_Q1": "...",
+  "DT_B_Q2": "...",
+  "DT_B_Q3": "...",
   "DT_B_Q4": "...",
+  "DT_C_Q1": "...",
   "DT_C_Q2": "...",
   "DT_C_Q3": "...",
+  "DT_D_Q1": "...",
   "DT_D_Q2": "...",
+  "DT_D_Q3": "...",
   "DT_D_Q4": "...",
   "DT_E_sensitivity": "...",
   "DT_E_MCR": "...",
   "DT_E_Q1": "...",
+  "DT_E_Q2": "...",
+  "DT_E_Q3": "...",
   "DT_E_Q4": "...",
+  "DT_F_Q1": "...",
   "DT_F_Q2": "...",
   "DT_G_Q1": "...",
   "DT_G_Q2": "...",
@@ -529,6 +474,17 @@ BLANKS TO EXTRACT:
 "WS11_B8b" Blank 8b — write the decision RULE used for 8a (the if-then path the student traced)
 "WS11_B9"  Blank 9 — define a decision tree in the student's own words (full written text)
 
+--- Q10: true/false sub-items (8 statements; transcribe Doğru or Yanlış per row) ---
+"WS11_Q10_1" through "WS11_Q10_8" — one answer per statement row
+
+--- Q11: ordering steps 2-4 (step 1 is pre-printed; transcribe the number 2, 3, or 4 the student wrote) ---
+"WS11_Q11_2"  Step 2 position
+"WS11_Q11_3"  Step 3 position
+"WS11_Q11_4"  Step 4 position
+
+--- Q12: multiselect sub-items (transcribe checked/unchecked or mark presence) ---
+"WS11_Q12_1" through "WS11_Q12_5" — one entry per option row
+
 --- Likert group 10 (items 10.1 – 10.8) ---
 Each is a 1-5 scale item. Transcribe the circled/ticked number exactly.
 "WS11_L10_1"  Item 10.1 — circled scale value (1-5)
@@ -568,6 +524,11 @@ Return ONLY the following JSON object. No text before or after it.
   "WS11_B1": "...", "WS11_B2": "...", "WS11_B3": "...", "WS11_B4": "...",
   "WS11_B5": "...", "WS11_B6": "...", "WS11_B7": "...",
   "WS11_B8a": "...", "WS11_B8b": "...", "WS11_B9": "...",
+  "WS11_Q10_1": "...", "WS11_Q10_2": "...", "WS11_Q10_3": "...", "WS11_Q10_4": "...",
+  "WS11_Q10_5": "...", "WS11_Q10_6": "...", "WS11_Q10_7": "...", "WS11_Q10_8": "...",
+  "WS11_Q11_2": "...", "WS11_Q11_3": "...", "WS11_Q11_4": "...",
+  "WS11_Q12_1": "...", "WS11_Q12_2": "...", "WS11_Q12_3": "...", "WS11_Q12_4": "...",
+  "WS11_Q12_5": "...",
   "WS11_L10_1": "...", "WS11_L10_2": "...", "WS11_L10_3": "...", "WS11_L10_4": "...",
   "WS11_L10_5": "...", "WS11_L10_6": "...", "WS11_L10_7": "...", "WS11_L10_8": "...",
   "WS11_L11_1": "...", "WS11_L11_2": "...", "WS11_L11_3": "...",
@@ -908,7 +869,7 @@ def validate_ocr_output(record: dict) -> list[str]:
 
 
 # ---------------------------------------------------------------------------
-# Build final responses.json for one student
+# Build combined response record for one student (in-memory; saved via student_bundle)
 # ---------------------------------------------------------------------------
 
 def build_responses(
@@ -1039,6 +1000,27 @@ def process_pdf(
 # Fix 2: client=None never passes to transcribe; dry_run is a standalone function
 # ---------------------------------------------------------------------------
 
+def _run_layout_after_dry_run() -> None:
+    """Phase 1 layout on calibration pages when OpenCV is available."""
+    try:
+        from layout_isolator import LayoutIsolator
+    except ImportError:
+        return
+    cal_dir = OUT_DIR / "_images" / "_slot31_check"
+    if not cal_dir.exists() or not any(cal_dir.glob("page_*.jpg")):
+        return
+    isolator = LayoutIsolator()
+    for ws in ("WS10", "WS5"):
+        page_idx = WORKSHEETS_1_10_PAGE_INDEX.get(ws)
+        if not page_idx:
+            continue
+        page = cal_dir / f"page_{page_idx}.jpg"
+        if page.exists():
+            result = isolator.process_worksheet_page(page, "Sample_Student", ws)
+            result.save()
+            print(f"  Layout {ws}: {result.status} ({result.zone_count} zones)")
+
+
 def dry_run(pdfs: Optional[list[str]] = None) -> None:
     """Convert PDFs to images and save them. No API calls."""
     all_pdfs = list(PAGES_PER_STUDENT.keys()) if pdfs is None else pdfs
@@ -1052,6 +1034,8 @@ def dry_run(pdfs: Optional[list[str]] = None) -> None:
         print(f"  {total} pages / {pps} per student = {total // pps} full groups"
               + (f" + 1 partial ({n_partial} pages)" if n_partial else ""))
         save_page_images(pdf_name, images, pps)
+        if pdf_name == "Worksheets1-10.pdf":
+            _run_layout_after_dry_run()
     print("\nDry run complete. Inspect ocr_output/_images/ before running pilot.")
 
 
@@ -1117,32 +1101,46 @@ def mode_pilot(
 
 
 def mode_validate(student_name: str) -> None:
-    """Print human-readable review of a student's responses.json for spot-checking."""
+    """Print human-readable review of a student's combined responses for spot-checking."""
+    from student_bundle import bundle_path, load_bundle
+
     key = match_pseudonym(student_name) or normalize_student_key(student_name) or student_name
-    path = OUT_DIR / key / "responses.json"
-    if not path.exists():
-        # Try exact name as fallback
-        path = OUT_DIR / student_name / "responses.json"
-    if not path.exists():
-        print(f"No responses.json found for '{student_name}' (tried key: '{key}').")
-        print(f"Available students: {[d.name for d in OUT_DIR.iterdir() if d.is_dir() and not d.name.startswith('_')]}")
+    bundle_file = bundle_path(key)
+    if not bundle_file.exists():
+        bundle_file = bundle_path(student_name)
+
+    if not bundle_file.exists():
+        print(f"No student bundle found for '{student_name}' (tried key: '{key}').")
+        students_dir = bundle_path("_").parent
+        if students_dir.exists():
+            available = [p.stem for p in students_dir.glob("*.json")]
+            print(f"Available students: {available}")
         return
 
-    with open(path, encoding="utf-8") as f:
-        record = json.load(f)
+    bundle = load_bundle(key if bundle_path(key).exists() else student_name)
+    responses = bundle.get("combined_responses", {})
+    if not responses:
+        for ws, sections in bundle.get("worksheets", {}).items():
+            ext = sections.get("extraction", {})
+            if "responses" in ext:
+                responses.update(ext["responses"])
+            elif "gate_1_extraction" in ext:
+                responses.update(ext["gate_1_extraction"].get("items", {}))
 
-    print(f"\n=== Validation report: {record['student_name']} ===")
-    cov = record.get("item_coverage", {})
-    print(f"Coverage: {cov.get('answered', '?')}/{cov.get('total', len(ALL_ITEM_IDS))} answered "
-          f"| blank/illegible: {cov.get('blank_or_illegible', '?')} "
-          f"| missing: {cov.get('missing_from_model', '?')}")
-    if record.get("errors"):
-        print(f"ERRORS: {record['errors']}")
+    student_label = bundle.get("student_id", key)
+    answered = sum(1 for iid in ALL_ITEM_IDS if is_answered(responses.get(iid, "")))
+    blank = sum(1 for iid in ALL_ITEM_IDS if responses.get(iid) in {"(bos)", "(okunamiyor)"})
+    missing = sum(1 for iid in ALL_ITEM_IDS if responses.get(iid, "(not_in_file)") in {"(missing)", "(not_extracted)", "(not_in_file)"})
+
+    print(f"\n=== Validation report: {student_label} ===")
+    print(f"Coverage: {answered}/{len(ALL_ITEM_IDS)} answered "
+          f"| blank/illegible: {blank} "
+          f"| missing: {missing}")
 
     print(f"\n{'Item ID':<25} {'Status':<14} Answer (first 120 chars)")
     print("-" * 80)
     for item_id in ALL_ITEM_IDS:
-        answer = record["responses"].get(item_id, "(not_in_file)")
+        answer = responses.get(item_id, "(not_in_file)")
         if is_answered(answer):
             status = "ANSWERED"
         elif answer == "(bos)":
@@ -1151,7 +1149,7 @@ def mode_validate(student_name: str) -> None:
             status = "ILLEGIBLE"
         else:
             status = "MISSING"
-        preview = answer[:120].replace("\n", " ")
+        preview = str(answer)[:120].replace("\n", " ")
         print(f"  {item_id:<23} {status:<14} {preview}")
 
     print("\nTo verify: open the PDF, find this student's pages, and manually check flagged items.")
@@ -1163,26 +1161,49 @@ def _extract_ws6_tree(
     ocr_model: str,
 ) -> dict[str, Any]:
     """
-    Run dt_vision_pipeline on the saved WS6 page image for this student.
-    Returns the tree_structure dict to embed in WS6.json gate_1_extraction.
-    Returns {} with a warning if image not found or pipeline fails.
+    Run dt_vision_pipeline on a WS6 tree crop when available.
+
+    Priority:
+      1. layout_rois/<student>/WS6_layout.json tree_diagram crop
+      2. layout_rois tree_diagram from WS5 (not used for WS6)
+      3. Legacy ws6_*.jpg under student _images/
     """
     try:
         import dt_vision_pipeline as dvp
     except ImportError:
         return {"error": "dt_vision_pipeline not available"}
 
-    images_dir = student_dir / "_images"
-    ws6_candidates = sorted(images_dir.glob("ws6_*.jpg")) if images_dir.exists() else []
-    if not ws6_candidates:
-        return {"warning": "No WS6 page image found under _images/. Run dry_run first."}
+    student_key = student_dir.name
+    image_path: Optional[str] = None
 
-    warnings: list[str] = []
     try:
-        result = dvp.run_pipeline(str(ws6_candidates[0]))
+        from layout_isolator import LayoutIsolator
+        crop = LayoutIsolator().tree_diagram_crop_path(student_key, "WS6")
+        if crop:
+            image_path = str(crop)
+    except ImportError:
+        pass
+
+    if not image_path:
+        images_dir = student_dir / "_images"
+        ws6_candidates = sorted(images_dir.glob("ws6_*.jpg")) if images_dir.exists() else []
+        if ws6_candidates:
+            image_path = str(ws6_candidates[0])
+
+    if not image_path:
+        return {
+            "warning": (
+                "No WS6 tree image. WS6 draw canvas is not on the 6-page "
+                "Worksheets1-10 bundle; run layout isolation on a supplemental scan."
+            )
+        }
+
+    try:
+        result = dvp.run_pipeline(image_path)
         val_warnings = dvp.validate_pipeline_output(result)
         tree_json = json.loads(result.to_json())
         return {
+            "source_image": image_path,
             "root_feature": tree_json.get("tree", {}).get("feature") if tree_json.get("tree") else None,
             "root_operator": tree_json.get("tree", {}).get("operator") if tree_json.get("tree") else None,
             "root_threshold": tree_json.get("tree", {}).get("threshold") if tree_json.get("tree") else None,
@@ -1192,31 +1213,35 @@ def _extract_ws6_tree(
             "vision_model": ocr_model,
         }
     except Exception as exc:
-        return {"error": str(exc)}
+        return {"error": str(exc), "source_image": image_path}
 
 
 def save_worksheet_jsons(
     student_name: str,
     all_responses: dict[str, str],
     raw_by_pdf: dict[str, dict],
-    student_dir: Path,
+    output_dir: Path | None = None,
     ocr_model: str = "claude-sonnet-4-6",
     client: Optional[anthropic.Anthropic] = None,
-) -> None:
+) -> Path:
     """
-    Write one JSON file per worksheet under student_dir using a 4-gate structure.
+    Write gated extraction records into students/<student_name>.json.
 
-    Gate 1 — Extraction:  OCR items + raw_ocr + ws_snapshot from LLM
-    Gate 2 — Validation:  item_coverage metrics + warnings
-    Gate 3 — Scoring:     pending (filled by worksheet_assessor.py)
-    Gate 4 — AI-CFT:      pending (filled by competency assignment step)
-
-    Output files: WS_DT.json, WS1.json, WS3.json, WS4.json, WS5.json,
-                  WS6.json, WS7.json, WS10.json, WS11.json
+    Each worksheet gets an ``extraction`` section (4-gate structure).
+    Gate 3/4 scoring and AI-CFT are filled by later pipeline steps.
     """
+    from student_bundle import (
+        STUDENTS_DIR,
+        bundle_path,
+        load_bundle,
+        save_bundle,
+        set_combined_responses,
+        set_section,
+    )
+
+    base = output_dir or STUDENTS_DIR
+    bundle = load_bundle(student_name, base_dir=base)
     extracted_at = datetime.now(timezone.utc).isoformat()
-
-    # Build raw_ocr lookup: pdf_name -> raw dict from OCR
     raw_ws    = raw_by_pdf.get("Worksheets1-10.pdf", {})
     raw_ws11  = raw_by_pdf.get("Worksheet11_ Feedbacks.pdf", {})
     raw_dt    = raw_by_pdf.get("WorksheetDT.pdf", {})
@@ -1311,15 +1336,32 @@ def save_worksheet_jsons(
             },
         }
 
-        # WS6 — add structural tree extraction from dt_vision_pipeline
-        if ws_label == "WS6" and WS6_VISION_ENABLED and client is not None:
-            record["gate_1_extraction"]["tree_structure"] = _extract_ws6_tree(
-                client, student_dir, ocr_model
-            )
+        # WS6 — add structural tree extraction + layout manifest
+        if ws_label == "WS6" and WS6_VISION_ENABLED:
+            ws6_manifest = layout_manifest_path(student_name, "WS6")
+            if ws6_manifest.exists():
+                record["gate_1_extraction"]["layout_roi"] = json.loads(
+                    ws6_manifest.read_text(encoding="utf-8")
+                )
+            if client is not None:
+                image_root = OCR_OUTPUT_DIR / student_name
+                record["gate_1_extraction"]["tree_structure"] = _extract_ws6_tree(
+                    client, image_root, ocr_model
+                )
 
-        out_path = student_dir / f"{ws_label}.json"
-        with open(out_path, "w", encoding="utf-8") as f:
-            json.dump(record, f, ensure_ascii=False, indent=2)
+        # WS10 / WS5 — attach layout manifest when Phase 1 has run
+        if ws_label in {"WS10", "WS5"}:
+            manifest_path = layout_manifest_path(student_name, ws_label)
+            if manifest_path.exists():
+                record["gate_1_extraction"]["layout_roi"] = json.loads(
+                    manifest_path.read_text(encoding="utf-8")
+                )
+
+        set_section(bundle, ws_label, "extraction", record)
+
+    set_combined_responses(bundle, all_responses)
+    save_bundle(bundle, base_dir=base)
+    return bundle_path(student_name, base_dir=base)
 
 
 def mode_full(
@@ -1335,32 +1377,24 @@ def mode_full(
         for key, raw in pdf_results.items():
             all_raw.setdefault(key, {})[pdf_name] = raw
 
-    print("\n=== Building per-student JSON files ===")
+    print("\n=== Building student bundles ===")
     for key, raw_by_pdf in sorted(all_raw.items()):
         record = build_responses(key, raw_by_pdf)
         student_dir = OUT_DIR / key
         student_dir.mkdir(exist_ok=True)
 
-        # Combined file — all items in one record
-        out_path = student_dir / "responses.json"
-        with open(out_path, "w", encoding="utf-8") as f:
-            json.dump(record, f, ensure_ascii=False, indent=2)
-
-        # Per-worksheet files — one gated JSON per worksheet
-        save_worksheet_jsons(
+        bundle_path = save_worksheet_jsons(
             student_name=key,
             all_responses=record["responses"],
             raw_by_pdf=raw_by_pdf,
-            student_dir=student_dir,
             client=client,
         )
 
         cov = record["item_coverage"]
-        ws_files = ", ".join(f"{ws}.json" for ws in WORKSHEET_ITEM_IDS)
         print(f"  {key}: {cov['answered']}/{cov['total']} answered "
               f"| {cov['blank_or_illegible']} blank "
               f"| {cov['missing_from_model']} missing "
-              f"| saved: responses.json + {ws_files}")
+              f"| saved: {bundle_path.relative_to(Path(__file__).parent)}")
 
     print("\nDone. Run 'python ocr_pipeline.py validate <StudentName>' to spot-check.")
 

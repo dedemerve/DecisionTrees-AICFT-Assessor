@@ -557,7 +557,7 @@ class TestStress:
         ):
             p.mode_validate("NonExistentStudent")
         captured = capsys.readouterr()
-        assert "No responses.json found" in captured.out
+        assert "No student bundle found" in captured.out
 
     # --- NO_ANSWER_SENTINELS is a frozenset ---
 
@@ -1037,7 +1037,7 @@ class TestExtractionEdgeCases:
 # ===========================================================================
 
 class TestSaveWorksheetJsons:
-    """Tests for save_worksheet_jsons — gate-structured per-worksheet file output."""
+    """Tests for save_worksheet_jsons — gate-structured student bundle output."""
 
     def _make_full_responses(self) -> dict[str, str]:
         return {iid: f"answer for {iid}" for iid in p.ALL_ITEM_IDS}
@@ -1048,19 +1048,25 @@ class TestSaveWorksheetJsons:
             student_name=student_name,
             all_responses=responses,
             raw_by_pdf={},
-            student_dir=tmp_path,
+            output_dir=tmp_path,
             **kwargs,
         )
 
-    def _load(self, tmp_path, ws_label):
+    def _load(self, tmp_path, ws_label, student_name="Marco"):
         import json
-        return json.loads((tmp_path / f"{ws_label}.json").read_text(encoding="utf-8"))
+        from student_bundle import load_bundle
+        bundle = load_bundle(student_name, base_dir=tmp_path)
+        return bundle["worksheets"][ws_label]["extraction"]
 
     def test_WJ01_creates_one_file_per_worksheet(self, tmp_path):
-        """One JSON file must be created for each entry in WORKSHEET_ITEM_IDS."""
+        """One student bundle must contain every worksheet in WORKSHEET_ITEM_IDS."""
         self._call("Marco", self._make_full_responses(), tmp_path)
+        import json
+        from student_bundle import bundle_path
+        assert bundle_path("Marco", base_dir=tmp_path).exists()
+        bundle = json.loads(bundle_path("Marco", base_dir=tmp_path).read_text(encoding="utf-8"))
         for ws_label in p.WORKSHEET_ITEM_IDS:
-            assert (tmp_path / f"{ws_label}.json").exists(), f"{ws_label}.json missing"
+            assert ws_label in bundle["worksheets"], f"{ws_label} missing from bundle"
 
     def test_WJ02_file_is_valid_json(self, tmp_path):
         """Each written file must be valid JSON."""
@@ -1080,7 +1086,7 @@ class TestSaveWorksheetJsons:
         """student_name field must match the passed name."""
         self._call("Sabrina", self._make_full_responses(), tmp_path)
         for ws_label in p.WORKSHEET_ITEM_IDS:
-            data = self._load(tmp_path, ws_label)
+            data = self._load(tmp_path, ws_label, student_name="Sabrina")
             assert data["student_name"] == "Sabrina"
 
     def test_WJ05_worksheet_field_matches_label(self, tmp_path):

@@ -6,7 +6,7 @@ This file is injected alongside `stage3_scoring.md` when scoring WS7.
 
 - Rubric: `rubrics/WS7_rubric.json`
 - Mapping: `mappings/WS7_AICFT_mapping.json`
-- Responses: `ocr_output/<student>/WS7.json`
+- Responses: `students/<student>.json → worksheets.WS7.extraction`
 
 ## Worksheet description
 
