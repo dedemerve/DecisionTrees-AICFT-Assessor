@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install layout dependencies
-        run: pip install -r requirements-layout.txt
+        run: pip install -r requirements-layout.txt pytest
       - name: Validate rubrics and pipeline outputs
         run: python validate_pipeline_outputs.py
       - name: Test layout isolator (Phase 1)
@@ -23,3 +23,7 @@ jobs:
         run: python test_ws10_htr.py
       - name: Test student bundle
         run: python test_student_bundle.py
+      - name: Test worksheet bundles (Phase 2 M1)
+        run: python -m pytest test_worksheet_bundles.py -q
+      - name: Test evidence units (Phase 2 M2)
+        run: python -m pytest test_evidence_units.py test_evidence_unit_metadata.py -q

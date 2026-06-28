@@ -1,58 +1,62 @@
 {
-  "schema_version": "3.0",
+  "schema_version": "2.0",
   "worksheet": "WS4",
-  "worksheet_title": "Searching for the Best Threshold Value",
   "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
-  "aspect": "AI Foundations and Applications",
-  "note": "Each item contributes evidence toward one or more AI-CFT learning objectives. Learning objectives are evidence accumulators across multiple worksheets rather than pass/fail outcomes.",
-
+  "note": "Performance-based competency mapping. Strength is a ceiling on observed evidence_strength.",
   "items": {
-
     "WS4_B1": [
       {
         "lo": "LO3.2.2",
-        "expected_level": "Deepen",
-        "role": "primary",
         "strength": "moderate",
         "evidence_type": "application",
-        "portfolio_weight": "medium",
-        "rationale": "Identifies which instances are misclassified under an existing threshold, demonstrating interpretation of model behaviour rather than optimisation."
+        "expected_level": "Deepen",
+        "rationale": "Selects a threshold from the grid using classification performance, demonstrating parameter application.",
+        "role": "primary",
+        "portfolio_weight": "full"
       }
     ],
-
     "WS4_B2": [
       {
         "lo": "LO3.2.2",
-        "expected_level": "Deepen",
-        "role": "primary",
         "strength": "strong",
         "evidence_type": "direct",
-        "portfolio_weight": "full",
-        "rationale": "Searches for a better threshold, compares alternatives and justifies parameter selection using classification performance."
+        "expected_level": "Deepen",
+        "rationale": "States MCR-minimization as the criterion for threshold selection.",
+        "role": "primary",
+        "portfolio_weight": "full"
       }
     ],
-
     "WS4_B3": [
       {
         "lo": "LO3.2.2",
-        "expected_level": "Deepen",
-        "role": "primary",
         "strength": "strong",
-        "evidence_type": "reasoning",
-        "portfolio_weight": "full",
-        "rationale": "Explains why a threshold cannot always be placed between adjacent observations, demonstrating conceptual understanding of threshold constraints."
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Compares two threshold candidates with MCR values and justifies the better choice.",
+        "role": "primary",
+        "portfolio_weight": "full"
       }
     ],
-
     "WS4_B4": [
       {
         "lo": "LO3.2.2",
-        "expected_level": "Deepen",
-        "role": "primary",
         "strength": "strong",
-        "evidence_type": "transfer",
-        "portfolio_weight": "full",
-        "rationale": "Transfers the threshold search strategy to a new feature, demonstrating generalisation of the decision-tree procedure."
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "States the MCR formula deterministically.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
+    ],
+    "WS4_B5": [
+      {
+        "lo": "LO3.2.2",
+        "strength": "moderate",
+        "evidence_type": "reflective",
+        "expected_level": "Deepen",
+        "rationale": "Evaluates a peer statement about minimum MCR and explains the reasoning.",
+        "role": "secondary",
+        "portfolio_weight": "full"
       }
     ]
   }

@@ -209,7 +209,9 @@ def list_worksheets(student_id: str, base_dir: Path | None = None) -> list[str]:
     for p in sorted(root.iterdir()):
         if p.is_dir() and (p / "extraction.json").exists():
             out.append(p.name)
-        elif p.is_file() and p.suffix == ".json" and p.stem not in ("portfolio", "evidence_units"):
+        elif p.is_file() and p.suffix == ".json" and p.stem not in (
+            "portfolio", "evidence_units", "manifest",
+        ):
             out.append(p.stem)
     return out
 
