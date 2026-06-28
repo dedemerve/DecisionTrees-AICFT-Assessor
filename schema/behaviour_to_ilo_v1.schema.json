@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "behaviour_to_ilo_v1.schema.json",
+  "title": "Behaviour to ILO Mapping v1.1",
+  "type": "object",
+  "required": [
+    "artifact",
+    "confidence_policy",
+    "behaviour_ontology_version",
+    "ilo_ontology_version",
+    "mappings"
+  ],
+  "properties": {
+    "artifact": {
+      "const": "behaviour_to_ilo_mapping"
+    },
+    "inference_layer": {
+      "const": true
+    },
+    "confidence_policy": {
+      "type": "object",
+      "required": [
+        "qualitative_only",
+        "prohibited"
+      ],
+      "properties": {
+        "qualitative_only": {
+          "const": true
+        },
+        "numeric_quantization": {
+          "type": "string"
+        },
+        "allowed_levels": {
+          "type": "array"
+        },
+        "prohibited": {
+          "const": "ad_hoc_numeric_confidence"
+        }
+      }
+    },
+    "mappings": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/behaviour_bundle"
+      }
+    }
+  },
+  "$defs": {
+    "behaviour_bundle": {
+      "type": "object",
+      "required": [
+        "behaviour_id",
+        "records",
+        "rejected_alternatives"
+      ],
+      "properties": {
+        "behaviour_id": {
+          "type": "string"
+        },
+        "records": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/mapping_record"
+          }
+        },
+        "rejected_alternatives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rejected_alternative"
+          }
+        }
+      }
+    },
+    "mapping_record": {
+      "type": "object",
+      "required": [
+        "ilo_id",
+        "mapping_role",
+        "mapping_confidence",
+        "confidence_basis",
+        "supporting_rationale",
+        "counter_evidence",
+        "construct_alignment"
+      ],
+      "properties": {
+        "ilo_id": {
+          "type": "string"
+        },
+        "mapping_role": {
+          "enum": [
+            "primary",
+            "secondary",
+            "contextual",
+            "diagnostic"
+          ]
+        },
+        "mapping_confidence": {
+          "enum": [
+            "high",
+            "moderate",
+            "low",
+            "baseline"
+          ]
+        },
+        "confidence_basis": {
+          "type": "array",
+          "minItems": 1
+        },
+        "cross_construct_rationale": {
+          "type": "string"
+        },
+        "counter_evidence": {
+          "type": "array"
+        }
+      }
+    },
+    "rejected_alternative": {
+      "type": "object",
+      "required": [
+        "ilo_id",
+        "reason_rejected"
+      ],
+      "properties": {
+        "ilo_id": {
+          "type": "string"
+        },
+        "reason_rejected": {
+          "type": "string",
+          "minLength": 16
+        }
+      }
+    }
+  }
+}

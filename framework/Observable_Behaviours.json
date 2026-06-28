@@ -1,0 +1,1006 @@
+{
+  "ontology": "observable_behaviour",
+  "framework_version": "1.0",
+  "construct": "Decision Tree Understanding",
+  "construct_reference": "framework/Construct_Definition.md",
+  "source_families": [
+    "worksheet",
+    "codap",
+    "screen_recording",
+    "reflection",
+    "observation",
+    "interview"
+  ],
+  "construct_dimensions": [
+    "conceptual",
+    "procedural",
+    "strategic",
+    "reflective"
+  ],
+  "behaviours": {
+    "OB_CON_001": {
+      "id": "OB_CON_001",
+      "title": "Defines supervised-learning vocabulary accurately",
+      "description": "Learner correctly recalls or explains core supervised-learning terms such as object, feature, label, dataset, class, or instance in a decision-tree context.",
+      "construct_dimension": "conceptual",
+      "cognitive_process": "remember",
+      "knowledge_type": "declarative",
+      "possible_sources": [
+        "worksheet",
+        "reflection",
+        "interview"
+      ],
+      "required_evidence": [
+        "Correct use of at least one foundational term in learner-produced text or speech",
+        "Term usage is domain-appropriate, not merely copied prompt wording"
+      ],
+      "possible_misconceptions": [
+        "Confuses feature with label or object with class",
+        "Uses terminology without demonstrating understanding of meaning"
+      ],
+      "related_behaviours": [
+        "OB_CON_002",
+        "OB_CON_003"
+      ],
+      "difficulty": "foundational",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.72
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Eloquent phrasing without correct term meaning must not inflate strength (CLT-A)."
+    },
+    "OB_CON_002": {
+      "id": "OB_CON_002",
+      "title": "Distinguishes related decision-tree concepts",
+      "description": "Learner differentiates closely related concepts such as rule versus tree, threshold versus split, or training versus test purpose.",
+      "construct_dimension": "conceptual",
+      "cognitive_process": "understand",
+      "knowledge_type": "declarative",
+      "possible_sources": [
+        "worksheet",
+        "reflection",
+        "interview"
+      ],
+      "required_evidence": [
+        "Explicit contrast or correct independent use of two related concepts",
+        "Distinction is learner-generated, not restated task instructions"
+      ],
+      "possible_misconceptions": [
+        "Treats all tree components as interchangeable labels",
+        "Equates any numeric cutoff with a meaningful threshold"
+      ],
+      "related_behaviours": [
+        "OB_CON_001",
+        "OB_CON_005"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.72
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Terminology recall without distinction supports OB_CON_001 only, not broader understanding."
+    },
+    "OB_CON_003": {
+      "id": "OB_CON_003",
+      "title": "Explains purpose and mechanism of decision-tree classification",
+      "description": "Learner explains what a decision tree does in classification, including how features and thresholds produce class decisions.",
+      "construct_dimension": "conceptual",
+      "cognitive_process": "understand",
+      "knowledge_type": "declarative",
+      "possible_sources": [
+        "worksheet",
+        "reflection",
+        "interview",
+        "observation"
+      ],
+      "required_evidence": [
+        "Learner links features, thresholds, or rules to class outcomes",
+        "Explanation references decision-tree logic, not generic problem solving"
+      ],
+      "possible_misconceptions": [
+        "Describes trees as memorization without rule structure",
+        "Attributes classification to intuition rather than explicit criteria"
+      ],
+      "related_behaviours": [
+        "OB_CON_001",
+        "OB_CON_004",
+        "OB_PRO_005"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.75
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Generic AI enthusiasm without DT mechanism is not admissible."
+    },
+    "OB_CON_004": {
+      "id": "OB_CON_004",
+      "title": "Explains role of training data in model learning",
+      "description": "Learner explains why labeled data is needed for supervised learning and how models learn patterns from examples.",
+      "construct_dimension": "conceptual",
+      "cognitive_process": "understand",
+      "knowledge_type": "declarative",
+      "possible_sources": [
+        "worksheet",
+        "reflection",
+        "interview"
+      ],
+      "required_evidence": [
+        "Learner connects data examples to model learning or parameter estimation",
+        "Explanation distinguishes learning from mere rule lookup"
+      ],
+      "possible_misconceptions": [
+        "Believes models learn without data or labels",
+        "Confuses training data with test evaluation data"
+      ],
+      "related_behaviours": [
+        "OB_CON_003",
+        "OB_REF_002"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.75
+      },
+      "evidence_strength_ceiling": "moderate",
+      "leakage_guard": "Broad data-literacy statements without DT linkage are insufficient."
+    },
+    "OB_CON_005": {
+      "id": "OB_CON_005",
+      "title": "States or explains evaluation metric definitions",
+      "description": "Learner states or explains metrics such as misclassification rate, sensitivity, specificity, or confusion-matrix cell meanings.",
+      "construct_dimension": "conceptual",
+      "cognitive_process": "remember",
+      "knowledge_type": "declarative",
+      "possible_sources": [
+        "worksheet",
+        "reflection",
+        "interview"
+      ],
+      "required_evidence": [
+        "Correct metric definition or formula in learner text",
+        "Metric named is tied to classification performance, not unrelated statistics"
+      ],
+      "possible_misconceptions": [
+        "Swaps sensitivity and specificity",
+        "Treats accuracy as sufficient when class imbalance matters"
+      ],
+      "related_behaviours": [
+        "OB_CON_006",
+        "OB_PRO_009",
+        "OB_STR_005"
+      ],
+      "difficulty": "foundational",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.72
+      },
+      "evidence_strength_ceiling": "moderate",
+      "leakage_guard": "Formula recall without application supports conceptual dimension only."
+    },
+    "OB_CON_006": {
+      "id": "OB_CON_006",
+      "title": "Interprets relationships among confusion-matrix components",
+      "description": "Learner interprets how true positives, false positives, false negatives, and true negatives relate to one another in model evaluation.",
+      "construct_dimension": "conceptual",
+      "cognitive_process": "analyze",
+      "knowledge_type": "conditional",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "reflection"
+      ],
+      "required_evidence": [
+        "Learner references at least two confusion-matrix cells or outcomes coherently",
+        "Interpretation explains error type, not isolated numeric recall"
+      ],
+      "possible_misconceptions": [
+        "Focuses on one cell while ignoring trade-offs",
+        "Mislabels error types when describing outcomes"
+      ],
+      "related_behaviours": [
+        "OB_CON_005",
+        "OB_STR_005",
+        "OB_STR_009"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.75
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Numeric manipulation without interpretive linkage is procedural at best."
+    },
+    "OB_PRO_001": {
+      "id": "OB_PRO_001",
+      "title": "Applies threshold to classify a case",
+      "description": "Learner uses a stated or selected threshold to assign a class label to an instance or group.",
+      "construct_dimension": "procedural",
+      "cognitive_process": "apply",
+      "knowledge_type": "procedural",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "screen_recording"
+      ],
+      "required_evidence": [
+        "Documented classification outcome tied to a threshold value",
+        "Threshold application is learner-driven, not system-default only"
+      ],
+      "possible_misconceptions": [
+        "Applies threshold inconsistently across similar cases",
+        "Classifies without referencing the decision criterion"
+      ],
+      "related_behaviours": [
+        "OB_PRO_002",
+        "OB_PRO_007",
+        "OB_STR_001"
+      ],
+      "difficulty": "foundational",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.72
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Brief responses with correct classification still admissible (CLT-B)."
+    },
+    "OB_PRO_002": {
+      "id": "OB_PRO_002",
+      "title": "Follows decision path to classify",
+      "description": "Learner traverses or applies a sequence of feature tests along a tree path to reach a class outcome.",
+      "construct_dimension": "procedural",
+      "cognitive_process": "apply",
+      "knowledge_type": "procedural",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "screen_recording"
+      ],
+      "required_evidence": [
+        "Ordered feature-threshold decisions leading to a class assignment",
+        "Path logic is traceable in learner work or action log"
+      ],
+      "possible_misconceptions": [
+        "Skips intermediate nodes in multi-level trees",
+        "Assigns class at branch inconsistent with path conditions"
+      ],
+      "related_behaviours": [
+        "OB_PRO_001",
+        "OB_PRO_003",
+        "OB_PRO_005"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.75
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Single-step threshold tasks may not require this behaviour."
+    },
+    "OB_PRO_003": {
+      "id": "OB_PRO_003",
+      "title": "Constructs or extends decision-tree structure",
+      "description": "Learner builds or extends a tree representation with nodes, splits, and leaves that form a coherent classification structure.",
+      "construct_dimension": "procedural",
+      "cognitive_process": "create",
+      "knowledge_type": "procedural",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "screen_recording"
+      ],
+      "required_evidence": [
+        "Partial or complete tree structure authored or manipulated by learner",
+        "Structure includes at least one split and resulting branches"
+      ],
+      "possible_misconceptions": [
+        "Creates structurally invalid trees with missing branches",
+        "Duplicates nodes without classification purpose"
+      ],
+      "related_behaviours": [
+        "OB_PRO_006",
+        "OB_PRO_007",
+        "OB_STR_002"
+      ],
+      "difficulty": "advanced",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.78
+      },
+      "evidence_strength_ceiling": "very_strong",
+      "leakage_guard": "Tool-default tree refresh without learner decisions is insufficient."
+    },
+    "OB_PRO_004": {
+      "id": "OB_PRO_004",
+      "title": "Orders decision-tree workflow steps correctly",
+      "description": "Learner sequences procedural steps such as feature selection, dimension arrangement, threshold finding, and classification in a valid order.",
+      "construct_dimension": "procedural",
+      "cognitive_process": "apply",
+      "knowledge_type": "procedural",
+      "possible_sources": [
+        "worksheet",
+        "reflection",
+        "observation"
+      ],
+      "required_evidence": [
+        "Learner-produced ordering of at least three workflow steps",
+        "Order respects dependencies between selection, thresholding, and decision"
+      ],
+      "possible_misconceptions": [
+        "Places threshold selection before feature identification",
+        "Omits evaluation or decision step at end of workflow"
+      ],
+      "related_behaviours": [
+        "OB_CON_003",
+        "OB_STR_007"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.75
+      },
+      "evidence_strength_ceiling": "moderate",
+      "leakage_guard": "Ordering without execution supports procedural workflow only, not strategic mastery."
+    },
+    "OB_PRO_005": {
+      "id": "OB_PRO_005",
+      "title": "Articulates explicit if-then decision rule",
+      "description": "Learner states a decision rule linking feature conditions to class outcomes in natural or symbolic language.",
+      "construct_dimension": "procedural",
+      "cognitive_process": "understand",
+      "knowledge_type": "conditional",
+      "possible_sources": [
+        "worksheet",
+        "reflection",
+        "interview",
+        "codap"
+      ],
+      "required_evidence": [
+        "If-then or equivalent conditional rule in learner text",
+        "Rule references at least one feature and one class outcome"
+      ],
+      "possible_misconceptions": [
+        "States class label without conditional antecedent",
+        "Rule contradicts demonstrated classification behaviour"
+      ],
+      "related_behaviours": [
+        "OB_CON_003",
+        "OB_PRO_002",
+        "OB_STR_003"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.75
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Fluent rule wording with incorrect execution triggers PAT-CONTRA-001."
+    },
+    "OB_PRO_006": {
+      "id": "OB_PRO_006",
+      "title": "Assigns class labels at tree nodes",
+      "description": "Learner assigns class labels to root, inner, or leaf nodes consistent with a tree structure under construction.",
+      "construct_dimension": "procedural",
+      "cognitive_process": "apply",
+      "knowledge_type": "procedural",
+      "possible_sources": [
+        "worksheet",
+        "codap"
+      ],
+      "required_evidence": [
+        "Documented class label at a named tree position",
+        "Label assignment is learner-authored in construction task"
+      ],
+      "possible_misconceptions": [
+        "Assigns conflicting labels on same branch path",
+        "Leaves internal nodes without resolution when required"
+      ],
+      "related_behaviours": [
+        "OB_PRO_003",
+        "OB_PRO_002"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.75
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Auto-filled tool labels without learner action are not admissible."
+    },
+    "OB_PRO_007": {
+      "id": "OB_PRO_007",
+      "title": "Sets split thresholds at root or inner nodes",
+      "description": "Learner selects or records threshold or split values at root or inner nodes during tree construction or tuning.",
+      "construct_dimension": "procedural",
+      "cognitive_process": "apply",
+      "knowledge_type": "procedural",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "screen_recording"
+      ],
+      "required_evidence": [
+        "Threshold or split value set at a named node position",
+        "Value is learner-selected or learner-recorded, not read-only display"
+      ],
+      "possible_misconceptions": [
+        "Uses arbitrary cutoff without reference to data or task",
+        "Changes threshold without updating downstream classifications"
+      ],
+      "related_behaviours": [
+        "OB_PRO_001",
+        "OB_PRO_003",
+        "OB_STR_002"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.75
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "High click volume without interpretable threshold values is insufficient (CLT inverse of L3)."
+    },
+    "OB_PRO_008": {
+      "id": "OB_PRO_008",
+      "title": "Manipulates exploration tool to change splits or thresholds",
+      "description": "Learner performs meaningful tool actions that change split values, tree structure, or model refresh in an interactive environment.",
+      "construct_dimension": "procedural",
+      "cognitive_process": "apply",
+      "knowledge_type": "procedural",
+      "possible_sources": [
+        "codap",
+        "screen_recording",
+        "observation"
+      ],
+      "required_evidence": [
+        "Logged or observed change_split_values, refresh_tree, or equivalent meaningful action",
+        "Action sequence is interpretable as deliberate exploration, not UI noise"
+      ],
+      "possible_misconceptions": [
+        "Repeated random dragging without threshold change",
+        "Session events mistaken for pedagogical manipulation"
+      ],
+      "related_behaviours": [
+        "OB_PRO_007",
+        "OB_STR_006",
+        "OB_STR_004"
+      ],
+      "difficulty": "foundational",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.6,
+        "minimum_independent_observations": 2,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.7
+      },
+      "evidence_strength_ceiling": "moderate",
+      "leakage_guard": "Digital fluency alone cannot support strategic claims; ceiling is moderate without justification."
+    },
+    "OB_PRO_009": {
+      "id": "OB_PRO_009",
+      "title": "Computes metric values from given data",
+      "description": "Learner calculates or derives metric values such as MCR or sensitivity from provided counts or tables.",
+      "construct_dimension": "procedural",
+      "cognitive_process": "apply",
+      "knowledge_type": "procedural",
+      "possible_sources": [
+        "worksheet"
+      ],
+      "required_evidence": [
+        "Numeric result with traceable calculation steps or correct final value",
+        "Computation uses confusion-matrix or performance inputs"
+      ],
+      "possible_misconceptions": [
+        "Arithmetic error with correct formula recall",
+        "Uses wrong denominator for rate metrics"
+      ],
+      "related_behaviours": [
+        "OB_CON_005",
+        "OB_CON_006"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.75
+      },
+      "evidence_strength_ceiling": "moderate",
+      "leakage_guard": "Computation without interpretation does not support strategic evaluation."
+    },
+    "OB_STR_001": {
+      "id": "OB_STR_001",
+      "title": "Compares alternative thresholds using performance evidence",
+      "description": "Learner compares two or more threshold or model options using stated performance indicators such as error rates or separation.",
+      "construct_dimension": "strategic",
+      "cognitive_process": "compare",
+      "knowledge_type": "conditional",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "reflection"
+      ],
+      "required_evidence": [
+        "Explicit comparison between at least two alternatives",
+        "Comparison cites performance evidence, not preference alone"
+      ],
+      "possible_misconceptions": [
+        "Compares thresholds without referencing outcomes",
+        "Selects lower numeric value without performance rationale"
+      ],
+      "related_behaviours": [
+        "OB_STR_002",
+        "OB_STR_003",
+        "OB_STR_008"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.78
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Narrative comparison without performance linkage is inadmissible for strategic dimension."
+    },
+    "OB_STR_002": {
+      "id": "OB_STR_002",
+      "title": "Selects threshold or feature using explicit criteria",
+      "description": "Learner chooses a threshold, split feature, or model parameter and states the criterion used for selection.",
+      "construct_dimension": "strategic",
+      "cognitive_process": "evaluate",
+      "knowledge_type": "conditional",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "reflection",
+        "interview"
+      ],
+      "required_evidence": [
+        "Documented selection decision with named criterion",
+        "Criterion links to task goal or performance measure"
+      ],
+      "possible_misconceptions": [
+        "Selects first available feature without evaluation",
+        "Uses popularity or intuition as sole criterion"
+      ],
+      "related_behaviours": [
+        "OB_STR_001",
+        "OB_STR_004",
+        "OB_PRO_007"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.78
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Correct selection without stated criterion supports procedural execution at most."
+    },
+    "OB_STR_003": {
+      "id": "OB_STR_003",
+      "title": "Justifies model or threshold choice with evidence",
+      "description": "Learner provides evidence-based rationale for a model structure, threshold, or classification decision.",
+      "construct_dimension": "strategic",
+      "cognitive_process": "justify",
+      "knowledge_type": "conditional",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "reflection",
+        "interview"
+      ],
+      "required_evidence": [
+        "Rationale references observable performance or data pattern",
+        "Justification is learner-authored and specific to the decision made"
+      ],
+      "possible_misconceptions": [
+        "Post-hoc justification disconnected from actual choice",
+        "Confuses plausibility with evidence"
+      ],
+      "related_behaviours": [
+        "OB_STR_001",
+        "OB_STR_002",
+        "OB_PRO_005"
+      ],
+      "difficulty": "advanced",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.7,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.8
+      },
+      "evidence_strength_ceiling": "very_strong",
+      "leakage_guard": "Polished writing without performance linkage must not inflate strategic strength (CLT-A)."
+    },
+    "OB_STR_004": {
+      "id": "OB_STR_004",
+      "title": "Identifies predictive features from observed data patterns",
+      "description": "Learner names a feature and cites an observed data or graph pattern suggesting predictive value for classification.",
+      "construct_dimension": "strategic",
+      "cognitive_process": "analyze",
+      "knowledge_type": "conditional",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "reflection",
+        "observation"
+      ],
+      "required_evidence": [
+        "Named feature plus described pattern such as separation or distribution difference",
+        "Pattern reference is observational, not guesswork alone"
+      ],
+      "possible_misconceptions": [
+        "Names feature without citing observed evidence",
+        "Cites graph trend unrelated to class distinction"
+      ],
+      "related_behaviours": [
+        "OB_REF_004",
+        "OB_STR_002",
+        "OB_PRO_008"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.78
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Prior belief without pattern citation is OB_REF_004, not this behaviour."
+    },
+    "OB_STR_005": {
+      "id": "OB_STR_005",
+      "title": "Evaluates trade-offs between error types",
+      "description": "Learner discusses or applies reasoning about false positives versus false negatives or sensitivity versus misclassification trade-offs.",
+      "construct_dimension": "strategic",
+      "cognitive_process": "evaluate",
+      "knowledge_type": "conditional",
+      "possible_sources": [
+        "worksheet",
+        "reflection",
+        "interview"
+      ],
+      "required_evidence": [
+        "Explicit trade-off reasoning between two error types or metrics",
+        "Reasoning connects to threshold or model decision context"
+      ],
+      "possible_misconceptions": [
+        "Optimizes one metric while ignoring complementary error",
+        "Treats all errors as equally costly without task context"
+      ],
+      "related_behaviours": [
+        "OB_CON_006",
+        "OB_STR_001",
+        "OB_REF_002"
+      ],
+      "difficulty": "advanced",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.7,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.8
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Vocabulary mention of FP/FN without trade-off reasoning is conceptual only."
+    },
+    "OB_STR_006": {
+      "id": "OB_STR_006",
+      "title": "Iteratively explores parameter combinations affecting performance",
+      "description": "Learner systematically tests multiple parameter or threshold combinations and observes resulting performance changes.",
+      "construct_dimension": "strategic",
+      "cognitive_process": "analyze",
+      "knowledge_type": "conditional",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "screen_recording"
+      ],
+      "required_evidence": [
+        "Evidence of multiple tested combinations with performance outcomes",
+        "Iteration is deliberate, not single-trial"
+      ],
+      "possible_misconceptions": [
+        "Repeats same parameter without variation",
+        "Changes parameters without recording outcomes"
+      ],
+      "related_behaviours": [
+        "OB_PRO_008",
+        "OB_STR_007",
+        "OB_STR_008"
+      ],
+      "difficulty": "advanced",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 2,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.78
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Exploration volume without outcome interpretation caps at moderate."
+    },
+    "OB_STR_007": {
+      "id": "OB_STR_007",
+      "title": "Synthesizes exploration into justified parameter choice",
+      "description": "Learner integrates results from iterative exploration into a final justified threshold or parameter selection.",
+      "construct_dimension": "strategic",
+      "cognitive_process": "synthesize",
+      "knowledge_type": "conditional",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "reflection"
+      ],
+      "required_evidence": [
+        "Final selection linked to prior exploration results",
+        "Synthesis statement references compared outcomes"
+      ],
+      "possible_misconceptions": [
+        "Final choice contradicts documented exploration",
+        "Synthesis narrative without supporting trials"
+      ],
+      "related_behaviours": [
+        "OB_STR_006",
+        "OB_STR_003",
+        "OB_PRO_004"
+      ],
+      "difficulty": "advanced",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.7,
+        "minimum_independent_observations": 2,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.8
+      },
+      "evidence_strength_ceiling": "very_strong",
+      "leakage_guard": "Requires traceable link between exploration and final choice."
+    },
+    "OB_STR_008": {
+      "id": "OB_STR_008",
+      "title": "Optimizes threshold performance across conditions",
+      "description": "Learner identifies best-performing threshold or configuration across multiple rows, cases, or experimental conditions in tabular or tool context.",
+      "construct_dimension": "strategic",
+      "cognitive_process": "evaluate",
+      "knowledge_type": "conditional",
+      "possible_sources": [
+        "worksheet",
+        "codap"
+      ],
+      "required_evidence": [
+        "Selection of optimal or best-performing option from multiple candidates",
+        "Performance criterion is explicit in learner work"
+      ],
+      "possible_misconceptions": [
+        "Picks maximum value without performance column reference",
+        "Confuses local optimum with global best across table"
+      ],
+      "related_behaviours": [
+        "OB_STR_001",
+        "OB_STR_006",
+        "OB_PRO_009"
+      ],
+      "difficulty": "advanced",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.78
+      },
+      "evidence_strength_ceiling": "strong",
+      "leakage_guard": "Table lookup without criterion articulation supports procedural accuracy at most."
+    },
+    "OB_STR_009": {
+      "id": "OB_STR_009",
+      "title": "Interprets model feedback in applied decision context",
+      "description": "Learner interprets model output or feedback and relates it to a practical classification or teaching decision.",
+      "construct_dimension": "strategic",
+      "cognitive_process": "analyze",
+      "knowledge_type": "conditional",
+      "possible_sources": [
+        "worksheet",
+        "codap",
+        "reflection",
+        "observation"
+      ],
+      "required_evidence": [
+        "Interpretation of model output tied to actionable decision",
+        "Feedback element is referenced specifically, not generically"
+      ],
+      "possible_misconceptions": [
+        "Restates feedback without interpretation",
+        "Draws decision unrelated to displayed metrics"
+      ],
+      "related_behaviours": [
+        "OB_CON_006",
+        "OB_STR_003",
+        "OB_REF_002"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.78
+      },
+      "evidence_strength_ceiling": "moderate",
+      "leakage_guard": "Generic model praise without metric reference is inadmissible."
+    },
+    "OB_REF_001": {
+      "id": "OB_REF_001",
+      "title": "Reflects on learning or misconceptions about decision trees",
+      "description": "Learner articulates what was learned, misunderstood, or found surprising about decision-tree concepts or tasks.",
+      "construct_dimension": "reflective",
+      "cognitive_process": "reflect",
+      "knowledge_type": "metacognitive",
+      "possible_sources": [
+        "reflection",
+        "interview",
+        "worksheet"
+      ],
+      "required_evidence": [
+        "Metacognitive statement about own understanding or confusion",
+        "Content is specific to decision-tree learning, not generic study habits"
+      ],
+      "possible_misconceptions": [
+        "Generic reflection without DT content",
+        "Claims mastery without evidential reference"
+      ],
+      "related_behaviours": [
+        "OB_REF_002",
+        "OB_REF_003",
+        "OB_CON_003"
+      ],
+      "difficulty": "foundational",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.6,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.7
+      },
+      "evidence_strength_ceiling": "moderate",
+      "leakage_guard": "Excellent reflection without correct execution does not support procedural or strategic claims (CLT-D)."
+    },
+    "OB_REF_002": {
+      "id": "OB_REF_002",
+      "title": "Articulates model limitations or uncertainty",
+      "description": "Learner discusses limits of a model, data, or threshold choice including uncertainty, imperfect classification, or overfitting risk.",
+      "construct_dimension": "reflective",
+      "cognitive_process": "reflect",
+      "knowledge_type": "metacognitive",
+      "possible_sources": [
+        "reflection",
+        "interview",
+        "worksheet"
+      ],
+      "required_evidence": [
+        "Statement of limitation or uncertainty tied to model or data",
+        "Limitation is substantive, not token disclaimer"
+      ],
+      "possible_misconceptions": [
+        "Claims perfect classification when evidence shows errors",
+        "Confuses model uncertainty with personal hesitation only"
+      ],
+      "related_behaviours": [
+        "OB_REF_001",
+        "OB_STR_005",
+        "OB_CON_004"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.6,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.72
+      },
+      "evidence_strength_ceiling": "moderate",
+      "leakage_guard": "Limitation discourse without tie to observed model behaviour is weak reflective only."
+    },
+    "OB_REF_003": {
+      "id": "OB_REF_003",
+      "title": "Revises belief after new evidence",
+      "description": "Learner changes or updates a prior statement in light of new data, tool exploration, or feedback.",
+      "construct_dimension": "reflective",
+      "cognitive_process": "reflect",
+      "knowledge_type": "metacognitive",
+      "possible_sources": [
+        "worksheet",
+        "reflection",
+        "interview",
+        "codap"
+      ],
+      "required_evidence": [
+        "Documented prior and posterior positions or explicit change statement",
+        "Revision is linked to cited new evidence"
+      ],
+      "possible_misconceptions": [
+        "Changes answer without acknowledging prior position",
+        "Revision follows peer copying rather than evidence"
+      ],
+      "related_behaviours": [
+        "OB_REF_004",
+        "OB_STR_004",
+        "OB_REF_001"
+      ],
+      "difficulty": "intermediate",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.65,
+        "minimum_independent_observations": 2,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.75
+      },
+      "evidence_strength_ceiling": "moderate",
+      "leakage_guard": "Requires temporal or cross-item traceability between prior and revised claims."
+    },
+    "OB_REF_004": {
+      "id": "OB_REF_004",
+      "title": "States uninformed prior before exploration",
+      "description": "Learner records initial belief or prediction about features, classes, or model behaviour before structured data exploration.",
+      "construct_dimension": "reflective",
+      "cognitive_process": "understand",
+      "knowledge_type": "metacognitive",
+      "possible_sources": [
+        "worksheet",
+        "reflection",
+        "interview"
+      ],
+      "required_evidence": [
+        "Prior belief stated before exposure to analytic evidence in task design",
+        "Belief concerns predictive feature, class tendency, or model expectation"
+      ],
+      "possible_misconceptions": [
+        "Post-hoc answer presented as prior belief",
+        "Prior copied from instructional example"
+      ],
+      "related_behaviours": [
+        "OB_REF_003",
+        "OB_STR_004"
+      ],
+      "difficulty": "foundational",
+      "confidence_requirements": {
+        "minimum_extraction_confidence": 0.6,
+        "minimum_independent_observations": 1,
+        "minimum_source_families": 1,
+        "review_below_confidence": 0.65
+      },
+      "evidence_strength_ceiling": "weak",
+      "leakage_guard": "Baseline diagnostic only; excluded from mastery aggregation per Inference Rules R16."
+    }
+  },
+  "freeze": {
+    "status": "frozen",
+    "version": "1.0",
+    "frozen_at": "2026-06-28T10:47:11.053137+00:00",
+    "freeze_package_dir": "reports/milestone1_freeze",
+    "expert_review_status": "automated_review_complete; human_expert_review_pending",
+    "change_policy": "major_version_required_for_semantic_changes"
+  }
+}

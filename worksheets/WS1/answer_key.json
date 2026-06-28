@@ -1,0 +1,153 @@
+{
+  "worksheet": "WS1",
+  "curriculum_status": "deployed",
+  "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
+  "items": {
+    "WS1_B1": {
+      "check": "any_of_tokens",
+      "evaluation": "any_of_tokens",
+      "example_answer": "etiket",
+      "accept_sets": [
+        "variable_label"
+      ],
+      "deterministic": true
+    },
+    "WS1_B2": {
+      "check": "any_of_tokens",
+      "evaluation": "any_of_tokens",
+      "example_answer": "nesne",
+      "accept_sets": [
+        "object_feature"
+      ],
+      "deterministic": true
+    },
+    "WS1_B3": {
+      "check": "any_of_tokens",
+      "evaluation": "any_of_tokens",
+      "example_answer": "özellik",
+      "accept_sets": [
+        "object_feature",
+        "variable_label"
+      ],
+      "deterministic": true
+    },
+    "WS1_B4": {
+      "evaluation": "single_concept",
+      "example_answer": "7"
+    },
+    "WS1_B5": {
+      "check": "unordered_token_set",
+      "evaluation": "unordered_token_set",
+      "example_answer": "Enerji, Yağ, Doymuş Yağ, Karbonhidrat, Şeker, Protein, Tuz",
+      "token_groups": [
+        {
+          "id": "enerji",
+          "aliases": [
+            "enerji",
+            "energy",
+            "kcal"
+          ]
+        },
+        {
+          "id": "yag",
+          "aliases": [
+            "yağ",
+            "yag",
+            "fat"
+          ]
+        },
+        {
+          "id": "doymus_yag",
+          "aliases": [
+            "doymuş yağ",
+            "doymus yag",
+            "doymuş",
+            "doymus",
+            "saturated"
+          ]
+        },
+        {
+          "id": "karbonhidrat",
+          "aliases": [
+            "karbonhidrat",
+            "carbohydrate",
+            "karb"
+          ]
+        },
+        {
+          "id": "seker",
+          "aliases": [
+            "şeker",
+            "seker",
+            "sugar"
+          ]
+        },
+        {
+          "id": "protein",
+          "aliases": [
+            "protein"
+          ]
+        },
+        {
+          "id": "tuz",
+          "aliases": [
+            "tuz",
+            "salt",
+            "sodyum",
+            "sodium"
+          ]
+        }
+      ],
+      "need_tokens": 5,
+      "partial_on_tokens": 3,
+      "order_insensitive": true,
+      "deterministic": true
+    },
+    "WS1_B6": {
+      "evaluation": "single_concept",
+      "example_answer": "Fındıklı Gofret"
+    },
+    "WS1_B7": {
+      "check": "any_of_tokens",
+      "evaluation": "any_of_tokens",
+      "example_answer": "etiket",
+      "accept_sets": [
+        "variable_label"
+      ],
+      "extra_aliases": [
+        "tavsiye edilebilir",
+        "tavsiye edilemez",
+        "tavsiye edilir",
+        "tavsiye edilmez"
+      ],
+      "deterministic": true
+    }
+  },
+  "equivalence_sets": {
+    "object_feature": {
+      "note": "Nesne ve özellik eşdeğer — öğrenci ikisinden birini yazarsa puan alır.",
+      "aliases": [
+        "nesne",
+        "özellik",
+        "ozellik",
+        "varlık",
+        "varlik",
+        "örnek",
+        "ornek",
+        "eleman",
+        "karakteristik",
+        "nitelik"
+      ]
+    },
+    "variable_label": {
+      "note": "Değişken ve etiket eşdeğer — öğrenci ikisinden birini yazarsa puan alır.",
+      "aliases": [
+        "değişken",
+        "degisken",
+        "etiket",
+        "etiket olarak",
+        "label"
+      ]
+    }
+  }
+}

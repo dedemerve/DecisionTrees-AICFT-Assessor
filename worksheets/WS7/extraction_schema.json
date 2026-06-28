@@ -1,0 +1,77 @@
+{
+  "worksheet": "WS7",
+  "curriculum_status": "deployed",
+  "pipeline_stage": "extraction_only",
+  "interpretation_prohibited": true,
+  "ocr_engine": "claude_vision",
+  "source_type": "worksheet",
+  "note": "Three path-match boxes (P1) plus up to three rule fields (B1–B3).",
+  "fields": [
+    {
+      "field_id": "WS7_B1",
+      "rubric_item_id": "WS7_B1",
+      "type": "path_label",
+      "required": true,
+      "location_hint": "WS7 worksheet response region"
+    },
+    {
+      "field_id": "WS7_B2",
+      "rubric_item_id": "WS7_B2",
+      "type": "path_label",
+      "required": true,
+      "location_hint": "WS7 worksheet response region"
+    },
+    {
+      "field_id": "WS7_B3",
+      "rubric_item_id": "WS7_B3",
+      "type": "path_label",
+      "required": true,
+      "location_hint": "WS7 worksheet response region"
+    },
+    {
+      "field_id": "WS7_B4",
+      "type": "path_label",
+      "required": true,
+      "location_hint": "WS7 worksheet response region"
+    },
+    {
+      "field_id": "WS7_B5",
+      "type": "path_label",
+      "required": true,
+      "location_hint": "WS7 worksheet response region"
+    },
+    {
+      "field_id": "WS7_B6",
+      "type": "path_label",
+      "required": true,
+      "location_hint": "WS7 worksheet response region"
+    },
+    {
+      "field_id": "WS7_B7",
+      "type": "path_label",
+      "required": true,
+      "location_hint": "WS7 worksheet response region"
+    },
+    {
+      "field_id": "WS7_P1_box1",
+      "rubric_item_id": "WS7_P1_box1",
+      "type": "path_label",
+      "required": true,
+      "location_hint": "WS7 worksheet response region"
+    },
+    {
+      "field_id": "WS7_P1_box2",
+      "rubric_item_id": "WS7_P1_box2",
+      "type": "path_label",
+      "required": true,
+      "location_hint": "WS7 worksheet response region"
+    },
+    {
+      "field_id": "WS7_P1_box3",
+      "rubric_item_id": "WS7_P1_box3",
+      "type": "path_label",
+      "required": true,
+      "location_hint": "WS7 worksheet response region"
+    }
+  ]
+}

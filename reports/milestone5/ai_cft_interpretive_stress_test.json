@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-06-28T17:44:41.169988+00:00",
+  "suite": "ai_cft_interpretive_stress_test",
+  "milestone": 5,
+  "status": "pass",
+  "test_count": 6,
+  "passed": 6,
+  "tests": [
+    {
+      "test_id": "AST-01",
+      "title": "Domain present without convergence",
+      "pass": true,
+      "ceiling": "moderate",
+      "errors": [],
+      "notes": [
+        "required domain DU_MODEL_EVALUATION not evidenced for LO3.2.2",
+        "insufficient sources for LO3.2.2 via DU_THRESHOLD_REASONING",
+        "escalation blocker active for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "single-source global cap"
+      ]
+    },
+    {
+      "test_id": "AST-02",
+      "title": "Reflection cannot inflate Deepen",
+      "pass": true,
+      "ceiling": "moderate",
+      "errors": [],
+      "notes": [
+        "required domain DU_DATA_REPRESENTATION not evidenced for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "escalation blocker active for LO3.2.2",
+        "DU_THRESHOLD_REASONING below minimum_domain_strength for LO3.2.2"
+      ]
+    },
+    {
+      "test_id": "AST-03",
+      "title": "Single evidence source",
+      "pass": true,
+      "ceiling": "moderate",
+      "errors": [],
+      "notes": [
+        "insufficient sources for LO3.2.3 via DU_THRESHOLD_REASONING",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "insufficient sources for LO3.2.3 via DU_PARAMETER_TUNING",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "insufficient sources for LO3.2.3 via DU_GENERALISATION",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "escalation blocker active for LO3.2.3",
+        "single-source global cap"
+      ]
+    },
+    {
+      "test_id": "AST-04",
+      "title": "Conceptual domain cannot imply application LO",
+      "pass": true,
+      "ceiling": "none",
+      "errors": [],
+      "notes": []
+    },
+    {
+      "test_id": "AST-05",
+      "title": "Create indicator capped weak",
+      "pass": true,
+      "ceiling": "weak",
+      "errors": [],
+      "notes": []
+    },
+    {
+      "test_id": "AST-06",
+      "title": "Researcher review always required",
+      "pass": true,
+      "errors": []
+    }
+  ]
+}

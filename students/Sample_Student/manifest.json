@@ -1,0 +1,68 @@
+{
+  "student_id": "Sample_Student",
+  "pipeline": "worksheet_upload_v1",
+  "ws_upload_flow": {
+    "step_1": {
+      "file": "students/<student_id>/<WS>/extraction.json",
+      "role": "OCR adapter output — raw field transcriptions",
+      "interpretation": false
+    },
+    "step_2": {
+      "file": "students/<student_id>/<WS>/evidence_units.json",
+      "role": "Canonical assessment output — use this after upload",
+      "interpretation": false
+    },
+    "aggregate": {
+      "file": "students/<student_id>/evidence_units.json",
+      "role": "All worksheets merged — input to Behaviour Engine (M3)",
+      "interpretation": false
+    }
+  },
+  "worksheets": {
+    "WS1": {
+      "extraction": "WS1/extraction.json",
+      "evidence_units": "WS1/evidence_units.json",
+      "primary_output": "WS1/evidence_units.json"
+    },
+    "WS10": {
+      "extraction": "WS10/extraction.json",
+      "evidence_units": "WS10/evidence_units.json",
+      "primary_output": "WS10/evidence_units.json"
+    },
+    "WS11": {
+      "extraction": "WS11/extraction.json",
+      "evidence_units": "WS11/evidence_units.json",
+      "primary_output": "WS11/evidence_units.json"
+    },
+    "WS3": {
+      "extraction": "WS3/extraction.json",
+      "evidence_units": "WS3/evidence_units.json",
+      "primary_output": "WS3/evidence_units.json"
+    },
+    "WS4": {
+      "extraction": "WS4/extraction.json",
+      "evidence_units": "WS4/evidence_units.json",
+      "primary_output": "WS4/evidence_units.json"
+    },
+    "WS5": {
+      "extraction": "WS5/extraction.json",
+      "evidence_units": "WS5/evidence_units.json",
+      "primary_output": "WS5/evidence_units.json"
+    },
+    "WS6": {
+      "extraction": "WS6/extraction.json",
+      "evidence_units": "WS6/evidence_units.json",
+      "primary_output": "WS6/evidence_units.json"
+    },
+    "WS7": {
+      "extraction": "WS7/extraction.json",
+      "evidence_units": "WS7/evidence_units.json",
+      "primary_output": "WS7/evidence_units.json"
+    },
+    "WS_DT": {
+      "extraction": "WS_DT/extraction.json",
+      "evidence_units": "WS_DT/evidence_units.json",
+      "primary_output": "WS_DT/evidence_units.json"
+    }
+  }
+}

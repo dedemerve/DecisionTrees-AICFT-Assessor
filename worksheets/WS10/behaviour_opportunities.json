@@ -1,0 +1,130 @@
+{
+  "worksheet": "WS10",
+  "curriculum_status": "deployed",
+  "behaviour_ontology_reference": "framework/Observable_Behaviours.json",
+  "note": "Evidence opportunity map only. Observable Behaviour candidates per rubric item. No instructional learning object, domain, or competency mapping at worksheet layer.",
+  "items": {
+    "WS10_B1": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_007",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Computes midpoint threshold from sorted values."
+        }
+      ],
+      "extraction_fields": [
+        "WS10_B1"
+      ]
+    },
+    "WS10_B2": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_STR_003",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Counts midpoint candidates in threshold grid."
+        }
+      ],
+      "extraction_fields": [
+        "WS10_B2"
+      ]
+    },
+    "WS10_B3": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_007",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Midpoint computation in energy dataset."
+        }
+      ],
+      "extraction_fields": [
+        "WS10_B3"
+      ]
+    },
+    "WS10_B4": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_008",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Misclassification count at a threshold row."
+        }
+      ],
+      "extraction_fields": [
+        "WS10_B4"
+      ]
+    },
+    "WS10_B5": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_007",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Selects minimum-MCR optimal threshold."
+        },
+        {
+          "behaviour_id": "OB_STR_003",
+          "role": "secondary",
+          "evidence_mode": "direct",
+          "rationale": "Optimal threshold from error analysis."
+        }
+      ],
+      "extraction_fields": [
+        "WS10_B5"
+      ]
+    },
+    "WS10_B6": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_008",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Open numeric row — count/MCR consistency."
+        },
+        {
+          "behaviour_id": "OB_STR_003",
+          "role": "secondary",
+          "evidence_mode": "indirect",
+          "rationale": "Row arithmetic coherence."
+        }
+      ],
+      "extraction_fields": [
+        "WS10_B6"
+      ]
+    },
+    "WS10_B7": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_008",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Open numeric answer in threshold experiment."
+        }
+      ],
+      "extraction_fields": [
+        "WS10_B7"
+      ]
+    },
+    "WS10_B8": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_007",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Confirms optimal threshold selection."
+        },
+        {
+          "behaviour_id": "OB_STR_001",
+          "role": "secondary",
+          "evidence_mode": "direct",
+          "rationale": "Justification tied to minimum MCR."
+        }
+      ],
+      "extraction_fields": [
+        "WS10_B8"
+      ]
+    }
+  }
+}

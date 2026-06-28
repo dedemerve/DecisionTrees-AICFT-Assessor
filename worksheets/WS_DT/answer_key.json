@@ -1,0 +1,277 @@
+{
+  "worksheet": "WS_DT",
+  "curriculum_status": "deployed",
+  "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
+  "items": {
+    "DT_A_Q1": {
+      "evaluation": "prior_belief",
+      "example_answer": "Şeker ve yağ miktarının bir gıdanın tavsiye edilip edilmeyeceğini tahmin edebileceğini düşünüyorum. Yüksek şekerli gıdaların genellikle sağlıklı sayılmadığını biliyorum.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_A_Q2": {
+      "evaluation": "data_exploration",
+      "example_answer": "CODAP'ta grafik oluşturduğumda şeker miktarının iki grubu belirgin biçimde ayırdığını gördüm. Tavsiye edilen gıdalarda şeker değeri düşükken, edilmeyenlerde yüksekti.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_A_Q3": {
+      "evaluation": "feature_observation",
+      "example_answer": "Evet, şeker miktarı anlamlı bir fark gösterdi. Tavsiye edilen gıdalarda şeker değeri genellikle 10g'ın altında kalırken, tavsiye edilmeyenlerde bu değer daha yüksekti.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_A_Q4": {
+      "evaluation": "feature_selection_with_justification",
+      "example_answer": "İlk olarak şeker miktarını kullanırdım. CODAP'taki grafiklerde şekerin iki grubu en belirgin şekilde ayırdığını gözlemledim.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_B_Q1": {
+      "check": "emit_consistency",
+      "evaluation": "emit_output",
+      "example_answer": "Değişken: şeker | Eşik: 10 | TP: 8 | FP: 2 | TN: 4 | FN: 2 | Duyarlılık: 0.80 | MCR: 0.25",
+      "fields": [
+        "variable",
+        "threshold",
+        "TP",
+        "FP",
+        "TN",
+        "FN"
+      ],
+      "consistency_rules": [
+        "TP+FP+TN+FN = dataset_size",
+        "sensitivity = TP/(TP+FN)",
+        "MCR = (FP+FN)/(TP+FP+TN+FN)"
+      ],
+      "deterministic": true
+    },
+    "DT_B_Q2": {
+      "check": "emit_consistency",
+      "evaluation": "emit_output",
+      "example_answer": "Değişken: yağ | Eşik: 8 | TP: 6 | FP: 4 | TN: 2 | FN: 4 | Duyarlılık: 0.60 | MCR: 0.50",
+      "fields": [
+        "variable",
+        "threshold",
+        "TP",
+        "FP",
+        "TN",
+        "FN"
+      ],
+      "consistency_rules": [
+        "TP+FP+TN+FN = dataset_size",
+        "variable must differ from B_Q1"
+      ],
+      "deterministic": true
+    },
+    "DT_B_Q3": {
+      "check": "emit_consistency",
+      "evaluation": "emit_output",
+      "example_answer": "Değişken: enerji | Eşik: 300 | TP: 5 | FP: 3 | TN: 3 | FN: 5 | Duyarlılık: 0.50 | MCR: 0.50",
+      "fields": [
+        "variable",
+        "threshold",
+        "TP",
+        "FP",
+        "TN",
+        "FN"
+      ],
+      "consistency_rules": [
+        "TP+FP+TN+FN = dataset_size",
+        "variable must differ from B_Q1 and B_Q2"
+      ],
+      "deterministic": true
+    },
+    "DT_B_Q4": {
+      "evaluation": "comparative_selection",
+      "example_answer": "Şeker miktarı en iyi sonucu verdi çünkü bu değişkende MCR en düşük elde edildi. Duyarlılık da diğer ağaçlara göre daha yüksekti.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_C_Q1": {
+      "check": "emit_consistency",
+      "evaluation": "emit_output",
+      "example_answer": "Değişken: şeker | Eşik: 12 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13",
+      "fields": [
+        "variable",
+        "threshold",
+        "TP",
+        "FP",
+        "TN",
+        "FN"
+      ],
+      "deterministic": true
+    },
+    "DT_C_Q2": {
+      "evaluation": "threshold_effect",
+      "example_answer": "Eşiği yükseltince daha fazla gıda tavsiye edilir grubuna girdi; bu FP'yi artırıp MCR'yi yükseltti. Eşiği düşürünce ise FN arttı.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_C_Q3": {
+      "evaluation": "threshold_selection",
+      "example_answer": "Şeker için 12g eşiği en iyi sonucu verdi. Farklı değerleri deneyerek MCR'nin bu eşikte 0.13 ile en düşük olduğunu buldum.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_D_Q1": {
+      "check": "emit_consistency",
+      "evaluation": "emit_output",
+      "example_answer": "Düzey 1: şeker ≤ 12 | Düzey 2: yağ ≤ 8 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13",
+      "fields": [
+        "variable_level1",
+        "threshold_level1",
+        "variable_level2",
+        "threshold_level2",
+        "TP",
+        "FP",
+        "TN",
+        "FN"
+      ],
+      "deterministic": true
+    },
+    "DT_D_Q2": {
+      "evaluation": "improvement_analysis",
+      "example_answer": "Evet, ikinci değişken olarak yağı eklemek sınıflandırmayı iyileştirdi. Yanlış pozitif sayısı 2'den 1'e düştü ve MCR 0.25'ten 0.13'e geriledi.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_D_Q3": {
+      "evaluation": "combination_selection",
+      "example_answer": "Şeker ve yağ kombinasyonu en iyi sonucu verdi. Bu ağaçta MCR 0.13 ile en düşük değere ulaştı.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_D_Q4": {
+      "evaluation": "decision_criterion",
+      "example_answer": "Farklı kombinasyonların MCR değerlerini EMIT çıktısıyla karşılaştırdım. MCR artık düşmediğinde en iyi ağaca ulaştığıma karar verdim.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_E_TP": {
+      "evaluation": "two_component",
+      "example_answer": "Doğru pozitif (TP): modelin pozitif tahmin ettiği ve gerçekte de pozitif olan örnekler.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_E_FP": {
+      "evaluation": "two_component",
+      "example_answer": "Yanlış pozitif (FP): modelin pozitif tahmin ettiği ama gerçekte negatif olan örnekler.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_E_sensitivity_formula": {
+      "check": "formula",
+      "answer": "TP/(TP+FN)",
+      "example_answer": "Duyarlılık = TP / (TP + FN)",
+      "accepted_forms": [
+        "TP/(TP+FN)",
+        "TP / (TP + FN)",
+        "doğru_pozitif/(doğru_pozitif+yanlış_negatif)"
+      ],
+      "deterministic": true
+    },
+    "DT_E_MCR_formula": {
+      "check": "formula",
+      "answer": "(FP+FN)/N",
+      "example_answer": "MCR = (FP + FN) / toplam örnek sayısı",
+      "accepted_forms": [
+        "(FP+FN)/N",
+        "(FP+FN)/total",
+        "(FP+FN)/n",
+        "(FP+FN)/toplam",
+        "(FP+FN)/toplam_örnek"
+      ],
+      "deterministic": true
+    },
+    "DT_E_sensitivity": {
+      "check": "numeric_consistency",
+      "evaluation": "numeric_value",
+      "example_answer": "0.90",
+      "formula_reference": "TP / (TP + FN)",
+      "deterministic": true
+    },
+    "DT_E_MCR": {
+      "check": "numeric_consistency",
+      "evaluation": "numeric_value",
+      "example_answer": "0.13",
+      "formula_reference": "(FP + FN) / total",
+      "deterministic": true
+    },
+    "DT_E_Q1": {
+      "evaluation": "metric_justification",
+      "example_answer": "Duyarlılık daha önemli; tavsiye edilmesi gereken bir gıdayı kaçırmak, gereksiz yere tavsiye etmekten daha riskli olabilir.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_E_Q2": {
+      "evaluation": "error_analysis",
+      "example_answer": "Modelim daha fazla yanlış negatif yaptı; tavsiye edilmesi gereken bazı gıdaları tavsiye edilemez olarak sınıflandırdı.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_E_Q3": {
+      "evaluation": "stopping_criterion",
+      "example_answer": "Bir yazılım, MCR gibi bir hata eşiği belirler. Model bu eşiğin altında kaldığında veya ek karmaşıklık hatayı azaltmadığında ağacın yeterince iyi olduğuna karar verilir.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_E_Q4": {
+      "evaluation": "conceptual_limitation",
+      "example_answer": "Hayır, karar ağaçları her zaman mükemmel sınıflandırma yapamaz. Farklı sınıflara ait örnekler aynı özellik değerlerine sahip olabilir; bu durumda hata kaçınılmazdır.",
+      "scoring_mode": "interpretive",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_F_Q1": {
+      "check": "emit_consistency",
+      "evaluation": "emit_output",
+      "example_answer": "Test verisi EMIT: TP: 4 | FP: 2 | TN: 1 | FN: 1 | Duyarlılık: 0.80 | MCR: 0.38",
+      "fields": [
+        "TP",
+        "FP",
+        "TN",
+        "FN",
+        "sensitivity",
+        "MCR"
+      ],
+      "deterministic": true
+    },
+    "DT_F_Q2": {
+      "evaluation": "train_test_comparison",
+      "example_answer": "Test verisinde MCR 0.13'ten 0.38'e yükseldi. Bu fark muhtemelen aşırı öğrenmeden kaynaklanıyor; model eğitim verisine çok uyum sağladı ve yeni verilere genelleyemedi.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_G_overfitting": {
+      "evaluation": "two_component",
+      "example_answer": "Aşırı öğrenme: modelin eğitim verisine çok uyum sağlayıp yeni verilere genelleyememesi.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_G_DT_definition": {
+      "evaluation": "two_component",
+      "example_answer": "Karar ağacı: veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_G_Q1": {
+      "evaluation": "reflection_model",
+      "example_answer": "Karar ağacı modeli, eğitim verisindeki şeker ve yağ değerlerine bakarak 'şeker ≤ 12 ise tavsiye edilebilir' gibi kurallar öğrendi.",
+      "interpretive": true,
+      "open_response": true
+    },
+    "DT_G_Q2": {
+      "evaluation": "reflection_student",
+      "example_answer": "Eşik değerinin sınıflandırma performansını nasıl etkilediğini ve iki değişken kullanmanın tek değişkenden neden daha iyi sonuç verebileceğini öğrendim.",
+      "interpretive": true,
+      "open_response": true
+    }
+  },
+  "scoring_policy": {
+    "default_mode": "interpretive",
+    "component_scoring": "No single canonical answer. Award credit when required rubric components are present and the student grounds claims in their own exploration (graphs, EMIT output, comparisons).",
+    "emit_scoring": "EMIT items: verify the student's recorded counts and derived metrics are internally consistent — not against fixed canonical values.",
+    "example_answers": "Illustrations of response quality only; never treat as the only acceptable answer."
+  }
+}

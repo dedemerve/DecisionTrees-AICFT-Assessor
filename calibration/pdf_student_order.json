@@ -1,0 +1,48 @@
+{
+  "note": "Bundled PDF page-group order (slot 1 = first student in file). Used by ocr_pipeline dry_run for folder names. Reorder when cohort roster is confirmed.",
+  "pdfs": {
+    "WorksheetDT.pdf": [
+      "Ozzy",
+      "Ally",
+      "Bella",
+      "Bob",
+      "Daisy",
+      "Daniella",
+      "David",
+      "Eliot",
+      "Henry",
+      "Irene",
+      "Isabel",
+      "Karl",
+      "Michael",
+      "Mike",
+      "Nicolas",
+      "Zabby",
+      "Adam",
+      "Eddy",
+      "Aden",
+      "Barbara",
+      "Boris",
+      "Calvin",
+      "Darby",
+      "Demi",
+      "Daryl",
+      "Edgar",
+      "Frank",
+      "Felicity",
+      "Kim",
+      "Sabrina"
+    ],
+    "Worksheets1-10.pdf": null
+  },
+  "slot_overrides": {
+    "Worksheets1-10.pdf": {
+      "31": "Felicity"
+    }
+  },
+  "calibration_bundle": {
+    "pdf": "Worksheets1-10.pdf",
+    "student_key": "Felicity",
+    "legacy_dir": "_slot31_check"
+  }
+}

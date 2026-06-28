@@ -1,0 +1,73 @@
+{
+  "worksheet": "WS6",
+  "curriculum_status": "deployed",
+  "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
+  "items": {
+    "WS6_root_feature": {
+      "evaluation": "feature_name",
+      "example_answer": "şeker",
+      "fields": [
+        "WS6_B1"
+      ]
+    },
+    "WS6_root_threshold": {
+      "check": "threshold_with_operator",
+      "evaluation": "threshold",
+      "example_answer": "≤ 10",
+      "fields": [
+        "WS6_B2"
+      ],
+      "deterministic": true
+    },
+    "WS6_root_labels": {
+      "evaluation": "branch_labels",
+      "example_answer": "B3: evet (≤ 10) | B4: hayır (> 10)",
+      "fields": [
+        "WS6_B3",
+        "WS6_B4"
+      ]
+    },
+    "WS6_inner_feature": {
+      "evaluation": "feature_name",
+      "example_answer": "yağ",
+      "fields": [
+        "WS6_B6"
+      ]
+    },
+    "WS6_inner_threshold": {
+      "check": "threshold_with_operator",
+      "evaluation": "threshold",
+      "example_answer": "≤ 5",
+      "fields": [
+        "WS6_B7"
+      ],
+      "deterministic": true
+    },
+    "WS6_inner_labels": {
+      "evaluation": "branch_labels",
+      "example_answer": "B8: evet (≤ 5) | B9: hayır (> 5)",
+      "fields": [
+        "WS6_B8",
+        "WS6_B9"
+      ]
+    },
+    "WS6_leaves": {
+      "check": "leaf_consistency_with_tree_logic",
+      "evaluation": "leaf_labels",
+      "example_answer": "B10: Tavsiye edilir | B11: Tavsiye edilmez | B13: Tavsiye edilmez",
+      "fields": [
+        "WS6_B5",
+        "WS6_B10",
+        "WS6_B11",
+        "WS6_B12",
+        "WS6_B13"
+      ],
+      "deterministic": true
+    },
+    "WS6_tree_structure": {
+      "check": "tree_validity",
+      "example_answer": "Root splits on şeker ≤ 10; left subtree splits on yağ ≤ 5; all leaves labeled.",
+      "deterministic": true
+    }
+  }
+}

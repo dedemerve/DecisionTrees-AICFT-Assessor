@@ -1,0 +1,420 @@
+{
+  "generated_at": "2026-06-28T17:44:41.480434+00:00",
+  "matrix_type": "domain_independence",
+  "pair_count": 28,
+  "high_or_moderate_risk_pairs": 5,
+  "pairs": [
+    {
+      "domain_a": "DU_CLASSIFICATION_REASONING",
+      "domain_a_title": "Classification Reasoning",
+      "domain_b": "DU_TREE_STRUCTURE_REASONING",
+      "domain_b_title": "Decision Structure Reasoning",
+      "shared_mapped_ilo_count": 4,
+      "shared_mapped_ilos": [
+        "ILO_CLASSIFICATION",
+        "ILO_DECISION_TREE",
+        "ILO_RULE",
+        "ILO_THRESHOLD"
+      ],
+      "shared_indicative_ilo_count": 2,
+      "shared_indicative_ilos": [
+        "ILO_DECISION_TREE",
+        "ILO_RULE"
+      ],
+      "overlap_risk": "moderate",
+      "same_construct_dimension": true,
+      "discriminating_criteria": "Classification evidences outcome assignment; Tree Structure evidences topology, splits, and workflow. Leaf assignment alone does not prove structural mastery."
+    },
+    {
+      "domain_a": "DU_CLASSIFICATION_REASONING",
+      "domain_a_title": "Classification Reasoning",
+      "domain_b": "DU_DATA_REPRESENTATION",
+      "domain_b_title": "Supervised Data Representation Understanding",
+      "shared_mapped_ilo_count": 2,
+      "shared_mapped_ilos": [
+        "ILO_INSTANCE",
+        "ILO_LABEL"
+      ],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "moderate",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_PARAMETER_TUNING",
+      "domain_a_title": "Evidence-Based Parameter Tuning",
+      "domain_b": "DU_THRESHOLD_REASONING",
+      "domain_b_title": "Threshold Reasoning",
+      "shared_mapped_ilo_count": 2,
+      "shared_mapped_ilos": [
+        "ILO_MODEL_EVALUATION",
+        "ILO_PARAMETER_OPTIMIZATION"
+      ],
+      "shared_indicative_ilo_count": 2,
+      "shared_indicative_ilos": [
+        "ILO_MODEL_EVALUATION",
+        "ILO_PARAMETER_OPTIMIZATION"
+      ],
+      "overlap_risk": "high",
+      "same_construct_dimension": true,
+      "discriminating_criteria": "Threshold Reasoning requires comparative or justificatory cutoff judgment; Parameter Tuning requires documented iterative search and convergence. A single optimized threshold outcome supports Threshold at most moderately unless comparison/justification is explicit; it supports Tuning only when exploration trail exists."
+    },
+    {
+      "domain_a": "DU_THRESHOLD_REASONING",
+      "domain_a_title": "Threshold Reasoning",
+      "domain_b": "DU_TREE_STRUCTURE_REASONING",
+      "domain_b_title": "Decision Structure Reasoning",
+      "shared_mapped_ilo_count": 2,
+      "shared_mapped_ilos": [
+        "ILO_THRESHOLD",
+        "ILO_TREE_SPLIT"
+      ],
+      "shared_indicative_ilo_count": 1,
+      "shared_indicative_ilos": [
+        "ILO_TREE_SPLIT"
+      ],
+      "overlap_risk": "moderate",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_CLASSIFICATION_REASONING",
+      "domain_a_title": "Classification Reasoning",
+      "domain_b": "DU_THRESHOLD_REASONING",
+      "domain_b_title": "Threshold Reasoning",
+      "shared_mapped_ilo_count": 1,
+      "shared_mapped_ilos": [
+        "ILO_THRESHOLD"
+      ],
+      "shared_indicative_ilo_count": 1,
+      "shared_indicative_ilos": [
+        "ILO_THRESHOLD"
+      ],
+      "overlap_risk": "low",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_DATA_REPRESENTATION",
+      "domain_a_title": "Supervised Data Representation Understanding",
+      "domain_b": "DU_GENERALISATION",
+      "domain_b_title": "Pattern Generalisation and Transfer",
+      "shared_mapped_ilo_count": 1,
+      "shared_mapped_ilos": [
+        "ILO_FEATURE"
+      ],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "low",
+      "same_construct_dimension": false,
+      "discriminating_criteria": "Representation is prerequisite vocabulary and structure; Generalisation requires cross-context pattern transfer beyond initial examples."
+    },
+    {
+      "domain_a": "DU_DATA_REPRESENTATION",
+      "domain_a_title": "Supervised Data Representation Understanding",
+      "domain_b": "DU_REFLECTIVE_UNDERSTANDING",
+      "domain_b_title": "Reflective Decision-Tree Understanding",
+      "shared_mapped_ilo_count": 1,
+      "shared_mapped_ilos": [
+        "ILO_TRAINING_ROLE"
+      ],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "low",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_GENERALISATION",
+      "domain_a_title": "Pattern Generalisation and Transfer",
+      "domain_b": "DU_PARAMETER_TUNING",
+      "domain_b_title": "Evidence-Based Parameter Tuning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 1,
+      "shared_indicative_ilos": [
+        "ILO_FEATURE_SELECTION"
+      ],
+      "overlap_risk": "low",
+      "same_construct_dimension": true,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_GENERALISATION",
+      "domain_a_title": "Pattern Generalisation and Transfer",
+      "domain_b": "DU_THRESHOLD_REASONING",
+      "domain_b_title": "Threshold Reasoning",
+      "shared_mapped_ilo_count": 1,
+      "shared_mapped_ilos": [
+        "ILO_DATA_PATTERN"
+      ],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "low",
+      "same_construct_dimension": true,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_GENERALISATION",
+      "domain_a_title": "Pattern Generalisation and Transfer",
+      "domain_b": "DU_TREE_STRUCTURE_REASONING",
+      "domain_b_title": "Decision Structure Reasoning",
+      "shared_mapped_ilo_count": 1,
+      "shared_mapped_ilos": [
+        "ILO_FEATURE_SELECTION"
+      ],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "low",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_MODEL_EVALUATION",
+      "domain_a_title": "Model Evaluation Reasoning",
+      "domain_b": "DU_PARAMETER_TUNING",
+      "domain_b_title": "Evidence-Based Parameter Tuning",
+      "shared_mapped_ilo_count": 1,
+      "shared_mapped_ilos": [
+        "ILO_MODEL_EVALUATION"
+      ],
+      "shared_indicative_ilo_count": 1,
+      "shared_indicative_ilos": [
+        "ILO_MODEL_EVALUATION"
+      ],
+      "overlap_risk": "low",
+      "same_construct_dimension": true,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_MODEL_EVALUATION",
+      "domain_a_title": "Model Evaluation Reasoning",
+      "domain_b": "DU_REFLECTIVE_UNDERSTANDING",
+      "domain_b_title": "Reflective Decision-Tree Understanding",
+      "shared_mapped_ilo_count": 1,
+      "shared_mapped_ilos": [
+        "ILO_MODEL_LIMITATION"
+      ],
+      "shared_indicative_ilo_count": 1,
+      "shared_indicative_ilos": [
+        "ILO_MODEL_LIMITATION"
+      ],
+      "overlap_risk": "low",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_MODEL_EVALUATION",
+      "domain_a_title": "Model Evaluation Reasoning",
+      "domain_b": "DU_THRESHOLD_REASONING",
+      "domain_b_title": "Threshold Reasoning",
+      "shared_mapped_ilo_count": 1,
+      "shared_mapped_ilos": [
+        "ILO_MODEL_EVALUATION"
+      ],
+      "shared_indicative_ilo_count": 1,
+      "shared_indicative_ilos": [
+        "ILO_MODEL_EVALUATION"
+      ],
+      "overlap_risk": "moderate",
+      "same_construct_dimension": true,
+      "discriminating_criteria": "Evaluation interprets performance artifacts; Threshold Reasoning selects cutoffs. Metrics may inform thresholds but do not substitute for comparative threshold decisions."
+    },
+    {
+      "domain_a": "DU_CLASSIFICATION_REASONING",
+      "domain_a_title": "Classification Reasoning",
+      "domain_b": "DU_GENERALISATION",
+      "domain_b_title": "Pattern Generalisation and Transfer",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_CLASSIFICATION_REASONING",
+      "domain_a_title": "Classification Reasoning",
+      "domain_b": "DU_MODEL_EVALUATION",
+      "domain_b_title": "Model Evaluation Reasoning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_CLASSIFICATION_REASONING",
+      "domain_a_title": "Classification Reasoning",
+      "domain_b": "DU_PARAMETER_TUNING",
+      "domain_b_title": "Evidence-Based Parameter Tuning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_CLASSIFICATION_REASONING",
+      "domain_a_title": "Classification Reasoning",
+      "domain_b": "DU_REFLECTIVE_UNDERSTANDING",
+      "domain_b_title": "Reflective Decision-Tree Understanding",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_DATA_REPRESENTATION",
+      "domain_a_title": "Supervised Data Representation Understanding",
+      "domain_b": "DU_MODEL_EVALUATION",
+      "domain_b_title": "Model Evaluation Reasoning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_DATA_REPRESENTATION",
+      "domain_a_title": "Supervised Data Representation Understanding",
+      "domain_b": "DU_PARAMETER_TUNING",
+      "domain_b_title": "Evidence-Based Parameter Tuning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_DATA_REPRESENTATION",
+      "domain_a_title": "Supervised Data Representation Understanding",
+      "domain_b": "DU_THRESHOLD_REASONING",
+      "domain_b_title": "Threshold Reasoning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_DATA_REPRESENTATION",
+      "domain_a_title": "Supervised Data Representation Understanding",
+      "domain_b": "DU_TREE_STRUCTURE_REASONING",
+      "domain_b_title": "Decision Structure Reasoning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_GENERALISATION",
+      "domain_a_title": "Pattern Generalisation and Transfer",
+      "domain_b": "DU_MODEL_EVALUATION",
+      "domain_b_title": "Model Evaluation Reasoning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": true,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_GENERALISATION",
+      "domain_a_title": "Pattern Generalisation and Transfer",
+      "domain_b": "DU_REFLECTIVE_UNDERSTANDING",
+      "domain_b_title": "Reflective Decision-Tree Understanding",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_MODEL_EVALUATION",
+      "domain_a_title": "Model Evaluation Reasoning",
+      "domain_b": "DU_TREE_STRUCTURE_REASONING",
+      "domain_b_title": "Decision Structure Reasoning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_PARAMETER_TUNING",
+      "domain_a_title": "Evidence-Based Parameter Tuning",
+      "domain_b": "DU_REFLECTIVE_UNDERSTANDING",
+      "domain_b_title": "Reflective Decision-Tree Understanding",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_PARAMETER_TUNING",
+      "domain_a_title": "Evidence-Based Parameter Tuning",
+      "domain_b": "DU_TREE_STRUCTURE_REASONING",
+      "domain_b_title": "Decision Structure Reasoning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_REFLECTIVE_UNDERSTANDING",
+      "domain_a_title": "Reflective Decision-Tree Understanding",
+      "domain_b": "DU_THRESHOLD_REASONING",
+      "domain_b_title": "Threshold Reasoning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    },
+    {
+      "domain_a": "DU_REFLECTIVE_UNDERSTANDING",
+      "domain_a_title": "Reflective Decision-Tree Understanding",
+      "domain_b": "DU_TREE_STRUCTURE_REASONING",
+      "domain_b_title": "Decision Structure Reasoning",
+      "shared_mapped_ilo_count": 0,
+      "shared_mapped_ilos": [],
+      "shared_indicative_ilo_count": 0,
+      "shared_indicative_ilos": [],
+      "overlap_risk": "minimal",
+      "same_construct_dimension": false,
+      "discriminating_criteria": ""
+    }
+  ]
+}

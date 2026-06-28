@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/behaviour_opportunities_v1.schema.json",
+  "title": "Worksheet Behaviour Opportunities v1.0",
+  "type": "object",
+  "required": [
+    "worksheet",
+    "behaviour_ontology_reference",
+    "items"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "worksheet": {
+      "type": "string",
+      "pattern": "^WS\\d+$"
+    },
+    "curriculum_status": {
+      "enum": [
+        "deployed",
+        "not_deployed"
+      ]
+    },
+    "behaviour_ontology_reference": {
+      "type": "string",
+      "const": "framework/Observable_Behaviours.json"
+    },
+    "note": {
+      "type": "string"
+    },
+    "items": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/item"
+      }
+    }
+  },
+  "$defs": {
+    "opportunity": {
+      "type": "object",
+      "required": [
+        "behaviour_id",
+        "role",
+        "evidence_mode",
+        "rationale"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "behaviour_id": {
+          "type": "string",
+          "pattern": "^OB_[A-Z]{3}_\\d{3}$"
+        },
+        "role": {
+          "enum": [
+            "primary",
+            "secondary",
+            "supporting"
+          ]
+        },
+        "evidence_mode": {
+          "enum": [
+            "direct",
+            "indirect",
+            "diagnostic"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": [
+        "opportunities"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "extraction_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "opportunities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/opportunity"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "stage": "validation",
+  "student_id": "Sample_Student",
+  "worksheet": "WS5",
+  "parse_success": true,
+  "ocr_quality": null,
+  "formula_parsed": true,
+  "tree_detected": null,
+  "missing_regions": [],
+  "deterministic_checks": {
+    "row_1": {
+      "sum": "3+7=10",
+      "mcr": 0.3,
+      "ok": true
+    },
+    "row_2": {
+      "sum": "5+5=10",
+      "mcr": 0.2,
+      "ok": true
+    },
+    "row_3": {
+      "sum": "8+2=10",
+      "mcr": 0.2,
+      "ok": true
+    },
+    "row_4": {
+      "sum": "9+1=10",
+      "mcr": 0.2,
+      "ok": true
+    },
+    "row_5": {
+      "sum": "10+0=10",
+      "mcr": 0.25,
+      "ok": false,
+      "reason": "0.25 impossible for 10 integer items"
+    }
+  },
+  "blocked": true,
+  "blocked_reason": "Numeric row checks failed: ['row_5']"
+}

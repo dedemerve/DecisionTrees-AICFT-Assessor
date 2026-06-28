@@ -1,0 +1,56 @@
+{
+  "student_id": "Sample_Student",
+  "worksheet_id": "WS4",
+  "evidence_units": [
+    {
+      "item_id": "WS4_B1",
+      "evidence_unit_type": "prediction",
+      "evidence_completeness": "complete",
+      "content": "10",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    },
+    {
+      "item_id": "WS4_B2",
+      "evidence_unit_type": "comparison",
+      "evidence_completeness": "complete",
+      "content": "MCR en düşük olan eşik değeri",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    },
+    {
+      "item_id": "WS4_B3",
+      "evidence_unit_type": "comparison",
+      "evidence_completeness": "complete",
+      "content": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 — 10 daha iyi.",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    },
+    {
+      "item_id": "WS4_B4",
+      "evidence_unit_type": "formula",
+      "evidence_completeness": "complete",
+      "content": "MCR = (FP + FN) / toplam = (2 + 2) / 20 = 0.20",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    },
+    {
+      "item_id": "WS4_B5",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_completeness": "complete",
+      "content": "Pia'nın ifadesi doğru; en düşük MCR en az hata demektir.",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    }
+  ]
+}

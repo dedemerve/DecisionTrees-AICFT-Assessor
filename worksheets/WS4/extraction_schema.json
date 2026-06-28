@@ -1,0 +1,46 @@
+{
+  "worksheet": "WS4",
+  "curriculum_status": "deployed",
+  "pipeline_stage": "extraction_only",
+  "interpretation_prohibited": true,
+  "ocr_engine": "claude_vision",
+  "source_type": "worksheet",
+  "note": "Five text fields; visual circle task excluded from extraction.",
+  "fields": [
+    {
+      "field_id": "WS4_B1",
+      "rubric_item_id": "WS4_B1",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS4 worksheet response region"
+    },
+    {
+      "field_id": "WS4_B2",
+      "rubric_item_id": "WS4_B2",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS4 worksheet response region"
+    },
+    {
+      "field_id": "WS4_B3",
+      "rubric_item_id": "WS4_B3",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS4 worksheet response region"
+    },
+    {
+      "field_id": "WS4_B4",
+      "rubric_item_id": "WS4_B4",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS4 worksheet response region"
+    },
+    {
+      "field_id": "WS4_B5",
+      "rubric_item_id": "WS4_B5",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS4 worksheet response region"
+    }
+  ]
+}

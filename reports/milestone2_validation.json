@@ -1,0 +1,58 @@
+{
+  "milestone": 2,
+  "artifact": "Learning_Objects.json",
+  "generated_at": "2026-06-28T17:44:41.871531+00:00",
+  "status": "pass",
+  "error_count": 0,
+  "warning_count": 0,
+  "errors": [],
+  "warnings": [],
+  "verification_tests": {
+    "necessity_test": {
+      "status": "pass",
+      "note": "ILOs bridge Observable Behaviours to Domain Understanding; removal breaks inferential chain."
+    },
+    "minimality_test": {
+      "status": "pass",
+      "ilo_count": 21
+    },
+    "orthogonality_test": {
+      "status": "pass",
+      "distinct_from": [
+        "Observable_Behaviours.json",
+        "LO3.x AI-CFT competency codes"
+      ]
+    },
+    "traceability_test": {
+      "status": "pass",
+      "all_behaviours_mapped": true
+    },
+    "consistency_test": {
+      "status": "pass"
+    },
+    "construct_leakage_test": {
+      "status": "pass",
+      "note": "ILOs are domain concepts; no writing/fluency ILOs defined."
+    },
+    "counterfactual_test": {
+      "status": "pass",
+      "removal_impact": "Domain synthesis loses instructional granularity."
+    },
+    "sparse_evidence_test": {
+      "status": "pass",
+      "single_behaviour_ilos": [
+        "ILO_INSTANCE",
+        "ILO_DT_WORKFLOW",
+        "ILO_DATA_PATTERN",
+        "ILO_MODEL_LIMITATION"
+      ]
+    },
+    "failure_mode_test": {
+      "status": "pass"
+    },
+    "expert_agreement_preparation": {
+      "status": "pass",
+      "terminology": "Instructional Learning Object (ILO)"
+    }
+  }
+}

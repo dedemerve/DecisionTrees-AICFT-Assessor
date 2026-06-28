@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/layout_roi_v1.schema.json",
+  "title": "Phase 1 Layout RoI Manifest Schema 1.0",
+  "type": "object",
+  "required": [
+    "student_id",
+    "worksheet",
+    "source_image",
+    "zones"
+  ],
+  "properties": {
+    "student_id": {
+      "type": "string"
+    },
+    "worksheet": {
+      "type": "string"
+    },
+    "source_image": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "success",
+        "error",
+        "partial"
+      ]
+    },
+    "message": {
+      "type": "string"
+    },
+    "zone_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "zones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "zone_id",
+          "type",
+          "coordinates",
+          "status"
+        ],
+        "properties": {
+          "zone_id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "handwriting",
+              "table_grid",
+              "table_cell",
+              "tree_diagram"
+            ]
+          },
+          "coordinates": {
+            "type": "object",
+            "required": [
+              "x",
+              "y",
+              "w",
+              "h"
+            ],
+            "properties": {
+              "x": {
+                "type": "integer"
+              },
+              "y": {
+                "type": "integer"
+              },
+              "w": {
+                "type": "integer"
+              },
+              "h": {
+                "type": "integer"
+              }
+            }
+          },
+          "file_path": {
+            "type": "string"
+          },
+          "worksheet": {
+            "type": "string"
+          },
+          "row": {
+            "type": "integer"
+          },
+          "col": {
+            "type": "integer"
+          },
+          "parent_zone_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

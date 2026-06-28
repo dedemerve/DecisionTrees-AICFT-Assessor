@@ -1,0 +1,18 @@
+{
+  "worksheet": "WS6",
+  "curriculum_status": "deployed",
+  "construct_threats": [
+    "Drawn tree quality depends on OCR field capture fidelity.",
+    "Holistic tree_structure item may double-count leaf/threshold errors."
+  ],
+  "leakage_risks": [],
+  "evidence_limitations": [
+    "13 OCR fields may not capture full spatial tree layout."
+  ],
+  "cross_worksheet_dependencies": [
+    {
+      "depends_on": "WS7",
+      "reason": "WS7 rules are graded for consistency with this tree."
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "domain_to_ai_cft_v1.schema.json",
+  "title": "Domain to AI-CFT Interpretive Policy v1.0",
+  "type": "object",
+  "required": [
+    "artifact",
+    "design_constraint",
+    "implementation_constraint",
+    "confidence_policy",
+    "policies"
+  ],
+  "properties": {
+    "artifact": {
+      "const": "domain_to_ai_cft_interpretive_policy"
+    },
+    "interpretation_layer": {
+      "const": true
+    },
+    "design_constraint": {
+      "type": "string",
+      "minLength": 100
+    },
+    "confidence_policy": {
+      "type": "object",
+      "required": [
+        "qualitative_only",
+        "prohibited"
+      ],
+      "properties": {
+        "qualitative_only": {
+          "const": true
+        },
+        "allowed_levels": {
+          "type": "array",
+          "contains": {
+            "enum": [
+              "very_weak",
+              "weak",
+              "moderate",
+              "strong"
+            ]
+          }
+        },
+        "prohibited": {
+          "const": "ad_hoc_numeric_confidence"
+        }
+      }
+    },
+    "policies": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/domain_policy"
+      }
+    }
+  },
+  "$defs": {
+    "domain_policy": {
+      "type": "object",
+      "required": [
+        "domain_id",
+        "construct_limitations",
+        "contributions"
+      ],
+      "properties": {
+        "domain_id": {
+          "type": "string"
+        },
+        "construct_limitations": {
+          "type": "array",
+          "minItems": 2
+        },
+        "contributions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/contribution"
+          }
+        }
+      }
+    },
+    "contribution": {
+      "type": "object",
+      "required": [
+        "possible_ai_cft",
+        "interpretation_type",
+        "interpretation_verb",
+        "insufficient_when",
+        "never_implies",
+        "researcher_review_required",
+        "theoretical_rationale"
+      ],
+      "properties": {
+        "interpretation_verb": {
+          "enum": [
+            "may_contribute_to",
+            "may_indicate",
+            "supports",
+            "contributes"
+          ]
+        },
+        "researcher_review_required": {
+          "const": true
+        },
+        "maps_to": false
+      },
+      "not": {
+        "required": [
+          "maps_to"
+        ]
+      }
+    }
+  }
+}

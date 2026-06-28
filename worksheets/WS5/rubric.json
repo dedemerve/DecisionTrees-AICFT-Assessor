@@ -1,0 +1,119 @@
+{
+  "worksheet": "WS5",
+  "note": "Threshold grid experiment. Each row has 4 cells: threshold expression (B_threshold), correct-count (B_correct), error-count (B_error), MCR (B_mcr). Row scores 1.0 if counts sum to dataset size N and MCR = errors/N. Partial 0.5 if threshold variable is correct but operator is wrong or missing. B25 is the final threshold choice with a data-based justification.",
+  "dataset_size": 10,
+  "rows": [
+    {
+      "row": "WS5_row1",
+      "cells": {
+        "threshold": "WS5_B1",
+        "correct": "WS5_B2",
+        "errors": "WS5_B3",
+        "mcr": "WS5_B4"
+      }
+    },
+    {
+      "row": "WS5_row2",
+      "cells": {
+        "threshold": "WS5_B5",
+        "correct": "WS5_B6",
+        "errors": "WS5_B7",
+        "mcr": "WS5_B8"
+      }
+    },
+    {
+      "row": "WS5_row3",
+      "cells": {
+        "threshold": "WS5_B9",
+        "correct": "WS5_B10",
+        "errors": "WS5_B11",
+        "mcr": "WS5_B12"
+      }
+    },
+    {
+      "row": "WS5_row4",
+      "cells": {
+        "threshold": "WS5_B13",
+        "correct": "WS5_B14",
+        "errors": "WS5_B15",
+        "mcr": "WS5_B16"
+      }
+    },
+    {
+      "row": "WS5_row5",
+      "cells": {
+        "threshold": "WS5_B17",
+        "correct": "WS5_B18",
+        "errors": "WS5_B19",
+        "mcr": "WS5_B20"
+      }
+    },
+    {
+      "row": "WS5_row6",
+      "cells": {
+        "threshold": "WS5_B21",
+        "correct": "WS5_B22",
+        "errors": "WS5_B23",
+        "mcr": "WS5_B24"
+      },
+      "optional": true
+    }
+  ],
+  "items": {
+    "WS5_row1": {
+      "max_score": 1,
+      "check": "row_consistency",
+      "partial_credit_rule": "threshold_variable_correct_but_operator_wrong",
+      "partial_score": 0.5,
+      "example_answer": "şeker ≤ 5 | doğru: 3 | hata: 7 | MCR: 0.70"
+    },
+    "WS5_row2": {
+      "max_score": 1,
+      "check": "row_consistency",
+      "partial_credit_rule": "threshold_variable_correct_but_operator_wrong",
+      "partial_score": 0.5,
+      "example_answer": "şeker ≤ 8 | doğru: 5 | hata: 5 | MCR: 0.50"
+    },
+    "WS5_row3": {
+      "max_score": 1,
+      "check": "row_consistency",
+      "partial_credit_rule": "threshold_variable_correct_but_operator_wrong",
+      "partial_score": 0.5,
+      "example_answer": "şeker ≤ 10 | doğru: 8 | hata: 2 | MCR: 0.20"
+    },
+    "WS5_row4": {
+      "max_score": 1,
+      "check": "row_consistency",
+      "partial_credit_rule": "threshold_variable_correct_but_operator_wrong",
+      "partial_score": 0.5,
+      "example_answer": "şeker ≤ 12 | doğru: 9 | hata: 1 | MCR: 0.10"
+    },
+    "WS5_row5": {
+      "max_score": 1,
+      "check": "row_consistency",
+      "partial_credit_rule": "threshold_variable_correct_but_operator_wrong",
+      "partial_score": 0.5,
+      "example_answer": "şeker ≤ 15 | doğru: 10 | hata: 0 | MCR: 0.00"
+    },
+    "WS5_B25": {
+      "max_score": 1,
+      "evaluation": "justification",
+      "components": [
+        {
+          "id": "threshold_stated",
+          "idea": "names a specific threshold value from the grid",
+          "required": true
+        },
+        {
+          "id": "data_justification",
+          "idea": "justification references MCR or error count from data (not intuition)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Eşik 8'i tercih ederim çünkü MCR 0.20 ile en düşük değerlerden biri ve en küçük eşik değeridir."
+    }
+  },
+  "curriculum_status": "deployed"
+}

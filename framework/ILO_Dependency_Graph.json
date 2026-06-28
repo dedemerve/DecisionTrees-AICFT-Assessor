@@ -1,0 +1,253 @@
+{
+  "ontology_reference": "framework/Learning_Objects.json",
+  "ontology_version": "1.0",
+  "status": "frozen",
+  "description": "Instructional prerequisite and support relationships among ILOs. Soft requires edges support instructional sequencing and adaptive assessment design.",
+  "edge_types": {
+    "requires": "Target ILO instruction typically presupposes source ILO understanding",
+    "supports": "Source ILO provides partial instructional foundation for target",
+    "related": "Pedagogical adjacency without strict prerequisite"
+  },
+  "edges": [
+    {
+      "from": "ILO_FEATURE",
+      "to": "ILO_INSTANCE",
+      "type": "requires",
+      "rationale": "Features are attributes of instances."
+    },
+    {
+      "from": "ILO_LABEL",
+      "to": "ILO_INSTANCE",
+      "type": "requires",
+      "rationale": "Labels attach to instances in supervised learning."
+    },
+    {
+      "from": "ILO_DATASET",
+      "to": "ILO_INSTANCE",
+      "type": "requires",
+      "rationale": "Datasets comprise labeled instances."
+    },
+    {
+      "from": "ILO_DATASET",
+      "to": "ILO_FEATURE",
+      "type": "requires",
+      "rationale": "Dataset structure includes feature columns."
+    },
+    {
+      "from": "ILO_DATASET",
+      "to": "ILO_LABEL",
+      "type": "requires",
+      "rationale": "Dataset structure includes label column."
+    },
+    {
+      "from": "ILO_TRAINING_ROLE",
+      "to": "ILO_DATASET",
+      "type": "requires",
+      "rationale": "Training role is explained with reference to labeled data."
+    },
+    {
+      "from": "ILO_THRESHOLD",
+      "to": "ILO_FEATURE",
+      "type": "requires",
+      "rationale": "Thresholds partition values of a feature."
+    },
+    {
+      "from": "ILO_RULE",
+      "to": "ILO_THRESHOLD",
+      "type": "requires",
+      "rationale": "Rules encode feature-threshold conditions."
+    },
+    {
+      "from": "ILO_RULE",
+      "to": "ILO_FEATURE",
+      "type": "requires",
+      "rationale": "Rules reference predictive features."
+    },
+    {
+      "from": "ILO_DECISION_TREE",
+      "to": "ILO_RULE",
+      "type": "requires",
+      "rationale": "Trees compose nested rules."
+    },
+    {
+      "from": "ILO_DECISION_TREE",
+      "to": "ILO_THRESHOLD",
+      "type": "requires",
+      "rationale": "Tree nodes use threshold splits."
+    },
+    {
+      "from": "ILO_DECISION_TREE",
+      "to": "ILO_FEATURE",
+      "type": "requires",
+      "rationale": "Tree splits select features."
+    },
+    {
+      "from": "ILO_TREE_SPLIT",
+      "to": "ILO_FEATURE",
+      "type": "requires",
+      "rationale": "Split selects feature at node."
+    },
+    {
+      "from": "ILO_TREE_SPLIT",
+      "to": "ILO_THRESHOLD",
+      "type": "requires",
+      "rationale": "Split sets threshold at node."
+    },
+    {
+      "from": "ILO_CLASSIFICATION",
+      "to": "ILO_LABEL",
+      "type": "requires",
+      "rationale": "Classification assigns labels."
+    },
+    {
+      "from": "ILO_CLASSIFICATION",
+      "to": "ILO_THRESHOLD",
+      "type": "supports",
+      "rationale": "Threshold application yields classification."
+    },
+    {
+      "from": "ILO_CLASSIFICATION",
+      "to": "ILO_RULE",
+      "type": "supports",
+      "rationale": "Rules determine classification paths."
+    },
+    {
+      "from": "ILO_CONFUSION_MATRIX",
+      "to": "ILO_CLASSIFICATION",
+      "type": "requires",
+      "rationale": "Confusion matrix evaluates classification outcomes."
+    },
+    {
+      "from": "ILO_MCR",
+      "to": "ILO_CONFUSION_MATRIX",
+      "type": "requires",
+      "rationale": "MCR is derived from TP/TN/FP/FN counts."
+    },
+    {
+      "from": "ILO_SENSITIVITY",
+      "to": "ILO_CONFUSION_MATRIX",
+      "type": "requires",
+      "rationale": "Sensitivity is derived from TP and FN."
+    },
+    {
+      "from": "ILO_MODEL_EVALUATION",
+      "to": "ILO_CONFUSION_MATRIX",
+      "type": "requires",
+      "rationale": "Evaluation interprets confusion-matrix-based performance."
+    },
+    {
+      "from": "ILO_MODEL_EVALUATION",
+      "to": "ILO_MCR",
+      "type": "supports",
+      "rationale": "MCR is common evaluation input."
+    },
+    {
+      "from": "ILO_MODEL_EVALUATION",
+      "to": "ILO_SENSITIVITY",
+      "type": "supports",
+      "rationale": "Sensitivity supports trade-off evaluation."
+    },
+    {
+      "from": "ILO_PARAMETER_OPTIMIZATION",
+      "to": "ILO_THRESHOLD",
+      "type": "requires",
+      "rationale": "Optimization tunes threshold parameters."
+    },
+    {
+      "from": "ILO_PARAMETER_OPTIMIZATION",
+      "to": "ILO_MODEL_EVALUATION",
+      "type": "supports",
+      "rationale": "Optimization uses evaluation feedback."
+    },
+    {
+      "from": "ILO_DATA_PATTERN",
+      "to": "ILO_FEATURE",
+      "type": "requires",
+      "rationale": "Patterns are observed on features."
+    },
+    {
+      "from": "ILO_DATA_PATTERN",
+      "to": "ILO_LABEL",
+      "type": "requires",
+      "rationale": "Separation patterns reference class labels."
+    },
+    {
+      "from": "ILO_FEATURE_SELECTION",
+      "to": "ILO_FEATURE",
+      "type": "requires",
+      "rationale": "Selection chooses among features."
+    },
+    {
+      "from": "ILO_FEATURE_SELECTION",
+      "to": "ILO_DATA_PATTERN",
+      "type": "supports",
+      "rationale": "Patterns inform feature selection."
+    },
+    {
+      "from": "ILO_DT_WORKFLOW",
+      "to": "ILO_FEATURE_SELECTION",
+      "type": "requires",
+      "rationale": "Workflow includes feature selection step."
+    },
+    {
+      "from": "ILO_DT_WORKFLOW",
+      "to": "ILO_THRESHOLD",
+      "type": "requires",
+      "rationale": "Workflow includes threshold step."
+    },
+    {
+      "from": "ILO_DT_WORKFLOW",
+      "to": "ILO_CLASSIFICATION",
+      "type": "requires",
+      "rationale": "Workflow culminates in classification."
+    },
+    {
+      "from": "ILO_MODEL_LIMITATION",
+      "to": "ILO_MODEL_EVALUATION",
+      "type": "supports",
+      "rationale": "Limitations discourse builds on evaluation awareness."
+    },
+    {
+      "from": "ILO_METACOGNITIVE_REFLECTION",
+      "to": "ILO_DECISION_TREE",
+      "type": "related",
+      "rationale": "Reflection often references tree learning experiences."
+    },
+    {
+      "from": "ILO_PRIOR_BELIEF",
+      "to": "ILO_FEATURE",
+      "type": "related",
+      "rationale": "Prior beliefs often name features before data analysis."
+    },
+    {
+      "from": "ILO_PRIOR_BELIEF",
+      "to": "ILO_DATA_PATTERN",
+      "type": "related",
+      "rationale": "Post-exploration feature evidence contrasts with prior belief."
+    }
+  ],
+  "instructional_sequence": [
+    "ILO_PRIOR_BELIEF",
+    "ILO_INSTANCE",
+    "ILO_FEATURE",
+    "ILO_LABEL",
+    "ILO_DATASET",
+    "ILO_TRAINING_ROLE",
+    "ILO_THRESHOLD",
+    "ILO_RULE",
+    "ILO_DECISION_TREE",
+    "ILO_TREE_SPLIT",
+    "ILO_CLASSIFICATION",
+    "ILO_DT_WORKFLOW",
+    "ILO_CONFUSION_MATRIX",
+    "ILO_MCR",
+    "ILO_SENSITIVITY",
+    "ILO_DATA_PATTERN",
+    "ILO_FEATURE_SELECTION",
+    "ILO_PARAMETER_OPTIMIZATION",
+    "ILO_MODEL_EVALUATION",
+    "ILO_MODEL_LIMITATION",
+    "ILO_METACOGNITIVE_REFLECTION"
+  ],
+  "note_confusion_matrix_cells": "TP, TN, FP, FN are instructional components of ILO_CONFUSION_MATRIX; separate ILOs are not defined in v1.0."
+}

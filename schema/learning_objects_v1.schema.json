@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "learning_objects_v1.schema.json",
+  "title": "Instructional Learning Object Ontology v1",
+  "type": "object",
+  "required": [
+    "ontology",
+    "terminology",
+    "construct",
+    "construct_reference",
+    "behaviour_ontology_reference",
+    "construct_dimensions",
+    "learning_objects"
+  ],
+  "properties": {
+    "ontology": {
+      "const": "instructional_learning_object"
+    },
+    "framework_version": {
+      "type": "string"
+    },
+    "terminology": {
+      "type": "object",
+      "required": [
+        "ilo",
+        "disambiguation",
+        "aicft_competency_note"
+      ],
+      "properties": {
+        "ilo": {
+          "const": "Instructional Learning Object"
+        },
+        "abbreviation": {
+          "const": "ILO"
+        },
+        "disambiguation": {
+          "type": "string"
+        },
+        "aicft_competency_note": {
+          "type": "string"
+        }
+      }
+    },
+    "construct": {
+      "const": "Decision Tree Understanding"
+    },
+    "construct_reference": {
+      "type": "string"
+    },
+    "behaviour_ontology_reference": {
+      "type": "string"
+    },
+    "behaviour_ontology_version": {
+      "type": "string"
+    },
+    "construct_dimensions": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "conceptual",
+          "procedural",
+          "strategic",
+          "reflective"
+        ]
+      }
+    },
+    "learning_objects": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/ilo"
+      }
+    }
+  },
+  "$defs": {
+    "ilo": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "description",
+        "construct_dimension",
+        "concept_family",
+        "instructional_sequence_order",
+        "related_behaviours",
+        "instructional_purpose"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ILO_[A-Z][A-Z0-9_]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3
+        },
+        "description": {
+          "type": "string",
+          "minLength": 16
+        },
+        "construct_dimension": {
+          "enum": [
+            "conceptual",
+            "procedural",
+            "strategic",
+            "reflective"
+          ]
+        },
+        "concept_family": {
+          "enum": [
+            "data_representation",
+            "classification",
+            "evaluation",
+            "generalisation",
+            "reasoning",
+            "reflection"
+          ]
+        },
+        "instructional_sequence_order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "related_behaviours": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^OB_[A-Z]{3}_[0-9]{3}$"
+          },
+          "minItems": 1
+        },
+        "instructional_purpose": {
+          "type": "string",
+          "minLength": 16
+        }
+      }
+    }
+  }
+}

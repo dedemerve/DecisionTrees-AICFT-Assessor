@@ -1,0 +1,139 @@
+{
+  "worksheet": "WS6",
+  "curriculum_status": "deployed",
+  "behaviour_ontology_reference": "framework/Observable_Behaviours.json",
+  "note": "Evidence opportunity map only. Observable Behaviour candidates per rubric item. No instructional learning object, domain, or competency mapping at worksheet layer.",
+  "items": {
+    "WS6_root_feature": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_002",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Selects root split feature."
+        }
+      ],
+      "extraction_fields": [
+        "WS6_B1"
+      ]
+    },
+    "WS6_root_threshold": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_007",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Root threshold with operator."
+        },
+        {
+          "behaviour_id": "OB_STR_002",
+          "role": "secondary",
+          "evidence_mode": "direct",
+          "rationale": "Split direction at root."
+        }
+      ],
+      "extraction_fields": [
+        "WS6_B2"
+      ]
+    },
+    "WS6_root_labels": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_003",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Branch labels at root node."
+        }
+      ],
+      "extraction_fields": [
+        "WS6_B3",
+        "WS6_B4"
+      ]
+    },
+    "WS6_inner_feature": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_002",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Inner-node feature distinct from root."
+        }
+      ],
+      "extraction_fields": [
+        "WS6_B6"
+      ]
+    },
+    "WS6_inner_threshold": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_007",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Inner-node threshold with operator."
+        },
+        {
+          "behaviour_id": "OB_STR_002",
+          "role": "secondary",
+          "evidence_mode": "direct",
+          "rationale": "Inner split direction."
+        }
+      ],
+      "extraction_fields": [
+        "WS6_B7"
+      ]
+    },
+    "WS6_inner_labels": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_003",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Branch labels at inner node."
+        }
+      ],
+      "extraction_fields": [
+        "WS6_B8",
+        "WS6_B9"
+      ]
+    },
+    "WS6_leaves": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_006",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Leaf class labels on tree paths."
+        },
+        {
+          "behaviour_id": "OB_PRO_004",
+          "role": "secondary",
+          "evidence_mode": "direct",
+          "rationale": "Leaf labels consistent with path logic."
+        }
+      ],
+      "extraction_fields": [
+        "WS6_B5",
+        "WS6_B10",
+        "WS6_B11",
+        "WS6_B12",
+        "WS6_B13"
+      ]
+    },
+    "WS6_tree_structure": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_005",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Holistic tree validity (depth, features, leaves)."
+        },
+        {
+          "behaviour_id": "OB_STR_004",
+          "role": "secondary",
+          "evidence_mode": "direct",
+          "rationale": "Structural coherence of drawn tree."
+        }
+      ]
+    }
+  }
+}

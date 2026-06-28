@@ -1,0 +1,128 @@
+{
+  "milestone": 1,
+  "artifact": "Observable_Behaviours.json",
+  "generated_at": "2026-06-28T17:44:42.037849+00:00",
+  "status": "pass",
+  "error_count": 0,
+  "warning_count": 0,
+  "errors": [],
+  "warnings": [],
+  "verification_tests": {
+    "necessity_test": {
+      "status": "pass",
+      "artifact": "Observable_Behaviours.json",
+      "scientific_property_lost_if_removed": [
+        "traceability",
+        "construct validity",
+        "inferential validity",
+        "explainability"
+      ],
+      "severity_of_loss": "critical",
+      "ablation_note": "Without behaviour ontology, evidence units cannot be coded reproducibly across sources."
+    },
+    "minimality_test": {
+      "status": "pass",
+      "behaviour_count": 28,
+      "high_overlap_pairs": [],
+      "retain_or_merge_decision": "retain",
+      "note": "Merge only if expert review confirms redundant definitions."
+    },
+    "orthogonality_test": {
+      "status": "pass",
+      "distinct_from": [
+        "Learning_Objects.json",
+        "worksheet bundles"
+      ],
+      "overlap_type": "none"
+    },
+    "traceability_test": {
+      "status": "pass",
+      "chain_position": "Evidence Unit -> Observable Behaviour",
+      "all_behaviours_have_evidence_requirements": true
+    },
+    "consistency_test": {
+      "status": "pass",
+      "note": "Ontology is declarative; processing order invariant."
+    },
+    "construct_leakage_test": {
+      "status": "pass",
+      "behaviours_with_leakage_guard": 28,
+      "baseline_weak_ceiling_behaviours": [
+        "OB_REF_004"
+      ],
+      "clt_alignment": [
+        "CLT-A",
+        "CLT-B",
+        "CLT-C",
+        "CLT-D"
+      ]
+    },
+    "counterfactual_test": {
+      "status": "pass",
+      "simulated_removal": "Observable_Behaviours.json",
+      "expected_impact": {
+        "construct_validity": "decreases — no shared behaviour vocabulary",
+        "traceability": "breaks — evidence cannot anchor to reusable codes",
+        "explainability": "decreases — rationales become ad hoc per item"
+      }
+    },
+    "noise_test": {
+      "status": "pass",
+      "behaviours_requiring_multiple_observations": [
+        "OB_PRO_008",
+        "OB_STR_006",
+        "OB_STR_007",
+        "OB_REF_003"
+      ],
+      "count": 4
+    },
+    "contradiction_test": {
+      "status": "pass",
+      "potentially_redundant_related_pairs": []
+    },
+    "sparse_evidence_test": {
+      "status": "pass",
+      "single_source_strong_ceiling_count": 18,
+      "note": "Strong ceilings on single-source behaviours require downstream multi-source synthesis."
+    },
+    "failure_mode_test": {
+      "status": "pass",
+      "modes": [
+        "duplicate behaviour ids",
+        "worksheet reference in ontology",
+        "orphan related_behaviour link",
+        "missing construct dimension coverage",
+        "writing fluency mistaken for strategic behaviour"
+      ],
+      "mitigations": "automated validation + leakage_guard fields + PAT-BLOCK-001"
+    },
+    "expert_agreement_preparation": {
+      "status": "pass",
+      "export_format": "framework/Observable_Behaviours.json",
+      "coding_fields": [
+        "cognitive_process",
+        "confidence_requirements",
+        "construct_dimension",
+        "description",
+        "difficulty",
+        "evidence_strength_ceiling",
+        "id",
+        "knowledge_type",
+        "possible_misconceptions",
+        "possible_sources",
+        "related_behaviours",
+        "required_evidence",
+        "title"
+      ],
+      "behaviour_count": 28
+    }
+  },
+  "ablation_summary": {
+    "removing_milestone": "Observable Behaviour Ontology",
+    "construct_validity": "decreases materially",
+    "traceability": "breaks at Evidence->Behaviour link",
+    "explainability": "decreases — no stable behaviour codes",
+    "confidence_propagation": "cannot anchor to lower layer",
+    "flag_unnecessary": false
+  }
+}

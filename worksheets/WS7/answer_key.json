@@ -1,0 +1,37 @@
+{
+  "worksheet": "WS7",
+  "curriculum_status": "deployed",
+  "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
+  "items": {
+    "WS7_P1_box1": {
+      "evaluation": "path_matching",
+      "answer": "B",
+      "example_answer": "B"
+    },
+    "WS7_P1_box2": {
+      "evaluation": "path_matching",
+      "answer": "A",
+      "example_answer": "A"
+    },
+    "WS7_P1_box3": {
+      "evaluation": "path_matching",
+      "answer": "C",
+      "example_answer": "C"
+    },
+    "WS7_B1": {
+      "check": "rule_consistency_with_WS6",
+      "example_answer": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.",
+      "deterministic": true
+    },
+    "WS7_B2": {
+      "check": "rule_consistency_with_WS6",
+      "example_answer": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.",
+      "deterministic": true
+    },
+    "WS7_B3": {
+      "check": "rule_consistency_with_WS6",
+      "example_answer": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+      "deterministic": true
+    }
+  }
+}

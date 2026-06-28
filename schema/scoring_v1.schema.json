@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/scoring_v1.schema.json",
+  "title": "Stage 3 Scoring Artifact Schema 3.0",
+  "type": "object",
+  "required": [
+    "stage",
+    "worksheet",
+    "student_id",
+    "items"
+  ],
+  "properties": {
+    "stage": {
+      "const": "scoring"
+    },
+    "worksheet": {
+      "type": "string"
+    },
+    "student_id": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "blocked": {
+      "type": "boolean"
+    },
+    "blocked_reason": {
+      "type": "string"
+    },
+    "calibration_note": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "total_score": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "max_score": {
+      "type": "number"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "item",
+          "score",
+          "confidence",
+          "review"
+        ],
+        "properties": {
+          "item": {
+            "type": "string"
+          },
+          "score": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "review": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

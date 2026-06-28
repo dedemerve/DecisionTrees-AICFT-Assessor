@@ -1,0 +1,363 @@
+{
+  "_meta": {
+    "framework": "UNESCO AI Competency Framework for Teachers (AI CFT), 2024",
+    "relevant_dimension": "Aspect 3: AI Foundations and Applications",
+    "secondary_dimension": "Aspect 1: Human-centred Mindset (partial signals only)",
+    "study_scope": "Pre-service teachers learning about decision trees as an AI/ML system through ProDaBi (unplugged) and CODAP Arbor (plugged) activities.",
+    "note_on_scope": "This mapping covers ONLY the 'AI foundations and applications' competency (Aspect 3). The full AI CFT has 5 aspects. Pre-service teacher performance on AI pedagogy (Aspect 4) or professional development (Aspect 5) is NOT assessed through these worksheets.",
+    "progression_levels": {
+      "Acquire": "Competency 3.1 Basic AI techniques and applications — conceptual knowledge of how AI works, basic vocabulary, ability to operate validated AI tools.",
+      "Deepen": "Competency 3.2 Application skills — proficiently operate AI tools, visually represent AI system functioning, transferable knowledge on data/algorithms.",
+      "Create": "Competency 3.3 Creating with AI — customize or modify AI tools, evaluate AI system design, contribute to defining testing criteria."
+    }
+  },
+  "level_definitions": {
+    "Acquire": {
+      "label": "Acquire",
+      "competency_block": "3.1 Basic AI techniques and applications",
+      "teacher_competency_description": "Teachers acquire basic conceptual knowledge on AI, including the definition of AI, basic knowledge of how AI models are trained, associated knowledge on data and algorithms, main categories of AI technologies and examples of each, and the basic capacity to examine the appropriateness of specific AI tools for education and to operate validated AI tools.",
+      "relevant_learning_objectives": {
+        "LO3.1.1": "Demonstrate conceptual knowledge appropriate to their competencies and responsibilities on how AI systems are developed using data, algorithms and computing architecture; acquire relevant understanding and skills on data, algorithms and programming; and exemplify key steps including problem-scoping, design, training, testing, deployment, feedback and iteration.",
+        "LO3.1.2": "Exemplify what AI is and is not, the main categories of AI techniques and AI technologies, the novel capabilities that AI could actualize compared to previous generations of ICT tools, and the core functions of various categories of AI tools.",
+        "LO3.1.3": "Locate and operate AI tools that are necessary for their daily work in local contexts.",
+        "LO3.1.4": "Explain the importance of evaluating AI tools to ensure their accessibility, inclusivity, and reliability; undertake basic analyses of the appropriateness of specific AI tools for education in local contexts with particular attention to the impact on students with special needs.",
+        "LO3.1.5": "Start consolidating a personal collection of trustworthy AI tools that are necessary for life and work and relevant to the local language and culture."
+      }
+    },
+    "Deepen": {
+      "label": "Deepen",
+      "competency_block": "3.2 Application skills",
+      "teacher_competency_description": "Teachers are expected to proficiently operate AI tools adopted in educational settings; to deepen their knowledge of various categories of AI technologies and their practical skills concerning data and algorithms that are appropriate to teaching responsibilities and background competencies while infusing relevant ethical principles in practice.",
+      "relevant_learning_objectives": {
+        "LO3.2.1": "Proficiently operate commonly used AI tools in daily life and in education; exemplify the typical techniques used by these tools and explain their implications for education.",
+        "LO3.2.2": "Visually represent how selected AI systems work, including how they are trained and tested, as well as the typical models, algorithms, and datasets used.",
+        "LO3.2.3": "Demonstrate transferable knowledge on data, algorithms and coding and apply it to solve problems that are appropriate to their abilities and the remit of their role."
+      }
+    },
+    "Create": {
+      "label": "Create",
+      "competency_block": "3.3 Creating with AI",
+      "teacher_competency_description": "Teachers are able to customize or modify AI tools in a proficient manner, applying enhanced conceptual knowledge and operational skills to create AI-assisted inclusive learning environments, and address broader challenges in educational contexts.",
+      "relevant_learning_objectives": {
+        "LO3.3.1": "Demonstrate knowledge and skills on AI system design at the level of expert teachers as well as comprehensive competencies to analyse the limitations of selected AI systems in solving real-world problems in local educational contexts.",
+        "LO3.3.2": "Apply appropriate knowledge and skills on data, algorithms, programming and AI models to customize and/or assemble existing AI tools or semi-finished AI models to create AI tools or fine-tune open-source AI systems to create solutions that are both relevant and affordable for local settings and specific use cases.",
+        "LO3.3.3": "Revise or define criteria for the comprehensive testing of a self-created AI tool and for the purpose of optimization and further iteration of the tool.",
+        "LO3.3.4": "Contribute to a new or existing repository of user-created or tailored AI tools based on personal and institutional needs."
+      }
+    }
+  },
+  "worksheet_item_mapping": {
+    "WS1": {
+      "primary_level": "Acquire",
+      "items": {
+        "WS1_B1_to_B3": {
+          "concepts": ["nesne", "özellik", "etiket"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.1"],
+          "rationale": "Core vocabulary for supervised learning — objects, features, labels. Knowing these is foundational to understanding how any ML model is trained."
+        },
+        "WS1_B4_to_B5": {
+          "concepts": ["eşik değeri", "kural"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.1"],
+          "rationale": "Threshold and rule are the operational mechanisms of a decision tree. Knowing them demonstrates understanding of how DT makes decisions."
+        },
+        "WS1_B6_to_B7": {
+          "concepts": ["doğru pozitif", "yanlış pozitif"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.1"],
+          "rationale": "TP and FP are the building blocks of model evaluation. Correctly defining them shows the student understands how AI performance is measured."
+        },
+        "WS1_B8_to_B9": {
+          "concepts": ["duyarlılık", "MCR"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.1"],
+          "rationale": "Knowing evaluation formulas (sensitivity, MCR) maps to LO3.1.1: understanding how AI systems are evaluated and iterated."
+        },
+        "WS1_B10": {
+          "concepts": ["aşırı öğrenme"],
+          "ai_cft_level": "Acquire-to-Deepen_boundary",
+          "learning_objectives": ["LO3.1.1", "LO3.2.3"],
+          "rationale": "Overfitting is a more advanced concept. Correctly defining it (training vs test generalization) signals readiness for Deepen. If only memorized without understanding, stays at Acquire."
+        },
+        "WS1_B11": {
+          "concepts": ["karar ağacı"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.1", "LO3.1.2"],
+          "rationale": "Defining a decision tree as a data-learning model maps to LO3.1.2 — exemplifying what AI is and identifying AI categories."
+        }
+      }
+    },
+    "WS3": {
+      "primary_level": "Acquire",
+      "items": {
+        "WS3_B1_to_B6": {
+          "concepts": ["threshold application", "classification"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.1", "LO3.1.3"],
+          "rationale": "Applying a given threshold rule to classify items = operating a validated AI tool at the most basic level (LO3.1.3). Understanding the if-then logic is LO3.1.1."
+        },
+        "WS3_B7_to_B8": {
+          "concepts": ["own threshold selection", "operator notation"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.1"],
+          "rationale": "Creating own threshold (with ≤/> notation) for a specified variable shows student can parameterize a simple AI rule."
+        }
+      }
+    },
+    "WS4": {
+      "primary_level": "Acquire-to-Deepen",
+      "items": {
+        "WS4_B1_to_B3": {
+          "concepts": ["threshold optimization", "MCR comparison"],
+          "ai_cft_level": "Deepen",
+          "learning_objectives": ["LO3.2.1"],
+          "rationale": "Finding a better threshold by comparing MCR values goes beyond recall — it requires operating the tool iteratively and selecting based on metrics. This is LO3.2.1 (proficient operation with metric-based evaluation)."
+        },
+        "WS4_B4": {
+          "concepts": ["Pia evaluation", "equal values logic"],
+          "ai_cft_level": "Deepen",
+          "learning_objectives": ["LO3.2.3"],
+          "rationale": "Understanding why a threshold cannot be placed between equal values requires deeper reasoning about how the algorithm works — a data/algorithm knowledge item (LO3.2.3)."
+        },
+        "WS4_B5": {
+          "concepts": ["energy threshold"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.3"],
+          "rationale": "Finding best energy threshold = applying the learned procedure to a new variable."
+        }
+      }
+    },
+    "WS5": {
+      "primary_level": "Deepen",
+      "items": {
+        "WS5_grid": {
+          "concepts": ["systematic threshold search", "MCR calculation", "feature comparison"],
+          "ai_cft_level": "Deepen",
+          "learning_objectives": ["LO3.2.1", "LO3.2.2"],
+          "rationale": "Systematically trying multiple threshold values for a chosen feature and computing MCR is a core Deepen activity. It requires proficient operation of the tool (LO3.2.1) and demonstrates understanding of the training mechanism (LO3.2.2)."
+        },
+        "WS5_B25": {
+          "concepts": ["optimal threshold selection with reasoning"],
+          "ai_cft_level": "Deepen",
+          "learning_objectives": ["LO3.2.1"],
+          "rationale": "Selecting and justifying the best threshold based on MCR comparison is the key Deepen behavior: making data-driven model decisions."
+        }
+      }
+    },
+    "WS6": {
+      "primary_level": "Deepen",
+      "items": {
+        "WS6_tree_structure": {
+          "concepts": ["multi-level tree construction", "variable selection", "tree documentation"],
+          "ai_cft_level": "Deepen",
+          "learning_objectives": ["LO3.2.2"],
+          "rationale": "Drawing and documenting a two-level decision tree structure maps directly to LO3.2.2: visually representing how an AI system works, including its training structure."
+        }
+      }
+    },
+    "WS7": {
+      "primary_level": "Acquire-to-Deepen",
+      "items": {
+        "WS7_part1_path_matching": {
+          "concepts": ["reading tree paths as if-then rules", "path-rule correspondence"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.1"],
+          "rationale": "Matching given rules to tree paths tests whether students can read a decision tree as a set of conditional statements — core Acquire literacy."
+        },
+        "WS7_part2_own_rules": {
+          "concepts": ["rule formulation from own tree", "if-then notation"],
+          "ai_cft_level": "Acquire-to-Deepen",
+          "learning_objectives": ["LO3.1.1", "LO3.2.2"],
+          "rationale": "Formulating rules from their own tree crosses into Deepen if the student can express the logic of their own model clearly. Mere recall of the tree structure stays at Acquire."
+        }
+      }
+    },
+    "WS10": {
+      "primary_level": "Deepen",
+      "items": {
+        "WS10_table": {
+          "concepts": ["systematic midpoint algorithm", "misclassification table", "optimal threshold identification"],
+          "ai_cft_level": "Deepen",
+          "learning_objectives": ["LO3.2.1", "LO3.2.3"],
+          "rationale": "Computing midpoints between adjacent values and evaluating each is a hands-on implementation of the threshold search algorithm. This is LO3.2.3 — demonstrating transferable knowledge on algorithms."
+        }
+      }
+    },
+    "WS11": {
+      "primary_level": "Acquire",
+      "items": {
+        "WS11_B8a": {
+          "concepts": ["tree classification application"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.3"],
+          "rationale": "Using a provided tree to classify a new item = operating a validated AI tool (LO3.1.3)."
+        },
+        "WS11_B8b": {
+          "concepts": ["rule formulation"],
+          "ai_cft_level": "Acquire-to-Deepen",
+          "learning_objectives": ["LO3.1.1", "LO3.2.2"],
+          "rationale": "Articulating the decision rule used = being able to represent the AI system's logic."
+        },
+        "WS11_Q10": {
+          "concepts": ["DT capabilities and limitations"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.2"],
+          "rationale": "Correctly identifying what a DT can and cannot do maps to LO3.1.2 — exemplifying what AI is and is not, what it can do compared to other tools."
+        },
+        "WS11_Q11": {
+          "concepts": ["DT training algorithm steps"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.1"],
+          "rationale": "Ordering the steps (feature selection → data arrangement → threshold → decision) demonstrates understanding of the training process (LO3.1.1: key steps)."
+        },
+        "WS11_Q12": {
+          "concepts": ["DT as AI — automatic decision-making"],
+          "ai_cft_level": "Acquire",
+          "learning_objectives": ["LO3.1.2"],
+          "rationale": "Understanding why DT qualifies as AI (automatic decision-making, computer-buildable) vs common misconceptions (computer thinks, never wrong) maps to LO3.1.2."
+        }
+      }
+    },
+    "WS_DT": {
+      "sections": {
+        "A": {
+          "primary_level": "Acquire-to-Deepen",
+          "items": {
+            "DT_A_Q1": {
+              "ai_cft_level": "Acquire",
+              "learning_objectives": ["LO3.1.1"],
+              "rationale": "Prior belief question — no wrong answer, assesses initial awareness."
+            },
+            "DT_A_Q2": {
+              "ai_cft_level": "Deepen",
+              "learning_objectives": ["LO3.2.1"],
+              "rationale": "Data-driven variable analysis = proficient operation of the tool to form hypotheses."
+            },
+            "DT_A_Q4": {
+              "ai_cft_level": "Deepen",
+              "learning_objectives": ["LO3.2.1"],
+              "rationale": "Justifying variable choice with data evidence signals Deepen reasoning."
+            }
+          }
+        },
+        "B": {
+          "primary_level": "Deepen",
+          "items": {
+            "DT_B_Q4": {
+              "ai_cft_level": "Deepen",
+              "learning_objectives": ["LO3.2.1"],
+              "rationale": "Comparing three single-feature trees using metrics = proficient operation + data interpretation."
+            }
+          }
+        },
+        "C": {
+          "primary_level": "Deepen",
+          "items": {
+            "DT_C_Q2": {
+              "ai_cft_level": "Deepen",
+              "learning_objectives": ["LO3.2.1", "LO3.2.2"],
+              "rationale": "Explaining how threshold changes affect performance shows understanding of the DT algorithm's mechanism."
+            },
+            "DT_C_Q3": {
+              "ai_cft_level": "Deepen",
+              "learning_objectives": ["LO3.2.1"],
+              "rationale": "Optimal threshold identification with method."
+            }
+          }
+        },
+        "D": {
+          "primary_level": "Deepen",
+          "items": {
+            "DT_D_Q2": {
+              "ai_cft_level": "Deepen",
+              "learning_objectives": ["LO3.2.1"],
+              "rationale": "Metric-based comparison of depth-1 vs depth-2 tree."
+            },
+            "DT_D_Q4": {
+              "ai_cft_level": "Deepen",
+              "learning_objectives": ["LO3.2.1", "LO3.3.1"],
+              "rationale": "Principled stopping criterion shows understanding of model optimization — early Create signal if student references overfitting."
+            }
+          }
+        },
+        "E": {
+          "primary_level": "Acquire-to-Deepen",
+          "items": {
+            "DT_E_sensitivity_MCR_fillin": {
+              "ai_cft_level": "Acquire",
+              "learning_objectives": ["LO3.1.1"],
+              "rationale": "Filling in metric values = applying known formulas to own data."
+            },
+            "DT_E_Q1": {
+              "ai_cft_level": "Deepen",
+              "learning_objectives": ["LO3.2.2"],
+              "rationale": "Metric interpretation with reference to purpose."
+            },
+            "DT_E_Q4": {
+              "ai_cft_level": "Deepen-to-Create",
+              "learning_objectives": ["LO3.2.3", "LO3.3.1"],
+              "rationale": "Recognizing that perfect classification is impossible due to data overlap is a core AI literacy insight — it maps to LO3.3.1 (analyzing limitations of AI systems)."
+            }
+          }
+        },
+        "F": {
+          "primary_level": "Deepen-to-Create",
+          "items": {
+            "DT_F_Q2": {
+              "ai_cft_level": "Deepen-to-Create",
+              "learning_objectives": ["LO3.2.3", "LO3.3.1"],
+              "rationale": "Understanding train/test performance difference as overfitting maps to LO3.3.1 — analyzing limitations. This is the strongest Create signal in the unplugged/plugged sequence."
+            }
+          }
+        },
+        "G": {
+          "primary_level": "Create",
+          "items": {
+            "DT_G_Q1": {
+              "ai_cft_level": "Create",
+              "learning_objectives": ["LO3.1.1", "LO3.3.1"],
+              "rationale": "Reflecting on what the model 'learned' requires understanding AI as a learning system, not just a tool — this is a Create-level insight (LO3.3.1)."
+            },
+            "DT_G_Q2": {
+              "ai_cft_level": "Create",
+              "learning_objectives": ["LO3.3.1"],
+              "rationale": "Rich metacognitive reflection naming specific concepts (threshold, overfitting, train/test) signals Create-level understanding. Thin answers ('I learned the program') stay at Acquire."
+            }
+          }
+        }
+      }
+    }
+  },
+  "level_assignment_rules": {
+    "Acquire": {
+      "minimum_evidence": [
+        "WS1: at least 7 of 11 concept definitions correct (especially nesne, özellik, etiket, eşik değeri, kural)",
+        "WS3: B1/B3/B5 (classification results) correct",
+        "WS11: B8a correct (strawberry classification)",
+        "WS11: Q10 mostly correct (identifies what DT can/cannot do)",
+        "WS11: Q12 correct (why DT is AI)"
+      ]
+    },
+    "Deepen": {
+      "prerequisite": "Acquire level evidence must be present",
+      "minimum_evidence": [
+        "WS4: Pia evaluation correct with reasoning (B4)",
+        "WS5: At least 3 threshold trials with arithmetic consistency AND data-based B25",
+        "WS_DT sections B and C: metric-based variable and threshold selection",
+        "WS_DT D Q2: quantitative comparison of tree depths",
+        "WS_DT E Q1: metric interpretation with purpose reference"
+      ]
+    },
+    "Create": {
+      "prerequisite": "Deepen level evidence must be present",
+      "minimum_evidence": [
+        "WS_DT E Q4: correctly states DT cannot achieve perfect classification with reasoning",
+        "WS_DT F Q2: explains overfitting / train-test gap",
+        "WS_DT G Q1 or G Q2: rich reflection naming specific AI concepts"
+      ]
+    },
+    "level_hierarchy": "Levels are cumulative. A student at Create must also show Deepen and Acquire evidence. A student showing only some Deepen signals but missing Acquire foundations is assigned Acquire.",
+    "partial_level": "If evidence is mixed (some Deepen signals but foundational Acquire items wrong), assign the lower level and flag as 'approaching_[higher_level]'."
+  }
+}

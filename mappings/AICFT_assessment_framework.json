@@ -1,0 +1,1711 @@
+{
+  "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
+  "aspect": "Aspect 3: AI foundations and applications",
+  "design_principles": [
+    "Competencies are inferred from observable learner performance, not worksheet identity.",
+    "A single item may provide primary and supporting competency evidence.",
+    "Evidence accumulates across worksheets; no single worksheet proves mastery.",
+    "Mappings include rationale, strength ceiling, and evidence type for each competency."
+  ],
+  "competency_levels": {
+    "Acquire": "Identify, recall, recognize, explain basic concepts.",
+    "Deepen": "Apply, evaluate, compare, select, justify, interpret, integrate, optimize.",
+    "Create": "Design, adapt, customize, innovate AI-supported solutions."
+  },
+  "worksheet_profiles": {
+    "WS1": {
+      "Acquire": "primary",
+      "Deepen": "none",
+      "Create": "none"
+    },
+    "WS3": {
+      "Acquire": "supporting",
+      "Deepen": "primary",
+      "Create": "none"
+    },
+    "WS4": {
+      "Acquire": "none",
+      "Deepen": "primary",
+      "Create": "none"
+    },
+    "WS5": {
+      "Acquire": "none",
+      "Deepen": "primary",
+      "Create": "none"
+    },
+    "WS6": {
+      "Acquire": "none",
+      "Deepen": "primary",
+      "Create": "none"
+    },
+    "WS7": {
+      "Acquire": "none",
+      "Deepen": "primary",
+      "Create": "none"
+    },
+    "WS10": {
+      "Acquire": "none",
+      "Deepen": "primary",
+      "Create": "none"
+    },
+    "WS11": {
+      "Acquire": "supporting",
+      "Deepen": "primary",
+      "Create": "none"
+    },
+    "WS_DT": {
+      "Acquire": "supporting",
+      "Deepen": "primary",
+      "Create": "supporting"
+    }
+  },
+  "competency_definitions": {
+    "LO3.1.1": {
+      "title": "Basic AI techniques and applications — conceptual knowledge",
+      "expected_level": "Acquire",
+      "scope": "Foundational vocabulary and concepts only: object, feature, label, dataset, decision, threshold, basic ML terminology. Recall and explain — not tool operation.",
+      "unesco_reference": "Aspect 3, Acquire — foundational conceptual knowledge of AI systems.",
+      "primary_evidence": [
+        "WS1 (definitions and terminology)",
+        "DT Section E (sensitivity/MCR formulas as conceptual metrics)"
+      ]
+    },
+    "LO3.1.2": {
+      "title": "How AI works — foundational understanding",
+      "expected_level": "Acquire",
+      "scope": "Explains what decision trees do, why data is needed, and distinguishes AI from non-AI approaches at a conceptual level.",
+      "unesco_reference": "Aspect 3, Acquire — understanding of how AI systems work.",
+      "primary_evidence": [
+        "WS11 Q9, Q10, Q12 (conceptual explanation items)"
+      ]
+    },
+    "LO3.1.3": {
+      "title": "Validated AI tool selection",
+      "expected_level": "Acquire",
+      "scope": "Locates, validates, and selects appropriate AI tools (e.g. CODAP, Arbor, EMIT) for an educational data-analysis task.",
+      "unesco_reference": "Aspect 3, Acquire — locate and evaluate AI tools for educational use.",
+      "primary_evidence": [
+        "DT Section B (tool selection and setup)"
+      ]
+    },
+    "LO3.2.1": {
+      "title": "Evaluate → select → apply AI tools in educational context",
+      "expected_level": "Deepen",
+      "scope": "Demonstrates evaluate → select → apply cycle: choose variables, build multiple models/trees, compare performance — not threshold arithmetic alone.",
+      "unesco_reference": "Aspect 3, Deepen — operate and apply AI tools in educational contexts.",
+      "primary_evidence": [
+        "DT Section B (three variables, three trees, performance comparison)"
+      ]
+    },
+    "LO3.2.2": {
+      "title": "Application skills — model behaviour and threshold reasoning",
+      "expected_level": "Deepen",
+      "scope": "Apply, interpret, compare, justify: threshold application and optimization, decision-tree construction/representation, rule articulation, model behaviour.",
+      "unesco_reference": "Aspect 3, Deepen — Application Skills: explain model behaviour, interpret results, evaluate parameters, select appropriate approaches.",
+      "primary_evidence": [
+        "WS3 (threshold application)",
+        "WS4 (best threshold search and justification)",
+        "WS6 (decision tree construction and representation)",
+        "WS7 (decision rules → natural language)",
+        "WS10 (threshold optimization)",
+        "WS11 Q8 (applied interpretation)"
+      ]
+    },
+    "LO3.2.3": {
+      "title": "Problem solving — iterative performance improvement",
+      "expected_level": "Deepen",
+      "scope": "Real problem solving with iterative refinement: optimize thresholds, build multi-level trees, evaluate on test data, improve performance.",
+      "unesco_reference": "Aspect 3, Deepen — apply transferable knowledge to solve real problems.",
+      "primary_evidence": [
+        "DT Sections C–F (optimization, two-level tree, evaluation, test data)",
+        "WS5 (parameter exploration — supporting evidence)"
+      ]
+    },
+    "LO3.3.1": {
+      "title": "Create — adapt AI-supported solutions",
+      "expected_level": "Create",
+      "scope": "Early indicators of designing or adapting AI-supported educational solutions.",
+      "unesco_reference": "Aspect 3, Create — design and adapt AI-supported solutions.",
+      "primary_evidence": [
+        "DT Section F (weak Create indicator)"
+      ]
+    }
+  },
+  "edge_cases": {
+    "WS11_Q11": {
+      "section": "Q11 — decision tree construction step ordering",
+      "items": [
+        "WS11_Q11_2",
+        "WS11_Q11_3",
+        "WS11_Q11_4"
+      ],
+      "guidance": "Step 1 is pre-filled on the worksheet. Scored sub-items test procedural understanding of the DT workflow (LO3.1.2), not vocabulary recall (LO3.1.1)."
+    },
+    "DT_Section_A": {
+      "section": "Section A — prior beliefs and first CODAP exploration",
+      "items": [
+        "DT_A_Q1",
+        "DT_A_Q2",
+        "DT_A_Q3",
+        "DT_A_Q4"
+      ],
+      "guidance": "DT_A_Q1 is uninformed prior belief (portfolio_weight=baseline, excluded from peaks). DT_A_Q2–Q4 involve CODAP-guided interpretation and count toward LO3.2.2."
+    },
+    "DT_Section_G": {
+      "section": "Section G — metacognitive reflection",
+      "items": [
+        "DT_G_Q1",
+        "DT_G_Q2"
+      ],
+      "guidance": "Reflective items use portfolio_weight=diagnostic; they inform the researcher but do not drive AI-CFT level proposals."
+    }
+  },
+  "portfolio_aggregation": {
+    "peak_includes": "competencies with portfolio_weight=full and evidence_type not prior_belief",
+    "peak_excludes": "portfolio_weight baseline|diagnostic, evidence_type prior_belief|reflective (diagnostic only)"
+  },
+  "items": [
+    {
+      "worksheet": "WS1",
+      "item": "WS1_B1",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Identifies object (nesne) term on the nutrition-label worksheet.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS1",
+      "item": "WS1_B2",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Applies object term to a concrete food instance.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS1",
+      "item": "WS1_B3",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Names feature/variable term for nutrient columns.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS1",
+      "item": "WS1_B4",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Counts features in the nutrition table or card set.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS1",
+      "item": "WS1_B5",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Lists nutrient feature names from the table.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS1",
+      "item": "WS1_B6",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Names the example food object used on the sheet.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS1",
+      "item": "WS1_B7",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Uses label (etiket) role for recommendation outcome.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS3",
+      "item": "WS3_B1",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS3",
+      "item": "WS3_B2",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS3",
+      "item": "WS3_B3",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS3",
+      "item": "WS3_B4",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS3",
+      "item": "WS3_B5",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS3",
+      "item": "WS3_B6",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS3",
+      "item": "WS3_B7",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Applies and justifies threshold choices in a spreadsheet/tool context — requires evaluating trade-offs between sensitivity and misclassification.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS3",
+      "item": "WS3_B8",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Applies and justifies threshold choices in a spreadsheet/tool context — requires evaluating trade-offs between sensitivity and misclassification.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS4",
+      "item": "WS4_B1",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Searches, tests, or justifies threshold values — evaluates model behaviour and selects parameters based on performance evidence.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS4",
+      "item": "WS4_B2",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Searches, tests, or justifies threshold values — evaluates model behaviour and selects parameters based on performance evidence.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS4",
+      "item": "WS4_B3",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Searches, tests, or justifies threshold values — evaluates model behaviour and selects parameters based on performance evidence.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS4",
+      "item": "WS4_B4",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Searches, tests, or justifies threshold values — evaluates model behaviour and selects parameters based on performance evidence.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS4",
+      "item": "WS4_B5",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Searches, tests, or justifies threshold values — evaluates model behaviour and selects parameters based on performance evidence.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS5",
+      "item": "WS5_row1",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS5",
+      "item": "WS5_row2",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS5",
+      "item": "WS5_row3",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS5",
+      "item": "WS5_row4",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS5",
+      "item": "WS5_row5",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS5",
+      "item": "WS5_B25",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Synthesizes row-level exploration into a justified parameter choice — demonstrates iterative refinement of model performance.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        },
+        {
+          "lo": "LO3.2.2",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Interprets numeric relationships among confusion-matrix cells.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Decision-tree worksheet: Constructs or represents a complete decision tree from data.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS6",
+      "item": "WS6_root_feature",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Decision-tree worksheet: Selects root split feature — model structure decision.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS6",
+      "item": "WS6_root_threshold",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Decision-tree worksheet: Sets root threshold — parameter evaluation.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS6",
+      "item": "WS6_inner_feature",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Decision-tree worksheet: Selects inner-node feature for tree refinement.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Decision-tree worksheet: Sets inner-node threshold.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS6",
+      "item": "WS6_root_labels",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Decision-tree worksheet: Assigns class labels at root branches.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Decision-tree worksheet: Assigns class labels at inner branches.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS6",
+      "item": "WS6_leaves",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Decision-tree worksheet: Specifies leaf outcomes completing tree representation.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS7",
+      "item": "WS7_B1",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS7",
+      "item": "WS7_B2",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS7",
+      "item": "WS7_B3",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS10",
+      "item": "WS10_B1",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS10",
+      "item": "WS10_B2",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS10",
+      "item": "WS10_B3",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS10",
+      "item": "WS10_B4",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS10",
+      "item": "WS10_B5",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS10",
+      "item": "WS10_B6",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS10",
+      "item": "WS10_B7",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS10",
+      "item": "WS10_B8",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_B8a",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Interprets model output or feedback in applied context (Q8 cluster).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_B8b",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Explains or justifies model behaviour from worksheet feedback (Q8).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_B9",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Explains foundational AI concept (why data / how models learn).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q10_1",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q10_2",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q10_3",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q10_4",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q10_5",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q10_6",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q10_7",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q10_8",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q11_2",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Orders procedural steps in decision-tree construction (select feature → arrange by dimension → find threshold → decide). Demonstrates workflow understanding, not vocabulary recall alone.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        },
+        {
+          "lo": "LO3.2.2",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Connects ordered steps to applied model-building pipeline (Q11).",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q11_3",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Orders procedural steps in decision-tree construction (select feature → arrange by dimension → find threshold → decide). Demonstrates workflow understanding, not vocabulary recall alone.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        },
+        {
+          "lo": "LO3.2.2",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Connects ordered steps to applied model-building pipeline (Q11).",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q11_4",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Orders procedural steps in decision-tree construction (select feature → arrange by dimension → find threshold → decide). Demonstrates workflow understanding, not vocabulary recall alone.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        },
+        {
+          "lo": "LO3.2.2",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Connects ordered steps to applied model-building pipeline (Q11).",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q12_1",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q12_2",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q12_3",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q12_4",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS11",
+      "item": "WS11_Q12_5",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_A_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "weak",
+          "evidence_type": "prior_belief",
+          "expected_level": "Acquire",
+          "rationale": "Uninformed prior belief: names predictive feature(s) before CODAP analysis. Baseline diagnostic only — excluded from portfolio peak aggregation.",
+          "role": "primary",
+          "portfolio_weight": "baseline"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_A_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "After CODAP exploration: names a feature and cites an observed data/graph pattern (not intuition alone) — early data-interpretation behaviour.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        },
+        {
+          "lo": "LO3.1.2",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "expected_level": "Acquire",
+          "rationale": "Links data exploration to how a model might use that feature.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_A_Q3",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Identifies a feature showing meaningful separation between recommended and not-recommended classes from explored data.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_A_Q4",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Selects first split variable with explicit data-based justification (graph separation, class distinction) — precursor to model design.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        },
+        {
+          "lo": "LO3.2.1",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "expected_level": "Deepen",
+          "rationale": "Early evaluate→select step before full three-tree comparison in Section B.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_B_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.1.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Selects and validates an appropriate AI tool (CODAP, Arbor, or EMIT) for the task.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_B_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.1",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Builds decision trees with different variables — evaluate → select → apply cycle.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_B_Q3",
+      "competencies": [
+        {
+          "lo": "LO3.2.1",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Builds decision trees with different variables — evaluate → select → apply cycle.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_B_Q4",
+      "competencies": [
+        {
+          "lo": "LO3.2.1",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Compares performance across three trees/variables — full evaluate-select-apply evidence.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_C_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Iterative threshold optimization on real data (Section C).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_C_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Iterative threshold optimization on real data (Section C).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_C_Q3",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Iterative threshold optimization on real data (Section C).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_D_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_D_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_D_Q3",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_D_Q4",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_E_TP",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Defines true positive (TP) — confusion-matrix literacy (Section E).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_E_FP",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Defines false positive (FP) — confusion-matrix literacy (Section E).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_E_sensitivity_formula",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Recalls sensitivity formula TP/(TP+FN) as text.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_E_MCR_formula",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Recalls misclassification-rate formula (FP+FN)/N as text.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_E_sensitivity",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Computes or states sensitivity formula — conceptual metric knowledge.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_E_MCR",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Computes or states MCR formula — conceptual metric knowledge.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_E_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_E_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_E_Q3",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_E_Q4",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Synthesizes evaluation into performance improvement decisions.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        },
+        {
+          "lo": "LO3.3.1",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "expected_level": "Create",
+          "rationale": "Early indicator of adapting model design based on evaluation.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_F_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Applies model to test/holdout data — validates generalization.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_F_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Deepen",
+          "rationale": "Interprets test-set results and proposes iterative improvements.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        },
+        {
+          "lo": "LO3.3.1",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "expected_level": "Create",
+          "rationale": "Weak Create indicator — adapts solution based on test evidence.",
+          "role": "supporting",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_G_overfitting",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Defines overfitting as poor generalization beyond training data.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_G_DT_definition",
+      "competencies": [
+        {
+          "lo": "LO3.1.2",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "expected_level": "Acquire",
+          "rationale": "Defines decision tree as a data-driven rule model with tree structure.",
+          "role": "primary",
+          "portfolio_weight": "full"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_G_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "weak",
+          "evidence_type": "reflective",
+          "expected_level": "Acquire",
+          "rationale": "Metacognitive reflection on conceptual learning — portfolio diagnostic only.",
+          "role": "supporting",
+          "portfolio_weight": "diagnostic"
+        }
+      ]
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_G_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "weak",
+          "evidence_type": "reflective",
+          "expected_level": "Deepen",
+          "rationale": "Reflective summary of applied understanding — portfolio diagnostic only.",
+          "role": "supporting",
+          "portfolio_weight": "diagnostic"
+        }
+      ]
+    }
+  ]
+}

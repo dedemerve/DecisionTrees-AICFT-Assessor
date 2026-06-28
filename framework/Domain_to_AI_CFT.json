@@ -1,0 +1,819 @@
+{
+  "artifact": "domain_to_ai_cft_interpretive_policy",
+  "interpretation_layer": true,
+  "design_constraint": "A Domain Understanding construct does not represent an AI-CFT competency. Rather, it constitutes domain-specific evidence that may contribute to a provisional interpretation of selected AI-CFT indicators when sufficient converging evidence exists and no unresolved contradictions remain.",
+  "implementation_constraint": "Domain_to_AI_CFT must not be implemented as a deterministic lookup table. AI-CFT claims are interpretive, provisional, and evidence-weighted. Each policy must specify theoretical rationale, minimum evidence requirements, convergence criteria, contradiction conditions, confidence ceiling, and explicit situations where escalation to the AI-CFT level is prohibited. No Domain may map directly to an AI-CFT competency solely because it is present.",
+  "terminology": {
+    "artifact_type": "interpretive_policy",
+    "not_artifact_type": "deterministic_competency_mapping",
+    "output": "interpretive_recommendation",
+    "not_output": "final_ai_cft_competency_claim",
+    "forbidden_schema_fields": [
+      "maps_to",
+      "is_final",
+      "automatic_claim"
+    ],
+    "interpretation_verbs": [
+      "may_contribute_to",
+      "may_indicate",
+      "supports",
+      "contributes"
+    ],
+    "claim_chain": [
+      "evidence",
+      "observable_behaviour",
+      "instructional_learning_object",
+      "domain_understanding",
+      "interpretive_recommendation",
+      "researcher_review",
+      "ai_cft_competency_claim"
+    ]
+  },
+  "confidence_policy": {
+    "qualitative_only": true,
+    "numeric_quantization": "deferred_to_Confidence_Model.json",
+    "allowed_levels": [
+      "very_weak",
+      "weak",
+      "moderate",
+      "strong"
+    ],
+    "prohibited": "ad_hoc_numeric_confidence"
+  },
+  "domain_ontology_reference": "framework/Domain_Understanding.json",
+  "domain_ontology_version": "1.0",
+  "aicft_reference": "mappings/AICFT_assessment_framework.json",
+  "aicft_framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
+  "aicft_aspect": "Aspect 3: AI foundations and applications",
+  "generated_at": "2026-06-28T17:44:41.036896+00:00",
+  "domain_policy_count": 8,
+  "contribution_count": 17,
+  "policies": {
+    "DU_DATA_REPRESENTATION": {
+      "construct_limitations": [
+        "Supervised data representation does not imply tool operation or model optimization.",
+        "Vocabulary mastery does not imply Deepen-level AI-CFT application skills.",
+        "Does not imply ethical AI awareness, pedagogical design, or critical societal evaluation of AI."
+      ],
+      "contributions": [
+        {
+          "possible_ai_cft": [
+            "LO3.1.1"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_contribute_to",
+          "required_domains": [],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 1,
+          "required_convergence": "DU_DATA_REPRESENTATION at moderate+ with at least two representational facets (e.g., feature/label/dataset) evidenced without feature-label confusion.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Only isolated terminology recall without structural distinction (leakage L4).",
+            "Representational vocabulary appears only in polished prose without DT anchors.",
+            "Single worksheet item proves one term but not integrated representation."
+          ],
+          "alternative_explanations": [
+            "General numeracy or generic data literacy rather than supervised-learning representation.",
+            "Memorized definitions without transfer to classification tasks."
+          ],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.2.1",
+            "LO3.2.2",
+            "LO3.2.3",
+            "LO3.3.1"
+          ],
+          "theoretical_rationale": "Acquire-level AI-CFT conceptual indicators concern foundational vocabulary; domain-specific representational evidence may support a provisional Acquire interpretation but cannot alone warrant application-level claims."
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.1.2"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [
+            "DU_DATA_REPRESENTATION"
+          ],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 1,
+          "required_convergence": "Learner explains why labeled data enable learning, linking representation to decision-tree purpose — not vocabulary list alone.",
+          "allowed_confidence": "weak",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Explanation of 'how AI works' lacks decision-tree or supervised-learning specificity.",
+            "Training-role understanding absent when LO3.1.2 claim is attempted."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.2.2",
+            "LO3.2.3"
+          ],
+          "theoretical_rationale": "LO3.1.2 concerns foundational mechanism understanding; representational domain evidence contributes only when explanations connect data structure to learning."
+        }
+      ],
+      "domain_id": "DU_DATA_REPRESENTATION"
+    },
+    "DU_CLASSIFICATION_REASONING": {
+      "construct_limitations": [
+        "Classification execution in a DT curriculum does not imply general AI problem-solving across domains.",
+        "Correct labels without traceable rules do not support LO3.2.x Deepen claims.",
+        "Does not imply tool selection (LO3.1.3) or Create-level solution design."
+      ],
+      "contributions": [
+        {
+          "possible_ai_cft": [
+            "LO3.2.2"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_contribute_to",
+          "required_domains": [
+            "DU_DATA_REPRESENTATION"
+          ],
+          "minimum_domain_strength": "weak",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "DU_CLASSIFICATION_REASONING at moderate+ with documented assignment acts and multi-source corroboration (worksheet and log/recording where available).",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "strong",
+          "contradiction_conditions": [
+            "procedural_reflection_split",
+            "inconsistent_class_across_sources"
+          ],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence",
+            "reflection_only_classification_claim"
+          ],
+          "insufficient_when": [
+            "Only worksheet evidence with no procedural corroboration from interactive sources.",
+            "Classification vocabulary in reflection without execution evidence.",
+            "Correct class label with no traceable threshold, rule, or path."
+          ],
+          "alternative_explanations": [
+            "Pattern matching on worksheet format rather than classification reasoning.",
+            "Single-task procedural success without transfer."
+          ],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.1.3",
+            "LO3.3.1",
+            "pedagogical_competence",
+            "ethical_ai_awareness"
+          ],
+          "theoretical_rationale": "LO3.2.2 Application Skills include threshold application and classification; procedural classification domain evidence may support provisional Deepen interpretation only with convergence and source diversity."
+        }
+      ],
+      "domain_id": "DU_CLASSIFICATION_REASONING"
+    },
+    "DU_TREE_STRUCTURE_REASONING": {
+      "construct_limitations": [
+        "Tree structure literacy does not alone imply threshold optimization or test-set generalization.",
+        "Workflow ordering without valid topology does not support strong LO3.2.2 claims.",
+        "Does not imply UNESCO Create-level adaptation of AI solutions for novel contexts."
+      ],
+      "contributions": [
+        {
+          "possible_ai_cft": [
+            "LO3.2.2"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_contribute_to",
+          "required_domains": [
+            "DU_CLASSIFICATION_REASONING"
+          ],
+          "minimum_domain_strength": "weak",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "DU_TREE_STRUCTURE_REASONING at moderate+ with construction or multi-step traversal plus at least one structural ILO corroborated across sources.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "strong",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Static diagram copying without node-level split rationale.",
+            "Single-threshold drill framed as full tree competence."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.2.3",
+            "LO3.3.1"
+          ],
+          "theoretical_rationale": "Decision-tree construction and rule articulation are within LO3.2.2 scope; structural domain evidence contributes when topology and path logic cohere."
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.1.2"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 1,
+          "required_convergence": "Learner explains how hierarchical feature tests lead to classification outcomes.",
+          "allowed_confidence": "weak",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Workflow recall without structural understanding of splits.",
+            "Tree diagram copied without explaining split logic."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass"
+          ],
+          "theoretical_rationale": "Acquire-level 'how AI works' may be weakly indicated by coherent tree-structure explanations — not by procedural ordering alone."
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.2.1"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [
+            "DU_TREE_STRUCTURE_REASONING",
+            "DU_MODEL_EVALUATION"
+          ],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "Learner compares multiple models/trees or variables with performance evidence — evaluate → select → apply cycle documented across sources.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Single tree construction without comparison across alternatives.",
+            "Tool use without performance-based selection rationale."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.1.3",
+            "LO3.3.1"
+          ],
+          "theoretical_rationale": "LO3.2.1 requires evaluate-select-apply with tool-mediated model comparison; structural and evaluation domains together may indicate this indicator."
+        }
+      ],
+      "domain_id": "DU_TREE_STRUCTURE_REASONING"
+    },
+    "DU_THRESHOLD_REASONING": {
+      "construct_limitations": [
+        "Threshold reasoning in classroom DT tasks does not imply critical evaluation of AI in society.",
+        "Comparative cutoff judgment does not imply ethical awareness or pedagogical competence.",
+        "Does not imply validated tool selection for novel educational contexts (LO3.1.3).",
+        "Does not imply Create-level design of AI-supported learning innovations."
+      ],
+      "contributions": [
+        {
+          "possible_ai_cft": [
+            "LO3.2.2"
+          ],
+          "interpretation_type": "contributing",
+          "interpretation_verb": "may_contribute_to",
+          "required_domains": [
+            "DU_MODEL_EVALUATION"
+          ],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "DU_THRESHOLD_REASONING at moderate+ with comparison or justification citing performance evidence; multi-source required for confidence above moderate.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "strong",
+          "contradiction_conditions": [
+            "threshold_misconception",
+            "high_reflection_weak_procedural",
+            "worksheet_video_source_asymmetry"
+          ],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence",
+            "single_threshold_application_only",
+            "reflection_inflates_strategic_without_performance_evidence"
+          ],
+          "insufficient_when": [
+            "Only worksheet evidence without procedural or log corroboration.",
+            "Single threshold application without comparison or justification context.",
+            "Contradictory screen recording undermines worksheet threshold claims.",
+            "Reflection praises thresholds but CODAP/log shows weak execution (leakage L5)."
+          ],
+          "alternative_explanations": [
+            "Arithmetic manipulation of cutoff values without strategic reasoning.",
+            "Memorized 'best threshold' from answer key patterns."
+          ],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "critical_ai_evaluation",
+            "ethical_awareness",
+            "pedagogical_competence",
+            "LO3.1.3",
+            "LO3.3.1"
+          ],
+          "theoretical_rationale": "LO3.2.2 explicitly includes threshold optimization and model behaviour interpretation; strategic threshold domain evidence is primary contributory evidence but never sufficient alone for a final Deepen claim."
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.2.3"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [
+            "DU_THRESHOLD_REASONING",
+            "DU_PARAMETER_TUNING"
+          ],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "Iterative threshold refinement evidenced across tasks with performance-linked justification — not one-off cutoff selection.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Threshold comparison without iterative improvement trajectory.",
+            "Problem-solving claim based on single worksheet row."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass"
+          ],
+          "theoretical_rationale": "LO3.2.3 problem-solving requires iterative refinement; threshold reasoning may weakly indicate this indicator when paired with tuning evidence."
+        }
+      ],
+      "domain_id": "DU_THRESHOLD_REASONING"
+    },
+    "DU_MODEL_EVALUATION": {
+      "construct_limitations": [
+        "Metric literacy in DT classroom tasks does not imply broad AI evaluation competence.",
+        "Confusion-matrix interpretation does not imply critical societal AI critique.",
+        "Does not imply tool validation or selection (LO3.1.3)."
+      ],
+      "contributions": [
+        {
+          "possible_ai_cft": [
+            "LO3.2.2"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_contribute_to",
+          "required_domains": [],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "DU_MODEL_EVALUATION at moderate+ spanning matrix and metric or interpretation components with multi-source corroboration for strong recommendations.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "strong",
+          "contradiction_conditions": [
+            "matrix_interpretation_contradicts_metrics"
+          ],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Formula recall without numeric or matrix application.",
+            "Single confusion-matrix cell without relational interpretation."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.1.3",
+            "ethical_ai_awareness",
+            "LO3.3.1"
+          ],
+          "theoretical_rationale": "Model behaviour interpretation is within LO3.2.2; evaluation domain evidence supports provisional Deepen recommendations when convergent."
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.2.3"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [
+            "DU_MODEL_EVALUATION"
+          ],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 1,
+          "required_convergence": "Evaluation evidence used to drive iterative performance improvement decisions.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Metrics computed but not used to revise model decisions.",
+            "Evaluation narrative without matrix or metric artifacts."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass"
+          ],
+          "theoretical_rationale": "LO3.2.3 includes evaluating and improving performance; evaluation domain may indicate this when linked to refinement actions."
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.1.1"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 1,
+          "required_convergence": "Metric definitions (MCR, sensitivity) correctly stated with matrix context.",
+          "allowed_confidence": "weak",
+          "confidence_ceiling": "weak",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Metric vocabulary without computation or interpretation context.",
+            "Formula stated with no confusion-matrix or numeric application."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass"
+          ],
+          "theoretical_rationale": "Acquire-level conceptual metric knowledge may be weakly indicated by evaluation literacy — not by procedural computation alone."
+        }
+      ],
+      "domain_id": "DU_MODEL_EVALUATION"
+    },
+    "DU_PARAMETER_TUNING": {
+      "construct_limitations": [
+        "Parameter exploration in CODAP/tables does not imply Create-level AI solution design.",
+        "Iterative clicking without interpreted convergence is not optimization competence.",
+        "Does not imply ethical or pedagogical AI competencies."
+      ],
+      "contributions": [
+        {
+          "possible_ai_cft": [
+            "LO3.2.3"
+          ],
+          "interpretation_type": "contributing",
+          "interpretation_verb": "may_contribute_to",
+          "required_domains": [
+            "DU_MODEL_EVALUATION"
+          ],
+          "minimum_domain_strength": "weak",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "DU_PARAMETER_TUNING at moderate+ with traceable exploration trail and defended convergence across at least two evidence sources.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "strong",
+          "contradiction_conditions": [
+            "tool_fluency_only",
+            "exploration_without_convergence"
+          ],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Single final parameter with no exploration trail.",
+            "High click volume without meaningful state change (leakage L3).",
+            "Table completion without performance interpretation."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.3.1",
+            "LO3.1.3",
+            "pedagogical_competence"
+          ],
+          "theoretical_rationale": "LO3.2.3 centres iterative problem solving; parameter tuning domain evidence is primary contributory evidence for provisional Deepen problem-solving interpretation."
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.2.2"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [
+            "DU_PARAMETER_TUNING"
+          ],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 1,
+          "required_convergence": "Optimization linked to threshold performance comparison.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Optimization isolated from threshold/classification outcomes.",
+            "Parameter table filled without defended final choice."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass"
+          ],
+          "theoretical_rationale": "Parameter search supports LO3.2.2 application skills when tied to model behaviour."
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.1.3"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "Learner selects and validates an appropriate interactive tool (e.g. CODAP) with documented setup for the DT task — not navigation fluency alone.",
+          "allowed_confidence": "weak",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [
+            "tool_fluency_only"
+          ],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Tool named without validation or task-appropriateness rationale.",
+            "Digital fluency without meaningful model-building actions (leakage L3)."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.2.3",
+            "LO3.3.1",
+            "pedagogical_competence"
+          ],
+          "theoretical_rationale": "LO3.1.3 concerns locating and validating AI tools; parameter tuning with documented tool setup may weakly indicate this Acquire indicator."
+        }
+      ],
+      "domain_id": "DU_PARAMETER_TUNING"
+    },
+    "DU_GENERALISATION": {
+      "construct_limitations": [
+        "Pattern transfer within DT curriculum does not imply full AI Create competency.",
+        "Feature hypothesis on one dataset does not imply designing novel AI educational solutions.",
+        "Known v1.0 limitation: partial proxy coverage via reasoning ILOs only."
+      ],
+      "contributions": [
+        {
+          "possible_ai_cft": [
+            "LO3.2.3"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_contribute_to",
+          "required_domains": [
+            "DU_GENERALISATION",
+            "DU_CLASSIFICATION_REASONING"
+          ],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "DU_GENERALISATION at moderate+ with pattern evidence applied on a different task or source than initial example.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Generic 'pattern' language without feature/class reference.",
+            "No cross-context application occasion (cap at moderate).",
+            "Transfer claim supported only by reflective prose."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.3.1",
+            "full_create_competence"
+          ],
+          "theoretical_rationale": "Transferable problem solving within LO3.2.3 may be supported by generalisation domain evidence when cross-context coherence is documented."
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.3.1"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [
+            "DU_GENERALISATION",
+            "DU_PARAMETER_TUNING"
+          ],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "Early Create indicator only: learner adapts model approach based on test or holdout evidence with documented transfer — never from pattern citation alone.",
+          "allowed_confidence": "very_weak",
+          "confidence_ceiling": "weak",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence",
+            "create_claim_from_single_task_family"
+          ],
+          "insufficient_when": [
+            "No test-set or novel-context application evidence.",
+            "Generalisation claim from single classroom example only."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "confirmed_create_competence",
+            "LO3.2.1"
+          ],
+          "theoretical_rationale": "LO3.3.1 Create is a high bar; generalisation domain may weakly indicate early Create potential only with multi-domain convergence — never as automatic output."
+        }
+      ],
+      "domain_id": "DU_GENERALISATION"
+    },
+    "DU_REFLECTIVE_UNDERSTANDING": {
+      "construct_limitations": [
+        "Reflective DT awareness does not substitute for procedural or strategic performance evidence.",
+        "Writing quality does not imply LO3.2.x Deepen competence (leakage L5).",
+        "Does not imply tool selection, optimization, or Create-level design."
+      ],
+      "contributions": [
+        {
+          "possible_ai_cft": [
+            "LO3.1.2"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 1,
+          "required_convergence": "Reflection accurately names DT concepts learned and misconceptions with concept-specific content — not generic study comments.",
+          "allowed_confidence": "weak",
+          "confidence_ceiling": "weak",
+          "contradiction_conditions": [
+            "high_reflection_weak_procedural",
+            "procedural_reflection_split"
+          ],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence",
+            "reflection_drives_deepen_without_procedural_corroboration",
+            "reflection_quality_inflates_strategic_claims"
+          ],
+          "insufficient_when": [
+            "Polished prose without DT conceptual anchors (leakage L1).",
+            "Reflection contradicts procedural/log evidence.",
+            "Only ILO_PRIOR_BELIEF diagnostic present."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.2.2",
+            "LO3.2.3",
+            "LO3.3.1",
+            "LO3.2.1"
+          ],
+          "theoretical_rationale": "Reflective domain evidence informs researcher interpretation and weak Acquire indicators only; it must never escalate to Deepen or Create without independent procedural/strategic domain convergence."
+        }
+      ],
+      "domain_id": "DU_REFLECTIVE_UNDERSTANDING"
+    }
+  },
+  "freeze": {
+    "status": "frozen",
+    "version": "1.0",
+    "frozen_at": "2026-06-28T11:19:41.642285+00:00",
+    "freeze_package_dir": "reports/milestone5_freeze",
+    "expert_review_status": "automated_review_complete; interpretive_stress_test_passed; human_expert_review_pending",
+    "change_policy": "major_version_required_for_semantic_changes",
+    "interpretation_layer": true,
+    "artifact_role": "interpretive_policy_not_competency_output",
+    "upstream_frozen_inputs": [
+      "Domain_Understanding.json@1.0",
+      "LO_to_Domain_Understanding.json@1.0",
+      "Behaviour_to_ILO.json@1.1",
+      "Learning_Objects.json@1.0",
+      "Observable_Behaviours.json@1.0"
+    ],
+    "downstream_artifacts_locked": [
+      "Aggregation_Policy.json",
+      "portfolio interpretive pipeline"
+    ],
+    "framework_complete": true,
+    "next_phase": "pilot_implementation_not_new_theory"
+  }
+}

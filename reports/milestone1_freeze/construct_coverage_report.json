@@ -1,0 +1,189 @@
+{
+  "milestone": 1,
+  "construct_reference": "framework/Construct_Definition.md",
+  "generated_at": "2026-06-28T17:44:41.950379+00:00",
+  "curriculum_facets": [
+    {
+      "facet_id": "CF_TERM",
+      "title": "Decision-tree terminology and distinctions",
+      "behaviours": [
+        "OB_CON_001",
+        "OB_CON_002"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_MECH",
+      "title": "Classification mechanism and training-data role",
+      "behaviours": [
+        "OB_CON_003",
+        "OB_CON_004"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_METRIC",
+      "title": "Evaluation metrics and confusion-matrix literacy",
+      "behaviours": [
+        "OB_CON_005",
+        "OB_CON_006",
+        "OB_PRO_009"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_THRESH",
+      "title": "Threshold application and classification",
+      "behaviours": [
+        "OB_PRO_001",
+        "OB_PRO_007",
+        "OB_PRO_002"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_TREE",
+      "title": "Tree construction and representation",
+      "behaviours": [
+        "OB_PRO_003",
+        "OB_PRO_006",
+        "OB_PRO_005"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_WORKFLOW",
+      "title": "Procedural workflow ordering",
+      "behaviours": [
+        "OB_PRO_004"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_TOOL",
+      "title": "Interactive tool exploration",
+      "behaviours": [
+        "OB_PRO_008"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_COMPARE",
+      "title": "Threshold and model comparison",
+      "behaviours": [
+        "OB_STR_001",
+        "OB_STR_008"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_SELECT",
+      "title": "Evidence-based selection and justification",
+      "behaviours": [
+        "OB_STR_002",
+        "OB_STR_003",
+        "OB_STR_004"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_TRADEOFF",
+      "title": "Error-type and metric trade-offs",
+      "behaviours": [
+        "OB_STR_005"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_ITER",
+      "title": "Iterative parameter exploration and synthesis",
+      "behaviours": [
+        "OB_STR_006",
+        "OB_STR_007"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_FEEDBACK",
+      "title": "Model feedback interpretation",
+      "behaviours": [
+        "OB_STR_009"
+      ],
+      "coverage": "covered"
+    },
+    {
+      "facet_id": "CF_REFLECT",
+      "title": "Reflective and metacognitive understanding",
+      "behaviours": [
+        "OB_REF_001",
+        "OB_REF_002",
+        "OB_REF_003",
+        "OB_REF_004"
+      ],
+      "coverage": "covered"
+    }
+  ],
+  "behaviours_in_curriculum_map": [
+    "OB_CON_001",
+    "OB_CON_002",
+    "OB_CON_003",
+    "OB_CON_004",
+    "OB_CON_005",
+    "OB_CON_006",
+    "OB_PRO_001",
+    "OB_PRO_002",
+    "OB_PRO_003",
+    "OB_PRO_004",
+    "OB_PRO_005",
+    "OB_PRO_006",
+    "OB_PRO_007",
+    "OB_PRO_008",
+    "OB_PRO_009",
+    "OB_REF_001",
+    "OB_REF_002",
+    "OB_REF_003",
+    "OB_REF_004",
+    "OB_STR_001",
+    "OB_STR_002",
+    "OB_STR_003",
+    "OB_STR_004",
+    "OB_STR_005",
+    "OB_STR_006",
+    "OB_STR_007",
+    "OB_STR_008",
+    "OB_STR_009"
+  ],
+  "behaviours_not_in_curriculum_map": [],
+  "curriculum_gaps": [
+    {
+      "gap_id": "GAP_TRANSFER",
+      "title": "Cross-context transfer of threshold reasoning",
+      "status": "partially_covered",
+      "note": "Distributed across OB_STR_001/008; no dedicated transfer behaviour until Domain layer (Milestone 4).",
+      "recommended_action": "defer_to_domain_ontology"
+    },
+    {
+      "gap_id": "GAP_OVERFIT",
+      "title": "Explicit overfitting concept",
+      "status": "partially_covered",
+      "note": "Touched in OB_REF_002 (limitations); no standalone conceptual behaviour.",
+      "recommended_action": "accepted_limitation_v1.0"
+    },
+    {
+      "gap_id": "GAP_TRAINTEST",
+      "title": "Train/test split discrimination in interactive tools",
+      "status": "not_covered",
+      "note": "CODAP log pipeline flags ambiguous datasets; no learner behaviour code yet.",
+      "recommended_action": "minor_version_candidate_v1.1"
+    },
+    {
+      "gap_id": "GAP_ETHICS",
+      "title": "Ethical implications of classification decisions",
+      "status": "not_covered",
+      "note": "Outside core DT construct boundary per Construct_Definition.md unless task explicitly targets it.",
+      "recommended_action": "out_of_scope_v1.0"
+    }
+  ],
+  "coverage_rate": 1.0,
+  "pass": true
+}

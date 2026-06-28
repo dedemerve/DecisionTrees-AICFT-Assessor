@@ -1,0 +1,64 @@
+{
+  "worksheet": "WS10",
+  "note": "Numeric table from 7 energy values [28, 69, 219, 346, 359, 408, 489]. All items are numeric and checked deterministically in Python. Optimal threshold is the minimum-misclassification candidate. B6 and B7 are open numeric answers (no fixed answer provided). B5 and B8 both expect the optimal threshold (408 for this dataset).",
+  "blocked_note": "If numeric table region was not captured in OCR, mark this worksheet blocked:true and skip scoring.",
+  "items": {
+    "WS10_B1": {
+      "max_score": 1,
+      "answer": 48.5,
+      "check": "numeric",
+      "tolerance": 10,
+      "note": "Midpoint between 28 and 69.",
+      "example_answer": "48.5"
+    },
+    "WS10_B2": {
+      "max_score": 1,
+      "answer": 6,
+      "check": "numeric",
+      "note": "Number of midpoint threshold candidates from 7 sorted values = 6 (midpoints between each consecutive pair). Accept any integer consistent with the student's own table rows.",
+      "example_answer": "6"
+    },
+    "WS10_B3": {
+      "max_score": 1,
+      "answer": 144.0,
+      "check": "numeric",
+      "tolerance": 30,
+      "note": "Midpoint between 69 and 219.",
+      "example_answer": "144.0"
+    },
+    "WS10_B4": {
+      "max_score": 1,
+      "answer": 3,
+      "check": "numeric",
+      "note": "Number of misclassifications at a particular threshold row.",
+      "example_answer": "3"
+    },
+    "WS10_B5": {
+      "max_score": 1,
+      "answer": 408,
+      "check": "numeric_optimal",
+      "note": "Threshold that yields minimum MCR for this dataset.",
+      "example_answer": "408"
+    },
+    "WS10_B6": {
+      "max_score": 1,
+      "check": "row_consistency",
+      "note": "No fixed answer; score 1 if counts sum to dataset size and MCR is arithmetically consistent.",
+      "example_answer": "(depends on student's chosen threshold)"
+    },
+    "WS10_B7": {
+      "max_score": 1,
+      "check": "row_consistency",
+      "note": "No fixed answer; score 1 if counts sum to dataset size and MCR is arithmetically consistent.",
+      "example_answer": "(depends on student's chosen threshold)"
+    },
+    "WS10_B8": {
+      "max_score": 1,
+      "answer": 408,
+      "check": "numeric_optimal",
+      "note": "Final optimal threshold choice. Same as B5.",
+      "example_answer": "408"
+    }
+  },
+  "curriculum_status": "deployed"
+}

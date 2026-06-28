@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/ocr_output_v1.schema.json",
+  "title": "Stage 1 OCR Output Schema 1.0",
+  "type": "object",
+  "required": [
+    "worksheet",
+    "student_id",
+    "responses"
+  ],
+  "properties": {
+    "worksheet": {
+      "type": "string"
+    },
+    "student_id": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "responses": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

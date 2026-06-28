@@ -1,0 +1,37 @@
+{
+  "worksheet": "WS4",
+  "curriculum_status": "deployed",
+  "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
+  "items": {
+    "WS4_B1": {
+      "check": "numeric",
+      "answer": "valid_midpoint_threshold_min_mcr",
+      "example_answer": "10 (veya MCR en düşük olan herhangi bir eşik)",
+      "deterministic": true
+    },
+    "WS4_B2": {
+      "evaluation": "criterion",
+      "example_answer": "MCR değeri en düşük olan eşiği seçerim."
+    },
+    "WS4_B3": {
+      "evaluation": "comparison",
+      "example_answer": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 olduğu için 10 daha iyi."
+    },
+    "WS4_B4": {
+      "check": "formula",
+      "answer": "(FP+FN)/total",
+      "example_answer": "MCR = (FP + FN) / toplam",
+      "accepted_forms": [
+        "(FP+FN)/total",
+        "(FP+FN)/N",
+        "(FP+FN)/n",
+        "(yanlış_pozitif+yanlış_negatif)/toplam"
+      ],
+      "deterministic": true
+    },
+    "WS4_B5": {
+      "evaluation": "agreement_with_reasoning",
+      "example_answer": "Pia haklı; en düşük MCR en az hata anlamına gelir."
+    }
+  }
+}

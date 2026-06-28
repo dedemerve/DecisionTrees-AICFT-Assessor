@@ -1,0 +1,199 @@
+{
+  "name": "Explainable AI Competency Assessment Architecture",
+  "design_basis": [
+    "Evidence-Centered Design",
+    "Competency-based assessment",
+    "Learning analytics",
+    "Human-in-the-loop assessment",
+    "UNESCO AI-CFT 2024"
+  ],
+  "claim_chain": [
+    "raw_evidence",
+    "evidence_unit",
+    "observable_behaviour",
+    "learning_object",
+    "domain_understanding",
+    "ai_cft_competency_claim",
+    "researcher_validation"
+  ],
+  "design_principles": [
+    "Observable behaviour precedes interpretation",
+    "Learning Objects are instructional targets, not competencies",
+    "Domain Understanding is the primary assessment interpretation layer",
+    "AI-CFT is the final interpretive framework, not the primary assessment model",
+    "Each artifact has one responsibility",
+    "Derived information is not stored twice",
+    "Portfolio evidence accumulates without overwriting prior evidence",
+    "Researchers make the final competency decision"
+  ],
+  "layers": [
+    {
+      "id": "L1",
+      "name": "Raw Evidence",
+      "responsibility": "Store source-native artifacts only",
+      "required_elements": [
+        "source_manifest"
+      ],
+      "forbidden_outputs": [
+        "behavioural_coding",
+        "competency_interpretation"
+      ]
+    },
+    {
+      "id": "L2",
+      "name": "Evidence Units",
+      "responsibility": "Create atomic, traceable evidence units from each source",
+      "required_elements": [
+        "source",
+        "timestamp_or_item_reference",
+        "location",
+        "content",
+        "confidence",
+        "provenance",
+        "uncertainty",
+        "alternative_interpretations"
+      ],
+      "forbidden_outputs": [
+        "ai_cft_labels",
+        "final_domain_claims"
+      ]
+    },
+    {
+      "id": "L3",
+      "name": "Observable Behaviour Ontology",
+      "responsibility": "Define reusable behaviours independent of specific worksheets",
+      "required_elements": [
+        "id",
+        "title",
+        "description",
+        "cognitive_process",
+        "knowledge_type",
+        "possible_sources",
+        "difficulty",
+        "expected_evidence",
+        "possible_misconceptions",
+        "related_behaviours",
+        "evidence_strength_ceiling",
+        "confidence_requirements"
+      ]
+    },
+    {
+      "id": "L4",
+      "name": "Learning Objects",
+      "responsibility": "Represent instructional concepts targeted by tasks",
+      "required_elements": [
+        "id",
+        "title",
+        "description",
+        "concept_family"
+      ]
+    },
+    {
+      "id": "L5",
+      "name": "Domain Understanding",
+      "responsibility": "Aggregate Learning Object evidence into broader Decision Tree understanding",
+      "required_elements": [
+        "domain_dimension",
+        "supporting_learning_objects",
+        "supporting_behaviours",
+        "evidence_strength",
+        "confidence",
+        "contradictory_evidence"
+      ]
+    },
+    {
+      "id": "L6",
+      "name": "AI-CFT Interpretation",
+      "responsibility": "Interpret accumulated domain understanding through UNESCO AI-CFT",
+      "forbidden_outputs": [
+        "direct_worksheet_to_ai_cft_mapping"
+      ]
+    },
+    {
+      "id": "L7",
+      "name": "Researcher Validation",
+      "responsibility": "Support final human judgement with traceability, uncertainty, and rationale",
+      "required_elements": [
+        "supporting_evidence",
+        "contradictory_evidence",
+        "confidence",
+        "traceability",
+        "uncertainty",
+        "researcher_rationale"
+      ]
+    }
+  ],
+  "target_artifacts": {
+    "framework": [
+      "ARCHITECTURE.md",
+      "Construct_Definition.md",
+      "Observable_Behaviours.json",
+      "Behaviour_Dependency_Graph.json",
+      "Learning_Objects.json",
+      "ILO_Dependency_Graph.json",
+      "Behaviour_to_ILO.json",
+      "Domain_Understanding.json",
+      "LO_to_Domain_Understanding.json",
+      "Domain_to_AI_CFT.json",
+      "Misconception_Ontology.json",
+      "Evidence_Types.json",
+      "Evidence_Strength.json",
+      "Confidence_Model.json",
+      "Aggregation_Policy.json",
+      "Validation_Policy.json",
+      "Assessment_Argument.md",
+      "Inference_Rules.md",
+      "Inference_Patterns.md",
+      "Framework_Verification_Plan.md",
+      "Researcher_Review_Protocol.md",
+      "Versioning_Policy.md",
+      "Artifact_Dependency_Graph.md",
+      "CHANGELOG.md"
+    ],
+    "worksheet_bundle": [
+      "rubric.json",
+      "behaviour_opportunities.json",
+      "learning_objects.json",
+      "extraction_schema.json",
+      "validity_notes.json"
+    ],
+    "source_families": [
+      "worksheet",
+      "codap",
+      "screen_recording",
+      "reflection",
+      "observation",
+      "interview"
+    ],
+    "portfolio": [
+      "portfolio_builder.py",
+      "research_dashboard.py"
+    ]
+  },
+  "evidence_strength_scale": [
+    "weak",
+    "moderate",
+    "strong",
+    "very_strong"
+  ],
+  "traceability_targets": [
+    "worksheet_item",
+    "ocr_span_or_region",
+    "codap_event_and_timestamp",
+    "screen_recording_timestamp_interval",
+    "reflection_paragraph",
+    "observation_note",
+    "interview_turn"
+  ],
+  "human_in_the_loop": {
+    "llm_role": "extract, organize, and explain evidence",
+    "researcher_role": "review and make final judgement",
+    "autonomous_final_decision_allowed": false
+  },
+  "governance_requirements": [
+    "formal_researcher_review_protocol",
+    "artifact_versioning_policy",
+    "dependency_graph_maintenance",
+    "architecture_change_log"
+  ]
+}
