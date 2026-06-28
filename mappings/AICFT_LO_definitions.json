@@ -17,18 +17,6 @@
             },
             {
               "worksheet": "WS1",
-              "item": "WS1_B10",
-              "evidence_type": "direct",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS1",
-              "item": "WS1_B11",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS1",
               "item": "WS1_B2",
               "evidence_type": "direct",
               "weight": "strong"
@@ -72,6 +60,18 @@
             {
               "worksheet": "WS1",
               "item": "WS1_B9",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS1",
+              "item": "WS1_B10",
+              "evidence_type": "direct",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS1",
+              "item": "WS1_B11",
               "evidence_type": "direct",
               "weight": "strong"
             },
@@ -143,18 +143,6 @@
             },
             {
               "worksheet": "WS7",
-              "item": "WS7_B2",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS7",
-              "item": "WS7_B3",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS7",
               "item": "WS7_P1_box1",
               "evidence_type": "direct",
               "weight": "strong"
@@ -168,6 +156,18 @@
             {
               "worksheet": "WS7",
               "item": "WS7_P1_box3",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS7",
+              "item": "WS7_B2",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS7",
+              "item": "WS7_B3",
               "evidence_type": "direct",
               "weight": "strong"
             },
@@ -197,31 +197,7 @@
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_A_Q1",
-              "evidence_type": "prior_belief",
-              "weight": "weak"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_A_Q3",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_B_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
               "item": "DT_E_MCR",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_E_Q2",
               "evidence_type": "direct",
               "weight": "strong"
             },
@@ -233,8 +209,32 @@
             },
             {
               "worksheet": "WS_DT",
+              "item": "DT_A_Q1",
+              "evidence_type": "prior_belief",
+              "weight": "weak"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_B_Q1",
+              "evidence_type": "application",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
               "item": "DT_G_Q1",
               "evidence_type": "reflective",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_E_Q2",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_A_Q3",
+              "evidence_type": "application",
               "weight": "moderate"
             }
           ]
@@ -334,12 +334,6 @@
             },
             {
               "worksheet": "WS5",
-              "item": "WS5_B25",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS5",
               "item": "WS5_row1",
               "evidence_type": "direct",
               "weight": "moderate"
@@ -367,6 +361,12 @@
               "item": "WS5_row5",
               "evidence_type": "direct",
               "weight": "moderate"
+            },
+            {
+              "worksheet": "WS5",
+              "item": "WS5_B25",
+              "evidence_type": "direct",
+              "weight": "strong"
             },
             {
               "worksheet": "WS10",
@@ -418,49 +418,31 @@
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_A_Q2",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_A_Q3",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_A_Q4",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS_DT",
               "item": "DT_B_Q1",
               "evidence_type": "application",
               "weight": "moderate"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_B_Q2",
+              "item": "DT_C_Q1",
               "evidence_type": "application",
               "weight": "moderate"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_B_Q3",
+              "item": "DT_D_Q1",
               "evidence_type": "application",
               "weight": "moderate"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_B_Q4",
+              "item": "DT_A_Q2",
               "evidence_type": "direct",
               "weight": "strong"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_C_Q1",
+              "item": "DT_B_Q2",
               "evidence_type": "application",
               "weight": "moderate"
             },
@@ -472,27 +454,45 @@
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_C_Q3",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_D_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
               "item": "DT_D_Q2",
               "evidence_type": "direct",
               "weight": "moderate"
             },
             {
               "worksheet": "WS_DT",
+              "item": "DT_A_Q3",
+              "evidence_type": "application",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_B_Q3",
+              "evidence_type": "application",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_C_Q3",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS_DT",
               "item": "DT_D_Q3",
               "evidence_type": "direct",
               "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_A_Q4",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_B_Q4",
+              "evidence_type": "direct",
+              "weight": "strong"
             },
             {
               "worksheet": "WS_DT",
@@ -531,18 +531,6 @@
             },
             {
               "worksheet": "WS7",
-              "item": "WS7_B2",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS7",
-              "item": "WS7_B3",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS7",
               "item": "WS7_P1_box1",
               "evidence_type": "early_indicator",
               "weight": "moderate"
@@ -560,21 +548,21 @@
               "weight": "moderate"
             },
             {
+              "worksheet": "WS7",
+              "item": "WS7_B2",
+              "evidence_type": "early_indicator",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS7",
+              "item": "WS7_B3",
+              "evidence_type": "early_indicator",
+              "weight": "moderate"
+            },
+            {
               "worksheet": "WS11",
               "item": "WS11_B8b",
               "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_B_Q4",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_C_Q2",
-              "evidence_type": "direct",
               "weight": "moderate"
             },
             {
@@ -585,19 +573,19 @@
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_D_Q2",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_D_Q3",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS_DT",
               "item": "DT_E_Q1",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_C_Q2",
+              "evidence_type": "direct",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_D_Q2",
               "evidence_type": "direct",
               "weight": "strong"
             },
@@ -609,14 +597,26 @@
             },
             {
               "worksheet": "WS_DT",
+              "item": "DT_G_Q2",
+              "evidence_type": "reflective",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_D_Q3",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS_DT",
               "item": "DT_E_Q3",
               "evidence_type": "direct",
               "weight": "strong"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_G_Q2",
-              "evidence_type": "reflective",
+              "item": "DT_B_Q4",
+              "evidence_type": "early_indicator",
               "weight": "moderate"
             }
           ]
@@ -632,12 +632,6 @@
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_E_Q4",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS_DT",
               "item": "DT_F_Q1",
               "evidence_type": "application",
               "weight": "moderate"
@@ -645,6 +639,12 @@
             {
               "worksheet": "WS_DT",
               "item": "DT_F_Q2",
+              "evidence_type": "direct",
+              "weight": "strong"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_E_Q4",
               "evidence_type": "direct",
               "weight": "strong"
             }
@@ -660,7 +660,19 @@
           "worksheet_evidence": [
             {
               "worksheet": "WS_DT",
-              "item": "DT_D_Q4",
+              "item": "DT_G_Q1",
+              "evidence_type": "early_indicator",
+              "weight": "weak"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_F_Q2",
+              "evidence_type": "early_indicator",
+              "weight": "moderate"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_G_Q2",
               "evidence_type": "early_indicator",
               "weight": "weak"
             },
@@ -672,27 +684,15 @@
             },
             {
               "worksheet": "WS_DT",
+              "item": "DT_D_Q4",
+              "evidence_type": "early_indicator",
+              "weight": "weak"
+            },
+            {
+              "worksheet": "WS_DT",
               "item": "DT_E_Q4",
               "evidence_type": "early_indicator",
               "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_F_Q2",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_G_Q1",
-              "evidence_type": "early_indicator",
-              "weight": "weak"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_G_Q2",
-              "evidence_type": "early_indicator",
-              "weight": "weak"
             }
           ]
         },
