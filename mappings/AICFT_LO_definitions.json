@@ -1,7 +1,7 @@
 {
   "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
   "aspect": "Aspect 3: AI foundations and applications",
-  "note": "Official LO descriptions from UNESCO AI-CFT 2024. worksheet_evidence lists all items in this project that provide evidence for each LO. evidence_type and weight follow the Stage 3 scoring contract.",
+  "note": "Official LO descriptions sourced verbatim from UNESCO AI-CFT 2024. worksheet_evidence lists all items in this project that provide evidence for each LO, sorted WS1→WS3→WS4→WS5→WS6→WS7→WS10→WS11→WS_DT. LOs with no worksheet_evidence are noted with a coverage_gap_note explaining why ProDaBi does not address them.",
   "levels": {
     "Acquire": {
       "level_description": "Teachers acquire foundational conceptual knowledge of AI systems, their components, and core techniques. At this level, teachers demonstrate understanding of how AI works, what AI is and is not, how to locate and use AI tools, and how to begin evaluating them for educational use.",
@@ -293,7 +293,8 @@
         },
         "LO3.1.4": {
           "description": "Explain the importance of evaluating AI tools to ensure their accessibility, inclusivity, and reliability; undertake basic analyses of the appropriateness of specific AI tools for education in local contexts with particular attention to the impact on students with special needs.",
-          "worksheet_evidence": []
+          "worksheet_evidence": [],
+          "coverage_gap_note": "No items. LO3.1.4 concerns evaluating AI tools for accessibility and inclusivity in local education contexts. ProDaBi focuses on algorithmic foundations (decision trees), not tool evaluation or special-needs impact."
         },
         "LO3.1.5": {
           "description": "Start consolidating a personal collection of trustable AI tools that are necessary for life and work and relevant to the local language and culture. Investigate the extent to which locally relevant open-source AI tools are available or not.",
@@ -309,7 +310,7 @@
       }
     },
     "Deepen": {
-      "level_description": "Teachers deepen their understanding by proficiently operating AI tools, representing how AI systems work visually, applying transferable knowledge of data and algorithms to solve problems, and critically evaluating the ethics embedded in AI design.",
+      "level_description": "Teachers deepen their understanding by proficiently operating AI tools, visually representing how AI systems work, applying transferable knowledge of data and algorithms to solve real problems, and critically evaluating the ethics embedded in AI design.",
       "learning_outcomes": {
         "LO3.2.1": {
           "description": "Proficiently operate commonly used AI tools in daily life and in education; exemplify the typical techniques used by these tools and explain their implications for education.",
@@ -652,12 +653,13 @@
         },
         "LO3.2.4": {
           "description": "Critically apply knowledge and skills related to data, training, algorithms and models of AI to assess the ethics rooted in the design of AI tools.",
-          "worksheet_evidence": []
+          "worksheet_evidence": [],
+          "coverage_gap_note": "No items. LO3.2.4 concerns ethics in AI design. ProDaBi is a foundations-level unplugged activity; ethical critique of AI systems is outside its scope."
         }
       }
     },
     "Create": {
-      "level_description": "Teachers create or customize AI systems, demonstrating expert-level knowledge of AI design, the ability to adapt or assemble AI tools for local needs, defining testing and optimization criteria, and contributing to repositories of educational AI tools.",
+      "level_description": "Teachers create or customize AI systems, demonstrating expert-level knowledge of AI design, the ability to adapt or assemble AI tools for local educational needs, defining testing and optimization criteria, and contributing to repositories of educational AI tools.",
       "learning_outcomes": {
         "LO3.3.1": {
           "description": "Demonstrate knowledge and skills on AI system design at the level of expert teachers as well as comprehensive competencies to analyse the limitations of selected AI systems in solving real-world problems in local educational contexts.",
@@ -702,15 +704,18 @@
         },
         "LO3.3.2": {
           "description": "Apply appropriate knowledge and skills on data, algorithms, programming and AI models to customize and/or assemble existing AI tools or semi-finished AI models to create AI tools or fine-tune open-source AI systems to create solutions that are both relevant and affordable for local settings and specific use cases.",
-          "worksheet_evidence": []
+          "worksheet_evidence": [],
+          "coverage_gap_note": "No items. LO3.3.2 requires customizing or assembling AI tools and models. ProDaBi does not involve building or fine-tuning AI systems."
         },
         "LO3.3.3": {
           "description": "Revise or define criteria for the comprehensive testing of a self-created AI tool and for the purpose of optimization and further iteration of the tool.",
-          "worksheet_evidence": []
+          "worksheet_evidence": [],
+          "coverage_gap_note": "No items. LO3.3.3 requires defining testing criteria for a self-created AI tool. ProDaBi uses a pre-built CODAP tool; students do not create their own."
         },
         "LO3.3.4": {
           "description": "Contribute to a new or existing repository of user-created or tailored AI tools based on personal and institutional needs and promote a focus on only utilizing the most appropriate tools for education.",
-          "worksheet_evidence": []
+          "worksheet_evidence": [],
+          "coverage_gap_note": "No items. LO3.3.4 requires contributing to AI tool repositories. This is beyond the scope of the ProDaBi activity sequence."
         }
       }
     }
