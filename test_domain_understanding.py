@@ -89,17 +89,17 @@ class TestDomainUnderstanding(unittest.TestCase):
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
 
     def test_analytics_reports_exist(self) -> None:
-        report_dir = REPO / "reports" / "milestone4"
-        for name in (
-            "domain_coverage_report.json",
-            "domain_independence_matrix.json",
-            "domain_stress_test.json",
-            "construct_matrix.json",
-            "cross_construct_matrix.json",
-            "mapping_statistics.json",
-            "milestone4_validation.json",
+        validation_path = REPO / "reports" / "milestone4_validation.json"
+        self.assertTrue(validation_path.is_file())
+        validation = json.loads(validation_path.read_text())
+        for key in (
+            "domain_coverage_report",
+            "domain_independence_matrix",
+            "construct_matrix",
+            "cross_construct_matrix",
+            "mapping_statistics",
         ):
-            self.assertTrue((report_dir / name).exists(), name)
+            self.assertIn(key, validation, key)
 
     def test_domain_stress_test_passes(self) -> None:
         proc = subprocess.run(
@@ -109,13 +109,12 @@ class TestDomainUnderstanding(unittest.TestCase):
             text=True,
         )
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
-        report = json.loads((REPO / "reports" / "milestone4" / "domain_stress_test.json").read_text())
-        self.assertEqual(report["status"], "pass")
+        validation = json.loads((REPO / "reports" / "milestone4_validation.json").read_text())
+        self.assertEqual(validation["stress_test"]["status"], "pass")
 
     def test_domain_independence_matrix(self) -> None:
-        matrix = json.loads(
-            (REPO / "reports" / "milestone4" / "domain_independence_matrix.json").read_text()
-        )
+        validation = json.loads((REPO / "reports" / "milestone4_validation.json").read_text())
+        matrix = validation["domain_independence_matrix"]
         self.assertGreater(matrix["pair_count"], 0)
         threshold_tuning = [
             p for p in matrix["pairs"]

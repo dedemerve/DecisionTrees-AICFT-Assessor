@@ -1,21 +1,61 @@
 # WS4 scoring context
 
-This file is injected alongside `stage3_scoring.md` when scoring WS4.
+Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 4** (best threshold from sorted values / MCR).
 
-## Files to load
+## Artifacts
 
-- Rubric: `rubrics/WS4_rubric.json`
-- Mapping: `mappings/WS4_AICFT_mapping.json`
-- Responses: `students/<student>/WS4.json → extraction`
+| Role | Path |
+|------|------|
+| Rubric | `rubrics/WS4_rubric.json` |
+| Answer key | `worksheets/WS4/answer_key.json` |
+| Mapping | `mappings/WS4_AICFT_mapping.json` |
+| Validity | `worksheets/WS4/validity_notes.json` |
+| Responses | `students/<student_id>/WS4/extraction.json` |
 
-## Worksheet description
+**Pipeline group:** A.
 
-WS4 asks the student to find the best threshold from a sorted value list by minimizing MCR. B1 is the optimal threshold value, B2 is the selection criterion, B3 is the comparison, B4 is the MCR formula, B5 is evaluation of a peer's answer.
+---
 
-## Scoring notes
+## Construct
 
-- B1: accept any valid midpoint between two adjacent values that minimizes misclassification. Tolerance is defined in the rubric.
-- B2: credit requires the student to name MCR or "minimum misclassification" as the criterion.
-- B3: credit requires comparing two specific MCR values (not just listing one).
-- B4: formula item. Deterministic check in Stage 2; use that result.
-- B5 (Pia evaluation): award credit when the student identifies that Pia's answer is correct and names the supporting evidence (lowest error rate or equivalent).
+Students search for the **best threshold** on a sorted value grid by minimizing **MCR (misclassification rate)**. The visual circle task is **not text-extractable** — do not score it.
+
+---
+
+## Items
+
+| Item | Evaluation | Scoring authority |
+|------|------------|-------------------|
+| `WS4_B1` | `numeric` — valid midpoint minimizing MCR | Deterministic tolerance; multiple tied thresholds may be valid |
+| `WS4_B2` | `criterion` — names MCR / error rate as selection criterion | Semantic. `need: 1` on `mcr_reference`; minimization language optional bonus |
+| `WS4_B3` | `comparison` — two candidates + which is better | Semantic. `need: 2`, `partial_on: 1` |
+| `WS4_B4` | `formula` — MCR = (FP+FN)/N | **Deterministic** (`check: formula`). Accepted: `(FP+FN)/total`, `(FP+FN)/N`, Turkish equivalents. Do not re-derive arithmetic. |
+| `WS4_B5` | `agreement_with_reasoning` — evaluate Pia's statement | Semantic. Agrees Pia is correct **and** explains minimum errors / lowest MCR |
+
+### B1 guidance
+
+Accept any **midpoint threshold** that yields minimum MCR for the grid — not a single canonical number if several tie.
+
+### B5 guidance
+
+Full credit: confirms Pia + reasoning (*en düşük MCR = en az hata*). Partial: agreement without MCR reasoning, or correct reasoning without explicit agreement.
+
+---
+
+## Competency inference
+
+| Item | Primary LO | Notes |
+|------|------------|-------|
+| B1, B3 | LO3.2.2 | Threshold search / comparison (Deepen) |
+| B2 | LO3.2.2 | Evaluation criterion articulation |
+| B4 | LO3.1.1 | Metric definition (Acquire) — formula recall |
+| B5 | LO3.2.2 | Evaluating a peer's optimization claim |
+
+Strength ceilings per `mappings/WS4_AICFT_mapping.json`. Do not exceed **strong** unless mapping allows.
+
+---
+
+## Review flags
+
+- B1 numeric OCR uncertain → `review: true`; do not compute correct midpoint yourself.
+- B4: if deterministic check already failed, use Python score; infer LO3.1.1 only if formula concept is present in student text despite format mismatch (rare — flag for human).

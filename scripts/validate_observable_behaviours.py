@@ -7,7 +7,7 @@ adapted for the behaviour ontology layer.
 
 Usage:
   python scripts/validate_observable_behaviours.py
-  python scripts/validate_observable_behaviours.py --reports-dir reports
+  python scripts/validate_observable_behaviours.py
 """
 
 from __future__ import annotations
@@ -438,7 +438,6 @@ def build_reports(
     coverage_report = {
         "milestone": 1,
         "artifact": "Observable_Behaviours.json",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
         "summary": coverage,
         "overlap_analysis": {
             "pair_count": len(overlaps),
@@ -457,7 +456,6 @@ def build_reports(
     validation_report = {
         "milestone": 1,
         "artifact": "Observable_Behaviours.json",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
         "status": "pass" if not state.errors else "fail",
         "error_count": len(state.errors),
         "warning_count": len(state.warnings),
@@ -484,12 +482,6 @@ def main(argv: list[str] | None = None) -> int:
         default=DEFAULT_ONTOLOGY,
         help="Path to Observable_Behaviours.json",
     )
-    parser.add_argument(
-        "--reports-dir",
-        type=Path,
-        default=REPO_ROOT / "reports",
-        help="Directory for coverage and validation reports",
-    )
     parser.add_argument("--quiet", action="store_true")
     args = parser.parse_args(argv)
 
@@ -501,16 +493,11 @@ def main(argv: list[str] | None = None) -> int:
     run_verification_tests(data, behaviours, overlaps, state)
 
     coverage_report, validation_report = build_reports(data, coverage, overlaps, state)
+    validation_report["coverage"] = coverage_report
 
-    args.reports_dir.mkdir(parents=True, exist_ok=True)
-    (args.reports_dir / "milestone1_coverage.json").write_text(
-        json.dumps(coverage_report, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "milestone1_validation.json").write_text(
-        json.dumps(validation_report, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
+    from milestone_reporting import write_validation  # noqa: E402
+
+    path = write_validation(1, validation_report)
 
     if not args.quiet:
         print(f"Observable Behaviour Ontology: {coverage.get('behaviour_count', 0)} behaviours")
@@ -523,8 +510,7 @@ def main(argv: list[str] | None = None) -> int:
             print("\nWarnings:")
             for warn in state.warnings:
                 print(f"  - {warn}")
-        print(f"\nReports: {args.reports_dir / 'milestone1_coverage.json'}")
-        print(f"         {args.reports_dir / 'milestone1_validation.json'}")
+        print(f"\nReport: {path}")
 
     return 1 if state.errors else 0
 

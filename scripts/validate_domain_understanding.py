@@ -3,7 +3,7 @@
 validate_domain_understanding.py — Milestone 4 verification and analytics.
 
 Validates Domain_Understanding.json ontology and LO_to_Domain_Understanding.json inference mapping.
-Generates coverage matrices and convergence statistics under reports/milestone4/.
+Generates coverage matrices and convergence statistics in reports/milestone4_validation.json.
 """
 
 from __future__ import annotations
@@ -22,7 +22,6 @@ DOMAIN_PATH = REPO / "framework" / "Domain_Understanding.json"
 MAP_PATH = REPO / "framework" / "LO_to_Domain_Understanding.json"
 ILO_PATH = REPO / "framework" / "Learning_Objects.json"
 B2I_PATH = REPO / "framework" / "Behaviour_to_ILO.json"
-REPORT_DIR = REPO / "reports" / "milestone4"
 
 DOMAIN_PATTERN = re.compile(r"^DU_[A-Z][A-Z0-9_]+$")
 ILO_PATTERN = re.compile(r"^ILO_[A-Z][A-Z0-9_]+$")
@@ -328,7 +327,6 @@ def build_domain_independence_matrix(
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--reports-dir", type=Path, default=REPORT_DIR)
     parser.add_argument("--quiet", action="store_true")
     args = parser.parse_args(argv)
 
@@ -343,54 +341,25 @@ def main(argv: list[str] | None = None) -> int:
     warnings = d_warnings + m_warnings
     independence = build_domain_independence_matrix(domain_doc, map_doc)
     status = "pass" if not errors else "fail"
-    now = datetime.now(timezone.utc).isoformat()
 
-    args.reports_dir.mkdir(parents=True, exist_ok=True)
-    (args.reports_dir / "domain_independence_matrix.json").write_text(
-        json.dumps({"generated_at": now, **independence}, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "domain_coverage_report.json").write_text(
-        json.dumps({"generated_at": now, **analytics["domain_coverage_report"]}, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "construct_matrix.json").write_text(
-        json.dumps({"generated_at": now, **analytics["construct_matrix"]}, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "cross_construct_matrix.json").write_text(
-        json.dumps({"generated_at": now, **analytics["cross_construct_matrix"]}, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "mapping_statistics.json").write_text(
-        json.dumps({
-            "generated_at": now,
-            "status": status,
-            "domain_ontology_summary": d_summary,
+    from milestone_reporting import write_validation  # noqa: E402
+
+    write_validation(4, {
+        "artifacts": ["Domain_Understanding.json", "LO_to_Domain_Understanding.json"],
+        "status": status,
+        "errors": errors,
+        "warnings": warnings,
+        "domain_ontology_summary": d_summary,
+        "domain_independence_matrix": independence,
+        "domain_coverage_report": analytics["domain_coverage_report"],
+        "construct_matrix": analytics["construct_matrix"],
+        "cross_construct_matrix": analytics["cross_construct_matrix"],
+        "mapping_statistics": {
             "mapping_density": analytics["mapping_density"],
             "role_ratios": analytics["role_ratios"],
             "rejected_alternative_statistics": analytics["rejected_alternative_statistics"],
-            "cross_construct_pair_count": analytics["cross_construct_matrix"]["pair_count"],
-        }, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "milestone4_validation.json").write_text(
-        json.dumps({
-            "milestone": 4,
-            "artifacts": ["Domain_Understanding.json", "LO_to_Domain_Understanding.json"],
-            "generated_at": now,
-            "status": status,
-            "errors": errors,
-            "warnings": warnings,
-            "domain_ontology_summary": d_summary,
-            "analytics_summary": analytics["mapping_density"],
-            "independence_summary": {
-                "pair_count": independence["pair_count"],
-                "high_or_moderate_risk_pairs": independence["high_or_moderate_risk_pairs"],
-            },
-        }, indent=2) + "\n",
-        encoding="utf-8",
-    )
+        },
+    })
 
     if not args.quiet:
         print(f"Domains: {d_summary['domain_count']}")

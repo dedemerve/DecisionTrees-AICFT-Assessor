@@ -71,10 +71,10 @@ class TestLearningObjects(unittest.TestCase):
         self.assertEqual(freeze.get("version"), "1.0")
 
     def test_freeze_package_exists(self) -> None:
-        report = REPO / "reports" / "milestone2_freeze" / "milestone2_freeze_report.md"
+        report = REPO / "reports" / "milestone2_summary.md"
+        validation = REPO / "reports" / "milestone2_validation.json"
         self.assertTrue(report.is_file())
-        matrix = REPO / "reports" / "milestone2_freeze" / "behaviour_ilo_coverage_matrix.json"
-        self.assertTrue(matrix.is_file())
+        self.assertTrue(validation.is_file())
         dep = REPO / "framework" / "ILO_Dependency_Graph.json"
         self.assertTrue(dep.is_file())
 

@@ -84,8 +84,10 @@ class TestObservableBehaviours(unittest.TestCase):
         self.assertEqual(self.data.get("framework_version"), "1.0")
 
     def test_freeze_package_exists(self) -> None:
-        freeze_report = REPO / "reports" / "milestone1_freeze" / "milestone1_freeze_report.md"
-        self.assertTrue(freeze_report.is_file())
+        summary = REPO / "reports" / "milestone1_summary.md"
+        validation = REPO / "reports" / "milestone1_validation.json"
+        self.assertTrue(summary.is_file())
+        self.assertTrue(validation.is_file())
         dep_graph = REPO / "framework" / "Behaviour_Dependency_Graph.json"
         self.assertTrue(dep_graph.is_file())
 

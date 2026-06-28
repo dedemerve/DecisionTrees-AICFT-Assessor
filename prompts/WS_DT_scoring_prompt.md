@@ -1,119 +1,105 @@
 # WS_DT scoring context
 
-Injected alongside `prompts/stage3_scoring.md` when scoring WS_DT.
+Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet DT** (CODAP / Arbor plugged inquiry).
 
 ## Core policy — interpretive inquiry (read first)
 
-**Most WS_DT items have no single correct answer.** Students choose their own variables, thresholds, trees, and conclusions from CODAP. Scoring must:
+From `rubrics/WS_DT_rubric.json` → `scoring_policy`:
 
-1. Use **rubric components** (feature named, data evidence, metric criterion, reflection depth) — not match to `example_answer`.
-2. Accept **any valid food feature** the student explored (şeker, yağ, enerji, protein, …).
-3. Accept **student-specific EMIT numbers** when internally consistent — never compare to example thresholds or counts.
-4. Award **partial (0.5)** when one of two required components is present or reasoning is thin.
-5. Flag **review** when answers may be copied across sections without data reference (especially A_Q2 vs A_Q1).
+| Policy | Rule |
+|--------|------|
+| `default_mode` | **interpretive** — no single canonical answer |
+| `component_scoring` | Award on rubric **components** + student-grounded reasoning |
+| `emit_scoring` | EMIT blocks: internal numeric consistency only |
+| `example_answers` | Quality illustrations — **never** the only acceptable response |
 
-Deterministic exceptions only: `DT_B_Q1–Q3`, `DT_C_Q1`, `DT_D_Q1`, `DT_F_Q1` (EMIT consistency), `DT_E_sensitivity_formula`, `DT_E_MCR_formula`, `DT_E_sensitivity`, `DT_E_MCR`.
-
-## Files to load
-
-| Artifact | Path |
-|----------|------|
-| Rubric | `rubrics/WS_DT_rubric.json` |
-| Competency priors | `mappings/WS_DT_AICFT_mapping.json` (schema 2.0) |
-| Framework edge cases | `edge_cases.DT_Section_A`, `edge_cases.DT_Section_G` |
-| Responses | `students/<student>/WS_DT/extraction.json` |
-| Validation | *(Group A — not required)* |
-
-## Worksheet description
-
-CODAP / Arbor plugged inquiry (Sections A–G). Section E includes deterministic sensitivity/MCR items. Section F includes test-set / overfitting evidence. Section G is metacognitive reflection.
-
-**Section routing:** match `item_id` using section headings and question text — not page position alone.  
-Section C printed Q2 → `DT_C_Q2`; Section C EMIT block → `DT_C_Q1`. Section D action block → `DT_D_Q1`.
+Students choose variables, thresholds, trees, and conclusions from **their own CODAP work**. Accept any valid food feature (şeker, yağ, enerji, protein, …) and student-specific EMIT numbers.
 
 ---
 
-## Section A — prior beliefs and first CODAP exploration (edge case)
+## Artifacts
+
+| Role | Path |
+|------|------|
+| Rubric | `rubrics/WS_DT_rubric.json` |
+| Answer key | `worksheets/WS_DT/answer_key.json` |
+| Mapping | `mappings/WS_DT_AICFT_mapping.json` |
+| Framework | `edge_cases.DT_Section_A`, `edge_cases.DT_Section_G` |
+| Validity | `worksheets/WS_DT/validity_notes.json` |
+| Responses | `students/<student_id>/WS_DT/extraction.json` |
+
+**Pipeline group:** A.
+
+**Dataset assumption (rubric):** training N=16 (10 recommended, 6 not); test N=8.
+
+---
+
+## Deterministic exceptions only
+
+Python checks — do not override with semantic judgment:
+
+- `DT_B_Q1`–`Q3`, `DT_C_Q1`, `DT_D_Q1`, `DT_F_Q1` (EMIT action capture)
+- `DT_E_sensitivity_formula`, `DT_E_MCR_formula`, `DT_E_sensitivity`, `DT_E_MCR`
+
+All other items: **component-based interpretive scoring**.
+
+**Section routing:** match `item_id` to section headings and question text — not page position alone. Section C printed Q2 → `DT_C_Q2`; Section C EMIT → `DT_C_Q1`.
+
+---
+
+## Section A — prior beliefs vs first exploration
 
 > **Framework:** `edge_cases.DT_Section_A`  
-> Section A is **before** full tool mastery (Section B). Do **not** treat all four items identically.
+> Section A is **before** full tool mastery. **Do not treat Q1–Q4 identically.**
 
-### Item-by-item scoring and competency
+### `DT_A_Q1` — prior belief (`evaluation: prior_belief`)
 
-#### `DT_A_Q1` — prior belief (baseline)
+| | |
+|-|-|
+| **Full credit** | ≥1 specific food feature named (prediction link optional) |
+| **Partial** | Vague, no feature name |
+| **Zero** | Blank / off-topic |
+| **LO** | LO3.1.1, `evidence_type: prior_belief`, strength **weak** |
+| **Portfolio** | `portfolio_weight: baseline` — **excluded from LO peak aggregation** |
 
-| Field | Guidance |
-|-------|----------|
-| **Rubric** | `evaluation: prior_belief` — names ≥1 food feature (şeker, yağ, enerji, …). No CODAP analysis required. |
-| **Full credit** | Any specific dataset feature named (prediction link optional). |
-| **Partial** | Vague answer without a feature name. |
-| **Zero** | Blank or off-topic. |
-| **Competency** | LO3.1.1, `evidence_type: prior_belief`, strength ceiling **weak** |
-| **Portfolio** | `portfolio_weight: baseline` — **does not** affect LO peak aggregation |
-| **Rationale** | *"Records uninformed prior about predictive features before data exploration."* |
+Do **not** award LO3.2.x unless student explicitly cites CODAP graphs (unexpected at this stage).
 
-Do **not** award LO3.2.x for Q1 unless the student explicitly cites CODAP graphs (they should not at this stage).
+### `DT_A_Q2` — data exploration (`data_exploration`)
 
----
+| | |
+|-|-|
+| **Full credit** | Named feature **+** observed pattern from graphs/data |
+| **Partial (0.5)** | Feature OR data evidence, not both |
+| **Primary LO** | LO3.2.2 moderate |
+| **Review** | `true` if answer mirrors Q1 intuition without data reference |
 
-#### `DT_A_Q2` — data exploration after CODAP
+### `DT_A_Q3` — meaningful difference (`feature_observation`)
 
-| Field | Guidance |
-|-------|----------|
-| **Rubric** | `data_exploration` — (1) feature named, (2) **observed** pattern from graphs/data |
-| **Full credit** | Both: specific feature + data/graph evidence (not “I think” alone). |
-| **Partial (0.5)** | Feature named OR data cited, not both. |
-| **Zero** | Blank, or only general opinion without data reference. |
-| **Primary competency** | LO3.2.2 moderate — early data interpretation |
-| **Supporting** | LO3.1.2 weak — links exploration to modelling |
-| **Rationale** | *"Cites feature explored in CODAP and an observed pattern separating classes."* |
+Full: feature + direction (e.g. lower sugar in recommended group). Partial: one component.
 
-**Review flag:** `true` if answer could be pre-data intuition copied from Q1 without graph reference.
+Primary LO3.2.2 moderate.
 
----
+### `DT_A_Q4` — first split (`feature_selection_with_justification`)
 
-#### `DT_A_Q3` — meaningful class difference
+Full: feature + **data-based** justification (separation, MCR, graph). Partial: feature with intuition only (*şeker kötü*).
 
-| Field | Guidance |
-|-------|----------|
-| **Rubric** | `feature_observation` — (1) feature with meaningful difference, (2) direction described |
-| **Full credit** | Yes/no + feature + direction (e.g. lower sugar in recommended group). |
-| **Partial** | Feature OR direction, not both. |
-| **Zero** | Denies difference without evidence, or blank. |
-| **Primary competency** | LO3.2.2 moderate |
-| **Rationale** | *"Identifies feature showing meaningful separation between recommended and not-recommended foods from data."* |
+Primary LO3.2.2 **strong** (ceiling) when both components at full credit. Supporting LO3.2.1 weak.
 
----
+**Distinction:** Q4 = one variable choice; Section B = compare three trees.
 
-#### `DT_A_Q4` — first split variable with justification
-
-| Field | Guidance |
-|-------|----------|
-| **Rubric** | `feature_selection_with_justification` — (1) feature for first split, (2) **data-based** justification |
-| **Full credit** | Feature + graph/separation/MCR-based reason (not nutrition folklore alone). |
-| **Partial** | Feature named; justification is intuition only (“şeker kötü”). |
-| **Zero** | No feature or no justification. |
-| **Primary competency** | LO3.2.2 **strong** (ceiling) when both components at full credit |
-| **Supporting** | LO3.2.1 weak — early evaluate→select before Section B three-tree comparison |
-| **Rationale** | *"Selects first split variable with explicit data-based justification."* |
-
-**Distinction from Section B:** Q4 is **one** variable choice; B4 is **compare three trees**.
-
----
-
-### Section A — scorer checklist
+### Section A checklist
 
 ```
-□ Q1 scored as prior belief only — not Deepen
-□ Q2–Q4 distinguished from Q1 (data evidence required for full credit)
-□ Q4 intuition-only justification → partial score AND LO3.2.2 ≤ moderate
-□ Competency strength never exceeds mapping ceiling
-□ Q1 evidence listed with evidence_type prior_belief in output
+□ Q1 = prior belief only — not Deepen
+□ Q2–Q4 require data evidence for full credit
+□ Q4 intuition-only → partial score AND LO3.2.2 ≤ moderate
+□ Strength never exceeds mapping ceiling
+□ Q1 uses evidence_type prior_belief
 ```
 
 ---
 
-## Sections B–G — summary notes
+## Sections B–G — summary
 
 | Section | Focus | Primary LOs |
 |---------|-------|-------------|
@@ -123,12 +109,19 @@ Do **not** award LO3.2.x for Q1 unless the student explicitly cites CODAP graphs
 | **F** | Test data, overfitting | LO3.2.3; LO3.3.1 weak Create on Q2 |
 | **G** | Reflection | `portfolio_weight: diagnostic` — LO peaks excluded |
 
-### Other scoring rules
+### Additional rules
 
-- **EMIT action items** (B_Q1–Q3, C_Q1, D_Q1, F_Q1): capture variable, threshold, TP/FP/TN/FN. Partial metric-only notes valid.
-- **DT_E_sensitivity / DT_E_MCR:** deterministic when confusion counts present.
-- **DT_E_Q1:** metric name **and** purpose justification required for full credit.
-- **DT_E_Q4:** must cite data overlap / inseparability.
-- **DT_F_Q2:** strongest Create signal — full credit only with explicit train vs test performance gap.
-- **DT_G_Q1/Q2:** reflective; lower confidence; diagnostic portfolio weight.
-- Blank on worksheet → `(bos)`; do not infer from other sections.
+- **EMIT action items:** record variable, threshold, TP/FP/TN/FN; partial if metrics noted without full EMIT.
+- **DT_E_Q1:** metric name **and** purpose justification for full credit.
+- **DT_E_Q4:** must cite data overlap / inseparability (`conceptual_limitation`).
+- **DT_F_Q2:** strongest Create signal — train vs test performance gap explicit.
+- **DT_G_Q1/Q2:** reflective; lower confidence; diagnostic weight only.
+- Blank on sheet → `(bos)`; do not borrow from other sections.
+
+---
+
+## Competency strength discipline
+
+Mapping `strength` is a **ceiling**. Interpretive full credit does not automatically imply **strong** — check `mappings/WS_DT_AICFT_mapping.json` per item.
+
+`portfolio_weight: baseline` (Q1) and `diagnostic` (Section G) → exclude from peak LO aggregation per `pipeline_schema.contributes_to_portfolio_peaks()`.

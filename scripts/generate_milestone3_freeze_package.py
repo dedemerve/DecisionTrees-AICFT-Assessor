@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """
-generate_milestone3_freeze_package.py — Milestone 3 freeze verification for Behaviour→ILO inference.
+generate_milestone3_freeze_package.py — Milestone 3 human summary for Behaviour→ILO mapping.
+
+Legacy script name; writes reports/milestone3_summary.md only.
 
 Usage:
   python scripts/generate_milestone3_freeze_package.py
@@ -11,8 +13,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import shutil
-import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -22,25 +22,16 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 MAP_PATH = REPO_ROOT / "framework" / "Behaviour_to_ILO.json"
 OB_PATH = REPO_ROOT / "framework" / "Observable_Behaviours.json"
 ILO_PATH = REPO_ROOT / "framework" / "Learning_Objects.json"
-M3_REPORTS = REPO_ROOT / "reports" / "milestone3"
-OUTPUT_DIR = REPO_ROOT / "reports" / "milestone3_freeze"
 VALIDATOR = REPO_ROOT / "scripts" / "validate_behaviour_to_ilo.py"
 
-
-def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
-def run_validator() -> tuple[int, dict[str, Any]]:
-    proc = subprocess.run(
-        [sys.executable, str(VALIDATOR), "--quiet"],
-        cwd=REPO_ROOT,
-        capture_output=True,
-        text=True,
-    )
-    validation_path = M3_REPORTS / "milestone3_validation.json"
-    validation = load_json(validation_path) if validation_path.exists() else {}
-    return proc.returncode, validation
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
+from milestone_reporting import (  # noqa: E402
+    freeze_status_label,
+    load_json,
+    load_validation,
+    run_quiet_script,
+    write_summary,
+)
 
 
 def apply_freeze_metadata(mapping_doc: dict[str, Any]) -> dict[str, Any]:
@@ -49,7 +40,7 @@ def apply_freeze_metadata(mapping_doc: dict[str, Any]) -> dict[str, Any]:
         "status": "frozen",
         "version": "1.1",
         "frozen_at": now,
-        "freeze_package_dir": "reports/milestone3_freeze",
+        "freeze_package_dir": "reports",
         "expert_review_status": "automated_review_complete; human_expert_review_pending",
         "change_policy": "major_version_required_for_semantic_changes",
         "inference_layer": True,
@@ -66,19 +57,19 @@ def apply_freeze_metadata(mapping_doc: dict[str, Any]) -> dict[str, Any]:
     return mapping_doc
 
 
-def write_freeze_report_md(
+def write_summary_md(
     mapping_doc: dict[str, Any],
     validation: dict[str, Any],
-    apply_freeze: bool,
+    applying: bool,
 ) -> str:
-    stats_path = M3_REPORTS / "mapping_statistics.json"
-    stats = load_json(stats_path) if stats_path.exists() else {}
+    stats = validation.get("mapping_statistics", {})
     density = stats.get("mapping_density", {})
     roles = stats.get("role_ratios", {}).get("counts", {})
-    cross = stats.get("cross_construct_pair_count", validation.get("analytics_summary", {}).get("cross_construct_pairs", 0))
+    cross = validation.get("cross_construct_matrix", {}).get("pair_count", 0)
+    status = freeze_status_label(mapping_doc, applying=applying)
 
     lines = [
-        "# Milestone 3 Freeze Report",
+        "# Milestone 3 Summary",
         "",
         "## Behaviour → ILO Inference Mapping",
         "",
@@ -86,8 +77,7 @@ def write_freeze_report_md(
         "|-------|-------|",
         "| Artifact | `framework/Behaviour_to_ILO.json` |",
         "| Schema | **1.1** (qualitative confidence only) |",
-        f"| Freeze status | **{'FROZEN' if apply_freeze else 'PENDING_APPLY'}** |",
-        f"| Generated | {datetime.now(timezone.utc).isoformat()} |",
+        f"| Freeze status | **{status}** |",
         f"| Accepted pairs | {density.get('accepted_pair_count', mapping_doc.get('mapping_count', '?'))} |",
         f"| Behaviours covered | {density.get('behaviour_count', mapping_doc.get('behaviour_count', 28))}/28 |",
         f"| Rejected alternatives | {density.get('rejected_alternative_count', '?')} |",
@@ -116,13 +106,9 @@ def write_freeze_report_md(
 
     lines.extend([
         "",
-        "## Automated analytics (freeze package)",
+        "## Automated validation",
         "",
-        "- `mapping_coverage_report.json` — ILO → behaviour coverage",
-        "- `construct_matrix.json` — behaviour × ILO dimension matrix",
-        "- `cross_construct_matrix.json` — cross-dimension pairs with rationale",
-        "- `mapping_statistics.json` — density, role ratios, counter/rejected stats",
-        "- `milestone3_validation.json` — validation summary",
+        "- `reports/milestone3_validation.json` — single validation artifact",
         "",
         "## Remaining risks",
         "",
@@ -141,7 +127,6 @@ def write_freeze_report_md(
         "| Review | Status |",
         "|--------|--------|",
         "| Automated validation | complete |",
-        "| Analytics reports | complete |",
         "| Human expert review | **pending** |",
         "",
         "## Freeze decision",
@@ -149,7 +134,7 @@ def write_freeze_report_md(
     ])
 
     val_status = validation.get("status", "unknown")
-    if val_status == "pass" and apply_freeze:
+    if val_status == "pass" and applying:
         lines.append(
             "**APPROVED:** Behaviour_to_ILO.json v1.1 is frozen. "
             "Milestone 4 may proceed with `Domain_Understanding.json` and `LO_to_Domain_Understanding.json` "
@@ -163,27 +148,9 @@ def write_freeze_report_md(
     return "\n".join(lines) + "\n"
 
 
-def copy_reports(output_dir: Path) -> list[str]:
-    output_dir.mkdir(parents=True, exist_ok=True)
-    copied: list[str] = []
-    for name in (
-        "mapping_coverage_report.json",
-        "construct_matrix.json",
-        "cross_construct_matrix.json",
-        "mapping_statistics.json",
-        "milestone3_validation.json",
-    ):
-        src = M3_REPORTS / name
-        if src.exists():
-            shutil.copy2(src, output_dir / name)
-            copied.append(name)
-    return copied
-
-
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Generate Milestone 3 freeze package")
+    parser = argparse.ArgumentParser(description="Generate Milestone 3 summary")
     parser.add_argument("--apply-freeze", action="store_true")
-    parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR)
     args = parser.parse_args(argv)
 
     errors: list[str] = []
@@ -200,39 +167,23 @@ def main(argv: list[str] | None = None) -> int:
     if not mapping_doc.get("confidence_policy", {}).get("qualitative_only"):
         errors.append("Behaviour_to_ILO must use qualitative-only confidence policy")
 
-    val_rc, validation = run_validator()
-    if val_rc != 0:
+    if run_quiet_script(VALIDATOR) != 0:
         errors.append("validate_behaviour_to_ilo.py failed")
-        for e in validation.get("errors", []):
-            errors.append(f"  validator: {e}")
 
-    copied = copy_reports(args.output_dir)
-    if len(copied) < 5:
-        errors.append(f"incomplete milestone3 reports copied ({len(copied)}/5)")
+    validation = load_validation(3)
+    errors.extend(validation.get("errors", []))
 
-    report = write_freeze_report_md(mapping_doc, validation, args.apply_freeze and not errors)
-    (args.output_dir / "milestone3_freeze_report.md").write_text(report, encoding="utf-8")
+    applying = args.apply_freeze and not errors
+    summary_path = write_summary(3, write_summary_md(mapping_doc, validation, applying))
 
-    freeze_summary = {
-        "milestone": 3,
-        "artifact": "Behaviour_to_ILO.json",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "validation_status": validation.get("status"),
-        "errors": errors,
-        "reports_copied": copied,
-        "pass": not errors,
-    }
-    (args.output_dir / "freeze_verification.json").write_text(
-        json.dumps(freeze_summary, indent=2) + "\n",
-        encoding="utf-8",
-    )
-
-    if args.apply_freeze and not errors:
-        updated = apply_freeze_metadata(mapping_doc)
-        MAP_PATH.write_text(json.dumps(updated, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    if applying:
+        MAP_PATH.write_text(
+            json.dumps(apply_freeze_metadata(mapping_doc), indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
         print("Freeze metadata applied to Behaviour_to_ILO.json")
 
-    print(f"Freeze package: {args.output_dir}")
+    print(f"Summary: {summary_path}")
     print(f"Status: {'PASS' if not errors else 'FAIL'}")
     for e in errors:
         print(f"  - {e}")

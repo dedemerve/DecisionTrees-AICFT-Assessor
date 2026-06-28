@@ -4,7 +4,6 @@ validate_learning_objects.py — Milestone 2 verification for Instructional Lear
 
 Usage:
   python scripts/validate_learning_objects.py
-  python scripts/validate_learning_objects.py --reports-dir reports
 """
 
 from __future__ import annotations
@@ -14,7 +13,6 @@ import json
 import re
 import sys
 from collections import Counter, defaultdict
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -199,7 +197,6 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Validate ILO ontology (Milestone 2)")
     parser.add_argument("--ilo", type=Path, default=ILO_PATH)
     parser.add_argument("--behaviours", type=Path, default=OB_PATH)
-    parser.add_argument("--reports-dir", type=Path, default=REPO_ROOT / "reports")
     parser.add_argument("--quiet", action="store_true")
     args = parser.parse_args(argv)
 
@@ -207,34 +204,25 @@ def main(argv: list[str] | None = None) -> int:
     ob_data = load_json(args.behaviours)
     errors, warnings, result = validate_milestone2(ilo_data, ob_data)
 
-    now = datetime.now(timezone.utc).isoformat()
-    args.reports_dir.mkdir(parents=True, exist_ok=True)
+    from milestone_reporting import write_validation  # noqa: E402
 
-    (args.reports_dir / "milestone2_coverage.json").write_text(
-        json.dumps({
+    payload = {
+        "artifact": "Learning_Objects.json",
+        "terminology": "Instructional Learning Object (ILO)",
+        "status": "pass" if not errors else "fail",
+        "error_count": len(errors),
+        "warning_count": len(warnings),
+        "errors": errors,
+        "warnings": warnings,
+        "verification_tests": result.get("verification", {}),
+        "coverage": {
             "milestone": 2,
             "artifact": "Learning_Objects.json",
             "terminology": "Instructional Learning Object (ILO)",
-            "generated_at": now,
             **result.get("coverage", {}),
-        }, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
-
-    (args.reports_dir / "milestone2_validation.json").write_text(
-        json.dumps({
-            "milestone": 2,
-            "artifact": "Learning_Objects.json",
-            "generated_at": now,
-            "status": "pass" if not errors else "fail",
-            "error_count": len(errors),
-            "warning_count": len(warnings),
-            "errors": errors,
-            "warnings": warnings,
-            "verification_tests": result.get("verification", {}),
-        }, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
+        },
+    }
+    path = write_validation(2, payload)
 
     if not args.quiet:
         cov = result.get("coverage", {})

@@ -24,7 +24,6 @@ REPO = Path(__file__).resolve().parent.parent
 MAP_PATH = REPO / "framework" / "Behaviour_to_ILO.json"
 OB_PATH = REPO / "framework" / "Observable_Behaviours.json"
 ILO_PATH = REPO / "framework" / "Learning_Objects.json"
-REPORT_DIR = REPO / "reports" / "milestone3"
 
 OB_PATTERN = re.compile(r"^OB_[A-Z]{3}_[0-9]{3}$")
 ILO_PATTERN = re.compile(r"^ILO_[A-Z][A-Z0-9_]+$")
@@ -237,7 +236,6 @@ def validate_structure(
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--mapping", type=Path, default=MAP_PATH)
-    parser.add_argument("--reports-dir", type=Path, default=REPORT_DIR)
     parser.add_argument("--quiet", action="store_true")
     args = parser.parse_args(argv)
 
@@ -246,53 +244,26 @@ def main(argv: list[str] | None = None) -> int:
     ilo_data = load_json(ILO_PATH)
 
     errors, warnings, analytics = validate_structure(mapping_doc, ob_data, ilo_data)
-    now = datetime.now(timezone.utc).isoformat()
     status = "pass" if not errors else "fail"
 
-    args.reports_dir.mkdir(parents=True, exist_ok=True)
+    from milestone_reporting import write_validation  # noqa: E402
 
-    (args.reports_dir / "mapping_coverage_report.json").write_text(
-        json.dumps({"generated_at": now, **analytics["mapping_coverage_report"]}, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "construct_matrix.json").write_text(
-        json.dumps({"generated_at": now, **analytics["construct_matrix"]}, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "cross_construct_matrix.json").write_text(
-        json.dumps({"generated_at": now, **analytics["cross_construct_matrix"]}, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "mapping_statistics.json").write_text(
-        json.dumps({
-            "generated_at": now,
-            "status": status,
+    write_validation(3, {
+        "artifact": "Behaviour_to_ILO.json",
+        "status": status,
+        "errors": errors,
+        "warnings": warnings,
+        "mapping_coverage_report": analytics["mapping_coverage_report"],
+        "construct_matrix": analytics["construct_matrix"],
+        "cross_construct_matrix": analytics["cross_construct_matrix"],
+        "mapping_statistics": {
             "mapping_density": analytics["mapping_density"],
             "role_ratios": analytics["role_ratios"],
             "confidence_level_distribution": analytics["confidence_level_distribution"],
             "counter_evidence_statistics": analytics["counter_evidence_statistics"],
             "rejected_alternative_statistics": analytics["rejected_alternative_statistics"],
-            "construct_matrix": analytics["construct_matrix"],
-            "cross_construct_pair_count": analytics["cross_construct_matrix"]["pair_count"],
-        }, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "milestone3_validation.json").write_text(
-        json.dumps({
-            "milestone": 3,
-            "artifact": "Behaviour_to_ILO.json",
-            "generated_at": now,
-            "status": status,
-            "errors": errors,
-            "warnings": warnings,
-            "analytics_summary": {
-                "mapping_density": analytics["mapping_density"],
-                "role_ratios": analytics["role_ratios"],
-                "cross_construct_pairs": analytics["cross_construct_matrix"]["pair_count"],
-            },
-        }, indent=2) + "\n",
-        encoding="utf-8",
-    )
+        },
+    })
 
     if not args.quiet:
         print(f"Behaviour_to_ILO: {analytics['mapping_density']['accepted_pair_count']} pairs")

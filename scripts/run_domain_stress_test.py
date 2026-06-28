@@ -14,12 +14,10 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
 REPO = Path(__file__).resolve().parent.parent
-REPORT_DIR = REPO / "reports" / "milestone4"
 
 sys.path.insert(0, str(REPO / "scripts"))
 from domain_synthesis import DomainSynthesizer, EvidenceProfile, STRENGTH_RANK  # noqa: E402
@@ -219,30 +217,25 @@ TESTS: list[Callable[[DomainSynthesizer], dict[str, Any]]] = [
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--reports-dir", type=Path, default=REPORT_DIR)
     parser.add_argument("--quiet", action="store_true")
     args = parser.parse_args(argv)
 
     synth = DomainSynthesizer()
     results = [fn(synth) for fn in TESTS]
     all_pass = all(r["pass"] for r in results)
-    now = datetime.now(timezone.utc).isoformat()
 
     report = {
-        "generated_at": now,
         "suite": "domain_stress_test",
-        "milestone": 4,
         "status": "pass" if all_pass else "fail",
         "test_count": len(results),
         "passed": sum(1 for r in results if r["pass"]),
         "tests": results,
     }
 
-    args.reports_dir.mkdir(parents=True, exist_ok=True)
-    (args.reports_dir / "domain_stress_test.json").write_text(
-        json.dumps(report, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
+    sys.path.insert(0, str(REPO / "scripts"))
+    from milestone_reporting import patch_validation  # noqa: E402
+
+    patch_validation(4, {"stress_test": report})
 
     if not args.quiet:
         print(f"Domain Stress Test: {report['passed']}/{report['test_count']} passed")

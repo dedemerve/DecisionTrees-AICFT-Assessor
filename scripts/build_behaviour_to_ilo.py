@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -211,12 +212,20 @@ COUNTER_EVIDENCE: dict[str, list[dict[str, Any]]] = {
     ],
 }
 
-PRIMARY_ILO: dict[str, str] = {
-    row["behaviour_id"]: row["primary_ilo"]
-    for row in json.loads(
-        (REPO / "reports/milestone2_freeze/behaviour_ilo_coverage_matrix.json").read_text()
-    )["table"]
-}
+def _behaviour_primary_ilo_map(ilos: dict[str, Any]) -> dict[str, str]:
+    behaviour_to_ilos: dict[str, list[str]] = defaultdict(list)
+    for iid, ilo in ilos.items():
+        for ob in ilo.get("related_behaviours", []):
+            behaviour_to_ilos[ob].append(iid)
+    return {ob: sorted(linked)[0] for ob, linked in sorted(behaviour_to_ilos.items())}
+
+
+def _load_primary_ilo() -> dict[str, str]:
+    ilos = json.loads(ILO_PATH.read_text(encoding="utf-8"))["learning_objects"]
+    return _behaviour_primary_ilo_map(ilos)
+
+
+PRIMARY_ILO: dict[str, str] = _load_primary_ilo()
 
 # Explicit secondary ILOs (remaining same-dimension links after primary)
 SECONDARY_ILO: dict[str, set[str]] = {
@@ -378,7 +387,6 @@ def build_document() -> dict[str, Any]:
         "behaviour_ontology_version": "1.0",
         "ilo_ontology_reference": "framework/Learning_Objects.json",
         "ilo_ontology_version": "1.0",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
         "mapping_count": record_count,
         "rejected_alternative_count": rejected_count,
         "behaviour_count": len(mappings),

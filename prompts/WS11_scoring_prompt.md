@@ -1,94 +1,131 @@
 # WS11 scoring context
 
-Injected alongside `prompts/stage3_scoring.md` when scoring WS11.
+Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 11** (final reflection + cognitive check).
 
-## Files to load
+## Artifacts
 
-| Artifact | Path |
-|----------|------|
+| Role | Path |
+|------|------|
 | Rubric | `rubrics/WS11_rubric.json` |
-| Competency priors | `mappings/WS11_AICFT_mapping.json` (schema 2.0) |
+| Answer key | `worksheets/WS11/answer_key.json` |
+| Mapping | `mappings/WS11_AICFT_mapping.json` |
 | Framework edge case | `mappings/AICFT_assessment_framework.json` → `edge_cases.WS11_Q11` |
-| Responses | `students/<student>/WS11/extraction.json` |
-| Validation | *(not required for WS11)* |
+| Validity | `worksheets/WS11/validity_notes.json` |
+| Responses | `students/<student_id>/WS11/extraction.json` |
 
-## Worksheet description
-
-WS11 is the final reflection worksheet.
-
-| Block | Items | Scored? |
-|-------|-------|---------|
-| B8a–B8b | Classification + rule | Yes |
-| B9 | Decision tree definition | Yes |
-| Q10 | `WS11_Q10_1..8` — true/false sub-items | Yes (0.125 each) |
-| Q11 | `WS11_Q11_2..4` — order steps 2–4 | Yes (0.33 each) |
-| Q12 | `WS11_Q12_1..5` — multiselect | Yes (0.2 each) |
-| L10, L11, L12 | Likert / demographics | **No** |
+**Pipeline group:** A.
 
 ---
 
-## General scoring notes
+## Construct
 
-- **B8a:** exact classification (tavsiye edilmez or equivalent).
-- **B8b:** requires **both** condition (şeker > 10) **and** outcome (tavsiye edilmez). One component only → partial credit.
-- **B9:** semantic definition — must convey learning from data **and** tree-like structure. Shape-only (“ağaca benzer”) is insufficient.
-- **Q10:** deterministic Doğru/Yanlış per `correct_answer` in rubric.
-- **Q12:** credit per sub-item for correct mark/unmark.
-- Missing extraction → `score: null`, `review: true`, `evidence_present: false` for that sub-item.
+Mixed worksheet: **reflection**, **cognitive scored items**, and **descriptive-only** Likert/demographics. Only the cognitive subset produces competency evidence and behaviour-engine input.
 
----
+### Scored vs descriptive-only
 
-## Q11 — decision tree construction step ordering (edge case)
-
-> **Framework:** `edge_cases.WS11_Q11`  
-> Step 1 (*Bir özellik seçiyorum*) is **pre-printed** on the worksheet. Only steps **2–4** are scored.
-
-### Canonical workflow (correct order)
-
-| Position | Step text (rubric `statement`) |
-|----------|--------------------------------|
-| 1 | *(given)* Bir özellik seçiyorum |
-| 2 | Verileri seçilen özelliğe göre boyuta göre düzenliyorum |
-| 3 | Birçok kartın doğru sınıflandırıldığı iyi bir eşik buldum |
-| 4 | Bir karar verdim |
-
-### Scoring rules (`evaluation: ordering_step`)
-
-- Each sub-item `WS11_Q11_2`, `_3`, `_4` is scored **independently**.
-- Student writes the **position number** (2, 3, or 4) next to each step statement.
-- **Full credit** when the written number equals `correct_answer` in the rubric.
-- **Zero** when wrong position or blank/`(bos)`.
-- No partial credit on ordering (deterministic).
-
-### Competency inference (do not use LO3.1.1 for Q11)
-
-Q11 tests **procedural understanding of how decision trees are built**, not vocabulary recall.
-
-| Sub-item | Primary LO | Strength ceiling | When to assign |
-|----------|------------|----------------|----------------|
-| `WS11_Q11_2..4` | **LO3.1.2** | moderate | Full credit on ≥2 of 3 sub-items |
-| `WS11_Q11_2..4` | **LO3.1.2** | weak | Only 1 sub-item correct |
-| `WS11_Q11_2..4` | **LO3.1.2** | none | All wrong or missing |
-| supporting | LO3.2.2 | weak | Full credit on all 3 — optional supporting only |
-
-**Rationale template (item-specific):**  
-*"Student [correctly/incorrectly] ordered step N (…statement…) in the decision-tree workflow, demonstrating [strong/partial/no] understanding of the feature → threshold → decision sequence."*
-
-**Confidence:** 1.0 when all three positions deterministic; 0.85 when 1–2 wrong but OCR clear; 0.0 when missing.
-
-### Common errors
-
-- Treating Q11 as vocabulary (LO3.1.1) — **incorrect** per framework v2.0.
-- Giving LO3.2.2 **strong** — ceiling is **weak** supporting only.
-- Scoring step 1 — it is not in extraction keys.
+| Block | Item IDs | Scored? |
+|-------|----------|---------|
+| Reflection | `WS11_B1`–`B7` | **No** — `descriptive_only` |
+| Cognitive | `WS11_B8a`, `B8b`, `B9` | Yes |
+| Q10 | `WS11_Q10_1` … `Q10_8` | Yes (0.125 each) |
+| Q11 | `WS11_Q11_2` … `Q11_4` | Yes (0.33 / 0.33 / 0.34) |
+| Q12 | `WS11_Q12_1` … `Q12_5` | Yes (0.2 each) |
+| Likert / demographics | `WS11_L10_*`, `L11_*`, `L12_*` | **No** — never infer LO from L12 |
 
 ---
 
-## Q10 / Q12 — competency quick reference
+## Cognitive items
 
-| Block | Primary LO | Notes |
+### B8a — classification
+
+Not-recommended label for the scenario food (*tavsiye edilmez*, *önerilmez*, etc.).
+
+### B8b — rule (`need: 2`, `partial_on: 1`)
+
+| Component | Requirement |
+|-----------|-------------|
+| `condition` | şeker > 10 (or equivalent threshold language) |
+| `conclusion` | not recommended |
+
+One component only → partial.
+
+### B9 — definition (`need: 2`, `partial_on: 1`)
+
+| Component | Requirement |
+|-----------|-------------|
+| `learns_from_data` | Data-driven learning |
+| `tree_or_classification` | Tree structure or classification role |
+
+Shape-only metaphor (*ağaca benzer*) without data learning → partial or zero.
+
+### Q10 — true/false (`evaluation: true_false`)
+
+Deterministic per `correct_answer` in rubric (`Doğru` / `Yanlış`). Do not debate keyed answers.
+
+### Q12 — multiselect (`multiselect_subitem`)
+
+Credit per option: student's mark must match `correct: true/false` in rubric.
+
+| Option | Correct? | Statement (summary) |
+|--------|----------|---------------------|
+| 1 | ✓ | Trees can overfit |
+| 2 | ✗ | Always best model |
+| 3 | ✗ | Threshold irrelevant |
+| 4 | ✗ | MCR must always be 0 |
+| 5 | ✓ | More data usually helps |
+
+---
+
+## Q11 — step ordering (edge case)
+
+> **Framework:** `edge_cases.WS11_Q11`
+
+Step 1 (*Bir özellik seçiyorum*) is **pre-printed**. Only steps **2–4** are scored.
+
+| Position | Step text | `correct_answer` |
+|----------|-----------|------------------|
+| 1 | *(given)* Bir özellik seçiyorum | — |
+| 2 | Verileri seçilen özelliğe göre boyuta göre düzenliyorum | 2 |
+| 3 | Birçok kartın doğru sınıflandırıldığı iyi bir eşik buldum | 3 |
+| 4 | Bir karar verdim | 4 |
+
+`evaluation: ordering_step` — deterministic; **no partial** per sub-item.
+
+### Q11 competency (critical)
+
+Tests **procedural workflow**, not vocabulary recall.
+
+| Sub-items correct | Primary LO | Strength |
+|-------------------|------------|----------|
+| ≥2 of 3 | LO3.1.2 | moderate |
+| 1 of 3 | LO3.1.2 | weak |
+| 0 | — | none |
+| All 3 | LO3.1.2 moderate + optional LO3.2.2 | weak supporting only |
+
+**Do not** assign LO3.1.1 for Q11. **Do not** assign LO3.2.2 **strong** — ceiling is weak supporting.
+
+---
+
+## Competency quick reference
+
+| Block | Primary LO | Level |
 |-------|------------|-------|
-| Q10_1..8 | LO3.1.2 | Conceptual T/F about what DTs do |
-| Q12_1..5 | LO3.1.2 | Multiselect conceptual understanding |
-| B8a–B8b | LO3.2.2 | Applied interpretation (Deepen) |
-| B9 | LO3.1.2 | Definition item |
+| B8a–B8b | LO3.2.2 | Deepen — applied rule |
+| B9 | LO3.1.2 | Acquire — definition |
+| Q10 | LO3.1.2 | Conceptual T/F |
+| Q12 | LO3.1.2 | Conceptual multiselect |
+| Q11 | LO3.1.2 | Procedural ordering |
+
+---
+
+## Validity constraints
+
+- Demographic items (`L12`) → **never** enter behaviour or LO inference (`leakage_risks` in validity notes).
+- Reflection B1–B7: store if extracted but **exclude from scoring and competency**.
+
+---
+
+## Review flags
+
+- Missing Q10/Q11/Q12 sub-key → `score: null`, `review: true`, `evidence_present: false`.
+- Illegible Likert → ignore (not scored).

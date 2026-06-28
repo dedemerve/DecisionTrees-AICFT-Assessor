@@ -1,19 +1,557 @@
 {
-  "milestone": 3,
   "artifact": "Behaviour_to_ILO.json",
-  "generated_at": "2026-06-28T10:55:36.444459+00:00",
   "status": "pass",
   "errors": [],
-  "warnings": [],
-  "summary": {
-    "many_to_many": {
+  "warnings": [
+    "4 ILO(s) supported by only one behaviour"
+  ],
+  "mapping_coverage_report": {
+    "ilo_to_behaviour_count": [
+      {
+        "ilo_id": "ILO_MODEL_EVALUATION",
+        "behaviour_count": 6,
+        "behaviours": [
+          "OB_CON_006",
+          "OB_STR_001",
+          "OB_STR_003",
+          "OB_STR_005",
+          "OB_STR_007",
+          "OB_STR_009"
+        ]
+      },
+      {
+        "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+        "behaviour_count": 6,
+        "behaviours": [
+          "OB_PRO_008",
+          "OB_STR_001",
+          "OB_STR_003",
+          "OB_STR_006",
+          "OB_STR_007",
+          "OB_STR_008"
+        ]
+      },
+      {
+        "ilo_id": "ILO_THRESHOLD",
+        "behaviour_count": 5,
+        "behaviours": [
+          "OB_CON_002",
+          "OB_PRO_001",
+          "OB_PRO_007",
+          "OB_STR_001",
+          "OB_STR_002"
+        ]
+      },
+      {
+        "ilo_id": "ILO_CLASSIFICATION",
+        "behaviour_count": 4,
+        "behaviours": [
+          "OB_CON_003",
+          "OB_PRO_001",
+          "OB_PRO_002",
+          "OB_PRO_006"
+        ]
+      },
+      {
+        "ilo_id": "ILO_DECISION_TREE",
+        "behaviour_count": 4,
+        "behaviours": [
+          "OB_CON_002",
+          "OB_CON_003",
+          "OB_PRO_002",
+          "OB_PRO_003"
+        ]
+      },
+      {
+        "ilo_id": "ILO_CONFUSION_MATRIX",
+        "behaviour_count": 3,
+        "behaviours": [
+          "OB_CON_005",
+          "OB_CON_006",
+          "OB_STR_005"
+        ]
+      },
+      {
+        "ilo_id": "ILO_FEATURE",
+        "behaviour_count": 3,
+        "behaviours": [
+          "OB_CON_001",
+          "OB_STR_002",
+          "OB_STR_004"
+        ]
+      },
+      {
+        "ilo_id": "ILO_LABEL",
+        "behaviour_count": 3,
+        "behaviours": [
+          "OB_CON_001",
+          "OB_PRO_003",
+          "OB_PRO_006"
+        ]
+      },
+      {
+        "ilo_id": "ILO_MCR",
+        "behaviour_count": 3,
+        "behaviours": [
+          "OB_CON_005",
+          "OB_PRO_009",
+          "OB_STR_008"
+        ]
+      },
+      {
+        "ilo_id": "ILO_METACOGNITIVE_REFLECTION",
+        "behaviour_count": 3,
+        "behaviours": [
+          "OB_REF_001",
+          "OB_REF_002",
+          "OB_REF_003"
+        ]
+      },
+      {
+        "ilo_id": "ILO_RULE",
+        "behaviour_count": 3,
+        "behaviours": [
+          "OB_CON_002",
+          "OB_PRO_002",
+          "OB_PRO_005"
+        ]
+      },
+      {
+        "ilo_id": "ILO_TREE_SPLIT",
+        "behaviour_count": 3,
+        "behaviours": [
+          "OB_PRO_003",
+          "OB_PRO_007",
+          "OB_STR_002"
+        ]
+      },
+      {
+        "ilo_id": "ILO_DATASET",
+        "behaviour_count": 2,
+        "behaviours": [
+          "OB_CON_001",
+          "OB_CON_004"
+        ]
+      },
+      {
+        "ilo_id": "ILO_FEATURE_SELECTION",
+        "behaviour_count": 2,
+        "behaviours": [
+          "OB_STR_002",
+          "OB_STR_004"
+        ]
+      },
+      {
+        "ilo_id": "ILO_PRIOR_BELIEF",
+        "behaviour_count": 2,
+        "behaviours": [
+          "OB_REF_003",
+          "OB_REF_004"
+        ]
+      },
+      {
+        "ilo_id": "ILO_SENSITIVITY",
+        "behaviour_count": 2,
+        "behaviours": [
+          "OB_CON_005",
+          "OB_PRO_009"
+        ]
+      },
+      {
+        "ilo_id": "ILO_TRAINING_ROLE",
+        "behaviour_count": 2,
+        "behaviours": [
+          "OB_CON_004",
+          "OB_REF_002"
+        ]
+      },
+      {
+        "ilo_id": "ILO_DATA_PATTERN",
+        "behaviour_count": 1,
+        "behaviours": [
+          "OB_STR_004"
+        ]
+      },
+      {
+        "ilo_id": "ILO_DT_WORKFLOW",
+        "behaviour_count": 1,
+        "behaviours": [
+          "OB_PRO_004"
+        ]
+      },
+      {
+        "ilo_id": "ILO_INSTANCE",
+        "behaviour_count": 1,
+        "behaviours": [
+          "OB_CON_001"
+        ]
+      },
+      {
+        "ilo_id": "ILO_MODEL_LIMITATION",
+        "behaviour_count": 1,
+        "behaviours": [
+          "OB_REF_002"
+        ]
+      }
+    ],
+    "underrepresented_ilos": [
+      {
+        "ilo_id": "ILO_DATA_PATTERN",
+        "behaviour_count": 1,
+        "behaviours": [
+          "OB_STR_004"
+        ]
+      },
+      {
+        "ilo_id": "ILO_DT_WORKFLOW",
+        "behaviour_count": 1,
+        "behaviours": [
+          "OB_PRO_004"
+        ]
+      },
+      {
+        "ilo_id": "ILO_INSTANCE",
+        "behaviour_count": 1,
+        "behaviours": [
+          "OB_CON_001"
+        ]
+      },
+      {
+        "ilo_id": "ILO_MODEL_LIMITATION",
+        "behaviour_count": 1,
+        "behaviours": [
+          "OB_REF_002"
+        ]
+      }
+    ]
+  },
+  "construct_matrix": {
+    "conceptual": {
+      "conceptual": 12,
+      "procedural": 3,
+      "strategic": 1
+    },
+    "procedural": {
+      "procedural": 8,
+      "conceptual": 6,
+      "strategic": 3
+    },
+    "reflective": {
+      "reflective": 6,
+      "conceptual": 1
+    },
+    "strategic": {
+      "strategic": 14,
+      "procedural": 2,
+      "conceptual": 4
+    }
+  },
+  "cross_construct_matrix": {
+    "pair_count": 20,
+    "pairs": [
+      {
+        "behaviour_id": "OB_CON_002",
+        "ilo_id": "ILO_RULE",
+        "behaviour_dimension": "conceptual",
+        "ilo_dimension": "procedural",
+        "mapping_role": "secondary",
+        "rationale": "Cross-dimension bridge: OB_CON_002 (conceptual) partially supports ILO_RULE (procedural) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_CON_002",
+        "ilo_id": "ILO_THRESHOLD",
+        "behaviour_dimension": "conceptual",
+        "ilo_dimension": "procedural",
+        "mapping_role": "secondary",
+        "rationale": "Cross-dimension bridge: OB_CON_002 (conceptual) partially supports ILO_THRESHOLD (procedural) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_CON_003",
+        "ilo_id": "ILO_CLASSIFICATION",
+        "behaviour_dimension": "conceptual",
+        "ilo_dimension": "procedural",
+        "mapping_role": "primary",
+        "rationale": "Conceptual mechanism explanation can support procedural classification ILO only when the learner explicitly links mechanism to class assignment, not vocabulary alone."
+      },
+      {
+        "behaviour_id": "OB_CON_006",
+        "ilo_id": "ILO_MODEL_EVALUATION",
+        "behaviour_dimension": "conceptual",
+        "ilo_dimension": "strategic",
+        "mapping_role": "contextual",
+        "rationale": "Conceptual matrix interpretation enables strategic evaluation literacy as a bridging construct; requires explicit performance interpretation, not cell recall alone."
+      },
+      {
+        "behaviour_id": "OB_PRO_002",
+        "ilo_id": "ILO_DECISION_TREE",
+        "behaviour_dimension": "procedural",
+        "ilo_dimension": "conceptual",
+        "mapping_role": "secondary",
+        "rationale": "Cross-dimension bridge: OB_PRO_002 (procedural) partially supports ILO_DECISION_TREE (conceptual) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_PRO_003",
+        "ilo_id": "ILO_DECISION_TREE",
+        "behaviour_dimension": "procedural",
+        "ilo_dimension": "conceptual",
+        "mapping_role": "primary",
+        "rationale": "Cross-dimension bridge: OB_PRO_003 (procedural) partially supports ILO_DECISION_TREE (conceptual) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_PRO_003",
+        "ilo_id": "ILO_LABEL",
+        "behaviour_dimension": "procedural",
+        "ilo_dimension": "conceptual",
+        "mapping_role": "secondary",
+        "rationale": "Cross-dimension bridge: OB_PRO_003 (procedural) partially supports ILO_LABEL (conceptual) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_PRO_003",
+        "ilo_id": "ILO_TREE_SPLIT",
+        "behaviour_dimension": "procedural",
+        "ilo_dimension": "strategic",
+        "mapping_role": "secondary",
+        "rationale": "Cross-dimension bridge: OB_PRO_003 (procedural) partially supports ILO_TREE_SPLIT (strategic) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_PRO_006",
+        "ilo_id": "ILO_LABEL",
+        "behaviour_dimension": "procedural",
+        "ilo_dimension": "conceptual",
+        "mapping_role": "secondary",
+        "rationale": "Cross-dimension bridge: OB_PRO_006 (procedural) partially supports ILO_LABEL (conceptual) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_PRO_007",
+        "ilo_id": "ILO_TREE_SPLIT",
+        "behaviour_dimension": "procedural",
+        "ilo_dimension": "strategic",
+        "mapping_role": "secondary",
+        "rationale": "Cross-dimension bridge: OB_PRO_007 (procedural) partially supports ILO_TREE_SPLIT (strategic) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_PRO_008",
+        "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+        "behaviour_dimension": "procedural",
+        "ilo_dimension": "strategic",
+        "mapping_role": "primary",
+        "rationale": "Cross-dimension bridge: OB_PRO_008 (procedural) partially supports ILO_PARAMETER_OPTIMIZATION (strategic) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_PRO_009",
+        "ilo_id": "ILO_MCR",
+        "behaviour_dimension": "procedural",
+        "ilo_dimension": "conceptual",
+        "mapping_role": "primary",
+        "rationale": "Cross-dimension bridge: OB_PRO_009 (procedural) partially supports ILO_MCR (conceptual) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_PRO_009",
+        "ilo_id": "ILO_SENSITIVITY",
+        "behaviour_dimension": "procedural",
+        "ilo_dimension": "conceptual",
+        "mapping_role": "secondary",
+        "rationale": "Cross-dimension bridge: OB_PRO_009 (procedural) partially supports ILO_SENSITIVITY (conceptual) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_REF_002",
+        "ilo_id": "ILO_TRAINING_ROLE",
+        "behaviour_dimension": "reflective",
+        "ilo_dimension": "conceptual",
+        "mapping_role": "secondary",
+        "rationale": "Reflective limitation discourse may reference training-data constraints without demonstrating full conceptual training-role mastery."
+      },
+      {
+        "behaviour_id": "OB_STR_001",
+        "ilo_id": "ILO_THRESHOLD",
+        "behaviour_dimension": "strategic",
+        "ilo_dimension": "procedural",
+        "mapping_role": "secondary",
+        "rationale": "Cross-dimension bridge: OB_STR_001 (strategic) partially supports ILO_THRESHOLD (procedural) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_STR_002",
+        "ilo_id": "ILO_FEATURE",
+        "behaviour_dimension": "strategic",
+        "ilo_dimension": "conceptual",
+        "mapping_role": "primary",
+        "rationale": "Cross-dimension bridge: OB_STR_002 (strategic) partially supports ILO_FEATURE (conceptual) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_STR_002",
+        "ilo_id": "ILO_THRESHOLD",
+        "behaviour_dimension": "strategic",
+        "ilo_dimension": "procedural",
+        "mapping_role": "secondary",
+        "rationale": "Cross-dimension bridge: OB_STR_002 (strategic) partially supports ILO_THRESHOLD (procedural) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_STR_004",
+        "ilo_id": "ILO_FEATURE",
+        "behaviour_dimension": "strategic",
+        "ilo_dimension": "conceptual",
+        "mapping_role": "secondary",
+        "rationale": "Cross-dimension bridge: OB_STR_004 (strategic) partially supports ILO_FEATURE (conceptual) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_STR_005",
+        "ilo_id": "ILO_CONFUSION_MATRIX",
+        "behaviour_dimension": "strategic",
+        "ilo_dimension": "conceptual",
+        "mapping_role": "primary",
+        "rationale": "Cross-dimension bridge: OB_STR_005 (strategic) partially supports ILO_CONFUSION_MATRIX (conceptual) with documented interpretive caution."
+      },
+      {
+        "behaviour_id": "OB_STR_008",
+        "ilo_id": "ILO_MCR",
+        "behaviour_dimension": "strategic",
+        "ilo_dimension": "conceptual",
+        "mapping_role": "primary",
+        "rationale": "Cross-dimension bridge: OB_STR_008 (strategic) partially supports ILO_MCR (conceptual) with documented interpretive caution."
+      }
+    ]
+  },
+  "mapping_statistics": {
+    "mapping_density": {
       "behaviour_count": 28,
       "ilo_count": 21,
-      "pair_count": 60,
-      "avg_ilos_per_behaviour": 2.14
+      "accepted_pair_count": 60,
+      "avg_ilos_per_behaviour": 2.14,
+      "rejected_alternative_count": 18
     },
-    "orphan_ilos": [],
-    "unmapped_behaviours": []
+    "role_ratios": {
+      "counts": {
+        "primary": 27,
+        "secondary": 31,
+        "contextual": 1,
+        "diagnostic": 1
+      },
+      "primary_ratio": 0.45,
+      "secondary_ratio": 0.517,
+      "contextual_ratio": 0.017,
+      "diagnostic_ratio": 0.017
+    },
+    "confidence_level_distribution": {
+      "high": 27,
+      "moderate": 31,
+      "low": 1,
+      "baseline": 1
+    },
+    "counter_evidence_statistics": {
+      "total_counter_items": 79,
+      "by_source_type": {
+        "construct_leakage": 47,
+        "contradictory_evidence": 23,
+        "misconception": 9
+      },
+      "blocking_escalation_count": 70
+    },
+    "rejected_alternative_statistics": {
+      "total_rejected": 18,
+      "by_behaviour": {
+        "OB_CON_001": 2,
+        "OB_CON_003": 2,
+        "OB_PRO_001": 2,
+        "OB_PRO_005": 2,
+        "OB_PRO_008": 2,
+        "OB_REF_001": 2,
+        "OB_STR_001": 2,
+        "OB_STR_002": 2,
+        "OB_STR_004": 2
+      },
+      "records": [
+        {
+          "behaviour_id": "OB_CON_001",
+          "ilo_id": "ILO_THRESHOLD",
+          "reason_rejected": "Vocabulary recall does not evidence threshold application."
+        },
+        {
+          "behaviour_id": "OB_CON_001",
+          "ilo_id": "ILO_RULE",
+          "reason_rejected": "Terminology use alone does not evidence rule articulation."
+        },
+        {
+          "behaviour_id": "OB_CON_003",
+          "ilo_id": "ILO_THRESHOLD",
+          "reason_rejected": "Mechanism explanation without application does not support threshold ILO."
+        },
+        {
+          "behaviour_id": "OB_CON_003",
+          "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+          "reason_rejected": "Explanation is not parameter search."
+        },
+        {
+          "behaviour_id": "OB_PRO_001",
+          "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+          "reason_rejected": "Single threshold application is not optimization."
+        },
+        {
+          "behaviour_id": "OB_PRO_001",
+          "ilo_id": "ILO_RULE",
+          "reason_rejected": "Applying a cutoff is not equivalent to stating a full if-then rule."
+        },
+        {
+          "behaviour_id": "OB_PRO_005",
+          "ilo_id": "ILO_THRESHOLD",
+          "reason_rejected": "Rule articulation is not threshold setting."
+        },
+        {
+          "behaviour_id": "OB_PRO_005",
+          "ilo_id": "ILO_DECISION_TREE",
+          "reason_rejected": "Single rule statement does not evidence full tree construction."
+        },
+        {
+          "behaviour_id": "OB_PRO_008",
+          "ilo_id": "ILO_CLASSIFICATION",
+          "reason_rejected": "Tool manipulation alone does not document classification outcome."
+        },
+        {
+          "behaviour_id": "OB_PRO_008",
+          "ilo_id": "ILO_RULE",
+          "reason_rejected": "Exploration actions are not rule articulation."
+        },
+        {
+          "behaviour_id": "OB_REF_001",
+          "ilo_id": "ILO_MODEL_EVALUATION",
+          "reason_rejected": "Reflection without performance evidence does not support evaluation ILO."
+        },
+        {
+          "behaviour_id": "OB_REF_001",
+          "ilo_id": "ILO_THRESHOLD",
+          "reason_rejected": "Metacognitive reflection is not threshold reasoning."
+        },
+        {
+          "behaviour_id": "OB_STR_001",
+          "ilo_id": "ILO_RULE",
+          "reason_rejected": "Threshold comparison does not require if-then rule articulation."
+        },
+        {
+          "behaviour_id": "OB_STR_001",
+          "ilo_id": "ILO_FEATURE",
+          "reason_rejected": "Comparison targets thresholds, not feature vocabulary."
+        },
+        {
+          "behaviour_id": "OB_STR_002",
+          "ilo_id": "ILO_DECISION_TREE",
+          "reason_rejected": "Feature/threshold selection is not full tree construction."
+        },
+        {
+          "behaviour_id": "OB_STR_002",
+          "ilo_id": "ILO_MCR",
+          "reason_rejected": "Selection criterion need not include metric computation."
+        },
+        {
+          "behaviour_id": "OB_STR_004",
+          "ilo_id": "ILO_THRESHOLD",
+          "reason_rejected": "Pattern citation is not threshold application."
+        },
+        {
+          "behaviour_id": "OB_STR_004",
+          "ilo_id": "ILO_CLASSIFICATION",
+          "reason_rejected": "Feature hypothesis is not case classification."
+        }
+      ]
+    }
   },
-  "mapping_count": 60
+  "milestone": 3
 }

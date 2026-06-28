@@ -713,7 +713,6 @@ def build_document(ilo_data: dict[str, Any], ob_data: dict[str, Any], map_data: 
         "behaviour_to_ilo_version": map_data.get("freeze", {}).get("version", "1.1"),
         "domain_count": len(enrich_domains()),
         "domain_pair_differentiation": DOMAIN_PAIR_DIFFERENTIATION,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
         "domains": domain_map,
     }
 

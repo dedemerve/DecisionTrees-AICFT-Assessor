@@ -69,14 +69,16 @@ class TestBehaviourToIlo(unittest.TestCase):
                 self.assertIn(iid, mapped, f"{bid} -> {iid}")
 
     def test_analytics_reports_exist(self) -> None:
-        report_dir = REPO / "reports" / "milestone3"
-        for name in (
-            "mapping_coverage_report.json",
-            "construct_matrix.json",
-            "cross_construct_matrix.json",
-            "mapping_statistics.json",
+        validation = REPO / "reports" / "milestone3_validation.json"
+        self.assertTrue(validation.is_file())
+        data = json.loads(validation.read_text())
+        for key in (
+            "mapping_coverage_report",
+            "construct_matrix",
+            "cross_construct_matrix",
+            "mapping_statistics",
         ):
-            self.assertTrue((report_dir / name).is_file(), name)
+            self.assertIn(key, data, key)
 
     def test_validator_passes(self) -> None:
         result = subprocess.run(

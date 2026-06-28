@@ -1,21 +1,77 @@
 # WS1 scoring context
 
-This file is injected alongside `stage3_scoring.md` when scoring WS1.
+Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 1** (nutrition-label terminology).
 
-## Files to load
+## Artifacts
 
-- Rubric: `rubrics/WS1_rubric.json`
-- Mapping: `mappings/WS1_AICFT_mapping.json`
-- Responses: `students/<student>/WS1.json → extraction`
+| Role | Path |
+|------|------|
+| Rubric | `rubrics/WS1_rubric.json` |
+| Answer key | `worksheets/WS1/answer_key.json` |
+| Mapping | `mappings/WS1_AICFT_mapping.json` |
+| Validity | `worksheets/WS1/validity_notes.json` |
+| Responses | `students/<student_id>/WS1/extraction.json` |
 
-## Worksheet description
+**Pipeline group:** A (no `validation.json`).
 
-WS1 is a vocabulary worksheet. Students define 11 machine learning terms: instance, attribute, label, threshold, decision rule, true positive, false positive, sensitivity, MCR, overfitting, decision tree.
+---
 
-B8 (sensitivity) and B9 (MCR) are formula items validated deterministically in Stage 2. Use the validation output; do not re-evaluate the formula arithmetic.
+## Construct
 
-## Scoring notes
+Seven printed blanks (5–11) on a **nutrition label** paragraph. Students supply short Turkish terms linking the food-recommendation scenario to ML vocabulary: **object (nesne)**, **feature (özellik)**, **variable/label (değişken/etiket)**, feature count, nutrient list, example food, and recommendation-as-label.
 
-- B1-B7, B10, B11: semantic matching against rubric.full concepts. Accept paraphrases and equivalent terminology.
-- B10 (overfitting): a one-sided answer that names only "good training performance" without mentioning "poor generalization" is partial credit. This item carries an early-indicator signal for LO3.2.3 only when both components are expressed.
-- B11: student must reference at least 2 of the structural concepts (nodes, branches, leaves, recursive learning) for full credit.
+This is **vocabulary recall in context**, not procedural modelling. Do not treat WS1 as a formula or threshold worksheet.
+
+---
+
+## Terminology equivalence (rubric `equivalence_sets`)
+
+| Set | Accept either term |
+|-----|-------------------|
+| `object_feature` | nesne **or** özellik (+ aliases: varlık, örnek, karakteristik, …) |
+| `variable_label` | değişken **or** etiket (+ aliases: label, etiket olarak, …) |
+
+Python applies `any_of_tokens` deterministically when `check` is set. LLM competency inference should note which term the student used without penalizing valid equivalents.
+
+---
+
+## Items (7 scored)
+
+| Item | Blank | Evaluation | Scoring |
+|------|-------|------------|---------|
+| `WS1_B1` | 5 | `any_of_tokens` → `variable_label` | Deterministic. Example: *etiket* |
+| `WS1_B2` | 6 | `any_of_tokens` → `object_feature` | Deterministic. Example: *nesne* |
+| `WS1_B3` | 7 | `any_of_tokens` → either set | Deterministic. Example: *özellik* |
+| `WS1_B4` | 8 | `single_concept` — feature count | Semantic. Accept **7** (table rows) or **8** (full card corpus). |
+| `WS1_B5` | 9 | `unordered_token_set` — nutrient names | Deterministic token groups; order-free. Need ≥5 of 7 groups for full; ≥3 partial. Groups: enerji, yağ, doymuş yağ, karbonhidrat, şeker, protein, tuz. |
+| `WS1_B6` | 10 | `single_concept` — example food object | Semantic. e.g. *Fındıklı Gofret* or any food named on the sheet. |
+| `WS1_B7` | 11 | `any_of_tokens` → `variable_label` | Deterministic + optional outcome phrases (*tavsiye edilir/edilmez*). Example: *etiket* |
+
+---
+
+## Competency inference
+
+All items map primarily to **LO3.1.2** (Acquire — conceptual vocabulary for data-driven classification). Strength ceiling is typically **moderate**; WS1 demonstrates **naming**, not application.
+
+| Guidance | Action |
+|----------|--------|
+| Full credit on terminology items | LO3.1.2 **moderate** when student uses term correctly in context |
+| Partial on B5 (3–4 nutrients) | LO3.1.2 **weak** |
+| B4 wrong count | Do not infer LO3.2.x — no application demonstrated |
+
+**Do not** map WS1 to LO3.2.2 (Deepen) — no threshold or model decision is required.
+
+---
+
+## Validity constraints
+
+- Fill-in recall ≠ procedural competence — keep strength at mapping ceiling.
+- Feature count 7 vs 8 is a known scorer tolerance (see `validity_notes.json`).
+- No cross-worksheet dependencies.
+
+---
+
+## Review flags
+
+- `review: true` if OCR garbles Turkish characters (ş/ğ/ı) and token match is uncertain.
+- `review: true` if B5 lists fewer than 3 recognizable nutrient tokens.

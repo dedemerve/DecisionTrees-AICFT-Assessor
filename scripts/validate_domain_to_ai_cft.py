@@ -17,7 +17,6 @@ from typing import Any
 REPO = Path(__file__).resolve().parent.parent
 POLICY_PATH = REPO / "framework" / "Domain_to_AI_CFT.json"
 DOMAIN_PATH = REPO / "framework" / "Domain_Understanding.json"
-REPORT_DIR = REPO / "reports" / "milestone5"
 
 DOMAIN_PATTERN = re.compile(r"^DU_[A-Z][A-Z0-9_]+$")
 AICFT_PATTERN = re.compile(r"^LO3\.\d+\.\d+$")
@@ -156,7 +155,6 @@ def validate_policy(
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--reports-dir", type=Path, default=REPORT_DIR)
     parser.add_argument("--quiet", action="store_true")
     args = parser.parse_args(argv)
 
@@ -164,35 +162,21 @@ def main(argv: list[str] | None = None) -> int:
     domain_doc = load_json(DOMAIN_PATH)
     errors, warnings, analytics = validate_policy(doc, domain_doc)
     status = "pass" if not errors else "fail"
-    now = datetime.now(timezone.utc).isoformat()
 
-    args.reports_dir.mkdir(parents=True, exist_ok=True)
-    (args.reports_dir / "aicft_coverage_report.json").write_text(
-        json.dumps({"generated_at": now, **analytics["aicft_coverage_report"]}, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "interpretation_statistics.json").write_text(
-        json.dumps({
-            "generated_at": now,
-            "status": status,
+    from milestone_reporting import write_validation  # noqa: E402
+
+    write_validation(5, {
+        "artifact": "Domain_to_AI_CFT.json",
+        "status": status,
+        "errors": errors,
+        "warnings": warnings,
+        "aicft_coverage_report": analytics["aicft_coverage_report"],
+        "interpretation_statistics": {
             "interpretation_type_distribution": analytics["interpretation_type_distribution"],
             "confidence_ceiling_distribution": analytics["confidence_ceiling_distribution"],
             "contribution_count": analytics["aicft_coverage_report"]["contribution_total"],
-        }, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    (args.reports_dir / "milestone5_validation.json").write_text(
-        json.dumps({
-            "milestone": 5,
-            "artifact": "Domain_to_AI_CFT.json",
-            "generated_at": now,
-            "status": status,
-            "errors": errors,
-            "warnings": warnings,
-            "analytics_summary": analytics["aicft_coverage_report"],
-        }, indent=2) + "\n",
-        encoding="utf-8",
-    )
+        },
+    })
 
     if not args.quiet:
         print(f"Domain policies: {analytics['aicft_coverage_report']['domain_policy_count']}")

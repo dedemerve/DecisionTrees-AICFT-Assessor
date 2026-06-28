@@ -266,7 +266,6 @@ def main(argv: list[str] | None = None) -> int:
         "domain_ontology_version": domain_data.get("freeze", {}).get("version", "1.0"),
         "ilo_ontology_reference": "framework/Learning_Objects.json",
         "ilo_ontology_version": ilo_data.get("freeze", {}).get("version", "1.0"),
-        "generated_at": datetime.now(timezone.utc).isoformat(),
         "mapping_count": pair_count,
         "ilo_count": len(mappings),
         "rejected_alternative_count": sum(len(b["rejected_alternatives"]) for b in mappings.values()),

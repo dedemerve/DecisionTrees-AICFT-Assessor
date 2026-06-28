@@ -582,7 +582,6 @@ def build_document(domain_doc: dict[str, Any]) -> dict[str, Any]:
         "aicft_reference": "mappings/AICFT_assessment_framework.json",
         "aicft_framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
         "aicft_aspect": "Aspect 3: AI foundations and applications",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
         "domain_policy_count": len(DOMAIN_POLICIES),
         "contribution_count": contribution_count,
         "policies": DOMAIN_POLICIES,

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-generate_milestone4_freeze_package.py — Milestone 4 freeze verification for Domain Understanding.
+generate_milestone4_freeze_package.py — Milestone 4 human summary for Domain Understanding.
 
-Requires: validation pass, domain stress test pass, upstream M3 frozen.
+Legacy script name; writes reports/milestone4_summary.md only.
 
 Usage:
   python scripts/generate_milestone4_freeze_package.py
@@ -13,8 +13,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import shutil
-import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -24,10 +22,17 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 DOMAIN_PATH = REPO_ROOT / "framework" / "Domain_Understanding.json"
 MAP_PATH = REPO_ROOT / "framework" / "LO_to_Domain_Understanding.json"
 B2I_PATH = REPO_ROOT / "framework" / "Behaviour_to_ILO.json"
-M4_REPORTS = REPO_ROOT / "reports" / "milestone4"
-OUTPUT_DIR = REPO_ROOT / "reports" / "milestone4_freeze"
 VALIDATOR = REPO_ROOT / "scripts" / "validate_domain_understanding.py"
 STRESS_TEST = REPO_ROOT / "scripts" / "run_domain_stress_test.py"
+
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
+from milestone_reporting import (  # noqa: E402
+    freeze_status_label,
+    load_json,
+    load_validation,
+    run_quiet_script,
+    write_summary,
+)
 
 MILESTONE5_DESIGN_CONSTRAINT = (
     "Domain_to_AI_CFT must not be implemented as a deterministic lookup table. AI-CFT claims are "
@@ -39,27 +44,13 @@ MILESTONE5_DESIGN_CONSTRAINT = (
 )
 
 
-def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
-def run_script(script: Path) -> tuple[int, dict[str, Any]]:
-    proc = subprocess.run(
-        [sys.executable, str(script), "--quiet"],
-        cwd=REPO_ROOT,
-        capture_output=True,
-        text=True,
-    )
-    return proc.returncode, {}
-
-
 def apply_freeze_metadata(domain_doc: dict[str, Any], map_doc: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
     now = datetime.now(timezone.utc).isoformat()
     freeze_block = {
         "status": "frozen",
         "version": "1.0",
         "frozen_at": now,
-        "freeze_package_dir": "reports/milestone4_freeze",
+        "freeze_package_dir": "reports",
         "expert_review_status": "automated_review_complete; domain_stress_test_passed; human_expert_review_pending",
         "change_policy": "major_version_required_for_semantic_changes",
         "inference_layer": True,
@@ -79,18 +70,18 @@ def apply_freeze_metadata(domain_doc: dict[str, Any], map_doc: dict[str, Any]) -
     return domain_doc, map_doc
 
 
-def write_freeze_report_md(
+def write_summary_md(
     domain_doc: dict[str, Any],
     validation: dict[str, Any],
     stress: dict[str, Any],
-    independence: dict[str, Any],
-    apply_freeze: bool,
+    applying: bool,
 ) -> str:
-    stats = load_json(M4_REPORTS / "mapping_statistics.json") if (M4_REPORTS / "mapping_statistics.json").exists() else {}
-    density = stats.get("mapping_density", {})
+    density = validation.get("mapping_statistics", {}).get("mapping_density", {})
+    independence = validation.get("domain_independence_matrix", {})
+    status = freeze_status_label(domain_doc, applying=applying)
 
     lines = [
-        "# Milestone 4 Freeze Report",
+        "# Milestone 4 Summary",
         "",
         "## Domain Understanding Ontology",
         "",
@@ -98,8 +89,7 @@ def write_freeze_report_md(
         "|-------|-------|",
         "| Artifacts | `Domain_Understanding.json`, `LO_to_Domain_Understanding.json` |",
         "| Version | **1.0** |",
-        f"| Freeze status | **{'FROZEN' if apply_freeze else 'PENDING_APPLY'}** |",
-        f"| Generated | {datetime.now(timezone.utc).isoformat()} |",
+        f"| Freeze status | **{status}** |",
         f"| Domains | {domain_doc.get('domain_count', 8)} emergent assessment constructs |",
         f"| ILO→Domain pairs | {density.get('accepted_pair_count', '?')} |",
         f"| Domain stress tests | {stress.get('passed', '?')}/{stress.get('test_count', 5)} passed |",
@@ -123,7 +113,6 @@ def write_freeze_report_md(
         "",
         f"- Pairs analyzed: {independence.get('pair_count', 28)}",
         f"- High/moderate overlap risk: {independence.get('high_or_moderate_risk_pairs', '?')}",
-        "- Full matrix: `domain_independence_matrix.json`",
         "",
         "### Top overlap pairs",
         "",
@@ -148,15 +137,9 @@ def write_freeze_report_md(
 
     lines.extend([
         "",
-        "## Automated analytics (freeze package)",
+        "## Automated validation",
         "",
-        "- `domain_coverage_report.json`",
-        "- `domain_independence_matrix.json`",
-        "- `domain_stress_test.json`",
-        "- `construct_matrix.json`",
-        "- `cross_construct_matrix.json`",
-        "- `mapping_statistics.json`",
-        "- `milestone4_validation.json`",
+        "- `reports/milestone4_validation.json` — single validation artifact (includes stress test when run)",
         "",
         "## Remaining risks",
         "",
@@ -185,7 +168,7 @@ def write_freeze_report_md(
 
     val_ok = validation.get("status") == "pass"
     stress_ok = stress.get("status") == "pass"
-    if val_ok and stress_ok and apply_freeze:
+    if val_ok and stress_ok and applying:
         lines.append(
             "**APPROVED:** Domain Understanding v1.0 and LO_to_Domain_Understanding v1.0 are frozen. "
             "Milestone 5 (`Domain_to_AI_CFT.json`) may proceed only under the recorded design constraint."
@@ -198,29 +181,9 @@ def write_freeze_report_md(
     return "\n".join(lines) + "\n"
 
 
-def copy_reports(output_dir: Path) -> list[str]:
-    output_dir.mkdir(parents=True, exist_ok=True)
-    copied: list[str] = []
-    for name in (
-        "domain_coverage_report.json",
-        "domain_independence_matrix.json",
-        "domain_stress_test.json",
-        "construct_matrix.json",
-        "cross_construct_matrix.json",
-        "mapping_statistics.json",
-        "milestone4_validation.json",
-    ):
-        src = M4_REPORTS / name
-        if src.exists():
-            shutil.copy2(src, output_dir / name)
-            copied.append(name)
-    return copied
-
-
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Generate Milestone 4 freeze package")
+    parser = argparse.ArgumentParser(description="Generate Milestone 4 summary")
     parser.add_argument("--apply-freeze", action="store_true")
-    parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR)
     args = parser.parse_args(argv)
 
     errors: list[str] = []
@@ -228,16 +191,16 @@ def main(argv: list[str] | None = None) -> int:
     if b2i.get("freeze", {}).get("status") != "frozen":
         errors.append("Behaviour_to_ILO.json must be frozen first")
 
-    val_rc, _ = run_script(VALIDATOR)
-    stress_rc, _ = run_script(STRESS_TEST)
-    validation = load_json(M4_REPORTS / "milestone4_validation.json")
-    stress = load_json(M4_REPORTS / "domain_stress_test.json")
-    independence = load_json(M4_REPORTS / "domain_independence_matrix.json")
-
-    if val_rc != 0:
+    if run_quiet_script(VALIDATOR) != 0:
         errors.append("validate_domain_understanding.py failed")
-    if stress_rc != 0:
+    if run_quiet_script(STRESS_TEST) != 0:
         errors.append("run_domain_stress_test.py failed")
+
+    validation = load_validation(4)
+    stress = validation.get("stress_test", {})
+    if not stress:
+        errors.append("run_domain_stress_test.py must populate stress_test in milestone4_validation.json")
+    errors.extend(validation.get("errors", []))
 
     domain_doc = load_json(DOMAIN_PATH)
     map_doc = load_json(MAP_PATH)
@@ -246,37 +209,16 @@ def main(argv: list[str] | None = None) -> int:
         if "construct_validation" not in dom:
             errors.append(f"{did}: missing construct_validation")
 
-    copied = copy_reports(args.output_dir)
-    if len(copied) < 7:
-        errors.append(f"incomplete milestone4 reports copied ({len(copied)}/7)")
+    applying = args.apply_freeze and not errors
+    summary_path = write_summary(4, write_summary_md(domain_doc, validation, stress, applying))
 
-    report = write_freeze_report_md(
-        domain_doc, validation, stress, independence, args.apply_freeze and not errors,
-    )
-    (args.output_dir / "milestone4_freeze_report.md").write_text(report, encoding="utf-8")
-
-    freeze_summary = {
-        "milestone": 4,
-        "artifacts": ["Domain_Understanding.json", "LO_to_Domain_Understanding.json"],
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "validation_status": validation.get("status"),
-        "stress_test_status": stress.get("status"),
-        "errors": errors,
-        "reports_copied": copied,
-        "pass": not errors,
-    }
-    (args.output_dir / "freeze_verification.json").write_text(
-        json.dumps(freeze_summary, indent=2) + "\n",
-        encoding="utf-8",
-    )
-
-    if args.apply_freeze and not errors:
+    if applying:
         updated_domain, updated_map = apply_freeze_metadata(domain_doc, map_doc)
         DOMAIN_PATH.write_text(json.dumps(updated_domain, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         MAP_PATH.write_text(json.dumps(updated_map, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         print("Freeze metadata applied to Domain_Understanding.json and LO_to_Domain_Understanding.json")
 
-    print(f"Freeze package: {args.output_dir}")
+    print(f"Summary: {summary_path}")
     print(f"Status: {'PASS' if not errors else 'FAIL'}")
     for e in errors:
         print(f"  - {e}")

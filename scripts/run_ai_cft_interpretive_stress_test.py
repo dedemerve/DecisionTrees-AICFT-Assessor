@@ -7,13 +7,11 @@ from __future__ import annotations
 
 import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 REPO = Path(__file__).resolve().parent.parent
 POLICY_PATH = REPO / "framework" / "Domain_to_AI_CFT.json"
-REPORT_DIR = REPO / "reports" / "milestone5"
 
 CONF_RANK = {"none": -1, "very_weak": 0, "weak": 1, "moderate": 2, "strong": 3}
 
@@ -193,23 +191,19 @@ def main(argv: list[str] | None = None) -> int:
     policy = load_policy()
     tests = run_tests(policy)
     all_pass = all(t["pass"] for t in tests)
-    now = datetime.now(timezone.utc).isoformat()
 
     report = {
-        "generated_at": now,
         "suite": "ai_cft_interpretive_stress_test",
-        "milestone": 5,
         "status": "pass" if all_pass else "fail",
         "test_count": len(tests),
         "passed": sum(1 for t in tests if t["pass"]),
         "tests": tests,
     }
 
-    REPORT_DIR.mkdir(parents=True, exist_ok=True)
-    (REPORT_DIR / "ai_cft_interpretive_stress_test.json").write_text(
-        json.dumps(report, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
+    sys.path.insert(0, str(REPO / "scripts"))
+    from milestone_reporting import patch_validation  # noqa: E402
+
+    patch_validation(5, {"stress_test": report})
 
     print(f"AI-CFT Interpretive Stress Test: {report['passed']}/{report['test_count']} passed")
     print(f"Status: {report['status'].upper()}")

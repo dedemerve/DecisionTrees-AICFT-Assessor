@@ -1,7 +1,6 @@
 {
   "milestone": 1,
   "artifact": "Observable_Behaviours.json",
-  "generated_at": "2026-06-28T17:44:42.037849+00:00",
   "status": "pass",
   "error_count": 0,
   "warning_count": 0,
@@ -124,5 +123,63 @@
     "explainability": "decreases — no stable behaviour codes",
     "confidence_propagation": "cannot anchor to lower layer",
     "flag_unnecessary": false
+  },
+  "coverage": {
+    "milestone": 1,
+    "artifact": "Observable_Behaviours.json",
+    "summary": {
+      "behaviour_count": 28,
+      "by_construct_dimension": {
+        "conceptual": 6,
+        "procedural": 9,
+        "reflective": 4,
+        "strategic": 9
+      },
+      "by_possible_source": {
+        "codap": 17,
+        "interview": 13,
+        "observation": 5,
+        "reflection": 19,
+        "screen_recording": 6,
+        "worksheet": 27
+      },
+      "by_cognitive_process": {
+        "analyze": 4,
+        "apply": 7,
+        "compare": 1,
+        "create": 1,
+        "evaluate": 3,
+        "justify": 1,
+        "reflect": 3,
+        "remember": 2,
+        "synthesize": 1,
+        "understand": 5
+      },
+      "by_difficulty": {
+        "advanced": 6,
+        "foundational": 6,
+        "intermediate": 16
+      },
+      "construct_dimensions_covered": [
+        "conceptual",
+        "procedural",
+        "reflective",
+        "strategic"
+      ],
+      "missing_construct_dimensions": [],
+      "unused_source_families": []
+    },
+    "overlap_analysis": {
+      "pair_count": 0,
+      "pairs": []
+    },
+    "worksheet_independence": {
+      "worksheet_references_found": 0,
+      "status": "pass"
+    },
+    "aicft_independence": {
+      "aicft_references_found": 0,
+      "status": "pass"
+    }
   }
 }
