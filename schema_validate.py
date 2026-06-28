@@ -2,6 +2,7 @@
 schema_validate.py — Structural validation for portfolio and mapping artifacts.
 
 Uses hand-written checks (no jsonschema dependency) aligned with schema/*.schema.json.
+For draft-2020-12 instance validation, use schema_json_validate.py and validate_schemas.py.
 """
 
 from __future__ import annotations

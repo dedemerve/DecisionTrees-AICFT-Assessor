@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/common_v1.schema.json",
+  "title": "Shared ProDaBi schema definitions",
+  "$defs": {
+    "worksheet_id": {
+      "type": "string",
+      "pattern": "^(WS\\d+|WS_DT)$",
+      "description": "Worksheet identifier: unplugged WS1–WS11 or CODAP WS_DT."
+    },
+    "curriculum_status": {
+      "enum": [
+        "deployed",
+        "not_deployed"
+      ]
+    },
+    "pipeline_stage_envelope": {
+      "type": "string",
+      "enum": [
+        "extraction",
+        "validation",
+        "scoring",
+        "evidence"
+      ]
+    }
+  }
+}

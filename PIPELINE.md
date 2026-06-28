@@ -52,6 +52,14 @@ Performance-based assessment mappings live in:
 | `mappings/<WS>_AICFT_mapping.json` | Per-worksheet scorer view (schema 2.0) |
 | `schema/portfolio_v1.schema.json` | Portfolio rollup contract |
 | `schema/mapping_v2.schema.json` | Competency mapping contract |
+| `schema/README.md` | Full schema ↔ instance catalog |
+
+Install validation dependency and run JSON Schema checks:
+
+```bash
+pip install -r requirements.txt
+python validate_schemas.py
+```
 
 Regenerate all mapping artifacts after editing competency logic:
 
@@ -79,6 +87,7 @@ Worksheet-specific scorer context (edge cases, Section A/Q11 rules):
 python ocr_pipeline.py full
 python run_phase2.py Sample_Student
 python calibrate_scoring.py Sample_Student
+python validate_schemas.py
 python validate_pipeline_outputs.py
 ```
 

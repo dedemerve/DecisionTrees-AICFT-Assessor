@@ -9,8 +9,7 @@
   "additionalProperties": true,
   "properties": {
     "worksheet": {
-      "type": "string",
-      "pattern": "^WS\\d+$"
+      "$ref": "common_v1.schema.json#/$defs/worksheet_id"
     },
     "curriculum_status": {
       "enum": [

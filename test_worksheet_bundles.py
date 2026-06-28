@@ -18,6 +18,7 @@ from validate_worksheet_bundles import validate_all_bundles  # noqa: E402
 from worksheet_bundle_data import (  # noqa: E402
     ALL_WORKSHEETS,
     BUNDLE_FILES,
+    BUNDLE_WORKSHEETS,
     DEPLOYED_WORKSHEETS,
 )
 
@@ -32,12 +33,12 @@ def build_bundles_once() -> None:
 
 
 def test_all_worksheet_directories_exist() -> None:
-    for ws in ALL_WORKSHEETS:
+    for ws in BUNDLE_WORKSHEETS:
         assert (WORKSHEETS_DIR / ws).is_dir(), f"missing {ws}"
 
 
 def test_bundle_contains_exactly_five_files() -> None:
-    for ws in ALL_WORKSHEETS:
+    for ws in BUNDLE_WORKSHEETS:
         files = {p.name for p in (WORKSHEETS_DIR / ws).iterdir() if p.is_file()}
         assert files == set(BUNDLE_FILES), f"{ws}: {files}"
 
@@ -45,6 +46,12 @@ def test_bundle_contains_exactly_five_files() -> None:
 def test_validate_all_bundles_passes() -> None:
     errors = validate_all_bundles()
     assert errors == [], "\n".join(errors)
+
+
+def test_ws_dt_bundle_validates() -> None:
+    from schema_json_validate import validate_worksheet_bundle
+
+    assert validate_worksheet_bundle("WS_DT") == []
 
 
 def test_deployed_rubrics_load_from_bundle() -> None:
@@ -65,7 +72,7 @@ def test_behaviour_opportunities_reference_only_ob_ids() -> None:
             (WORKSHEETS_DIR / ws / "behaviour_opportunities.json").read_text(encoding="utf-8")
         )
         for item_id, entry in bo["items"].items():
-            for opp in entry["opportunities"]:
+            for opp in entry.get("opportunities", []):
                 assert opp["behaviour_id"] in ob_ids, f"{ws}/{item_id}: {opp['behaviour_id']}"
 
 

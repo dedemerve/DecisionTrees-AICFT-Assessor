@@ -2,7 +2,8 @@
 """
 validate_worksheet_bundles.py
 
-Validate worksheet bundles (WS1, WS3–WS7, WS10, WS11) against schema and framework constraints.
+Validate worksheet bundles (unplugged WS1, WS3–WS11, plus CODAP WS_DT) against
+JSON Schema and framework constraints.
 """
 
 from __future__ import annotations
@@ -18,11 +19,13 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from pipeline_schema import RUBRIC_SCHEMA_VERSION, validate_rubric_v3  # noqa: E402
+from pipeline_schema import validate_rubric_v3  # noqa: E402
+from schema_json_validate import validate_bundle_file  # noqa: E402
 from worksheet_bundle_data import (  # noqa: E402
-    ALL_WORKSHEETS,
     BEHAVIOUR_MAP,
     BUNDLE_FILES,
+    BUNDLE_WORKSHEETS,
+    CODAP_WORKSHEETS,
     DEPLOYED_WORKSHEETS,
     FORBIDDEN_SUBSTRINGS,
     OB_REF,
@@ -32,7 +35,6 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 log = logging.getLogger(__name__)
 
 WORKSHEETS_DIR = REPO_ROOT / "worksheets"
-SCHEMA_DIR = REPO_ROOT / "schema"
 FRAMEWORK_OB = REPO_ROOT / "framework" / "Observable_Behaviours.json"
 
 OB_ID_PATTERN = re.compile(r"^OB_[A-Z]{3}_\d{3}$")
@@ -74,6 +76,7 @@ def validate_bundle_directory(worksheet: str, ob_ids: set[str]) -> list[str]:
     errors: list[str] = []
     bundle_dir = WORKSHEETS_DIR / worksheet
     prefix = f"{worksheet}"
+    codap = worksheet in CODAP_WORKSHEETS
 
     if not bundle_dir.is_dir():
         return [f"{prefix}: missing bundle directory {bundle_dir}"]
@@ -97,6 +100,7 @@ def validate_bundle_directory(worksheet: str, ob_ids: set[str]) -> list[str]:
             errors.append(f"{prefix}/{name}: invalid JSON — {exc}")
             return errors
         errors.extend(_forbidden_scan(payloads[name], f"{prefix}/{name}"))
+        errors.extend(validate_bundle_file(worksheet, name, payloads[name]))
 
     rubric = payloads.get("rubric.json", {})
     extraction = payloads.get("extraction_schema.json", {})
@@ -139,16 +143,17 @@ def validate_bundle_directory(worksheet: str, ob_ids: set[str]) -> list[str]:
         if extra_bo:
             errors.append(f"{prefix}: behaviour_opportunities extra items {sorted(extra_bo)}")
 
-        for item_id, entry in bo_items.items():
-            opps = entry.get("opportunities", [])
-            if not opps:
-                errors.append(f"{prefix}: {item_id} has no behaviour opportunities")
-            for opp in opps:
-                bid = opp.get("behaviour_id", "")
-                if not OB_ID_PATTERN.match(bid):
-                    errors.append(f"{prefix}: {item_id} invalid behaviour_id {bid!r}")
-                elif bid not in ob_ids:
-                    errors.append(f"{prefix}: {item_id} unknown behaviour_id {bid!r}")
+        if not codap:
+            for item_id, entry in bo_items.items():
+                opps = entry.get("opportunities", [])
+                if not opps:
+                    errors.append(f"{prefix}: {item_id} has no behaviour opportunities")
+                for opp in opps:
+                    bid = opp.get("behaviour_id", "")
+                    if not OB_ID_PATTERN.match(bid):
+                        errors.append(f"{prefix}: {item_id} invalid behaviour_id {bid!r}")
+                    elif bid not in ob_ids:
+                        errors.append(f"{prefix}: {item_id} unknown behaviour_id {bid!r}")
 
         ak_items = set(answer_key.get("items", {}))
         if ak_items != rubric_items:
@@ -160,7 +165,7 @@ def validate_bundle_directory(worksheet: str, ob_ids: set[str]) -> list[str]:
         if not field_ids:
             errors.append(f"{prefix}: extraction_schema has no fields")
 
-        if worksheet in BEHAVIOUR_MAP:
+        if not codap and worksheet in BEHAVIOUR_MAP:
             for item_id in rubric_items:
                 if item_id not in BEHAVIOUR_MAP.get(worksheet, {}):
                     errors.append(f"{prefix}: BEHAVIOUR_MAP missing definition for {item_id}")
@@ -178,7 +183,7 @@ def validate_all_bundles() -> list[str]:
     if not ob_ids:
         return ["framework/Observable_Behaviours.json: no behaviour IDs loaded"]
     errors: list[str] = []
-    for ws in ALL_WORKSHEETS:
+    for ws in BUNDLE_WORKSHEETS:
         errors.extend(validate_bundle_directory(ws, ob_ids))
     return errors
 
@@ -190,7 +195,7 @@ def main() -> int:
             log.error("%s", err)
         log.error("Validation FAILED (%d errors)", len(errors))
         return 1
-    log.info("All %d worksheet bundles valid", len(ALL_WORKSHEETS))
+    log.info("All %d worksheet bundles valid", len(BUNDLE_WORKSHEETS))
     return 0
 
 

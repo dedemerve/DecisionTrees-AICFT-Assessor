@@ -36,14 +36,17 @@
     "WS6 tree spatial layout is only partially captured by 13 OCR fields; validity threat documented but not mitigated in OCR pipeline yet.",
     "WS7 Part 1 uses fixed sample tree while Part 2 depends on WS6; cross-worksheet consistency validation is not yet wired into pipeline.",
     "Legacy rubrics/ and mappings/ directories remain for backward compatibility; pipeline still references mappings/ for portfolio rollup until behaviour engine milestone.",
-    "JSON Schema validation uses structural validators in validate_worksheet_bundles.py; full jsonschema draft validation against schema/*.schema.json is not yet automated.",
+    "JSON Schema validation via validate_schemas.py and schema_json_validate.py; structural cross-checks in validate_worksheet_bundles.py.",
     "WS_DT (plugged/CODAP phase) is out of scope for this milestone."
   ],
   "files_created": [
+    "schema/common_v1.schema.json",
     "schema/extraction_schema_v1.schema.json",
     "schema/behaviour_opportunities_v1.schema.json",
     "schema/validity_notes_v1.schema.json",
     "schema/answer_key_v1.schema.json",
+    "schema_json_validate.py",
+    "validate_schemas.py",
     "scripts/worksheet_bundle_data.py",
     "scripts/build_worksheet_bundles.py",
     "scripts/validate_worksheet_bundles.py",

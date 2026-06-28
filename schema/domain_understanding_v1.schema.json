@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/domain_understanding_v1.schema.json",
+  "title": "Domain Understanding ontology v1",
+  "type": "object",
+  "required": [
+    "artifact",
+    "ontology_layer",
+    "design_constraint",
+    "construct",
+    "domains",
+    "framework_version"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "artifact": {
+      "const": "domain_understanding_ontology"
+    },
+    "ontology_layer": {
+      "const": "assessment_construct"
+    },
+    "framework_version": {
+      "type": "string"
+    },
+    "design_constraint": {
+      "type": "string",
+      "minLength": 50
+    },
+    "construct": {
+      "type": "string"
+    },
+    "domain_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "domains": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/domain"
+      }
+    }
+  },
+  "$defs": {
+    "domain": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "construct_dimension",
+        "assessment_construct_type",
+        "construct_definition",
+        "theoretical_rationale",
+        "inclusion_criteria",
+        "exclusion_criteria",
+        "convergence_requirements",
+        "contradiction_handling",
+        "indicative_ilos",
+        "construct_validation"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^DU_[A-Z][A-Z0-9_]+$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "construct_dimension": {
+          "enum": [
+            "conceptual",
+            "procedural",
+            "strategic",
+            "reflective"
+          ]
+        },
+        "assessment_construct_type": {
+          "const": "emergent"
+        },
+        "construct_definition": {
+          "type": "string",
+          "minLength": 20
+        },
+        "inclusion_criteria": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string"
+          }
+        },
+        "exclusion_criteria": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string"
+          }
+        },
+        "convergence_requirements": {
+          "type": "object",
+          "required": [
+            "minimum_distinct_ilos"
+          ],
+          "additionalProperties": true
+        },
+        "construct_validation": {
+          "type": "object",
+          "required": [
+            "what_construct_represents",
+            "supporting_evidence",
+            "non_supporting_evidence",
+            "not_formed_when",
+            "confusable_with"
+          ],
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}

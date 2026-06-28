@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 from confidence_calibration import apply_review_flag
+from schema_json_validate import validate_student_artifact
 from schema_validate import validate_all_mappings_v2, validate_portfolio_v1
 from pipeline_schema import (
     WORKSHEETS_REQUIRING_VALIDATION,
@@ -56,6 +57,7 @@ def _validate_envelope(data: dict, stage: str, prefix: str, errors: list[str]) -
 
 def validate_scoring_data(data: dict, prefix: str, errors: list[str]) -> None:
     _validate_envelope(data, "scoring", prefix, errors)
+    errors.extend(validate_student_artifact("scoring", data, prefix=f"{prefix}: "))
     payload = artifact_payload(data)
     ws = data.get("worksheet")
     if payload.get("blocked"):
@@ -86,6 +88,7 @@ def validate_scoring_data(data: dict, prefix: str, errors: list[str]) -> None:
 
 def validate_evidence_data(data: dict, prefix: str, errors: list[str]) -> None:
     _validate_envelope(data, "evidence", prefix, errors)
+    errors.extend(validate_student_artifact("evidence", data, prefix=f"{prefix}: "))
     payload = artifact_payload(data)
     items = payload.get("items")
     if not isinstance(items, list):
@@ -112,6 +115,7 @@ def validate_evidence_data(data: dict, prefix: str, errors: list[str]) -> None:
 
 def validate_extraction_data(data: dict, ws: str, prefix: str, errors: list[str]) -> None:
     _validate_envelope(data, "extraction", prefix, errors)
+    errors.extend(validate_student_artifact("extraction", data, prefix=f"{prefix}: "))
     responses = extraction_responses(data)
     ocr_keys = WORKSHEET_ITEM_IDS.get(ws, [])
     if ocr_keys:
@@ -122,6 +126,7 @@ def validate_extraction_data(data: dict, ws: str, prefix: str, errors: list[str]
 
 def validate_validation_data(data: dict, prefix: str, errors: list[str]) -> None:
     _validate_envelope(data, "validation", prefix, errors)
+    errors.extend(validate_student_artifact("validation", data, prefix=f"{prefix}: "))
     payload = artifact_payload(data)
     for field in ("parse_success", "blocked"):
         if field not in payload:

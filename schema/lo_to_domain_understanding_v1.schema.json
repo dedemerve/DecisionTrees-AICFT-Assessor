@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/lo_to_domain_understanding_v1.schema.json",
+  "title": "ILO to Domain Understanding mapping v1",
+  "type": "object",
+  "required": [
+    "artifact",
+    "inference_layer",
+    "confidence_policy",
+    "design_constraint",
+    "domain_ontology_reference",
+    "domain_ontology_version",
+    "mappings"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "artifact": {
+      "const": "ilo_to_domain_understanding_mapping"
+    },
+    "inference_layer": {
+      "const": true
+    },
+    "domain_ontology_version": {
+      "type": "string"
+    },
+    "mappings": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/ilo_bundle"
+      }
+    }
+  },
+  "$defs": {
+    "ilo_bundle": {
+      "type": "object",
+      "required": [
+        "ilo_id",
+        "records"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "ilo_id": {
+          "type": "string",
+          "pattern": "^ILO_[A-Z][A-Z0-9_]+$"
+        },
+        "records": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/record"
+          }
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "required": [
+        "domain_id",
+        "mapping_role",
+        "mapping_confidence",
+        "confidence_basis",
+        "supporting_rationale",
+        "construct_alignment"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "domain_id": {
+          "type": "string",
+          "pattern": "^DU_[A-Z][A-Z0-9_]+$"
+        },
+        "mapping_role": {
+          "enum": [
+            "primary",
+            "secondary",
+            "contextual",
+            "diagnostic"
+          ]
+        },
+        "mapping_confidence": {
+          "enum": [
+            "high",
+            "moderate",
+            "low",
+            "baseline"
+          ]
+        },
+        "confidence_basis": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "supporting_rationale": {
+          "type": "string",
+          "minLength": 10
+        },
+        "construct_alignment": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 10
+            },
+            {
+              "type": "object",
+              "required": [
+                "ilo_dimension",
+                "domain_dimension",
+                "cross_construct"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "ilo_dimension": {
+                  "enum": [
+                    "conceptual",
+                    "procedural",
+                    "strategic",
+                    "reflective"
+                  ]
+                },
+                "domain_dimension": {
+                  "enum": [
+                    "conceptual",
+                    "procedural",
+                    "strategic",
+                    "reflective"
+                  ]
+                },
+                "cross_construct": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

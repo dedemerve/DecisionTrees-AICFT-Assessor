@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://decisiontrees-aicft-assessor/summary_v1.schema.json",
   "title": "Worksheet Summary Artifact Schema 3.0",
+  "description": "Derived scorecard view only. Do not persist summary.json — build from scoring.json via student_bundle.build_summary_from_scoring().",
   "type": "object",
   "required": [
     "stage",

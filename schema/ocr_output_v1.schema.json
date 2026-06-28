@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://decisiontrees-aicft-assessor/ocr_output_v1.schema.json",
-  "title": "Stage 1 OCR Output Schema 1.0",
+  "title": "Stage 1 OCR gate record (simplified)",
+  "description": "Plausibility checks in ocr_pipeline.validate_ocr_output() use worksheet + responses. Full gate_1/gate_2 records are legacy OCR dumps under ocr_output/; student extraction uses student_extraction_v1.schema.json.",
   "type": "object",
   "required": [
     "worksheet",
