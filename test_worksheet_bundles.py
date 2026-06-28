@@ -19,7 +19,6 @@ from worksheet_bundle_data import (  # noqa: E402
     ALL_WORKSHEETS,
     BUNDLE_FILES,
     DEPLOYED_WORKSHEETS,
-    NOT_DEPLOYED_WORKSHEETS,
 )
 
 
@@ -54,13 +53,6 @@ def test_deployed_rubrics_load_from_bundle() -> None:
         assert rubric["worksheet"] == ws
         assert rubric.get("items"), f"{ws} should have rubric items"
         assert rubric.get("curriculum_status") != "not_deployed"
-
-
-def test_not_deployed_scaffolds_empty() -> None:
-    for ws in sorted(NOT_DEPLOYED_WORKSHEETS):
-        rubric = load_rubric(ws)
-        assert rubric.get("curriculum_status") == "not_deployed"
-        assert rubric.get("items") == {}
 
 
 def test_behaviour_opportunities_reference_only_ob_ids() -> None:

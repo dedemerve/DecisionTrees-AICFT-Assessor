@@ -11,16 +11,19 @@ from typing import Any
 
 OB_REF = "framework/Observable_Behaviours.json"
 
-# Deployed ProDaBi unplugged worksheets with legacy rubrics in rubrics/.
-DEPLOYED_WORKSHEETS: frozenset[str] = frozenset(
-    {"WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS11"}
+# ProDaBi unplugged worksheets with legacy rubrics in rubrics/ (no WS2, WS8, WS9).
+ALL_WORKSHEETS: tuple[str, ...] = (
+    "WS1",
+    "WS3",
+    "WS4",
+    "WS5",
+    "WS6",
+    "WS7",
+    "WS10",
+    "WS11",
 )
 
-NOT_DEPLOYED_WORKSHEETS: frozenset[str] = frozenset({"WS2", "WS8", "WS9"})
-
-ALL_WORKSHEETS: tuple[str, ...] = tuple(
-    f"WS{i}" for i in range(1, 12)
-)
+DEPLOYED_WORKSHEETS: frozenset[str] = frozenset(ALL_WORKSHEETS)
 
 BUNDLE_FILES: tuple[str, ...] = (
     "extraction_schema.json",
@@ -338,36 +341,6 @@ VALIDITY_NOTES: dict[str, dict[str, Any]] = {
             "WS11_B1", "WS11_B2", "WS11_B3", "WS11_B4", "WS11_B5", "WS11_B6", "WS11_B7",
             "WS11_L10", "WS11_L11", "WS11_L12",
         ],
-    },
-    "WS2": {
-        "construct_threats": [],
-        "leakage_risks": [],
-        "evidence_limitations": [
-            "WS2 is not present in the ProDaBi unplugged worksheet corpus (v1).",
-            "Bundle scaffold reserved for future curriculum alignment.",
-        ],
-        "cross_worksheet_dependencies": [],
-        "note": "curriculum_status=not_deployed",
-    },
-    "WS8": {
-        "construct_threats": [],
-        "leakage_risks": [],
-        "evidence_limitations": [
-            "WS8 is not present in the ProDaBi unplugged worksheet corpus (v1).",
-            "Bundle scaffold reserved for future curriculum alignment.",
-        ],
-        "cross_worksheet_dependencies": [],
-        "note": "curriculum_status=not_deployed",
-    },
-    "WS9": {
-        "construct_threats": [],
-        "leakage_risks": [],
-        "evidence_limitations": [
-            "WS9 is not present in the ProDaBi unplugged worksheet corpus (v1).",
-            "Bundle scaffold reserved for future curriculum alignment.",
-        ],
-        "cross_worksheet_dependencies": [],
-        "note": "curriculum_status=not_deployed",
     },
 }
 

@@ -2,7 +2,7 @@
 """
 validate_worksheet_bundles.py
 
-Validate worksheets/WS{1-11}/ bundles against schema and framework constraints.
+Validate worksheet bundles (WS1, WS3–WS7, WS10, WS11) against schema and framework constraints.
 """
 
 from __future__ import annotations
@@ -25,7 +25,6 @@ from worksheet_bundle_data import (  # noqa: E402
     BUNDLE_FILES,
     DEPLOYED_WORKSHEETS,
     FORBIDDEN_SUBSTRINGS,
-    NOT_DEPLOYED_WORKSHEETS,
     OB_REF,
 )
 

@@ -2,7 +2,7 @@
 """
 build_worksheet_bundles.py
 
-Generate worksheets/WS{1-11}/ bundles from legacy rubrics and frozen OB ontology.
+Generate worksheets/WS{1,3,4,5,6,7,10,11}/ bundles from legacy rubrics and frozen OB ontology.
 Each bundle contains exactly five evidence-collection files (no ILO/Domain/AI-CFT).
 """
 
@@ -41,7 +41,6 @@ from worksheet_bundle_data import (  # noqa: E402
     BUNDLE_FILES,
     DEPLOYED_WORKSHEETS,
     EXTRACTION_NOTES,
-    NOT_DEPLOYED_WORKSHEETS,
     OB_REF,
     VALIDITY_NOTES,
 )
@@ -255,20 +254,11 @@ def load_legacy_rubric(worksheet: str) -> dict[str, Any]:
 
 def build_rubric(worksheet: str) -> dict[str, Any]:
     rubric = load_legacy_rubric(worksheet)
-    if worksheet in NOT_DEPLOYED_WORKSHEETS:
-        return {
-            "worksheet": worksheet,
-            "curriculum_status": "not_deployed",
-            "note": "Reserved worksheet ID; not in ProDaBi unplugged corpus v1.",
-            "items": {},
-        }
     out = dict(rubric)
     out.pop("curriculum_status", None)
     out.pop("schema_version", None)
     if worksheet in DEPLOYED_WORKSHEETS or worksheet == "WS_DT":
         out.setdefault("curriculum_status", "deployed")
-    elif worksheet in NOT_DEPLOYED_WORKSHEETS:
-        out.setdefault("curriculum_status", "not_deployed")
     return out
 
 
