@@ -1,0 +1,151 @@
+{
+  "schema_version": "3.0",
+  "worksheet": "WS3",
+  "note": "Part 1 (B1-B6): apply Leo's fat rule, threshold 8.0g fat. B1/B3/B5 are single correct classification labels. B2/B4/B6 require a reasoning statement referencing the feature and the comparison to threshold. Part 2 (B7-B8): student sets their own energy threshold. Full credit if variable is correct AND operator direction is correct. Partial 0.5 if variable is correct but operator is missing or reversed.",
+  "items": {
+    "WS3_B1": {
+      "max_score": 1,
+      "evaluation": "classification",
+      "components": [
+        {
+          "id": "label",
+          "idea": "not recommended classification (tavsiye edilemez, tavsiye edilmez, önerilmez, uygun değil)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "note": "Leo's food 1 has fat > 8g, so label is not recommended.",
+      "example_answer": "Tavsiye edilemez"
+    },
+    "WS3_B2": {
+      "max_score": 1,
+      "evaluation": "reasoning",
+      "components": [
+        {
+          "id": "feature_reference",
+          "idea": "references the fat feature and its value (yağ miktarına atıf)",
+          "required": true
+        },
+        {
+          "id": "threshold_comparison",
+          "idea": "compares to the 8g threshold (8g eşiğiyle karşılaştırma)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez."
+    },
+    "WS3_B3": {
+      "max_score": 1,
+      "evaluation": "classification",
+      "components": [
+        {
+          "id": "label",
+          "idea": "recommended classification (tavsiye edilebilir, tavsiye edilir, önerilir, uygun)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "note": "Leo's food 2 has fat <= 8g, so label is recommended.",
+      "example_answer": "Tavsiye edilebilir"
+    },
+    "WS3_B4": {
+      "max_score": 1,
+      "evaluation": "reasoning",
+      "components": [
+        {
+          "id": "feature_reference",
+          "idea": "references the fat feature and its value (yağ miktarına atıf)",
+          "required": true
+        },
+        {
+          "id": "threshold_comparison",
+          "idea": "compares to the 8g threshold (8g eşiğiyle karşılaştırma)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Yağ değeri 8g eşiğinin altında olduğu için tavsiye edilebilir."
+    },
+    "WS3_B5": {
+      "max_score": 1,
+      "evaluation": "classification",
+      "components": [
+        {
+          "id": "label",
+          "idea": "not recommended classification (tavsiye edilemez, tavsiye edilmez, önerilmez, uygun değil)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "note": "Leo's food 3 has fat > 8g, so label is not recommended.",
+      "example_answer": "Tavsiye edilemez"
+    },
+    "WS3_B6": {
+      "max_score": 1,
+      "evaluation": "reasoning",
+      "components": [
+        {
+          "id": "feature_reference",
+          "idea": "references the fat feature and its value (yağ miktarına atıf)",
+          "required": true
+        },
+        {
+          "id": "threshold_comparison",
+          "idea": "compares to the 8g threshold (8g eşiğiyle karşılaştırma)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez."
+    },
+    "WS3_B7": {
+      "max_score": 1,
+      "evaluation": "threshold",
+      "check": "threshold",
+      "components": [
+        {
+          "id": "variable",
+          "idea": "energy variable named (enerji)",
+          "required": true
+        },
+        {
+          "id": "operator",
+          "idea": "less-than-or-equal operator (≤, <=, küçük eşit, en fazla)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_credit_rule": "variable_correct_but_operator_wrong_or_missing",
+      "partial_score": 0.5,
+      "example_answer": "enerji ≤ [öğrencinin seçtiği değer]"
+    },
+    "WS3_B8": {
+      "max_score": 1,
+      "evaluation": "threshold",
+      "check": "threshold",
+      "components": [
+        {
+          "id": "variable",
+          "idea": "energy variable named (enerji)",
+          "required": true
+        },
+        {
+          "id": "operator",
+          "idea": "greater-than operator (>, büyük, fazla, üstünde)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_credit_rule": "variable_correct_but_operator_wrong_or_missing",
+      "partial_score": 0.5,
+      "note": "B8 threshold must be complementary to B7: if B7 uses value V with ≤, B8 should use same V with >.",
+      "example_answer": "enerji > [same value as B7]"
+    }
+  }
+}

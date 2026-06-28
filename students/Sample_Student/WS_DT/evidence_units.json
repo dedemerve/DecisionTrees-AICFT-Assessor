@@ -1,0 +1,937 @@
+{
+  "schema_version": "1.1",
+  "artifact": "worksheet_evidence_units",
+  "pipeline_stage": "evidence_units",
+  "source_stage": "extraction",
+  "student_id": "Sample_Student",
+  "worksheet_id": "WS_DT",
+  "updated_at": "2026-06-28T13:44:00.592303+00:00",
+  "definition": "The smallest traceable assessment object representing an interpretable piece of learner evidence while preserving provenance, uncertainty, source quality, and review metadata.",
+  "note": "Canonical Layer 2 output for WS_DT after OCR/extraction. Descriptive only — no behavioural, ILO, Domain, or AI-CFT inference.",
+  "evidence_units": [
+    {
+      "evidence_unit_id": "EU_409950",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_A_Q1",
+      "field_id": "DT_A_Q1",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Bence, sahip olduğu enerji ve yağ oranı sağlar.",
+      "normalized_content": "Bence, sahip olduğu enerji ve yağ oranı sağlar.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_A_Q1",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_447632",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_A_Q2",
+      "field_id": "DT_A_Q2",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "unknown",
+      "observability": "direct",
+      "evidence_completeness": "partial",
+      "raw_content": "Enerji, yağ, şeker...",
+      "normalized_content": "Enerji, yağ, şeker...",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.5215
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_A_Q2",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [
+        {
+          "interpretation": "response may be incomplete",
+          "basis": "Content appears truncated or underspecified."
+        },
+        {
+          "interpretation": "possible OCR truncation",
+          "basis": "Source quality limits fidelity of the captured response."
+        }
+      ],
+      "review_level": "recommended",
+      "requires_human_review": true,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_088686",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_A_Q3",
+      "field_id": "DT_A_Q3",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Evet! Genel olarak enerji düzeyleri arasında büyük fark var.",
+      "normalized_content": "Evet! Genel olarak enerji düzeyleri arasında büyük fark var.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_A_Q3",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_224378",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_A_Q4",
+      "field_id": "DT_A_Q4",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "(bos)",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.4,
+        "evidence_quality": 0.232
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_A_Q4",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "Explicit blank sentinel from extraction adapter.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_334541",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_B_Q1",
+      "field_id": "DT_B_Q1",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "MCR: 0.2, sensitivity: 0.737",
+      "normalized_content": "MCR: 0.2, sensitivity: 0.737",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_B_Q1",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_191629",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_B_Q2",
+      "field_id": "DT_B_Q2",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "(bos)",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.4,
+        "evidence_quality": 0.232
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_B_Q2",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "Explicit blank sentinel from extraction adapter.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_093782",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_B_Q3",
+      "field_id": "DT_B_Q3",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Performansta değişiklik gözlemledim. -> MCR değerim ve sens değerimde azalma gözlemledim.",
+      "normalized_content": "Performansta değişiklik gözlemledim. -> MCR değerim ve sens değerimde azalma gözlemledim.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_B_Q3",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_791832",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_B_Q4",
+      "field_id": "DT_B_Q4",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "En iyi sonucu enerjide aldım. Onun yanında doymuş yağ miktarı da iyi ise yaradı.",
+      "normalized_content": "En iyi sonucu enerjide aldım. Onun yanında doymuş yağ miktarı da iyi ise yaradı.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_B_Q4",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_762781",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_C_Q1",
+      "field_id": "DT_C_Q1",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "(bos)",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.4,
+        "evidence_quality": 0.232
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_C_Q1",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "Explicit blank sentinel from extraction adapter.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_334353",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_C_Q2",
+      "field_id": "DT_C_Q2",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Seçtiğim değişken miktarının eşiklerini grafikte sıraladım ve",
+      "normalized_content": "Seçtiğim değişken miktarının eşiklerini grafikte sıraladım ve",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_C_Q2",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_102800",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_C_Q3",
+      "field_id": "DT_C_Q3",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "281 olarak aldım. Değerlerde oynama yaparak en iyi değere ulaşmaya çalıştım.",
+      "normalized_content": "281 olarak aldım. Değerlerde oynama yaparak en iyi değere ulaşmaya çalıştım.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_C_Q3",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_518763",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_D_Q1",
+      "field_id": "DT_D_Q1",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "(bos)",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.4,
+        "evidence_quality": 0.232
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_D_Q1",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "Explicit blank sentinel from extraction adapter.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_196449",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_D_Q2",
+      "field_id": "DT_D_Q2",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Evet iyileştirdi ve doğruluk oranını artırdı.",
+      "normalized_content": "Evet iyileştirdi ve doğruluk oranını artırdı.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_D_Q2",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_323939",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_D_Q3",
+      "field_id": "DT_D_Q3",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Enerji ve doymuş yağ",
+      "normalized_content": "Enerji ve doymuş yağ",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_D_Q3",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_619700",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_D_Q4",
+      "field_id": "DT_D_Q4",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Oranın artması sağladı",
+      "normalized_content": "Oranın artması sağladı",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_D_Q4",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_102011",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_E_MCR",
+      "field_id": "DT_E_MCR",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "0.2",
+      "normalized_content": "0.2",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_E_MCR",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_316176",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_E_Q1",
+      "field_id": "DT_E_Q1",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Hata oranı çünkü hata oluşması karar ağacını amaçsız kılar.",
+      "normalized_content": "Hata oranı çünkü hata oluşması karar ağacını amaçsız kılar.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_E_Q1",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_713665",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_E_Q2",
+      "field_id": "DT_E_Q2",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "0.2 hata oranı ile bazılarını kaçırdı",
+      "normalized_content": "0.2 hata oranı ile bazılarını kaçırdı",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_E_Q2",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_290346",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_E_Q3",
+      "field_id": "DT_E_Q3",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Kesinliğe ulaşana kadar.",
+      "normalized_content": "Kesinliğe ulaşana kadar.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_E_Q3",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_411176",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_E_Q4",
+      "field_id": "DT_E_Q4",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "(bos)",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.4,
+        "evidence_quality": 0.232
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_E_Q4",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "Explicit blank sentinel from extraction adapter.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_313471",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_E_sensitivity",
+      "field_id": "DT_E_sensitivity",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "0.737",
+      "normalized_content": "0.737",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_E_sensitivity",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_682654",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_F_Q1",
+      "field_id": "DT_F_Q1",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "(bos)",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.4,
+        "evidence_quality": 0.232
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_F_Q1",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "Explicit blank sentinel from extraction adapter.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_966626",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_F_Q2",
+      "field_id": "DT_F_Q2",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "(bos)",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.4,
+        "evidence_quality": 0.232
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_F_Q2",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "Explicit blank sentinel from extraction adapter.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_013318",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_G_Q1",
+      "field_id": "DT_G_Q1",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Hangi besinleri seçmesi gerektiğini algoritmasını oluşturdu.",
+      "normalized_content": "Hangi besinleri seçmesi gerektiğini algoritmasını oluşturdu.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_G_Q1",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_362833",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS_DT",
+      "item_id": "DT_G_Q2",
+      "field_id": "DT_G_Q2",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "digital_interaction",
+      "source_family": "codap",
+      "source_file": "WorksheetDT.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "(bos)",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.4,
+        "evidence_quality": 0.232
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "WorksheetDT.pdf",
+        "worksheet": "WS_DT",
+        "field": "DT_G_Q2",
+        "timestamp": "2026-06-28T08:59:37.411982+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS_DT/extraction.json"
+      },
+      "uncertainty": "Explicit blank sentinel from extraction adapter.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.411982+00:00"
+    }
+  ]
+}

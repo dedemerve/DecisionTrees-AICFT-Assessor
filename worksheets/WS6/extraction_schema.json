@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0",
+  "worksheet": "WS6",
+  "curriculum_status": "deployed",
+  "pipeline_stage": "extraction_only",
+  "interpretation_prohibited": true,
+  "ocr_engine": "claude_vision",
+  "source_type": "worksheet",
+  "note": "Thirteen structured tree fields (WS6_B1–B13).",
+  "fields": [
+    {
+      "field_id": "WS6_B1",
+      "rubric_item_id": "WS6_root_feature",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B10",
+      "rubric_item_id": "WS6_leaves",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B11",
+      "rubric_item_id": "WS6_leaves",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B12",
+      "rubric_item_id": "WS6_leaves",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B13",
+      "rubric_item_id": "WS6_leaves",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B2",
+      "rubric_item_id": "WS6_root_threshold",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B3",
+      "rubric_item_id": "WS6_root_labels",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B4",
+      "rubric_item_id": "WS6_root_labels",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B5",
+      "rubric_item_id": "WS6_leaves",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B6",
+      "rubric_item_id": "WS6_inner_feature",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B7",
+      "rubric_item_id": "WS6_inner_threshold",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B8",
+      "rubric_item_id": "WS6_inner_labels",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    },
+    {
+      "field_id": "WS6_B9",
+      "rubric_item_id": "WS6_inner_labels",
+      "type": "structured",
+      "required": true,
+      "location_hint": "WS6 worksheet response region"
+    }
+  ]
+}

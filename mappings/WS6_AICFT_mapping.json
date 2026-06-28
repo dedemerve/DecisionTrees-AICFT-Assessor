@@ -1,33 +1,96 @@
 {
+  "schema_version": "2.0",
   "worksheet": "WS6",
   "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
-  "note": "Ground-truth AI-CFT mapping for this worksheet. Consumed by the Stage 3 scorer. Weight is a ceiling on evidence_strength: an item can never contribute stronger evidence than its weight, even at full credit. Do not infer mappings beyond this file.",
+  "note": "Performance-based competency mapping. Strength is a ceiling on observed evidence_strength. Scorer must add item-specific rationale and confidence.",
   "items": {
+    "WS6_tree_structure": [
+      {
+        "lo": "LO3.2.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Decision-tree worksheet: Constructs or represents a complete decision tree from data.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
+    ],
     "WS6_root_feature": [
-      { "LO": "LO3.2.2", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.2",
+        "strength": "moderate",
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Decision-tree worksheet: Selects root split feature — model structure decision.",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "WS6_root_threshold": [
-      { "LO": "LO3.1.1", "evidence_type": "application", "expected_level": "Acquire", "weight": "moderate" },
-      { "LO": "LO3.2.2", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" }
-    ],
-    "WS6_root_labels": [
-      { "LO": "LO3.1.1", "evidence_type": "application", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.2.2",
+        "strength": "moderate",
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Decision-tree worksheet: Sets root threshold — parameter evaluation.",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "WS6_inner_feature": [
-      { "LO": "LO3.2.2", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.2",
+        "strength": "moderate",
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Decision-tree worksheet: Selects inner-node feature for tree refinement.",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "WS6_inner_threshold": [
-      { "LO": "LO3.1.1", "evidence_type": "application", "expected_level": "Acquire", "weight": "moderate" },
-      { "LO": "LO3.2.2", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.2",
+        "strength": "moderate",
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Decision-tree worksheet: Sets inner-node threshold.",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
+    ],
+    "WS6_root_labels": [
+      {
+        "lo": "LO3.2.2",
+        "strength": "weak",
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Decision-tree worksheet: Assigns class labels at root branches.",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "WS6_inner_labels": [
-      { "LO": "LO3.1.1", "evidence_type": "application", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.2.2",
+        "strength": "weak",
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Decision-tree worksheet: Assigns class labels at inner branches.",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "WS6_leaves": [
-      { "LO": "LO3.1.1", "evidence_type": "application", "expected_level": "Acquire", "weight": "moderate" }
-    ],
-    "WS6_tree_structure": [
-      { "LO": "LO3.2.2", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" }
+      {
+        "lo": "LO3.2.2",
+        "strength": "weak",
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Decision-tree worksheet: Specifies leaf outcomes completing tree representation.",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ]
   }
 }

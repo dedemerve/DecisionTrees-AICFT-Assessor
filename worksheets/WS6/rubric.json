@@ -1,0 +1,199 @@
+{
+  "schema_version": "3.0",
+  "worksheet": "WS6",
+  "note": "Student draws a 2-level decision tree. OCR captures 13 fields. Root node: feature (B1) and threshold (B2) with branch labels (B3=evet, B4=hayır). Left subtree inner node: feature (B6) and threshold (B7) with branch labels (B8=evet, B9=hayır) and leaves (B10, B11). Right subtree leaf: B13. B5 and B12 are additional leaves that may appear depending on tree shape. Partial 0.5 on any threshold item if variable is correct but operator is wrong or missing. tree_structure grades the overall validity holistically.",
+  "items": {
+    "WS6_root_feature": {
+      "max_score": 1,
+      "fields": [
+        "WS6_B1"
+      ],
+      "evaluation": "feature_name",
+      "components": [
+        {
+          "id": "feature",
+          "idea": "valid food feature from dataset (şeker, yağ, enerji, protein)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "note": "Any valid food feature name earns full credit. Consistency with threshold and leaves checked in tree_structure.",
+      "example_answer": "şeker"
+    },
+    "WS6_root_threshold": {
+      "max_score": 1,
+      "fields": [
+        "WS6_B2"
+      ],
+      "evaluation": "threshold",
+      "check": "threshold_with_operator",
+      "components": [
+        {
+          "id": "operator",
+          "idea": "comparison operator present (≤, <=, <, ≥, >=, >)",
+          "required": true
+        },
+        {
+          "id": "value",
+          "idea": "numeric threshold value consistent with root feature",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_credit_rule": "variable_or_value_present_but_operator_missing",
+      "partial_score": 0.5,
+      "example_answer": "≤ 10"
+    },
+    "WS6_root_labels": {
+      "max_score": 1,
+      "fields": [
+        "WS6_B3",
+        "WS6_B4"
+      ],
+      "evaluation": "branch_labels",
+      "components": [
+        {
+          "id": "yes_branch",
+          "idea": "evet/yes/true branch correctly labeled (evet, yes, true, doğru, pozitif)",
+          "required": true
+        },
+        {
+          "id": "no_branch",
+          "idea": "hayır/no/false branch correctly labeled (hayır, no, false, yanlış, negatif)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "B3: evet (≤ 10) | B4: hayır (> 10)"
+    },
+    "WS6_inner_feature": {
+      "max_score": 1,
+      "fields": [
+        "WS6_B6"
+      ],
+      "evaluation": "feature_name",
+      "components": [
+        {
+          "id": "feature",
+          "idea": "valid food feature different from root (şeker, yağ, enerji, protein; must differ from WS6_B1)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "consistency_check": "must differ from WS6_B1",
+      "example_answer": "yağ"
+    },
+    "WS6_inner_threshold": {
+      "max_score": 1,
+      "fields": [
+        "WS6_B7"
+      ],
+      "evaluation": "threshold",
+      "check": "threshold_with_operator",
+      "components": [
+        {
+          "id": "operator",
+          "idea": "comparison operator present (≤, <=, <, ≥, >=, >)",
+          "required": true
+        },
+        {
+          "id": "value",
+          "idea": "numeric threshold value consistent with inner feature",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_credit_rule": "variable_or_value_present_but_operator_missing",
+      "partial_score": 0.5,
+      "example_answer": "≤ 5"
+    },
+    "WS6_inner_labels": {
+      "max_score": 1,
+      "fields": [
+        "WS6_B8",
+        "WS6_B9"
+      ],
+      "evaluation": "branch_labels",
+      "components": [
+        {
+          "id": "yes_branch",
+          "idea": "evet branch correctly labeled (evet, yes, true, doğru)",
+          "required": true
+        },
+        {
+          "id": "no_branch",
+          "idea": "hayır branch correctly labeled (hayır, no, false, yanlış)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "B8: evet (≤ 5) | B9: hayır (> 5)"
+    },
+    "WS6_leaves": {
+      "max_score": 1,
+      "fields": [
+        "WS6_B5",
+        "WS6_B10",
+        "WS6_B11",
+        "WS6_B12",
+        "WS6_B13"
+      ],
+      "evaluation": "leaf_labels",
+      "check": "leaf_consistency_with_tree_logic",
+      "components": [
+        {
+          "id": "positive_leaves",
+          "idea": "recommended labels on positive paths (tavsiye edilir, tavsiye edilebilir, önerilir, uygun)",
+          "required": false
+        },
+        {
+          "id": "negative_leaves",
+          "idea": "not-recommended labels on negative paths (tavsiye edilmez, tavsiye edilemez, önerilmez, uygun değil)",
+          "required": false
+        },
+        {
+          "id": "consistency",
+          "idea": "leaf labels consistent with branch logic and tree paths",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "partial_credit_rule": "some_leaves_correct_some_missing",
+      "partial_score": 0.5,
+      "example_answer": "B10: Tavsiye edilir | B11: Tavsiye edilmez | B13: Tavsiye edilmez"
+    },
+    "WS6_tree_structure": {
+      "max_score": 1,
+      "check": "tree_validity",
+      "components": [
+        {
+          "id": "depth",
+          "idea": "depth >= 1 (at least one split)",
+          "required": true
+        },
+        {
+          "id": "features",
+          "idea": "at least 2 different features used across the tree",
+          "required": true
+        },
+        {
+          "id": "leaves_labeled",
+          "idea": "all leaf nodes have class labels",
+          "required": true
+        },
+        {
+          "id": "operators",
+          "idea": "branch operators are consistent (≤ and > paired, or < and >= paired)",
+          "required": true
+        }
+      ],
+      "need": 4,
+      "partial_on": 2,
+      "example_answer": "Root splits on şeker ≤ 10; left subtree splits on yağ ≤ 5; all leaves labeled."
+    }
+  }
+}

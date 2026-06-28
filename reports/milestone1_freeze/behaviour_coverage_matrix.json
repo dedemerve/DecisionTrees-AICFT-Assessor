@@ -1,0 +1,257 @@
+{
+  "milestone": 1,
+  "artifact": "Observable_Behaviours.json",
+  "version": "1.0",
+  "generated_at": "2026-06-28T10:49:37.026383+00:00",
+  "hierarchy": {
+    "conceptual": {
+      "declarative": {
+        "remember": [
+          {
+            "id": "OB_CON_001",
+            "title": "Defines supervised-learning vocabulary accurately",
+            "difficulty": "foundational",
+            "evidence_strength_ceiling": "strong"
+          },
+          {
+            "id": "OB_CON_005",
+            "title": "States or explains evaluation metric definitions",
+            "difficulty": "foundational",
+            "evidence_strength_ceiling": "moderate"
+          }
+        ],
+        "understand": [
+          {
+            "id": "OB_CON_002",
+            "title": "Distinguishes related decision-tree concepts",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "strong"
+          },
+          {
+            "id": "OB_CON_003",
+            "title": "Explains purpose and mechanism of decision-tree classification",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "strong"
+          },
+          {
+            "id": "OB_CON_004",
+            "title": "Explains role of training data in model learning",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "moderate"
+          }
+        ]
+      },
+      "conditional": {
+        "analyze": [
+          {
+            "id": "OB_CON_006",
+            "title": "Interprets relationships among confusion-matrix components",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "strong"
+          }
+        ]
+      }
+    },
+    "procedural": {
+      "procedural": {
+        "apply": [
+          {
+            "id": "OB_PRO_001",
+            "title": "Applies threshold to classify a case",
+            "difficulty": "foundational",
+            "evidence_strength_ceiling": "strong"
+          },
+          {
+            "id": "OB_PRO_002",
+            "title": "Follows decision path to classify",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "strong"
+          },
+          {
+            "id": "OB_PRO_004",
+            "title": "Orders decision-tree workflow steps correctly",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "moderate"
+          },
+          {
+            "id": "OB_PRO_006",
+            "title": "Assigns class labels at tree nodes",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "strong"
+          },
+          {
+            "id": "OB_PRO_007",
+            "title": "Sets split thresholds at root or inner nodes",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "strong"
+          },
+          {
+            "id": "OB_PRO_008",
+            "title": "Manipulates exploration tool to change splits or thresholds",
+            "difficulty": "foundational",
+            "evidence_strength_ceiling": "moderate"
+          },
+          {
+            "id": "OB_PRO_009",
+            "title": "Computes metric values from given data",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "moderate"
+          }
+        ],
+        "create": [
+          {
+            "id": "OB_PRO_003",
+            "title": "Constructs or extends decision-tree structure",
+            "difficulty": "advanced",
+            "evidence_strength_ceiling": "very_strong"
+          }
+        ]
+      },
+      "conditional": {
+        "understand": [
+          {
+            "id": "OB_PRO_005",
+            "title": "Articulates explicit if-then decision rule",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "strong"
+          }
+        ]
+      }
+    },
+    "reflective": {
+      "metacognitive": {
+        "reflect": [
+          {
+            "id": "OB_REF_001",
+            "title": "Reflects on learning or misconceptions about decision trees",
+            "difficulty": "foundational",
+            "evidence_strength_ceiling": "moderate"
+          },
+          {
+            "id": "OB_REF_002",
+            "title": "Articulates model limitations or uncertainty",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "moderate"
+          },
+          {
+            "id": "OB_REF_003",
+            "title": "Revises belief after new evidence",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "moderate"
+          }
+        ],
+        "understand": [
+          {
+            "id": "OB_REF_004",
+            "title": "States uninformed prior before exploration",
+            "difficulty": "foundational",
+            "evidence_strength_ceiling": "weak"
+          }
+        ]
+      }
+    },
+    "strategic": {
+      "conditional": {
+        "compare": [
+          {
+            "id": "OB_STR_001",
+            "title": "Compares alternative thresholds using performance evidence",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "strong"
+          }
+        ],
+        "evaluate": [
+          {
+            "id": "OB_STR_002",
+            "title": "Selects threshold or feature using explicit criteria",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "strong"
+          },
+          {
+            "id": "OB_STR_005",
+            "title": "Evaluates trade-offs between error types",
+            "difficulty": "advanced",
+            "evidence_strength_ceiling": "strong"
+          },
+          {
+            "id": "OB_STR_008",
+            "title": "Optimizes threshold performance across conditions",
+            "difficulty": "advanced",
+            "evidence_strength_ceiling": "strong"
+          }
+        ],
+        "justify": [
+          {
+            "id": "OB_STR_003",
+            "title": "Justifies model or threshold choice with evidence",
+            "difficulty": "advanced",
+            "evidence_strength_ceiling": "very_strong"
+          }
+        ],
+        "analyze": [
+          {
+            "id": "OB_STR_004",
+            "title": "Identifies predictive features from observed data patterns",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "strong"
+          },
+          {
+            "id": "OB_STR_006",
+            "title": "Iteratively explores parameter combinations affecting performance",
+            "difficulty": "advanced",
+            "evidence_strength_ceiling": "strong"
+          },
+          {
+            "id": "OB_STR_009",
+            "title": "Interprets model feedback in applied decision context",
+            "difficulty": "intermediate",
+            "evidence_strength_ceiling": "moderate"
+          }
+        ],
+        "synthesize": [
+          {
+            "id": "OB_STR_007",
+            "title": "Synthesizes exploration into justified parameter choice",
+            "difficulty": "advanced",
+            "evidence_strength_ceiling": "very_strong"
+          }
+        ]
+      }
+    }
+  },
+  "summary_table": {
+    "by_construct_dimension": {
+      "conceptual": 6,
+      "procedural": 9,
+      "reflective": 4,
+      "strategic": 9
+    },
+    "by_knowledge_type": {
+      "conditional": 11,
+      "declarative": 5,
+      "metacognitive": 4,
+      "procedural": 8
+    },
+    "by_cognitive_process": {
+      "analyze": 4,
+      "apply": 7,
+      "compare": 1,
+      "create": 1,
+      "evaluate": 3,
+      "justify": 1,
+      "reflect": 3,
+      "remember": 2,
+      "synthesize": 1,
+      "understand": 5
+    }
+  },
+  "balance_assessment": {
+    "construct_balance": "balanced",
+    "notes": [
+      "Construct dimension spread: {'conceptual': 6, 'procedural': 9, 'reflective': 4, 'strategic': 9} (balanced).",
+      "Reflective dimension has fewer behaviours by design — reflective evidence is rarer in multimodal DT tasks.",
+      "Single-instance cognitive processes: ['create', 'compare', 'justify', 'synthesize'] — acceptable for higher-order skills (compare, justify, synthesize, create).",
+      "Knowledge-type distribution spans declarative, procedural, conditional, and metacognitive as required by ECD."
+    ]
+  }
+}

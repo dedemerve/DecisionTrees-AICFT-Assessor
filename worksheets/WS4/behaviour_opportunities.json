@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "worksheet": "WS4",
+  "curriculum_status": "deployed",
+  "behaviour_ontology_reference": "framework/Observable_Behaviours.json",
+  "note": "Evidence opportunity map only. Observable Behaviour candidates per rubric item. No instructional learning object, domain, or competency mapping at worksheet layer.",
+  "items": {
+    "WS4_B1": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_PRO_007",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Selects numeric threshold from grid."
+        },
+        {
+          "behaviour_id": "OB_STR_003",
+          "role": "secondary",
+          "evidence_mode": "direct",
+          "rationale": "Threshold choice informed by error grid."
+        }
+      ],
+      "extraction_fields": [
+        "WS4_B1"
+      ]
+    },
+    "WS4_B2": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_STR_003",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "States MCR-minimization as selection criterion."
+        }
+      ],
+      "extraction_fields": [
+        "WS4_B2"
+      ]
+    },
+    "WS4_B3": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_STR_003",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Compares two threshold candidates using MCR."
+        },
+        {
+          "behaviour_id": "OB_REF_003",
+          "role": "secondary",
+          "evidence_mode": "direct",
+          "rationale": "Evaluates comparative claim about thresholds."
+        }
+      ],
+      "extraction_fields": [
+        "WS4_B3"
+      ]
+    },
+    "WS4_B4": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_CON_005",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "States MCR formula deterministically."
+        }
+      ],
+      "extraction_fields": [
+        "WS4_B4"
+      ]
+    },
+    "WS4_B5": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_REF_002",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Evaluates peer statement about threshold optimality."
+        }
+      ],
+      "extraction_fields": [
+        "WS4_B5"
+      ]
+    }
+  }
+}

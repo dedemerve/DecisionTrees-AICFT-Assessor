@@ -1,96 +1,319 @@
 {
+  "schema_version": "2.0",
   "worksheet": "WS_DT",
   "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
-  "note": "Ground-truth AI-CFT mapping for this worksheet. Consumed by the Stage 3 scorer. Weight is a ceiling on evidence_strength: an item can never contribute stronger evidence than its weight, even at full credit. Do not infer mappings beyond this file.",
+  "note": "Performance-based competency mapping. Strength is a ceiling on observed evidence_strength. Scorer must add item-specific rationale and confidence.",
   "items": {
     "DT_A_Q1": [
-      { "LO": "LO3.1.1", "evidence_type": "prior_belief", "expected_level": "Acquire", "weight": "weak" }
+      {
+        "lo": "LO3.1.1",
+        "strength": "weak",
+        "evidence_type": "prior_belief",
+        "expected_level": "Acquire",
+        "rationale": "Uninformed prior belief: names predictive feature(s) before CODAP analysis. Baseline diagnostic only — excluded from portfolio peak aggregation.",
+        "role": "primary",
+        "portfolio_weight": "baseline"
+      }
     ],
     "DT_A_Q2": [
-      { "LO": "LO3.2.1", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" }
+      {
+        "lo": "LO3.2.2",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "After CODAP exploration: names a feature and cites an observed data/graph pattern (not intuition alone) — early data-interpretation behaviour.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      },
+      {
+        "lo": "LO3.1.2",
+        "strength": "weak",
+        "evidence_type": "supporting",
+        "expected_level": "Acquire",
+        "rationale": "Links data exploration to how a model might use that feature.",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_A_Q3": [
-      { "LO": "LO3.2.1", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" },
-      { "LO": "LO3.1.1", "evidence_type": "application", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.2.2",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Identifies a feature showing meaningful separation between recommended and not-recommended classes from explored data.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_A_Q4": [
-      { "LO": "LO3.2.1", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" }
+      {
+        "lo": "LO3.2.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Selects first split variable with explicit data-based justification (graph separation, class distinction) — precursor to model design.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      },
+      {
+        "lo": "LO3.2.1",
+        "strength": "weak",
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Early evaluate→select step before full three-tree comparison in Section B.",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_B_Q1": [
-      { "LO": "LO3.2.1", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" },
-      { "LO": "LO3.1.1", "evidence_type": "application", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Selects and validates an appropriate AI tool (CODAP, Arbor, or EMIT) for the task.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_B_Q2": [
-      { "LO": "LO3.2.1", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.1",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Builds decision trees with different variables — evaluate → select → apply cycle.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_B_Q3": [
-      { "LO": "LO3.2.1", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.1",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Builds decision trees with different variables — evaluate → select → apply cycle.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_B_Q4": [
-      { "LO": "LO3.2.1", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" },
-      { "LO": "LO3.2.2", "evidence_type": "early_indicator", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.1",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Compares performance across three trees/variables — full evaluate-select-apply evidence.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_C_Q1": [
-      { "LO": "LO3.2.1", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Iterative threshold optimization on real data (Section C).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_C_Q2": [
-      { "LO": "LO3.2.1", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" },
-      { "LO": "LO3.2.2", "evidence_type": "direct", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Iterative threshold optimization on real data (Section C).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_C_Q3": [
-      { "LO": "LO3.2.1", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Iterative threshold optimization on real data (Section C).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_D_Q1": [
-      { "LO": "LO3.2.2", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" },
-      { "LO": "LO3.2.1", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_D_Q2": [
-      { "LO": "LO3.2.2", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" },
-      { "LO": "LO3.2.1", "evidence_type": "direct", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_D_Q3": [
-      { "LO": "LO3.2.2", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" },
-      { "LO": "LO3.2.1", "evidence_type": "direct", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_D_Q4": [
-      { "LO": "LO3.2.1", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" },
-      { "LO": "LO3.3.1", "evidence_type": "early_indicator", "expected_level": "Create", "weight": "weak" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_E_sensitivity": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" }
+      {
+        "lo": "LO3.1.1",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Computes or states sensitivity formula — conceptual metric knowledge.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_E_MCR": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" }
+      {
+        "lo": "LO3.1.1",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Computes or states MCR formula — conceptual metric knowledge.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_E_Q1": [
-      { "LO": "LO3.2.2", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_E_Q2": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.2.2", "evidence_type": "early_indicator", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_E_Q3": [
-      { "LO": "LO3.2.2", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" },
-      { "LO": "LO3.3.1", "evidence_type": "early_indicator", "expected_level": "Create", "weight": "weak" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_E_Q4": [
-      { "LO": "LO3.2.3", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" },
-      { "LO": "LO3.3.1", "evidence_type": "early_indicator", "expected_level": "Create", "weight": "moderate" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Synthesizes evaluation into performance improvement decisions.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      },
+      {
+        "lo": "LO3.3.1",
+        "strength": "weak",
+        "evidence_type": "supporting",
+        "expected_level": "Create",
+        "rationale": "Early indicator of adapting model design based on evaluation.",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_F_Q1": [
-      { "LO": "LO3.2.3", "evidence_type": "application", "expected_level": "Deepen", "weight": "moderate" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Applies model to test/holdout data — validates generalization.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_F_Q2": [
-      { "LO": "LO3.2.3", "evidence_type": "direct", "expected_level": "Deepen", "weight": "strong" },
-      { "LO": "LO3.3.1", "evidence_type": "early_indicator", "expected_level": "Create", "weight": "moderate" }
+      {
+        "lo": "LO3.2.3",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Interprets test-set results and proposes iterative improvements.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      },
+      {
+        "lo": "LO3.3.1",
+        "strength": "weak",
+        "evidence_type": "supporting",
+        "expected_level": "Create",
+        "rationale": "Weak Create indicator — adapts solution based on test evidence.",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "DT_G_Q1": [
-      { "LO": "LO3.1.1", "evidence_type": "reflective", "expected_level": "Acquire", "weight": "moderate" },
-      { "LO": "LO3.3.1", "evidence_type": "early_indicator", "expected_level": "Create", "weight": "weak" }
+      {
+        "lo": "LO3.1.1",
+        "strength": "weak",
+        "evidence_type": "reflective",
+        "expected_level": "Acquire",
+        "rationale": "Metacognitive reflection on conceptual learning — portfolio diagnostic only.",
+        "role": "supporting",
+        "portfolio_weight": "diagnostic"
+      }
     ],
     "DT_G_Q2": [
-      { "LO": "LO3.2.2", "evidence_type": "reflective", "expected_level": "Deepen", "weight": "moderate" },
-      { "LO": "LO3.3.1", "evidence_type": "early_indicator", "expected_level": "Create", "weight": "weak" }
+      {
+        "lo": "LO3.2.2",
+        "strength": "weak",
+        "evidence_type": "reflective",
+        "expected_level": "Deepen",
+        "rationale": "Reflective summary of applied understanding — portfolio diagnostic only.",
+        "role": "supporting",
+        "portfolio_weight": "diagnostic"
+      }
     ]
   }
 }

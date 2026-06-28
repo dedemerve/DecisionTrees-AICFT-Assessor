@@ -33,10 +33,10 @@ def main() -> int:
     args = parser.parse_args()
 
     base = Path(__file__).parent
-    bundle_file = base / "students" / f"{args.student_id}.json"
+    student_root = base / "students" / args.student_id
 
-    if not bundle_file.exists():
-        print(f"Student bundle not found: {bundle_file}", file=sys.stderr)
+    if not student_root.is_dir():
+        print(f"Student output not found: {student_root}", file=sys.stderr)
         return 1
 
     if args.export_human_ref:
@@ -49,7 +49,7 @@ def main() -> int:
         print(f"Exported {ref['item_count']} items to {HUMAN_CODING_PATH}")
 
     updated = calibrate_student_scoring(args.student_id)
-    print(f"Calibrated bundle for {args.student_id}: {updated[0] if updated else bundle_file}")
+    print(f"Calibrated worksheets for {args.student_id}: {len(updated)} file(s)")
 
     if args.report:
         report = calibration_report(args.student_id)

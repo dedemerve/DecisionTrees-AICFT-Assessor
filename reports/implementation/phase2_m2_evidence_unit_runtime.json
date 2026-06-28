@@ -1,0 +1,33 @@
+{
+  "milestone": "Phase 2 — Milestone 2: Canonical Evidence Unit Runtime",
+  "revision": "1.1-assessment-object",
+  "freeze_status": "FROZEN",
+  "framework_version": "1.0",
+  "status": "PASS",
+  "completed_at": "2026-06-28",
+  "frozen_at": "2026-06-28",
+  "summary": "Evidence Unit v1.1 frozen as canonical Layer 2 assessment object. No further schema fields without construct-validity review. First inferential leap deferred to M3 Behaviour Engine.",
+  "assessment_object_definition": "The smallest traceable assessment object representing an interpretable piece of learner evidence while preserving provenance, uncertainty, source quality, and review metadata.",
+  "verification": {
+    "build_evidence_units.py": "PASS",
+    "validate_evidence_units.py": "PASS",
+    "test_evidence_units.py": "PASS (7 tests)",
+    "test_evidence_unit_metadata.py": "PASS (8 tests)",
+    "m1_m2_combined_tests": "PASS (22 tests)",
+    "frozen_framework_files_modified": false,
+    "freeze_package": "reports/implementation/m2_freeze/"
+  },
+  "schema_version": "1.1",
+  "revised_roadmap": {
+    "M1": "Worksheet Bundles — FROZEN",
+    "M2": "Evidence Unit Runtime v1.1 — FROZEN",
+    "M3": "Behaviour Engine — next (first inferential leap)",
+    "M4": "ILO Engine",
+    "M5": "Domain Engine",
+    "M6": "Interpretation Engine",
+    "M7": "Portfolio Builder",
+    "M8": "Dashboard",
+    "OCR_adapters": "Non-blocking technology integration"
+  },
+  "modification_policy": "No Evidence Unit fields without construct-validity justification. OCR is upstream adapter only."
+}

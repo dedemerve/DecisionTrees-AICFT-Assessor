@@ -15,10 +15,23 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).parent
 RUBRICS_DIR = REPO_ROOT / "rubrics"
+WORKSHEETS_DIR = REPO_ROOT / "worksheets"
 MAPPINGS_DIR = REPO_ROOT / "mappings"
 SCHEMA_DIR = REPO_ROOT / "schema"
 
 RUBRIC_SCHEMA_VERSION = "3.0"
+
+# LO = Learning Object (AI-CFT competency object, e.g. LO3.1.1). JSON field: learning_objects.
+LO_GLOSSARY = "Learning Object"
+
+ARTIFACT_SCHEMA_VERSION = "3.0"
+PORTFOLIO_SCHEMA_VERSION = "3.0"
+FRAMEWORK_SCHEMA_VERSION = "2.0"
+
+# Group B: deterministic Python validation before scoring (reviewer taxonomy).
+WORKSHEETS_REQUIRING_VALIDATION = frozenset({"WS5", "WS6", "WS7"})
+
+PIPELINE_STAGES = ("extraction", "validation", "scoring", "evidence", "summary")
 
 # Semantic scoring must use components[].idea — not legacy keyword lists.
 RUBRIC_LEGACY_KEYWORD_FIELDS = frozenset({
@@ -177,12 +190,30 @@ WORKSHEET_SCORING_ITEM_IDS: dict[str, list[str]] = {
 }
 
 
+def rubric_bundle_path(worksheet: str) -> Path | None:
+    """Return worksheets/<worksheet>/rubric.json when the Phase 2 bundle exists."""
+    path = WORKSHEETS_DIR / worksheet / "rubric.json"
+    return path if path.exists() else None
+
+
 @lru_cache(maxsize=None)
 def load_rubric(worksheet: str) -> dict[str, Any]:
-    """Load rubrics/<worksheet>_rubric.json."""
+    """Load worksheet bundle rubric, falling back to legacy rubrics/<worksheet>_rubric.json."""
+    bundle = rubric_bundle_path(worksheet)
+    if bundle is not None:
+        return json.loads(bundle.read_text(encoding="utf-8"))
     path = RUBRICS_DIR / f"{worksheet}_rubric.json"
     if not path.exists():
         raise FileNotFoundError(f"Rubric not found: {path}")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+@lru_cache(maxsize=None)
+def load_framework() -> dict[str, Any]:
+    """Load mappings/AICFT_assessment_framework.json (performance-based competency framework)."""
+    path = MAPPINGS_DIR / "AICFT_assessment_framework.json"
+    if not path.exists():
+        raise FileNotFoundError(f"Framework not found: {path}")
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -193,6 +224,57 @@ def load_mapping(worksheet: str) -> dict[str, Any]:
     if not path.exists():
         raise FileNotFoundError(f"Mapping not found: {path}")
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def item_competencies(mapping: dict[str, Any], item_id: str) -> list[dict[str, Any]]:
+    """Return competency priors for a worksheet item (schema 2.0 or legacy 1.x)."""
+    raw = mapping.get("items", {}).get(item_id)
+    if raw is None:
+        return []
+    if isinstance(raw, dict) and "competencies" in raw:
+        return list(raw["competencies"])
+    if isinstance(raw, list):
+        out: list[dict[str, Any]] = []
+        for entry in raw:
+            if not isinstance(entry, dict):
+                continue
+            out.append({
+                "lo": entry.get("lo") or entry.get("LO", ""),
+                "strength": entry.get("strength") or entry.get("weight", "moderate"),
+                "evidence_type": entry.get("evidence_type", "direct"),
+                "expected_level": entry.get("expected_level", "Deepen"),
+                "rationale": entry.get("rationale", ""),
+                "role": entry.get("role", "primary"),
+                "portfolio_weight": entry.get("portfolio_weight", "full"),
+            })
+        return out
+    return []
+
+
+def competency_strength_ceiling(comp: dict[str, Any]) -> str:
+    """Maximum observable evidence strength for a mapped competency."""
+    return str(comp.get("strength") or comp.get("weight") or "moderate")
+
+
+def framework_item_index(framework: dict[str, Any] | None = None) -> dict[tuple[str, str], list[dict[str, Any]]]:
+    """Map (worksheet, item) → competency priors from assessment framework."""
+    fw = framework or load_framework()
+    index: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for entry in fw.get("items", []):
+        key = (entry["worksheet"], entry["item"])
+        index[key] = entry.get("competencies", [])
+    return index
+
+
+def competency_counts_toward_portfolio_peak(comp_prior: dict[str, Any]) -> bool:
+    """Whether a mapped competency should affect LO peak_strength in portfolio rollup."""
+    weight = comp_prior.get("portfolio_weight", "full")
+    et = comp_prior.get("evidence_type", "direct")
+    if weight == "baseline" or et == "prior_belief":
+        return False
+    if weight == "diagnostic" and et == "reflective":
+        return False
+    return True
 
 
 def scoring_item_ids(worksheet: str) -> list[str]:
@@ -269,10 +351,22 @@ def validate_rubric_v3(rubric: dict[str, Any], source: str = "") -> list[str]:
 
 
 def validate_all_rubrics() -> list[str]:
-    """Validate every rubrics/*_rubric.json file."""
+    """Validate worksheet bundle rubrics and legacy rubrics/*_rubric.json files."""
     errors: list[str] = []
+    seen: set[str] = set()
+    if WORKSHEETS_DIR.is_dir():
+        for bundle in sorted(WORKSHEETS_DIR.glob("WS*/rubric.json")):
+            rubric = json.loads(bundle.read_text(encoding="utf-8"))
+            ws = rubric.get("worksheet", bundle.parent.name)
+            seen.add(ws)
+            if rubric.get("curriculum_status") == "not_deployed":
+                continue
+            errors.extend(validate_rubric_v3(rubric, str(bundle.relative_to(REPO_ROOT))))
     for path in sorted(RUBRICS_DIR.glob("*_rubric.json")):
         rubric = json.loads(path.read_text(encoding="utf-8"))
+        ws = rubric.get("worksheet", path.stem.replace("_rubric", ""))
+        if ws in seen:
+            continue
         errors.extend(validate_rubric_v3(rubric, path.name))
     return errors
 

@@ -22,8 +22,9 @@ full      Process all three PDFs. Skips students already processed (resume-safe)
 
 Output per student
 ------------------
-students/{student_key}.json   -- single bundle: worksheets + portfolio sections
-ocr_output/{student_key}/     -- raw OCR artifacts + page images only
+students/{student_key}/
+  WS1.json, WS3.json, ... WS_DT.json   — per-worksheet pipeline sections
+  portfolio.json                       — AI-CFT rollup
   worksheet_dt_raw.json
   worksheets_1_10_raw.json
   worksheet11__feedbacks_raw.json
@@ -1102,37 +1103,36 @@ def mode_pilot(
 
 def mode_validate(student_name: str) -> None:
     """Print human-readable review of a student's combined responses for spot-checking."""
-    from student_bundle import bundle_path, load_bundle
+    from student_bundle import (
+        artifact_payload,
+        extraction_responses,
+        list_student_ids,
+        list_worksheets,
+        load_artifact,
+        student_dir,
+        STUDENTS_DIR,
+    )
 
     key = match_pseudonym(student_name) or normalize_student_key(student_name) or student_name
-    bundle_file = bundle_path(key)
-    if not bundle_file.exists():
-        bundle_file = bundle_path(student_name)
+    sid = key if student_dir(key).is_dir() else student_name
 
-    if not bundle_file.exists():
-        print(f"No student bundle found for '{student_name}' (tried key: '{key}').")
-        students_dir = bundle_path("_").parent
-        if students_dir.exists():
-            available = [p.stem for p in students_dir.glob("*.json")]
-            print(f"Available students: {available}")
+    if not student_dir(sid).is_dir():
+        print(f"No student output found for '{student_name}' (tried key: '{key}').")
+        from student_bundle import list_student_ids, STUDENTS_DIR
+        if STUDENTS_DIR.exists():
+            print(f"Available students: {list_student_ids()}")
         return
 
-    bundle = load_bundle(key if bundle_path(key).exists() else student_name)
-    responses = bundle.get("combined_responses", {})
-    if not responses:
-        for ws, sections in bundle.get("worksheets", {}).items():
-            ext = sections.get("extraction", {})
-            if "responses" in ext:
-                responses.update(ext["responses"])
-            elif "gate_1_extraction" in ext:
-                responses.update(ext["gate_1_extraction"].get("items", {}))
+    responses: dict[str, str] = {}
+    for ws in list_worksheets(sid):
+        ext = load_artifact(sid, ws, "extraction")
+        responses.update(extraction_responses(ext))
 
-    student_label = bundle.get("student_id", key)
     answered = sum(1 for iid in ALL_ITEM_IDS if is_answered(responses.get(iid, "")))
     blank = sum(1 for iid in ALL_ITEM_IDS if responses.get(iid) in {"(bos)", "(okunamiyor)"})
     missing = sum(1 for iid in ALL_ITEM_IDS if responses.get(iid, "(not_in_file)") in {"(missing)", "(not_extracted)", "(not_in_file)"})
 
-    print(f"\n=== Validation report: {student_label} ===")
+    print(f"\n=== Validation report: {sid} ===")
     print(f"Coverage: {answered}/{len(ALL_ITEM_IDS)} answered "
           f"| blank/illegible: {blank} "
           f"| missing: {missing}")
@@ -1225,22 +1225,13 @@ def save_worksheet_jsons(
     client: Optional[anthropic.Anthropic] = None,
 ) -> Path:
     """
-    Write gated extraction records into students/<student_name>.json.
+    Write one JSON per worksheet under students/<student_name>/.
 
-    Each worksheet gets an ``extraction`` section (4-gate structure).
-    Gate 3/4 scoring and AI-CFT are filled by later pipeline steps.
+    Each file holds an ``extraction`` section (4-gate structure) initially.
     """
-    from student_bundle import (
-        STUDENTS_DIR,
-        bundle_path,
-        load_bundle,
-        save_bundle,
-        set_combined_responses,
-        set_section,
-    )
+    from student_bundle import STUDENTS_DIR, save_artifact, student_dir as sb_student_dir
 
     base = output_dir or STUDENTS_DIR
-    bundle = load_bundle(student_name, base_dir=base)
     extracted_at = datetime.now(timezone.utc).isoformat()
     raw_ws    = raw_by_pdf.get("Worksheets1-10.pdf", {})
     raw_ws11  = raw_by_pdf.get("Worksheet11_ Feedbacks.pdf", {})
@@ -1357,11 +1348,9 @@ def save_worksheet_jsons(
                     manifest_path.read_text(encoding="utf-8")
                 )
 
-        set_section(bundle, ws_label, "extraction", record)
+        save_artifact(student_name, ws_label, "extraction", record, base_dir=base)
 
-    set_combined_responses(bundle, all_responses)
-    save_bundle(bundle, base_dir=base)
-    return bundle_path(student_name, base_dir=base)
+    return sb_student_dir(student_name, base)
 
 
 def mode_full(
@@ -1383,7 +1372,7 @@ def mode_full(
         student_dir = OUT_DIR / key
         student_dir.mkdir(exist_ok=True)
 
-        bundle_path = save_worksheet_jsons(
+        out_dir = save_worksheet_jsons(
             student_name=key,
             all_responses=record["responses"],
             raw_by_pdf=raw_by_pdf,
@@ -1394,7 +1383,7 @@ def mode_full(
         print(f"  {key}: {cov['answered']}/{cov['total']} answered "
               f"| {cov['blank_or_illegible']} blank "
               f"| {cov['missing_from_model']} missing "
-              f"| saved: {bundle_path.relative_to(Path(__file__).parent)}")
+              f"| saved: {out_dir.relative_to(Path(__file__).parent)}/")
 
     print("\nDone. Run 'python ocr_pipeline.py validate <StudentName>' to spot-check.")
 

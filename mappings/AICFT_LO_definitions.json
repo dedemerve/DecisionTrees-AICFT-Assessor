@@ -1,860 +1,1145 @@
 {
+  "schema_version": "2.0",
   "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
   "aspect": "Aspect 3: AI foundations and applications",
-  "note": "Official LO descriptions sourced verbatim from UNESCO AI-CFT 2024, Aspect 3. worksheet_evidence lists all items in this project that provide evidence for each LO, sorted WS1→WS3→WS4→WS5→WS6→WS7→WS10→WS11→WS_DT.",
+  "note": "LO = Learning Object (AI-CFT competency). Performance-based assessment index derived from AICFT_assessment_framework.json. Evidence is observable behaviour, not worksheet-to-LO mechanical tagging.",
   "levels": {
     "Acquire": {
-      "level_description": "Teachers acquire foundational conceptual knowledge of AI systems, their components, and core techniques. At this level, teachers demonstrate understanding of how AI works, what AI is and is not, how to locate and use AI tools, and how to begin evaluating them for educational use.",
-      "learning_outcomes": {
+      "level_description": "Identify, recall, recognize, explain basic concepts.",
+      "learning_objects": {
         "LO3.1.1": {
-          "description": "Demonstrate conceptual knowledge appropriate to their competencies and responsibilities on how AI systems are developed using data, algorithms and computing architecture; acquire relevant understanding and skills on data, algorithms and programming; and exemplify key steps including problem-scoping, design, training, testing, deployment, feedback and iteration.",
+          "title": "Basic AI techniques and applications — conceptual knowledge",
+          "expected_level": "Acquire",
+          "scope": "Foundational vocabulary and concepts only: object, feature, label, dataset, decision, threshold, basic ML terminology. Recall and explain — not tool operation.",
+          "unesco_reference": "Aspect 3, Acquire — foundational conceptual knowledge of AI systems.",
+          "primary_evidence": [
+            "WS1 (definitions and terminology)",
+            "DT Section E (sensitivity/MCR formulas as conceptual metrics)"
+          ],
           "worksheet_evidence": [
             {
               "worksheet": "WS1",
               "item": "WS1_B1",
               "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS1",
-              "item": "WS1_B2",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS1",
-              "item": "WS1_B3",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS1",
-              "item": "WS1_B4",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS1",
-              "item": "WS1_B5",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS1",
-              "item": "WS1_B6",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS1",
-              "item": "WS1_B7",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS1",
-              "item": "WS1_B8",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS1",
-              "item": "WS1_B9",
-              "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Learner recalls or explains foundational supervised-learning vocabulary. Item targets core terminology (object, feature, label, threshold, rule, confusion-matrix terms, or decision-tree structure).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS1",
               "item": "WS1_B10",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "moderate",
+              "expected_level": "Acquire",
+              "rationale": "Learner recalls or explains foundational supervised-learning vocabulary. Item targets core terminology (object, feature, label, threshold, rule, confusion-matrix terms, or decision-tree structure).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS1",
               "item": "WS1_B11",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Learner recalls or explains foundational supervised-learning vocabulary. Item targets core terminology (object, feature, label, threshold, rule, confusion-matrix terms, or decision-tree structure).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS3",
-              "item": "WS3_B1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS3",
-              "item": "WS3_B2",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS3",
-              "item": "WS3_B3",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS3",
-              "item": "WS3_B4",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS3",
-              "item": "WS3_B5",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS3",
-              "item": "WS3_B6",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS3",
-              "item": "WS3_B7",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS3",
-              "item": "WS3_B8",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS4",
-              "item": "WS4_B4",
+              "worksheet": "WS1",
+              "item": "WS1_B2",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Learner recalls or explains foundational supervised-learning vocabulary. Item targets core terminology (object, feature, label, threshold, rule, confusion-matrix terms, or decision-tree structure).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS6",
-              "item": "WS6_branch_labels",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS7",
-              "item": "WS7_P1_box1",
+              "worksheet": "WS1",
+              "item": "WS1_B3",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Learner recalls or explains foundational supervised-learning vocabulary. Item targets core terminology (object, feature, label, threshold, rule, confusion-matrix terms, or decision-tree structure).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS7",
-              "item": "WS7_P1_box2",
+              "worksheet": "WS1",
+              "item": "WS1_B4",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Learner recalls or explains foundational supervised-learning vocabulary. Item targets core terminology (object, feature, label, threshold, rule, confusion-matrix terms, or decision-tree structure).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS7",
-              "item": "WS7_P1_box3",
+              "worksheet": "WS1",
+              "item": "WS1_B5",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Learner recalls or explains foundational supervised-learning vocabulary. Item targets core terminology (object, feature, label, threshold, rule, confusion-matrix terms, or decision-tree structure).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS7",
-              "item": "WS7_B1",
+              "worksheet": "WS1",
+              "item": "WS1_B6",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Learner recalls or explains foundational supervised-learning vocabulary. Item targets core terminology (object, feature, label, threshold, rule, confusion-matrix terms, or decision-tree structure).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS7",
-              "item": "WS7_B2",
+              "worksheet": "WS1",
+              "item": "WS1_B7",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Learner recalls or explains foundational supervised-learning vocabulary. Item targets core terminology (object, feature, label, threshold, rule, confusion-matrix terms, or decision-tree structure).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS7",
-              "item": "WS7_B3",
+              "worksheet": "WS1",
+              "item": "WS1_B8",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Learner recalls or explains foundational supervised-learning vocabulary. Item targets core terminology (object, feature, label, threshold, rule, confusion-matrix terms, or decision-tree structure).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS11",
-              "item": "WS11_B8a",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_B8b",
+              "worksheet": "WS1",
+              "item": "WS1_B9",
               "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q10_1",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q10_2",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q10_3",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q10_4",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q10_5",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q10_6",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q10_7",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q10_8",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q11_2",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q11_3",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q11_4",
-              "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Learner recalls or explains foundational supervised-learning vocabulary. Item targets core terminology (object, feature, label, threshold, rule, confusion-matrix terms, or decision-tree structure).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS_DT",
               "item": "DT_A_Q1",
               "evidence_type": "prior_belief",
-              "weight": "weak"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_A_Q3",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_B_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_E_Q2",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_E_sensitivity",
-              "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "weak",
+              "expected_level": "Acquire",
+              "rationale": "Uninformed prior belief: names predictive feature(s) before CODAP analysis. Baseline diagnostic only — excluded from portfolio peak aggregation.",
+              "role": "primary",
+              "portfolio_weight": "baseline"
             },
             {
               "worksheet": "WS_DT",
               "item": "DT_E_MCR",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "moderate",
+              "expected_level": "Acquire",
+              "rationale": "Computes or states MCR formula — conceptual metric knowledge.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_E_sensitivity",
+              "evidence_type": "direct",
+              "strength": "moderate",
+              "expected_level": "Acquire",
+              "rationale": "Computes or states sensitivity formula — conceptual metric knowledge.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS_DT",
               "item": "DT_G_Q1",
               "evidence_type": "reflective",
-              "weight": "moderate"
+              "strength": "weak",
+              "expected_level": "Acquire",
+              "rationale": "Metacognitive reflection on conceptual learning — portfolio diagnostic only.",
+              "role": "supporting",
+              "portfolio_weight": "diagnostic"
             }
           ]
         },
         "LO3.1.2": {
-          "description": "Exemplify what AI is and is not, the main categories of AI techniques and AI technologies, the novel capabilities that AI could actualize compared to previous generations of ICT tools, and the core functions of various categories of AI tools.",
+          "title": "How AI works — foundational understanding",
+          "expected_level": "Acquire",
+          "scope": "Explains what decision trees do, why data is needed, and distinguishes AI from non-AI approaches at a conceptual level.",
+          "unesco_reference": "Aspect 3, Acquire — understanding of how AI systems work.",
+          "primary_evidence": [
+            "WS11 Q9, Q10, Q12 (conceptual explanation items)"
+          ],
           "worksheet_evidence": [
-            {
-              "worksheet": "WS1",
-              "item": "WS1_B11",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
             {
               "worksheet": "WS11",
               "item": "WS11_B9",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Explains foundational AI concept (why data / how models learn).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q10_1",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q10_2",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q10_3",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q10_4",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q10_5",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q10_6",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q10_7",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q10_8",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS11",
+              "item": "WS11_Q11_2",
+              "evidence_type": "direct",
+              "strength": "moderate",
+              "expected_level": "Acquire",
+              "rationale": "Orders procedural steps in decision-tree construction (select feature → arrange by dimension → find threshold → decide). Demonstrates workflow understanding, not vocabulary recall alone.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS11",
+              "item": "WS11_Q11_3",
+              "evidence_type": "direct",
+              "strength": "moderate",
+              "expected_level": "Acquire",
+              "rationale": "Orders procedural steps in decision-tree construction (select feature → arrange by dimension → find threshold → decide). Demonstrates workflow understanding, not vocabulary recall alone.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS11",
+              "item": "WS11_Q11_4",
+              "evidence_type": "direct",
+              "strength": "moderate",
+              "expected_level": "Acquire",
+              "rationale": "Orders procedural steps in decision-tree construction (select feature → arrange by dimension → find threshold → decide). Demonstrates workflow understanding, not vocabulary recall alone.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q12_1",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q12_2",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q12_3",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q12_4",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS11",
               "item": "WS11_Q12_5",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_A_Q2",
+              "evidence_type": "supporting",
+              "strength": "weak",
+              "expected_level": "Acquire",
+              "rationale": "Links data exploration to how a model might use that feature.",
+              "role": "supporting",
+              "portfolio_weight": "full"
             }
           ]
         },
         "LO3.1.3": {
-          "description": "Locate and operate AI tools that are necessary for their daily work in local contexts.",
+          "title": "Validated AI tool selection",
+          "expected_level": "Acquire",
+          "scope": "Locates, validates, and selects appropriate AI tools (e.g. CODAP, Arbor, EMIT) for an educational data-analysis task.",
+          "unesco_reference": "Aspect 3, Acquire — locate and evaluate AI tools for educational use.",
+          "primary_evidence": [
+            "DT Section B (tool selection and setup)"
+          ],
           "worksheet_evidence": [
             {
-              "worksheet": "WS3",
-              "item": "WS3_B7",
+              "worksheet": "WS_DT",
+              "item": "DT_B_Q1",
               "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS3",
-              "item": "WS3_B8",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS4",
-              "item": "WS4_B1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            }
-          ]
-        },
-        "LO3.1.4": {
-          "description": "Explain the importance of evaluating AI tools to ensure their accessibility, inclusivity, and reliability; undertake basic analyses of the appropriateness of specific AI tools for education in local contexts with particular attention to the impact on students with special needs.",
-          "worksheet_evidence": [],
-          "coverage_gap_note": "Not covered: no ProDaBi worksheet addresses evaluation of AI tools for accessibility, inclusivity, or reliability in educational contexts."
-        },
-        "LO3.1.5": {
-          "description": "Start consolidating a personal collection of trustable AI tools that are necessary for life and work and relevant to the local language and culture. Investigate the extent to which locally relevant open-source AI tools are available or not.",
-          "worksheet_evidence": [
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q12_1",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q12_2",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q12_3",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q12_4",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_Q12_5",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
+              "strength": "strong",
+              "expected_level": "Acquire",
+              "rationale": "Selects and validates an appropriate AI tool (CODAP, Arbor, or EMIT) for the task.",
+              "role": "primary",
+              "portfolio_weight": "full"
             }
           ]
         }
       }
     },
     "Deepen": {
-      "level_description": "Teachers deepen their understanding by proficiently operating AI tools, visually representing how AI systems work, applying transferable knowledge of data and algorithms to solve real problems, and critically evaluating the ethics embedded in AI design.",
-      "learning_outcomes": {
+      "level_description": "Apply, evaluate, compare, select, justify, interpret, integrate, optimize.",
+      "learning_objects": {
         "LO3.2.1": {
-          "description": "Proficiently operate commonly used AI tools in daily life and in education; exemplify the typical techniques used by these tools and explain their implications for education.",
+          "title": "Evaluate → select → apply AI tools in educational context",
+          "expected_level": "Deepen",
+          "scope": "Demonstrates evaluate → select → apply cycle: choose variables, build multiple models/trees, compare performance — not threshold arithmetic alone.",
+          "unesco_reference": "Aspect 3, Deepen — operate and apply AI tools in educational contexts.",
+          "primary_evidence": [
+            "DT Section B (three variables, three trees, performance comparison)"
+          ],
           "worksheet_evidence": [
             {
-              "worksheet": "WS4",
-              "item": "WS4_B1",
-              "evidence_type": "direct",
-              "weight": "strong"
+              "worksheet": "WS_DT",
+              "item": "DT_A_Q4",
+              "evidence_type": "supporting",
+              "strength": "weak",
+              "expected_level": "Deepen",
+              "rationale": "Early evaluate→select step before full three-tree comparison in Section B.",
+              "role": "supporting",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS4",
-              "item": "WS4_B2",
+              "worksheet": "WS_DT",
+              "item": "DT_B_Q2",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Builds decision trees with different variables — evaluate → select → apply cycle.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS4",
-              "item": "WS4_B3",
+              "worksheet": "WS_DT",
+              "item": "DT_B_Q3",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Builds decision trees with different variables — evaluate → select → apply cycle.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS5",
-              "item": "WS5_row1",
+              "worksheet": "WS_DT",
+              "item": "DT_B_Q4",
               "evidence_type": "direct",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS5",
-              "item": "WS5_row2",
-              "evidence_type": "direct",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS5",
-              "item": "WS5_row3",
-              "evidence_type": "direct",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS5",
-              "item": "WS5_row4",
-              "evidence_type": "direct",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS5",
-              "item": "WS5_row5",
-              "evidence_type": "direct",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS5",
-              "item": "WS5_B25",
-              "evidence_type": "direct",
-              "weight": "strong"
-            },
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Compares performance across three trees/variables — full evaluate-select-apply evidence.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            }
+          ]
+        },
+        "LO3.2.2": {
+          "title": "Application skills — model behaviour and threshold reasoning",
+          "expected_level": "Deepen",
+          "scope": "Apply, interpret, compare, justify: threshold application and optimization, decision-tree construction/representation, rule articulation, model behaviour.",
+          "unesco_reference": "Aspect 3, Deepen — Application Skills: explain model behaviour, interpret results, evaluate parameters, select appropriate approaches.",
+          "primary_evidence": [
+            "WS3 (threshold application)",
+            "WS4 (best threshold search and justification)",
+            "WS6 (decision tree construction and representation)",
+            "WS7 (decision rules → natural language)",
+            "WS10 (threshold optimization)",
+            "WS11 Q8 (applied interpretation)"
+          ],
+          "worksheet_evidence": [
             {
               "worksheet": "WS10",
               "item": "WS10_B1",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS10",
               "item": "WS10_B2",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS10",
               "item": "WS10_B3",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS10",
               "item": "WS10_B4",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS10",
               "item": "WS10_B5",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS10",
               "item": "WS10_B6",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS10",
               "item": "WS10_B7",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS10",
               "item": "WS10_B8",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Optimizes or evaluates threshold performance across numeric table rows — demonstrates parameter tuning and result interpretation.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_A_Q2",
+              "worksheet": "WS11",
+              "item": "WS11_B8a",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Interprets model output or feedback in applied context (Q8 cluster).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_A_Q3",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_A_Q4",
+              "worksheet": "WS11",
+              "item": "WS11_B8b",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Explains or justifies model behaviour from worksheet feedback (Q8).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_B_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
+              "worksheet": "WS11",
+              "item": "WS11_Q11_2",
+              "evidence_type": "supporting",
+              "strength": "weak",
+              "expected_level": "Deepen",
+              "rationale": "Connects ordered steps to applied model-building pipeline (Q11).",
+              "role": "supporting",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_B_Q2",
-              "evidence_type": "application",
-              "weight": "moderate"
+              "worksheet": "WS11",
+              "item": "WS11_Q11_3",
+              "evidence_type": "supporting",
+              "strength": "weak",
+              "expected_level": "Deepen",
+              "rationale": "Connects ordered steps to applied model-building pipeline (Q11).",
+              "role": "supporting",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_B_Q3",
-              "evidence_type": "application",
-              "weight": "moderate"
+              "worksheet": "WS11",
+              "item": "WS11_Q11_4",
+              "evidence_type": "supporting",
+              "strength": "weak",
+              "expected_level": "Deepen",
+              "rationale": "Connects ordered steps to applied model-building pipeline (Q11).",
+              "role": "supporting",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_B_Q4",
+              "worksheet": "WS3",
+              "item": "WS3_B1",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_C_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_C_Q2",
+              "worksheet": "WS3",
+              "item": "WS3_B2",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_C_Q3",
+              "worksheet": "WS3",
+              "item": "WS3_B3",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_D_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_D_Q2",
+              "worksheet": "WS3",
+              "item": "WS3_B4",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_D_Q3",
+              "worksheet": "WS3",
+              "item": "WS3_B5",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_D_Q4",
+              "worksheet": "WS3",
+              "item": "WS3_B6",
               "evidence_type": "direct",
-              "weight": "strong"
-            }
-          ]
-        },
-        "LO3.2.2": {
-          "description": "Visually represent how selected AI systems work, including how they are trained and tested, as well as the typical models, algorithms, and datasets used.",
-          "worksheet_evidence": [
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Applies threshold values to classify items — demonstrates parameter application and interpretation of model decisions.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS3",
+              "item": "WS3_B7",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Applies and justifies threshold choices in a spreadsheet/tool context — requires evaluating trade-offs between sensitivity and misclassification.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS3",
+              "item": "WS3_B8",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Applies and justifies threshold choices in a spreadsheet/tool context — requires evaluating trade-offs between sensitivity and misclassification.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS4",
+              "item": "WS4_B1",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Searches, tests, or justifies threshold values — evaluates model behaviour and selects parameters based on performance evidence.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS4",
+              "item": "WS4_B2",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Searches, tests, or justifies threshold values — evaluates model behaviour and selects parameters based on performance evidence.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS4",
+              "item": "WS4_B3",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Searches, tests, or justifies threshold values — evaluates model behaviour and selects parameters based on performance evidence.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS4",
+              "item": "WS4_B4",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Searches, tests, or justifies threshold values — evaluates model behaviour and selects parameters based on performance evidence.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
             {
               "worksheet": "WS4",
               "item": "WS4_B5",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Searches, tests, or justifies threshold values — evaluates model behaviour and selects parameters based on performance evidence.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS5",
               "item": "WS5_B25",
-              "evidence_type": "direct",
-              "weight": "strong"
+              "evidence_type": "supporting",
+              "strength": "weak",
+              "expected_level": "Deepen",
+              "rationale": "Interprets numeric relationships among confusion-matrix cells.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS6",
+              "item": "WS6_inner_feature",
+              "evidence_type": "supporting",
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Decision-tree worksheet: Selects inner-node feature for tree refinement.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS6",
+              "item": "WS6_inner_labels",
+              "evidence_type": "supporting",
+              "strength": "weak",
+              "expected_level": "Deepen",
+              "rationale": "Decision-tree worksheet: Assigns class labels at inner branches.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS6",
+              "item": "WS6_inner_threshold",
+              "evidence_type": "supporting",
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Decision-tree worksheet: Sets inner-node threshold.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS6",
+              "item": "WS6_leaves",
+              "evidence_type": "supporting",
+              "strength": "weak",
+              "expected_level": "Deepen",
+              "rationale": "Decision-tree worksheet: Specifies leaf outcomes completing tree representation.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS6",
+              "item": "WS6_root_feature",
+              "evidence_type": "supporting",
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Decision-tree worksheet: Selects root split feature — model structure decision.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS6",
+              "item": "WS6_root_labels",
+              "evidence_type": "supporting",
+              "strength": "weak",
+              "expected_level": "Deepen",
+              "rationale": "Decision-tree worksheet: Assigns class labels at root branches.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS6",
+              "item": "WS6_root_threshold",
+              "evidence_type": "supporting",
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Decision-tree worksheet: Sets root threshold — parameter evaluation.",
+              "role": "supporting",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS6",
               "item": "WS6_tree_structure",
               "evidence_type": "direct",
-              "weight": "strong"
-            },
-            {
-              "worksheet": "WS7",
-              "item": "WS7_P1_box1",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS7",
-              "item": "WS7_P1_box2",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS7",
-              "item": "WS7_P1_box3",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Decision-tree worksheet: Constructs or represents a complete decision tree from data.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS7",
               "item": "WS7_B1",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS7",
               "item": "WS7_B2",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS7",
               "item": "WS7_B3",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS11",
-              "item": "WS11_B8b",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_B_Q4",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_C_Q2",
               "evidence_type": "direct",
-              "weight": "moderate"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_D_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_D_Q2",
+              "worksheet": "WS7",
+              "item": "WS7_P1_box1",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_D_Q3",
+              "worksheet": "WS7",
+              "item": "WS7_P1_box2",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
-              "worksheet": "WS_DT",
-              "item": "DT_E_Q1",
+              "worksheet": "WS7",
+              "item": "WS7_P1_box3",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Matches or articulates decision rules in natural language — interprets model logic and path conditions demonstrated by the learner.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS_DT",
-              "item": "DT_E_Q2",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_E_Q3",
+              "item": "DT_A_Q2",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "After CODAP exploration: names a feature and cites an observed data/graph pattern (not intuition alone) — early data-interpretation behaviour.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_A_Q3",
+              "evidence_type": "direct",
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Identifies a feature showing meaningful separation between recommended and not-recommended classes from explored data.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_A_Q4",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Selects first split variable with explicit data-based justification (graph separation, class distinction) — precursor to model design.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS_DT",
               "item": "DT_G_Q2",
               "evidence_type": "reflective",
-              "weight": "moderate"
+              "strength": "weak",
+              "expected_level": "Deepen",
+              "rationale": "Reflective summary of applied understanding — portfolio diagnostic only.",
+              "role": "supporting",
+              "portfolio_weight": "diagnostic"
             }
           ]
         },
         "LO3.2.3": {
-          "description": "Demonstrate transferable knowledge on data, algorithms and coding and apply it to solve problems that are appropriate to their abilities and the remit of their role.",
+          "title": "Problem solving — iterative performance improvement",
+          "expected_level": "Deepen",
+          "scope": "Real problem solving with iterative refinement: optimize thresholds, build multi-level trees, evaluate on test data, improve performance.",
+          "unesco_reference": "Aspect 3, Deepen — apply transferable knowledge to solve real problems.",
+          "primary_evidence": [
+            "DT Sections C–F (optimization, two-level tree, evaluation, test data)",
+            "WS5 (parameter exploration — supporting evidence)"
+          ],
           "worksheet_evidence": [
             {
-              "worksheet": "WS1",
-              "item": "WS1_B10",
-              "evidence_type": "early_indicator",
-              "weight": "weak"
+              "worksheet": "WS5",
+              "item": "WS5_B25",
+              "evidence_type": "direct",
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Synthesizes row-level exploration into a justified parameter choice — demonstrates iterative refinement of model performance.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS5",
+              "item": "WS5_row1",
+              "evidence_type": "supporting",
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS5",
+              "item": "WS5_row2",
+              "evidence_type": "supporting",
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS5",
+              "item": "WS5_row3",
+              "evidence_type": "supporting",
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS5",
+              "item": "WS5_row4",
+              "evidence_type": "supporting",
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS5",
+              "item": "WS5_row5",
+              "evidence_type": "supporting",
+              "strength": "moderate",
+              "expected_level": "Deepen",
+              "rationale": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+              "role": "supporting",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_C_Q1",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Iterative threshold optimization on real data (Section C).",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_C_Q2",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Iterative threshold optimization on real data (Section C).",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_C_Q3",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Iterative threshold optimization on real data (Section C).",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_D_Q1",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_D_Q2",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_D_Q3",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_D_Q4",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_E_Q1",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_E_Q2",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+              "role": "primary",
+              "portfolio_weight": "full"
+            },
+            {
+              "worksheet": "WS_DT",
+              "item": "DT_E_Q3",
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS_DT",
               "item": "DT_E_Q4",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Synthesizes evaluation into performance improvement decisions.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS_DT",
               "item": "DT_F_Q1",
-              "evidence_type": "application",
-              "weight": "moderate"
+              "evidence_type": "direct",
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Applies model to test/holdout data — validates generalization.",
+              "role": "primary",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS_DT",
               "item": "DT_F_Q2",
               "evidence_type": "direct",
-              "weight": "strong"
+              "strength": "strong",
+              "expected_level": "Deepen",
+              "rationale": "Interprets test-set results and proposes iterative improvements.",
+              "role": "primary",
+              "portfolio_weight": "full"
             }
           ]
         }
       }
     },
     "Create": {
-      "level_description": "Teachers create or customize AI systems, demonstrating expert-level knowledge of AI design, the ability to adapt or assemble AI tools for local educational needs, defining testing and optimization criteria, and contributing to repositories of educational AI tools.",
-      "learning_outcomes": {
+      "level_description": "Design, adapt, customize, innovate AI-supported solutions.",
+      "learning_objects": {
         "LO3.3.1": {
-          "description": "Demonstrate knowledge and skills on AI system design at the level of expert teachers as well as comprehensive competencies to analyse the limitations of selected AI systems in solving real-world problems in local educational contexts.",
+          "title": "Create — adapt AI-supported solutions",
+          "expected_level": "Create",
+          "scope": "Early indicators of designing or adapting AI-supported educational solutions.",
+          "unesco_reference": "Aspect 3, Create — design and adapt AI-supported solutions.",
+          "primary_evidence": [
+            "DT Section F (weak Create indicator)"
+          ],
           "worksheet_evidence": [
             {
               "worksheet": "WS_DT",
-              "item": "DT_D_Q4",
-              "evidence_type": "early_indicator",
-              "weight": "weak"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_E_Q3",
-              "evidence_type": "early_indicator",
-              "weight": "weak"
-            },
-            {
-              "worksheet": "WS_DT",
               "item": "DT_E_Q4",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
+              "evidence_type": "supporting",
+              "strength": "weak",
+              "expected_level": "Create",
+              "rationale": "Early indicator of adapting model design based on evaluation.",
+              "role": "supporting",
+              "portfolio_weight": "full"
             },
             {
               "worksheet": "WS_DT",
               "item": "DT_F_Q2",
-              "evidence_type": "early_indicator",
-              "weight": "moderate"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_G_Q1",
-              "evidence_type": "early_indicator",
-              "weight": "weak"
-            },
-            {
-              "worksheet": "WS_DT",
-              "item": "DT_G_Q2",
-              "evidence_type": "early_indicator",
-              "weight": "weak"
+              "evidence_type": "supporting",
+              "strength": "weak",
+              "expected_level": "Create",
+              "rationale": "Weak Create indicator — adapts solution based on test evidence.",
+              "role": "supporting",
+              "portfolio_weight": "full"
             }
           ]
-        },
-        "LO3.3.2": {
-          "description": "Apply appropriate knowledge and skills on data, algorithms, programming and AI models to customize and/or assemble existing AI tools or semi-finished AI models to create AI tools or fine-tune open-source AI systems to create solutions that are both relevant and affordable for local settings and specific use cases.",
-          "worksheet_evidence": [],
-          "coverage_gap_note": "Not covered: ProDaBi is an unplugged/plugged activity sequence, not an AI tool customization or assembly task; no worksheet requires building or fine-tuning an AI system."
-        },
-        "LO3.3.3": {
-          "description": "Revise or define criteria for the comprehensive testing of a self-created AI tool and for the purpose of optimization and further iteration of the tool.",
-          "worksheet_evidence": [],
-          "coverage_gap_note": "Not covered: no worksheet asks students to define or revise testing criteria for a self-created AI tool; optimization and iteration are beyond the scope of the activity."
-        },
-        "LO3.3.4": {
-          "description": "Contribute to a new or existing repository of user-created or tailored AI tools based on personal and institutional needs and promote a focus on only utilizing the most appropriate tools for education.",
-          "worksheet_evidence": [],
-          "coverage_gap_note": "Not covered: no worksheet involves contributing to a repository of AI tools or evaluating tool appropriateness for institutional contexts."
         }
       }
     }

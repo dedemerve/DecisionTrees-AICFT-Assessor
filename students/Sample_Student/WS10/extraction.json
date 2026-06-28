@@ -1,0 +1,344 @@
+{
+  "schema_version": "3.0",
+  "stage": "extraction",
+  "student_id": "Sample_Student",
+  "worksheet": "WS10",
+  "updated_at": "2026-06-28T08:59:37.405445+00:00",
+  "responses": {
+    "WS10_B1": "48.5",
+    "WS10_B2": "6",
+    "WS10_B3": "144.0",
+    "WS10_B4": "3",
+    "WS10_B5": "408",
+    "WS10_B6": "408|1",
+    "WS10_B7": "408|1",
+    "WS10_B8": "408"
+  },
+  "numeric_table": {
+    "energy_values": [
+      28,
+      69,
+      219,
+      346,
+      359,
+      408,
+      489
+    ],
+    "thresholds": [
+      "28",
+      "69",
+      "219",
+      "346",
+      "359",
+      "408",
+      "489"
+    ],
+    "misclassifications": [
+      "4",
+      "3",
+      "2",
+      "3",
+      "2",
+      "1",
+      "2"
+    ],
+    "optimal_threshold": "408",
+    "calibration": true
+  },
+  "htr_status": "success",
+  "layout_roi": {
+    "schema_version": "1.0",
+    "student_id": "Sample_Student",
+    "worksheet": "WS10",
+    "source_image": "ocr_output/_images/_slot31_check/page_2.jpg",
+    "page_index": 2,
+    "status": "success",
+    "message": null,
+    "zone_count": 18,
+    "zones": [
+      {
+        "zone_id": "Sample_Student_ws10_table",
+        "type": "table_grid",
+        "coordinates": {
+          "x": 618,
+          "y": 293,
+          "w": 379,
+          "h": 473
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table.png",
+        "worksheet": "WS10"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r0c0",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 619,
+          "y": 294,
+          "w": 48,
+          "h": 251
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c0.png",
+        "worksheet": "WS10",
+        "row": 0,
+        "col": 0,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r0c1",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 667,
+          "y": 294,
+          "w": 47,
+          "h": 251
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c1.png",
+        "worksheet": "WS10",
+        "row": 0,
+        "col": 1,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r0c2",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 714,
+          "y": 294,
+          "w": 46,
+          "h": 251
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c2.png",
+        "worksheet": "WS10",
+        "row": 0,
+        "col": 2,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r0c3",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 760,
+          "y": 294,
+          "w": 46,
+          "h": 251
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c3.png",
+        "worksheet": "WS10",
+        "row": 0,
+        "col": 3,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r0c4",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 806,
+          "y": 294,
+          "w": 47,
+          "h": 251
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c4.png",
+        "worksheet": "WS10",
+        "row": 0,
+        "col": 4,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r0c5",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 853,
+          "y": 294,
+          "w": 47,
+          "h": 251
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c5.png",
+        "worksheet": "WS10",
+        "row": 0,
+        "col": 5,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r0c6",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 900,
+          "y": 294,
+          "w": 46,
+          "h": 251
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c6.png",
+        "worksheet": "WS10",
+        "row": 0,
+        "col": 6,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r0c7",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 946,
+          "y": 294,
+          "w": 46,
+          "h": 251
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r0c7.png",
+        "worksheet": "WS10",
+        "row": 0,
+        "col": 7,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r1c0",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 619,
+          "y": 545,
+          "w": 48,
+          "h": 217
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c0.png",
+        "worksheet": "WS10",
+        "row": 1,
+        "col": 0,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r1c1",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 667,
+          "y": 545,
+          "w": 47,
+          "h": 217
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c1.png",
+        "worksheet": "WS10",
+        "row": 1,
+        "col": 1,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r1c2",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 714,
+          "y": 545,
+          "w": 46,
+          "h": 217
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c2.png",
+        "worksheet": "WS10",
+        "row": 1,
+        "col": 2,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r1c3",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 760,
+          "y": 545,
+          "w": 46,
+          "h": 217
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c3.png",
+        "worksheet": "WS10",
+        "row": 1,
+        "col": 3,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r1c4",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 806,
+          "y": 545,
+          "w": 47,
+          "h": 217
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c4.png",
+        "worksheet": "WS10",
+        "row": 1,
+        "col": 4,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r1c5",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 853,
+          "y": 545,
+          "w": 47,
+          "h": 217
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c5.png",
+        "worksheet": "WS10",
+        "row": 1,
+        "col": 5,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r1c6",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 900,
+          "y": 545,
+          "w": 46,
+          "h": 217
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c6.png",
+        "worksheet": "WS10",
+        "row": 1,
+        "col": 6,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_table_r1c7",
+        "type": "table_cell",
+        "coordinates": {
+          "x": 946,
+          "y": 545,
+          "w": 46,
+          "h": 217
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_table_r1c7.png",
+        "worksheet": "WS10",
+        "row": 1,
+        "col": 7,
+        "parent_zone_id": "Sample_Student_ws10_table"
+      },
+      {
+        "zone_id": "Sample_Student_ws10_optimal_answer",
+        "type": "handwriting",
+        "coordinates": {
+          "x": 556,
+          "y": 774,
+          "w": 270,
+          "h": 210
+        },
+        "status": "success",
+        "file_path": "layout_rois/Sample_Student/Sample_Student_ws10_optimal_answer.png",
+        "worksheet": "WS10",
+        "item_id": "WS10_B8"
+      }
+    ]
+  }
+}

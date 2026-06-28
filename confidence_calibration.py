@@ -17,12 +17,12 @@ from typing import Any
 from pipeline_schema import REPO_ROOT, load_rubric, rubric_item
 from student_bundle import (
     STUDENTS_DIR,
-    extraction_responses,
-    get_section,
-    iter_scoring_worksheets,
-    load_bundle,
-    save_bundle,
-    set_section,
+    artifact_payload,
+    iter_scoring_artifacts,
+    load_artifact,
+    load_extraction_responses,
+    save_scoring_bundle,
+    student_dir,
 )
 
 REVIEW_THRESHOLD = 0.70
@@ -64,7 +64,11 @@ def _deterministic_check_ok(
 ) -> bool | None:
     if not validation:
         return None
-    checks = validation.get("numeric_checks") or {}
+    checks = (
+        validation.get("deterministic_checks")
+        or validation.get("numeric_checks")
+        or {}
+    )
     entry = checks.get(item_id)
     if isinstance(entry, dict) and "ok" in entry:
         return bool(entry["ok"])
@@ -175,7 +179,7 @@ def load_human_coding_reference(path: Path | None = None) -> dict[str, Any]:
 def build_human_reference_from_scoring(student_id: str) -> dict[str, Any]:
     """Export current scoring scores as human anchor (for calibration baseline)."""
     items: list[dict[str, Any]] = []
-    for ws, data in iter_scoring_worksheets(load_bundle(student_id)):
+    for ws, data in iter_scoring_artifacts(student_id):
         for rec in data.get("items", []):
             items.append({
                 "worksheet": ws,
@@ -219,8 +223,7 @@ def calibration_report(
     review_count = 0
     confidences: list[float] = []
 
-    bundle = load_bundle(student_id)
-    for ws, data in iter_scoring_worksheets(bundle):
+    for ws, data in iter_scoring_artifacts(student_id):
         for rec in data.get("items", []):
             n += 1
             key = (ws, rec["item"])
@@ -247,38 +250,37 @@ def calibrate_student_scoring(
     student_id: str,
     base_dir: Path | None = None,
 ) -> list[Path]:
-    """Re-apply calibrated confidence to all scoring sections in the student bundle."""
+    """Re-apply calibrated confidence to scoring sections in per-worksheet JSON files."""
     students_root = base_dir or STUDENTS_DIR
-    bundle = load_bundle(student_id, base_dir=students_root)
     updated: list[Path] = []
 
-    for ws, data in iter_scoring_worksheets(bundle):
-        ocr_responses = extraction_responses(bundle, ws)
-        validation = get_section(bundle, ws, "validation")
+    for ws, scoring_env in iter_scoring_artifacts(student_id, base_dir=students_root):
+        scoring = artifact_payload(scoring_env)
+        ocr_responses = load_extraction_responses(student_id, ws, base_dir=students_root)
+        validation_env = load_artifact(student_id, ws, "validation", base_dir=students_root)
+        validation = artifact_payload(validation_env) or None
 
-        if data.get("blocked"):
-            data["schema_version"] = "1.0"
-            data["calibration_note"] = "Blocked worksheet; no item confidence applied."
-            set_section(bundle, ws, "scoring", data)
+        if scoring.get("blocked"):
+            scoring["calibration_note"] = "Blocked worksheet; no item confidence applied."
+            updated.extend(save_scoring_bundle(student_id, ws, scoring, base_dir=students_root))
             continue
 
         new_items = []
-        for rec in data.get("items", []):
+        for rec in scoring.get("items", []):
             new_items.append(calibrate_scoring_item(
                 ws, rec["item"], rec,
                 ocr_responses=ocr_responses,
                 validation=validation,
             ))
 
-        data["schema_version"] = "1.0"
-        data["calibration_note"] = (
+        scoring["calibration_note"] = (
             f"Confidence calibrated via confidence_calibration.py "
             f"(review_threshold={REVIEW_THRESHOLD})."
         )
-        data["items"] = new_items
-        set_section(bundle, ws, "scoring", data)
+        scoring["items"] = new_items
+        updated.extend(save_scoring_bundle(student_id, ws, scoring, base_dir=students_root))
 
-    out = save_bundle(bundle, base_dir=students_root)
-    if out.exists():
-        updated.append(out)
+    root = student_dir(student_id, students_root)
+    if root.exists() and root not in updated:
+        updated.append(root)
     return updated

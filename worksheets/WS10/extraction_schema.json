@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "worksheet": "WS10",
+  "curriculum_status": "deployed",
+  "pipeline_stage": "extraction_only",
+  "interpretation_prohibited": true,
+  "ocr_engine": "claude_vision",
+  "source_type": "worksheet",
+  "note": "Eight numeric/table fields; blocked if table region missing.",
+  "fields": [
+    {
+      "field_id": "WS10_B1",
+      "rubric_item_id": "WS10_B1",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS10 worksheet response region"
+    },
+    {
+      "field_id": "WS10_B2",
+      "rubric_item_id": "WS10_B2",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS10 worksheet response region"
+    },
+    {
+      "field_id": "WS10_B3",
+      "rubric_item_id": "WS10_B3",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS10 worksheet response region"
+    },
+    {
+      "field_id": "WS10_B4",
+      "rubric_item_id": "WS10_B4",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS10 worksheet response region"
+    },
+    {
+      "field_id": "WS10_B5",
+      "rubric_item_id": "WS10_B5",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS10 worksheet response region"
+    },
+    {
+      "field_id": "WS10_B6",
+      "rubric_item_id": "WS10_B6",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS10 worksheet response region"
+    },
+    {
+      "field_id": "WS10_B7",
+      "rubric_item_id": "WS10_B7",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS10 worksheet response region"
+    },
+    {
+      "field_id": "WS10_B8",
+      "rubric_item_id": "WS10_B8",
+      "type": "numeric",
+      "required": true,
+      "location_hint": "WS10 worksheet response region"
+    }
+  ]
+}

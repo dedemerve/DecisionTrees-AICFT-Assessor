@@ -1,0 +1,100 @@
+{
+  "schema_version": "3.0",
+  "worksheet": "WS7",
+  "note": "Part 1 (P1 boxes): match the 3 given rules to tree paths A/B/C. Single correct answer per box. Part 2 (B1-B3): student writes their own if-then rules consistent with their WS6 tree. Each rule is graded for logical consistency with the tree (correct feature, correct operator, correct label). Partial 0.5 if rule structure is correct but operator direction is wrong. B4-B7 are not_applicable when the tree has only 3 leaf paths.",
+  "items": {
+    "WS7_P1_box1": {
+      "max_score": 1,
+      "evaluation": "path_matching",
+      "answer": "B",
+      "note": "Rule 1 matches path B in the sample tree.",
+      "example_answer": "B"
+    },
+    "WS7_P1_box2": {
+      "max_score": 1,
+      "evaluation": "path_matching",
+      "answer": "A",
+      "note": "Rule 2 matches path A in the sample tree.",
+      "example_answer": "A"
+    },
+    "WS7_P1_box3": {
+      "max_score": 1,
+      "evaluation": "path_matching",
+      "answer": "C",
+      "note": "Rule 3 matches path C in the sample tree.",
+      "example_answer": "C"
+    },
+    "WS7_B1": {
+      "max_score": 1,
+      "check": "rule_consistency_with_WS6",
+      "components": [
+        {
+          "id": "correct_feature",
+          "idea": "uses the correct feature(s) from WS6 tree",
+          "required": true
+        },
+        {
+          "id": "correct_operator",
+          "idea": "uses correct threshold direction (≤ or >)",
+          "required": true
+        },
+        {
+          "id": "correct_label",
+          "idea": "conclusion matches the leaf label in WS6",
+          "required": true
+        }
+      ],
+      "partial_credit_rule": "correct_feature_and_label_but_wrong_operator",
+      "partial_score": 0.5,
+      "example_answer": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir."
+    },
+    "WS7_B2": {
+      "max_score": 1,
+      "check": "rule_consistency_with_WS6",
+      "components": [
+        {
+          "id": "correct_feature",
+          "idea": "uses the correct feature(s) from WS6 tree",
+          "required": true
+        },
+        {
+          "id": "correct_operator",
+          "idea": "uses correct threshold direction (≤ or >)",
+          "required": true
+        },
+        {
+          "id": "correct_label",
+          "idea": "conclusion matches the leaf label in WS6",
+          "required": true
+        }
+      ],
+      "partial_credit_rule": "correct_feature_and_label_but_wrong_operator",
+      "partial_score": 0.5,
+      "example_answer": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez."
+    },
+    "WS7_B3": {
+      "max_score": 1,
+      "check": "rule_consistency_with_WS6",
+      "components": [
+        {
+          "id": "correct_feature",
+          "idea": "uses the correct feature(s) from WS6 tree",
+          "required": true
+        },
+        {
+          "id": "correct_operator",
+          "idea": "uses correct threshold direction (≤ or >)",
+          "required": true
+        },
+        {
+          "id": "correct_label",
+          "idea": "conclusion matches the leaf label in WS6",
+          "required": true
+        }
+      ],
+      "partial_credit_rule": "correct_feature_and_label_but_wrong_operator",
+      "partial_score": 0.5,
+      "example_answer": "Eğer şeker > 10 ise → Tavsiye edilmez."
+    }
+  }
+}

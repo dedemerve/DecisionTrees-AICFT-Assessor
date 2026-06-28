@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/portfolio_v1.schema.json",
+  "title": "AI-CFT Portfolio Schema 3.0",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "student_id",
+    "framework",
+    "aspect",
+    "methodology",
+    "worksheets_scored",
+    "learning_objects",
+    "competency_level_summary",
+    "baseline_evidence",
+    "ai_cft_proposal",
+    "data_gaps",
+    "evidence_item_count",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": { "const": "3.0" },
+    "student_id": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string" },
+    "framework": { "type": "string" },
+    "aspect": { "type": "string" },
+    "methodology": {
+      "type": "object",
+      "required": ["assessment_framework_version", "portfolio_builder_version", "aggregation_note"],
+      "properties": {
+        "assessment_framework_version": { "type": "string" },
+        "portfolio_builder_version": { "type": "string" },
+        "aggregation_note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "worksheets_scored": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "learning_objects": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "peak_strength",
+          "expected_level",
+          "contributing_worksheets",
+          "evidence_items",
+          "direct_evidence_count",
+          "supporting_evidence_count"
+        ],
+        "properties": {
+          "peak_strength": {
+            "enum": ["none", "weak", "moderate", "strong"]
+          },
+          "expected_level": {
+            "enum": ["Acquire", "Deepen", "Create"]
+          },
+          "contributing_worksheets": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "evidence_items": { "type": "integer", "minimum": 0 },
+          "direct_evidence_count": { "type": "integer", "minimum": 0 },
+          "supporting_evidence_count": { "type": "integer", "minimum": 0 },
+          "mean_confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "competency_level_summary": {
+      "type": "object",
+      "required": ["Acquire", "Deepen", "Create"],
+      "properties": {
+        "Acquire": { "enum": ["met", "partial", "insufficient"] },
+        "Deepen": { "enum": ["met", "partial", "insufficient"] },
+        "Create": { "enum": ["met", "partial", "insufficient"] }
+      },
+      "additionalProperties": false
+    },
+    "baseline_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["worksheet", "item", "lo", "strength", "evidence_type"],
+        "properties": {
+          "worksheet": { "type": "string" },
+          "item": { "type": "string" },
+          "lo": { "type": "string", "pattern": "^LO3\\." },
+          "strength": { "enum": ["none", "weak", "moderate", "strong"] },
+          "evidence_type": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "ai_cft_proposal": {
+      "type": "object",
+      "required": [
+        "Aspect3",
+        "rationale",
+        "confidence",
+        "is_final",
+        "decision_owner",
+        "decision_note"
+      ],
+      "properties": {
+        "Aspect3": { "enum": ["Acquire", "Deepen", "Create"] },
+        "rationale": { "type": "string", "minLength": 1 },
+        "confidence": { "enum": ["provisional", "high", "low"] },
+        "is_final": { "const": false },
+        "decision_owner": { "const": "researcher" },
+        "decision_note": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "data_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["worksheet", "items", "priority", "why"],
+        "properties": {
+          "worksheet": { "type": "string" },
+          "items": { "type": "array", "items": { "type": "string" } },
+          "priority": { "type": "integer", "minimum": 1, "maximum": 9 },
+          "why": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "evidence_item_count": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": false
+}

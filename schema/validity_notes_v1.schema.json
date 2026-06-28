@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/validity_notes_v1.schema.json",
+  "title": "Worksheet Validity Notes v1.0",
+  "type": "object",
+  "required": ["schema_version", "worksheet"],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "worksheet": { "type": "string", "pattern": "^WS\\d+$" },
+    "curriculum_status": { "enum": ["deployed", "not_deployed"] },
+    "construct_threats": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "leakage_risks": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evidence_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "cross_worksheet_dependencies": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/dependency" }
+    },
+    "descriptive_only_items": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "note": { "type": "string" }
+  },
+  "$defs": {
+    "dependency": {
+      "type": "object",
+      "required": ["depends_on", "reason"],
+      "additionalProperties": false,
+      "properties": {
+        "depends_on": { "type": "string" },
+        "reason": { "type": "string" }
+      }
+    }
+  }
+}

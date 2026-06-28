@@ -1,0 +1,1936 @@
+{
+  "schema_version": "1.1",
+  "artifact": "behaviour_to_ilo_mapping",
+  "inference_layer": true,
+  "terminology": {
+    "mapping_target": "Instructional Learning Object (ILO)",
+    "note": "Not a mapping to UNESCO AI-CFT competency codes (LO3.x)."
+  },
+  "confidence_policy": {
+    "qualitative_only": true,
+    "numeric_quantization": "deferred_to_Confidence_Model.json",
+    "allowed_levels": [
+      "high",
+      "moderate",
+      "low",
+      "baseline"
+    ],
+    "allowed_basis": [
+      "construct_alignment",
+      "instructional_consensus",
+      "frozen_ilo_behaviour_link",
+      "contextual_facilitation",
+      "cross_construct_bridge",
+      "diagnostic_baseline"
+    ],
+    "prohibited": "ad_hoc_numeric_confidence"
+  },
+  "behaviour_ontology_reference": "framework/Observable_Behaviours.json",
+  "behaviour_ontology_version": "1.0",
+  "ilo_ontology_reference": "framework/Learning_Objects.json",
+  "ilo_ontology_version": "1.0",
+  "generated_at": "2026-06-28T11:01:06.379604+00:00",
+  "mapping_count": 60,
+  "rejected_alternative_count": 18,
+  "behaviour_count": 28,
+  "mappings": {
+    "OB_CON_001": {
+      "behaviour_id": "OB_CON_001",
+      "records": [
+        {
+          "ilo_id": "ILO_DATASET",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner references labeled collections when explaining vocabulary.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_FEATURE",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner names or explains features as predictive inputs.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_INSTANCE",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Correct use of instance/object vocabulary indicates grasp of the unit of classification.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_LABEL",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner distinguishes labels/targets from features.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "ilo_id": "ILO_THRESHOLD",
+          "reason_rejected": "Vocabulary recall does not evidence threshold application."
+        },
+        {
+          "ilo_id": "ILO_RULE",
+          "reason_rejected": "Terminology use alone does not evidence rule articulation."
+        }
+      ]
+    },
+    "OB_CON_002": {
+      "behaviour_id": "OB_CON_002",
+      "records": [
+        {
+          "ilo_id": "ILO_DECISION_TREE",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner differentiates tree components from isolated rules or thresholds.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_RULE",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Learner distinguishes rules from whole-tree structure.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "procedural",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_CON_002 (conceptual) partially supports ILO_RULE (procedural) with documented interpretive caution."
+        },
+        {
+          "ilo_id": "ILO_THRESHOLD",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Learner contrasts threshold/split from related concepts.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "procedural",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_CON_002 (conceptual) partially supports ILO_THRESHOLD (procedural) with documented interpretive caution."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_CON_003": {
+      "behaviour_id": "OB_CON_003",
+      "records": [
+        {
+          "ilo_id": "ILO_CLASSIFICATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Mechanism explanation includes assigning class outcomes.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "procedural",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Conceptual mechanism explanation can support procedural classification ILO only when the learner explicitly links mechanism to class assignment, not vocabulary alone."
+        },
+        {
+          "ilo_id": "ILO_DECISION_TREE",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Explanation links features and thresholds to tree-based classification.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "ilo_id": "ILO_THRESHOLD",
+          "reason_rejected": "Mechanism explanation without application does not support threshold ILO."
+        },
+        {
+          "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+          "reason_rejected": "Explanation is not parameter search."
+        }
+      ]
+    },
+    "OB_CON_004": {
+      "behaviour_id": "OB_CON_004",
+      "records": [
+        {
+          "ilo_id": "ILO_DATASET",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Explanation references labeled examples as learning material.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_TRAINING_ROLE",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner explains why training data enables pattern learning.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_CON_005": {
+      "behaviour_id": "OB_CON_005",
+      "records": [
+        {
+          "ilo_id": "ILO_CONFUSION_MATRIX",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner states or explains confusion-matrix structure or cells.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_MCR",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner recalls or explains misclassification rate definition.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_SENSITIVITY",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner recalls or explains sensitivity/true positive rate.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_CON_006": {
+      "behaviour_id": "OB_CON_006",
+      "records": [
+        {
+          "ilo_id": "ILO_CONFUSION_MATRIX",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner interprets relationships among TP/TN/FP/FN.",
+          "counter_evidence": [
+            {
+              "description": "Terminology recall without application or distinction",
+              "effect": "Caps mapping at moderate qualitative confidence; blocks procedural ILO escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_MODEL_EVALUATION",
+          "mapping_role": "contextual",
+          "mapping_confidence": "low",
+          "confidence_basis": [
+            "instructional_consensus",
+            "contextual_facilitation",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Matrix interpretation supports evaluation literacy.",
+          "counter_evidence": [],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "conceptual",
+            "ilo_dimension": "strategic",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Conceptual matrix interpretation enables strategic evaluation literacy as a bridging construct; requires explicit performance interpretation, not cell recall alone."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_PRO_001": {
+      "behaviour_id": "OB_PRO_001",
+      "records": [
+        {
+          "ilo_id": "ILO_CLASSIFICATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Threshold application yields documented class assignment.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Execution without interpretable criterion in learner text",
+              "effect": "Procedural ILO supported at moderate; strategic ILO requires separate evidence",
+              "source_type": "construct_leakage",
+              "blocks_escalation": false
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "procedural",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_THRESHOLD",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner applies a stated cutoff to partition or classify cases.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "procedural",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+          "reason_rejected": "Single threshold application is not optimization."
+        },
+        {
+          "ilo_id": "ILO_RULE",
+          "reason_rejected": "Applying a cutoff is not equivalent to stating a full if-then rule."
+        }
+      ]
+    },
+    "OB_PRO_002": {
+      "behaviour_id": "OB_PRO_002",
+      "records": [
+        {
+          "ilo_id": "ILO_CLASSIFICATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Path ends in class label assignment.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Execution without interpretable criterion in learner text",
+              "effect": "Procedural ILO supported at moderate; strategic ILO requires separate evidence",
+              "source_type": "construct_leakage",
+              "blocks_escalation": false
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "procedural",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_DECISION_TREE",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Multi-step path reflects tree structure traversal.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "conceptual",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_PRO_002 (procedural) partially supports ILO_DECISION_TREE (conceptual) with documented interpretive caution."
+        },
+        {
+          "ilo_id": "ILO_RULE",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Path traversal follows explicit if-then conditions.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "procedural",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_PRO_003": {
+      "behaviour_id": "OB_PRO_003",
+      "records": [
+        {
+          "ilo_id": "ILO_DECISION_TREE",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Learner authors or extends tree structure with splits and branches.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Execution without interpretable criterion in learner text",
+              "effect": "Procedural ILO supported at moderate; strategic ILO requires separate evidence",
+              "source_type": "construct_leakage",
+              "blocks_escalation": false
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "conceptual",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_PRO_003 (procedural) partially supports ILO_DECISION_TREE (conceptual) with documented interpretive caution."
+        },
+        {
+          "ilo_id": "ILO_LABEL",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Class labels assigned at nodes during construction.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "conceptual",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_PRO_003 (procedural) partially supports ILO_LABEL (conceptual) with documented interpretive caution."
+        },
+        {
+          "ilo_id": "ILO_TREE_SPLIT",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Learner selects feature/threshold at node positions.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "strategic",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_PRO_003 (procedural) partially supports ILO_TREE_SPLIT (strategic) with documented interpretive caution."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_PRO_004": {
+      "behaviour_id": "OB_PRO_004",
+      "records": [
+        {
+          "ilo_id": "ILO_DT_WORKFLOW",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner orders construction steps in valid sequence.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Execution without interpretable criterion in learner text",
+              "effect": "Procedural ILO supported at moderate; strategic ILO requires separate evidence",
+              "source_type": "construct_leakage",
+              "blocks_escalation": false
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "procedural",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_PRO_005": {
+      "behaviour_id": "OB_PRO_005",
+      "records": [
+        {
+          "ilo_id": "ILO_RULE",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner states explicit if-then decision rule.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Execution without interpretable criterion in learner text",
+              "effect": "Procedural ILO supported at moderate; strategic ILO requires separate evidence",
+              "source_type": "construct_leakage",
+              "blocks_escalation": false
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "procedural",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "ilo_id": "ILO_THRESHOLD",
+          "reason_rejected": "Rule articulation is not threshold setting."
+        },
+        {
+          "ilo_id": "ILO_DECISION_TREE",
+          "reason_rejected": "Single rule statement does not evidence full tree construction."
+        }
+      ]
+    },
+    "OB_PRO_006": {
+      "behaviour_id": "OB_PRO_006",
+      "records": [
+        {
+          "ilo_id": "ILO_CLASSIFICATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Label assignment completes classification act.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Execution without interpretable criterion in learner text",
+              "effect": "Procedural ILO supported at moderate; strategic ILO requires separate evidence",
+              "source_type": "construct_leakage",
+              "blocks_escalation": false
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "procedural",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_LABEL",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Learner assigns class label at tree position.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "conceptual",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_PRO_006 (procedural) partially supports ILO_LABEL (conceptual) with documented interpretive caution."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_PRO_007": {
+      "behaviour_id": "OB_PRO_007",
+      "records": [
+        {
+          "ilo_id": "ILO_THRESHOLD",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner sets numeric or categorical cutoff at node.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Execution without interpretable criterion in learner text",
+              "effect": "Procedural ILO supported at moderate; strategic ILO requires separate evidence",
+              "source_type": "construct_leakage",
+              "blocks_escalation": false
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "procedural",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_TREE_SPLIT",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Threshold setting is part of node split decision.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "strategic",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_PRO_007 (procedural) partially supports ILO_TREE_SPLIT (strategic) with documented interpretive caution."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_PRO_008": {
+      "behaviour_id": "OB_PRO_008",
+      "records": [
+        {
+          "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Meaningful tool actions change splits/thresholds iteratively.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Execution without interpretable criterion in learner text",
+              "effect": "Procedural ILO supported at moderate; strategic ILO requires separate evidence",
+              "source_type": "construct_leakage",
+              "blocks_escalation": false
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "strategic",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_PRO_008 (procedural) partially supports ILO_PARAMETER_OPTIMIZATION (strategic) with documented interpretive caution."
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "ilo_id": "ILO_CLASSIFICATION",
+          "reason_rejected": "Tool manipulation alone does not document classification outcome."
+        },
+        {
+          "ilo_id": "ILO_RULE",
+          "reason_rejected": "Exploration actions are not rule articulation."
+        }
+      ]
+    },
+    "OB_PRO_009": {
+      "behaviour_id": "OB_PRO_009",
+      "records": [
+        {
+          "ilo_id": "ILO_MCR",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Learner computes or records MCR from given counts.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Execution without interpretable criterion in learner text",
+              "effect": "Procedural ILO supported at moderate; strategic ILO requires separate evidence",
+              "source_type": "construct_leakage",
+              "blocks_escalation": false
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "conceptual",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_PRO_009 (procedural) partially supports ILO_MCR (conceptual) with documented interpretive caution."
+        },
+        {
+          "ilo_id": "ILO_SENSITIVITY",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Learner computes or records sensitivity from given counts.",
+          "counter_evidence": [
+            {
+              "description": "Correct execution contradicted by threshold misconception in another evidence unit",
+              "effect": "Blocks primary ILO_THRESHOLD or ILO_CLASSIFICATION until contradiction resolved",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "procedural",
+            "ilo_dimension": "conceptual",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_PRO_009 (procedural) partially supports ILO_SENSITIVITY (conceptual) with documented interpretive caution."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_REF_001": {
+      "behaviour_id": "OB_REF_001",
+      "records": [
+        {
+          "ilo_id": "ILO_METACOGNITIVE_REFLECTION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner reflects on own DT learning or confusion.",
+          "counter_evidence": [
+            {
+              "description": "Excellent reflection with incorrect threshold or classification elsewhere",
+              "effect": "Reflective ILO only; blocks procedural/strategic ILO escalation (CLT-D)",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Generic study-habit reflection without DT content",
+              "effect": "Null or baseline reflective mapping only",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "reflective",
+            "ilo_dimension": "reflective",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "ilo_id": "ILO_MODEL_EVALUATION",
+          "reason_rejected": "Reflection without performance evidence does not support evaluation ILO."
+        },
+        {
+          "ilo_id": "ILO_THRESHOLD",
+          "reason_rejected": "Metacognitive reflection is not threshold reasoning."
+        }
+      ]
+    },
+    "OB_REF_002": {
+      "behaviour_id": "OB_REF_002",
+      "records": [
+        {
+          "ilo_id": "ILO_METACOGNITIVE_REFLECTION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Limitation discourse includes metacognitive commentary.",
+          "counter_evidence": [
+            {
+              "description": "Excellent reflection with incorrect threshold or classification elsewhere",
+              "effect": "Reflective ILO only; blocks procedural/strategic ILO escalation (CLT-D)",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Generic study-habit reflection without DT content",
+              "effect": "Null or baseline reflective mapping only",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "reflective",
+            "ilo_dimension": "reflective",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_MODEL_LIMITATION",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner articulates model limits or uncertainty.",
+          "counter_evidence": [
+            {
+              "description": "Excellent reflection with incorrect threshold or classification elsewhere",
+              "effect": "Reflective ILO only; blocks procedural/strategic ILO escalation (CLT-D)",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "reflective",
+            "ilo_dimension": "reflective",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_TRAINING_ROLE",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Limitation references data or learning constraints.",
+          "counter_evidence": [
+            {
+              "description": "Excellent reflection with incorrect threshold or classification elsewhere",
+              "effect": "Reflective ILO only; blocks procedural/strategic ILO escalation (CLT-D)",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "reflective",
+            "ilo_dimension": "conceptual",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Reflective limitation discourse may reference training-data constraints without demonstrating full conceptual training-role mastery."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_REF_003": {
+      "behaviour_id": "OB_REF_003",
+      "records": [
+        {
+          "ilo_id": "ILO_METACOGNITIVE_REFLECTION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Belief revision includes reflective awareness.",
+          "counter_evidence": [
+            {
+              "description": "Excellent reflection with incorrect threshold or classification elsewhere",
+              "effect": "Reflective ILO only; blocks procedural/strategic ILO escalation (CLT-D)",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Generic study-habit reflection without DT content",
+              "effect": "Null or baseline reflective mapping only",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "reflective",
+            "ilo_dimension": "reflective",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_PRIOR_BELIEF",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Documented change from prior to posterior belief.",
+          "counter_evidence": [
+            {
+              "description": "Excellent reflection with incorrect threshold or classification elsewhere",
+              "effect": "Reflective ILO only; blocks procedural/strategic ILO escalation (CLT-D)",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "reflective",
+            "ilo_dimension": "reflective",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_REF_004": {
+      "behaviour_id": "OB_REF_004",
+      "records": [
+        {
+          "ilo_id": "ILO_PRIOR_BELIEF",
+          "mapping_role": "diagnostic",
+          "mapping_confidence": "baseline",
+          "confidence_basis": [
+            "diagnostic_baseline",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Uninformed prior stated before structured evidence.",
+          "counter_evidence": [],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "reflective",
+            "ilo_dimension": "reflective",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_STR_001": {
+      "behaviour_id": "OB_STR_001",
+      "records": [
+        {
+          "ilo_id": "ILO_MODEL_EVALUATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Comparison cites performance indicators across alternatives.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Threshold misconception documented in worksheet or log while strategic claim made",
+              "effect": "Blocks ILO_THRESHOLD and ILO_PARAMETER_OPTIMIZATION primary inference",
+              "source_type": "misconception",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Threshold comparison is part of parameter search.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_THRESHOLD",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Compared alternatives are threshold values.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "procedural",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_STR_001 (strategic) partially supports ILO_THRESHOLD (procedural) with documented interpretive caution."
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "ilo_id": "ILO_RULE",
+          "reason_rejected": "Threshold comparison does not require if-then rule articulation."
+        },
+        {
+          "ilo_id": "ILO_FEATURE",
+          "reason_rejected": "Comparison targets thresholds, not feature vocabulary."
+        }
+      ]
+    },
+    "OB_STR_002": {
+      "behaviour_id": "OB_STR_002",
+      "records": [
+        {
+          "ilo_id": "ILO_FEATURE",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Selection references named predictive feature.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Threshold misconception documented in worksheet or log while strategic claim made",
+              "effect": "Blocks ILO_THRESHOLD and ILO_PARAMETER_OPTIMIZATION primary inference",
+              "source_type": "misconception",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "conceptual",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_STR_002 (strategic) partially supports ILO_FEATURE (conceptual) with documented interpretive caution."
+        },
+        {
+          "ilo_id": "ILO_FEATURE_SELECTION",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner selects feature with stated criterion.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_THRESHOLD",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Selection may include threshold choice at node.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "procedural",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_STR_002 (strategic) partially supports ILO_THRESHOLD (procedural) with documented interpretive caution."
+        },
+        {
+          "ilo_id": "ILO_TREE_SPLIT",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Feature-threshold pair defines structural split.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "ilo_id": "ILO_DECISION_TREE",
+          "reason_rejected": "Feature/threshold selection is not full tree construction."
+        },
+        {
+          "ilo_id": "ILO_MCR",
+          "reason_rejected": "Selection criterion need not include metric computation."
+        }
+      ]
+    },
+    "OB_STR_003": {
+      "behaviour_id": "OB_STR_003",
+      "records": [
+        {
+          "ilo_id": "ILO_MODEL_EVALUATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Justification references model performance evidence.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Threshold misconception documented in worksheet or log while strategic claim made",
+              "effect": "Blocks ILO_THRESHOLD and ILO_PARAMETER_OPTIMIZATION primary inference",
+              "source_type": "misconception",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Rationale defends parameter or threshold choice.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_STR_004": {
+      "behaviour_id": "OB_STR_004",
+      "records": [
+        {
+          "ilo_id": "ILO_DATA_PATTERN",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner cites observed pattern suggesting class separation.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Threshold misconception documented in worksheet or log while strategic claim made",
+              "effect": "Blocks ILO_THRESHOLD and ILO_PARAMETER_OPTIMIZATION primary inference",
+              "source_type": "misconception",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_FEATURE",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Named feature is linked to cited pattern.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "conceptual",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_STR_004 (strategic) partially supports ILO_FEATURE (conceptual) with documented interpretive caution."
+        },
+        {
+          "ilo_id": "ILO_FEATURE_SELECTION",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Pattern evidence informs feature hypothesis.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "ilo_id": "ILO_THRESHOLD",
+          "reason_rejected": "Pattern citation is not threshold application."
+        },
+        {
+          "ilo_id": "ILO_CLASSIFICATION",
+          "reason_rejected": "Feature hypothesis is not case classification."
+        }
+      ]
+    },
+    "OB_STR_005": {
+      "behaviour_id": "OB_STR_005",
+      "records": [
+        {
+          "ilo_id": "ILO_CONFUSION_MATRIX",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Trade-off reasoning references error types or cells.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Threshold misconception documented in worksheet or log while strategic claim made",
+              "effect": "Blocks ILO_THRESHOLD and ILO_PARAMETER_OPTIMIZATION primary inference",
+              "source_type": "misconception",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "conceptual",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_STR_005 (strategic) partially supports ILO_CONFUSION_MATRIX (conceptual) with documented interpretive caution."
+        },
+        {
+          "ilo_id": "ILO_MODEL_EVALUATION",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Trade-off discourse evaluates model consequences.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_STR_006": {
+      "behaviour_id": "OB_STR_006",
+      "records": [
+        {
+          "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Multiple parameter trials with observed outcomes.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Threshold misconception documented in worksheet or log while strategic claim made",
+              "effect": "Blocks ILO_THRESHOLD and ILO_PARAMETER_OPTIMIZATION primary inference",
+              "source_type": "misconception",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_STR_007": {
+      "behaviour_id": "OB_STR_007",
+      "records": [
+        {
+          "ilo_id": "ILO_MODEL_EVALUATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Synthesis links exploration results to final evaluation.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Threshold misconception documented in worksheet or log while strategic claim made",
+              "effect": "Blocks ILO_THRESHOLD and ILO_PARAMETER_OPTIMIZATION primary inference",
+              "source_type": "misconception",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        },
+        {
+          "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Final choice integrates iterative parameter trials.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_STR_008": {
+      "behaviour_id": "OB_STR_008",
+      "records": [
+        {
+          "ilo_id": "ILO_MCR",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link",
+            "cross_construct_bridge"
+          ],
+          "supporting_rationale": "Learner identifies best MCR across conditions.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Threshold misconception documented in worksheet or log while strategic claim made",
+              "effect": "Blocks ILO_THRESHOLD and ILO_PARAMETER_OPTIMIZATION primary inference",
+              "source_type": "misconception",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "conceptual",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "Cross-dimension bridge: OB_STR_008 (strategic) partially supports ILO_MCR (conceptual) with documented interpretive caution."
+        },
+        {
+          "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Optimization selects best-performing configuration.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "OB_STR_009": {
+      "behaviour_id": "OB_STR_009",
+      "records": [
+        {
+          "ilo_id": "ILO_MODEL_EVALUATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "instructional_consensus",
+            "frozen_ilo_behaviour_link"
+          ],
+          "supporting_rationale": "Learner interprets model feedback for practical decision.",
+          "counter_evidence": [
+            {
+              "description": "Fluent justification without performance or data linkage",
+              "effect": "Caps confidence at low; CLT-A leakage guard (PAT-BLOCK-001)",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            },
+            {
+              "description": "Threshold misconception documented in worksheet or log while strategic claim made",
+              "effect": "Blocks ILO_THRESHOLD and ILO_PARAMETER_OPTIMIZATION primary inference",
+              "source_type": "misconception",
+              "blocks_escalation": true
+            }
+          ],
+          "pattern_id": "PAT-POS-001",
+          "construct_alignment": {
+            "behaviour_dimension": "strategic",
+            "ilo_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    }
+  },
+  "freeze": {
+    "status": "frozen",
+    "version": "1.1",
+    "frozen_at": "2026-06-28T11:05:59.667599+00:00",
+    "freeze_package_dir": "reports/milestone3_freeze",
+    "expert_review_status": "automated_review_complete; human_expert_review_pending",
+    "change_policy": "major_version_required_for_semantic_changes",
+    "inference_layer": true,
+    "upstream_frozen_inputs": [
+      "Observable_Behaviours.json@1.0",
+      "Learning_Objects.json@1.0"
+    ],
+    "downstream_artifacts_locked": [
+      "LO_to_Domain_Understanding.json",
+      "Domain_to_AI_CFT.json",
+      "Aggregation_Policy.json"
+    ]
+  }
+}

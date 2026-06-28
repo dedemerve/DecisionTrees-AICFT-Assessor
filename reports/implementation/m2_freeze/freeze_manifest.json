@@ -1,0 +1,40 @@
+{
+  "freeze": {
+    "milestone": "Phase 2 — M2: Canonical Evidence Unit Runtime",
+    "status": "FROZEN",
+    "schema_version": "1.1",
+    "frozen_at": "2026-06-28T11:59:05.668310+00:00",
+    "framework_version": "1.0",
+    "modification_policy": "No schema or runtime changes without explicit researcher approval and construct-validity justification."
+  },
+  "assessment_object_definition": "The smallest traceable assessment object representing an interpretable piece of learner evidence while preserving provenance, uncertainty, source quality, and review metadata.",
+  "frozen_artifacts": [
+    "schema/evidence_units_v1.schema.json",
+    "evidence_unit_runtime.py",
+    "evidence_unit_metadata.py",
+    "schema_validate.py",
+    "scripts/build_evidence_units.py",
+    "scripts/validate_evidence_units.py",
+    "test_evidence_units.py",
+    "test_evidence_unit_metadata.py"
+  ],
+  "verification": {
+    "pytest": "PASS",
+    "test_output": "...............                                                          [100%]\n15 passed in 0.06s"
+  },
+  "inferential_boundary": {
+    "permitted": [
+      "descriptive normalization",
+      "assessment-object metadata derivation",
+      "provenance and uncertainty preservation"
+    ],
+    "forbidden": [
+      "observable_behaviour inference",
+      "ilo_inference",
+      "domain_inference",
+      "ai_cft_interpretation",
+      "competency_labels"
+    ]
+  },
+  "downstream_consumer": "Behaviour Engine (M3) reads evidence_units.json only"
+}

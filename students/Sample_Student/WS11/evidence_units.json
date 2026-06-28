@@ -1,0 +1,1582 @@
+{
+  "schema_version": "1.1",
+  "artifact": "worksheet_evidence_units",
+  "pipeline_stage": "evidence_units",
+  "source_stage": "extraction",
+  "student_id": "Sample_Student",
+  "worksheet_id": "WS11",
+  "updated_at": "2026-06-28T13:44:00.589705+00:00",
+  "definition": "The smallest traceable assessment object representing an interpretable piece of learner evidence while preserving provenance, uncertainty, source quality, and review metadata.",
+  "note": "Canonical Layer 2 output for WS11 after OCR/extraction. Descriptive only — no behavioural, ILO, Domain, or AI-CFT inference.",
+  "evidence_units": [
+    {
+      "evidence_unit_id": "EU_269456",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_B1",
+      "field_id": "WS11_B1",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "Karar ağacı kavramını daha iyi anladım. Özellikle eşik değerinin nasıl seçildiğini öğrendim.",
+      "normalized_content": "Karar ağacı kavramını daha iyi anladım. Özellikle eşik değerinin nasıl seçildiğini öğrendim.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_B1",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_475384",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_B2",
+      "field_id": "WS11_B2",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "WS5 en çok zaman aldı ama en çok şeyi de orada öğrendim.",
+      "normalized_content": "WS5 en çok zaman aldı ama en çok şeyi de orada öğrendim.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_B2",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_005343",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_B3",
+      "field_id": "WS11_B3",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "Duyarlılık ve MCR formüllerini başta karıştırdım, sonunda netleşti.",
+      "normalized_content": "Duyarlılık ve MCR formüllerini başta karıştırdım, sonunda netleşti.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_B3",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_846269",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_B4",
+      "field_id": "WS11_B4",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "Ağaç çizmek düşündüğümden zordu; dalları doğru yönde etiketlemek dikkat istedi.",
+      "normalized_content": "Ağaç çizmek düşündüğümden zordu; dalları doğru yönde etiketlemek dikkat istedi.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_B4",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_032305",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_B5",
+      "field_id": "WS11_B5",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "Gerçek veriyle çalışmak soyut kavramları somutlaştırdı.",
+      "normalized_content": "Gerçek veriyle çalışmak soyut kavramları somutlaştırdı.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_B5",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_297455",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_B6",
+      "field_id": "WS11_B6",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "Daha fazla örnek veri seti üzerinde pratik yapmak isterdim.",
+      "normalized_content": "Daha fazla örnek veri seti üzerinde pratik yapmak isterdim.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_B6",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_859609",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_B7",
+      "field_id": "WS11_B7",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "Bu etkinliği başka derslerde de görmek isterdim.",
+      "normalized_content": "Bu etkinliği başka derslerde de görmek isterdim.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_B7",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_838098",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_B8a",
+      "field_id": "WS11_B8a",
+      "evidence_unit_type": "classification",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Tavsiye edilmez",
+      "normalized_content": "Tavsiye edilmez",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_B8a",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_B8a"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_459953",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_B8b",
+      "field_id": "WS11_B8b",
+      "evidence_unit_type": "rule",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+      "normalized_content": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_B8b",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_B8b"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_478485",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_B9",
+      "field_id": "WS11_B9",
+      "evidence_unit_type": "definition",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "direct",
+      "evidence_completeness": "complete",
+      "raw_content": "Karar ağacı, verideki örüntüleri öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir makine öğrenmesi modelidir.",
+      "normalized_content": "Karar ağacı, verideki örüntüleri öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir makine öğrenmesi modelidir.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_B9",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_B9"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_349204",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L10_1",
+      "field_id": "WS11_L10_1",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "4",
+      "normalized_content": "4",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L10_1",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_343436",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L10_2",
+      "field_id": "WS11_L10_2",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "5",
+      "normalized_content": "5",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L10_2",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_087947",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L10_3",
+      "field_id": "WS11_L10_3",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "4",
+      "normalized_content": "4",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L10_3",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_224171",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L10_4",
+      "field_id": "WS11_L10_4",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "3",
+      "normalized_content": "3",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L10_4",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_718192",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L10_5",
+      "field_id": "WS11_L10_5",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "5",
+      "normalized_content": "5",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L10_5",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_921734",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L10_6",
+      "field_id": "WS11_L10_6",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "4",
+      "normalized_content": "4",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L10_6",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_730040",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L10_7",
+      "field_id": "WS11_L10_7",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "4",
+      "normalized_content": "4",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L10_7",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_935824",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L10_8",
+      "field_id": "WS11_L10_8",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "5",
+      "normalized_content": "5",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L10_8",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_218995",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L11_1",
+      "field_id": "WS11_L11_1",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "4",
+      "normalized_content": "4",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L11_1",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_315675",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L11_2",
+      "field_id": "WS11_L11_2",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "5",
+      "normalized_content": "5",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L11_2",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_625145",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L11_3",
+      "field_id": "WS11_L11_3",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "4",
+      "normalized_content": "4",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L11_3",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_208244",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L12_1",
+      "field_id": "WS11_L12_1",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "Kadın",
+      "normalized_content": "Kadın",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L12_1",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_006059",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L12_2",
+      "field_id": "WS11_L12_2",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "21",
+      "normalized_content": "21",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L12_2",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_198255",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L12_3",
+      "field_id": "WS11_L12_3",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "İlköğretim Matematik",
+      "normalized_content": "İlköğretim Matematik",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L12_3",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_855595",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L12_4",
+      "field_id": "WS11_L12_4",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "3",
+      "normalized_content": "3",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L12_4",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_752152",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_L12_5",
+      "field_id": "WS11_L12_5",
+      "evidence_unit_type": "reflection",
+      "evidence_origin": "learner_reflection",
+      "source_family": "reflection",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "good",
+      "observability": "indirect",
+      "evidence_completeness": "complete",
+      "raw_content": "Daha önce programlama kursu almadım.",
+      "normalized_content": "Daha önce programlama kursu almadım.",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_L12_5",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json"
+      },
+      "uncertainty": "none",
+      "alternative_interpretations": [],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_518959",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q10_1",
+      "field_id": "WS11_Q10_1",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q10_1",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q10_1"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_633349",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q10_2",
+      "field_id": "WS11_Q10_2",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q10_2",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q10_2"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_104921",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q10_3",
+      "field_id": "WS11_Q10_3",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q10_3",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q10_3"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_487953",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q10_4",
+      "field_id": "WS11_Q10_4",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q10_4",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q10_4"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_301299",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q10_5",
+      "field_id": "WS11_Q10_5",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q10_5",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q10_5"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_184896",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q10_6",
+      "field_id": "WS11_Q10_6",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q10_6",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q10_6"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_389230",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q10_7",
+      "field_id": "WS11_Q10_7",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q10_7",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q10_7"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_937868",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q10_8",
+      "field_id": "WS11_Q10_8",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q10_8",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q10_8"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_168928",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q11_2",
+      "field_id": "WS11_Q11_2",
+      "evidence_unit_type": "tree_construction",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q11_2",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q11_2"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_908182",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q11_3",
+      "field_id": "WS11_Q11_3",
+      "evidence_unit_type": "tree_construction",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q11_3",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q11_3"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_582098",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q11_4",
+      "field_id": "WS11_Q11_4",
+      "evidence_unit_type": "tree_construction",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q11_4",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q11_4"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_733257",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q12_1",
+      "field_id": "WS11_Q12_1",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q12_1",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q12_1"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_111988",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q12_2",
+      "field_id": "WS11_Q12_2",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q12_2",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q12_2"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_047564",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q12_3",
+      "field_id": "WS11_Q12_3",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q12_3",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q12_3"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_061496",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q12_4",
+      "field_id": "WS11_Q12_4",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q12_4",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q12_4"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    },
+    {
+      "evidence_unit_id": "EU_579040",
+      "student_id": "Sample_Student",
+      "worksheet_id": "WS11",
+      "item_id": "WS11_Q12_5",
+      "field_id": "WS11_Q12_5",
+      "evidence_unit_type": "model_evaluation",
+      "evidence_origin": "learner_response",
+      "source_family": "worksheet",
+      "source_file": "Worksheet11_ Feedbacks.pdf",
+      "source_quality": "acceptable",
+      "observability": "direct",
+      "evidence_completeness": "blank",
+      "raw_content": "",
+      "normalized_content": "(bos)",
+      "confidence": {
+        "ocr": null,
+        "extraction": 0.35,
+        "evidence_quality": 0.212
+      },
+      "provenance": {
+        "adapter": "worksheet_extraction_v1",
+        "source_file": "Worksheet11_ Feedbacks.pdf",
+        "worksheet": "WS11",
+        "field": "WS11_Q12_5",
+        "timestamp": "2026-06-28T08:59:37.406292+00:00",
+        "pipeline_version": "1.1",
+        "extraction_artifact": "students/Sample_Student/WS11/extraction.json",
+        "rubric_item_id": "WS11_Q12_5"
+      },
+      "uncertainty": "Field left blank or empty after extraction.",
+      "alternative_interpretations": [
+        {
+          "interpretation": "absence of evidence",
+          "basis": "Learner left field blank; non-response is not negative evidence."
+        }
+      ],
+      "review_level": "none",
+      "requires_human_review": false,
+      "timestamp": "2026-06-28T08:59:37.406292+00:00"
+    }
+  ]
+}

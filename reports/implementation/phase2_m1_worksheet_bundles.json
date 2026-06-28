@@ -1,0 +1,62 @@
+{
+  "milestone": "Phase 2 — Milestone 1: Worksheet Engineering",
+  "framework_version": "1.0",
+  "status": "PASS",
+  "completed_at": "2026-06-28",
+  "summary": "Rebuilt worksheets WS1–WS11 as pure evidence-collection bundles. Each deployed worksheet (WS1, WS3, WS4, WS5, WS6, WS7, WS10, WS11) contains five files with rubric, extraction schema, behaviour opportunities (OB_* only), validity notes, and answer key. WS2, WS8, WS9 are scaffolded as not_deployed. No ILO, Domain, or AI-CFT mappings appear in worksheet bundles.",
+  "verification": {
+    "build_worksheet_bundles": "PASS",
+    "validate_worksheet_bundles": "PASS",
+    "test_worksheet_bundles": "PASS (7 tests)",
+    "validate_all_rubrics": "PASS",
+    "frozen_framework_files_modified": false
+  },
+  "deployed_worksheets": ["WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS11"],
+  "not_deployed_worksheets": ["WS2", "WS8", "WS9"],
+  "bundle_contract": [
+    "extraction_schema.json",
+    "rubric.json",
+    "behaviour_opportunities.json",
+    "validity_notes.json",
+    "answer_key.json"
+  ],
+  "acceptance_checklist": {
+    "eleven_worksheet_directories": true,
+    "five_files_per_directory_only": true,
+    "no_ilo_domain_aicft_in_bundles": true,
+    "behaviour_opportunities_reference_frozen_ob_ontology": true,
+    "extraction_schema_interpretation_prohibited": true,
+    "unit_tests_present": true,
+    "schema_validation_present": true,
+    "logging_in_build_and_validate_scripts": true,
+    "type_hints_in_new_modules": true,
+    "pipeline_load_rubric_prefers_bundle": true
+  },
+  "remaining_risks": [
+    "WS5 optional row 6 (B21–B24) is in extraction fields but not separately scored in rubric; behaviour engine must aggregate at cell level if row scoring is insufficient.",
+    "WS6 tree spatial layout is only partially captured by 13 OCR fields; validity threat documented but not mitigated in OCR pipeline yet.",
+    "WS7 Part 1 uses fixed sample tree while Part 2 depends on WS6; cross-worksheet consistency validation is not yet wired into pipeline.",
+    "Legacy rubrics/ and mappings/ directories remain for backward compatibility; pipeline still references mappings/ for portfolio rollup until behaviour engine milestone.",
+    "JSON Schema validation uses structural validators in validate_worksheet_bundles.py; full jsonschema draft validation against schema/*.schema.json is not yet automated.",
+    "WS_DT (plugged/CODAP phase) is out of scope for this milestone."
+  ],
+  "files_created": [
+    "schema/extraction_schema_v1.schema.json",
+    "schema/behaviour_opportunities_v1.schema.json",
+    "schema/validity_notes_v1.schema.json",
+    "schema/answer_key_v1.schema.json",
+    "scripts/worksheet_bundle_data.py",
+    "scripts/build_worksheet_bundles.py",
+    "scripts/validate_worksheet_bundles.py",
+    "test_worksheet_bundles.py",
+    "worksheets/WS1/extraction_schema.json",
+    "worksheets/WS1/rubric.json",
+    "worksheets/WS1/behaviour_opportunities.json",
+    "worksheets/WS1/validity_notes.json",
+    "worksheets/WS1/answer_key.json",
+    "worksheets/WS2 through WS11 (5 files each, 55 bundle artifacts total)"
+  ],
+  "files_modified": [
+    "pipeline_schema.py"
+  ]
+}

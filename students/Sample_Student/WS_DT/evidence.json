@@ -1,0 +1,366 @@
+{
+  "schema_version": "3.0",
+  "stage": "evidence",
+  "student_id": "Sample_Student",
+  "worksheet": "WS_DT",
+  "updated_at": "2026-06-28T09:17:42.605188+00:00",
+  "items": [
+    {
+      "item": "DT_A_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "weak",
+          "evidence_type": "prior_belief",
+          "rationale": "Uninformed prior belief: names predictive feature(s) before CODAP analysis. Baseline diagnostic only — excluded from portfolio peak aggregation.",
+          "confidence": 0.8,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_A_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "After CODAP exploration: names a feature and cites an observed data/graph pattern (not intuition alone) — early data-interpretation behaviour.",
+          "confidence": 0.59,
+          "evidence_present": true
+        },
+        {
+          "lo": "LO3.1.2",
+          "strength": "weak",
+          "evidence_type": "supporting",
+          "rationale": "Links data exploration to how a model might use that feature.",
+          "confidence": 0.59,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_A_Q3",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Identifies a feature showing meaningful separation between recommended and not-recommended classes from explored data.",
+          "confidence": 0.8,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_A_Q4",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "none",
+          "evidence_type": "direct",
+          "rationale": "Selects first split variable with explicit data-based justification (graph separation, class distinction) — precursor to model design.",
+          "confidence": 0.0,
+          "evidence_present": false
+        },
+        {
+          "lo": "LO3.2.1",
+          "strength": "none",
+          "evidence_type": "supporting",
+          "rationale": "Early evaluate→select step before full three-tree comparison in Section B.",
+          "confidence": 0.0,
+          "evidence_present": false
+        }
+      ]
+    },
+    {
+      "item": "DT_B_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.1.3",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Selects and validates an appropriate AI tool (CODAP, Arbor, or EMIT) for the task.",
+          "confidence": 0.59,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_B_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.1",
+          "strength": "none",
+          "evidence_type": "direct",
+          "rationale": "Builds decision trees with different variables — evaluate → select → apply cycle.",
+          "confidence": 0.0,
+          "evidence_present": false
+        }
+      ]
+    },
+    {
+      "item": "DT_B_Q3",
+      "competencies": [
+        {
+          "lo": "LO3.2.1",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Builds decision trees with different variables — evaluate → select → apply cycle.",
+          "confidence": 0.59,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_B_Q4",
+      "competencies": [
+        {
+          "lo": "LO3.2.1",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Compares performance across three trees/variables — full evaluate-select-apply evidence.",
+          "confidence": 0.59,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_C_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "none",
+          "evidence_type": "direct",
+          "rationale": "Iterative threshold optimization on real data (Section C).",
+          "confidence": 0.0,
+          "evidence_present": false
+        }
+      ]
+    },
+    {
+      "item": "DT_C_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Iterative threshold optimization on real data (Section C).",
+          "confidence": 0.59,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_C_Q3",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "rationale": "Iterative threshold optimization on real data (Section C).",
+          "confidence": 0.8,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_D_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "none",
+          "evidence_type": "direct",
+          "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+          "confidence": 0.0,
+          "evidence_present": false
+        }
+      ]
+    },
+    {
+      "item": "DT_D_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+          "confidence": 0.59,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_D_Q3",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+          "confidence": 0.59,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_D_Q4",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Constructs or refines a two-level decision tree — problem solving with model design.",
+          "confidence": 0.59,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_E_sensitivity",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Computes or states sensitivity formula — conceptual metric knowledge.",
+          "confidence": 0.85,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_E_MCR",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Computes or states MCR formula — conceptual metric knowledge.",
+          "confidence": 0.85,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_E_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "strong",
+          "evidence_type": "direct",
+          "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+          "confidence": 0.8,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_E_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+          "confidence": 0.59,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_E_Q3",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "moderate",
+          "evidence_type": "direct",
+          "rationale": "Evaluates model performance and interprets confusion-matrix outcomes (Section E).",
+          "confidence": 0.59,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_E_Q4",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "none",
+          "evidence_type": "direct",
+          "rationale": "Synthesizes evaluation into performance improvement decisions.",
+          "confidence": 0.0,
+          "evidence_present": false
+        },
+        {
+          "lo": "LO3.3.1",
+          "strength": "none",
+          "evidence_type": "supporting",
+          "rationale": "Early indicator of adapting model design based on evaluation.",
+          "confidence": 0.0,
+          "evidence_present": false
+        }
+      ]
+    },
+    {
+      "item": "DT_F_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "none",
+          "evidence_type": "direct",
+          "rationale": "Applies model to test/holdout data — validates generalization.",
+          "confidence": 0.0,
+          "evidence_present": false
+        }
+      ]
+    },
+    {
+      "item": "DT_F_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.3",
+          "strength": "none",
+          "evidence_type": "direct",
+          "rationale": "Interprets test-set results and proposes iterative improvements.",
+          "confidence": 0.0,
+          "evidence_present": false
+        },
+        {
+          "lo": "LO3.3.1",
+          "strength": "none",
+          "evidence_type": "supporting",
+          "rationale": "Weak Create indicator — adapts solution based on test evidence.",
+          "confidence": 0.0,
+          "evidence_present": false
+        }
+      ]
+    },
+    {
+      "item": "DT_G_Q1",
+      "competencies": [
+        {
+          "lo": "LO3.1.1",
+          "strength": "weak",
+          "evidence_type": "reflective",
+          "rationale": "Metacognitive reflection on conceptual learning — portfolio diagnostic only.",
+          "confidence": 0.59,
+          "evidence_present": true
+        }
+      ]
+    },
+    {
+      "item": "DT_G_Q2",
+      "competencies": [
+        {
+          "lo": "LO3.2.2",
+          "strength": "none",
+          "evidence_type": "reflective",
+          "rationale": "Reflective summary of applied understanding — portfolio diagnostic only.",
+          "confidence": 0.0,
+          "evidence_present": false
+        }
+      ]
+    }
+  ]
+}

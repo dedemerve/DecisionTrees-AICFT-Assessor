@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "worksheet": "WS1",
+  "curriculum_status": "deployed",
+  "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
+  "items": {
+    "WS1_B1": {
+      "evaluation": "single_concept",
+      "example_answer": "Nesne: üzerinde çalışılan varlık ya da örnek (örn. bir yiyecek)."
+    },
+    "WS1_B2": {
+      "evaluation": "single_concept",
+      "example_answer": "Özellik: nesnenin ölçülebilir bir niteliği (örn. şeker miktarı)."
+    },
+    "WS1_B3": {
+      "evaluation": "single_concept",
+      "example_answer": "Etiket: nesnenin ait olduğu sınıf (tavsiye edilen / edilmeyen)."
+    },
+    "WS1_B4": {
+      "evaluation": "single_concept",
+      "example_answer": "Eşik değeri: bir özelliği iki gruba ayıran sınır sayısı."
+    },
+    "WS1_B5": {
+      "evaluation": "single_concept",
+      "example_answer": "Kural: eğer-o zaman biçiminde ifade edilen karar cümlesi."
+    },
+    "WS1_B6": {
+      "evaluation": "two_component",
+      "example_answer": "Doğru pozitif (TP): modelin pozitif tahmin ettiği ve gerçekte de pozitif olan örnekler."
+    },
+    "WS1_B7": {
+      "evaluation": "two_component",
+      "example_answer": "Yanlış pozitif (FP): modelin pozitif tahmin ettiği ama gerçekte negatif olan örnekler."
+    },
+    "WS1_B8": {
+      "check": "formula",
+      "answer": "TP/(TP+FN)",
+      "example_answer": "Duyarlılık = TP / (TP + FN)",
+      "accepted_forms": [
+        "TP/(TP+FN)",
+        "TP / (TP + FN)",
+        "doğru_pozitif/(doğru_pozitif+yanlış_negatif)"
+      ],
+      "deterministic": true
+    },
+    "WS1_B9": {
+      "check": "formula",
+      "answer": "(FP+FN)/N",
+      "example_answer": "MCR = (FP + FN) / toplam örnek sayısı",
+      "accepted_forms": [
+        "(FP+FN)/N",
+        "(FP+FN)/toplam",
+        "(FP+FN)/n",
+        "(FP+FN)/toplam_örnek"
+      ],
+      "deterministic": true
+    },
+    "WS1_B10": {
+      "evaluation": "two_component",
+      "example_answer": "Aşırı öğrenme: modelin eğitim verisine çok uyum sağlayıp yeni verilere genelleyememesi."
+    },
+    "WS1_B11": {
+      "evaluation": "two_component",
+      "example_answer": "Karar ağacı: veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model."
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "worksheet": "WS5",
+  "curriculum_status": "deployed",
+  "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
+  "items": {
+    "WS5_row1": {
+      "check": "row_consistency",
+      "example_answer": "şeker ≤ 5 | doğru: 3 | hata: 7 | MCR: 0.70",
+      "deterministic": true
+    },
+    "WS5_row2": {
+      "check": "row_consistency",
+      "example_answer": "şeker ≤ 8 | doğru: 5 | hata: 5 | MCR: 0.50",
+      "deterministic": true
+    },
+    "WS5_row3": {
+      "check": "row_consistency",
+      "example_answer": "şeker ≤ 10 | doğru: 8 | hata: 2 | MCR: 0.20",
+      "deterministic": true
+    },
+    "WS5_row4": {
+      "check": "row_consistency",
+      "example_answer": "şeker ≤ 12 | doğru: 9 | hata: 1 | MCR: 0.10",
+      "deterministic": true
+    },
+    "WS5_row5": {
+      "check": "row_consistency",
+      "example_answer": "şeker ≤ 15 | doğru: 10 | hata: 0 | MCR: 0.00",
+      "deterministic": true
+    },
+    "WS5_B25": {
+      "evaluation": "justification",
+      "example_answer": "Eşik 8'i tercih ederim çünkü MCR 0.20 ile en düşük değerlerden biri ve en küçük eşik değeridir."
+    }
+  }
+}

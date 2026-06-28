@@ -1,18 +1,25 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://decisiontrees-aicft-assessor/validation_v1.schema.json",
-  "title": "Stage 2 Validation Output Schema 1.0",
+  "title": "Technical Validation Artifact Schema 3.0",
   "type": "object",
-  "required": ["schema_version", "worksheet", "student_id", "answered", "blank", "missing"],
+  "required": ["schema_version", "stage", "worksheet", "student_id", "parse_success", "blocked"],
   "properties": {
-    "schema_version": { "const": "1.0" },
+    "schema_version": { "const": "3.0" },
+    "stage": { "const": "validation" },
     "worksheet": { "type": "string" },
     "student_id": { "type": "string" },
-    "answered": { "type": "integer", "minimum": 0 },
-    "blank": { "type": "integer", "minimum": 0 },
-    "illegible": { "type": "array", "items": { "type": "string" } },
-    "missing": { "type": "array", "items": { "type": "string" } },
-    "numeric_checks": { "type": "object" },
-    "note": { "type": "string" }
+    "updated_at": { "type": "string" },
+    "ocr_quality": { "type": ["number", "null"] },
+    "parse_success": { "type": "boolean" },
+    "formula_parsed": { "type": "boolean" },
+    "tree_detected": { "type": ["boolean", "null"] },
+    "missing_regions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "deterministic_checks": { "type": "object" },
+    "blocked": { "type": "boolean" },
+    "blocked_reason": { "type": ["string", "null"] }
   }
 }

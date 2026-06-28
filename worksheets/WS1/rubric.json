@@ -1,0 +1,171 @@
+{
+  "schema_version": "3.0",
+  "worksheet": "WS1",
+  "note": "Terminology definitions. Single-concept items (B1-B5): one required idea per item. Two-component items (B6, B7, B10, B11): both components for full; one earns partial 0.5. Formula items (B8, B9): deterministic Python check. Score scale: full=1.0, partial=0.5, zero=0.0.",
+  "items": {
+    "WS1_B1": {
+      "max_score": 1,
+      "evaluation": "single_concept",
+      "components": [
+        {
+          "id": "concept",
+          "idea": "a single entity or instance being studied or classified (nesne, varlık, örnek, eleman, gözlem birimi, birim)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Nesne: üzerinde çalışılan varlık ya da örnek (örn. bir yiyecek)."
+    },
+    "WS1_B2": {
+      "max_score": 1,
+      "evaluation": "single_concept",
+      "components": [
+        {
+          "id": "concept",
+          "idea": "a measurable property or attribute of the object (özellik, nitelik, değişken, bağımsız değişken, açıklayıcı değişken, öznitelik)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Özellik: nesnenin ölçülebilir bir niteliği (örn. şeker miktarı)."
+    },
+    "WS1_B3": {
+      "max_score": 1,
+      "evaluation": "single_concept",
+      "components": [
+        {
+          "id": "concept",
+          "idea": "the class or category an object belongs to — the output to predict (etiket, sınıf etiketi, sınıf, kategori, hedef değişken, çıktı değişkeni, bağımlı değişken)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Etiket: nesnenin ait olduğu sınıf (tavsiye edilen / edilmeyen)."
+    },
+    "WS1_B4": {
+      "max_score": 1,
+      "evaluation": "single_concept",
+      "components": [
+        {
+          "id": "concept",
+          "idea": "a boundary value that splits a feature into two groups (eşik değeri, eşik, kesim noktası, sınır değer, karar sınırı)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Eşik değeri: bir özelliği iki gruba ayıran sınır sayısı."
+    },
+    "WS1_B5": {
+      "max_score": 1,
+      "evaluation": "single_concept",
+      "components": [
+        {
+          "id": "concept",
+          "idea": "an if-then conditional decision statement (kural, karar kuralı, koşullu ifade, if-then kuralı, eğer-o zaman kuralı)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Kural: eğer-o zaman biçiminde ifade edilen karar cümlesi."
+    },
+    "WS1_B6": {
+      "max_score": 1,
+      "evaluation": "two_component",
+      "components": [
+        {
+          "id": "predicted_positive",
+          "idea": "model predicted positive (model pozitif tahmin etti)",
+          "required": true
+        },
+        {
+          "id": "actually_positive",
+          "idea": "actual outcome is also positive (gerçekte de pozitif)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Doğru pozitif (TP): modelin pozitif tahmin ettiği ve gerçekte de pozitif olan örnekler."
+    },
+    "WS1_B7": {
+      "max_score": 1,
+      "evaluation": "two_component",
+      "components": [
+        {
+          "id": "predicted_positive",
+          "idea": "model predicted positive (model pozitif tahmin etti)",
+          "required": true
+        },
+        {
+          "id": "actually_negative",
+          "idea": "actual outcome is negative (gerçekte negatif)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Yanlış pozitif (FP): modelin pozitif tahmin ettiği ama gerçekte negatif olan örnekler."
+    },
+    "WS1_B8": {
+      "max_score": 1,
+      "check": "formula",
+      "answer": "TP/(TP+FN)",
+      "accepted_forms": [
+        "TP/(TP+FN)",
+        "TP / (TP + FN)",
+        "doğru_pozitif/(doğru_pozitif+yanlış_negatif)"
+      ],
+      "example_answer": "Duyarlılık = TP / (TP + FN)"
+    },
+    "WS1_B9": {
+      "max_score": 1,
+      "check": "formula",
+      "answer": "(FP+FN)/N",
+      "accepted_forms": [
+        "(FP+FN)/N",
+        "(FP+FN)/toplam",
+        "(FP+FN)/n",
+        "(FP+FN)/toplam_örnek"
+      ],
+      "example_answer": "MCR = (FP + FN) / toplam örnek sayısı"
+    },
+    "WS1_B10": {
+      "max_score": 1,
+      "evaluation": "two_component",
+      "components": [
+        {
+          "id": "fits_training",
+          "idea": "performs well on training data (eğitim verisinde iyi)",
+          "required": true
+        },
+        {
+          "id": "fails_generalize",
+          "idea": "fails to generalize to new unseen data (yeni veride kötü / genelleyemiyor)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Aşırı öğrenme: modelin eğitim verisine çok uyum sağlayıp yeni verilere genelleyememesi."
+    },
+    "WS1_B11": {
+      "max_score": 1,
+      "evaluation": "two_component",
+      "components": [
+        {
+          "id": "learns_from_data",
+          "idea": "learns rules or patterns from data (veriden kural/örüntü öğrenir)",
+          "required": true
+        },
+        {
+          "id": "tree_structure",
+          "idea": "tree structure with branches and leaf nodes (dal, yaprak, düğüm, branch, leaf, node, ağaç yapısı)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "example_answer": "Karar ağacı: veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model."
+    }
+  }
+}

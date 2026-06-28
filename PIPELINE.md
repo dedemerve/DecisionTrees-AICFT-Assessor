@@ -1,44 +1,108 @@
-# Assessment pipeline
+# Assessment pipeline (schema 3.0)
 
-Each student has **one output file**: `students/<student_id>.json`. Worksheet stages are sections inside that file, not separate folders.
+Per-student output lives under `students/<student_id>/` — **modular stage artifacts per worksheet**, plus a portfolio file.
 
-## Student bundle (`students/<student>.json`)
+## Layout
 
-| Section | Producer | Job |
-|---------|----------|-----|
-| `worksheets.<WS>.extraction` | Claude Sonnet 4.6 Vision (WS6 tree: Opus 4.8) | Transcribe what is on the page. Layout/HTR for WS5, WS6, WS10. |
-| `worksheets.<WS>.validation` | Python | Answered / blank / missing checks; formula and numeric verification. |
-| `worksheets.<WS>.scoring` | Claude Haiku 4.5 or Sonnet 4.6 | Score each item: score, confidence, learning outcomes, review flag. |
-| `worksheets.<WS>.summary` | Python | `total_score`, `max_score`, worksheet-level LO peaks. |
-| `portfolio` | AI-CFT assessor | Aggregate LO evidence, propose an AI-CFT level. Researcher makes the final call. |
-| `combined_responses` | OCR pipeline | Flat `item_id → answer` map across all worksheets. |
+```
+students/Sample_Student/
+  WS1/
+    extraction.json
+    scoring.json
+    evidence.json
+    summary.json
+  WS5/
+    extraction.json
+    validation.json    # Group B only (WS5, WS6, WS7)
+    scoring.json
+    evidence.json
+    summary.json
+  ...
+  portfolio.json
+```
 
-## Supporting artifacts (not per-worksheet JSON)
+### Worksheet groups
+
+| Group | Worksheets | `validation.json` |
+|-------|------------|-------------------|
+| A — LLM scoring sufficient | WS1, WS3, WS4, WS10, WS11 | No |
+| B — deterministic checks | WS5, WS6, WS7 | Yes (technical only) |
+
+### Stage artifacts
+
+| File | Role |
+|------|------|
+| `extraction.json` | OCR / layout / HTR responses |
+| `validation.json` | Pipeline health: parse success, tree detection, deterministic checks (Group B only) |
+| `scoring.json` | Item scores, confidence, review flags only |
+| `evidence.json` | Per-item LO evidence (input to portfolio builder) |
+| `summary.json` | `total_score`, `max_score`, `review_items`, `blocked` |
+
+`portfolio.json` — AI-CFT rollup across all worksheets (LO peaks, proposal, data gaps). Worksheet summaries do **not** assign AI-CFT levels.
+
+Envelope fields (`schema_version`, `stage`, `student_id`, `worksheet`, `updated_at`) appear once per artifact file.
+
+## Competency framework (v2.0)
+
+Performance-based assessment mappings live in:
+
+| File | Role |
+|------|------|
+| `mappings/AICFT_assessment_framework.json` | Canonical framework: competency definitions, worksheet profiles, item→competency priors with rationale |
+| `mappings/AICFT_LO_definitions.json` | Inverted index: LO → worksheet evidence |
+| `mappings/<WS>_AICFT_mapping.json` | Per-worksheet scorer view (schema 2.0) |
+| `schema/portfolio_v1.schema.json` | Portfolio rollup contract |
+| `schema/mapping_v2.schema.json` | Competency mapping contract |
+
+Regenerate all mapping artifacts after editing competency logic:
+
+```bash
+python scripts/build_aicft_framework.py
+```
+
+Worksheet-specific scorer context (edge cases, Section A/Q11 rules):
+
+| Prompt | Covers |
+|--------|--------|
+| `prompts/WS11_scoring_prompt.md` | Q11 ordering → LO3.1.2 procedural workflow |
+| `prompts/WS_DT_scoring_prompt.md` | Section A Q1 baseline vs Q2–Q4 data interpretation |
+
+## Supporting artifacts
 
 | Path | Purpose |
 |------|---------|
-| `ocr_output/<student>/` | Raw OCR dumps + page images from PDF conversion |
-| `layout_rois/<student>/` | OpenCV crops and layout manifests (WS5, WS6, WS10) |
-
-## Rules
-
-1. A single worksheet never assigns an AI-CFT level. Level assignment is cumulative and happens only in `portfolio`.
-2. The portfolio proposal is not final: `is_final: false`, `decision_owner: researcher`.
-3. Extraction never interprets student ability — only transcribes.
-4. Numeric and formula items are verified in Python at validation, not scored by an LLM.
-5. Rubrics use Schema 3.0 (`components[].idea` for semantic items).
+| `ocr_output/<student>/` | Raw OCR dumps + page images |
+| `layout_rois/<student>/` | OpenCV crops and layout manifests |
 
 ## Commands
 
 ```bash
-python ocr_pipeline.py full              # OCR → students/<id>.json
-python run_phase2.py Sample_Student      # layout + WS10 HTR → bundle
-python calibrate_scoring.py Sample_Student # confidence calibration
-python validate_pipeline_outputs.py      # CI contract check
+python ocr_pipeline.py full
+python run_phase2.py Sample_Student
+python calibrate_scoring.py Sample_Student
+python validate_pipeline_outputs.py
 ```
 
-Migrate old per-folder JSON (one-time):
+Migrate legacy combined `students/<id>/WS*.json` (v2.1):
 
 ```bash
-python student_bundle.py migrate <student_id>
+python -c "from student_bundle import migrate_student_to_v30; migrate_student_to_v30('Sample_Student')"
+```
+
+Build portfolio from all worksheet evidence (AI-CFT level proposal):
+
+```bash
+python run_portfolio_builder.py Sample_Student
+```
+
+Typical pipeline order:
+
+```bash
+python ocr_pipeline.py full              # extraction
+python run_phase2.py Sample_Student      # layout + HTR + WS6
+# scoring + evidence (LLM or deterministic modules)
+python calibrate_scoring.py Sample_Student
+python run_portfolio_builder.py Sample_Student
+python run_research_dashboard.py Sample_Student
+python validate_pipeline_outputs.py
 ```

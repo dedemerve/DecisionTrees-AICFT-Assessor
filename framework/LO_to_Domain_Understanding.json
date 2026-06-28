@@ -1,0 +1,1159 @@
+{
+  "schema_version": "1.0",
+  "artifact": "ilo_to_domain_understanding_mapping",
+  "inference_layer": true,
+  "confidence_policy": {
+    "qualitative_only": true,
+    "numeric_quantization": "deferred_to_Confidence_Model.json",
+    "allowed_levels": [
+      "high",
+      "moderate",
+      "low",
+      "baseline"
+    ],
+    "allowed_basis": [
+      "construct_alignment",
+      "domain_convergence_logic",
+      "frozen_ilo_reference",
+      "contextual_facilitation",
+      "diagnostic_baseline"
+    ],
+    "prohibited": "ad_hoc_numeric_confidence"
+  },
+  "design_constraint": "Domain Understanding must NOT be treated as a simple grouping of Instructional Learning Objects. A Domain represents an emergent disciplinary understanding supported by converging evidence across multiple Instructional Learning Objects, Observable Behaviours, and evidence sources. Every Domain must therefore have an explicit construct definition, inclusion criteria, exclusion criteria, convergence requirements, contradiction handling rules, and theoretical rationale. Domains are assessment constructs, not curriculum topics.",
+  "domain_ontology_reference": "framework/Domain_Understanding.json",
+  "domain_ontology_version": "1.0",
+  "ilo_ontology_reference": "framework/Learning_Objects.json",
+  "ilo_ontology_version": "1.0",
+  "generated_at": "2026-06-28T11:19:07.610951+00:00",
+  "mapping_count": 37,
+  "ilo_count": 21,
+  "rejected_alternative_count": 17,
+  "mappings": {
+    "ILO_CLASSIFICATION": {
+      "ilo_id": "ILO_CLASSIFICATION",
+      "records": [
+        {
+          "domain_id": "DU_CLASSIFICATION_REASONING",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Executable class assignment is the core procedural evidence for this domain.",
+          "counter_evidence": [
+            {
+              "description": "Isolated procedural success without cross-task or multi-ILO convergence",
+              "effect": "Moderate domain claim only until convergence requirements met",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "procedural",
+            "domain_dimension": "procedural",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_TREE_STRUCTURE_REASONING",
+          "mapping_role": "contextual",
+          "mapping_confidence": "low",
+          "confidence_basis": [
+            "contextual_facilitation",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Classification at leaves contextualizes tree structure without proving topology mastery.",
+          "counter_evidence": [
+            {
+              "description": "Isolated procedural success without cross-task or multi-ILO convergence",
+              "effect": "Moderate domain claim only until convergence requirements met",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "procedural",
+            "domain_dimension": "procedural",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "domain_id": "DU_DATA_REPRESENTATION",
+          "reason_rejected": "Classification execution is procedural evidence, not representational recall."
+        },
+        {
+          "domain_id": "DU_REFLECTIVE_UNDERSTANDING",
+          "reason_rejected": "Class assignment act is not reflective understanding without metacognitive framing."
+        }
+      ]
+    },
+    "ILO_CONFUSION_MATRIX": {
+      "ilo_id": "ILO_CONFUSION_MATRIX",
+      "records": [
+        {
+          "domain_id": "DU_MODEL_EVALUATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Matrix literacy is foundational to evaluation reasoning.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "strategic",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (conceptual) bridges to domain dimension (strategic) only when convergence requirements for DU_MODEL_EVALUATION are satisfied."
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "domain_id": "DU_CLASSIFICATION_REASONING",
+          "reason_rejected": "Matrix literacy is evaluation construct, not classification execution."
+        }
+      ]
+    },
+    "ILO_DATASET": {
+      "ilo_id": "ILO_DATASET",
+      "records": [
+        {
+          "domain_id": "DU_DATA_REPRESENTATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Labeled collections integrate instances, features, and labels.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "conceptual",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "ILO_DATA_PATTERN": {
+      "ilo_id": "ILO_DATA_PATTERN",
+      "records": [
+        {
+          "domain_id": "DU_GENERALISATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Pattern citation is primary evidence for generalisation hypotheses.",
+          "counter_evidence": [
+            {
+              "description": "Single-source strategic evidence without comparison or justification",
+              "effect": "Blocks strong Threshold, Evaluation, or Tuning domain claims",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "strategic",
+            "domain_dimension": "strategic",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_THRESHOLD_REASONING",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Patterns may motivate threshold choice when linked to separation evidence.",
+          "counter_evidence": [
+            {
+              "description": "Single-source strategic evidence without comparison or justification",
+              "effect": "Blocks strong Threshold, Evaluation, or Tuning domain claims",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "strategic",
+            "domain_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "ILO_DECISION_TREE": {
+      "ilo_id": "ILO_DECISION_TREE",
+      "records": [
+        {
+          "domain_id": "DU_TREE_STRUCTURE_REASONING",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Tree topology is the defining structural element of this domain.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "procedural",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (conceptual) bridges to domain dimension (procedural) only when convergence requirements for DU_TREE_STRUCTURE_REASONING are satisfied."
+        },
+        {
+          "domain_id": "DU_CLASSIFICATION_REASONING",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Tree traversal produces classification outcomes when evidenced.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "procedural",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (conceptual) bridges to domain dimension (procedural) only when convergence requirements for DU_CLASSIFICATION_REASONING are satisfied."
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "domain_id": "DU_DATA_REPRESENTATION",
+          "reason_rejected": "Tree structure exceeds representational vocabulary scope."
+        }
+      ]
+    },
+    "ILO_DT_WORKFLOW": {
+      "ilo_id": "ILO_DT_WORKFLOW",
+      "records": [
+        {
+          "domain_id": "DU_TREE_STRUCTURE_REASONING",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Workflow sequencing evidences procedural structure comprehension.",
+          "counter_evidence": [
+            {
+              "description": "Isolated procedural success without cross-task or multi-ILO convergence",
+              "effect": "Moderate domain claim only until convergence requirements met",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "procedural",
+            "domain_dimension": "procedural",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "domain_id": "DU_CLASSIFICATION_REASONING",
+          "reason_rejected": "Workflow ordering is structural sequencing, not classification outcome evidence."
+        }
+      ]
+    },
+    "ILO_FEATURE": {
+      "ilo_id": "ILO_FEATURE",
+      "records": [
+        {
+          "domain_id": "DU_DATA_REPRESENTATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Feature-as-predictor is core to representational understanding.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_GENERALISATION",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Feature naming supports but does not alone demonstrate pattern generalisation.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "strategic",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (conceptual) bridges to domain dimension (strategic) only when convergence requirements for DU_GENERALISATION are satisfied."
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "domain_id": "DU_THRESHOLD_REASONING",
+          "reason_rejected": "Feature vocabulary alone does not demonstrate threshold comparison or selection."
+        }
+      ]
+    },
+    "ILO_FEATURE_SELECTION": {
+      "ilo_id": "ILO_FEATURE_SELECTION",
+      "records": [
+        {
+          "domain_id": "DU_GENERALISATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Evidence-based feature choice demonstrates transfer from data to model design.",
+          "counter_evidence": [
+            {
+              "description": "Single-source strategic evidence without comparison or justification",
+              "effect": "Blocks strong Threshold, Evaluation, or Tuning domain claims",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "strategic",
+            "domain_dimension": "strategic",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_TREE_STRUCTURE_REASONING",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Feature selection precedes structural splits in tree construction.",
+          "counter_evidence": [
+            {
+              "description": "Single-source strategic evidence without comparison or justification",
+              "effect": "Blocks strong Threshold, Evaluation, or Tuning domain claims",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "strategic",
+            "domain_dimension": "procedural",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (strategic) bridges to domain dimension (procedural) only when convergence requirements for DU_TREE_STRUCTURE_REASONING are satisfied."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "ILO_INSTANCE": {
+      "ilo_id": "ILO_INSTANCE",
+      "records": [
+        {
+          "domain_id": "DU_DATA_REPRESENTATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Instance vocabulary anchors supervised representation construct.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_CLASSIFICATION_REASONING",
+          "mapping_role": "contextual",
+          "mapping_confidence": "low",
+          "confidence_basis": [
+            "contextual_facilitation",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Instances are classified but instance ILO alone does not demonstrate classification reasoning.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "procedural",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (conceptual) bridges to domain dimension (procedural) only when convergence requirements for DU_CLASSIFICATION_REASONING are satisfied."
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "domain_id": "DU_THRESHOLD_REASONING",
+          "reason_rejected": "Instance vocabulary does not evidence strategic cutoff reasoning."
+        },
+        {
+          "domain_id": "DU_MODEL_EVALUATION",
+          "reason_rejected": "Naming instances is not model evaluation literacy."
+        }
+      ]
+    },
+    "ILO_LABEL": {
+      "ilo_id": "ILO_LABEL",
+      "records": [
+        {
+          "domain_id": "DU_DATA_REPRESENTATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Label/target distinction is essential representational knowledge.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_CLASSIFICATION_REASONING",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Labels are outputs of classification acts when assignment is evidenced.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "procedural",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (conceptual) bridges to domain dimension (procedural) only when convergence requirements for DU_CLASSIFICATION_REASONING are satisfied."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "ILO_MCR": {
+      "ilo_id": "ILO_MCR",
+      "records": [
+        {
+          "domain_id": "DU_MODEL_EVALUATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "MCR computation and use supports error-rate evaluation.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "strategic",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (conceptual) bridges to domain dimension (strategic) only when convergence requirements for DU_MODEL_EVALUATION are satisfied."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "ILO_METACOGNITIVE_REFLECTION": {
+      "ilo_id": "ILO_METACOGNITIVE_REFLECTION",
+      "records": [
+        {
+          "domain_id": "DU_REFLECTIVE_UNDERSTANDING",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Metacognitive articulation is direct reflective-domain evidence.",
+          "counter_evidence": [
+            {
+              "description": "Eloquent reflection contradicting procedural or log evidence",
+              "effect": "Cap reflective domain; do not inflate strategic claims (leakage L5)",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "reflective",
+            "domain_dimension": "reflective",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "domain_id": "DU_THRESHOLD_REASONING",
+          "reason_rejected": "Reflection quality must not proxy strategic threshold mastery (leakage L5)."
+        },
+        {
+          "domain_id": "DU_CLASSIFICATION_REASONING",
+          "reason_rejected": "Metacognitive prose does not substitute for documented classification execution."
+        }
+      ]
+    },
+    "ILO_MODEL_EVALUATION": {
+      "ilo_id": "ILO_MODEL_EVALUATION",
+      "records": [
+        {
+          "domain_id": "DU_MODEL_EVALUATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Integrated performance interpretation is central to evaluation domain.",
+          "counter_evidence": [
+            {
+              "description": "Single-source strategic evidence without comparison or justification",
+              "effect": "Blocks strong Threshold, Evaluation, or Tuning domain claims",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "strategic",
+            "domain_dimension": "strategic",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_THRESHOLD_REASONING",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Evaluation evidence informs threshold and model comparison decisions.",
+          "counter_evidence": [
+            {
+              "description": "Single-source strategic evidence without comparison or justification",
+              "effect": "Blocks strong Threshold, Evaluation, or Tuning domain claims",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "strategic",
+            "domain_dimension": "strategic",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_PARAMETER_TUNING",
+          "mapping_role": "contextual",
+          "mapping_confidence": "low",
+          "confidence_basis": [
+            "contextual_facilitation",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Interpreting exploration outcomes contextualizes parameter convergence.",
+          "counter_evidence": [
+            {
+              "description": "Single-source strategic evidence without comparison or justification",
+              "effect": "Blocks strong Threshold, Evaluation, or Tuning domain claims",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "strategic",
+            "domain_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "ILO_MODEL_LIMITATION": {
+      "ilo_id": "ILO_MODEL_LIMITATION",
+      "records": [
+        {
+          "domain_id": "DU_REFLECTIVE_UNDERSTANDING",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Limitation awareness is reflective construct evidence.",
+          "counter_evidence": [
+            {
+              "description": "Eloquent reflection contradicting procedural or log evidence",
+              "effect": "Cap reflective domain; do not inflate strategic claims (leakage L5)",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "reflective",
+            "domain_dimension": "reflective",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_MODEL_EVALUATION",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Limits contextualize metric interpretation without replacing computation.",
+          "counter_evidence": [
+            {
+              "description": "Eloquent reflection contradicting procedural or log evidence",
+              "effect": "Cap reflective domain; do not inflate strategic claims (leakage L5)",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "reflective",
+            "domain_dimension": "strategic",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (reflective) bridges to domain dimension (strategic) only when convergence requirements for DU_MODEL_EVALUATION are satisfied."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "ILO_PARAMETER_OPTIMIZATION": {
+      "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
+      "records": [
+        {
+          "domain_id": "DU_PARAMETER_TUNING",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Iterative parameter search is the defining evidence for tuning domain.",
+          "counter_evidence": [
+            {
+              "description": "Single-source strategic evidence without comparison or justification",
+              "effect": "Blocks strong Threshold, Evaluation, or Tuning domain claims",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "strategic",
+            "domain_dimension": "strategic",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_THRESHOLD_REASONING",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Threshold search is one form of parameter optimization.",
+          "counter_evidence": [
+            {
+              "description": "Single-source strategic evidence without comparison or justification",
+              "effect": "Blocks strong Threshold, Evaluation, or Tuning domain claims",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "strategic",
+            "domain_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "domain_id": "DU_CLASSIFICATION_REASONING",
+          "reason_rejected": "Parameter search is strategic tuning, not a single classification act."
+        }
+      ]
+    },
+    "ILO_PRIOR_BELIEF": {
+      "ilo_id": "ILO_PRIOR_BELIEF",
+      "records": [
+        {
+          "domain_id": "DU_REFLECTIVE_UNDERSTANDING",
+          "mapping_role": "diagnostic",
+          "mapping_confidence": "baseline",
+          "confidence_basis": [
+            "diagnostic_baseline",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Prior belief captures baseline for growth; excluded from mastery aggregation.",
+          "counter_evidence": [
+            {
+              "description": "Eloquent reflection contradicting procedural or log evidence",
+              "effect": "Cap reflective domain; do not inflate strategic claims (leakage L5)",
+              "source_type": "contradictory_evidence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "reflective",
+            "domain_dimension": "reflective",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "domain_id": "DU_THRESHOLD_REASONING",
+          "reason_rejected": "Uninformed prior belief is diagnostic baseline, not threshold reasoning."
+        },
+        {
+          "domain_id": "DU_CLASSIFICATION_REASONING",
+          "reason_rejected": "Prior guesses are not evidenced classification acts."
+        },
+        {
+          "domain_id": "DU_MODEL_EVALUATION",
+          "reason_rejected": "Baseline belief is not evaluation literacy."
+        }
+      ]
+    },
+    "ILO_RULE": {
+      "ilo_id": "ILO_RULE",
+      "records": [
+        {
+          "domain_id": "DU_TREE_STRUCTURE_REASONING",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "If-then rules articulate path logic within hierarchical structure.",
+          "counter_evidence": [
+            {
+              "description": "Isolated procedural success without cross-task or multi-ILO convergence",
+              "effect": "Moderate domain claim only until convergence requirements met",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "procedural",
+            "domain_dimension": "procedural",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_CLASSIFICATION_REASONING",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Rules execute classification along decision paths.",
+          "counter_evidence": [
+            {
+              "description": "Isolated procedural success without cross-task or multi-ILO convergence",
+              "effect": "Moderate domain claim only until convergence requirements met",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "procedural",
+            "domain_dimension": "procedural",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "domain_id": "DU_THRESHOLD_REASONING",
+          "reason_rejected": "Rule articulation is structural/procedural, not comparative threshold optimization."
+        }
+      ]
+    },
+    "ILO_SENSITIVITY": {
+      "ilo_id": "ILO_SENSITIVITY",
+      "records": [
+        {
+          "domain_id": "DU_MODEL_EVALUATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Sensitivity links matrix cells to recall-oriented evaluation.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "strategic",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (conceptual) bridges to domain dimension (strategic) only when convergence requirements for DU_MODEL_EVALUATION are satisfied."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "ILO_THRESHOLD": {
+      "ilo_id": "ILO_THRESHOLD",
+      "records": [
+        {
+          "domain_id": "DU_THRESHOLD_REASONING",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Threshold ILO targets cutoff reasoning central to this strategic domain.",
+          "counter_evidence": [
+            {
+              "description": "Isolated procedural success without cross-task or multi-ILO convergence",
+              "effect": "Moderate domain claim only until convergence requirements met",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "procedural",
+            "domain_dimension": "strategic",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (procedural) bridges to domain dimension (strategic) only when convergence requirements for DU_THRESHOLD_REASONING are satisfied."
+        },
+        {
+          "domain_id": "DU_CLASSIFICATION_REASONING",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Threshold application enables classification when execution is documented.",
+          "counter_evidence": [
+            {
+              "description": "Isolated procedural success without cross-task or multi-ILO convergence",
+              "effect": "Moderate domain claim only until convergence requirements met",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "procedural",
+            "domain_dimension": "procedural",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_TREE_STRUCTURE_REASONING",
+          "mapping_role": "contextual",
+          "mapping_confidence": "low",
+          "confidence_basis": [
+            "contextual_facilitation",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Node cutoffs contextualize tree splits but do not alone demonstrate structure.",
+          "counter_evidence": [
+            {
+              "description": "Isolated procedural success without cross-task or multi-ILO convergence",
+              "effect": "Moderate domain claim only until convergence requirements met",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "procedural",
+            "domain_dimension": "procedural",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": [
+        {
+          "domain_id": "DU_DATA_REPRESENTATION",
+          "reason_rejected": "Threshold application is procedural/strategic, not representational vocabulary."
+        },
+        {
+          "domain_id": "DU_REFLECTIVE_UNDERSTANDING",
+          "reason_rejected": "Cutoff setting is not metacognitive reflection unless explicitly framed as learning process."
+        }
+      ]
+    },
+    "ILO_TRAINING_ROLE": {
+      "ilo_id": "ILO_TRAINING_ROLE",
+      "records": [
+        {
+          "domain_id": "DU_DATA_REPRESENTATION",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Training-data role explains why labeled datasets enable learning.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "conceptual",
+            "cross_construct": false
+          }
+        },
+        {
+          "domain_id": "DU_REFLECTIVE_UNDERSTANDING",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Learners may reflect on what data taught them about patterns.",
+          "counter_evidence": [
+            {
+              "description": "Terminology or vocabulary without converging application across ILOs",
+              "effect": "Caps domain synthesis at weak/moderate; blocks strategic domain escalation",
+              "source_type": "construct_leakage",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "conceptual",
+            "domain_dimension": "reflective",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (conceptual) bridges to domain dimension (reflective) only when convergence requirements for DU_REFLECTIVE_UNDERSTANDING are satisfied."
+        }
+      ],
+      "rejected_alternatives": []
+    },
+    "ILO_TREE_SPLIT": {
+      "ilo_id": "ILO_TREE_SPLIT",
+      "records": [
+        {
+          "domain_id": "DU_TREE_STRUCTURE_REASONING",
+          "mapping_role": "primary",
+          "mapping_confidence": "high",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Node splits are structural decisions distinct from single-threshold drills.",
+          "counter_evidence": [
+            {
+              "description": "Single-source strategic evidence without comparison or justification",
+              "effect": "Blocks strong Threshold, Evaluation, or Tuning domain claims",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "strategic",
+            "domain_dimension": "procedural",
+            "cross_construct": true
+          },
+          "cross_construct_rationale": "ILO construct dimension (strategic) bridges to domain dimension (procedural) only when convergence requirements for DU_TREE_STRUCTURE_REASONING are satisfied."
+        },
+        {
+          "domain_id": "DU_THRESHOLD_REASONING",
+          "mapping_role": "secondary",
+          "mapping_confidence": "moderate",
+          "confidence_basis": [
+            "construct_alignment",
+            "domain_convergence_logic",
+            "frozen_ilo_reference"
+          ],
+          "supporting_rationale": "Split cutoffs contribute to strategic threshold reasoning at nodes.",
+          "counter_evidence": [
+            {
+              "description": "Single-source strategic evidence without comparison or justification",
+              "effect": "Blocks strong Threshold, Evaluation, or Tuning domain claims",
+              "source_type": "underconvergence",
+              "blocks_escalation": true
+            }
+          ],
+          "construct_alignment": {
+            "ilo_dimension": "strategic",
+            "domain_dimension": "strategic",
+            "cross_construct": false
+          }
+        }
+      ],
+      "rejected_alternatives": []
+    }
+  },
+  "freeze": {
+    "status": "frozen",
+    "version": "1.0",
+    "frozen_at": "2026-06-28T11:19:37.191888+00:00",
+    "freeze_package_dir": "reports/milestone4_freeze",
+    "expert_review_status": "automated_review_complete; domain_stress_test_passed; human_expert_review_pending",
+    "change_policy": "major_version_required_for_semantic_changes",
+    "inference_layer": true,
+    "upstream_frozen_inputs": [
+      "Observable_Behaviours.json@1.0",
+      "Learning_Objects.json@1.0",
+      "Behaviour_to_ILO.json@1.1"
+    ],
+    "downstream_artifacts_locked": [
+      "Domain_to_AI_CFT.json",
+      "Aggregation_Policy.json"
+    ],
+    "milestone5_design_constraint": "Domain_to_AI_CFT must not be implemented as a deterministic lookup table. AI-CFT claims are interpretive, provisional, and evidence-weighted. Each mapping must specify the theoretical rationale, minimum evidence requirements, convergence criteria, contradiction conditions, confidence ceiling, and explicit situations where escalation to the AI-CFT level is prohibited. No Domain may map directly to an AI-CFT competency solely because it is present. Domain evidence must satisfy sufficiency and coherence requirements before an AI-CFT interpretation becomes available.",
+    "artifact": "ilo_to_domain_understanding_mapping"
+  }
+}

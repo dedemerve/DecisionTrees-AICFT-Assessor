@@ -1,98 +1,244 @@
 {
+  "schema_version": "2.0",
   "worksheet": "WS11",
   "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
-  "note": "Ground-truth AI-CFT mapping for this worksheet. Consumed by the Stage 3 scorer. Weight is a ceiling on evidence_strength: an item can never contribute stronger evidence than its weight, even at full credit. Do not infer mappings beyond this file.",
+  "note": "Performance-based competency mapping. Strength is a ceiling on observed evidence_strength. Scorer must add item-specific rationale and confidence.",
   "items": {
     "WS11_B8a": [
       {
-        "LO": "LO3.1.1",
-        "evidence_type": "application",
-        "expected_level": "Acquire",
-        "weight": "moderate"
+        "lo": "LO3.2.2",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Deepen",
+        "rationale": "Interprets model output or feedback in applied context (Q8 cluster).",
+        "role": "primary",
+        "portfolio_weight": "full"
       }
     ],
     "WS11_B8b": [
       {
-        "LO": "LO3.1.1",
+        "lo": "LO3.2.2",
+        "strength": "strong",
         "evidence_type": "direct",
-        "expected_level": "Acquire",
-        "weight": "strong"
-      },
-      {
-        "LO": "LO3.2.2",
-        "evidence_type": "early_indicator",
         "expected_level": "Deepen",
-        "weight": "moderate"
+        "rationale": "Explains or justifies model behaviour from worksheet feedback (Q8).",
+        "role": "primary",
+        "portfolio_weight": "full"
       }
     ],
     "WS11_B9": [
       {
-        "LO": "LO3.1.2",
+        "lo": "LO3.1.2",
+        "strength": "strong",
         "evidence_type": "direct",
         "expected_level": "Acquire",
-        "weight": "strong"
+        "rationale": "Explains foundational AI concept (why data / how models learn).",
+        "role": "primary",
+        "portfolio_weight": "full"
       }
     ],
     "WS11_Q10_1": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q10_2": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q10_3": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q10_4": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q10_5": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q10_6": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q10_7": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q10_8": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Conceptual explanation of AI/decision-tree behaviour (Q10).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q11_2": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Orders procedural steps in decision-tree construction (select feature → arrange by dimension → find threshold → decide). Demonstrates workflow understanding, not vocabulary recall alone.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      },
+      {
+        "lo": "LO3.2.2",
+        "strength": "weak",
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Connects ordered steps to applied model-building pipeline (Q11).",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q11_3": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Orders procedural steps in decision-tree construction (select feature → arrange by dimension → find threshold → decide). Demonstrates workflow understanding, not vocabulary recall alone.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      },
+      {
+        "lo": "LO3.2.2",
+        "strength": "weak",
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Connects ordered steps to applied model-building pipeline (Q11).",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q11_4": [
-      { "LO": "LO3.1.1", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Orders procedural steps in decision-tree construction (select feature → arrange by dimension → find threshold → decide). Demonstrates workflow understanding, not vocabulary recall alone.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      },
+      {
+        "lo": "LO3.2.2",
+        "strength": "weak",
+        "evidence_type": "supporting",
+        "expected_level": "Deepen",
+        "rationale": "Connects ordered steps to applied model-building pipeline (Q11).",
+        "role": "supporting",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q12_1": [
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.5", "evidence_type": "early_indicator", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q12_2": [
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.5", "evidence_type": "early_indicator", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q12_3": [
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.5", "evidence_type": "early_indicator", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q12_4": [
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.5", "evidence_type": "early_indicator", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ],
     "WS11_Q12_5": [
-      { "LO": "LO3.1.2", "evidence_type": "direct", "expected_level": "Acquire", "weight": "strong" },
-      { "LO": "LO3.1.5", "evidence_type": "early_indicator", "expected_level": "Acquire", "weight": "moderate" }
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Explains what AI/decision trees do and why data matters (Q12).",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
     ]
   }
 }

@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "observable_behaviours_v1.schema.json",
+  "title": "Observable Behaviour Ontology v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "ontology",
+    "construct",
+    "construct_reference",
+    "source_families",
+    "construct_dimensions",
+    "behaviours"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "ontology": { "const": "observable_behaviour" },
+    "framework_version": { "type": "string" },
+    "construct": { "const": "Decision Tree Understanding" },
+    "construct_reference": { "type": "string" },
+    "source_families": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "worksheet",
+          "codap",
+          "screen_recording",
+          "reflection",
+          "observation",
+          "interview"
+        ]
+      },
+      "minItems": 1
+    },
+    "construct_dimensions": {
+      "type": "array",
+      "items": {
+        "enum": ["conceptual", "procedural", "strategic", "reflective"]
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "behaviours": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/behaviour" }
+    }
+  },
+  "$defs": {
+    "behaviour": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "description",
+        "construct_dimension",
+        "cognitive_process",
+        "knowledge_type",
+        "possible_sources",
+        "required_evidence",
+        "possible_misconceptions",
+        "related_behaviours",
+        "difficulty",
+        "confidence_requirements",
+        "evidence_strength_ceiling"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^OB_[A-Z]{3}_[0-9]{3}$" },
+        "title": { "type": "string", "minLength": 8 },
+        "description": { "type": "string", "minLength": 24 },
+        "construct_dimension": {
+          "enum": ["conceptual", "procedural", "strategic", "reflective"]
+        },
+        "cognitive_process": {
+          "enum": [
+            "remember",
+            "understand",
+            "apply",
+            "analyze",
+            "evaluate",
+            "create",
+            "reflect",
+            "compare",
+            "justify",
+            "synthesize"
+          ]
+        },
+        "knowledge_type": {
+          "enum": ["declarative", "procedural", "conditional", "metacognitive"]
+        },
+        "possible_sources": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "worksheet",
+              "codap",
+              "screen_recording",
+              "reflection",
+              "observation",
+              "interview"
+            ]
+          },
+          "minItems": 1
+        },
+        "required_evidence": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 8 },
+          "minItems": 1
+        },
+        "possible_misconceptions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 8 }
+        },
+        "related_behaviours": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^OB_[A-Z]{3}_[0-9]{3}$" }
+        },
+        "difficulty": {
+          "enum": ["foundational", "intermediate", "advanced"]
+        },
+        "confidence_requirements": {
+          "type": "object",
+          "required": [
+            "minimum_extraction_confidence",
+            "minimum_independent_observations",
+            "minimum_source_families",
+            "review_below_confidence"
+          ],
+          "properties": {
+            "minimum_extraction_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "minimum_independent_observations": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "minimum_source_families": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "review_below_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "evidence_strength_ceiling": {
+          "enum": ["weak", "moderate", "strong", "very_strong"]
+        },
+        "leakage_guard": {
+          "type": "string",
+          "description": "Optional note on construct-leakage risk for this behaviour"
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-pipeline_integration.py — Wire Phase 1 layout + Phase 2 HTR into student bundle.
+pipeline_integration.py — Wire Phase 1 layout + Phase 2 HTR into per-worksheet artifacts.
 """
 
 from __future__ import annotations
@@ -11,10 +11,15 @@ from typing import Any
 
 from layout_isolator import LayoutIsolator
 from pipeline_schema import LAYOUT_ROIS_DIR, REPO_ROOT, layout_manifest_path
-from student_bundle import get_section, load_bundle, save_bundle, set_section
+from student_bundle import (
+    artifact_payload,
+    load_artifact,
+    save_artifact,
+    save_scoring_bundle,
+)
+from worksheet_validation import ws10_extraction_quality
 from ws10_table_extractor import (
     Ws10ExtractionResult,
-    build_validation_ws10,
     extract_ws10_from_layout,
 )
 
@@ -29,7 +34,6 @@ def attach_layout_manifest(student_id: str, worksheet: str) -> dict[str, Any] | 
 
 
 def run_layout_phase(student_id: str) -> dict[str, str]:
-    """Phase 1: produce layout_rois manifests."""
     results = LayoutIsolator().process_student_bundle(student_id)
     return {ws: r.status for ws, r in results.items()}
 
@@ -39,7 +43,6 @@ def extract_ws6_from_answer_key_pdf(
     *,
     pdf_path: Path | None = None,
 ) -> dict[str, Any]:
-    """Render Worksheet 6.pdf and run WS6 tree canvas layout."""
     pdf_path = pdf_path or ANSWER_KEY_WS6
     if not pdf_path.exists():
         return {"status": "error", "message": f"PDF not found: {pdf_path}"}
@@ -69,8 +72,7 @@ def extract_ws6_from_answer_key_pdf(
 
 
 def score_ws10_deterministic(responses: dict[str, str], student_id: str) -> dict[str, Any]:
-    """Deterministic WS10 scoring from rubric answers (all items max 1)."""
-    from pipeline_schema import load_mapping, load_rubric
+    from pipeline_schema import competency_strength_ceiling, item_competencies, load_mapping, load_rubric
 
     rubric = load_rubric("WS10")
     mapping = load_mapping("WS10")
@@ -99,14 +101,18 @@ def score_ws10_deterministic(responses: dict[str, str], student_id: str) -> dict
 
         total += score
         lo_entries = []
-        for lo in mapping["items"].get(item_id, []):
-            strength = "strong" if score >= max_score else ("weak" if score > 0 else "none")
-            if strength == "strong" and lo.get("weight", "moderate") == "moderate":
+        for comp_prior in item_competencies(mapping, item_id):
+            ceiling = competency_strength_ceiling(comp_prior)
+            strength = ceiling if score >= max_score else ("weak" if score > 0 else "none")
+            if strength == "strong" and ceiling == "moderate":
                 strength = "moderate"
             lo_entries.append({
-                "LO": lo["LO"],
+                "lo": comp_prior["lo"],
+                "strength": strength if score > 0 else "none",
+                "evidence_type": comp_prior.get("evidence_type", "direct"),
+                "rationale": comp_prior.get("rationale", ""),
+                "confidence": 1.0 if check in {"numeric", "numeric_optimal"} else 0.85,
                 "evidence_present": score > 0,
-                "evidence_strength": strength if score > 0 else "none",
             })
 
         items_out.append({
@@ -114,13 +120,10 @@ def score_ws10_deterministic(responses: dict[str, str], student_id: str) -> dict
             "score": score,
             "confidence": 1.0 if check in {"numeric", "numeric_optimal"} else 0.85,
             "review": False,
-            "learning_outcomes": lo_entries,
+            "competencies": lo_entries,
         })
 
     return {
-        "schema_version": "1.0",
-        "worksheet": "WS10",
-        "student_id": student_id,
         "blocked": False,
         "items": items_out,
         "total_score": total,
@@ -133,17 +136,10 @@ def _patch_ws10_extraction(
     extraction: Ws10ExtractionResult,
     layout_manifest: dict[str, Any] | None,
 ) -> dict[str, Any]:
-    if "gate_1_extraction" in ext:
-        g1 = ext["gate_1_extraction"]
-        g1["items"] = extraction.responses
-        g1["numeric_table"] = extraction.numeric_table
-        g1["htr"] = extraction.to_dict()
-        if layout_manifest:
-            g1["layout_roi"] = layout_manifest
-        return ext
+    if not ext:
+        ext = {"worksheet": "WS10", "student_id": extraction.student_id}
 
     ext.update({
-        "schema_version": "1.0",
         "worksheet": "WS10",
         "responses": extraction.responses,
         "numeric_table": extraction.numeric_table,
@@ -155,43 +151,31 @@ def _patch_ws10_extraction(
 
 
 def integrate_ws10_htr(student_id: str) -> dict[str, Any]:
-    """Phase 2: HTR table → update student bundle WS10 sections."""
     extraction = extract_ws10_from_layout(student_id)
-    bundle = load_bundle(student_id)
     layout_manifest = attach_layout_manifest(student_id, "WS10")
 
-    ext = get_section(bundle, "WS10", "extraction") or {
-        "schema_version": "1.0",
-        "worksheet": "WS10",
-        "student_id": student_id,
-    }
-    set_section(bundle, "WS10", "extraction", _patch_ws10_extraction(ext, extraction, layout_manifest))
-    validation = build_validation_ws10(extraction)
-    set_section(bundle, "WS10", "validation", validation)
+    ext = artifact_payload(load_artifact(student_id, "WS10", "extraction"))
+    patched = _patch_ws10_extraction(ext, extraction, layout_manifest)
+    row_count = len(extraction.rows) or len(extraction.responses)
+    quality = ws10_extraction_quality(extraction.status, row_count)
+    patched.update(quality)
+    save_artifact(student_id, "WS10", "extraction", patched)
 
     scoring = score_ws10_deterministic(extraction.responses, student_id)
-    set_section(bundle, "WS10", "scoring", scoring)
-    set_section(bundle, "WS10", "summary", {
-        "schema_version": "1.0",
-        "worksheet": "WS10",
-        "student_id": student_id,
-        "total_score": scoring["total_score"],
-        "max_score": scoring["max_score"],
-        "learning_outcomes": {"LO3.2.1": "strong" if scoring["total_score"] >= 7 else "moderate"},
-        "blocked": False,
-    })
-    save_bundle(bundle)
+    if quality["blocked"]:
+        scoring["blocked"] = True
+        scoring["blocked_reason"] = quality.get("blocked_reason")
+    save_scoring_bundle(student_id, "WS10", scoring)
 
     return {
         "worksheet": "WS10",
         "htr_status": extraction.status,
-        "blocked": validation["blocked"],
+        "blocked": quality["blocked"],
         "responses": extraction.responses,
     }
 
 
 def integrate_student(student_id: str, *, ws6_pdf: bool = True) -> dict[str, Any]:
-    """Run layout + HTR integration for one student."""
     report: dict[str, Any] = {"student_id": student_id, "layout": {}, "htr": {}, "ws6": {}}
     report["layout"] = run_layout_phase(student_id)
     report["htr"]["WS10"] = integrate_ws10_htr(student_id)
@@ -199,13 +183,11 @@ def integrate_student(student_id: str, *, ws6_pdf: bool = True) -> dict[str, Any
     if ws6_pdf and ANSWER_KEY_WS6.exists():
         report["ws6"] = extract_ws6_from_answer_key_pdf(student_id)
 
-    bundle = load_bundle(student_id)
     ws5_manifest = attach_layout_manifest(student_id, "WS5")
     if ws5_manifest:
-        ext = get_section(bundle, "WS5", "extraction")
+        ext = artifact_payload(load_artifact(student_id, "WS5", "extraction"))
         if ext and "gate_1_extraction" in ext:
             ext["gate_1_extraction"]["layout_roi"] = ws5_manifest
-            set_section(bundle, "WS5", "extraction", ext)
-            save_bundle(bundle)
+            save_artifact(student_id, "WS5", "extraction", ext)
 
     return report

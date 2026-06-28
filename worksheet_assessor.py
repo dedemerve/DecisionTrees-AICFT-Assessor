@@ -1128,6 +1128,71 @@ FEW_SHOT_EXAMPLES: dict[str, list[dict]] = {
         },
     ],
 
+    "DT_A_Q1": [
+        {
+            "student_response": (
+                "Bence şeker ve yağ miktarı bir gıdanın tavsiye edilip edilmeyeceğini etkiler."
+            ),
+            "credit": "full",
+            "rationale": (
+                "Prior belief: names specific features before CODAP analysis. "
+                "Baseline diagnostic — not Deepen evidence."
+            ),
+        },
+        {
+            "student_response": "Sağlıklı yiyecekler daha iyidir.",
+            "credit": "zero",
+            "rationale": "No dataset feature named — vague prior only.",
+        },
+    ],
+
+    "DT_A_Q3": [
+        {
+            "student_response": (
+                "Evet, şeker miktarı anlamlı bir fark gösterdi. Tavsiye edilen gıdalarda şeker "
+                "değeri genellikle daha düşük."
+            ),
+            "credit": "full",
+            "rationale": (
+                "Affirms meaningful difference, names feature (sugar), and describes direction "
+                "between classes from observed data."
+            ),
+        },
+        {
+            "student_response": "Evet fark var.",
+            "credit": "partial",
+            "rationale": "Acknowledges difference but no feature or direction described.",
+        },
+        {
+            "student_response": "(bos)",
+            "credit": "zero",
+            "rationale": "Blank response.",
+        },
+    ],
+
+    "WS11_Q11": [
+        {
+            "student_response": "2",
+            "credit": "full",
+            "rationale": (
+                "WS11_Q11_2: correct position for 'arrange data by feature dimension' — "
+                "procedural DT workflow step 2."
+            ),
+        },
+        {
+            "student_response": "4",
+            "credit": "zero",
+            "rationale": (
+                "WS11_Q11_2: step 2 statement assigned position 4 — incorrect workflow order."
+            ),
+        },
+        {
+            "student_response": "",
+            "credit": "zero",
+            "rationale": "Blank ordering response — cannot evidence LO3.1.2 workflow understanding.",
+        },
+    ],
+
     "DT_G_Q2": [
         {
             "student_response": (

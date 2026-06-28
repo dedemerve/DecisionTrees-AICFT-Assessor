@@ -1,52 +1,58 @@
 {
+  "schema_version": "3.0",
   "worksheet": "WS4",
+  "worksheet_title": "Searching for the Best Threshold Value",
   "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
-  "note": "Ground-truth AI-CFT mapping for this worksheet. Consumed by the Stage 3 scorer. Weight is a ceiling on evidence_strength: an item can never contribute stronger evidence than its weight, even at full credit. Do not infer mappings beyond this file.",
+  "aspect": "AI Foundations and Applications",
+  "note": "Each item contributes evidence toward one or more AI-CFT learning objectives. Learning objectives are evidence accumulators across multiple worksheets rather than pass/fail outcomes.",
+
   "items": {
+
     "WS4_B1": [
       {
-        "LO": "LO3.2.1",
-        "evidence_type": "direct",
+        "lo": "LO3.2.2",
         "expected_level": "Deepen",
-        "weight": "strong"
-      },
-      {
-        "LO": "LO3.1.3",
+        "role": "primary",
+        "strength": "moderate",
         "evidence_type": "application",
-        "expected_level": "Acquire",
-        "weight": "moderate"
+        "portfolio_weight": "medium",
+        "rationale": "Identifies which instances are misclassified under an existing threshold, demonstrating interpretation of model behaviour rather than optimisation."
       }
     ],
+
     "WS4_B2": [
       {
-        "LO": "LO3.2.1",
-        "evidence_type": "direct",
+        "lo": "LO3.2.2",
         "expected_level": "Deepen",
-        "weight": "strong"
+        "role": "primary",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "portfolio_weight": "full",
+        "rationale": "Searches for a better threshold, compares alternatives and justifies parameter selection using classification performance."
       }
     ],
+
     "WS4_B3": [
       {
-        "LO": "LO3.2.1",
-        "evidence_type": "direct",
+        "lo": "LO3.2.2",
         "expected_level": "Deepen",
-        "weight": "strong"
+        "role": "primary",
+        "strength": "strong",
+        "evidence_type": "reasoning",
+        "portfolio_weight": "full",
+        "rationale": "Explains why a threshold cannot always be placed between adjacent observations, demonstrating conceptual understanding of threshold constraints."
       }
     ],
+
     "WS4_B4": [
       {
-        "LO": "LO3.1.1",
-        "evidence_type": "direct",
-        "expected_level": "Acquire",
-        "weight": "strong"
-      }
-    ],
-    "WS4_B5": [
-      {
-        "LO": "LO3.2.2",
-        "evidence_type": "direct",
+        "lo": "LO3.2.2",
         "expected_level": "Deepen",
-        "weight": "strong"
+        "role": "primary",
+        "strength": "strong",
+        "evidence_type": "transfer",
+        "portfolio_weight": "full",
+        "rationale": "Transfers the threshold search strategy to a new feature, demonstrating generalisation of the decision-tree procedure."
       }
     ]
   }

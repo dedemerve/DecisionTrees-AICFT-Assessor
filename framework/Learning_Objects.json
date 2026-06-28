@@ -1,0 +1,337 @@
+{
+  "schema_version": "1.0",
+  "ontology": "instructional_learning_object",
+  "framework_version": "1.0",
+  "terminology": {
+    "ilo": "Instructional Learning Object",
+    "abbreviation": "ILO",
+    "disambiguation": "An ILO is an instructional concept targeted by tasks in the Decision Tree curriculum. It is not a SCORM Learning Object (content package) and not a UNESCO AI-CFT competency identifier (LO3.x).",
+    "aicft_competency_note": "Portfolio competency codes (LO3.1.1, LO3.2.2, etc.) are interpreted at the AI-CFT layer after Domain Understanding synthesis. ILOs bridge Observable Behaviours to Domain Understanding.",
+    "milestone3_mapping_artifact": "Behaviour_to_ILO.json"
+  },
+  "construct": "Decision Tree Understanding",
+  "construct_reference": "framework/Construct_Definition.md",
+  "behaviour_ontology_reference": "framework/Observable_Behaviours.json",
+  "behaviour_ontology_version": "1.0",
+  "dependency_graph_reference": "framework/ILO_Dependency_Graph.json",
+  "concept_families": [
+    "data_representation",
+    "classification",
+    "evaluation",
+    "generalisation",
+    "reasoning",
+    "reflection"
+  ],
+  "construct_dimensions": [
+    "conceptual",
+    "procedural",
+    "strategic",
+    "reflective"
+  ],
+  "learning_objects": {
+    "ILO_INSTANCE": {
+      "id": "ILO_INSTANCE",
+      "title": "Supervised learning instance (object)",
+      "description": "A single case or row to be classified, comprising feature values and an optional or inferred class label.",
+      "construct_dimension": "conceptual",
+      "concept_family": "data_representation",
+      "instructional_sequence_order": 1,
+      "instructional_purpose": "Anchor vocabulary for what is being predicted and what evidence is observed per case before tree reasoning begins.",
+      "related_behaviours": [
+        "OB_CON_001"
+      ]
+    },
+    "ILO_FEATURE": {
+      "id": "ILO_FEATURE",
+      "title": "Feature (predictor attribute)",
+      "description": "An input attribute used by a decision tree to split or classify instances.",
+      "construct_dimension": "conceptual",
+      "concept_family": "data_representation",
+      "instructional_sequence_order": 2,
+      "instructional_purpose": "Establish what model inputs are and how they differ from labels or outcomes.",
+      "related_behaviours": [
+        "OB_CON_001",
+        "OB_STR_002",
+        "OB_STR_004"
+      ]
+    },
+    "ILO_LABEL": {
+      "id": "ILO_LABEL",
+      "title": "Class label (target)",
+      "description": "The categorical outcome a decision tree predicts for each instance.",
+      "construct_dimension": "conceptual",
+      "concept_family": "data_representation",
+      "instructional_sequence_order": 3,
+      "instructional_purpose": "Distinguish what is predicted from features used for prediction during instruction.",
+      "related_behaviours": [
+        "OB_CON_001",
+        "OB_PRO_003",
+        "OB_PRO_006"
+      ]
+    },
+    "ILO_DATASET": {
+      "id": "ILO_DATASET",
+      "title": "Labeled dataset",
+      "description": "A collection of instances with features and labels used to build or evaluate a decision tree.",
+      "construct_dimension": "conceptual",
+      "concept_family": "data_representation",
+      "instructional_sequence_order": 4,
+      "instructional_purpose": "Connect supervised learning to concrete collections of cases used in classroom tasks.",
+      "related_behaviours": [
+        "OB_CON_001",
+        "OB_CON_004"
+      ]
+    },
+    "ILO_TRAINING_ROLE": {
+      "id": "ILO_TRAINING_ROLE",
+      "title": "Role of training data in learning",
+      "description": "How labeled examples enable a model to learn patterns rather than merely store answers.",
+      "construct_dimension": "conceptual",
+      "concept_family": "data_representation",
+      "instructional_sequence_order": 5,
+      "instructional_purpose": "Support explanations of why data are required before tool operation or threshold tuning.",
+      "related_behaviours": [
+        "OB_CON_004",
+        "OB_REF_002"
+      ]
+    },
+    "ILO_THRESHOLD": {
+      "id": "ILO_THRESHOLD",
+      "title": "Threshold (split cutoff)",
+      "description": "A numeric or categorical cutoff on a feature that partitions instances at a node.",
+      "construct_dimension": "procedural",
+      "concept_family": "classification",
+      "instructional_sequence_order": 6,
+      "instructional_purpose": "Target threshold application, comparison, and tuning tasks across modalities.",
+      "related_behaviours": [
+        "OB_CON_002",
+        "OB_PRO_001",
+        "OB_PRO_007",
+        "OB_STR_001",
+        "OB_STR_002"
+      ]
+    },
+    "ILO_RULE": {
+      "id": "ILO_RULE",
+      "title": "Decision rule (if-then condition)",
+      "description": "An explicit conditional statement linking feature tests to class assignments along a path.",
+      "construct_dimension": "procedural",
+      "concept_family": "classification",
+      "instructional_sequence_order": 7,
+      "instructional_purpose": "Translate between graphical tree paths and verbal or symbolic rules in instruction.",
+      "related_behaviours": [
+        "OB_CON_002",
+        "OB_PRO_002",
+        "OB_PRO_005"
+      ]
+    },
+    "ILO_DECISION_TREE": {
+      "id": "ILO_DECISION_TREE",
+      "title": "Decision tree structure",
+      "description": "A hierarchical model of nested feature tests leading to class outcomes at leaves.",
+      "construct_dimension": "conceptual",
+      "concept_family": "classification",
+      "instructional_sequence_order": 8,
+      "instructional_purpose": "Unify instruction on tree representation, traversal, and construction across modalities.",
+      "related_behaviours": [
+        "OB_CON_002",
+        "OB_CON_003",
+        "OB_PRO_002",
+        "OB_PRO_003"
+      ]
+    },
+    "ILO_TREE_SPLIT": {
+      "id": "ILO_TREE_SPLIT",
+      "title": "Node split (feature and cutoff at a node)",
+      "description": "A structural decision selecting which feature and threshold define a branch at a tree node.",
+      "construct_dimension": "strategic",
+      "concept_family": "classification",
+      "instructional_sequence_order": 9,
+      "instructional_purpose": "Separate root and inner-node split decisions from single-threshold classification drills.",
+      "related_behaviours": [
+        "OB_PRO_003",
+        "OB_PRO_007",
+        "OB_STR_002"
+      ]
+    },
+    "ILO_CLASSIFICATION": {
+      "id": "ILO_CLASSIFICATION",
+      "title": "Classification outcome",
+      "description": "Assigning a class label to an instance using a rule, threshold, or tree path.",
+      "construct_dimension": "procedural",
+      "concept_family": "classification",
+      "instructional_sequence_order": 10,
+      "instructional_purpose": "Focus instruction on executable classification, not terminology recall alone.",
+      "related_behaviours": [
+        "OB_CON_003",
+        "OB_PRO_001",
+        "OB_PRO_002",
+        "OB_PRO_006"
+      ]
+    },
+    "ILO_DT_WORKFLOW": {
+      "id": "ILO_DT_WORKFLOW",
+      "title": "Decision-tree construction workflow",
+      "description": "The ordered instructional pipeline from feature selection through threshold finding to classification.",
+      "construct_dimension": "procedural",
+      "concept_family": "classification",
+      "instructional_sequence_order": 11,
+      "instructional_purpose": "Teach procedural sequencing distinct from isolated vocabulary or single-step application items.",
+      "related_behaviours": [
+        "OB_PRO_004"
+      ]
+    },
+    "ILO_CONFUSION_MATRIX": {
+      "id": "ILO_CONFUSION_MATRIX",
+      "title": "Confusion matrix",
+      "description": "A tabulation of true positives, false positives, false negatives, and true negatives for a classifier.",
+      "construct_dimension": "conceptual",
+      "concept_family": "evaluation",
+      "instructional_sequence_order": 12,
+      "instructional_purpose": "Ground metric instruction and error-type reasoning in a shared representational format.",
+      "related_behaviours": [
+        "OB_CON_005",
+        "OB_CON_006",
+        "OB_STR_005"
+      ]
+    },
+    "ILO_MCR": {
+      "id": "ILO_MCR",
+      "title": "Misclassification rate (MCR)",
+      "description": "The proportion of incorrect classifications, typically derived from confusion-matrix counts.",
+      "construct_dimension": "conceptual",
+      "concept_family": "evaluation",
+      "instructional_sequence_order": 13,
+      "instructional_purpose": "Support both definitional knowledge and performance comparison tasks involving error rate.",
+      "related_behaviours": [
+        "OB_CON_005",
+        "OB_PRO_009",
+        "OB_STR_008"
+      ]
+    },
+    "ILO_SENSITIVITY": {
+      "id": "ILO_SENSITIVITY",
+      "title": "Sensitivity (true positive rate)",
+      "description": "The proportion of actual positives correctly identified by the model.",
+      "construct_dimension": "conceptual",
+      "concept_family": "evaluation",
+      "instructional_sequence_order": 14,
+      "instructional_purpose": "Enable instruction on recall-oriented performance and trade-offs with other error types.",
+      "related_behaviours": [
+        "OB_CON_005",
+        "OB_PRO_009"
+      ]
+    },
+    "ILO_DATA_PATTERN": {
+      "id": "ILO_DATA_PATTERN",
+      "title": "Data pattern for class separation",
+      "description": "Observable distribution or graph patterns that suggest a feature separates classes.",
+      "construct_dimension": "strategic",
+      "concept_family": "reasoning",
+      "instructional_sequence_order": 15,
+      "instructional_purpose": "Link exploratory data analysis to evidence-based feature hypotheses before modeling.",
+      "related_behaviours": [
+        "OB_STR_004"
+      ]
+    },
+    "ILO_FEATURE_SELECTION": {
+      "id": "ILO_FEATURE_SELECTION",
+      "title": "Feature selection for splitting",
+      "description": "Choosing which feature should serve as a split based on data evidence or task criteria.",
+      "construct_dimension": "strategic",
+      "concept_family": "reasoning",
+      "instructional_sequence_order": 16,
+      "instructional_purpose": "Target strategic model-design decisions during tree construction and data exploration.",
+      "related_behaviours": [
+        "OB_STR_002",
+        "OB_STR_004"
+      ]
+    },
+    "ILO_PARAMETER_OPTIMIZATION": {
+      "id": "ILO_PARAMETER_OPTIMIZATION",
+      "title": "Parameter search and optimization",
+      "description": "Systematic exploration and selection of thresholds or parameters to improve model performance.",
+      "construct_dimension": "strategic",
+      "concept_family": "evaluation",
+      "instructional_sequence_order": 17,
+      "instructional_purpose": "Organize instruction on iterative tuning in tables and interactive tools.",
+      "related_behaviours": [
+        "OB_PRO_008",
+        "OB_STR_001",
+        "OB_STR_003",
+        "OB_STR_006",
+        "OB_STR_007",
+        "OB_STR_008"
+      ]
+    },
+    "ILO_MODEL_EVALUATION": {
+      "id": "ILO_MODEL_EVALUATION",
+      "title": "Model evaluation and interpretation",
+      "description": "Using performance evidence and feedback to interpret how well a decision tree or threshold choice works.",
+      "construct_dimension": "strategic",
+      "concept_family": "evaluation",
+      "instructional_sequence_order": 18,
+      "instructional_purpose": "Integrate metric literacy, comparison, justification, and feedback interpretation in applied tasks.",
+      "related_behaviours": [
+        "OB_CON_006",
+        "OB_STR_001",
+        "OB_STR_003",
+        "OB_STR_005",
+        "OB_STR_007",
+        "OB_STR_009"
+      ]
+    },
+    "ILO_MODEL_LIMITATION": {
+      "id": "ILO_MODEL_LIMITATION",
+      "title": "Model limitation and uncertainty",
+      "description": "Limits of a decision tree, imperfect classification, overfitting risk, or residual uncertainty in predictions.",
+      "construct_dimension": "reflective",
+      "concept_family": "reflection",
+      "instructional_sequence_order": 19,
+      "instructional_purpose": "Teach critical interpretation of model limits without assuming correct execution.",
+      "related_behaviours": [
+        "OB_REF_002"
+      ]
+    },
+    "ILO_METACOGNITIVE_REFLECTION": {
+      "id": "ILO_METACOGNITIVE_REFLECTION",
+      "title": "Metacognitive reflection on decision-tree learning",
+      "description": "Articulated awareness of what was learned, misunderstood, or remains uncertain about decision-tree concepts.",
+      "construct_dimension": "reflective",
+      "concept_family": "reflection",
+      "instructional_sequence_order": 20,
+      "instructional_purpose": "Support reflective tasks without conflating reflection quality with procedural or strategic mastery.",
+      "related_behaviours": [
+        "OB_REF_001",
+        "OB_REF_002",
+        "OB_REF_003"
+      ]
+    },
+    "ILO_PRIOR_BELIEF": {
+      "id": "ILO_PRIOR_BELIEF",
+      "title": "Uninformed prior belief (diagnostic)",
+      "description": "A learner's initial prediction or feature hypothesis before structured evidence is collected.",
+      "construct_dimension": "reflective",
+      "concept_family": "reflection",
+      "instructional_sequence_order": 0,
+      "instructional_purpose": "Capture baseline beliefs for growth measurement; excluded from mastery aggregation.",
+      "related_behaviours": [
+        "OB_REF_003",
+        "OB_REF_004"
+      ]
+    }
+  },
+  "freeze": {
+    "status": "frozen",
+    "version": "1.0",
+    "frozen_at": "2026-06-28T10:53:46.096729+00:00",
+    "freeze_package_dir": "reports/milestone2_freeze",
+    "expert_review_status": "automated_review_complete; human_expert_review_pending",
+    "change_policy": "major_version_required_for_semantic_changes",
+    "downstream_artifacts_locked": [
+      "Behaviour_to_ILO.json",
+      "LO_to_Domain_Understanding.json",
+      "worksheet behaviour_opportunities.json"
+    ]
+  }
+}

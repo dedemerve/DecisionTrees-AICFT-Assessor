@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "worksheet": "WS3",
+  "curriculum_status": "deployed",
+  "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
+  "items": {
+    "WS3_B1": {
+      "evaluation": "classification",
+      "example_answer": "Tavsiye edilemez"
+    },
+    "WS3_B2": {
+      "evaluation": "reasoning",
+      "example_answer": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez."
+    },
+    "WS3_B3": {
+      "evaluation": "classification",
+      "example_answer": "Tavsiye edilebilir"
+    },
+    "WS3_B4": {
+      "evaluation": "reasoning",
+      "example_answer": "Yağ değeri 8g eşiğinin altında olduğu için tavsiye edilebilir."
+    },
+    "WS3_B5": {
+      "evaluation": "classification",
+      "example_answer": "Tavsiye edilemez"
+    },
+    "WS3_B6": {
+      "evaluation": "reasoning",
+      "example_answer": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez."
+    },
+    "WS3_B7": {
+      "check": "threshold",
+      "evaluation": "threshold",
+      "example_answer": "enerji ≤ [öğrencinin seçtiği değer]",
+      "deterministic": true
+    },
+    "WS3_B8": {
+      "check": "threshold",
+      "evaluation": "threshold",
+      "example_answer": "enerji > [same value as B7]",
+      "deterministic": true
+    }
+  }
+}

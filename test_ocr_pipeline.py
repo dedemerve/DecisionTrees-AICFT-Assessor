@@ -557,7 +557,7 @@ class TestStress:
         ):
             p.mode_validate("NonExistentStudent")
         captured = capsys.readouterr()
-        assert "No student bundle found" in captured.out
+        assert "No student output found" in captured.out
 
     # --- NO_ANSWER_SENTINELS is a frozenset ---
 
@@ -1053,20 +1053,15 @@ class TestSaveWorksheetJsons:
         )
 
     def _load(self, tmp_path, ws_label, student_name="Marco"):
-        import json
-        from student_bundle import load_bundle
-        bundle = load_bundle(student_name, base_dir=tmp_path)
-        return bundle["worksheets"][ws_label]["extraction"]
+        from student_bundle import artifact_payload, load_artifact
+        return artifact_payload(load_artifact(student_name, ws_label, "extraction", base_dir=tmp_path))
 
     def test_WJ01_creates_one_file_per_worksheet(self, tmp_path):
-        """One student bundle must contain every worksheet in WORKSHEET_ITEM_IDS."""
+        """One extraction artifact per worksheet under students/<name>/<WS>/."""
         self._call("Marco", self._make_full_responses(), tmp_path)
-        import json
-        from student_bundle import bundle_path
-        assert bundle_path("Marco", base_dir=tmp_path).exists()
-        bundle = json.loads(bundle_path("Marco", base_dir=tmp_path).read_text(encoding="utf-8"))
+        from student_bundle import artifact_path
         for ws_label in p.WORKSHEET_ITEM_IDS:
-            assert ws_label in bundle["worksheets"], f"{ws_label} missing from bundle"
+            assert artifact_path("Marco", ws_label, "extraction", base_dir=tmp_path).exists()
 
     def test_WJ02_file_is_valid_json(self, tmp_path):
         """Each written file must be valid JSON."""
@@ -1090,7 +1085,7 @@ class TestSaveWorksheetJsons:
             assert data["student_name"] == "Sabrina"
 
     def test_WJ05_worksheet_field_matches_label(self, tmp_path):
-        """Each file's 'worksheet' field must equal its filename stem."""
+        """Each extraction artifact's worksheet field must equal its folder name."""
         self._call("Marco", self._make_full_responses(), tmp_path)
         for ws_label in p.WORKSHEET_ITEM_IDS:
             data = self._load(tmp_path, ws_label)
@@ -1135,7 +1130,7 @@ class TestSaveWorksheetJsons:
             assert data["gate_1_extraction"]["ocr_model"] == "claude-opus-4-8"
 
     def test_WJ11_no_cross_contamination_between_worksheets(self, tmp_path):
-        """WS1 items must not appear in WS_DT.json and vice versa."""
+        """WS1 items must not appear in WS_DT extraction and vice versa."""
         self._call("Marco", self._make_full_responses(), tmp_path)
         dt_keys  = set(self._load(tmp_path, "WS_DT")["gate_1_extraction"]["items"])
         ws1_keys = set(self._load(tmp_path, "WS1")["gate_1_extraction"]["items"])

@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/evidence_units_v1_1.schema.json",
+  "title": "Canonical Evidence Units Runtime Schema 1.1",
+  "description": "Layer 2 assessment-object runtime. The smallest traceable assessment object representing an interpretable piece of learner evidence while preserving provenance, uncertainty, source quality, and review metadata. Descriptive only — no behavioural, ILO, Domain, or AI-CFT inference.",
+  "type": "object",
+  "required": ["schema_version", "student_id", "updated_at", "definition", "evidence_units"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "1.1" },
+    "student_id": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string", "minLength": 1 },
+    "definition": { "type": "string", "minLength": 1 },
+    "note": { "type": "string" },
+    "evidence_units": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidence_unit" }
+    }
+  },
+  "$defs": {
+    "provenance": {
+      "type": "object",
+      "required": [
+        "adapter",
+        "source_file",
+        "worksheet",
+        "field",
+        "timestamp",
+        "pipeline_version",
+        "extraction_artifact"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "adapter": { "type": "string", "minLength": 1 },
+        "source_file": { "type": "string", "minLength": 1 },
+        "worksheet": { "type": "string", "minLength": 1 },
+        "page": { "type": "integer", "minimum": 1 },
+        "bbox": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "type": "number" }
+        },
+        "field": { "type": "string", "minLength": 1 },
+        "rubric_item_id": { "type": "string" },
+        "timestamp": { "type": "string", "minLength": 1 },
+        "pipeline_version": { "type": "string", "minLength": 1 },
+        "extraction_artifact": { "type": "string", "minLength": 1 },
+        "source_image": { "type": "string" },
+        "ocr_engine": { "type": "string" }
+      }
+    },
+    "alternative_interpretation": {
+      "type": "object",
+      "required": ["interpretation", "basis"],
+      "additionalProperties": false,
+      "properties": {
+        "interpretation": { "type": "string", "minLength": 1 },
+        "basis": { "type": "string", "minLength": 1 }
+      }
+    },
+    "confidence": {
+      "type": "object",
+      "required": ["extraction", "evidence_quality"],
+      "additionalProperties": false,
+      "properties": {
+        "ocr": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "extraction": { "type": "number", "minimum": 0, "maximum": 1 },
+        "evidence_quality": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "evidence_unit": {
+      "type": "object",
+      "required": [
+        "evidence_unit_id",
+        "student_id",
+        "worksheet_id",
+        "item_id",
+        "evidence_unit_type",
+        "evidence_origin",
+        "source_family",
+        "source_file",
+        "source_quality",
+        "observability",
+        "evidence_completeness",
+        "raw_content",
+        "normalized_content",
+        "confidence",
+        "provenance",
+        "uncertainty",
+        "alternative_interpretations",
+        "review_level",
+        "requires_human_review",
+        "timestamp"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "evidence_unit_id": {
+          "type": "string",
+          "pattern": "^EU_[0-9]{6}$"
+        },
+        "student_id": { "type": "string", "minLength": 1 },
+        "worksheet_id": { "type": "string", "minLength": 1 },
+        "item_id": { "type": "string", "minLength": 1 },
+        "field_id": { "type": "string" },
+        "evidence_unit_type": {
+          "enum": [
+            "definition",
+            "formula",
+            "drawing",
+            "classification",
+            "rule",
+            "threshold",
+            "reflection",
+            "prediction",
+            "comparison",
+            "tree_construction",
+            "parameter_selection",
+            "model_evaluation"
+          ]
+        },
+        "evidence_origin": {
+          "enum": [
+            "learner_response",
+            "learner_reflection",
+            "digital_interaction",
+            "recorded_action",
+            "observed_event",
+            "interview_utterance"
+          ]
+        },
+        "source_family": {
+          "enum": [
+            "worksheet",
+            "codap",
+            "screen_recording",
+            "reflection",
+            "observation",
+            "interview"
+          ]
+        },
+        "source_file": { "type": "string", "minLength": 1 },
+        "source_quality": {
+          "enum": ["excellent", "good", "acceptable", "poor", "unknown"]
+        },
+        "observability": {
+          "enum": ["direct", "indirect", "derived"]
+        },
+        "evidence_completeness": {
+          "enum": ["complete", "partial", "blank", "illegible", "missing", "unknown"]
+        },
+        "raw_content": { "type": "string" },
+        "normalized_content": { "type": "string" },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "uncertainty": { "type": "string" },
+        "alternative_interpretations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/alternative_interpretation" }
+        },
+        "review_level": {
+          "enum": ["none", "recommended", "required", "critical"]
+        },
+        "requires_human_review": { "type": "boolean" },
+        "timestamp": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

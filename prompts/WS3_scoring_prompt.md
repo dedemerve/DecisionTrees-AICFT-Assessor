@@ -6,7 +6,7 @@ This file is injected alongside `stage3_scoring.md` when scoring WS3.
 
 - Rubric: `rubrics/WS3_rubric.json`
 - Mapping: `mappings/WS3_AICFT_mapping.json`
-- Responses: `students/<student>.json → worksheets.WS3.extraction`
+- Responses: `students/<student>/WS3.json → extraction`
 
 ## Worksheet description
 

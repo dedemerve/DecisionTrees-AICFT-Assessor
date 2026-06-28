@@ -1,0 +1,256 @@
+{
+  "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
+  "aspect": "Aspect 3: AI foundations and applications",
+  "methodology": {
+    "assessment_framework_version": "2.0",
+    "portfolio_builder_version": "1.0",
+    "aggregation_note": "LO peak_strength uses portfolio_weight=full items only; prior_belief and diagnostic reflective items are listed in baseline_evidence."
+  },
+  "worksheets_scored": [
+    "WS1",
+    "WS10",
+    "WS11",
+    "WS3",
+    "WS4",
+    "WS5",
+    "WS6",
+    "WS7",
+    "WS_DT"
+  ],
+  "learning_objects": {
+    "LO3.1.1": {
+      "peak_strength": "strong",
+      "expected_level": "Acquire",
+      "contributing_worksheets": [
+        "WS1",
+        "WS_DT"
+      ],
+      "evidence_items": 13,
+      "direct_evidence_count": 13,
+      "supporting_evidence_count": 0,
+      "mean_confidence": 0.783
+    },
+    "LO3.1.2": {
+      "peak_strength": "strong",
+      "expected_level": "Acquire",
+      "contributing_worksheets": [
+        "WS11",
+        "WS_DT"
+      ],
+      "evidence_items": 2,
+      "direct_evidence_count": 1,
+      "supporting_evidence_count": 1,
+      "mean_confidence": 0.695
+    },
+    "LO3.1.3": {
+      "peak_strength": "moderate",
+      "expected_level": "Acquire",
+      "contributing_worksheets": [
+        "WS_DT"
+      ],
+      "evidence_items": 1,
+      "direct_evidence_count": 1,
+      "supporting_evidence_count": 0,
+      "mean_confidence": 0.59
+    },
+    "LO3.2.1": {
+      "peak_strength": "moderate",
+      "expected_level": "Deepen",
+      "contributing_worksheets": [
+        "WS_DT"
+      ],
+      "evidence_items": 2,
+      "direct_evidence_count": 2,
+      "supporting_evidence_count": 0,
+      "mean_confidence": 0.59
+    },
+    "LO3.2.2": {
+      "peak_strength": "strong",
+      "expected_level": "Deepen",
+      "contributing_worksheets": [
+        "WS10",
+        "WS11",
+        "WS3",
+        "WS4",
+        "WS5",
+        "WS6",
+        "WS7",
+        "WS_DT"
+      ],
+      "evidence_items": 31,
+      "direct_evidence_count": 23,
+      "supporting_evidence_count": 8,
+      "mean_confidence": 0.617
+    },
+    "LO3.2.3": {
+      "peak_strength": "strong",
+      "expected_level": "Deepen",
+      "contributing_worksheets": [
+        "WS5",
+        "WS_DT"
+      ],
+      "evidence_items": 14,
+      "direct_evidence_count": 9,
+      "supporting_evidence_count": 5,
+      "mean_confidence": 0.424
+    },
+    "LO3.3.1": {
+      "peak_strength": "none",
+      "expected_level": "Create",
+      "contributing_worksheets": [],
+      "evidence_items": 0,
+      "direct_evidence_count": 0,
+      "supporting_evidence_count": 0,
+      "mean_confidence": null
+    }
+  },
+  "competency_level_summary": {
+    "Acquire": "met",
+    "Deepen": "met",
+    "Create": "insufficient"
+  },
+  "baseline_evidence": [
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_A_Q1",
+      "lo": "LO3.1.1",
+      "strength": "weak",
+      "evidence_type": "prior_belief"
+    },
+    {
+      "worksheet": "WS_DT",
+      "item": "DT_G_Q1",
+      "lo": "LO3.1.1",
+      "strength": "weak",
+      "evidence_type": "reflective"
+    }
+  ],
+  "ai_cft_proposal": {
+    "Aspect3": "Deepen",
+    "rationale": "Deepen application LOs reach moderate-or-strong peaks across multiple worksheets (LO3.2.1=moderate, LO3.2.2=strong, LO3.2.3=strong). Acquire foundations: LO3.1.1=strong, LO3.1.2=strong, LO3.1.3=moderate. Create-level LO3.3.1 not yet demonstrated.",
+    "confidence": "provisional",
+    "is_final": false,
+    "decision_owner": "researcher",
+    "decision_note": "Level aggregates multi-worksheet competency evidence; not assigned from any single worksheet. Baseline (prior_belief) and diagnostic (reflective) items are excluded from peak aggregation. Researcher makes final holistic judgement after reviewing flagged items."
+  },
+  "data_gaps": [
+    {
+      "worksheet": "WS_DT",
+      "items": [
+        "DT_A_Q2",
+        "DT_A_Q4",
+        "DT_B_Q1",
+        "DT_B_Q2",
+        "DT_B_Q3",
+        "DT_B_Q4",
+        "DT_C_Q1",
+        "DT_C_Q2",
+        "DT_D_Q1",
+        "DT_D_Q2",
+        "DT_D_Q3",
+        "DT_D_Q4",
+        "DT_E_Q2",
+        "DT_E_Q3",
+        "DT_E_Q4",
+        "DT_F_Q1",
+        "DT_F_Q2",
+        "DT_G_Q1",
+        "DT_G_Q2"
+      ],
+      "priority": 1,
+      "why": "flagged for human review (low scorer confidence)"
+    },
+    {
+      "worksheet": "WS5",
+      "items": [
+        "WS5_B21",
+        "WS5_B22",
+        "WS5_B23",
+        "WS5_B24",
+        "WS5_row1",
+        "WS5_row2",
+        "WS5_row3",
+        "WS5_row4",
+        "WS5_row5"
+      ],
+      "priority": 2,
+      "why": "flagged for human review (low scorer confidence); Numeric row checks failed: ['row_5']; blank or missing extraction"
+    },
+    {
+      "worksheet": "WS6",
+      "items": [
+        "WS6_B12",
+        "WS6_inner_feature",
+        "WS6_inner_labels",
+        "WS6_inner_threshold",
+        "WS6_leaves",
+        "WS6_root_feature",
+        "WS6_root_labels",
+        "WS6_root_threshold",
+        "WS6_tree_structure"
+      ],
+      "priority": 2,
+      "why": "flagged for human review (low scorer confidence); Decision tree canvas not detected or vision pipeline failed.; blank or missing extraction"
+    },
+    {
+      "worksheet": "WS7",
+      "items": [
+        "WS7_B4",
+        "WS7_B5",
+        "WS7_B6",
+        "WS7_B7",
+        "WS7_P1_box1",
+        "WS7_P1_box2",
+        "WS7_P1_box3"
+      ],
+      "priority": 2,
+      "why": "flagged for human review (low scorer confidence); blank or missing extraction"
+    },
+    {
+      "worksheet": "WS11",
+      "items": [
+        "WS11_Q10_1",
+        "WS11_Q10_2",
+        "WS11_Q10_3",
+        "WS11_Q10_4",
+        "WS11_Q10_5",
+        "WS11_Q10_6",
+        "WS11_Q10_7",
+        "WS11_Q10_8",
+        "WS11_Q11_2",
+        "WS11_Q11_3",
+        "WS11_Q11_4",
+        "WS11_Q12_1",
+        "WS11_Q12_2",
+        "WS11_Q12_3",
+        "WS11_Q12_4",
+        "WS11_Q12_5"
+      ],
+      "priority": 3,
+      "why": "flagged for human review (low scorer confidence)"
+    },
+    {
+      "worksheet": "WS3",
+      "items": [
+        "WS3_B2",
+        "WS3_B4",
+        "WS3_B6"
+      ],
+      "priority": 4,
+      "why": "flagged for human review (low scorer confidence)"
+    },
+    {
+      "worksheet": "WS1",
+      "items": [
+        "WS1_B10",
+        "WS1_B6"
+      ],
+      "priority": 5,
+      "why": "flagged for human review (low scorer confidence)"
+    }
+  ],
+  "evidence_item_count": 104,
+  "schema_version": "3.0",
+  "student_id": "Sample_Student",
+  "updated_at": "2026-06-28T09:17:42.682436+00:00"
+}

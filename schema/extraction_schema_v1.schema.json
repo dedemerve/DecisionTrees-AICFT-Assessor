@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/extraction_schema_v1.schema.json",
+  "title": "Worksheet Extraction Schema v1.0",
+  "type": "object",
+  "required": ["schema_version", "worksheet", "pipeline_stage", "interpretation_prohibited", "fields"],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "worksheet": { "type": "string", "pattern": "^WS\\d+$" },
+    "curriculum_status": { "enum": ["deployed", "not_deployed"] },
+    "pipeline_stage": { "const": "extraction_only" },
+    "interpretation_prohibited": { "const": true },
+    "ocr_engine": { "type": "string" },
+    "source_type": { "type": "string" },
+    "note": { "type": "string" },
+    "fields": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/field" }
+    }
+  },
+  "$defs": {
+    "field": {
+      "type": "object",
+      "required": ["field_id", "type"],
+      "additionalProperties": true,
+      "properties": {
+        "field_id": { "type": "string", "minLength": 1 },
+        "rubric_item_id": { "type": "string" },
+        "type": {
+          "enum": ["free_text", "numeric", "boolean", "structured", "table_cell", "path_label"]
+        },
+        "required": { "type": "boolean" },
+        "location_hint": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    }
+  }
+}

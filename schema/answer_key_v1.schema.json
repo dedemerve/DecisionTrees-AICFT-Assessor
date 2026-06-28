@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisiontrees-aicft-assessor/answer_key_v1.schema.json",
+  "title": "Worksheet Answer Key v1.0",
+  "type": "object",
+  "required": ["schema_version", "worksheet", "items"],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "worksheet": { "type": "string", "pattern": "^WS\\d+$" },
+    "curriculum_status": { "enum": ["deployed", "not_deployed"] },
+    "note": { "type": "string" },
+    "items": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/answer_item" }
+    }
+  },
+  "$defs": {
+    "answer_item": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "check": { "type": "string" },
+        "evaluation": { "type": "string" },
+        "answer": {},
+        "correct_answer": {},
+        "example_answer": { "type": "string" },
+        "tolerance": { "type": "number" },
+        "accepted_forms": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "deterministic": { "type": "boolean" },
+        "open_response": { "type": "boolean" }
+      }
+    }
+  }
+}
