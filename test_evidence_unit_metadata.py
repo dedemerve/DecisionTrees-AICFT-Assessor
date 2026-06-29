@@ -23,8 +23,14 @@ class TestEvidenceUnitMetadata(unittest.TestCase):
 
     def test_formula_type_from_rubric(self):
         self.assertEqual(
-            infer_evidence_unit_type("WS4", "WS4_B4", "WS4_B4", {"type": "free_text"}),
+            infer_evidence_unit_type("WS_DT", "DT_E_MCR_formula", "DT_E_MCR_formula", {"type": "free_text"}),
             "formula",
+        )
+
+    def test_ws4_b4_peer_evaluation_type(self):
+        self.assertEqual(
+            infer_evidence_unit_type("WS4", "WS4_B4", "WS4_B4", {"type": "free_text"}),
+            "model_evaluation",
         )
 
     def test_blank_completeness(self):
