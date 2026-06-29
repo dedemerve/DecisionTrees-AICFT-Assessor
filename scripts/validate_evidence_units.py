@@ -12,7 +12,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from evidence_unit_runtime import evidence_units_path
-from schema_validate import validate_evidence_units_v1
+from schema_validate import validate_evidence_units
 from student_bundle import STUDENTS_DIR, list_student_ids
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
@@ -24,7 +24,7 @@ def validate_student(student_id: str, base_dir: Path | None = None) -> list[str]
     if not path.exists():
         return [f"{student_id}: missing {path}"]
     data = json.loads(path.read_text(encoding="utf-8"))
-    return validate_evidence_units_v1(data, str(path.relative_to(REPO_ROOT)))
+    return validate_evidence_units(data, str(path.relative_to(REPO_ROOT)))
 
 
 def main() -> int:
@@ -45,7 +45,7 @@ def main() -> int:
         root = path.parent
         for ws_eu in sorted(root.glob("WS*/evidence_units.json")):
             data = json.loads(ws_eu.read_text(encoding="utf-8"))
-            errors.extend(validate_evidence_units_v1(data, str(ws_eu.relative_to(REPO_ROOT))))
+            errors.extend(validate_evidence_units(data, str(ws_eu.relative_to(REPO_ROOT))))
 
     if checked == 0:
         log.error("No evidence_units.json files found")

@@ -7,20 +7,20 @@ import unittest
 from pathlib import Path
 
 from portfolio_builder import build_portfolio
-from schema_validate import validate_all_mappings_v2, validate_mapping_v2, validate_portfolio_v1
+from schema_validate import validate_all_mappings, validate_mapping, validate_portfolio
 
 REPO = Path(__file__).parent
 
 
 class TestSchemaValidate(unittest.TestCase):
-    def test_all_worksheet_mappings_v2(self):
-        errors = validate_all_mappings_v2(REPO / "mappings")
+    def test_all_worksheet_mappings(self):
+        errors = validate_all_mappings(REPO / "mappings")
         self.assertEqual(errors, [], f"Mapping errors: {errors[:5]}")
 
-    def test_sample_portfolio_v1(self):
+    def test_sample_portfolio(self):
         portfolio = build_portfolio("Sample_Student")
         portfolio["student_id"] = "Sample_Student"
-        errors = validate_portfolio_v1(portfolio)
+        errors = validate_portfolio(portfolio)
         self.assertEqual(errors, [], f"Portfolio errors: {errors}")
 
     def test_ws11_q11_mapping_has_portfolio_weight(self):

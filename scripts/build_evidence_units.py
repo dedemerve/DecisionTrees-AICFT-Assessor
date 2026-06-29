@@ -12,7 +12,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from evidence_unit_runtime import build_and_save_evidence_units, generate_sample_evidence_unit
-from schema_validate import validate_evidence_units_v1
+from schema_validate import validate_evidence_units
 from student_bundle import list_student_ids
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
@@ -47,7 +47,7 @@ def main() -> int:
     for student_id in targets:
         path = build_and_save_evidence_units(student_id)
         doc = __import__("json").loads(path.read_text(encoding="utf-8"))
-        errors = validate_evidence_units_v1(doc, str(path.relative_to(REPO_ROOT)))
+        errors = validate_evidence_units(doc, str(path.relative_to(REPO_ROOT)))
         if errors:
             failed += 1
             for err in errors:

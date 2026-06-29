@@ -408,7 +408,7 @@ def migrate_combined_worksheet_file(
     return written
 
 
-def migrate_student_to_v30(student_id: str, base_dir: Path | None = None) -> list[Path]:
+def migrate_student_worksheets(student_id: str, base_dir: Path | None = None) -> list[Path]:
     """Migrate flat WS*.json files to students/<id>/<WS>/ stage artifacts."""
     root = student_dir(student_id, base_dir)
     if not root.is_dir():

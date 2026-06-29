@@ -109,7 +109,7 @@ answer_key.json
 
 Implemented the **canonical Layer 2 runtime**:
 
-- Schema: `schema/evidence_units_v1.schema.json` (version **1.1**)
+- Schema: `schema/evidence_units.schema.json` (version **1.1**)
 - Runtime: `evidence_unit_runtime.py`, `evidence_unit_metadata.py`
 - Output: `students/<id>/evidence_units.json`
 - Sample: `Sample_Student` — **147** evidence units from existing extractions

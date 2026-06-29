@@ -13,7 +13,7 @@ from pathlib import Path
 
 from confidence_calibration import apply_review_flag
 from schema_json_validate import validate_student_artifact
-from schema_validate import validate_all_mappings_v2, validate_portfolio_v1
+from schema_validate import validate_all_mappings, validate_portfolio
 from pipeline_schema import (
     WORKSHEETS_REQUIRING_VALIDATION,
     load_mapping,
@@ -137,7 +137,7 @@ def validate_validation_data(data: dict, prefix: str, errors: list[str]) -> None
 
 
 def validate_portfolio_data(data: dict, prefix: str, errors: list[str]) -> None:
-    errors.extend(validate_portfolio_v1(data, prefix))
+    errors.extend(validate_portfolio(data, prefix))
 
 
 def validate_student_outputs(student_id: str, errors: list[str]) -> None:
@@ -198,7 +198,7 @@ def main() -> int:
     errors: list[str] = []
     errors.extend(validate_all_rubrics())
 
-    errors.extend(validate_all_mappings_v2(REPO_ROOT / "mappings"))
+    errors.extend(validate_all_mappings(REPO_ROOT / "mappings"))
 
     for path in sorted((REPO_ROOT / "rubrics").glob("*_rubric.json")):
         rubric = json.loads(path.read_text(encoding="utf-8"))

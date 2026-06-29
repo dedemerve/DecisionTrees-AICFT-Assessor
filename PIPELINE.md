@@ -85,8 +85,8 @@ Performance-based assessment mappings live in:
 | `mappings/AICFT_assessment_framework.json` | Canonical framework: competency definitions, worksheet profiles, item→competency priors with rationale |
 | `mappings/AICFT_LO_definitions.json` | Inverted index: LO → worksheet evidence |
 | `mappings/<WS>_AICFT_mapping.json` | Per-worksheet scorer view (schema 2.0) |
-| `schema/portfolio_v1.schema.json` | Portfolio rollup contract |
-| `schema/mapping_v2.schema.json` | Competency mapping contract |
+| `schema/portfolio.schema.json` | Portfolio rollup contract |
+| `schema/mapping.schema.json` | Competency mapping contract |
 | `schema/README.md` | Full schema ↔ instance catalog |
 
 Regenerate worksheet bundles after rubric or registry changes:
@@ -142,7 +142,7 @@ python validate_pipeline_outputs.py
 Migrate legacy combined `students/<id>/WS*.json` (v2.1):
 
 ```bash
-python -c "from student_bundle import migrate_student_to_v30; migrate_student_to_v30('Sample_Student')"
+python -c "from student_bundle import migrate_student_worksheets; migrate_student_worksheets('Sample_Student')"
 ```
 
 Build portfolio from all worksheet evidence (AI-CFT level proposal):

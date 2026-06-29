@@ -334,7 +334,7 @@ def scoring_item_ids(worksheet: str) -> list[str]:
     return list(rubric["items"].keys())
 
 
-def validate_rubric_v3(rubric: dict[str, Any], source: str = "") -> list[str]:
+def validate_rubric(rubric: dict[str, Any], source: str = "") -> list[str]:
     """Return a list of Schema 3.0 validation errors (empty if valid)."""
     prefix = f"{source}: " if source else ""
     errors: list[str] = []
@@ -448,13 +448,13 @@ def validate_all_rubrics() -> list[str]:
             seen.add(ws)
             if rubric.get("curriculum_status") == "not_deployed":
                 continue
-            errors.extend(validate_rubric_v3(rubric, str(bundle.relative_to(REPO_ROOT))))
+            errors.extend(validate_rubric(rubric, str(bundle.relative_to(REPO_ROOT))))
     for path in sorted(RUBRICS_DIR.glob("*_rubric.json")):
         rubric = json.loads(path.read_text(encoding="utf-8"))
         ws = rubric.get("worksheet", path.stem.replace("_rubric", ""))
         if ws in seen:
             continue
-        errors.extend(validate_rubric_v3(rubric, path.name))
+        errors.extend(validate_rubric(rubric, path.name))
     return errors
 
 

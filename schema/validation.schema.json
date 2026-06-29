@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://decisiontrees-aicft-assessor/validation_v1.schema.json",
+  "$id": "https://decisiontrees-aicft-assessor/validation.schema.json",
   "title": "Technical Validation Artifact Schema 3.0",
   "type": "object",
   "required": [
@@ -16,7 +16,7 @@
       "const": "validation"
     },
     "worksheet": {
-      "$ref": "common_v1.schema.json#/$defs/worksheet_id"
+      "$ref": "common.schema.json#/$defs/worksheet_id"
     },
     "student_id": {
       "type": "string"

@@ -12,7 +12,7 @@ from student_bundle import (
     build_summary_from_scoring,
     load_artifact,
     migrate_combined_worksheet_file,
-    migrate_student_to_v30,
+    migrate_student_worksheets,
     portfolio_path,
     save_artifact,
     save_portfolio,
@@ -89,7 +89,7 @@ class TestStudentBundle(unittest.TestCase):
 
     def test_sample_student_worksheets_exist(self):
         root = student_dir("Sample_Student")
-        self.assertTrue(root.is_dir(), "Run migrate_student_to_v30 if flat WS*.json remain")
+        self.assertTrue(root.is_dir(), "Run migrate_student_worksheets if flat WS*.json remain")
         self.assertTrue(artifact_path("Sample_Student", "WS1", "extraction").exists())
         self.assertTrue(portfolio_path("Sample_Student").exists())
 

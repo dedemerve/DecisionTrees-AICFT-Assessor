@@ -72,7 +72,7 @@ def _err(errors: list[str], msg: str) -> None:
     errors.append(msg)
 
 
-def validate_portfolio_v1(data: dict[str, Any], prefix: str = "portfolio") -> list[str]:
+def validate_portfolio(data: dict[str, Any], prefix: str = "portfolio") -> list[str]:
     errors: list[str] = []
 
     if data.get("schema_version") is not None:
@@ -138,7 +138,7 @@ def validate_portfolio_v1(data: dict[str, Any], prefix: str = "portfolio") -> li
     return errors
 
 
-def validate_mapping_v2(data: dict[str, Any], source: str = "") -> list[str]:
+def validate_mapping(data: dict[str, Any], source: str = "") -> list[str]:
     prefix = f"{source}: " if source else ""
     errors: list[str] = []
 
@@ -191,7 +191,7 @@ def _scan_forbidden_inferential(obj: Any, path: str, errors: list[str]) -> None:
             _scan_forbidden_inferential(item, f"{path}[{i}]", errors)
 
 
-def validate_evidence_units_v1(
+def validate_evidence_units(
     data: dict[str, Any],
     prefix: str = "evidence_units",
 ) -> list[str]:
@@ -285,7 +285,7 @@ def validate_evidence_units_v1(
     return errors
 
 
-def validate_all_mappings_v2(mappings_dir) -> list[str]:
+def validate_all_mappings(mappings_dir) -> list[str]:
     """Validate every mappings/<WS>_AICFT_mapping.json against schema 2.0."""
     import json
     from pathlib import Path
@@ -294,5 +294,5 @@ def validate_all_mappings_v2(mappings_dir) -> list[str]:
     root = Path(mappings_dir)
     for path in sorted(root.glob("*_AICFT_mapping.json")):
         data = json.loads(path.read_text(encoding="utf-8"))
-        errors.extend(validate_mapping_v2(data, path.name))
+        errors.extend(validate_mapping(data, path.name))
     return errors

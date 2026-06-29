@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://decisiontrees-aicft-assessor/student_extraction_v1.schema.json",
+  "$id": "https://decisiontrees-aicft-assessor/student_extraction.schema.json",
   "title": "Student worksheet extraction artifact (pipeline stage envelope)",
   "description": "students/<id>/<WS>/extraction.json — OCR responses only; not the worksheet bundle extraction_schema.json template.",
   "type": "object",
@@ -20,7 +20,7 @@
       "minLength": 1
     },
     "worksheet": {
-      "$ref": "common_v1.schema.json#/$defs/worksheet_id"
+      "$ref": "common.schema.json#/$defs/worksheet_id"
     },
     "schema_version": {
       "type": "string"

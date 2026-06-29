@@ -24,27 +24,27 @@ FRAMEWORK_DIR = REPO_ROOT / "framework"
 MAPPINGS_DIR = REPO_ROOT / "mappings"
 
 BUNDLE_FILE_SCHEMA: dict[str, str] = {
-    "answer_key.json": "answer_key_v1.schema.json",
-    "behaviour_opportunities.json": "behaviour_opportunities_v1.schema.json",
-    "extraction_schema.json": "extraction_schema_v1.schema.json",
-    "validity_notes.json": "validity_notes_v1.schema.json",
-    "rubric.json": "rubric_v3.schema.json",
+    "answer_key.json": "answer_key.schema.json",
+    "behaviour_opportunities.json": "behaviour_opportunities.schema.json",
+    "extraction_schema.json": "extraction_schema.schema.json",
+    "validity_notes.json": "validity_notes.schema.json",
+    "rubric.json": "rubric.schema.json",
 }
 
 FRAMEWORK_FILE_SCHEMA: dict[str, str] = {
-    "Observable_Behaviours.json": "observable_behaviours_v1.schema.json",
-    "Learning_Objects.json": "learning_objects_v1.schema.json",
-    "Behaviour_to_ILO.json": "behaviour_to_ilo_v1.schema.json",
-    "Domain_to_AI_CFT.json": "domain_to_ai_cft_v1.schema.json",
-    "Domain_Understanding.json": "domain_understanding_v1.schema.json",
-    "LO_to_Domain_Understanding.json": "lo_to_domain_understanding_v1.schema.json",
+    "Observable_Behaviours.json": "observable_behaviours.schema.json",
+    "Learning_Objects.json": "learning_objects.schema.json",
+    "Behaviour_to_ILO.json": "behaviour_to_ilo.schema.json",
+    "Domain_to_AI_CFT.json": "domain_to_ai_cft.schema.json",
+    "Domain_Understanding.json": "domain_understanding.schema.json",
+    "LO_to_Domain_Understanding.json": "lo_to_domain_understanding.schema.json",
 }
 
 STUDENT_ARTIFACT_SCHEMA: dict[str, str] = {
-    "extraction": "student_extraction_v1.schema.json",
-    "scoring": "scoring_v1.schema.json",
-    "evidence": "evidence_v1.schema.json",
-    "validation": "validation_v1.schema.json",
+    "extraction": "student_extraction.schema.json",
+    "scoring": "scoring.schema.json",
+    "evidence": "evidence.schema.json",
+    "validation": "validation.schema.json",
 }
 
 
@@ -158,7 +158,7 @@ def validate_framework_jsonschema() -> list[str]:
 
 def validate_mapping_file(path: Path) -> list[str]:
     data = json.loads(path.read_text(encoding="utf-8"))
-    return validate_against_schema(data, "mapping_v2.schema.json", prefix=f"{path.name}: ")
+    return validate_against_schema(data, "mapping.schema.json", prefix=f"{path.name}: ")
 
 
 def validate_all_mappings_jsonschema() -> list[str]:
@@ -181,7 +181,7 @@ def validate_student_artifact(
 
 
 def validate_layout_roi_manifest(data: dict[str, Any], *, prefix: str = "") -> list[str]:
-    return validate_against_schema(data, "layout_roi_v1.schema.json", prefix=prefix)
+    return validate_against_schema(data, "layout_roi.schema.json", prefix=prefix)
 
 
 def validate_all_schemas_wellformed() -> list[str]:

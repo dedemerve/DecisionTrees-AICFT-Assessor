@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://decisiontrees-aicft-assessor/summary_v1.schema.json",
+  "$id": "https://decisiontrees-aicft-assessor/summary.schema.json",
   "title": "Worksheet Summary Artifact Schema 3.0",
   "description": "Derived scorecard view only. Do not persist summary.json — build from scoring.json via student_bundle.build_summary_from_scoring().",
   "type": "object",
@@ -16,7 +16,7 @@
       "const": "summary"
     },
     "worksheet": {
-      "$ref": "common_v1.schema.json#/$defs/worksheet_id"
+      "$ref": "common.schema.json#/$defs/worksheet_id"
     },
     "student_id": {
       "type": "string"

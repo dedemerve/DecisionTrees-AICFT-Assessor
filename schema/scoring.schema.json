@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://decisiontrees-aicft-assessor/scoring_v1.schema.json",
+  "$id": "https://decisiontrees-aicft-assessor/scoring.schema.json",
   "title": "Stage 3 Scoring Artifact Schema 3.0",
   "type": "object",
   "required": [
@@ -15,7 +15,7 @@
       "const": "scoring"
     },
     "worksheet": {
-      "$ref": "common_v1.schema.json#/$defs/worksheet_id"
+      "$ref": "common.schema.json#/$defs/worksheet_id"
     },
     "student_id": {
       "type": "string"

@@ -19,7 +19,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from pipeline_schema import validate_rubric_v3  # noqa: E402
+from pipeline_schema import validate_rubric  # noqa: E402
 from schema_json_validate import validate_bundle_file  # noqa: E402
 from worksheet_bundle_data import (  # noqa: E402
     BEHAVIOUR_MAP,
@@ -130,7 +130,7 @@ def validate_bundle_directory(worksheet: str, ob_ids: set[str]) -> list[str]:
             )
 
     if deployed:
-        errors.extend(validate_rubric_v3(rubric, f"{prefix}/rubric.json"))
+        errors.extend(validate_rubric(rubric, f"{prefix}/rubric.json"))
         rubric_items = set(rubric.get("items", {}))
         if not rubric_items:
             errors.append(f"{prefix}: deployed worksheet must have rubric items")

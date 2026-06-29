@@ -42,7 +42,7 @@ class TestSchemaJsonValidate(unittest.TestCase):
             (REPO / "worksheets" / "WS_DT" / "validity_notes.json").read_text(encoding="utf-8")
         )
         self.assertEqual(
-            validate_against_schema(sample, "validity_notes_v1.schema.json"),
+            validate_against_schema(sample, "validity_notes.schema.json"),
             [],
         )
 
@@ -53,7 +53,7 @@ class TestSchemaJsonValidate(unittest.TestCase):
             )
         )
         self.assertEqual(
-            validate_against_schema(data, "student_extraction_v1.schema.json"),
+            validate_against_schema(data, "student_extraction.schema.json"),
             [],
         )
 

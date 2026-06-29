@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://decisiontrees-aicft-assessor/behaviour_opportunities_v1.schema.json",
+  "$id": "https://decisiontrees-aicft-assessor/behaviour_opportunities.schema.json",
   "title": "Worksheet Behaviour Opportunities v1.0",
   "type": "object",
   "required": [
@@ -11,7 +11,7 @@
   "additionalProperties": true,
   "properties": {
     "worksheet": {
-      "$ref": "common_v1.schema.json#/$defs/worksheet_id"
+      "$ref": "common.schema.json#/$defs/worksheet_id"
     },
     "curriculum_status": {
       "enum": [

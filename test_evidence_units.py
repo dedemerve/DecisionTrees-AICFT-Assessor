@@ -19,7 +19,7 @@ from evidence_unit_runtime import (
     normalize_field_content,
     FieldExtractionInput,
 )
-from schema_validate import validate_evidence_units_v1
+from schema_validate import validate_evidence_units
 from student_bundle import save_artifact
 
 
@@ -59,7 +59,7 @@ class TestEvidenceUnitRuntime(unittest.TestCase):
             "student_id": "Student_04",
             "evidence_units": [generate_sample_evidence_unit()],
         }
-        self.assertEqual(validate_evidence_units_v1(doc), [])
+        self.assertEqual(validate_evidence_units(doc), [])
 
     def test_build_from_student_extractions(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -74,7 +74,7 @@ class TestEvidenceUnitRuntime(unittest.TestCase):
             doc = build_evidence_units_from_student("EU_Test", base_dir=base)
             self.assertNotIn("schema_version", doc)
             self.assertEqual(len(doc["evidence_units"]), 2)
-            self.assertEqual(validate_evidence_units_v1(doc), [])
+            self.assertEqual(validate_evidence_units(doc), [])
 
             by_item = {u["item_id"]: u for u in doc["evidence_units"]}
             self.assertEqual(by_item["WS1_B2"]["evidence_completeness"], "blank")
@@ -91,7 +91,7 @@ class TestEvidenceUnitRuntime(unittest.TestCase):
             loaded = load_evidence_units("RT", base_dir=base)
             assert loaded is not None
             self.assertNotIn("schema_version", loaded)
-            self.assertEqual(validate_evidence_units_v1(loaded), [])
+            self.assertEqual(validate_evidence_units(loaded), [])
 
     def test_sample_student_bundle_generates(self):
         path = evidence_units_path("Sample_Student")
@@ -100,7 +100,7 @@ class TestEvidenceUnitRuntime(unittest.TestCase):
         out = build_and_save_evidence_units("Sample_Student")
         data = json.loads(out.read_text(encoding="utf-8"))
         self.assertGreater(len(data["evidence_units"]), 0)
-        self.assertEqual(validate_evidence_units_v1(data), [])
+        self.assertEqual(validate_evidence_units(data), [])
         ws1_eu = path.parent / "WS1" / "evidence_units.json"
         self.assertTrue(ws1_eu.exists(), "per-worksheet evidence_units.json expected")
         ws1_doc = json.loads(ws1_eu.read_text(encoding="utf-8"))
@@ -109,7 +109,7 @@ class TestEvidenceUnitRuntime(unittest.TestCase):
         first = ws1_doc["evidence_units"][0]
         self.assertNotIn("student_id", first)
         self.assertNotIn("worksheet_id", first)
-        self.assertEqual(validate_evidence_units_v1(ws1_doc), [])
+        self.assertEqual(validate_evidence_units(ws1_doc), [])
 
 
 if __name__ == "__main__":
