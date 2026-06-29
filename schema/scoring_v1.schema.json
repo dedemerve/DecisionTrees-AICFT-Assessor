@@ -26,7 +26,10 @@
       "type": "boolean"
     },
     "blocked_reason": {
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "calibration_note": {
       "type": "string"

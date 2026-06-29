@@ -63,7 +63,7 @@ All items map primarily to **LO3.1.2** (Acquire — conceptual vocabulary for da
 
 | Guidance | Action |
 |----------|--------|
-| Full credit on terminology items | LO3.1.2 **moderate** when student uses term correctly in context |
+| Full credit on terminology items | LO3.1.2 **moderate** when pre-service teacher uses term correctly in context |
 | Partial on B5 (3–4 nutrients) | LO3.1.2 **weak** |
 | B4 wrong count | Do not infer LO3.2.x — no application demonstrated |
 
@@ -83,3 +83,13 @@ All items map primarily to **LO3.1.2** (Acquire — conceptual vocabulary for da
 
 - `review: true` if OCR garbles Turkish characters (ş/ğ/ı) and token match is uncertain.
 - `review: true` if B5 lists fewer than 3 recognizable nutrient tokens.
+
+---
+
+## Insufficient evidence (zero hallucination)
+
+If the extracted response is blank, illegible (`(bos)`, `(okunamiyor)`, `(missing)`), or clearly unrelated to the item:
+
+- Do **not** invent or guess a score from plausibility.
+- Assign score **0**, set `"review": true`, and write the rationale as **yetersiz kanıt — [specific reason]**.
+- This matches the portfolio layer: when evidence is missing — do not infer competence.

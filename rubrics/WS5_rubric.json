@@ -1,13 +1,13 @@
 {
   "worksheet": "WS5",
-  "note": "Threshold grid on ProDaBi food cards (data/prodabi_food_cards.csv, N=11). The dataset and each card's tavsiye edilebilir/edilemez label are fixed; the student's variable, operator, and threshold value are free on each row. Full credit when notation is valid, arithmetic is consistent (doğru + hata = 11, MCR = hata/11), and counts match the reference cards for that threshold with the complementary false branch (≤↔>, <↔≥, ≥↔<, >↔≤). example_answer values are illustrative Sample_Student fixtures, not required answers.",
+  "note": "Threshold grid on ProDaBi food cards (data/prodabi_food_cards.csv, N=11). The dataset and each card's tavsiye edilebilir/edilemez label are fixed; the pre-service teacher's variable, operator, and threshold value are free on each row. Full credit when notation is valid, arithmetic is consistent (doğru + hata = 11, MCR = hata/11), and counts match the reference cards for that threshold with the complementary false branch (≤↔>, <↔≥, ≥↔<, >↔≤). example_answer values are illustrative Sample_Student fixtures, not required answers.",
   "scoring_model": {
     "type": "computed_from_dataset",
     "dataset_size": 11,
     "dataset_reference": "data/prodabi_food_cards.csv",
     "no_fixed_thresholds": true,
     "example_answers_illustrative": true,
-    "authority": "ws5_validation.py — expected_row_counts() recomputes doğru/hata/MCR from the student's parsed threshold"
+    "authority": "ws5_validation.py — expected_row_counts() recomputes doğru/hata/MCR from the pre-service teacher's parsed threshold"
   },
   "dataset_size": 11,
   "dataset_reference": "data/prodabi_food_cards.csv",
@@ -144,9 +144,9 @@
       "max_score": 1,
       "check": "b25_minimum_errors",
       "evaluation": "justification",
-      "method": "Her grid satırı için tavsiye edilebilir/edilemez ve yanlış sınıflandırma sayılarının doğru girildiği varsayılır (satır aritmetiği tutarlı). B25'te öğrenci, tablodaki en düşük yanlış sınıflandırma sayısına sahip eşiği tercih etmelidir. Aynı minimum hata sayısına sahip birden fazla eşik varsa herhangi biri kabul edilir; öğrenci yalnızca birini yazdıysa tie_at_minimum bayrağı eklenir.",
+      "method": "Her grid satırı için tavsiye edilebilir/edilemez ve yanlış sınıflandırma sayılarının doğru girildiği varsayılır (satır aritmetiği tutarlı). B25'te öğretmen adayı, tablodaki en düşük yanlış sınıflandırma sayısına sahip eşiği tercih etmelidir. Aynı minimum hata sayısına sahip birden fazla eşik varsa herhangi biri kabul edilir; öğretmen adayı yalnızca birini yazdıysa tie_at_minimum bayrağı eklenir.",
       "credit_levels": {
-        "full": "B25 names a threshold from the student's grid with the minimum error count among arithmetic-valid rows.",
+        "full": "B25 names a threshold from the pre-service teacher's grid with the minimum error count among arithmetic-valid rows.",
         "partial": "Threshold is in the grid but not among minimum-error trials.",
         "zero": "Blank, or threshold not found in any grid row.",
         "not_attempted": "Blank B25."

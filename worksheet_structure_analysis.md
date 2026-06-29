@@ -33,7 +33,7 @@ Expected answers (applying fat ≤ 8.0g rule):
 - Patlamış mısır (popcorn): tavsiye edilebilir, because fat ≤ 8.0g
 - Elma (apple): tavsiye edilebilir, because fat ≤ 8.0g
 - Patates kızartması (french fries): tavsiye edilemez, because fat > 8.0g
-Second task: student picks any reasonable energy threshold with correct ≤ / > notation.
+Second task: pre-service teacher picks any reasonable energy threshold with correct ≤ / > notation.
 
 ### Worksheet 4 — Searching for the Best Threshold Value
 Type: Identify misclassified items, improve threshold placement, evaluate peer claim, state energy threshold
@@ -74,7 +74,7 @@ Correct matching (from the worksheet):
 - Path A: "energy < 180 kcal → recommended"
 - Path B: "energy ≥ 180 AND protein < 7.7 → not recommended"  
 - Path C: "energy ≥ 180 AND protein ≥ 7.7 → recommended"
-Student's own rules: evaluated on logical consistency with their WS6 tree.
+Pre-service teacher's own rules: evaluated on logical consistency with their WS6 tree.
 
 ### Worksheet 10 — Systematically Determine Threshold Value
 Type: Compute misclassification count for each candidate threshold from a sorted list
@@ -83,7 +83,7 @@ Concepts tested: systematic threshold search, minimising misclassification
 The worksheet gives candidate thresholds and a table to fill.
 Correct answer: the threshold with the minimum misclassification count.
 The energy values listed: 28, 69, 219, 346, 359, 408, 489
-Student must find midpoints between adjacent values and count errors.
+Pre-service teacher must find midpoints between adjacent values and count errors.
 Optimal threshold: stated as a specific value (depends on the data cards used).
 
 ### Worksheet 11 — Evaluation
@@ -119,7 +119,7 @@ Type: Open-ended, no wrong answer. Evaluates initial hypothesis.
 
 Q2: Which variables actually influence recommendability based on data exploration?
 Type: Open-ended + graph evidence required.
-Correct approach: student must reference a graph/visualisation, not just intuition.
+Correct approach: pre-service teacher must reference a graph/visualisation, not just intuition.
 Minimum acceptable: names at least one variable with a data-based reason.
 Strong answer: names 2+ variables with graph-based justification.
 
@@ -135,7 +135,7 @@ Wrong: justification based only on general knowledge ("fat because fatty foods a
 
 ### Section B — Building and Comparing Single-Level Trees
 Q1-Q3: Build three trees with different variables, record EMIT results each time.
-Assessment: did the student actually emit (log evidence), record accuracy values, and try three different variables.
+Assessment: did the pre-service teacher actually emit (log evidence), record accuracy values, and try three different variables.
 
 Q4: Which variable gave the best result? What criteria did you use?
 Correct criteria: accuracy, misclassification rate, or TP/TN/FP/FN balance.
@@ -222,7 +222,7 @@ Thin answers: "I learned how to use the program."
 | WS1 | All | Acquire — basic concept recognition (LO3.1.2) |
 | WS3, WS4 | All | Acquire — applying threshold rules (LO3.1.3, LO3.1.4) |
 | WS7 | Path matching | Acquire — reading decision rules (LO3.1.2) |
-| WS11 Q8, Q10-12 | All | Acquire — conceptual understanding |
+| WS11 Q8, Q10-12 | All | Acquire — Basic AI techniques and applications (LO3.1) |
 | WS DT A | Q2, Q4 | Acquire→Deepen — data-driven vs intuition-driven reasoning |
 | WS DT B | Q4 | Deepen — comparing models with metrics (LO3.2.1) |
 | WS DT C | Q2, Q3 | Deepen — threshold optimisation with method (LO3.2.1) |
@@ -241,9 +241,9 @@ To build the worksheet assessment agent (Phase 1) the following are needed:
 
 1. The reference answer key — specific correct answers for each item above.
    For some items (WS DT B-F) the correct answer depends on which variable/threshold
-   the student chose, so the key must be rule-based, not value-based.
+   the pre-service teacher chose, so the key must be rule-based, not value-based.
 
-2. Prior-year student responses — 3-5 examples per worksheet item showing:
+2. Prior-year pre-service teacher responses — 3-5 examples per worksheet item showing:
    - a full-credit response
    - a partial-credit response  
    - a zero-credit response

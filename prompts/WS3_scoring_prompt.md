@@ -1,6 +1,6 @@
 # WS3 scoring context
 
-Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 3** (Leo's fat rule + student energy threshold).
+Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 3** (Leo's fat rule + pre-service teacher energy threshold).
 
 ## Artifacts
 
@@ -20,7 +20,7 @@ Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 3** (Leo
 
 **Part 1 (B1–B6):** Apply Leo's pre-defined rule — **fat ≤ 8.0 g** → recommend; **> 8 g** → not recommended — to three foods.
 
-**Part 2 (B7–B8):** Student defines their own **energy (enerji)** threshold with complementary operators.
+**Part 2 (B7–B8):** Pre-service teacher defines their own **energy (enerji)** threshold with complementary operators.
 
 ---
 
@@ -41,7 +41,7 @@ Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 3** (Leo
 
 ---
 
-## Part 2 — student threshold (B7–B8)
+## Part 2 — pre-service teacher threshold (B7–B8)
 
 | Item | Variable | Operator | Partial rule |
 |------|----------|----------|--------------|
@@ -50,7 +50,7 @@ Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 3** (Leo
 
 Wrong variable (e.g. şeker) → **zero** regardless of operator.
 
-Numeric threshold value is **student-chosen** — any defensible number is acceptable if operators and variable are correct.
+Numeric threshold value is **pre-service-teacher-chosen** — any defensible number is acceptable if operators and variable are correct.
 
 ---
 
@@ -62,7 +62,7 @@ Primary LO for scored items: **LO3.2.2** (Deepen — apply thresholds to classif
 |--------------|-----------|
 | B1/B3/B5 full | Direct application of fixed rule |
 | B2/B4/B6 full | Interpretation + justification |
-| B7–B8 full | Parameter selection (student-defined boundary) |
+| B7–B8 full | Parameter selection (pre-service teacher-defined boundary) |
 
 Supporting LO3.1.2 only when reasoning explicitly names variable/feature vocabulary without application.
 
@@ -71,4 +71,14 @@ Supporting LO3.1.2 only when reasoning explicitly names variable/feature vocabul
 ## Review flags
 
 - Blank Part 2 with filled Part 1 → score Part 1 normally; flag B7/B8 for review if OCR shows partial text.
-- B7/B8 same operator on both → likely student error; score accordingly, `review: true` if ambiguous.
+- B7/B8 same operator on both → likely pre-service teacher error; score accordingly, `review: true` if ambiguous.
+
+---
+
+## Insufficient evidence (zero hallucination)
+
+If the extracted response is blank, illegible (`(bos)`, `(okunamiyor)`, `(missing)`), or clearly unrelated to the item:
+
+- Do **not** invent or guess a score from plausibility.
+- Assign score **0**, set `"review": true`, and write the rationale as **yetersiz kanıt — [specific reason]**.
+- This matches the portfolio layer: when evidence is missing, mark insufficient — do not infer competence.

@@ -1,7 +1,7 @@
 """
 ocr_pipeline.py
 
-Transcribes handwritten Turkish student worksheets using Claude vision,
+Transcribes handwritten Turkish pre-service teacher worksheets using Claude vision,
 maps each answer to a rubric item_id, and saves a single student bundle JSON
 that feeds directly into worksheet_assessor.py.
 
@@ -129,10 +129,10 @@ WS6_VISION_ENABLED: bool = True
 
 _HANDWRITING_INSTRUCTION = """HANDWRITING READING — read carefully before transcribing:
 
-1. These pages are handwritten by Turkish university students. Writing style varies from neat to
+1. These pages are handwritten by Turkish pre-service teachers. Writing style varies from neat to
    very fast and cursive. Assume every filled field contains a real answer unless physically blank.
 
-2. Turkish character restoration — students often skip diacritics when writing fast.
+2. Turkish character restoration — pre-service teachers often skip diacritics when writing fast.
    Restore unambiguously:
    c  → ç   (e.g. "cok" = "çok", "kac" = "kaç")
    s  → ş   (e.g. "su" context-dependent; "seker" = "şeker", "esik" = "eşik")
@@ -147,7 +147,7 @@ _HANDWRITING_INSTRUCTION = """HANDWRITING READING — read carefully before tran
    0 vs O: in numeric contexts always read as zero
    1 vs l/I: in formulas/equations always read as one
    7 vs 1: 7 has a horizontal stroke; 1 does not
-   Decimal separator: Turkish students use comma (0,82) not period — transcribe as written.
+   Decimal separator: Turkish pre-service teachers use comma (0,82) not period — transcribe as written.
 
 4. Struck-through / overwritten text: transcribe only the FINAL version (what is not crossed out).
    If both old and new are readable, use the new; note it as "[corrected: old → new]".
@@ -158,27 +158,27 @@ _HANDWRITING_INSTRUCTION = """HANDWRITING READING — read carefully before tran
    Underline for emphasis: transcribe the underlined text normally (do not mark it)
    Formula fraction (numerator over denominator): write as "numerator / denominator"
 
-6. Marginal additions: if a student wrote something in the margin clearly belonging to an answer,
+6. Marginal additions: if a pre-service teacher wrote something in the margin clearly belonging to an answer,
    include it at the end of that answer, separated by " | "."""
 
 _SENTINEL_INSTRUCTION = """BLANK / ILLEGIBLE FIELDS — strict rules:
-- Student left the field completely empty (no marks at all): write exactly (bos)
+- Pre-service teacher left the field completely empty (no marks at all): write exactly (bos)
 - There is handwriting but it is physically unreadable after careful inspection: write exactly (okunamiyor)
 - NEVER guess, paraphrase, or invent content for blank or illegible fields.
 - Do NOT write a translation. Transcribe Turkish text as Turkish."""
 
-_NAME_INSTRUCTION = """STUDENT NAME — this is critical for file organization:
-The student's pseudonym (nickname) is written at the top of the FIRST page, usually in a
-"Name:" or "Ad:" or "Öğrenci:" field, or freely at the top of the page.
+_NAME_INSTRUCTION = """PRE-SERVICE TEACHER PSEUDONYM — this is critical for file organization:
+The pre-service teacher's pseudonym (nickname) is written at the top of the FIRST page, usually in a
+"Name:" or "Ad:" or "Öğretmen Adayı:" field, or freely at the top of the page.
 These are single English-style nicknames such as: Daniella, Nicolas, Karl, Mike, David,
 Daisy, Isabel, Ally, Michael, Irene, Bob, Darby, Barbara, Boris, Calvin, Frank, Kim,
 Aden, Sabrina, Daryl, Demi, Adam, Edgar, Felicity, Eddy, Ozzy, Bella, Eliot, Henry,
 Zabby. Read the name exactly as written. If unclear, read the closest match from this list."""
 
-PROMPT_DT = f"""You are an expert at reading handwritten Turkish university student worksheets.
-Your task: transcribe one student's completed CODAP Arbor decision tree worksheet.
+PROMPT_DT = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
+Your task: transcribe one pre-service teacher's completed CODAP Arbor decision tree worksheet.
 
-You will receive 4 page images belonging to ONE student. Treat all 4 pages as one document.
+You will receive 4 page images belonging to ONE pre-service teacher (one pseudonym folder). Treat all 4 pages as one document.
 The worksheet has 7 sections labelled A through G (4 pages total).
 
 CRITICAL — printed question numbers do NOT always equal rubric item suffixes.
@@ -197,7 +197,7 @@ Page layout (typical):
 
 {_SENTINEL_INSTRUCTION}
 
-WHAT TO EXTRACT — return exactly these JSON keys with verbatim student answers:
+WHAT TO EXTRACT — return exactly these JSON keys with verbatim pre-service teacher answers:
 
 "student_name"
   The pseudonym written at the top of page 1.
@@ -246,7 +246,7 @@ WHAT TO EXTRACT — return exactly these JSON keys with verbatim student answers
 "DT_G_overfitting"    Section G — overfitting definition if written on the sheet.
 "DT_G_DT_definition"  Section G — decision tree definition if written on the sheet.
 "DT_G_Q1"  Section G Q1 — what did the decision tree MODEL learn from the data?
-"DT_G_Q2"  Section G Q2 — what did the STUDENT learn while building decision trees?
+"DT_G_Q2"  Section G Q2 — what did the pre-service teacher learn while building decision trees?
 
 "page_notes"
   Brief note about image quality, pages that were very hard to read, or unusual layout.
@@ -289,9 +289,9 @@ Return ONLY the following JSON object. No text before or after it.
   "page_notes": "..."
 }}"""
 
-PROMPT_WS = f"""You are an expert at reading handwritten Turkish university student worksheets.
+PROMPT_WS = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
 Your task: transcribe every blank from ProDaBi decision tree worksheets WS1, WS3, WS4, WS5,
-WS6, WS7, and WS10. You will receive multiple page images belonging to ONE student.
+WS6, WS7, and WS10. You will receive multiple page images belonging to ONE pre-service teacher (one pseudonym folder).
 
 {_NAME_INSTRUCTION}
 
@@ -300,7 +300,7 @@ WS6, WS7, and WS10. You will receive multiple page images belonging to ONE stude
 {_SENTINEL_INSTRUCTION}
 
 WORKSHEET STRUCTURE — each worksheet is a printed form with numbered blanks.
-Read each worksheet header and its numbered blanks. Extract exactly what the student wrote
+Read each worksheet header and its numbered blanks. Extract exactly what the pre-service teacher wrote
 in each blank. Do not interpret or summarise — transcribe verbatim.
 
 BLANKS TO EXTRACT:
@@ -317,7 +317,7 @@ Transcribe short answers verbatim — not full definitions.
 "WS1_B7"  Blank 11 — label/variable role (değişken / etiket; e.g. "etiket" or tavsiye edilemez/edilir)
 
 --- WORKSHEET 3: Eşik Uygulama (Applying Thresholds) ---
-WS3 has 8 blanks. Students apply a threshold rule to classify foods as recommended/not.
+WS3 has 8 blanks. Pre-service teachers apply a threshold rule to classify foods as recommended/not.
 "WS3_B1"  Blank 1 — first classification result or rule
 "WS3_B2"  Blank 2
 "WS3_B3"  Blank 3
@@ -392,7 +392,7 @@ Part 1 — path matching (rows 5–7 next to printed rules): single letter A, B,
 "WS7_P1_box2"  Part 1 box for printed rule row 6 — letter A/B/C
 "WS7_P1_box3"  Part 1 box for printed rule row 7 — letter A/B/C
 
-Part 2 — if-then rules consistent with the student's WS6 tree (page 2 or lower section).
+Part 2 — if-then rules consistent with the pre-service teacher's WS6 tree (page 2 or lower section).
 Transcribe full rules verbatim including ≤, ≥, <, >.
 "WS7_B1"  Rule for WS6 leaf path 1
 "WS7_B2"  Rule for WS6 leaf path 2
@@ -405,18 +405,18 @@ Transcribe full rules verbatim including ≤, ≥, <, >.
 --- WORKSHEET 10: Sistematik Eşik (Systematic Threshold — 8 numbered blanks) ---
 WS10: printed blank numbers 1–8 (red on form). Transcribe only the HANDWRITTEN numeric
 response next to each blank number — not the printed threshold column to the left.
-"WS10_B1"  Blank 1 — student response (yanlış sınıflandırma count, table row 1)
-"WS10_B2"  Blank 2 — student response (table row 2)
-"WS10_B3"  Blank 3 — student response (table row 3)
-"WS10_B4"  Blank 4 — student response (table row 4)
-"WS10_B5"  Blank 5 — student response (table row 5)
-"WS10_B6"  Blank 6 — student response (table row 6)
-"WS10_B7"  Blank 7 — student response (table row 7)
+"WS10_B1"  Blank 1 — pre-service teacher response (yanlış sınıflandırma count, table row 1)
+"WS10_B2"  Blank 2 — pre-service teacher response (table row 2)
+"WS10_B3"  Blank 3 — pre-service teacher response (table row 3)
+"WS10_B4"  Blank 4 — pre-service teacher response (table row 4)
+"WS10_B5"  Blank 5 — pre-service teacher response (table row 5)
+"WS10_B6"  Blank 6 — pre-service teacher response (table row 6)
+"WS10_B7"  Blank 7 — pre-service teacher response (table row 7)
 "WS10_B8"  Blank 8 — optimum eşik değer (line below table: "Optimum eşik değer şudur:")
 
 --- WORKSHEET SNAPSHOT ---
 "ws_snapshot"
-  Write 2-3 sentences summarising what this student's worksheets REVEAL about their
+  Write 2-3 sentences summarising what this pre-service teacher's worksheets REVEAL about their
   understanding of decision trees. Focus on:
   - Completion level (which worksheets are fully vs. partially answered)
   - Key strengths visible from their written responses
@@ -454,10 +454,10 @@ Return ONLY the following JSON object. No text before or after it.
   "page_notes": "..."
 }}"""
 
-PROMPT_WS11 = f"""You are an expert at reading handwritten Turkish university student worksheets.
+PROMPT_WS11 = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
 Your task: transcribe every blank from Worksheet 11 (evaluation + feedback form).
 
-You will receive multiple page images belonging to ONE student.
+You will receive multiple page images belonging to ONE pre-service teacher (one pseudonym folder).
 
 {_NAME_INSTRUCTION}
 
@@ -466,7 +466,7 @@ You will receive multiple page images belonging to ONE student.
 {_SENTINEL_INSTRUCTION}
 
 WORKSHEET 11 STRUCTURE:
-- Printed questions 1–7 (B1–B7): NO correct answer — transcribe student marks/text verbatim
+- Printed questions 1–7 (B1–B7): NO correct answer — transcribe pre-service teacher marks/text verbatim
   - B1 Q1: lesson satisfaction — tick one of: Çok iyi, İyi, Ortalama, Kötü, Çok kötü; optional Açıklama text
   - B2 Q2: recommend to friends — Evet, Hayır, Bilmiyorum; optional Açıklama
   - B3 Q3: difficulty — Çok kolay, Kolay, Orta, Zor, Çok zor; optional Açıklama
@@ -477,13 +477,13 @@ WORKSHEET 11 STRUCTURE:
   Format each B1–B5 response as: "<selected option>" or "<option>; Açıklama: <text>" when explanation is written.
 - Blanks B8a, B8b: classification task
 - Blank B9: open-ended definition
-- Likert group L10 (8 items): students CIRCLE a number 1-5 on a printed scale
+- Likert group L10 (8 items): pre-service teachers CIRCLE a number 1-5 on a printed scale
 - Likert group L11 (3 items): same format
 - Group L12 (5 items): self-assessment / additional items
 
-For Likert/circled-number items, transcribe the number the student circled.
-If the scale shows options and the student ticked/circled one, write just that value.
-If the student wrote text instead of circling, transcribe the text.
+For Likert/circled-number items, transcribe the number the pre-service teacher circled.
+If the scale shows options and the pre-service teacher ticked/circled one, write just that value.
+If the pre-service teacher wrote text instead of circling, transcribe the text.
 
 BLANKS TO EXTRACT:
 
@@ -499,14 +499,14 @@ BLANKS TO EXTRACT:
 "WS11_B7"  Q7 — gender (Erkek or Kız)
 
 --- Classification and definition task ---
-"WS11_B8a" Blank 8a — classify a food item using the printed decision tree (student's result)
-"WS11_B8b" Blank 8b — write the decision RULE used for 8a (the if-then path the student traced)
-"WS11_B9"  Blank 9 — define a decision tree in the student's own words (full written text)
+"WS11_B8a" Blank 8a — classify a food item using the printed decision tree (pre-service teacher's result)
+"WS11_B8b" Blank 8b — write the decision RULE used for 8a (the if-then path the pre-service teacher traced)
+"WS11_B9"  Blank 9 — define a decision tree in the pre-service teacher's own words (full written text)
 
 --- Q10: true/false sub-items (8 statements; transcribe Doğru or Yanlış per row) ---
 "WS11_Q10_1" through "WS11_Q10_8" — one answer per statement row
 
---- Q11: ordering steps 2-4 (step 1 is pre-printed; transcribe the number 2, 3, or 4 the student wrote) ---
+--- Q11: ordering steps 2-4 (step 1 is pre-printed; transcribe the number 2, 3, or 4 the pre-service teacher wrote) ---
 "WS11_Q11_2"  Step 2 position
 "WS11_Q11_3"  Step 3 position
 "WS11_Q11_4"  Step 4 position
@@ -539,7 +539,7 @@ Each is a 1-5 scale item. Transcribe the circled/ticked number exactly.
 
 --- Snapshot ---
 "ws_snapshot"
-  Write 2-3 sentences summarising what Worksheet 11 reveals about this student.
+  Write 2-3 sentences summarising what Worksheet 11 reveals about this pre-service teacher.
   Note whether Q1–Q7 were filled, engagement with cognitive items (B8–Q12), and quality of B9.
   Do not score or judge Q1–Q7 — they are survey/demographic only.
 

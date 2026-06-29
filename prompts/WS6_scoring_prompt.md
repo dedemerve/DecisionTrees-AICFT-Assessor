@@ -105,7 +105,7 @@ Authority: `validation.json` → `deterministic_checks.<item_id>`.
 
 ## Cross-worksheet
 
-**WS7** Part 2 rules are graded against **this student's WS6 tree**. **WS5** uses the same food-card reference for threshold exploration.
+**WS7** Part 2 rules are graded against **this pre-service teacher's WS6 tree**. **WS5** uses the same food-card reference for threshold exploration.
 
 ---
 
@@ -115,3 +115,13 @@ Authority: `validation.json` → `deterministic_checks.<item_id>`.
 - `unclassified > 0` in validation `mcr` → operator/leaf gap.
 - Single-level tree only → `tree_structure.depth` false (çift seviyeli expected).
 - MCR=0 with two levels → **no penalty**.
+
+---
+
+## Insufficient evidence (zero hallucination)
+
+If the extracted response is blank, illegible (`(bos)`, `(okunamiyor)`, `(missing)`), or clearly unrelated to the item:
+
+- Do **not** invent or guess a score from plausibility.
+- Assign score **0**, set `"review": true`, and write the rationale as **yetersiz kanıt — [specific reason]**.
+- This matches the portfolio layer: when evidence is missing, mark insufficient — do not infer competence.

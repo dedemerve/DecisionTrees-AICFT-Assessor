@@ -67,3 +67,13 @@ If `numeric_table` not captured or `htr_status` = error → `blocked: true`, do 
 
 - Unparseable number → `review: true`
 - B8 ≠ 408 when table row 6 has minimum count → still score B8 independently (each blank exact)
+
+---
+
+## Insufficient evidence (zero hallucination)
+
+If the extracted response is blank, illegible (`(bos)`, `(okunamiyor)`, `(missing)`), or clearly unrelated to the item:
+
+- Do **not** invent or guess a score from plausibility.
+- Assign score **0**, set `"review": true`, and write the rationale as **yetersiz kanıt — [specific reason]**.
+- This matches the portfolio layer: when evidence is missing, mark insufficient — do not infer competence.

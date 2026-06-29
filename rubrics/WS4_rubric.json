@@ -6,7 +6,7 @@
       "max_score": 1,
       "evaluation": "threshold_placement",
       "scoring_mode": "interpretive",
-      "note": "Görev 1 / boşluk 1: Öğrenci avokado ile patates kızartması arasına yeni eşik çizgisini çizer. Görsel çizgi veya bu iki gıdayı eşik sınırı olarak belirtmek yeterlidir.",
+      "note": "Görev 1 / boşluk 1: Öğretmen adayı avokado ile patates kızartması arasına yeni eşik çizgisini çizer. Görsel çizgi veya bu iki gıdayı eşik sınırı olarak belirtmek yeterlidir.",
       "components": [
         {
           "id": "avocado_fries_boundary",
@@ -90,7 +90,7 @@
       "check": "numeric_range",
       "min_value": 160,
       "max_value": 2223,
-      "note": "Görev 5 / boşluk 5: Öğrencinin öğrendiği en iyi enerji eşiği. 160–2223 aralığındaki herhangi bir değer doğru kabul edilir.",
+      "note": "Görev 5 / boşluk 5: Öğretmen adayının öğrendiği en iyi enerji eşiği. 160–2223 aralığındaki herhangi bir değer doğru kabul edilir.",
       "example_answer": "408 (kartlardan seçilen enerji eşiği; 160–2223 aralığında herhangi bir değer)"
     }
   }

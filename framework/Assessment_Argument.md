@@ -202,8 +202,8 @@ Confidence requirements:
 
 Threats to validity:
 
-- conflating terminology recall with conceptual understanding
-- conflating procedure following with conceptual mastery
+- conflating terminology recall with basic AI techniques and applications (LO3.1 — Acquire)
+- conflating procedure following with LO3.1 mastery without application evidence (LO3.2 — Deepen)
 
 Mitigation strategies:
 

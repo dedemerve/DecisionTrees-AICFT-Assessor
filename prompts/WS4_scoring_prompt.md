@@ -66,3 +66,13 @@ Strength ceilings per `mappings/WS4_AICFT_mapping.json`.
 - B1 visual line not visible in OCR → `review: true`; do not invent placement.
 - B2 only three of four foods legible → `review: true` before scoring zero.
 - B5 numeric OCR uncertain → `review: true`; use Python `numeric_range` when a number is extracted.
+
+---
+
+## Insufficient evidence (zero hallucination)
+
+If the extracted response is blank, illegible (`(bos)`, `(okunamiyor)`, `(missing)`), or clearly unrelated to the item:
+
+- Do **not** invent or guess a score from plausibility.
+- Assign score **0**, set `"review": true`, and write the rationale as **yetersiz kanıt — [specific reason]**.
+- This matches the portfolio layer: when evidence is missing, mark insufficient — do not infer competence.

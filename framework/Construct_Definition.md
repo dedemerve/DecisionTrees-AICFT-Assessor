@@ -22,10 +22,10 @@ If this construct is not theoretically and operationally defined, lower layers m
 
 **Decision Tree Understanding** is the learner's demonstrated capacity to:
 
-1. **know** decision-tree concepts and their distinctions (Conceptual),
-2. **execute** decision-tree procedures correctly (Procedural),
-3. **choose and justify** among alternatives using performance-relevant criteria (Strategic), and
-4. **reflect** on limits, trade-offs, and learning specific to decision-tree use (Reflective),
+1. **know** decision-tree concepts and their distinctions (terminology and distinction evidence → LO3.1),
+2. **execute** decision-tree procedures correctly (procedure application evidence → LO3.2),
+3. **choose and justify** among alternatives using performance-relevant criteria (strategic evaluation evidence → LO3.2), and
+4. **reflect** on limits, trade-offs, and learning specific to decision-tree use (reflective creation evidence → LO3.3),
 
 in ways that are **evidentially grounded**, **contextually appropriate**, and **distinguishable** from unrelated abilities.
 
@@ -35,26 +35,28 @@ This construct is **domain-specific** and **multi-dimensional**. No single dimen
 
 ## Construct hierarchy
 
+> **Note:** These construct dimensions are **project-internal analysis categories** for *what we measure* (terminology, procedure, strategy, reflection). They are **not** taken from Kilpatrick (2001). Final proficiency assignment uses UNESCO AI-CFT **Acquire** (Basic AI techniques and applications, LO3.1), **Deepen** (Application skills, LO3.2), and **Create** (Creating with AI, LO3.3) levels only.
+
 ```
 Decision Tree Understanding
-├── Conceptual Understanding
-│   └── terminology, distinctions, coherent explanation
-├── Procedural Understanding
-│   └── threshold application, classification, tree construction
-├── Strategic Understanding
-│   └── comparison, selection, model evaluation, trade-offs
-└── Reflective Understanding
-    └── limitations, uncertainty, metacognitive commentary on DT use
+├── Terminology and distinction evidence
+│   └── terminology, distinctions, coherent explanation (maps to LO3.1 — Basic AI techniques and applications)
+├── Procedure application evidence
+│   └── threshold application, classification, tree construction (maps to LO3.2 — Application skills)
+├── Strategic evaluation evidence
+│   └── comparison, selection, model evaluation, trade-offs (maps to LO3.2 — Application skills)
+└── Reflective creation evidence
+    └── limitations, uncertainty, metacognitive commentary on DT use (maps to LO3.3 — Creating with AI)
 ```
 
 ### Dimension → framework layer mapping
 
-| Construct dimension | Primary evidence layers | Typical LO families | Domain Understanding tags |
-|---------------------|-------------------------|---------------------|---------------------------|
-| Conceptual | worksheets, reflections | LO3.1.x | Conceptual Understanding |
-| Procedural | worksheets, CODAP logs, DT sections | LO3.1.x, LO3.2.1 | Procedural Understanding |
-| Strategic | worksheets, multi-task performance | LO3.2.2, LO3.2.3 | Threshold Reasoning, Tree Construction |
-| Reflective | reflections, open responses | LO3.3.x | Reflective Understanding |
+| Construct dimension | Primary evidence layers | UNESCO AI-CFT proficiency / LO families | Domain Understanding tags |
+|---------------------|-------------------------|-------------------------------------------|---------------------------|
+| Terminology and distinction | worksheets, reflections | Acquire — Basic AI techniques and applications (LO3.1.x) | Terminology and distinction evidence |
+| Procedure application | worksheets, CODAP logs, DT sections | Deepen — Application skills (LO3.1.x, LO3.2.1) | Procedure application evidence |
+| Strategic evaluation | worksheets, multi-task performance | Deepen — Application skills (LO3.2.2, LO3.2.3) | Threshold Reasoning, Tree Construction |
+| Reflective creation | reflections, open responses | Create — Creating with AI (LO3.3.x) | Reflective creation evidence |
 
 Learning Objects are **instructional targets** within dimensions. They are not interchangeable with the construct itself.
 

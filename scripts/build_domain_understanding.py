@@ -690,6 +690,14 @@ def build_document(ilo_data: dict[str, Any], ob_data: dict[str, Any], map_data: 
     domain_map = {d["id"]: d for d in enrich_domains()}
     return {
         "artifact": "domain_understanding_ontology",
+        "framework_version": "1.0",
+        "unesco_aicft_reference": {
+            "edition": "2024",
+            "title": "UNESCO AI Competency Framework for Teachers",
+            "isbn": "978-92-3-100707-1",
+            "aspect": "Aspect 3 — AI foundations and applications",
+            "note": "framework_version 1.0 maps operational LO3.1.x–LO3.3.x indicators to this 2024 edition (ISBN 978-92-3-100707-1); update both fields if UNESCO publishes a revised framework.",
+        },
         "ontology_layer": "assessment_construct",
         "design_constraint": DESIGN_CONSTRAINT,
         "terminology": {

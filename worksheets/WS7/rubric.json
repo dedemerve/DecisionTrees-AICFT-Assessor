@@ -1,6 +1,6 @@
 {
   "worksheet": "WS7",
-  "note": "Part 1 (P1 boxes): match three printed if-then rules to paths A/B/C on the fixed enerji–protein sample tree. Single correct letter per box (B, A, C). Operators on the printed tree use complementary pairs: enerji <180 vs ≥180; protein <7,7 vs ≥7,7. Part 2 (B1–B3): one if-then rule per leaf path of the student's WS6 tree — exact features, threshold values, operators (< > ≤ ≥), and leaf label. Partial 0.5 only when feature(s) and label are correct but an operator direction is wrong. B4–B7 not scored when the tree has three paths.",
+  "note": "Part 1 (P1 boxes): match three printed if-then rules to paths A/B/C on the fixed enerji–protein sample tree. Single correct letter per box (B, A, C). Operators on the printed tree use complementary pairs: enerji <180 vs ≥180; protein <7,7 vs ≥7,7. Part 2 (B1–B3): one if-then rule per leaf path of the pre-service teacher's WS6 tree — exact features, threshold values, operators (< > ≤ ≥), and leaf label. Partial 0.5 only when feature(s) and label are correct but an operator direction is wrong. B4–B7 not scored when the tree has three paths.",
   "dataset_reference": "data/ws7_sample_tree.json",
   "operator_rules": {
     "required": "Complementary pairs on each DT split: ≤↔>, <↔≥, ≥↔<, >↔≤. Part 1 sample tree: enerji <180 | ≥180; protein <7,7 | ≥7,7.",
@@ -9,7 +9,7 @@
       "WS7_P1_box2": "A",
       "WS7_P1_box3": "C"
     },
-    "part2": "Operators in B1–B3 must match the student's WS6 branch notation exactly (not paraphrased to a different inequality).",
+    "part2": "Operators in B1–B3 must match the pre-service teacher's WS6 branch notation exactly (not paraphrased to a different inequality).",
     "invalid_examples": [
       "Rule uses ≥ when WS6 evet branch uses ≤",
       "Rule uses > when path requires ≥"

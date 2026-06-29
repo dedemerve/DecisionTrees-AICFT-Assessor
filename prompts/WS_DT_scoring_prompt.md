@@ -125,3 +125,13 @@ Primary LO3.2.2 **strong** (ceiling) when both components at full credit. Suppor
 Mapping `strength` is a **ceiling**. Interpretive full credit does not automatically imply **strong** — check `mappings/WS_DT_AICFT_mapping.json` per item.
 
 `portfolio_weight: baseline` (Q1) and `diagnostic` (Section G) → exclude from peak LO aggregation per `pipeline_schema.contributes_to_portfolio_peaks()`.
+
+---
+
+## Insufficient evidence (zero hallucination)
+
+If the extracted response is blank, illegible (`(bos)`, `(okunamiyor)`, `(missing)`), or clearly unrelated to the item:
+
+- Do **not** invent or guess a score from plausibility.
+- Assign score **0**, set `"review": true`, and write the rationale as **yetersiz kanıt — [specific reason]**.
+- This matches the portfolio layer: when evidence is missing, mark insufficient — do not infer competence.

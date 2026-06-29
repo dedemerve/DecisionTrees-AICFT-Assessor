@@ -4,7 +4,7 @@ Post-OCR normalization for WS5 / WS6 before deterministic validation.
 Architecture:
   Kağıt → vision/LLM (extraction) → this module (mechanical fixes) → ws5/ws6_validation (rules)
 
-Does not reinterpret student answers or apply rubric logic — only fixes common OCR artifacts
+Does not reinterpret pre-service teacher answers or apply rubric logic — only fixes common OCR artifacts
 so the existing deterministic validators can parse fields reliably.
 """
 
@@ -37,7 +37,7 @@ def is_ws5_threshold_field(field_id: str) -> bool:
 
 
 def fix_operator_artifacts(text: str) -> str:
-    """Repair mechanical OCR typos in inequality symbols; preserve student wording."""
+    """Repair mechanical OCR typos in inequality symbols; preserve pre-service teacher wording."""
     s = text.strip()
     s = s.replace("=<", "<=").replace("=>", ">=")
     s = s.replace("＜", "<").replace("＞", ">")

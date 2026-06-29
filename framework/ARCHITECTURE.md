@@ -81,8 +81,8 @@ A broader interpretation of Decision Tree understanding inferred from accumulate
 
 Examples:
 
-- conceptual understanding
-- procedural understanding
+- basic AI techniques and applications (LO3.1 — Acquire)
+- application skills (LO3.2 — Deepen)
 - threshold reasoning
 - classification reasoning
 - tree construction
@@ -343,6 +343,7 @@ framework/
   Domain_Understanding.json
   LO_to_Domain_Understanding.json
   Domain_to_AI_CFT.json
+  AICFT_Aspect3_Reference.json
   Misconception_Ontology.json
   Evidence_Types.json
   Evidence_Strength.json

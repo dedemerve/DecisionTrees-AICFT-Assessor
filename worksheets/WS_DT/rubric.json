@@ -1,10 +1,10 @@
 {
   "worksheet": "WS_DT",
-  "note": "CODAP Arbor inquiry (Sections A–G). Most items are open interpretive responses: students choose variables, thresholds, and conclusions from their own CODAP work. Score on rubric components and coherence — not on matching example answers. EMIT action blocks and E-section formulas/numeric fields are the only deterministic items (internal arithmetic consistency).",
+  "note": "CODAP Arbor inquiry (Sections A–G). Most items are open interpretive responses: pre-service teachers choose variables, thresholds, and conclusions from their own CODAP work. Score on rubric components and coherence — not on matching example answers. EMIT action blocks and E-section formulas/numeric fields are the only deterministic items (internal arithmetic consistency).",
   "scoring_policy": {
     "default_mode": "interpretive",
-    "component_scoring": "No single canonical answer. Award credit when required rubric components are present and the student grounds claims in their own exploration (graphs, EMIT output, comparisons).",
-    "emit_scoring": "EMIT items: verify the student's recorded counts and derived metrics are internally consistent — not against fixed canonical values.",
+    "component_scoring": "No single canonical answer. Award credit when required rubric components are present and the pre-service teacher grounds claims in their own exploration (graphs, EMIT output, comparisons).",
+    "emit_scoring": "EMIT items: verify the pre-service teacher's recorded counts and derived metrics are internally consistent — not against fixed canonical values.",
     "example_answers": "Illustrations of response quality only; never treat as the only acceptable answer."
   },
   "dataset_note": "Training set size assumed 16 items (10 recommended, 6 not). Test set size assumed 8 items.",
@@ -15,7 +15,7 @@
     "test_dataset_size": 8,
     "no_fixed_trees": true,
     "example_answers_illustrative": true,
-    "authority": "EMIT items: internal arithmetic consistency only (TP+FP+TN+FN, sensitivity, MCR). Variables and thresholds are student-specific — not matched to canonical values.",
+    "authority": "EMIT items: internal arithmetic consistency only (TP+FP+TN+FN, sensitivity, MCR). Variables and thresholds are pre-service teacher-specific — not matched to canonical values.",
     "unplugged_parallels": {
       "WS5": "Sections B–C: single-level threshold trials — same complementary operator rule as unplugged grid rows (N=11 classroom cards).",
       "WS6": "Section D: two-level tree — same evet/hayır operator pairing as unplugged çift seviyeli WS6 tree."
@@ -155,7 +155,7 @@
         "sensitivity = TP/(TP+FN)",
         "MCR = (FP+FN)/(TP+FP+TN+FN)"
       ],
-      "note": "Student builds first single-level tree in CODAP with one variable and records EMIT output. Full credit if counts sum correctly and derived metrics are consistent — not against fixed canonical TP/FP/TN/FN.",
+      "note": "Pre-service teacher builds first single-level tree in CODAP with one variable and records EMIT output. Full credit if counts sum correctly and derived metrics are consistent — not against fixed canonical TP/FP/TN/FN.",
       "example_answer": "Değişken: şeker | Eşik: 10 | TP: 8 | FP: 2 | TN: 4 | FN: 2 | Duyarlılık: 0.80 | MCR: 0.25",
       "example_note": "Illustrative only — any valid feature/threshold with consistent EMIT counts is full credit.",
       "tree_level": "single"
@@ -176,7 +176,7 @@
         "TP+FP+TN+FN = dataset_size",
         "variable must differ from B_Q1"
       ],
-      "note": "Student builds second single-level tree with a different variable.",
+      "note": "Pre-service teacher builds second single-level tree with a different variable.",
       "example_answer": "Değişken: yağ | Eşik: 8 | TP: 6 | FP: 4 | TN: 2 | FN: 4 | Duyarlılık: 0.60 | MCR: 0.50",
       "example_note": "Illustrative only.",
       "tree_level": "single"
@@ -197,7 +197,7 @@
         "TP+FP+TN+FN = dataset_size",
         "variable must differ from B_Q1 and B_Q2"
       ],
-      "note": "Student builds third single-level tree with a third variable.",
+      "note": "Pre-service teacher builds third single-level tree with a third variable.",
       "example_answer": "Değişken: enerji | Eşik: 300 | TP: 5 | FP: 3 | TN: 3 | FN: 5 | Duyarlılık: 0.50 | MCR: 0.50",
       "example_note": "Illustrative only.",
       "tree_level": "single"
@@ -233,9 +233,9 @@
         "TN",
         "FN"
       ],
-      "note": "Student recalls best tree from EMIT, varies the threshold, and records the optimized output. Full credit if consistent and threshold differs from B_Q1 threshold (shows exploration).",
+      "note": "Pre-service teacher recalls best tree from EMIT, varies the threshold, and records the optimized output. Full credit if consistent and threshold differs from B_Q1 threshold (shows exploration).",
       "example_answer": "Değişken: şeker | Eşik: 12 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13",
-      "example_note": "Illustrative only — optimized threshold is student-specific.",
+      "example_note": "Illustrative only — optimized threshold is pre-service teacher-specific.",
       "tree_level": "single"
     },
     "DT_C_Q2": {
@@ -290,7 +290,7 @@
         "TN",
         "FN"
       ],
-      "note": "Student adds a second variable to best tree to create 2-level tree. Full credit if two distinct variables shown and counts sum correctly — not against a fixed canonical tree.",
+      "note": "Pre-service teacher adds a second variable to best tree to create 2-level tree. Full credit if two distinct variables shown and counts sum correctly — not against a fixed canonical tree.",
       "example_answer": "Düzey 1: şeker ≤ 12 | Düzey 2: yağ ≤ 8 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13",
       "example_note": "Illustrative only — parallel to unplugged WS6 çift seviyeli tree.",
       "tree_level": "two"
@@ -421,7 +421,7 @@
       "max_score": 1,
       "evaluation": "numeric_value",
       "check": "numeric_consistency",
-      "note": "Student fills in the numeric sensitivity value from EMIT output. Scored for consistency with TP and FN values recorded in D_Q1.",
+      "note": "Pre-service teacher fills in the numeric sensitivity value from EMIT output. Scored for consistency with TP and FN values recorded in D_Q1.",
       "formula_reference": "TP / (TP + FN)",
       "example_answer": "0.90"
     },
@@ -429,7 +429,7 @@
       "max_score": 1,
       "evaluation": "numeric_value",
       "check": "numeric_consistency",
-      "note": "Student fills in the numeric MCR value from EMIT output. Scored for consistency with FP, FN, and total counts.",
+      "note": "Pre-service teacher fills in the numeric MCR value from EMIT output. Scored for consistency with FP, FN, and total counts.",
       "formula_reference": "(FP + FN) / total",
       "example_answer": "0.13"
     },
@@ -522,9 +522,9 @@
         "sensitivity",
         "MCR"
       ],
-      "note": "Student applies best tree to the test dataset and records EMIT output. Full credit if counts sum to test dataset size (N=8) and metrics are arithmetically consistent.",
+      "note": "Pre-service teacher applies best tree to the test dataset and records EMIT output. Full credit if counts sum to test dataset size (N=8) and metrics are arithmetically consistent.",
       "example_answer": "Test verisi EMIT: TP: 4 | FP: 2 | TN: 1 | FN: 1 | Duyarlılık: 0.80 | MCR: 0.38",
-      "example_note": "Illustrative only — test-set counts are student-specific."
+      "example_note": "Illustrative only — test-set counts are pre-service teacher-specific."
     },
     "DT_F_Q2": {
       "max_score": 1,
@@ -604,7 +604,7 @@
       "components": [
         {
           "id": "two_concepts",
-          "idea": "names or describes at least two distinct concepts the student personally learned (iki kavram)",
+          "idea": "names or describes at least two distinct concepts the pre-service teacher personally learned (iki kavram)",
           "required": true
         }
       ],

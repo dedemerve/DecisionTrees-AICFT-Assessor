@@ -21,7 +21,7 @@ Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 7** (pat
 
 **Part 1 — fixed sample tree (enerji / protein):** Match three **printed** if-then rules (rows 5–7) to paths **A, B, C**. Each box has **one correct letter**.
 
-**Part 2 — student's WS6 tree:** Write if-then rules for each leaf path (B1–B3). Each rule has **one correct formulation** for that path given the student's WS6 operators and thresholds.
+**Part 2 — pre-service teacher's WS6 tree:** Write if-then rules for each leaf path (B1–B3). Each rule has **one correct formulation** for that path given the pre-service teacher's WS6 operators and thresholds.
 
 B4–B7 are **not scored** when the tree has three paths.
 
@@ -34,7 +34,7 @@ B4–B7 are **not scored** when the tree has three paths.
 | enerji @ 180 kcal | `< 180` (path A) | `≥ 180` (paths B, C) |
 | protein @ 7,7 g | `< 7,7` (path B) | `≥ 7,7` (path C) |
 
-Part 2 rules must use the **same operators** as the student's WS6 tree (`≤` vs `<`, `>` vs `≥` matter).
+Part 2 rules must use the **same operators** as the pre-service teacher's WS6 tree (`≤` vs `<`, `>` vs `≥` matter).
 
 | Verdict | Part 1 | Part 2 |
 |---------|--------|--------|
@@ -73,3 +73,13 @@ Load WS6 when scoring. If WS6 missing → B1–B3 `review: true`.
 - P1 blank or unparseable → `review: true`
 - WS6 missing with B1–B3 filled → `review: true`, `blocked_dependency: WS6`
 - Partial operator credit → `review: false` (deterministic 0.5)
+
+---
+
+## Insufficient evidence (zero hallucination)
+
+If the extracted response is blank, illegible (`(bos)`, `(okunamiyor)`, `(missing)`), or clearly unrelated to the item:
+
+- Do **not** invent or guess a score from plausibility.
+- Assign score **0**, set `"review": true`, and write the rationale as **yetersiz kanıt — [specific reason]**.
+- This matches the portfolio layer: when evidence is missing, mark insufficient — do not infer competence.

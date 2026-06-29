@@ -64,13 +64,13 @@ def make_mock_client(return_value: dict) -> MagicMock:
 class TestRedTeam:
 
     def test_RT01_model_returns_wrong_item_id_key(self):
-        """Claude returns DT_A_Q3 (non-existent) instead of DT_A_Q2."""
+        """Claude returns DT_Z_Q99 (non-existent) instead of DT_A_Q2."""
         raw = make_full_raw_dt()
         raw.pop("DT_A_Q2")
-        raw["DT_A_Q3"] = "should not exist"
+        raw["DT_Z_Q99"] = "should not exist"
         result = p.extract_item_responses(raw, "WorksheetDT.pdf")
         assert result["DT_A_Q2"] == "(missing)"
-        assert "DT_A_Q3" not in result
+        assert "DT_Z_Q99" not in result
 
     def test_RT02_model_returns_extra_keys(self):
         """Claude adds keys not in the rubric — silently dropped."""
@@ -248,7 +248,7 @@ class TestStress:
     # --- Schema invariants ---
 
     def test_ST01_all_item_ids_count(self):
-        assert len(p.ALL_ITEM_IDS) == 118
+        assert len(p.ALL_ITEM_IDS) == 149
 
     def test_ST02_all_item_ids_unique(self):
         assert len(p.ALL_ITEM_IDS) == len(set(p.ALL_ITEM_IDS))
@@ -1093,9 +1093,10 @@ class TestSaveWorksheetJsons:
 
     def test_WJ05_worksheet_field_matches_label(self, tmp_path):
         """Each extraction artifact's worksheet field must equal its folder name."""
+        from student_bundle import load_artifact
         self._call("Marco", self._make_full_responses(), tmp_path)
         for ws_label in p.WORKSHEET_ITEM_IDS:
-            data = self._load(tmp_path, ws_label)
+            data = load_artifact("Marco", ws_label, "extraction", base_dir=tmp_path)
             assert data["worksheet"] == ws_label
 
     def test_WJ06_pdf_source_matches_worksheet(self, tmp_path):

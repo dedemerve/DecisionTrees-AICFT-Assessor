@@ -17,3 +17,9 @@ __pycache__/
 # Local venv / generated layout crops
 .venv/
 layout_rois/
+
+# Runtime OCR dumps (regenerate via ocr_pipeline.py)
+ocr_output/
+
+# Legacy manual labeling spreadsheet (superseded by pipeline)
+AI_CFT_Labeling.xlsx

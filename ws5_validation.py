@@ -473,7 +473,7 @@ def validate_ws5_b25(
         ]
         result["tie_note"] = (
             "Birden fazla eşik aynı en düşük yanlış sınıflandırma sayısına sahip; "
-            "öğrenci yalnızca birini yazmış olabilir — alternatifler: "
+            "öğretmen adayı yalnızca birini yazmış olabilir — alternatifler: "
             + ", ".join(t["threshold"] for t in other_tied)
         )
         result["review"] = True

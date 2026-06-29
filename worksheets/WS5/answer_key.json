@@ -49,12 +49,12 @@
       "example_answer": "Şeker ≤ 12'yi tercih ederim; 2 yanlış sınıflandırma ile tablomdaki en düşük hata sayısı (şeker ≤ 15 de 2 hata veriyor).",
       "partial_score": 0.5,
       "credit_levels": {
-        "full": "B25 names a threshold from the student's grid with the minimum error count among arithmetic-valid rows.",
+        "full": "B25 names a threshold from the pre-service teacher's grid with the minimum error count among arithmetic-valid rows.",
         "partial": "Threshold is in the grid but not among minimum-error trials.",
         "zero": "Blank, or threshold not found in any grid row.",
         "not_attempted": "Blank B25."
       },
-      "method": "Her grid satırı için tavsiye edilebilir/edilemez ve yanlış sınıflandırma sayılarının doğru girildiği varsayılır (satır aritmetiği tutarlı). B25'te öğrenci, tablodaki en düşük yanlış sınıflandırma sayısına sahip eşiği tercih etmelidir. Aynı minimum hata sayısına sahip birden fazla eşik varsa herhangi biri kabul edilir; öğrenci yalnızca birini yazdıysa tie_at_minimum bayrağı eklenir.",
+      "method": "Her grid satırı için tavsiye edilebilir/edilemez ve yanlış sınıflandırma sayılarının doğru girildiği varsayılır (satır aritmetiği tutarlı). B25'te öğretmen adayı, tablodaki en düşük yanlış sınıflandırma sayısına sahip eşiği tercih etmelidir. Aynı minimum hata sayısına sahip birden fazla eşik varsa herhangi biri kabul edilir; öğretmen adayı yalnızca birini yazdıysa tie_at_minimum bayrağı eklenir.",
       "tie_rule": "When two or more trials share the same minimum error count, any tied threshold is acceptable. Flag review when only one is named while tied alternatives exist.",
       "deterministic": true
     }
@@ -65,7 +65,7 @@
     "dataset_reference": "data/prodabi_food_cards.csv",
     "no_fixed_thresholds": true,
     "example_answers_illustrative": true,
-    "authority": "ws5_validation.py — expected_row_counts() recomputes doğru/hata/MCR from the student's parsed threshold"
+    "authority": "ws5_validation.py — expected_row_counts() recomputes doğru/hata/MCR from the pre-service teacher's parsed threshold"
   },
   "row_scoring": {
     "check": "row_consistency",

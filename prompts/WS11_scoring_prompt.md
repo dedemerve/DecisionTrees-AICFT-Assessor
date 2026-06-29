@@ -132,3 +132,13 @@ Tests **procedural workflow**, not vocabulary recall.
 - Missing Q10/Q11/Q12 sub-key → `score: null`, `review: true`, `evidence_present: false`.
 - Illegible Likert → ignore (not scored).
 - Missing demographic blank → store `(bos)`; do not flag for scoring review.
+
+---
+
+## Insufficient evidence (zero hallucination)
+
+If the extracted response is blank, illegible (`(bos)`, `(okunamiyor)`, `(missing)`), or clearly unrelated to the item:
+
+- Do **not** invent or guess a score from plausibility.
+- Assign score **0**, set `"review": true`, and write the rationale as **yetersiz kanıt — [specific reason]**.
+- This matches the portfolio layer: when evidence is missing, mark insufficient — do not infer competence.

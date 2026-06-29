@@ -19,7 +19,7 @@ Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 5** (thr
 
 ## Construct
 
-Students build decision trees from **11 fixed food data cards** (green clip = tavsiye edilebilir, red = tavsiye edilemez). For each threshold trial they record:
+Pre-service teachers build decision trees from **11 fixed food data cards** (green clip = tavsiye edilebilir, red = tavsiye edilemez). For each threshold trial they record:
 
 1. Threshold expression: **variable + operator + value** (e.g. `şeker ≤ 10`, `yağ ≤ 8`, `enerji > 180`)
 2. Correct classification count
@@ -86,7 +86,7 @@ Same rules if filled; not required for full worksheet credit.
 
 ## B25 — final choice (minimum misclassification)
 
-**Method:** For each grid trial, assume per-row counts and MCR are **arithmetically valid** (row partial or full). The student should **prefer the threshold with the lowest error count** among those trials.
+**Method:** For each grid trial, assume per-row counts and MCR are **arithmetically valid** (row partial or full). The pre-service teacher should **prefer the threshold with the lowest error count** among those trials.
 
 | Credit | Rule |
 |--------|------|
@@ -94,7 +94,7 @@ Same rules if filled; not required for full worksheet credit.
 | **Partial (0.5)** | Threshold is in the grid but **not** among minimum-error trials |
 | **Zero** | Blank, or threshold not found in any grid row |
 | **Tie** | Two+ trials share minimum errors → **any** tied choice is full credit |
-| **Tie flag** | Student names only one tied option → `review: true`, `tie_note` lists alternatives (no score penalty) |
+| **Tie flag** | Pre-service teacher names only one tied option → `review: true`, `tie_note` lists alternatives (no score penalty) |
 
 Python authority: `validate_ws5_b25()` → `deterministic_checks.WS5_B25`.
 
@@ -107,3 +107,15 @@ Optional semantic check (LLM): brief justification with error/MCR numbers; not r
 - Row partial with `review_reason: counts_inconsistent_with_food_cards` → counts wrong but notation/arithmetic OK.
 - B25 `tie_at_minimum` with `other_tied_thresholds` → note for reviewer; score unchanged if chosen row is tied for minimum.
 - B25 threshold not in grid → zero + review.
+
+---
+
+## Insufficient evidence (zero hallucination)
+
+If the extracted response is blank, illegible (`(bos)`, `(okunamiyor)`, `(missing)`), or clearly unrelated to the item:
+
+- Do **not** invent or guess a score from plausibility.
+- Assign score **0**, set `"review": true`, and write the rationale as **yetersiz kanıt — [specific reason]**.
+- This matches the portfolio layer: when evidence is missing, mark insufficient — do not infer competence.
+
+**Note:** This does not override B25 “assume per-row counts valid” when row data is present and arithmetically consistent.

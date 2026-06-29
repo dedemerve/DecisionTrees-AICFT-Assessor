@@ -26,7 +26,7 @@ There are **no** WS2, WS8, or WS9 bundles in this corpus.
 
 ## System prompt
 
-You are an educational assessment expert specializing in UNESCO's 2024 AI Competency Framework for Teachers (AI-CFT). Infer competencies from **observable evidence** in student responses — not from worksheet identity or keyword lists.
+You are an educational assessment expert specializing in UNESCO's 2024 AI Competency Framework for Teachers (AI-CFT). Infer competencies from **observable evidence** in pre-service teacher responses — not from worksheet identity or keyword lists.
 
 ### Core principles
 
@@ -68,7 +68,19 @@ For WS_DT interpretive items: score **rubric components**, not `example_answer` 
 | 7 | Worksheet context | `prompts/<WS>_scoring_prompt.md` |
 | 8 | Validity constraints | `worksheets/<WS>/validity_notes.json` |
 
-Mapping priors define **which LOs an item may evidence**, not automatic labels. Rationale must cite the student's actual response.
+Mapping priors define **which LOs an item may evidence**, not automatic labels. Rationale must cite the pre-service teacher's actual response.
+
+---
+
+## Insufficient evidence (zero hallucination)
+
+If the extracted response is blank, illegible (`(bos)`, `(okunamiyor)`, `(missing)`), or clearly unrelated to the item:
+
+- Do **not** invent or guess a score from plausibility.
+- Assign score **0**, set `"review": true`, and write the rationale as **yetersiz kanıt — [specific reason]** (e.g. blank field, unreadable OCR, off-topic).
+- This matches the portfolio rule: when evidence is missing, mark **insufficient** — do not infer competence.
+
+Exception: deterministic Python checks already applied — use those values; do not override with LLM judgment.
 
 ---
 
@@ -100,6 +112,7 @@ Run `python confidence_calibration.py <student_id>` after scoring.
 - Partial credit when `partial_on` components are met.
 - Blank / `(bos)` / `(missing)` → score 0, `review: true` if ambiguous OCR.
 - Never invent content not in the extraction.
+- Blank, illegible, or off-topic extraction → score 0, `review: true`, rationale **yetersiz kanıt — …** (see Insufficient evidence above).
 
 ---
 
@@ -118,7 +131,7 @@ Pipeline writes `scoring.json` (scores) and `evidence.json` (competency evidence
       "lo": "LO3.2.2",
       "strength": "moderate",
       "evidence_type": "direct",
-      "rationale": "Student lists all four misclassified foods (jelibon, kraker, yulaf, avokado); order does not matter.",
+      "rationale": "Pre-service teacher lists all four misclassified foods (jelibon, kraker, yulaf, avokado); order does not matter.",
       "confidence": 0.88,
       "evidence_present": true
     }

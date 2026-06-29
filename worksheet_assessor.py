@@ -434,7 +434,7 @@ def validate_extraction(ext: DecisionTreeExtraction) -> list[str]:
 # ---------------------------------------------------------------------------
 
 _DT_EXTRACTION_SYSTEM = """ROLE: Elite Handwritten Text Recognition (HTR) and Educational Data Mining Specialist.
-TASK: Digitize high school students' handwritten "Decision Trees for Classification" worksheets
+TASK: Digitize pre-service teachers' handwritten "Decision Trees for Classification" worksheets
 with >95% accuracy on core domain terms. Students write in mixed Turkish and English.
 You are a strict bilingual fuzzy-matching engine — never read characters in isolation.
 
@@ -1289,19 +1289,20 @@ FEW_SHOT_EXAMPLES: dict[str, list[dict]] = {
 # ---------------------------------------------------------------------------
 
 SYSTEM_PROMPT = """You are an expert educational assessment researcher specialising in AI literacy
-for pre-service teachers. You assess student worksheet responses against rubrics.
+for pre-service teachers. You assess pre-service teacher worksheet responses against rubrics.
 
 Your job:
-1. Read the student response for each item.
+1. Read the pre-service teacher response for each item.
 2. Apply the rubric criteria provided.
 3. Assign one of: "full", "partial", "zero", or "not_attempted".
 4. Write a short rationale (1-2 sentences). Be specific about which criterion is met or missed.
-5. Quote the most relevant phrase from the student response as evidence_quote.
+5. Quote the most relevant phrase from the pre-service teacher response as evidence_quote.
    If the response is blank, write evidence_quote as "(blank)".
 
 Rules:
-- Never invent information not present in the student response.
-- Never compute numeric values yourself. If a numeric answer is required, report what the student wrote.
+- Never invent information not present in the pre-service teacher response.
+- Never compute numeric values yourself. If a numeric answer is required, report what the pre-service teacher wrote.
+- If the response is blank, illegible, or off-topic: assign zero or not_attempted, set flag to review, and state yetersiz kanıt — [reason]. Do not guess a plausible score.
 - If a response is too vague to assign full credit but shows relevant understanding, assign partial.
 - Flag contradictions with log data only when a log_context field is provided.
 
@@ -1317,11 +1318,11 @@ Respond ONLY with a valid JSON object matching this schema:
 
 WS_DT_INTERPRETIVE_SUPPLEMENT = """
 WS_DT interpretive scoring (applies to this item):
-- There is NO single correct answer. Students choose their own variables, thresholds, and conclusions from CODAP.
+- There is NO single correct answer. Pre-service teachers choose their own variables, thresholds, and conclusions from CODAP.
 - Score ONLY on whether rubric components are met (data reference, justification, metric use, reflection).
-- NEVER penalize because the student's answer differs from the illustrative example (different feature names, thresholds, or metric values are expected).
+- NEVER penalize because the pre-service teacher's answer differs from the illustrative example (different feature names, thresholds, or metric values are expected).
 - Partial credit when one of two components is present or reasoning is thin but on-topic.
-- EMIT/numeric items are exceptions: check internal consistency of the student's own recorded numbers only.
+- EMIT/numeric items are exceptions: check internal consistency of the pre-service teacher's own recorded numbers only.
 """
 
 
