@@ -33,6 +33,12 @@ class TestEvidenceUnitMetadata(unittest.TestCase):
             "model_evaluation",
         )
 
+    def test_ws4_b2_classification_type(self):
+        self.assertEqual(
+            infer_evidence_unit_type("WS4", "WS4_B2", "WS4_B2", {"type": "free_text"}),
+            "classification",
+        )
+
     def test_blank_completeness(self):
         self.assertEqual(infer_completeness("(bos)", "", "definition"), "blank")
 

@@ -517,9 +517,8 @@ def rubric_to_assessor_criteria(
     elif evaluation == "unordered_token_set" or check == "unordered_token_set":
         need = int(item.get("need_tokens") or len(item.get("token_groups") or []))
         partial_on = int(item.get("partial_on_tokens") or max(need - 1, 1))
-        full.append(
-            f"Lists at least {need} nutrient names from the table; order does not matter."
-        )
+        label = item.get("note") or f"Lists at least {need} required tokens; order does not matter."
+        full.append(label.split(".")[0] if "." in label else label)
         for group in item.get("token_groups") or []:
             if isinstance(group, dict):
                 label = group.get("id", "token")
@@ -572,6 +571,8 @@ def rubric_to_assessor_criteria(
                 "or reasoning is vague / not tied to the student's data"
             )
             zero.append("Blank, off-topic, or no substantive interpretation")
+            for hint in item.get("zero_credit_hints") or []:
+                zero.append(f"Reject: {hint}")
         else:
             partial.append("Thin or incomplete interpretation")
             zero.append("No relevant interpretation")
@@ -614,6 +615,8 @@ def rubric_to_assessor_criteria(
             full.append(f"  - {c.get('id', 'component')}: {c.get('idea', '')}")
         partial.append(f"Includes {partial_on} of {need} required ideas")
         zero.append("No required ideas present")
+        for hint in item.get("zero_credit_hints") or []:
+            zero.append(f"Reject: {hint}")
 
     elif check or item.get("answer") is not None:
         if item.get("check"):

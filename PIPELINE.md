@@ -24,6 +24,8 @@ students/Sample_Student/
 | Group | Worksheets | `validation.json` |
 |-------|------------|-------------------|
 | A — LLM scoring sufficient | WS1, WS3, WS4, WS10, WS11 | No |
+
+**WS4 (Group A):** B2 (`unordered_token_set`, four foods) and B5 (`numeric_range` 160–2223) are scored deterministically in Python; B1, B3, B4 are interpretive. After OCR, run `python scripts/build_evidence_units.py <student_id>` so `evidence_units.json` matches `extraction.json`.
 | B — deterministic checks | WS5, WS6, WS7 | Yes (technical only) |
 
 ### Stage artifacts
@@ -71,6 +73,7 @@ Worksheet-specific scorer context (edge cases, Section A/Q11 rules):
 
 | Prompt | Covers |
 |--------|--------|
+| `prompts/WS4_scoring_prompt.md` | B1 threshold line, B2 four foods, B3 improvement, B4 Pia/same fat, B5 energy range |
 | `prompts/WS11_scoring_prompt.md` | Q11 ordering → LO3.1.2 procedural workflow |
 | `prompts/WS_DT_scoring_prompt.md` | Section A Q1 baseline vs Q2–Q4 data interpretation |
 

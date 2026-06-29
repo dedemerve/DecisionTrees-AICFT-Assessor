@@ -93,7 +93,7 @@ COMPETENCY_DEFINITIONS: dict[str, dict[str, Any]] = {
         ),
         "primary_evidence": [
             "WS3 (threshold application)",
-            "WS4 (best threshold search and justification)",
+            "WS4 (threshold placement, misclassification ID, Pia equal-fat reasoning, energy threshold)",
             "WS6 (decision tree construction and representation)",
             "WS7 (decision rules → natural language)",
             "WS10 (threshold optimization)",
@@ -181,12 +181,26 @@ def ws3_mappings() -> dict[str, list[dict[str, Any]]]:
 
 def ws4_mappings() -> dict[str, list[dict[str, Any]]]:
     return {
-        f"WS4_B{i}": [comp(
+        "WS4_B1": [comp(
             "LO3.2.2", "strong", "direct", "Deepen",
-            "Searches, tests, or justifies threshold values — evaluates model behaviour "
-            "and selects parameters based on performance evidence.",
-        )]
-        for i in range(1, 6)
+            "Places an improved threshold between adjacent food-card values (avocado / french fries boundary).",
+        )],
+        "WS4_B2": [comp(
+            "LO3.2.2", "strong", "direct", "Deepen",
+            "Identifies all misclassified foods at the prior threshold — error-pattern recognition.",
+        )],
+        "WS4_B3": [comp(
+            "LO3.2.2", "moderate", "direct", "Deepen",
+            "Reflects that misclassification decreased after threshold improvement.",
+        )],
+        "WS4_B4": [comp(
+            "LO3.2.2", "strong", "direct", "Deepen",
+            "Evaluates Pia's claim that equal fat values (apple / raspberry jam) prevent a threshold split.",
+        )],
+        "WS4_B5": [comp(
+            "LO3.2.2", "strong", "direct", "Deepen",
+            "States a learned energy threshold from the food-card dataset (valid range 160–2223).",
+        )],
     }
 
 

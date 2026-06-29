@@ -91,10 +91,15 @@ RUBRIC_EVAL_TO_EU_TYPE: dict[str, str] = {
     "justification": "comparison",
     "criterion": "comparison",
     "comparison": "comparison",
+    "threshold_placement": "threshold",
+    "improvement_reasoning": "comparison",
+    "peer_evaluation": "model_evaluation",
     "true_false": "model_evaluation",
     "ordering_step": "tree_construction",
     "multiselect_subitem": "model_evaluation",
     "path_matching": "rule",
+    "unordered_token_set": "classification",
+    "numeric_range": "prediction",
 }
 
 RUBRIC_CHECK_TO_EU_TYPE: dict[str, str] = {
@@ -125,6 +130,7 @@ WS_ITEM_OVERRIDES: dict[str, str] = {
     "WS6_tree_structure": "drawing",
     "WS5_B25": "comparison",
     "WS4_B1": "threshold",
+    "WS4_B2": "classification",
     "WS4_B3": "comparison",
     "WS4_B4": "model_evaluation",
     "WS4_B5": "prediction",
