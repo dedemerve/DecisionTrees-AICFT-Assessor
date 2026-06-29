@@ -6,6 +6,7 @@
     "WS6_root_feature": {
       "evaluation": "feature_name",
       "example_answer": "şeker",
+      "example_note": "Illustrative only — any acceptable feature is valid.",
       "fields": [
         "WS6_B1"
       ]
@@ -14,47 +15,67 @@
       "check": "threshold_with_operator",
       "evaluation": "threshold",
       "example_answer": "≤ 10",
+      "example_note": "Illustrative only — any valid operator+value for B1 feature.",
+      "zero_credit_hints": [
+        "< 10 with hayır (> 10) instead of ≥ 10",
+        "≤ 10 with hayır (≥ 10) instead of > 10"
+      ],
       "fields": [
         "WS6_B2"
       ],
+      "partial_credit_rule": "value_present_but_complementary_mismatch_or_missing_operator",
+      "partial_score": 0.5,
       "deterministic": true
     },
     "WS6_root_labels": {
       "evaluation": "branch_labels",
       "example_answer": "B3: evet (≤ 10) | B4: hayır (> 10)",
+      "example_note": "Operators on B4 must complement B2, not copy a fixed answer.",
       "fields": [
         "WS6_B3",
         "WS6_B4"
-      ]
+      ],
+      "partial_score": 0.5
     },
     "WS6_inner_feature": {
       "evaluation": "feature_name",
       "example_answer": "yağ",
+      "example_note": "Illustrative only — must differ from B1.",
       "fields": [
         "WS6_B6"
-      ]
+      ],
+      "consistency_check": "must differ from WS6_B1"
     },
     "WS6_inner_threshold": {
       "check": "threshold_with_operator",
       "evaluation": "threshold",
       "example_answer": "≤ 5",
+      "example_note": "Illustrative only — any valid operator+value for B6 feature.",
+      "zero_credit_hints": [
+        "< 5 with hayır (> 5) instead of ≥ 5"
+      ],
       "fields": [
         "WS6_B7"
       ],
+      "partial_credit_rule": "value_present_but_complementary_mismatch_or_missing_operator",
+      "partial_score": 0.5,
       "deterministic": true
     },
     "WS6_inner_labels": {
       "evaluation": "branch_labels",
       "example_answer": "B8: evet (≤ 5) | B9: hayır (> 5)",
+      "example_note": "Operators on B9 must complement B7.",
       "fields": [
         "WS6_B8",
         "WS6_B9"
-      ]
+      ],
+      "partial_score": 0.5
     },
     "WS6_leaves": {
       "check": "leaf_consistency_with_tree_logic",
       "evaluation": "leaf_labels",
       "example_answer": "B10: Tavsiye edilir | B11: Tavsiye edilmez | B13: Tavsiye edilmez",
+      "example_note": "Required slots depend on tree shape; label text must be valid tavsiye edilir/edilemez forms.",
       "fields": [
         "WS6_B5",
         "WS6_B10",
@@ -62,12 +83,219 @@
         "WS6_B12",
         "WS6_B13"
       ],
+      "partial_credit_rule": "some_leaves_correct_some_missing",
+      "partial_score": 0.5,
       "deterministic": true
     },
     "WS6_tree_structure": {
       "check": "tree_validity",
-      "example_answer": "Root splits on şeker ≤ 10; left subtree splits on yağ ≤ 5; all leaves labeled.",
+      "example_answer": "Root şeker ≤ 10; left subtree yağ ≤ 5; all leaves labeled; MCR may be 0 or >0.",
+      "example_note": "Holistic check — many valid trees; not compared to a single reference tree.",
+      "partial_score": 0.5,
+      "mcr_note": "MCR=0 with two levels is not penalized; extra split beyond minimum is acceptable.",
       "deterministic": true
     }
-  }
+  },
+  "scoring_model": {
+    "type": "computed_from_student_tree",
+    "dataset_size": 11,
+    "dataset_reference": "data/prodabi_food_cards.csv",
+    "no_fixed_tree": true,
+    "example_answers_illustrative": true,
+    "authority": "ws6_validation.py — build_ws6_tree() + compute_tree_mcr() walk the student's tree over prodabi cards",
+    "mcr_policy": "MCR = errors/11 is diagnostic; MCR=0 with a valid two-level tree is not penalized"
+  },
+  "item_scoring": {
+    "feature_name": {
+      "credit_levels": {
+        "full": "Recognizable nutrient from acceptable_features.",
+        "zero": "Blank or unrecognized feature name.",
+        "not_attempted": "Blank."
+      }
+    },
+    "threshold_with_operator": {
+      "credit_levels": {
+        "full": "Parseable operator + value on B2/B7 consistent with paired feature; complementary op on B4/B9 when both present.",
+        "partial": "Value and feature present but operator missing, or hayır label op does not complement evet op.",
+        "zero": "Unparseable threshold.",
+        "not_attempted": "Blank threshold cell."
+      },
+      "partial_credit_rule": "value_present_but_complementary_mismatch_or_missing_operator"
+    },
+    "branch_labels": {
+      "credit_levels": {
+        "full": "Both evet and hayır branch labels present; hayır op complements evet/B2 (or B7).",
+        "partial": "Only one branch labeled, or complementary operator mismatch between evet and hayır.",
+        "zero": "Both blank.",
+        "not_attempted": "Both blank."
+      }
+    },
+    "leaf_labels": {
+      "credit_levels": {
+        "full": "All required leaf slots for tree shape labeled with tavsiye edilir/edilemez (or accepted aliases).",
+        "partial": "One required leaf missing or unparseable.",
+        "zero": "Two or more required leaves missing."
+      },
+      "partial_credit_rule": "some_leaves_correct_some_missing"
+    },
+    "tree_validity": {
+      "credit_levels": {
+        "full": "All four components: çift seviyeli (inner split), two different features, required leaves labeled, complementary operators classify all 11 cards.",
+        "partial": "At least 2 of 4 components met.",
+        "zero": "Fewer than 2 components met."
+      },
+      "components": [
+        "depth",
+        "features",
+        "leaves_labeled",
+        "operators"
+      ],
+      "need": 4,
+      "partial_on": 2,
+      "mcr_note": "MCR=0 with two levels is not penalized; extra depth beyond minimum is acceptable."
+    }
+  },
+  "field_map": [
+    {
+      "field": "WS6_B1",
+      "role": "root_feature",
+      "scoring_item": "WS6_root_feature"
+    },
+    {
+      "field": "WS6_B2",
+      "role": "root_threshold",
+      "scoring_item": "WS6_root_threshold"
+    },
+    {
+      "field": "WS6_B3",
+      "role": "root_evet_label",
+      "scoring_item": "WS6_root_labels"
+    },
+    {
+      "field": "WS6_B4",
+      "role": "root_hayir_label",
+      "scoring_item": "WS6_root_labels"
+    },
+    {
+      "field": "WS6_B5",
+      "role": "leaf_optional",
+      "scoring_item": "WS6_leaves",
+      "note": "Used when no inner split"
+    },
+    {
+      "field": "WS6_B6",
+      "role": "inner_feature",
+      "scoring_item": "WS6_inner_feature"
+    },
+    {
+      "field": "WS6_B7",
+      "role": "inner_threshold",
+      "scoring_item": "WS6_inner_threshold"
+    },
+    {
+      "field": "WS6_B8",
+      "role": "inner_evet_label",
+      "scoring_item": "WS6_inner_labels"
+    },
+    {
+      "field": "WS6_B9",
+      "role": "inner_hayir_label",
+      "scoring_item": "WS6_inner_labels"
+    },
+    {
+      "field": "WS6_B10",
+      "role": "inner_evet_leaf",
+      "scoring_item": "WS6_leaves"
+    },
+    {
+      "field": "WS6_B11",
+      "role": "inner_hayir_leaf",
+      "scoring_item": "WS6_leaves"
+    },
+    {
+      "field": "WS6_B12",
+      "role": "leaf_optional",
+      "scoring_item": "WS6_leaves"
+    },
+    {
+      "field": "WS6_B13",
+      "role": "root_hayir_leaf",
+      "scoring_item": "WS6_leaves"
+    }
+  ],
+  "fields": {
+    "WS6_B1": {
+      "example_response": "şeker",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    },
+    "WS6_B2": {
+      "example_response": "≤ 10",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    },
+    "WS6_B3": {
+      "example_response": "evet (≤ 10)",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    },
+    "WS6_B4": {
+      "example_response": "hayır (> 10)",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    },
+    "WS6_B5": {
+      "example_response": "Tavsiye edilir",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    },
+    "WS6_B6": {
+      "example_response": "yağ",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    },
+    "WS6_B7": {
+      "example_response": "≤ 5",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    },
+    "WS6_B8": {
+      "example_response": "evet (≤ 5)",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    },
+    "WS6_B9": {
+      "example_response": "hayır (> 5)",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    },
+    "WS6_B10": {
+      "example_response": "Tavsiye edilir",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    },
+    "WS6_B11": {
+      "example_response": "Tavsiye edilmez",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    },
+    "WS6_B13": {
+      "example_response": "Tavsiye edilmez",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws6_validation (student tree over data/prodabi_food_cards.csv)"
+    }
+  },
+  "field_note": "Per-field reference for OCR/extraction alignment and Sample_Student fixtures. Interpretive fields carry example_response only."
 }

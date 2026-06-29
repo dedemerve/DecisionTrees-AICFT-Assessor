@@ -35,7 +35,10 @@ class TestWs10Calibration(unittest.TestCase):
         r = _extract_sample_student_ws10()
         self.assertEqual(r.status, "success", r.message)
         self.assertEqual(r.responses.get("WS10_B8"), "408")
-        self.assertEqual(r.responses.get("WS10_B5"), "408")
+        self.assertEqual(r.responses.get("WS10_B1"), "4")
+        self.assertEqual(r.responses.get("WS10_B6"), "1")
+        self.assertEqual(r.responses.get("WS10_B5"), "2")
+        self.assertNotEqual(r.responses.get("WS10_B5"), "408")
         self.assertEqual(len(r.rows), 7)
 
 

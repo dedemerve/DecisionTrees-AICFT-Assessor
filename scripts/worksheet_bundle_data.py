@@ -212,20 +212,16 @@ BEHAVIOUR_MAP: dict[str, dict[str, dict[str, Any]]] = {
                         extraction_fields=["WS7_B3"]),
     },
     "WS10": {
-        "WS10_B1": _item([_opp("OB_PRO_007", rationale="Computes midpoint threshold from sorted values.")]),
-        "WS10_B2": _item([_opp("OB_STR_003", rationale="Counts midpoint candidates in threshold grid.")]),
-        "WS10_B3": _item([_opp("OB_PRO_007", rationale="Midpoint computation in energy dataset.")]),
-        "WS10_B4": _item([_opp("OB_PRO_008", rationale="Misclassification count at a threshold row.")]),
-        "WS10_B5": _item([_opp("OB_PRO_007", rationale="Selects minimum-MCR optimal threshold."),
+        "WS10_B1": _item([_opp("OB_PRO_008", rationale="Misclassification count at printed threshold row 1 (28).")]),
+        "WS10_B2": _item([_opp("OB_PRO_008", rationale="Misclassification count at row 2 (69).")]),
+        "WS10_B3": _item([_opp("OB_PRO_008", rationale="Misclassification count at row 3 (219).")]),
+        "WS10_B4": _item([_opp("OB_PRO_008", rationale="Misclassification count at row 4 (346).")]),
+        "WS10_B5": _item([_opp("OB_PRO_008", rationale="Misclassification count at row 5 (359).")]),
+        "WS10_B6": _item([_opp("OB_PRO_008", rationale="Misclassification count at row 6 (408) — minimum.")]),
+        "WS10_B7": _item([_opp("OB_PRO_008", rationale="Misclassification count at row 7 (489).")]),
+        "WS10_B8": _item([_opp("OB_PRO_007", rationale="Selects optimum threshold with minimum misclassifications."),
                           _opp("OB_STR_003", role="secondary", evidence_mode="direct",
-                               rationale="Optimal threshold from error analysis.")]),
-        "WS10_B6": _item([_opp("OB_PRO_008", rationale="Open numeric row — count/MCR consistency."),
-                          _opp("OB_STR_003", role="secondary", evidence_mode="indirect",
-                               rationale="Row arithmetic coherence.")]),
-        "WS10_B7": _item([_opp("OB_PRO_008", rationale="Open numeric answer in threshold experiment.")]),
-        "WS10_B8": _item([_opp("OB_PRO_007", rationale="Confirms optimal threshold selection."),
-                          _opp("OB_STR_001", role="secondary", evidence_mode="direct",
-                               rationale="Justification tied to minimum MCR.")]),
+                               rationale="Systematic comparison across grid rows.")]),
     },
     "WS11": {
         "WS11_B8a": _item([_opp("OB_PRO_001", rationale="Classifies instance using peer tree."),
@@ -295,60 +291,69 @@ VALIDITY_NOTES: dict[str, dict[str, Any]] = {
     },
     "WS5": {
         "construct_threats": [
-            "Grid filling is procedural; partial credit on operator errors may mask conceptual gaps.",
+            "Grid filling is procedural; students may copy arithmetic patterns without recounting cards.",
         ],
         "leakage_risks": [],
         "evidence_limitations": [
             "Row-level scoring aggregates four cells; cell-level evidence is not separately scored.",
-            "Dataset size N=10 is fixed in rubric metadata.",
+            "Reference counts computed dynamically from data/prodabi_food_cards.csv (N=11); no fixed threshold answer key.",
+            "Partial row credit (0.5) when notation and arithmetic are valid but classification counts mismatch the dataset.",
         ],
-        "cross_worksheet_dependencies": [],
+        "cross_worksheet_dependencies": [
+            {"depends_on": "WS4", "reason": "Students apply threshold search insights on the same food-card set."},
+        ],
     },
     "WS6": {
         "construct_threats": [
             "Drawn tree quality depends on OCR field capture fidelity.",
-            "Holistic tree_structure item may double-count leaf/threshold errors.",
+            "Holistic tree_structure may double-count threshold/leaf issues.",
+            "Students may use two levels even when MCR=0 — not a construct threat.",
         ],
         "leakage_risks": [],
         "evidence_limitations": [
-            "13 OCR fields may not capture full spatial tree layout.",
+            "13 OCR fields may not capture full spatial layout; vision crop optional.",
+            "MCR and path logic computed dynamically from student's tree over prodabi cards (N=11); no fixed tree answer key.",
+            "Partial credit on threshold/labels when complementary operator pairs mismatch.",
         ],
         "cross_worksheet_dependencies": [
-            {"depends_on": "WS7", "reason": "WS7 rules are graded for consistency with this tree."},
+            {"depends_on": "WS5", "reason": "Same 11 food cards; WS5 explores thresholds WS6 implements as tree."},
+            {"depends_on": "WS7", "reason": "WS7 rules graded for consistency with this tree."},
         ],
     },
     "WS7": {
         "construct_threats": [
-            "Part 1 path matching uses a fixed sample tree, not the student's WS6 tree.",
+            "Part 1 path matching uses a fixed enerji/protein sample tree, not the student's WS6 tree.",
         ],
         "leakage_risks": [],
         "evidence_limitations": [
             "B4–B7 marked not_applicable when tree has only three leaf paths.",
+            "Part 2 operators (< > ≤ ≥) must match WS6 branches exactly; validated in ws7_validation.py.",
         ],
         "cross_worksheet_dependencies": [
-            {"depends_on": "WS6", "reason": "B1–B3 rules must be consistent with student's WS6 tree."},
+            {"depends_on": "WS6", "reason": "B1–B3 rules must match WS6 path operators, thresholds, and leaf labels."},
         ],
     },
     "WS10": {
         "construct_threats": [
-            "Numeric table region may be blocked if OCR fails to capture grid.",
+            "Numeric table region may be blocked if OCR/HTR fails to capture grid.",
         ],
         "leakage_risks": [],
         "evidence_limitations": [
-            "B6/B7 are open numeric responses with consistency checks only.",
-            "Optimal threshold 408 is dataset-specific.",
+            "Fixed ProDaBi v4 dataset — answers are exact integers from data/ws10_energy_reference.json.",
+            "Printed thresholds are not scored; only misclassification counts (B1–B7) and optimum (B8).",
         ],
         "cross_worksheet_dependencies": [],
     },
     "WS11": {
         "construct_threats": [
-            "Reflection and Likert items are descriptive_only; must not infer competence.",
+            "Printed Q1–Q7 (survey + demographics) and Likert items are descriptive_only; must not infer competence.",
         ],
         "leakage_risks": [
-            "Demographic items (L12) must never enter behaviour or ILO inference.",
+            "Demographic items (B6–B7, L12) must never enter behaviour or ILO inference.",
         ],
         "evidence_limitations": [
             "Only cognitive scored items (B8a, B8b, B9, Q10, Q11, Q12) produce behaviour evidence.",
+            "Q1–Q5 (B1–B5) and Q6–Q7 (B6–B7) have no keyed correct answers — store verbatim only.",
         ],
         "cross_worksheet_dependencies": [],
         "descriptive_only_items": [
@@ -365,7 +370,7 @@ EXTRACTION_NOTES: dict[str, str] = {
     "WS4": "Five response fields (B1–B5): threshold line, four-food identification, improvement reflection, Pia evaluation, energy threshold.",
     "WS5": "Twenty-five table cells (B1–B25) plus six aggregate row keys.",
     "WS6": "Thirteen structured tree fields (WS6_B1–B13).",
-    "WS7": "Three path-match boxes (P1) plus up to three rule fields (B1–B3).",
-    "WS10": "Eight numeric/table fields; blocked if table region missing.",
-    "WS11": "Mixed reflection, cognitive, and descriptive fields; score only cognitive subset.",
+    "WS7": "Part 1: three path-letter boxes (P1_box1–3). Part 2: if-then rules B1–B3 vs WS6 tree.",
+    "WS10": "Seven table misclassification counts (B1–B7) + optimum threshold blank (B8).",
+    "WS11": "Printed Q1–Q7 (B1–B5 survey/Likert, B6–B7 demographics; no correct answer). B8a–B9 + Q10–Q12 cognitive (scored). L10–L12 Likert/descriptive only.",
 }

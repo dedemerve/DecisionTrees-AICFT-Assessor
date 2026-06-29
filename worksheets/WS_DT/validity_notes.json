@@ -3,12 +3,23 @@
   "curriculum_status": "deployed",
   "construct_threats": [
     "Open interpretive items have no single correct answer — scorer drift if treated as keyed responses.",
-    "EMIT numeric fields depend on each student's CODAP choices."
+    "EMIT numeric fields depend on each student's CODAP choices (variables, thresholds, trees)."
   ],
   "leakage_risks": [],
   "evidence_limitations": [
     "Interpretive sections require semantic scoring on rubric components, not example-answer matching.",
+    "EMIT items (B, C, D, F): full credit on internal arithmetic consistency only — no fixed TP/FP/TN/FN answer key.",
+    "Single-level trees (Sections B–C) and two-level tree (Section D) use same complementary operator rule as unplugged WS5/WS6.",
     "Train/test comparison (F) may need log corroboration when available."
   ],
-  "cross_worksheet_dependencies": []
+  "cross_worksheet_dependencies": [
+    {
+      "depends_on": "WS5",
+      "reason": "Unplugged threshold grid on 11 classroom cards — same operator pairing (≤↔>, <↔≥) as CODAP single-level trials."
+    },
+    {
+      "depends_on": "WS6",
+      "reason": "Unplugged çift seviyeli tree on same 11 cards — parallel construct to Section D two-level EMIT tree."
+    }
+  ]
 }

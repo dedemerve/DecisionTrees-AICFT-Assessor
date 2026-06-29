@@ -2,16 +2,17 @@
   "worksheet": "WS7",
   "curriculum_status": "deployed",
   "construct_threats": [
-    "Part 1 path matching uses a fixed sample tree, not the student's WS6 tree."
+    "Part 1 path matching uses a fixed enerji/protein sample tree, not the student's WS6 tree."
   ],
   "leakage_risks": [],
   "evidence_limitations": [
-    "B4–B7 marked not_applicable when tree has only three leaf paths."
+    "B4–B7 marked not_applicable when tree has only three leaf paths.",
+    "Part 2 operators (< > ≤ ≥) must match WS6 branches exactly; validated in ws7_validation.py."
   ],
   "cross_worksheet_dependencies": [
     {
       "depends_on": "WS6",
-      "reason": "B1–B3 rules must be consistent with student's WS6 tree."
+      "reason": "B1–B3 rules must match WS6 path operators, thresholds, and leaf labels."
     }
   ]
 }

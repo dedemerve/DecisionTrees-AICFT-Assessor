@@ -64,6 +64,7 @@ RUBRIC_DETERMINISTIC_CHECKS = frozenset({
     "unordered_token_set",
     "any_of_tokens",
     "numeric_range",
+    "b25_minimum_errors",
 })
 
 RUBRIC_DETERMINISTIC_EVALUATIONS = frozenset({
@@ -128,10 +129,15 @@ ITEM_IDS_WS3: list[str] = [f"WS3_B{i}" for i in range(1, 9)]
 ITEM_IDS_WS4: list[str] = [f"WS4_B{i}" for i in range(1, 6)]
 ITEM_IDS_WS5: list[str] = [f"WS5_B{i}" for i in range(1, 26)]
 ITEM_IDS_WS6: list[str] = [f"WS6_B{i}" for i in range(1, 14)]
-ITEM_IDS_WS7: list[str] = [f"WS7_B{i}" for i in range(1, 8)]
+ITEM_IDS_WS7: list[str] = (
+    [f"WS7_P1_box{i}" for i in range(1, 4)]
+    + [f"WS7_B{i}" for i in range(1, 8)]
+)
 ITEM_IDS_WS10: list[str] = [f"WS10_B{i}" for i in range(1, 9)]
 
-ITEM_IDS_WS11_REFLECTION: list[str] = [f"WS11_B{i}" for i in range(1, 8)]
+ITEM_IDS_WS11_SURVEY: list[str] = [f"WS11_B{i}" for i in range(1, 6)]
+ITEM_IDS_WS11_DEMOGRAPHIC: list[str] = [f"WS11_B{i}" for i in range(6, 8)]
+ITEM_IDS_WS11_FEEDBACK: list[str] = ITEM_IDS_WS11_SURVEY + ITEM_IDS_WS11_DEMOGRAPHIC
 ITEM_IDS_WS11_COGNITIVE: list[str] = (
     ["WS11_B8a", "WS11_B8b", "WS11_B9"]
     + [f"WS11_Q10_{i}" for i in range(1, 9)]
@@ -144,7 +150,7 @@ ITEM_IDS_WS11_DESCRIPTIVE: list[str] = (
     + [f"WS11_L12_{i}" for i in range(1, 6)]
 )
 ITEM_IDS_WS11: list[str] = (
-    ITEM_IDS_WS11_REFLECTION
+    ITEM_IDS_WS11_FEEDBACK
     + ITEM_IDS_WS11_COGNITIVE
     + ITEM_IDS_WS11_DESCRIPTIVE
 )
@@ -216,7 +222,11 @@ WS6_DRAW_PAGE_INDEX: int | None = None
 LAYOUT_ISOLATION_WORKSHEETS: frozenset[str] = frozenset({"WS5", "WS10", "WS6"})
 
 WORKSHEET_DESCRIPTIVE_ONLY: dict[str, list[str]] = {
-    "WS11": ITEM_IDS_WS11_REFLECTION + ITEM_IDS_WS11_DESCRIPTIVE,
+    "WS11": ITEM_IDS_WS11_FEEDBACK + ITEM_IDS_WS11_DESCRIPTIVE,
+}
+
+WORKSHEET_DEMOGRAPHIC_ONLY: dict[str, list[str]] = {
+    "WS11": ITEM_IDS_WS11_DEMOGRAPHIC,
 }
 
 # ---------------------------------------------------------------------------

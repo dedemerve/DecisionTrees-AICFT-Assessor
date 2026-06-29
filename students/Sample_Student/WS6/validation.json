@@ -5,9 +5,119 @@
   "parse_success": true,
   "ocr_quality": null,
   "formula_parsed": true,
-  "tree_detected": false,
+  "tree_detected": true,
   "missing_regions": [],
-  "deterministic_checks": {},
-  "blocked": true,
-  "blocked_reason": "Decision tree canvas not detected or vision pipeline failed."
+  "deterministic_checks": {
+    "WS6_root_feature": {
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
+      "feature": "sugar_g"
+    },
+    "WS6_root_threshold": {
+      "parsed": {
+        "operator": "<=",
+        "value": 10.0,
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
+      },
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS6_root_labels": {
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS6_inner_feature": {
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
+      "feature": "fat_g"
+    },
+    "WS6_inner_threshold": {
+      "parsed": {
+        "operator": "<=",
+        "value": 5.0,
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
+      },
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS6_inner_labels": {
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS6_leaves": {
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
+      "labeled_leaves": 3,
+      "required_leaves": 3,
+      "mcr": 0.2727,
+      "errors": 3,
+      "path_errors": 0,
+      "note": "MCR=0 with two-level tree is valid; extra depth is not penalized."
+    },
+    "WS6_tree_structure": {
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
+      "components": {
+        "depth": true,
+        "features": true,
+        "leaves_labeled": true,
+        "operators": true
+      },
+      "components_met": 4,
+      "mcr": 0.2727,
+      "errors": 3,
+      "two_level_ok": true,
+      "mcr_zero_valid": false,
+      "note": "Complementary operator pairs required: <↔≥, >↔≤, ≤↔>, ≥↔<. MCR=0 with two levels is acceptable."
+    },
+    "mcr": {
+      "dataset_size": 11,
+      "correct": 8,
+      "errors": 3,
+      "mcr": 0.2727,
+      "unclassified": 0
+    },
+    "tree_model": {
+      "has_inner": true,
+      "root": {
+        "raw": "≤ 10",
+        "feature": "sugar_g",
+        "feature_name": "şeker",
+        "operator": "<=",
+        "value": 10.0,
+        "operator_inclusive": true,
+        "operator_strict": false
+      },
+      "inner": {
+        "raw": "≤ 5",
+        "feature": "fat_g",
+        "feature_name": "yağ",
+        "operator": "<=",
+        "value": 5.0,
+        "operator_inclusive": true,
+        "operator_strict": false
+      }
+    }
+  },
+  "blocked": false,
+  "blocked_reason": null,
+  "mcr": {
+    "dataset_size": 11,
+    "correct": 8,
+    "errors": 3,
+    "mcr": 0.2727,
+    "unclassified": 0
+  }
 }

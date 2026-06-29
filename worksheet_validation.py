@@ -9,17 +9,34 @@ from __future__ import annotations
 
 from typing import Any
 
+from student_bundle import extraction_responses
+from ws_extraction_normalize import normalize_scoring_responses, normalization_diff
+
+
+def _responses_for_validation(worksheet: str, extraction: dict[str, Any]) -> tuple[dict[str, str], list[dict]]:
+    raw = extraction_responses(extraction)
+    if worksheet not in {"WS5", "WS6"}:
+        return raw, []
+    normalized = normalize_scoring_responses(worksheet, raw)
+    return normalized, normalization_diff(worksheet, raw)
+
+
+def _validation_failure(base: dict[str, Any], exc: Exception) -> dict[str, Any]:
+    base["parse_success"] = False
+    base["blocked"] = True
+    base["blocked_reason"] = str(exc)
+    base["validation_error"] = str(exc)
+    return base
+
 
 def build_technical_validation(
     worksheet: str,
     extraction: dict[str, Any],
-    legacy_validation: dict[str, Any] | None = None,
+    *,
+    student_id: str | None = None,
 ) -> dict[str, Any]:
     """Build pipeline-health validation payload for deterministic worksheets."""
-    legacy = legacy_validation or {}
-    responses = extraction.get("responses") or {}
-    if not responses and extraction.get("gate_1_extraction"):
-        responses = extraction["gate_1_extraction"].get("items", {})
+    responses, ocr_fixes = _responses_for_validation(worksheet, extraction)
 
     base: dict[str, Any] = {
         "parse_success": True,
@@ -31,34 +48,60 @@ def build_technical_validation(
         "blocked": False,
         "blocked_reason": None,
     }
+    if ocr_fixes:
+        base["ocr_normalization"] = ocr_fixes
 
     if worksheet == "WS5":
-        numeric = legacy.get("numeric_checks", {})
-        base["deterministic_checks"] = numeric
-        base["parse_success"] = bool(numeric)
-        failures = [k for k, v in numeric.items() if isinstance(v, dict) and not v.get("ok", True)]
-        if failures:
-            base["blocked"] = True
-            base["blocked_reason"] = f"Numeric row checks failed: {failures[:3]}"
+        from pipeline_schema import load_rubric
+        from ws5_validation import validate_ws5_extraction
+
+        try:
+            rubric = load_rubric("WS5")
+            ws5 = validate_ws5_extraction(responses, rubric)
+            base["deterministic_checks"] = ws5["deterministic_checks"]
+            base["parse_success"] = ws5["parse_success"]
+            base["blocked"] = ws5["blocked"]
+            base["blocked_reason"] = ws5["blocked_reason"]
+        except Exception as exc:
+            return _validation_failure(base, exc)
 
     elif worksheet == "WS6":
-        tree = extraction.get("tree_structure") or extraction.get("full_tree")
-        layout = extraction.get("layout_roi")
-        base["tree_detected"] = bool(tree or layout)
-        if isinstance(tree, dict) and tree.get("error"):
-            base["tree_detected"] = False
-            base["parse_success"] = False
-        if not base["tree_detected"]:
-            base["blocked"] = True
-            base["blocked_reason"] = "Decision tree canvas not detected or vision pipeline failed."
+        from pipeline_schema import load_rubric
+        from ws6_validation import validate_ws6_extraction
+
+        try:
+            rubric = load_rubric("WS6")
+            ws6 = validate_ws6_extraction(responses, rubric)
+            base["deterministic_checks"] = ws6["deterministic_checks"]
+            base["parse_success"] = ws6["parse_success"]
+            base["tree_detected"] = ws6["tree_detected"]
+            base["blocked"] = ws6["blocked"]
+            base["blocked_reason"] = ws6["blocked_reason"]
+            if ws6.get("mcr"):
+                base["mcr"] = ws6["mcr"]
+        except Exception as exc:
+            return _validation_failure(base, exc)
 
     elif worksheet == "WS7":
-        path_checks = legacy.get("path_checks") or legacy.get("numeric_checks") or {}
-        base["deterministic_checks"] = path_checks
-        base["parse_success"] = legacy.get("path_matching_ok", True) is not False
-        if legacy.get("blocked"):
-            base["blocked"] = True
-            base["blocked_reason"] = legacy.get("blocked_reason", "Path matching validation failed.")
+        from pipeline_schema import load_rubric
+        from student_bundle import load_extraction_responses
+        from ws7_validation import validate_ws7_extraction
+
+        try:
+            rubric = load_rubric("WS7")
+            sid = student_id or extraction.get("student_id")
+            ws6_responses = load_extraction_responses(sid, "WS6") if sid else {}
+
+            ws7 = validate_ws7_extraction(responses, rubric, ws6_responses=ws6_responses or None)
+            base["deterministic_checks"] = ws7["deterministic_checks"]
+            base["parse_success"] = ws7["parse_success"]
+            base["blocked"] = ws7["blocked"]
+            base["blocked_reason"] = ws7["blocked_reason"]
+            if ws7.get("ws6_path_specs"):
+                base["ws6_path_specs"] = ws7["ws6_path_specs"]
+            base["sample_tree_reference"] = ws7.get("sample_tree_reference")
+        except Exception as exc:
+            return _validation_failure(base, exc)
 
     return base
 

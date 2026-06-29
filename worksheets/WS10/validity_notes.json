@@ -2,12 +2,12 @@
   "worksheet": "WS10",
   "curriculum_status": "deployed",
   "construct_threats": [
-    "Numeric table region may be blocked if OCR fails to capture grid."
+    "Numeric table region may be blocked if OCR/HTR fails to capture grid."
   ],
   "leakage_risks": [],
   "evidence_limitations": [
-    "B6/B7 are open numeric responses with consistency checks only.",
-    "Optimal threshold 408 is dataset-specific."
+    "Fixed ProDaBi v4 dataset — answers are exact integers from data/ws10_energy_reference.json.",
+    "Printed thresholds are not scored; only misclassification counts (B1–B7) and optimum (B8)."
   ],
   "cross_worksheet_dependencies": []
 }

@@ -1,169 +1,254 @@
 {
   "worksheet": "WS6",
-  "note": "Student draws a 2-level decision tree. OCR captures 13 fields. Root node: feature (B1) and threshold (B2) with branch labels (B3=evet, B4=hayır). Left subtree inner node: feature (B6) and threshold (B7) with branch labels (B8=evet, B9=hayır) and leaves (B10, B11). Right subtree leaf: B13. B5 and B12 are additional leaves that may appear depending on tree shape. Partial 0.5 on any threshold item if variable is correct but operator is wrong or missing. tree_structure grades the overall validity holistically.",
+  "note": "Two-level decision tree on the same 11 ProDaBi food cards as WS5 (data/prodabi_food_cards.csv, N=11). OCR captures 13 fields (WS6_B1–B13). The dataset and each card's tavsiye edilebilir/edilemez label are fixed; the student's features, thresholds, and tree shape are free within rubric constraints. Full credit requires valid notation, complementary operator pairs on both splits (≤↔>, <↔≥, ≥↔<, >↔≤), çift seviyeli structure (root + inner split on evet branch), two different features, and all required leaves labeled. MCR is computed over the student's tree but need not be minimal or >0. example_answer values are illustrative Sample_Student fixtures, not required answers.",
+  "scoring_model": {
+    "type": "computed_from_student_tree",
+    "dataset_size": 11,
+    "dataset_reference": "data/prodabi_food_cards.csv",
+    "no_fixed_tree": true,
+    "example_answers_illustrative": true,
+    "authority": "ws6_validation.py — build_ws6_tree() + compute_tree_mcr() walk the student's tree over prodabi cards",
+    "mcr_policy": "MCR = errors/11 is diagnostic; MCR=0 with a valid two-level tree is not penalized"
+  },
+  "dataset_size": 11,
+  "dataset_reference": "data/prodabi_food_cards.csv",
+  "acceptable_features": [
+    {"aliases": ["enerji", "energy", "kcal"], "field": "energy_kcal"},
+    {"aliases": ["yağ", "yag", "fat"], "field": "fat_g"},
+    {"aliases": ["doymuş yağ", "doymus yag", "saturated fat"], "field": "saturated_fat_g"},
+    {"aliases": ["karbonhidrat", "carbohydrates", "carbs"], "field": "carbohydrates_g"},
+    {"aliases": ["şeker", "seker", "sugar"], "field": "sugar_g"},
+    {"aliases": ["protein"], "field": "protein_g"},
+    {"aliases": ["tuz", "salt"], "field": "salt_g"}
+  ],
+  "threshold_notation": {
+    "required_format": "B2/B7: operatör + sayı with feature from B1/B6 (ör. ≤ 10, < 5); or full özellik + operatör + sayı",
+    "accepted_operators": ["≤", ">=", "<", ">", "<=", ">="],
+    "ocr_normalization": "Unicode ≤≥ and comma decimals normalized before parse"
+  },
+  "leaf_labels": {
+    "recommended": ["tavsiye edilir", "tavsiye edilebilir", "önerilir", "önerilebilir", "recommended"],
+    "not_recommended": ["tavsiye edilmez", "tavsiye edilemez", "önerilmez", "not recommended"]
+  },
+  "operator_rules": {
+    "required": "Complementary pairs on each split: evet threshold op (B2/B7) must pair with hayır label op (B4/B9): ≤↔>, <↔≥, ≥↔<, >↔≤.",
+    "invalid": "Mismatched pair (e.g. B2: < 10 with B4: hayır (> 10) instead of ≥ 10) — partial on threshold/labels; tree_structure.operators false if cards unclassified.",
+    "valid_examples": ["B2: ≤ 10 + B4: hayır (> 10)", "B2: < 10 + B4: hayır (≥ 10)", "B7: ≤ 5 + B9: hayır (> 5)"],
+    "invalid_examples": ["B2: < 10 + B4: hayır (> 10)", "B2: ≤ 10 + B4: hayır (≥ 10)"]
+  },
+  "field_map": [
+    {"field": "WS6_B1", "role": "root_feature", "scoring_item": "WS6_root_feature"},
+    {"field": "WS6_B2", "role": "root_threshold", "scoring_item": "WS6_root_threshold"},
+    {"field": "WS6_B3", "role": "root_evet_label", "scoring_item": "WS6_root_labels"},
+    {"field": "WS6_B4", "role": "root_hayir_label", "scoring_item": "WS6_root_labels"},
+    {"field": "WS6_B5", "role": "leaf_optional", "scoring_item": "WS6_leaves", "note": "Used when no inner split"},
+    {"field": "WS6_B6", "role": "inner_feature", "scoring_item": "WS6_inner_feature"},
+    {"field": "WS6_B7", "role": "inner_threshold", "scoring_item": "WS6_inner_threshold"},
+    {"field": "WS6_B8", "role": "inner_evet_label", "scoring_item": "WS6_inner_labels"},
+    {"field": "WS6_B9", "role": "inner_hayir_label", "scoring_item": "WS6_inner_labels"},
+    {"field": "WS6_B10", "role": "inner_evet_leaf", "scoring_item": "WS6_leaves"},
+    {"field": "WS6_B11", "role": "inner_hayir_leaf", "scoring_item": "WS6_leaves"},
+    {"field": "WS6_B12", "role": "leaf_optional", "scoring_item": "WS6_leaves"},
+    {"field": "WS6_B13", "role": "root_hayir_leaf", "scoring_item": "WS6_leaves"}
+  ],
+  "item_scoring": {
+    "feature_name": {
+      "credit_levels": {
+        "full": "Recognizable nutrient from acceptable_features.",
+        "zero": "Blank or unrecognized feature name.",
+        "not_attempted": "Blank."
+      }
+    },
+    "threshold_with_operator": {
+      "credit_levels": {
+        "full": "Parseable operator + value on B2/B7 consistent with paired feature; complementary op on B4/B9 when both present.",
+        "partial": "Value and feature present but operator missing, or hayır label op does not complement evet op.",
+        "zero": "Unparseable threshold.",
+        "not_attempted": "Blank threshold cell."
+      },
+      "partial_credit_rule": "value_present_but_complementary_mismatch_or_missing_operator"
+    },
+    "branch_labels": {
+      "credit_levels": {
+        "full": "Both evet and hayır branch labels present; hayır op complements evet/B2 (or B7).",
+        "partial": "Only one branch labeled, or complementary operator mismatch between evet and hayır.",
+        "zero": "Both blank.",
+        "not_attempted": "Both blank."
+      }
+    },
+    "leaf_labels": {
+      "credit_levels": {
+        "full": "All required leaf slots for tree shape labeled with tavsiye edilir/edilemez (or accepted aliases).",
+        "partial": "One required leaf missing or unparseable.",
+        "zero": "Two or more required leaves missing."
+      },
+      "partial_credit_rule": "some_leaves_correct_some_missing"
+    },
+    "tree_validity": {
+      "credit_levels": {
+        "full": "All four components: çift seviyeli (inner split), two different features, required leaves labeled, complementary operators classify all 11 cards.",
+        "partial": "At least 2 of 4 components met.",
+        "zero": "Fewer than 2 components met."
+      },
+      "components": ["depth", "features", "leaves_labeled", "operators"],
+      "need": 4,
+      "partial_on": 2,
+      "mcr_note": "MCR=0 with two levels is not penalized; extra depth beyond minimum is acceptable."
+    }
+  },
   "items": {
     "WS6_root_feature": {
       "max_score": 1,
-      "fields": [
-        "WS6_B1"
-      ],
+      "fields": ["WS6_B1"],
       "evaluation": "feature_name",
       "components": [
         {
           "id": "feature",
-          "idea": "valid food feature from dataset (şeker, yağ, enerji, protein)",
+          "idea": "valid food feature from dataset (şeker, yağ, enerji, protein, karbonhidrat, tuz, …)",
           "required": true
         }
       ],
       "need": 1,
-      "note": "Any valid food feature name earns full credit. Consistency with threshold and leaves checked in tree_structure.",
-      "example_answer": "şeker"
+      "example_answer": "şeker",
+      "example_note": "Illustrative only — any acceptable feature is valid."
     },
     "WS6_root_threshold": {
       "max_score": 1,
-      "fields": [
-        "WS6_B2"
-      ],
+      "fields": ["WS6_B2"],
       "evaluation": "threshold",
       "check": "threshold_with_operator",
       "components": [
         {
           "id": "operator",
-          "idea": "comparison operator present (≤, <=, <, ≥, >=, >)",
+          "idea": "threshold operator on evet branch (B2); must pair with complementary op on B4 hayır label",
           "required": true
         },
         {
           "id": "value",
-          "idea": "numeric threshold value consistent with root feature",
+          "idea": "numeric threshold value consistent with root feature (B1)",
           "required": true
         }
       ],
       "need": 2,
       "partial_on": 1,
-      "partial_credit_rule": "variable_or_value_present_but_operator_missing",
+      "partial_credit_rule": "value_present_but_complementary_mismatch_or_missing_operator",
       "partial_score": 0.5,
-      "example_answer": "≤ 10"
+      "zero_credit_hints": ["< 10 with hayır (> 10) instead of ≥ 10", "≤ 10 with hayır (≥ 10) instead of > 10"],
+      "example_answer": "≤ 10",
+      "example_note": "Illustrative only — any valid operator+value for B1 feature."
     },
     "WS6_root_labels": {
       "max_score": 1,
-      "fields": [
-        "WS6_B3",
-        "WS6_B4"
-      ],
+      "fields": ["WS6_B3", "WS6_B4"],
       "evaluation": "branch_labels",
       "components": [
         {
           "id": "yes_branch",
-          "idea": "evet/yes/true branch correctly labeled (evet, yes, true, doğru, pozitif)",
+          "idea": "evet branch labeled with operator consistent with B2, e.g. evet (≤ 10) or evet (< 10)",
           "required": true
         },
         {
           "id": "no_branch",
-          "idea": "hayır/no/false branch correctly labeled (hayır, no, false, yanlış, negatif)",
+          "idea": "hayır branch labeled with complementary operator to B2: ≤↔>, <↔≥, e.g. hayır (> 10) or hayır (≥ 10)",
           "required": true
         }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "B3: evet (≤ 10) | B4: hayır (> 10)"
+      "partial_score": 0.5,
+      "example_answer": "B3: evet (≤ 10) | B4: hayır (> 10)",
+      "example_note": "Operators on B4 must complement B2, not copy a fixed answer."
     },
     "WS6_inner_feature": {
       "max_score": 1,
-      "fields": [
-        "WS6_B6"
-      ],
+      "fields": ["WS6_B6"],
       "evaluation": "feature_name",
       "components": [
         {
           "id": "feature",
-          "idea": "valid food feature different from root (şeker, yağ, enerji, protein; must differ from WS6_B1)",
+          "idea": "valid food feature different from root (must differ from WS6_B1)",
           "required": true
         }
       ],
       "need": 1,
       "consistency_check": "must differ from WS6_B1",
-      "example_answer": "yağ"
+      "example_answer": "yağ",
+      "example_note": "Illustrative only — must differ from B1."
     },
     "WS6_inner_threshold": {
       "max_score": 1,
-      "fields": [
-        "WS6_B7"
-      ],
+      "fields": ["WS6_B7"],
       "evaluation": "threshold",
       "check": "threshold_with_operator",
       "components": [
         {
           "id": "operator",
-          "idea": "comparison operator present (≤, <=, <, ≥, >=, >)",
+          "idea": "threshold operator on inner evet branch (B7); must pair with complementary op on B9",
           "required": true
         },
         {
           "id": "value",
-          "idea": "numeric threshold value consistent with inner feature",
+          "idea": "numeric threshold value consistent with inner feature (B6)",
           "required": true
         }
       ],
       "need": 2,
       "partial_on": 1,
-      "partial_credit_rule": "variable_or_value_present_but_operator_missing",
+      "partial_credit_rule": "value_present_but_complementary_mismatch_or_missing_operator",
       "partial_score": 0.5,
-      "example_answer": "≤ 5"
+      "zero_credit_hints": ["< 5 with hayır (> 5) instead of ≥ 5"],
+      "example_answer": "≤ 5",
+      "example_note": "Illustrative only — any valid operator+value for B6 feature."
     },
     "WS6_inner_labels": {
       "max_score": 1,
-      "fields": [
-        "WS6_B8",
-        "WS6_B9"
-      ],
+      "fields": ["WS6_B8", "WS6_B9"],
       "evaluation": "branch_labels",
       "components": [
         {
           "id": "yes_branch",
-          "idea": "evet branch correctly labeled (evet, yes, true, doğru)",
+          "idea": "evet branch labeled with operator consistent with B7, e.g. evet (≤ 5)",
           "required": true
         },
         {
           "id": "no_branch",
-          "idea": "hayır branch correctly labeled (hayır, no, false, yanlış)",
+          "idea": "hayır branch labeled with complementary operator to B7, e.g. hayır (> 5) or hayır (≥ 5)",
           "required": true
         }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "B8: evet (≤ 5) | B9: hayır (> 5)"
+      "partial_score": 0.5,
+      "example_answer": "B8: evet (≤ 5) | B9: hayır (> 5)",
+      "example_note": "Operators on B9 must complement B7."
     },
     "WS6_leaves": {
       "max_score": 1,
-      "fields": [
-        "WS6_B5",
-        "WS6_B10",
-        "WS6_B11",
-        "WS6_B12",
-        "WS6_B13"
-      ],
+      "fields": ["WS6_B5", "WS6_B10", "WS6_B11", "WS6_B12", "WS6_B13"],
       "evaluation": "leaf_labels",
       "check": "leaf_consistency_with_tree_logic",
       "components": [
         {
           "id": "positive_leaves",
-          "idea": "recommended labels on positive paths (tavsiye edilir, tavsiye edilebilir, önerilir, uygun)",
+          "idea": "recommended labels on positive paths (tavsiye edilir / edilebilir)",
           "required": false
         },
         {
           "id": "negative_leaves",
-          "idea": "not-recommended labels on negative paths (tavsiye edilmez, tavsiye edilemez, önerilmez, uygun değil)",
+          "idea": "not-recommended labels on negative paths (tavsiye edilmez / edilemez)",
           "required": false
         },
         {
           "id": "consistency",
-          "idea": "leaf labels consistent with branch logic and tree paths",
+          "idea": "required leaf nodes for this tree shape are labeled (B10+B11+B13 when inner split present; B5+B13 otherwise)",
           "required": true
         }
       ],
       "need": 1,
       "partial_credit_rule": "some_leaves_correct_some_missing",
       "partial_score": 0.5,
-      "example_answer": "B10: Tavsiye edilir | B11: Tavsiye edilmez | B13: Tavsiye edilmez"
+      "example_answer": "B10: Tavsiye edilir | B11: Tavsiye edilmez | B13: Tavsiye edilmez",
+      "example_note": "Required slots depend on tree shape; label text must be valid tavsiye edilir/edilemez forms."
     },
     "WS6_tree_structure": {
       "max_score": 1,
@@ -171,7 +256,7 @@
       "components": [
         {
           "id": "depth",
-          "idea": "depth >= 1 (at least one split)",
+          "idea": "çift seviyeli — root split plus inner split on evet branch (depth ≥ 2)",
           "required": true
         },
         {
@@ -181,18 +266,21 @@
         },
         {
           "id": "leaves_labeled",
-          "idea": "all leaf nodes have class labels",
+          "idea": "all required leaf nodes have class labels for this tree shape",
           "required": true
         },
         {
           "id": "operators",
-          "idea": "branch operators are consistent (≤ and > paired, or < and >= paired)",
+          "idea": "complementary operator pairs on both splits (≤↔>, <↔≥, …); all 11 cards classified (unclassified = 0)",
           "required": true
         }
       ],
       "need": 4,
       "partial_on": 2,
-      "example_answer": "Root splits on şeker ≤ 10; left subtree splits on yağ ≤ 5; all leaves labeled."
+      "partial_score": 0.5,
+      "mcr_note": "MCR=0 with two levels is not penalized; extra split beyond minimum is acceptable.",
+      "example_answer": "Root şeker ≤ 10; left subtree yağ ≤ 5; all leaves labeled; MCR may be 0 or >0.",
+      "example_note": "Holistic check — many valid trees; not compared to a single reference tree."
     }
   }
 }

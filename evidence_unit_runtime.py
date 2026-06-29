@@ -24,6 +24,7 @@ from evidence_unit_metadata import derive_assessment_metadata
 from pipeline_schema import (
     LAYOUT_ROIS_DIR,
     REPO_ROOT,
+    WORKSHEET_DEMOGRAPHIC_ONLY,
     WORKSHEET_DESCRIPTIVE_ONLY,
     WORKSHEET_PDF_SOURCE,
     WORKSHEETS_1_10_PAGE_INDEX,
@@ -231,6 +232,9 @@ def source_family_for_field(worksheet_id: str, field_id: str) -> str:
     if worksheet_id == "WS_DT":
         return "codap"
     descriptive = WORKSHEET_DESCRIPTIVE_ONLY.get(worksheet_id, [])
+    demographic = WORKSHEET_DEMOGRAPHIC_ONLY.get(worksheet_id, [])
+    if field_id in demographic:
+        return "observation"
     if field_id in descriptive:
         return "reflection"
     return "worksheet"

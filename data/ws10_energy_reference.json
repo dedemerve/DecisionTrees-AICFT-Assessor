@@ -1,0 +1,32 @@
+{
+  "worksheet": "WS10",
+  "version": "ProDaBi v4 (20220401)",
+  "note": "Worksheet shows printed blank numbers 1–8 (red on form). Students write one numeric response per blank (handwritten, blue). Blanks 1–7 = yanlış sınıflandırma sayısı in table rows; blank 8 = optimum eşik below table. OCR field WS10_Bn = blank n.",
+  "food_cards": [
+    {"name_tr": "salatalık", "name_en": "cucumber", "energy_kcal": 12, "recommended": true},
+    {"name_tr": "brokoli", "name_en": "broccoli", "energy_kcal": 43, "recommended": true},
+    {"name_tr": "muz", "name_en": "banana", "energy_kcal": 95, "recommended": true},
+    {"name_tr": "jelibon", "name_en": "gummy bears", "energy_kcal": 343, "recommended": true},
+    {"name_tr": "kraker", "name_en": "crispbread", "energy_kcal": 348, "recommended": false},
+    {"name_tr": "yulaf", "name_en": "oats", "energy_kcal": 368, "recommended": true},
+    {"name_tr": "mermer kek", "name_en": "marble cake", "energy_kcal": 447, "recommended": false},
+    {"name_tr": "sütlü çikolata", "name_en": "milk chocolate", "energy_kcal": 530, "recommended": false}
+  ],
+  "classification_rule": {
+    "feature": "energy_kcal",
+    "note": "Responses fixed from ProDaBi v4 worksheet key (human-verified)."
+  },
+  "printed_thresholds": [28, 69, 219, 346, 359, 408, 489],
+  "expected_misclassifications": [4, 3, 2, 3, 2, 1, 2],
+  "optimal_threshold": 408,
+  "blank_map": {
+    "WS10_B1": {"blank_number": 1, "table_row": 1, "printed_threshold": 28, "response": 4},
+    "WS10_B2": {"blank_number": 2, "table_row": 2, "printed_threshold": 69, "response": 3},
+    "WS10_B3": {"blank_number": 3, "table_row": 3, "printed_threshold": 219, "response": 2},
+    "WS10_B4": {"blank_number": 4, "table_row": 4, "printed_threshold": 346, "response": 3},
+    "WS10_B5": {"blank_number": 5, "table_row": 5, "printed_threshold": 359, "response": 2},
+    "WS10_B6": {"blank_number": 6, "table_row": 6, "printed_threshold": 408, "response": 1},
+    "WS10_B7": {"blank_number": 7, "table_row": 7, "printed_threshold": 489, "response": 2},
+    "WS10_B8": {"blank_number": 8, "response": 408, "note": "Optimum eşik — tablo altı çizgi"}
+  }
+}

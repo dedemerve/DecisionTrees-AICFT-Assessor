@@ -5,294 +5,459 @@
   "interpretation_prohibited": true,
   "ocr_engine": "claude_vision",
   "source_type": "worksheet",
-  "note": "Mixed reflection, cognitive, and descriptive fields; score only cognitive subset.",
+  "note": "Printed Q1–Q7 (B1–B5 survey/Likert, B6–B7 demographics; no correct answer). B8a–B9 + Q10–Q12 cognitive (scored). L10–L12 Likert/descriptive only.",
   "fields": [
     {
       "field_id": "WS11_B1",
       "type": "free_text",
-      "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "required": false,
+      "location_hint": "Printed question 1 — Karar ağaçlarıyla ilgili ders serisini genel olarak ne kadar beğendiniz?",
+      "note": "Survey/Likert — no correct answer; exclude from scoring and competency",
+      "printed_blank": 1,
+      "scoring_mode": "survey",
+      "scored": false,
+      "question_tr": "Karar ağaçlarıyla ilgili ders serisini genel olarak ne kadar beğendiniz?",
+      "response_kind": "likert_with_optional_explanation",
+      "allowed_responses": [
+        "Çok iyi",
+        "İyi",
+        "Ortalama",
+        "Kötü",
+        "Çok kötü"
+      ]
     },
     {
       "field_id": "WS11_B2",
       "type": "free_text",
-      "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "required": false,
+      "location_hint": "Printed question 2 — Bu ders serisini arkadaşlarınıza tavsiye eder misiniz?",
+      "note": "Survey/Likert — no correct answer; exclude from scoring and competency",
+      "printed_blank": 2,
+      "scoring_mode": "survey",
+      "scored": false,
+      "question_tr": "Bu ders serisini arkadaşlarınıza tavsiye eder misiniz?",
+      "response_kind": "choice_with_optional_explanation",
+      "allowed_responses": [
+        "Evet",
+        "Hayır",
+        "Bilmiyorum"
+      ]
     },
     {
       "field_id": "WS11_B3",
       "type": "free_text",
-      "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "required": false,
+      "location_hint": "Printed question 3 — Bu ders dizisini ne kadar zor buldunuz?",
+      "note": "Survey/Likert — no correct answer; exclude from scoring and competency",
+      "printed_blank": 3,
+      "scoring_mode": "survey",
+      "scored": false,
+      "question_tr": "Bu ders dizisini ne kadar zor buldunuz?",
+      "response_kind": "likert_with_optional_explanation",
+      "allowed_responses": [
+        "Çok kolay",
+        "Kolay",
+        "Orta",
+        "Zor",
+        "Çok zor"
+      ]
     },
     {
       "field_id": "WS11_B4",
       "type": "free_text",
-      "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "required": false,
+      "location_hint": "Printed question 4 — Bir karar ağacının nasıl çalıştığını açıklayabilir misiniz?",
+      "note": "Survey/Likert — no correct answer; exclude from scoring and competency",
+      "printed_blank": 4,
+      "scoring_mode": "survey",
+      "scored": false,
+      "question_tr": "Bir karar ağacının nasıl çalıştığını açıklayabilir misiniz?",
+      "response_kind": "yes_no",
+      "allowed_responses": [
+        "Evet",
+        "Hayır"
+      ]
     },
     {
       "field_id": "WS11_B5",
       "type": "free_text",
-      "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "required": false,
+      "location_hint": "Printed question 5 — Gıda konusu ile çalışmaktan ne kadar keyif aldınız?",
+      "note": "Survey/Likert — no correct answer; exclude from scoring and competency",
+      "printed_blank": 5,
+      "scoring_mode": "survey",
+      "scored": false,
+      "question_tr": "Gıda konusu ile çalışmaktan ne kadar keyif aldınız?",
+      "response_kind": "likert_with_optional_explanation",
+      "allowed_responses": [
+        "Çok",
+        "İyi",
+        "Ortalama",
+        "Az",
+        "Çok Az"
+      ]
     },
     {
       "field_id": "WS11_B6",
       "type": "free_text",
-      "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "required": false,
+      "location_hint": "Printed question 6 — Kaç yaşındasın",
+      "note": "Demographic field — no correct answer; exclude from scoring and competency",
+      "printed_blank": 6,
+      "scoring_mode": "demographic",
+      "scored": false,
+      "question_tr": "Kaç yaşındasın",
+      "response_kind": "numeric_free_text"
     },
     {
       "field_id": "WS11_B7",
       "type": "free_text",
-      "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "required": false,
+      "location_hint": "Printed question 7 — Cinsiyetin",
+      "note": "Demographic field — no correct answer; exclude from scoring and competency",
+      "printed_blank": 7,
+      "scoring_mode": "demographic",
+      "scored": false,
+      "question_tr": "Cinsiyetin",
+      "response_kind": "choice",
+      "allowed_responses": [
+        "Erkek",
+        "Kız"
+      ]
     },
     {
       "field_id": "WS11_B8a",
       "rubric_item_id": "WS11_B8a",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_B8a"
     },
     {
       "field_id": "WS11_B8b",
       "rubric_item_id": "WS11_B8b",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_B8b"
     },
     {
       "field_id": "WS11_B9",
       "rubric_item_id": "WS11_B9",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_B9"
     },
     {
       "field_id": "WS11_L10_1",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L10_2",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L10_3",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L10_4",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L10_5",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L10_6",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L10_7",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L10_8",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L11_1",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L11_2",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L11_3",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L12_1",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L12_2",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L12_3",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L12_4",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_L12_5",
       "type": "free_text",
       "required": false,
       "location_hint": "WS11 worksheet response region",
-      "note": "Descriptive-only field"
+      "note": "Descriptive-only field",
+      "scoring_mode": "descriptive",
+      "scored": false
     },
     {
       "field_id": "WS11_Q10_1",
       "rubric_item_id": "WS11_Q10_1",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q10_1"
     },
     {
       "field_id": "WS11_Q10_2",
       "rubric_item_id": "WS11_Q10_2",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q10_2"
     },
     {
       "field_id": "WS11_Q10_3",
       "rubric_item_id": "WS11_Q10_3",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q10_3"
     },
     {
       "field_id": "WS11_Q10_4",
       "rubric_item_id": "WS11_Q10_4",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q10_4"
     },
     {
       "field_id": "WS11_Q10_5",
       "rubric_item_id": "WS11_Q10_5",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q10_5"
     },
     {
       "field_id": "WS11_Q10_6",
       "rubric_item_id": "WS11_Q10_6",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q10_6"
     },
     {
       "field_id": "WS11_Q10_7",
       "rubric_item_id": "WS11_Q10_7",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q10_7"
     },
     {
       "field_id": "WS11_Q10_8",
       "rubric_item_id": "WS11_Q10_8",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q10_8"
     },
     {
       "field_id": "WS11_Q11_2",
       "rubric_item_id": "WS11_Q11_2",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q11_2"
     },
     {
       "field_id": "WS11_Q11_3",
       "rubric_item_id": "WS11_Q11_3",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q11_3"
     },
     {
       "field_id": "WS11_Q11_4",
       "rubric_item_id": "WS11_Q11_4",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q11_4"
     },
     {
       "field_id": "WS11_Q12_1",
       "rubric_item_id": "WS11_Q12_1",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q12_1"
     },
     {
       "field_id": "WS11_Q12_2",
       "rubric_item_id": "WS11_Q12_2",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q12_2"
     },
     {
       "field_id": "WS11_Q12_3",
       "rubric_item_id": "WS11_Q12_3",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q12_3"
     },
     {
       "field_id": "WS11_Q12_4",
       "rubric_item_id": "WS11_Q12_4",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q12_4"
     },
     {
       "field_id": "WS11_Q12_5",
       "rubric_item_id": "WS11_Q12_5",
       "type": "boolean",
       "required": true,
-      "location_hint": "WS11 worksheet response region"
+      "location_hint": "WS11 worksheet response region",
+      "scoring_mode": "interpretive",
+      "scored": true,
+      "scoring_item_id": "WS11_Q12_5"
     }
   ]
 }

@@ -5,32 +5,246 @@
   "items": {
     "WS5_row1": {
       "check": "row_consistency",
-      "example_answer": "şeker ≤ 5 | doğru: 3 | hata: 7 | MCR: 0.70",
+      "example_answer": "şeker ≤ 5 | doğru: 8 | hata: 3 | MCR: 0.27",
+      "example_note": "Illustrative only — any valid threshold with matching counts is full credit.",
+      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
+      "partial_score": 0.5,
       "deterministic": true
     },
     "WS5_row2": {
       "check": "row_consistency",
-      "example_answer": "şeker ≤ 8 | doğru: 5 | hata: 5 | MCR: 0.50",
+      "example_answer": "yağ ≤ 8 | doğru: 8 | hata: 3 | MCR: 0.27",
+      "example_note": "Illustrative only.",
+      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
+      "partial_score": 0.5,
       "deterministic": true
     },
     "WS5_row3": {
       "check": "row_consistency",
-      "example_answer": "şeker ≤ 10 | doğru: 8 | hata: 2 | MCR: 0.20",
+      "example_answer": "şeker ≤ 10 | doğru: 8 | hata: 3 | MCR: 0.27",
+      "example_note": "Illustrative only.",
+      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
+      "partial_score": 0.5,
       "deterministic": true
     },
     "WS5_row4": {
       "check": "row_consistency",
-      "example_answer": "şeker ≤ 12 | doğru: 9 | hata: 1 | MCR: 0.10",
+      "example_answer": "şeker ≤ 12 | doğru: 9 | hata: 2 | MCR: 0.18",
+      "example_note": "Illustrative only.",
+      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
+      "partial_score": 0.5,
       "deterministic": true
     },
     "WS5_row5": {
       "check": "row_consistency",
-      "example_answer": "şeker ≤ 15 | doğru: 10 | hata: 0 | MCR: 0.00",
+      "example_answer": "şeker ≤ 15 | doğru: 9 | hata: 2 | MCR: 0.18",
+      "example_note": "Illustrative only.",
+      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
+      "partial_score": 0.5,
       "deterministic": true
     },
     "WS5_B25": {
+      "check": "b25_minimum_errors",
       "evaluation": "justification",
-      "example_answer": "Eşik 8'i tercih ederim çünkü MCR 0.20 ile en düşük değerlerden biri ve en küçük eşik değeridir."
+      "example_answer": "Şeker ≤ 12'yi tercih ederim; 2 yanlış sınıflandırma ile tablomdaki en düşük hata sayısı (şeker ≤ 15 de 2 hata veriyor).",
+      "partial_score": 0.5,
+      "credit_levels": {
+        "full": "B25 names a threshold from the student's grid with the minimum error count among arithmetic-valid rows.",
+        "partial": "Threshold is in the grid but not among minimum-error trials.",
+        "zero": "Blank, or threshold not found in any grid row.",
+        "not_attempted": "Blank B25."
+      },
+      "method": "Her grid satırı için tavsiye edilebilir/edilemez ve yanlış sınıflandırma sayılarının doğru girildiği varsayılır (satır aritmetiği tutarlı). B25'te öğrenci, tablodaki en düşük yanlış sınıflandırma sayısına sahip eşiği tercih etmelidir. Aynı minimum hata sayısına sahip birden fazla eşik varsa herhangi biri kabul edilir; öğrenci yalnızca birini yazdıysa tie_at_minimum bayrağı eklenir.",
+      "tie_rule": "When two or more trials share the same minimum error count, any tied threshold is acceptable. Flag review when only one is named while tied alternatives exist.",
+      "deterministic": true
     }
-  }
+  },
+  "scoring_model": {
+    "type": "computed_from_dataset",
+    "dataset_size": 11,
+    "dataset_reference": "data/prodabi_food_cards.csv",
+    "no_fixed_thresholds": true,
+    "example_answers_illustrative": true,
+    "authority": "ws5_validation.py — expected_row_counts() recomputes doğru/hata/MCR from the student's parsed threshold"
+  },
+  "row_scoring": {
+    "check": "row_consistency",
+    "credit_levels": {
+      "full": "Parseable threshold on an acceptable feature; doğru + hata = 11; MCR ≈ hata/11; doğru and hata match prodabi_food_cards.csv for that threshold with complementary false branch.",
+      "partial": "Parseable threshold and internal arithmetic OK (sum and MCR) but classification counts do not match the dataset for the written threshold.",
+      "zero": "Unparseable threshold, incomplete row, or arithmetic inconsistent (doğru+hata≠11 or MCR≠hata/11).",
+      "not_attempted": "All four cells blank."
+    },
+    "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
+    "partial_score": 0.5
+  },
+  "fields": {
+    "WS5_B1": {
+      "example_response": "şeker ≤ 5",
+      "role": "threshold",
+      "scoring_row": "WS5_row1",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B2": {
+      "example_response": "8",
+      "role": "correct",
+      "scoring_row": "WS5_row1",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B3": {
+      "example_response": "3",
+      "role": "errors",
+      "scoring_row": "WS5_row1",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B4": {
+      "example_response": "0.27",
+      "role": "mcr",
+      "scoring_row": "WS5_row1",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B5": {
+      "example_response": "yağ ≤ 8",
+      "role": "threshold",
+      "scoring_row": "WS5_row2",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B6": {
+      "example_response": "8",
+      "role": "correct",
+      "scoring_row": "WS5_row2",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B7": {
+      "example_response": "3",
+      "role": "errors",
+      "scoring_row": "WS5_row2",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B8": {
+      "example_response": "0.27",
+      "role": "mcr",
+      "scoring_row": "WS5_row2",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B9": {
+      "example_response": "şeker ≤ 10",
+      "role": "threshold",
+      "scoring_row": "WS5_row3",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B10": {
+      "example_response": "8",
+      "role": "correct",
+      "scoring_row": "WS5_row3",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B11": {
+      "example_response": "3",
+      "role": "errors",
+      "scoring_row": "WS5_row3",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B12": {
+      "example_response": "0.27",
+      "role": "mcr",
+      "scoring_row": "WS5_row3",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B13": {
+      "example_response": "şeker ≤ 12",
+      "role": "threshold",
+      "scoring_row": "WS5_row4",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B14": {
+      "example_response": "9",
+      "role": "correct",
+      "scoring_row": "WS5_row4",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B15": {
+      "example_response": "2",
+      "role": "errors",
+      "scoring_row": "WS5_row4",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B16": {
+      "example_response": "0.18",
+      "role": "mcr",
+      "scoring_row": "WS5_row4",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B17": {
+      "example_response": "şeker ≤ 15",
+      "role": "threshold",
+      "scoring_row": "WS5_row5",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B18": {
+      "example_response": "9",
+      "role": "correct",
+      "scoring_row": "WS5_row5",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B19": {
+      "example_response": "2",
+      "role": "errors",
+      "scoring_row": "WS5_row5",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B20": {
+      "example_response": "0.18",
+      "role": "mcr",
+      "scoring_row": "WS5_row5",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "data/prodabi_food_cards.csv (dynamic per threshold)"
+    },
+    "WS5_B25": {
+      "example_response": "Şeker ≤ 12'yi tercih ederim; 2 yanlış sınıflandırma ile tablomdaki en düşük hata sayısı.",
+      "scoring_mode": "computed",
+      "no_fixed_answer": true,
+      "source": "ws5_validation (minimum errors among student's grid trials)"
+    }
+  },
+  "field_note": "Per-field reference for OCR/extraction alignment and Sample_Student fixtures. Interpretive fields carry example_response only."
 }

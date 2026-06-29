@@ -2,45 +2,46 @@
   "stage": "scoring",
   "student_id": "Sample_Student",
   "worksheet": "WS7",
-  "calibration_note": "Confidence calibrated via confidence_calibration.py (review_threshold=0.7).",
-  "total_score": 3.0,
+  "blocked": false,
+  "blocked_reason": null,
+  "total_score": 6.0,
+  "max_score": 6.0,
   "items": [
     {
       "item": "WS7_P1_box1",
-      "score": null,
-      "confidence": 0.0,
-      "review": true
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": false
     },
     {
       "item": "WS7_P1_box2",
-      "score": null,
-      "confidence": 0.0,
-      "review": true
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": false
     },
     {
       "item": "WS7_P1_box3",
-      "score": null,
-      "confidence": 0.0,
-      "review": true
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": false
     },
     {
       "item": "WS7_B1",
       "score": 1.0,
-      "confidence": 0.85,
+      "confidence": 1.0,
       "review": false
     },
     {
       "item": "WS7_B2",
       "score": 1.0,
-      "confidence": 0.85,
+      "confidence": 1.0,
       "review": false
     },
     {
       "item": "WS7_B3",
       "score": 1.0,
-      "confidence": 0.85,
+      "confidence": 1.0,
       "review": false
     }
-  ],
-  "max_score": 6.0
+  ]
 }

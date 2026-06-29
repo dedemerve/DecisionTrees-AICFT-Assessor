@@ -7,7 +7,189 @@
   "formula_parsed": true,
   "tree_detected": null,
   "missing_regions": [],
-  "deterministic_checks": {},
+  "deterministic_checks": {
+    "WS7_P1_box1": {
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
+      "expected": "B",
+      "matched": "B"
+    },
+    "WS7_P1_box2": {
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
+      "expected": "A",
+      "matched": "A"
+    },
+    "WS7_P1_box3": {
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
+      "expected": "C",
+      "matched": "C"
+    },
+    "WS7_B1": {
+      "parsed": {
+        "conditions": [
+          {
+            "feature": "seker",
+            "operator": "<=",
+            "value": 10.0
+          },
+          {
+            "feature": "yag",
+            "operator": "<=",
+            "value": 5.0
+          }
+        ],
+        "recommended": true
+      },
+      "expected": {
+        "conditions": [
+          {
+            "feature": "şeker",
+            "feature_key": "sugar_g",
+            "operator": "<=",
+            "value": 10.0
+          },
+          {
+            "feature": "yağ",
+            "feature_key": "fat_g",
+            "operator": "<=",
+            "value": 5.0
+          }
+        ],
+        "recommended": true,
+        "leaf_field": "WS6_B10"
+      },
+      "issues": [],
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS7_B2": {
+      "parsed": {
+        "conditions": [
+          {
+            "feature": "seker",
+            "operator": "<=",
+            "value": 10.0
+          },
+          {
+            "feature": "yag",
+            "operator": ">",
+            "value": 5.0
+          }
+        ],
+        "recommended": false
+      },
+      "expected": {
+        "conditions": [
+          {
+            "feature": "şeker",
+            "feature_key": "sugar_g",
+            "operator": "<=",
+            "value": 10.0
+          },
+          {
+            "feature": "yağ",
+            "feature_key": "fat_g",
+            "operator": ">",
+            "value": 5.0
+          }
+        ],
+        "recommended": false,
+        "leaf_field": "WS6_B11"
+      },
+      "issues": [],
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS7_B3": {
+      "parsed": {
+        "conditions": [
+          {
+            "feature": "seker",
+            "operator": ">",
+            "value": 10.0
+          }
+        ],
+        "recommended": false
+      },
+      "expected": {
+        "conditions": [
+          {
+            "feature": "şeker",
+            "feature_key": "sugar_g",
+            "operator": ">",
+            "value": 10.0
+          }
+        ],
+        "recommended": false,
+        "leaf_field": "WS6_B13"
+      },
+      "issues": [],
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    }
+  },
   "blocked": false,
-  "blocked_reason": null
+  "blocked_reason": null,
+  "ws6_path_specs": [
+    {
+      "path_index": 1,
+      "leaf_field": "WS6_B10",
+      "conditions": [
+        {
+          "feature": "şeker",
+          "feature_key": "sugar_g",
+          "operator": "<=",
+          "value": 10.0
+        },
+        {
+          "feature": "yağ",
+          "feature_key": "fat_g",
+          "operator": "<=",
+          "value": 5.0
+        }
+      ],
+      "recommended": true
+    },
+    {
+      "path_index": 2,
+      "leaf_field": "WS6_B11",
+      "conditions": [
+        {
+          "feature": "şeker",
+          "feature_key": "sugar_g",
+          "operator": "<=",
+          "value": 10.0
+        },
+        {
+          "feature": "yağ",
+          "feature_key": "fat_g",
+          "operator": ">",
+          "value": 5.0
+        }
+      ],
+      "recommended": false
+    },
+    {
+      "path_index": 3,
+      "leaf_field": "WS6_B13",
+      "conditions": [
+        {
+          "feature": "şeker",
+          "feature_key": "sugar_g",
+          "operator": ">",
+          "value": 10.0
+        }
+      ],
+      "recommended": false
+    }
+  ],
+  "sample_tree_reference": "data/ws7_sample_tree.json"
 }

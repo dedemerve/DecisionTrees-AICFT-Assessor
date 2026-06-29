@@ -1,6 +1,6 @@
 # WS11 scoring context
 
-Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 11** (final reflection + cognitive check).
+Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 11** (demographics + cognitive check).
 
 ## Artifacts
 
@@ -19,18 +19,19 @@ Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 11** (fi
 
 ## Construct
 
-Mixed worksheet: **reflection**, **cognitive scored items**, and **descriptive-only** Likert/demographics. Only the cognitive subset produces competency evidence and behaviour-engine input.
+Mixed worksheet: **printed survey Q1–Q7**, **cognitive scored items**, and **descriptive-only** Likert/self-assessment. Only the cognitive subset produces competency evidence and behaviour-engine input.
 
 ### Scored vs descriptive-only
 
 | Block | Item IDs | Scored? |
 |-------|----------|---------|
-| Reflection | `WS11_B1`–`B7` | **No** — `descriptive_only` |
+| Survey Q1–Q5 | `WS11_B1`–`B5` | **No** — Likert/checkbox (+ optional Açıklama); no correct answer |
+| Demographics Q6–Q7 | `WS11_B6`–`B7` | **No** — age / gender; no correct answer |
 | Cognitive | `WS11_B8a`, `B8b`, `B9` | Yes |
 | Q10 | `WS11_Q10_1` … `Q10_8` | Yes (0.125 each) |
 | Q11 | `WS11_Q11_2` … `Q11_4` | Yes (0.33 / 0.33 / 0.34) |
 | Q12 | `WS11_Q12_1` … `Q12_5` | Yes (0.2 each) |
-| Likert / demographics | `WS11_L10_*`, `L11_*`, `L12_*` | **No** — never infer LO from L12 |
+| Likert / self-assessment | `WS11_L10_*`, `L11_*`, `L12_*` | **No** — never infer LO from L10–L12 |
 
 ---
 
@@ -120,8 +121,9 @@ Tests **procedural workflow**, not vocabulary recall.
 
 ## Validity constraints
 
-- Demographic items (`L12`) → **never** enter behaviour or LO inference (`leakage_risks` in validity notes).
-- Reflection B1–B7: store if extracted but **exclude from scoring and competency**.
+- Demographic items (`B6`–`B7`, `L12`) → **never** enter behaviour or LO inference (`leakage_risks` in validity notes).
+- Survey Q1–Q5 (`B1`–`B5`): transcribe selected option (+ Açıklama if any); **no scoring, no competency**.
+- Reference question text: `data/ws11_feedback_reference.json`.
 
 ---
 
@@ -129,3 +131,4 @@ Tests **procedural workflow**, not vocabulary recall.
 
 - Missing Q10/Q11/Q12 sub-key → `score: null`, `review: true`, `evidence_present: false`.
 - Illegible Likert → ignore (not scored).
+- Missing demographic blank → store `(bos)`; do not flag for scoring review.

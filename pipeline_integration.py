@@ -72,62 +72,264 @@ def extract_ws6_from_answer_key_pdf(
 
 
 def score_ws10_deterministic(responses: dict[str, str], student_id: str) -> dict[str, Any]:
-    from pipeline_schema import competency_strength_ceiling, item_competencies, load_mapping, load_rubric
+    from pipeline_schema import load_rubric, scoring_item_ids
+    from rubric_deterministic import score_from_credit
+    from ws10_validation import validate_ws10_extraction
 
     rubric = load_rubric("WS10")
-    mapping = load_mapping("WS10")
+    validation = validate_ws10_extraction(responses)
+    checks = validation["deterministic_checks"]
     items_out = []
     total = 0.0
+    max_total = 0.0
 
-    for item_id in rubric["items"]:
+    for item_id in scoring_item_ids("WS10"):
         cfg = rubric["items"][item_id]
         max_score = float(cfg.get("max_score", 1))
-        ans = responses.get(item_id, "")
-        score = 0.0
-        check = cfg.get("check")
-        expected = cfg.get("answer")
-        tol = float(cfg.get("tolerance", 0))
-
-        try:
-            val = float(str(ans).split("|")[0])
-            if check == "numeric" and expected is not None:
-                score = max_score if abs(val - float(expected)) <= tol else 0.0
-            elif check == "numeric_optimal" and expected is not None:
-                score = max_score if val == float(expected) else 0.0
-            elif check == "row_consistency":
-                score = max_score if "|" in str(ans) else 0.0
-        except (ValueError, TypeError):
-            score = 0.0
-
+        max_total += max_score
+        check = checks.get(item_id) or {}
+        score = score_from_credit(check, max_score)
         total += score
-        lo_entries = []
-        for comp_prior in item_competencies(mapping, item_id):
-            ceiling = competency_strength_ceiling(comp_prior)
-            strength = ceiling if score >= max_score else ("weak" if score > 0 else "none")
-            if strength == "strong" and ceiling == "moderate":
-                strength = "moderate"
-            lo_entries.append({
-                "lo": comp_prior["lo"],
-                "strength": strength if score > 0 else "none",
-                "evidence_type": comp_prior.get("evidence_type", "direct"),
-                "rationale": comp_prior.get("rationale", ""),
-                "confidence": 1.0 if check in {"numeric", "numeric_optimal"} else 0.85,
-                "evidence_present": score > 0,
-            })
-
+        review = bool(check.get("review")) or check.get("credit") == "not_attempted"
         items_out.append({
             "item": item_id,
             "score": score,
-            "confidence": 1.0 if check in {"numeric", "numeric_optimal"} else 0.85,
-            "review": False,
-            "competencies": lo_entries,
+            "confidence": 1.0 if score >= max_score else (0.35 if review else 0.85),
+            "review": review,
         })
 
     return {
         "blocked": False,
         "items": items_out,
         "total_score": total,
-        "max_score": 8.0,
+        "max_score": max_total,
+    }
+
+
+def score_ws5_deterministic(
+    responses: dict[str, str],
+    student_id: str,
+    *,
+    validation: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Score WS5 grid rows and B25 (minimum misclassification) from validation checks."""
+    from pipeline_schema import load_rubric, scoring_item_ids
+    from rubric_deterministic import score_b25_minimum_errors, score_from_credit, score_row_consistency
+
+    rubric = load_rubric("WS5")
+    checks = (validation or {}).get("deterministic_checks") or {}
+    items_out: list[dict[str, Any]] = []
+    total = 0.0
+    max_total = 0.0
+
+    for item_id in scoring_item_ids("WS5"):
+        cfg = rubric["items"][item_id]
+        check_type = cfg.get("check")
+        if check_type not in {"row_consistency", "b25_minimum_errors"}:
+            continue
+        max_score = float(cfg.get("max_score", 1))
+        max_total += max_score
+
+        if check_type == "row_consistency":
+            det = score_row_consistency(item_id, responses, rubric)
+            score = float(det["score"])
+            review = det["credit"] == "partial" or (
+                det["credit"] == "zero" and det.get("reason") not in {"blank_row", None}
+            )
+            check = checks.get(item_id) or {}
+            if check and score <= 0 and check.get("credit") in {"full", "partial"}:
+                score = score_from_credit(check, max_score)
+        else:
+            det = score_b25_minimum_errors(responses, rubric, row_checks=checks)
+            score = float(det["score"])
+            review = bool(det.get("review"))
+            check = checks.get("WS5_B25") or det
+
+        if check_type == "b25_minimum_errors" and check and score <= 0:
+            score = score_from_credit(check, max_score)
+            review = bool(check.get("review"))
+
+        total += score
+        if review and check_type == "b25_minimum_errors":
+            confidence = 0.65
+        else:
+            confidence = 1.0 if score >= max_score else 0.85
+        items_out.append({
+            "item": item_id,
+            "score": score,
+            "confidence": confidence,
+            "review": review,
+        })
+
+    return {
+        "blocked": False,
+        "items": items_out,
+        "total_score": total,
+        "max_score": max_total,
+    }
+
+
+def score_ws6_deterministic(
+    responses: dict[str, str],
+    student_id: str,
+    *,
+    validation: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Score all WS6 rubric items from food-card tree validation."""
+    from pipeline_schema import load_rubric, scoring_item_ids
+    from rubric_deterministic import score_from_credit, score_ws6_item
+
+    rubric = load_rubric("WS6")
+    checks = (validation or {}).get("deterministic_checks") or {}
+    items_out: list[dict[str, Any]] = []
+    total = 0.0
+    max_total = 0.0
+
+    for item_id in scoring_item_ids("WS6"):
+        cfg = rubric["items"][item_id]
+        max_score = float(cfg.get("max_score", 1))
+        max_total += max_score
+
+        det = score_ws6_item(item_id, responses, rubric, checks=checks)
+        score = float(det["score"])
+        review = bool(det.get("review")) or (
+            det["credit"] == "partial" and item_id.endswith("threshold")
+        )
+
+        check = checks.get(item_id) or {}
+        if check and score <= 0 and check.get("credit") in {"full", "partial"}:
+            score = score_from_credit(check, max_score)
+
+        total += score
+        confidence = 1.0 if score >= max_score and not review else (0.85 if score > 0 else 0.85)
+        items_out.append({
+            "item": item_id,
+            "score": score,
+            "confidence": confidence,
+            "review": review,
+        })
+
+    return {
+        "blocked": False,
+        "items": items_out,
+        "total_score": total,
+        "max_score": max_total,
+    }
+
+
+def score_ws7_deterministic(
+    responses: dict[str, str],
+    student_id: str,
+    *,
+    validation: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Score WS7 Part 1 path letters + Part 2 WS6-consistent rules."""
+    from pipeline_schema import load_rubric, scoring_item_ids
+    from rubric_deterministic import score_from_credit, score_ws7_item
+    from student_bundle import load_extraction_responses
+
+    rubric = load_rubric("WS7")
+    checks = (validation or {}).get("deterministic_checks") or {}
+    ws6_responses = load_extraction_responses(student_id, "WS6")
+    items_out: list[dict[str, Any]] = []
+    total = 0.0
+    max_total = 0.0
+
+    for item_id in scoring_item_ids("WS7"):
+        cfg = rubric["items"][item_id]
+        max_score = float(cfg.get("max_score", 1))
+        max_total += max_score
+
+        det = score_ws7_item(
+            item_id, responses, rubric, checks=checks, ws6_responses=ws6_responses,
+        )
+        score = float(det["score"])
+        review = bool(det.get("review")) or det.get("credit") == "partial"
+
+        check = checks.get(item_id) or {}
+        if check and score <= 0 and check.get("credit") in {"full", "partial"}:
+            score = score_from_credit(check, max_score)
+
+        total += score
+        if det.get("credit") == "not_attempted" and item_id.startswith("WS7_P1"):
+            confidence = 0.35
+            review = True
+        elif score >= max_score and not review:
+            confidence = 1.0
+        else:
+            confidence = 0.85 if score > 0 else 0.85
+
+        items_out.append({
+            "item": item_id,
+            "score": score,
+            "confidence": confidence,
+            "review": review,
+        })
+
+    blocked = bool((validation or {}).get("blocked"))
+    return {
+        "blocked": blocked,
+        "blocked_reason": (validation or {}).get("blocked_reason"),
+        "items": items_out,
+        "total_score": total,
+        "max_score": max_total,
+    }
+
+
+def score_ws11_deterministic(
+    responses: dict[str, str],
+    student_id: str,
+    *,
+    interpretive_items: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Score WS11 cognitive items: Q10–Q12 deterministically; B8a–B9 from interpretive_items if given."""
+    from pipeline_schema import load_rubric, scoring_item_ids
+    from rubric_deterministic import score_from_credit
+    from ws11_validation import validate_ws11_deterministic
+
+    rubric = load_rubric("WS11")
+    validation = validate_ws11_deterministic(responses, rubric)
+    checks = validation["deterministic_checks"]
+    items_out: list[dict[str, Any]] = []
+    total = 0.0
+    max_total = 0.0
+    interpretive_items = interpretive_items or {}
+
+    for item_id in scoring_item_ids("WS11"):
+        cfg = rubric["items"][item_id]
+        max_score = float(cfg.get("max_score", 1))
+        max_total += max_score
+        ev = cfg.get("evaluation")
+
+        if ev in {"true_false", "ordering_step", "multiselect_subitem"}:
+            check = checks.get(item_id) or {}
+            score = score_from_credit(check, max_score)
+            review = check.get("credit") == "not_attempted"
+            confidence = 1.0 if score >= max_score else (0.0 if review else 0.85)
+        elif item_id in interpretive_items:
+            rec = interpretive_items[item_id]
+            score = float(rec.get("score") or 0)
+            review = bool(rec.get("review"))
+            confidence = float(rec.get("confidence") or 0.8)
+        else:
+            text = (responses.get(item_id) or "").strip()
+            score = max_score if text else 0.0
+            review = not text
+            confidence = 0.8 if text else 0.0
+
+        total += score
+        items_out.append({
+            "item": item_id,
+            "score": score,
+            "confidence": confidence,
+            "review": review,
+        })
+
+    return {
+        "blocked": False,
+        "items": items_out,
+        "total_score": round(total, 2),
+        "max_score": round(max_total, 2),
     }
 
 

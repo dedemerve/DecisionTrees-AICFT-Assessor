@@ -4,52 +4,111 @@
   "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
   "items": {
     "WS10_B1": {
-      "check": "numeric",
-      "answer": 48.5,
-      "example_answer": "48.5",
-      "tolerance": 10,
+      "check": "numeric_exact",
+      "answer": 4,
+      "example_answer": "4",
       "deterministic": true
     },
     "WS10_B2": {
-      "check": "numeric",
-      "answer": 6,
-      "example_answer": "6",
+      "check": "numeric_exact",
+      "answer": 3,
+      "example_answer": "3",
       "deterministic": true
     },
     "WS10_B3": {
-      "check": "numeric",
-      "answer": 144.0,
-      "example_answer": "144.0",
-      "tolerance": 30,
+      "check": "numeric_exact",
+      "answer": 2,
+      "example_answer": "2",
       "deterministic": true
     },
     "WS10_B4": {
-      "check": "numeric",
+      "check": "numeric_exact",
       "answer": 3,
       "example_answer": "3",
       "deterministic": true
     },
     "WS10_B5": {
-      "check": "numeric_optimal",
-      "answer": 408,
-      "example_answer": "408",
+      "check": "numeric_exact",
+      "answer": 2,
+      "example_answer": "2",
       "deterministic": true
     },
     "WS10_B6": {
-      "check": "row_consistency",
-      "example_answer": "(depends on student's chosen threshold)",
+      "check": "numeric_exact",
+      "answer": 1,
+      "example_answer": "1",
       "deterministic": true
     },
     "WS10_B7": {
-      "check": "row_consistency",
-      "example_answer": "(depends on student's chosen threshold)",
+      "check": "numeric_exact",
+      "answer": 2,
+      "example_answer": "2",
       "deterministic": true
     },
     "WS10_B8": {
-      "check": "numeric_optimal",
+      "check": "numeric_exact",
       "answer": 408,
       "example_answer": "408",
       "deterministic": true
     }
-  }
+  },
+  "fields": {
+    "WS10_B1": {
+      "printed_blank": 1,
+      "answer": 4,
+      "example_response": "4",
+      "scoring_mode": "fixed_exact",
+      "source": "data/ws10_energy_reference.json"
+    },
+    "WS10_B2": {
+      "printed_blank": 2,
+      "answer": 3,
+      "example_response": "3",
+      "scoring_mode": "fixed_exact",
+      "source": "data/ws10_energy_reference.json"
+    },
+    "WS10_B3": {
+      "printed_blank": 3,
+      "answer": 2,
+      "example_response": "2",
+      "scoring_mode": "fixed_exact",
+      "source": "data/ws10_energy_reference.json"
+    },
+    "WS10_B4": {
+      "printed_blank": 4,
+      "answer": 3,
+      "example_response": "3",
+      "scoring_mode": "fixed_exact",
+      "source": "data/ws10_energy_reference.json"
+    },
+    "WS10_B5": {
+      "printed_blank": 5,
+      "answer": 2,
+      "example_response": "2",
+      "scoring_mode": "fixed_exact",
+      "source": "data/ws10_energy_reference.json"
+    },
+    "WS10_B6": {
+      "printed_blank": 6,
+      "answer": 1,
+      "example_response": "1",
+      "scoring_mode": "fixed_exact",
+      "source": "data/ws10_energy_reference.json"
+    },
+    "WS10_B7": {
+      "printed_blank": 7,
+      "answer": 2,
+      "example_response": "2",
+      "scoring_mode": "fixed_exact",
+      "source": "data/ws10_energy_reference.json"
+    },
+    "WS10_B8": {
+      "printed_blank": 8,
+      "answer": 408,
+      "example_response": "408",
+      "scoring_mode": "fixed_exact",
+      "source": "data/ws10_energy_reference.json"
+    }
+  },
+  "field_note": "Per-field reference for OCR/extraction alignment and Sample_Student fixtures. Interpretive fields carry example_response only."
 }

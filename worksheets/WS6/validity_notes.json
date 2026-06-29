@@ -3,16 +3,23 @@
   "curriculum_status": "deployed",
   "construct_threats": [
     "Drawn tree quality depends on OCR field capture fidelity.",
-    "Holistic tree_structure item may double-count leaf/threshold errors."
+    "Holistic tree_structure may double-count threshold/leaf issues.",
+    "Students may use two levels even when MCR=0 — not a construct threat."
   ],
   "leakage_risks": [],
   "evidence_limitations": [
-    "13 OCR fields may not capture full spatial tree layout."
+    "13 OCR fields may not capture full spatial layout; vision crop optional.",
+    "MCR and path logic computed dynamically from student's tree over prodabi cards (N=11); no fixed tree answer key.",
+    "Partial credit on threshold/labels when complementary operator pairs mismatch."
   ],
   "cross_worksheet_dependencies": [
     {
+      "depends_on": "WS5",
+      "reason": "Same 11 food cards; WS5 explores thresholds WS6 implements as tree."
+    },
+    {
       "depends_on": "WS7",
-      "reason": "WS7 rules are graded for consistency with this tree."
+      "reason": "WS7 rules graded for consistency with this tree."
     }
   ]
 }

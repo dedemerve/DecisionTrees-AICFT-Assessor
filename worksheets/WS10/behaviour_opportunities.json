@@ -7,10 +7,10 @@
     "WS10_B1": {
       "opportunities": [
         {
-          "behaviour_id": "OB_PRO_007",
+          "behaviour_id": "OB_PRO_008",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Computes midpoint threshold from sorted values."
+          "rationale": "Misclassification count at printed threshold row 1 (28)."
         }
       ],
       "extraction_fields": [
@@ -20,10 +20,10 @@
     "WS10_B2": {
       "opportunities": [
         {
-          "behaviour_id": "OB_STR_003",
+          "behaviour_id": "OB_PRO_008",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Counts midpoint candidates in threshold grid."
+          "rationale": "Misclassification count at row 2 (69)."
         }
       ],
       "extraction_fields": [
@@ -33,10 +33,10 @@
     "WS10_B3": {
       "opportunities": [
         {
-          "behaviour_id": "OB_PRO_007",
+          "behaviour_id": "OB_PRO_008",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Midpoint computation in energy dataset."
+          "rationale": "Misclassification count at row 3 (219)."
         }
       ],
       "extraction_fields": [
@@ -49,7 +49,7 @@
           "behaviour_id": "OB_PRO_008",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Misclassification count at a threshold row."
+          "rationale": "Misclassification count at row 4 (346)."
         }
       ],
       "extraction_fields": [
@@ -59,16 +59,10 @@
     "WS10_B5": {
       "opportunities": [
         {
-          "behaviour_id": "OB_PRO_007",
+          "behaviour_id": "OB_PRO_008",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Selects minimum-MCR optimal threshold."
-        },
-        {
-          "behaviour_id": "OB_STR_003",
-          "role": "secondary",
-          "evidence_mode": "direct",
-          "rationale": "Optimal threshold from error analysis."
+          "rationale": "Misclassification count at row 5 (359)."
         }
       ],
       "extraction_fields": [
@@ -81,13 +75,7 @@
           "behaviour_id": "OB_PRO_008",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Open numeric row — count/MCR consistency."
-        },
-        {
-          "behaviour_id": "OB_STR_003",
-          "role": "secondary",
-          "evidence_mode": "indirect",
-          "rationale": "Row arithmetic coherence."
+          "rationale": "Misclassification count at row 6 (408) — minimum."
         }
       ],
       "extraction_fields": [
@@ -100,7 +88,7 @@
           "behaviour_id": "OB_PRO_008",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Open numeric answer in threshold experiment."
+          "rationale": "Misclassification count at row 7 (489)."
         }
       ],
       "extraction_fields": [
@@ -113,13 +101,13 @@
           "behaviour_id": "OB_PRO_007",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Confirms optimal threshold selection."
+          "rationale": "Selects optimum threshold with minimum misclassifications."
         },
         {
-          "behaviour_id": "OB_STR_001",
+          "behaviour_id": "OB_STR_003",
           "role": "secondary",
           "evidence_mode": "direct",
-          "rationale": "Justification tied to minimum MCR."
+          "rationale": "Systematic comparison across grid rows."
         }
       ],
       "extraction_fields": [

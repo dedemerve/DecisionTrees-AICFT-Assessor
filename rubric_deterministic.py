@@ -140,6 +140,94 @@ def extract_numbers(response: str | None) -> list[float]:
     return found
 
 
+def score_row_consistency(
+    item_id: str,
+    responses: dict[str, str],
+    rubric: dict[str, Any],
+) -> dict[str, Any]:
+    """WS5 grid row: operator + counts vs food-card reference (N=11)."""
+    from ws5_validation import validate_ws5_row_item
+
+    outcome = validate_ws5_row_item(item_id, responses, rubric)
+    max_score = float(rubric.get("items", {}).get(item_id, {}).get("max_score", 1))
+    score = score_from_credit(outcome, max_score)
+    credit = outcome.get("credit", "zero")
+    return {
+        "credit": credit,
+        "score": score,
+        "ok": outcome.get("ok", False),
+        "reason": outcome.get("reason"),
+        "operator_issue": outcome.get("operator_issue"),
+    }
+
+
+def score_b25_minimum_errors(
+    responses: dict[str, str],
+    rubric: dict[str, Any],
+    *,
+    row_checks: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """WS5 B25: lowest misclassification count among valid grid trials."""
+    from ws5_validation import score_ws5_b25
+
+    return score_ws5_b25(responses, rubric, row_checks=row_checks)
+
+
+def score_ws6_item(
+    item_id: str,
+    responses: dict[str, str],
+    rubric: dict[str, Any],
+    *,
+    checks: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Score one WS6 rubric item from deterministic validation checks."""
+    from ws6_validation import validate_ws6_extraction
+
+    if checks is None:
+        checks = validate_ws6_extraction(responses, rubric)["deterministic_checks"]
+
+    check = checks.get(item_id) or {}
+    max_score = float(rubric.get("items", {}).get(item_id, {}).get("max_score", 1))
+    score = score_from_credit(check, max_score)
+    return {
+        "credit": check.get("credit", "zero"),
+        "score": score,
+        "ok": check.get("ok", False),
+        "reason": check.get("reason"),
+        "operator_issue": check.get("operator_issue"),
+        "review": check.get("review", False),
+    }
+
+
+def score_ws7_item(
+    item_id: str,
+    responses: dict[str, str],
+    rubric: dict[str, Any],
+    *,
+    checks: dict[str, Any] | None = None,
+    ws6_responses: dict[str, str] | None = None,
+) -> dict[str, Any]:
+    """Score one WS7 item from deterministic validation checks."""
+    from ws7_validation import validate_ws7_extraction
+
+    if checks is None:
+        checks = validate_ws7_extraction(
+            responses, rubric, ws6_responses=ws6_responses,
+        )["deterministic_checks"]
+
+    check = checks.get(item_id) or {}
+    max_score = float(rubric.get("items", {}).get(item_id, {}).get("max_score", 1))
+    score = score_from_credit(check, max_score)
+    return {
+        "credit": check.get("credit", "zero"),
+        "score": score,
+        "ok": check.get("ok", False),
+        "reason": check.get("reason"),
+        "operator_issue": check.get("operator_issue"),
+        "review": check.get("review", False),
+    }
+
+
 def score_numeric_range(
     response: str | None,
     item: dict[str, Any],
@@ -186,8 +274,9 @@ def score_any_of_tokens(
     """
     Score a short fill-in where any one accepted alias earns full credit.
 
-    WS1 uses equivalence_sets so nesne|özellik and değişken|etiket are interchangeable
-    per blank configuration (accept_sets on each item).
+    WS1 equivalence: nesne|özellik and değişken|etiket per accept_sets.
+    If the student writes both pair members (e.g. "nesne ve özellik"), full credit
+    when at least one configured alias appears in the response.
     """
     aliases = resolve_accepted_aliases(item, rubric)
     if response is None or normalize_token(str(response)) in BLANK_SENTINELS:
@@ -212,3 +301,13 @@ def score_any_of_tokens(
         "accepted_aliases": aliases,
         "ok": credit == "full",
     }
+
+
+def score_from_credit(check: dict[str, Any], max_score: float) -> float:
+    """Map validation credit (full/partial/zero/…) to a numeric item score."""
+    credit = check.get("credit", "zero")
+    if credit == "full":
+        return max_score
+    if credit == "partial":
+        return float(check.get("score", max_score * 0.5))
+    return 0.0

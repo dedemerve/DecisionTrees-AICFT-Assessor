@@ -8,6 +8,59 @@
     "example_answers": "Illustrations of response quality only; never treat as the only acceptable answer."
   },
   "dataset_note": "Training set size assumed 16 items (10 recommended, 6 not). Test set size assumed 8 items.",
+  "scoring_model": {
+    "type": "computed_from_student_codap_work",
+    "training_dataset_size": 16,
+    "training_class_balance": "10 recommended, 6 not recommended",
+    "test_dataset_size": 8,
+    "no_fixed_trees": true,
+    "example_answers_illustrative": true,
+    "authority": "EMIT items: internal arithmetic consistency only (TP+FP+TN+FN, sensitivity, MCR). Variables and thresholds are student-specific — not matched to canonical values.",
+    "unplugged_parallels": {
+      "WS5": "Sections B–C: single-level threshold trials — same complementary operator rule as unplugged grid rows (N=11 classroom cards).",
+      "WS6": "Section D: two-level tree — same evet/hayır operator pairing as unplugged çift seviyeli WS6 tree."
+    }
+  },
+  "operator_rules": {
+    "required": "Complementary pairs on each split: ≤↔>, <↔≥, ≥↔<, >↔≤. CODAP/Arbor evet branch threshold implies hayır branch uses the complement.",
+    "invalid": "Mismatched pair (e.g. < t with > t instead of ≥ t) — counts and MCR will not be internally consistent with a valid tree.",
+    "valid_examples": ["şeker ≤ 12 (implies > 12)", "şeker < 10 (implies ≥ 10)", "Düzey 1: şeker ≤ 12 | Düzey 2: yağ ≤ 8"],
+    "invalid_examples": ["şeker < 10 with implicit > 10", "şeker ≤ 10 with ≥ 10"]
+  },
+  "acceptable_features": [
+    {"aliases": ["enerji", "energy", "kcal"], "field": "energy_kcal"},
+    {"aliases": ["yağ", "yag", "fat"], "field": "fat_g"},
+    {"aliases": ["doymuş yağ", "doymus yag", "saturated fat"], "field": "saturated_fat_g"},
+    {"aliases": ["karbonhidrat", "carbohydrates", "carbs"], "field": "carbohydrates_g"},
+    {"aliases": ["şeker", "seker", "sugar"], "field": "sugar_g"},
+    {"aliases": ["protein"], "field": "protein_g"},
+    {"aliases": ["tuz", "salt"], "field": "salt_g"}
+  ],
+  "tree_scoring": {
+    "single_level": {
+      "sections": ["B", "C"],
+      "items": ["DT_B_Q1", "DT_B_Q2", "DT_B_Q3", "DT_C_Q1"],
+      "check": "emit_consistency",
+      "credit_levels": {
+        "full": "Valid feature + threshold notation; TP+FP+TN+FN sums to training N=16; sensitivity and MCR arithmetically consistent with recorded counts.",
+        "partial": "EMIT fields partially present or metrics noted without full confusion matrix.",
+        "zero": "Counts do not sum to dataset size or metrics contradict TP/FP/TN/FN."
+      },
+      "no_fixed_threshold": true
+    },
+    "two_level": {
+      "section": "D",
+      "items": ["DT_D_Q1"],
+      "check": "emit_consistency",
+      "credit_levels": {
+        "full": "Two distinct variables (level 1 and level 2); thresholds with operators; TP+FP+TN+FN = 16; derived metrics consistent.",
+        "partial": "Two variables shown but incomplete EMIT or inconsistent metrics.",
+        "zero": "Missing second variable or arithmetic failure."
+      },
+      "no_fixed_tree": true,
+      "mcr_note": "MCR=0 with two levels is valid if EMIT counts are consistent — not penalized."
+    }
+  },
   "items": {
     "DT_A_Q1": {
       "max_score": 1,
@@ -102,8 +155,10 @@
         "sensitivity = TP/(TP+FN)",
         "MCR = (FP+FN)/(TP+FP+TN+FN)"
       ],
-      "note": "Student builds first single-level tree in CODAP with one variable and records EMIT output. Full credit if counts sum correctly and derived metrics are consistent.",
-      "example_answer": "Değişken: şeker | Eşik: 10 | TP: 8 | FP: 2 | TN: 4 | FN: 2 | Duyarlılık: 0.80 | MCR: 0.25"
+      "note": "Student builds first single-level tree in CODAP with one variable and records EMIT output. Full credit if counts sum correctly and derived metrics are consistent — not against fixed canonical TP/FP/TN/FN.",
+      "example_answer": "Değişken: şeker | Eşik: 10 | TP: 8 | FP: 2 | TN: 4 | FN: 2 | Duyarlılık: 0.80 | MCR: 0.25",
+      "example_note": "Illustrative only — any valid feature/threshold with consistent EMIT counts is full credit.",
+      "tree_level": "single"
     },
     "DT_B_Q2": {
       "max_score": 1,
@@ -122,7 +177,9 @@
         "variable must differ from B_Q1"
       ],
       "note": "Student builds second single-level tree with a different variable.",
-      "example_answer": "Değişken: yağ | Eşik: 8 | TP: 6 | FP: 4 | TN: 2 | FN: 4 | Duyarlılık: 0.60 | MCR: 0.50"
+      "example_answer": "Değişken: yağ | Eşik: 8 | TP: 6 | FP: 4 | TN: 2 | FN: 4 | Duyarlılık: 0.60 | MCR: 0.50",
+      "example_note": "Illustrative only.",
+      "tree_level": "single"
     },
     "DT_B_Q3": {
       "max_score": 1,
@@ -141,7 +198,9 @@
         "variable must differ from B_Q1 and B_Q2"
       ],
       "note": "Student builds third single-level tree with a third variable.",
-      "example_answer": "Değişken: enerji | Eşik: 300 | TP: 5 | FP: 3 | TN: 3 | FN: 5 | Duyarlılık: 0.50 | MCR: 0.50"
+      "example_answer": "Değişken: enerji | Eşik: 300 | TP: 5 | FP: 3 | TN: 3 | FN: 5 | Duyarlılık: 0.50 | MCR: 0.50",
+      "example_note": "Illustrative only.",
+      "tree_level": "single"
     },
     "DT_B_Q4": {
       "max_score": 1,
@@ -175,7 +234,9 @@
         "FN"
       ],
       "note": "Student recalls best tree from EMIT, varies the threshold, and records the optimized output. Full credit if consistent and threshold differs from B_Q1 threshold (shows exploration).",
-      "example_answer": "Değişken: şeker | Eşik: 12 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13"
+      "example_answer": "Değişken: şeker | Eşik: 12 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13",
+      "example_note": "Illustrative only — optimized threshold is student-specific.",
+      "tree_level": "single"
     },
     "DT_C_Q2": {
       "max_score": 1,
@@ -229,8 +290,10 @@
         "TN",
         "FN"
       ],
-      "note": "Student adds a second variable to best tree to create 2-level tree. Full credit if two distinct variables shown and counts sum correctly.",
-      "example_answer": "Düzey 1: şeker ≤ 12 | Düzey 2: yağ ≤ 8 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13"
+      "note": "Student adds a second variable to best tree to create 2-level tree. Full credit if two distinct variables shown and counts sum correctly — not against a fixed canonical tree.",
+      "example_answer": "Düzey 1: şeker ≤ 12 | Düzey 2: yağ ≤ 8 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13",
+      "example_note": "Illustrative only — parallel to unplugged WS6 çift seviyeli tree.",
+      "tree_level": "two"
     },
     "DT_D_Q2": {
       "max_score": 1,
@@ -459,8 +522,9 @@
         "sensitivity",
         "MCR"
       ],
-      "note": "Student applies best tree to the test dataset and records EMIT output. Full credit if counts sum to test dataset size and metrics are arithmetically consistent.",
-      "example_answer": "Test verisi EMIT: TP: 4 | FP: 2 | TN: 1 | FN: 1 | Duyarlılık: 0.80 | MCR: 0.38"
+      "note": "Student applies best tree to the test dataset and records EMIT output. Full credit if counts sum to test dataset size (N=8) and metrics are arithmetically consistent.",
+      "example_answer": "Test verisi EMIT: TP: 4 | FP: 2 | TN: 1 | FN: 1 | Duyarlılık: 0.80 | MCR: 0.38",
+      "example_note": "Illustrative only — test-set counts are student-specific."
     },
     "DT_F_Q2": {
       "max_score": 1,

@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from functools import lru_cache
 from typing import Any
 
-from pipeline_schema import WORKSHEET_DESCRIPTIVE_ONLY, WORKSHEETS_DIR, load_rubric
+from pipeline_schema import WORKSHEET_DEMOGRAPHIC_ONLY, WORKSHEET_DESCRIPTIVE_ONLY, WORKSHEETS_DIR, load_rubric
 
 EVIDENCE_UNIT_TYPES: frozenset[str] = frozenset({
     "definition",
@@ -183,6 +183,9 @@ def infer_evidence_unit_type(
     field_meta: dict[str, Any] | None,
 ) -> str:
     descriptive = WORKSHEET_DESCRIPTIVE_ONLY.get(worksheet_id, [])
+    demographic = WORKSHEET_DEMOGRAPHIC_ONLY.get(worksheet_id, [])
+    if field_id in demographic:
+        return "parameter_selection"
     if field_id in descriptive:
         return "reflection"
 
@@ -213,6 +216,9 @@ def infer_evidence_unit_type(
 
 def infer_evidence_origin(source_family: str, field_id: str, worksheet_id: str) -> str:
     descriptive = WORKSHEET_DESCRIPTIVE_ONLY.get(worksheet_id, [])
+    demographic = WORKSHEET_DEMOGRAPHIC_ONLY.get(worksheet_id, [])
+    if field_id in demographic:
+        return "learner_response"
     if field_id in descriptive or source_family == "reflection":
         return "learner_reflection"
     if source_family == "codap":

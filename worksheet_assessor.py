@@ -36,7 +36,13 @@ from pipeline_schema import (
     rubric_item,
     scoring_item_ids,
 )
-from rubric_deterministic import score_any_of_tokens, score_numeric_range, score_unordered_token_set
+from rubric_deterministic import (
+    score_any_of_tokens,
+    score_numeric_range,
+    score_row_consistency,
+    score_unordered_token_set,
+    score_ws6_item,
+)
 
 # ---------------------------------------------------------------------------
 # Pydantic output schema
@@ -1573,6 +1579,24 @@ def assess_worksheet(
                         else None
                     ),
                 }
+            )
+        elif item_rubric.get("check") == "row_consistency" and worksheet == "WS5":
+            det = score_row_consistency(item_id, responses, rubric)
+            flag = None
+            if det.get("operator_issue"):
+                flag = det["operator_issue"]
+            elif det["credit"] != "full":
+                flag = det.get("reason") or "row_consistency_mismatch"
+            score = score.model_copy(
+                update={"credit": det["credit"], "flag": flag},
+            )
+        elif worksheet == "WS6" and item_id in rubric.get("items", {}):
+            det = score_ws6_item(item_id, responses, rubric)
+            flag = det.get("operator_issue") or (
+                det.get("reason") if det["credit"] != "full" else None
+            )
+            score = score.model_copy(
+                update={"credit": det["credit"], "flag": flag},
             )
 
         item_scores.append(score)

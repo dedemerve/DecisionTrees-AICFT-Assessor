@@ -34,7 +34,7 @@ WS1_B5_ITEM = {
 WS1_RUBRIC = {
     "equivalence_sets": {
         "object_feature": {
-            "aliases": ["nesne", "özellik", "ozellik", "karakteristik"],
+            "aliases": ["nesne", "özellik", "ozellik"],
         },
         "variable_label": {
             "aliases": ["değişken", "degisken", "etiket", "etiket olarak"],
@@ -93,6 +93,26 @@ class TestAnyOfTokens(unittest.TestCase):
             score_any_of_tokens("özellik", WS1_B2_ITEM, WS1_RUBRIC)["credit"],
             "full",
         )
+        self.assertEqual(
+            score_any_of_tokens("nesne ve özellik", WS1_B2_ITEM, WS1_RUBRIC)["credit"],
+            "full",
+        )
+
+    def test_b2_rejects_karakteristik_only(self):
+        self.assertEqual(
+            score_any_of_tokens("karakteristik", WS1_B2_ITEM, WS1_RUBRIC)["credit"],
+            "zero",
+        )
+        self.assertEqual(
+            score_any_of_tokens("varlık", WS1_B2_ITEM, WS1_RUBRIC)["credit"],
+            "zero",
+        )
+
+    def test_b1_accepts_both_variable_label_terms(self):
+        self.assertEqual(
+            score_any_of_tokens("değişken ve etiket", WS1_B1_ITEM, WS1_RUBRIC)["credit"],
+            "full",
+        )
 
     def test_b3_accepts_either_pair(self):
         self.assertEqual(
@@ -112,6 +132,14 @@ class TestAnyOfTokens(unittest.TestCase):
     def test_b4_rejects_eight(self):
         self.assertEqual(score_any_of_tokens("8", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "zero")
         self.assertEqual(score_any_of_tokens("sekiz", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "zero")
+
+    def test_ws1_equivalence_from_rubric_file(self):
+        from pipeline_schema import load_rubric
+
+        rubric = load_rubric("WS1")
+        b2 = rubric["items"]["WS1_B2"]
+        self.assertEqual(score_any_of_tokens("nesne", b2, rubric)["credit"], "full")
+        self.assertEqual(score_any_of_tokens("karakteristik", b2, rubric)["credit"], "zero")
 
     def test_assessor_criteria_b1_lists_equivalents(self):
         criteria = get_assessor_rubric("WS1_B1", "WS1")

@@ -84,5 +84,24 @@ class TestEvidenceUnitMetadata(unittest.TestCase):
         self.assertTrue(meta.requires_human_review)
 
 
+    def test_observability_demographic_indirect(self):
+        self.assertEqual(
+            infer_observability("observation", "learner_response"),
+            "indirect",
+        )
+
+    def test_ws11_survey_not_demographic_type(self):
+        self.assertEqual(
+            infer_evidence_unit_type("WS11", "WS11_B1", None, {"type": "free_text"}),
+            "reflection",
+        )
+
+    def test_ws11_demographic_b6_type(self):
+        self.assertEqual(
+            infer_evidence_unit_type("WS11", "WS11_B6", None, {"type": "free_text"}),
+            "parameter_selection",
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

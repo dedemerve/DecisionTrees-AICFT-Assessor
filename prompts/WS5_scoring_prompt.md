@@ -1,15 +1,15 @@
 # WS5 scoring context
 
-Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 5** (threshold grid experiment).
+Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 5** (threshold grid on food cards).
 
 ## Artifacts
 
 | Role | Path |
 |------|------|
 | Rubric | `rubrics/WS5_rubric.json` |
+| Food cards | `data/prodabi_food_cards.csv` (11 ProDaBi classroom cards) |
 | Answer key | `worksheets/WS5/answer_key.json` |
 | Mapping | `mappings/WS5_AICFT_mapping.json` |
-| Validity | `worksheets/WS5/validity_notes.json` |
 | Responses | `students/<student_id>/WS5/extraction.json` |
 | Validation | `students/<student_id>/WS5/validation.json` — **required** |
 
@@ -19,63 +19,91 @@ Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 5** (thr
 
 ## Construct
 
-**Dataset size N = 10.** Students complete a table: for each candidate threshold row — threshold expression, correct count, error count, MCR. Final item **B25** selects the best threshold with data-based justification.
+Students build decision trees from **11 fixed food data cards** (green clip = tavsiye edilebilir, red = tavsiye edilemez). For each threshold trial they record:
 
-Rows map to extraction fields `WS5_B1`–`WS5_B24` (six rows × four cells; row 6 optional in rubric).
+1. Threshold expression: **variable + operator + value** (e.g. `şeker ≤ 10`, `yağ ≤ 8`, `enerji > 180`)
+2. Correct classification count
+3. Error (misclassification) count
+4. MCR = errors / 11
+
+Final item **B25** selects the best threshold with data-based justification.
+
+**No fixed threshold answers.** `example_answer` in the rubric and answer key are Sample_Student fixtures only. Any acceptable feature + operator + value is valid if counts match the dataset.
 
 ---
 
-## Row scoring (`WS5_row1` … `WS5_row5`)
+## Operator rules (critical)
 
-| Check | Rule |
-|-------|------|
-| `row_consistency` | TP+FP+FN+TN logic: **correct + errors = 10**; **MCR = errors / 10** |
-| Partial 0.5 | Threshold **variable** correct (e.g. şeker) but **operator** wrong or missing |
-| Authority | Python `validation.json` → `deterministic_checks` per row — **use those scores** |
+| True / evet side | Required false / hayır side |
+|------------------|----------------------------|
+| `≤` | `>` |
+| `<` | `≥` |
+| `≥` | `<` |
+| `>` | `≤` |
 
-Do not re-count confusion matrix cells unless validation is missing or `blocked: true`.
+The unwritten branch always uses the **complement** so all 11 cards are classified.
+
+| Example written | False branch implied |
+|-----------------|---------------------|
+| `şeker ≤ 10` | `> 10` |
+| `şeker < 10` | `≥ 10` |
+| `yağ ≤ 8` | `> 8` |
+
+**Invalid pairing** (e.g. `<` with implicit `>` instead of `≥`) yields wrong counts — not full credit.
+
+Python authority: `food_cards_data.complementary_operator()` + `ws5_validation.py`.
+
+---
+
+## Acceptable features
+
+enerji, yağ, doymuş yağ, karbonhidrat, şeker, protein, tuz (and English aliases). Parsed via `food_cards_data.resolve_feature()`.
+
+---
+
+## Row scoring (`WS5_row1` … `WS5_row5`, optional `WS5_row6`)
+
+Each row item aggregates four cells (threshold, doğru, hata, MCR).
+
+| Credit | Rule |
+|--------|------|
+| **Full (1.0)** | Parseable threshold; doğru + hata = **11**; MCR ≈ hata/11; counts match `prodabi_food_cards.csv` for that threshold with complementary false branch |
+| **Partial (0.5)** | Parseable threshold; arithmetic internally consistent but **counts do not match** the dataset |
+| **Zero** | Unparseable threshold, incomplete row, or arithmetic inconsistent |
+| **Not attempted** | All four cells blank |
+
+Inclusive (`≤`, `≥`) and strict (`<`, `>`) operators are both valid when the complement rule is applied correctly.
+
+Authority: `validation.json` → `deterministic_checks.WS5_rowN`.
+
+Do not re-count cards unless validation is missing.
 
 ### Optional row 6 (`WS5_row6`)
 
-Present only if student filled it. Same consistency rules; not required for full worksheet credit.
+Same rules if filled; not required for full worksheet credit.
 
 ---
 
-## B25 — final choice + justification
+## B25 — final choice (minimum misclassification)
 
-| Component | Requirement |
-|-----------|-------------|
-| `threshold_stated` | Specific numeric threshold from the grid |
-| `data_justification` | References MCR or error count from **their table** (not intuition alone) |
+**Method:** For each grid trial, assume per-row counts and MCR are **arithmetically valid** (row partial or full). The student should **prefer the threshold with the lowest error count** among those trials.
 
-`need: 2`, `partial_on: 1` → threshold without data justification = partial.
+| Credit | Rule |
+|--------|------|
+| **Full** | B25 names a threshold from the grid with the **minimum error count** |
+| **Partial (0.5)** | Threshold is in the grid but **not** among minimum-error trials |
+| **Zero** | Blank, or threshold not found in any grid row |
+| **Tie** | Two+ trials share minimum errors → **any** tied choice is full credit |
+| **Tie flag** | Student names only one tied option → `review: true`, `tie_note` lists alternatives (no score penalty) |
 
----
+Python authority: `validate_ws5_b25()` → `deterministic_checks.WS5_B25`.
 
-## Validation gating
-
-| `validation.json` state | Action |
-|-------------------------|--------|
-| `blocked: true` | Set worksheet `blocked: true`; empty or null item scores |
-| `parse_success: false` | Score only items with extraction present; `review: true` on others |
-| Row check failed | Use deterministic result; LLM adds competency rationale only |
-
----
-
-## Competency inference
-
-| Item | Primary LO | Rationale focus |
-|------|------------|-----------------|
-| `WS5_row1`–`row5` | LO3.2.3 | Iterative parameter exploration |
-| `WS5_B25` | LO3.2.2 / LO3.2.3 | Selection + justification of optimal threshold |
-
-Supporting LO3.1.1 only when student explicitly names MCR formula in B25 justification.
-
-Strength ceilings per mapping. Partial row credit → **weak** or **moderate** only.
+Optional semantic check (LLM): brief justification with error/MCR numbers; not required for full credit if deterministic check passes.
 
 ---
 
 ## Review flags
 
-- Internal inconsistency (MCR ≠ errors/10) when validation absent → `review: true`.
-- B25 threshold not appearing in any grid row → partial or zero + review.
+- Row partial with `review_reason: counts_inconsistent_with_food_cards` → counts wrong but notation/arithmetic OK.
+- B25 `tie_at_minimum` with `other_tied_thresholds` → note for reviewer; score unchanged if chosen row is tied for minimum.
+- B25 threshold not in grid → zero + review.

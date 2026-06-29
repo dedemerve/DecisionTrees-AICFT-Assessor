@@ -47,25 +47,24 @@ Five response blanks (B1–B5):
 - **B5:** Any learned **energy threshold from 160 to 2223** inclusive is correct
 
 ### Worksheet 5 — Trying Out Threshold Values
-Type: Record outcomes of multiple threshold attempts for different features
-Concepts tested: feature selection, counting correctly recommended/not-recommended, misclassification rate
+Type: Record outcomes of multiple threshold attempts using **11 ProDaBi food data cards** (`data/prodabi_food_cards.csv`)
+Concepts tested: feature selection, threshold operators (≤/≥ vs strict </>), counting correct/misclassified cards, MCR
 
-Structure: Student fills a grid per feature (variable name, threshold, correct/incorrect counts).
-No single correct answer — evaluated on whether:
-- Feature name matches a real feature in the dataset
-- Counts sum correctly (recommended + not-recommended = total cards)
-- Misclassification count is arithmetically consistent
+Structure: Grid per trial — variable + operator + value, correct count, error count, MCR.
+- **N = 11** cards (salatalık … sütlü çikolata; green/red clips = label)
+- **Full credit:** inclusive `≤`/`≥` and counts match reference confusion matrix; MCR = errors/11
+- **Partial (0.5):** valid feature but strict `<`/`>` only — equality value left unclassified
+- **Zero:** counts disagree with cards or MCR arithmetic wrong
+- **B25:** best threshold with **lowest misclassification (error) count** among grid trials; flag when tied minima and only one named
 
-### Worksheet 6 — Decision Tree Documentation
-Type: Draw/complete a structured decision tree diagram
-Concepts tested: tree structure, split nodes, leaf nodes, multi-level splits
-No text answers — visual structure evaluated.
+### Worksheet 6 — Two-Level Decision Tree (Food Cards)
+Type: Draw and label a **çift seviyeli** binary decision tree on **11 ProDaBi food cards** (`data/prodabi_food_cards.csv` — same as WS5)
+Concepts tested: two features, threshold operators (≤/≥ vs strict), branch labels, leaf classes, tree validity
 
-Expected structure:
-- Root node shows a variable name and threshold
-- Two branches with ≤ and > operators
-- Leaf nodes show classification outcome (tavsiye edilebilir / tavsiye edilemez)
-- Correct count notation in brackets
+Structure: 13 OCR fields (B1–B13) → 8 rubric items. Python walks tree over food cards for MCR.
+- **Full credit thresholds:** inclusive `≤`/`≥` on B2/B7 (strict `<`/`>` → partial 0.5, never full — same as WS5)
+- **MCR=0 with two levels:** valid — not penalized
+- **tree_structure:** requires inner split (2 levels), 2 features, paired operators, labeled leaves
 
 ### Worksheet 7 — Formulate Decision Rules
 Type: Match paths (A, B, C) to written decision rules, then write own rules
@@ -88,7 +87,7 @@ Student must find midpoints between adjacent values and count errors.
 Optimal threshold: stated as a specific value (depends on the data cards used).
 
 ### Worksheet 11 — Evaluation
-Type: Mixed — Likert attitude items + conceptual multiple choice + open-ended
+Type: Mixed — printed survey Q1–Q5 (satisfaction, recommendation, difficulty, self-assessment, topic enjoyment) + demographics Q6–Q7 (age, gender) + Likert attitude items + conceptual items + open-ended cognitive tasks
 Most important items for AI-CFT assessment:
 
 Q8: Use tree to classify strawberries → Acquire level (reading a tree)

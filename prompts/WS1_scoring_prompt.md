@@ -26,12 +26,20 @@ This is **vocabulary recall in context**, not procedural modelling. Do not treat
 
 ## Terminology equivalence (rubric `equivalence_sets`)
 
-| Set | Accept either term |
-|-----|-------------------|
-| `object_feature` | nesne **or** özellik (+ aliases: varlık, örnek, karakteristik, …) |
-| `variable_label` | değişken **or** etiket (+ aliases: label, etiket olarak, …) |
+**Yalnızca bu çiftler** — başka eşanlamlılar (varlık, karakteristik, nitelik, …) **puan almaz**.
 
-Python applies `any_of_tokens` deterministically when `check` is set. LLM competency inference should note which term the student used without penalizing valid equivalents.
+| Set | Kabul edilen |
+|-----|----------------|
+| `object_feature` | **nesne** veya **özellik** (ikisi birlikte yazılsa da tam puan) |
+| `variable_label` | **değişken** veya **etiket** (ikisi birlikte yazılsa da tam puan) |
+
+| Blank | Hangi çift(ler)? |
+|-------|------------------|
+| B1, B7 | `variable_label` only |
+| B2 | `object_feature` only |
+| B3 | **either** pair (nesne/özellik **or** değişken/etiket) |
+
+Python: `rubric_deterministic.score_any_of_tokens()` — yanıtta kabul edilen terimlerden **en az biri** geçmeli.
 
 ---
 

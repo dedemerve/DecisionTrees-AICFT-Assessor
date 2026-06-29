@@ -19,7 +19,6 @@ sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from pipeline_schema import (  # noqa: E402
-    ITEM_IDS_DT,
     ITEM_IDS_WS1,
     ITEM_IDS_WS3,
     ITEM_IDS_WS4,
@@ -27,13 +26,13 @@ from pipeline_schema import (  # noqa: E402
     ITEM_IDS_WS6,
     ITEM_IDS_WS7,
     ITEM_IDS_WS10,
-    ITEM_IDS_WS11,
     ITEM_IDS_WS11_COGNITIVE,
+    ITEM_IDS_WS11_DEMOGRAPHIC,
     ITEM_IDS_WS11_DESCRIPTIVE,
-    ITEM_IDS_WS11_REFLECTION,
+    ITEM_IDS_WS11_FEEDBACK,
+    ITEM_IDS_WS11_SURVEY,
     RUBRICS_DIR,
     is_interpretive_rubric_item,
-    scoring_item_ids,
 )
 from worksheet_bundle_data import (  # noqa: E402
     ALL_WORKSHEETS,
@@ -56,10 +55,10 @@ EXTRACTION_FIELD_IDS: dict[str, list[str]] = {
     "WS4": ITEM_IDS_WS4,
     "WS5": ITEM_IDS_WS5,
     "WS6": ITEM_IDS_WS6,
-    "WS7": ITEM_IDS_WS7 + ["WS7_P1_box1", "WS7_P1_box2", "WS7_P1_box3"],
+    "WS7": ITEM_IDS_WS7,
     "WS10": ITEM_IDS_WS10,
     "WS11": (
-        ITEM_IDS_WS11_REFLECTION
+        ITEM_IDS_WS11_FEEDBACK
         + ITEM_IDS_WS11_COGNITIVE
         + ITEM_IDS_WS11_DESCRIPTIVE
     ),
@@ -155,17 +154,28 @@ def build_extraction_schema(worksheet: str, rubric: dict[str, Any]) -> dict[str,
             fields.append({
                 "field_id": fid,
                 "type": _field_type(worksheet, fid),
-                "required": fid not in ITEM_IDS_WS11_DESCRIPTIVE,
+                "required": fid not in ITEM_IDS_WS11_DESCRIPTIVE and fid not in ITEM_IDS_WS11_FEEDBACK,
                 "location_hint": (
                     WS4_LOCATION_HINTS.get(fid, f"{worksheet} worksheet response region")
                     if worksheet == "WS4"
                     else f"{worksheet} worksheet response region"
                 ),
-                "note": "Descriptive-only field" if fid in ITEM_IDS_WS11_DESCRIPTIVE else None,
+                "note": (
+                    "Demographic field — no correct answer; exclude from scoring and competency"
+                    if fid in ITEM_IDS_WS11_DEMOGRAPHIC
+                    else "Survey/Likert — no correct answer; exclude from scoring and competency"
+                    if fid in ITEM_IDS_WS11_SURVEY
+                    else "Descriptive-only field"
+                    if fid in ITEM_IDS_WS11_DESCRIPTIVE
+                    else None
+                ),
             })
             seen.add(fid)
 
     fields = [{k: v for k, v in f.items() if v is not None} for f in fields]
+    from worksheet_blank_registry import enrich_extraction_field
+
+    fields = [enrich_extraction_field(worksheet, f, rubric) for f in fields]
     fields.sort(key=lambda x: x["field_id"])
 
     return {
@@ -233,11 +243,13 @@ def build_answer_key(worksheet: str, rubric: dict[str, Any]) -> dict[str, Any]:
             key: dict[str, Any] = {}
             for field in (
                 "check", "evaluation", "answer", "correct_answer",
-                "example_answer", "tolerance", "accepted_forms",
+                "example_answer", "example_note", "tolerance", "accepted_forms",
                 "token_groups", "need_tokens", "partial_on_tokens", "order_insensitive",
                 "accept_sets", "extra_aliases", "accepted_aliases",
                 "min_value", "max_value", "zero_credit_hints",
                 "scoring_mode", "fields", "consistency_rules", "formula_reference",
+                "partial_credit_rule", "partial_score", "credit_levels", "method", "tie_rule",
+                "consistency_check", "mcr_note", "leaf_labels",
             ):
                 if field in item:
                     key[field] = item[field]
@@ -262,7 +274,17 @@ def build_answer_key(worksheet: str, rubric: dict[str, Any]) -> dict[str, Any]:
         out["equivalence_sets"] = rubric["equivalence_sets"]
     if rubric.get("scoring_policy"):
         out["scoring_policy"] = rubric["scoring_policy"]
-    return out
+    if rubric.get("scoring_model"):
+        out["scoring_model"] = rubric["scoring_model"]
+    if rubric.get("row_scoring"):
+        out["row_scoring"] = rubric["row_scoring"]
+    if rubric.get("item_scoring"):
+        out["item_scoring"] = rubric["item_scoring"]
+    if rubric.get("field_map"):
+        out["field_map"] = rubric["field_map"]
+    from answer_key_enrichment import enrich_answer_key
+
+    return enrich_answer_key(worksheet, rubric, out)
 
 
 def load_legacy_rubric(worksheet: str) -> dict[str, Any]:

@@ -2,12 +2,18 @@
   "worksheet": "WS5",
   "curriculum_status": "deployed",
   "construct_threats": [
-    "Grid filling is procedural; partial credit on operator errors may mask conceptual gaps."
+    "Grid filling is procedural; students may copy arithmetic patterns without recounting cards."
   ],
   "leakage_risks": [],
   "evidence_limitations": [
     "Row-level scoring aggregates four cells; cell-level evidence is not separately scored.",
-    "Dataset size N=10 is fixed in rubric metadata."
+    "Reference counts computed dynamically from data/prodabi_food_cards.csv (N=11); no fixed threshold answer key.",
+    "Partial row credit (0.5) when notation and arithmetic are valid but classification counts mismatch the dataset."
   ],
-  "cross_worksheet_dependencies": []
+  "cross_worksheet_dependencies": [
+    {
+      "depends_on": "WS4",
+      "reason": "Students apply threshold search insights on the same food-card set."
+    }
+  ]
 }

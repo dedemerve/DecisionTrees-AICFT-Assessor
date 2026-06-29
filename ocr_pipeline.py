@@ -310,7 +310,7 @@ WS1 is a nutrition-label fill-in worksheet. Extract the seven paragraph blanks (
 Transcribe short answers verbatim — not full definitions.
 "WS1_B1"  Blank 5 — variable/label term (değişken / etiket; typically "etiket")
 "WS1_B2"  Blank 6 — object/feature term (nesne / özellik; typically "nesne")
-"WS1_B3"  Blank 7 — feature term; accepts nesne|özellik OR değişken|etiket equivalents
+"WS1_B3"  Blank 7 — nesne OR özellik OR değişken OR etiket (pair members only; both together OK)
 "WS1_B4"  Blank 8 — number of features (7 or yedi only)
 "WS1_B5"  Blank 9 — list of nutrient/feature names from the table
 "WS1_B6"  Blank 10 — example food object name (e.g. Fındıklı Gofret)
@@ -336,9 +336,11 @@ WS4 has 5 blanks aligned to threshold-search tasks on food cards.
 "WS4_B5"  Blank 5 — energy threshold learned (numeric, 160–2223 range)
 
 --- WORKSHEET 5: Eşik Dene (Try Thresholds — 25 blanks) ---
-WS5 is a systematic exploration worksheet. Students test multiple threshold values.
-It contains a table or sequence of 25 numbered blanks. For threshold/comparison entries
-transcribe any threshold notation EXACTLY (≤, ≥, <, >) as written — do not normalise.
+WS5 grid on 11 ProDaBi food data cards (salatalık … sütlü çikolata). Each filled row
+uses four cells: threshold expression, correct count, error count, MCR (errors/11).
+Rows map B1–B4 (row 1), B5–B8 (row 2), … B21–B24 (optional row 6); B25 = final choice.
+Transcribe threshold operators EXACTLY as written (≤, ≥, <, >, <=, >=) — do not normalise.
+Counts and MCR are integers/decimals only (no formulas).
 "WS5_B1"  Blank 1
 "WS5_B2"  Blank 2
 "WS5_B3"  Blank 3
@@ -363,48 +365,54 @@ transcribe any threshold notation EXACTLY (≤, ≥, <, >) as written — do not
 "WS5_B22" Blank 22
 "WS5_B23" Blank 23
 "WS5_B24" Blank 24
-"WS5_B25" Blank 25
+"WS5_B25" Blank 25 — final choice: threshold with lowest yanlış sınıflandırma count from grid
 
 --- WORKSHEET 6: Karar Ağacı Çiz (Draw a Decision Tree — 13 blanks) ---
-WS6 has 13 blanks. The student DRAWS a decision tree and labels its components.
-Transcribe ONLY the written labels, threshold values, and annotations in the 13 blanks.
-The tree drawing itself will be analysed separately by a vision pipeline.
-For threshold/inequality expressions transcribe EXACTLY as written.
-"WS6_B1"  Blank 1 — root node label or feature name
-"WS6_B2"  Blank 2 — root threshold value or inequality
-"WS6_B3"  Blank 3 — first branch label or condition
-"WS6_B4"  Blank 4 — second branch label or condition
-"WS6_B5"  Blank 5 — result/leaf node on left branch
-"WS6_B6"  Blank 6 — result/leaf node on right branch
-"WS6_B7"  Blank 7
-"WS6_B8"  Blank 8
-"WS6_B9"  Blank 9
-"WS6_B10" Blank 10
-"WS6_B11" Blank 11
-"WS6_B12" Blank 12
-"WS6_B13" Blank 13
+WS6: two-level decision tree on the same 11 ProDaBi food cards as WS5.
+Transcribe labels, thresholds, and leaf class names exactly (≤, ≥, <, >).
+"WS6_B1"  Blank 1 — root node feature (şeker, yağ, enerji, …)
+"WS6_B2"  Blank 2 — root threshold with operator (transcribe ≤, ≥, <, > exactly as written)
+"WS6_B3"  Blank 3 — evet branch label (e.g. evet (≤ 10))
+"WS6_B4"  Blank 4 — hayır branch label (e.g. hayır (> 10) or hayır (≥ 10))
+"WS6_B5"  Blank 5 — optional leaf (e.g. on evet branch without inner split)
+"WS6_B6"  Blank 6 — inner-node feature on evet subtree (must differ from B1)
+"WS6_B7"  Blank 7 — inner-node threshold with operator (transcribe exactly)
+"WS6_B8"  Blank 8 — inner evet branch label
+"WS6_B9"  Blank 9 — inner hayır branch label
+"WS6_B10" Blank 10 — inner left leaf (tavsiye edilir / edilmez)
+"WS6_B11" Blank 11 — inner right leaf
+"WS6_B12" Blank 12 — optional extra leaf
+"WS6_B13" Blank 13 — right-subtree leaf (hayır branch from root)
 
---- WORKSHEET 7: Kurallar (Decision Rules — 7 blanks) ---
-WS7 has 7 blanks. Students write if-then rules for each path in a given decision tree.
-Transcribe the full if-then rule the student wrote for each blank.
-"WS7_B1"  Blank 1 — decision rule for path/branch 1
-"WS7_B2"  Blank 2 — decision rule for path/branch 2
-"WS7_B3"  Blank 3
-"WS7_B4"  Blank 4
-"WS7_B5"  Blank 5
-"WS7_B6"  Blank 6
-"WS7_B7"  Blank 7
+--- WORKSHEET 7: Karar Kuralları (Decision Rules) ---
+WS7 has two parts on the worksheet. Transcribe exactly — do not normalize operators.
 
---- WORKSHEET 10: Sistematik (Systematic Approach — 8 blanks) ---
-WS10 has 8 blanks about understanding systematic search for the best threshold.
-"WS10_B1" Blank 1
-"WS10_B2" Blank 2
-"WS10_B3" Blank 3
-"WS10_B4" Blank 4
-"WS10_B5" Blank 5
-"WS10_B6" Blank 6
-"WS10_B7" Blank 7
-"WS10_B8" Blank 8
+Part 1 — path matching (rows 5–7 next to printed rules): single letter A, B, or C.
+"WS7_P1_box1"  Part 1 box for printed rule row 5 — letter A/B/C
+"WS7_P1_box2"  Part 1 box for printed rule row 6 — letter A/B/C
+"WS7_P1_box3"  Part 1 box for printed rule row 7 — letter A/B/C
+
+Part 2 — if-then rules consistent with the student's WS6 tree (page 2 or lower section).
+Transcribe full rules verbatim including ≤, ≥, <, >.
+"WS7_B1"  Rule for WS6 leaf path 1
+"WS7_B2"  Rule for WS6 leaf path 2
+"WS7_B3"  Rule for WS6 leaf path 3
+"WS7_B4"  Optional extra rule slot (often blank)
+"WS7_B5"  Optional extra rule slot
+"WS7_B6"  Optional extra rule slot
+"WS7_B7"  Optional extra rule slot
+
+--- WORKSHEET 10: Sistematik Eşik (Systematic Threshold — 8 numbered blanks) ---
+WS10: printed blank numbers 1–8 (red on form). Transcribe only the HANDWRITTEN numeric
+response next to each blank number — not the printed threshold column to the left.
+"WS10_B1"  Blank 1 — student response (yanlış sınıflandırma count, table row 1)
+"WS10_B2"  Blank 2 — student response (table row 2)
+"WS10_B3"  Blank 3 — student response (table row 3)
+"WS10_B4"  Blank 4 — student response (table row 4)
+"WS10_B5"  Blank 5 — student response (table row 5)
+"WS10_B6"  Blank 6 — student response (table row 6)
+"WS10_B7"  Blank 7 — student response (table row 7)
+"WS10_B8"  Blank 8 — optimum eşik değer (line below table: "Optimum eşik değer şudur:")
 
 --- WORKSHEET SNAPSHOT ---
 "ws_snapshot"
@@ -437,6 +445,7 @@ Return ONLY the following JSON object. No text before or after it.
   "WS6_B1": "...", "WS6_B2": "...", "WS6_B3": "...", "WS6_B4": "...", "WS6_B5": "...",
   "WS6_B6": "...", "WS6_B7": "...", "WS6_B8": "...", "WS6_B9": "...", "WS6_B10": "...",
   "WS6_B11": "...", "WS6_B12": "...", "WS6_B13": "...",
+  "WS7_P1_box1": "...", "WS7_P1_box2": "...", "WS7_P1_box3": "...",
   "WS7_B1": "...", "WS7_B2": "...", "WS7_B3": "...", "WS7_B4": "...",
   "WS7_B5": "...", "WS7_B6": "...", "WS7_B7": "...",
   "WS10_B1": "...", "WS10_B2": "...", "WS10_B3": "...", "WS10_B4": "...",
@@ -457,12 +466,20 @@ You will receive multiple page images belonging to ONE student.
 {_SENTINEL_INSTRUCTION}
 
 WORKSHEET 11 STRUCTURE:
-- Blanks B1-B7: open-ended evaluation questions (written answers)
+- Printed questions 1–7 (B1–B7): NO correct answer — transcribe student marks/text verbatim
+  - B1 Q1: lesson satisfaction — tick one of: Çok iyi, İyi, Ortalama, Kötü, Çok kötü; optional Açıklama text
+  - B2 Q2: recommend to friends — Evet, Hayır, Bilmiyorum; optional Açıklama
+  - B3 Q3: difficulty — Çok kolay, Kolay, Orta, Zor, Çok zor; optional Açıklama
+  - B4 Q4: can explain how a DT works — Evet or Hayır (checkbox)
+  - B5 Q5: enjoyment of food topic — Çok, İyi, Ortalama, Az, Çok Az; optional Açıklama
+  - B6 Q6: age — handwritten number (Kaç yaşındasın)
+  - B7 Q7: gender — Erkek or Kız (checkbox)
+  Format each B1–B5 response as: "<selected option>" or "<option>; Açıklama: <text>" when explanation is written.
 - Blanks B8a, B8b: classification task
 - Blank B9: open-ended definition
 - Likert group L10 (8 items): students CIRCLE a number 1-5 on a printed scale
 - Likert group L11 (3 items): same format
-- Group L12 (5 items): may include demographic or self-assessment items
+- Group L12 (5 items): self-assessment / additional items
 
 For Likert/circled-number items, transcribe the number the student circled.
 If the scale shows options and the student ticked/circled one, write just that value.
@@ -472,14 +489,14 @@ BLANKS TO EXTRACT:
 
 "student_name"
 
---- Open-ended evaluation blanks ---
-"WS11_B1"  Blank 1 — first open-ended evaluation question
-"WS11_B2"  Blank 2
-"WS11_B3"  Blank 3
-"WS11_B4"  Blank 4
-"WS11_B5"  Blank 5
-"WS11_B6"  Blank 6
-"WS11_B7"  Blank 7
+--- Printed questions 1–7 (no correct answer) ---
+"WS11_B1"  Q1 — lesson satisfaction (checkbox + optional Açıklama)
+"WS11_B2"  Q2 — recommend to friends (Evet/Hayır/Bilmiyorum + optional Açıklama)
+"WS11_B3"  Q3 — difficulty rating (Çok kolay…Çok zor + optional Açıklama)
+"WS11_B4"  Q4 — can explain how a decision tree works (Evet or Hayır)
+"WS11_B5"  Q5 — enjoyment of food topic (Çok…Çok Az + optional Açıklama)
+"WS11_B6"  Q6 — age (Kaç yaşındasın)
+"WS11_B7"  Q7 — gender (Erkek or Kız)
 
 --- Classification and definition task ---
 "WS11_B8a" Blank 8a — classify a food item using the printed decision tree (student's result)
@@ -523,9 +540,8 @@ Each is a 1-5 scale item. Transcribe the circled/ticked number exactly.
 --- Snapshot ---
 "ws_snapshot"
   Write 2-3 sentences summarising what Worksheet 11 reveals about this student.
-  Note engagement with the evaluation (did they answer all Likert items? any notable
-  patterns in their circled values?), quality of their definition in B9, and anything
-  distinctive about their responses (strong language, contradictions, unusually short/long).
+  Note whether Q1–Q7 were filled, engagement with cognitive items (B8–Q12), and quality of B9.
+  Do not score or judge Q1–Q7 — they are survey/demographic only.
 
 "page_notes"
   Brief note about scan quality or layout issues. Write (bos) if no issues.

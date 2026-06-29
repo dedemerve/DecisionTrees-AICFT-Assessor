@@ -1,0 +1,55 @@
+{
+  "worksheet": "WS7",
+  "part1_title": "Karar kuralını formüle edin — fixed sample tree (enerji / protein)",
+  "operator_rules": {
+    "required": "Complementary pairs on each split: ≤↔>, <↔≥, ≥↔<, >↔≤",
+    "sample_tree_splits": [
+      {"feature": "enerji", "evet": "< 180 kcal", "hayir": "≥ 180 kcal"},
+      {"feature": "protein", "evet": "< 7,7 g", "hayir": "≥ 7,7 g"}
+    ]
+  },
+  "paths": {
+    "A": {
+      "label": "recommended",
+      "conditions": [
+        {"feature": "enerji", "operator": "<", "value": 180, "unit": "kcal"}
+      ]
+    },
+    "B": {
+      "label": "not_recommended",
+      "conditions": [
+        {"feature": "enerji", "operator": ">=", "value": 180, "unit": "kcal"},
+        {"feature": "protein", "operator": "<", "value": 7.7, "unit": "g"}
+      ]
+    },
+    "C": {
+      "label": "recommended",
+      "conditions": [
+        {"feature": "enerji", "operator": ">=", "value": 180, "unit": "kcal"},
+        {"feature": "protein", "operator": ">=", "value": 7.7, "unit": "g"}
+      ]
+    }
+  },
+  "printed_rules": [
+    {
+      "row": 5,
+      "matches_path": "B",
+      "summary_tr": "enerji ≥ 180 ve protein < 7,7 → tavsiye edilemez"
+    },
+    {
+      "row": 6,
+      "matches_path": "A",
+      "summary_tr": "enerji < 180 → tavsiye edilebilir"
+    },
+    {
+      "row": 7,
+      "matches_path": "C",
+      "summary_tr": "enerji ≥ 180 ve protein ≥ 7,7 → tavsiye edilebilir"
+    }
+  ],
+  "p1_answers": {
+    "WS7_P1_box1": "B",
+    "WS7_P1_box2": "A",
+    "WS7_P1_box3": "C"
+  }
+}

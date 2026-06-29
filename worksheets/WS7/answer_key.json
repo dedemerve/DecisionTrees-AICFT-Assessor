@@ -21,17 +21,68 @@
     "WS7_B1": {
       "check": "rule_consistency_with_WS6",
       "example_answer": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.",
+      "partial_credit_rule": "correct_feature_and_label_but_wrong_operator",
+      "partial_score": 0.5,
       "deterministic": true
     },
     "WS7_B2": {
       "check": "rule_consistency_with_WS6",
       "example_answer": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.",
+      "partial_credit_rule": "correct_feature_and_label_but_wrong_operator",
+      "partial_score": 0.5,
       "deterministic": true
     },
     "WS7_B3": {
       "check": "rule_consistency_with_WS6",
       "example_answer": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+      "partial_credit_rule": "correct_feature_and_label_but_wrong_operator",
+      "partial_score": 0.5,
       "deterministic": true
     }
-  }
+  },
+  "fields": {
+    "WS7_P1_box1": {
+      "answer": "B",
+      "example_response": "B",
+      "scoring_mode": "fixed_exact",
+      "source": "data/ws7_sample_tree.json"
+    },
+    "WS7_P1_box2": {
+      "answer": "A",
+      "example_response": "A",
+      "scoring_mode": "fixed_exact",
+      "source": "data/ws7_sample_tree.json"
+    },
+    "WS7_P1_box3": {
+      "answer": "C",
+      "example_response": "C",
+      "scoring_mode": "fixed_exact",
+      "source": "data/ws7_sample_tree.json"
+    },
+    "WS7_B1": {
+      "example_response": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.",
+      "scoring_mode": "cross_worksheet",
+      "depends_on": [
+        "WS6"
+      ],
+      "source": "ws7_validation (student WS6 tree)"
+    },
+    "WS7_B2": {
+      "example_response": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.",
+      "scoring_mode": "cross_worksheet",
+      "depends_on": [
+        "WS6"
+      ],
+      "source": "ws7_validation (student WS6 tree)"
+    },
+    "WS7_B3": {
+      "example_response": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+      "scoring_mode": "cross_worksheet",
+      "depends_on": [
+        "WS6"
+      ],
+      "source": "ws7_validation (student WS6 tree)"
+    }
+  },
+  "field_note": "Per-field reference for OCR/extraction alignment and Sample_Student fixtures. Interpretive fields carry example_response only."
 }

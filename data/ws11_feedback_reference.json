@@ -1,0 +1,55 @@
+{
+  "worksheet": "WS11",
+  "section": "printed_questions_1_7",
+  "note": "Questions 1–7 have no keyed correct answers. B1–B5: survey/Likert (+ optional Açıklama). B6–B7: demographics.",
+  "fields": {
+    "WS11_B1": {
+      "printed_question": 1,
+      "prompt_tr": "Karar ağaçlarıyla ilgili ders serisini genel olarak ne kadar beğendiniz?",
+      "response_kind": "likert_with_optional_explanation",
+      "options": ["Çok iyi", "İyi", "Ortalama", "Kötü", "Çok kötü"],
+      "scoring_mode": "survey"
+    },
+    "WS11_B2": {
+      "printed_question": 2,
+      "prompt_tr": "Bu ders serisini arkadaşlarınıza tavsiye eder misiniz?",
+      "response_kind": "choice_with_optional_explanation",
+      "options": ["Evet", "Hayır", "Bilmiyorum"],
+      "scoring_mode": "survey"
+    },
+    "WS11_B3": {
+      "printed_question": 3,
+      "prompt_tr": "Bu ders dizisini ne kadar zor buldunuz?",
+      "response_kind": "likert_with_optional_explanation",
+      "options": ["Çok kolay", "Kolay", "Orta", "Zor", "Çok zor"],
+      "scoring_mode": "survey"
+    },
+    "WS11_B4": {
+      "printed_question": 4,
+      "prompt_tr": "Bir karar ağacının nasıl çalıştığını açıklayabilir misiniz?",
+      "response_kind": "yes_no",
+      "options": ["Evet", "Hayır"],
+      "scoring_mode": "survey"
+    },
+    "WS11_B5": {
+      "printed_question": 5,
+      "prompt_tr": "Gıda konusu ile çalışmaktan ne kadar keyif aldınız?",
+      "response_kind": "likert_with_optional_explanation",
+      "options": ["Çok", "İyi", "Ortalama", "Az", "Çok Az"],
+      "scoring_mode": "survey"
+    },
+    "WS11_B6": {
+      "printed_question": 6,
+      "prompt_tr": "Kaç yaşındasın",
+      "response_kind": "numeric_free_text",
+      "scoring_mode": "demographic"
+    },
+    "WS11_B7": {
+      "printed_question": 7,
+      "prompt_tr": "Cinsiyetin",
+      "response_kind": "choice",
+      "options": ["Erkek", "Kız"],
+      "scoring_mode": "demographic"
+    }
+  }
+}

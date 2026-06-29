@@ -31,13 +31,60 @@
       "check": "threshold",
       "evaluation": "threshold",
       "example_answer": "enerji ≤ [öğrencinin seçtiği değer]",
+      "partial_credit_rule": "variable_correct_but_operator_wrong_or_missing",
+      "partial_score": 0.5,
       "deterministic": true
     },
     "WS3_B8": {
       "check": "threshold",
       "evaluation": "threshold",
       "example_answer": "enerji > [same value as B7]",
+      "partial_credit_rule": "variable_correct_but_operator_wrong_or_missing",
+      "partial_score": 0.5,
       "deterministic": true
     }
-  }
+  },
+  "fields": {
+    "WS3_B1": {
+      "example_response": "Tavsiye edilemez",
+      "scoring_mode": "fixed_exact",
+      "source": "rubrics/WS3_rubric.json"
+    },
+    "WS3_B2": {
+      "example_response": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez.",
+      "scoring_mode": "interpretive",
+      "source": "rubrics/WS3_rubric.json"
+    },
+    "WS3_B3": {
+      "example_response": "Tavsiye edilebilir",
+      "scoring_mode": "fixed_exact",
+      "source": "rubrics/WS3_rubric.json"
+    },
+    "WS3_B4": {
+      "example_response": "Yağ değeri 8g eşiğinin altında olduğu için tavsiye edilebilir.",
+      "scoring_mode": "interpretive",
+      "source": "rubrics/WS3_rubric.json"
+    },
+    "WS3_B5": {
+      "example_response": "Tavsiye edilemez",
+      "scoring_mode": "fixed_exact",
+      "source": "rubrics/WS3_rubric.json"
+    },
+    "WS3_B6": {
+      "example_response": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez.",
+      "scoring_mode": "interpretive",
+      "source": "rubrics/WS3_rubric.json"
+    },
+    "WS3_B7": {
+      "example_response": "şeker ≤ 10",
+      "scoring_mode": "fixed_exact",
+      "source": "rubrics/WS3_rubric.json"
+    },
+    "WS3_B8": {
+      "example_response": "şeker > 10",
+      "scoring_mode": "fixed_exact",
+      "source": "rubrics/WS3_rubric.json"
+    }
+  },
+  "field_note": "Per-field reference for OCR/extraction alignment and Sample_Student fixtures. Interpretive fields carry example_response only."
 }

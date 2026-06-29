@@ -22,7 +22,8 @@
             "jellybean",
             "jelly bean",
             "jölebon",
-            "jolebon"
+            "jolebon",
+            "jelbon"
           ]
         },
         {
@@ -31,7 +32,8 @@
             "kraker",
             "cracker",
             "krakers",
-            "krakerler"
+            "krakerler",
+            "kraken"
           ]
         },
         {
@@ -82,5 +84,38 @@
       "max_value": 2223,
       "deterministic": true
     }
-  }
+  },
+  "fields": {
+    "WS4_B1": {
+      "example_response": "Avokado ile patates kızartması arasına çizgi (yeni eşik)",
+      "scoring_mode": "interpretive"
+    },
+    "WS4_B2": {
+      "example_response": "jelibon, kraker, yulaf, avokado",
+      "scoring_mode": "fixed_exact",
+      "answer_tokens": [
+        "jelibon",
+        "kraker",
+        "yulaf",
+        "avokado"
+      ]
+    },
+    "WS4_B3": {
+      "example_response": "Yeni eşikle daha az yanlış sınıflandırma oldu.",
+      "scoring_mode": "interpretive"
+    },
+    "WS4_B4": {
+      "example_response": "Pia haklı; elma ile ahududu reçelinin yağ değerleri aynı.",
+      "scoring_mode": "interpretive"
+    },
+    "WS4_B5": {
+      "example_response": "408",
+      "answer_range": [
+        160,
+        2223
+      ],
+      "scoring_mode": "fixed_exact"
+    }
+  },
+  "field_note": "Per-field reference for OCR/extraction alignment and Sample_Student fixtures. Interpretive fields carry example_response only."
 }

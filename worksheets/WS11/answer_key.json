@@ -101,5 +101,203 @@
       "evaluation": "multiselect_subitem",
       "example_answer": "İşaretlenmeli"
     }
-  }
+  },
+  "fields": {
+    "WS11_B1": {
+      "printed_question": 1,
+      "question_tr": "Karar ağaçlarıyla ilgili ders serisini genel olarak ne kadar beğendiniz?",
+      "scoring_mode": "survey",
+      "no_correct_answer": true,
+      "allowed_responses": [
+        "Çok iyi",
+        "İyi",
+        "Ortalama",
+        "Kötü",
+        "Çok kötü"
+      ],
+      "source": "data/ws11_feedback_reference.json"
+    },
+    "WS11_B2": {
+      "printed_question": 2,
+      "question_tr": "Bu ders serisini arkadaşlarınıza tavsiye eder misiniz?",
+      "scoring_mode": "survey",
+      "no_correct_answer": true,
+      "allowed_responses": [
+        "Evet",
+        "Hayır",
+        "Bilmiyorum"
+      ],
+      "source": "data/ws11_feedback_reference.json"
+    },
+    "WS11_B3": {
+      "printed_question": 3,
+      "question_tr": "Bu ders dizisini ne kadar zor buldunuz?",
+      "scoring_mode": "survey",
+      "no_correct_answer": true,
+      "allowed_responses": [
+        "Çok kolay",
+        "Kolay",
+        "Orta",
+        "Zor",
+        "Çok zor"
+      ],
+      "source": "data/ws11_feedback_reference.json"
+    },
+    "WS11_B4": {
+      "printed_question": 4,
+      "question_tr": "Bir karar ağacının nasıl çalıştığını açıklayabilir misiniz?",
+      "scoring_mode": "survey",
+      "no_correct_answer": true,
+      "allowed_responses": [
+        "Evet",
+        "Hayır"
+      ],
+      "source": "data/ws11_feedback_reference.json"
+    },
+    "WS11_B5": {
+      "printed_question": 5,
+      "question_tr": "Gıda konusu ile çalışmaktan ne kadar keyif aldınız?",
+      "scoring_mode": "survey",
+      "no_correct_answer": true,
+      "allowed_responses": [
+        "Çok",
+        "İyi",
+        "Ortalama",
+        "Az",
+        "Çok Az"
+      ],
+      "source": "data/ws11_feedback_reference.json"
+    },
+    "WS11_B6": {
+      "printed_question": 6,
+      "question_tr": "Kaç yaşındasın",
+      "scoring_mode": "demographic",
+      "no_correct_answer": true,
+      "allowed_responses": null,
+      "source": "data/ws11_feedback_reference.json"
+    },
+    "WS11_B7": {
+      "printed_question": 7,
+      "question_tr": "Cinsiyetin",
+      "scoring_mode": "demographic",
+      "no_correct_answer": true,
+      "allowed_responses": [
+        "Erkek",
+        "Kız"
+      ],
+      "source": "data/ws11_feedback_reference.json"
+    },
+    "WS11_B8a": {
+      "example_response": "Tavsiye edilmez",
+      "scoring_mode": "interpretive",
+      "open_response": true
+    },
+    "WS11_B8b": {
+      "example_response": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+      "scoring_mode": "interpretive",
+      "open_response": true
+    },
+    "WS11_B9": {
+      "example_response": "Karar ağacı, veriden örüntü öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir modeldir.",
+      "scoring_mode": "interpretive",
+      "open_response": true
+    },
+    "WS11_Q10_1": {
+      "answer": "Doğru",
+      "example_response": "Doğru",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q10_2": {
+      "answer": "Doğru",
+      "example_response": "Doğru",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q10_3": {
+      "answer": "Yanlış",
+      "example_response": "Yanlış",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q10_4": {
+      "answer": "Doğru",
+      "example_response": "Doğru",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q10_5": {
+      "answer": "Doğru",
+      "example_response": "Doğru",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q10_6": {
+      "answer": "Yanlış",
+      "example_response": "Yanlış",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q10_7": {
+      "answer": "Yanlış",
+      "example_response": "Yanlış",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q10_8": {
+      "answer": "Doğru",
+      "example_response": "Doğru",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q11_2": {
+      "answer": 2,
+      "example_response": "2",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q11_3": {
+      "answer": 3,
+      "example_response": "3",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q11_4": {
+      "answer": 4,
+      "example_response": "4",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q12_1": {
+      "answer": true,
+      "example_response": "İşaretli",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q12_2": {
+      "answer": false,
+      "example_response": "İşaretlenmemiş",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q12_3": {
+      "answer": false,
+      "example_response": "İşaretlenmemiş",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q12_4": {
+      "answer": false,
+      "example_response": "İşaretlenmemiş",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    },
+    "WS11_Q12_5": {
+      "answer": true,
+      "example_response": "İşaretli",
+      "scoring_mode": "fixed_exact",
+      "deterministic": true
+    }
+  },
+  "field_note": "Per-field reference for OCR/extraction alignment and Sample_Student fixtures. Interpretive fields carry example_response only."
 }

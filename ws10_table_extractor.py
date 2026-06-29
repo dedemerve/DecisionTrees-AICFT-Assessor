@@ -20,8 +20,10 @@ from pipeline_schema import REPO_ROOT, layout_manifest_path
 
 CALIBRATION_WS10 = REPO_ROOT / "calibration" / "ws10_slot31_htr.json"
 
-# Printed energy card values on WS10 (ProDaBi v4, fixed dataset).
-WS10_ENERGY_VALUES = [28, 69, 219, 346, 359, 408, 489]
+# Printed midpoint thresholds in the WS10 table (left column, fixed on worksheet).
+WS10_PRINTED_THRESHOLDS = [28, 69, 219, 346, 359, 408, 489]
+# Legacy alias used by layout code
+WS10_ENERGY_VALUES = WS10_PRINTED_THRESHOLDS
 
 
 @dataclass
@@ -124,39 +126,41 @@ def _derive_responses(
     rows: list[Ws10TableRow],
     optimal: str,
 ) -> dict[str, str]:
-    thresholds: list[int] = []
-    misclass: list[int] = []
+    """
+    Map HTR table to WS10_B1..B8:
+      B1–B7 = misclassification counts for rows 1–7 (handwritten column)
+      B8    = optimum threshold blank below table
+    """
+    misclass: list[str] = []
     for i, row in enumerate(rows):
-        th = row.threshold_printed or str(WS10_ENERGY_VALUES[i] if i < len(WS10_ENERGY_VALUES) else "")
         mc = row.misclassification_htr
-        try:
-            thresholds.append(int(float(th)))
-        except ValueError:
-            thresholds.append(WS10_ENERGY_VALUES[i] if i < len(WS10_ENERGY_VALUES) else 0)
-        try:
-            misclass.append(int(float(mc)))
-        except ValueError:
-            misclass.append(-1)
+        if mc in {ILLEGIBLE, "(bos)", "(missing)"}:
+            misclass.append(ILLEGIBLE)
+        else:
+            misclass.append(str(mc).strip())
 
-    if len(thresholds) < 2:
+    if len(misclass) < 7:
         return {f"WS10_B{i}": ILLEGIBLE for i in range(1, 9)}
 
-    midpoints = [(thresholds[i] + thresholds[i + 1]) / 2 for i in range(len(thresholds) - 1)]
-    valid_mc = [m for m in misclass if m >= 0]
-    min_mc = min(valid_mc) if valid_mc else 0
-    min_idx = misclass.index(min_mc) if min_mc in misclass else 0
-    optimal_table = str(thresholds[min_idx])
-
-    opt = optimal if optimal and optimal not in {ILLEGIBLE, "(bos)"} else optimal_table
+    opt = optimal if optimal and optimal not in {ILLEGIBLE, "(bos)"} else ""
+    if not opt:
+        # Default optimum from minimum misclassification row when blank illegible
+        try:
+            counts = [int(float(m)) for m in misclass[:7]]
+            min_mc = min(counts)
+            min_idx = counts.index(min_mc)
+            opt = str(WS10_PRINTED_THRESHOLDS[min_idx])
+        except ValueError:
+            opt = ILLEGIBLE
 
     return {
-        "WS10_B1": str(midpoints[0]),
-        "WS10_B2": str(len(midpoints)),
-        "WS10_B3": str(midpoints[1]) if len(midpoints) > 1 else ILLEGIBLE,
-        "WS10_B4": str(misclass[3]) if len(misclass) > 3 and misclass[3] >= 0 else ILLEGIBLE,
-        "WS10_B5": optimal_table,
-        "WS10_B6": f"{thresholds[min_idx]}|{misclass[min_idx]}",
-        "WS10_B7": f"{thresholds[min_idx]}|{misclass[min_idx]}",
+        "WS10_B1": misclass[0],
+        "WS10_B2": misclass[1],
+        "WS10_B3": misclass[2],
+        "WS10_B4": misclass[3],
+        "WS10_B5": misclass[4],
+        "WS10_B6": misclass[5],
+        "WS10_B7": misclass[6],
         "WS10_B8": opt,
     }
 
@@ -187,7 +191,8 @@ def _extract_from_calibration(student_id: str, cal: dict[str, Any]) -> Ws10Extra
         optimal_review=False,
         responses=responses,
         numeric_table={
-            "energy_values": WS10_ENERGY_VALUES,
+            "energy_values": WS10_PRINTED_THRESHOLDS,
+            "printed_thresholds": WS10_PRINTED_THRESHOLDS,
             "thresholds": thresholds,
             "misclassifications": misclass,
             "optimal_threshold": optimal,
@@ -276,7 +281,8 @@ def extract_ws10_from_layout(
 
     responses = _derive_responses(rows, optimal_res.text)
     numeric_table = {
-        "energy_values": WS10_ENERGY_VALUES,
+        "energy_values": WS10_PRINTED_THRESHOLDS,
+        "printed_thresholds": WS10_PRINTED_THRESHOLDS,
         "thresholds": [r.threshold_printed for r in rows],
         "misclassifications": [r.misclassification_htr for r in rows],
         "optimal_threshold": responses.get("WS10_B8"),

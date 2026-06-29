@@ -1,7 +1,107 @@
 {
   "worksheet": "WS5",
-  "note": "Threshold grid experiment. Each row has 4 cells: threshold expression (B_threshold), correct-count (B_correct), error-count (B_error), MCR (B_mcr). Row scores 1.0 if counts sum to dataset size N and MCR = errors/N. Partial 0.5 if threshold variable is correct but operator is wrong or missing. B25 is the final threshold choice with a data-based justification.",
-  "dataset_size": 10,
+  "note": "Threshold grid on ProDaBi food cards (data/prodabi_food_cards.csv, N=11). The dataset and each card's tavsiye edilebilir/edilemez label are fixed; the student's variable, operator, and threshold value are free on each row. Full credit when notation is valid, arithmetic is consistent (doğru + hata = 11, MCR = hata/11), and counts match the reference cards for that threshold with the complementary false branch (≤↔>, <↔≥, ≥↔<, >↔≤). example_answer values are illustrative Sample_Student fixtures, not required answers.",
+  "scoring_model": {
+    "type": "computed_from_dataset",
+    "dataset_size": 11,
+    "dataset_reference": "data/prodabi_food_cards.csv",
+    "no_fixed_thresholds": true,
+    "example_answers_illustrative": true,
+    "authority": "ws5_validation.py — expected_row_counts() recomputes doğru/hata/MCR from the student's parsed threshold"
+  },
+  "dataset_size": 11,
+  "dataset_reference": "data/prodabi_food_cards.csv",
+  "acceptable_features": [
+    {
+      "aliases": [
+        "enerji",
+        "energy",
+        "kcal"
+      ],
+      "field": "energy_kcal"
+    },
+    {
+      "aliases": [
+        "yağ",
+        "yag",
+        "fat"
+      ],
+      "field": "fat_g"
+    },
+    {
+      "aliases": [
+        "doymuş yağ",
+        "doymus yag",
+        "saturated fat"
+      ],
+      "field": "saturated_fat_g"
+    },
+    {
+      "aliases": [
+        "karbonhidrat",
+        "carbohydrates",
+        "carbs"
+      ],
+      "field": "carbohydrates_g"
+    },
+    {
+      "aliases": [
+        "şeker",
+        "seker",
+        "sugar"
+      ],
+      "field": "sugar_g"
+    },
+    {
+      "aliases": [
+        "protein"
+      ],
+      "field": "protein_g"
+    },
+    {
+      "aliases": [
+        "tuz",
+        "salt"
+      ],
+      "field": "salt_g"
+    }
+  ],
+  "threshold_notation": {
+    "required_format": "özellik + operatör + sayı (ör. şeker ≤ 10, yağ <= 8, enerji > 180)",
+    "accepted_operators": [
+      "≤",
+      ">=",
+      "<",
+      ">",
+      "<=",
+      ">="
+    ],
+    "ocr_normalization": "Unicode ≤≥ and comma decimals normalized before parse"
+  },
+  "operator_rules": {
+    "required": "Complementary pairs on DT branches: ≤↔>, <↔≥, ≥↔<, >↔≤. Only the true/evet threshold is written; the false/hayır branch uses the complement so all 11 cards are classified.",
+    "invalid": "Mismatched pair (e.g. şeker < 10 with implicit > 10 instead of ≥ 10) — counts will not cover all 11 cards correctly.",
+    "valid_examples": [
+      "şeker ≤ 10 (implies > 10)",
+      "şeker < 10 (implies ≥ 10)",
+      "yağ ≤ 8"
+    ],
+    "invalid_examples": [
+      "şeker < 10 with implicit > 10",
+      "şeker ≤ 10 with ≥ 10"
+    ]
+  },
+  "row_scoring": {
+    "check": "row_consistency",
+    "credit_levels": {
+      "full": "Parseable threshold on an acceptable feature; doğru + hata = 11; MCR ≈ hata/11; doğru and hata match prodabi_food_cards.csv for that threshold with complementary false branch.",
+      "partial": "Parseable threshold and internal arithmetic OK (sum and MCR) but classification counts do not match the dataset for the written threshold.",
+      "zero": "Unparseable threshold, incomplete row, or arithmetic inconsistent (doğru+hata≠11 or MCR≠hata/11).",
+      "not_attempted": "All four cells blank."
+    },
+    "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
+    "partial_score": 0.5
+  },
   "rows": [
     {
       "row": "WS5_row1",
@@ -63,56 +163,71 @@
     "WS5_row1": {
       "max_score": 1,
       "check": "row_consistency",
-      "partial_credit_rule": "threshold_variable_correct_but_operator_wrong",
+      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
       "partial_score": 0.5,
-      "example_answer": "şeker ≤ 5 | doğru: 3 | hata: 7 | MCR: 0.70"
+      "example_answer": "şeker ≤ 5 | doğru: 8 | hata: 3 | MCR: 0.27",
+      "example_note": "Illustrative only — any valid threshold with matching counts is full credit."
     },
     "WS5_row2": {
       "max_score": 1,
       "check": "row_consistency",
-      "partial_credit_rule": "threshold_variable_correct_but_operator_wrong",
+      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
       "partial_score": 0.5,
-      "example_answer": "şeker ≤ 8 | doğru: 5 | hata: 5 | MCR: 0.50"
+      "example_answer": "yağ ≤ 8 | doğru: 8 | hata: 3 | MCR: 0.27",
+      "example_note": "Illustrative only."
     },
     "WS5_row3": {
       "max_score": 1,
       "check": "row_consistency",
-      "partial_credit_rule": "threshold_variable_correct_but_operator_wrong",
+      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
       "partial_score": 0.5,
-      "example_answer": "şeker ≤ 10 | doğru: 8 | hata: 2 | MCR: 0.20"
+      "example_answer": "şeker ≤ 10 | doğru: 8 | hata: 3 | MCR: 0.27",
+      "example_note": "Illustrative only."
     },
     "WS5_row4": {
       "max_score": 1,
       "check": "row_consistency",
-      "partial_credit_rule": "threshold_variable_correct_but_operator_wrong",
+      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
       "partial_score": 0.5,
-      "example_answer": "şeker ≤ 12 | doğru: 9 | hata: 1 | MCR: 0.10"
+      "example_answer": "şeker ≤ 12 | doğru: 9 | hata: 2 | MCR: 0.18",
+      "example_note": "Illustrative only."
     },
     "WS5_row5": {
       "max_score": 1,
       "check": "row_consistency",
-      "partial_credit_rule": "threshold_variable_correct_but_operator_wrong",
+      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
       "partial_score": 0.5,
-      "example_answer": "şeker ≤ 15 | doğru: 10 | hata: 0 | MCR: 0.00"
+      "example_answer": "şeker ≤ 15 | doğru: 9 | hata: 2 | MCR: 0.18",
+      "example_note": "Illustrative only."
     },
     "WS5_B25": {
       "max_score": 1,
+      "check": "b25_minimum_errors",
       "evaluation": "justification",
+      "method": "Her grid satırı için tavsiye edilebilir/edilemez ve yanlış sınıflandırma sayılarının doğru girildiği varsayılır (satır aritmetiği tutarlı). B25'te öğrenci, tablodaki en düşük yanlış sınıflandırma sayısına sahip eşiği tercih etmelidir. Aynı minimum hata sayısına sahip birden fazla eşik varsa herhangi biri kabul edilir; öğrenci yalnızca birini yazdıysa tie_at_minimum bayrağı eklenir.",
+      "credit_levels": {
+        "full": "B25 names a threshold from the student's grid with the minimum error count among arithmetic-valid rows.",
+        "partial": "Threshold is in the grid but not among minimum-error trials.",
+        "zero": "Blank, or threshold not found in any grid row.",
+        "not_attempted": "Blank B25."
+      },
       "components": [
         {
-          "id": "threshold_stated",
-          "idea": "names a specific threshold value from the grid",
+          "id": "threshold_from_grid",
+          "idea": "names a specific threshold (feature + operator + value) that appears in their grid trials",
           "required": true
         },
         {
-          "id": "data_justification",
-          "idea": "justification references MCR or error count from data (not intuition)",
+          "id": "minimum_misclassification",
+          "idea": "chooses a threshold with the lowest yanlış sınıflandırma (error) count among valid grid rows — not a row with higher errors when a lower-error trial exists",
           "required": true
         }
       ],
+      "tie_rule": "When two or more trials share the same minimum error count, any tied threshold is acceptable. Flag review when only one is named while tied alternatives exist.",
       "need": 2,
       "partial_on": 1,
-      "example_answer": "Eşik 8'i tercih ederim çünkü MCR 0.20 ile en düşük değerlerden biri ve en küçük eşik değeridir."
+      "partial_score": 0.5,
+      "example_answer": "Şeker ≤ 12'yi tercih ederim; 2 yanlış sınıflandırma ile tablomdaki en düşük hata sayısı (şeker ≤ 15 de 2 hata veriyor)."
     }
   },
   "curriculum_status": "deployed"

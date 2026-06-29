@@ -8,33 +8,214 @@
   "tree_detected": null,
   "missing_regions": [],
   "deterministic_checks": {
-    "row_1": {
-      "sum": "3+7=10",
-      "mcr": 0.3,
-      "ok": true
+    "WS5_row1": {
+      "threshold": "şeker ≤ 5",
+      "parsed": {
+        "feature": "sugar_g",
+        "operator": "<=",
+        "value": 5.0,
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
+      },
+      "expected": {
+        "dataset_size": 11,
+        "correct": 8,
+        "errors": 3,
+        "mcr": 0.2727,
+        "unclassified": 0
+      },
+      "student": {
+        "correct": 8,
+        "errors": 3,
+        "mcr": 0.27
+      },
+      "sum": "8+3=11",
+      "arithmetic_ok": true,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
-    "row_2": {
-      "sum": "5+5=10",
-      "mcr": 0.2,
-      "ok": true
+    "WS5_row2": {
+      "threshold": "yağ ≤ 8",
+      "parsed": {
+        "feature": "fat_g",
+        "operator": "<=",
+        "value": 8.0,
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
+      },
+      "expected": {
+        "dataset_size": 11,
+        "correct": 8,
+        "errors": 3,
+        "mcr": 0.2727,
+        "unclassified": 0
+      },
+      "student": {
+        "correct": 8,
+        "errors": 3,
+        "mcr": 0.27
+      },
+      "sum": "8+3=11",
+      "arithmetic_ok": true,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
-    "row_3": {
-      "sum": "8+2=10",
-      "mcr": 0.2,
-      "ok": true
+    "WS5_row3": {
+      "threshold": "şeker ≤ 10",
+      "parsed": {
+        "feature": "sugar_g",
+        "operator": "<=",
+        "value": 10.0,
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
+      },
+      "expected": {
+        "dataset_size": 11,
+        "correct": 8,
+        "errors": 3,
+        "mcr": 0.2727,
+        "unclassified": 0
+      },
+      "student": {
+        "correct": 8,
+        "errors": 3,
+        "mcr": 0.27
+      },
+      "sum": "8+3=11",
+      "arithmetic_ok": true,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
-    "row_4": {
-      "sum": "9+1=10",
-      "mcr": 0.2,
-      "ok": true
+    "WS5_row4": {
+      "threshold": "şeker ≤ 12",
+      "parsed": {
+        "feature": "sugar_g",
+        "operator": "<=",
+        "value": 12.0,
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
+      },
+      "expected": {
+        "dataset_size": 11,
+        "correct": 9,
+        "errors": 2,
+        "mcr": 0.1818,
+        "unclassified": 0
+      },
+      "student": {
+        "correct": 9,
+        "errors": 2,
+        "mcr": 0.18
+      },
+      "sum": "9+2=11",
+      "arithmetic_ok": true,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
-    "row_5": {
-      "sum": "10+0=10",
-      "mcr": 0.25,
-      "ok": false,
-      "reason": "0.25 impossible for 10 integer items"
+    "WS5_row5": {
+      "threshold": "şeker ≤ 15",
+      "parsed": {
+        "feature": "sugar_g",
+        "operator": "<=",
+        "value": 15.0,
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
+      },
+      "expected": {
+        "dataset_size": 11,
+        "correct": 9,
+        "errors": 2,
+        "mcr": 0.1818,
+        "unclassified": 0
+      },
+      "student": {
+        "correct": 9,
+        "errors": 2,
+        "mcr": 0.18
+      },
+      "sum": "9+2=11",
+      "arithmetic_ok": true,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS5_B25": {
+      "threshold": "Şeker ≤ 12'yi tercih ederim; kartlara göre MCR 0.18 ve 9 doğru sınıflandırma ile en düşük hata.",
+      "trials_considered": [
+        {
+          "row": "WS5_row1",
+          "threshold": "şeker ≤ 5",
+          "errors": 3,
+          "mcr": 0.27
+        },
+        {
+          "row": "WS5_row2",
+          "threshold": "yağ ≤ 8",
+          "errors": 3,
+          "mcr": 0.27
+        },
+        {
+          "row": "WS5_row3",
+          "threshold": "şeker ≤ 10",
+          "errors": 3,
+          "mcr": 0.27
+        },
+        {
+          "row": "WS5_row4",
+          "threshold": "şeker ≤ 12",
+          "errors": 2,
+          "mcr": 0.18
+        },
+        {
+          "row": "WS5_row5",
+          "threshold": "şeker ≤ 15",
+          "errors": 2,
+          "mcr": 0.18
+        }
+      ],
+      "minimum_errors": 2,
+      "tied_at_minimum": [
+        {
+          "row": "WS5_row4",
+          "threshold": "şeker ≤ 12",
+          "errors": 2
+        },
+        {
+          "row": "WS5_row5",
+          "threshold": "şeker ≤ 15",
+          "errors": 2
+        }
+      ],
+      "tie_at_minimum": true,
+      "chosen": {
+        "row": "WS5_row4",
+        "threshold": "şeker ≤ 12",
+        "errors": 2
+      },
+      "other_tied_thresholds": [
+        {
+          "row": "WS5_row5",
+          "threshold": "şeker ≤ 15"
+        }
+      ],
+      "tie_note": "Birden fazla eşik aynı en düşük yanlış sınıflandırma sayısına sahip; öğrenci yalnızca birini yazmış olabilir — alternatifler: şeker ≤ 15",
+      "review": true,
+      "review_reason": "tie_at_minimum_single_named",
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
+      "reason": "minimum_misclassification_choice"
     }
   },
-  "blocked": true,
-  "blocked_reason": "Numeric row checks failed: ['row_5']"
+  "blocked": false,
+  "blocked_reason": null
 }

@@ -125,22 +125,15 @@
   },
   "equivalence_sets": {
     "object_feature": {
-      "note": "Nesne ve özellik eşdeğer — öğrenci ikisinden birini yazarsa puan alır.",
+      "note": "Nesne ve özellik eşdeğer — öğrenci birini veya ikisini birlikte yazarsa puan alır; varlık, karakteristik vb. kabul edilmez.",
       "aliases": [
         "nesne",
         "özellik",
-        "ozellik",
-        "varlık",
-        "varlik",
-        "örnek",
-        "ornek",
-        "eleman",
-        "karakteristik",
-        "nitelik"
+        "ozellik"
       ]
     },
     "variable_label": {
-      "note": "Değişken ve etiket eşdeğer — öğrenci ikisinden birini yazarsa puan alır.",
+      "note": "Değişken ve etiket eşdeğer — öğrenci birini veya ikisini birlikte yazarsa puan alır; başka eşanlamlılar kabul edilmez.",
       "aliases": [
         "değişken",
         "degisken",
@@ -149,5 +142,57 @@
         "label"
       ]
     }
-  }
+  },
+  "fields": {
+    "WS1_B1": {
+      "example_response": "etiket",
+      "source": "rubrics/WS1_rubric.json",
+      "scoring_mode": "equivalence",
+      "accept_sets": [
+        "variable_label"
+      ]
+    },
+    "WS1_B2": {
+      "example_response": "nesne",
+      "source": "rubrics/WS1_rubric.json",
+      "scoring_mode": "equivalence",
+      "accept_sets": [
+        "object_feature"
+      ]
+    },
+    "WS1_B3": {
+      "example_response": "özellik",
+      "source": "rubrics/WS1_rubric.json",
+      "scoring_mode": "equivalence",
+      "accept_sets": [
+        "object_feature",
+        "variable_label"
+      ]
+    },
+    "WS1_B4": {
+      "example_response": "7",
+      "source": "rubrics/WS1_rubric.json",
+      "scoring_mode": "equivalence",
+      "accept_sets": null
+    },
+    "WS1_B5": {
+      "example_response": "Enerji, Yağ, Doymuş Yağ, Karbonhidrat, Şeker, Protein, Tuz",
+      "source": "rubrics/WS1_rubric.json",
+      "scoring_mode": "fixed_exact"
+    },
+    "WS1_B6": {
+      "example_response": "Fındıklı Gofret",
+      "source": "rubrics/WS1_rubric.json",
+      "scoring_mode": "interpretive"
+    },
+    "WS1_B7": {
+      "example_response": "etiket",
+      "source": "rubrics/WS1_rubric.json",
+      "scoring_mode": "equivalence",
+      "accept_sets": [
+        "variable_label"
+      ]
+    }
+  },
+  "field_note": "Per-field reference for OCR/extraction alignment and Sample_Student fixtures. Interpretive fields carry example_response only."
 }

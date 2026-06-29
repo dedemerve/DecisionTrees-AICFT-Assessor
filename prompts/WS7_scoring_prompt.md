@@ -7,71 +7,69 @@ Injected alongside `prompts/stage3_scoring.md` when scoring **Worksheet 7** (pat
 | Role | Path |
 |------|------|
 | Rubric | `rubrics/WS7_rubric.json` |
+| Sample tree | `data/ws7_sample_tree.json` |
 | Answer key | `worksheets/WS7/answer_key.json` |
-| Mapping | `mappings/WS7_AICFT_mapping.json` |
-| Validity | `worksheets/WS7/validity_notes.json` |
 | Responses | `students/<student_id>/WS7/extraction.json` |
 | Validation | `students/<student_id>/WS7/validation.json` — **required** |
 | Cross-ref | `students/<student_id>/WS6/extraction.json` — for B1–B3 |
 
-**Pipeline group:** B.
+**Pipeline group:** B. Python authority: `ws7_validation.py`.
 
 ---
 
 ## Construct
 
-**Part 1 — fixed sample tree:** Match three printed if-then rules to paths **A, B, C**.
+**Part 1 — fixed sample tree (enerji / protein):** Match three **printed** if-then rules (rows 5–7) to paths **A, B, C**. Each box has **one correct letter**.
 
-**Part 2 — student's tree:** Write up to three if-then rules **consistent with the student's own WS6 tree** (not the sample tree).
+**Part 2 — student's WS6 tree:** Write if-then rules for each leaf path (B1–B3). Each rule has **one correct formulation** for that path given the student's WS6 operators and thresholds.
 
-> Validity note: Part 1 uses a **fixed sample tree**; Part 2 depends on WS6. B4–B7 are **not in rubric** — only P1 boxes + B1–B3 are scored.
+B4–B7 are **not scored** when the tree has three paths.
+
+---
+
+## Operator rules (critical)
+
+| Sample-tree split | Evet / written | Hayır / complement |
+|-------------------|----------------|-------------------|
+| enerji @ 180 kcal | `< 180` (path A) | `≥ 180` (paths B, C) |
+| protein @ 7,7 g | `< 7,7` (path B) | `≥ 7,7` (path C) |
+
+Part 2 rules must use the **same operators** as the student's WS6 tree (`≤` vs `<`, `>` vs `≥` matter).
+
+| Verdict | Part 1 | Part 2 |
+|---------|--------|--------|
+| Full | Letter matches B/A/C | Features, values, operators, label all match path |
+| Partial 0.5 | — | Features + label correct, operator wrong |
+| Zero | Wrong letter | Wrong feature, value, or label |
 
 ---
 
 ## Part 1 — path matching (deterministic)
 
-| Item | Correct path | Notes |
-|------|--------------|-------|
-| `WS7_P1_box1` | **B** | Rule 1 → path B |
-| `WS7_P1_box2` | **A** | Rule 2 → path A |
-| `WS7_P1_box3` | **C** | Rule 3 → path C |
+| Item | Correct | Printed rule |
+|------|---------|--------------|
+| `WS7_P1_box1` | **B** | enerji ≥180 ve protein <7,7 → tavsiye edilemez |
+| `WS7_P1_box2` | **A** | enerji <180 → tavsiye edilebilir |
+| `WS7_P1_box3` | **C** | enerji ≥180 ve protein ≥7,7 → tavsiye edilebilir |
 
-Also extracted as `WS7_P1_box1`–`box3` in extraction schema. Exact letter match; case-insensitive.
-
-If validation marks Part 1 not captured → `score: null`, `review: true` for all three.
+Exact letter match (case-insensitive). Blank → `not_attempted`, `review: true`.
 
 ---
 
 ## Part 2 — rule consistency with WS6 (`WS7_B1`–`B3`)
 
-Each rule graded with `check: rule_consistency_with_WS6`:
+Path order (standard two-level WS6 on evet branch):
 
-| Component | Requirement |
-|-----------|-------------|
-| `correct_feature` | Feature(s) match WS6 root/inner splits |
-| `correct_operator` | ≤ or > direction matches WS6 branch |
-| `correct_label` | Conclusion matches leaf on that path |
+1. **B1** — root evet + inner evet (B10 leaf)
+2. **B2** — root evet + inner hayır (B11 leaf)
+3. **B3** — root hayır (B13 leaf)
 
-Partial 0.5: `correct_feature_and_label_but_wrong_operator`.
-
-Accept paraphrased if-then forms (*Eğer … ise → …*). Threshold **values** may differ from answer key if WS6 used a valid value.
-
-Load WS6 responses when scoring B1–B3 — rules cannot be correct relative to a tree the student did not draw.
-
----
-
-## Competency inference
-
-| Item | Primary LO |
-|------|------------|
-| P1 boxes | LO3.2.2 — reading tree structure |
-| B1–B3 | LO3.2.2 — translating structure to natural-language rules |
-
-Supporting LO3.1.2 only when rule syntax shows vocabulary without correct tree linkage.
+Load WS6 when scoring. If WS6 missing → B1–B3 `review: true`.
 
 ---
 
 ## Review flags
 
-- WS6 missing or blocked → B1–B3 `review: true`; do not invent tree structure.
-- P1 response is path description not letter → attempt normalization; else review.
+- P1 blank or unparseable → `review: true`
+- WS6 missing with B1–B3 filled → `review: true`, `blocked_dependency: WS6`
+- Partial operator credit → `review: false` (deterministic 0.5)
