@@ -31,14 +31,7 @@ BUNDLE_FILE_SCHEMA: dict[str, str] = {
     "rubric.json": "rubric.schema.json",
 }
 
-FRAMEWORK_FILE_SCHEMA: dict[str, str] = {
-    "Observable_Behaviours.json": "observable_behaviours.schema.json",
-    "Learning_Objects.json": "learning_objects.schema.json",
-    "Behaviour_to_ILO.json": "behaviour_to_ilo.schema.json",
-    "Domain_to_AI_CFT.json": "domain_to_ai_cft.schema.json",
-    "Domain_Understanding.json": "domain_understanding.schema.json",
-    "LO_to_Domain_Understanding.json": "lo_to_domain_understanding.schema.json",
-}
+FRAMEWORK_FILE_SCHEMA: dict[str, str] = {}
 
 STUDENT_ARTIFACT_SCHEMA: dict[str, str] = {
     "extraction": "student_extraction.schema.json",

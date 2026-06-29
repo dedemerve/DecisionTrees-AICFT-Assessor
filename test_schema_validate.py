@@ -23,6 +23,13 @@ class TestSchemaValidate(unittest.TestCase):
         errors = validate_portfolio(portfolio)
         self.assertEqual(errors, [], f"Portfolio errors: {errors}")
 
+    def test_empty_researcher_decisions_not_validation_error(self):
+        portfolio = build_portfolio("Sample_Student")
+        portfolio["student_id"] = "Sample_Student"
+        portfolio["researcher_rubric_decisions"] = []
+        errors = validate_portfolio(portfolio)
+        self.assertEqual(errors, [], f"Empty decisions should not error: {errors}")
+
     def test_ws11_q11_mapping_has_portfolio_weight(self):
         data = json.loads((REPO / "mappings" / "WS11_AICFT_mapping.json").read_text())
         q11 = data["items"]["WS11_Q11_2"][0]

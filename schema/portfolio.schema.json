@@ -1,18 +1,16 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://decisiontrees-aicft-assessor/portfolio.schema.json",
-  "title": "AI-CFT Portfolio Schema 3.0",
+  "title": "AI-CFT Portfolio Schema 4.0 (simple LO rubric)",
   "type": "object",
   "required": [
-    "student_id",
     "framework",
     "aspect",
     "methodology",
     "worksheets_scored",
-    "learning_objects",
-    "competency_level_summary",
-    "baseline_evidence",
-    "ai_cft_proposal",
+    "lo_review_packets",
+    "evidence_by_lo",
+    "researcher_rubric_decisions",
     "data_gaps",
     "evidence_item_count"
   ],
@@ -30,14 +28,30 @@
     "methodology": {
       "type": "object",
       "required": [
+        "approach",
         "aggregation_note"
       ],
       "properties": {
+        "approach": {
+          "type": "string",
+          "enum": [
+            "simple_lo_rubric",
+            "ecd_v1"
+          ],
+          "description": "Assessment methodology tag — distinguishes simple rubric from archived ECD chain."
+        },
         "aggregation_note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ecd_archive": {
           "type": "string"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
+    },
+    "lo_reference_source": {
+      "type": "string"
     },
     "worksheets_scored": {
       "type": "array",
@@ -46,174 +60,98 @@
       },
       "minItems": 1
     },
-    "learning_objects": {
+    "lo_review_packets": {
       "type": "object",
+      "minProperties": 1,
       "additionalProperties": {
-        "type": "object",
-        "required": [
-          "peak_strength",
-          "expected_level",
-          "contributing_worksheets",
-          "evidence_items",
-          "direct_evidence_count",
-          "supporting_evidence_count"
-        ],
-        "properties": {
-          "peak_strength": {
-            "enum": [
-              "none",
-              "weak",
-              "moderate",
-              "strong"
-            ]
-          },
-          "expected_level": {
-            "enum": [
-              "Acquire",
-              "Deepen",
-              "Create"
-            ]
-          },
-          "contributing_worksheets": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "evidence_items": {
-            "type": "integer",
-            "minimum": 0
-          },
-          "direct_evidence_count": {
-            "type": "integer",
-            "minimum": 0
-          },
-          "supporting_evidence_count": {
-            "type": "integer",
-            "minimum": 0
-          },
-          "mean_confidence": {
-            "type": [
-              "number",
-              "null"
-            ],
-            "minimum": 0,
-            "maximum": 1
-          }
-        },
-        "additionalProperties": false
+        "type": "string"
       }
     },
-    "competency_level_summary": {
+    "evidence_by_lo": {
       "type": "object",
-      "required": [
-        "Acquire",
-        "Deepen",
-        "Create"
-      ],
-      "properties": {
-        "Acquire": {
-          "enum": [
-            "met",
-            "partial",
-            "insufficient"
-          ]
-        },
-        "Deepen": {
-          "enum": [
-            "met",
-            "partial",
-            "insufficient"
-          ]
-        },
-        "Create": {
-          "enum": [
-            "met",
-            "partial",
-            "insufficient"
-          ]
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "source",
+            "excerpt"
+          ],
+          "properties": {
+            "source": {
+              "enum": [
+                "worksheet",
+                "codap_log",
+                "screen_recording"
+              ]
+            },
+            "excerpt": {
+              "type": "string",
+              "minLength": 1
+            },
+            "timestamp": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "worksheet": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "item_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
         }
-      },
-      "additionalProperties": false
+      }
     },
-    "baseline_evidence": {
+    "researcher_rubric_decisions": {
       "type": "array",
+      "description": "May be empty while researcher review is pending.",
       "items": {
         "type": "object",
         "required": [
-          "worksheet",
-          "item",
-          "lo",
-          "strength",
-          "evidence_type"
+          "lo_code",
+          "candidate_id",
+          "decision",
+          "supporting_evidence",
+          "researcher_note"
         ],
         "properties": {
-          "worksheet": {
-            "type": "string"
-          },
-          "item": {
-            "type": "string"
-          },
-          "lo": {
+          "lo_code": {
             "type": "string",
             "pattern": "^LO3\\."
           },
-          "strength": {
+          "candidate_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decision": {
             "enum": [
-              "none",
-              "weak",
-              "moderate",
-              "strong"
+              "met",
+              "partial",
+              "not_met",
+              "insufficient_data"
             ]
           },
-          "evidence_type": {
-            "type": "string"
+          "supporting_evidence": {
+            "type": "array",
+            "minItems": 1
+          },
+          "researcher_note": {
+            "type": "string",
+            "minLength": 8
           }
         },
         "additionalProperties": false
       }
-    },
-    "ai_cft_proposal": {
-      "type": "object",
-      "required": [
-        "Aspect3",
-        "rationale",
-        "confidence",
-        "is_final",
-        "decision_owner",
-        "decision_note"
-      ],
-      "properties": {
-        "Aspect3": {
-          "enum": [
-            "Acquire",
-            "Deepen",
-            "Create"
-          ]
-        },
-        "rationale": {
-          "type": "string",
-          "minLength": 1
-        },
-        "confidence": {
-          "enum": [
-            "provisional",
-            "high",
-            "low"
-          ]
-        },
-        "is_final": {
-          "const": false
-        },
-        "decision_owner": {
-          "const": "researcher"
-        },
-        "decision_note": {
-          "type": "string",
-          "minLength": 1
-        }
-      },
-      "additionalProperties": false
     },
     "data_gaps": {
       "type": "array",

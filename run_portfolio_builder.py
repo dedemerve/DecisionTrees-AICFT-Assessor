@@ -33,7 +33,8 @@ def main() -> int:
     path = root / "portfolio.json"
     print(f"Portfolio written → {path}")
     print(f"  Worksheets scored: {len(portfolio['worksheets_scored'])}")
-    print(f"  Proposed Aspect 3 level: {portfolio['ai_cft_proposal']['Aspect3']}")
+    print(f"  LO review packets: {len(portfolio['lo_review_packets'])}")
+    print(f"  Researcher decisions recorded: {len(portfolio['researcher_rubric_decisions'])}")
     print(f"  Data gaps: {len(portfolio['data_gaps'])} worksheet(s)")
 
     if args.json:

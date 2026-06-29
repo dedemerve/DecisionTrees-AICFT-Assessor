@@ -37,6 +37,7 @@ from pipeline_schema import (  # noqa: E402
 from worksheet_bundle_data import (  # noqa: E402
     ALL_WORKSHEETS,
     BEHAVIOUR_MAP,
+    BEHAVIOUR_ONTOLOGY_PROVENANCE,
     BUNDLE_FILES,
     DEPLOYED_WORKSHEETS,
     EXTRACTION_NOTES,
@@ -215,6 +216,7 @@ def build_behaviour_opportunities(
         "curriculum_status": status,
         "behaviour_ontology_reference": OB_REF,
         "note": (
+            f"{BEHAVIOUR_ONTOLOGY_PROVENANCE} "
             "Evidence opportunity map only. Observable Behaviour candidates per rubric item. "
             "No instructional learning object, domain, or competency mapping at worksheet layer."
         ),

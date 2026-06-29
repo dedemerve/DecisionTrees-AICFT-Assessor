@@ -38,7 +38,7 @@ def main() -> int:
 
     print(
         f"JSON Schema validation passed "
-        f"({len(BUNDLE_WORKSHEETS)} bundles, framework, mappings)."
+        f"({len(BUNDLE_WORKSHEETS)} bundles, mappings)."
     )
     return 0
 

@@ -63,10 +63,10 @@ def test_deployed_rubrics_load_from_bundle() -> None:
 
 
 def test_behaviour_opportunities_reference_only_ob_ids() -> None:
-    ob_data = json.loads(
-        (REPO_ROOT / "framework" / "Observable_Behaviours.json").read_text(encoding="utf-8")
-    )
-    ob_ids = set(ob_data["behaviours"].keys())
+    from worksheet_bundle_data import known_behaviour_ids
+
+    ob_ids = known_behaviour_ids()
+    assert ob_ids, "expected behaviour ids from BEHAVIOUR_MAP / bundles"
     for ws in DEPLOYED_WORKSHEETS:
         bo = json.loads(
             (WORKSHEETS_DIR / ws / "behaviour_opportunities.json").read_text(encoding="utf-8")

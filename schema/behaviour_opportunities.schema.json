@@ -6,6 +6,7 @@
   "required": [
     "worksheet",
     "behaviour_ontology_reference",
+    "note",
     "items"
   ],
   "additionalProperties": true,
@@ -21,10 +22,13 @@
     },
     "behaviour_ontology_reference": {
       "type": "string",
-      "const": "framework/Observable_Behaviours.json"
+      "const": "historical_reference_only_not_a_live_path",
+      "description": "Sentinel — not a filesystem path. See note for OB provenance."
     },
     "note": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable provenance; includes archived ECD v1 OB ontology reference."
     },
     "items": {
       "type": "object",

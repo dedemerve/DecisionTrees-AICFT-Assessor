@@ -9,7 +9,14 @@ from __future__ import annotations
 
 from typing import Any
 
-OB_REF = "framework/Observable_Behaviours.json"
+# Sentinel — NOT a filesystem path. Provenance text lives in bundle `note`.
+BEHAVIOUR_ONTOLOGY_REFERENCE = "historical_reference_only_not_a_live_path"
+BEHAVIOUR_ONTOLOGY_PROVENANCE = (
+    "OB_* behaviour_id codes originate from the archived ECD v1 ontology "
+    "(archive/ecd_v1/framework/Observable_Behaviours.json). "
+    "That archive path is historical provenance only — do not open it at runtime."
+)
+OB_REF = BEHAVIOUR_ONTOLOGY_REFERENCE
 
 # ProDaBi unplugged worksheets with legacy rubrics in rubrics/ (no WS2, WS8, WS9).
 ALL_WORKSHEETS: tuple[str, ...] = (
@@ -374,3 +381,40 @@ EXTRACTION_NOTES: dict[str, str] = {
     "WS10": "Seven table misclassification counts (B1–B7) + optimum threshold blank (B8).",
     "WS11": "Printed Q1–Q7 (B1–B5 survey/Likert, B6–B7 demographics; no correct answer). B8a–B9 + Q10–Q12 cognitive (scored). L10–L12 Likert/descriptive only.",
 }
+
+
+def behaviour_ids_from_map() -> set[str]:
+    """All OB_* ids referenced in the central BEHAVIOUR_MAP (active worksheet engineering)."""
+    ids: set[str] = set()
+    for ws_map in BEHAVIOUR_MAP.values():
+        for entry in ws_map.values():
+            for opp in entry.get("opportunities", []):
+                ids.add(opp["behaviour_id"])
+    return ids
+
+
+def behaviour_ids_from_bundle_files(worksheets_dir: Path | None = None) -> set[str]:
+    """Union of behaviour_id values in deployed worksheet bundle files."""
+    from pathlib import Path as _Path
+
+    root = worksheets_dir or _Path(__file__).resolve().parent.parent / "worksheets"
+    ids: set[str] = set()
+    for ws in BUNDLE_WORKSHEETS:
+        path = root / ws / "behaviour_opportunities.json"
+        if not path.is_file():
+            continue
+        import json
+
+        bo = json.loads(path.read_text(encoding="utf-8"))
+        for entry in bo.get("items", {}).values():
+            for opp in entry.get("opportunities", []):
+                bid = opp.get("behaviour_id")
+                if bid:
+                    ids.add(bid)
+    return ids
+
+
+def known_behaviour_ids() -> set[str]:
+    """Valid OB ids for bundle validation without loading archived ECD ontology."""
+    return behaviour_ids_from_map() | behaviour_ids_from_bundle_files()
+

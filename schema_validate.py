@@ -79,8 +79,8 @@ def validate_portfolio(data: dict[str, Any], prefix: str = "portfolio") -> list[
 
     for field in (
         "framework", "aspect", "methodology", "worksheets_scored",
-        "learning_objects", "competency_level_summary", "baseline_evidence",
-        "ai_cft_proposal", "data_gaps", "evidence_item_count",
+        "lo_review_packets", "evidence_by_lo", "researcher_rubric_decisions",
+        "data_gaps", "evidence_item_count",
     ):
         if field not in data:
             _err(errors, f"{prefix}: missing {field!r}")
@@ -89,6 +89,8 @@ def validate_portfolio(data: dict[str, Any], prefix: str = "portfolio") -> list[
         _err(errors, f"{prefix}: updated_at must not appear in pipeline output")
 
     methodology = data.get("methodology", {})
+    if methodology.get("approach") != "simple_lo_rubric":
+        _err(errors, f"{prefix}: methodology.approach must be 'simple_lo_rubric'")
     if not methodology.get("aggregation_note"):
         _err(errors, f"{prefix}: methodology.aggregation_note required")
     if methodology.get("assessment_framework_version") is not None:
@@ -99,38 +101,25 @@ def validate_portfolio(data: dict[str, Any], prefix: str = "portfolio") -> list[
     if not isinstance(data.get("worksheets_scored"), list) or not data["worksheets_scored"]:
         _err(errors, f"{prefix}: worksheets_scored must be a non-empty array")
 
-    los = data.get("learning_objects", {})
-    if not isinstance(los, dict):
-        _err(errors, f"{prefix}: learning_objects must be an object")
+    packets = data.get("lo_review_packets", {})
+    if not isinstance(packets, dict) or not packets:
+        _err(errors, f"{prefix}: lo_review_packets must be a non-empty object")
     else:
-        for lo_id, lo_data in los.items():
+        for lo_id in packets:
             if not lo_id.startswith("LO3."):
-                _err(errors, f"{prefix} {lo_id}: invalid LO id")
-            peak = lo_data.get("peak_strength")
-            if peak not in STRENGTHS:
-                _err(errors, f"{prefix} {lo_id}: invalid peak_strength")
-            if lo_data.get("expected_level") not in LEVELS:
-                _err(errors, f"{prefix} {lo_id}: invalid expected_level")
+                _err(errors, f"{prefix} lo_review_packets: invalid LO id {lo_id!r}")
 
-    summary = data.get("competency_level_summary", {})
-    for lv in ("Acquire", "Deepen", "Create"):
-        if summary.get(lv) not in LEVEL_STATUS:
-            _err(errors, f"{prefix}: competency_level_summary.{lv} invalid")
+    evidence_by_lo = data.get("evidence_by_lo", {})
+    if not isinstance(evidence_by_lo, dict):
+        _err(errors, f"{prefix}: evidence_by_lo must be an object")
 
-    proposal = data.get("ai_cft_proposal", {})
-    if proposal.get("Aspect3") not in LEVELS:
-        _err(errors, f"{prefix}: ai_cft_proposal.Aspect3 invalid")
-    if proposal.get("is_final") is not False:
-        _err(errors, f"{prefix}: ai_cft_proposal.is_final must be false")
-    if proposal.get("decision_owner") != "researcher":
-        _err(errors, f"{prefix}: ai_cft_proposal.decision_owner must be 'researcher'")
+    decisions = data.get("researcher_rubric_decisions", [])
+    if not isinstance(decisions, list):
+        _err(errors, f"{prefix}: researcher_rubric_decisions must be an array")
 
     for i, gap in enumerate(data.get("data_gaps", [])):
         if not gap.get("worksheet") or not isinstance(gap.get("items"), list):
             _err(errors, f"{prefix}: data_gaps[{i}] malformed")
-
-    if not isinstance(data.get("baseline_evidence"), list):
-        _err(errors, f"{prefix}: baseline_evidence must be an array")
 
     return errors
 

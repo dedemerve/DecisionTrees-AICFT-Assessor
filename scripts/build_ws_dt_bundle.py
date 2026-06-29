@@ -19,6 +19,7 @@ from build_worksheet_bundles import (  # noqa: E402
     build_extraction_schema,
 )
 from pipeline_schema import ITEM_IDS_DT, RUBRICS_DIR, WORKSHEETS_DIR  # noqa: E402
+from worksheet_bundle_data import BEHAVIOUR_ONTOLOGY_PROVENANCE, OB_REF  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 log = logging.getLogger(__name__)
@@ -37,8 +38,9 @@ def build_behaviour_opportunities_stub(rubric: dict[str, Any]) -> dict[str, Any]
     return {
         "worksheet": WORKSHEET,
         "curriculum_status": "deployed",
-        "behaviour_ontology_reference": "framework/Observable_Behaviours.json",
+        "behaviour_ontology_reference": OB_REF,
         "note": (
+            f"{BEHAVIOUR_ONTOLOGY_PROVENANCE} "
             "WS_DT behaviour map maintained in mappings/WS_DT_AICFT_mapping.json "
             "at portfolio layer; worksheet bundle lists rubric item IDs only."
         ),

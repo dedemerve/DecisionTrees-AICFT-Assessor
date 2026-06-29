@@ -1,8 +1,8 @@
 """
-portfolio_builder.py — Aggregate worksheet evidence into AI-CFT portfolio proposals.
+portfolio_builder.py — Aggregate worksheet evidence for researcher LO rubric review.
 
-Reads all students/<id>/<WS>/evidence.json (+ scoring for review flags) and writes
-students/<id>/portfolio.json. AI-CFT level is a researcher-facing *proposal* only.
+Reads students/<id>/<WS>/evidence.json (+ extraction for verbatim text) and writes
+students/<id>/portfolio.json. Does not assign AI-CFT levels; see lo_rubric_check.py.
 """
 
 from __future__ import annotations
@@ -10,11 +10,13 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Any
 
-from pipeline_schema import (
-    competency_counts_toward_portfolio_peak,
-    framework_item_index,
-    load_framework,
+from lo_rubric_check import (
+    EvidenceExcerpt,
+    LOReferenceText,
+    load_lo_catalog,
+    present_for_review,
 )
+from pipeline_schema import load_framework
 from student_bundle import (
     artifact_payload,
     build_summary_from_scoring,
@@ -23,236 +25,81 @@ from student_bundle import (
     save_portfolio,
 )
 
-STRENGTH_RANK = {"none": 0, "weak": 1, "moderate": 2, "strong": 3}
-
-ACQUIRE_LOS = ("LO3.1.1", "LO3.1.2", "LO3.1.3")
-DEEPEN_LOS = ("LO3.2.1", "LO3.2.2", "LO3.2.3")
-CREATE_LOS = ("LO3.3.1",)
-
-OPTIONAL_ACQUIRE = frozenset({"LO3.1.3"})
-OPTIONAL_DEEPEN = frozenset({"LO3.2.1"})
+BLANK_SENTINELS = frozenset({
+    "(bos)", "(okunamiyor)", "(missing)", "(not_extracted)", "(transcription_error)", "",
+})
 
 
-def _peak_strength(strengths: list[str]) -> str:
-    if not strengths:
-        return "none"
-    return max(strengths, key=lambda s: STRENGTH_RANK.get(s, 0))
+def _evidence_source_for_worksheet(ws: str) -> str:
+    return "codap_log" if ws == "WS_DT" else "worksheet"
 
 
-def _find_comp_prior(
-    priors: list[dict[str, Any]],
-    lo: str,
-) -> dict[str, Any]:
-    for p in priors:
-        if p.get("lo") == lo:
-            return p
-    return {}
+def _extraction_responses(extraction: dict[str, Any]) -> dict[str, str]:
+    if not extraction:
+        return {}
+    if extraction.get("gate_1_extraction"):
+        return extraction["gate_1_extraction"].get("items", {}) or {}
+    return extraction.get("responses") or {}
 
 
-def _collect_worksheet_evidence(
-    student_id: str,
-    fw_index: dict[tuple[str, str], list[dict[str, Any]]],
-) -> tuple[dict[str, Any], list[str], list[dict], list[dict]]:
-    """Return (per_lo aggregates, worksheets_scored, item_records, baseline_records)."""
-    framework = load_framework()
-    competency_defs = framework.get("competency_definitions", {})
-    all_los = list(competency_defs.keys())
-
-    per_lo: dict[str, dict[str, Any]] = {
-        lo: {
-            "peak_strength": "none",
-            "expected_level": competency_defs.get(lo, {}).get("expected_level", "Deepen"),
-            "contributing_worksheets": [],
-            "evidence_items": 0,
-            "direct_evidence_count": 0,
-            "supporting_evidence_count": 0,
-            "mean_confidence": None,
-            "_confidences": [],
-            "_worksheets": set(),
-        }
-        for lo in all_los
-    }
-
-    worksheets_scored: list[str] = []
-    item_records: list[dict[str, Any]] = []
-    baseline_records: list[dict[str, Any]] = []
+def collect_worksheet_excerpts_by_lo(student_id: str) -> dict[str, list[EvidenceExcerpt]]:
+    """Gather raw evidence excerpts tagged by LO from worksheet pipeline artifacts."""
+    by_lo: dict[str, list[EvidenceExcerpt]] = defaultdict(list)
 
     for ws in list_worksheets(student_id):
-        scoring = artifact_payload(load_artifact(student_id, ws, "scoring"))
         evidence = artifact_payload(load_artifact(student_id, ws, "evidence"))
-        if not scoring and not evidence:
-            continue
-        if scoring:
-            worksheets_scored.append(ws)
-
-        review_items = set(
-            build_summary_from_scoring(scoring, worksheet=ws).get("review_items") or []
-        ) if scoring else set()
+        extraction = artifact_payload(load_artifact(student_id, ws, "extraction"))
+        responses = _extraction_responses(extraction)
+        source = _evidence_source_for_worksheet(ws)
 
         for rec in (evidence or {}).get("items", []):
             item_id = rec.get("item", "")
-            on_review = item_id in review_items
-            priors = fw_index.get((ws, item_id), [])
-
+            verbatim = str(responses.get(item_id, "")).strip()
             for comp in rec.get("competencies") or rec.get("learning_objects") or []:
                 lo = comp.get("lo") or comp.get("LO")
-                if not lo or lo not in per_lo:
+                if not lo:
                     continue
-                strength = comp.get("strength") or comp.get("evidence_strength", "none")
-                present = comp.get("evidence_present", strength != "none")
-                et = comp.get("evidence_type", "direct")
-                prior = _find_comp_prior(priors, lo)
-                counts_peak = competency_counts_toward_portfolio_peak({
-                    **prior,
-                    "evidence_type": et,
-                })
-
-                record = {
-                    "worksheet": ws,
-                    "item": item_id,
-                    "lo": lo,
-                    "strength": strength,
-                    "evidence_type": et,
-                    "evidence_present": present,
-                    "review": on_review,
-                    "confidence": comp.get("confidence"),
-                    "counts_toward_peak": counts_peak,
-                }
-                item_records.append(record)
-
-                if not present or strength == "none":
+                if not comp.get("evidence_present", True):
                     continue
-
-                if not counts_peak:
-                    baseline_records.append(record)
-                    continue
-
-                bucket = per_lo[lo]
-                bucket["evidence_items"] += 1
-                bucket["_worksheets"].add(ws)
-                if et == "supporting":
-                    bucket["supporting_evidence_count"] += 1
+                rationale = (comp.get("rationale") or "").strip()
+                if verbatim and verbatim not in BLANK_SENTINELS:
+                    excerpt_text = verbatim
+                elif rationale:
+                    excerpt_text = rationale
                 else:
-                    bucket["direct_evidence_count"] += 1
-                if comp.get("confidence") is not None:
-                    bucket["_confidences"].append(float(comp["confidence"]))
+                    continue
+                by_lo[lo].append(
+                    EvidenceExcerpt(
+                        source=source,  # type: ignore[arg-type]
+                        excerpt=excerpt_text,
+                        worksheet=ws,
+                        item_id=item_id,
+                    )
+                )
 
-    for lo, bucket in per_lo.items():
-        strengths = [
-            r["strength"] for r in item_records
-            if r["lo"] == lo and r["evidence_present"] and r["strength"] != "none"
-            and r["counts_toward_peak"]
-        ]
-        bucket["peak_strength"] = _peak_strength(strengths)
-        bucket["contributing_worksheets"] = sorted(bucket["_worksheets"])
-        if bucket["_confidences"]:
-            bucket["mean_confidence"] = round(
-                sum(bucket["_confidences"]) / len(bucket["_confidences"]), 3,
-            )
-        bucket.pop("_confidences", None)
-        bucket.pop("_worksheets", None)
+        # Extraction-only rows with no evidence.json competency tag are not LO-tagged here.
 
-    return per_lo, sorted(worksheets_scored), item_records, baseline_records
+    return dict(by_lo)
 
 
-def _lo_meets_threshold(
-    learning_objects: dict[str, Any],
-    lo: str,
-    min_strength: str,
-) -> bool:
-    peak = learning_objects.get(lo, {}).get("peak_strength", "none")
-    return STRENGTH_RANK.get(peak, 0) >= STRENGTH_RANK.get(min_strength, 0)
-
-
-def _level_status(
-    learning_objects: dict[str, Any],
-    los: tuple[str, ...],
-    min_strength: str,
-    optional: frozenset[str] | None = None,
-) -> str:
-    optional = optional or frozenset()
-    required = [lo for lo in los if lo not in optional]
-
-    if not all(_lo_meets_threshold(learning_objects, lo, min_strength) for lo in required):
-        return "insufficient"
-
-    optional_present = [lo for lo in los if lo in optional]
-    if optional_present:
-        any_optional = any(
-            _lo_meets_threshold(learning_objects, lo, "weak") for lo in optional_present
-        )
-        if all(_lo_meets_threshold(learning_objects, lo, min_strength) for lo in required):
-            return "met" if any_optional or not optional_present else "partial"
-
-    return "met"
-
-
-def propose_ai_cft_level(learning_objects: dict[str, Any]) -> dict[str, Any]:
-    """Rule-based Aspect 3 level proposal from aggregated LO evidence."""
-    acquire_status = _level_status(learning_objects, ACQUIRE_LOS, "moderate", OPTIONAL_ACQUIRE)
-    deepen_status = _level_status(learning_objects, DEEPEN_LOS, "moderate", OPTIONAL_DEEPEN)
-    create_status = _level_status(learning_objects, CREATE_LOS, "weak")
-
-    lo_line = lambda los: ", ".join(
-        f"{lo}={learning_objects.get(lo, {}).get('peak_strength', 'none')}" for lo in los
-    )
-
-    if create_status == "met" and deepen_status == "met":
-        aspect_level = "Create"
-        rationale = (
-            f"Create indicator LO3.3.1 shows evidence (peak={learning_objects.get('LO3.3.1', {}).get('peak_strength')}). "
-            f"Deepen LOs: {lo_line(DEEPEN_LOS)}. Acquire LOs: {lo_line(ACQUIRE_LOS)}."
-        )
-    elif deepen_status in ("met", "partial"):
-        aspect_level = "Deepen"
-        rationale = (
-            f"Deepen application LOs reach moderate-or-strong peaks across multiple worksheets "
-            f"({lo_line(DEEPEN_LOS)}). "
-            f"Acquire foundations: {lo_line(ACQUIRE_LOS)}. "
-        )
-        if create_status != "met":
-            rationale += "Create-level LO3.3.1 not yet demonstrated."
-    elif acquire_status == "met":
-        aspect_level = "Acquire"
-        rationale = (
-            f"Foundational Acquire LOs show consistent evidence ({lo_line(ACQUIRE_LOS)}). "
-            f"Deepen LOs remain limited ({lo_line(DEEPEN_LOS)})."
-        )
-    else:
-        aspect_level = "Acquire"
-        rationale = (
-            f"Emerging evidence only. Acquire: {lo_line(ACQUIRE_LOS)}; "
-            f"Deepen: {lo_line(DEEPEN_LOS)}. Review data gaps before levelling."
-        )
-
+def build_lo_review_packets(
+    lo_catalog: dict[str, LOReferenceText],
+    evidence_by_lo: dict[str, list[EvidenceExcerpt]],
+) -> dict[str, str]:
+    """One formatted review block per LO for researcher reading."""
     return {
-        "Aspect3": aspect_level,
-        "rationale": rationale.strip(),
-        "confidence": "provisional",
-        "is_final": False,
-        "decision_owner": "researcher",
-        "decision_note": (
-            "Level aggregates multi-worksheet competency evidence; not assigned from any single worksheet. "
-            "Baseline (prior_belief) and diagnostic (reflective) items are excluded from peak aggregation. "
-            "Researcher makes final holistic judgement after reviewing flagged items."
-        ),
-        "level_diagnostics": {
-            "Acquire": acquire_status,
-            "Deepen": deepen_status,
-            "Create": create_status,
-        },
+        lo: present_for_review(lo_catalog[lo], evidence_by_lo.get(lo, []))
+        for lo in lo_catalog
     }
 
 
 def detect_data_gaps(
     student_id: str,
-    item_records: list[dict[str, Any]],
+    item_records: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     """Surface review-flagged and missing-evidence items by worksheet."""
-    gaps_by_ws: dict[str, dict[str, Any]] = defaultdict(lambda: {
-        "items": [],
-        "reasons": [],
-    })
+    item_records = item_records or []
+    gaps_by_ws: dict[str, dict[str, Any]] = defaultdict(lambda: {"items": [], "reasons": []})
 
     for ws in list_worksheets(student_id):
         scoring = artifact_payload(load_artifact(student_id, ws, "scoring"))
@@ -268,11 +115,9 @@ def detect_data_gaps(
                 validation.get("blocked_reason") or "worksheet blocked by technical validation",
             )
 
-        responses = extraction.get("responses") or {}
-        if extraction.get("gate_1_extraction"):
-            responses = extraction["gate_1_extraction"].get("items", responses)
+        responses = _extraction_responses(extraction)
         for item_id, text in responses.items():
-            if str(text).strip() in {"(bos)", "(missing)", "(not_extracted)", "(okunamiyor)", ""}:
+            if str(text).strip() in BLANK_SENTINELS:
                 if item_id not in gaps_by_ws[ws]["items"]:
                     gaps_by_ws[ws]["items"].append(item_id)
                     gaps_by_ws[ws]["reasons"].append("blank or missing extraction")
@@ -297,47 +142,45 @@ def detect_data_gaps(
     return out
 
 
-def _baseline_summary(baseline_records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Compact list of baseline/diagnostic evidence for researcher context."""
-    out: list[dict[str, Any]] = []
-    for rec in baseline_records:
-        out.append({
-            "worksheet": rec["worksheet"],
-            "item": rec["item"],
-            "lo": rec["lo"],
-            "strength": rec["strength"],
-            "evidence_type": rec["evidence_type"],
-        })
-    return out
+def _count_evidence_items(evidence_by_lo: dict[str, list[EvidenceExcerpt]]) -> int:
+    return sum(len(v) for v in evidence_by_lo.values())
 
 
 def build_portfolio(student_id: str) -> dict[str, Any]:
-    """Assemble portfolio.json from modular worksheet artifacts."""
+    """Assemble portfolio.json for simple LO rubric researcher review."""
     framework = load_framework()
-    fw_index = framework_item_index(framework)
-    learning_objects, worksheets_scored, item_records, baseline_records = (
-        _collect_worksheet_evidence(student_id, fw_index)
-    )
+    lo_catalog = load_lo_catalog()
+    evidence_by_lo = collect_worksheet_excerpts_by_lo(student_id)
+    review_packets = build_lo_review_packets(lo_catalog, evidence_by_lo)
 
-    proposal = propose_ai_cft_level(learning_objects)
-    data_gaps = detect_data_gaps(student_id, item_records)
+    worksheets_scored: list[str] = []
+    for ws in list_worksheets(student_id):
+        if artifact_payload(load_artifact(student_id, ws, "scoring")):
+            worksheets_scored.append(ws)
+
+    serializable_evidence = {
+        lo: [e.model_dump() for e in excerpts]
+        for lo, excerpts in evidence_by_lo.items()
+    }
 
     return {
         "framework": framework["framework"],
         "aspect": framework["aspect"],
         "methodology": {
+            "approach": "simple_lo_rubric",
+            "ecd_archive": "archive/ecd_v1",
             "aggregation_note": (
-                "LO peak_strength uses portfolio_weight=full items only; "
-                "prior_belief and diagnostic reflective items are listed in baseline_evidence."
+                "Evidence excerpts are grouped by LO for side-by-side review with UNESCO indicator text. "
+                "No automated AI-CFT level or domain convergence is computed."
             ),
         },
-        "worksheets_scored": worksheets_scored,
-        "learning_objects": learning_objects,
-        "competency_level_summary": proposal.pop("level_diagnostics"),
-        "baseline_evidence": _baseline_summary(baseline_records),
-        "ai_cft_proposal": proposal,
-        "data_gaps": data_gaps,
-        "evidence_item_count": len(item_records),
+        "worksheets_scored": sorted(worksheets_scored),
+        "lo_reference_source": "mappings/AICFT_assessment_framework.json",
+        "lo_review_packets": review_packets,
+        "evidence_by_lo": serializable_evidence,
+        "researcher_rubric_decisions": [],
+        "data_gaps": detect_data_gaps(student_id),
+        "evidence_item_count": _count_evidence_items(evidence_by_lo),
     }
 
 

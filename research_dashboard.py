@@ -1,64 +1,44 @@
 """
 research_dashboard.py — Human-readable portfolio report for researchers.
 
-Consumes portfolio.json + scoring-derived worksheet views; does not re-score.
+Consumes portfolio.json (simple LO rubric layout); does not assign competency levels.
 """
 
 from __future__ import annotations
 
-from typing import Any
-
-from student_bundle import load_portfolio, list_worksheets, load_worksheet_summary_view
-
-
-STRENGTH_ICON = {
-    "strong": "■■■",
-    "moderate": "■■□",
-    "weak": "■□□",
-    "none": "□□□",
-}
+from student_bundle import list_worksheets, load_portfolio, load_worksheet_summary_view
 
 
 def render_portfolio_report(student_id: str) -> str:
     portfolio = load_portfolio(student_id)
     lines: list[str] = []
 
-    proposal = portfolio.get("ai_cft_proposal", {})
-    level = proposal.get("Aspect3", "—")
-    lines.append(f"# AI-CFT Portfolio Report — {student_id}")
+    lines.append(f"# Portfolio Review — {student_id}")
     lines.append("")
     lines.append(f"**Framework:** {portfolio.get('framework', '')}")
     lines.append(f"**Aspect:** {portfolio.get('aspect', '')}")
-    lines.append(f"**Proposed level (provisional):** {level}")
+    lines.append(f"**Review mode:** {portfolio.get('methodology', {}).get('approach', 'simple_lo_rubric')}")
     lines.append("")
-    lines.append(f"> {proposal.get('rationale', '')}")
+    lines.append(
+        "> Competency levels are **not** auto-assigned. Use `lo_review_packets` and record "
+        "`researcher_rubric_decisions` after reading the evidence."
+    )
     lines.append("")
 
-    level_sum = portfolio.get("competency_level_summary", {})
-    if level_sum:
-        lines.append("## Competency level diagnostics")
-        lines.append("")
-        lines.append("| Level | Status |")
-        lines.append("|-------|--------|")
-        for lv in ("Acquire", "Deepen", "Create"):
-            lines.append(f"| {lv} | {level_sum.get(lv, '—')} |")
-        lines.append("")
+    decisions = portfolio.get("researcher_rubric_decisions", [])
+    lines.append(f"## Researcher decisions recorded: {len(decisions)}")
+    lines.append("")
 
-    lines.append("## Learning object evidence (aggregated)")
+    lines.append("## LO review packets (preview)")
     lines.append("")
-    lines.append("| LO | Expected | Peak | Worksheets | Items | Mean conf. |")
-    lines.append("|----|----------|------|------------|-------|------------|")
-    for lo, data in sorted(portfolio.get("learning_objects", {}).items()):
-        peak = data.get("peak_strength", "none")
-        icon = STRENGTH_ICON.get(peak, peak)
-        ws = ", ".join(data.get("contributing_worksheets", [])) or "—"
-        conf = data.get("mean_confidence")
-        conf_s = f"{conf:.2f}" if conf is not None else "—"
-        lines.append(
-            f"| {lo} | {data.get('expected_level', '')} | {icon} {peak} | "
-            f"{ws} | {data.get('evidence_items', 0)} | {conf_s} |"
-        )
-    lines.append("")
+    for lo in sorted(portfolio.get("lo_review_packets", {}))[:3]:
+        packet = portfolio["lo_review_packets"][lo]
+        preview = packet.splitlines()[:6]
+        lines.append(f"### {lo}")
+        lines.extend(preview)
+        if len(packet.splitlines()) > 6:
+            lines.append("…")
+        lines.append("")
 
     lines.append("## Worksheet scorecard")
     lines.append("")
@@ -77,21 +57,6 @@ def render_portfolio_report(student_id: str) -> str:
     lines.append("")
 
     gaps = portfolio.get("data_gaps", [])
-    baseline = portfolio.get("baseline_evidence", [])
-    if baseline:
-        lines.append("## Baseline / diagnostic evidence (excluded from LO peaks)")
-        lines.append("")
-        lines.append("| Worksheet | Item | LO | Strength | Type |")
-        lines.append("|-----------|------|----|----------|------|")
-        for rec in baseline[:12]:
-            lines.append(
-                f"| {rec['worksheet']} | {rec['item']} | {rec['lo']} | "
-                f"{rec['strength']} | {rec['evidence_type']} |"
-            )
-        if len(baseline) > 12:
-            lines.append(f"| … | +{len(baseline) - 12} more | | | |")
-        lines.append("")
-
     if gaps:
         lines.append("## Data gaps (priority order)")
         lines.append("")
@@ -106,7 +71,5 @@ def render_portfolio_report(student_id: str) -> str:
             lines.append("")
 
     lines.append("---")
-    lines.append(
-        "*Final AI-CFT level is assigned by the researcher (`ai_cft_proposal.is_final` remains false).*"
-    )
+    lines.append("*Record final LO judgements in `researcher_rubric_decisions`.*")
     return "\n".join(lines)

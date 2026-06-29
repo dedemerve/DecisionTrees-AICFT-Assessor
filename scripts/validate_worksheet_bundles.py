@@ -29,27 +29,19 @@ from worksheet_bundle_data import (  # noqa: E402
     DEPLOYED_WORKSHEETS,
     FORBIDDEN_SUBSTRINGS,
     OB_REF,
+    known_behaviour_ids,
 )
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 log = logging.getLogger(__name__)
 
 WORKSHEETS_DIR = REPO_ROOT / "worksheets"
-FRAMEWORK_OB = REPO_ROOT / "framework" / "Observable_Behaviours.json"
 
 OB_ID_PATTERN = re.compile(r"^OB_[A-Z]{3}_\d{3}$")
 
 
 def _load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
-
-
-def _load_ob_ids() -> set[str]:
-    data = _load_json(FRAMEWORK_OB)
-    behaviours = data.get("behaviours", data.get("observable_behaviours", {}))
-    if isinstance(behaviours, dict):
-        return {b.get("id", k) for k, b in behaviours.items() if isinstance(b, dict)}
-    return set()
 
 
 def _forbidden_scan(obj: Any, path: str = "") -> list[str]:
@@ -179,9 +171,9 @@ def validate_bundle_directory(worksheet: str, ob_ids: set[str]) -> list[str]:
 
 
 def validate_all_bundles() -> list[str]:
-    ob_ids = _load_ob_ids()
+    ob_ids = known_behaviour_ids()
     if not ob_ids:
-        return ["framework/Observable_Behaviours.json: no behaviour IDs loaded"]
+        return ["worksheet bundles: no behaviour IDs found in BEHAVIOUR_MAP or bundle files"]
     errors: list[str] = []
     for ws in BUNDLE_WORKSHEETS:
         errors.extend(validate_bundle_directory(ws, ob_ids))

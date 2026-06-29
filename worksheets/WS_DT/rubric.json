@@ -24,22 +24,83 @@
   "operator_rules": {
     "required": "Complementary pairs on each split: ≤↔>, <↔≥, ≥↔<, >↔≤. CODAP/Arbor evet branch threshold implies hayır branch uses the complement.",
     "invalid": "Mismatched pair (e.g. < t with > t instead of ≥ t) — counts and MCR will not be internally consistent with a valid tree.",
-    "valid_examples": ["şeker ≤ 12 (implies > 12)", "şeker < 10 (implies ≥ 10)", "Düzey 1: şeker ≤ 12 | Düzey 2: yağ ≤ 8"],
-    "invalid_examples": ["şeker < 10 with implicit > 10", "şeker ≤ 10 with ≥ 10"]
+    "valid_examples": [
+      "şeker ≤ 12 (implies > 12)",
+      "şeker < 10 (implies ≥ 10)",
+      "Düzey 1: şeker ≤ 12 | Düzey 2: yağ ≤ 8"
+    ],
+    "invalid_examples": [
+      "şeker < 10 with implicit > 10",
+      "şeker ≤ 10 with ≥ 10"
+    ]
   },
   "acceptable_features": [
-    {"aliases": ["enerji", "energy", "kcal"], "field": "energy_kcal"},
-    {"aliases": ["yağ", "yag", "fat"], "field": "fat_g"},
-    {"aliases": ["doymuş yağ", "doymus yag", "saturated fat"], "field": "saturated_fat_g"},
-    {"aliases": ["karbonhidrat", "carbohydrates", "carbs"], "field": "carbohydrates_g"},
-    {"aliases": ["şeker", "seker", "sugar"], "field": "sugar_g"},
-    {"aliases": ["protein"], "field": "protein_g"},
-    {"aliases": ["tuz", "salt"], "field": "salt_g"}
+    {
+      "aliases": [
+        "enerji",
+        "energy",
+        "kcal"
+      ],
+      "field": "energy_kcal"
+    },
+    {
+      "aliases": [
+        "yağ",
+        "yag",
+        "fat"
+      ],
+      "field": "fat_g"
+    },
+    {
+      "aliases": [
+        "doymuş yağ",
+        "doymus yag",
+        "saturated fat"
+      ],
+      "field": "saturated_fat_g"
+    },
+    {
+      "aliases": [
+        "karbonhidrat",
+        "carbohydrates",
+        "carbs"
+      ],
+      "field": "carbohydrates_g"
+    },
+    {
+      "aliases": [
+        "şeker",
+        "seker",
+        "sugar"
+      ],
+      "field": "sugar_g"
+    },
+    {
+      "aliases": [
+        "protein"
+      ],
+      "field": "protein_g"
+    },
+    {
+      "aliases": [
+        "tuz",
+        "salt"
+      ],
+      "field": "salt_g"
+    }
   ],
   "tree_scoring": {
     "single_level": {
-      "sections": ["B", "C"],
-      "items": ["DT_B_Q1", "DT_B_Q2", "DT_B_Q3", "DT_C_Q1"],
+      "sections": [
+        "B",
+        "C"
+      ],
+      "items": [
+        "DT_B_Q1",
+        "DT_B_Q2",
+        "DT_B_Q3",
+        "DT_C_Q1"
+      ],
       "check": "emit_consistency",
       "credit_levels": {
         "full": "Valid feature + threshold notation; TP+FP+TN+FN sums to training N=16; sensitivity and MCR arithmetically consistent with recorded counts.",
@@ -50,7 +111,9 @@
     },
     "two_level": {
       "section": "D",
-      "items": ["DT_D_Q1"],
+      "items": [
+        "DT_D_Q1"
+      ],
       "check": "emit_consistency",
       "credit_levels": {
         "full": "Two distinct variables (level 1 and level 2); thresholds with operators; TP+FP+TN+FN = 16; derived metrics consistent.",

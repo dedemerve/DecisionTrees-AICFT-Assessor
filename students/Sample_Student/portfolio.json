@@ -2,7 +2,9 @@
   "framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
   "aspect": "Aspect 3: AI foundations and applications",
   "methodology": {
-    "aggregation_note": "LO peak_strength uses portfolio_weight=full items only; prior_belief and diagnostic reflective items are listed in baseline_evidence."
+    "approach": "simple_lo_rubric",
+    "ecd_archive": "archive/ecd_v1",
+    "aggregation_note": "Evidence excerpts are grouped by LO for side-by-side review with UNESCO indicator text. No automated AI-CFT level or domain convergence is computed."
   },
   "worksheets_scored": [
     "WS1",
@@ -15,122 +17,458 @@
     "WS7",
     "WS_DT"
   ],
-  "learning_objects": {
-    "LO3.1.1": {
-      "peak_strength": "moderate",
-      "expected_level": "Acquire",
-      "contributing_worksheets": [
-        "WS_DT"
-      ],
-      "evidence_items": 2,
-      "direct_evidence_count": 2,
-      "supporting_evidence_count": 0,
-      "mean_confidence": 0.85
-    },
-    "LO3.1.2": {
-      "peak_strength": "strong",
-      "expected_level": "Acquire",
-      "contributing_worksheets": [
-        "WS1",
-        "WS11",
-        "WS_DT"
-      ],
-      "evidence_items": 9,
-      "direct_evidence_count": 8,
-      "supporting_evidence_count": 1,
-      "mean_confidence": 0.849
-    },
-    "LO3.1.3": {
-      "peak_strength": "moderate",
-      "expected_level": "Acquire",
-      "contributing_worksheets": [
-        "WS_DT"
-      ],
-      "evidence_items": 1,
-      "direct_evidence_count": 1,
-      "supporting_evidence_count": 0,
-      "mean_confidence": 0.59
-    },
-    "LO3.2.1": {
-      "peak_strength": "moderate",
-      "expected_level": "Deepen",
-      "contributing_worksheets": [
-        "WS_DT"
-      ],
-      "evidence_items": 2,
-      "direct_evidence_count": 2,
-      "supporting_evidence_count": 0,
-      "mean_confidence": 0.59
-    },
-    "LO3.2.2": {
-      "peak_strength": "strong",
-      "expected_level": "Deepen",
-      "contributing_worksheets": [
-        "WS10",
-        "WS11",
-        "WS3",
-        "WS4",
-        "WS5",
-        "WS6",
-        "WS7",
-        "WS_DT"
-      ],
-      "evidence_items": 31,
-      "direct_evidence_count": 23,
-      "supporting_evidence_count": 8,
-      "mean_confidence": 0.617
-    },
-    "LO3.2.3": {
-      "peak_strength": "strong",
-      "expected_level": "Deepen",
-      "contributing_worksheets": [
-        "WS5",
-        "WS_DT"
-      ],
-      "evidence_items": 14,
-      "direct_evidence_count": 9,
-      "supporting_evidence_count": 5,
-      "mean_confidence": 0.424
-    },
-    "LO3.3.1": {
-      "peak_strength": "none",
-      "expected_level": "Create",
-      "contributing_worksheets": [],
-      "evidence_items": 0,
-      "direct_evidence_count": 0,
-      "supporting_evidence_count": 0,
-      "mean_confidence": null
-    }
+  "lo_reference_source": "mappings/AICFT_assessment_framework.json",
+  "lo_review_packets": {
+    "LO3.1.1": "=== LO3.1.1 (Acquire) ===\nBasic AI techniques and applications — conceptual knowledge\n\nFoundational vocabulary and concepts only: object, feature, label, dataset, decision, threshold, basic ML terminology. Recall and explain — not tool operation.\n\nAspect 3, Acquire — foundational conceptual knowledge of AI systems.\n\n--- Kanıt ---\n[codap_log] WS_DT/DT_A_Q1 Bence, sahip olduğu enerji ve yağ oranı sağlar.\n[codap_log] WS_DT/DT_E_sensitivity 0.737\n[codap_log] WS_DT/DT_E_MCR 0.2\n[codap_log] WS_DT/DT_G_Q1 Hangi besinleri seçmesi gerektiğini algoritmasını oluşturdu.",
+    "LO3.1.2": "=== LO3.1.2 (Acquire) ===\nHow AI works — foundational understanding\n\nExplains what decision trees do, why data is needed, and distinguishes AI from non-AI approaches at a conceptual level.\n\nAspect 3, Acquire — understanding of how AI systems work.\n\n--- Kanıt ---\n[worksheet] WS1/WS1_B1 etiket\n[worksheet] WS1/WS1_B2 nesne\n[worksheet] WS1/WS1_B3 özellik / karakteristik / değişken\n[worksheet] WS1/WS1_B4 7\n[worksheet] WS1/WS1_B5 Enerji, Yağ, Doymuş Yağ, Karbonhidrat, Şeker, Protein, Tuz\n[worksheet] WS1/WS1_B6 Fındıklı Gofret\n[worksheet] WS1/WS1_B7 etiket olarak\n[worksheet] WS11/WS11_B9 Karar ağacı, verideki örüntüleri öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir makine öğrenmesi modelidir.\n[codap_log] WS_DT/DT_A_Q2 Enerji, yağ, şeker...",
+    "LO3.1.3": "=== LO3.1.3 (Acquire) ===\nValidated AI tool selection\n\nLocates, validates, and selects appropriate AI tools (e.g. CODAP, Arbor, EMIT) for an educational data-analysis task.\n\nAspect 3, Acquire — locate and evaluate AI tools for educational use.\n\n--- Kanıt ---\n[codap_log] WS_DT/DT_B_Q1 MCR: 0.2, sensitivity: 0.737",
+    "LO3.2.1": "=== LO3.2.1 (Deepen) ===\nEvaluate → select → apply AI tools in educational context\n\nDemonstrates evaluate → select → apply cycle: choose variables, build multiple models/trees, compare performance — not threshold arithmetic alone.\n\nAspect 3, Deepen — operate and apply AI tools in educational contexts.\n\n--- Kanıt ---\n[codap_log] WS_DT/DT_B_Q3 Performansta değişiklik gözlemledim. -> MCR değerim ve sens değerimde azalma gözlemledim.\n[codap_log] WS_DT/DT_B_Q4 En iyi sonucu enerjide aldım. Onun yanında doymuş yağ miktarı da iyi ise yaradı.",
+    "LO3.2.2": "=== LO3.2.2 (Deepen) ===\nApplication skills — model behaviour and threshold reasoning\n\nApply, interpret, compare, justify: threshold application and optimization, decision-tree construction/representation, rule articulation, model behaviour.\n\nAspect 3, Deepen — Application Skills: explain model behaviour, interpret results, evaluate parameters, select appropriate approaches.\n\n--- Kanıt ---\n[worksheet] WS10/WS10_B1 4\n[worksheet] WS10/WS10_B2 3\n[worksheet] WS10/WS10_B3 2\n[worksheet] WS10/WS10_B4 3\n[worksheet] WS10/WS10_B5 2\n[worksheet] WS10/WS10_B6 1\n[worksheet] WS10/WS10_B7 2\n[worksheet] WS10/WS10_B8 408\n[worksheet] WS11/WS11_B8a Tavsiye edilmez\n[worksheet] WS11/WS11_B8b Eğer şeker > 10 ise → Tavsiye edilmez.\n[worksheet] WS3/WS3_B3 Tavsiye edilir\n[worksheet] WS3/WS3_B5 Tavsiye edilmez\n[worksheet] WS4/WS4_B1 Avokado ile patates kızartması arasına çizgi\n[worksheet] WS4/WS4_B2 jelibon, kraker, yulaf, avokado\n[worksheet] WS4/WS4_B3 Yeni eşikle daha az yanlış sınıflandırma oldu.\n[worksheet] WS4/WS4_B4 Pia haklı; elma ile ahududu reçelinin yağ değerleri aynı.\n[worksheet] WS4/WS4_B5 408\n[worksheet] WS5/WS5_B25 Şeker ≤ 12'yi tercih ederim; kartlara göre MCR 0.18 ve 9 doğru sınıflandırma ile en düşük hata.\n[worksheet] WS6/WS6_root_feature Decision-tree worksheet: Selects root split feature — model structure decision.\n[worksheet] WS6/WS6_root_threshold Decision-tree worksheet: Sets root threshold — parameter evaluation.\n[worksheet] WS6/WS6_root_labels Decision-tree worksheet: Assigns class labels at root branches.\n[worksheet] WS6/WS6_inner_feature Decision-tree worksheet: Selects inner-node feature for tree refinement.\n[worksheet] WS6/WS6_inner_threshold Decision-tree worksheet: Sets inner-node threshold.\n[worksheet] WS6/WS6_inner_labels Decision-tree worksheet: Assigns class labels at inner branches.\n[worksheet] WS6/WS6_leaves Decision-tree worksheet: Specifies leaf outcomes completing tree representation.\n[worksheet] WS6/WS6_tree_structure Decision-tree worksheet: Constructs or represents a complete decision tree from data.\n[worksheet] WS7/WS7_B1 Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.\n[worksheet] WS7/WS7_B2 Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.\n[worksheet] WS7/WS7_B3 Eğer şeker > 10 ise → Tavsiye edilmez.\n[codap_log] WS_DT/DT_A_Q2 Enerji, yağ, şeker...\n[codap_log] WS_DT/DT_A_Q3 Evet! Genel olarak enerji düzeyleri arasında büyük fark var.",
+    "LO3.2.3": "=== LO3.2.3 (Deepen) ===\nProblem solving — iterative performance improvement\n\nReal problem solving with iterative refinement: optimize thresholds, build multi-level trees, evaluate on test data, improve performance.\n\nAspect 3, Deepen — apply transferable knowledge to solve real problems.\n\n--- Kanıt ---\n[worksheet] WS5/WS5_row1 Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.\n[worksheet] WS5/WS5_row2 Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.\n[worksheet] WS5/WS5_row3 Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.\n[worksheet] WS5/WS5_row4 Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.\n[worksheet] WS5/WS5_row5 Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.\n[worksheet] WS5/WS5_B25 Şeker ≤ 12'yi tercih ederim; kartlara göre MCR 0.18 ve 9 doğru sınıflandırma ile en düşük hata.\n[codap_log] WS_DT/DT_C_Q2 Seçtiğim değişken miktarının eşiklerini grafikte sıraladım ve\n[codap_log] WS_DT/DT_C_Q3 281 olarak aldım. Değerlerde oynama yaparak en iyi değere ulaşmaya çalıştım.\n[codap_log] WS_DT/DT_D_Q2 Evet iyileştirdi ve doğruluk oranını artırdı.\n[codap_log] WS_DT/DT_D_Q3 Enerji ve doymuş yağ\n[codap_log] WS_DT/DT_D_Q4 Oranın artması sağladı\n[codap_log] WS_DT/DT_E_Q1 Hata oranı çünkü hata oluşması karar ağacını amaçsız kılar.\n[codap_log] WS_DT/DT_E_Q2 0.2 hata oranı ile bazılarını kaçırdı\n[codap_log] WS_DT/DT_E_Q3 Kesinliğe ulaşana kadar.",
+    "LO3.3.1": "=== LO3.3.1 (Create) ===\nCreate — adapt AI-supported solutions\n\nEarly indicators of designing or adapting AI-supported educational solutions.\n\nAspect 3, Create — design and adapt AI-supported solutions.\n\n--- Kanıt ---\n(Bu LO için otomatik toplanan kanıt yok — portföyü elle kontrol edin.)"
   },
-  "competency_level_summary": {
-    "Acquire": "met",
-    "Deepen": "met",
-    "Create": "insufficient"
+  "evidence_by_lo": {
+    "LO3.1.2": [
+      {
+        "source": "worksheet",
+        "excerpt": "etiket",
+        "timestamp": null,
+        "worksheet": "WS1",
+        "item_id": "WS1_B1"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "nesne",
+        "timestamp": null,
+        "worksheet": "WS1",
+        "item_id": "WS1_B2"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "özellik / karakteristik / değişken",
+        "timestamp": null,
+        "worksheet": "WS1",
+        "item_id": "WS1_B3"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "7",
+        "timestamp": null,
+        "worksheet": "WS1",
+        "item_id": "WS1_B4"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Enerji, Yağ, Doymuş Yağ, Karbonhidrat, Şeker, Protein, Tuz",
+        "timestamp": null,
+        "worksheet": "WS1",
+        "item_id": "WS1_B5"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Fındıklı Gofret",
+        "timestamp": null,
+        "worksheet": "WS1",
+        "item_id": "WS1_B6"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "etiket olarak",
+        "timestamp": null,
+        "worksheet": "WS1",
+        "item_id": "WS1_B7"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Karar ağacı, verideki örüntüleri öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir makine öğrenmesi modelidir.",
+        "timestamp": null,
+        "worksheet": "WS11",
+        "item_id": "WS11_B9"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "Enerji, yağ, şeker...",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_A_Q2"
+      }
+    ],
+    "LO3.2.2": [
+      {
+        "source": "worksheet",
+        "excerpt": "4",
+        "timestamp": null,
+        "worksheet": "WS10",
+        "item_id": "WS10_B1"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "3",
+        "timestamp": null,
+        "worksheet": "WS10",
+        "item_id": "WS10_B2"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "2",
+        "timestamp": null,
+        "worksheet": "WS10",
+        "item_id": "WS10_B3"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "3",
+        "timestamp": null,
+        "worksheet": "WS10",
+        "item_id": "WS10_B4"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "2",
+        "timestamp": null,
+        "worksheet": "WS10",
+        "item_id": "WS10_B5"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "1",
+        "timestamp": null,
+        "worksheet": "WS10",
+        "item_id": "WS10_B6"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "2",
+        "timestamp": null,
+        "worksheet": "WS10",
+        "item_id": "WS10_B7"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "408",
+        "timestamp": null,
+        "worksheet": "WS10",
+        "item_id": "WS10_B8"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Tavsiye edilmez",
+        "timestamp": null,
+        "worksheet": "WS11",
+        "item_id": "WS11_B8a"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+        "timestamp": null,
+        "worksheet": "WS11",
+        "item_id": "WS11_B8b"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Tavsiye edilir",
+        "timestamp": null,
+        "worksheet": "WS3",
+        "item_id": "WS3_B3"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Tavsiye edilmez",
+        "timestamp": null,
+        "worksheet": "WS3",
+        "item_id": "WS3_B5"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Avokado ile patates kızartması arasına çizgi",
+        "timestamp": null,
+        "worksheet": "WS4",
+        "item_id": "WS4_B1"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "jelibon, kraker, yulaf, avokado",
+        "timestamp": null,
+        "worksheet": "WS4",
+        "item_id": "WS4_B2"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Yeni eşikle daha az yanlış sınıflandırma oldu.",
+        "timestamp": null,
+        "worksheet": "WS4",
+        "item_id": "WS4_B3"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Pia haklı; elma ile ahududu reçelinin yağ değerleri aynı.",
+        "timestamp": null,
+        "worksheet": "WS4",
+        "item_id": "WS4_B4"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "408",
+        "timestamp": null,
+        "worksheet": "WS4",
+        "item_id": "WS4_B5"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Şeker ≤ 12'yi tercih ederim; kartlara göre MCR 0.18 ve 9 doğru sınıflandırma ile en düşük hata.",
+        "timestamp": null,
+        "worksheet": "WS5",
+        "item_id": "WS5_B25"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Decision-tree worksheet: Selects root split feature — model structure decision.",
+        "timestamp": null,
+        "worksheet": "WS6",
+        "item_id": "WS6_root_feature"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Decision-tree worksheet: Sets root threshold — parameter evaluation.",
+        "timestamp": null,
+        "worksheet": "WS6",
+        "item_id": "WS6_root_threshold"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Decision-tree worksheet: Assigns class labels at root branches.",
+        "timestamp": null,
+        "worksheet": "WS6",
+        "item_id": "WS6_root_labels"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Decision-tree worksheet: Selects inner-node feature for tree refinement.",
+        "timestamp": null,
+        "worksheet": "WS6",
+        "item_id": "WS6_inner_feature"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Decision-tree worksheet: Sets inner-node threshold.",
+        "timestamp": null,
+        "worksheet": "WS6",
+        "item_id": "WS6_inner_threshold"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Decision-tree worksheet: Assigns class labels at inner branches.",
+        "timestamp": null,
+        "worksheet": "WS6",
+        "item_id": "WS6_inner_labels"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Decision-tree worksheet: Specifies leaf outcomes completing tree representation.",
+        "timestamp": null,
+        "worksheet": "WS6",
+        "item_id": "WS6_leaves"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Decision-tree worksheet: Constructs or represents a complete decision tree from data.",
+        "timestamp": null,
+        "worksheet": "WS6",
+        "item_id": "WS6_tree_structure"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir.",
+        "timestamp": null,
+        "worksheet": "WS7",
+        "item_id": "WS7_B1"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez.",
+        "timestamp": null,
+        "worksheet": "WS7",
+        "item_id": "WS7_B2"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Eğer şeker > 10 ise → Tavsiye edilmez.",
+        "timestamp": null,
+        "worksheet": "WS7",
+        "item_id": "WS7_B3"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "Enerji, yağ, şeker...",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_A_Q2"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "Evet! Genel olarak enerji düzeyleri arasında büyük fark var.",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_A_Q3"
+      }
+    ],
+    "LO3.2.3": [
+      {
+        "source": "worksheet",
+        "excerpt": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+        "timestamp": null,
+        "worksheet": "WS5",
+        "item_id": "WS5_row1"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+        "timestamp": null,
+        "worksheet": "WS5",
+        "item_id": "WS5_row2"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+        "timestamp": null,
+        "worksheet": "WS5",
+        "item_id": "WS5_row3"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+        "timestamp": null,
+        "worksheet": "WS5",
+        "item_id": "WS5_row4"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Explores how parameter combinations (TP/FP/FN counts) affect MCR — iterative performance reasoning; supporting evidence for problem solving.",
+        "timestamp": null,
+        "worksheet": "WS5",
+        "item_id": "WS5_row5"
+      },
+      {
+        "source": "worksheet",
+        "excerpt": "Şeker ≤ 12'yi tercih ederim; kartlara göre MCR 0.18 ve 9 doğru sınıflandırma ile en düşük hata.",
+        "timestamp": null,
+        "worksheet": "WS5",
+        "item_id": "WS5_B25"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "Seçtiğim değişken miktarının eşiklerini grafikte sıraladım ve",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_C_Q2"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "281 olarak aldım. Değerlerde oynama yaparak en iyi değere ulaşmaya çalıştım.",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_C_Q3"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "Evet iyileştirdi ve doğruluk oranını artırdı.",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_D_Q2"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "Enerji ve doymuş yağ",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_D_Q3"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "Oranın artması sağladı",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_D_Q4"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "Hata oranı çünkü hata oluşması karar ağacını amaçsız kılar.",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_E_Q1"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "0.2 hata oranı ile bazılarını kaçırdı",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_E_Q2"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "Kesinliğe ulaşana kadar.",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_E_Q3"
+      }
+    ],
+    "LO3.1.1": [
+      {
+        "source": "codap_log",
+        "excerpt": "Bence, sahip olduğu enerji ve yağ oranı sağlar.",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_A_Q1"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "0.737",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_E_sensitivity"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "0.2",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_E_MCR"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "Hangi besinleri seçmesi gerektiğini algoritmasını oluşturdu.",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_G_Q1"
+      }
+    ],
+    "LO3.1.3": [
+      {
+        "source": "codap_log",
+        "excerpt": "MCR: 0.2, sensitivity: 0.737",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_B_Q1"
+      }
+    ],
+    "LO3.2.1": [
+      {
+        "source": "codap_log",
+        "excerpt": "Performansta değişiklik gözlemledim. -> MCR değerim ve sens değerimde azalma gözlemledim.",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_B_Q3"
+      },
+      {
+        "source": "codap_log",
+        "excerpt": "En iyi sonucu enerjide aldım. Onun yanında doymuş yağ miktarı da iyi ise yaradı.",
+        "timestamp": null,
+        "worksheet": "WS_DT",
+        "item_id": "DT_B_Q4"
+      }
+    ]
   },
-  "baseline_evidence": [
-    {
-      "worksheet": "WS_DT",
-      "item": "DT_A_Q1",
-      "lo": "LO3.1.1",
-      "strength": "weak",
-      "evidence_type": "prior_belief"
-    },
-    {
-      "worksheet": "WS_DT",
-      "item": "DT_G_Q1",
-      "lo": "LO3.1.1",
-      "strength": "weak",
-      "evidence_type": "reflective"
-    }
-  ],
-  "ai_cft_proposal": {
-    "Aspect3": "Deepen",
-    "rationale": "Deepen application LOs reach moderate-or-strong peaks across multiple worksheets (LO3.2.1=moderate, LO3.2.2=strong, LO3.2.3=strong). Acquire foundations: LO3.1.1=moderate, LO3.1.2=strong, LO3.1.3=moderate. Create-level LO3.3.1 not yet demonstrated.",
-    "confidence": "provisional",
-    "is_final": false,
-    "decision_owner": "researcher",
-    "decision_note": "Level aggregates multi-worksheet competency evidence; not assigned from any single worksheet. Baseline (prior_belief) and diagnostic (reflective) items are excluded from peak aggregation. Researcher makes final holistic judgement after reviewing flagged items."
-  },
+  "researcher_rubric_decisions": [],
   "data_gaps": [
     {
       "worksheet": "WS_DT",
@@ -170,30 +508,18 @@
         "WS5_B22",
         "WS5_B23",
         "WS5_B24",
-        "WS5_row1",
-        "WS5_row2",
-        "WS5_row3",
-        "WS5_row4",
-        "WS5_row5"
+        "WS5_B25"
       ],
       "priority": 2,
-      "why": "flagged for human review (low scorer confidence); Numeric row checks failed: ['row_5']; blank or missing extraction"
+      "why": "flagged for human review (low scorer confidence); blank or missing extraction"
     },
     {
       "worksheet": "WS6",
       "items": [
-        "WS6_B12",
-        "WS6_inner_feature",
-        "WS6_inner_labels",
-        "WS6_inner_threshold",
-        "WS6_leaves",
-        "WS6_root_feature",
-        "WS6_root_labels",
-        "WS6_root_threshold",
-        "WS6_tree_structure"
+        "WS6_B12"
       ],
       "priority": 2,
-      "why": "flagged for human review (low scorer confidence); Decision tree canvas not detected or vision pipeline failed.; blank or missing extraction"
+      "why": "blank or missing extraction"
     },
     {
       "worksheet": "WS7",
@@ -201,36 +527,10 @@
         "WS7_B4",
         "WS7_B5",
         "WS7_B6",
-        "WS7_B7",
-        "WS7_P1_box1",
-        "WS7_P1_box2",
-        "WS7_P1_box3"
+        "WS7_B7"
       ],
       "priority": 2,
-      "why": "flagged for human review (low scorer confidence); blank or missing extraction"
-    },
-    {
-      "worksheet": "WS11",
-      "items": [
-        "WS11_Q10_1",
-        "WS11_Q10_2",
-        "WS11_Q10_3",
-        "WS11_Q10_4",
-        "WS11_Q10_5",
-        "WS11_Q10_6",
-        "WS11_Q10_7",
-        "WS11_Q10_8",
-        "WS11_Q11_2",
-        "WS11_Q11_3",
-        "WS11_Q11_4",
-        "WS11_Q12_1",
-        "WS11_Q12_2",
-        "WS11_Q12_3",
-        "WS11_Q12_4",
-        "WS11_Q12_5"
-      ],
-      "priority": 3,
-      "why": "flagged for human review (low scorer confidence)"
+      "why": "blank or missing extraction"
     },
     {
       "worksheet": "WS3",
@@ -243,6 +543,6 @@
       "why": "flagged for human review (low scorer confidence)"
     }
   ],
-  "evidence_item_count": 100,
+  "evidence_item_count": 61,
   "student_id": "Sample_Student"
 }

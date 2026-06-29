@@ -4,51 +4,41 @@ from __future__ import annotations
 
 import unittest
 
-from portfolio_builder import (
-    _peak_strength,
-    build_portfolio,
-    propose_ai_cft_level,
-)
+from lo_rubric_check import ResearcherRubricDecision, EvidenceExcerpt
+from portfolio_builder import build_portfolio, collect_worksheet_excerpts_by_lo
 from student_bundle import student_dir
 
 
 class TestPortfolioBuilder(unittest.TestCase):
-    def test_peak_strength_ordering(self):
-        self.assertEqual(_peak_strength(["weak", "strong", "moderate"]), "strong")
-        self.assertEqual(_peak_strength([]), "none")
-
-    def test_propose_deepen_when_application_los_strong(self):
-        los = {
-            "LO3.1.1": {"peak_strength": "strong"},
-            "LO3.1.2": {"peak_strength": "strong"},
-            "LO3.1.3": {"peak_strength": "none"},
-            "LO3.2.1": {"peak_strength": "moderate"},
-            "LO3.2.2": {"peak_strength": "strong"},
-            "LO3.2.3": {"peak_strength": "moderate"},
-            "LO3.3.1": {"peak_strength": "none"},
-        }
-        proposal = propose_ai_cft_level(los)
-        self.assertEqual(proposal["Aspect3"], "Deepen")
-        self.assertFalse(proposal["is_final"])
-
-    def test_sample_student_portfolio_builds(self):
+    def test_sample_student_portfolio_builds(self) -> None:
         self.assertTrue(student_dir("Sample_Student").is_dir())
         portfolio = build_portfolio("Sample_Student")
         self.assertIn("WS1", portfolio["worksheets_scored"])
-        self.assertIn("LO3.2.2", portfolio["learning_objects"])
-        self.assertIn("ai_cft_proposal", portfolio)
-        self.assertIn("baseline_evidence", portfolio)
-        self.assertIn("methodology", portfolio)
-        self.assertIn("competency_level_summary", portfolio)
+        self.assertIn("LO3.2.2", portfolio["lo_review_packets"])
+        self.assertIn("evidence_by_lo", portfolio)
+        self.assertEqual(portfolio["methodology"]["approach"], "simple_lo_rubric")
+        self.assertEqual(portfolio["researcher_rubric_decisions"], [])
 
-    def test_baseline_excludes_prior_belief_from_peak(self):
-        from pipeline_schema import framework_item_index, load_framework
-        from portfolio_builder import _collect_worksheet_evidence
+    def test_collect_excerpts_has_lo_tags(self) -> None:
+        by_lo = collect_worksheet_excerpts_by_lo("Sample_Student")
+        self.assertTrue(any(by_lo.values()))
+        self.assertTrue(any(lo.startswith("LO3.") for lo in by_lo))
 
-        fw_index = framework_item_index(load_framework())
-        _, _, _, baseline = _collect_worksheet_evidence("Sample_Student", fw_index)
-        baseline_items = {(r["worksheet"], r["item"]) for r in baseline}
-        self.assertIn(("WS_DT", "DT_A_Q1"), baseline_items)
+    def test_researcher_decision_roundtrip(self) -> None:
+        decision = ResearcherRubricDecision(
+            lo_code="LO3.2.2",
+            candidate_id="Sample_Student",
+            decision="partial",
+            supporting_evidence=[
+                EvidenceExcerpt(
+                    source="worksheet",
+                    excerpt="Threshold comparison present but not fully justified.",
+                    worksheet="WS5",
+                ),
+            ],
+            researcher_note="Evidence shows comparison language without full metric linkage.",
+        )
+        self.assertEqual(decision.decision, "partial")
 
 
 if __name__ == "__main__":
