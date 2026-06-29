@@ -10,12 +10,13 @@
     "parse_success",
     "blocked"
   ],
+  "additionalProperties": false,
   "properties": {
     "stage": {
       "const": "validation"
     },
     "worksheet": {
-      "type": "string"
+      "$ref": "common_v1.schema.json#/$defs/worksheet_id"
     },
     "student_id": {
       "type": "string"
@@ -58,6 +59,34 @@
         "string",
         "null"
       ]
+    },
+    "mcr": {
+      "type": "object"
+    },
+    "ws6_path_specs": {
+      "type": "array"
+    },
+    "sample_tree_reference": {
+      "type": "string"
+    },
+    "all_correct": {
+      "type": "boolean"
+    },
+    "reference": {
+      "type": "string"
+    },
+    "ocr_normalization": {
+      "type": "array"
+    },
+    "validation_error": {
+      "type": "string"
+    },
+    "htr_status": {
+      "type": "string"
+    },
+    "table_rows_captured": {
+      "type": "integer",
+      "minimum": 0
     }
   }
 }

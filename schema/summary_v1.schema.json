@@ -16,7 +16,7 @@
       "const": "summary"
     },
     "worksheet": {
-      "type": "string"
+      "$ref": "common_v1.schema.json#/$defs/worksheet_id"
     },
     "student_id": {
       "type": "string"
@@ -43,7 +43,10 @@
       "type": "boolean"
     },
     "blocked_reason": {
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     }
   }
 }

@@ -9,12 +9,13 @@
     "student_id",
     "items"
   ],
+  "additionalProperties": false,
   "properties": {
     "stage": {
       "const": "scoring"
     },
     "worksheet": {
-      "type": "string"
+      "$ref": "common_v1.schema.json#/$defs/worksheet_id"
     },
     "student_id": {
       "type": "string"
