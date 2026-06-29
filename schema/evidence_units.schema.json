@@ -1,28 +1,54 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://decisiontrees-aicft-assessor/evidence_units.schema.json",
-  "title": "Canonical Evidence Units Runtime Schema 1.1",
+  "title": "Canonical Evidence Units Runtime Schema",
   "description": "Layer 2 assessment-object runtime. Descriptive only — no behavioural, ILO, Domain, or AI-CFT inference.",
   "type": "object",
-  "required": ["student_id", "evidence_units"],
+  "required": [
+    "student_id",
+    "evidence_units"
+  ],
   "additionalProperties": true,
   "properties": {
-    "student_id": { "type": "string", "minLength": 1 },
-    "worksheet_id": { "type": "string", "minLength": 1 },
+    "student_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "worksheet_id": {
+      "type": "string",
+      "minLength": 1
+    },
     "evidence_units": {
       "type": "array",
-      "items": { "$ref": "#/$defs/evidence_unit" }
+      "items": {
+        "$ref": "#/$defs/evidence_unit"
+      }
     }
   },
   "$defs": {
     "confidence": {
       "type": "object",
-      "required": ["extraction", "evidence_quality"],
+      "required": [
+        "extraction",
+        "evidence_quality"
+      ],
       "additionalProperties": false,
       "properties": {
-        "ocr": { "type": "number", "minimum": 0, "maximum": 1 },
-        "extraction": { "type": "number", "minimum": 0, "maximum": 1 },
-        "evidence_quality": { "type": "number", "minimum": 0, "maximum": 1 }
+        "ocr": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "extraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "evidence_quality": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
       }
     },
     "evidence_unit": {
@@ -36,9 +62,18 @@
       ],
       "additionalProperties": false,
       "properties": {
-        "student_id": { "type": "string", "minLength": 1 },
-        "worksheet_id": { "type": "string", "minLength": 1 },
-        "item_id": { "type": "string", "minLength": 1 },
+        "student_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "worksheet_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "item_id": {
+          "type": "string",
+          "minLength": 1
+        },
         "evidence_unit_type": {
           "enum": [
             "definition",
@@ -56,10 +91,21 @@
           ]
         },
         "evidence_completeness": {
-          "enum": ["complete", "partial", "blank", "illegible", "missing", "unknown"]
+          "enum": [
+            "complete",
+            "partial",
+            "blank",
+            "illegible",
+            "missing",
+            "unknown"
+          ]
         },
-        "content": { "type": "string" },
-        "confidence": { "$ref": "#/$defs/confidence" }
+        "content": {
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        }
       }
     }
   }

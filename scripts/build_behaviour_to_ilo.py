@@ -350,10 +350,10 @@ def build_behaviour_bundle(
 def build_document() -> dict[str, Any]:
     ob_data = load_json(OB_PATH)
     ilo_data = load_json(ILO_PATH)
-    if ob_data.get("framework_version") != "1.0":
-        raise SystemExit("Observable_Behaviours.json must be framework_version 1.0")
-    if ilo_data.get("framework_version") != "1.0":
-        raise SystemExit("Learning_Objects.json must be framework_version 1.0")
+    if ob_data.get("ontology") != "observable_behaviour":
+        raise SystemExit("Observable_Behaviours.json must be observable_behaviour ontology")
+    if ilo_data.get("ontology") != "instructional_learning_object":
+        raise SystemExit("Learning_Objects.json must be instructional_learning_object ontology")
 
     behaviours = ob_data["behaviours"]
     ilos = ilo_data["learning_objects"]
@@ -384,9 +384,7 @@ def build_document() -> dict[str, Any]:
             "prohibited": "ad_hoc_numeric_confidence",
         },
         "behaviour_ontology_reference": "framework/Observable_Behaviours.json",
-        "behaviour_ontology_version": "1.0",
         "ilo_ontology_reference": "framework/Learning_Objects.json",
-        "ilo_ontology_version": "1.0",
         "mapping_count": record_count,
         "rejected_alternative_count": rejected_count,
         "behaviour_count": len(mappings),

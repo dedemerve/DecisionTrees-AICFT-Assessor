@@ -44,9 +44,9 @@ This graph records which artifacts depend on which others so that redesign remai
 
 ### Behaviour ontology dependencies
 
-- `Observable_Behaviours.json` v1.0 is **frozen** (see `reports/milestone1_summary.md`)
+- `Observable_Behaviours.json` is **frozen** (see `reports/milestone1_summary.md`)
 - `Behaviour_Dependency_Graph.json` documents requires/supports/related edges among frozen behaviours
-- `Learning_Objects.json` v1.0 (ILO) is **frozen** (see `reports/milestone2_summary.md`)
+- `Learning_Objects.json` (ILO) is **frozen** (see `reports/milestone2_summary.md`)
 - `ILO_Dependency_Graph.json` documents instructional sequence and prerequisite edges
 - `Behaviour_to_ILO.json` (Milestone 3) maps frozen `OB_*` → `ILO_*` with traceable rationale
 

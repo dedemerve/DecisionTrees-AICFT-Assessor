@@ -41,9 +41,7 @@ from student_bundle import (
 
 log = logging.getLogger(__name__)
 
-EVIDENCE_UNITS_SCHEMA_VERSION = "1.1"
-PIPELINE_EVIDENCE_VERSION = "1.1"
-ADAPTER_WORKSHEET_EXTRACTION_V1 = "worksheet_extraction_v1"
+ADAPTER_WORKSHEET_EXTRACTION = "worksheet_extraction"
 
 ASSESSMENT_OBJECT_DEFINITION = (
     "The smallest traceable assessment object representing an interpretable piece "
@@ -320,7 +318,7 @@ def build_evidence_unit(
     field_input: FieldExtractionInput,
     timestamp: str,
     extraction_artifact: str,
-    adapter: str = ADAPTER_WORKSHEET_EXTRACTION_V1,
+    adapter: str = ADAPTER_WORKSHEET_EXTRACTION,
     layout_zones: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Serialize one canonical Evidence Unit assessment object (descriptive only)."""

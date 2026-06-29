@@ -19,14 +19,8 @@ WORKSHEETS_DIR = REPO_ROOT / "worksheets"
 MAPPINGS_DIR = REPO_ROOT / "mappings"
 SCHEMA_DIR = REPO_ROOT / "schema"
 
-RUBRIC_SCHEMA_VERSION = "3.0"
-
 # LO = Learning Object (AI-CFT competency object, e.g. LO3.1.1). JSON field: learning_objects.
 LO_GLOSSARY = "Learning Object"
-
-ARTIFACT_SCHEMA_VERSION = "3.0"
-PORTFOLIO_SCHEMA_VERSION = "3.0"
-FRAMEWORK_SCHEMA_VERSION = "2.0"
 
 # Group B: deterministic Python validation before scoring (reviewer taxonomy).
 WORKSHEETS_REQUIRING_VALIDATION = frozenset({"WS5", "WS6", "WS7"})

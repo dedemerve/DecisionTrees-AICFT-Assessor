@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "learning_objects.schema.json",
-  "title": "Instructional Learning Object Ontology v1",
+  "title": "Instructional Learning Object Ontology",
   "type": "object",
   "required": [
     "ontology",
@@ -15,9 +15,6 @@
   "properties": {
     "ontology": {
       "const": "instructional_learning_object"
-    },
-    "framework_version": {
-      "type": "string"
     },
     "terminology": {
       "type": "object",
@@ -48,9 +45,6 @@
       "type": "string"
     },
     "behaviour_ontology_reference": {
-      "type": "string"
-    },
-    "behaviour_ontology_version": {
       "type": "string"
     },
     "construct_dimensions": {

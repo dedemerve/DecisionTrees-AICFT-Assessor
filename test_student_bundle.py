@@ -61,7 +61,7 @@ class TestStudentBundle(unittest.TestCase):
             self.assertIn("review_items", view)
             self.assertFalse((base / "S1" / "WS3" / "summary.json").exists())
 
-    def test_migrate_combined_v21_file(self):
+    def test_migrate_combined_legacy_file(self):
         with tempfile.TemporaryDirectory() as tmp:
             base = Path(tmp)
             combined = {

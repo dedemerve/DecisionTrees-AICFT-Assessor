@@ -1,14 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "behaviour_to_ilo.schema.json",
-  "title": "Behaviour to ILO Mapping v1.1",
+  "title": "Behaviour to ILO Mapping",
   "type": "object",
   "required": [
     "artifact",
     "confidence_policy",
-    "behaviour_ontology_version",
-    "ilo_ontology_version",
-    "mappings"
+    "mappings",
+    "behaviour_ontology_reference",
+    "ilo_ontology_reference"
   ],
   "properties": {
     "artifact": {
@@ -43,6 +43,12 @@
       "additionalProperties": {
         "$ref": "#/$defs/behaviour_bundle"
       }
+    },
+    "behaviour_ontology_reference": {
+      "type": "string"
+    },
+    "ilo_ontology_reference": {
+      "type": "string"
     }
   },
   "$defs": {

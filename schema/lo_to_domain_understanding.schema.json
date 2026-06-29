@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://decisiontrees-aicft-assessor/lo_to_domain_understanding.schema.json",
-  "title": "ILO to Domain Understanding mapping v1",
+  "title": "ILO to Domain Understanding mapping",
   "type": "object",
   "required": [
     "artifact",
@@ -9,8 +9,8 @@
     "confidence_policy",
     "design_constraint",
     "domain_ontology_reference",
-    "domain_ontology_version",
-    "mappings"
+    "mappings",
+    "ilo_ontology_reference"
   ],
   "additionalProperties": true,
   "properties": {
@@ -20,15 +20,18 @@
     "inference_layer": {
       "const": true
     },
-    "domain_ontology_version": {
-      "type": "string"
-    },
     "mappings": {
       "type": "object",
       "minProperties": 1,
       "additionalProperties": {
         "$ref": "#/$defs/ilo_bundle"
       }
+    },
+    "ilo_ontology_reference": {
+      "type": "string"
+    },
+    "domain_ontology_reference": {
+      "type": "string"
     }
   },
   "$defs": {

@@ -329,7 +329,7 @@ DOMAINS: list[dict[str, Any]] = [
             "The learner demonstrates transfer of local data patterns into predictive hypotheses usable "
             "in new cases or features: citing separation patterns, selecting features on evidence, and "
             "applying insights beyond the immediate example. Emerges from cross-context coherence — "
-            "partial coverage accepted given v1.0 ILO ontology gap for standalone generalisation ILO."
+            "partial coverage accepted given current ILO ontology gap for standalone generalisation ILO."
         ),
         "theoretical_rationale": (
             "Generalisation is a core competency dimension in AI education but underrepresented in "
@@ -365,7 +365,7 @@ DOMAINS: list[dict[str, Any]] = [
         "indicative_ilos": ["ILO_DATA_PATTERN", "ILO_FEATURE_SELECTION"],
         "indicative_behaviour_families": ["OB_STR_004", "OB_STR_002"],
         "known_limitation": (
-            "No standalone generalisation ILO in Learning_Objects v1.0; domain relies on reasoning "
+            "No standalone generalisation ILO in Learning_Objects; domain relies on reasoning "
             "ILOs and strategic behaviours as partial proxies."
         ),
         "not_equivalent_to": "A future curriculum unit or ILO folder named 'generalisation'.",
@@ -690,13 +690,12 @@ def build_document(ilo_data: dict[str, Any], ob_data: dict[str, Any], map_data: 
     domain_map = {d["id"]: d for d in enrich_domains()}
     return {
         "artifact": "domain_understanding_ontology",
-        "framework_version": "1.0",
         "unesco_aicft_reference": {
             "edition": "2024",
             "title": "UNESCO AI Competency Framework for Teachers",
             "isbn": "978-92-3-100707-1",
             "aspect": "Aspect 3 — AI foundations and applications",
-            "note": "framework_version 1.0 maps operational LO3.1.x–LO3.3.x indicators to this 2024 edition (ISBN 978-92-3-100707-1); update both fields if UNESCO publishes a revised framework.",
+            "note": "Operational LO3.1.x–LO3.3.x indicators map to this 2024 edition (ISBN 978-92-3-100707-1); update this reference if UNESCO publishes a revised framework.",
         },
         "ontology_layer": "assessment_construct",
         "design_constraint": DESIGN_CONSTRAINT,
@@ -704,9 +703,9 @@ def build_document(ilo_data: dict[str, Any], ob_data: dict[str, Any], map_data: 
             "domain": "Emergent assessment construct synthesizing evidence across ILOs, behaviours, and sources.",
             "not_a_domain": "Curriculum topic, worksheet section, or ILO folder.",
             "upstream": [
-                "Observable_Behaviours.json@1.0",
-                "Learning_Objects.json@1.0",
-                "Behaviour_to_ILO.json@1.1",
+                "framework/Observable_Behaviours.json",
+                "framework/Learning_Objects.json",
+                "framework/Behaviour_to_ILO.json",
             ],
             "downstream": ["LO_to_Domain_Understanding.json", "Domain_to_AI_CFT.json", "Aggregation_Policy.json"],
         },
@@ -714,11 +713,8 @@ def build_document(ilo_data: dict[str, Any], ob_data: dict[str, Any], map_data: 
         "construct_reference": "framework/Construct_Definition.md",
         "construct_dimensions": ["conceptual", "procedural", "strategic", "reflective"],
         "ilo_ontology_reference": "framework/Learning_Objects.json",
-        "ilo_ontology_version": ilo_data.get("framework_version", "1.0"),
         "behaviour_ontology_reference": "framework/Observable_Behaviours.json",
-        "behaviour_ontology_version": ob_data.get("framework_version", "1.0"),
         "behaviour_to_ilo_reference": "framework/Behaviour_to_ILO.json",
-        "behaviour_to_ilo_version": map_data.get("mapping_schema_version", "1.1"),
         "domain_count": len(enrich_domains()),
         "domain_pair_differentiation": DOMAIN_PAIR_DIFFERENTIATION,
         "domains": domain_map,

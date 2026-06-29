@@ -77,8 +77,9 @@ class TestObservableBehaviours(unittest.TestCase):
             f"validator failed:\n{result.stdout}\n{result.stderr}",
         )
 
-    def test_framework_version_v1(self) -> None:
-        self.assertEqual(self.data.get("framework_version"), "1.0")
+    def test_no_version_stamps(self) -> None:
+        self.assertNotIn("framework_version", self.data)
+        self.assertNotIn("ontology_version", self.data)
         self.assertNotIn("freeze", self.data)
 
     def test_milestone_summary_exists(self) -> None:

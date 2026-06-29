@@ -450,7 +450,7 @@ DOMAIN_POLICIES: dict[str, dict[str, Any]] = {
         "construct_limitations": [
             "Pattern transfer within DT curriculum does not imply full AI Create competency.",
             "Feature hypothesis on one dataset does not imply designing novel AI educational solutions.",
-            "Known v1.0 limitation: partial proxy coverage via reasoning ILOs only.",
+            "Known limitation: partial proxy coverage via reasoning ILOs only.",
         ],
         "contributions": [
             contrib(
@@ -578,7 +578,6 @@ def build_document(domain_doc: dict[str, Any]) -> dict[str, Any]:
             "prohibited": "ad_hoc_numeric_confidence",
         },
         "domain_ontology_reference": "framework/Domain_Understanding.json",
-        "domain_ontology_version": domain_doc.get("framework_version", "1.0"),
         "aicft_reference": "mappings/AICFT_assessment_framework.json",
         "aicft_framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
         "aicft_aspect": "Aspect 3: AI foundations and applications",

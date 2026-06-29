@@ -34,7 +34,6 @@ from pipeline_schema import (
 
 logger = logging.getLogger(__name__)
 
-LAYOUT_SCHEMA_VERSION = "1.0"
 DEFAULT_OUTPUT_DIR = LAYOUT_ROIS_DIR
 
 # WS10: 7 data rows + header; 2 columns (threshold, misclassification count).

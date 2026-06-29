@@ -96,7 +96,7 @@ def write_student_manifest(student_id: str, base_dir: Path | None = None) -> Pat
     worksheets = list_worksheets(student_id, base_dir)
     manifest = {
         "student_id": student_id,
-        "pipeline": "worksheet_upload_v1",
+        "pipeline": "worksheet_upload",
         "ws_upload_flow": {
             "step_1": {
                 "file": "students/<student_id>/<WS>/extraction.json",
@@ -217,7 +217,7 @@ def extraction_responses(extraction: dict[str, Any] | None) -> dict[str, str]:
     gate1 = extraction.get("gate_1_extraction", {})
     if isinstance(gate1.get("items"), dict):
         return gate1["items"]
-    # v3.0 envelope: payload at top level after metadata keys
+    # Stage envelope: payload at top level after metadata keys
     meta = {"stage", "student_id", "worksheet"}
     if "responses" in extraction:
         return extraction["responses"]
@@ -373,7 +373,7 @@ def migrate_combined_worksheet_file(
     combined: dict[str, Any],
     base_dir: Path | None = None,
 ) -> list[Path]:
-    """Migrate v2.1 combined WS.json → modular stage directory."""
+    """Migrate legacy combined WS.json → modular stage directory."""
     from worksheet_validation import build_technical_validation
 
     written: list[Path] = []

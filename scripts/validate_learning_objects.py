@@ -49,10 +49,10 @@ def validate_milestone2(
 
     if ilo_data.get("ontology") != "instructional_learning_object":
         errors.append("ontology must be 'instructional_learning_object'")
-    if ilo_data.get("behaviour_ontology_version") != "1.0":
-        errors.append("behaviour_ontology_version must be '1.0' (OB ontology v1.0)")
-    if ob_data.get("framework_version") != "1.0":
-        errors.append("Observable_Behaviours.json must be framework_version 1.0")
+    if not ilo_data.get("behaviour_ontology_reference"):
+        errors.append("behaviour_ontology_reference required")
+    if ob_data.get("ontology") != "observable_behaviour":
+        errors.append("Observable_Behaviours.json ontology must be observable_behaviour")
 
     ob_ids = set(ob_data.get("behaviours", {}))
     ilos = ilo_data.get("learning_objects", {})

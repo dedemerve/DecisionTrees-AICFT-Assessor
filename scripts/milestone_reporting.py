@@ -55,9 +55,12 @@ def validation_status_label(status: str | None) -> str:
     return "UNKNOWN"
 
 
-def ontology_version(doc: dict[str, Any], *, default: str = "1.0") -> str:
-    """Canonical version string from a framework artifact (no freeze block)."""
-    for key in ("framework_version", "mapping_schema_version", "policy_version"):
+def framework_edition(doc: dict[str, Any], *, default: str = "2024") -> str:
+    """UNESCO / policy edition label from a framework artifact."""
+    ref = doc.get("unesco_aicft_reference")
+    if isinstance(ref, dict) and ref.get("edition"):
+        return str(ref["edition"])
+    for key in ("policy_version",):
         value = doc.get(key)
         if value is not None:
             return str(value)

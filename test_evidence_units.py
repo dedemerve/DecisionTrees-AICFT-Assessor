@@ -8,8 +8,6 @@ import unittest
 from pathlib import Path
 
 from evidence_unit_runtime import (
-    ADAPTER_WORKSHEET_EXTRACTION_V1,
-    EVIDENCE_UNITS_SCHEMA_VERSION,
     build_and_save_evidence_units,
     build_evidence_units_from_student,
     deterministic_evidence_unit_id,

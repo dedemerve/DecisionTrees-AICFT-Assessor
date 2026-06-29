@@ -9,9 +9,6 @@ from __future__ import annotations
 
 from typing import Any
 
-from pipeline_schema import FRAMEWORK_SCHEMA_VERSION, PORTFOLIO_SCHEMA_VERSION
-
-EVIDENCE_UNITS_SCHEMA_VERSION = "1.1"
 SOURCE_FAMILIES_EU = frozenset({
     "worksheet", "codap", "screen_recording", "reflection", "observation", "interview",
 })

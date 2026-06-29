@@ -1,15 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://decisiontrees-aicft-assessor/domain_understanding.schema.json",
-  "title": "Domain Understanding ontology v1",
+  "title": "Domain Understanding ontology",
   "type": "object",
   "required": [
     "artifact",
     "ontology_layer",
     "design_constraint",
     "construct",
-    "domains",
-    "framework_version"
+    "domains"
   ],
   "additionalProperties": true,
   "properties": {
@@ -18,9 +17,6 @@
     },
     "ontology_layer": {
       "const": "assessment_construct"
-    },
-    "framework_version": {
-      "type": "string"
     },
     "design_constraint": {
       "type": "string",

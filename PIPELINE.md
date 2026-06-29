@@ -76,7 +76,7 @@ Worksheet scorecard views (`review_items`, `blocked`) are derived in memory from
 
 Envelope fields (`schema_version`, `stage`, `student_id`, `worksheet`, `updated_at`) appear once per artifact file.
 
-## Competency framework (v2.0)
+## Competency framework
 
 Performance-based assessment mappings live in:
 
@@ -84,7 +84,7 @@ Performance-based assessment mappings live in:
 |------|------|
 | `mappings/AICFT_assessment_framework.json` | Canonical framework: competency definitions, worksheet profiles, item→competency priors with rationale |
 | `mappings/AICFT_LO_definitions.json` | Inverted index: LO → worksheet evidence |
-| `mappings/<WS>_AICFT_mapping.json` | Per-worksheet scorer view (schema 2.0) |
+| `mappings/<WS>_AICFT_mapping.json` | Per-worksheet scorer view |
 | `schema/portfolio.schema.json` | Portfolio rollup contract |
 | `schema/mapping.schema.json` | Competency mapping contract |
 | `schema/README.md` | Full schema ↔ instance catalog |
@@ -139,7 +139,7 @@ python validate_schemas.py
 python validate_pipeline_outputs.py
 ```
 
-Migrate legacy combined `students/<id>/WS*.json` (v2.1):
+Migrate legacy combined `students/<id>/WS*.json`:
 
 ```bash
 python -c "from student_bundle import migrate_student_worksheets; migrate_student_worksheets('Sample_Student')"

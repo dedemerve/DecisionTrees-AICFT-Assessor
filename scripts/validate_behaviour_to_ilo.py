@@ -64,10 +64,10 @@ def validate_structure(
     errors: list[str] = []
     warnings: list[str] = []
 
-    if ob_data.get("framework_version") != "1.0":
-        errors.append("Observable_Behaviours.json framework_version must be 1.0")
-    if ilo_data.get("framework_version") != "1.0":
-        errors.append("Learning_Objects.json framework_version must be 1.0")
+    if ob_data.get("ontology") != "observable_behaviour":
+        errors.append("Observable_Behaviours.json ontology must be observable_behaviour")
+    if ilo_data.get("ontology") != "instructional_learning_object":
+        errors.append("Learning_Objects.json ontology must be instructional_learning_object")
 
     policy = mapping_doc.get("confidence_policy", {})
     if not policy.get("qualitative_only"):

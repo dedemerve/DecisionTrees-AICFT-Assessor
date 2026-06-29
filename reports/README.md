@@ -7,7 +7,7 @@ Each framework milestone (M1–M5) produces **at most two artifacts**:
 | `milestone{N}_summary.md` | Human-readable: what was defined, key decisions, known gaps (~1 page). Suitable for supplementary material. |
 | `milestone{N}_validation.json` | Machine-readable: validator status, errors, nested analytics (single file). |
 
-Summaries use **validation status** (pass/fail). Framework artifacts use `framework_version` / `mapping_schema_version` only — no `freeze` blocks.
+Summaries use **validation status** (pass/fail). Framework artifacts use UNESCO edition references where applicable — no `freeze` blocks.
 
 ## What we do not maintain
 

@@ -52,9 +52,13 @@ class TestLearningObjects(unittest.TestCase):
         for iid, ilo in self.ilos.items():
             self.assertGreaterEqual(len(ilo["related_behaviours"]), 1, iid)
 
-    def test_references_behaviour_ontology_version(self) -> None:
-        self.assertEqual(self.ilo["behaviour_ontology_version"], "1.0")
-        self.assertEqual(self.ob["framework_version"], "1.0")
+    def test_references_behaviour_ontology(self) -> None:
+        self.assertEqual(
+            self.ilo["behaviour_ontology_reference"],
+            "framework/Observable_Behaviours.json",
+        )
+        self.assertNotIn("framework_version", self.ob)
+        self.assertNotIn("behaviour_ontology_version", self.ilo)
 
     def test_concept_families_standardized(self) -> None:
         allowed = {
@@ -65,8 +69,8 @@ class TestLearningObjects(unittest.TestCase):
             self.assertIn(ilo["concept_family"], allowed, iid)
             self.assertIsInstance(ilo["instructional_sequence_order"], int)
 
-    def test_framework_version_v1(self) -> None:
-        self.assertEqual(self.ilo.get("framework_version"), "1.0")
+    def test_no_version_stamps(self) -> None:
+        self.assertNotIn("framework_version", self.ilo)
         self.assertNotIn("freeze", self.ilo)
 
     def test_milestone_summary_exists(self) -> None:
