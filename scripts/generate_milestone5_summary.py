@@ -74,7 +74,7 @@ def write_report(
         "",
         "## Theory phase complete",
         "",
-        "With Milestone 5 validated, the framework theory chain is complete. New theory artifacts require a version bump. Next phase:",
+        "With Milestone 5 validated, the framework theory chain is complete. New theory artifacts require an explicit schema revision. Next phase:",
         "",
         "1. Remodel WS1–WS11 bundles to new architecture",
         "2. Implement OCR → Evidence → … → interpretive recommendation pipeline",

@@ -56,7 +56,7 @@ Each domain includes `construct_validation` with:
 ## Remaining risks
 
 1. Human expert domain boundary agreement pending.
-2. `DU_GENERALISATION` partial ILO proxy coverage (v1.0 accepted limitation).
+2. `DU_GENERALISATION` partial ILO proxy coverage (accepted limitation).
 3. Domain synthesis engine is provisional until `Aggregation_Policy.json` is authored.
 
 ## Milestone 5 design constraint

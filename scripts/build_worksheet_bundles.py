@@ -127,7 +127,7 @@ def build_extraction_schema(worksheet: str, rubric: dict[str, Any]) -> dict[str,
             "interpretation_prohibited": True,
             "ocr_engine": "claude_vision",
             "source_type": "worksheet",
-            "note": "Worksheet not deployed in ProDaBi unplugged corpus v1.",
+            "note": "Worksheet not deployed in the ProDaBi unplugged corpus.",
             "fields": [],
         }
 

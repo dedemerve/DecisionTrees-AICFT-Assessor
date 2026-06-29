@@ -6,10 +6,9 @@
 |-------|-------|
 | Artifact | `framework/Learning_Objects.json` |
 | Terminology | **ILO** — Instructional Learning Object |
-| Version | **1.0** |
 | Validation status | **PASS** |
 | ILO count | 21 |
-| Upstream ontology | Observable_Behaviours.json v1.0 |
+| Upstream ontology | `framework/Observable_Behaviours.json` |
 
 ## Contribution (publication)
 
@@ -50,7 +49,7 @@ ILO_PRIOR_BELIEF → ILO_INSTANCE → ILO_FEATURE → ILO_LABEL → ILO_DATASET 
 ## Remaining Risks
 
 1. Human expert ILO coding agreement pending.
-2. No dedicated `generalisation` ILO (v1.0 accepted limitation).
+2. No dedicated `generalisation` ILO (accepted limitation).
 3. TP/TN/FP/FN not separate ILOs — embedded in ILO_CONFUSION_MATRIX.
 
 ## Accepted Limitations

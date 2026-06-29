@@ -5,7 +5,6 @@
 | Field | Value |
 |-------|-------|
 | Artifact | `framework/Observable_Behaviours.json` |
-| Version | **1.0** |
 | Validation status | **PASS** |
 | Behaviour count | 28 |
 
@@ -41,7 +40,7 @@ Construct → Knowledge Type → Cognitive Process → Behaviour (see `milestone
 - Curriculum facet coverage rate: 100%
 - Behaviours not mapped to facets: none
 
-### Accepted curriculum gaps (v1.0)
+### Accepted curriculum gaps
 
 - **GAP_TRANSFER** (partially_covered): Distributed across OB_STR_001/008; no dedicated transfer behaviour until Domain layer (Milestone 4).
 - **GAP_OVERFIT** (partially_covered): Touched in OB_REF_002 (limitations); no standalone conceptual behaviour.
@@ -53,12 +52,12 @@ Construct → Knowledge Type → Cognitive Process → Behaviour (see `milestone
 1. Human expert inter-rater review not yet completed.
 2. Misconception ontology not linked (free-text misconceptions only).
 3. Pipeline still codes LOs directly — behaviour codes activate at Milestone 8.
-4. Train/test discrimination behaviour absent (v1.1 candidate).
+4. Train/test discrimination behaviour absent (future candidate).
 
 ## Accepted Limitations
 
 - No dedicated transfer or overfitting behaviours; partial coverage via strategic/reflective codes.
-- Ethics of classification explicitly out of scope for v1.0 construct boundary.
+- Ethics of classification explicitly out of scope for the core construct boundary.
 - Reflective dimension intentionally smaller (4 behaviours).
 
 ## Expert Review Status

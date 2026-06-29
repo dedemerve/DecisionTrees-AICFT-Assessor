@@ -42,7 +42,7 @@ Evidence may **never** directly generate ILO, Domain, AI-CFT, or competency conc
 
 | Phase | Status | Role |
 |-------|--------|------|
-| **Phase 1 — Framework design** | FROZEN v1.0 | Scientific theory: ontologies, inference maps, review protocol |
+| **Phase 1 — Framework design** | FROZEN | Scientific theory: ontologies, inference maps, review protocol |
 | **Phase 2 — Implementation** | In progress | Faithful runtime; one milestone at a time with validation gates |
 
 Phase 1 artifacts (`Observable_Behaviours.json`, `Behaviour_to_ILO.json`, `Inference_Rules.md`, etc.) are **constraints**, not implementation targets. The implementation must not redesign them.
@@ -79,7 +79,7 @@ validity_notes.json
 answer_key.json
 ```
 
-**WS2, WS8, WS9** are scaffolded as `not_deployed` (absent from ProDaBi unplugged corpus v1).
+**WS2, WS8, WS9** are scaffolded as `not_deployed` (absent from the ProDaBi unplugged corpus).
 
 ### 3.2 Why we did it
 
@@ -103,13 +103,13 @@ answer_key.json
 
 ---
 
-## 4. Phase 2 Milestone 2 — Evidence Unit runtime (FROZEN v1.1)
+## 4. Phase 2 Milestone 2 — Evidence Unit runtime (FROZEN)
 
 ### 4.1 What we did
 
 Implemented the **canonical Layer 2 runtime**:
 
-- Schema: `schema/evidence_units.schema.json` (version **1.1**)
+- Schema: `schema/evidence_units.schema.json`
 - Runtime: `evidence_unit_runtime.py`, `evidence_unit_metadata.py`
 - Output: `students/<id>/evidence_units.json`
 - Sample: `Sample_Student` — **147** evidence units from existing extractions
@@ -141,11 +141,11 @@ evidence_units.json
 [Behaviour Engine — M3]
 ```
 
-### 4.3 Why v1.1 is an "assessment object" not a transcription log
+### 4.3 Why the Evidence Unit is an "assessment object" not a transcription log
 
 Early extraction-only JSON conflates **transcription** with **evidence**. Reviewers correctly ask whether a blank field, a partial threshold, or a high-OCR-confidence illegible response carry the same epistemic weight.
 
-v1.1 adds **descriptive assessment metadata** (not inference):
+The schema adds **descriptive assessment metadata** (not inference):
 
 | Field | Purpose for construct validity |
 |-------|------------------------------|
@@ -164,7 +164,7 @@ v1.1 adds **descriptive assessment metadata** (not inference):
 
 > **No further Evidence Unit fields without construct-validity justification.**
 
-Further metadata additions face diminishing returns and risk **ontology creep**. M2 schema is locked at v1.1 pending construct-validity review for any extension.
+Further metadata additions face diminishing returns and risk **ontology creep**. The M2 schema is locked pending construct-validity review for any extension.
 
 Validation record: `reports/implementation/phase2_m2_evidence_unit_runtime.json`
 
@@ -215,7 +215,7 @@ LLM/OCR role: extract and organize. **Researcher** makes final competency judgem
 
 ### Q5: Replicability?
 
-Versioned framework JSON + versioned worksheet bundles + deterministic EU IDs + phase validation JSON. A replication team can swap OCR adapters without touching M2 runtime.
+Frozen framework JSON + worksheet bundles + deterministic EU IDs + phase validation JSON. A replication team can swap OCR adapters without touching M2 runtime.
 
 ---
 
@@ -287,7 +287,7 @@ Example structure:
 
 ## 9. Suggested Methods-section narrative (for manuscript)
 
-> We operationalized an Evidence-Centered Assessment Framework for multimodal Decision Tree learning in two phases. Phase 1 froze the theoretical ontology (28 Observable Behaviours, Instructional Learning Objects, Domain Understanding dimensions, and interpretive AI-CFT policies) with explicit inference maps and researcher review protocol. Phase 2 implemented a strictly ordered runtime pipeline in milestone-gated increments. Worksheet instruments (WS1–WS11) were rebuilt as pure evidence-collection bundles without competency mappings. A canonical Evidence Unit schema (v1.1) represents the smallest traceable assessment object, preserving provenance, source quality, completeness, observability, uncertainty, and review metadata while prohibiting behavioural or competency inference at extraction time. OCR technologies are treated as replaceable adapters upstream of this stable interface. The first inferential layer — mapping Evidence Units to Observable Behaviour hypotheses with competing alternatives and sufficiency checks — is implemented separately (Behaviour Engine) to protect construct validity. Final AI-CFT competency claims remain researcher-validated recommendations, not automated scores.
+> We operationalized an Evidence-Centered Assessment Framework for multimodal Decision Tree learning in two phases. Phase 1 froze the theoretical ontology (28 Observable Behaviours, Instructional Learning Objects, Domain Understanding dimensions, and interpretive AI-CFT policies) with explicit inference maps and researcher review protocol. Phase 2 implemented a strictly ordered runtime pipeline in milestone-gated increments. Worksheet instruments (WS1–WS11) were rebuilt as pure evidence-collection bundles without competency mappings. A canonical Evidence Unit schema represents the smallest traceable assessment object, preserving provenance, source quality, completeness, observability, uncertainty, and review metadata while prohibiting behavioural or competency inference at extraction time. OCR technologies are treated as replaceable adapters upstream of this stable interface. The first inferential layer — mapping Evidence Units to Observable Behaviour hypotheses with competing alternatives and sufficiency checks — is implemented separately (Behaviour Engine) to protect construct validity. Final AI-CFT competency claims remain researcher-validated recommendations, not automated scores.
 
 ---
 
@@ -297,7 +297,7 @@ Example structure:
 |-------|----------|--------|
 | L0 Raw source | PDFs, CODAP, recordings | Existing data |
 | L1 Instruments | `worksheets/WS*/` | **M1 FROZEN** |
-| L2 Evidence Units | `evidence_units.json` | **M2 FROZEN v1.1** |
+| L2 Evidence Units | `evidence_units.json` | **M2 FROZEN** |
 | L3 Behaviours | `behaviour_evidence.json` | M3 planned |
 | L4 ILO | — | M4 planned |
 | L5 Domain | — | M5 planned |
@@ -312,7 +312,7 @@ Example structure:
 | Milestone | Verdict | Date |
 |-----------|---------|------|
 | Phase 2 M1 — Worksheet bundles | **PASS / FROZEN** | 2026-06-28 |
-| Phase 2 M2 — Evidence Unit runtime v1.1 | **PASS / FROZEN** | 2026-06-28 |
+| Phase 2 M2 — Evidence Unit runtime | **PASS / FROZEN** | 2026-06-28 |
 | Phase 2 M3 — Behaviour Engine | **Not started** | — |
 
 **Modification policy:** Framework theory frozen. M2 schema frozen. Proceed to M3 only with explicit researcher approval.
