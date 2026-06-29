@@ -58,7 +58,7 @@ def write_summary_md(
         "| Artifacts | `Domain_Understanding.json`, `LO_to_Domain_Understanding.json` |",
         "| Version | **1.0** |",
         f"| Validation status | **{val_label}** |",
-        f"| Domains | {domain_doc.get('domain_count', 8)} emergent assessment constructs |",
+        f"| Domains | {domain_doc.get('domain_count', 7)} emergent assessment constructs |",
         f"| ILO→Domain pairs | {density.get('accepted_pair_count', '?')} |",
         f"| Domain stress tests | {stress.get('passed', '?')}/{stress.get('test_count', 5)} passed |",
         "",
@@ -68,14 +68,13 @@ def write_summary_md(
         "through an Evidence-Centered, multimodal, explainable assessment framework, and only then "
         "deriving provisional AI-CFT interpretations through a constrained, human-governed inferential process.",
         "",
-        "## Construct validation gate",
+        "## Evidence criteria gate",
         "",
-        "Each domain includes `construct_validation` with:",
+        "Each domain includes `evidence_criteria` with:",
         "",
-        "- what_construct_represents",
-        "- supporting_evidence / non_supporting_evidence",
-        "- not_formed_when",
-        "- confusable_with",
+        "- `counts` — evidence that supports the construct",
+        "- `does_not_count` — evidence that must not be counted",
+        "- `confusable_with` — pairwise distinctions from `domain_pair_differentiation`",
         "",
         "## Domain Independence Matrix",
         "",
@@ -162,8 +161,8 @@ def main(argv: list[str] | None = None) -> int:
     domain_doc = load_json(DOMAIN_PATH)
 
     for did, dom in domain_doc.get("domains", {}).items():
-        if "construct_validation" not in dom:
-            errors.append(f"{did}: missing construct_validation")
+        if "evidence_criteria" not in dom:
+            errors.append(f"{did}: missing evidence_criteria")
 
     summary_path = write_summary(4, write_summary_md(domain_doc, validation, stress))
 

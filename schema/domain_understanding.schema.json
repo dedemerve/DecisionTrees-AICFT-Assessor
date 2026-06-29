@@ -47,12 +47,11 @@
         "assessment_construct_type",
         "construct_definition",
         "theoretical_rationale",
-        "inclusion_criteria",
-        "exclusion_criteria",
+        "evidence_criteria",
         "convergence_requirements",
         "contradiction_handling",
         "indicative_ilos",
-        "construct_validation"
+        "not_equivalent_to"
       ],
       "additionalProperties": true,
       "properties": {
@@ -78,18 +77,31 @@
           "type": "string",
           "minLength": 20
         },
-        "inclusion_criteria": {
-          "type": "array",
-          "minItems": 2,
-          "items": {
-            "type": "string"
-          }
+        "theoretical_rationale": {
+          "type": "string",
+          "minLength": 10
         },
-        "exclusion_criteria": {
-          "type": "array",
-          "minItems": 2,
-          "items": {
-            "type": "string"
+        "evidence_criteria": {
+          "type": "object",
+          "required": [
+            "counts",
+            "does_not_count"
+          ],
+          "properties": {
+            "counts": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "string"
+              }
+            },
+            "does_not_count": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "string"
+              }
+            }
           }
         },
         "convergence_requirements": {
@@ -99,16 +111,23 @@
           ],
           "additionalProperties": true
         },
-        "construct_validation": {
-          "type": "object",
-          "required": [
-            "what_construct_represents",
-            "supporting_evidence",
-            "non_supporting_evidence",
-            "not_formed_when",
-            "confusable_with"
-          ],
-          "additionalProperties": true
+        "confusable_with": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "construct",
+              "distinction"
+            ],
+            "properties": {
+              "construct": {
+                "type": "string"
+              },
+              "distinction": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     }

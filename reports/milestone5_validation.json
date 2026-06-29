@@ -26,7 +26,7 @@
         "ai_cft": "LO3.1.3",
         "domain_count": 1,
         "domains": [
-          "DU_PARAMETER_TUNING"
+          "DU_THRESHOLD_AND_PARAMETER_REASONING"
         ]
       },
       {
@@ -38,23 +38,21 @@
       },
       {
         "ai_cft": "LO3.2.2",
-        "domain_count": 5,
+        "domain_count": 4,
         "domains": [
           "DU_CLASSIFICATION_REASONING",
           "DU_MODEL_EVALUATION",
-          "DU_PARAMETER_TUNING",
-          "DU_THRESHOLD_REASONING",
+          "DU_THRESHOLD_AND_PARAMETER_REASONING",
           "DU_TREE_STRUCTURE_REASONING"
         ]
       },
       {
         "ai_cft": "LO3.2.3",
-        "domain_count": 4,
+        "domain_count": 3,
         "domains": [
           "DU_GENERALISATION",
           "DU_MODEL_EVALUATION",
-          "DU_PARAMETER_TUNING",
-          "DU_THRESHOLD_REASONING"
+          "DU_THRESHOLD_AND_PARAMETER_REASONING"
         ]
       },
       {
@@ -66,7 +64,7 @@
       }
     ],
     "contribution_total": 17,
-    "domain_policy_count": 8
+    "domain_policy_count": 7
   },
   "interpretation_statistics": {
     "interpretation_type_distribution": {
@@ -95,7 +93,12 @@
         "errors": [],
         "notes": [
           "required domain DU_MODEL_EVALUATION not evidenced for LO3.2.2",
-          "insufficient sources for LO3.2.2 via DU_THRESHOLD_REASONING",
+          "insufficient sources for LO3.2.2 via DU_THRESHOLD_AND_PARAMETER_REASONING",
+          "escalation blocker active for LO3.2.2",
+          "escalation blocker active for LO3.2.2",
+          "escalation blocker active for LO3.2.2",
+          "escalation blocker active for LO3.2.2",
+          "escalation blocker active for LO3.2.2",
           "escalation blocker active for LO3.2.2",
           "escalation blocker active for LO3.2.2",
           "escalation blocker active for LO3.2.2",
@@ -120,7 +123,8 @@
           "escalation blocker active for LO3.2.2",
           "escalation blocker active for LO3.2.2",
           "escalation blocker active for LO3.2.2",
-          "DU_THRESHOLD_REASONING below minimum_domain_strength for LO3.2.2"
+          "DU_THRESHOLD_AND_PARAMETER_REASONING below minimum_domain_strength for LO3.2.2",
+          "DU_THRESHOLD_AND_PARAMETER_REASONING below minimum_domain_strength for LO3.2.2"
         ]
       },
       {
@@ -130,24 +134,24 @@
         "ceiling": "moderate",
         "errors": [],
         "notes": [
-          "insufficient sources for LO3.2.3 via DU_THRESHOLD_REASONING",
-          "escalation blocker active for LO3.2.3",
-          "escalation blocker active for LO3.2.3",
-          "escalation blocker active for LO3.2.3",
-          "escalation blocker active for LO3.2.3",
-          "escalation blocker active for LO3.2.3",
-          "escalation blocker active for LO3.2.3",
-          "escalation blocker active for LO3.2.3",
-          "escalation blocker active for LO3.2.3",
-          "escalation blocker active for LO3.2.3",
-          "escalation blocker active for LO3.2.3",
-          "insufficient sources for LO3.2.3 via DU_PARAMETER_TUNING",
           "escalation blocker active for LO3.2.3",
           "escalation blocker active for LO3.2.3",
           "escalation blocker active for LO3.2.3",
           "escalation blocker active for LO3.2.3",
           "escalation blocker active for LO3.2.3",
           "insufficient sources for LO3.2.3 via DU_GENERALISATION",
+          "escalation blocker active for LO3.2.3",
+          "escalation blocker active for LO3.2.3",
+          "escalation blocker active for LO3.2.3",
+          "escalation blocker active for LO3.2.3",
+          "escalation blocker active for LO3.2.3",
+          "insufficient sources for LO3.2.3 via DU_THRESHOLD_AND_PARAMETER_REASONING",
+          "escalation blocker active for LO3.2.3",
+          "escalation blocker active for LO3.2.3",
+          "escalation blocker active for LO3.2.3",
+          "escalation blocker active for LO3.2.3",
+          "escalation blocker active for LO3.2.3",
+          "insufficient sources for LO3.2.3 via DU_THRESHOLD_AND_PARAMETER_REASONING",
           "escalation blocker active for LO3.2.3",
           "escalation blocker active for LO3.2.3",
           "escalation blocker active for LO3.2.3",

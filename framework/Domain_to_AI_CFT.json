@@ -31,6 +31,7 @@
   },
   "confidence_policy": {
     "qualitative_only": true,
+    "enforcement": "Contributions must use qualitative allowed_confidence and confidence_ceiling labels only; minimum_evidence_sources is a convergence gate, not a numeric probability or percentage score.",
     "numeric_quantization": "deferred_to_Confidence_Model.json",
     "allowed_levels": [
       "very_weak",
@@ -44,7 +45,7 @@
   "aicft_reference": "mappings/AICFT_assessment_framework.json",
   "aicft_framework": "UNESCO AI Competency Framework for Teachers (AI-CFT) 2024",
   "aicft_aspect": "Aspect 3: AI foundations and applications",
-  "domain_policy_count": 8,
+  "domain_policy_count": 7,
   "contribution_count": 17,
   "policies": {
     "DU_DATA_REPRESENTATION": {
@@ -93,7 +94,13 @@
             "LO3.2.3",
             "LO3.3.1"
           ],
-          "theoretical_rationale": "Acquire-level AI-CFT conceptual indicators concern foundational vocabulary; domain-specific representational evidence may support a provisional Acquire interpretation but cannot alone warrant application-level claims."
+          "theoretical_rationale": "Acquire-level AI-CFT conceptual indicators concern foundational vocabulary; domain-specific representational evidence may support a provisional Acquire interpretation but cannot alone warrant application-level claims.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         },
         {
           "possible_ai_cft": [
@@ -130,7 +137,13 @@
             "LO3.2.2",
             "LO3.2.3"
           ],
-          "theoretical_rationale": "LO3.1.2 concerns foundational mechanism understanding; representational domain evidence contributes only when explanations connect data structure to learning."
+          "theoretical_rationale": "LO3.1.2 concerns foundational mechanism understanding; representational domain evidence contributes only when explanations connect data structure to learning.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         }
       ],
       "domain_id": "DU_DATA_REPRESENTATION"
@@ -187,7 +200,13 @@
             "pedagogical_competence",
             "ethical_ai_awareness"
           ],
-          "theoretical_rationale": "LO3.2.2 Application Skills include threshold application and classification; procedural classification domain evidence may support provisional Deepen interpretation only with convergence and source diversity."
+          "theoretical_rationale": "LO3.2.2 Application Skills include threshold application and classification; procedural classification domain evidence may support provisional Deepen interpretation only with convergence and source diversity.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         }
       ],
       "domain_id": "DU_CLASSIFICATION_REASONING"
@@ -234,7 +253,13 @@
             "LO3.2.3",
             "LO3.3.1"
           ],
-          "theoretical_rationale": "Decision-tree construction and rule articulation are within LO3.2.2 scope; structural domain evidence contributes when topology and path logic cohere."
+          "theoretical_rationale": "Decision-tree construction and rule articulation are within LO3.2.2 scope; structural domain evidence contributes when topology and path logic cohere.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         },
         {
           "possible_ai_cft": [
@@ -267,7 +292,13 @@
             "automatic_acquire_deepen_create_classification",
             "researcher_bypass"
           ],
-          "theoretical_rationale": "Acquire-level 'how AI works' may be weakly indicated by coherent tree-structure explanations — not by procedural ordering alone."
+          "theoretical_rationale": "Acquire-level 'how AI works' may be weakly indicated by coherent tree-structure explanations — not by procedural ordering alone.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         },
         {
           "possible_ai_cft": [
@@ -305,108 +336,16 @@
             "LO3.1.3",
             "LO3.3.1"
           ],
-          "theoretical_rationale": "LO3.2.1 requires evaluate-select-apply with tool-mediated model comparison; structural and evaluation domains together may indicate this indicator."
+          "theoretical_rationale": "LO3.2.1 requires evaluate-select-apply with tool-mediated model comparison; structural and evaluation domains together may indicate this indicator.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         }
       ],
       "domain_id": "DU_TREE_STRUCTURE_REASONING"
-    },
-    "DU_THRESHOLD_REASONING": {
-      "construct_limitations": [
-        "Threshold reasoning in classroom DT tasks does not imply critical evaluation of AI in society.",
-        "Comparative cutoff judgment does not imply ethical awareness or pedagogical competence.",
-        "Does not imply validated tool selection for novel educational contexts (LO3.1.3).",
-        "Does not imply Create-level design of AI-supported learning innovations."
-      ],
-      "contributions": [
-        {
-          "possible_ai_cft": [
-            "LO3.2.2"
-          ],
-          "interpretation_type": "contributing",
-          "interpretation_verb": "may_contribute_to",
-          "required_domains": [
-            "DU_MODEL_EVALUATION"
-          ],
-          "minimum_domain_strength": "moderate",
-          "minimum_evidence_sources": 2,
-          "required_convergence": "DU_THRESHOLD_REASONING at moderate+ with comparison or justification citing performance evidence; multi-source required for confidence above moderate.",
-          "allowed_confidence": "moderate",
-          "confidence_ceiling": "strong",
-          "contradiction_conditions": [
-            "threshold_misconception",
-            "high_reflection_weak_procedural",
-            "worksheet_video_source_asymmetry"
-          ],
-          "escalation_blockers": [
-            "domain_present_without_convergence",
-            "single_evidence_source_for_deepen_claim",
-            "unresolved_contradiction_across_sources",
-            "construct_leakage_unmitigated",
-            "prior_belief_used_as_mastery_evidence",
-            "single_threshold_application_only",
-            "reflection_inflates_strategic_without_performance_evidence"
-          ],
-          "insufficient_when": [
-            "Only worksheet evidence without procedural or log corroboration.",
-            "Single threshold application without comparison or justification context.",
-            "Contradictory screen recording undermines worksheet threshold claims.",
-            "Reflection praises thresholds but CODAP/log shows weak execution (leakage L5)."
-          ],
-          "alternative_explanations": [
-            "Arithmetic manipulation of cutoff values without strategic reasoning.",
-            "Memorized 'best threshold' from answer key patterns."
-          ],
-          "researcher_review_required": true,
-          "never_implies": [
-            "final_ai_cft_competency_claim",
-            "automatic_acquire_deepen_create_classification",
-            "researcher_bypass",
-            "critical_ai_evaluation",
-            "ethical_awareness",
-            "pedagogical_competence",
-            "LO3.1.3",
-            "LO3.3.1"
-          ],
-          "theoretical_rationale": "LO3.2.2 explicitly includes threshold optimization and model behaviour interpretation; strategic threshold domain evidence is primary contributory evidence but never sufficient alone for a final Deepen claim."
-        },
-        {
-          "possible_ai_cft": [
-            "LO3.2.3"
-          ],
-          "interpretation_type": "supporting",
-          "interpretation_verb": "may_indicate",
-          "required_domains": [
-            "DU_THRESHOLD_REASONING",
-            "DU_PARAMETER_TUNING"
-          ],
-          "minimum_domain_strength": "moderate",
-          "minimum_evidence_sources": 2,
-          "required_convergence": "Iterative threshold refinement evidenced across tasks with performance-linked justification — not one-off cutoff selection.",
-          "allowed_confidence": "moderate",
-          "confidence_ceiling": "moderate",
-          "contradiction_conditions": [],
-          "escalation_blockers": [
-            "domain_present_without_convergence",
-            "single_evidence_source_for_deepen_claim",
-            "unresolved_contradiction_across_sources",
-            "construct_leakage_unmitigated",
-            "prior_belief_used_as_mastery_evidence"
-          ],
-          "insufficient_when": [
-            "Threshold comparison without iterative improvement trajectory.",
-            "Problem-solving claim based on single worksheet row."
-          ],
-          "alternative_explanations": [],
-          "researcher_review_required": true,
-          "never_implies": [
-            "final_ai_cft_competency_claim",
-            "automatic_acquire_deepen_create_classification",
-            "researcher_bypass"
-          ],
-          "theoretical_rationale": "LO3.2.3 problem-solving requires iterative refinement; threshold reasoning may weakly indicate this indicator when paired with tuning evidence."
-        }
-      ],
-      "domain_id": "DU_THRESHOLD_REASONING"
     },
     "DU_MODEL_EVALUATION": {
       "construct_limitations": [
@@ -451,7 +390,13 @@
             "ethical_ai_awareness",
             "LO3.3.1"
           ],
-          "theoretical_rationale": "Model behaviour interpretation is within LO3.2.2; evaluation domain evidence supports provisional Deepen recommendations when convergent."
+          "theoretical_rationale": "Model behaviour interpretation is within LO3.2.2; evaluation domain evidence supports provisional Deepen recommendations when convergent.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         },
         {
           "possible_ai_cft": [
@@ -486,7 +431,13 @@
             "automatic_acquire_deepen_create_classification",
             "researcher_bypass"
           ],
-          "theoretical_rationale": "LO3.2.3 includes evaluating and improving performance; evaluation domain may indicate this when linked to refinement actions."
+          "theoretical_rationale": "LO3.2.3 includes evaluating and improving performance; evaluation domain may indicate this when linked to refinement actions.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         },
         {
           "possible_ai_cft": [
@@ -519,135 +470,16 @@
             "automatic_acquire_deepen_create_classification",
             "researcher_bypass"
           ],
-          "theoretical_rationale": "Acquire-level conceptual metric knowledge may be weakly indicated by evaluation literacy — not by procedural computation alone."
+          "theoretical_rationale": "Acquire-level conceptual metric knowledge may be weakly indicated by evaluation literacy — not by procedural computation alone.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         }
       ],
       "domain_id": "DU_MODEL_EVALUATION"
-    },
-    "DU_PARAMETER_TUNING": {
-      "construct_limitations": [
-        "Parameter exploration in CODAP/tables does not imply Create-level AI solution design.",
-        "Iterative clicking without interpreted convergence is not optimization competence.",
-        "Does not imply ethical or pedagogical AI competencies."
-      ],
-      "contributions": [
-        {
-          "possible_ai_cft": [
-            "LO3.2.3"
-          ],
-          "interpretation_type": "contributing",
-          "interpretation_verb": "may_contribute_to",
-          "required_domains": [
-            "DU_MODEL_EVALUATION"
-          ],
-          "minimum_domain_strength": "weak",
-          "minimum_evidence_sources": 2,
-          "required_convergence": "DU_PARAMETER_TUNING at moderate+ with traceable exploration trail and defended convergence across at least two evidence sources.",
-          "allowed_confidence": "moderate",
-          "confidence_ceiling": "strong",
-          "contradiction_conditions": [
-            "tool_fluency_only",
-            "exploration_without_convergence"
-          ],
-          "escalation_blockers": [
-            "domain_present_without_convergence",
-            "single_evidence_source_for_deepen_claim",
-            "unresolved_contradiction_across_sources",
-            "construct_leakage_unmitigated",
-            "prior_belief_used_as_mastery_evidence"
-          ],
-          "insufficient_when": [
-            "Single final parameter with no exploration trail.",
-            "High click volume without meaningful state change (leakage L3).",
-            "Table completion without performance interpretation."
-          ],
-          "alternative_explanations": [],
-          "researcher_review_required": true,
-          "never_implies": [
-            "final_ai_cft_competency_claim",
-            "automatic_acquire_deepen_create_classification",
-            "researcher_bypass",
-            "LO3.3.1",
-            "LO3.1.3",
-            "pedagogical_competence"
-          ],
-          "theoretical_rationale": "LO3.2.3 centres iterative problem solving; parameter tuning domain evidence is primary contributory evidence for provisional Deepen problem-solving interpretation."
-        },
-        {
-          "possible_ai_cft": [
-            "LO3.2.2"
-          ],
-          "interpretation_type": "supporting",
-          "interpretation_verb": "may_indicate",
-          "required_domains": [
-            "DU_PARAMETER_TUNING"
-          ],
-          "minimum_domain_strength": "moderate",
-          "minimum_evidence_sources": 1,
-          "required_convergence": "Optimization linked to threshold performance comparison.",
-          "allowed_confidence": "moderate",
-          "confidence_ceiling": "moderate",
-          "contradiction_conditions": [],
-          "escalation_blockers": [
-            "domain_present_without_convergence",
-            "single_evidence_source_for_deepen_claim",
-            "unresolved_contradiction_across_sources",
-            "construct_leakage_unmitigated",
-            "prior_belief_used_as_mastery_evidence"
-          ],
-          "insufficient_when": [
-            "Optimization isolated from threshold/classification outcomes.",
-            "Parameter table filled without defended final choice."
-          ],
-          "alternative_explanations": [],
-          "researcher_review_required": true,
-          "never_implies": [
-            "final_ai_cft_competency_claim",
-            "automatic_acquire_deepen_create_classification",
-            "researcher_bypass"
-          ],
-          "theoretical_rationale": "Parameter search supports LO3.2.2 application skills when tied to model behaviour."
-        },
-        {
-          "possible_ai_cft": [
-            "LO3.1.3"
-          ],
-          "interpretation_type": "supporting",
-          "interpretation_verb": "may_indicate",
-          "required_domains": [],
-          "minimum_domain_strength": "moderate",
-          "minimum_evidence_sources": 2,
-          "required_convergence": "Learner selects and validates an appropriate interactive tool (e.g. CODAP) with documented setup for the DT task — not navigation fluency alone.",
-          "allowed_confidence": "weak",
-          "confidence_ceiling": "moderate",
-          "contradiction_conditions": [
-            "tool_fluency_only"
-          ],
-          "escalation_blockers": [
-            "domain_present_without_convergence",
-            "single_evidence_source_for_deepen_claim",
-            "unresolved_contradiction_across_sources",
-            "construct_leakage_unmitigated",
-            "prior_belief_used_as_mastery_evidence"
-          ],
-          "insufficient_when": [
-            "Tool named without validation or task-appropriateness rationale.",
-            "Digital fluency without meaningful model-building actions (leakage L3)."
-          ],
-          "alternative_explanations": [],
-          "researcher_review_required": true,
-          "never_implies": [
-            "final_ai_cft_competency_claim",
-            "automatic_acquire_deepen_create_classification",
-            "researcher_bypass",
-            "LO3.2.3",
-            "LO3.3.1",
-            "pedagogical_competence"
-          ],
-          "theoretical_rationale": "LO3.1.3 concerns locating and validating AI tools; parameter tuning with documented tool setup may weakly indicate this Acquire indicator."
-        }
-      ],
-      "domain_id": "DU_PARAMETER_TUNING"
     },
     "DU_GENERALISATION": {
       "construct_limitations": [
@@ -693,7 +525,13 @@
             "LO3.3.1",
             "full_create_competence"
           ],
-          "theoretical_rationale": "Transferable problem solving within LO3.2.3 may be supported by generalisation domain evidence when cross-context coherence is documented."
+          "theoretical_rationale": "Transferable problem solving within LO3.2.3 may be supported by generalisation domain evidence when cross-context coherence is documented.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         },
         {
           "possible_ai_cft": [
@@ -703,7 +541,7 @@
           "interpretation_verb": "may_indicate",
           "required_domains": [
             "DU_GENERALISATION",
-            "DU_PARAMETER_TUNING"
+            "DU_THRESHOLD_AND_PARAMETER_REASONING"
           ],
           "minimum_domain_strength": "moderate",
           "minimum_evidence_sources": 2,
@@ -732,7 +570,13 @@
             "confirmed_create_competence",
             "LO3.2.1"
           ],
-          "theoretical_rationale": "LO3.3.1 Create is a high bar; generalisation domain may weakly indicate early Create potential only with multi-domain convergence — never as automatic output."
+          "theoretical_rationale": "LO3.3.1 Create is a high bar; generalisation domain may weakly indicate early Create potential only with multi-domain convergence — never as automatic output.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         }
       ],
       "domain_id": "DU_GENERALISATION"
@@ -785,10 +629,261 @@
             "LO3.3.1",
             "LO3.2.1"
           ],
-          "theoretical_rationale": "Reflective domain evidence informs researcher interpretation and weak Acquire indicators only; it must never escalate to Deepen or Create without independent procedural/strategic domain convergence."
+          "theoretical_rationale": "Reflective domain evidence informs researcher interpretation and weak Acquire indicators only; it must never escalate to Deepen or Create without independent procedural/strategic domain convergence.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
         }
       ],
       "domain_id": "DU_REFLECTIVE_UNDERSTANDING"
+    },
+    "DU_THRESHOLD_AND_PARAMETER_REASONING": {
+      "domain_id": "DU_THRESHOLD_AND_PARAMETER_REASONING",
+      "construct_limitations": [
+        "Threshold reasoning in classroom DT tasks does not imply critical evaluation of AI in society.",
+        "Comparative cutoff judgment does not imply ethical awareness or pedagogical competence.",
+        "Does not imply validated tool selection for novel educational contexts (LO3.1.3).",
+        "Does not imply Create-level design of AI-supported learning innovations.",
+        "Parameter exploration in CODAP/tables does not imply Create-level AI solution design.",
+        "Iterative clicking without interpreted convergence is not optimization competence.",
+        "Does not imply ethical or pedagogical AI competencies."
+      ],
+      "contributions": [
+        {
+          "possible_ai_cft": [
+            "LO3.2.2"
+          ],
+          "interpretation_type": "contributing",
+          "interpretation_verb": "may_contribute_to",
+          "required_domains": [
+            "DU_MODEL_EVALUATION"
+          ],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "DU_THRESHOLD_AND_PARAMETER_REASONING at moderate+ with comparison or justification citing performance evidence; multi-source required for confidence above moderate.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "strong",
+          "contradiction_conditions": [
+            "threshold_misconception",
+            "high_reflection_weak_procedural",
+            "worksheet_video_source_asymmetry"
+          ],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence",
+            "single_threshold_application_only",
+            "reflection_inflates_strategic_without_performance_evidence"
+          ],
+          "insufficient_when": [
+            "Only worksheet evidence without procedural or log corroboration.",
+            "Single threshold application without comparison or justification context.",
+            "Contradictory screen recording undermines worksheet threshold claims.",
+            "Reflection praises thresholds but CODAP/log shows weak execution (leakage L5)."
+          ],
+          "alternative_explanations": [
+            "Arithmetic manipulation of cutoff values without strategic reasoning.",
+            "Memorized 'best threshold' from answer key patterns."
+          ],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "critical_ai_evaluation",
+            "ethical_awareness",
+            "pedagogical_competence",
+            "LO3.1.3",
+            "LO3.3.1"
+          ],
+          "theoretical_rationale": "LO3.2.2 explicitly includes threshold optimization and model behaviour interpretation; strategic threshold domain evidence is primary contributory evidence but never sufficient alone for a final Deepen claim.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.2.3"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [
+            "DU_THRESHOLD_AND_PARAMETER_REASONING"
+          ],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "Iterative threshold refinement evidenced across tasks with performance-linked justification — not one-off cutoff selection.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Threshold comparison without iterative improvement trajectory.",
+            "Problem-solving claim based on single worksheet row."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass"
+          ],
+          "theoretical_rationale": "LO3.2.3 problem-solving requires iterative refinement; threshold reasoning may weakly indicate this indicator when paired with tuning evidence.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.2.3"
+          ],
+          "interpretation_type": "contributing",
+          "interpretation_verb": "may_contribute_to",
+          "required_domains": [
+            "DU_MODEL_EVALUATION"
+          ],
+          "minimum_domain_strength": "weak",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "DU_THRESHOLD_AND_PARAMETER_REASONING at moderate+ with traceable exploration trail and defended convergence across at least two evidence sources.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "strong",
+          "contradiction_conditions": [
+            "tool_fluency_only",
+            "exploration_without_convergence"
+          ],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Single final parameter with no exploration trail.",
+            "High click volume without meaningful state change (leakage L3).",
+            "Table completion without performance interpretation."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.3.1",
+            "LO3.1.3",
+            "pedagogical_competence"
+          ],
+          "theoretical_rationale": "LO3.2.3 centres iterative problem solving; parameter tuning domain evidence is primary contributory evidence for provisional Deepen problem-solving interpretation.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.2.2"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [
+            "DU_THRESHOLD_AND_PARAMETER_REASONING"
+          ],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 1,
+          "required_convergence": "Optimization linked to threshold performance comparison.",
+          "allowed_confidence": "moderate",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Optimization isolated from threshold/classification outcomes.",
+            "Parameter table filled without defended final choice."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass"
+          ],
+          "theoretical_rationale": "Parameter search supports LO3.2.2 application skills when tied to model behaviour.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
+        },
+        {
+          "possible_ai_cft": [
+            "LO3.1.3"
+          ],
+          "interpretation_type": "supporting",
+          "interpretation_verb": "may_indicate",
+          "required_domains": [],
+          "minimum_domain_strength": "moderate",
+          "minimum_evidence_sources": 2,
+          "required_convergence": "Learner selects and validates an appropriate interactive tool (e.g. CODAP) with documented setup for the DT task — not navigation fluency alone.",
+          "allowed_confidence": "weak",
+          "confidence_ceiling": "moderate",
+          "contradiction_conditions": [
+            "tool_fluency_only"
+          ],
+          "escalation_blockers": [
+            "domain_present_without_convergence",
+            "single_evidence_source_for_deepen_claim",
+            "unresolved_contradiction_across_sources",
+            "construct_leakage_unmitigated",
+            "prior_belief_used_as_mastery_evidence"
+          ],
+          "insufficient_when": [
+            "Tool named without validation or task-appropriateness rationale.",
+            "Digital fluency without meaningful model-building actions (leakage L3)."
+          ],
+          "alternative_explanations": [],
+          "researcher_review_required": true,
+          "never_implies": [
+            "final_ai_cft_competency_claim",
+            "automatic_acquire_deepen_create_classification",
+            "researcher_bypass",
+            "LO3.2.3",
+            "LO3.3.1",
+            "pedagogical_competence"
+          ],
+          "theoretical_rationale": "LO3.1.3 concerns locating and validating AI tools; parameter tuning with documented tool setup may weakly indicate this Acquire indicator.",
+          "calibration_status": {
+            "state": "uncalibrated_default",
+            "review_trigger": "10th processed portfolio OR 25th portfolio OR inter-rater Cohen's kappa < 0.6, whichever comes first",
+            "review_metric": "researcher override rate on this contribution's minimum_evidence_sources/confidence_ceiling",
+            "revision_rule": "if override rate > 30%, revise threshold; otherwise mark calibrated_2026_pilot"
+          }
+        }
+      ]
     }
   }
 }

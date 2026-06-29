@@ -30,25 +30,17 @@ class TestDomainUnderstanding(unittest.TestCase):
         self.assertIn("not curriculum topics", dc.lower())
 
     def test_domains_are_emergent_constructs(self) -> None:
-        self.assertEqual(self.domain_doc["domain_count"], 8)
+        self.assertEqual(self.domain_doc["domain_count"], 7)
         for did, dom in self.domains.items():
             self.assertEqual(dom["assessment_construct_type"], "emergent")
             self.assertIn("construct_definition", dom)
             self.assertIn("convergence_requirements", dom)
             self.assertIn("not_equivalent_to", dom)
-            self.assertIn("construct_validation", dom)
-            cv = dom["construct_validation"]
-            for field in (
-                "what_construct_represents",
-                "supporting_evidence",
-                "non_supporting_evidence",
-                "not_formed_when",
-                "confusable_with",
-            ):
-                self.assertIn(field, cv, f"{did}.{field}")
-                if field != "what_construct_represents":
-                    self.assertGreaterEqual(len(cv[field]), 2, f"{did}.{field}")
-            self.assertGreaterEqual(len(dom["inclusion_criteria"]), 2)
+            self.assertIn("evidence_criteria", dom)
+            ec = dom["evidence_criteria"]
+            for field in ("counts", "does_not_count"):
+                self.assertIn(field, ec, f"{did}.{field}")
+                self.assertGreaterEqual(len(ec[field]), 2, f"{did}.{field}")
 
     def test_no_ilo_folder_domain_names(self) -> None:
         forbidden = {"ILO_THRESHOLD", "ILO_FEATURE", "ILO_RULE", "ILO_DECISION_TREE"}
@@ -116,17 +108,17 @@ class TestDomainUnderstanding(unittest.TestCase):
         validation = json.loads((REPO / "reports" / "milestone4_validation.json").read_text())
         matrix = validation["domain_independence_matrix"]
         self.assertGreater(matrix["pair_count"], 0)
-        threshold_tuning = [
+        domain_ids = set(self.domain_doc["domains"])
+        self.assertIn("DU_THRESHOLD_AND_PARAMETER_REASONING", domain_ids)
+        self.assertEqual(len(domain_ids), 7)
+        class_tree = [
             p for p in matrix["pairs"]
-            if "THRESHOLD" in p["domain_a"] and "PARAMETER" in p["domain_b"]
-            or "PARAMETER" in p["domain_a"] and "THRESHOLD" in p["domain_b"]
+            if "CLASSIFICATION" in p["domain_a"] and "TREE_STRUCTURE" in p["domain_b"]
+            or "TREE_STRUCTURE" in p["domain_a"] and "CLASSIFICATION" in p["domain_b"]
         ]
-        self.assertEqual(len(threshold_tuning), 1)
-        pair = threshold_tuning[0]
-        self.assertEqual(pair["overlap_risk"], "high")
-        self.assertTrue(pair["discriminating_criteria"])
-        shared = max(pair["shared_mapped_ilo_count"], pair["shared_indicative_ilo_count"])
-        self.assertGreaterEqual(shared, 1)
+        self.assertEqual(len(class_tree), 1)
+        pair = class_tree[0]
+        self.assertEqual(pair["overlap_risk"], "moderate")
 
     def test_builders_succeed(self) -> None:
         for script in (BUILD_DOMAIN, BUILD_MAP):

@@ -29,17 +29,10 @@ VALID_ROLES = frozenset({"primary", "secondary", "contextual", "diagnostic"})
 VALID_CONFIDENCE = frozenset({"high", "moderate", "low", "baseline"})
 REQUIRED_DOMAIN_FIELDS = frozenset({
     "id", "title", "construct_dimension", "assessment_construct_type", "construct_definition",
-    "theoretical_rationale", "inclusion_criteria", "exclusion_criteria",
-    "convergence_requirements", "contradiction_handling", "indicative_ilos",
-    "not_equivalent_to", "construct_validation",
+    "theoretical_rationale", "evidence_criteria", "convergence_requirements",
+    "contradiction_handling", "indicative_ilos", "not_equivalent_to",
 })
-REQUIRED_CV_FIELDS = frozenset({
-    "what_construct_represents",
-    "supporting_evidence",
-    "non_supporting_evidence",
-    "not_formed_when",
-    "confusable_with",
-})
+REQUIRED_EVIDENCE_CRITERIA = frozenset({"counts", "does_not_count"})
 REQUIRED_RECORD_FIELDS = frozenset({
     "domain_id", "mapping_role", "mapping_confidence", "confidence_basis",
     "supporting_rationale", "counter_evidence", "construct_alignment",
@@ -86,22 +79,19 @@ def validate_domain_ontology(
         for iid in dom.get("indicative_ilos", []):
             if iid not in ilo_ids:
                 errors.append(f"{did}: unknown indicative ILO {iid}")
-        if len(dom.get("inclusion_criteria", [])) < 2:
-            errors.append(f"{did}: need ≥2 inclusion_criteria")
-        if len(dom.get("exclusion_criteria", [])) < 2:
-            errors.append(f"{did}: need ≥2 exclusion_criteria")
+        ec = dom.get("evidence_criteria", {})
+        if not REQUIRED_EVIDENCE_CRITERIA <= ec.keys():
+            errors.append(f"{did}: evidence_criteria missing {REQUIRED_EVIDENCE_CRITERIA - ec.keys()}")
+        if len(ec.get("counts", [])) < 2:
+            errors.append(f"{did}: need ≥2 evidence_criteria.counts")
+        if len(ec.get("does_not_count", [])) < 2:
+            errors.append(f"{did}: need ≥2 evidence_criteria.does_not_count")
         conv = dom.get("convergence_requirements", {})
         if "minimum_distinct_ilos" not in conv:
             errors.append(f"{did}: convergence_requirements incomplete")
-        cv = dom.get("construct_validation", {})
-        missing_cv = REQUIRED_CV_FIELDS - cv.keys()
-        if missing_cv:
-            errors.append(f"{did}: construct_validation missing {missing_cv}")
-        for field in ("supporting_evidence", "non_supporting_evidence", "not_formed_when", "confusable_with"):
-            if field in cv and len(cv[field]) < 2:
-                errors.append(f"{did}: construct_validation.{field} needs ≥2 items")
-        if cv.get("what_construct_represents") and len(cv["what_construct_represents"]) < 40:
-            errors.append(f"{did}: what_construct_represents too brief")
+        cw = dom.get("confusable_with")
+        if cw is not None and not isinstance(cw, list):
+            errors.append(f"{did}: confusable_with must be array when present")
 
     dimension_counts = Counter(d.get("construct_dimension") for d in domains.values())
     return errors, warnings, {

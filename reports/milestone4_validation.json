@@ -7,11 +7,11 @@
   "errors": [],
   "warnings": [],
   "domain_ontology_summary": {
-    "domain_count": 8,
+    "domain_count": 7,
     "domain_dimension_distribution": {
       "conceptual": 1,
       "procedural": 2,
-      "strategic": 4,
+      "strategic": 3,
       "reflective": 1
     },
     "domain_ids": [
@@ -19,16 +19,15 @@
       "DU_DATA_REPRESENTATION",
       "DU_GENERALISATION",
       "DU_MODEL_EVALUATION",
-      "DU_PARAMETER_TUNING",
       "DU_REFLECTIVE_UNDERSTANDING",
-      "DU_THRESHOLD_REASONING",
+      "DU_THRESHOLD_AND_PARAMETER_REASONING",
       "DU_TREE_STRUCTURE_REASONING"
     ]
   },
   "domain_independence_matrix": {
     "matrix_type": "domain_independence",
-    "pair_count": 28,
-    "high_or_moderate_risk_pairs": 5,
+    "pair_count": 21,
+    "high_or_moderate_risk_pairs": 4,
     "pairs": [
       {
         "domain_a": "DU_CLASSIFICATION_REASONING",
@@ -68,27 +67,8 @@
         "discriminating_criteria": ""
       },
       {
-        "domain_a": "DU_PARAMETER_TUNING",
-        "domain_a_title": "Evidence-Based Parameter Tuning",
-        "domain_b": "DU_THRESHOLD_REASONING",
-        "domain_b_title": "Threshold Reasoning",
-        "shared_mapped_ilo_count": 2,
-        "shared_mapped_ilos": [
-          "ILO_MODEL_EVALUATION",
-          "ILO_PARAMETER_OPTIMIZATION"
-        ],
-        "shared_indicative_ilo_count": 2,
-        "shared_indicative_ilos": [
-          "ILO_MODEL_EVALUATION",
-          "ILO_PARAMETER_OPTIMIZATION"
-        ],
-        "overlap_risk": "high",
-        "same_construct_dimension": true,
-        "discriminating_criteria": "Threshold Reasoning requires comparative or justificatory cutoff judgment; Parameter Tuning requires documented iterative search and convergence. A single optimized threshold outcome supports Threshold at most moderately unless comparison/justification is explicit; it supports Tuning only when exploration trail exists."
-      },
-      {
-        "domain_a": "DU_THRESHOLD_REASONING",
-        "domain_a_title": "Threshold Reasoning",
+        "domain_a": "DU_THRESHOLD_AND_PARAMETER_REASONING",
+        "domain_a_title": "Threshold and Parameter Reasoning",
         "domain_b": "DU_TREE_STRUCTURE_REASONING",
         "domain_b_title": "Decision Structure Reasoning",
         "shared_mapped_ilo_count": 2,
@@ -107,8 +87,8 @@
       {
         "domain_a": "DU_CLASSIFICATION_REASONING",
         "domain_a_title": "Classification Reasoning",
-        "domain_b": "DU_THRESHOLD_REASONING",
-        "domain_b_title": "Threshold Reasoning",
+        "domain_b": "DU_THRESHOLD_AND_PARAMETER_REASONING",
+        "domain_b_title": "Threshold and Parameter Reasoning",
         "shared_mapped_ilo_count": 1,
         "shared_mapped_ilos": [
           "ILO_THRESHOLD"
@@ -154,29 +134,16 @@
       {
         "domain_a": "DU_GENERALISATION",
         "domain_a_title": "Pattern Generalisation and Transfer",
-        "domain_b": "DU_PARAMETER_TUNING",
-        "domain_b_title": "Evidence-Based Parameter Tuning",
-        "shared_mapped_ilo_count": 0,
-        "shared_mapped_ilos": [],
-        "shared_indicative_ilo_count": 1,
-        "shared_indicative_ilos": [
-          "ILO_FEATURE_SELECTION"
-        ],
-        "overlap_risk": "low",
-        "same_construct_dimension": true,
-        "discriminating_criteria": ""
-      },
-      {
-        "domain_a": "DU_GENERALISATION",
-        "domain_a_title": "Pattern Generalisation and Transfer",
-        "domain_b": "DU_THRESHOLD_REASONING",
-        "domain_b_title": "Threshold Reasoning",
+        "domain_b": "DU_THRESHOLD_AND_PARAMETER_REASONING",
+        "domain_b_title": "Threshold and Parameter Reasoning",
         "shared_mapped_ilo_count": 1,
         "shared_mapped_ilos": [
           "ILO_DATA_PATTERN"
         ],
-        "shared_indicative_ilo_count": 0,
-        "shared_indicative_ilos": [],
+        "shared_indicative_ilo_count": 1,
+        "shared_indicative_ilos": [
+          "ILO_FEATURE_SELECTION"
+        ],
         "overlap_risk": "low",
         "same_construct_dimension": true,
         "discriminating_criteria": ""
@@ -199,23 +166,6 @@
       {
         "domain_a": "DU_MODEL_EVALUATION",
         "domain_a_title": "Model Evaluation Reasoning",
-        "domain_b": "DU_PARAMETER_TUNING",
-        "domain_b_title": "Evidence-Based Parameter Tuning",
-        "shared_mapped_ilo_count": 1,
-        "shared_mapped_ilos": [
-          "ILO_MODEL_EVALUATION"
-        ],
-        "shared_indicative_ilo_count": 1,
-        "shared_indicative_ilos": [
-          "ILO_MODEL_EVALUATION"
-        ],
-        "overlap_risk": "low",
-        "same_construct_dimension": true,
-        "discriminating_criteria": ""
-      },
-      {
-        "domain_a": "DU_MODEL_EVALUATION",
-        "domain_a_title": "Model Evaluation Reasoning",
         "domain_b": "DU_REFLECTIVE_UNDERSTANDING",
         "domain_b_title": "Reflective Decision-Tree Understanding",
         "shared_mapped_ilo_count": 1,
@@ -233,8 +183,8 @@
       {
         "domain_a": "DU_MODEL_EVALUATION",
         "domain_a_title": "Model Evaluation Reasoning",
-        "domain_b": "DU_THRESHOLD_REASONING",
-        "domain_b_title": "Threshold Reasoning",
+        "domain_b": "DU_THRESHOLD_AND_PARAMETER_REASONING",
+        "domain_b_title": "Threshold and Parameter Reasoning",
         "shared_mapped_ilo_count": 1,
         "shared_mapped_ilos": [
           "ILO_MODEL_EVALUATION"
@@ -245,7 +195,7 @@
         ],
         "overlap_risk": "moderate",
         "same_construct_dimension": true,
-        "discriminating_criteria": "Evaluation interprets performance artifacts; Threshold Reasoning selects cutoffs. Metrics may inform thresholds but do not substitute for comparative threshold decisions."
+        "discriminating_criteria": "Evaluation interprets performance artifacts; Threshold-and-Parameter Reasoning selects cutoffs and explores parameter states. Metrics may inform thresholds but do not substitute for comparative threshold decisions or documented search."
       },
       {
         "domain_a": "DU_CLASSIFICATION_REASONING",
@@ -276,19 +226,6 @@
       {
         "domain_a": "DU_CLASSIFICATION_REASONING",
         "domain_a_title": "Classification Reasoning",
-        "domain_b": "DU_PARAMETER_TUNING",
-        "domain_b_title": "Evidence-Based Parameter Tuning",
-        "shared_mapped_ilo_count": 0,
-        "shared_mapped_ilos": [],
-        "shared_indicative_ilo_count": 0,
-        "shared_indicative_ilos": [],
-        "overlap_risk": "minimal",
-        "same_construct_dimension": false,
-        "discriminating_criteria": ""
-      },
-      {
-        "domain_a": "DU_CLASSIFICATION_REASONING",
-        "domain_a_title": "Classification Reasoning",
         "domain_b": "DU_REFLECTIVE_UNDERSTANDING",
         "domain_b_title": "Reflective Decision-Tree Understanding",
         "shared_mapped_ilo_count": 0,
@@ -315,21 +252,8 @@
       {
         "domain_a": "DU_DATA_REPRESENTATION",
         "domain_a_title": "Supervised Data Representation Understanding",
-        "domain_b": "DU_PARAMETER_TUNING",
-        "domain_b_title": "Evidence-Based Parameter Tuning",
-        "shared_mapped_ilo_count": 0,
-        "shared_mapped_ilos": [],
-        "shared_indicative_ilo_count": 0,
-        "shared_indicative_ilos": [],
-        "overlap_risk": "minimal",
-        "same_construct_dimension": false,
-        "discriminating_criteria": ""
-      },
-      {
-        "domain_a": "DU_DATA_REPRESENTATION",
-        "domain_a_title": "Supervised Data Representation Understanding",
-        "domain_b": "DU_THRESHOLD_REASONING",
-        "domain_b_title": "Threshold Reasoning",
+        "domain_b": "DU_THRESHOLD_AND_PARAMETER_REASONING",
+        "domain_b_title": "Threshold and Parameter Reasoning",
         "shared_mapped_ilo_count": 0,
         "shared_mapped_ilos": [],
         "shared_indicative_ilo_count": 0,
@@ -391,36 +315,10 @@
         "discriminating_criteria": ""
       },
       {
-        "domain_a": "DU_PARAMETER_TUNING",
-        "domain_a_title": "Evidence-Based Parameter Tuning",
-        "domain_b": "DU_REFLECTIVE_UNDERSTANDING",
-        "domain_b_title": "Reflective Decision-Tree Understanding",
-        "shared_mapped_ilo_count": 0,
-        "shared_mapped_ilos": [],
-        "shared_indicative_ilo_count": 0,
-        "shared_indicative_ilos": [],
-        "overlap_risk": "minimal",
-        "same_construct_dimension": false,
-        "discriminating_criteria": ""
-      },
-      {
-        "domain_a": "DU_PARAMETER_TUNING",
-        "domain_a_title": "Evidence-Based Parameter Tuning",
-        "domain_b": "DU_TREE_STRUCTURE_REASONING",
-        "domain_b_title": "Decision Structure Reasoning",
-        "shared_mapped_ilo_count": 0,
-        "shared_mapped_ilos": [],
-        "shared_indicative_ilo_count": 0,
-        "shared_indicative_ilos": [],
-        "overlap_risk": "minimal",
-        "same_construct_dimension": false,
-        "discriminating_criteria": ""
-      },
-      {
         "domain_a": "DU_REFLECTIVE_UNDERSTANDING",
         "domain_a_title": "Reflective Decision-Tree Understanding",
-        "domain_b": "DU_THRESHOLD_REASONING",
-        "domain_b_title": "Threshold Reasoning",
+        "domain_b": "DU_THRESHOLD_AND_PARAMETER_REASONING",
+        "domain_b_title": "Threshold and Parameter Reasoning",
         "shared_mapped_ilo_count": 0,
         "shared_mapped_ilos": [],
         "shared_indicative_ilo_count": 0,
@@ -494,7 +392,7 @@
         ]
       },
       {
-        "domain_id": "DU_THRESHOLD_REASONING",
+        "domain_id": "DU_THRESHOLD_AND_PARAMETER_REASONING",
         "ilo_count": 5,
         "ilos": [
           "ILO_DATA_PATTERN",
@@ -521,14 +419,6 @@
           "ILO_DATA_PATTERN",
           "ILO_FEATURE",
           "ILO_FEATURE_SELECTION"
-        ]
-      },
-      {
-        "domain_id": "DU_PARAMETER_TUNING",
-        "ilo_count": 2,
-        "ilos": [
-          "ILO_MODEL_EVALUATION",
-          "ILO_PARAMETER_OPTIMIZATION"
         ]
       }
     ],
@@ -561,7 +451,7 @@
         "domain_count": 2,
         "domains": [
           "DU_GENERALISATION",
-          "DU_THRESHOLD_REASONING"
+          "DU_THRESHOLD_AND_PARAMETER_REASONING"
         ]
       },
       {
@@ -627,11 +517,10 @@
       },
       {
         "ilo_id": "ILO_MODEL_EVALUATION",
-        "domain_count": 3,
+        "domain_count": 2,
         "domains": [
           "DU_MODEL_EVALUATION",
-          "DU_THRESHOLD_REASONING",
-          "DU_PARAMETER_TUNING"
+          "DU_THRESHOLD_AND_PARAMETER_REASONING"
         ]
       },
       {
@@ -644,10 +533,9 @@
       },
       {
         "ilo_id": "ILO_PARAMETER_OPTIMIZATION",
-        "domain_count": 2,
+        "domain_count": 1,
         "domains": [
-          "DU_PARAMETER_TUNING",
-          "DU_THRESHOLD_REASONING"
+          "DU_THRESHOLD_AND_PARAMETER_REASONING"
         ]
       },
       {
@@ -676,7 +564,7 @@
         "ilo_id": "ILO_THRESHOLD",
         "domain_count": 3,
         "domains": [
-          "DU_THRESHOLD_REASONING",
+          "DU_THRESHOLD_AND_PARAMETER_REASONING",
           "DU_CLASSIFICATION_REASONING",
           "DU_TREE_STRUCTURE_REASONING"
         ]
@@ -694,7 +582,7 @@
         "domain_count": 2,
         "domains": [
           "DU_TREE_STRUCTURE_REASONING",
-          "DU_THRESHOLD_REASONING"
+          "DU_THRESHOLD_AND_PARAMETER_REASONING"
         ]
       }
     ]
@@ -715,7 +603,7 @@
       "strategic": 1
     },
     "strategic": {
-      "strategic": 9,
+      "strategic": 7,
       "procedural": 2
     }
   },
@@ -804,11 +692,11 @@
       },
       {
         "ilo_id": "ILO_THRESHOLD",
-        "domain_id": "DU_THRESHOLD_REASONING",
+        "domain_id": "DU_THRESHOLD_AND_PARAMETER_REASONING",
         "ilo_dimension": "procedural",
         "domain_dimension": "strategic",
         "mapping_role": "primary",
-        "rationale": "ILO construct dimension (procedural) bridges to domain dimension (strategic) only when convergence requirements for DU_THRESHOLD_REASONING are satisfied."
+        "rationale": "ILO construct dimension (procedural) bridges to domain dimension (strategic) only when convergence requirements for DU_THRESHOLD_AND_PARAMETER_REASONING are satisfied."
       },
       {
         "ilo_id": "ILO_TRAINING_ROLE",
@@ -831,20 +719,20 @@
   "mapping_statistics": {
     "mapping_density": {
       "ilo_count": 21,
-      "domain_count": 8,
-      "accepted_pair_count": 37,
-      "avg_domains_per_ilo": 1.76,
+      "domain_count": 7,
+      "accepted_pair_count": 35,
+      "avg_domains_per_ilo": 1.67,
       "rejected_alternative_count": 14
     },
     "role_ratios": {
       "counts": {
         "primary": 20,
-        "contextual": 4,
-        "secondary": 12,
+        "contextual": 3,
+        "secondary": 11,
         "diagnostic": 1
       },
-      "primary_ratio": 0.541,
-      "secondary_ratio": 0.324
+      "primary_ratio": 0.571,
+      "secondary_ratio": 0.314
     },
     "rejected_alternative_statistics": {
       "total_rejected": 14,
@@ -888,12 +776,12 @@
         },
         {
           "ilo_id": "ILO_FEATURE",
-          "domain_id": "DU_THRESHOLD_REASONING",
+          "domain_id": "DU_THRESHOLD_AND_PARAMETER_REASONING",
           "reason_rejected": "Feature vocabulary alone does not demonstrate threshold comparison or selection."
         },
         {
           "ilo_id": "ILO_INSTANCE",
-          "domain_id": "DU_THRESHOLD_REASONING",
+          "domain_id": "DU_THRESHOLD_AND_PARAMETER_REASONING",
           "reason_rejected": "Instance vocabulary does not evidence strategic cutoff reasoning."
         },
         {
@@ -903,7 +791,7 @@
         },
         {
           "ilo_id": "ILO_METACOGNITIVE_REFLECTION",
-          "domain_id": "DU_THRESHOLD_REASONING",
+          "domain_id": "DU_THRESHOLD_AND_PARAMETER_REASONING",
           "reason_rejected": "Reflection quality must not proxy strategic threshold mastery (leakage L5)."
         },
         {
@@ -918,7 +806,7 @@
         },
         {
           "ilo_id": "ILO_RULE",
-          "domain_id": "DU_THRESHOLD_REASONING",
+          "domain_id": "DU_THRESHOLD_AND_PARAMETER_REASONING",
           "reason_rejected": "Rule articulation is structural/procedural, not comparative threshold optimization."
         },
         {
@@ -934,98 +822,5 @@
       ]
     }
   },
-  "milestone": 4,
-  "stress_test": {
-    "suite": "domain_stress_test",
-    "status": "pass",
-    "test_count": 5,
-    "passed": 5,
-    "tests": [
-      {
-        "test_id": "DST-01",
-        "title": "Conceptual high, procedural low",
-        "profile_summary": "Strong representational ILOs; weak procedural ILOs",
-        "domain_strengths": {
-          "DU_DATA_REPRESENTATION": "moderate",
-          "DU_CLASSIFICATION_REASONING": "none",
-          "DU_TREE_STRUCTURE_REASONING": "none",
-          "DU_THRESHOLD_REASONING": "none",
-          "DU_MODEL_EVALUATION": "none",
-          "DU_PARAMETER_TUNING": "none",
-          "DU_GENERALISATION": "none",
-          "DU_REFLECTIVE_UNDERSTANDING": "none"
-        },
-        "pass": true,
-        "errors": []
-      },
-      {
-        "test_id": "DST-02",
-        "title": "Procedural high, reflection low",
-        "profile_summary": "Strong procedural ILOs (multi-source); weak reflection ILOs",
-        "domain_strengths": {
-          "DU_DATA_REPRESENTATION": "none",
-          "DU_CLASSIFICATION_REASONING": "strong",
-          "DU_TREE_STRUCTURE_REASONING": "strong",
-          "DU_THRESHOLD_REASONING": "moderate",
-          "DU_MODEL_EVALUATION": "none",
-          "DU_PARAMETER_TUNING": "none",
-          "DU_GENERALISATION": "none",
-          "DU_REFLECTIVE_UNDERSTANDING": "none"
-        },
-        "pass": true,
-        "errors": []
-      },
-      {
-        "test_id": "DST-03",
-        "title": "Video strong, worksheet weak",
-        "profile_summary": "Strategic ILOs strong from screen_recording only; worksheet weak",
-        "domain_strengths": {
-          "DU_DATA_REPRESENTATION": "none",
-          "DU_CLASSIFICATION_REASONING": "none",
-          "DU_TREE_STRUCTURE_REASONING": "none",
-          "DU_THRESHOLD_REASONING": "weak",
-          "DU_MODEL_EVALUATION": "none",
-          "DU_PARAMETER_TUNING": "weak",
-          "DU_GENERALISATION": "none",
-          "DU_REFLECTIVE_UNDERSTANDING": "none"
-        },
-        "pass": true,
-        "errors": []
-      },
-      {
-        "test_id": "DST-04",
-        "title": "Reflection strong, CODAP weak",
-        "profile_summary": "Strong reflection ILOs; weak procedural CODAP evidence",
-        "domain_strengths": {
-          "DU_DATA_REPRESENTATION": "none",
-          "DU_CLASSIFICATION_REASONING": "none",
-          "DU_TREE_STRUCTURE_REASONING": "none",
-          "DU_THRESHOLD_REASONING": "none",
-          "DU_MODEL_EVALUATION": "none",
-          "DU_PARAMETER_TUNING": "none",
-          "DU_GENERALISATION": "none",
-          "DU_REFLECTIVE_UNDERSTANDING": "moderate"
-        },
-        "pass": true,
-        "errors": []
-      },
-      {
-        "test_id": "DST-05",
-        "title": "Single evidence source",
-        "profile_summary": "All ILOs strong but from worksheet only",
-        "domain_strengths": {
-          "DU_DATA_REPRESENTATION": "moderate",
-          "DU_CLASSIFICATION_REASONING": "moderate",
-          "DU_TREE_STRUCTURE_REASONING": "moderate",
-          "DU_THRESHOLD_REASONING": "weak",
-          "DU_MODEL_EVALUATION": "moderate",
-          "DU_PARAMETER_TUNING": "weak",
-          "DU_GENERALISATION": "weak",
-          "DU_REFLECTIVE_UNDERSTANDING": "moderate"
-        },
-        "pass": true,
-        "errors": []
-      }
-    ]
-  }
+  "milestone": 4
 }

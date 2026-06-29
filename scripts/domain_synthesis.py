@@ -169,15 +169,22 @@ class DomainSynthesizer:
         if "procedural_reflection_split" in c:
             if did == "DU_REFLECTIVE_UNDERSTANDING":
                 rationale.append("Reflective domain evaluated on reflection evidence independently.")
-            elif did in ("DU_CLASSIFICATION_REASONING", "DU_TREE_STRUCTURE_REASONING", "DU_THRESHOLD_REASONING"):
+            elif did in (
+                "DU_CLASSIFICATION_REASONING",
+                "DU_TREE_STRUCTURE_REASONING",
+                "DU_THRESHOLD_AND_PARAMETER_REASONING",
+            ):
                 claim = min_strength(claim, "moderate")
                 rationale.append("Contradiction: weak CODAP/procedural blocks strong classification/strategic.")
 
-        if "threshold_misconception" in c and did in ("DU_THRESHOLD_REASONING", "DU_CLASSIFICATION_REASONING"):
+        if "threshold_misconception" in c and did in (
+            "DU_THRESHOLD_AND_PARAMETER_REASONING",
+            "DU_CLASSIFICATION_REASONING",
+        ):
             claim = min_strength(claim, "weak")
             rationale.append("Contradiction: threshold misconception blocks escalation.")
 
-        if "tool_fluency_only" in c and did == "DU_PARAMETER_TUNING":
+        if "tool_fluency_only" in c and did == "DU_THRESHOLD_AND_PARAMETER_REASONING":
             claim = min_strength(claim, "weak")
             rationale.append("Contradiction: digital fluency leakage (L3).")
 
@@ -186,7 +193,9 @@ class DomainSynthesizer:
             rationale.append("Contradiction: single evidence source caps all domains below strong.")
 
         if "worksheet_video_source_asymmetry" in c and did in (
-            "DU_THRESHOLD_REASONING", "DU_PARAMETER_TUNING", "DU_MODEL_EVALUATION", "DU_GENERALISATION",
+            "DU_THRESHOLD_AND_PARAMETER_REASONING",
+            "DU_MODEL_EVALUATION",
+            "DU_GENERALISATION",
         ):
             claim = min_strength(claim, "moderate")
             rationale.append("Strategic domain: video-only strength cannot reach strong without corroboration.")

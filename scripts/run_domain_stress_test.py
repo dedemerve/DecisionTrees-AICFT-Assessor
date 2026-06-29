@@ -57,8 +57,7 @@ def run_test_1_conceptual_high_procedural_low(synth: DomainSynthesizer) -> dict[
     errors += assert_strength(strengths["DU_DATA_REPRESENTATION"], None, "moderate", "DU_DATA_REPRESENTATION")
     errors += assert_strength(strengths["DU_CLASSIFICATION_REASONING"], "weak", None, "DU_CLASSIFICATION_REASONING")
     errors += assert_strength(strengths["DU_TREE_STRUCTURE_REASONING"], "weak", None, "DU_TREE_STRUCTURE_REASONING")
-    errors += assert_strength(strengths["DU_THRESHOLD_REASONING"], "weak", None, "DU_THRESHOLD_REASONING")
-    errors += assert_strength(strengths["DU_PARAMETER_TUNING"], "none", None, "DU_PARAMETER_TUNING")
+    errors += assert_strength(strengths["DU_THRESHOLD_AND_PARAMETER_REASONING"], "weak", None, "DU_THRESHOLD_AND_PARAMETER_REASONING")
     return {
         "test_id": "DST-01",
         "title": "Conceptual high, procedural low",
@@ -129,7 +128,7 @@ def run_test_3_video_strong_worksheet_weak(synth: DomainSynthesizer) -> dict[str
     )
     strengths = synth.domain_strengths(profile)
     errors: list[str] = []
-    for did in ("DU_THRESHOLD_REASONING", "DU_PARAMETER_TUNING", "DU_MODEL_EVALUATION"):
+    for did in ("DU_THRESHOLD_AND_PARAMETER_REASONING", "DU_MODEL_EVALUATION"):
         errors += assert_strength(strengths[did], "moderate", None, f"{did} (video-only)")
     return {
         "test_id": "DST-03",
@@ -164,7 +163,7 @@ def run_test_4_reflection_strong_codap_weak(synth: DomainSynthesizer) -> dict[st
     errors: list[str] = []
     errors += assert_strength(strengths["DU_REFLECTIVE_UNDERSTANDING"], None, "moderate", "DU_REFLECTIVE_UNDERSTANDING")
     errors += assert_strength(strengths["DU_CLASSIFICATION_REASONING"], "moderate", None, "DU_CLASSIFICATION_REASONING")
-    errors += assert_strength(strengths["DU_THRESHOLD_REASONING"], "moderate", None, "DU_THRESHOLD_REASONING")
+    errors += assert_strength(strengths["DU_THRESHOLD_AND_PARAMETER_REASONING"], "moderate", None, "DU_THRESHOLD_AND_PARAMETER_REASONING")
     if strengths["DU_CLASSIFICATION_REASONING"] == "strong":
         errors.append("DU_CLASSIFICATION_REASONING: must not be strong when CODAP procedural is weak")
     return {

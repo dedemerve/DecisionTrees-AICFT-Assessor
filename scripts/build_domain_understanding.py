@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-build_domain_understanding.py — Author Domain_Understanding.json (Milestone 4).
+build_domain_understanding.py — Refresh Domain_Understanding.json metadata (Milestone 4).
 
-Domains are emergent assessment constructs, not ILO groupings.
-Does not create new ILO or OB definitions.
+Domain definitions are authored in framework/Domain_Understanding.json. This builder
+re-reads that file and rewrites the ontology wrapper (counts, pair differentiation,
+references). It does not embed domain bodies in Python constants.
 """
 
 from __future__ import annotations
@@ -11,7 +12,6 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -25,618 +25,12 @@ DESIGN_CONSTRAINT = (
     "Domain Understanding must NOT be treated as a simple grouping of Instructional Learning "
     "Objects. A Domain represents an emergent disciplinary understanding supported by converging "
     "evidence across multiple Instructional Learning Objects, Observable Behaviours, and evidence "
-    "sources. Every Domain must therefore have an explicit construct definition, inclusion criteria, "
-    "exclusion criteria, convergence requirements, contradiction handling rules, and theoretical "
-    "rationale. Domains are assessment constructs, not curriculum topics."
+    "sources. Every Domain must therefore have an explicit construct definition, evidence criteria, "
+    "convergence requirements, contradiction handling rules, and theoretical rationale. Domains "
+    "are assessment constructs, not curriculum topics."
 )
 
-DOMAINS: list[dict[str, Any]] = [
-    {
-        "id": "DU_DATA_REPRESENTATION",
-        "title": "Supervised Data Representation Understanding",
-        "construct_dimension": "conceptual",
-        "assessment_construct_type": "emergent",
-        "construct_definition": (
-            "The learner demonstrates integrated understanding of how supervised classification "
-            "problems are represented: instances as cases, features as predictors, labels as targets, "
-            "and labeled datasets as the material from which decision-tree models learn. This domain "
-            "emerges when vocabulary, distinctions, and structural references cohere across evidence "
-            "sources — not when any single term is recalled in isolation."
-        ),
-        "theoretical_rationale": (
-            "Evidence-Centered Design requires separating representational knowledge from procedural "
-            "execution. Without a stable data-representation construct, threshold and classification "
-            "evidence cannot be interpreted as domain-specific reasoning rather than generic numeracy."
-        ),
-        "inclusion_criteria": [
-            "Learner distinguishes features from labels or targets in at least one substantive response.",
-            "References to instances, datasets, or training role are structurally correct, not metaphorical.",
-            "Evidence spans at least two representational facets (e.g., feature + label + dataset).",
-        ],
-        "exclusion_criteria": [
-            "Isolated terminology recall without structural distinction (construct leakage L4).",
-            "Generic data literacy with no decision-tree or supervised-learning framing.",
-            "Writing fluency substituting for representational accuracy (construct leakage L1).",
-        ],
-        "convergence_requirements": {
-            "minimum_distinct_ilos": 2,
-            "minimum_evidence_sources": 1,
-            "minimum_behaviour_dimensions": 1,
-            "requires_procedural_corroboration_for_strong": True,
-            "strong_claim_requires_multi_source": False,
-            "description": (
-                "At least two representational ILOs at moderate+ strength, OR one representational "
-                "ILO with procedural classification corroboration from a different task."
-            ),
-        },
-        "contradiction_handling": {
-            "feature_label_confusion": "Cap domain at weak; block Threshold and Classification escalation.",
-            "training_role_denial": "Cap at moderate; flag misconception for researcher review.",
-            "vocabulary_without_application": "Treat as conceptual-only; do not infer procedural domains.",
-        },
-        "indicative_ilos": [
-            "ILO_INSTANCE", "ILO_FEATURE", "ILO_LABEL", "ILO_DATASET", "ILO_TRAINING_ROLE",
-        ],
-        "indicative_behaviour_families": ["OB_CON_001", "OB_CON_004", "OB_REF_002"],
-        "not_equivalent_to": "Curriculum topic 'data vocabulary' or any single ILO folder.",
-    },
-    {
-        "id": "DU_CLASSIFICATION_REASONING",
-        "title": "Classification Reasoning",
-        "construct_dimension": "procedural",
-        "assessment_construct_type": "emergent",
-        "construct_definition": (
-            "The learner demonstrates executable and explainable classification reasoning: assigning "
-            "class outcomes to instances using thresholds, rules, or tree paths, and articulating why "
-            "a case receives a particular label. This construct emerges from coordinated procedural "
-            "evidence — not from naming classification terms alone."
-        ),
-        "theoretical_rationale": (
-            "Classification is the central performance target of decision-tree instruction. Treating "
-            "ILO_CLASSIFICATION as the domain would collapse instructional targets into assessment "
-            "constructs; this domain synthesizes classification acts with supporting rule and threshold "
-            "application across tasks."
-        ),
-        "inclusion_criteria": [
-            "Documented class assignment or path outcome for at least one instance or case set.",
-            "Classification act linked to a decision rule, threshold, or tree traversal — not guesswork.",
-            "Explanation references the discriminating feature or condition when justification is required.",
-        ],
-        "exclusion_criteria": [
-            "Label vocabulary without assignment act.",
-            "Correct answer with no traceable decision path (unverifiable inference).",
-            "Classification vocabulary in reflection only, without procedural corroboration.",
-        ],
-        "convergence_requirements": {
-            "minimum_distinct_ilos": 2,
-            "minimum_evidence_sources": 1,
-            "minimum_behaviour_dimensions": 1,
-            "requires_procedural_corroboration_for_strong": True,
-            "strong_claim_requires_multi_source": True,
-            "description": (
-                "At least two of {classification, rule application, threshold application} at moderate+, "
-                "preferably across worksheet and interactive or log evidence."
-            ),
-        },
-        "contradiction_handling": {
-            "correct_label_wrong_rule": "Moderate classification only; block Tree Structure strong claim.",
-            "inconsistent_class_across_sources": "Apply PAT-CONTRA-001; cap at weak until resolved.",
-            "threshold_misconception_present": "Block strong classification; route to misconception ontology.",
-        },
-        "indicative_ilos": [
-            "ILO_CLASSIFICATION", "ILO_RULE", "ILO_THRESHOLD", "ILO_DECISION_TREE",
-        ],
-        "indicative_behaviour_families": ["OB_CON_003", "OB_PRO_001", "OB_PRO_002", "OB_PRO_006"],
-        "not_equivalent_to": "ILO_CLASSIFICATION or any single procedural drill.",
-    },
-    {
-        "id": "DU_TREE_STRUCTURE_REASONING",
-        "title": "Decision Structure Reasoning",
-        "construct_dimension": "procedural",
-        "assessment_construct_type": "emergent",
-        "construct_definition": (
-            "The learner demonstrates understanding of hierarchical decision structure: how nested "
-            "feature tests, splits, branches, and leaves constitute a decision tree, including "
-            "construction, traversal, and valid workflow sequencing. Emerges from structural evidence "
-            "coherence — not from drawing a tree diagram without functional splits."
-        ),
-        "theoretical_rationale": (
-            "Decision trees are structural models; procedural workflow and topological reasoning are "
-            "jointly necessary. Separating this from Classification Reasoning prevents conflating "
-            "leaf assignment with model architecture comprehension."
-        ),
-        "inclusion_criteria": [
-            "Tree construction, extension, or multi-step traversal documented with node-level decisions.",
-            "Splits reference both feature and cutoff where instruction requires node decisions.",
-            "Workflow ordering respects instructional pipeline when sequencing tasks are present.",
-        ],
-        "exclusion_criteria": [
-            "Static diagram copying without split rationale.",
-            "Single-threshold drill presented as full tree competence.",
-            "Tool manipulation without structural change in tree topology.",
-        ],
-        "convergence_requirements": {
-            "minimum_distinct_ilos": 2,
-            "minimum_evidence_sources": 1,
-            "minimum_behaviour_dimensions": 1,
-            "requires_procedural_corroboration_for_strong": True,
-            "strong_claim_requires_multi_source": True,
-            "description": (
-                "At least two of {tree structure, node split, workflow} at moderate+, OR construction "
-                "with corroborated traversal on a different occasion."
-            ),
-        },
-        "contradiction_handling": {
-            "valid_tree_invalid_rules": "Moderate structure; block Classification strong escalation.",
-            "workflow_correct_topology_wrong": "Weak structure; flag instructional gap.",
-            "missing_leaves": "Cap at moderate until leaf assignment evidenced.",
-        },
-        "indicative_ilos": [
-            "ILO_DECISION_TREE", "ILO_TREE_SPLIT", "ILO_DT_WORKFLOW", "ILO_RULE",
-        ],
-        "indicative_behaviour_families": ["OB_CON_002", "OB_CON_003", "OB_PRO_003", "OB_PRO_004", "OB_PRO_007"],
-        "not_equivalent_to": "ILO_DECISION_TREE topic folder or worksheet section label.",
-    },
-    {
-        "id": "DU_THRESHOLD_REASONING",
-        "title": "Threshold Reasoning",
-        "construct_dimension": "strategic",
-        "assessment_construct_type": "emergent",
-        "construct_definition": (
-            "The learner demonstrates strategic reasoning about cutoffs: setting, comparing, selecting, "
-            "and justifying thresholds in relation to classification outcomes and performance evidence. "
-            "Emerges when threshold decisions are evidence-based and comparative — a single correct "
-            "cutoff application alone is insufficient for a strong domain claim."
-        ),
-        "theoretical_rationale": (
-            "Threshold reasoning is the primary strategic construct in ProDaBi decision-tree learning. "
-            "It integrates procedural application with evaluation literacy and cannot be reduced to "
-            "ILO_THRESHOLD instructional coverage."
-        ),
-        "inclusion_criteria": [
-            "Comparison or selection among at least two threshold alternatives with stated criterion.",
-            "Justification references classification impact, error types, or performance indicators.",
-            "Threshold values are numerically or categorically explicit in evidence.",
-        ],
-        "exclusion_criteria": [
-            "Single threshold application without comparison or justification context.",
-            "Threshold vocabulary in reflection without performance linkage (leakage L5).",
-            "Arbitrary cutoff with no feature or outcome reference.",
-        ],
-        "convergence_requirements": {
-            "minimum_distinct_ilos": 2,
-            "minimum_evidence_sources": 2,
-            "minimum_behaviour_dimensions": 1,
-            "requires_procedural_corroboration_for_strong": True,
-            "strong_claim_requires_multi_source": True,
-            "description": (
-                "Threshold application plus comparison/justification/optimization evidence; "
-                "multi-source required for strong strategic claim."
-            ),
-        },
-        "contradiction_handling": {
-            "threshold_misconception": "Block domain escalation; counter-evidence blocks aggregation.",
-            "high_reflection_weak_threshold": "Apply leakage rule L5; cap Threshold at weak/moderate.",
-            "optimization_without_interpretation": "Moderate only until evaluation evidence present.",
-        },
-        "indicative_ilos": [
-            "ILO_THRESHOLD", "ILO_PARAMETER_OPTIMIZATION", "ILO_MODEL_EVALUATION", "ILO_TREE_SPLIT",
-        ],
-        "indicative_behaviour_families": ["OB_STR_001", "OB_STR_002", "OB_STR_003", "OB_STR_007", "OB_STR_008"],
-        "not_equivalent_to": "ILO_THRESHOLD instructional unit or cutoff worksheet item type.",
-    },
-    {
-        "id": "DU_MODEL_EVALUATION",
-        "title": "Model Evaluation Reasoning",
-        "construct_dimension": "strategic",
-        "assessment_construct_type": "emergent",
-        "construct_definition": (
-            "The learner demonstrates integrated evaluation literacy: interpreting confusion matrices, "
-            "computing or using error metrics, comparing models, and reasoning about trade-offs among "
-            "error types. Emerges from converging metric, matrix, and interpretation evidence — not "
-            "from recalling a formula without application context."
-        ),
-        "theoretical_rationale": (
-            "Model evaluation connects classroom metrics to decision quality. Collapsing evaluation "
-            "into a single metric ILO would underrepresent the construct breadth required for "
-            "competency-based assessment and AI-CFT interpretation."
-        ),
-        "inclusion_criteria": [
-            "Interprets or constructs confusion-matrix relationships among TP/TN/FP/FN.",
-            "Uses at least one performance metric (MCR, sensitivity, or equivalent) in context.",
-            "Compares alternatives or interprets feedback using evaluation evidence.",
-        ],
-        "exclusion_criteria": [
-            "Metric definition recall without numeric or matrix application.",
-            "Single-cell confusion-matrix response without relational interpretation.",
-            "Evaluation vocabulary with incorrect threshold reasoning (contradiction).",
-        ],
-        "convergence_requirements": {
-            "minimum_distinct_ilos": 2,
-            "minimum_evidence_sources": 1,
-            "minimum_behaviour_dimensions": 1,
-            "requires_procedural_corroboration_for_strong": False,
-            "strong_claim_requires_multi_source": True,
-            "description": (
-                "At least two evaluation-family ILOs at moderate+, spanning matrix and metric or "
-                "interpretation components."
-            ),
-        },
-        "contradiction_handling": {
-            "metric_computation_error": "Weak evaluation; do not propagate to Threshold strong claim.",
-            "matrix_interpretation_contradicts_metrics": "Apply PAT-CONTRA-001; researcher review.",
-            "excellent_reflection_wrong_metrics": "Leakage L5; cap Reflective, not Evaluation escalation.",
-        },
-        "indicative_ilos": [
-            "ILO_CONFUSION_MATRIX", "ILO_MCR", "ILO_SENSITIVITY",
-            "ILO_MODEL_EVALUATION", "ILO_MODEL_LIMITATION",
-        ],
-        "indicative_behaviour_families": ["OB_CON_005", "OB_CON_006", "OB_PRO_009", "OB_STR_005", "OB_STR_009"],
-        "not_equivalent_to": "Evaluation worksheet section or isolated metric definition.",
-    },
-    {
-        "id": "DU_PARAMETER_TUNING",
-        "title": "Evidence-Based Parameter Tuning",
-        "construct_dimension": "strategic",
-        "assessment_construct_type": "emergent",
-        "construct_definition": (
-            "The learner demonstrates systematic exploration and selection of model parameters "
-            "(especially thresholds and splits) through iterative evidence gathering, tool interaction, "
-            "or structured tables — with documented movement toward a defended choice. Emerges from "
-            "process patterns across attempts, not a single final answer."
-        ),
-        "theoretical_rationale": (
-            "Parameter tuning is distinct from threshold comparison: it requires evidence of search "
-            "behavior and synthesis. Separating this domain prevents conflating one-off correct answers "
-            "with strategic optimization competence."
-        ),
-        "inclusion_criteria": [
-            "Multiple parameter states explored or tabulated with traceable changes.",
-            "Final or interim selection defended with performance or pattern evidence.",
-            "Tool or table interaction shows intentional variation, not random clicking.",
-        ],
-        "exclusion_criteria": [
-            "Single parameter value with no exploration trail.",
-            "High click volume without meaningful state change (leakage L3).",
-            "Table completion without interpretation of results.",
-        ],
-        "convergence_requirements": {
-            "minimum_distinct_ilos": 1,
-            "minimum_evidence_sources": 2,
-            "minimum_behaviour_dimensions": 1,
-            "requires_procedural_corroboration_for_strong": True,
-            "strong_claim_requires_multi_source": True,
-            "description": (
-                "Parameter optimization ILO at moderate+ with multi-source exploration evidence "
-                "(worksheet table + CODAP log or equivalent)."
-            ),
-        },
-        "contradiction_handling": {
-            "exploration_without_convergence": "Weak tuning claim; moderate Threshold at most.",
-            "optimal_table_wrong_tree": "Flag cross-domain contradiction; cap Tree Structure.",
-            "tool_fluency_only": "Leakage L3; block strategic escalation.",
-        },
-        "indicative_ilos": ["ILO_PARAMETER_OPTIMIZATION", "ILO_FEATURE_SELECTION", "ILO_MODEL_EVALUATION"],
-        "indicative_behaviour_families": ["OB_PRO_008", "OB_STR_006", "OB_STR_007", "OB_STR_008"],
-        "not_equivalent_to": "ILO_PARAMETER_OPTIMIZATION instructional label or worksheet number.",
-    },
-    {
-        "id": "DU_GENERALISATION",
-        "title": "Pattern Generalisation and Transfer",
-        "construct_dimension": "strategic",
-        "assessment_construct_type": "emergent",
-        "construct_definition": (
-            "The learner demonstrates transfer of local data patterns into predictive hypotheses usable "
-            "in new cases or features: citing separation patterns, selecting features on evidence, and "
-            "applying insights beyond the immediate example. Emerges from cross-context coherence — "
-            "partial coverage accepted given current ILO ontology gap for standalone generalisation ILO."
-        ),
-        "theoretical_rationale": (
-            "Generalisation is a core competency dimension in AI education but underrepresented in "
-            "the frozen ILO set. This domain makes the construct explicit for assessment while "
-            "documenting reliance on reasoning ILOs and strategic behaviours as proxies."
-        ),
-        "inclusion_criteria": [
-            "Pattern or feature hypothesis grounded in observed data distribution or graph evidence.",
-            "Application or selection in a context different from the initial example when available.",
-            "Hypothesis linked to classification or split decision downstream.",
-        ],
-        "exclusion_criteria": [
-            "Generic statements about 'patterns' without feature or class reference.",
-            "Feature name recall without evidential pattern citation.",
-            "Transfer claim supported only by reflective prose (leakage L1/L5).",
-        ],
-        "convergence_requirements": {
-            "minimum_distinct_ilos": 1,
-            "minimum_evidence_sources": 2,
-            "minimum_behaviour_dimensions": 1,
-            "requires_procedural_corroboration_for_strong": True,
-            "strong_claim_requires_multi_source": True,
-            "description": (
-                "Data-pattern or feature-selection evidence plus corroborating application on a "
-                "different task or source; strong claims require explicit transfer evidence."
-            ),
-        },
-        "contradiction_handling": {
-            "pattern_hypothesis_contradicted_by_data": "Block generalisation escalation; record counter-evidence.",
-            "no_transfer_occasion": "Cap at moderate; document underrepresentation risk.",
-            "vocabulary_only_pattern": "Weak claim only; conceptual cap.",
-        },
-        "indicative_ilos": ["ILO_DATA_PATTERN", "ILO_FEATURE_SELECTION"],
-        "indicative_behaviour_families": ["OB_STR_004", "OB_STR_002"],
-        "known_limitation": (
-            "No standalone generalisation ILO in Learning_Objects; domain relies on reasoning "
-            "ILOs and strategic behaviours as partial proxies."
-        ),
-        "not_equivalent_to": "A future curriculum unit or ILO folder named 'generalisation'.",
-    },
-    {
-        "id": "DU_REFLECTIVE_UNDERSTANDING",
-        "title": "Reflective Decision-Tree Understanding",
-        "construct_dimension": "reflective",
-        "assessment_construct_type": "emergent",
-        "construct_definition": (
-            "The learner demonstrates metacognitive and critical awareness of decision-tree learning: "
-            "what was understood, what remains uncertain, and what limitations apply to models or "
-            "predictions. Emerges when reflection references substantive DT concepts — not when "
-            "eloquence substitutes for accuracy."
-        ),
-        "theoretical_rationale": (
-            "Reflective understanding is a distinct construct dimension in Construct_Definition.md. "
-            "It must not inflate procedural or strategic claims (leakage L5) but provides essential "
-            "counterbalance and growth evidence when combined with prior-belief diagnostics."
-        ),
-        "inclusion_criteria": [
-            "Reflection names specific DT concepts (threshold, tree, error type, limitation).",
-            "Acknowledges uncertainty, error, or model limits with conceptual accuracy.",
-            "Metacognitive statements tied to learning process, not generic study comments.",
-        ],
-        "exclusion_criteria": [
-            "Polished prose without DT conceptual content (leakage L1).",
-            "Reflection quality used to infer Threshold or Classification mastery (leakage L5).",
-            "Prior belief recorded as mastery evidence (ILO_PRIOR_BELIEF excluded from aggregation).",
-        ],
-        "convergence_requirements": {
-            "minimum_distinct_ilos": 1,
-            "minimum_evidence_sources": 1,
-            "minimum_behaviour_dimensions": 1,
-            "requires_procedural_corroboration_for_strong": False,
-            "strong_claim_requires_multi_source": False,
-            "description": (
-                "Metacognitive or limitation ILO at moderate+ with concept-specific content; "
-                "prior-belief diagnostic does not contribute to mastery aggregation."
-            ),
-        },
-        "contradiction_handling": {
-            "reflective_claim_contradicts_procedural_evidence": "Trust procedural/log evidence; cap Reflective.",
-            "accurate_reflection_wrong_execution": "Moderate reflective; block strategic escalation.",
-            "prior_belief_only": "Diagnostic baseline only; no mastery contribution.",
-        },
-        "indicative_ilos": [
-            "ILO_METACOGNITIVE_REFLECTION", "ILO_MODEL_LIMITATION", "ILO_PRIOR_BELIEF",
-        ],
-        "indicative_behaviour_families": ["OB_REF_001", "OB_REF_002", "OB_REF_003", "OB_REF_004"],
-        "aggregation_exclusions": ["ILO_PRIOR_BELIEF"],
-        "not_equivalent_to": "Reflection worksheet prompt or writing quality rubric dimension.",
-    },
-]
-
-# Five-question construct validation (reviewer gate) per domain.
-CONSTRUCT_VALIDATION: dict[str, dict[str, Any]] = {
-    "DU_DATA_REPRESENTATION": {
-        "what_construct_represents": (
-            "Integrated supervised-learning representation knowledge: instances, features, labels, "
-            "datasets, and why labeled data enable learning."
-        ),
-        "supporting_evidence": [
-            "Correct feature/label distinctions in worksheet or reflection with DT framing.",
-            "Dataset or instance references tied to classification tasks.",
-            "Training-role explanations linking data to pattern learning.",
-        ],
-        "non_supporting_evidence": [
-            "Isolated vocabulary without structural distinction.",
-            "Generic numeracy or data mentions unrelated to prediction tasks.",
-            "Polished writing without representational accuracy.",
-        ],
-        "not_formed_when": [
-            "Only one representational term is recalled with no cross-facet coherence.",
-            "Feature and label are systematically conflated.",
-            "No DT or supervised-learning context in evidence.",
-        ],
-        "confusable_with": [
-            {"construct": "DU_CLASSIFICATION_REASONING", "distinction": "Representation is about what is predicted and observed; classification is about executing assignment."},
-            {"construct": "ILO vocabulary mastery", "distinction": "ILO coverage measures instructional targets; this domain requires converging representational evidence."},
-        ],
-    },
-    "DU_CLASSIFICATION_REASONING": {
-        "what_construct_represents": (
-            "Executable classification reasoning: assigning class outcomes via thresholds, rules, "
-            "or tree paths with traceable decision logic."
-        ),
-        "supporting_evidence": [
-            "Documented class assignments with discriminating conditions.",
-            "Rule or path traversal yielding labeled outcomes.",
-            "Threshold application producing partition or class results.",
-        ],
-        "non_supporting_evidence": [
-            "Label naming without assignment act.",
-            "Reflection mentioning classification without procedural corroboration.",
-            "Correct final label with no traceable decision path.",
-        ],
-        "not_formed_when": [
-            "Fewer than two procedural ILO signals at moderate+ without corroboration.",
-            "Classification vocabulary appears only in metacognitive prose (leakage L5).",
-            "Threshold misconception contradicts classification acts.",
-        ],
-        "confusable_with": [
-            {"construct": "DU_TREE_STRUCTURE_REASONING", "distinction": "Classification is outcome execution; tree structure is hierarchical topology and workflow."},
-            {"construct": "DU_DATA_REPRESENTATION", "distinction": "Knowing labels and features does not demonstrate classification execution."},
-        ],
-    },
-    "DU_TREE_STRUCTURE_REASONING": {
-        "what_construct_represents": (
-            "Hierarchical decision-structure knowledge: nested splits, branches, leaves, and valid "
-            "construction workflow ordering."
-        ),
-        "supporting_evidence": [
-            "Tree construction or extension with node-level split decisions.",
-            "Multi-step traversal following explicit if-then structure.",
-            "Correct workflow sequencing across construction stages.",
-        ],
-        "non_supporting_evidence": [
-            "Static tree diagram without functional splits.",
-            "Single-threshold drill treated as full tree competence.",
-            "Tool clicks without topology change.",
-        ],
-        "not_formed_when": [
-            "Only one structural ILO is evidenced without corroboration.",
-            "Leaves or class assignments missing when structure claim is strong.",
-            "Workflow correct but topology invalid.",
-        ],
-        "confusable_with": [
-            {"construct": "DU_CLASSIFICATION_REASONING", "distinction": "Structure concerns model architecture; classification concerns outcome assignment."},
-            {"construct": "DU_THRESHOLD_REASONING", "distinction": "A single node cutoff is not comparative threshold strategy."},
-        ],
-    },
-    "DU_THRESHOLD_REASONING": {
-        "what_construct_represents": (
-            "Strategic cutoff reasoning: comparing, selecting, and justifying thresholds using "
-            "classification and performance evidence."
-        ),
-        "supporting_evidence": [
-            "Comparison among two or more threshold alternatives.",
-            "Justification citing error types, metrics, or classification impact.",
-            "Evidence-based selection at nodes or in tables.",
-        ],
-        "non_supporting_evidence": [
-            "One-off threshold application without comparison context.",
-            "Reflection praising thresholds without performance linkage.",
-            "Exploration tables without interpreted convergence.",
-        ],
-        "not_formed_when": [
-            "Only a single threshold value is applied once.",
-            "Multi-source convergence is absent for a strong strategic claim.",
-            "Threshold misconception is present in evidence.",
-        ],
-        "confusable_with": [
-            {"construct": "DU_PARAMETER_TUNING", "distinction": "Threshold reasoning emphasizes comparative cutoff judgment; tuning requires iterative search process evidence."},
-            {"construct": "DU_CLASSIFICATION_REASONING", "distinction": "Applying a cutoff is procedural; strategic threshold reasoning requires comparative or evaluative warrant."},
-        ],
-    },
-    "DU_MODEL_EVALUATION": {
-        "what_construct_represents": (
-            "Integrated model evaluation literacy: matrices, metrics, comparisons, and trade-off "
-            "interpretation for classifier performance."
-        ),
-        "supporting_evidence": [
-            "Confusion-matrix relational interpretation (TP/TN/FP/FN).",
-            "Metric computation or use in context (MCR, sensitivity).",
-            "Performance comparison or feedback interpretation.",
-        ],
-        "non_supporting_evidence": [
-            "Formula recall without numeric application.",
-            "Single matrix cell without relational reading.",
-            "Evaluation vocabulary with incorrect execution.",
-        ],
-        "not_formed_when": [
-            "Only one evaluation facet at moderate+ without matrix/metric complement.",
-            "Metrics contradict matrix evidence without resolution.",
-            "Reflection-only evaluation claims without artifacts.",
-        ],
-        "confusable_with": [
-            {"construct": "DU_THRESHOLD_REASONING", "distinction": "Evaluation interprets performance; threshold reasoning selects cutoffs using that interpretation."},
-            {"construct": "DU_REFLECTIVE_UNDERSTANDING", "distinction": "Stating limitations is reflective; computing and interpreting metrics is evaluation."},
-        ],
-    },
-    "DU_PARAMETER_TUNING": {
-        "what_construct_represents": (
-            "Systematic parameter search: iterative exploration, traceable state changes, and "
-            "defended convergence toward a parameter choice."
-        ),
-        "supporting_evidence": [
-            "Multiple parameter states in tables or CODAP logs.",
-            "Intentional variation with interpreted results.",
-            "Synthesis of exploration into defended final or interim choice.",
-        ],
-        "non_supporting_evidence": [
-            "Single final parameter with no exploration trail.",
-            "High interaction volume without meaningful state change (L3).",
-            "Table completion without performance interpretation.",
-        ],
-        "not_formed_when": [
-            "Exploration is absent or non-traceable.",
-            "Only one evidence source supports optimization claims at strong level.",
-            "Exploration does not converge toward a reasoned choice.",
-        ],
-        "confusable_with": [
-            {"construct": "DU_THRESHOLD_REASONING", "distinction": "Tuning requires process evidence across attempts; threshold reasoning requires comparative judgment about cutoffs."},
-            {"construct": "Digital fluency", "distinction": "Tool navigation alone is not optimization competence."},
-        ],
-    },
-    "DU_GENERALISATION": {
-        "what_construct_represents": (
-            "Transfer of local data patterns into predictive hypotheses applied beyond the "
-            "immediate example or feature context."
-        ),
-        "supporting_evidence": [
-            "Pattern citation grounded in observed distributions or graphs.",
-            "Feature hypothesis applied on a different task or case when available.",
-            "Downstream link to split or classification decision.",
-        ],
-        "non_supporting_evidence": [
-            "Generic 'pattern' language without feature/class reference.",
-            "Feature recall without evidential pattern.",
-            "Transfer claimed only in reflective prose.",
-        ],
-        "not_formed_when": [
-            "No cross-context application occasion exists (cap at moderate).",
-            "Pattern hypothesis contradicted by data.",
-            "Only vocabulary-level feature knowledge is present.",
-        ],
-        "confusable_with": [
-            {"construct": "DU_DATA_REPRESENTATION", "distinction": "Representation is static structure knowledge; generalisation requires cross-context predictive transfer."},
-            {"construct": "DU_FEATURE_SELECTION as ILO", "distinction": "Feature selection is an instructional target; generalisation is emergent transfer evidence."},
-        ],
-    },
-    "DU_REFLECTIVE_UNDERSTANDING": {
-        "what_construct_represents": (
-            "Metacognitive and critical awareness of decision-tree learning, limitations, and "
-            "residual uncertainty with concept-specific accuracy."
-        ),
-        "supporting_evidence": [
-            "Reflection naming thresholds, trees, errors, or limitations accurately.",
-            "Acknowledged uncertainty tied to DT concepts.",
-            "Learning-process commentary with substantive conceptual anchors.",
-        ],
-        "non_supporting_evidence": [
-            "Eloquent prose without DT concepts (L1).",
-            "Prior-belief guesses used as mastery evidence.",
-            "Reflection praising performance contradicted by logs.",
-        ],
-        "not_formed_when": [
-            "Reflection is generic study commentary without DT anchors.",
-            "Accurate reflection is the sole evidence for procedural/strategic domains (L5).",
-            "Only ILO_PRIOR_BELIEF diagnostic is present.",
-        ],
-        "confusable_with": [
-            {"construct": "Writing quality", "distinction": "Fluency is a leakage source, not reflective DT understanding."},
-            {"construct": "DU_MODEL_EVALUATION", "distinction": "Reflective awareness is not metric computation or matrix literacy."},
-        ],
-    },
-}
-
 DOMAIN_PAIR_DIFFERENTIATION: list[dict[str, Any]] = [
-    {
-        "domain_a": "DU_THRESHOLD_REASONING",
-        "domain_b": "DU_PARAMETER_TUNING",
-        "overlap_risk": "high",
-        "discriminating_criteria": (
-            "Threshold Reasoning requires comparative or justificatory cutoff judgment; "
-            "Parameter Tuning requires documented iterative search and convergence. "
-            "A single optimized threshold outcome supports Threshold at most moderately unless "
-            "comparison/justification is explicit; it supports Tuning only when exploration trail exists."
-        ),
-    },
     {
         "domain_a": "DU_CLASSIFICATION_REASONING",
         "domain_b": "DU_TREE_STRUCTURE_REASONING",
@@ -648,11 +42,12 @@ DOMAIN_PAIR_DIFFERENTIATION: list[dict[str, Any]] = [
     },
     {
         "domain_a": "DU_MODEL_EVALUATION",
-        "domain_b": "DU_THRESHOLD_REASONING",
+        "domain_b": "DU_THRESHOLD_AND_PARAMETER_REASONING",
         "overlap_risk": "moderate",
         "discriminating_criteria": (
-            "Evaluation interprets performance artifacts; Threshold Reasoning selects cutoffs. "
-            "Metrics may inform thresholds but do not substitute for comparative threshold decisions."
+            "Evaluation interprets performance artifacts; Threshold-and-Parameter Reasoning selects "
+            "cutoffs and explores parameter states. Metrics may inform thresholds but do not substitute "
+            "for comparative threshold decisions or documented search."
         ),
     },
     {
@@ -666,28 +61,20 @@ DOMAIN_PAIR_DIFFERENTIATION: list[dict[str, Any]] = [
     },
 ]
 
-REQUIRED_CV_FIELDS = frozenset({
-    "what_construct_represents",
-    "supporting_evidence",
-    "non_supporting_evidence",
-    "not_formed_when",
-    "confusable_with",
-})
 
-
-def enrich_domains() -> list[dict[str, Any]]:
-    enriched = []
-    for dom in DOMAINS:
-        d = dict(dom)
-        cv = CONSTRUCT_VALIDATION.get(d["id"])
-        if cv:
-            d["construct_validation"] = cv
-        enriched.append(d)
-    return enriched
+def load_domains() -> list[dict[str, Any]]:
+    if not OUT_PATH.is_file():
+        raise FileNotFoundError(
+            f"Domain ontology source missing: {OUT_PATH}. "
+            "Edit framework/Domain_Understanding.json directly; this builder only refreshes metadata."
+        )
+    doc = json.loads(OUT_PATH.read_text(encoding="utf-8"))
+    return list(doc["domains"].values())
 
 
 def build_document(ilo_data: dict[str, Any], ob_data: dict[str, Any], map_data: dict[str, Any]) -> dict[str, Any]:
-    domain_map = {d["id"]: d for d in enrich_domains()}
+    domains = load_domains()
+    domain_map = {d["id"]: d for d in domains}
     return {
         "artifact": "domain_understanding_ontology",
         "unesco_aicft_reference": {
@@ -715,7 +102,7 @@ def build_document(ilo_data: dict[str, Any], ob_data: dict[str, Any], map_data: 
         "ilo_ontology_reference": "framework/Learning_Objects.json",
         "behaviour_ontology_reference": "framework/Observable_Behaviours.json",
         "behaviour_to_ilo_reference": "framework/Behaviour_to_ILO.json",
-        "domain_count": len(enrich_domains()),
+        "domain_count": len(domains),
         "domain_pair_differentiation": DOMAIN_PAIR_DIFFERENTIATION,
         "domains": domain_map,
     }

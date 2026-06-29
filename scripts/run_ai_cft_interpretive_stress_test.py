@@ -90,7 +90,7 @@ def run_tests(policy: dict[str, Any]) -> list[dict[str, Any]]:
     tests: list[dict[str, Any]] = []
 
     # AST-01: Domain present alone must not yield strong Deepen
-    strengths = {"DU_THRESHOLD_REASONING": "strong"}
+    strengths = {"DU_THRESHOLD_AND_PARAMETER_REASONING": "strong"}
     ceiling, notes = max_recommendable_confidence(
         policy, strengths, "LO3.2.2", evidence_sources=1, contradictions={"domain_present_without_convergence"},
     )
@@ -107,7 +107,7 @@ def run_tests(policy: dict[str, Any]) -> list[dict[str, Any]]:
     strengths = {
         "DU_REFLECTIVE_UNDERSTANDING": "strong",
         "DU_CLASSIFICATION_REASONING": "weak",
-        "DU_THRESHOLD_REASONING": "weak",
+        "DU_THRESHOLD_AND_PARAMETER_REASONING": "weak",
     }
     ceiling, notes = max_recommendable_confidence(
         policy, strengths, "LO3.2.2", evidence_sources=2,
@@ -153,7 +153,7 @@ def run_tests(policy: dict[str, Any]) -> list[dict[str, Any]]:
     # AST-05: Create claim requires multi-domain convergence; ceiling weak at most
     strengths = {
         "DU_GENERALISATION": "moderate",
-        "DU_PARAMETER_TUNING": "moderate",
+        "DU_THRESHOLD_AND_PARAMETER_REASONING": "moderate",
         "DU_CLASSIFICATION_REASONING": "moderate",
     }
     ceiling, notes = max_recommendable_confidence(
