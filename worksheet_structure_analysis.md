@@ -36,15 +36,15 @@ Expected answers (applying fat ≤ 8.0g rule):
 Second task: student picks any reasonable energy threshold with correct ≤ / > notation.
 
 ### Worksheet 4 — Searching for the Best Threshold Value
-Type: Identify misclassified items, improve threshold placement
-Concepts tested: threshold optimisation, understanding that threshold must sit between two data values
+Type: Identify misclassified items, improve threshold placement, evaluate peer claim, state energy threshold
+Concepts tested: threshold optimisation, equal feature values, misclassification reduction
 
-Key correct answers:
-- Task 1: Circle the 4 misclassified items at Leo's threshold position
-- Task 2: A better threshold position sits between two adjacent values that minimises misclassification
-- Task 3: Pia is correct — threshold cannot be placed between apple and raspberry jam 
-  because both have the same fat value (you cannot split equal values)
-- Task 4: Student finds best energy threshold from the cards
+Five response blanks (B1–B5):
+- **B1:** Draw new threshold line between **avocado** and **french fries** (yeni eşik değeri)
+- **B2:** Mark or write all **four** misclassified foods: jelibon, kraker, yulaf, avokado (order irrelevant; three foods not accepted)
+- **B3:** State that **misclassification decreased** after the improved threshold
+- **B4:** Pia is **haklı** because **apple and raspberry jam have the same fat value** (reject meta answers about classmates only)
+- **B5:** Any learned **energy threshold from 160 to 2223** inclusive is correct
 
 ### Worksheet 5 — Trying Out Threshold Values
 Type: Record outcomes of multiple threshold attempts for different features

@@ -4,34 +4,83 @@
   "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
   "items": {
     "WS4_B1": {
-      "check": "numeric",
-      "answer": "valid_midpoint_threshold_min_mcr",
-      "example_answer": "10 (veya MCR en düşük olan herhangi bir eşik)",
-      "deterministic": true
+      "evaluation": "threshold_placement",
+      "example_answer": "Avokado ile patates kızartması arasına çizgi (yeni eşik)",
+      "scoring_mode": "interpretive",
+      "interpretive": true,
+      "open_response": true
     },
     "WS4_B2": {
-      "evaluation": "criterion",
-      "example_answer": "MCR değeri en düşük olan eşiği seçerim."
-    },
-    "WS4_B3": {
-      "evaluation": "comparison",
-      "example_answer": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 olduğu için 10 daha iyi."
-    },
-    "WS4_B4": {
-      "check": "formula",
-      "answer": "(FP+FN)/total",
-      "example_answer": "MCR = (FP + FN) / toplam",
-      "accepted_forms": [
-        "(FP+FN)/total",
-        "(FP+FN)/N",
-        "(FP+FN)/n",
-        "(yanlış_pozitif+yanlış_negatif)/toplam"
+      "check": "unordered_token_set",
+      "evaluation": "unordered_token_set",
+      "example_answer": "Jelibon, kraker, yulaf, avokado (sıra fark etmez)",
+      "token_groups": [
+        {
+          "id": "jelibon",
+          "aliases": [
+            "jelibon",
+            "jellybean",
+            "jelly bean",
+            "jölebon",
+            "jolebon"
+          ]
+        },
+        {
+          "id": "kraker",
+          "aliases": [
+            "kraker",
+            "cracker",
+            "krakers",
+            "krakerler"
+          ]
+        },
+        {
+          "id": "yulaf",
+          "aliases": [
+            "yulaf",
+            "oatmeal",
+            "yulaf lapası",
+            "yulaf lapasi",
+            "yulaf lapa"
+          ]
+        },
+        {
+          "id": "avokado",
+          "aliases": [
+            "avokado",
+            "avocado"
+          ]
+        }
       ],
+      "need_tokens": 4,
+      "partial_on_tokens": 4,
+      "order_insensitive": true,
       "deterministic": true
     },
+    "WS4_B3": {
+      "evaluation": "improvement_reasoning",
+      "example_answer": "Yeni eşikle daha az yanlış sınıflandırma oldu.",
+      "scoring_mode": "interpretive",
+      "interpretive": true,
+      "open_response": true
+    },
+    "WS4_B4": {
+      "evaluation": "peer_evaluation",
+      "example_answer": "Pia haklı; elma ile ahududu reçelinin yağ değerleri aynı olduğu için aralarına eşik konulamaz.",
+      "zero_credit_hints": [
+        "only mentions classmates made the same mistake without citing equal fat values",
+        "meta commentary about other students without agreeing Pia and same-fat reasoning"
+      ],
+      "scoring_mode": "interpretive",
+      "interpretive": true,
+      "open_response": true
+    },
     "WS4_B5": {
-      "evaluation": "agreement_with_reasoning",
-      "example_answer": "Pia haklı; en düşük MCR en az hata anlamına gelir."
+      "check": "numeric_range",
+      "example_answer": "408 (kartlardan seçilen enerji eşiği; 160–2223 aralığında herhangi bir değer)",
+      "min_value": 160,
+      "max_value": 2223,
+      "deterministic": true
     }
   }
 }

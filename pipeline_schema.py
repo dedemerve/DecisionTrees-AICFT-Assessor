@@ -63,6 +63,7 @@ RUBRIC_DETERMINISTIC_CHECKS = frozenset({
     "path_matching",
     "unordered_token_set",
     "any_of_tokens",
+    "numeric_range",
 })
 
 RUBRIC_DETERMINISTIC_EVALUATIONS = frozenset({
@@ -72,6 +73,7 @@ RUBRIC_DETERMINISTIC_EVALUATIONS = frozenset({
     "path_matching",
     "unordered_token_set",
     "any_of_tokens",
+    "numeric_range",
 })
 
 # WS_DT: EMIT records and formula/numeric fields are deterministic; all other items are interpretive.
@@ -418,6 +420,10 @@ def validate_rubric_v3(rubric: dict[str, Any], source: str = "") -> list[str]:
                                 f"{prefix}{item_id}: unknown equivalence set {key!r}"
                             )
 
+        if check == "numeric_range":
+            if item.get("min_value") is None or item.get("max_value") is None:
+                errors.append(f"{prefix}{item_id}: numeric_range requires min_value and max_value")
+
     return errors
 
 
@@ -523,6 +529,12 @@ def rubric_to_assessor_criteria(
                 full.append(f"  - accepts any of: {', '.join(group)}")
         partial.append(f"Lists {partial_on} to {need - 1} correct nutrient names (order irrelevant)")
         zero.append(f"Fewer than {partial_on} correct nutrient names")
+
+    elif check == "numeric_range":
+        lo = item.get("min_value")
+        hi = item.get("max_value")
+        full.append(f"Any numeric value from {lo} to {hi} inclusive earns full credit.")
+        zero.append(f"No numeric value in range [{lo}, {hi}]")
 
     elif evaluation == "any_of_tokens" or check == "any_of_tokens":
         from rubric_deterministic import resolve_accepted_aliases

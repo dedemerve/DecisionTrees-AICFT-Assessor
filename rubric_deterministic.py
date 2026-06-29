@@ -122,6 +122,62 @@ def resolve_accepted_aliases(
     return out
 
 
+def extract_numbers(response: str | None) -> list[float]:
+    """Pull numeric literals from free-text or numeric worksheet responses."""
+    if response is None:
+        return []
+    text = str(response).strip()
+    if normalize_token(text) in BLANK_SENTINELS:
+        return []
+    # Turkish decimal comma → dot for parsing; keep digit groups intact.
+    normalized = text.replace(",", ".")
+    found: list[float] = []
+    for match in re.findall(r"-?\d+(?:\.\d+)?", normalized):
+        try:
+            found.append(float(match))
+        except ValueError:
+            continue
+    return found
+
+
+def score_numeric_range(
+    response: str | None,
+    item: dict[str, Any],
+) -> dict[str, Any]:
+    """
+    Score when any extracted number falls within [min_value, max_value] inclusive.
+
+    Rubric fields: min_value, max_value (aliases: range_min, range_max).
+    """
+    min_val = item.get("min_value", item.get("range_min"))
+    max_val = item.get("max_value", item.get("range_max"))
+    if min_val is None or max_val is None:
+        raise ValueError("numeric_range requires min_value and max_value")
+
+    lo = float(min_val)
+    hi = float(max_val)
+    numbers = extract_numbers(response)
+
+    if response is None or normalize_token(str(response)) in BLANK_SENTINELS:
+        credit = "not_attempted"
+        matched = None
+    elif any(lo <= n <= hi for n in numbers):
+        credit = "full"
+        matched = next(n for n in numbers if lo <= n <= hi)
+    else:
+        credit = "zero"
+        matched = None
+
+    return {
+        "credit": credit,
+        "matched_value": matched,
+        "min_value": lo,
+        "max_value": hi,
+        "extracted_numbers": numbers,
+        "ok": credit == "full",
+    }
+
+
 def score_any_of_tokens(
     response: str | None,
     item: dict[str, Any],

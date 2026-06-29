@@ -328,12 +328,12 @@ WS3 has 8 blanks. Students apply a threshold rule to classify foods as recommend
 "WS3_B8"  Blank 8 — likely involves threshold notation
 
 --- WORKSHEET 4: En İyi Eşik (Best Threshold) ---
-WS4 has 5 blanks about identifying and justifying the optimal threshold value.
-"WS4_B1"  Blank 1 — threshold value or variable chosen
-"WS4_B2"  Blank 2 — criterion used (accuracy, MCR, etc.)
-"WS4_B3"  Blank 3 — comparison of threshold options
-"WS4_B4"  Blank 4 — written justification or calculation
-"WS4_B5"  Blank 5 — conclusion or Pia's statement evaluation
+WS4 has 5 blanks aligned to threshold-search tasks on food cards.
+"WS4_B1"  Blank 1 — new threshold line between avocado and french fries (visual or written)
+"WS4_B2"  Blank 2 — four misclassified foods marked or written (jelibon, kraker, yulaf, avokado)
+"WS4_B3"  Blank 3 — states misclassification decreased after new threshold
+"WS4_B4"  Blank 4 — agrees Pia is haklı because apple and raspberry jam have same fat value
+"WS4_B5"  Blank 5 — energy threshold learned (numeric, 160–2223 range)
 
 --- WORKSHEET 5: Eşik Dene (Try Thresholds — 25 blanks) ---
 WS5 is a systematic exploration worksheet. Students test multiple threshold values.

@@ -54,8 +54,8 @@ def evaluation_bucket(
         "formula", "numeric", "numeric_optimal", "numeric_consistency",
         "row_consistency", "emit_consistency", "emit_output", "tree_validity",
         "threshold", "threshold_with_operator", "rule_consistency_with_WS6",
-        "unordered_token_set",
-        "any_of_tokens",
+        "unordered_token_set", "any_of_tokens",
+        "numeric_range",
     }:
         return "deterministic"
     if ev in {"true_false", "ordering_step", "multiselect_subitem", "path_matching", "classification"}:

@@ -12,7 +12,7 @@ System prompt for the Stage 3 scorer (Claude Haiku 4.5 or Sonnet 4.6). Score **o
 |----|-----|----------------|
 | WS1 | Worksheet 1 | A — semantic / deterministic tokens |
 | WS3 | Worksheet 3 | A |
-| WS4 | Worksheet 4 | A — mixed numeric + semantic |
+| WS4 | Worksheet 4 | A — four-food token set + numeric range + semantic |
 | WS5 | Worksheet 5 | B — `validation.json` required |
 | WS6 | Worksheet 6 | B |
 | WS7 | Worksheet 7 | B |
@@ -118,7 +118,7 @@ Pipeline writes `scoring.json` (scores) and `evidence.json` (competency evidence
       "lo": "LO3.2.2",
       "strength": "moderate",
       "evidence_type": "direct",
-      "rationale": "Student names MCR as the selection criterion and states the goal of minimizing misclassification errors.",
+      "rationale": "Student lists all four misclassified foods (jelibon, kraker, yulaf, avokado); order does not matter.",
       "confidence": 0.88,
       "evidence_present": true
     }

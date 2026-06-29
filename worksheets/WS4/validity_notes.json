@@ -2,12 +2,14 @@
   "worksheet": "WS4",
   "curriculum_status": "deployed",
   "construct_threats": [
-    "Visual circle task is not text-extractable; omitted from OCR pipeline."
+    "B1 threshold line is primarily visual; OCR may miss drawn placement.",
+    "B2 food marks on images may be transcribed incompletely."
   ],
   "leakage_risks": [],
   "evidence_limitations": [
-    "B1 may have multiple tied optimal thresholds.",
-    "B3 requires comparative reasoning, not a single numeric answer."
+    "Handwriting variance — semantic items tolerate gist; B2 requires all four foods.",
+    "B4 rejects meta peer commentary without same-fat-value reasoning.",
+    "B5 accepts any energy threshold from 160 to 2223 inclusive."
   ],
   "cross_worksheet_dependencies": []
 }

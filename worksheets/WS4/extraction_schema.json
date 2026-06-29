@@ -5,42 +5,42 @@
   "interpretation_prohibited": true,
   "ocr_engine": "claude_vision",
   "source_type": "worksheet",
-  "note": "Five text fields; visual circle task excluded from extraction.",
+  "note": "Five response fields (B1–B5): threshold line, four-food identification, improvement reflection, Pia evaluation, energy threshold.",
   "fields": [
     {
       "field_id": "WS4_B1",
       "rubric_item_id": "WS4_B1",
-      "type": "numeric",
+      "type": "free_text",
       "required": true,
-      "location_hint": "WS4 worksheet response region"
+      "location_hint": "Blank 1 — threshold line between avocado and french fries"
     },
     {
       "field_id": "WS4_B2",
       "rubric_item_id": "WS4_B2",
-      "type": "numeric",
+      "type": "free_text",
       "required": true,
-      "location_hint": "WS4 worksheet response region"
+      "location_hint": "Blank 2 — four misclassified foods (jelibon, kraker, yulaf, avokado)"
     },
     {
       "field_id": "WS4_B3",
       "rubric_item_id": "WS4_B3",
-      "type": "numeric",
+      "type": "free_text",
       "required": true,
-      "location_hint": "WS4 worksheet response region"
+      "location_hint": "Blank 3 — fewer misclassifications after new threshold"
     },
     {
       "field_id": "WS4_B4",
       "rubric_item_id": "WS4_B4",
-      "type": "numeric",
+      "type": "free_text",
       "required": true,
-      "location_hint": "WS4 worksheet response region"
+      "location_hint": "Blank 4 — Pia haklı; apple and raspberry jam same fat value"
     },
     {
       "field_id": "WS4_B5",
       "rubric_item_id": "WS4_B5",
       "type": "numeric",
       "required": true,
-      "location_hint": "WS4 worksheet response region"
+      "location_hint": "Blank 5 — learned energy threshold (160–2223)"
     }
   ]
 }

@@ -1,81 +1,117 @@
 {
   "worksheet": "WS4",
-  "note": "B1: best threshold (numeric, from the grid). B2: selection criterion (MCR-based). B3: comparative justification of two threshold candidates. B4: MCR formula (deterministic). B5: evaluation of Pia's statement. The visual circle task is not text-extractable.",
+  "note": "Worksheet 4 — Searching for the best threshold. Five response blanks aligned to worksheet tasks. B1 is primarily visual (line between avocado and french fries). B2 requires all four misclassified foods. Handwriting/OCR tolerance applies; 100% transcription accuracy is not expected.",
   "items": {
     "WS4_B1": {
       "max_score": 1,
-      "check": "numeric",
-      "answer": "valid_midpoint_threshold_min_mcr",
-      "note": "Accept any midpoint threshold that yields minimum MCR. Multiple valid answers are possible if several thresholds tie.",
-      "example_answer": "10 (veya MCR en düşük olan herhangi bir eşik)"
-    },
-    "WS4_B2": {
-      "max_score": 1,
-      "evaluation": "criterion",
+      "evaluation": "threshold_placement",
+      "scoring_mode": "interpretive",
+      "note": "Görev 1 / boşluk 1: Öğrenci avokado ile patates kızartması arasına yeni eşik çizgisini çizer. Görsel çizgi veya bu iki gıdayı eşik sınırı olarak belirtmek yeterlidir.",
       "components": [
         {
-          "id": "mcr_reference",
-          "idea": "references MCR or error rate as the criterion",
+          "id": "avocado_fries_boundary",
+          "idea": "places the new threshold between avocado and french fries (avokado ile patates kızartması arasında eşik / çizgi / yeni eşik değeri)",
           "required": true
-        },
-        {
-          "id": "minimization",
-          "idea": "states the goal is to minimize it (en düşük, en az hata)",
-          "required": false
         }
       ],
       "need": 1,
-      "example_answer": "MCR değeri en düşük olan eşiği seçerim."
+      "example_answer": "Avokado ile patates kızartması arasına çizgi (yeni eşik)"
+    },
+    "WS4_B2": {
+      "max_score": 1,
+      "check": "unordered_token_set",
+      "evaluation": "unordered_token_set",
+      "order_insensitive": true,
+      "need_tokens": 4,
+      "partial_on_tokens": 4,
+      "note": "Görev 2 / boşluk 2: Görseller üzerinde veya yazarak dört yanlış sınıflandırılmış gıdayı işaretlemek. Üç gıda kabul edilmez; sıra farklı olabilir.",
+      "token_groups": [
+        {
+          "id": "jelibon",
+          "aliases": [
+            "jelibon",
+            "jellybean",
+            "jelly bean",
+            "jölebon",
+            "jolebon"
+          ]
+        },
+        {
+          "id": "kraker",
+          "aliases": [
+            "kraker",
+            "cracker",
+            "krakers",
+            "krakerler"
+          ]
+        },
+        {
+          "id": "yulaf",
+          "aliases": [
+            "yulaf",
+            "oatmeal",
+            "yulaf lapası",
+            "yulaf lapasi",
+            "yulaf lapa"
+          ]
+        },
+        {
+          "id": "avokado",
+          "aliases": [
+            "avokado",
+            "avocado"
+          ]
+        }
+      ],
+      "example_answer": "Jelibon, kraker, yulaf, avokado (sıra fark etmez)"
     },
     "WS4_B3": {
       "max_score": 1,
-      "evaluation": "comparison",
+      "evaluation": "improvement_reasoning",
+      "scoring_mode": "interpretive",
+      "note": "Görev 3 / boşluk 3: Üçüncü görevde daha az yanlış sınıflandırma yapıldığını ifade etmek yeterlidir. El yazısı toleransı uygulanır.",
       "components": [
         {
-          "id": "two_values",
-          "idea": "mentions two specific MCR values or threshold candidates",
-          "required": true
-        },
-        {
-          "id": "comparison_conclusion",
-          "idea": "concludes which is better and why",
+          "id": "fewer_misclassifications",
+          "idea": "states that misclassification decreased or is lower after the new threshold (daha az yanlış sınıflandırma, daha az hata, daha iyi)",
           "required": true
         }
       ],
-      "need": 2,
-      "partial_on": 1,
-      "example_answer": "Eşik 10'da MCR 0.20, eşik 8'de MCR 0.30 olduğu için 10 daha iyi."
+      "need": 1,
+      "example_answer": "Yeni eşikle daha az yanlış sınıflandırma oldu."
     },
     "WS4_B4": {
       "max_score": 1,
-      "answer": "(FP+FN)/total",
-      "check": "formula",
-      "accepted_forms": [
-        "(FP+FN)/total",
-        "(FP+FN)/N",
-        "(FP+FN)/n",
-        "(yanlış_pozitif+yanlış_negatif)/toplam"
-      ],
-      "example_answer": "MCR = (FP + FN) / toplam"
-    },
-    "WS4_B5": {
-      "max_score": 1,
-      "evaluation": "agreement_with_reasoning",
+      "evaluation": "peer_evaluation",
+      "scoring_mode": "interpretive",
+      "note": "Görev 4 / boşluk 4: Pia haklıdır çünkü elma ile ahududu reçelinin yağ değerleri aynıdır. Sadece 'bazı öğrenciler aynı yanlışı yaptı' gibi meta yanıtlar doğru sayılmaz.",
       "components": [
         {
-          "id": "agrees_pia_correct",
-          "idea": "confirms Pia is correct / agrees with the statement",
+          "id": "agrees_pia",
+          "idea": "agrees Pia is correct / haklı / doğru söylüyor",
           "required": true
         },
         {
-          "id": "reasoning",
-          "idea": "explains why: minimum MCR means minimum errors (en az hata)",
+          "id": "same_fat_values",
+          "idea": "explains apple and raspberry jam have the same fat value (elma ve ahududu reçeli aynı yağ değeri / eşit yağ)",
           "required": true
         }
       ],
       "need": 2,
       "partial_on": 1,
-      "example_answer": "Pia haklı; en düşük MCR en az hata anlamına gelir."
+      "zero_credit_hints": [
+        "only mentions classmates made the same mistake without citing equal fat values",
+        "meta commentary about other students without agreeing Pia and same-fat reasoning"
+      ],
+      "example_answer": "Pia haklı; elma ile ahududu reçelinin yağ değerleri aynı olduğu için aralarına eşik konulamaz."
+    },
+    "WS4_B5": {
+      "max_score": 1,
+      "check": "numeric_range",
+      "min_value": 160,
+      "max_value": 2223,
+      "note": "Görev 5 / boşluk 5: Öğrencinin öğrendiği en iyi enerji eşiği. 160–2223 aralığındaki herhangi bir değer doğru kabul edilir.",
+      "example_answer": "408 (kartlardan seçilen enerji eşiği; 160–2223 aralığında herhangi bir değer)"
     }
   },
   "curriculum_status": "deployed"

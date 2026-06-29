@@ -66,15 +66,32 @@ EXTRACTION_FIELD_IDS: dict[str, list[str]] = {
 }
 
 FIELD_TYPE_HINTS: dict[str, str] = {
-    "WS4": "numeric",
     "WS5": "table_cell",
     "WS6": "structured",
     "WS7": "path_label",
     "WS10": "numeric",
 }
 
+WS4_FIELD_TYPES: dict[str, str] = {
+    "WS4_B1": "free_text",
+    "WS4_B2": "free_text",
+    "WS4_B3": "free_text",
+    "WS4_B4": "free_text",
+    "WS4_B5": "numeric",
+}
+
+WS4_LOCATION_HINTS: dict[str, str] = {
+    "WS4_B1": "Blank 1 — threshold line between avocado and french fries",
+    "WS4_B2": "Blank 2 — four misclassified foods (jelibon, kraker, yulaf, avokado)",
+    "WS4_B3": "Blank 3 — fewer misclassifications after new threshold",
+    "WS4_B4": "Blank 4 — Pia haklı; apple and raspberry jam same fat value",
+    "WS4_B5": "Blank 5 — learned energy threshold (160–2223)",
+}
+
 
 def _field_type(worksheet: str, field_id: str) -> str:
+    if worksheet == "WS4":
+        return WS4_FIELD_TYPES.get(field_id, "free_text")
     default = FIELD_TYPE_HINTS.get(worksheet, "free_text")
     if worksheet == "WS5" and field_id == "WS5_B25":
         return "free_text"
@@ -128,7 +145,9 @@ def build_extraction_schema(worksheet: str, rubric: dict[str, Any]) -> dict[str,
                 "rubric_item_id": item_id,
                 "type": _field_type(worksheet, fid),
                 "required": True,
-                "location_hint": f"{worksheet} worksheet response region",
+                "location_hint": WS4_LOCATION_HINTS.get(fid, f"{worksheet} worksheet response region")
+                if worksheet == "WS4"
+                else f"{worksheet} worksheet response region",
             })
 
     for fid in EXTRACTION_FIELD_IDS.get(worksheet, []):
@@ -137,7 +156,11 @@ def build_extraction_schema(worksheet: str, rubric: dict[str, Any]) -> dict[str,
                 "field_id": fid,
                 "type": _field_type(worksheet, fid),
                 "required": fid not in ITEM_IDS_WS11_DESCRIPTIVE,
-                "location_hint": f"{worksheet} worksheet response region",
+                "location_hint": (
+                    WS4_LOCATION_HINTS.get(fid, f"{worksheet} worksheet response region")
+                    if worksheet == "WS4"
+                    else f"{worksheet} worksheet response region"
+                ),
                 "note": "Descriptive-only field" if fid in ITEM_IDS_WS11_DESCRIPTIVE else None,
             })
             seen.add(fid)
@@ -213,6 +236,7 @@ def build_answer_key(worksheet: str, rubric: dict[str, Any]) -> dict[str, Any]:
                 "example_answer", "tolerance", "accepted_forms",
                 "token_groups", "need_tokens", "partial_on_tokens", "order_insensitive",
                 "accept_sets", "extra_aliases", "accepted_aliases",
+                "min_value", "max_value", "zero_credit_hints",
                 "scoring_mode", "fields", "consistency_rules", "formula_reference",
             ):
                 if field in item:

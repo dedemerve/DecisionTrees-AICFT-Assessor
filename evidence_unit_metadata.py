@@ -124,8 +124,10 @@ FIELD_TYPE_TO_EU_TYPE: dict[str, str] = {
 WS_ITEM_OVERRIDES: dict[str, str] = {
     "WS6_tree_structure": "drawing",
     "WS5_B25": "comparison",
+    "WS4_B1": "threshold",
     "WS4_B3": "comparison",
-    "WS4_B5": "model_evaluation",
+    "WS4_B4": "model_evaluation",
+    "WS4_B5": "prediction",
 }
 
 

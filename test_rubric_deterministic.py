@@ -5,7 +5,12 @@ from __future__ import annotations
 import unittest
 
 from pipeline_schema import get_assessor_rubric, validate_all_rubrics
-from rubric_deterministic import resolve_accepted_aliases, score_any_of_tokens, score_unordered_token_set
+from rubric_deterministic import (
+    resolve_accepted_aliases,
+    score_any_of_tokens,
+    score_numeric_range,
+    score_unordered_token_set,
+)
 
 
 WS1_B5_ITEM = {
@@ -150,6 +155,46 @@ class TestUnorderedTokenSet(unittest.TestCase):
     def test_rubrics_validate(self):
         errors = validate_all_rubrics()
         self.assertEqual(errors, [])
+
+
+WS4_B2_ITEM = {
+    "max_score": 1,
+    "check": "unordered_token_set",
+    "need_tokens": 4,
+    "partial_on_tokens": 4,
+    "token_groups": [
+        {"id": "jelibon", "aliases": ["jelibon", "jellybean"]},
+        {"id": "kraker", "aliases": ["kraker", "cracker"]},
+        {"id": "yulaf", "aliases": ["yulaf", "oatmeal"]},
+        {"id": "avokado", "aliases": ["avokado", "avocado"]},
+    ],
+}
+
+WS4_B5_ITEM = {
+    "max_score": 1,
+    "check": "numeric_range",
+    "min_value": 160,
+    "max_value": 2223,
+}
+
+
+class TestWS4Rubric(unittest.TestCase):
+    def test_b2_requires_all_four_foods_any_order(self):
+        shuffled = "avokado, jelibon, yulaf, kraker"
+        self.assertEqual(score_unordered_token_set(shuffled, WS4_B2_ITEM)["credit"], "full")
+
+    def test_b2_rejects_three_foods(self):
+        answer = "jelibon, kraker, yulaf"
+        self.assertEqual(score_unordered_token_set(answer, WS4_B2_ITEM)["credit"], "zero")
+
+    def test_b5_accepts_inclusive_range(self):
+        self.assertEqual(score_numeric_range("408", WS4_B5_ITEM)["credit"], "full")
+        self.assertEqual(score_numeric_range("160", WS4_B5_ITEM)["credit"], "full")
+        self.assertEqual(score_numeric_range("2223", WS4_B5_ITEM)["credit"], "full")
+
+    def test_b5_rejects_outside_range(self):
+        self.assertEqual(score_numeric_range("159", WS4_B5_ITEM)["credit"], "zero")
+        self.assertEqual(score_numeric_range("2224", WS4_B5_ITEM)["credit"], "zero")
 
 
 if __name__ == "__main__":

@@ -88,12 +88,12 @@ prohibited_uses:
 governing_rules: [R1, R2, R3, R4, R16]
 example:
   worksheet: WS4
-  item: WS4_B5
-  evidence: "Pia doğru çünkü en düşük MCR'yi veriyor"
-  behaviour: Justifies threshold selection with performance evidence
+  item: WS4_B4
+  evidence: "Pia haklı; elma ile ahududu reçelinin yağ değerleri aynı"
+  behaviour: Evaluates peer claim about equal feature values blocking a threshold split
   lo: LO3.2.2
   strength: strong
-  rationale: Student links peer answer to MCR criterion — strategic threshold evaluation
+  rationale: Student agrees with Pia and cites same fat values — threshold placement reasoning
 ```
 
 ---

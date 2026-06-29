@@ -36,7 +36,7 @@ from pipeline_schema import (
     rubric_item,
     scoring_item_ids,
 )
-from rubric_deterministic import score_any_of_tokens, score_unordered_token_set
+from rubric_deterministic import score_any_of_tokens, score_numeric_range, score_unordered_token_set
 
 # ---------------------------------------------------------------------------
 # Pydantic output schema
@@ -1558,6 +1558,18 @@ def assess_worksheet(
                     "flag": (
                         f"any_of_tokens:no_match"
                         if det["credit"] == "zero"
+                        else None
+                    ),
+                }
+            )
+        elif item_rubric.get("check") == "numeric_range":
+            det = score_numeric_range(response_text, item_rubric)
+            score = score.model_copy(
+                update={
+                    "credit": det["credit"],
+                    "flag": (
+                        f"numeric_range:outside_{det['min_value']}_{det['max_value']}"
+                        if det["credit"] != "full"
                         else None
                     ),
                 }

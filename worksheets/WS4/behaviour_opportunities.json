@@ -10,13 +10,13 @@
           "behaviour_id": "OB_PRO_007",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Selects numeric threshold from grid."
+          "rationale": "Places improved threshold between avocado and french fries."
         },
         {
           "behaviour_id": "OB_STR_003",
           "role": "secondary",
           "evidence_mode": "direct",
-          "rationale": "Threshold choice informed by error grid."
+          "rationale": "Threshold boundary informed by sorted food-card values."
         }
       ],
       "extraction_fields": [
@@ -26,10 +26,16 @@
     "WS4_B2": {
       "opportunities": [
         {
-          "behaviour_id": "OB_STR_003",
+          "behaviour_id": "OB_PRO_008",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "States MCR-minimization as selection criterion."
+          "rationale": "Identifies all four misclassified foods at prior threshold."
+        },
+        {
+          "behaviour_id": "OB_STR_003",
+          "role": "secondary",
+          "evidence_mode": "direct",
+          "rationale": "Links misclassification pattern to threshold position."
         }
       ],
       "extraction_fields": [
@@ -42,13 +48,13 @@
           "behaviour_id": "OB_STR_003",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Compares two threshold candidates using MCR."
+          "rationale": "Reflects that misclassification decreased after new threshold."
         },
         {
           "behaviour_id": "OB_REF_003",
           "role": "secondary",
           "evidence_mode": "direct",
-          "rationale": "Evaluates comparative claim about thresholds."
+          "rationale": "Evaluates performance improvement claim."
         }
       ],
       "extraction_fields": [
@@ -58,10 +64,16 @@
     "WS4_B4": {
       "opportunities": [
         {
-          "behaviour_id": "OB_CON_005",
+          "behaviour_id": "OB_REF_002",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "States MCR formula deterministically."
+          "rationale": "Evaluates Pia's claim about equal fat values blocking a split."
+        },
+        {
+          "behaviour_id": "OB_STR_003",
+          "role": "secondary",
+          "evidence_mode": "direct",
+          "rationale": "Connects equal feature values to threshold placement."
         }
       ],
       "extraction_fields": [
@@ -71,10 +83,16 @@
     "WS4_B5": {
       "opportunities": [
         {
-          "behaviour_id": "OB_REF_002",
+          "behaviour_id": "OB_PRO_007",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Evaluates peer statement about threshold optimality."
+          "rationale": "States learned energy threshold from food cards."
+        },
+        {
+          "behaviour_id": "OB_STR_001",
+          "role": "secondary",
+          "evidence_mode": "direct",
+          "rationale": "Data-based parameter choice in valid numeric range."
         }
       ],
       "extraction_fields": [
