@@ -1,4 +1,21 @@
-# Video files (too large for GitHub)
+# =============================================================================
+# RESEARCH DATA — see DATA_PROTECTION.md and .cursor/rules/protect-research-data.mdc
+# Never git rm / rm -rf: data_sources_2025/, data_sources_2026/, students/
+# Bulk cohort files stay local; only MANIFEST.json + README.md are tracked in git.
+# =============================================================================
+
+# Cohort folders — ignore all contents except inventory manifests
+data_sources_2025/**
+data_sources_2026/**
+!data_sources_2025/MANIFEST.json
+!data_sources_2026/MANIFEST.json
+!data_sources_2025/README.md
+!data_sources_2026/README.md
+
+# macOS freeze markers (runtime only)
+**/.FROZEN
+
+# Video files (too large for GitHub; keep local + external backup)
 *.mp4
 *.MP4
 *.webm

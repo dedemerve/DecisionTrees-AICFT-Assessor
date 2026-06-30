@@ -1,0 +1,49 @@
+---
+description: Never delete or git-rm research data (data_sources, students, ocr_output, PDFs)
+alwaysApply: true
+---
+
+# Protect research data — mandatory
+
+This repository contains **irreplaceable pre-service teacher research data**. Deleting or moving it has caused real data loss. Treat data protection as higher priority than "cleanup" or "repo hygiene".
+
+## Never delete, move, or `git rm` without explicit user request in the current message
+
+**`data_sources_2025/`, `data_sources_2026/`, and `answer_key_worksheets/` are FROZEN** (`chflags uchg` on macOS). Do not run `rm`, `git rm`, `mv`, or `chflags nouchg` on these paths unless the user explicitly asks to unfreeze in the current message.
+
+Protected paths (local research data):
+
+- `data_sources_2025/` — screen recordings, legacy cohort
+- `data_sources_2026/` — **All Documents/** (anonymized student PDFs), screen recordings
+- `students/` — pipeline artifacts per pseudonym
+- `ocr_output/` — page images and OCR markers (may be the only copy)
+- `answer_key_worksheets/` — reference PDFs
+
+Also forbidden without explicit user approval:
+
+- `rm -rf` on any path above
+- `git rm` / `git clean` on any path above
+- "Cleanup" commits that remove runtime or data folders
+- Renaming `data_sources_*` or emptying `All Documents/`
+
+## GitHub push does NOT back up ignored or uncommitted files
+
+Before assuming data is safe on GitHub, check `git ls-files` and `.gitignore`:
+
+- `*.webm`, `*.mp4`, etc. are gitignored → **videos are never on GitHub**
+- `ocr_output/` is gitignored → **not on GitHub unless explicitly force-added**
+- PDFs under `data_sources_2026/All Documents/` are **not** gitignored — commit them after recovery
+
+## Allowed maintenance (code only)
+
+- Edit Python/JSON/schema in `framework/`, `mappings/`, `scripts/` (not archived data)
+- Regenerate `worksheets/` bundles from scripts
+- Archive ECD via `git mv` to `archive/` when user requests migration
+
+## If user reports missing files
+
+1. Do **not** run destructive cleanup
+2. Check `git log --diff-filter=D -- <path>`
+3. Offer recovery: `git checkout <commit>^ -- <path>` for previously tracked files
+4. Suggest Disk Drill / Time Machine / iCloud for never-committed PDFs
+5. Run `python scripts/inventory_data_sources.py` and compare to `data_sources_2026/MANIFEST.json`
