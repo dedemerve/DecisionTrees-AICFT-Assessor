@@ -1392,65 +1392,115 @@ def mode_validate(student_name: str) -> None:
     print("\nTo verify: open the PDF, find this student's pages, and manually check flagged items.")
 
 
+_PROMPT_WS6_TREE = """You are an expert at reading handwritten Turkish decision tree worksheets.
+
+The image shows ONE pre-service teacher's completed Worksheet 6 (Karar Ağacı Çiz).
+The student drew a two-level decision tree classifying 11 ProDaBi food cards as
+"tavsiye edilir" (recommended) or "tavsiye edilemez" (not recommended).
+
+TREE STRUCTURE — read boxes and arrows carefully:
+- Root node: a rectangular box with a feature name (e.g. Şeker, Yağ, Enerji, Protein)
+  and a threshold condition written inside or beside it (e.g. ≤ 13, < 180, ≥ 7.7).
+- Two branches leave the root: one labelled "evet" (yes, condition true) and one "hayır" (no, false).
+- Each branch leads either to:
+    a) A leaf box: "tavsiye edilir" or "tavsiye edilemez" (or abbreviation T.edilir / T.edilemez)
+    b) Another split node with its own feature, threshold, evet/hayır branches, and leaves.
+- Operators: read ≤, <, ≥, > EXACTLY as written. Do not normalise or flip them.
+- Thresholds: Turkish decimal separator is comma (e.g. 7,7 not 7.7) — transcribe as written.
+
+Return ONLY the following JSON. No text before or after it.
+
+{
+  "root": {
+    "feature": "<feature name written in root box>",
+    "operator": "<one of: <=, <, >=, >>",
+    "threshold": "<numeric value as written>",
+    "yes_branch": {
+      "type": "leaf",
+      "label": "<tavsiye edilir | tavsiye edilemez>"
+    },
+    "no_branch": {
+      "type": "split",
+      "feature": "<feature name>",
+      "operator": "<operator>",
+      "threshold": "<threshold>",
+      "yes_branch": {"type": "leaf", "label": "<label>"},
+      "no_branch":  {"type": "leaf", "label": "<label>"}
+    }
+  },
+  "blank_items": ["<list any WS6_B slot visually empty, e.g. WS6_B5>"],
+  "warnings": ["<note any illegible text, missing arrows, or ambiguous structure>"]
+}
+
+Rules:
+- "type" is always "leaf" or "split".
+- A leaf has only "type" and "label". A split has "type", "feature", "operator", "threshold", "yes_branch", "no_branch".
+- If the student drew only one level (no inner node), set one branch to a leaf and the other to a leaf too.
+- If the tree is completely blank, return: {"root": null, "blank_items": ["all"], "warnings": ["Tree not drawn."]}
+- Preserve Turkish text exactly (Şeker, Yağ, Enerji, Protein, tavsiye edilir, tavsiye edilemez).
+- Do not invent content for boxes you cannot read; add a warning instead."""
+
+
 def _extract_ws6_tree(
     client: anthropic.Anthropic,
-    student_dir: Path,
+    student_key: str,
     ocr_model: str,
 ) -> dict[str, Any]:
     """
-    Run dt_vision_pipeline on a WS6 tree crop when available.
+    Extract WS6 decision tree structure using Claude vision.
 
-    Priority:
-      1. layout_rois/<student>/WS6_layout.json tree_diagram crop
-      2. layout_rois tree_diagram from WS5 (not used for WS6)
-      3. Legacy ws6_*.jpg under student _images/
+    Image priority:
+      1. layout_rois crop (tree canvas isolated by LayoutIsolator)
+      2. Full page from ocr_output/_images (2026 per-WS PDF, page_1.jpg)
     """
-    try:
-        import dt_vision_pipeline as dvp
-    except ImportError:
-        return {"error": "dt_vision_pipeline not available"}
+    from pipeline_schema import worksheet_page_image
 
-    student_key = student_dir.name
-    image_path: Optional[str] = None
+    image_path: Optional[Path] = None
 
     try:
         from layout_isolator import LayoutIsolator
         crop = LayoutIsolator().tree_diagram_crop_path(student_key, "WS6")
-        if crop:
-            image_path = str(crop)
+        if crop and crop.exists():
+            image_path = crop
     except ImportError:
         pass
 
-    if not image_path:
-        images_dir = student_dir / "_images"
-        ws6_candidates = sorted(images_dir.glob("ws6_*.jpg")) if images_dir.exists() else []
-        if ws6_candidates:
-            image_path = str(ws6_candidates[0])
+    if image_path is None:
+        full_page = worksheet_page_image(student_key, "WS6")
+        if full_page and full_page.exists():
+            image_path = full_page
 
-    if not image_path:
+    if image_path is None:
         return {
-            "warning": (
-                "No WS6 tree image. WS6 draw canvas is not on the 6-page "
-                "Worksheets1-10 bundle; run layout isolation on a supplemental scan."
-            )
+            "warning": "No WS6 image found. Run ocr_pipeline dry_run first.",
+            "root": None,
         }
 
     try:
-        result = dvp.run_pipeline(image_path)
-        val_warnings = dvp.validate_pipeline_output(result)
-        tree_json = json.loads(result.to_json())
-        return {
-            "source_image": image_path,
-            "root_feature": tree_json.get("tree", {}).get("feature") if tree_json.get("tree") else None,
-            "root_operator": tree_json.get("tree", {}).get("operator") if tree_json.get("tree") else None,
-            "root_threshold": tree_json.get("tree", {}).get("threshold") if tree_json.get("tree") else None,
-            "full_tree": tree_json.get("tree"),
-            "raw_texts": result.raw_texts,
-            "pipeline_warnings": result.warnings + val_warnings,
-            "vision_model": ocr_model,
-        }
+        img = Image.open(image_path).convert("RGB")
+        b64 = image_to_base64(img)
+        response = client.messages.create(
+            model=ocr_model,
+            max_tokens=1024,
+            messages=[{
+                "role": "user",
+                "content": [
+                    {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": b64}},
+                    {"type": "text", "text": _PROMPT_WS6_TREE},
+                ],
+            }],
+        )
+        raw = response.content[0].text.strip()
+        raw = re.sub(r"^```(?:json)?\s*", "", raw)
+        raw = re.sub(r"\s*```$", "", raw)
+        result = json.loads(raw)
+        result["source_image"] = str(image_path.relative_to(Path(__file__).parent))
+        result["vision_model"] = ocr_model
+        return result
+    except json.JSONDecodeError as exc:
+        return {"error": f"JSON parse failed: {exc}", "source_image": str(image_path)}
     except Exception as exc:
-        return {"error": str(exc), "source_image": image_path}
+        return {"error": str(exc), "source_image": str(image_path)}
 
 
 def save_worksheet_jsons(
@@ -1562,9 +1612,8 @@ def save_worksheet_jsons(
                     ws6_manifest.read_text(encoding="utf-8")
                 )
             if client is not None:
-                image_root = OCR_OUTPUT_DIR / student_name
                 record["gate_1_extraction"]["tree_structure"] = _extract_ws6_tree(
-                    client, image_root, ocr_model
+                    client, student_name, ocr_model
                 )
 
         # WS10 / WS5 — attach layout manifest when Phase 1 has run
