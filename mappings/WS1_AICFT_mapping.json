@@ -9,7 +9,7 @@
         "strength": "moderate",
         "evidence_type": "direct",
         "expected_level": "Acquire",
-        "rationale": "Identifies object (nesne) term on the nutrition-label worksheet.",
+        "rationale": "Identifies label (etiket) on the nutrition-card diagram.",
         "role": "primary",
         "portfolio_weight": "full"
       }
@@ -20,7 +20,7 @@
         "strength": "moderate",
         "evidence_type": "direct",
         "expected_level": "Acquire",
-        "rationale": "Applies object term to a concrete food instance.",
+        "rationale": "Identifies object (nesne) on the nutrition-card diagram.",
         "role": "primary",
         "portfolio_weight": "full"
       }
@@ -31,7 +31,7 @@
         "strength": "moderate",
         "evidence_type": "direct",
         "expected_level": "Acquire",
-        "rationale": "Names feature/variable term for nutrient columns.",
+        "rationale": "Names feature/variable column (özellik/karakteristik/değişken) on the diagram.",
         "role": "primary",
         "portfolio_weight": "full"
       }
@@ -42,7 +42,7 @@
         "strength": "moderate",
         "evidence_type": "direct",
         "expected_level": "Acquire",
-        "rationale": "Counts features in the nutrition table or card set.",
+        "rationale": "Names feature-value column on the diagram.",
         "role": "primary",
         "portfolio_weight": "full"
       }
@@ -50,10 +50,10 @@
     "WS1_B5": [
       {
         "lo": "LO3.1.2",
-        "strength": "strong",
+        "strength": "moderate",
         "evidence_type": "direct",
         "expected_level": "Acquire",
-        "rationale": "Lists nutrient feature names from the table.",
+        "rationale": "Uses object (nesne) term for individual foods in the paragraph.",
         "role": "primary",
         "portfolio_weight": "full"
       }
@@ -64,7 +64,7 @@
         "strength": "moderate",
         "evidence_type": "direct",
         "expected_level": "Acquire",
-        "rationale": "Names the example food object used on the sheet.",
+        "rationale": "Applies object term to a concrete food instance in the paragraph.",
         "role": "primary",
         "portfolio_weight": "full"
       }
@@ -75,7 +75,51 @@
         "strength": "moderate",
         "evidence_type": "direct",
         "expected_level": "Acquire",
-        "rationale": "Uses label (etiket) role for recommendation outcome.",
+        "rationale": "Names feature/variable term for nutrient columns in the paragraph.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
+    ],
+    "WS1_B8": [
+      {
+        "lo": "LO3.1.2",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Counts features in the nutrition table.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
+    ],
+    "WS1_B9": [
+      {
+        "lo": "LO3.1.2",
+        "strength": "strong",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Lists nutrient feature names from the table.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
+    ],
+    "WS1_B10": [
+      {
+        "lo": "LO3.1.2",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Names the example food object used on the sheet.",
+        "role": "primary",
+        "portfolio_weight": "full"
+      }
+    ],
+    "WS1_B11": [
+      {
+        "lo": "LO3.1.2",
+        "strength": "moderate",
+        "evidence_type": "direct",
+        "expected_level": "Acquire",
+        "rationale": "Uses label (etiket) role for recommendation outcome in the paragraph.",
         "role": "primary",
         "portfolio_weight": "full"
       }

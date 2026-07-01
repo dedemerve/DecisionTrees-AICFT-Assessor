@@ -1,154 +1,100 @@
 {
-  "worksheet": "WS1",
-  "note": "Worksheet 1 — Important terms (nutrition label fill-in). Short answers only. Equivalence pairs only: nesne ↔ özellik and değişken ↔ etiket — each blank accepts one or both terms from its configured pair(s); no other synonyms. Writing both pair members together (e.g. nesne ve özellik) is full credit. Feature count: only 7 or yedi.",
-  "equivalence_sets": {
-    "object_feature": {
-      "note": "Nesne ve özellik eşdeğer — öğretmen adayı birini veya ikisini birlikte yazarsa puan alır; varlık, karakteristik vb. kabul edilmez.",
-      "aliases": [
-        "nesne",
-        "özellik",
-        "ozellik"
-      ]
-    },
-    "variable_label": {
-      "note": "Değişken ve etiket eşdeğer — öğretmen adayı birini veya ikisini birlikte yazarsa puan alır; başka eşanlamlılar kabul edilmez.",
-      "aliases": [
-        "değişken",
-        "degisken",
-        "etiket",
-        "etiket olarak",
-        "label"
-      ]
-    }
-  },
+  "worksheet_id": "WS1",
   "items": {
     "WS1_B1": {
-      "max_score": 1,
-      "check": "any_of_tokens",
-      "accept_sets": [
-        "variable_label"
-      ],
-      "example_answer": "etiket"
+      "printed_question": 1,
+      "expected_answer": "Etiket",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Öğrenci 'Etiket' terimini yazmışsa."
+        },
+        "0.5": {
+          "condition": "Öğrenci kavram yerine örnek değeri ('tavsiye edilemez') yazmışsa."
+        }
+      }
     },
     "WS1_B2": {
-      "max_score": 1,
-      "check": "any_of_tokens",
-      "accept_sets": [
-        "object_feature"
-      ],
-      "example_answer": "nesne"
+      "printed_question": 2,
+      "expected_answer": "Nesne",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Öğrenci 'Nesne' terimini yazmışsa."
+        },
+        "0.5": {
+          "condition": "Öğrenci kavram yerine nesne adını ('Fındıklı Gofret') yazmışsa."
+        }
+      }
     },
     "WS1_B3": {
-      "max_score": 1,
-      "check": "any_of_tokens",
-      "accept_sets": [
-        "object_feature",
-        "variable_label"
-      ],
-      "example_answer": "özellik"
+      "printed_question": 3,
+      "expected_answer": "Özellik / Karakteristik / Değişken",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Öğrenci 'Özellik', 'Karakteristik' veya 'Değişken' terimlerinden birini yazmışsa."
+        }
+      }
     },
     "WS1_B4": {
-      "max_score": 1,
-      "check": "any_of_tokens",
-      "accepted_aliases": [
-        "7",
-        "yedi"
-      ],
-      "example_answer": "7"
+      "printed_question": 4,
+      "expected_answer": "Özelliğin / Karakteristiğin / Değişkenin Değeri",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Öğrenci 'Değer' veya türevlerini yazmışsa."
+        },
+        "0.5": {
+          "condition": "Öğrenci kavram yerine tablodaki bir değeri ('542 kcal') yazmışsa."
+        }
+      }
     },
     "WS1_B5": {
-      "max_score": 1,
-      "check": "unordered_token_set",
-      "order_insensitive": true,
-      "need_tokens": 5,
-      "partial_on_tokens": 3,
-      "token_groups": [
-        {
-          "id": "enerji",
-          "aliases": [
-            "enerji",
-            "energy",
-            "kcal"
-          ]
-        },
-        {
-          "id": "yag",
-          "aliases": [
-            "yağ",
-            "yag",
-            "fat"
-          ]
-        },
-        {
-          "id": "doymus_yag",
-          "aliases": [
-            "doymuş yağ",
-            "doymus yag",
-            "doymuş",
-            "doymus",
-            "saturated"
-          ]
-        },
-        {
-          "id": "karbonhidrat",
-          "aliases": [
-            "karbonhidrat",
-            "carbohydrate",
-            "karb"
-          ]
-        },
-        {
-          "id": "seker",
-          "aliases": [
-            "şeker",
-            "seker",
-            "sugar"
-          ]
-        },
-        {
-          "id": "protein",
-          "aliases": [
-            "protein"
-          ]
-        },
-        {
-          "id": "tuz",
-          "aliases": [
-            "tuz",
-            "salt",
-            "sodyum",
-            "sodium"
-          ]
-        }
-      ],
-      "example_answer": "Enerji, Yağ, Doymuş Yağ, Karbonhidrat, Şeker, Protein, Tuz"
+      "printed_question": 5,
+      "expected_answer": "Nesne",
+      "scoring_rules": {
+        "1.0": "Doğru terim (Nesne)."
+      }
     },
     "WS1_B6": {
-      "max_score": 1,
-      "evaluation": "single_concept",
-      "components": [
-        {
-          "id": "example_object",
-          "idea": "names the example food object from the worksheet context (e.g. Fındıklı Gofret) or another valid food name used on the sheet",
-          "required": true
-        }
-      ],
-      "need": 1,
-      "example_answer": "Fındıklı Gofret"
+      "printed_question": 6,
+      "expected_answer": "Nesne",
+      "scoring_rules": {
+        "1.0": "Doğru terim (Nesne)."
+      }
     },
     "WS1_B7": {
-      "max_score": 1,
-      "check": "any_of_tokens",
-      "accept_sets": [
-        "variable_label"
-      ],
-      "extra_aliases": [
-        "tavsiye edilebilir",
-        "tavsiye edilemez",
-        "tavsiye edilir",
-        "tavsiye edilmez"
-      ],
-      "example_answer": "etiket"
+      "printed_question": 7,
+      "expected_answer": "Özellik / Karakteristik / Değişken",
+      "scoring_rules": {
+        "1.0": "Doğru terimlerden biri."
+      }
+    },
+    "WS1_B8": {
+      "printed_question": 8,
+      "expected_answer": "7",
+      "scoring_rules": {
+        "1.0": "7 veya yedi."
+      }
+    },
+    "WS1_B9": {
+      "printed_question": 9,
+      "expected_answer": "Enerji, Yağ, Doymuş Yağ, Karbonhidrat, Şeker, Protein, Tuz",
+      "scoring_rules": {
+        "1.0": "En az 5 özellik doğru listelenmişse.",
+        "0.5": "2-4 özellik listelenmişse."
+      }
+    },
+    "WS1_B10": {
+      "printed_question": 10,
+      "expected_answer": "Fındıklı Gofret",
+      "scoring_rules": {
+        "1.0": "Fındıklı Gofret."
+      }
+    },
+    "WS1_B11": {
+      "printed_question": 11,
+      "expected_answer": "Etiket",
+      "scoring_rules": {
+        "1.0": "Etiket."
+      }
     }
   },
   "curriculum_status": "deployed"

@@ -13,7 +13,7 @@ from rubric_deterministic import (
 )
 
 
-WS1_B5_ITEM = {
+WS1_B9_ITEM = {
     "max_score": 1,
     "evaluation": "unordered_token_set",
     "check": "unordered_token_set",
@@ -33,34 +33,34 @@ WS1_B5_ITEM = {
 
 WS1_RUBRIC = {
     "equivalence_sets": {
-        "object_feature": {
-            "aliases": ["nesne", "özellik", "ozellik"],
+        "object": {"aliases": ["nesne"]},
+        "feature_variable": {
+            "aliases": ["özellik", "ozellik", "karakteristik", "değişken", "degisken"],
         },
-        "variable_label": {
-            "aliases": ["değişken", "degisken", "etiket", "etiket olarak"],
-        },
+        "label": {"aliases": ["etiket", "etiket olarak"]},
+        "feature_value": {"aliases": ["değer", "deger", "özelliğin değeri"]},
     },
 }
 
 WS1_B1_ITEM = {
     "check": "any_of_tokens",
     "evaluation": "any_of_tokens",
-    "accept_sets": ["variable_label"],
+    "accept_sets": ["label"],
 }
 
-WS1_B2_ITEM = {
+WS1_B5_ITEM = {
     "check": "any_of_tokens",
     "evaluation": "any_of_tokens",
-    "accept_sets": ["object_feature"],
+    "accept_sets": ["object"],
 }
 
-WS1_B3_ITEM = {
+WS1_B7_ITEM = {
     "check": "any_of_tokens",
     "evaluation": "any_of_tokens",
-    "accept_sets": ["object_feature", "variable_label"],
+    "accept_sets": ["feature_variable"],
 }
 
-WS1_B4_ITEM = {
+WS1_B8_ITEM = {
     "check": "any_of_tokens",
     "evaluation": "any_of_tokens",
     "accepted_aliases": ["7", "yedi"],
@@ -68,13 +68,9 @@ WS1_B4_ITEM = {
 
 
 class TestAnyOfTokens(unittest.TestCase):
-    def test_b1_accepts_etiket_or_degisken(self):
+    def test_b1_accepts_etiket(self):
         self.assertEqual(
             score_any_of_tokens("etiket", WS1_B1_ITEM, WS1_RUBRIC)["credit"],
-            "full",
-        )
-        self.assertEqual(
-            score_any_of_tokens("değişken", WS1_B1_ITEM, WS1_RUBRIC)["credit"],
             "full",
         )
 
@@ -84,103 +80,89 @@ class TestAnyOfTokens(unittest.TestCase):
             "zero",
         )
 
-    def test_b2_accepts_nesne_or_ozellik(self):
+    def test_b5_accepts_nesne_only(self):
         self.assertEqual(
-            score_any_of_tokens("nesne", WS1_B2_ITEM, WS1_RUBRIC)["credit"],
+            score_any_of_tokens("nesne", WS1_B5_ITEM, WS1_RUBRIC)["credit"],
             "full",
         )
         self.assertEqual(
-            score_any_of_tokens("özellik", WS1_B2_ITEM, WS1_RUBRIC)["credit"],
-            "full",
-        )
-        self.assertEqual(
-            score_any_of_tokens("nesne ve özellik", WS1_B2_ITEM, WS1_RUBRIC)["credit"],
-            "full",
-        )
-
-    def test_b2_rejects_karakteristik_only(self):
-        self.assertEqual(
-            score_any_of_tokens("karakteristik", WS1_B2_ITEM, WS1_RUBRIC)["credit"],
-            "zero",
-        )
-        self.assertEqual(
-            score_any_of_tokens("varlık", WS1_B2_ITEM, WS1_RUBRIC)["credit"],
+            score_any_of_tokens("özellik", WS1_B5_ITEM, WS1_RUBRIC)["credit"],
             "zero",
         )
 
-    def test_b1_accepts_both_variable_label_terms(self):
+    def test_b7_accepts_feature_terms(self):
         self.assertEqual(
-            score_any_of_tokens("değişken ve etiket", WS1_B1_ITEM, WS1_RUBRIC)["credit"],
-            "full",
-        )
-
-    def test_b3_accepts_either_pair(self):
-        self.assertEqual(
-            score_any_of_tokens("değişken", WS1_B3_ITEM, WS1_RUBRIC)["credit"],
+            score_any_of_tokens("karakteristik", WS1_B7_ITEM, WS1_RUBRIC)["credit"],
             "full",
         )
         self.assertEqual(
-            score_any_of_tokens("nesne", WS1_B3_ITEM, WS1_RUBRIC)["credit"],
+            score_any_of_tokens("değişken", WS1_B7_ITEM, WS1_RUBRIC)["credit"],
             "full",
         )
 
-    def test_b4_accepts_seven_numeric_or_word(self):
-        self.assertEqual(score_any_of_tokens("7", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "full")
-        self.assertEqual(score_any_of_tokens("yedi", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "full")
-        self.assertEqual(score_any_of_tokens("Yedi", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "full")
+    def test_b7_rejects_nesne(self):
+        self.assertEqual(
+            score_any_of_tokens("nesne", WS1_B7_ITEM, WS1_RUBRIC)["credit"],
+            "zero",
+        )
 
-    def test_b4_rejects_eight(self):
-        self.assertEqual(score_any_of_tokens("8", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "zero")
-        self.assertEqual(score_any_of_tokens("sekiz", WS1_B4_ITEM, WS1_RUBRIC)["credit"], "zero")
+    def test_b8_accepts_seven_numeric_or_word(self):
+        self.assertEqual(score_any_of_tokens("7", WS1_B8_ITEM, WS1_RUBRIC)["credit"], "full")
+        self.assertEqual(score_any_of_tokens("yedi", WS1_B8_ITEM, WS1_RUBRIC)["credit"], "full")
+
+    def test_b8_rejects_eight(self):
+        self.assertEqual(score_any_of_tokens("8", WS1_B8_ITEM, WS1_RUBRIC)["credit"], "zero")
 
     def test_ws1_equivalence_from_rubric_file(self):
         from pipeline_schema import load_rubric
 
         rubric = load_rubric("WS1")
-        b2 = rubric["items"]["WS1_B2"]
-        self.assertEqual(score_any_of_tokens("nesne", b2, rubric)["credit"], "full")
-        self.assertEqual(score_any_of_tokens("karakteristik", b2, rubric)["credit"], "zero")
+        b5 = rubric["items"]["WS1_B5"]
+        self.assertEqual(score_any_of_tokens("nesne", b5, rubric)["credit"], "full")
+        b7 = rubric["items"]["WS1_B7"]
+        self.assertEqual(score_any_of_tokens("karakteristik", b7, rubric)["credit"], "full")
 
-    def test_assessor_criteria_b1_lists_equivalents(self):
-        criteria = get_assessor_rubric("WS1_B1", "WS1")
+    def test_assessor_criteria_b5_lists_nesne(self):
+        criteria = get_assessor_rubric("WS1_B5", "WS1")
         joined = " ".join(criteria["full_credit_criteria"]).lower()
-        self.assertIn("etiket", joined)
-        self.assertIn("değişken", joined)
+        self.assertIn("nesne", joined)
 
 
 class TestUnorderedTokenSet(unittest.TestCase):
     def test_full_credit_any_order(self):
         shuffled = "Tuz, Protein, Şeker, Karbonhidrat, Doymuş Yağ, Yağ, Enerji"
-        result = score_unordered_token_set(shuffled, WS1_B5_ITEM)
+        result = score_unordered_token_set(shuffled, WS1_B9_ITEM)
         self.assertEqual(result["credit"], "full")
         self.assertTrue(result["ok"])
 
     def test_full_credit_reversed_example(self):
         answer = "Protein, Tuz, Şeker, Karbonhidrat, Doymuş Yağ, Yağ, Enerji"
-        result = score_unordered_token_set(answer, WS1_B5_ITEM)
+        result = score_unordered_token_set(answer, WS1_B9_ITEM)
         self.assertEqual(result["credit"], "full")
 
-    def test_partial_credit(self):
+    def test_partial_credit_three_tokens(self):
         answer = "Enerji, Yağ, Protein"
-        result = score_unordered_token_set(answer, WS1_B5_ITEM)
+        result = score_unordered_token_set(answer, WS1_B9_ITEM)
         self.assertEqual(result["credit"], "partial")
         self.assertEqual(result["matched_tokens"], 3)
 
-    def test_zero_credit(self):
-        answer = "Enerji, Yağ"
-        result = score_unordered_token_set(answer, WS1_B5_ITEM)
+    def test_zero_credit_one_token(self):
+        answer = "Enerji"
+        result = score_unordered_token_set(answer, WS1_B9_ITEM)
         self.assertEqual(result["credit"], "zero")
 
     def test_blank_not_attempted(self):
-        result = score_unordered_token_set("(bos)", WS1_B5_ITEM)
+        result = score_unordered_token_set("(bos)", WS1_B9_ITEM)
         self.assertEqual(result["credit"], "not_attempted")
 
     def test_assessor_criteria_mentions_order_insensitive(self):
-        criteria = get_assessor_rubric("WS1_B5", "WS1")
+        criteria = get_assessor_rubric("WS1_B9", "WS1")
         joined = " ".join(criteria["full_credit_criteria"])
         self.assertIn("order does not matter", joined.lower())
 
-    def test_rubrics_validate(self):
+
+class TestRubricValidation(unittest.TestCase):
+    def test_all_rubrics_validate(self):
         errors = validate_all_rubrics()
         self.assertEqual(errors, [])
 

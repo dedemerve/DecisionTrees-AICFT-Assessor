@@ -4,45 +4,49 @@
   "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
   "items": {
     "WS3_B1": {
-      "evaluation": "classification",
-      "example_answer": "Tavsiye edilemez"
+      "open_response": true
     },
     "WS3_B2": {
-      "evaluation": "reasoning",
-      "example_answer": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez."
+      "open_response": true
     },
     "WS3_B3": {
-      "evaluation": "classification",
-      "example_answer": "Tavsiye edilebilir"
+      "open_response": true
     },
     "WS3_B4": {
-      "evaluation": "reasoning",
-      "example_answer": "Yağ değeri 8g eşiğinin altında olduğu için tavsiye edilebilir."
+      "open_response": true
     },
     "WS3_B5": {
-      "evaluation": "classification",
-      "example_answer": "Tavsiye edilemez"
+      "open_response": true
     },
     "WS3_B6": {
-      "evaluation": "reasoning",
-      "example_answer": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez."
+      "open_response": true
     },
     "WS3_B7": {
-      "check": "threshold",
-      "evaluation": "threshold",
-      "example_answer": "enerji ≤ [öğretmen adayının seçtiği değer]",
-      "partial_credit_rule": "variable_correct_but_operator_wrong_or_missing",
-      "partial_score": 0.5,
-      "deterministic": true
+      "open_response": true
     },
     "WS3_B8": {
-      "check": "threshold",
-      "evaluation": "threshold",
-      "example_answer": "enerji > [same value as B7]",
-      "partial_credit_rule": "variable_correct_but_operator_wrong_or_missing",
-      "partial_score": 0.5,
-      "deterministic": true
+      "open_response": true
     }
+  },
+  "equivalence_sets": {
+    "label_recommended": [
+      "tavsiye edilebilir",
+      "tavsiye edilir",
+      "edilebilir",
+      "önerilir",
+      "uygun",
+      "yesil",
+      "yeşil"
+    ],
+    "label_not_recommended": [
+      "tavsiye edilemez",
+      "tavsiye edilmez",
+      "edilemez",
+      "önerilmez",
+      "kirmizi",
+      "kırmızı",
+      "uygun değil"
+    ]
   },
   "fields": {
     "WS3_B1": {

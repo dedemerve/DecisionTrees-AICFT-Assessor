@@ -4,86 +4,60 @@
   "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
   "items": {
     "WS4_B1": {
-      "evaluation": "threshold_placement",
-      "example_answer": "Avokado ile patates kızartması arasına çizgi (yeni eşik)",
-      "scoring_mode": "interpretive",
-      "interpretive": true,
       "open_response": true
     },
     "WS4_B2": {
-      "check": "unordered_token_set",
-      "evaluation": "unordered_token_set",
-      "example_answer": "Jelibon, kraker, yulaf, avokado (sıra fark etmez)",
-      "token_groups": [
-        {
-          "id": "jelibon",
-          "aliases": [
-            "jelibon",
-            "jellybean",
-            "jelly bean",
-            "jölebon",
-            "jolebon",
-            "jelbon"
-          ]
-        },
-        {
-          "id": "kraker",
-          "aliases": [
-            "kraker",
-            "cracker",
-            "krakers",
-            "krakerler",
-            "kraken"
-          ]
-        },
-        {
-          "id": "yulaf",
-          "aliases": [
-            "yulaf",
-            "oatmeal",
-            "yulaf lapası",
-            "yulaf lapasi",
-            "yulaf lapa"
-          ]
-        },
-        {
-          "id": "avokado",
-          "aliases": [
-            "avokado",
-            "avocado"
-          ]
-        }
-      ],
-      "need_tokens": 4,
-      "partial_on_tokens": 4,
-      "order_insensitive": true,
-      "deterministic": true
+      "open_response": true
     },
     "WS4_B3": {
-      "evaluation": "improvement_reasoning",
-      "example_answer": "Yeni eşikle daha az yanlış sınıflandırma oldu.",
-      "scoring_mode": "interpretive",
-      "interpretive": true,
       "open_response": true
     },
     "WS4_B4": {
-      "evaluation": "peer_evaluation",
-      "example_answer": "Pia haklı; elma ile ahududu reçelinin yağ değerleri aynı olduğu için aralarına eşik konulamaz.",
-      "zero_credit_hints": [
-        "only mentions classmates made the same mistake without citing equal fat values",
-        "meta commentary about other students without agreeing Pia and same-fat reasoning"
-      ],
-      "scoring_mode": "interpretive",
-      "interpretive": true,
       "open_response": true
     },
     "WS4_B5": {
-      "check": "numeric_range",
-      "example_answer": "408 (kartlardan seçilen enerji eşiği; 160–2223 aralığında herhangi bir değer)",
-      "min_value": 160,
-      "max_value": 2223,
-      "deterministic": true
+      "open_response": true
     }
+  },
+  "equivalence_sets": {
+    "gummy_bears": [
+      "gummy bears",
+      "jelibon",
+      "gummy",
+      "jelybon",
+      "ayıcık"
+    ],
+    "crispbread": [
+      "crispbread",
+      "kraker",
+      "gevrek",
+      "ekmek"
+    ],
+    "oats": [
+      "oats",
+      "yulaf",
+      "müsli"
+    ],
+    "avocado": [
+      "avocado",
+      "avokado",
+      "avakado"
+    ],
+    "apple": [
+      "apple",
+      "elma"
+    ],
+    "jam": [
+      "raspberry jam",
+      "reçel",
+      "ahududu reçeli",
+      "ahududu"
+    ],
+    "fries": [
+      "french fries",
+      "patates kızartması",
+      "patates"
+    ]
   },
   "fields": {
     "WS4_B1": {

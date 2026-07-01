@@ -10,7 +10,7 @@
           "behaviour_id": "OB_CON_001",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Uses variable/label term (değişken or etiket) in nutrition-label context."
+          "rationale": "Labels recommendation outcome (etiket) on the nutrition-card diagram."
         }
       ],
       "extraction_fields": [
@@ -23,7 +23,7 @@
           "behaviour_id": "OB_CON_001",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Uses object/feature term (nesne or özellik) for a food instance."
+          "rationale": "Labels food instance as object (nesne) on the diagram."
         }
       ],
       "extraction_fields": [
@@ -36,7 +36,7 @@
           "behaviour_id": "OB_CON_001",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Names feature term; accepts nesne|özellik or değişken|etiket equivalents."
+          "rationale": "Labels nutrient-name column as özellik/karakteristik/değişken on the diagram."
         }
       ],
       "extraction_fields": [
@@ -49,7 +49,7 @@
           "behaviour_id": "OB_CON_001",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Counts features in the nutrition table."
+          "rationale": "Labels numeric value column as özelliğin değeri on the diagram."
         }
       ],
       "extraction_fields": [
@@ -62,7 +62,7 @@
           "behaviour_id": "OB_CON_001",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Lists nutrient feature names from the table."
+          "rationale": "Uses object term (nesne) for individual foods in paragraph."
         }
       ],
       "extraction_fields": [
@@ -75,7 +75,7 @@
           "behaviour_id": "OB_CON_001",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Identifies the example food object on the sheet."
+          "rationale": "Applies object term to concrete food instance in paragraph."
         }
       ],
       "extraction_fields": [
@@ -88,11 +88,63 @@
           "behaviour_id": "OB_CON_001",
           "role": "primary",
           "evidence_mode": "direct",
-          "rationale": "Uses label (etiket) role for recommendation outcome."
+          "rationale": "Names feature/variable term for nutrient column in paragraph."
         }
       ],
       "extraction_fields": [
         "WS1_B7"
+      ]
+    },
+    "WS1_B8": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_CON_001",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Counts features in the nutrition table."
+        }
+      ],
+      "extraction_fields": [
+        "WS1_B8"
+      ]
+    },
+    "WS1_B9": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_CON_001",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Lists nutrient feature names from the table."
+        }
+      ],
+      "extraction_fields": [
+        "WS1_B9"
+      ]
+    },
+    "WS1_B10": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_CON_001",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Names the example food object used on the sheet."
+        }
+      ],
+      "extraction_fields": [
+        "WS1_B10"
+      ]
+    },
+    "WS1_B11": {
+      "opportunities": [
+        {
+          "behaviour_id": "OB_CON_001",
+          "role": "primary",
+          "evidence_mode": "direct",
+          "rationale": "Uses label (etiket) role for recommendation outcome in paragraph."
+        }
+      ],
+      "extraction_fields": [
+        "WS1_B11"
       ]
     }
   }

@@ -1,87 +1,66 @@
 {
-  "worksheet": "WS10",
-  "note": "Printed blank numbers 1–8 on worksheet map to WS10_B1–B8. Students write one integer response per blank (blanks 1–7: misclassification counts; blank 8: optimum threshold 408). Reference: data/ws10_energy_reference.json.",
-  "dataset_reference": "data/ws10_energy_reference.json",
-  "blocked_note": "If numeric table region was not captured in OCR/HTR, mark blocked:true and skip scoring.",
-  "printed_thresholds": [
-    28,
-    69,
-    219,
-    346,
-    359,
-    408,
-    489
-  ],
+  "worksheet_id": "WS10",
+  "metadata": {
+    "title": "Eşik Değerin Sistematik Belirlenmesi (Hata Optimizasyonu)",
+    "description": "Enerji değişkeni için verilen 7 olası eşik değerde yanlış sınıflandırma sayılarının belirlenmesi ve optimum eşiğin seçimi.",
+    "dataset_reference": "data/ws10_energy_reference.json"
+  },
   "items": {
     "WS10_B1": {
-      "max_score": 1,
-      "answer": 4,
-      "check": "numeric_exact",
-      "threshold_row": 1,
-      "printed_threshold": 28,
-      "note": "Yanlış sınıflandırma sayısı — eşik 28",
-      "example_answer": "4"
+      "printed_question": 1,
+      "expected_answer": 4,
+      "scoring_rules": {
+        "1.0": "Cevap 4 ise tam puan."
+      }
     },
     "WS10_B2": {
-      "max_score": 1,
-      "answer": 3,
-      "check": "numeric_exact",
-      "threshold_row": 2,
-      "printed_threshold": 69,
-      "note": "Yanlış sınıflandırma sayısı — eşik 69",
-      "example_answer": "3"
+      "printed_question": 2,
+      "expected_answer": 3,
+      "scoring_rules": {
+        "1.0": "Cevap 3 ise tam puan."
+      }
     },
     "WS10_B3": {
-      "max_score": 1,
-      "answer": 2,
-      "check": "numeric_exact",
-      "threshold_row": 3,
-      "printed_threshold": 219,
-      "note": "Yanlış sınıflandırma sayısı — eşik 219",
-      "example_answer": "2"
+      "printed_question": 3,
+      "expected_answer": 2,
+      "scoring_rules": {
+        "1.0": "Cevap 2 ise tam puan."
+      }
     },
     "WS10_B4": {
-      "max_score": 1,
-      "answer": 3,
-      "check": "numeric_exact",
-      "threshold_row": 4,
-      "printed_threshold": 346,
-      "note": "Yanlış sınıflandırma sayısı — eşik 346",
-      "example_answer": "3"
+      "printed_question": 4,
+      "expected_answer": 3,
+      "scoring_rules": {
+        "1.0": "Cevap 3 ise tam puan."
+      }
     },
     "WS10_B5": {
-      "max_score": 1,
-      "answer": 2,
-      "check": "numeric_exact",
-      "threshold_row": 5,
-      "printed_threshold": 359,
-      "note": "Yanlış sınıflandırma sayısı — eşik 359",
-      "example_answer": "2"
+      "printed_question": 5,
+      "expected_answer": 2,
+      "scoring_rules": {
+        "1.0": "Cevap 2 ise tam puan."
+      }
     },
     "WS10_B6": {
-      "max_score": 1,
-      "answer": 1,
-      "check": "numeric_exact",
-      "threshold_row": 6,
-      "printed_threshold": 408,
-      "note": "Yanlış sınıflandırma sayısı — eşik 408 (minimum)",
-      "example_answer": "1"
+      "printed_question": 6,
+      "expected_answer": 1,
+      "scoring_rules": {
+        "1.0": "Cevap 1 ise tam puan."
+      }
     },
     "WS10_B7": {
-      "max_score": 1,
-      "answer": 2,
-      "check": "numeric_exact",
-      "threshold_row": 7,
-      "printed_threshold": 489,
-      "note": "Yanlış sınıflandırma sayısı — eşik 489",
-      "example_answer": "2"
+      "printed_question": 7,
+      "expected_answer": 2,
+      "scoring_rules": {
+        "1.0": "Cevap 2 ise tam puan."
+      }
     },
     "WS10_B8": {
-      "max_score": 1,
-      "answer": 408,
-      "check": "numeric_exact",
-      "note": "Optimum eşik değer — en düşük yanlış sınıflandırma satırı (408)",
-      "example_answer": "408"
+      "printed_question": 8,
+      "expected_answer": 408,
+      "scoring_rules": {
+        "1.0": "Cevap 408 ise tam puan."
+      }
     }
   },
   "curriculum_status": "deployed"

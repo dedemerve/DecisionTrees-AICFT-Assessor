@@ -1,150 +1,234 @@
 {
-  "worksheet": "WS3",
-  "note": "Part 1 (B1-B6): apply Leo's fat rule, threshold 8.0g fat. B1/B3/B5 are single correct classification labels. B2/B4/B6 require a reasoning statement referencing the feature and the comparison to threshold. Part 2 (B7-B8): pre-service teacher sets their own energy threshold. Full credit if variable is correct AND operator direction is correct. Partial 0.5 if variable is correct but operator is missing or reversed.",
+  "worksheet_id": "WS3",
+  "metadata": {
+    "title": "Eşik Değerleri Bir Karar Kuralında Uygulamak",
+    "target_grade": "K-12 / Introductory ML",
+    "evaluation_mode": "Mathematical Semantic Parsing & Cross-Reference Validation"
+  },
+  "pipeline_handling_rules": {
+    "math_ocr_tolerance": {
+      "ignore_operator_noise": true,
+      "description": "El yazısı operatörlerdeki OCR halüsinasyonlarını bağlama göre düzelt. '<' işareti 'C', 'L', '(' olarak; '>' işareti '7', ')' olarak okunmuş olabilir. Sözel ifadeleri ('küçüktür', 'altında', 'fazla') matematiksel operatör eşdeğeri olarak kabul et."
+    },
+    "spatial_displacement_rule": {
+      "strategy": "Anchor-Based Matching",
+      "description": "Öğrenci cevabı yanlış satıra kaymış olsa bile, B1-B2 (Patlamış Mısır), B3-B4 (Elma), B5-B6 (Patates) gruplarını birbirinden ayırmak için yiyecek isimlerini çapa (anchor) olarak kullan."
+    }
+  },
+  "equivalence_sets": {
+    "label_recommended": [
+      "tavsiye edilebilir",
+      "tavsiye edilir",
+      "edilebilir",
+      "önerilir",
+      "uygun",
+      "yesil",
+      "yeşil"
+    ],
+    "label_not_recommended": [
+      "tavsiye edilemez",
+      "tavsiye edilmez",
+      "edilemez",
+      "önerilmez",
+      "kirmizi",
+      "kırmızı",
+      "uygun değil"
+    ]
+  },
   "items": {
     "WS3_B1": {
-      "max_score": 1,
-      "evaluation": "classification",
-      "components": [
-        {
-          "id": "label",
-          "idea": "not recommended classification (tavsiye edilemez, tavsiye edilmez, önerilmez, uygun değil)",
-          "required": true
-        }
+      "printed_question": 1,
+      "region": "Popcorn_Label",
+      "spatial_anchors": [
+        "Patlamış mısır",
+        "1",
+        "olarak sınıflandırılır"
       ],
-      "need": 1,
-      "note": "Leo's food 1 has fat > 8g, so label is not recommended.",
-      "example_answer": "Tavsiye edilemez"
+      "expected_concept": "label_not_recommended",
+      "target_logic": "Patlamış mısırın yağ oranı 23.0g'dır. Bu değer 8.0g eşiğinden büyük olduğu için tavsiye edilemez dalına düşer.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "'equivalence_sets.label_not_recommended' grubundan bir yanıt verilmişse."
+        },
+        "0.0": {
+          "condition": "Yanlış etiket veya boş."
+        }
+      }
     },
     "WS3_B2": {
-      "max_score": 1,
-      "evaluation": "reasoning",
-      "components": [
-        {
-          "id": "feature_reference",
-          "idea": "references the fat feature and its value (yağ miktarına atıf)",
-          "required": true
-        },
-        {
-          "id": "threshold_comparison",
-          "idea": "compares to the 8g threshold (8g eşiğiyle karşılaştırma)",
-          "required": true
-        }
+      "printed_question": 2,
+      "region": "Popcorn_Reason",
+      "spatial_anchors": [
+        "çünkü",
+        "2",
+        "yağ var"
       ],
-      "need": 2,
-      "partial_on": 1,
-      "example_answer": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez."
+      "target_logic": "Öğrenci, patlamış mısırın yağ miktarının (23g), karar kuralı eşiğinden (8g) büyük olduğunu matematiksel veya sözel olarak ifade etmelidir.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Öğrenci 23 (veya 23.0) değeri ile 8 (veya 8.0) değerini doğru mantıkla karşılaştırmışsa.",
+          "examples": [
+            "23 > 8",
+            "23 gram yağ 8'den fazladır",
+            "23.0 > 8.0"
+          ]
+        },
+        "0.5": {
+          "condition": "Sadece 23g değerini yazmış ama 8g eşiğiyle karşılaştırmamışsa VEYA sadece '8'den büyük' deyip gıdanın değerini (23) belirtmemişse.",
+          "examples": [
+            "23g yağ var",
+            "8'den büyük"
+          ]
+        },
+        "0.0": {
+          "condition": "Alakasız sayılar veya boş."
+        }
+      }
     },
     "WS3_B3": {
-      "max_score": 1,
-      "evaluation": "classification",
-      "components": [
-        {
-          "id": "label",
-          "idea": "recommended classification (tavsiye edilebilir, tavsiye edilir, önerilir, uygun)",
-          "required": true
-        }
+      "printed_question": 3,
+      "region": "Apple_Label",
+      "spatial_anchors": [
+        "Elma",
+        "3",
+        "olarak sınıflandırılır"
       ],
-      "need": 1,
-      "note": "Leo's food 2 has fat <= 8g, so label is recommended.",
-      "example_answer": "Tavsiye edilebilir"
+      "expected_concept": "label_recommended",
+      "target_logic": "Elmanın yağ oranı 0.2g'dır. Bu değer 8.0g eşiğinden küçük olduğu için tavsiye edilebilir dalına düşer.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "'equivalence_sets.label_recommended' grubundan bir yanıt verilmişse."
+        },
+        "0.0": {
+          "condition": "Yanlış etiket veya boş."
+        }
+      }
     },
     "WS3_B4": {
-      "max_score": 1,
-      "evaluation": "reasoning",
-      "components": [
-        {
-          "id": "feature_reference",
-          "idea": "references the fat feature and its value (yağ miktarına atıf)",
-          "required": true
-        },
-        {
-          "id": "threshold_comparison",
-          "idea": "compares to the 8g threshold (8g eşiğiyle karşılaştırma)",
-          "required": true
-        }
+      "printed_question": 4,
+      "region": "Apple_Reason",
+      "spatial_anchors": [
+        "çünkü",
+        "4",
+        "yağ var"
       ],
-      "need": 2,
-      "partial_on": 1,
-      "example_answer": "Yağ değeri 8g eşiğinin altında olduğu için tavsiye edilebilir."
+      "target_logic": "Öğrenci, elmanın yağ miktarının (0.2g), karar kuralı eşiğinden (8g) küçük olduğunu ifade etmelidir.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Öğrenci 0.2 değeri ile 8 değerini doğru mantıkla karşılaştırmışsa.",
+          "examples": [
+            "0.2 < 8",
+            "0,2g <= 8g",
+            "0.2 olduğu için 8'den küçüktür"
+          ]
+        },
+        "0.5": {
+          "condition": "Sadece 0.2 değerini yazmış ama karşılaştırma yapmamışsa VEYA sadece '8'den küçük' yazmışsa."
+        },
+        "0.0": {
+          "condition": "Yanlış mantık veya boş."
+        }
+      }
     },
     "WS3_B5": {
-      "max_score": 1,
-      "evaluation": "classification",
-      "components": [
-        {
-          "id": "label",
-          "idea": "not recommended classification (tavsiye edilemez, tavsiye edilmez, önerilmez, uygun değil)",
-          "required": true
-        }
+      "printed_question": 5,
+      "region": "Fries_Label",
+      "spatial_anchors": [
+        "Patates kızartması",
+        "5",
+        "olarak sınıflandırılır"
       ],
-      "need": 1,
-      "note": "Leo's food 3 has fat > 8g, so label is not recommended.",
-      "example_answer": "Tavsiye edilemez"
+      "expected_concept": "label_not_recommended",
+      "target_logic": "Patates kızartmasının yağ oranı 14.0g'dır. > 8.0g olduğu için tavsiye edilemez.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "'equivalence_sets.label_not_recommended' grubundan bir yanıt verilmişse."
+        },
+        "0.0": {
+          "condition": "Yanlış etiket veya boş."
+        }
+      }
     },
     "WS3_B6": {
-      "max_score": 1,
-      "evaluation": "reasoning",
-      "components": [
-        {
-          "id": "feature_reference",
-          "idea": "references the fat feature and its value (yağ miktarına atıf)",
-          "required": true
-        },
-        {
-          "id": "threshold_comparison",
-          "idea": "compares to the 8g threshold (8g eşiğiyle karşılaştırma)",
-          "required": true
-        }
+      "printed_question": 6,
+      "region": "Fries_Reason",
+      "spatial_anchors": [
+        "çünkü",
+        "6",
+        "yağ var"
       ],
-      "need": 2,
-      "partial_on": 1,
-      "example_answer": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez."
+      "target_logic": "Öğrenci, patatesin yağ miktarının (14g), eşikten (8g) büyük olduğunu belirtmelidir.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Öğrenci 14 (veya 14.0) değeri ile 8 değerini doğru mantıkla karşılaştırmışsa.",
+          "examples": [
+            "14 > 8",
+            "14 gram 8'den fazla"
+          ]
+        },
+        "0.5": {
+          "condition": "Sadece 14g değerini yazmış ama karşılaştırmamışsa VEYA sadece '8'den büyük' yazmışsa."
+        },
+        "0.0": {
+          "condition": "Yanlış mantık veya boş."
+        }
+      }
     },
     "WS3_B7": {
-      "max_score": 1,
-      "evaluation": "threshold",
-      "check": "threshold",
-      "components": [
-        {
-          "id": "variable",
-          "idea": "energy variable named (enerji)",
-          "required": true
-        },
-        {
-          "id": "operator",
-          "idea": "less-than-or-equal operator (≤, <=, küçük eşit, en fazla)",
-          "required": true
-        }
+      "printed_question": 7,
+      "region": "Energy_Threshold_Left",
+      "spatial_anchors": [
+        "7",
+        "kcal",
+        "sol dal"
       ],
-      "need": 2,
-      "partial_on": 1,
-      "partial_credit_rule": "variable_correct_but_operator_wrong_or_missing",
-      "partial_score": 0.5,
-      "example_answer": "enerji ≤ [öğretmen adayının seçtiği değer]"
+      "target_logic": "Öğrenci, Enerji değişkeni için yeşil ve kırmızı kartları ayıran bir eşik değer seçmelidir. Sol dal 'Tavsiye Edilebilir' olduğu için, operatör 'küçük' veya 'küçük eşit' olmalı, sayı ise 71 ile 223 arasında olmalıdır.",
+      "cross_reference_dependency": "WS3_B8",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Öğrenci doğru yönlü bir operatör (<, <=, küçük, altında) VE 71 ile 223 arasında geçerli bir sayı yazmışsa.",
+          "examples": [
+            "<= 150",
+            "< 100",
+            "küçüktür 200"
+          ]
+        },
+        "0.5": {
+          "condition": "Sadece 71 ile 223 arasında doğru bir sayı yazmış ama operatör koymamışsa VEYA operatörü yanlış yönde (>) koymuşsa.",
+          "examples": [
+            "150",
+            "> 100"
+          ]
+        },
+        "0.0": {
+          "condition": "Aralık dışında bir sayı (ör: 50, 300) veya boş."
+        }
+      }
     },
     "WS3_B8": {
-      "max_score": 1,
-      "evaluation": "threshold",
-      "check": "threshold",
-      "components": [
-        {
-          "id": "variable",
-          "idea": "energy variable named (enerji)",
-          "required": true
-        },
-        {
-          "id": "operator",
-          "idea": "greater-than operator (>, büyük, fazla, üstünde)",
-          "required": true
-        }
+      "printed_question": 8,
+      "region": "Energy_Threshold_Right",
+      "spatial_anchors": [
+        "8",
+        "kcal",
+        "sağ dal"
       ],
-      "need": 2,
-      "partial_on": 1,
-      "partial_credit_rule": "variable_correct_but_operator_wrong_or_missing",
-      "partial_score": 0.5,
-      "note": "B8 threshold must be complementary to B7: if B7 uses value V with ≤, B8 should use same V with >.",
-      "example_answer": "enerji > [same value as B7]"
+      "target_logic": "Öğrenci, sağ dal (Tavsiye Edilemez) için B7'de seçtiği AYNI eşik değeri kullanmalı ve operatörü B7'nin tamamlayıcısı (>, >=) olarak belirlemelidir.",
+      "cross_reference_dependency": "WS3_B7",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Öğrenci doğru yönlü bir operatör (>, >=, büyük, üstünde) VE B7'de yazdığı SAYININ BİREBİR AYNISINI yazmışsa.",
+          "examples": [
+            ">= 150 (Eğer B7'de 150 yazıldıysa)"
+          ]
+        },
+        "0.5": {
+          "condition": "B7'deki sayının aynısını yazmış ama operatör koymamış veya yanlış operatör koymuşsa VEYA doğru operatör koymuş ama farklı geçerli bir sayı yazmışsa."
+        },
+        "0.0": {
+          "condition": "Aralık dışı sayı veya boş."
+        }
+      }
     }
   },
   "curriculum_status": "deployed"

@@ -91,13 +91,17 @@ def _item(
 
 BEHAVIOUR_MAP: dict[str, dict[str, dict[str, Any]]] = {
     "WS1": {
-        "WS1_B1": _item([_opp("OB_CON_001", rationale="Uses variable/label term (değişken or etiket) in nutrition-label context.")]),
-        "WS1_B2": _item([_opp("OB_CON_001", rationale="Uses object/feature term (nesne or özellik) for a food instance.")]),
-        "WS1_B3": _item([_opp("OB_CON_001", rationale="Names feature term; accepts nesne|özellik or değişken|etiket equivalents.")]),
-        "WS1_B4": _item([_opp("OB_CON_001", rationale="Counts features in the nutrition table.")]),
-        "WS1_B5": _item([_opp("OB_CON_001", rationale="Lists nutrient feature names from the table.")]),
-        "WS1_B6": _item([_opp("OB_CON_001", rationale="Identifies the example food object on the sheet.")]),
-        "WS1_B7": _item([_opp("OB_CON_001", rationale="Uses label (etiket) role for recommendation outcome.")]),
+        "WS1_B1": _item([_opp("OB_CON_001", rationale="Labels recommendation outcome (etiket) on the nutrition-card diagram.")]),
+        "WS1_B2": _item([_opp("OB_CON_001", rationale="Labels food instance as object (nesne) on the diagram.")]),
+        "WS1_B3": _item([_opp("OB_CON_001", rationale="Labels nutrient-name column as özellik/karakteristik/değişken on the diagram.")]),
+        "WS1_B4": _item([_opp("OB_CON_001", rationale="Labels numeric value column as özelliğin değeri on the diagram.")]),
+        "WS1_B5": _item([_opp("OB_CON_001", rationale="Uses object term (nesne) for individual foods in paragraph.")]),
+        "WS1_B6": _item([_opp("OB_CON_001", rationale="Applies object term to concrete food instance in paragraph.")]),
+        "WS1_B7": _item([_opp("OB_CON_001", rationale="Names feature/variable term for nutrient column in paragraph.")]),
+        "WS1_B8": _item([_opp("OB_CON_001", rationale="Counts features in the nutrition table.")]),
+        "WS1_B9": _item([_opp("OB_CON_001", rationale="Lists nutrient feature names from the table.")]),
+        "WS1_B10": _item([_opp("OB_CON_001", rationale="Names the example food object used on the sheet.")]),
+        "WS1_B11": _item([_opp("OB_CON_001", rationale="Uses label (etiket) role for recommendation outcome in paragraph.")]),
     },
     "WS3": {
         "WS3_B1": _item([_opp("OB_PRO_001", rationale="Applies Leo's rule to classify instance 1."),
@@ -372,7 +376,7 @@ VALIDITY_NOTES: dict[str, dict[str, Any]] = {
 
 
 EXTRACTION_NOTES: dict[str, str] = {
-    "WS1": "Seven fill-in-the-blank fields on the nutrition label (WS1_B1–B7; printed blanks 5–11).",
+    "WS1": "Eleven numbered items on the nutrition label worksheet (WS1_B1–B11 = printed 1–11): diagram callouts 1–4 and paragraph fill-ins 5–11.",
     "WS3": "Eight response fields; B7/B8 are threshold expressions.",
     "WS4": "Five response fields (B1–B5): threshold line, four-food identification, improvement reflection, Pia evaluation, energy threshold.",
     "WS5": "Twenty-five table cells (B1–B25) plus six aggregate row keys.",

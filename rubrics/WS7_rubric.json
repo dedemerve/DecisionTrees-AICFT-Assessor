@@ -1,113 +1,54 @@
 {
-  "worksheet": "WS7",
-  "note": "Part 1 (P1 boxes): match three printed if-then rules to paths A/B/C on the fixed enerji–protein sample tree. Single correct letter per box (B, A, C). Operators on the printed tree use complementary pairs: enerji <180 vs ≥180; protein <7,7 vs ≥7,7. Part 2 (B1–B3): one if-then rule per leaf path of the pre-service teacher's WS6 tree — exact features, threshold values, operators (< > ≤ ≥), and leaf label. Partial 0.5 only when feature(s) and label are correct but an operator direction is wrong. B4–B7 not scored when the tree has three paths.",
-  "dataset_reference": "data/ws7_sample_tree.json",
-  "operator_rules": {
-    "required": "Complementary pairs on each DT split: ≤↔>, <↔≥, ≥↔<, >↔≤. Part 1 sample tree: enerji <180 | ≥180; protein <7,7 | ≥7,7.",
-    "part1_single_answers": {
-      "WS7_P1_box1": "B",
-      "WS7_P1_box2": "A",
-      "WS7_P1_box3": "C"
-    },
-    "part2": "Operators in B1–B3 must match the pre-service teacher's WS6 branch notation exactly (not paraphrased to a different inequality).",
-    "invalid_examples": ["Rule uses ≥ when WS6 evet branch uses ≤", "Rule uses > when path requires ≥"]
-  },
+  "worksheet_id": "WS7",
   "items": {
-    "WS7_P1_box1": {
-      "max_score": 1,
-      "evaluation": "path_matching",
-      "answer": "B",
-      "note": "Printed rule row 5 (enerji ≥180 ve protein <7,7 → tavsiye edilemez) matches path B.",
-      "example_answer": "B"
+    "WS7_1": {
+      "printed_question": 1,
+      "expected_answer": "< 180 kcal",
+      "scoring_rules": {
+        "1.0": { "condition": "Öğrenci cevabı tam olarak '< 180' veya '< 180 kcal' ise." }
+      }
     },
-    "WS7_P1_box2": {
-      "max_score": 1,
-      "evaluation": "path_matching",
-      "answer": "A",
-      "note": "Printed rule row 6 (enerji <180 → tavsiye edilebilir) matches path A.",
-      "example_answer": "A"
+    "WS7_2": {
+      "printed_question": 2,
+      "expected_answer": "≥ 180 kcal",
+      "scoring_rules": {
+        "1.0": { "condition": "Öğrenci cevabı tam olarak '≥ 180' veya '>= 180' ise." }
+      }
     },
-    "WS7_P1_box3": {
-      "max_score": 1,
-      "evaluation": "path_matching",
-      "answer": "C",
-      "note": "Printed rule row 7 (enerji ≥180 ve protein ≥7,7 → tavsiye edilebilir) matches path C.",
-      "example_answer": "C"
+    "WS7_3": {
+      "printed_question": 3,
+      "expected_answer": "< 7,7 gram",
+      "scoring_rules": {
+        "1.0": { "condition": "Öğrenci cevabı tam olarak '< 7,7' veya '< 7,7 g' veya '< 7,7 gram' ise." }
+      }
     },
-    "WS7_B1": {
-      "max_score": 1,
-      "check": "rule_consistency_with_WS6",
-      "path_order": 1,
-      "components": [
-        {
-          "id": "correct_feature",
-          "idea": "feature(s) along WS6 path 1 (root evet + inner evet when two-level)",
-          "required": true
-        },
-        {
-          "id": "correct_operator",
-          "idea": "exact operator per split (< > ≤ ≥) matching WS6 evet/hayır branches",
-          "required": true
-        },
-        {
-          "id": "correct_label",
-          "idea": "conclusion matches WS6 leaf on path 1",
-          "required": true
-        }
-      ],
-      "partial_credit_rule": "correct_feature_and_label_but_wrong_operator",
-      "partial_score": 0.5,
-      "example_answer": "Eğer şeker ≤ 10 ve yağ ≤ 5 ise → Tavsiye edilir."
+    "WS7_4": {
+      "printed_question": 4,
+      "expected_answer": "≥ 7,7 gram",
+      "scoring_rules": {
+        "1.0": { "condition": "Öğrenci cevabı tam olarak '≥ 7,7' veya '>= 7,7' veya '≥ 7,7 g' ise." }
+      }
     },
-    "WS7_B2": {
-      "max_score": 1,
-      "check": "rule_consistency_with_WS6",
-      "path_order": 2,
-      "components": [
-        {
-          "id": "correct_feature",
-          "idea": "feature(s) along WS6 path 2",
-          "required": true
-        },
-        {
-          "id": "correct_operator",
-          "idea": "exact operators including complementary hayır branch (e.g. yağ > 5 when evet uses ≤ 5)",
-          "required": true
-        },
-        {
-          "id": "correct_label",
-          "idea": "conclusion matches WS6 leaf on path 2",
-          "required": true
-        }
-      ],
-      "partial_credit_rule": "correct_feature_and_label_but_wrong_operator",
-      "partial_score": 0.5,
-      "example_answer": "Eğer şeker ≤ 10 ve yağ > 5 ise → Tavsiye edilmez."
+    "WS7_5": {
+      "printed_question": 5,
+      "expected_answer": "B",
+      "scoring_rules": {
+        "1.0": { "condition": "Öğrenci cevabı tam olarak 'B' ise." }
+      }
     },
-    "WS7_B3": {
-      "max_score": 1,
-      "check": "rule_consistency_with_WS6",
-      "path_order": 3,
-      "components": [
-        {
-          "id": "correct_feature",
-          "idea": "feature(s) along WS6 root hayır path",
-          "required": true
-        },
-        {
-          "id": "correct_operator",
-          "idea": "complementary operator on root hayır branch (e.g. şeker > 10 when evet uses ≤ 10)",
-          "required": true
-        },
-        {
-          "id": "correct_label",
-          "idea": "conclusion matches WS6 leaf on path 3 (typically B13)",
-          "required": true
-        }
-      ],
-      "partial_credit_rule": "correct_feature_and_label_but_wrong_operator",
-      "partial_score": 0.5,
-      "example_answer": "Eğer şeker > 10 ise → Tavsiye edilmez."
+    "WS7_6": {
+      "printed_question": 6,
+      "expected_answer": "A",
+      "scoring_rules": {
+        "1.0": { "condition": "Öğrenci cevabı tam olarak 'A' ise." }
+      }
+    },
+    "WS7_7": {
+      "printed_question": 7,
+      "expected_answer": "C",
+      "scoring_rules": {
+        "1.0": { "condition": "Öğrenci cevabı tam olarak 'C' ise." }
+      }
     }
   }
 }

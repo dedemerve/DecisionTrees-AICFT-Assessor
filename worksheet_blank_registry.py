@@ -98,8 +98,12 @@ WS5_ROW_FOR_BLANK["WS5_B25"] = "WS5_B25"
 
 
 def _printed_blank_ws1(field_id: str) -> int | None:
-    m = {"WS1_B1": 5, "WS1_B2": 6, "WS1_B3": 7, "WS1_B4": 8, "WS1_B5": 9, "WS1_B6": 10, "WS1_B7": 11}
-    return m.get(field_id)
+    if field_id.startswith("WS1_B"):
+        try:
+            return int(field_id.replace("WS1_B", ""))
+        except ValueError:
+            return None
+    return None
 
 
 def _scoring_mode_for_item(worksheet: str, item_id: str, item: dict[str, Any]) -> ScoringMode:

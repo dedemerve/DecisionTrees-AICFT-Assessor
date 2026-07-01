@@ -1,178 +1,65 @@
 {
-  "worksheet": "WS11",
-  "note": "Only cognitive items are scored. Printed Q1–Q5 (B1–B5) survey/Likert, Q6–Q7 (B6–B7) demographics, and L10–L12 are descriptive_only — no keyed answers for Q1–Q7. Q10: 8 binary Doğru/Yanlış sub-items, each max_score 0.125. Q11: step 1 is given; 3 sub-items for steps 2-4, each max_score 0.33. Q12: 5 sub-items (multiselect), each max_score 0.2.",
+  "worksheet_id": "WS11",
+  "metadata": {
+    "title": "Değerlendirme ve Öz-Yansıtma",
+    "structure": "Anket (Q1-Q7) + Bilişsel Test (Q8-Q12)"
+  },
   "items": {
-    "WS11_B8a": {
-      "max_score": 1,
-      "evaluation": "classification",
-      "components": [
-        {
-          "id": "label",
-          "idea": "not recommended classification (tavsiye edilmez, tavsiye edilemez, önerilmez, uygun değil)",
-          "required": true
-        }
+    "ANKET_BOLUMU": {
+      "items": [
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "Q5",
+        "Q6",
+        "Q7"
       ],
-      "need": 1,
-      "example_answer": "Tavsiye edilmez"
+      "type": "descriptive_only",
+      "scoring": "No score, data logging only."
     },
-    "WS11_B8b": {
-      "max_score": 1,
-      "evaluation": "rule",
-      "components": [
-        {
-          "id": "condition",
-          "idea": "condition references şeker > 10 (or equivalent: şeker eşiği aşıldı)",
-          "required": true
-        },
-        {
-          "id": "conclusion",
-          "idea": "conclusion states not recommended (tavsiye edilmez)",
-          "required": true
-        }
-      ],
-      "need": 2,
-      "partial_on": 1,
-      "example_answer": "Eğer şeker > 10 ise → Tavsiye edilmez."
+    "WS11_8a": {
+      "expected_answer": "Tavsiye edilebilir",
+      "scoring": "1.0 puan."
     },
-    "WS11_B9": {
-      "max_score": 1,
-      "evaluation": "definition",
-      "components": [
-        {
-          "id": "learns_from_data",
-          "idea": "learns from data / data-driven (veriden öğrenir, veri temelli)",
-          "required": true
-        },
-        {
-          "id": "tree_or_classification",
-          "idea": "tree structure or classification task (ağaç yapısı, sınıflandırma, dal-yaprak)",
-          "required": true
-        }
-      ],
-      "need": 2,
-      "partial_on": 1,
-      "example_answer": "Karar ağacı, veriden örüntü öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir modeldir."
+    "WS11_8b": {
+      "expected_answer": "yağ (fat) ≤ 7,5 (0,3 g) şeker (of which sugar) < 12,5 (5,0)",
+      "scoring": "Kuralın mantıksal operatör ve eşik değer uyumuna göre 1.0 puan."
     },
-    "WS11_Q10_1": {
-      "max_score": 0.125,
-      "evaluation": "true_false",
-      "statement": "Bir özelliğin hangi niteliğe sahip olduğunu tahmin etmek",
-      "correct_answer": "Doğru",
-      "example_answer": "Doğru"
+    "WS11_Q10": {
+      "type": "binary_grid",
+      "correct_keys": {
+        "1": "Doğru",
+        "2": "Doğru",
+        "3": "Yanlış",
+        "4": "Doğru",
+        "5": "Doğru",
+        "6": "Yanlış",
+        "7": "Yanlış",
+        "8": "Doğru"
+      },
+      "scoring": "Her doğru cevap 0.125 puan."
     },
-    "WS11_Q10_2": {
-      "max_score": 0.125,
-      "evaluation": "true_false",
-      "statement": "Yeni nesneler için kararlar vermek",
-      "correct_answer": "Doğru",
-      "example_answer": "Doğru"
+    "WS11_Q11": {
+      "type": "ordering",
+      "correct_sequence": {
+        "1": 4,
+        "2": 1,
+        "3": 3,
+        "4": 2
+      },
+      "scoring": "Sıralama adımlarının doğruluğuna göre puanlanır."
     },
-    "WS11_Q10_3": {
-      "max_score": 0.125,
-      "evaluation": "true_false",
-      "statement": "İyi bir yemek planı oluşturmak",
-      "correct_answer": "Yanlış",
-      "example_answer": "Yanlış"
-    },
-    "WS11_Q10_4": {
-      "max_score": 0.125,
-      "evaluation": "true_false",
-      "statement": "Gerçekliğin bir parçasını modellemek",
-      "correct_answer": "Doğru",
-      "example_answer": "Doğru"
-    },
-    "WS11_Q10_5": {
-      "max_score": 0.125,
-      "evaluation": "true_false",
-      "statement": "Bir gıdanın ne kadar önerilebilir olduğunu belirlemek",
-      "correct_answer": "Doğru",
-      "example_answer": "Doğru"
-    },
-    "WS11_Q10_6": {
-      "max_score": 0.125,
-      "evaluation": "true_false",
-      "statement": "Bir nesnenin hangi özelliklere sahip olduğunu tahmin etmek",
-      "correct_answer": "Yanlış",
-      "example_answer": "Yanlış"
-    },
-    "WS11_Q10_7": {
-      "max_score": 0.125,
-      "evaluation": "true_false",
-      "statement": "Birine ne yemesi gerektiğini söylemek",
-      "correct_answer": "Yanlış",
-      "example_answer": "Yanlış"
-    },
-    "WS11_Q10_8": {
-      "max_score": 0.125,
-      "evaluation": "true_false",
-      "statement": "Alınan kararların ne kadar iyi olduğunu anlamak",
-      "correct_answer": "Doğru",
-      "example_answer": "Doğru"
-    },
-    "WS11_Q11_2": {
-      "max_score": 0.33,
-      "evaluation": "ordering_step",
-      "step_number": 2,
-      "statement": "Verileri seçilen özelliğe göre boyuta göre düzenliyorum",
-      "correct_answer": 2,
-      "note": "Step 1 (Bir özellik seçiyorum) is pre-filled on the worksheet; only steps 2-4 are scored.",
-      "example_answer": "2"
-    },
-    "WS11_Q11_3": {
-      "max_score": 0.33,
-      "evaluation": "ordering_step",
-      "step_number": 3,
-      "statement": "Birçok kartın doğru sınıflandırıldığı iyi bir eşik buldum",
-      "correct_answer": 3,
-      "example_answer": "3"
-    },
-    "WS11_Q11_4": {
-      "max_score": 0.34,
-      "evaluation": "ordering_step",
-      "step_number": 4,
-      "statement": "Bir karar verdim",
-      "correct_answer": 4,
-      "example_answer": "4"
-    },
-    "WS11_Q12_1": {
-      "max_score": 0.2,
-      "evaluation": "multiselect_subitem",
-      "option": 1,
-      "correct": true,
-      "option_text": "Karar ağacı aşırı öğrenebilir",
-      "example_answer": "İşaretlenmeli"
-    },
-    "WS11_Q12_2": {
-      "max_score": 0.2,
-      "evaluation": "multiselect_subitem",
-      "option": 2,
-      "correct": false,
-      "option_text": "Karar ağacı her zaman en iyi modeldir",
-      "example_answer": "İşaretlenmemeli"
-    },
-    "WS11_Q12_3": {
-      "max_score": 0.2,
-      "evaluation": "multiselect_subitem",
-      "option": 3,
-      "correct": false,
-      "option_text": "Karar ağacında eşik değeri önemsizdir",
-      "example_answer": "İşaretlenmemeli"
-    },
-    "WS11_Q12_4": {
-      "max_score": 0.2,
-      "evaluation": "multiselect_subitem",
-      "option": 4,
-      "correct": false,
-      "option_text": "MCR her zaman 0 olmalıdır",
-      "example_answer": "İşaretlenmemeli"
-    },
-    "WS11_Q12_5": {
-      "max_score": 0.2,
-      "evaluation": "multiselect_subitem",
-      "option": 5,
-      "correct": true,
-      "option_text": "Daha fazla veri modeli genellikle iyileştirir",
-      "example_answer": "İşaretlenmeli"
+    "WS11_Q12": {
+      "type": "boolean_grid",
+      "correct_keys": {
+        "1": "Doğru",
+        "2": "Yanlış",
+        "3": "Yanlış",
+        "4": "Yanlış",
+        "5": "Doğru"
+      },
+      "scoring": "Her doğru cevap 0.2 puan."
     }
   },
   "curriculum_status": "deployed"

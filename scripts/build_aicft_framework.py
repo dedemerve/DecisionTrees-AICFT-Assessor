@@ -148,13 +148,17 @@ def comp(
 
 def ws1_mappings() -> dict[str, list[dict[str, Any]]]:
     items = {
-        "WS1_B1": ("LO3.1.2", "moderate", "Identifies object (nesne) term on the nutrition-label worksheet."),
-        "WS1_B2": ("LO3.1.2", "moderate", "Applies object term to a concrete food instance."),
-        "WS1_B3": ("LO3.1.2", "moderate", "Names feature/variable term for nutrient columns."),
-        "WS1_B4": ("LO3.1.2", "moderate", "Counts features in the nutrition table or card set."),
-        "WS1_B5": ("LO3.1.2", "strong", "Lists nutrient feature names from the table."),
-        "WS1_B6": ("LO3.1.2", "moderate", "Names the example food object used on the sheet."),
-        "WS1_B7": ("LO3.1.2", "moderate", "Uses label (etiket) role for recommendation outcome."),
+        "WS1_B1": ("LO3.1.2", "moderate", "Identifies label (etiket) on the nutrition-card diagram."),
+        "WS1_B2": ("LO3.1.2", "moderate", "Identifies object (nesne) on the nutrition-card diagram."),
+        "WS1_B3": ("LO3.1.2", "moderate", "Names feature/variable column on the diagram."),
+        "WS1_B4": ("LO3.1.2", "moderate", "Names feature-value column on the diagram."),
+        "WS1_B5": ("LO3.1.2", "moderate", "Uses object (nesne) term for individual foods in the paragraph."),
+        "WS1_B6": ("LO3.1.2", "moderate", "Applies object term to a concrete food instance in the paragraph."),
+        "WS1_B7": ("LO3.1.2", "moderate", "Names feature/variable term for nutrient columns in the paragraph."),
+        "WS1_B8": ("LO3.1.2", "moderate", "Counts features in the nutrition table."),
+        "WS1_B9": ("LO3.1.2", "strong", "Lists nutrient feature names from the table."),
+        "WS1_B10": ("LO3.1.2", "moderate", "Names the example food object used on the sheet."),
+        "WS1_B11": ("LO3.1.2", "moderate", "Uses label (etiket) role for recommendation outcome in the paragraph."),
     }
     return {
         bid: [comp(lo, strength, "direct", "Acquire", rationale)]

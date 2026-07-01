@@ -46,7 +46,7 @@ Central blank → field mapping and scoring modes: `worksheet_blank_registry.py`
 | WS7 P1 | Boxes 1–3 → B, A, C | `fixed_exact` | `ws7_validation.py` |
 | WS7 B1–B3 | Cross-ref student WS6 tree | `cross_worksheet` | `ws7_validation.py` |
 | WS5 / WS6 | B-fields → computed from 11 cards + tree | `computed` | `ws5_validation.py` / `ws6_validation.py` |
-| WS1 | Printed blanks 5–11 | `equivalence` / `fixed_exact` | rubric checks / LLM |
+| WS1 | Printed items 1–11 (`WS1_B1`–`B11`) | `equivalence` / `fixed_exact` | rubric checks / LLM |
 | WS3 / WS4 | B1…Bn aligned to rubric items | mixed | LLM + partial Python (WS4 B2, B5) |
 | WS11 | Q1–Q5 survey + Q6–Q7 demographics | `survey` / `demographic` | LLM (cognitive B8–Q12 only) |
 | WS_DT | Section A/Q items | `interpretive` | LLM |

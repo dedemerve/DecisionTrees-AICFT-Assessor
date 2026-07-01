@@ -1,16 +1,22 @@
 {
-  "worksheet": "WS5",
-  "note": "Threshold grid on ProDaBi food cards (data/prodabi_food_cards.csv, N=11). The dataset and each card's tavsiye edilebilir/edilemez label are fixed; the pre-service teacher's variable, operator, and threshold value are free on each row. Full credit when notation is valid, arithmetic is consistent (doğru + hata = 11, MCR = hata/11), and counts match the reference cards for that threshold with the complementary false branch (≤↔>, <↔≥, ≥↔<, >↔≤). example_answer values are illustrative Sample_Student fixtures, not required answers.",
-  "scoring_model": {
-    "type": "computed_from_dataset",
-    "dataset_size": 11,
+  "worksheet_id": "WS5",
+  "metadata": {
+    "title": "Eşik Değerleri Deneyin (Hipotez Testi ve Python Validasyonu)",
+    "target_grade": "K-12 / Introductory ML",
+    "evaluation_mode": "LLM Extraction -> Python Deterministic Scoring",
     "dataset_reference": "data/prodabi_food_cards.csv",
-    "no_fixed_thresholds": true,
-    "example_answers_illustrative": true,
-    "authority": "ws5_validation.py — expected_row_counts() recomputes doğru/hata/MCR from the pre-service teacher's parsed threshold"
+    "dataset_size": 11
   },
-  "dataset_size": 11,
-  "dataset_reference": "data/prodabi_food_cards.csv",
+  "pipeline_handling_rules": {
+    "llm_extraction_to_python_bridge": {
+      "strategy": "Data Normalization & Aggregation",
+      "description": "LLM, görseldeki dağınık verileri ws5_validation.py kodunun beklediği 4 ana parametreye (threshold, correct, errors, mcr) dönüştürmelidir. 1. 'threshold': Değişken adı ve sol/sağ daldaki operatör birleştirilerek oluşturulur (Örn: 'şeker <= 10'). Öğrenci dallara sadece sayı yazdıysa sol dalı '<=' kabul et. 2. 'errors': Öğrencinin 'Yanlış sınıflandırma sayısı' boşluğuna yazdığı sayıdır. 3. 'correct': Öğrenci yazmamış olsa bile (11 - errors) işlemiyle LLM tarafından hesaplanıp koda iletilmelidir. 4. 'mcr': (errors / 11) olarak LLM tarafından hesaplanıp Python'a iletilmelidir."
+    },
+    "spatial_displacement_rule": {
+      "strategy": "Block-Level Assessment",
+      "description": "Değerlendirmeyi bireysel boşluk numaralarına (1, 2, 3...) göre değil, görsel bloklara (Deneme 1, Deneme 2, Deneme 3) göre yap."
+    }
+  },
   "acceptable_features": [
     {
       "aliases": [
@@ -66,42 +72,6 @@
       "field": "salt_g"
     }
   ],
-  "threshold_notation": {
-    "required_format": "özellik + operatör + sayı (ör. şeker ≤ 10, yağ <= 8, enerji > 180)",
-    "accepted_operators": [
-      "≤",
-      ">=",
-      "<",
-      ">",
-      "<=",
-      ">="
-    ],
-    "ocr_normalization": "Unicode ≤≥ and comma decimals normalized before parse"
-  },
-  "operator_rules": {
-    "required": "Complementary pairs on DT branches: ≤↔>, <↔≥, ≥↔<, >↔≤. Only the true/evet threshold is written; the false/hayır branch uses the complement so all 11 cards are classified.",
-    "invalid": "Mismatched pair (e.g. şeker < 10 with implicit > 10 instead of ≥ 10) — counts will not cover all 11 cards correctly.",
-    "valid_examples": [
-      "şeker ≤ 10 (implies > 10)",
-      "şeker < 10 (implies ≥ 10)",
-      "yağ ≤ 8"
-    ],
-    "invalid_examples": [
-      "şeker < 10 with implicit > 10",
-      "şeker ≤ 10 with ≥ 10"
-    ]
-  },
-  "row_scoring": {
-    "check": "row_consistency",
-    "credit_levels": {
-      "full": "Parseable threshold on an acceptable feature; doğru + hata = 11; MCR ≈ hata/11; doğru and hata match prodabi_food_cards.csv for that threshold with complementary false branch.",
-      "partial": "Parseable threshold and internal arithmetic OK (sum and MCR) but classification counts do not match the dataset for the written threshold.",
-      "zero": "Unparseable threshold, incomplete row, or arithmetic inconsistent (doğru+hata≠11 or MCR≠hata/11).",
-      "not_attempted": "All four cells blank."
-    },
-    "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
-    "partial_score": 0.5
-  },
   "rows": [
     {
       "row": "WS5_row1",
@@ -129,105 +99,56 @@
         "errors": "WS5_B11",
         "mcr": "WS5_B12"
       }
-    },
-    {
-      "row": "WS5_row4",
-      "cells": {
-        "threshold": "WS5_B13",
-        "correct": "WS5_B14",
-        "errors": "WS5_B15",
-        "mcr": "WS5_B16"
-      }
-    },
-    {
-      "row": "WS5_row5",
-      "cells": {
-        "threshold": "WS5_B17",
-        "correct": "WS5_B18",
-        "errors": "WS5_B19",
-        "mcr": "WS5_B20"
-      }
-    },
-    {
-      "row": "WS5_row6",
-      "cells": {
-        "threshold": "WS5_B21",
-        "correct": "WS5_B22",
-        "errors": "WS5_B23",
-        "mcr": "WS5_B24"
-      },
-      "optional": true
     }
   ],
   "items": {
     "WS5_row1": {
+      "region": "Top_Decision_Tree_Block",
       "max_score": 1,
       "check": "row_consistency",
       "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
       "partial_score": 0.5,
-      "example_answer": "şeker ≤ 5 | doğru: 8 | hata: 3 | MCR: 0.27",
-      "example_note": "Illustrative only — any valid threshold with matching counts is full credit."
+      "extraction_logic": "Değişken 1'i ve dalları (2,3) birleştirip 'threshold' (ör: yağ <= 8) oluştur. Boşluk 8'i 'errors' parametresine ata. 'correct' ve 'mcr' parametrelerini 11 kart üzerinden türet."
     },
     "WS5_row2": {
+      "region": "Middle_Decision_Tree_Block",
       "max_score": 1,
       "check": "row_consistency",
       "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
       "partial_score": 0.5,
-      "example_answer": "yağ ≤ 8 | doğru: 8 | hata: 3 | MCR: 0.27",
-      "example_note": "Illustrative only."
+      "extraction_logic": "Değişken 9'u ve dalları (10,11) birleştirip 'threshold' oluştur. Boşluk 16'yı 'errors' parametresine ata."
     },
     "WS5_row3": {
+      "region": "Bottom_Decision_Tree_Block",
       "max_score": 1,
       "check": "row_consistency",
       "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
       "partial_score": 0.5,
-      "example_answer": "şeker ≤ 10 | doğru: 8 | hata: 3 | MCR: 0.27",
-      "example_note": "Illustrative only."
-    },
-    "WS5_row4": {
-      "max_score": 1,
-      "check": "row_consistency",
-      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
-      "partial_score": 0.5,
-      "example_answer": "şeker ≤ 12 | doğru: 9 | hata: 2 | MCR: 0.18",
-      "example_note": "Illustrative only."
-    },
-    "WS5_row5": {
-      "max_score": 1,
-      "check": "row_consistency",
-      "partial_credit_rule": "wrong_counts_with_valid_feature_and_arithmetic",
-      "partial_score": 0.5,
-      "example_answer": "şeker ≤ 15 | doğru: 9 | hata: 2 | MCR: 0.18",
-      "example_note": "Illustrative only."
+      "extraction_logic": "Değişken 17'yi ve dalları (18,19) birleştirip 'threshold' oluştur. Boşluk 24'ü 'errors' parametresine ata."
     },
     "WS5_B25": {
+      "printed_question": 25,
+      "region": "Bottom_Paragraph",
       "max_score": 1,
       "check": "b25_minimum_errors",
-      "evaluation": "justification",
-      "method": "Her grid satırı için tavsiye edilebilir/edilemez ve yanlış sınıflandırma sayılarının doğru girildiği varsayılır (satır aritmetiği tutarlı). B25'te öğretmen adayı, tablodaki en düşük yanlış sınıflandırma sayısına sahip eşiği tercih etmelidir. Aynı minimum hata sayısına sahip birden fazla eşik varsa herhangi biri kabul edilir; öğretmen adayı yalnızca birini yazdıysa tie_at_minimum bayrağı eklenir.",
-      "credit_levels": {
-        "full": "B25 names a threshold from the pre-service teacher's grid with the minimum error count among arithmetic-valid rows.",
-        "partial": "Threshold is in the grid but not among minimum-error trials.",
-        "zero": "Blank, or threshold not found in any grid row.",
-        "not_attempted": "Blank B25."
-      },
+      "target_logic": "Öğretmen adayı, yukarıdaki tablosunda hesapladığı denemeler arasında 'Yanlış sınıflandırma sayısı' en düşük olan eşik değeri tercih etmelidir.",
       "components": [
         {
           "id": "threshold_from_grid",
-          "idea": "names a specific threshold (feature + operator + value) that appears in their grid trials",
+          "idea": "Öğrencinin metne yazdığı eşik değer, yukarıdaki 3 denemesinden birinde kelimesi kelimesine veya mantıksal olarak (ör: şeker <= 10) yer almalıdır.",
           "required": true
         },
         {
           "id": "minimum_misclassification",
-          "idea": "chooses a threshold with the lowest yanlış sınıflandırma (error) count among valid grid rows — not a row with higher errors when a lower-error trial exists",
+          "idea": "Seçilen bu değer, öğrencinin yukarıda hesapladığı (Python'un değil, öğrencinin kendi hesabındaki) en düşük hata oranına (errors) sahip deneme olmalıdır.",
           "required": true
         }
       ],
-      "tie_rule": "When two or more trials share the same minimum error count, any tied threshold is acceptable. Flag review when only one is named while tied alternatives exist.",
-      "need": 2,
-      "partial_on": 1,
-      "partial_score": 0.5,
-      "example_answer": "Şeker ≤ 12'yi tercih ederim; 2 yanlış sınıflandırma ile tablomdaki en düşük hata sayısı (şeker ≤ 15 de 2 hata veriyor)."
+      "scoring_rules": {
+        "1.0": "Kendi tablosundaki en düşük hatalı eşiği doğru değişken ismiyle yazmışsa.",
+        "0.5": "Tablodaki en düşük hatalı eşiği seçmiş ama sadece sayı yazmış (değişkeni yazmamış) VEYA tablodaki başka (daha yüksek hatalı) bir eşiği seçmişse.",
+        "0.0": "Tabloda hiç geçmeyen bir değer yazmışsa veya boş bırakmışsa."
+      }
     }
   },
   "curriculum_status": "deployed"

@@ -170,10 +170,14 @@ def _ws1_fields(rubric: dict[str, Any]) -> dict[str, Any]:
         "WS1_B1": "etiket",
         "WS1_B2": "nesne",
         "WS1_B3": "özellik",
-        "WS1_B4": "7",
-        "WS1_B5": "Enerji, Yağ, Doymuş Yağ, Karbonhidrat, Şeker, Protein, Tuz",
-        "WS1_B6": "Fındıklı Gofret",
-        "WS1_B7": "etiket",
+        "WS1_B4": "değer",
+        "WS1_B5": "nesne",
+        "WS1_B6": "nesne",
+        "WS1_B7": "özellik",
+        "WS1_B8": "7",
+        "WS1_B9": "Enerji, Yağ, Doymuş Yağ, Karbonhidrat, Şeker, Protein, Tuz",
+        "WS1_B10": "Fındıklı Gofret",
+        "WS1_B11": "etiket olarak",
     }
     out: dict[str, Any] = {}
     for fid, ex in examples.items():

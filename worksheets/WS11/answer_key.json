@@ -3,103 +3,23 @@
   "curriculum_status": "deployed",
   "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
   "items": {
-    "WS11_B8a": {
-      "evaluation": "classification",
-      "example_answer": "Tavsiye edilmez"
+    "ANKET_BOLUMU": {
+      "open_response": true
     },
-    "WS11_B8b": {
-      "evaluation": "rule",
-      "example_answer": "Eğer şeker > 10 ise → Tavsiye edilmez."
+    "WS11_8a": {
+      "open_response": true
     },
-    "WS11_B9": {
-      "evaluation": "definition",
-      "example_answer": "Karar ağacı, veriden örüntü öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir modeldir."
+    "WS11_8b": {
+      "open_response": true
     },
-    "WS11_Q10_1": {
-      "evaluation": "true_false",
-      "correct_answer": "Doğru",
-      "example_answer": "Doğru",
-      "deterministic": true
+    "WS11_Q10": {
+      "open_response": true
     },
-    "WS11_Q10_2": {
-      "evaluation": "true_false",
-      "correct_answer": "Doğru",
-      "example_answer": "Doğru",
-      "deterministic": true
+    "WS11_Q11": {
+      "open_response": true
     },
-    "WS11_Q10_3": {
-      "evaluation": "true_false",
-      "correct_answer": "Yanlış",
-      "example_answer": "Yanlış",
-      "deterministic": true
-    },
-    "WS11_Q10_4": {
-      "evaluation": "true_false",
-      "correct_answer": "Doğru",
-      "example_answer": "Doğru",
-      "deterministic": true
-    },
-    "WS11_Q10_5": {
-      "evaluation": "true_false",
-      "correct_answer": "Doğru",
-      "example_answer": "Doğru",
-      "deterministic": true
-    },
-    "WS11_Q10_6": {
-      "evaluation": "true_false",
-      "correct_answer": "Yanlış",
-      "example_answer": "Yanlış",
-      "deterministic": true
-    },
-    "WS11_Q10_7": {
-      "evaluation": "true_false",
-      "correct_answer": "Yanlış",
-      "example_answer": "Yanlış",
-      "deterministic": true
-    },
-    "WS11_Q10_8": {
-      "evaluation": "true_false",
-      "correct_answer": "Doğru",
-      "example_answer": "Doğru",
-      "deterministic": true
-    },
-    "WS11_Q11_2": {
-      "evaluation": "ordering_step",
-      "correct_answer": 2,
-      "example_answer": "2",
-      "deterministic": true
-    },
-    "WS11_Q11_3": {
-      "evaluation": "ordering_step",
-      "correct_answer": 3,
-      "example_answer": "3",
-      "deterministic": true
-    },
-    "WS11_Q11_4": {
-      "evaluation": "ordering_step",
-      "correct_answer": 4,
-      "example_answer": "4",
-      "deterministic": true
-    },
-    "WS11_Q12_1": {
-      "evaluation": "multiselect_subitem",
-      "example_answer": "İşaretlenmeli"
-    },
-    "WS11_Q12_2": {
-      "evaluation": "multiselect_subitem",
-      "example_answer": "İşaretlenmemeli"
-    },
-    "WS11_Q12_3": {
-      "evaluation": "multiselect_subitem",
-      "example_answer": "İşaretlenmemeli"
-    },
-    "WS11_Q12_4": {
-      "evaluation": "multiselect_subitem",
-      "example_answer": "İşaretlenmemeli"
-    },
-    "WS11_Q12_5": {
-      "evaluation": "multiselect_subitem",
-      "example_answer": "İşaretlenmeli"
+    "WS11_Q12": {
+      "open_response": true
     }
   },
   "fields": {
@@ -186,117 +106,6 @@
         "Kız"
       ],
       "source": "data/ws11_feedback_reference.json"
-    },
-    "WS11_B8a": {
-      "example_response": "Tavsiye edilmez",
-      "scoring_mode": "interpretive",
-      "open_response": true
-    },
-    "WS11_B8b": {
-      "example_response": "Eğer şeker > 10 ise → Tavsiye edilmez.",
-      "scoring_mode": "interpretive",
-      "open_response": true
-    },
-    "WS11_B9": {
-      "example_response": "Karar ağacı, veriden örüntü öğrenerek yeni örnekleri sınıflandıran, dal ve yaprak düğümlerden oluşan bir modeldir.",
-      "scoring_mode": "interpretive",
-      "open_response": true
-    },
-    "WS11_Q10_1": {
-      "answer": "Doğru",
-      "example_response": "Doğru",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q10_2": {
-      "answer": "Doğru",
-      "example_response": "Doğru",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q10_3": {
-      "answer": "Yanlış",
-      "example_response": "Yanlış",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q10_4": {
-      "answer": "Doğru",
-      "example_response": "Doğru",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q10_5": {
-      "answer": "Doğru",
-      "example_response": "Doğru",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q10_6": {
-      "answer": "Yanlış",
-      "example_response": "Yanlış",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q10_7": {
-      "answer": "Yanlış",
-      "example_response": "Yanlış",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q10_8": {
-      "answer": "Doğru",
-      "example_response": "Doğru",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q11_2": {
-      "answer": 2,
-      "example_response": "2",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q11_3": {
-      "answer": 3,
-      "example_response": "3",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q11_4": {
-      "answer": 4,
-      "example_response": "4",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q12_1": {
-      "answer": true,
-      "example_response": "İşaretli",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q12_2": {
-      "answer": false,
-      "example_response": "İşaretlenmemiş",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q12_3": {
-      "answer": false,
-      "example_response": "İşaretlenmemiş",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q12_4": {
-      "answer": false,
-      "example_response": "İşaretlenmemiş",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
-    },
-    "WS11_Q12_5": {
-      "answer": true,
-      "example_response": "İşaretli",
-      "scoring_mode": "fixed_exact",
-      "deterministic": true
     }
   },
   "field_note": "Per-field reference for OCR/extraction alignment and Sample_Student fixtures. Interpretive fields carry example_response only."

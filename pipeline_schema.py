@@ -118,7 +118,7 @@ ITEM_IDS_DT: list[str] = [
     "DT_G_overfitting", "DT_G_DT_definition", "DT_G_Q1", "DT_G_Q2",
 ]
 
-ITEM_IDS_WS1: list[str] = [f"WS1_B{i}" for i in range(1, 8)]
+ITEM_IDS_WS1: list[str] = [f"WS1_B{i}" for i in range(1, 12)]
 ITEM_IDS_WS3: list[str] = [f"WS3_B{i}" for i in range(1, 9)]
 ITEM_IDS_WS4: list[str] = [f"WS4_B{i}" for i in range(1, 6)]
 ITEM_IDS_WS5: list[str] = [f"WS5_B{i}" for i in range(1, 26)]

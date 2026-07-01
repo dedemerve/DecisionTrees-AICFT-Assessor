@@ -28,6 +28,35 @@ def make_image(width: int = 800, height: int = 1000) -> Image.Image:
     return Image.new("RGB", (width, height), color=(255, 255, 255))
 
 
+def make_text_pdf(path: Path, page_texts: list[str]) -> None:
+    """
+    Write a minimal real PDF with one page per entry in page_texts, each page's
+    text layer holding that string. Used to exercise ocr_pipeline.detect_student_page_ranges,
+    which reads the PDF's own text layer (pypdf) rather than a mocked convert_from_path.
+    """
+    from pypdf import PdfWriter
+    from pypdf.generic import DictionaryObject, NameObject, StreamObject
+
+    writer = PdfWriter()
+    for text in page_texts:
+        page = writer.add_blank_page(width=400, height=500)
+
+        content = StreamObject()
+        content.set_data(f"BT /F1 18 Tf 50 400 Td ({text}) Tj ET".encode("latin-1"))
+        page[NameObject("/Contents")] = writer._add_object(content)
+
+        font = DictionaryObject({
+            NameObject("/Type"): NameObject("/Font"),
+            NameObject("/Subtype"): NameObject("/Type1"),
+            NameObject("/BaseFont"): NameObject("/Helvetica"),
+        })
+        page[NameObject("/Resources")] = DictionaryObject({
+            NameObject("/Font"): DictionaryObject({NameObject("/F1"): writer._add_object(font)}),
+        })
+    with open(path, "wb") as fh:
+        writer.write(fh)
+
+
 def make_full_raw_dt() -> dict[str, Any]:
     raw = {k: f"answer for {k}" for k in p.ITEM_IDS_DT}
     raw["student_name"] = "TestStudent"
@@ -233,9 +262,15 @@ class TestRedTeam:
     def test_RT20_student_index_out_of_range_handled(self):
         """mode_pilot with an out-of-range index returns empty dict, not crash."""
         client = make_mock_client(make_full_raw_dt())
-        images_mock = [make_image()] * 4  # 4 pages = 1 student max for pps=4
-        with patch("ocr_pipeline.convert_from_path", return_value=images_mock):
-            result = p.mode_pilot(client, "WorksheetDT.pdf", student_index=5)
+        images_mock = [make_image()] * 4  # 4 pages = 1 detected group
+        with tempfile.TemporaryDirectory() as tmpdir:
+            pdf_path = Path(tmpdir) / "WorksheetDT.pdf"
+            make_text_pdf(pdf_path, ["Daniella"] * 4)
+            with (
+                patch("ocr_pipeline.DATA_DIR", Path(tmpdir)),
+                patch("ocr_pipeline.convert_from_path", return_value=images_mock),
+            ):
+                result = p.mode_pilot(client, "WorksheetDT.pdf", student_index=5)
         assert result == {}
 
 
@@ -248,7 +283,7 @@ class TestStress:
     # --- Schema invariants ---
 
     def test_ST01_all_item_ids_count(self):
-        assert len(p.ALL_ITEM_IDS) == 149
+        assert len(p.ALL_ITEM_IDS) == 153
 
     def test_ST02_all_item_ids_unique(self):
         assert len(p.ALL_ITEM_IDS) == len(set(p.ALL_ITEM_IDS))
@@ -516,9 +551,10 @@ class TestStress:
             with open(student_dir / raw_key, "w") as f:
                 json.dump(raw, f)
 
+            make_text_pdf(out_dir / "WorksheetDT.pdf", ["Daniella"] * 4)
             with (
                 patch("ocr_pipeline.OUT_DIR", out_dir),
-                patch("ocr_pipeline.DATA_DIR", Path(tmpdir)),
+                patch("ocr_pipeline.DATA_DIR", out_dir),
                 patch("ocr_pipeline.convert_from_path", return_value=[make_image()] * 4),
             ):
                 results = p.process_pdf(client, "WorksheetDT.pdf", resume=True)
@@ -688,10 +724,11 @@ class TestPseudonymAndOCR:
             with open(student_dir / raw_key, "w") as f:
                 json.dump(raw, f)
             (out_dir / f".Daniella_{pdf_stem}").write_text("1")
+            make_text_pdf(out_dir / "WorksheetDT.pdf", ["Daniella"] * 4)
 
             with (
                 patch("ocr_pipeline.OUT_DIR", out_dir),
-                patch("ocr_pipeline.DATA_DIR", Path(tmpdir)),
+                patch("ocr_pipeline.DATA_DIR", out_dir),
                 patch("ocr_pipeline.convert_from_path", return_value=[make_image()] * 4),
             ):
                 results = p.process_pdf(client, "WorksheetDT.pdf", resume=True)

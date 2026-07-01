@@ -1,97 +1,112 @@
 {
-  "worksheet": "WS4",
-  "note": "Worksheet 4 — Searching for the best threshold. Five response blanks aligned to worksheet tasks. B1 is primarily visual (line between avocado and french fries). B2 requires all four misclassified foods. Handwriting/OCR tolerance applies; 100% transcription accuracy is not expected.",
+  "worksheet_id": "WS4",
+  "metadata": {
+    "title": "En İyi Eşik Değer Aranıyor (Hata Optimizasyonu)",
+    "target_grade": "K-12 / Introductory ML",
+    "evaluation_mode": "Optimization Logic & Overlap Detection"
+  },
+  "pipeline_handling_rules": {
+    "visual_task_ocr_tolerance": {
+      "strategy": "Semantic Proximity",
+      "description": "Öğrenciler kartları yuvarlak içine almış veya aralarına çizgi çekmiş olabilir. OCR çıktısında bu nesnelerin adlarının yanında 'X', 'O', '---', '_' gibi işaretler veya bir sayı (ör: 13.5) varsa, öğrencinin o bölgeye odaklandığını kabul et."
+    },
+    "spatial_displacement_rule": {
+      "strategy": "Anchor-Based Matching",
+      "description": "Cevaplar için ayrılan boşluklar net olmadığı için, öğrencilerin cevapları sayfanın sağına, soluna veya kartların üzerine yazılmış olabilir. Soru numaralarına değil, sorunun kökündeki çapalarla eşleşen mantıksal yanıtları ara."
+    }
+  },
+  "equivalence_sets": {
+    "gummy_bears": ["gummy bears", "jelibon", "gummy", "jelybon", "ayıcık"],
+    "crispbread": ["crispbread", "kraker", "gevrek", "ekmek"],
+    "oats": ["oats", "yulaf", "müsli"],
+    "avocado": ["avocado", "avokado", "avakado"],
+    "apple": ["apple", "elma"],
+    "jam": ["raspberry jam", "reçel", "ahududu reçeli", "ahududu"],
+    "fries": ["french fries", "patates kızartması", "patates"]
+  },
   "items": {
     "WS4_B1": {
-      "max_score": 1,
-      "evaluation": "threshold_placement",
-      "scoring_mode": "interpretive",
-      "note": "Görev 1 / boşluk 1: Öğretmen adayı avokado ile patates kızartması arasına yeni eşik çizgisini çizer. Görsel çizgi veya bu iki gıdayı eşik sınırı olarak belirtmek yeterlidir.",
-      "components": [
-        {
-          "id": "avocado_fries_boundary",
-          "idea": "places the new threshold between avocado and french fries (avokado ile patates kızartması arasında eşik / çizgi / yeni eşik değeri)",
-          "required": true
-        }
-      ],
-      "need": 1,
-      "example_answer": "Avokado ile patates kızartması arasına çizgi (yeni eşik)"
+      "printed_question": "Görev 2 (Çizgi/Eşik Değeri)",
+      "region": "Cards_Row_Middle",
+      "spatial_anchors": ["Avocado", "French Fries", "13", "14", "çizgi", "kalın dikey çizgi"],
+      "target_logic": "Öğrenci, daha az hata veren yeni bir eşik değeri bulmak için yağ oranı 13.0g olan Avokado ile 14.0g olan Patates Kızartması arasına bir çizgi çekmeli veya 13.0 ile 14.0 arasında bir değer (ör: 13.5) yazmalıdır.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Öğrenci Avokado ve Patates (veya İngilizce isimleri) arasına çizgi çektiğini belirtmişse VEYA 13.0 ile 14.0 arasında bir sayısal değer yazmışsa.",
+          "examples": ["Avokado ile patates kızartması arası", "13.5", "13 ve 14 arası"]
+        },
+        "0.0": { "condition": "Farklı yiyecekler arası veya tamamen ilgisiz bir değer." }
+      }
     },
     "WS4_B2": {
-      "max_score": 1,
-      "check": "unordered_token_set",
-      "evaluation": "unordered_token_set",
-      "order_insensitive": true,
-      "need_tokens": 4,
-      "partial_on_tokens": 4,
-      "note": "Görev 2 / boşluk 2: Görseller üzerinde veya yazarak dört yanlış sınıflandırılmış gıdayı işaretlemek. Üç gıda kabul edilmez; sıra farklı olabilir.",
-      "token_groups": [
-        {
-          "id": "jelibon",
-          "aliases": ["jelibon", "jellybean", "jelly bean", "jölebon", "jolebon", "jelbon"]
+      "printed_question": "Görev 1",
+      "region": "Cards_Row_Top",
+      "spatial_anchors": ["4 yiyecek", "daire ile işaretleyin", "yanlış sınıflandırılan"],
+      "target_logic": "Leo'nun hatalı eşik değeri kullanıldığında yanlış sınıfa düşen 4 kartın (Jelibon, Kraker, Yulaf, Avokado) tespit edilmesi.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Hedeflenen 4 yiyeceğin ismi (Türkçe veya İngilizce) yazılmış veya OCR tarafından işaretlendiği algılanmışsa.",
+          "examples": ["Gummy Bears, Crispbread, Oats, Avocado", "Jelibon, kraker, yulaf, avokado"]
         },
-        {
-          "id": "kraker",
-          "aliases": ["kraker", "cracker", "krakers", "krakerler", "kraken"]
+        "0.5": {
+          "condition": "Sadece 2 veya 3 yiyecek doğru işaretlenmiş/yazılmışsa."
         },
-        {
-          "id": "yulaf",
-          "aliases": ["yulaf", "oatmeal", "yulaf lapası", "yulaf lapasi", "yulaf lapa"]
-        },
-        {
-          "id": "avokado",
-          "aliases": ["avokado", "avocado"]
+        "0.0": {
+          "condition": "1'den az yiyecek veya yanlış kartlar işaretlenmişse."
         }
-      ],
-      "example_answer": "Jelibon, kraker, yulaf, avokado (sıra fark etmez)"
+      }
     },
     "WS4_B3": {
-      "max_score": 1,
-      "evaluation": "improvement_reasoning",
-      "scoring_mode": "interpretive",
-      "note": "Görev 3 / boşluk 3: Üçüncü görevde daha az yanlış sınıflandırma yapıldığını ifade etmek yeterlidir. El yazısı toleransı uygulanır.",
-      "components": [
-        {
-          "id": "fewer_misclassifications",
-          "idea": "states that misclassification decreased or is lower after the new threshold (daha az yanlış sınıflandırma, daha az hata, daha iyi)",
-          "required": true
-        }
-      ],
-      "need": 1,
-      "example_answer": "Yeni eşikle daha az yanlış sınıflandırma oldu."
+      "printed_question": "Görev 2 (Neden)",
+      "region": "Paragraph_Better_Threshold",
+      "spatial_anchors": ["neden Leo'nunkinden daha iyi", "neden yazın"],
+      "target_logic": "Öğrenci, makine öğrenmesindeki hata minimizasyonu kavramını fark etmeli; yeni eşik değerin daha az yiyeceği yanlış sınıflandırdığını ifade etmelidir.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Hata sayısının azaldığına, daha az yanlış sınıflandırma yapıldığına veya önceki 4 hatanın 2'ye düştüğüne vurgu yapılmışsa.",
+          "examples": ["Daha az yanlış var", "Önce 4 yanlış vardı şimdi 2 yanlış var", "Hata sayısı azaldı", "Sadece 2 kart yanlış yerde"]
+        },
+        "0.5": {
+          "condition": "Daha iyi olduğu söylenmiş ama nedensellik (sayı veya hata kavramı) zayıf kurulmuşsa.",
+          "examples": ["Kartlar daha doğru duruyor", "Yeşiller bir yere kırmızılar bir yere toplandı"]
+        },
+        "0.0": { "condition": "Nedensellik yok veya boş." }
+      }
     },
     "WS4_B4": {
-      "max_score": 1,
-      "evaluation": "peer_evaluation",
-      "scoring_mode": "interpretive",
-      "note": "Görev 4 / boşluk 4: Pia haklıdır çünkü elma ile ahududu reçelinin yağ değerleri aynıdır. Sadece 'bazı öğrenciler aynı yanlışı yaptı' gibi meta yanıtlar doğru sayılmaz.",
-      "components": [
-        {
-          "id": "agrees_pia",
-          "idea": "agrees Pia is correct / haklı / doğru söylüyor",
-          "required": true
+      "printed_question": "Görev 3",
+      "region": "Paragraph_Pia_Right",
+      "spatial_anchors": ["Pia", "haklı mı", "Açıklayın", "kalemi koyduğu yer"],
+      "target_logic": "Öğrenci, iki verinin aynı özelliğe sahip olması durumunda (veri çakışması) aralarına bir karar sınırı (threshold) çizilemeyeceğini anlamalıdır. Elma ve reçelin yağ değerleri 0.2g'dır.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Elma ve reçelin yağ değerlerinin AYNI (eşit) olduğuna, ikisinin de 0.2 olduğuna vurgu yapılmışsa.",
+          "examples": ["Haklıdır çünkü ikisinin de yağı 0.2", "Değerleri aynı olduğu için araya sınır çizilmez", "Yağ oranları eşit"]
         },
-        {
-          "id": "same_fat_values",
-          "idea": "explains apple and raspberry jam have the same fat value (elma ve ahududu reçeli aynı yağ değeri / eşit yağ)",
-          "required": true
-        }
-      ],
-      "need": 2,
-      "partial_on": 1,
-      "zero_credit_hints": [
-        "only mentions classmates made the same mistake without citing equal fat values",
-        "meta commentary about other students without agreeing Pia and same-fat reasoning"
-      ],
-      "example_answer": "Pia haklı; elma ile ahududu reçelinin yağ değerleri aynı olduğu için aralarına eşik konulamaz."
+        "0.5": {
+          "condition": "Haklıdır demiş ancak aynı/eşit olma durumunu açıklamamışsa.",
+          "examples": ["Evet haklıdır", "Değerlerden dolayı"]
+        },
+        "0.0": { "condition": "Hayır haklı değildir diyenler veya boş bırakanlar." }
+      }
     },
     "WS4_B5": {
-      "max_score": 1,
-      "check": "numeric_range",
-      "min_value": 160,
-      "max_value": 2223,
-      "note": "Görev 5 / boşluk 5: Öğretmen adayının öğrendiği en iyi enerji eşiği. 160–2223 aralığındaki herhangi bir değer doğru kabul edilir.",
-      "example_answer": "408 (kartlardan seçilen enerji eşiği; 160–2223 aralığında herhangi bir değer)"
+      "printed_question": "Görev 4",
+      "region": "Paragraph_Energy_Best_Threshold",
+      "spatial_anchors": ["Enerji değişkeni", "en iyi eşik değeri", "destenizden", "5"],
+      "target_logic": "Öğrenci veri setindeki enerji dağılımını inceleyip, hataları en aza indirecek optimal eşik değer aralığını bulmalıdır. Bu aralık, 160 (Avokado) ile 223 (Reçel) arasıdır.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "160 ile 223 arasında herhangi bir sayı yazılmışsa (160 ve 223 sınırları, küçüktür/büyüktür operatörlerinin kullanımına bağlı olarak doğru kabul edilebilir).",
+          "examples": ["160 - 223 arası", "200", "180", "(160, 223)"]
+        },
+        "0.5": {
+          "condition": "160 veya 223 sayıları yazılmış ancak aralık (arasında olma) belirtilmemişse veya suboptimal ama yakın bir sınır yazılmışsa."
+        },
+        "0.0": {
+          "condition": "Tamamen alakasız bir sayı (ör: 500, 10) veya boş."
+        }
+      }
     }
   }
 }

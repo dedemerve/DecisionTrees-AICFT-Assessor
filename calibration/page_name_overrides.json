@@ -1,0 +1,29 @@
+{
+  "note": "Manual overrides for detect_student_page_ranges() when a page's text layer contains more than one known pseudonym and the built-in ghost-name rule (drop 'Karl', see ocr_pipeline.GHOST_PLACEHOLDER_NAME) cannot resolve it. Page numbers are 1-based. Each entry was confirmed by opening the rendered page image (ocr_output/_images/<pdf_stem>/) and reading the visible name banner directly, since the underlying text layer can contain a stale, covered-over label alongside the current one.",
+  "pdfs": {
+    "WorksheetDT.pdf": {
+      "65": "Kim",
+      "97": "Eddy"
+    },
+    "Worksheets1-10.pdf": {
+      "1": "Henry",
+      "18": "Ally",
+      "36": "Isabel",
+      "117": "Calvin",
+      "131": "Eddy",
+      "132": "Eddy",
+      "133": "Eddy",
+      "138": "Kim"
+    },
+    "Worksheet11_ Feedbacks.pdf": {
+      "25": "David",
+      "31": "Daniella",
+      "58": "Calvin",
+      "67": "Eddy",
+      "79": "Daryl"
+    }
+  },
+  "low_confidence_notes": {
+    "Worksheets1-10.pdf/133": "No visible name box at all (unlike 131/132/134-137), but the stale text-layer match was 'Frank', not a real re-boundary. Sits between two confirmed Eddy pages on both sides, so treated as an Eddy continuation page. Lower confidence than the other entries here — re-check if Frank's WS4 content looks incomplete."
+  }
+}

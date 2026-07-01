@@ -12,7 +12,8 @@ dry_run   No API calls. Converts PDFs to images, saves for inspection.
 
 pilot     One student from one PDF. Prints item-by-item response summary.
           python ocr_pipeline.py pilot WorksheetDT.pdf 0
-          (student_index=0 -> pages 1-4, index=1 -> pages 5-8, etc.)
+          (student_index is the 0-based position among detect_student_page_ranges()
+          groups for that PDF — page spans vary per student, see dry_run output.)
 
 validate  Human-readable review of a student's bundle (combined responses).
           python ocr_pipeline.py validate Daniella
@@ -93,8 +94,9 @@ KNOWN_PSEUDONYMS: frozenset[str] = frozenset({
     "Kim", "Sabrina",
 })
 
-# No hardcoded page order. Student names are read from the first page by Claude
-# and matched against KNOWN_PSEUDONYMS. dry_run uses slot_NN labels.
+# Page groups are detected from each PDF's embedded name-banner text layer
+# (see detect_student_page_ranges), not from a fixed page count. PAGES_PER_STUDENT
+# below is kept only as an expected-span hint for flagging anomalous groups.
 
 NO_ANSWER_SENTINELS: frozenset[str] = frozenset({
     "(bos)", "(okunamiyor)", "(missing)", "(not_extracted)", "(transcription_error)",
@@ -111,7 +113,6 @@ from pipeline_schema import (
     WORKSHEET_PDF_SOURCE,
     WORKSHEETS_1_10_PAGE_INDEX,
     calibration_bundle_dir,
-    dry_run_folder_name,
     layout_manifest_path,
     pdf_to_images_stem,
 )
@@ -306,15 +307,19 @@ in each blank. Do not interpret or summarise — transcribe verbatim.
 BLANKS TO EXTRACT:
 
 --- WORKSHEET 1: Önemli Terimler (Important Terms) ---
-WS1 is a nutrition-label fill-in worksheet. Extract the seven paragraph blanks (printed blanks 5–11).
+WS1 has eleven numbered items (printed 1–11): diagram callouts 1–4 and paragraph fill-ins 5–11.
 Transcribe short answers verbatim — not full definitions.
-"WS1_B1"  Blank 5 — variable/label term (değişken / etiket; typically "etiket")
-"WS1_B2"  Blank 6 — object/feature term (nesne / özellik; typically "nesne")
-"WS1_B3"  Blank 7 — nesne OR özellik OR değişken OR etiket (pair members only; both together OK)
-"WS1_B4"  Blank 8 — number of features (7 or yedi only)
-"WS1_B5"  Blank 9 — list of nutrient/feature names from the table
-"WS1_B6"  Blank 10 — example food object name (e.g. Fındıklı Gofret)
-"WS1_B7"  Blank 11 — label/variable role (değişken / etiket; e.g. "etiket" or tavsiye edilemez/edilir)
+"WS1_B1"  Item 1 (diagram) — etiket / label for recommendation outcome (e.g. tavsiye edilemez)
+"WS1_B2"  Item 2 (diagram) — nesne (object); may point to Fındıklı Gofret
+"WS1_B3"  Item 3 (diagram) — özellik / karakteristik / değişken (nutrient-name column)
+"WS1_B4"  Item 4 (diagram) — değer / özelliğin değeri (numeric value column)
+"WS1_B5"  Item 5 (paragraph) — nesne
+"WS1_B6"  Item 6 (paragraph) — nesne
+"WS1_B7"  Item 7 (paragraph) — özellik / karakteristik / değişken
+"WS1_B8"  Item 8 (paragraph) — feature count (7 or yedi only)
+"WS1_B9"  Item 9 (paragraph) — list of nutrient/feature names from the table
+"WS1_B10" Item 10 (paragraph) — example food object name (e.g. Fındıklı Gofret)
+"WS1_B11" Item 11 (paragraph) — etiket / etiket olarak (label role for recommendation)
 
 --- WORKSHEET 3: Eşik Uygulama (Applying Thresholds) ---
 WS3 has 8 blanks. Pre-service teachers apply a threshold rule to classify foods as recommended/not.
@@ -433,7 +438,8 @@ Return ONLY the following JSON object. No text before or after it.
 {{
   "student_name": "...",
   "WS1_B1": "...", "WS1_B2": "...", "WS1_B3": "...", "WS1_B4": "...",
-  "WS1_B5": "...", "WS1_B6": "...", "WS1_B7": "...",
+  "WS1_B5": "...", "WS1_B6": "...", "WS1_B7": "...", "WS1_B8": "...",
+  "WS1_B9": "...", "WS1_B10": "...", "WS1_B11": "...",
   "WS3_B1": "...", "WS3_B2": "...", "WS3_B3": "...", "WS3_B4": "...",
   "WS3_B5": "...", "WS3_B6": "...", "WS3_B7": "...", "WS3_B8": "...",
   "WS4_B1": "...", "WS4_B2": "...", "WS4_B3": "...", "WS4_B4": "...", "WS4_B5": "...",
@@ -573,6 +579,152 @@ PROMPTS: dict[str, str] = {
 }
 
 # ---------------------------------------------------------------------------
+# Page-group detection — replaces fixed PAGES_PER_STUDENT slicing
+# ---------------------------------------------------------------------------
+
+# The redaction/pseudonymization tooling used to prepare these scans appears to
+# stamp a default placeholder name box on every page and overlay the real
+# pseudonym on top for most students; the placeholder text stays in the PDF's
+# text layer underneath, so pypdf's extract_text() returns BOTH strings on a
+# page whose real label happens to be something other than the placeholder.
+# Confirmed by opening the rendered page for 4 independent occurrences (DT p25,
+# WS1-10 p18, WS11 p1, WS11 p7) — the *other* candidate was correct every time.
+GHOST_PLACEHOLDER_NAME = "Karl"
+
+PAGE_NAME_OVERRIDES_PATH = Path(__file__).parent / "calibration" / "page_name_overrides.json"
+
+
+def _load_page_name_overrides(pdf_name: str) -> dict[int, str]:
+    """Manual {page_number: name} overrides for pages a human has visually checked."""
+    if not PAGE_NAME_OVERRIDES_PATH.exists():
+        return {}
+    doc = json.loads(PAGE_NAME_OVERRIDES_PATH.read_text(encoding="utf-8"))
+    raw = doc.get("pdfs", {}).get(pdf_name, {})
+    return {int(page_num): name for page_num, name in raw.items()}
+
+
+def detect_student_page_ranges(pdf_name: str) -> list[dict[str, Any]]:
+    """
+    Detect per-student page groups from the PDF's own text layer instead of
+    assuming a fixed page count per student.
+
+    Each worksheet page prints the pseudonym in a name banner; pypdf can read it
+    for free (no Claude call). A page whose text layer yields no known pseudonym
+    (rotated pages, e.g. WS6, or template pages that only print the name once per
+    block) inherits the previous page's owner.
+
+    Some pages carry more than one candidate pseudonym in the text layer (see
+    GHOST_PLACEHOLDER_NAME) — those are resolved via the ghost-name rule, then
+    calibration/page_name_overrides.json, and any still-unresolved page is left
+    unowned (inherits like a blank page) and printed as an explicit warning
+    asking for a manual override entry, rather than guessed.
+
+    Returns 1-based inclusive page ranges:
+      [{"student": str, "start": int, "end": int, "page_count": int, "detected_pages": int}, ...]
+
+    A group whose length is a clean multiple of this file's typical block length
+    (PAGES_PER_STUDENT[pdf_name]) usually means an unlabeled follow-on submission
+    got merged into the previous student — those extra chunks are split out as
+    "unresolved_p{start}" rather than silently attributed to the wrong name.
+    """
+    from collections import Counter
+    from pypdf import PdfReader
+
+    reader = PdfReader(str(DATA_DIR / pdf_name))
+    # Secondary alphabetical key keeps same-length ties deterministic across runs
+    # (frozenset iteration order depends on PYTHONHASHSEED otherwise).
+    names_by_length = sorted(KNOWN_PSEUDONYMS, key=lambda n: (-len(n), n))
+    overrides = _load_page_name_overrides(pdf_name)
+
+    page_owner: list[Optional[str]] = []
+    for page_num, page in enumerate(reader.pages, start=1):
+        if page_num in overrides:
+            page_owner.append(overrides[page_num])
+            continue
+        text = page.extract_text() or ""
+        fused = re.sub(r"[^A-Za-z]", "", text)
+        candidates = [name for name in names_by_length if name in fused]
+        if len(candidates) <= 1:
+            page_owner.append(candidates[0] if candidates else None)
+            continue
+        others = [c for c in candidates if c != GHOST_PLACEHOLDER_NAME]
+        if GHOST_PLACEHOLDER_NAME in candidates and len(others) == 1:
+            page_owner.append(others[0])
+            continue
+        print(
+            f"  WARNING: page {page_num} has multiple candidate names {candidates} in its text "
+            f"layer and none resolves automatically — add an entry to "
+            f"{PAGE_NAME_OVERRIDES_PATH.relative_to(Path(__file__).parent)} after checking "
+            f"ocr_output/_images/{pdf_to_images_stem(pdf_name)}/."
+        )
+        page_owner.append(None)
+
+    groups: list[dict[str, Any]] = []
+    current_name: Optional[str] = None
+    start = 1
+    detected_count = 0
+    for i, owner in enumerate(page_owner, start=1):
+        name = owner or current_name
+        if current_name is not None and name != current_name:
+            groups.append({
+                "student": current_name, "start": start, "end": i - 1,
+                "page_count": i - start, "detected_pages": detected_count,
+            })
+            start = i
+            detected_count = 0
+        current_name = name
+        if owner is not None:
+            detected_count += 1
+    if current_name is not None:
+        groups.append({
+            "student": current_name, "start": start, "end": len(page_owner),
+            "page_count": len(page_owner) - start + 1, "detected_pages": detected_count,
+        })
+
+    typical_length = PAGES_PER_STUDENT.get(pdf_name, 0)
+    if typical_length:
+        split_groups: list[dict[str, Any]] = []
+        for g in groups:
+            n_chunks = g["page_count"] // typical_length
+            if n_chunks <= 1 or g["page_count"] % typical_length != 0:
+                split_groups.append(g)
+                continue
+            for chunk_idx in range(n_chunks):
+                chunk_start = g["start"] + chunk_idx * typical_length
+                chunk_end = chunk_start + typical_length - 1
+                if chunk_idx == 0:
+                    chunk_name = g["student"]
+                else:
+                    chunk_detected = [
+                        page_owner[p - 1] for p in range(chunk_start, chunk_end + 1)
+                        if page_owner[p - 1] is not None
+                    ]
+                    chunk_name = chunk_detected[0] if chunk_detected else f"unresolved_p{chunk_start}"
+                split_groups.append({
+                    "student": chunk_name, "start": chunk_start, "end": chunk_end,
+                    "page_count": typical_length,
+                    "detected_pages": sum(1 for p in range(chunk_start, chunk_end + 1) if page_owner[p - 1]),
+                })
+        groups = split_groups
+
+    name_counts = Counter(g["student"] for g in groups)
+    modal_length = Counter(g["page_count"] for g in groups).most_common(1)[0][0] if groups else 0
+    for g in groups:
+        reasons = []
+        if name_counts[g["student"]] > 1:
+            reasons.append(f"{g['student']!r} also appears in {name_counts[g['student']] - 1} other group(s)")
+        if g["page_count"] != modal_length:
+            reasons.append(f"length {g['page_count']} pages vs. this file's typical {modal_length}")
+        if reasons:
+            print(
+                f"  WARNING: pages {g['start']}-{g['end']} ({g['student']}) look uncertain — "
+                + "; ".join(reasons)
+                + " — verify in ocr_output/_images/ before trusting this run."
+            )
+    return groups
+
+
+# ---------------------------------------------------------------------------
 # Name normalization and pseudonym matching
 # ---------------------------------------------------------------------------
 
@@ -677,28 +829,27 @@ def image_to_base64(img: Image.Image, max_width: int = 1800) -> str:
 def save_page_images(
     pdf_name: str,
     images: list[Image.Image],
-    pps: int,
+    groups: list[dict[str, Any]],
 ) -> None:
     """
-    Save page images for manual inspection.
-    Folder names use pseudonyms from calibration/pdf_student_order.json when known,
-    otherwise fall back to slot_{NN}. Also writes resume markers .{name}_{pdf_stem}.
+    Save page images for manual inspection, one folder per detected student group.
+    Also writes resume markers .{name}_{pdf_stem}.
     """
     pdf_stem = pdf_to_images_stem(pdf_name)
-
     base = OUT_DIR / "_images" / pdf_stem
 
-    for student_idx, page_start in enumerate(range(0, len(images), pps)):
-        group = images[page_start: page_start + pps]
-        label = dry_run_folder_name(pdf_name, student_idx)
-        if len(group) < pps:
-            label += f"_PARTIAL_{len(group)}of{pps}"
+    seen: dict[str, int] = {}
+    for group_idx, group_info in enumerate(groups):
+        label = group_info["student"]
+        seen[label] = seen.get(label, 0) + 1
+        if seen[label] > 1:
+            label = f"{label}_dup{seen[label]}"
+        page_images = images[group_info["start"] - 1: group_info["end"]]
         student_dir = base / label
         student_dir.mkdir(parents=True, exist_ok=True)
-        for page_offset, img in enumerate(group):
+        for page_offset, img in enumerate(page_images):
             img.save(str(student_dir / f"page_{page_offset + 1}.jpg"), format="JPEG", quality=92)
-        if not label.startswith("slot_") and "_PARTIAL_" not in label:
-            (OUT_DIR / f".{label}_{pdf_stem}").write_text(str(student_idx + 1))
+        (OUT_DIR / f".{label}_{pdf_stem}").write_text(str(group_idx + 1))
     print(f"  Images saved -> {base}/")
 
 
@@ -962,62 +1113,62 @@ def process_pdf(
     Transcribe all students from one PDF.
     resume=True: skips a student if their raw JSON for this PDF already exists on disk.
     Returns {normalized_student_key: raw_dict}.
+
+    Page groups come from detect_student_page_ranges (text-layer name banner),
+    not a fixed page count — a fixed count silently misaligns once any student's
+    submission has a different page count than the assumed average (see PIPELINE.md).
     """
-    pdf_path = DATA_DIR / pdf_name
-    pps = PAGES_PER_STUDENT[pdf_name]
     raw_key = pdf_name.replace(" ", "_").replace(".pdf", "_raw.json").lower()
     pdf_stem = pdf_name.replace(" ", "_").replace(".pdf", "").lower()
     print(f"\n=== {pdf_name} ===")
 
     print("  Converting to images...")
-    images = convert_from_path(str(pdf_path), dpi=DPI)
-    total = len(images)
-    n_full = total // pps
-    n_partial = total % pps
-    print(f"  {total} pages / {pps} per student = {n_full} full groups"
-          + (f" + 1 partial ({n_partial} pages, SKIPPED)" if n_partial else ""))
+    images = convert_from_path(str(DATA_DIR / pdf_name), dpi=DPI)
+    groups = detect_student_page_ranges(pdf_name)
+    print(f"  {len(images)} pages -> {len(groups)} detected student group(s)")
 
-    # Build resume map: {slot_index: student_key} from existing markers.
-    # Marker filename: .{StudentName}_{pdf_stem}  content: slot number (1-based).
-    done_slots: dict[int, str] = {}
+    # Build resume map: {group_index: student_key} from existing markers.
+    # Marker filename: .{StudentName}_{pdf_stem}  content: group number (1-based).
+    done_groups: dict[int, str] = {}
     if resume:
         for marker in OUT_DIR.glob(f".*_{pdf_stem}"):
             try:
-                slot_num = int(marker.read_text().strip())
+                group_num = int(marker.read_text().strip())
                 student_key = marker.name[1: -(len(pdf_stem) + 1)]  # strip leading dot and _{pdf_stem}
-                done_slots[slot_num - 1] = student_key
+                done_groups[group_num - 1] = student_key
             except (ValueError, IndexError):
                 pass
 
     results: dict[str, dict] = {}
-    for idx, page_start in enumerate(range(0, total, pps)):
-        group = images[page_start: page_start + pps]
+    for idx, group_info in enumerate(groups):
+        page_images = images[group_info["start"] - 1: group_info["end"]]
+        page_label = f"p{group_info['start']}-{group_info['end']}"
+        detected_name = group_info["student"]
 
-        if len(group) < pps:
-            print(f"  Student {idx + 1}: only {len(group)} of {pps} pages — SKIPPED (partial group)")
-            continue
-
-        if idx in done_slots:
-            key = done_slots[idx]
-            print(f"  Student {idx + 1} (p{page_start+1}-{page_start+pps})... -> {key} [SKIPPED]")
+        if idx in done_groups:
+            key = done_groups[idx]
+            print(f"  Group {idx + 1} ({page_label})... -> {key} [SKIPPED]")
             existing = OUT_DIR / key / raw_key
             if existing.exists():
                 with open(existing, encoding="utf-8") as f:
                     results[key] = json.load(f)
             continue
 
-        print(f"  Student {idx + 1} (p{page_start+1}-{page_start+pps})...", end=" ", flush=True)
-        raw = transcribe_student_pages(client, group, pdf_name)
+        print(f"  Group {idx + 1} ({page_label}, detected={detected_name})...", end=" ", flush=True)
+        raw = transcribe_student_pages(client, page_images, pdf_name)
 
         name_raw = raw.get("student_name") or ""
-        key = resolve_student_key(name_raw, idx, pdf_name)
+        key = resolve_student_key(name_raw, idx, pdf_name) or detected_name
+        if key != detected_name:
+            print(f"\n  WARNING: Claude read {name_raw!r} -> {key!r} but the page banner said "
+                  f"{detected_name!r} for {page_label}. Check ocr_output/_images/{pdf_stem}/ before trusting either.")
         student_dir = OUT_DIR / key
 
         print(f"-> {key}")
         student_dir.mkdir(exist_ok=True)
         with open(student_dir / raw_key, "w", encoding="utf-8") as f:
             json.dump(raw, f, ensure_ascii=False, indent=2)
-        # Marker: .{StudentName}_{pdf_stem}, content = slot number (1-based)
+        # Marker: .{StudentName}_{pdf_stem}, content = group number (1-based)
         (OUT_DIR / f".{key}_{pdf_stem}").write_text(str(idx + 1))
 
         results[key] = raw
@@ -1056,15 +1207,12 @@ def dry_run(pdfs: Optional[list[str]] = None) -> None:
     """Convert PDFs to images and save them. No API calls."""
     all_pdfs = list(PAGES_PER_STUDENT.keys()) if pdfs is None else pdfs
     for pdf_name in all_pdfs:
-        pps = PAGES_PER_STUDENT[pdf_name]
         print(f"\n=== {pdf_name} ===")
         print("  Converting to images...")
         images = convert_from_path(str(DATA_DIR / pdf_name), dpi=DPI)
-        total = len(images)
-        n_partial = total % pps
-        print(f"  {total} pages / {pps} per student = {total // pps} full groups"
-              + (f" + 1 partial ({n_partial} pages)" if n_partial else ""))
-        save_page_images(pdf_name, images, pps)
+        groups = detect_student_page_ranges(pdf_name)
+        print(f"  {len(images)} pages -> {len(groups)} detected student group(s)")
+        save_page_images(pdf_name, images, groups)
         if pdf_name == "Worksheets1-10.pdf":
             _run_layout_after_dry_run()
     print("\nDry run complete. Inspect ocr_output/_images/ before running pilot.")
@@ -1081,29 +1229,30 @@ def mode_pilot(
     student_index: int,
 ) -> dict:
     """
-    Transcribe one student's pages from one PDF.
-    student_index=0 -> pages 1..pps, index=1 -> pages pps+1..2*pps, etc.
+    Transcribe one detected student group from one PDF.
+    student_index is the 0-based position in detect_student_page_ranges(pdf_name),
+    i.e. the Nth student group found via the page text layer — not a fixed page offset.
     """
-    pps = PAGES_PER_STUDENT[pdf_name]
     pdf_item_ids = PDF_ITEM_IDS[pdf_name]
-    start_page = student_index * pps + 1
-    end_page = (student_index + 1) * pps
-    print(f"Pilot: {pdf_name} | student index {student_index} | pages {start_page}-{end_page}")
-
-    images = convert_from_path(str(DATA_DIR / pdf_name), dpi=DPI)
-    total = len(images)
-    start = student_index * pps
-    if start >= total:
-        print(f"ERROR: student_index {student_index} out of range. PDF has {total} pages ({total // pps} students).")
+    groups = detect_student_page_ranges(pdf_name)
+    if student_index >= len(groups):
+        print(f"ERROR: student_index {student_index} out of range. "
+              f"{pdf_name} has {len(groups)} detected student group(s).")
         return {}
 
-    group = images[start: start + pps]
-    if len(group) < pps:
-        print(f"WARNING: only {len(group)} of {pps} pages available — partial group.")
+    group_info = groups[student_index]
+    detected_name = group_info["student"]
+    print(f"Pilot: {pdf_name} | group index {student_index} | pages "
+          f"{group_info['start']}-{group_info['end']} | detected={detected_name}")
 
-    raw = transcribe_student_pages(client, group, pdf_name)
+    images = convert_from_path(str(DATA_DIR / pdf_name), dpi=DPI)
+    page_images = images[group_info["start"] - 1: group_info["end"]]
+
+    raw = transcribe_student_pages(client, page_images, pdf_name)
     name_raw = raw.get("student_name") or ""
-    key = resolve_student_key(name_raw, student_index, pdf_name)
+    key = resolve_student_key(name_raw, student_index, pdf_name) or detected_name
+    if key != detected_name:
+        print(f"  WARNING: Claude read {name_raw!r} -> {key!r} but the page banner said {detected_name!r}.")
     print(f"  Identified as: {key}")
 
     responses = extract_item_responses(raw, pdf_name)
