@@ -46,6 +46,7 @@ import logging
 import os
 import sys
 import threading
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
@@ -70,6 +71,7 @@ from rubric_deterministic import score_from_credit
 from schema_validate import validate_evidence_units
 from student_bundle import (
     STUDENTS_DIR,
+    _VALID_STUDENT_ID,
     artifact_payload,
     extraction_responses,
     list_student_ids,
@@ -84,7 +86,7 @@ from worksheet_validation import build_technical_validation
 
 GROUP_B_WORKSHEETS = ("WS5", "WS6", "WS7")
 GROUP_A_LLM_WORKSHEETS = ("WS1", "WS3", "WS4")  # WS_DT needs assess_worksheet_dt + log features
-KNOWN_DIAGNOSTIC_REASONS = {"unparseable_threshold", "arithmetic_inconsistent"}
+KNOWN_DIAGNOSTIC_REASONS = {"unparseable_threshold", "arithmetic_inconsistent", "rubric_item_missing"}
 
 LOG_DIR = REPO_ROOT / "logs"
 LOG_DIR.mkdir(exist_ok=True)
@@ -130,8 +132,13 @@ class DiagnosticLog:
         self._fh.close()
 
 
-def _review_items_from_scoring(student_id: str, worksheet: str) -> list[dict[str, Any]]:
-    scoring = load_artifact(student_id, worksheet, "scoring", STUDENTS_DIR)
+def _review_items_from_scoring(student_id: str, worksheet: str, diag: DiagnosticLog) -> list[dict[str, Any]]:
+    try:
+        scoring = load_artifact(student_id, worksheet, "scoring", STUDENTS_DIR)
+    except Exception as exc:  # noqa: BLE001 — best-effort review scan; corrupt file shouldn't sink the run
+        diag.record(student_id=student_id, worksheet=worksheet, stage="review_scan",
+                     level="error", status="failed", reason="corrupt_artifact", detail=str(exc))
+        return []
     if not scoring:
         return []
     out = []
@@ -204,16 +211,68 @@ def _score_ws11(student_id: str, diag: DiagnosticLog) -> bool:
     existing = load_artifact(student_id, "WS11", "scoring", STUDENTS_DIR)
     interpretive = None
     if existing:
+        # Interpretive (LLM-scored) items are whatever the WS11 rubric defines minus the
+        # deterministic Q10-Q12 block scored here. Deriving this from the rubric — rather than
+        # a hardcoded id list — avoids silently dropping/misnaming items when rubric ids change
+        # (this previously referenced "WS11_B8a"/"WS11_B9", which do not exist in the current
+        # rubric and crashed calibration downstream with a KeyError).
+        deterministic_prefixes = ("WS11_Q10", "WS11_Q11", "WS11_Q12")
+        rubric_items = set(load_rubric("WS11")["items"].keys())
+        interpretive_ids = {
+            iid for iid in rubric_items
+            if not iid.startswith(deterministic_prefixes)
+        }
         interpretive = {
             r["item"]: r
             for r in artifact_payload(existing).get("items", [])
-            if r["item"] in {"WS11_B8a", "WS11_B8b", "WS11_B9"}
+            if r["item"] in interpretive_ids
         }
     scoring = score_ws11_deterministic(responses, student_id, interpretive_items=interpretive)
     save_scoring_bundle(student_id, "WS11", scoring, base_dir=STUDENTS_DIR)
+    for rec in scoring.get("items", []):
+        if rec.get("reason") in KNOWN_DIAGNOSTIC_REASONS:
+            diag.record(student_id=student_id, worksheet="WS11", stage="scoring",
+                         level="warning", status="failed", reason=rec["reason"], detail=rec.get("item", ""))
     diag.record(student_id=student_id, worksheet="WS11", stage="scoring", level="info", status="success",
                 detail=f"{scoring.get('total_score')}/{scoring.get('max_score')}")
     return True
+
+
+LLM_MAX_RETRIES = 3
+LLM_RETRY_BASE_DELAY = 2.0  # seconds; doubles each retry
+
+
+def _assess_worksheet_with_retry(assess_worksheet_fn, client, student_id, worksheet, responses, model, diag):
+    """Retry transient Claude API errors (rate limit, timeout, overload) with backoff.
+
+    A 15-student --llm-score batch makes dozens of sequential API calls per student;
+    without this, one 429/503 aborts that student's whole worksheet instead of recovering.
+    """
+    import anthropic
+
+    last_exc: Exception | None = None
+    for attempt in range(1, LLM_MAX_RETRIES + 1):
+        try:
+            return assess_worksheet_fn(client, student_id, worksheet, responses, model=model)
+        except (anthropic.RateLimitError, anthropic.APITimeoutError, anthropic.APIConnectionError) as exc:
+            last_exc = exc
+            if attempt < LLM_MAX_RETRIES:
+                delay = LLM_RETRY_BASE_DELAY * (2 ** (attempt - 1))
+                diag.record(student_id=student_id, worksheet=worksheet, stage="llm_scoring",
+                             level="warning", status="failed", reason="transient_api_error",
+                             detail=f"attempt {attempt}/{LLM_MAX_RETRIES}, retrying in {delay:.0f}s: {exc}")
+                time.sleep(delay)
+        except anthropic.APIStatusError as exc:
+            last_exc = exc
+            if exc.status_code in (429, 500, 502, 503, 529) and attempt < LLM_MAX_RETRIES:
+                delay = LLM_RETRY_BASE_DELAY * (2 ** (attempt - 1))
+                diag.record(student_id=student_id, worksheet=worksheet, stage="llm_scoring",
+                             level="warning", status="failed", reason="transient_api_error",
+                             detail=f"attempt {attempt}/{LLM_MAX_RETRIES}, retrying in {delay:.0f}s: {exc}")
+                time.sleep(delay)
+            else:
+                raise
+    raise last_exc  # noqa: RSE102 — exhausted retries, surface the last transient error
 
 
 def _score_group_a_llm(student_id: str, worksheet: str, client: Any, model: str, diag: DiagnosticLog) -> bool:
@@ -227,7 +286,7 @@ def _score_group_a_llm(student_id: str, worksheet: str, client: Any, model: str,
 
     responses = extraction_responses(artifact_payload(extraction))
     rubric = load_rubric(worksheet)
-    assessment = assess_worksheet(client, student_id, worksheet, responses, model=model)
+    assessment = _assess_worksheet_with_retry(assess_worksheet, client, student_id, worksheet, responses, model, diag)
 
     items_out = []
     total = 0.0
@@ -269,17 +328,21 @@ def _flag_group_a_gaps(student_id: str, diag: DiagnosticLog, skip: set[str]) -> 
     for worksheet in (*GROUP_A_LLM_WORKSHEETS, "WS_DT"):
         if worksheet in skip:
             continue
-        extraction = load_artifact(student_id, worksheet, "extraction", STUDENTS_DIR)
-        if not extraction:
-            continue
-        scoring = load_artifact(student_id, worksheet, "scoring", STUDENTS_DIR)
-        if not scoring:
+        try:
+            extraction = load_artifact(student_id, worksheet, "extraction", STUDENTS_DIR)
+            if not extraction:
+                continue
+            scoring = load_artifact(student_id, worksheet, "scoring", STUDENTS_DIR)
+            if not scoring:
+                diag.record(student_id=student_id, worksheet=worksheet, stage="scoring",
+                             level="warning", status="skipped", reason="pending_llm_scoring",
+                             detail="run --llm-score (WS1/WS3/WS4) or assess_worksheet_dt manually (WS_DT)")
+        except Exception as exc:  # noqa: BLE001 — a corrupt artifact here must not sink the whole student
             diag.record(student_id=student_id, worksheet=worksheet, stage="scoring",
-                         level="warning", status="skipped", reason="pending_llm_scoring",
-                         detail="run --llm-score (WS1/WS3/WS4) or assess_worksheet_dt manually (WS_DT)")
+                         level="error", status="failed", reason="corrupt_artifact", detail=str(exc))
 
 
-def run_student(student_id: str, diag: DiagnosticLog, *, llm_client: Any, llm_model: str) -> dict[str, Any]:
+def _run_student_body(student_id: str, diag: DiagnosticLog, *, llm_client: Any, llm_model: str) -> dict[str, Any]:
     log.info("=== %s ===", student_id)
     result: dict[str, Any] = {"student_id": student_id, "worksheets_scored": [], "errors": []}
 
@@ -316,9 +379,17 @@ def run_student(student_id: str, diag: DiagnosticLog, *, llm_client: Any, llm_mo
     _flag_group_a_gaps(student_id, diag, skip=llm_scored)
 
     try:
-        build_and_save_evidence_units(student_id)
+        eu_path = build_and_save_evidence_units(student_id)
         write_student_manifest(student_id)
-        diag.record(student_id=student_id, worksheet="-", stage="evidence_units", level="info", status="success")
+        eu_doc = json.loads(eu_path.read_text(encoding="utf-8"))
+        eu_errors = validate_evidence_units(eu_doc, str(eu_path.relative_to(REPO_ROOT)))
+        if eu_errors:
+            diag.record(student_id=student_id, worksheet="-", stage="evidence_units",
+                         level="error", status="failed", reason="schema_invalid",
+                         detail="; ".join(eu_errors))
+            result["errors"].append(f"evidence_units: {len(eu_errors)} schema error(s)")
+        else:
+            diag.record(student_id=student_id, worksheet="-", stage="evidence_units", level="info", status="success")
     except Exception as exc:  # noqa: BLE001
         diag.record(student_id=student_id, worksheet="-", stage="evidence_units",
                      level="error", status="failed", reason="exception", detail=str(exc))
@@ -344,9 +415,26 @@ def run_student(student_id: str, diag: DiagnosticLog, *, llm_client: Any, llm_mo
     result["review_items"] = [
         item
         for worksheet in (*GROUP_B_WORKSHEETS, "WS10", "WS11", *GROUP_A_LLM_WORKSHEETS)
-        for item in _review_items_from_scoring(student_id, worksheet)
+        for item in _review_items_from_scoring(student_id, worksheet, diag)
     ]
     return result
+
+
+def run_student(student_id: str, diag: DiagnosticLog, *, llm_client: Any, llm_model: str) -> dict[str, Any]:
+    """Thin crash-containment wrapper around _run_student_body.
+
+    Every known failure mode inside the body is already caught per-stage and recorded, but this
+    outer guard exists so that an unanticipated bug (e.g. a new corrupt-artifact shape a stress
+    test hasn't hit yet) degrades to "this one student failed" instead of losing the whole batch's
+    diagnostic log and review manifest — a single bad file used to be able to take down a 15-student
+    run because the exception propagated out through ThreadPoolExecutor.future.result().
+    """
+    try:
+        return _run_student_body(student_id, diag, llm_client=llm_client, llm_model=llm_model)
+    except Exception as exc:  # noqa: BLE001 — last line of defense, see docstring
+        diag.record(student_id=student_id, worksheet="-", stage="run_student",
+                     level="error", status="failed", reason="unhandled_exception", detail=str(exc))
+        return {"student_id": student_id, "worksheets_scored": [], "errors": [f"unhandled: {exc}"], "review_items": []}
 
 
 def write_review_manifest(run_id: str, results: list[dict[str, Any]], diag: DiagnosticLog) -> Path:
@@ -380,6 +468,20 @@ def main() -> int:
         print("No students specified. Pass student ids or --all.", file=sys.stderr)
         return 1
 
+    # Reject path-traversal / malformed ids (e.g. "../../etc") before touching the filesystem,
+    # rather than letting student_dir()'s ValueError surface mid-run as a per-student failure.
+    bad_ids = [sid for sid in targets if not _VALID_STUDENT_ID.match(sid)]
+    if bad_ids:
+        print(f"Invalid student id(s), refusing to run: {bad_ids!r}", file=sys.stderr)
+        return 1
+
+    workers = max(1, min(args.workers, 8))
+    if args.workers != workers:
+        print(f"--workers {args.workers} out of range, clamped to {workers}.", file=sys.stderr)
+    if args.llm_score and workers > 5:
+        print(f"Warning: --llm-score with --workers {workers} may hit Claude rate limits; "
+              "consider --workers 3-5.", file=sys.stderr)
+
     llm_client = None
     if args.llm_score:
         if not os.environ.get("ANTHROPIC_API_KEY"):
@@ -392,13 +494,20 @@ def main() -> int:
     diag = DiagnosticLog(run_id)
 
     results: list[dict[str, Any]] = []
-    with ThreadPoolExecutor(max_workers=args.workers) as pool:
+    with ThreadPoolExecutor(max_workers=workers) as pool:
         futures = {
             pool.submit(run_student, sid, diag, llm_client=llm_client, llm_model=args.llm_model): sid
             for sid in targets
         }
         for future in as_completed(futures):
-            results.append(future.result())
+            sid = futures[future]
+            try:
+                results.append(future.result())
+            except Exception as exc:  # noqa: BLE001 — run_student already catches its own errors;
+                # this only fires for a bug in run_student itself, and must not lose the rest of the batch.
+                diag.record(student_id=sid, worksheet="-", stage="run_student",
+                             level="error", status="failed", reason="unhandled_exception", detail=str(exc))
+                results.append({"student_id": sid, "worksheets_scored": [], "errors": [f"unhandled: {exc}"], "review_items": []})
     diag.close()
 
     manifest_path = write_review_manifest(run_id, results, diag)

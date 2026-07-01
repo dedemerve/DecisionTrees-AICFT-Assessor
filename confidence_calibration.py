@@ -286,11 +286,20 @@ def calibrate_student_scoring(
 
         new_items = []
         for rec in scoring.get("items", []):
-            new_items.append(calibrate_scoring_item(
-                ws, rec["item"], rec,
-                ocr_responses=ocr_responses,
-                validation=validation,
-            ))
+            try:
+                new_items.append(calibrate_scoring_item(
+                    ws, rec["item"], rec,
+                    ocr_responses=ocr_responses,
+                    validation=validation,
+                ))
+            except KeyError:
+                # Item id has no matching rubric entry (e.g. a rubric/schema id-scheme drift,
+                # as currently affects some WS11 sub-items). Keep the item's existing
+                # confidence/review as scored rather than aborting calibration for every other
+                # item in this worksheet.
+                out = dict(rec)
+                out["review"] = True
+                new_items.append(out)
 
         scoring["calibration_note"] = (
             f"Confidence calibrated via confidence_calibration.py "

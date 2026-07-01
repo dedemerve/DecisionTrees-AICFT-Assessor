@@ -296,7 +296,21 @@ def score_ws11_deterministic(
     interpretive_items = interpretive_items or {}
 
     for item_id in scoring_item_ids("WS11"):
-        cfg = rubric["items"][item_id]
+        cfg = rubric["items"].get(item_id)
+        if cfg is None:
+            # pipeline_schema.ITEM_IDS_WS11_COGNITIVE (per-subitem ids like "WS11_Q10_3") has
+            # drifted from the current worksheets/WS11/rubric.json bundle (grouped ids like
+            # "WS11_Q10"). Surface this loudly instead of crashing the whole worksheet — a
+            # rubric/schema owner needs to reconcile the id scheme, guessing here would risk
+            # silently wrong scores.
+            items_out.append({
+                "item": item_id,
+                "score": 0.0,
+                "confidence": 0.0,
+                "review": True,
+                "reason": "rubric_item_missing",
+            })
+            continue
         max_score = float(cfg.get("max_score", 1))
         max_total += max_score
         ev = cfg.get("evaluation")

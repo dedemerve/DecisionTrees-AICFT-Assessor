@@ -3,31 +3,35 @@
   "items": {
     "WS7_1": {
       "printed_question": 1,
+      "region": "Threshold_1",
       "expected_answer": "< 180 kcal",
       "scoring_rules": {
-        "1.0": { "condition": "Öğrenci cevabı tam olarak '< 180' veya '< 180 kcal' ise." }
+        "1.0": { "condition": "Öğrenci '< 180' veya benzeri bir matematiksel ifade yazmışsa (kcal opsiyonel)." }
       }
     },
     "WS7_2": {
       "printed_question": 2,
+      "region": "Threshold_2",
       "expected_answer": "≥ 180 kcal",
       "scoring_rules": {
-        "1.0": { "condition": "Öğrenci cevabı tam olarak '≥ 180' veya '>= 180' ise." }
+        "1.0": { "condition": "Öğrenci '≥ 180' veya '>= 180' veya 'büyük eşit' ifadesini yazmışsa." }
       }
     },
     "WS7_3": {
       "printed_question": 3,
-      "expected_answer": "< 7,7 gram",
+      "region": "Threshold_3",
+      "expected_answer": "< 7,7 g",
       "scoring_rules": {
-        "1.0": { "condition": "Öğrenci cevabı tam olarak '< 7,7' veya '< 7,7 g' veya '< 7,7 gram' ise." }
+        "1.0": { "condition": "Öğrenci '< 7,7' veya '< 7.7' (gram/g ifadesi opsiyonel) yazmışsa." }
       }
     },
     "WS7_4": {
       "printed_question": 4,
-      "expected_answer": "≥ 7,7 gram",
+      "region": "Threshold_4",
+      "expected_answer": "≥ 7,7 g",
       "scoring_rules": {
-        "1.0": { "condition": "Öğrenci cevabı tam olarak '≥ 7,7' veya '>= 7,7' veya '≥ 7,7 g' ise." }
-      }
+        "1.0": { "condition": "Öğrenci '≥ 7,7' veya '>= 7.7' ifadesini yazmışsa." }
+     }
     },
     "WS7_5": {
       "printed_question": 5,

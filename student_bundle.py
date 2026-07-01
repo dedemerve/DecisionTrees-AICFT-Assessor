@@ -17,6 +17,7 @@ Legacy / optional per worksheet:
 from __future__ import annotations
 
 import json
+import re
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -31,12 +32,19 @@ from pipeline_schema import (
 
 STUDENTS_DIR = REPO_ROOT / "students"
 
+_VALID_STUDENT_ID = re.compile(r"^[A-Za-z0-9_-]+$")
+
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
 def student_dir(student_id: str, base_dir: Path | None = None) -> Path:
+    if not _VALID_STUDENT_ID.match(student_id or ""):
+        raise ValueError(
+            f"Invalid student_id {student_id!r}: must be non-empty and contain only "
+            "letters, digits, '_' or '-' (no path separators or '..')"
+        )
     return (base_dir or STUDENTS_DIR) / student_id
 
 

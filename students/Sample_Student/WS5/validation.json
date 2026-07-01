@@ -92,62 +92,6 @@
       "credit": "full",
       "score": 1.0
     },
-    "WS5_row4": {
-      "threshold": "şeker ≤ 12",
-      "parsed": {
-        "feature": "sugar_g",
-        "operator": "<=",
-        "value": 12.0,
-        "operator_inclusive": true,
-        "operator_strict": false,
-        "expected_complement": ">"
-      },
-      "expected": {
-        "dataset_size": 11,
-        "correct": 9,
-        "errors": 2,
-        "mcr": 0.1818,
-        "unclassified": 0
-      },
-      "student": {
-        "correct": 9,
-        "errors": 2,
-        "mcr": 0.18
-      },
-      "sum": "9+2=11",
-      "arithmetic_ok": true,
-      "ok": true,
-      "credit": "full",
-      "score": 1.0
-    },
-    "WS5_row5": {
-      "threshold": "şeker ≤ 15",
-      "parsed": {
-        "feature": "sugar_g",
-        "operator": "<=",
-        "value": 15.0,
-        "operator_inclusive": true,
-        "operator_strict": false,
-        "expected_complement": ">"
-      },
-      "expected": {
-        "dataset_size": 11,
-        "correct": 9,
-        "errors": 2,
-        "mcr": 0.1818,
-        "unclassified": 0
-      },
-      "student": {
-        "correct": 9,
-        "errors": 2,
-        "mcr": 0.18
-      },
-      "sum": "9+2=11",
-      "arithmetic_ok": true,
-      "ok": true,
-      "credit": "full",
-      "score": 1.0
-    },
     "WS5_B25": {
       "threshold": "Şeker ≤ 12'yi tercih ederim; kartlara göre MCR 0.18 ve 9 doğru sınıflandırma ile en düşük hata.",
       "trials_considered": [
@@ -168,52 +112,31 @@
           "threshold": "şeker ≤ 10",
           "errors": 3,
           "mcr": 0.27
-        },
-        {
-          "row": "WS5_row4",
-          "threshold": "şeker ≤ 12",
-          "errors": 2,
-          "mcr": 0.18
-        },
-        {
-          "row": "WS5_row5",
-          "threshold": "şeker ≤ 15",
-          "errors": 2,
-          "mcr": 0.18
         }
       ],
-      "minimum_errors": 2,
+      "minimum_errors": 3,
       "tied_at_minimum": [
         {
-          "row": "WS5_row4",
-          "threshold": "şeker ≤ 12",
-          "errors": 2
+          "row": "WS5_row1",
+          "threshold": "şeker ≤ 5",
+          "errors": 3
         },
         {
-          "row": "WS5_row5",
-          "threshold": "şeker ≤ 15",
-          "errors": 2
+          "row": "WS5_row2",
+          "threshold": "yağ ≤ 8",
+          "errors": 3
+        },
+        {
+          "row": "WS5_row3",
+          "threshold": "şeker ≤ 10",
+          "errors": 3
         }
       ],
       "tie_at_minimum": true,
-      "chosen": {
-        "row": "WS5_row4",
-        "threshold": "şeker ≤ 12",
-        "errors": 2
-      },
-      "other_tied_thresholds": [
-        {
-          "row": "WS5_row5",
-          "threshold": "şeker ≤ 15"
-        }
-      ],
-      "tie_note": "Birden fazla eşik aynı en düşük yanlış sınıflandırma sayısına sahip; öğretmen adayı yalnızca birini yazmış olabilir — alternatifler: şeker ≤ 15",
-      "review": true,
-      "review_reason": "tie_at_minimum_single_named",
-      "ok": true,
-      "credit": "full",
-      "score": 1.0,
-      "reason": "minimum_misclassification_choice"
+      "ok": false,
+      "credit": "zero",
+      "score": 0.0,
+      "reason": "threshold_not_in_grid"
     }
   },
   "blocked": false,

@@ -317,7 +317,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS11",
       "item_id": "WS11_B8a",
-      "evidence_unit_type": "classification",
+      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
       "content": "Tavsiye edilmez",
       "confidence": {
@@ -329,7 +329,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS11",
       "item_id": "WS11_B8b",
-      "evidence_unit_type": "rule",
+      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
       "content": "Eğer şeker > 10 ise → Tavsiye edilmez.",
       "confidence": {
@@ -641,7 +641,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS11",
       "item_id": "WS11_Q11_2",
-      "evidence_unit_type": "tree_construction",
+      "evidence_unit_type": "model_evaluation",
       "evidence_completeness": "complete",
       "content": "2",
       "confidence": {
@@ -653,7 +653,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS11",
       "item_id": "WS11_Q11_3",
-      "evidence_unit_type": "tree_construction",
+      "evidence_unit_type": "model_evaluation",
       "evidence_completeness": "complete",
       "content": "3",
       "confidence": {
@@ -665,7 +665,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS11",
       "item_id": "WS11_Q11_4",
-      "evidence_unit_type": "tree_construction",
+      "evidence_unit_type": "model_evaluation",
       "evidence_completeness": "complete",
       "content": "4",
       "confidence": {
@@ -737,7 +737,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS3",
       "item_id": "WS3_B1",
-      "evidence_unit_type": "classification",
+      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
       "content": "Tavsiye edilir",
       "confidence": {
@@ -749,7 +749,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS3",
       "item_id": "WS3_B2",
-      "evidence_unit_type": "comparison",
+      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
       "content": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez.",
       "confidence": {
@@ -761,7 +761,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS3",
       "item_id": "WS3_B3",
-      "evidence_unit_type": "classification",
+      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
       "content": "Tavsiye edilir",
       "confidence": {
@@ -773,7 +773,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS3",
       "item_id": "WS3_B4",
-      "evidence_unit_type": "comparison",
+      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
       "content": "Yağ değeri 8g eşiğinin altında olduğu için tavsiye edilebilir.",
       "confidence": {
@@ -785,7 +785,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS3",
       "item_id": "WS3_B5",
-      "evidence_unit_type": "classification",
+      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
       "content": "Tavsiye edilmez",
       "confidence": {
@@ -797,7 +797,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS3",
       "item_id": "WS3_B6",
-      "evidence_unit_type": "comparison",
+      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
       "content": "Yağ değeri 8g eşiğinin üstünde olduğu için tavsiye edilemez.",
       "confidence": {
@@ -809,24 +809,24 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS3",
       "item_id": "WS3_B7",
-      "evidence_unit_type": "threshold",
-      "evidence_completeness": "complete",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "partial",
       "content": "şeker ≤ 10",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.82
+        "evidence_quality": 0.5215
       }
     },
     {
       "student_id": "Sample_Student",
       "worksheet_id": "WS3",
       "item_id": "WS3_B8",
-      "evidence_unit_type": "threshold",
-      "evidence_completeness": "complete",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "partial",
       "content": "şeker > 10",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.82
+        "evidence_quality": 0.5215
       }
     },
     {
@@ -1205,7 +1205,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS6",
       "item_id": "WS6_B10",
-      "evidence_unit_type": "classification",
+      "evidence_unit_type": "tree_construction",
       "evidence_completeness": "complete",
       "content": "Tavsiye edilir",
       "confidence": {
@@ -1217,7 +1217,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS6",
       "item_id": "WS6_B11",
-      "evidence_unit_type": "classification",
+      "evidence_unit_type": "tree_construction",
       "evidence_completeness": "complete",
       "content": "Tavsiye edilmez",
       "confidence": {
@@ -1229,7 +1229,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS6",
       "item_id": "WS6_B12",
-      "evidence_unit_type": "classification",
+      "evidence_unit_type": "tree_construction",
       "evidence_completeness": "blank",
       "content": "(bos)",
       "confidence": {
@@ -1241,7 +1241,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS6",
       "item_id": "WS6_B13",
-      "evidence_unit_type": "classification",
+      "evidence_unit_type": "tree_construction",
       "evidence_completeness": "complete",
       "content": "Tavsiye edilmez",
       "confidence": {
@@ -1253,7 +1253,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS6",
       "item_id": "WS6_B2",
-      "evidence_unit_type": "threshold",
+      "evidence_unit_type": "tree_construction",
       "evidence_completeness": "complete",
       "content": "≤ 10",
       "confidence": {
@@ -1289,7 +1289,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS6",
       "item_id": "WS6_B5",
-      "evidence_unit_type": "classification",
+      "evidence_unit_type": "tree_construction",
       "evidence_completeness": "complete",
       "content": "Tavsiye edilir",
       "confidence": {
@@ -1313,7 +1313,7 @@
       "student_id": "Sample_Student",
       "worksheet_id": "WS6",
       "item_id": "WS6_B7",
-      "evidence_unit_type": "threshold",
+      "evidence_unit_type": "tree_construction",
       "evidence_completeness": "complete",
       "content": "≤ 5",
       "confidence": {
