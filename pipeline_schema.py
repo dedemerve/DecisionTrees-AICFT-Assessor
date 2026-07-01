@@ -163,6 +163,7 @@ PDF_ITEM_IDS: dict[str, list[str]] = {
     "Worksheet11_ Feedbacks.pdf": ITEM_IDS_WS11,
     # 2026 cohort — per-worksheet PDFs
     "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": ITEM_IDS_DT,
+    "24 Mart 2026 Çalışma Kâğıdı 1.pdf": ITEM_IDS_WS1,
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": ITEM_IDS_WS6,
 }
 
@@ -181,9 +182,10 @@ WORKSHEET_ITEM_IDS: dict[str, list[str]] = {
 WORKSHEET_PDF_SOURCE: dict[str, str] = {
     # 2026 cohort (per-worksheet PDFs where available, else 2025 legacy)
     "WS_DT": "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf",
+    "WS1":   "24 Mart 2026 Çalışma Kâğıdı 1.pdf",
     "WS6":   "31 Mart 2026 Çalışma Kâğıdı 6.pdf",
     # 2025 cohort (combined PDFs — updated per worksheet as 2026 data lands)
-    "WS1":  "Worksheets1-10.pdf",
+    "WS1_legacy":  "Worksheets1-10.pdf",
     "WS3":  "Worksheets1-10.pdf",
     "WS4":  "Worksheets1-10.pdf",
     "WS5":  "Worksheets1-10.pdf",
@@ -203,6 +205,7 @@ PDF_PAGES_PER_STUDENT: dict[str, int] = {
     "Worksheet11_ Feedbacks.pdf": 3,
     # 2026 — each WS has its own PDF, 1 page per student (except DT = 4 pages)
     "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": 4,
+    "24 Mart 2026 Çalışma Kâğıdı 1.pdf": 1,
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": 1,
 }
 

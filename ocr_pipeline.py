@@ -81,6 +81,7 @@ PAGES_PER_STUDENT: dict[str, int] = {
     "Worksheet11_ Feedbacks.pdf": 3,
     # 2026 — per-worksheet PDFs
     "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": 4,
+    "24 Mart 2026 Çalışma Kâğıdı 1.pdf": 1,
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": 1,
 }
 
@@ -582,6 +583,50 @@ Return ONLY the following JSON object. No text before or after it.
   "page_notes": "..."
 }}"""
 
+PROMPT_WS1 = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
+Your task: transcribe every blank from Worksheet 1 (Önemli Terimler — Important Terms).
+You will receive ONE page image belonging to ONE pre-service teacher.
+
+{_NAME_INSTRUCTION}
+
+{_HANDWRITING_INSTRUCTION}
+
+{_SENTINEL_INSTRUCTION}
+
+WORKSHEET 1 STRUCTURE — 11 numbered blanks on one page:
+Items 1-4 are diagram callout labels pointing to parts of a sample decision tree table.
+Items 5-11 are fill-in-the-blank sentences in a paragraph about decision tree vocabulary.
+
+BLANKS TO EXTRACT:
+"WS1_B1"  Item 1 (diagram) — etiket / label for recommendation outcome (e.g. tavsiye edilemez)
+"WS1_B2"  Item 2 (diagram) — nesne (object); likely a food name (e.g. Fındıklı Gofret)
+"WS1_B3"  Item 3 (diagram) — özellik / karakteristik / değişken (column heading, nutrient name)
+"WS1_B4"  Item 4 (diagram) — değer / özelliğin değeri (a numeric value from the table)
+"WS1_B5"  Item 5 (paragraph) — term for a single row in the table (nesne / object)
+"WS1_B6"  Item 6 (paragraph) — term for a column heading (özellik / karakteristik / değişken)
+"WS1_B7"  Item 7 (paragraph) — general term for what columns describe (özellik / karakteristik)
+"WS1_B8"  Item 8 (paragraph) — number of features/columns in the table (7 or yedi)
+"WS1_B9"  Item 9 (paragraph) — list of nutrient/feature names from the table header
+"WS1_B10" Item 10 (paragraph) — example food object name (e.g. Fındıklı Gofret)
+"WS1_B11" Item 11 (paragraph) — term for the prediction/recommendation column (etiket)
+
+"ws_snapshot"
+  Write 2-3 sentences about what this pre-service teacher's WS1 reveals: which terms they
+  used, completeness, and any notable errors or omissions.
+
+"page_notes"
+  Brief note about scan quality or layout issues. Write (bos) if no issues.
+
+Return ONLY the following JSON object. No text before or after it.
+{{
+  "student_name": "...",
+  "WS1_B1": "...", "WS1_B2": "...", "WS1_B3": "...", "WS1_B4": "...",
+  "WS1_B5": "...", "WS1_B6": "...", "WS1_B7": "...", "WS1_B8": "...",
+  "WS1_B9": "...", "WS1_B10": "...", "WS1_B11": "...",
+  "ws_snapshot": "...",
+  "page_notes": "..."
+}}"""
+
 PROMPT_WS6 = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
 Your task: transcribe every blank from Worksheet 6 (Karar Ağacı Çiz — Draw a Decision Tree).
 You will receive ONE page image belonging to ONE pre-service teacher.
@@ -633,6 +678,7 @@ PROMPTS: dict[str, str] = {
     "Worksheet11_ Feedbacks.pdf": PROMPT_WS11,
     # 2026
     "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": PROMPT_DT,
+    "24 Mart 2026 Çalışma Kâğıdı 1.pdf": PROMPT_WS1,
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": PROMPT_WS6,
 }
 
