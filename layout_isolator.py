@@ -608,13 +608,6 @@ class LayoutIsolator:
         """Run layout isolation for all LAYOUT_ISOLATION_WORKSHEETS."""
         results: dict[str, LayoutResult] = {}
         for ws in sorted(LAYOUT_ISOLATION_WORKSHEETS):
-            if ws == "WS6" and worksheet_page_image(student_id, "WS6") is None:
-                results[ws] = LayoutResult(
-                    student_id=student_id, worksheet="WS6", source_image="",
-                    status=ExtractionStatus.ERROR.value,
-                    message="WS6 skipped: no supplemental page in image store.",
-                )
-                continue
             results[ws] = self.process_student_worksheet(student_id, ws)
         return results
 

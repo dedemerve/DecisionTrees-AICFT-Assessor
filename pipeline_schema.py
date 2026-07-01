@@ -802,6 +802,12 @@ def worksheet_page_image(student_key: str, worksheet: str) -> Path | None:
         candidate = slot_dir / f"page_{page_idx}.jpg"
         return candidate if candidate.exists() else None
 
+    # Per-worksheet PDF (2026 cohort): 1 page per student, saved as page_1.jpg
+    if pdf in PDF_PAGES_PER_STUDENT:
+        pdf_stem = pdf_to_images_stem(pdf)
+        candidate = OCR_IMAGES_DIR / pdf_stem / student_key / "page_1.jpg"
+        return candidate if candidate.exists() else None
+
     return None
 
 
