@@ -1,6 +1,12 @@
 {
   "note": "Manual overrides for detect_student_page_ranges() when a page's text layer contains more than one known pseudonym and the built-in ghost-name rule (drop 'Karl', see ocr_pipeline.GHOST_PLACEHOLDER_NAME) cannot resolve it. Page numbers are 1-based. Each entry was confirmed by opening the rendered page image (ocr_output/_images/<pdf_stem>/) and reading the visible name banner directly, since the underlying text layer can contain a stale, covered-over label alongside the current one.",
   "pdfs": {
+    "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": {
+      "5": "Bruno"
+    },
+    "31 Mart 2026 Çalışma Kâğıdı 6.pdf": {
+      "4": "Isabel"
+    },
     "WorksheetDT.pdf": {
       "65": "Kim",
       "97": "Eddy"

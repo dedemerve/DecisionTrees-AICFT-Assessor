@@ -68,16 +68,20 @@ from PIL import Image, ImageEnhance, ImageFilter
 # Paths
 # ---------------------------------------------------------------------------
 
-DATA_DIR = Path(__file__).parent / "data_sources_2025"
+DATA_DIR = Path(__file__).parent / "data_sources_2026" / "All Documents"
 OUT_DIR = Path(__file__).parent / "ocr_output"
 OUT_DIR.mkdir(exist_ok=True)
 
 DPI = 300  # raised from 200; improves handwriting legibility
 
 PAGES_PER_STUDENT: dict[str, int] = {
+    # 2025
     "WorksheetDT.pdf": 4,
     "Worksheets1-10.pdf": 6,
     "Worksheet11_ Feedbacks.pdf": 3,
+    # 2026 — per-worksheet PDFs
+    "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": 4,
+    "31 Mart 2026 Çalışma Kâğıdı 6.pdf": 1,
 }
 
 # ---------------------------------------------------------------------------
@@ -87,8 +91,13 @@ PAGES_PER_STUDENT: dict[str, int] = {
 # Complete pseudonym list provided by researcher.
 # These are the only valid student keys; Claude-extracted names are matched against this set.
 KNOWN_PSEUDONYMS: frozenset[str] = frozenset({
+    # 2026 cohort (15 students)
+    "Amy", "Bruno", "Helena", "Isabel", "Irma", "Iris",
+    "Marco", "Marcus", "Melinda", "Nadia", "Serena",
+    "Sheila", "Shana", "Ulysses", "Zara",
+    # 2025 cohort (kept for validate mode on archived data)
     "Ozzy", "Ally", "Bella", "Bob", "Daisy", "Daniella", "David",
-    "Eliot", "Henry", "Irene", "Isabel", "Karl", "Michael", "Mike",
+    "Eliot", "Henry", "Irene", "Karl", "Michael", "Mike",
     "Nicolas", "Zabby", "Adam", "Eddy", "Aden", "Barbara", "Boris",
     "Calvin", "Darby", "Demi", "Daryl", "Edgar", "Frank", "Felicity",
     "Kim", "Sabrina",
@@ -116,6 +125,8 @@ from pipeline_schema import (
     layout_manifest_path,
     pdf_to_images_stem,
 )
+
+OCR_OUTPUT_DIR = Path(__file__).parent / "ocr_output"
 
 # ---------------------------------------------------------------------------
 # Item ID master list — defined in pipeline_schema.py (single source of truth)
@@ -171,10 +182,9 @@ _SENTINEL_INSTRUCTION = """BLANK / ILLEGIBLE FIELDS — strict rules:
 _NAME_INSTRUCTION = """PRE-SERVICE TEACHER PSEUDONYM — this is critical for file organization:
 The pre-service teacher's pseudonym (nickname) is written at the top of the FIRST page, usually in a
 "Name:" or "Ad:" or "Öğretmen Adayı:" field, or freely at the top of the page.
-These are single English-style nicknames such as: Daniella, Nicolas, Karl, Mike, David,
-Daisy, Isabel, Ally, Michael, Irene, Bob, Darby, Barbara, Boris, Calvin, Frank, Kim,
-Aden, Sabrina, Daryl, Demi, Adam, Edgar, Felicity, Eddy, Ozzy, Bella, Eliot, Henry,
-Zabby. Read the name exactly as written. If unclear, read the closest match from this list."""
+These are single English-style nicknames such as: Amy, Bruno, Helena, Isabel, Irma, Iris,
+Marco, Marcus, Melinda, Nadia, Serena, Sheila, Shana, Ulysses, Zara.
+Read the name exactly as written. If unclear, read the closest match from this list."""
 
 PROMPT_DT = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
 Your task: transcribe one pre-service teacher's completed CODAP Arbor decision tree worksheet.
@@ -572,10 +582,58 @@ Return ONLY the following JSON object. No text before or after it.
   "page_notes": "..."
 }}"""
 
+PROMPT_WS6 = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
+Your task: transcribe every blank from Worksheet 6 (Karar Ağacı Çiz — Draw a Decision Tree).
+You will receive ONE page image belonging to ONE pre-service teacher.
+
+{_NAME_INSTRUCTION}
+
+{_HANDWRITING_INSTRUCTION}
+
+{_SENTINEL_INSTRUCTION}
+
+WORKSHEET 6: Karar Ağacı Çiz (Draw a Decision Tree — 13 blanks)
+WS6: two-level decision tree on the same 11 ProDaBi food cards as WS5.
+Transcribe labels, thresholds, and leaf class names exactly (<=, >=, <, >).
+"WS6_B1"  root node feature (şeker, yağ, enerji, ...)
+"WS6_B2"  root threshold with operator (transcribe <=, >=, <, > exactly as written)
+"WS6_B3"  evet branch label (e.g. evet (<= 10))
+"WS6_B4"  hayır branch label (e.g. hayır (> 10))
+"WS6_B5"  optional leaf on evet branch without inner split
+"WS6_B6"  inner-node feature on evet subtree (must differ from B1)
+"WS6_B7"  inner-node threshold with operator (transcribe exactly)
+"WS6_B8"  inner evet branch label
+"WS6_B9"  inner hayır branch label
+"WS6_B10" inner left leaf (tavsiye edilir / edilmez)
+"WS6_B11" inner right leaf
+"WS6_B12" optional extra leaf
+"WS6_B13" right-subtree leaf (hayır branch from root)
+
+"ws_snapshot"
+  Write 2-3 sentences about what this pre-service teacher's WS6 tree reveals: feature choices,
+  threshold values, tree completeness, and any notable errors.
+
+"page_notes"
+  Brief note about scan quality or layout issues. Write (bos) if no issues.
+
+Return ONLY the following JSON object. No text before or after it.
+{{
+  "student_name": "...",
+  "WS6_B1": "...", "WS6_B2": "...", "WS6_B3": "...", "WS6_B4": "...", "WS6_B5": "...",
+  "WS6_B6": "...", "WS6_B7": "...", "WS6_B8": "...", "WS6_B9": "...", "WS6_B10": "...",
+  "WS6_B11": "...", "WS6_B12": "...", "WS6_B13": "...",
+  "ws_snapshot": "...",
+  "page_notes": "..."
+}}"""
+
 PROMPTS: dict[str, str] = {
+    # 2025
     "WorksheetDT.pdf": PROMPT_DT,
     "Worksheets1-10.pdf": PROMPT_WS,
     "Worksheet11_ Feedbacks.pdf": PROMPT_WS11,
+    # 2026
+    "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": PROMPT_DT,
+    "31 Mart 2026 Çalışma Kâğıdı 6.pdf": PROMPT_WS6,
 }
 
 # ---------------------------------------------------------------------------
@@ -1412,12 +1470,10 @@ def save_worksheet_jsons(
 
     base = output_dir or STUDENTS_DIR
     extracted_at = datetime.now(timezone.utc).isoformat()
-    raw_ws    = raw_by_pdf.get("Worksheets1-10.pdf", {})
-    raw_ws11  = raw_by_pdf.get("Worksheet11_ Feedbacks.pdf", {})
-    raw_dt    = raw_by_pdf.get("WorksheetDT.pdf", {})
 
-    ws_snapshot_ws    = raw_ws.get("ws_snapshot", "")
-    ws_snapshot_ws11  = raw_ws11.get("ws_snapshot", "")
+    def _raw_for_ws(ws_label: str) -> dict:
+        pdf = WORKSHEET_PDF_SOURCE.get(ws_label, "")
+        return raw_by_pdf.get(pdf, {})
 
     for ws_label, item_ids in WORKSHEET_ITEM_IDS.items():
         if not item_ids:
@@ -1430,16 +1486,8 @@ def save_worksheet_jsons(
         total             = len(item_ids)
         completion_rate   = round(answered / total, 3) if total else 0.0
 
-        # Choose raw OCR source for this worksheet
-        if ws_label == "WS_DT":
-            raw_source  = raw_dt
-            ws_snapshot = raw_dt.get("ws_snapshot", "")
-        elif ws_label == "WS11":
-            raw_source  = raw_ws11
-            ws_snapshot = ws_snapshot_ws11
-        else:
-            raw_source  = raw_ws
-            ws_snapshot = ws_snapshot_ws
+        raw_source  = _raw_for_ws(ws_label)
+        ws_snapshot = raw_source.get("ws_snapshot", "")
 
         # Gate 2 validation warnings
         ocr_warnings = validate_ocr_output({

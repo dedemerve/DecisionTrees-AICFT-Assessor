@@ -157,9 +157,13 @@ ITEM_IDS_WS: list[str] = (
 ALL_ITEM_IDS: list[str] = ITEM_IDS_DT + ITEM_IDS_WS + ITEM_IDS_WS11
 
 PDF_ITEM_IDS: dict[str, list[str]] = {
+    # 2025 cohort
     "WorksheetDT.pdf": ITEM_IDS_DT,
     "Worksheets1-10.pdf": ITEM_IDS_WS,
     "Worksheet11_ Feedbacks.pdf": ITEM_IDS_WS11,
+    # 2026 cohort — per-worksheet PDFs
+    "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": ITEM_IDS_DT,
+    "31 Mart 2026 Çalışma Kâğıdı 6.pdf": ITEM_IDS_WS6,
 }
 
 WORKSHEET_ITEM_IDS: dict[str, list[str]] = {
@@ -175,13 +179,15 @@ WORKSHEET_ITEM_IDS: dict[str, list[str]] = {
 }
 
 WORKSHEET_PDF_SOURCE: dict[str, str] = {
-    "WS_DT": "WorksheetDT.pdf",
-    "WS1": "Worksheets1-10.pdf",
-    "WS3": "Worksheets1-10.pdf",
-    "WS4": "Worksheets1-10.pdf",
-    "WS5": "Worksheets1-10.pdf",
-    "WS6": "Worksheets1-10.pdf",
-    "WS7": "Worksheets1-10.pdf",
+    # 2026 cohort (per-worksheet PDFs where available, else 2025 legacy)
+    "WS_DT": "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf",
+    "WS6":   "31 Mart 2026 Çalışma Kâğıdı 6.pdf",
+    # 2025 cohort (combined PDFs — updated per worksheet as 2026 data lands)
+    "WS1":  "Worksheets1-10.pdf",
+    "WS3":  "Worksheets1-10.pdf",
+    "WS4":  "Worksheets1-10.pdf",
+    "WS5":  "Worksheets1-10.pdf",
+    "WS7":  "Worksheets1-10.pdf",
     "WS10": "Worksheets1-10.pdf",
     "WS11": "Worksheet11_ Feedbacks.pdf",
 }
@@ -191,9 +197,13 @@ OCR_IMAGES_DIR = OCR_OUTPUT_DIR / "_images"
 LAYOUT_ROIS_DIR = REPO_ROOT / "layout_rois"
 
 PDF_PAGES_PER_STUDENT: dict[str, int] = {
+    # 2025
     "WorksheetDT.pdf": 4,
     "Worksheets1-10.pdf": 6,
     "Worksheet11_ Feedbacks.pdf": 3,
+    # 2026 — each WS has its own PDF, 1 page per student (except DT = 4 pages)
+    "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": 4,
+    "31 Mart 2026 Çalışma Kâğıdı 6.pdf": 1,
 }
 
 # Fixed page order inside Worksheets1-10.pdf (ProDaBi v4; calibrated on Felicity bundle).
