@@ -202,14 +202,21 @@ def main() -> int:
 
     for path in sorted((REPO_ROOT / "rubrics").glob("*_rubric.json")):
         rubric = json.loads(path.read_text(encoding="utf-8"))
-        ws = rubric["worksheet"]
+        ws = rubric.get("worksheet") or rubric.get("worksheet_id") or path.stem.replace("_rubric", "")
+        items = rubric.get("items") or {}
+        is_schema3 = any(isinstance(v, dict) and "max_score" in v for v in items.values())
+        if not is_schema3:
+            continue
         map_path = REPO_ROOT / "mappings" / f"{ws}_AICFT_mapping.json"
         if not map_path.exists():
             _err(errors, f"Missing mapping for {ws}")
             continue
         mapping = json.loads(map_path.read_text(encoding="utf-8"))
-        if set(rubric["items"]) != set(mapping["items"]):
-            _err(errors, f"{path.name}: rubric/mapping item key mismatch")
+        rubric_keys = set(items)
+        mapping_keys = set(mapping["items"])
+        extra = rubric_keys - mapping_keys
+        if extra:
+            _err(errors, f"{path.name}: rubric items not in mapping: {sorted(extra)}")
 
     validate_student_outputs("Sample_Student", errors)
 

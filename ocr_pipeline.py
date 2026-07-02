@@ -594,25 +594,50 @@ You will receive ONE page image belonging to ONE pre-service teacher.
 {_SENTINEL_INSTRUCTION}
 
 WORKSHEET 1 STRUCTURE — 11 numbered blanks on one page:
-Items 1-4 are diagram callout labels pointing to parts of a sample decision tree table.
+Items 1-4 are diagram callout arrows pointing to four DISTINCT parts of a sample food data table.
 Items 5-11 are fill-in-the-blank sentences in a paragraph about decision tree vocabulary.
 
+=== GUARDRAIL 1 — DIAGRAM ARROW ASSIGNMENT (most common error source) ===
+The diagram has printed arrow numbers (1, 2, 3, 4). The student writes one handwritten word next
+to each arrow. Assign the word physically next to arrow N to WS1_BN.
+- Do NOT reorder answers based on what you expect each term to mean.
+- Do NOT swap B3 and B4 even if the words seem semantically reversed.
+- If a student wrote the same word next to two different arrows, transcribe it twice.
+- The same term (e.g. "özellik") appearing twice is a student error — transcribe it faithfully.
+
+=== GUARDRAIL 2 — TRANSCRIBE ONLY HANDWRITTEN INK, NOT PRINTED TEXT ===
+The worksheet has printed labels near the arrows (e.g. a printed "(tavsiye edilemez)" caption,
+printed column headers, printed question numbers). These are part of the form design.
+Transcribe ONLY what the student wrote by hand. If the student wrote "Etiket" and the printed
+form nearby says "(tavsiye edilemez)", return only "Etiket" — not "Etiket (tavsiye edilemez)".
+
+=== GUARDRAIL 3 — PARAGRAPH BLANK NUMBERING (B5-B11) ===
+The paragraph has 7 printed blank slots numbered 5 through 11. Read left-to-right, top-to-bottom.
+Each blank slot has exactly one student answer (or is empty). Assign them in printed order.
+- If a blank is empty (no ink at all), return (bos).
+- If there is ink but it is illegible, return (okunamiyor).
+- Do NOT skip a blank because it "doesn't fit" the expected answer — transcribe what is there.
+- B9 asks for a LIST of nutrient names. If the student wrote full sentences instead of names,
+  transcribe the full sentences verbatim — do not summarize or extract just the names.
+
+=== GUARDRAIL 4 — ws_snapshot LANGUAGE ===
+Write ws_snapshot in Turkish only. Do not mix Turkish and English.
+
 BLANKS TO EXTRACT:
-"WS1_B1"  Item 1 (diagram) — etiket / label for recommendation outcome (e.g. tavsiye edilemez)
-"WS1_B2"  Item 2 (diagram) — nesne (object); likely a food name (e.g. Fındıklı Gofret)
-"WS1_B3"  Item 3 (diagram) — özellik / karakteristik / değişken (column heading, nutrient name)
-"WS1_B4"  Item 4 (diagram) — değer / özelliğin değeri (a numeric value from the table)
-"WS1_B5"  Item 5 (paragraph) — term for a single row in the table (nesne / object)
-"WS1_B6"  Item 6 (paragraph) — term for a column heading (özellik / karakteristik / değişken)
-"WS1_B7"  Item 7 (paragraph) — general term for what columns describe (özellik / karakteristik)
-"WS1_B8"  Item 8 (paragraph) — number of features/columns in the table (7 or yedi)
-"WS1_B9"  Item 9 (paragraph) — list of nutrient/feature names from the table header
-"WS1_B10" Item 10 (paragraph) — example food object name (e.g. Fındıklı Gofret)
-"WS1_B11" Item 11 (paragraph) — term for the prediction/recommendation column (etiket)
+"WS1_B1"  Handwritten word next to printed arrow 1 in the diagram.
+"WS1_B2"  Handwritten word next to printed arrow 2 in the diagram.
+"WS1_B3"  Handwritten word next to printed arrow 3 in the diagram.
+"WS1_B4"  Handwritten word next to printed arrow 4 in the diagram.
+"WS1_B5"  Paragraph blank 5 — student's handwritten answer (expected: nesne or similar)
+"WS1_B6"  Paragraph blank 6 — student's handwritten answer
+"WS1_B7"  Paragraph blank 7 — student's handwritten answer
+"WS1_B8"  Paragraph blank 8 — student's handwritten answer (expected: a number or term)
+"WS1_B9"  Paragraph blank 9 — full handwritten content (nutrient names or sentences)
+"WS1_B10" Paragraph blank 10 — student's handwritten answer (expected: a food name)
+"WS1_B11" Paragraph blank 11 — student's handwritten answer (expected: etiket or similar)
 
 "ws_snapshot"
-  Write 2-3 sentences about what this pre-service teacher's WS1 reveals: which terms they
-  used, completeness, and any notable errors or omissions.
+  2-3 Türkçe cümle: hangi terimleri kullandı, eksik/hatalı yerler, dikkat çekici örüntüler.
 
 "page_notes"
   Brief note about scan quality or layout issues. Write (bos) if no issues.
@@ -623,6 +648,129 @@ Return ONLY the following JSON object. No text before or after it.
   "WS1_B1": "...", "WS1_B2": "...", "WS1_B3": "...", "WS1_B4": "...",
   "WS1_B5": "...", "WS1_B6": "...", "WS1_B7": "...", "WS1_B8": "...",
   "WS1_B9": "...", "WS1_B10": "...", "WS1_B11": "...",
+  "ws_snapshot": "...",
+  "page_notes": "..."
+}}"""
+
+PROMPT_WS3 = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
+Your task: transcribe every blank from Worksheet 3 (Eşik Değerleri Bir Karar Kuralında Uygulamak).
+You will receive ONE page image belonging to ONE pre-service teacher.
+
+{_NAME_INSTRUCTION}
+
+{_HANDWRITING_INSTRUCTION}
+
+{_SENTINEL_INSTRUCTION}
+
+WORKSHEET 3 STRUCTURE — 8 blanks:
+Three food items (Patlamış Mısır, Elma, Patates Kızartması) each have two blanks:
+  - An ODD blank (B1, B3, B5): the classification label the student assigned (tavsiye edilir/edilemez)
+  - An EVEN blank (B2, B4, B6): the mathematical reason (a comparison like "23 > 8")
+Then two blanks (B7, B8) for a threshold rule on a new variable (Enerji).
+
+=== GUARDRAIL 1 — LABEL SUFFIX READING — CRITICAL ===
+The recommendation label has two opposite forms that look similar in fast handwriting:
+  "tavsiye edilir"    = recommended      (suffix: -ir)
+  "tavsiye edilebilir"= recommended      (suffix: -ebilir)  ← same meaning as edilir
+  "tavsiye edilemez"  = NOT recommended  (suffix: -emez)
+  "tavsiye edilmez"   = NOT recommended  (suffix: -mez)
+
+The pairs "-ebilir" vs "-emez" and "-ir" vs "-mez" are the most confusable in fast handwriting.
+Read the FINAL syllable before the period or line end very carefully.
+  "-bilir" ending → recommended group
+  "-emez" or "-mez" ending → NOT recommended group
+
+Do NOT infer the label from the mathematical expression in the next blank.
+If B1 says "tavsiye edilebilir" but B2 says "23 > 8" (which implies not recommended),
+transcribe B1 as written — it is a student error, not your misread to fix.
+
+Variant spellings:
+  recommended group:     tavsiye edilir, tavsiye edilebilir, önerilir, uygun, yeşil
+  not-recommended group: tavsiye edilemez, tavsiye edilmez, önerilmez, uygun değil, kırmızı
+
+=== GUARDRAIL 2 — MATHEMATICAL OPERATORS: STRICT VS NON-STRICT ARE DIFFERENT ===
+In B2, B4, B6, B7, B8 the student writes a comparison expression.
+
+The four operator symbols are DISTINCT and non-interchangeable:
+  <   strict less-than        (angle only — NO bar below)
+  ≤   less-than-or-equal      (angle WITH a horizontal bar below, or explicitly written as <=)
+  >   strict greater-than     (angle only — NO bar below)
+  ≥   greater-than-or-equal   (angle WITH a horizontal bar below, or explicitly written as >=)
+
+PROCEDURE — apply to every comparison blank, one at a time:
+STEP 1: Find the angle mark in the ink.
+STEP 2: Look directly below the angle tip. Is there a separate horizontal stroke?
+  YES, a stroke is clearly present   → write ≤ (or ≥)
+  NO stroke at all                   → write < (or >)
+  CANNOT TELL with confidence        → write your best reading AND add to page_notes:
+                                       "[B? operatör belirsiz: < veya ≤ olabilir]"
+STEP 3: Write the operator. Move to the next blank. Do not revisit.
+
+THIS IS MANDATORY: If you write < or > without a page_notes flag, you are claiming that
+you clearly saw NO bar. If you write ≤ or ≥ without a page_notes flag, you are claiming
+that you clearly SAW a bar. Never omit the flag when you are not certain.
+
+Do NOT infer the operator from the expected answer, the other blanks, or mathematical logic.
+Do NOT assume consistency — each blank is independent.
+A student may write ≤ in B4 and < in B7. That is a valid combination. Transcribe both exactly.
+
+FORBIDDEN — these substitutions are never allowed, even if the result seems more "correct":
+  ≥ or ≥ → >   (removing a bar that is there)
+  ≤ or ≤ → <   (removing a bar that is there)
+  < → ≤        (adding a bar that is not there)
+  > → ≥        (adding a bar that is not there)
+
+Handwriting shapes: a C, L, or ( used in a comparison reads as <; a ), 7, or V reads as >.
+If the symbol is completely unreadable, write "(okunamiyor)" and add "[B? okunamayan operatör]".
+
+=== GUARDRAIL 3 — B7 AND B8 CROSS-REFERENCE: TRANSCRIBE, DO NOT FIX ===
+B7 is the left-branch rule (typically: <= X kcal) and B8 is the right-branch rule (typically: > X kcal).
+A correct student uses THE SAME number in B7 and B8 with opposite operators.
+If the student used DIFFERENT numbers in B7 and B8, transcribe both exactly as written.
+Do NOT silently change a number to make B7 and B8 consistent — that is a student error
+the researcher needs to see. You may note the inconsistency in page_notes if useful.
+
+=== GUARDRAIL 4 — SPATIAL ANCHOR MATCHING ===
+Each blank is anchored to a printed food name (Patlamış Mısır, Elma, Patates Kızartması).
+If a student's handwriting drifts to the wrong line, use the nearest printed food name as anchor.
+  B1, B2 → Patlamış Mısır row
+  B3, B4 → Elma row
+  B5, B6 → Patates Kızartması row
+  B7, B8 → Enerji threshold section (bottom of page)
+
+BLANKS TO EXTRACT:
+"WS3_B1"  Patlamış Mısır — classification label (tavsiye edilir / edilemez variant)
+"WS3_B2"  Patlamış Mısır — mathematical reason. Transcribe verbatim. Both "23 > 8" and
+          "8 < 23" are equally valid — do NOT flag reversed operand order as an error.
+"WS3_B3"  Elma — classification label
+"WS3_B4"  Elma — mathematical reason. Both "0,2 < 8" and "8 > 0,2" are equally valid.
+"WS3_B5"  Patates Kızartması — classification label
+"WS3_B6"  Patates Kızartması — mathematical reason. Both "14 > 8" and "8 < 14" are equally valid.
+"WS3_B7"  Enerji left-branch rule (typically <= X kcal; transcribe operator + number exactly)
+"WS3_B8"  Enerji right-branch rule (typically > X kcal; transcribe operator + number exactly)
+
+"ws_snapshot"
+  2-3 Türkçe cümle: etiketleri doğru mu belirlemiş, matematiksel ifadeleri doğru mu yazmış,
+  B7-B8 eşik sayıları tutarlı mı, dikkat çekici örüntüler.
+  KURAL 1: Yalnızca WS3'te geçen gıda adlarını kullan: Patlamış Mısır, Elma, Patates Kızartması.
+  Başka gıda adı (Domates, Salatalık, vb.) YAZMA — bunlar bu sayfada yoktur.
+  KURAL 2: Operatör tercihini (< vs ≤, > vs ≥) eleştirme. Öğrencinin yazdığı ne ise onu gözlemle,
+  "tercih etmemiş" veya "daha doğru olurdu" gibi değerlendirme yorumu yapma.
+  KURAL 3 — B7/B8 EŞİTLİK KONTROLÜ: B7 ve B8'de kullanılan operatörlere bak.
+  Eğer ikisi de eşitliksiz operatör içeriyorsa (yani hem B7 hem B8'de sadece < veya > varsa,
+  hiçbirinde ≤ veya ≥ yoksa), snapshot'a şunu ekle:
+  "B7 ve B8'de eşitlik işareti kullanılmamış; tam olarak [eşik sayısı] kcal değerindeki
+  bir gıdanın hangi dala atanacağı belirsizdir."
+  Eğer B7 veya B8'de ≤ ya da ≥ varsa bu uyarıyı EKLEME.
+
+"page_notes"
+  Brief note about scan quality, illegible operators, or B7/B8 inconsistency. Write (bos) if no issues.
+
+Return ONLY the following JSON object. No text before or after it.
+{{
+  "student_name": "...",
+  "WS3_B1": "...", "WS3_B2": "...", "WS3_B3": "...", "WS3_B4": "...",
+  "WS3_B5": "...", "WS3_B6": "...", "WS3_B7": "...", "WS3_B8": "...",
   "ws_snapshot": "...",
   "page_notes": "..."
 }}"""
@@ -679,6 +827,7 @@ PROMPTS: dict[str, str] = {
     # 2026
     "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": PROMPT_DT,
     "24 Mart 2026 Çalışma Kâğıdı 1.pdf": PROMPT_WS1,
+    "24 Mart 2026 Çalışma Kâğıdı 3.pdf": PROMPT_WS3,
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": PROMPT_WS6,
 }
 
@@ -967,7 +1116,7 @@ def transcribe_student_pages(
     client: anthropic.Anthropic,
     images: list[Image.Image],
     pdf_name: str,
-    model: str = "claude-opus-4-8",
+    model: str = "claude-sonnet-5",
     retries: int = 3,
 ) -> dict[str, Any]:
     """
@@ -991,10 +1140,14 @@ def transcribe_student_pages(
         try:
             response = client.messages.create(
                 model=model,
-                max_tokens=2048,
+                max_tokens=4000,
+                thinking={"type": "disabled"},
                 messages=[{"role": "user", "content": content}],
             )
-            raw = response.content[0].text.strip()
+            text_block = next((b for b in response.content if b.type == "text"), None)
+            if text_block is None:
+                raise json.JSONDecodeError("No text block in response", "", 0)
+            raw = text_block.text.strip()
             raw = re.sub(r"^```(?:json)?\s*", "", raw)
             raw = re.sub(r"\s*```$", "", raw)
             return json.loads(raw)
@@ -1361,27 +1514,16 @@ def mode_pilot(
 
     responses = extract_item_responses(raw, pdf_name)
     answered = sum(1 for v in responses.values() if is_answered(v))
-    record = {
-        "student_name": key,
-        "item_coverage": {
-            "answered": answered,
-            "total_this_pdf": len(pdf_item_ids),
-            "total_all_pdfs": len(ALL_ITEM_IDS),
-            "note": f"pilot covers only {pdf_name}; run full pipeline for all {len(ALL_ITEM_IDS)} items",
-        },
-        "responses": responses,
-        "raw": raw,
-    }
 
     out_dir = OUT_DIR / f"_pilot_{key}"
     out_dir.mkdir(exist_ok=True)
     out_path = out_dir / pdf_name.replace(" ", "_").replace(".pdf", ".json").lower()
     with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(record, f, ensure_ascii=False, indent=2)
+        json.dump(raw, f, ensure_ascii=False, indent=2)
 
     print(f"\nSaved -> {out_path}")
     _print_item_summary(responses, raw.get("page_notes", ""))
-    return record
+    return raw
 
 
 def mode_validate(student_name: str) -> None:
@@ -1554,7 +1696,7 @@ def save_worksheet_jsons(
     all_responses: dict[str, str],
     raw_by_pdf: dict[str, dict],
     output_dir: Path | None = None,
-    ocr_model: str = "claude-sonnet-4-6",
+    ocr_model: str = "claude-sonnet-5",
     client: Optional[anthropic.Anthropic] = None,
 ) -> Path:
     """

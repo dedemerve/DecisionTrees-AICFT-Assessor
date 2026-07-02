@@ -459,7 +459,7 @@ def main() -> int:
     parser.add_argument("--workers", type=int, default=3, help="Concurrent students to process (default 3)")
     parser.add_argument("--llm-score", action="store_true",
                          help="Also LLM-score WS1/WS3/WS4 via worksheet_assessor (needs ANTHROPIC_API_KEY)")
-    parser.add_argument("--llm-model", default="claude-sonnet-4-6")
+    parser.add_argument("--llm-model", default="claude-sonnet-5")
     parser.add_argument("--json-summary", action="store_true", help="Print final summary as JSON")
     args = parser.parse_args()
 

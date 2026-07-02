@@ -613,14 +613,14 @@ def _pil_to_base64(img: Image.Image, max_width: int = 1800) -> str:
 def extract_decision_tree_structure(
     client: anthropic.Anthropic,
     image: Union[Image.Image, Path, str],
-    model: str = "claude-opus-4-8",
+    model: str = "claude-sonnet-5",
 ) -> DecisionTreeExtraction:
     """Extract decision tree structure from a handwritten worksheet image.
 
     Args:
         client: Anthropic client.
         image: A PIL Image, or a path to a JPEG/PNG file.
-        model: Claude model ID. Defaults to claude-opus-4-8 for best HTR quality.
+        model: Claude model ID. Defaults to claude-sonnet-5.
 
     Returns:
         DecisionTreeExtraction with root node, splits, MCR, and warnings.
@@ -1431,7 +1431,7 @@ def assess_item(
     item_id: str,
     student_response: str,
     log_context: Optional[str] = None,
-    model: str = "claude-sonnet-4-6",
+    model: str = "claude-sonnet-5",
     worksheet_id: str | None = None,
 ) -> ItemScore:
     """
@@ -1500,7 +1500,7 @@ def assess_worksheet(
     responses: dict[str, str],
     log_contexts: Optional[dict[str, str]] = None,
     numeric_checks: Optional[dict] = None,
-    model: str = "claude-sonnet-4-6",
+    model: str = "claude-sonnet-5",
 ) -> WorksheetAssessment:
     """
     Assess all items for one student's worksheet.
@@ -1643,7 +1643,7 @@ def assess_worksheet_dt(
     candidate_id: str,
     responses: dict[str, str],
     log_features: Optional[dict] = None,
-    model: str = "claude-sonnet-4-6",
+    model: str = "claude-sonnet-5",
 ) -> WorksheetAssessment:
     """
     Assess Worksheet DT with optional log cross-checking.

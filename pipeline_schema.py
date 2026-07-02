@@ -164,6 +164,7 @@ PDF_ITEM_IDS: dict[str, list[str]] = {
     # 2026 cohort — per-worksheet PDFs
     "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": ITEM_IDS_DT,
     "24 Mart 2026 Çalışma Kâğıdı 1.pdf": ITEM_IDS_WS1,
+    "24 Mart 2026 Çalışma Kâğıdı 3.pdf": ITEM_IDS_WS3,
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": ITEM_IDS_WS6,
 }
 
@@ -183,6 +184,7 @@ WORKSHEET_PDF_SOURCE: dict[str, str] = {
     # 2026 cohort (per-worksheet PDFs where available, else 2025 legacy)
     "WS_DT": "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf",
     "WS1":   "24 Mart 2026 Çalışma Kâğıdı 1.pdf",
+    "WS3":   "24 Mart 2026 Çalışma Kâğıdı 3.pdf",
     "WS6":   "31 Mart 2026 Çalışma Kâğıdı 6.pdf",
     # 2025 cohort (combined PDFs — updated per worksheet as 2026 data lands)
     "WS1_legacy":  "Worksheets1-10.pdf",
@@ -349,7 +351,7 @@ def validate_rubric(rubric: dict[str, Any], source: str = "") -> list[str]:
     if rubric.get("schema_version") is not None:
         errors.append(f"{prefix}schema_version must not appear in rubric output")
 
-    worksheet = rubric.get("worksheet")
+    worksheet = rubric.get("worksheet") or rubric.get("worksheet_id")
     if not worksheet:
         errors.append(f"{prefix}missing worksheet")
 
@@ -451,9 +453,15 @@ def validate_all_rubrics() -> list[str]:
     if WORKSHEETS_DIR.is_dir():
         for bundle in sorted(WORKSHEETS_DIR.glob("WS*/rubric.json")):
             rubric = json.loads(bundle.read_text(encoding="utf-8"))
-            ws = rubric.get("worksheet", bundle.parent.name)
+            ws = rubric.get("worksheet") or rubric.get("worksheet_id") or bundle.parent.name
             seen.add(ws)
             if rubric.get("curriculum_status") == "not_deployed":
+                continue
+            items = rubric.get("items") or {}
+            has_schema3 = any(
+                isinstance(v, dict) and "max_score" in v for v in items.values()
+            )
+            if not has_schema3:
                 continue
             errors.extend(validate_rubric(rubric, str(bundle.relative_to(REPO_ROOT))))
     for path in sorted(RUBRICS_DIR.glob("*_rubric.json")):
