@@ -1,0 +1,60 @@
+{
+  "student_name": "Irma",
+  "WS3_B1": "tavsiye edilmez",
+  "WS3_B2": "yağ miktarı yüksek",
+  "WS3_B3": "tavsiye edilebilir",
+  "WS3_B4": "yağ miktarı az",
+  "WS3_B5": "tavsiye edilmez",
+  "WS3_B6": "yağ miktarı yüksek",
+  "WS3_B7": "<=150",
+  "WS3_B8": ">150",
+  "ws_snapshot": "Irma, Patlamış Mısır ve Patates Kızartması için 'tavsiye edilmez', Elma için 'tavsiye edilebilir' etiketlerini doğru belirlemiş. Ancak matematiksel gerekçeleri sayısal karşılaştırma yerine sözel ifadelerle ('yağ miktarı yüksek/az') yazmış, sayısal değer ve eşik değeri (8.0 g) ile karşılaştırma yapılmamış. Enerji eşik değeri için B7 ve B8'de aynı sayı (150) kullanılmış ve operatörler tutarlı görünüyor. Ancak büyüklük küçüklük işaretlerinin kullanılmaması, öğrencinin kavramsal anlayışını tam olarak göstermiyor.",
+  "page_notes": "B2, B4, B6 alanlarında sayısal karşılaştırma yerine sözel açıklama yazılmış; matematiksel ifade formatına uyulmamış.",
+  "validation": {
+    "item_checks": {
+      "WS3_B1": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B2": {
+        "is_correct": false,
+        "score": 0.0,
+        "note": "Gerekçede eşik değeri ve gıda yağ değeri tespit edilemedi."
+      },
+      "WS3_B3": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B4": {
+        "is_correct": false,
+        "score": 0.0,
+        "note": "Gerekçede eşik değeri ve gıda yağ değeri tespit edilemedi."
+      },
+      "WS3_B5": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B6": {
+        "is_correct": false,
+        "score": 0.0,
+        "note": "Gerekçede eşik değeri ve gıda yağ değeri tespit edilemedi."
+      },
+      "WS3_B7": {
+        "is_correct": true,
+        "operator": "<=",
+        "value": 150.0,
+        "note": null
+      },
+      "WS3_B8": {
+        "is_correct": true,
+        "operator": ">",
+        "value": 150.0,
+        "note": null
+      }
+    },
+    "system_analytical_summary": "Mısır gevreği (23g): Etiket doğru ama gerekçe hatalı/boş. Elma (0.2g): Etiket doğru ama gerekçe hatalı/boş. Patates kızartması (14g): Etiket doğru ama gerekçe hatalı/boş. Enerji eşiği (B7/B8): Tutarlı ve doğru aralıkta (<= 150.0 / > 150.0)."
+  }
+}

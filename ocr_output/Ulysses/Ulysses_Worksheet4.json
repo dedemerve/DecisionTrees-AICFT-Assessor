@@ -1,0 +1,63 @@
+{
+  "student_id": "Ulysses",
+  "worksheet": "WS4",
+  "ws_snapshot": "Bir dikey çizgi kraker ile avokado arasına çizilmiş, avokado ve patates kızartması kartlarının etrafına da yuvarlak bir çizgi çekilmiş. B3 alanında 'patates ile avokado arası' yazılmış. B4 alanında 'haklı' yazılmış ve B5'te enerji eşik değeri olarak 170 kcal yazılmış.",
+  "page_notes": "Çizgi/daire tam olarak kraker-avokado-patates kızartması bölgesini kapsıyor gibi görünüyor, tam sınır belirsiz. B2 için ayrı bir yazılı yanıt görünmüyor, sadece çizimler mevcut.",
+  "extraction": {
+    "WS4_B1": {
+      "threshold_value_raw": "patates ile avokado arası",
+      "threshold_value_parsed": null,
+      "placement_description": "Patates kızartması ile avokado kartları arasına kalın bir dikey çizgi çizilmiş."
+    },
+    "WS4_B2": {
+      "detection_method": "circle",
+      "circled_cards": [
+        "kraker",
+        "avokado",
+        "patates kızartması"
+      ],
+      "written_foods": null,
+      "foods_parsed": [
+        "kraker",
+        "avokado",
+        "patates kızartması"
+      ]
+    },
+    "WS4_B3": {
+      "response_raw": "patates ile avokado arası"
+    },
+    "WS4_B4": {
+      "agrees_with_pia": true,
+      "response_raw": "haklı"
+    },
+    "WS4_B5": {
+      "threshold_value_raw": "170 kcal",
+      "threshold_value_parsed": 170.0
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS4_B1": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B2": {
+        "is_correct": null,
+        "error_flag": "missing_foods: jelibon, yulaf"
+      },
+      "WS4_B3": {
+        "is_correct": false,
+        "error_flag": "missing_error_reduction_rationale"
+      },
+      "WS4_B4": {
+        "is_correct": false,
+        "error_flag": "missing_equal_fat_explanation"
+      },
+      "WS4_B5": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Görev 1: Eksik kart(lar): jelibon, yulaf. Görev 2 (Threshold value konumu): Avokado ile patates kızartması arasına doğru yerleştirilmiş. Görev 3: Hata azalması gerekçesi kurulamamış. Görev 4 (Pia): Pia'ya katılmış ancak yağ değerlerinin eşitliğini açıklayamamış — kavramsal hata. Görev 5 (Enerji threshold value): Doğru aralıkta."
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "student_id": "Serena",
+  "worksheet": "WS4",
+  "ws_snapshot": "The student circled several food cards in the row (jelibon, avokado, kraker, yulaf area) with overlapping loose loops, and drew a horizontal line/circle spanning across kraker-avokado region indicating the threshold zone. Handwritten notes near the margin read '2 yanlış kart çıkıyor', 'yer avokado ve reçel arası', '2 hata sadece'. Task 4 answer is written as '200' for the best energy threshold.",
+  "page_notes": "Circles are rough and overlapping across jelibon, kraker, yulaf, and avokado cards, making it ambiguous which exactly 4 cards are intended as misclassified; no clear separate written food list distinguishing them from B1 threshold marks. No explicit B3 answer text found separate from margin notes.",
+  "extraction": {
+    "WS4_B1": {
+      "threshold_value_raw": "yer avokado ve patates kızartması arası",
+      "threshold_value_parsed": 13.5,
+      "placement_description": "Avokado ile patates kızartması kartları arasına çizgi çizilmiş."
+    },
+    "WS4_B2": {
+      "detection_method": "both",
+      "circled_cards": [
+        "jelibon",
+        "kraker",
+        "yulaf",
+        "avokado"
+      ],
+      "written_foods": "2 yanlış kart çıkıyor",
+      "foods_parsed": [
+        "jelibon",
+        "kraker",
+        "yulaf",
+        "avokado"
+      ]
+    },
+    "WS4_B3": {
+      "response_raw": "(bos)"
+    },
+    "WS4_B4": {
+      "agrees_with_pia": null,
+      "response_raw": "(bos)"
+    },
+    "WS4_B5": {
+      "threshold_value_raw": "200",
+      "threshold_value_parsed": 200.0
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS4_B1": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B2": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B3": {
+        "is_correct": false,
+        "error_flag": "missing_error_reduction_rationale"
+      },
+      "WS4_B4": {
+        "is_correct": null,
+        "error_flag": "unclear_pia_response"
+      },
+      "WS4_B5": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Görev 1: 4 yanlış sınıflandırılan kart doğru tespit edilmiş. Görev 2 (Threshold value konumu): Avokado ile patates kızartması arasına doğru yerleştirilmiş. Görev 3: Hata azalması gerekçesi kurulamamış. Görev 4 (Pia): Yanıt belirsiz — yorumsal inceleme gerekli. Görev 5 (Enerji threshold value): Doğru aralıkta."
+  }
+}

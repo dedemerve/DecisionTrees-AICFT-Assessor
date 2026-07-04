@@ -1,0 +1,82 @@
+{
+  "student_id": "Ulysses",
+  "worksheet": "WS5",
+  "page_notes": "Deneme 1 (karbonhidrat) sol operatör küçük çengelli yazılmış, çizgi net görünmüyor, < olarak okundu; sağ operatör de aynı şekilde > olarak okundu. Deneme 2 (şeker) ve Deneme 3 (protein) operatörlerinde de alt çizgi net değil, < ve > olarak okundu.",
+  "extraction": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "parsed_feature": "karbonhidrat",
+        "left_operator": "≤",
+        "left_threshold": 20.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": ">",
+        "right_threshold": 20.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 5,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 2,
+        "parsed_feature": "şeker",
+        "left_operator": "≤",
+        "left_threshold": 2.0,
+        "left_leaf_recommended": 5,
+        "left_leaf_not_recommended": 1,
+        "right_operator": ">",
+        "right_threshold": 2.0,
+        "right_leaf_recommended": 1,
+        "right_leaf_not_recommended": 4,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 3,
+        "parsed_feature": "protein",
+        "left_operator": "≤",
+        "left_threshold": 2.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 1,
+        "right_operator": ">",
+        "right_threshold": 2.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 4,
+        "student_error_count": 5,
+        "student_mcr": null
+      }
+    ],
+    "final_decision_raw": "protein değişkeni için hangi eşik değerini seçiyorsunuz? Not alın: 2"
+  },
+  "validation": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "system_error_count": 2,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": true,
+        "error_flag": null
+      },
+      {
+        "trial_id": 2,
+        "system_error_count": 2,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": true,
+        "error_flag": null
+      },
+      {
+        "trial_id": 3,
+        "system_error_count": 3,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": false,
+        "is_operator_logic_correct": true,
+        "error_flag": "arithmetic_inconsistent"
+      }
+    ],
+    "final_decision_logical": false
+  },
+  "ws_snapshot": "Öğrenci 3 deneme yapmış: karbonhidrat, şeker, protein değişkenlerini test etmiş. Deneme 1 (karbonhidrat ≤ 20.0): doğru sayım | Deneme 2 (şeker ≤ 2.0): doğru sayım | Deneme 3 (protein ≤ 2.0): öğrenci 5, sistem 3 — sayma hatası. Nihai kararı kendi sayımındaki en düşük hata sayılı denemeyle örtüşmüyor."
+}

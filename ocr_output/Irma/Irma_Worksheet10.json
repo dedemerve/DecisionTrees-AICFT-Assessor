@@ -1,0 +1,36 @@
+{
+  "student_id": "Irma",
+  "worksheet": "WS10",
+  "extraction": {
+    "threshold_error_table": {
+      "WS10_B1": { "error_count_parsed": 4 },
+      "WS10_B2": { "error_count_parsed": 3 },
+      "WS10_B3": { "error_count_parsed": 2 },
+      "WS10_B4": { "error_count_parsed": 3 },
+      "WS10_B5": { "error_count_parsed": 2 },
+      "WS10_B6": { "error_count_parsed": 1 },
+      "WS10_B7": { "error_count_parsed": 2 }
+    },
+    "optimal_threshold": {
+      "value_parsed": 400.0
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS10_B1": { "is_correct": true, "error_flag": null },
+      "WS10_B2": { "is_correct": true, "error_flag": null },
+      "WS10_B3": { "is_correct": true, "error_flag": null },
+      "WS10_B4": { "is_correct": true, "error_flag": null },
+      "WS10_B5": { "is_correct": true, "error_flag": null },
+      "WS10_B6": { "is_correct": true, "error_flag": null },
+      "WS10_B7": { "is_correct": true, "error_flag": null },
+      "WS10_B8": { "is_correct": false, "error_flag": "optimal_threshold_mismatch" }
+    },
+    "error_flags": [
+      "optimal_threshold_mismatch"
+    ],
+    "system_analytical_summary": "Öğrenci 7 farklı test eşiği için yanlış sınıflandırma sayılarının tamamını (4, 3, 2, 3, 2, 1, 2) sistem gerçeğiyle tam uyumlu olarak hesaplamıştır. Ancak, kendi tablosunda en düşük hata oranının (1 hata) 408 kcal eşiğinde olduğunu açıkça tespit etmesine rağmen, nihai optimum eşik değerini yazarken 408 yerine '400' yazmıştır. Karar ağacı mantığı tam olarak çalışmış, hata noktası sadece son aşamadaki sayıyı düz bir onluğa yuvarlama (rounding) eğilimi veya basit bir dikkatsizlik (aktarım hatası) kaynaklı olmuştur."
+  },
+  "ws_snapshot": "Öğrenci arama tablosundaki tüm satırları doğru hata sayılarıyla eksiksiz doldurmuştur. Tabloda en düşük hata sayısına karşılık gelen eşik değer 408 olmasına rağmen, sayfanın altındaki nihai karar boşluğuna 400 değerini yazmıştır.",
+  "page_notes": "Tablodaki 4. ve 6. satırlardaki bazı değerler üzerinde silme/karalama izleri mevcuttur; nihai kararlarına ulaşılan değerler sisteme işlenmiştir."
+}

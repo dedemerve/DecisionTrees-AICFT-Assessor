@@ -1,0 +1,82 @@
+{
+  "student_id": "Zara",
+  "worksheet": "WS5",
+  "page_notes": "[Deneme 1 left operatör belirsiz: < veya ≤ olabilir]; [Deneme 1 right operatör belirsiz: < veya ≤ olabilir]; [Deneme 2 left operatör belirsiz: < veya ≤ olabilir]; [Deneme 2 right operatör belirsiz: < veya ≤ olabilir]; [Deneme 3 left operatör belirsiz: < veya ≤ olabilir]; [Deneme 3 right operatör belirsiz: < veya ≤ olabilir]",
+  "extraction": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "parsed_feature": "Enerji",
+        "left_operator": "<",
+        "left_threshold": 200.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": "<",
+        "right_threshold": 200.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 5,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 2,
+        "parsed_feature": "Protein",
+        "left_operator": "<",
+        "left_threshold": 2.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 1,
+        "right_operator": "<",
+        "right_threshold": 2.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 4,
+        "student_error_count": 3,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 3,
+        "parsed_feature": "Şeker",
+        "left_operator": "<",
+        "left_threshold": 2.0,
+        "left_leaf_recommended": 5,
+        "left_leaf_not_recommended": 1,
+        "right_operator": "<",
+        "right_threshold": 2.0,
+        "right_leaf_recommended": 1,
+        "right_leaf_not_recommended": 4,
+        "student_error_count": 2,
+        "student_mcr": null
+      }
+    ],
+    "final_decision_raw": "Şeker değişkeni için hangi eşik değerini seçiyorsunuz? Not alın: Hata Sayısı 2 daha kullanışlı."
+  },
+  "validation": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "system_error_count": 2,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": false,
+        "error_flag": "non_complementary_operators (left=<, right=<, expected_right=>=)"
+      },
+      {
+        "trial_id": 2,
+        "system_error_count": 3,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": false,
+        "error_flag": "non_complementary_operators (left=<, right=<, expected_right=>=)"
+      },
+      {
+        "trial_id": 3,
+        "system_error_count": 2,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": false,
+        "error_flag": "non_complementary_operators (left=<, right=<, expected_right=>=)"
+      }
+    ],
+    "final_decision_logical": true
+  },
+  "ws_snapshot": "Öğrenci 3 deneme yapmış: Enerji, Protein, Şeker değişkenlerini test etmiş. Deneme 1 (Enerji < 200.0): doğru sayım; operatör çifti hatalı | Deneme 2 (Protein < 2.0): doğru sayım; operatör çifti hatalı | Deneme 3 (Şeker < 2.0): doğru sayım; operatör çifti hatalı. Nihai kararında en düşük hata sayılı eşiği doğru seçmiş."
+}

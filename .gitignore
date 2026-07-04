@@ -35,8 +35,10 @@ __pycache__/
 .venv/
 layout_rois/
 
-# Runtime OCR dumps (regenerate via ocr_pipeline.py)
-ocr_output/
+# Runtime OCR dumps — JSON files tracked, images and slots excluded
+ocr_output/_images/
+ocr_output/slot_01/
+ocr_output/slot_02/
 
 # Legacy manual labeling spreadsheet (superseded by pipeline)
 AI_CFT_Labeling.xlsx

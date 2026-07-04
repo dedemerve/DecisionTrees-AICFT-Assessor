@@ -1,0 +1,88 @@
+{
+  "student_id": "Shana",
+  "worksheet": "WS6",
+  "ws_snapshot": "Kök düğümde 'yağ' değişkeni ve eşik değer 13,5 yazılmış; evet dalında 'şeker', hayır dalında 'enerji' düğümleri var. Şeker düğümünde eşik 11, tavsiye edilebilir:6/tavsiye edilemez:2 yazılmış; enerji düğümünde eşik 200, tavsiye edilebilir:0/tavsiye edilemez:3 yazılmış. Dört yaprak kutusu çizilmiş, içlerinde sadece sayılar (0,2,6,0 / 0,0,0,3) var, ancak yaprak etiketleri (tavsiye edilir/edilemez) yazılmamış.",
+  "page_notes": "Yaprak kutularının içine sadece sayılar yazılmış, 'tavsiye edilir/edilemez' etiketleri belirtilmemiş; bu nedenle leaf_label alanları null olarak işaretlendi. Enerji düğümünün sağ dalındaki eşik değeri '>200' olarak okunmuş, sol dalı '<200' olarak okunmuş; bar kontrolünde her iki tarafta da net bir çizgi görülmediğinden < ve > olarak transkribe edildi. Şeker düğümünde sol dal '<11', sağ dal '>11' olarak okunmuş, yine bar belirsiz olduğundan < ve > kullanıldı. Kök düğümdeki eşik değer bazı yerlerde 13,5 bazı yerlerde 43,5 gibi görünüyor (üzeri karalanmış olabilir), 13,5 olarak kabul edildi.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Yağ",
+        "left_operator": "≤",
+        "left_threshold_value": 13.5,
+        "right_operator": "<",
+        "right_threshold_value": 13.5
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Şeker",
+          "node_recommended_count": 6,
+          "node_not_recommended_count": 2,
+          "left_operator": "<",
+          "left_threshold_value": 11.0,
+          "right_operator": ">",
+          "right_threshold_value": 11.0
+        },
+        "right_child": {
+          "parsed_feature": "Enerji",
+          "node_recommended_count": 0,
+          "node_not_recommended_count": 3,
+          "left_operator": "<",
+          "left_threshold_value": 200.0,
+          "right_operator": ">",
+          "right_threshold_value": 200.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 2
+          },
+          "left_right_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 0
+          },
+          "right_left_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 0
+          },
+          "right_right_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 3
+          }
+        }
+      }
+    }
+  },
+  "validation": {
+    "tree_logic": {
+      "depth_0": {
+        "is_operator_logic_correct": false
+      },
+      "depth_1": {
+        "is_left_child_counts_correct": true,
+        "is_right_child_counts_correct": true,
+        "is_left_operator_logic_correct": false,
+        "is_right_operator_logic_correct": false
+      },
+      "depth_2": {
+        "is_left_left_logical": false,
+        "is_left_right_logical": false,
+        "is_right_left_logical": true,
+        "is_right_right_logical": true
+      },
+      "error_flags": [
+        "depth_0 non_complementary_operators (left=≤, right=<, expected_right=>)",
+        "depth_1 left_child non_complementary_operators (left=<, right=>, expected_right=>=)",
+        "depth_1 right_child non_complementary_operators (left=<, right=>, expected_right=>=)",
+        "depth_2 left_left_leaf count mismatch (student rec=0/not=2)",
+        "depth_2 left_right_leaf count mismatch (student rec=0/not=0)"
+      ]
+    },
+    "system_analytical_summary": "Sistem 11 kartın tamamını sınıflandıramamış (yaprak etiketleri yazılmamış) — MCR hesaplanamıyor. sol-sağ, sağ-sol yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 2 sayım hatası tespit edildi. 3 tamamlayıcı olmayan operatör çifti var."
+  }
+}

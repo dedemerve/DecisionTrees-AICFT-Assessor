@@ -1,0 +1,66 @@
+{
+  "student_id": "Amy",
+  "worksheet": "WS7",
+  "ws_snapshot": "Öğrenci ağacın kök düğümüne 'Enerji', sağ iç düğümüne 'Protein' yazmış, ancak Enerji için eşik değer belirlememiştir. Protein için ≤10,7 ve >10,7 dallarını oluşturmuş ve yapraklara kutu içindeki sayıları (0/5 ve 2/0) yazmıştır. Sayfanın altındaki A, B, C kural eşleştirme bölümü tamamen boş bırakılmıştır.",
+  "page_notes": "Sağ iç düğümde önce farklı bir kelime yazılıp karalanmış, yerine 'Protein' yazılmıştır. Kural eşleştirme kutuları boştur; harfler sadece matbaa baskısı olarak ağacın uçlarında (A, B, C) yer almaktadır.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": null,
+        "left_threshold_value": null,
+        "right_operator": null,
+        "right_threshold_value": null
+      },
+      "depth_1": {
+        "left_child": {
+          "leaf_text": "A",
+          "node_recommended_count": 4,
+          "node_not_recommended_count": 0
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "left_operator": "≤",
+          "left_threshold_value": 10.7,
+          "right_operator": ">",
+          "right_threshold_value": 10.7
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 5
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": 2,
+            "leaf_not_recommended_count": 0
+          }
+        }
+      }
+    },
+    "rule_matching": {
+      "rule_1_box": null,
+      "rule_2_box": null,
+      "rule_3_box": null
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "tree_completeness": {
+        "is_correct": false,
+        "error_flag": "missing_root_thresholds"
+      },
+      "rule_mapping": {
+        "is_correct": false,
+        "error_flag": "missing_rule_assignments"
+      },
+      "threshold_alignment": {
+        "is_correct": false,
+        "error_flag": "threshold_mismatch_with_instructions"
+      }
+    },
+    "system_analytical_summary": "Öğrenci, Karar Ağacı ile Metinsel Kurallar arasındaki ilişkiyi kuramamıştır. Sayfanın altındaki metinsel kuralları (180 kcal ve 7.7g) okuyup ağaca yerleştirmek yerine, ağacı bağımsız bir problem gibi çözmeye çalışmıştır. Kök düğümde (Enerji) eşik değerleri boş bırakılmış, sağ iç düğümde (Protein) ise yönergeden bağımsız olarak '10,7' eşik değeri uydurulmuştur. Alt kısımdaki A, B, C kural eşleştirme görevine hiç dokunulmamıştır."
+  }
+}

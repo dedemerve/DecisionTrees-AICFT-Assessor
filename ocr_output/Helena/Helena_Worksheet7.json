@@ -1,0 +1,68 @@
+{
+  "student_id": "Helena",
+  "worksheet": "WS7",
+  "ws_snapshot": "Sayfada Enerji özelliğine göre kök düğüm ≤200 ve >200 olarak ayrılmış, sağ dal Protein özelliğine göre ≤11 ve >11 olarak ikinci kez ayrılmış bir karar ağacı görülmektedir. A yolu 'tavsiye edilebilir' olarak, sağ üstteki düğüm kenarına 'tavsiye edilemez' notu, B yaprağı 'tavsiye edilemez' ve C yaprağı 'tavsiye edilebilir' olarak elle işaretlenmiştir. Alt kısımdaki üç kural cümlesinin yanındaki kutucuklar boş bırakılmıştır.",
+  "page_notes": "Eşik değerleri 180 kcal ve 7,7 g yerine 200 ve 11 olarak yazılmış; bu, talimatlarda verilen hedef değerlerle uyuşmamaktadır. Yaprak düğümlerdeki sayısal tavsiye/tavsiye edilmeme sayıları (N değerleri) belirtilmemiş, sadece metinsel karar (tavsiye edilebilir/edilemez) yazılmıştır. Kural eşleştirme kutucukları (A/B/C) tamamen boş bırakılmıştır.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "≤",
+        "left_threshold_value": 200.0,
+        "right_operator": ">",
+        "right_threshold_value": 200.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "≤",
+          "left_threshold_value": 11.0,
+          "right_operator": ">",
+          "right_threshold_value": 11.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    },
+    "rule_matching": {
+      "rule_1_box": null,
+      "rule_2_box": null,
+      "rule_3_box": null
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "tree_completeness": {
+        "is_correct": false,
+        "error_flag": "missing_leaf_counts"
+      },
+      "rule_mapping": {
+        "is_correct": false,
+        "error_flag": "missing_rule_assignments"
+      },
+      "threshold_alignment": {
+        "is_correct": false,
+        "error_flag": "threshold_mismatch_with_instructions"
+      }
+    },
+    "system_analytical_summary": "Helena, ağaç yapısını genel mantıkla doldurmuş ve Enerji için 200, Protein için 11 eşik değerlerini kullanmış; ancak beklenen 180 kcal ve 7,7 g değerlerine ulaşamamış, bu da kuralları tersine mühendislikle çözme adımında bir kopukluk olduğunu göstermektedir. Yaprak düğümlerde sadece niteliksel tavsiye durumları (tavsiye edilebilir/edilemez) belirtilmiş, sayısal N değerleri hiç yazılmamıştır. Sayfanın alt kısmındaki kural eşleştirme kutucukları tamamen boş bırakılmış, dolayısıyla kural-yol eşleştirme görevi tamamlanmamıştır."
+  }
+}

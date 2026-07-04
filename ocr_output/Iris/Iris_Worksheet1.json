@@ -1,0 +1,66 @@
+{
+  "student_name": "Iris",
+  "WS1_B1": "Etiket, Karakteristik (tavsiye edilemez)",
+  "WS1_B2": "nesne",
+  "WS1_B3": "özellik",
+  "WS1_B4": "değişken",
+  "WS1_B5": "etiket",
+  "WS1_B6": "nesne",
+  "WS1_B7": "değişkenler",
+  "WS1_B8": "7",
+  "WS1_B9": "Fındıklı gofret 542 kcal enerji içermektedir. Fındıklı gofret 7,6 g protein içermektedir.",
+  "WS1_B10": "fındıklı gofret",
+  "WS1_B11": "etiket",
+  "ws_snapshot": "Iris'in çalışma kâğıdında dört ok için nesne, özellik, değişken ve etiket/karakteristik (tavsiye edilemez notuyla) terimleri doğru şekilde kullanılmış. Paragraf boşlukları da tutarlı biçimde doldurulmuş; nesne, değişkenler, 7 özellik ve etiket terimleri doğru yerleştirilmiş, örnek cümleler de tabloya uygun şekilde yazılmış. Genel olarak eksiksiz ve terminolojiye hakim bir çalışma görülmektedir.",
+  "page_notes": "(bos)",
+  "validation": {
+    "item_checks": {
+      "WS1_B1": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B2": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B3": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B4": {
+        "is_correct": false,
+        "error_flag": "feature_term_instead_of_value_term"
+      },
+      "WS1_B5": {
+        "is_correct": false,
+        "error_flag": "wrong_term: 'etiket'"
+      },
+      "WS1_B6": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B7": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B8": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B9": {
+        "is_correct": null,
+        "error_flag": "incomplete_feature_list: 2/7",
+        "found_count": 2
+      },
+      "WS1_B10": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B11": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Diyagram (B1-B4): B4'te 'Değer' yerine özellik terimi yazılmış ('değişken') — özellik ile değer kavramları karıştırılmış. Paragraf (B5-B7): Terim hatası — WS1_B5='etiket'. B8 (Özellik sayısı): Doğru — 7. B9 (Özellik listesi): Eksik — 2/7 tespit edildi. B10-B11: Somut gıda örneği (Fındıklı Gofret) ve etiket rolü doğru."
+  }
+}

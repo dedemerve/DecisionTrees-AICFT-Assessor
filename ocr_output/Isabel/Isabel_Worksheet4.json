@@ -1,0 +1,65 @@
+{
+  "student_id": "Isabel",
+  "worksheet": "WS4",
+  "ws_snapshot": "Sağ tarafta avokado ve jelibon-yulaf-kraker kartlarının etrafında elle çizilmiş kalın çizgiler/döngüler görülüyor; avokado kartının üzerinde 'Bisi' benzeri bir not var. Patates kızartması ile avokado arasında kalın, dalgalı yatay bir çizgi çizilmiş (eşik çizgisi olarak yorumlanabilir). Alıştırma 3 ve Görev 4 için el yazısıyla kısa cevaplar yazılmış, Görev 4'te enerji eşik değeri olarak '191,5' yazılmış.",
+  "page_notes": "Görev 1 ve Görev 2 için ayrı yazılı metin cevabı bulunamadı; sadece kart etrafında dairesel/döngüsel işaretler var; hangi kartların tam olarak işaretlendiği (jelibon, kraker, yulaf, avokado) net değil, üst üste binen çizgiler nedeniyle belirsiz. Alıştırma 3 ve Görev 4 cevapları kısa ve bazı kelimeler okunaklı değil.",
+  "extraction": {
+    "WS4_B1": {
+      "threshold_value_raw": "avokado ile patates kızartması arasında çizilen kalın dalgalı çizgi",
+      "threshold_value_parsed": 13.5,
+      "placement_description": "Patates kızartması ve avokado kartları arasına kalın, dalgalı bir yatay/dikey çizgi çizilmiş; eşik değer 13,5 olarak belirtilmiş."
+    },
+    "WS4_B2": {
+      "detection_method": "visual_circle",
+      "circled_cards": [
+        "jelibon",
+        "kraker",
+        "yulaf",
+        "avokado"
+      ],
+      "written_foods": null,
+      "foods_parsed": [
+        "jelibon",
+        "kraker",
+        "yulaf",
+        "avokado"
+      ]
+    },
+    "WS4_B3": {
+      "response_raw": "Daha az yağ içeriği için daha iyi bir eşik değerdir. | Evet, çünkü çok fazla yağ oranı otomatiktir."
+    },
+    "WS4_B4": {
+      "agrees_with_pia": true,
+      "response_raw": "Evet, çünkü çok fazla yağ oranı otomatiktir. (elma ve ahududu reçeli için eşit değer olduğu ima ediliyor)"
+    },
+    "WS4_B5": {
+      "threshold_value_raw": "191,5",
+      "threshold_value_parsed": 191.5
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS4_B1": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B2": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B3": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B4": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B5": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Görev 1: 4 yanlış sınıflandırılan kart doğru tespit edilmiş. Görev 2 (Threshold value konumu): Avokado ile patates kızartması arasına doğru yerleştirilmiş. Görev 3: Hata sayısının azaldığını doğru biçimde gerekçelendirmiş. Görev 4 (Pia): Pia'ya katılmış ve yağ değerlerinin eşit (0.2g) olduğunu doğru açıklamış. Görev 5 (Enerji threshold value): Doğru aralıkta."
+  }
+}

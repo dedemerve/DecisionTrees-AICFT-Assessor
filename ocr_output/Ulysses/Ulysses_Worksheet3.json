@@ -1,0 +1,60 @@
+{
+  "student_name": "Ulysses",
+  "WS3_B1": "tavsiye edilemez",
+  "WS3_B2": "23 > 8",
+  "WS3_B3": "tavsiye edilebilir",
+  "WS3_B4": "8 > 0,2",
+  "WS3_B5": "tavsiye edilemez",
+  "WS3_B6": "14 > 8",
+  "WS3_B7": "≤ 100",
+  "WS3_B8": "> 100",
+  "ws_snapshot": "Öğrenci Patlamış Mısır ve Patates Kızartması için 'tavsiye edilemez' etiketini, Elma için 'tavsiye edilebilir' etiketini doğru şekilde belirlemiş ve her biri için ilgili matematiksel karşılaştırmayı (23 > 8, 8 > 0,2, 14 > 8) yazmış. Enerji değişkeni için eşik değeri olarak 100 seçilmiş ve B7'de ≤ 100, B8'de > 100 olarak tutarlı şekilde uygulanmış. Kartların dağılımı (Salatalık, Mantar, Patates sol dalda; Ahududu Reçeli, Pirinç, Sütlü Çikolata sağ dalda) bu eşik değeriyle uyumlu görünmektedir.",
+  "page_notes": "(bos)",
+  "validation": {
+    "item_checks": {
+      "WS3_B1": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B2": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B3": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B4": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B5": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B6": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B7": {
+        "is_correct": true,
+        "operator": "≤",
+        "value": 100.0,
+        "note": null
+      },
+      "WS3_B8": {
+        "is_correct": true,
+        "operator": ">",
+        "value": 100.0,
+        "note": null
+      }
+    },
+    "system_analytical_summary": "Mısır gevreği (23g): Etiket ve gerekçe doğru (tavsiye edilemez). Elma (0.2g): Etiket ve gerekçe doğru (tavsiye edilebilir). Patates kızartması (14g): Etiket ve gerekçe doğru (tavsiye edilemez). Enerji eşiği (B7/B8): Tutarlı ve doğru aralıkta (≤ 100.0 / > 100.0)."
+  }
+}

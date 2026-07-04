@@ -1,0 +1,87 @@
+{
+  "student_id": "Zara",
+  "worksheet": "WS6",
+  "ws_snapshot": "Root node splits on 'Enerji' at threshold 200 (left branch ≤200, right branch >200). The right branch leads to a 'Şeker' node with counts 2 tavsiye edilebilir / 5 tavsiye edilemez, splitting further at threshold 1 (left <1, right ≥1) into two leaves. The left branch (≤200) leads to a node labeled 'Q' with counts 4 tavsiye edilebilir / (blank) tavsiye edilemez, but its further split boxes are drawn empty with no operators, thresholds, or leaf labels filled in.",
+  "page_notes": "Left child of root (Enerji ≤200 branch) node box appears to have feature transcribed as 'Q' which is illegible/unclear - possibly incomplete label. Its two child leaf boxes are drawn but completely empty (no operator, threshold, or leaf labels) - treated as incomplete branch. depth_1 right_child operator for left branch shown as '<1' with no visible bar, transcribed as strictly less-than. depth_0 operators: left shown as '≤200' with visible bar, right shown as '200≤' construction is ambiguous in orientation but appears to indicate >200 for right branch, transcribed as best guess.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Enerji",
+        "left_operator": "<",
+        "left_threshold_value": 200.0,
+        "right_operator": "≤",
+        "right_threshold_value": 200.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "(bos)",
+          "node_recommended_count": 4,
+          "node_not_recommended_count": null,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        },
+        "right_child": {
+          "parsed_feature": "Şeker",
+          "node_recommended_count": 2,
+          "node_not_recommended_count": 5,
+          "left_operator": "<",
+          "left_threshold_value": 1.0,
+          "right_operator": "≥",
+          "right_threshold_value": 1.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "left_right_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": 2,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": 4
+          }
+        }
+      }
+    }
+  },
+  "validation": {
+    "tree_logic": {
+      "depth_0": {
+        "is_operator_logic_correct": false
+      },
+      "depth_1": {
+        "is_left_child_counts_correct": false,
+        "is_right_child_counts_correct": true,
+        "is_left_operator_logic_correct": null,
+        "is_right_operator_logic_correct": true
+      },
+      "depth_2": {
+        "is_left_left_logical": null,
+        "is_left_right_logical": null,
+        "is_right_left_logical": false,
+        "is_right_right_logical": false
+      },
+      "error_flags": [
+        "depth_0 non_complementary_operators (left=<, right=≤, expected_right=>=)",
+        "depth_1 left_child count mismatch (student rec=4/not=None, system rec=4/not=0)",
+        "depth_2 right_left_leaf count mismatch (student rec=2/not=None)",
+        "depth_2 right_right_leaf count mismatch (student rec=None/not=4)"
+      ]
+    },
+    "system_analytical_summary": "Sistem 11 kartın 4 tanesini sınıflandıramamış (yaprak etiketi eksik). Sınıflandırılabilenler arasında 1 hata var; MCR = 0.14. sol-sol, sol-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 3 sayım hatası tespit edildi. 1 tamamlayıcı olmayan operatör çifti var."
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "student_id": "Amy",
+  "worksheet": "WS6",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Yağ",
+        "left_operator": "≤",
+        "left_threshold_value": 13.0,
+        "right_operator": ">",
+        "right_threshold_value": 13.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Şeker",
+          "node_recommended_count": 0,
+          "node_not_recommended_count": 2,
+          "left_operator": "≤",
+          "left_threshold_value": 11.0,
+          "right_operator": ">",
+          "right_threshold_value": 11.0
+        },
+        "right_child": {
+          "parsed_feature": "Enerji",
+          "node_recommended_count": 0,
+          "node_not_recommended_count": 3,
+          "left_operator": "<",
+          "left_threshold_value": 289.0,
+          "right_operator": "≥",
+          "right_threshold_value": 289.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_recommended_count": 6,
+            "leaf_not_recommended_count": 0,
+            "leaf_label": "tavsiye edilir"
+          },
+          "left_right_leaf": {
+            "leaf_recommended_count": 2,
+            "leaf_not_recommended_count": 0,
+            "leaf_label": "tavsiye edilemez"
+          },
+          "right_left_leaf": {
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 0,
+            "leaf_label": "tavsiye edilemez"
+          },
+          "right_right_leaf": {
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 3,
+            "leaf_label": "tavsiye edilemez"
+          }
+        }
+      }
+    }
+  },
+  "validation": {
+    "tree_logic": {
+      "depth_0": {
+        "is_operator_logic_correct": true
+      },
+      "depth_1": {
+        "is_left_child_counts_correct": false,
+        "is_right_child_counts_correct": true,
+        "is_left_operator_logic_correct": true,
+        "is_right_operator_logic_correct": true
+      },
+      "depth_2": {
+        "is_left_left_logical": true,
+        "is_left_right_logical": false,
+        "is_right_left_logical": true,
+        "is_right_right_logical": true
+      },
+      "error_flags": [
+        "depth_1 left_child count mismatch (student rec=0/not=2, system rec=6/not=2)",
+        "depth_2 left_right_leaf count mismatch (student rec=2/not=0)"
+      ]
+    },
+    "system_analytical_summary": "Bu ağaç 11 kartın tamamını doğru sınıflandırıyor; MCR = 0.00. sağ-sol yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 2 sayım hatası tespit edildi."
+  },
+  "ws_snapshot": "Öğrenci kök düğümde Yağ (13.0 eşik değeri) değişkenini kullanmış. Sol dalda Şeker (11.0 eşik değeri), sağ dalda ise Enerji (289.0 eşik değeri) ile dallanmayı sürdürmüştür. Bazı düğüm sayılarında hata tespit edildi. 1 yaprak sayısı sistemle örtüşmüyor.",
+  "page_notes": "Root feature written as 'Yağ'. Root threshold value 13 with left branch (evet) using ≤13 and right branch (hayır) using >13, based on eşik değer note '≤13' near Şeker node. Operators on inner nodes are small and slightly ambiguous but consistent with ≤/> and </≥ complementary pairs as drawn."
+}

@@ -1,0 +1,67 @@
+{
+  "student_id": "Bruno",
+  "worksheet": "WS7",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "<",
+        "left_threshold_value": 190.0,
+        "right_operator": ">",
+        "right_threshold_value": 190.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "leaf_recommended_count": 4,
+          "leaf_not_recommended_count": null
+        },
+        "right_child": {
+          "node_recommended_count": 2,
+          "node_not_recommended_count": 5,
+          "left_operator": "≤",
+          "left_threshold_value": 11.0,
+          "right_operator": ">",
+          "right_threshold_value": 11.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 5
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": 2,
+            "leaf_not_recommended_count": 0
+          }
+        }
+      }
+    },
+    "rule_matching": {
+      "rule_1_box": null,
+      "rule_2_box": null,
+      "rule_3_box": null
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "tree_completeness": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "rule_mapping": {
+        "is_correct": false,
+        "error_flag": "missing_rule_assignments"
+      },
+      "threshold_alignment": {
+        "is_correct": false,
+        "error_flag": "threshold_mismatch_with_instructions"
+      }
+    },
+    "system_analytical_summary": "Öğrenci, tıpkı Amy gibi, Karar Ağacı ile alttaki metinsel kurallar arasındaki tersine mühendislik ilişkisini kuramamıştır. Sayfanın altındaki 180 kcal ve 7,7 g hedeflerini kullanmak yerine, Enerji için 190, Protein için 11 eşik değerlerini kendisi belirlemiştir. Sağ dallar için standart (x > 190) yerine ters (190 <) notasyonu kullanmıştır. Ağaç içindeki kutu sayımları eksiksiz doldurulmuş olsa da, alttaki A, B, C kural eşleştirme görevi tamamen boş bırakılmıştır."
+  },
+  "ws_snapshot": "Öğrenci kök düğümde (Enerji) < 190 ve 190 < eşik değerlerini yazmış. Sağ iç düğüme 'Protein' yazıp < 11 ve 11 < dallarını oluşturmuş. Yaprak düğümlerindeki tavsiye edilebilir/edilemez sayılarını doğru kutulara (4-0, 0-5, 2-0) yerleştirmiş ancak sayfanın altındaki kural eşleştirme bölümünü boş bırakmıştır.",
+  "page_notes": "Öğrenci sağ dalları ifade etmek için '> 190' yazmak yerine sayıyı başa alarak '190 <' şeklinde yazmıştır. Veri analiz motorunun tutarlılığı için bu durum sisteme '>' operatörü olarak parse edilmiştir."
+}

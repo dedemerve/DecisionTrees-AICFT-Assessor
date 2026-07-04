@@ -1,0 +1,60 @@
+{
+  "student_name": "Melinda",
+  "WS3_B1": "tavsiye edilemez",
+  "WS3_B2": "23 > 8",
+  "WS3_B3": "tavsiye edilebilir",
+  "WS3_B4": "0,2 ≤ 8",
+  "WS3_B5": "tavsiye edilemez",
+  "WS3_B6": "14 > 8",
+  "WS3_B7": "< 100",
+  "WS3_B8": "> 100",
+  "ws_snapshot": "Melinda, Patlamış Mısır'ı tavsiye edilemez olarak sınıflandırmış ve bunu 23 > 8 ifadesiyle desteklemiş, bu da yağ değerinin eşik değerini aştığını doğru şekilde göstermiş. Elma'yı tavsiye edilebilir olarak işaretlemiş ve 0,2 ≤ 8 ifadesiyle tutarlı bir gerekçe sunmuş. Patates Kızartması'nı ise tavsiye edilemez olarak sınıflandırmış ve 14 > 8 ifadesiyle bunu doğrulamış. Tüm etiketler ile matematiksel ifadeler birbiriyle uyumlu görünmektedir. B7 ve B8'de Enerji değişkeni için aynı eşik sayısı (100) kullanılmış, ancak küçük eşittir / büyük eşittir operatörleri tercih edilmemiştir.",
+  "page_notes": "B7 ve B8'deki operatörlerde bar (alt çizgi) görünmüyor, bu yüzden kesin < ve > olarak transkribe edildi; eşik sayıları (100) tutarlı.",
+  "validation": {
+    "item_checks": {
+      "WS3_B1": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B2": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B3": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B4": {
+        "is_correct": null,
+        "score": 0.5,
+        "note": "Kısmi gerekçe — eksik: doğru karşılaştırma yönü."
+      },
+      "WS3_B5": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B6": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B7": {
+        "is_correct": true,
+        "operator": "<",
+        "value": 100.0,
+        "note": null
+      },
+      "WS3_B8": {
+        "is_correct": true,
+        "operator": ">",
+        "value": 100.0,
+        "note": null
+      }
+    },
+    "system_analytical_summary": "Mısır gevreği (23g): Etiket ve gerekçe doğru (tavsiye edilemez). Elma (0.2g): Etiket doğru ama gerekçe eksik — Kısmi gerekçe — eksik: doğru karşılaştırma yönü. Patates kızartması (14g): Etiket ve gerekçe doğru (tavsiye edilemez). Enerji eşiği (B7/B8): Tutarlı ve doğru aralıkta (< 100.0 / > 100.0)."
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "student_name": "Nadia",
+  "WS3_B1": "tavsiye edilemez",
+  "WS3_B2": "8.0g < 23.0g",
+  "WS3_B3": "tavsiye edilebilir",
+  "WS3_B4": "0,2g < 8.0g",
+  "WS3_B5": "tavsiye edilemez",
+  "WS3_B6": "8.0g < 14.0g",
+  "WS3_B7": "≤ 150",
+  "WS3_B8": "> 150",
+  "ws_snapshot": "Nadia, Patlamış Mısır ve Patates Kızartması için 'tavsiye edilemez' etiketini doğru vermiş ve matematiksel ifadeleri (8.0g < 23.0g, 8.0g < 14.0g) doğru yazmış. Elma için 'tavsiye edilebilir' etiketi ve 0,2g < 8.0g ifadesi tutarlı. Enerji için eşik değeri olarak 150 seçilmiş ve B7'de ≤150, B8'de >150 şeklinde tutarlı biçimde yazılmış.",
+  "page_notes": "(bos)",
+  "validation": {
+    "item_checks": {
+      "WS3_B1": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B2": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B3": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B4": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B5": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B6": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B7": {
+        "is_correct": true,
+        "operator": "≤",
+        "value": 150.0,
+        "note": null
+      },
+      "WS3_B8": {
+        "is_correct": true,
+        "operator": ">",
+        "value": 150.0,
+        "note": null
+      }
+    },
+    "system_analytical_summary": "Mısır gevreği (23g): Etiket ve gerekçe doğru (tavsiye edilemez). Elma (0.2g): Etiket ve gerekçe doğru (tavsiye edilebilir). Patates kızartması (14g): Etiket ve gerekçe doğru (tavsiye edilemez). Enerji eşiği (B7/B8): Tutarlı ve doğru aralıkta (≤ 150.0 / > 150.0)."
+  }
+}

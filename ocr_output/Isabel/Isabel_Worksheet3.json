@@ -1,0 +1,60 @@
+{
+  "student_name": "Isabel",
+  "WS3_B1": "tavsiye edilemez",
+  "WS3_B2": "23,0 g ≥ 8,0 g",
+  "WS3_B3": "tavsiye edilir",
+  "WS3_B4": "0,2 g <= 8,0 g",
+  "WS3_B5": "tavsiye edilemez",
+  "WS3_B6": "14 g >= 8,0 g",
+  "WS3_B7": "<= 150",
+  "WS3_B8": "> 150",
+  "ws_snapshot": "Isabel, Patlamış Mısır ve Patates Kızartması'nı doğru şekilde 'tavsiye edilemez' olarak sınıflandırmış, Elma'yı ise 'tavsiye edilir' olarak belirlemiş. Matematiksel ifadelerde bazı yerlerde <= ve >= sembollerini kullanmış (örneğin Elma için 0,2 <= 8,0 ve Patates Kızartması için 14 >= 8,0), oysa Domates örneğinde kesin < kullanılmıştı; bu küçük bir tutarsızlık olabilir. Enerji değişkeni için eşik değeri olarak 150 seçilmiş ve B7'de <=150, B8'de >150 şeklinde tutarlı bir şekilde uygulanmış.",
+  "page_notes": "Elma ve Patates Kızartması satırlarındaki operatörler (<= ve >=) ile Domates örneğindeki kesin < arasında küçük bir tutarsızlık var; bu öğrencinin kendi tercihi olarak transkribe edildi.",
+  "validation": {
+    "item_checks": {
+      "WS3_B1": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B2": {
+        "is_correct": null,
+        "score": 0.5,
+        "note": "Kısmi gerekçe — eksik: doğru karşılaştırma yönü."
+      },
+      "WS3_B3": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B4": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B5": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B6": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B7": {
+        "is_correct": true,
+        "operator": "<=",
+        "value": 150.0,
+        "note": null
+      },
+      "WS3_B8": {
+        "is_correct": true,
+        "operator": ">",
+        "value": 150.0,
+        "note": null
+      }
+    },
+    "system_analytical_summary": "Mısır gevreği (23g): Etiket doğru ama gerekçe eksik — Kısmi gerekçe — eksik: doğru karşılaştırma yönü. Elma (0.2g): Etiket ve gerekçe doğru (tavsiye edilebilir). Patates kızartması (14g): Etiket ve gerekçe doğru (tavsiye edilemez). Enerji eşiği (B7/B8): Tutarlı ve doğru aralıkta (<= 150.0 / > 150.0)."
+  }
+}

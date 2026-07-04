@@ -1,0 +1,60 @@
+{
+  "student_name": "Iris",
+  "WS3_B1": "tavsiye edilemez",
+  "WS3_B2": "23,0 g > 8,0 g",
+  "WS3_B3": "tavsiye edilebilir",
+  "WS3_B4": "0,2 g < 8,0 g",
+  "WS3_B5": "tavsiye edilemez",
+  "WS3_B6": "24,0 g > 8,0 g",
+  "WS3_B7": "< 100",
+  "WS3_B8": "> 100",
+  "ws_snapshot": "Öğretmen adayı üç gıda için etiketleri ve matematiksel ifadeleri doğru şekilde eşleştirmiş: Patlamış Mısır (23,0 g > 8,0 g → tavsiye edilemez), Elma (0,2 g < 8,0 g → tavsiye edilebilir), Patates Kızartması (24,0 g > 8,0 g → tavsiye edilemez). Enerji eşik değeri olarak 100 seçilmiş; B7 ve B8'de aynı sayı kullanılmış ancak operatörler farklı yönlerde (< ve >) tutarlı biçimde uygulanmış.",
+  "page_notes": "(bos)",
+  "validation": {
+    "item_checks": {
+      "WS3_B1": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B2": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B3": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B4": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B5": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B6": {
+        "is_correct": null,
+        "score": 0.5,
+        "note": "Kısmi gerekçe — eksik: gıdanın yağ değeri (14.0g)."
+      },
+      "WS3_B7": {
+        "is_correct": true,
+        "operator": "<",
+        "value": 100.0,
+        "note": null
+      },
+      "WS3_B8": {
+        "is_correct": true,
+        "operator": ">",
+        "value": 100.0,
+        "note": null
+      }
+    },
+    "system_analytical_summary": "Mısır gevreği (23g): Etiket ve gerekçe doğru (tavsiye edilemez). Elma (0.2g): Etiket ve gerekçe doğru (tavsiye edilebilir). Patates kızartması (14g): Etiket doğru ama gerekçe eksik — Kısmi gerekçe — eksik: gıdanın yağ değeri (14.0g). Enerji eşiği (B7/B8): Tutarlı ve doğru aralıkta (< 100.0 / > 100.0)."
+  }
+}

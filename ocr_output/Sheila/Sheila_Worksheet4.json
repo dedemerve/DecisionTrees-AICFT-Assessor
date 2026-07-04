@@ -1,0 +1,55 @@
+{
+  "student_id": "Sheila",
+  "worksheet": "WS4",
+  "ws_snapshot": "A thick vertical line is drawn between the avocado and patates kızartması cards, with a handwritten note '(3,5)' above it near kraker/avokado. For Görev 2, a handwritten note reads 'Hata 2'de daha' and 'iyi netice daha iyi' near the threshold line. For Alıştırma 3, 'Evet' is circled/written as agreement with Pia. For Görev 4, the answer 'Alol' (likely a numeric value, unclear) is written on the blank line.",
+  "page_notes": "Handwriting is fast and cursive, making some words hard to read precisely (e.g., the note near the threshold line and the Görev 4 answer 'Alol' which may actually be a number like '4,0' or similar, illegible). No clear circles around individual food cards for B2; instead the vertical line marker with '(3,5)' seems to serve a similar function but is ambiguous as to which task it belongs to.",
+  "extraction": {
+    "WS4_B1": {
+      "threshold_value_raw": "3,5",
+      "threshold_value_parsed": 3.5,
+      "placement_description": "A thick vertical line is drawn between avokado and patates kızartması cards, with '(3,5)' written above in the margin near kraker/avokado boundary."
+    },
+    "WS4_B2": {
+      "detection_method": "none_detected",
+      "circled_cards": [],
+      "written_foods": null,
+      "foods_parsed": null
+    },
+    "WS4_B3": {
+      "response_raw": "Hata 2'ye düşer"
+    },
+    "WS4_B4": {
+      "agrees_with_pia": true,
+      "response_raw": "Evet hata oranı yüksek"
+    },
+    "WS4_B5": {
+      "threshold_value_raw": "161",
+      "threshold_value_parsed": 161.0
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS4_B1": {
+        "is_correct": false,
+        "error_flag": "threshold_value_out_of_range"
+      },
+      "WS4_B2": {
+        "is_correct": false,
+        "error_flag": "missing_foods: avokado, jelibon, kraker, yulaf"
+      },
+      "WS4_B3": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B4": {
+        "is_correct": false,
+        "error_flag": "missing_equal_fat_explanation"
+      },
+      "WS4_B5": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Görev 1: Eksik kart(lar): avokado, jelibon, kraker, yulaf. Görev 2 (Threshold value konumu): Değer aralık dışında. Görev 3: Hata sayısının azaldığını doğru biçimde gerekçelendirmiş. Görev 4 (Pia): Pia'ya katılmış ancak yağ değerlerinin eşitliğini açıklayamamış — kavramsal hata. Görev 5 (Enerji threshold value): Doğru aralıkta."
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "student_name": "Marcus",
+  "WS3_B1": "tavsiye edilmez",
+  "WS3_B2": "8 < 23",
+  "WS3_B3": "tavsiye edilir",
+  "WS3_B4": "0,2 < 8",
+  "WS3_B5": "tavsiye edilmez",
+  "WS3_B6": "8 < 24",
+  "WS3_B7": "≤ 175",
+  "WS3_B8": "> 175",
+  "ws_snapshot": "Öğrenci Patlamış Mısır ve Patates Kızartması için 'tavsiye edilmez' etiketini, Elma için 'tavsiye edilir' etiketini doğru şekilde belirlemiş. Sayısal karşılaştırma mantığı korunmuş. B7-B8 eşik değerleri (175) tutarlı ve doğru operatörlerle (≤ ve >) yazılmış.",
+  "page_notes": "bos",
+  "validation": {
+    "item_checks": {
+      "WS3_B1": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B2": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B3": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B4": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B5": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B6": {
+        "is_correct": null,
+        "score": 0.5,
+        "note": "Kısmi gerekçe — eksik: gıdanın yağ değeri (14.0g), doğru karşılaştırma yönü."
+      },
+      "WS3_B7": {
+        "is_correct": true,
+        "operator": "≤",
+        "value": 175.0,
+        "note": null
+      },
+      "WS3_B8": {
+        "is_correct": true,
+        "operator": ">",
+        "value": 175.0,
+        "note": null
+      }
+    },
+    "system_analytical_summary": "Mısır gevreği (23g): Etiket ve gerekçe doğru (tavsiye edilemez). Elma (0.2g): Etiket ve gerekçe doğru (tavsiye edilebilir). Patates kızartması (14g): Etiket doğru ama gerekçe eksik — Kısmi gerekçe — eksik: gıdanın yağ değeri (14.0g), doğru karşılaştırma yönü. Enerji eşiği (B7/B8): Tutarlı ve doğru aralıkta (≤ 175.0 / > 175.0)."
+  }
+}

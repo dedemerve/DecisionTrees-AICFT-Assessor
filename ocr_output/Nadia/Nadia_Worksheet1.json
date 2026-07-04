@@ -1,0 +1,66 @@
+{
+  "student_name": "Nadia",
+  "WS1_B1": "Etiket",
+  "WS1_B2": "Nesne",
+  "WS1_B3": "özellik",
+  "WS1_B4": "özellik",
+  "WS1_B5": "nesne",
+  "WS1_B6": "özellik",
+  "WS1_B7": "karakteristik",
+  "WS1_B8": "(bos)",
+  "WS1_B9": "Enerji, Yağ, Doymuş Yağ, Karbonhidrat, Şeker, Protein, Tuz.",
+  "WS1_B10": "nesne",
+  "WS1_B11": "etiket",
+  "ws_snapshot": "Nadia doğru terimleri (nesne, özellik, karakteristik, etiket) kullanarak diyagramı ve paragrafı büyük ölçüde tamamlamış; özellik sayısını belirten boşluğu (kaç tane?) sayısal bir değer olmadan bırakmış, sadece 'karakteristik' yazmış. Karakteristik isimleri listesi (Enerji, Yağ, Doymuş Yağ, Karbonhidrat, Şeker, Protein, Tuz) eksiksiz ve doğru şekilde verilmiş. Genel olarak terimler tutarlı kullanılmış, sadece sayısal boşlukta eksiklik var.",
+  "page_notes": "(bos)",
+  "validation": {
+    "item_checks": {
+      "WS1_B1": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B2": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B3": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B4": {
+        "is_correct": false,
+        "error_flag": "feature_term_instead_of_value_term"
+      },
+      "WS1_B5": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B6": {
+        "is_correct": false,
+        "error_flag": "wrong_term: 'özellik'"
+      },
+      "WS1_B7": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B8": {
+        "is_correct": false,
+        "error_flag": "blank"
+      },
+      "WS1_B9": {
+        "is_correct": true,
+        "error_flag": null,
+        "found_count": 7
+      },
+      "WS1_B10": {
+        "is_correct": false,
+        "error_flag": "abstract_term_instead_of_example"
+      },
+      "WS1_B11": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Diyagram (B1-B4): B4'te 'Değer' yerine özellik terimi yazılmış ('özellik') — özellik ile değer kavramları karıştırılmış. Paragraf (B5-B7): Terim hatası — WS1_B6='özellik'. B8 (Özellik sayısı): Boş bırakılmış. B9 (Özellik listesi): Yeterli — 7/7 tespit edildi. B10 (Örnek nesne): 'Nesne' terimi yazılmış, somut gıda adı (Fındıklı Gofret) yazılmamış."
+  }
+}

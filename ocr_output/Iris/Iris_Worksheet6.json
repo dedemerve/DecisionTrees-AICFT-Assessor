@@ -1,0 +1,82 @@
+{
+  "student_id": "Iris",
+  "worksheet": "WS6",
+  "ws_snapshot": "Ağaç kök düğümde 'Protein' değişkeni ile eşik değer 2g olarak dallanıyor; evet dalı (<2g) 'Enerji' düğümüne, hayır dalı (>2g) 'Yağ' düğümüne gidiyor. Enerji düğümü <200g ve >200g olarak, Yağ düğümü <10,5g ve >10,5g olarak dallanarak dört yaprak oluşturuyor. Her yaprak kutusunda 'tavsiye edilir' veya 'tavsiye edilemez' yazılı ancak sayısal sayımlar (kaç kart) belirtilmemiş.",
+  "page_notes": "Yaprak kutularında ve depth_1 düğümlerinde tavsiye edilir/edilemez sayıları (kaç kart) yazılmamış, bu yüzden node_recommended_count/node_not_recommended_count ve leaf_recommended_count/leaf_not_recommended_count alanları null bırakıldı. Depth_0 operatörleri (>2, <2) bar işareti yok, bu yüzden < ve > olarak okundu. Depth_1 sol düğüm (Enerji) için >200 ve <200 (bar yok); depth_1 sağ düğüm (Yağ) için >10,5 ve <10,5 (bar yok) olarak okundu.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Protein",
+        "left_operator": "≤",
+        "left_threshold_value": 2.0,
+        "right_operator": ">",
+        "right_threshold_value": 2.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Enerji",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "≤",
+          "left_threshold_value": 200.0,
+          "right_operator": ">",
+          "right_threshold_value": 200.0
+        },
+        "right_child": {
+          "parsed_feature": "Yağ",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "≤",
+          "left_threshold_value": 10.5,
+          "right_operator": ">",
+          "right_threshold_value": 10.5
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "left_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilebilir",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    }
+  },
+  "validation": {
+    "tree_logic": {
+      "depth_0": {
+        "is_operator_logic_correct": true
+      },
+      "depth_1": {
+        "is_left_child_counts_correct": null,
+        "is_right_child_counts_correct": null,
+        "is_left_operator_logic_correct": true,
+        "is_right_operator_logic_correct": true
+      },
+      "depth_2": {
+        "is_left_left_logical": null,
+        "is_left_right_logical": null,
+        "is_right_left_logical": null,
+        "is_right_right_logical": null
+      },
+      "error_flags": []
+    },
+    "system_analytical_summary": "Bu ağaç 1 kartta hatalı sınıflandırma yapıyor; MCR = 0.09. sol-sol, sol-sağ, sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. Sayım ve operatör çiftleri sistemle tam uyumlu."
+  }
+}

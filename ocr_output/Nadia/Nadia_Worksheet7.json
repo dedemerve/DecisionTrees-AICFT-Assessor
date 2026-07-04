@@ -1,0 +1,68 @@
+{
+  "student_id": "Nadia",
+  "worksheet": "WS7",
+  "ws_snapshot": "Sayfada Enerji özelliği üzerinden bölünen kök düğüm eşik değerleri '≤180' ve '>180' olarak yazılmış, sağ dalda Protein özelliği için '≤11' ve '>11' eşik değerleri belirtilmiş. Yaprak düğümlerdeki tavsiye/tavsiye edilmeme sayıları ve alt kutulardaki metinler büyük ölçüde okunaksız/silik bırakılmış. Sayfanın alt kısmındaki üç kural cümlesinin yanında harf ataması için kutular boş bırakılmış.",
+  "page_notes": "Kök düğümdeki eşik değeri 180 olarak yazılmış ancak talimatlarda beklenen protein eşiği 7,7 iken öğrenci 11 yazmış - bu bir uyuşmazlık. Yaprak düğümlerdeki sayısal değerler (recommended/not recommended count) el yazısında görünmüyor veya silik, bu nedenle null olarak işaretlendi. Kural eşleştirme kutuları boş bırakılmış (A/B/C harfleri yazılmamış).",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "≤",
+        "left_threshold_value": 180.0,
+        "right_operator": ">",
+        "right_threshold_value": 180.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "≤",
+          "left_threshold_value": 11.0,
+          "right_operator": ">",
+          "right_threshold_value": 11.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    },
+    "rule_matching": {
+      "rule_1_box": null,
+      "rule_2_box": null,
+      "rule_3_box": null
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "tree_completeness": {
+        "is_correct": false,
+        "error_flag": "missing_leaf_counts"
+      },
+      "rule_mapping": {
+        "is_correct": false,
+        "error_flag": "missing_rule_assignments"
+      },
+      "threshold_alignment": {
+        "is_correct": false,
+        "error_flag": "threshold_mismatch_with_instructions"
+      }
+    },
+    "system_analytical_summary": "Öğrenci kök düğümdeki enerji eşiğini doğru şekilde 180 kcal olarak belirlemiş, ancak protein eşiğini beklenen 7,7 g yerine 11 olarak yazmış, bu da talimatlarla uyuşmayan bir değer. Yaprak düğümlerdeki tavsiye edilen/edilmeyen sayıları doldurulmamış veya okunaksız bırakılmış, bu da ağacın tam olarak tamamlanmadığını gösteriyor. Sayfanın alt kısmındaki kural eşleştirme kutuları tamamen boş bırakılmış, öğrencinin bu görevi tamamlamadığı anlaşılıyor."
+  }
+}

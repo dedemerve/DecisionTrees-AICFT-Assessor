@@ -1,0 +1,68 @@
+{
+  "student_id": "Zara",
+  "worksheet": "WS7",
+  "ws_snapshot": "Sayfada enerji özelliğine göre bölünen bir kök düğüm ve sağ dalda proteine göre bölünen ikinci bir düğüm görülmektedir. Kök düğümde eşik değer olarak sol dala '<200' sağ dala '200<' yazılmış, alt düğümde protein için sol dala '<11' sağ dala '11<' yazılmıştır. Yaprak düğümlerdeki sayım kutucukları ve tavsiye/tavsiye edilemez onay işaretleri kısmen doldurulmuş, alttaki üç kural cümlesinin yanındaki A/B/C kutucukları boş bırakılmıştır.",
+  "page_notes": "Eşik değerler ters yazılmış (reversed notation): sağ dalda '200<' ifadesi aslında '>200' anlamına gelecek şekilde yorumlanmıştır, aynı şekilde '11<' de '>11' olarak yorumlanmıştır. Kutucuklardaki sayım değerleri (recommended/not recommended) okunaksız veya belirtilmemiş, bu yüzden null olarak işaretlendi. Kural eşleştirme kutucukları (A/B/C) tamamen boş bırakılmış.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "<",
+        "left_threshold_value": 200.0,
+        "right_operator": "≤",
+        "right_threshold_value": 200.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "node_recommended_count": "yes",
+          "node_not_recommended_count": null
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": null,
+          "node_not_recommended_count": "yes",
+          "left_operator": "<",
+          "left_threshold_value": 11.0,
+          "right_operator": "≤",
+          "right_threshold_value": 11.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    },
+    "rule_matching": {
+      "rule_1_box": null,
+      "rule_2_box": null,
+      "rule_3_box": null
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "tree_completeness": {
+        "is_correct": false,
+        "error_flag": "missing_leaf_counts"
+      },
+      "rule_mapping": {
+        "is_correct": false,
+        "error_flag": "missing_rule_assignments"
+      },
+      "threshold_alignment": {
+        "is_correct": false,
+        "error_flag": "threshold_mismatch_with_instructions"
+      }
+    },
+    "system_analytical_summary": "Öğrenci, kök düğüme 200 kcal ve protein düğümüne 11 g eşik değerlerini yazarak beklenen 180 kcal ve 7,7 g hedeflerinden sapmıştır; bu da alttaki kural cümlelerinin doğru şekilde tersine mühendislikle çözülmediğini göstermektedir. Ayrıca yaprak düğümlerdeki tavsiye sayıları doldurulmamış ve kural eşleştirme kutucukları (A/B/C) tamamen boş bırakılmıştır, bu da görevin tamamlanmadığını göstermektedir. Genel olarak öğrencinin ağaç yapısını kısmen anladığı ama sayısal eşik değerlerini metinden doğru çıkaramadığı görülmektedir."
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "student_id": "Isabel",
+  "worksheet": "WS6",
+  "ws_snapshot": "Kök düğümde 'Enerji' değişkeni yazılmış, sol dal için eşik değer ≤191,5 ve sağ dal için >194,5 olarak belirtilmiş. Sağdaki ikinci seviye düğümünde 'Protein' yazılı ve bu düğümün altında iki yaprak düğüm ('tavsiye edilebilir' ve 'tavsiye edilemez' olarak etiketlenmiş, eşik değerleri ≥11 ve ≤11 civarında). Soldaki ikinci seviye düğümü ve onun altındaki iki yaprak kutusu tamamen boş bırakılmış, herhangi bir özellik adı veya tavsiye işareti yok.",
+  "page_notes": "Sol alt ağaç (Enerji ≤191,5 dalı) tamamen boş bırakılmış; düğüm adı, eşik değerleri ve yaprak etiketleri yok. Kök düğümdeki eşik değerleri (191,5 ve 194,5) birbiriyle tam simetrik değil, olduğu gibi transkribe edildi. Sağ çocuk düğümündeki eşik değerleri (≥11 / ≤11) el yazısı küçük ve belirsiz, dikkatle okunmuştur.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Enerji",
+        "left_operator": "≤",
+        "left_threshold_value": 191.5,
+        "right_operator": ">",
+        "right_threshold_value": 194.5
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": null,
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "≥",
+          "left_threshold_value": 11.0,
+          "right_operator": "<",
+          "right_threshold_value": 11.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "left_right_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilebilir",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    }
+  },
+  "validation": {
+    "tree_logic": {
+      "depth_0": {
+        "is_operator_logic_correct": true
+      },
+      "depth_1": {
+        "is_left_child_counts_correct": null,
+        "is_right_child_counts_correct": null,
+        "is_left_operator_logic_correct": null,
+        "is_right_operator_logic_correct": true
+      },
+      "depth_2": {
+        "is_left_left_logical": null,
+        "is_left_right_logical": null,
+        "is_right_left_logical": null,
+        "is_right_right_logical": null
+      },
+      "error_flags": [
+        "depth_1 left_child incomplete (student left branch blank)",
+        "depth_0 threshold_mismatch (left=191.5, right=194.5)"
+      ]
+    },
+    "system_analytical_summary": "Sol dal tamamen boş bırakılmış — öğrenci bu dalı tamamlamamış. Sistem 11 kartın 4 tanesini sınıflandıramamış (yaprak etiketi eksik). Sınıflandırılabilenler arasında 0 hata var; MCR = 0.00. sol-sol, sol-sağ, sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor."
+  }
+}

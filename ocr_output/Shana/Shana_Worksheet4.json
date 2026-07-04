@@ -1,0 +1,65 @@
+{
+  "student_id": "Shana",
+  "worksheet": "WS4",
+  "ws_snapshot": "A thick vertical arrow/line is drawn between avocado and kraker cards area (near yulaf/kraker/avokado boundary), with circles marked on ahududu reçeli, elma, jelibon, and sütlü çikolata cards. Handwritten margin notes near the bottom mention 'avokado ve ahududu reçeli' and 'avokado ve patates kızartması' as the best threshold values, with '200kcal' written next to it.",
+  "page_notes": "Circles are faint but appear around ahududu reçeli, elma, jelibon, and sütlü çikolata card stickers; the thick horizontal/vertical arrow drawn near yulaf-kraker-avokado area seems to indicate the threshold line placement rather than exact numeric value; energy threshold answer combines two phrases ('avokado ve ahududu reçeli' and 'avokado ve patates kızartması') suggesting a comparison for Task 4, final answer clarified as '/ 200kcal'.",
+  "extraction": {
+    "WS4_B1": {
+      "threshold_value_raw": "not numeric, drawn as thick arrow/line between yulaf-kraker and avokado cards",
+      "threshold_value_parsed": null,
+      "placement_description": "A bold horizontal arrow is drawn under the cards spanning from jelibon to avokado, seemingly marking a dividing line in that region rather than a clean vertical split between avocado and fries."
+    },
+    "WS4_B2": {
+      "detection_method": "circle",
+      "circled_cards": [
+        "ahududu reçeli",
+        "elma",
+        "jelibon",
+        "sütlü çikolata"
+      ],
+      "written_foods": null,
+      "foods_parsed": [
+        "ahududu reçeli",
+        "elma",
+        "jelibon",
+        "sütlü çikolata"
+      ]
+    },
+    "WS4_B3": {
+      "response_raw": "(bos)"
+    },
+    "WS4_B4": {
+      "agrees_with_pia": null,
+      "response_raw": "(bos)"
+    },
+    "WS4_B5": {
+      "threshold_value_raw": "avokado ve ahududu reçeli / avokado ve patates kızartması kullanmayı / 200kcal",
+      "threshold_value_parsed": 200.0
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS4_B1": {
+        "is_correct": false,
+        "error_flag": "wrong_threshold_placement"
+      },
+      "WS4_B2": {
+        "is_correct": false,
+        "error_flag": "missing_foods: avokado, kraker, yulaf"
+      },
+      "WS4_B3": {
+        "is_correct": false,
+        "error_flag": "missing_error_reduction_rationale"
+      },
+      "WS4_B4": {
+        "is_correct": null,
+        "error_flag": "unclear_pia_response"
+      },
+      "WS4_B5": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Görev 1: Eksik kart(lar): avokado, kraker, yulaf. Görev 2 (Threshold value konumu): Eşik değeri veya çizgi konumu belirlenemedi. Görev 3: Hata azalması gerekçesi kurulamamış. Görev 4 (Pia): Yanıt belirsiz — yorumsal inceleme gerekli. Görev 5 (Enerji threshold value): Doğru aralıkta."
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "student_id": "Irma",
+  "worksheet": "WS5",
+  "page_notes": "Deneme 1 left/right operatör belirsiz: < veya ≤ olabilir; eşik değerleri virgüllü yazılmış (35,5). Deneme 3 operatörler < ve ≥ olarak net görünüyor.",
+  "extraction": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "parsed_feature": "karbonhidrat",
+        "left_operator": "<=",
+        "left_threshold": 35.5,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": ">=",
+        "right_threshold": 35.5,
+        "right_leaf_recommended": 5,
+        "right_leaf_not_recommended": 2,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 2,
+        "parsed_feature": "şeker",
+        "left_operator": "<=",
+        "left_threshold": 30.0,
+        "left_leaf_recommended": 6,
+        "left_leaf_not_recommended": 1,
+        "right_operator": ">=",
+        "right_threshold": 30.0,
+        "right_leaf_recommended": 4,
+        "right_leaf_not_recommended": 0,
+        "student_error_count": 1,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 3,
+        "parsed_feature": "protein",
+        "left_operator": "≤",
+        "left_threshold": 3.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 1,
+        "right_operator": ">=",
+        "right_threshold": 3.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 4,
+        "student_error_count": 3,
+        "student_mcr": null
+      }
+    ],
+    "final_decision_raw": "Şeker değişkeni için hangi eşik değerini seçiyorsunuz? Not alın: [cevap alanı boş bırakılmış]"
+  },
+  "validation": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "system_error_count": 2,
+        "is_leaf_counts_correct": false,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": false,
+        "error_flag": "non_complementary_operators (left=<=, right=>=, expected_right=>); leaf_count_mismatch"
+      },
+      {
+        "trial_id": 2,
+        "system_error_count": 2,
+        "is_leaf_counts_correct": false,
+        "is_error_count_correct": false,
+        "is_operator_logic_correct": false,
+        "error_flag": "non_complementary_operators (left=<=, right=>=, expected_right=>); leaf_count_mismatch; arithmetic_inconsistent"
+      },
+      {
+        "trial_id": 3,
+        "system_error_count": 3,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": false,
+        "error_flag": "non_complementary_operators (left=≤, right=>=, expected_right=>)"
+      }
+    ],
+    "final_decision_logical": false
+  },
+  "ws_snapshot": "Öğrenci 3 deneme yapmış: karbonhidrat, şeker, protein değişkenlerini test etmiş. Deneme 1 (karbonhidrat <= 35.5): doğru sayım; operatör çifti hatalı | Deneme 2 (şeker <= 30.0): öğrenci 1, sistem 2 — sayma hatası; operatör çifti hatalı | Deneme 3 (protein ≤ 3.0): doğru sayım; operatör çifti hatalı. Nihai kararı kendi sayımındaki en düşük hata sayılı denemeyle örtüşmüyor."
+}

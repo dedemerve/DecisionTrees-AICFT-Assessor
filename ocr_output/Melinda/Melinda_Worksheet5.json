@@ -1,0 +1,82 @@
+{
+  "student_id": "Melinda",
+  "worksheet": "WS5",
+  "page_notes": "Deneme 1 right operatör küçük çengelli, > olarak okundu, alt çizgi net değil: '[Deneme 1 right operatör belirsiz: > veya ≥ olabilir]'. Deneme 2 right operatör çentikli işaret, > olarak okundu ancak üstte çizgi izlenimi var: '[Deneme 2 right operatör belirsiz: > veya ≥ olabilir]'. Deneme 2 sağ kutuda 'Tavsiye Edilmeyenlerin Sayısı' üzeri karalanmış rakam net değil, 3 olarak okundu.",
+  "extraction": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "parsed_feature": "protein",
+        "left_operator": "<",
+        "left_threshold": 2.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 1,
+        "right_operator": ">",
+        "right_threshold": 2.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 4,
+        "student_error_count": 3,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 2,
+        "parsed_feature": "şeker",
+        "left_operator": "<",
+        "left_threshold": 29.0,
+        "left_leaf_recommended": 6,
+        "left_leaf_not_recommended": 2,
+        "right_operator": ">",
+        "right_threshold": 29.0,
+        "right_leaf_recommended": 0,
+        "right_leaf_not_recommended": 3,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 3,
+        "parsed_feature": "tuz",
+        "left_operator": "<",
+        "left_threshold": 0.15,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 2,
+        "right_operator": ">",
+        "right_threshold": 0.15,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 3,
+        "student_error_count": 4,
+        "student_mcr": null
+      }
+    ],
+    "final_decision_raw": "Şeker değişkeni için hangi eşik değerini seçiyorsunuz? Not alın: Eşik değeri 29 gr"
+  },
+  "validation": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "system_error_count": 3,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": false,
+        "error_flag": "non_complementary_operators (left=<, right=>, expected_right=>=)"
+      },
+      {
+        "trial_id": 2,
+        "system_error_count": 2,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": false,
+        "error_flag": "non_complementary_operators (left=<, right=>, expected_right=>=)"
+      },
+      {
+        "trial_id": 3,
+        "system_error_count": 4,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": false,
+        "error_flag": "non_complementary_operators (left=<, right=>, expected_right=>=)"
+      }
+    ],
+    "final_decision_logical": true
+  },
+  "ws_snapshot": "Öğrenci 3 deneme yapmış: protein, şeker, tuz değişkenlerini test etmiş. Deneme 1 (protein < 2.0): doğru sayım; operatör çifti hatalı | Deneme 2 (şeker < 29.0): doğru sayım; operatör çifti hatalı | Deneme 3 (tuz < 0.15): doğru sayım; operatör çifti hatalı. Nihai kararında en düşük hata sayılı eşiği doğru seçmiş."
+}

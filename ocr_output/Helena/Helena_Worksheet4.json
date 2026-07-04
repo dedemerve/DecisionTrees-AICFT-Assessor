@@ -1,0 +1,65 @@
+{
+  "student_id": "Helena",
+  "worksheet": "WS4",
+  "ws_snapshot": "Four cards (jelibon, kraker, yulaf, avokado) are circled in red in the food card row. A vertical line/paperclip mark appears between avokado and patates kızartması suggesting the threshold placement. Handwritten notes near Task 3 discuss avokado and patates kızartması fat comparison, and 'Evet, çünkü 4 hata var' is written for Task 3. Task 4 answer '19.2' is written as the final energy threshold.",
+  "page_notes": "Circles are rough hand-drawn ovals around card thumbnails; jelibon, kraker, yulaf, avokado are clearly marked in red pen. No explicit numeric threshold value written for B1 beyond the drawn line position.",
+  "extraction": {
+    "WS4_B1": {
+      "threshold_value_raw": "(çizgi ile işaretlenmemiş, sayısal değer yazılmamış)",
+      "threshold_value_parsed": null,
+      "placement_description": "In the sorted deck, there is no vertical line or mark indicating the threshold position between the avocado (13.0 g) and french fries (14.0 g) cards."
+    },
+    "WS4_B2": {
+      "detection_method": "circle",
+      "circled_cards": [
+        "jelibon",
+        "kraker",
+        "yulaf",
+        "avokado"
+      ],
+      "written_foods": null,
+      "foods_parsed": [
+        "jelibon",
+        "kraker",
+        "yulaf",
+        "avokado"
+      ]
+    },
+    "WS4_B3": {
+      "response_raw": "Avokado ile patates kızartması arasına koyarım kalemi çünkü hata sayısı 2'ye düşüyor"
+    },
+    "WS4_B4": {
+      "agrees_with_pia": true,
+      "response_raw": "Evet, çünkü 4 hata var."
+    },
+    "WS4_B5": {
+      "threshold_value_raw": "19.2",
+      "threshold_value_parsed": 19.2
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS4_B1": {
+        "is_correct": null,
+        "error_flag": "threshold_not_placed"
+      },
+      "WS4_B2": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B3": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B4": {
+        "is_correct": false,
+        "error_flag": "missing_equal_fat_explanation"
+      },
+      "WS4_B5": {
+        "is_correct": false,
+        "error_flag": "energy_threshold_out_of_range"
+      }
+    },
+    "system_analytical_summary": "Görev 1: 4 yanlış sınıflandırılan kart doğru tespit edilmiş. Görev 2 (Threshold value konumu): Eşik değeri veya çizgi konumu belirlenemedi. Görev 3: Hata sayısının azaldığını doğru biçimde gerekçelendirmiş. Görev 4 (Pia): Pia'ya katılmış ancak yağ değerlerinin eşitliğini açıklayamamış — kavramsal hata. Görev 5 (Enerji threshold value): Aralık dışı değer (19.2 kcal, beklenen 160–223)."
+  }
+}

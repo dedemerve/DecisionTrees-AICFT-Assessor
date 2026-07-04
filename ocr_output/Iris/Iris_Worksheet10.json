@@ -1,0 +1,34 @@
+{
+  "student_id": "Iris",
+  "worksheet": "WS10",
+  "extraction": {
+    "threshold_error_table": {
+      "WS10_B1": { "error_count_parsed": 4 },
+      "WS10_B2": { "error_count_parsed": 3 },
+      "WS10_B3": { "error_count_parsed": 2 },
+      "WS10_B4": { "error_count_parsed": 3 },
+      "WS10_B5": { "error_count_parsed": 2 },
+      "WS10_B6": { "error_count_parsed": 1 },
+      "WS10_B7": { "error_count_parsed": 2 }
+    },
+    "optimal_threshold": {
+      "value_parsed": 408.0
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS10_B1": { "is_correct": true, "error_flag": null },
+      "WS10_B2": { "is_correct": true, "error_flag": null },
+      "WS10_B3": { "is_correct": true, "error_flag": null },
+      "WS10_B4": { "is_correct": true, "error_flag": null },
+      "WS10_B5": { "is_correct": true, "error_flag": null },
+      "WS10_B6": { "is_correct": true, "error_flag": null },
+      "WS10_B7": { "is_correct": true, "error_flag": null },
+      "WS10_B8": { "is_correct": true, "error_flag": null }
+    },
+    "error_flags": [],
+    "system_analytical_summary": "Öğrenci 7 farklı test eşiği için yanlış sınıflandırma sayılarının tamamını veri setiyle uyumlu şekilde kusursuz hesaplamıştır. En düşük hataya sahip olan 408 kcal eşiğini (1 hata) doğru analiz ederek, tablonun altındaki optimum eşik değer boşluğuna 408 değerini başarıyla yerleştirmiştir. Görevde hiçbir veri eksikliği veya kavramsal yanılgı bulunmamaktadır."
+  },
+  "ws_snapshot": "Öğrenci arama tablosundaki tüm satırları eksiksiz doldurmuş; test edilen enerji eşik değerlerine karşılık gelen hata sayılarını (4, 3, 2, 3, 2, 1, 2) doğru bulmuştur. En düşük hata oranına sahip 408 değerini optimum eşik değer olarak seçmiştir.",
+  "page_notes": "Sayfada karalama veya silik veri bulunmamaktadır. Tüm veriler net bir şekilde okunabilmektedir."
+}

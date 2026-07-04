@@ -1,0 +1,70 @@
+{
+  "student_id": "Marco",
+  "worksheet": "WS6",
+  "ws_snapshot": "Kağıtta tek seviyeli bir yapı görülüyor: kök düğümde 'Doymuş Yağ' değişkeni ve eşik değer 1 yazılı, iki dala ayrılmış. Sol dal (evet) 4 tavsiye edilir/2 tavsiye edilemez etiketli bir kutuya, sağ dal (hayır) 2 tavsiye edilir/3 tavsiye edilemez etiketli bir kutuya gidiyor. İkinci seviye (depth_1 içindeki alt dallanmalar) çizilmemiş; sadece örnek yiyecek isimleri (salatalık, elma, patates, krakeri, badem ezmesi/jelibon, yulaf, avokado) not düşülmüş.",
+  "page_notes": "Ağaç sadece bir seviyeli olarak çizilmiş; depth_1 düğümlerinde başka bir özellik veya eşik değeri belirtilmemiş, bu yüzden depth_1 düğümleri doğrudan yaprak (is_direct_leaf) olarak işlendi. depth_2 yaprakları bu nedenle not_applicable olarak işaretlendi. Kök düğümdeki operatör sembolleri net görünmüyor; sadece eşik değeri '1' yazılı, operatör işareti çizilmemiş, bu yüzden null olarak bırakıldı. [depth_0 operatör belirsiz: sembol çizilmemiş]",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Doymuş Yağ",
+        "left_operator": "≤",
+        "left_threshold_value": 1.0,
+        "right_operator": "<",
+        "right_threshold_value": 1.0
+      },
+      "depth_1": {
+        "left_child": {
+          "is_direct_leaf": true,
+          "leaf_label": "(bos)",
+          "leaf_recommended_count": 4,
+          "leaf_not_recommended_count": 2
+        },
+        "right_child": {
+          "is_direct_leaf": true,
+          "leaf_label": "(bos)",
+          "leaf_recommended_count": 2,
+          "leaf_not_recommended_count": 3
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "not_applicable": true
+          },
+          "left_right_leaf": {
+            "not_applicable": true
+          },
+          "right_left_leaf": {
+            "not_applicable": true
+          },
+          "right_right_leaf": {
+            "not_applicable": true
+          }
+        }
+      }
+    }
+  },
+  "validation": {
+    "tree_logic": {
+      "depth_0": {
+        "is_operator_logic_correct": false
+      },
+      "depth_1": {
+        "is_left_child_counts_correct": true,
+        "is_right_child_counts_correct": true,
+        "is_left_operator_logic_correct": null,
+        "is_right_operator_logic_correct": null
+      },
+      "depth_2": {
+        "is_left_left_logical": null,
+        "is_left_right_logical": null,
+        "is_right_left_logical": null,
+        "is_right_right_logical": null
+      },
+      "error_flags": [
+        "depth_0 non_complementary_operators (left=≤, right=<, expected_right=>)"
+      ]
+    },
+    "system_analytical_summary": "Asimetrik ağaç: sol dal depth_1'de doğrudan yaprağa iniyor — o dal zaten saf olduğundan daha fazla bölme yapmaya gerek yok. Bu eksiklik değil, geçerli bir tasarım tercihidir. Sistem 11 kartın tamamını sınıflandıramamış (yaprak etiketleri yazılmamış) — MCR hesaplanamıyor. sol-sol, sol-sağ, sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 1 tamamlayıcı olmayan operatör çifti var."
+  }
+}

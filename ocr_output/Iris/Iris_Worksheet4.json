@@ -1,0 +1,60 @@
+{
+  "student_id": "Iris",
+  "worksheet": "WS4",
+  "ws_snapshot": "Task 1 has handwritten text listing kraker, yulaf, avokado, jelibon as the four misclassified foods. Task 2 shows an arrow pointing to a vertical line drawn between the avokado and patates kızartması cards. Task 3 answer is 'Evet, haklı' with reasoning noted as 'yohududu ve avokado arası' (likely referring to ahududu reçeli and elma). Task 4 states the best energy threshold as 200.",
+  "page_notes": "Handwriting for Task 3 margin note is a bit unclear, appears to say 'ahududu ve avokado arası' but likely intended 'ahududu ve elma arası' given the context of the question about raspberry jam and apple having equal fat values. No visible circles around cards; only an arrow marking the threshold line placement.",
+  "extraction": {
+    "WS4_B1": {
+      "threshold_value_raw": "arrow pointing between avokado and patates kızartması",
+      "threshold_value_parsed": 13.5,
+      "placement_description": "A vertical line is drawn between the avokado (13g) card and the patates kızartması (14g) card, with an arrow pointing to this line."
+    },
+    "WS4_B2": {
+      "detection_method": "text",
+      "circled_cards": [],
+      "written_foods": "kraker, yulaf, avokado, jelibon",
+      "foods_parsed": [
+        "kraker",
+        "yulaf",
+        "avokado",
+        "jelibon"
+      ]
+    },
+    "WS4_B3": {
+      "response_raw": "(no separate written explanation beyond the arrow/line placement)"
+    },
+    "WS4_B4": {
+      "agrees_with_pia": true,
+      "response_raw": "Evet, haklı | ahududu ve avokado arası"
+    },
+    "WS4_B5": {
+      "threshold_value_raw": "200",
+      "threshold_value_parsed": 200.0
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS4_B1": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B2": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B3": {
+        "is_correct": false,
+        "error_flag": "missing_error_reduction_rationale"
+      },
+      "WS4_B4": {
+        "is_correct": false,
+        "error_flag": "missing_equal_fat_explanation"
+      },
+      "WS4_B5": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Görev 1: 4 yanlış sınıflandırılan kart doğru tespit edilmiş. Görev 2 (Threshold value konumu): Avokado ile patates kızartması arasına doğru yerleştirilmiş. Görev 3: Hata azalması gerekçesi kurulamamış. Görev 4 (Pia): Pia'ya katılmış ancak yağ değerlerinin eşitliğini açıklayamamış — kavramsal hata. Görev 5 (Enerji threshold value): Doğru aralıkta."
+  }
+}

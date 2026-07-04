@@ -1,0 +1,60 @@
+{
+  "student_name": "Sheila",
+  "WS3_B1": "tavsiye edilemez",
+  "WS3_B2": "23 g > 8,0 g",
+  "WS3_B3": "tavsiye edilebilir",
+  "WS3_B4": "0,2 < 8,0 g",
+  "WS3_B5": "tavsiye edilemez",
+  "WS3_B6": "260 g > 8,0 g",
+  "WS3_B7": "≤ 74",
+  "WS3_B8": "≥ 74",
+  "ws_snapshot": "Öğrenci Patlamış Mısır ve Patates Kızartması için 'tavsiye edilemez' etiketini kullanmış ve karşılaştırmalarını (23 g > 8,0 g ve 260 g > 8,0 g) doğru yazmış; Elma için 'tavsiye edilebilir' etiketini seçmiş ve 0,2 < 8,0 g ifadesini yazmış, bu tutarlıdır. B7 ve B8'de eşik değeri olarak 74 kullanılmış ve B7'de ≤, B8'de ≥ işareti tercih edilmiş, her iki tarfta da eşitlik vardır. Öğrenci kavramsal olarak eşik değeri doğru kullanamamıştır.",
+  "page_notes": "(bos)",
+  "validation": {
+    "item_checks": {
+      "WS3_B1": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B2": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B3": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B4": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B5": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B6": {
+        "is_correct": null,
+        "score": 0.5,
+        "note": "Kısmi gerekçe — eksik: gıdanın yağ değeri (14.0g)."
+      },
+      "WS3_B7": {
+        "is_correct": true,
+        "operator": "≤",
+        "value": 74.0,
+        "note": null
+      },
+      "WS3_B8": {
+        "is_correct": true,
+        "operator": "≥",
+        "value": 74.0,
+        "note": null
+      }
+    },
+    "system_analytical_summary": "Mısır gevreği (23g): Etiket ve gerekçe doğru (tavsiye edilemez). Elma (0.2g): Etiket ve gerekçe doğru (tavsiye edilebilir). Patates kızartması (14g): Etiket doğru ama gerekçe eksik — Kısmi gerekçe — eksik: gıdanın yağ değeri (14.0g). Enerji eşiği (B7/B8): Tutarlı ve doğru aralıkta (≤ 74.0 / ≥ 74.0)."
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "student_name": "Isabel",
+  "WS1_B1": "Etiket (tavsiye edilemez)",
+  "WS1_B2": "Nesne",
+  "WS1_B3": "Özellik",
+  "WS1_B4": "Değişken",
+  "WS1_B5": "nesne",
+  "WS1_B6": "nesne",
+  "WS1_B7": "besin değerleri",
+  "WS1_B8": "7",
+  "WS1_B9": "Enerji, yağ, Doymuş yağ, Karbonhidrat, Şeker, Protein, Tuz",
+  "WS1_B10": "Fındıklı gofret",
+  "WS1_B11": "nesne",
+  "ws_snapshot": "Isabel, diyagramdaki dört oku Etiket, Nesne, Özellik ve Değişken olarak etiketlemiş ancak bazı yerlerde çizik/düzeltme yapmış (özellikle 'Değişken-Etiket' ifadesinde ilk kelime çizilmiş). Paragraf bölümünde 'nesne' terimini tekrar tekrar kullanmış, ancak bazı yerlerde 'etiket' yerine yanlışlıkla 'nesne' yazmış gibi görünüyor (özellikle son cümlede tavsiye notunun etiket olması gerekirken nesne yazılmış). Genel olarak terimler büyük ölçüde doğru ama etiket-nesne karışıklığı göze çarpıyor.",
+  "page_notes": "El yazısı bazı yerlerde üzeri çizilmiş ve düzeltilmiş, orijinal diyagramdaki ok numaraları görünmüyor, konumlarına göre eşleştirme yapıldı.",
+  "validation": {
+    "item_checks": {
+      "WS1_B1": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B2": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B3": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B4": {
+        "is_correct": false,
+        "error_flag": "feature_term_instead_of_value_term"
+      },
+      "WS1_B5": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B6": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B7": {
+        "is_correct": false,
+        "error_flag": "wrong_term: 'besin değerleri'"
+      },
+      "WS1_B8": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B9": {
+        "is_correct": true,
+        "error_flag": null,
+        "found_count": 7
+      },
+      "WS1_B10": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS1_B11": {
+        "is_correct": false,
+        "error_flag": "wrong_term: 'nesne'"
+      }
+    },
+    "system_analytical_summary": "Diyagram (B1-B4): B4'te 'Değer' yerine özellik terimi yazılmış ('Değişken') — özellik ile değer kavramları karıştırılmış. Paragraf (B5-B7): Terim hatası — WS1_B7='besin değerleri'. B8 (Özellik sayısı): Doğru — 7. B9 (Özellik listesi): Yeterli — 7/7 tespit edildi. B11 (Etiket rolü): Hatalı — 'nesne', beklenen 'Etiket'."
+  }
+}

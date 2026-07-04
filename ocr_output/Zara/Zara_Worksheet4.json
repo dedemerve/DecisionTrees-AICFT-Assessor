@@ -1,0 +1,65 @@
+{
+  "student_id": "Zara",
+  "worksheet": "WS4",
+  "ws_snapshot": "Öğrenci, jelibon, kraker, yulaf ve avokado kartlarının etrafına daire çizmiş. Avokado ile patates kızartması arasına 'Yulaf ile Avokado arasında' notu yazılmış (eşik değeri konumu). Görev 4'te enerji eşik değeri olarak 200 yazılmış, ve Görev 3 için 'Evet hata sayısı fazla' yazılmış.",
+  "page_notes": "Daireler jelibon, kraker, yulaf ve avokado kartlarının etrafında; bu kartlar yanlış sınıflandırılan 4 kart olarak işaretlenmiş gibi görünüyor. Eşik çizgisinin tam konumu net değil, sadece 'Yulaf ile Avokado arasında' notu var. Görev 2 (B3) için açık bir yazılı açıklama görünmüyor, sadece eşik değeri yerleştirme notu var.",
+  "extraction": {
+    "WS4_B1": {
+      "threshold_value_raw": "Yulaf ile Avokado arasında",
+      "threshold_value_parsed": null,
+      "placement_description": "Yulaf ve Avokado kartları arasına yerleştirilmiş bir eşik değeri notu yazılmış, dikey çizgi net görünmüyor."
+    },
+    "WS4_B2": {
+      "detection_method": "both",
+      "circled_cards": [
+        "jelibon",
+        "kraker",
+        "yulaf",
+        "avokado"
+      ],
+      "written_foods": null,
+      "foods_parsed": [
+        "jelibon",
+        "kraker",
+        "yulaf",
+        "avokado"
+      ]
+    },
+    "WS4_B3": {
+      "response_raw": "Yulaf ile avokado arasında"
+    },
+    "WS4_B4": {
+      "agrees_with_pia": true,
+      "response_raw": "Evet hata sayısı fazla"
+    },
+    "WS4_B5": {
+      "threshold_value_raw": "200",
+      "threshold_value_parsed": 200.0
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS4_B1": {
+        "is_correct": false,
+        "error_flag": "wrong_threshold_placement"
+      },
+      "WS4_B2": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B3": {
+        "is_correct": false,
+        "error_flag": "missing_error_reduction_rationale"
+      },
+      "WS4_B4": {
+        "is_correct": false,
+        "error_flag": "missing_equal_fat_explanation"
+      },
+      "WS4_B5": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Görev 1: 4 yanlış sınıflandırılan kart doğru tespit edilmiş. Görev 2 (Threshold value konumu): Eşik değeri veya çizgi konumu belirlenemedi. Görev 3: Hata azalması gerekçesi kurulamamış. Görev 4 (Pia): Pia'ya katılmış ancak yağ değerlerinin eşitliğini açıklayamamış — kavramsal hata. Görev 5 (Enerji threshold value): Doğru aralıkta."
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "student_name": "Zara",
+  "WS3_B1": "tavsiye edilemez",
+  "WS3_B2": "23,0 > 8,0",
+  "WS3_B3": "tavsiye edilebilir",
+  "WS3_B4": "0,2 < 8,0",
+  "WS3_B5": "tavsiye edilemez",
+  "WS3_B6": "24,0 > 8,0",
+  "WS3_B7": "10",
+  "WS3_B8": "250",
+  "ws_snapshot": "Öğrenci Patlamış Mısır ve Patates Kızartması'nı tavsiye edilemez, Elma'yı ise tavsiye edilebilir olarak sınıflandırmış ve her biri için doğru sayısal karşılaştırmaları yazmıştır (23,0 > 8,0; 0,2 < 8,0; 24,0 > 8,0). B7 ve B8'de Enerji değişkeni için farklı eşik sayıları (10 ve 250) kullanılmış, bu da iki dal arasında tutarsızlık yaratmaktadır çünkü aynı eşik değeri kullanılması beklenirdi. B7 ve B8'de herhangi bir operatör kullanılmamıştır, bu da eşik değerinin hangi dal için geçerli olduğunu belirsizleştirmektedir.",
+  "page_notes": "B7 ve B8'de farklı sayılar (10 ve 250) kullanılmış olması olası bir tutarsızlıktır; B8'deki operatör '>' olarak net görünmektedir.",
+  "validation": {
+    "item_checks": {
+      "WS3_B1": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B2": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B3": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B4": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B5": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B6": {
+        "is_correct": null,
+        "score": 0.5,
+        "note": "Kısmi gerekçe — eksik: gıdanın yağ değeri (14.0g)."
+      },
+      "WS3_B7": {
+        "is_correct": false,
+        "operator": null,
+        "value": 10.0,
+        "note": "Sol eşik operatörü < veya ≤ olmalı; bulunan: None."
+      },
+      "WS3_B8": {
+        "is_correct": false,
+        "operator": null,
+        "value": 250.0,
+        "note": "Sağ eşik operatörü > veya ≥ olmalı; bulunan: None. Değer B7 ile uyuşmuyor (B7=10.0, B8=250.0)."
+      }
+    },
+    "system_analytical_summary": "Mısır gevreği (23g): Etiket ve gerekçe doğru (tavsiye edilemez). Elma (0.2g): Etiket ve gerekçe doğru (tavsiye edilebilir). Patates kızartması (14g): Etiket doğru ama gerekçe eksik — Kısmi gerekçe — eksik: gıdanın yağ değeri (14.0g). Enerji eşiği (B7/B8): B7 hatalı: 'Sol eşik operatörü < veya ≤ olmalı; bulunan: None.'; B8 hatalı: 'Sağ eşik operatörü > veya ≥ olmalı; bulunan: None. Değer B7 ile uyuşmuyor (B7=10.0, B8=250.0).'."
+  }
+}

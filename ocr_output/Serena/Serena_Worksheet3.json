@@ -1,0 +1,60 @@
+{
+  "student_name": "Serena",
+  "WS3_B1": "tavsiye edilemez",
+  "WS3_B2": "23 g > 8 g",
+  "WS3_B3": "tavsiye edilebilir",
+  "WS3_B4": "0,2 g ≤ 8,0",
+  "WS3_B5": "tavsiye edilemez",
+  "WS3_B6": "14 > 8 g",
+  "WS3_B7": "< 200",
+  "WS3_B8": "> 200",
+  "ws_snapshot": "Öğrenci üç gıda için etiketleri ve matematiksel ifadeleri doğru eşleştirmiş: Patlamış Mısır (23 g > 8 g → tavsiye edilemez), Elma (0,2 g ≤ 8,0 → tavsiye edilebilir), Patates Kızartması (14 > 8 g → tavsiye edilemez). Enerji için eşik değeri olarak 200 seçilmiş; B7'de < 200, B8'de > 200 yazılmış. Her iki operatörde de eşitlik işareti kullanılmadığından tam olarak 200 kcal değerindeki bir gıdanın hangi dala atanacağı belirsizdir.",
+  "page_notes": "(bos)",
+  "validation": {
+    "item_checks": {
+      "WS3_B1": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B2": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B3": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B4": {
+        "is_correct": null,
+        "score": 0.5,
+        "note": "Kısmi gerekçe — eksik: doğru karşılaştırma yönü."
+      },
+      "WS3_B5": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B6": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B7": {
+        "is_correct": true,
+        "operator": "<",
+        "value": 200.0,
+        "note": null
+      },
+      "WS3_B8": {
+        "is_correct": true,
+        "operator": ">",
+        "value": 200.0,
+        "note": null
+      }
+    },
+    "system_analytical_summary": "Mısır gevreği (23g): Etiket ve gerekçe doğru (tavsiye edilemez). Elma (0.2g): Etiket doğru ama gerekçe eksik — Kısmi gerekçe — eksik: doğru karşılaştırma yönü. Patates kızartması (14g): Etiket ve gerekçe doğru (tavsiye edilemez). Enerji eşiği (B7/B8): Tutarlı ve doğru aralıkta (< 200.0 / > 200.0)."
+  }
+}

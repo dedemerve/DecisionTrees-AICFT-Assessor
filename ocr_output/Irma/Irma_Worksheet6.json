@@ -1,0 +1,102 @@
+{
+  "student_id": "Irma",
+  "worksheet": "WS6",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Yağ",
+        "left_operator": "≤",
+        "left_threshold_value": 13.0,
+        "right_operator": ">",
+        "right_threshold_value": 13.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Tuz",
+          "node_recommended_count": 6,
+          "node_not_recommended_count": 2,
+          "left_operator": "≤",
+          "left_threshold_value": 0.3,
+          "right_operator": ">",
+          "right_threshold_value": 0.3
+        },
+        "right_child": {
+          "parsed_feature": null,
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        }
+      },
+      "depth_2": {
+        "left_left_child": {
+          "parsed_feature": "Şeker",
+          "node_recommended_count": 4,
+          "node_not_recommended_count": 2,
+          "left_operator": "≤",
+          "left_threshold_value": 20.0,
+          "right_operator": ">",
+          "right_threshold_value": 20.0
+        },
+        "leaf_nodes": {
+          "left_right_leaf": {
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 2
+          },
+          "right_left_leaf": {
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      },
+      "depth_3": {
+        "leaf_nodes": {
+          "left_left_left_leaf": {
+            "leaf_recommended_count": 4,
+            "leaf_not_recommended_count": 0
+          },
+          "left_left_right_leaf": {
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 2
+          }
+        }
+      }
+    }
+  },
+  "validation": {
+    "tree_logic": {
+      "depth_0": {
+        "is_operator_logic_correct": true
+      },
+      "depth_1": {
+        "is_left_child_counts_correct": true,
+        "is_right_child_counts_correct": null,
+        "is_left_operator_logic_correct": true,
+        "is_right_operator_logic_correct": null
+      },
+      "depth_2": {
+        "is_left_left_logical": null,
+        "is_left_right_logical": false,
+        "is_right_left_logical": null,
+        "is_right_right_logical": null
+      },
+      "error_flags": [
+        "depth_1 right_child incomplete (student left branch blank)",
+        "depth_2 left_right_leaf count mismatch (student rec=0/not=2)"
+      ],
+      "depth_3": {
+        "is_left_left_left_leaf_logical": true,
+        "is_left_left_right_leaf_logical": true
+      }
+    },
+    "system_analytical_summary": "Sol dalda üç seviyeli bir ağaç kurmuştur (Yağ → Tuz → Şeker); sağ dal (Yağ > 13) boş bırakılmış, 3 kart sınıflandırılamamaktadır. Sol dalda Yağ ≤ 13 ile 8 kart ayrılmış; düğüm sayımı (6 rec, 2 not_rec) doğru. Tuz ≤ 0.3 bölmesiyle 6 kart sola (4 rec, 2 not_rec), Patates ve Kraker sağa (2 rec, 0 not_rec) gitmektedir; ancak Irma bu sağ yaprağı (0 rec, 2 not_rec) olarak yazmış — Patates ve Kraker'in tavsiye edilir olduğunu atlayıp ters sınıflandırmıştır. Depth-2'deki Şeker ≤ 20 bölmesi ise başarılı: 6 kartı tam saf iki yaprağa ayırmış (4-0 ve 0-2)."
+  },
+  "ws_snapshot": "Öğrenci standart iki seviyeli ağaç yapısının dışına çıkarak sol dalda üç seviyeli (Depth 3) bir model inşa etmiştir. Kök düğümde Yağ (13), Depth-1'de Tuz (0.3) ve Depth-2'de Şeker (20) değişkenleri kullanılmıştır. Sağ kök dalından çıkan iç ve yaprak düğümlerin kutuları çizilmiş ancak içleri boş (null) bırakılmıştır.",
+  "page_notes": "Tuz kutusundaki 'Tavsiye edilemez' sayısı başta 12 gibi görünse de karalamalar altındaki gerçek değer olan 2'dir. Öğrenci boş kutular için sıfır yazmamış, doğrudan boş bırakmıştır. Şeker düğümü ana kutu formatı dışında, doğrudan sayılar üzerine eklenmiş el çizimi bir düğümdür."
+}

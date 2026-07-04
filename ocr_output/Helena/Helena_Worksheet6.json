@@ -1,0 +1,75 @@
+{
+  "student_id": "Helena",
+  "worksheet": "WS6",
+  "ws_snapshot": "The root node uses 'Enerji' with threshold ≤200 kcal (left/evet) and >200 kcal (right/hayır). The left inner node's feature label is left blank/illegible, showing 4 tavsiye edilir and 0 tavsiye edilemez, with two leaf boxes below left mostly blank (no counts or labels filled in). The right inner node uses 'Şeker' with 2 tavsiye edilir and 5 tavsiye edilemez, split further at ≤1,5 and >1,5, with the two right leaves filled in with counts and check marks for tavsiye edilir/edilemez.",
+  "page_notes": "The left inner node's feature name is not written (blank box), and its two child leaf boxes are empty (no threshold, no counts, no labels). The threshold operator bar for ≤1,5/>1,5 is small but legible.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Enerji",
+        "left_operator": "≤",
+        "left_threshold_value": 200.0,
+        "right_operator": ">",
+        "right_threshold_value": 200.0
+      },
+      "depth_1": {
+        "left_child": {
+          "is_direct_leaf": true,
+          "leaf_label": "tavsiye edilir",
+          "leaf_recommended_count": 4,
+          "leaf_not_recommended_count": 0
+        },
+        "right_child": {
+          "parsed_feature": "Şeker",
+          "node_recommended_count": 2,
+          "node_not_recommended_count": 5,
+          "left_operator": "≤",
+          "left_threshold_value": 1.5,
+          "right_operator": ">",
+          "right_threshold_value": 1.5
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "not_applicable": true
+          },
+          "left_right_leaf": {
+            "not_applicable": true
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": 2,
+            "leaf_not_recommended_count": 1
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 4
+          }
+        }
+      }
+    }
+  },
+  "validation": {
+    "tree_logic": {
+      "depth_0": {
+        "is_operator_logic_correct": true
+      },
+      "depth_1": {
+        "is_left_child_counts_correct": true,
+        "is_right_child_counts_correct": true,
+        "is_left_operator_logic_correct": null,
+        "is_right_operator_logic_correct": true
+      },
+      "depth_2": {
+        "is_left_left_logical": null,
+        "is_left_right_logical": null,
+        "is_right_left_logical": true,
+        "is_right_right_logical": true
+      },
+      "error_flags": []
+    },
+    "system_analytical_summary": "Asimetrik ağaç: sol dal depth_1'de doğrudan yaprağa iniyor — o dal zaten saf olduğundan daha fazla bölme yapmaya gerek yok. Bu eksiklik değil, geçerli bir tasarım tercihidir. Bu ağaç 1 kartta hatalı sınıflandırma yapıyor; MCR = 0.09. sağ-sol yaprak(lar)ı karışık (mixed) — iki sınıf birlikte düşüyor. sol-sol, sol-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. Sayım ve operatör çiftleri sistemle tam uyumlu."
+  }
+}

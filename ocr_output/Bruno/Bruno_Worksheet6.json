@@ -1,0 +1,81 @@
+{
+  "student_id": "Bruno",
+  "worksheet": "WS6",
+  "ws_snapshot": "Root node splits on Şeker with threshold 28 (evet: ≤28, hayır: >28). The evet branch leads to an inner node 'Yağ' with threshold 13,5, which further splits into two leaves (one labeled tavsiye edilebilir:6/tavsiye edilemez:0, other tavsiye edilebilir:0/tavsiye edilemez:2). The hayır branch (>28) leads to a box that only has one leaf filled (tavsiye edilebilir:0/tavsiye edilemez:3) with no second split drawn, so the tree is incomplete on the right side.",
+  "page_notes": "Right side of root (>28 branch) shows only a single node/leaf with counts 0/3, not a further split into two leaves as required by the two-level tree structure; treated as right_child having only one visible leaf, duplicated for both right leaves due to incomplete drawing. Operator bars for ≤/≥ are small and slightly ambiguous but consistent with '28/' meaning ≤28 and '>28' for the other side; similarly '13,5>' and '>13,5' used for the Yağ split.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Şeker",
+        "left_operator": "≥",
+        "left_threshold_value": 28.0,
+        "right_operator": ">",
+        "right_threshold_value": 28.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Yağ",
+          "node_recommended_count": 6,
+          "node_not_recommended_count": 2,
+          "left_operator": "≥",
+          "left_threshold_value": 13.5,
+          "right_operator": ">",
+          "right_threshold_value": 13.5
+        },
+        "right_child": {
+          "is_direct_leaf": true,
+          "leaf_label": "tavsiye edilemez",
+          "leaf_recommended_count": 0,
+          "leaf_not_recommended_count": 3
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": 6,
+            "leaf_not_recommended_count": 0
+          },
+          "left_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 2
+          },
+          "right_left_leaf": {
+            "not_applicable": true
+          },
+          "right_right_leaf": {
+            "not_applicable": true
+          }
+        }
+      }
+    }
+  },
+  "validation": {
+    "tree_logic": {
+      "depth_0": {
+        "is_operator_logic_correct": false
+      },
+      "depth_1": {
+        "is_left_child_counts_correct": false,
+        "is_right_child_counts_correct": false,
+        "is_left_operator_logic_correct": false,
+        "is_right_operator_logic_correct": null
+      },
+      "depth_2": {
+        "is_left_left_logical": false,
+        "is_left_right_logical": true,
+        "is_right_left_logical": null,
+        "is_right_right_logical": null
+      },
+      "error_flags": [
+        "depth_0 non_complementary_operators (left=≥, right=>, expected_right=<)",
+        "depth_1 left_child count mismatch (student rec=6/not=2, system rec=0/not=3)",
+        "depth_1 right_child count mismatch (student rec=0/not=3, system rec=6/not=2)",
+        "depth_1 left_child non_complementary_operators (left=≥, right=>, expected_right=<)",
+        "depth_2 left_left_leaf count mismatch (student rec=6/not=0)"
+      ]
+    },
+    "system_analytical_summary": "Asimetrik ağaç: sağ dal depth_1'de doğrudan yaprağa iniyor — o dal zaten saf olduğundan daha fazla bölme yapmaya gerek yok. Bu eksiklik değil, geçerli bir tasarım tercihidir. Bu ağaç 7 kartta hatalı sınıflandırma yapıyor; MCR = 0.64. sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 3 sayım hatası tespit edildi. 2 tamamlayıcı olmayan operatör çifti var."
+  }
+}

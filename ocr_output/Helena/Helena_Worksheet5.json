@@ -1,0 +1,82 @@
+{
+  "student_id": "Helena",
+  "worksheet": "WS5",
+  "page_notes": "Deneme 1 (Enerji) sağ dal eşik değeri üstü çizilip yeniden yazılmış gibi görünüyor, '192 kcal' olarak okundu. Deneme 3 (Tuz) sağ dal eşik değerinde bar belirsiz, '>=0,6' olarak okundu ama '>0,6' da olabilir. [Deneme 3 right operatör belirsiz: > veya ≥ olabilir]",
+  "extraction": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "parsed_feature": "Enerji",
+        "left_operator": "≤",
+        "left_threshold": 192.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": ">",
+        "right_threshold": 192.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 5,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 2,
+        "parsed_feature": "Yağ",
+        "left_operator": "≤",
+        "left_threshold": 13.5,
+        "left_leaf_recommended": 6,
+        "left_leaf_not_recommended": 2,
+        "right_operator": ">",
+        "right_threshold": 13.5,
+        "right_leaf_recommended": 0,
+        "right_leaf_not_recommended": 3,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 3,
+        "parsed_feature": "Tuz",
+        "left_operator": "≤",
+        "left_threshold": 0.6,
+        "left_leaf_recommended": 5,
+        "left_leaf_not_recommended": 3,
+        "right_operator": ">",
+        "right_threshold": 0.6,
+        "right_leaf_recommended": 1,
+        "right_leaf_not_recommended": 2,
+        "student_error_count": 4,
+        "student_mcr": null
+      }
+    ],
+    "final_decision_raw": "Enerji değişkeni için 192 değerini seçiyorum. Çünkü diğerlerine göre yanlış sınıflandırma sayısı daha az çıktı."
+  },
+  "validation": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "system_error_count": 2,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": true,
+        "error_flag": null
+      },
+      {
+        "trial_id": 2,
+        "system_error_count": 2,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": true,
+        "error_flag": null
+      },
+      {
+        "trial_id": 3,
+        "system_error_count": 4,
+        "is_leaf_counts_correct": true,
+        "is_error_count_correct": true,
+        "is_operator_logic_correct": true,
+        "error_flag": null
+      }
+    ],
+    "final_decision_logical": true
+  },
+  "ws_snapshot": "Öğrenci 3 deneme yapmış: Enerji, Yağ, Tuz değişkenlerini test etmiş. Deneme 1 (Enerji ≤ 192.0): doğru sayım | Deneme 2 (Yağ ≤ 13.5): doğru sayım | Deneme 3 (Tuz ≤ 0.6): doğru sayım. Nihai kararında en düşük hata sayılı eşiği doğru seçmiş."
+}

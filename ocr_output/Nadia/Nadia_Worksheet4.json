@@ -1,0 +1,66 @@
+{
+  "student_id": "Nadia",
+  "worksheet": "WS4",
+  "ws_snapshot": "On the food card row, circles are drawn around jelibon, yulaf, kraker, and avokado cards. Below, handwritten text lists 'Avokado - Patates kızartması' as the misclassified pair note. Task 4 has a handwritten response about avocado and potato/fries being close, and the final energy threshold value is written as 1915 kcal.",
+  "page_notes": "Circles around jelibon, yulaf, kraker, and avokado are visible but faint/rough. The written note 'Avokado - Patates kızartması 2. hata' seems to refer to a secondary error pairing rather than direct restating of the 4 misclassified cards. Task 3 (B3) response is not clearly separated from B4 response; both appear combined in the handwritten text under Alıştırma 3/Görev 4.",
+  "extraction": {
+    "WS4_B1": {
+      "threshold_value_raw": null,
+      "threshold_value_parsed": null,
+      "placement_description": "No visible vertical threshold line or explicit numeric fat threshold marked between avocado and fries on this page."
+    },
+    "WS4_B2": {
+      "detection_method": "circle",
+      "circled_cards": [
+        "jelibon",
+        "yulaf",
+        "kraker",
+        "avokado"
+      ],
+      "written_foods": "Avokado - Patates kızartması 2. hata",
+      "foods_parsed": [
+        "jelibon",
+        "yulaf",
+        "kraker",
+        "avokado",
+        "patates kızartması"
+      ]
+    },
+    "WS4_B3": {
+      "response_raw": "(bos)"
+    },
+    "WS4_B4": {
+      "agrees_with_pia": true,
+      "response_raw": "Evet Leo'nun 4 hata var avokado patates kızartması arası 2. hata"
+    },
+    "WS4_B5": {
+      "threshold_value_raw": "1915 kcal",
+      "threshold_value_parsed": 1915.0
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS4_B1": {
+        "is_correct": null,
+        "error_flag": "threshold_not_placed"
+      },
+      "WS4_B2": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B3": {
+        "is_correct": false,
+        "error_flag": "missing_error_reduction_rationale"
+      },
+      "WS4_B4": {
+        "is_correct": false,
+        "error_flag": "missing_equal_fat_explanation"
+      },
+      "WS4_B5": {
+        "is_correct": false,
+        "error_flag": "energy_threshold_out_of_range"
+      }
+    },
+    "system_analytical_summary": "Görev 1: 4 yanlış sınıflandırılan kart doğru tespit edilmiş. Görev 2 (Threshold value konumu): Eşik değeri veya çizgi konumu belirlenemedi. Görev 3: Hata azalması gerekçesi kurulamamış. Görev 4 (Pia): Pia'ya katılmış ancak yağ değerlerinin eşitliğini açıklayamamış — kavramsal hata. Görev 5 (Enerji threshold value): Aralık dışı değer (1915.0 kcal, beklenen 160–223)."
+  }
+}

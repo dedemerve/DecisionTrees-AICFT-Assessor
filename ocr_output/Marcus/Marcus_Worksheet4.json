@@ -1,0 +1,65 @@
+{
+  "student_id": "Marcus",
+  "worksheet": "WS4",
+  "ws_snapshot": "Öğrenci, kraker ve yulaf kartlarını daire içine almış ve avokado ile patates kızartması arasına '13,5' yazarak bir eşik değeri belirlemiş. Görev 2 için '4 den 2 hataya düşürüldü' şeklinde bir not yazılmış. Görev 4'te enerji için 160-229 aralığı ve 180 değeri yazılmış, ayrıca 'evet daha az hata payı olan yerde var' notu eklenmiş.",
+  "page_notes": "Kraker ve yulaf kartları etrafında belirgin daire işaretleri var; avokado kartının hemen üstünde de bir işaret/ok görülüyor ama bu threshold çizgisine işaret ediyor olabilir. Jelibon kartı çevresinde de belirsiz bir çizim var, tam bir daire olup olmadığı net değil. Enerji eşik değeri için hem aralık (160-229) hem tek değer (180) yazılmış, biri üstü çizilmiş gibi görünüyor.",
+  "extraction": {
+    "WS4_B1": {
+      "threshold_value_raw": "13,5",
+      "threshold_value_parsed": 13.5,
+      "placement_description": "Avokado (13g) ile patates kızartması (14g) arasına dikey bir çizgi çizilmiş ve yanına '13,5' yazılmış."
+    },
+    "WS4_B2": {
+      "detection_method": "circle",
+      "circled_cards": [
+        "jelibon",
+        "kraker",
+        "yulaf",
+        "avokado"
+      ],
+      "written_foods": null,
+      "foods_parsed": [
+        "jelibon",
+        "kraker",
+        "yulaf",
+        "avokado"
+      ]
+    },
+    "WS4_B3": {
+      "response_raw": "4 den 2 hataya düşürüldü"
+    },
+    "WS4_B4": {
+      "agrees_with_pia": null,
+      "response_raw": "(Evet daha az hata payı olan yerler var.)"
+    },
+    "WS4_B5": {
+      "threshold_value_raw": "160-223 | 180",
+      "threshold_value_parsed": 180.0
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS4_B1": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B2": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B3": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "WS4_B4": {
+        "is_correct": null,
+        "error_flag": "unclear_pia_response"
+      },
+      "WS4_B5": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Görev 1: 4 yanlış sınıflandırılan kart doğru tespit edilmiş. Görev 2 (Threshold value konumu): Avokado ile patates kızartması arasına doğru yerleştirilmiş. Görev 3: Hata sayısının azaldığını doğru biçimde gerekçelendirmiş. Görev 4 (Pia): Yanıt belirsiz — yorumsal inceleme gerekli. Görev 5 (Enerji threshold value): Doğru aralıkta."
+  }
+}

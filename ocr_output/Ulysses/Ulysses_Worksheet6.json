@@ -1,0 +1,76 @@
+{
+  "student_id": "Ulysses",
+  "worksheet": "WS6",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Enerji",
+        "left_operator": "<",
+        "left_threshold_value": 161.0,
+        "right_operator": "≥",
+        "right_threshold_value": 161.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": null,
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        },
+        "right_child": {
+          "parsed_feature": "Yağ",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": null,
+          "left_right_leaf": null,
+          "right_left_leaf": {
+            "leaf_label": "Şeker - Tavsiye edilemez",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "leaf_label": "Protein - tavsiye edilemez",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    }
+  },
+  "validation": {
+    "tree_logic": {
+      "depth_0": {
+        "is_operator_logic_correct": true
+      },
+      "depth_1": {
+        "is_left_child_counts_correct": null,
+        "is_right_child_counts_correct": null,
+        "is_left_operator_logic_correct": null,
+        "is_right_operator_logic_correct": null
+      },
+      "depth_2": {
+        "is_left_left_logical": null,
+        "is_left_right_logical": null,
+        "is_right_left_logical": null,
+        "is_right_right_logical": null
+      },
+      "error_flags": [
+        "depth_1 left_child incomplete (student left branch blank)"
+      ]
+    },
+    "system_analytical_summary": "Sol dal tamamen boş bırakılmış — öğrenci bu dalı tamamlamamış. Sistem 11 kartın 4 tanesini sınıflandıramamış (yaprak etiketi eksik). Sınıflandırılabilenler arasında 2 hata var; MCR = 0.29. sol-sol, sol-sağ, sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor."
+  },
+  "ws_snapshot": "Öğrenci kök düğümde 'Enerji' (< 161 ve ≥ 161) değişkenini kullanmıştır. Sol iç düğümü tamamen boş bırakmış, sadece 'Tavsiye edilebilir' kutusuna çarpı (X) atmıştır. Sağ iç düğüme 'Yağ' yazmış ve alt dallarında eşik değeri kullanmadan yapraklara 'Şeker' ve 'Protein' değişkenlerini yazmıştır. Ağacın hiçbir yerinde sayısal bir hesaplama yoktur.",
+  "page_notes": "Önceki taramada sol iç düğümde 'Yağ' okunduğu iddia edilmişti ancak görselde bu kutu tamamen boştur. Sağ alt yapraklardaki '1' sayıları öğrencinin kağıdında yoktur. Kök düğüm sağ operatörü net bir şekilde '≥' (büyük eşit) sembolüdür."
+}

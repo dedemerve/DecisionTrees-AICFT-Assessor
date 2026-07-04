@@ -1,0 +1,60 @@
+{
+  "student_name": "Shana",
+  "WS3_B1": "tavsiye edilemez",
+  "WS3_B2": "> 8,0 g",
+  "WS3_B3": "tavsiye edilebilir",
+  "WS3_B4": "< 8,0 g",
+  "WS3_B5": "tavsiye edilemez",
+  "WS3_B6": "> 8,0 g",
+  "WS3_B7": "< 100 kcal",
+  "WS3_B8": "> 100 kcal",
+  "ws_snapshot": "Öğrenci Patlamış Mısır ve Patates Kızartması'nı 'tavsiye edilemez', Elma'yı 'tavsiye edilebilir' olarak sınıflandırmış; yağ eşiği 8,0 g doğru uygulanmış. B2, B4, B6'da sadece eşik yazılmış, gerçek ölçüm değeri belirtilmemiş. Enerji için eşik 100 kcal seçilmiş; B7'de < 100 kcal, B8'de > 100 kcal yazılmış. Her iki operatörde de eşitlik işareti kullanılmadığından tam olarak 100 kcal değerindeki bir gıdanın hangi dala atanacağı belirsizdir.",
+  "page_notes": "B2, B4, B6'da sayısal değer yerine yalnızca eşik değeri yazılmış, gerçek ölçüm değerleri belirtilmemiş.",
+  "validation": {
+    "item_checks": {
+      "WS3_B1": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B2": {
+        "is_correct": null,
+        "score": 0.5,
+        "note": "Kısmi gerekçe — eksik: gıdanın yağ değeri (23.0g)."
+      },
+      "WS3_B3": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B4": {
+        "is_correct": null,
+        "score": 0.5,
+        "note": "Kısmi gerekçe — eksik: gıdanın yağ değeri (0.2g)."
+      },
+      "WS3_B5": {
+        "is_correct": true,
+        "score": 1.0,
+        "note": null
+      },
+      "WS3_B6": {
+        "is_correct": null,
+        "score": 0.5,
+        "note": "Kısmi gerekçe — eksik: gıdanın yağ değeri (14.0g)."
+      },
+      "WS3_B7": {
+        "is_correct": true,
+        "operator": "<",
+        "value": 100.0,
+        "note": null
+      },
+      "WS3_B8": {
+        "is_correct": true,
+        "operator": ">",
+        "value": 100.0,
+        "note": null
+      }
+    },
+    "system_analytical_summary": "Mısır gevreği (23g): Etiket doğru ama gerekçe eksik — Kısmi gerekçe — eksik: gıdanın yağ değeri (23.0g). Elma (0.2g): Etiket doğru ama gerekçe eksik — Kısmi gerekçe — eksik: gıdanın yağ değeri (0.2g). Patates kızartması (14g): Etiket doğru ama gerekçe eksik — Kısmi gerekçe — eksik: gıdanın yağ değeri (14.0g). Enerji eşiği (B7/B8): Tutarlı ve doğru aralıkta (< 100.0 / > 100.0)."
+  }
+}
