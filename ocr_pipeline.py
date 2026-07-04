@@ -82,7 +82,11 @@ PAGES_PER_STUDENT: dict[str, int] = {
     # 2026 — per-worksheet PDFs
     "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": 4,
     "24 Mart 2026 Çalışma Kâğıdı 1.pdf": 1,
+    "24 Mart 2026 Çalışma Kâğıdı 3.pdf": 1,
+    "24 Mart 2026 Çalışma Kâğıdı 4.pdf": 1,
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": 1,
+    "31 Mart 2026 Çalışma Kâğıdı 7.pdf": 1,
+    "31 Mart 2026 Çalışma Kâğıdı 10.pdf": 1,
 }
 
 # ---------------------------------------------------------------------------
@@ -724,7 +728,7 @@ Handwriting shapes: a C, L, or ( used in a comparison reads as <; a ), 7, or V r
 If the symbol is completely unreadable, write "(okunamiyor)" and add "[B? okunamayan operatör]".
 
 === GUARDRAIL 3 — B7 AND B8 CROSS-REFERENCE: TRANSCRIBE, DO NOT FIX ===
-B7 is the left-branch rule (typically: <= X kcal) and B8 is the right-branch rule (typically: > X kcal).
+B7 is the left-branch threshold rule and B8 is the right-branch threshold rule.
 A correct student uses THE SAME number in B7 and B8 with opposite operators.
 If the student used DIFFERENT numbers in B7 and B8, transcribe both exactly as written.
 Do NOT silently change a number to make B7 and B8 consistent — that is a student error
@@ -746,8 +750,8 @@ BLANKS TO EXTRACT:
 "WS3_B4"  Elma — mathematical reason. Both "0,2 < 8" and "8 > 0,2" are equally valid.
 "WS3_B5"  Patates Kızartması — classification label
 "WS3_B6"  Patates Kızartması — mathematical reason. Both "14 > 8" and "8 < 14" are equally valid.
-"WS3_B7"  Enerji left-branch rule (typically <= X kcal; transcribe operator + number exactly)
-"WS3_B8"  Enerji right-branch rule (typically > X kcal; transcribe operator + number exactly)
+"WS3_B7"  Enerji left-branch rule — transcribe operator + number exactly as written
+"WS3_B8"  Enerji right-branch rule — transcribe operator + number exactly as written
 
 "ws_snapshot"
   2-3 Türkçe cümle: etiketleri doğru mu belirlemiş, matematiksel ifadeleri doğru mu yazmış,
@@ -775,8 +779,100 @@ Return ONLY the following JSON object. No text before or after it.
   "page_notes": "..."
 }}"""
 
-PROMPT_WS6 = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
-Your task: transcribe every blank from Worksheet 6 (Karar Ağacı Çiz — Draw a Decision Tree).
+PROMPT_WS4 = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
+Your task: extract five response fields from Worksheet 4 (En İyi Eşik Değer Aranıyor).
+You will receive ONE page image belonging to ONE pre-service teacher.
+
+{_NAME_INSTRUCTION}
+
+{_HANDWRITING_INSTRUCTION}
+
+WORKSHEET 4 OVERVIEW:
+Students work with 11 ProDaBi food cards sorted by fat content (left = low fat, right = high fat).
+Leo's original threshold (3g fat) misclassifies 4 cards. Students must:
+  Task 1 (B2): identify the 4 misclassified cards
+  Task 2 (B1, B3): draw a better threshold line and explain why it is better
+  Task 3 (B4): evaluate Pia's claim about equal fat values
+  Task 4 (B5): state the best energy threshold learned from the deck
+
+FOOD CARDS ON THE PAGE (in approximate left-to-right fat order):
+  salatalık (0.1g), patates (0.1g), elma (0.2g), ahududu reçeli (0.2g),
+  yulaf (7.0g), kraker (3.0g), avokado (13.0g), jelibon (0.1g),
+  sütlü çikolata (29.5g), patates kızartması (14.0g), patlamış mısır (23.0g)
+
+=== FIELD B2 — MISCLASSIFIED FOOD DETECTION ===
+Students mark the 4 misclassified cards in ONE of three ways:
+  (a) TEXT: They write the food names (Turkish or English) somewhere on the page.
+  (b) VISUAL CIRCLE: They draw a loop, oval, or circle around the card image/sticker
+      or around the card's label area. The circle may be faint or rough.
+  (c) BOTH: They both circle and write the names.
+
+VISUAL CIRCLE DETECTION PROCEDURE:
+  STEP 1: Scan the food card row for any closed loop, oval, or enclosing mark
+          drawn around a card image, sticker, or name label.
+  STEP 2: For each marked card, identify the food name by its position in the row
+          and any visible label text inside or near the mark.
+  STEP 3: A mark counts as a circle even if it is rough, overlapping card edges,
+          or only partially closed — as long as the intent is to enclose that card.
+  STEP 4: Report each identified food in "circled_cards" using the canonical
+          Turkish name: jelibon, kraker, yulaf, avokado, elma, ahududu reçeli,
+          salatalık, patates, sütlü çikolata, patates kızartması, patlamış mısır.
+
+NULL RULES:
+  - circled_cards: [] (empty list) if no circles detected
+  - written_foods: null if no text response found
+  - foods_parsed: unified list from both sources; null if neither found
+
+=== FIELD B1 — THRESHOLD LINE ===
+Student may draw a vertical line between avocado (13g) and french fries (14g),
+OR write a numeric value such as "13.5".
+Capture both: placement_description (what you see) and threshold_value_parsed (float if present, else null).
+
+=== FIELD B4 — PIA EVALUATION ===
+Student states whether Pia is right or wrong. Full credit requires:
+  - Agreement: "haklı", "evet", "doğru", or equivalent
+  - Reasoning: apple (elma) and raspberry jam (ahududu reçeli) have the same fat value (0.2g)
+Set agrees_with_pia: true / false / null (if unclear).
+
+"ws_snapshot": 2-3 sentences describing what you SEE on the page for each task.
+  Do NOT judge correctness.
+"page_notes": circle ambiguities, illegible names, threshold ambiguities, or "(bos)" if none.
+
+Return ONLY the following JSON object. No text before or after it.
+{{
+  "student_id": "...",
+  "worksheet": "WS4",
+  "ws_snapshot": "...",
+  "page_notes": "...",
+  "extraction": {{
+    "WS4_B1": {{
+      "threshold_value_raw": "...",
+      "threshold_value_parsed": 0.0,
+      "placement_description": "..."
+    }},
+    "WS4_B2": {{
+      "detection_method": "text",
+      "circled_cards": [],
+      "written_foods": "...",
+      "foods_parsed": ["..."]
+    }},
+    "WS4_B3": {{
+      "response_raw": "..."
+    }},
+    "WS4_B4": {{
+      "agrees_with_pia": true,
+      "response_raw": "..."
+    }},
+    "WS4_B5": {{
+      "threshold_value_raw": "...",
+      "threshold_value_parsed": 0.0
+    }}
+  }}
+}}"""
+
+PROMPT_WS5 = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
+Your task: extract the threshold-experiment grid and final decision from Worksheet 5
+(Eşik Değerleri Deneyin — Try Out Threshold Values).
 You will receive ONE page image belonging to ONE pre-service teacher.
 
 {_NAME_INSTRUCTION}
@@ -785,36 +881,410 @@ You will receive ONE page image belonging to ONE pre-service teacher.
 
 {_SENTINEL_INSTRUCTION}
 
-WORKSHEET 6: Karar Ağacı Çiz (Draw a Decision Tree — 13 blanks)
-WS6: two-level decision tree on the same 11 ProDaBi food cards as WS5.
-Transcribe labels, thresholds, and leaf class names exactly (<=, >=, <, >).
-"WS6_B1"  root node feature (şeker, yağ, enerji, ...)
-"WS6_B2"  root threshold with operator (transcribe <=, >=, <, > exactly as written)
-"WS6_B3"  evet branch label (e.g. evet (<= 10))
-"WS6_B4"  hayır branch label (e.g. hayır (> 10))
-"WS6_B5"  optional leaf on evet branch without inner split
-"WS6_B6"  inner-node feature on evet subtree (must differ from B1)
-"WS6_B7"  inner-node threshold with operator (transcribe exactly)
-"WS6_B8"  inner evet branch label
-"WS6_B9"  inner hayır branch label
-"WS6_B10" inner left leaf (tavsiye edilir / edilmez)
-"WS6_B11" inner right leaf
-"WS6_B12" optional extra leaf
-"WS6_B13" right-subtree leaf (hayır branch from root)
+WORKSHEET 5 STRUCTURE:
+The page contains a grid with up to 3 trial rows (Deneme 1, Deneme 2, Deneme 3).
+Each row has:
+  - Variable name (değişken): e.g. "yağ", "şeker", "enerji", "protein", "tuz"
+  - Left branch (evet / tavsiye edilir): operator + threshold value
+  - Right branch (hayır / tavsiye edilemez): operator + threshold value
+  - Error count (Yanlış sınıflandırma sayısı): how many of the 11 food cards were misclassified
+Below the grid the student writes their FINAL DECISION.
 
-"ws_snapshot"
-  Write 2-3 sentences about what this pre-service teacher's WS6 tree reveals: feature choices,
-  threshold values, tree completeness, and any notable errors.
+=== GUARDRAIL 1 — OPERATOR TRANSCRIPTION (BAR CHECK) ===
+Read each operator independently using the bar-check procedure.
+Apply to BOTH left and right branch operators.
+
+STEP 1: Find the angle mark in the ink.
+STEP 2: Look directly below the angle tip for a horizontal stroke.
+  Clearly present → ≤ or ≥   (write as <= or >=)
+  Clearly absent  → < or >
+  CANNOT TELL    → transcribe best guess AND add to page_notes:
+                   "[Deneme N left/right operatör belirsiz: < veya ≤ olabilir]"
+
+CRITICAL — THE BAR IS OFTEN WRITTEN VERY SMALL:
+A thin visible line counts as a bar. Prefer ≤ or ≥ when a stroke is detectable.
+Only write < or > when there is clearly NO stroke below the angle.
+Do NOT infer one branch's operator from the other.
+
+FORBIDDEN substitutions:
+  ≤ → <   FORBIDDEN
+  ≥ → >   FORBIDDEN
+  < → ≤   FORBIDDEN
+  > → ≥   FORBIDDEN
+
+=== GUARDRAIL 2 — COUNTS ===
+Transcribe student_error_count exactly as written. Do NOT recompute.
+If blank, write null.
+
+=== GUARDRAIL 3 — TRIAL COUNT ===
+Include only trials where the student wrote something. Do not add empty trials.
+
+=== GUARDRAIL 4 — FINAL DECISION ===
+final_decision_raw: verbatim text from the bottom paragraph. Write null if blank.
 
 "page_notes"
-  Brief note about scan quality or layout issues. Write (bos) if no issues.
+  Operator ambiguities, faint ink, missing cells. Write (bos) if no issues.
+
+Return ONLY the following JSON object. No text before or after it.
+{{
+  "student_id": "...",
+  "worksheet": "WS5",
+  "page_notes": "...",
+  "extraction": {{
+    "trials": [
+      {{
+        "trial_id": 1,
+        "parsed_feature": "...",
+        "left_operator": "...",
+        "left_threshold": 0.0,
+        "left_leaf_recommended": 0,
+        "left_leaf_not_recommended": 0,
+        "right_operator": "...",
+        "right_threshold": 0.0,
+        "right_leaf_recommended": 0,
+        "right_leaf_not_recommended": 0,
+        "student_error_count": 0,
+        "student_mcr": null
+      }}
+    ],
+    "final_decision_raw": "..."
+  }}
+}}"""
+
+PROMPT_WS6 = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
+Your task: extract the two-level decision tree from Worksheet 6 (Karar Ağacı Çiz).
+You will receive ONE page image belonging to ONE pre-service teacher.
+
+{_NAME_INSTRUCTION}
+
+{_HANDWRITING_INSTRUCTION}
+
+WORKSHEET 6: Two-level decision tree on 11 ProDaBi food cards.
+The student drew a tree with:
+  - A root split node (depth_0)
+  - Two inner split nodes (depth_1: left_child on the evet branch, right_child on the hayır branch)
+  - Four leaf nodes (depth_2)
+
+DEFINITIONS:
+  "left" branch = evet (yes) branch — cards where the condition is TRUE
+  "right" branch = hayır (no) branch — cards where the condition is FALSE
+  left_operator / left_threshold_value: the operator and numeric threshold written for the evet branch
+  right_operator / right_threshold_value: the operator and numeric threshold written for the hayır branch
+
+TREE STRUCTURE TO EXTRACT:
+  depth_0 (root node):
+    parsed_feature: the nutritional feature written in the root box (e.g. Yağ, Şeker, Enerji, Protein, Tuz, Karbonhidrat)
+    left_operator: operator for evet branch (e.g. ≤, <, ≥, >)
+    left_threshold_value: numeric threshold as a float (e.g. 13.0)
+    right_operator: operator for hayır branch
+    right_threshold_value: same numeric value as left_threshold_value
+
+  depth_1 (two inner nodes):
+    left_child: the inner node on the evet (left) branch from depth_0
+      parsed_feature: feature written in this inner node
+      node_recommended_count: how many of the 11 food cards that reach this node are labeled "tavsiye edilir"
+      node_not_recommended_count: how many are labeled "tavsiye edilemez"
+      left_operator, left_threshold_value, right_operator, right_threshold_value: same pattern as depth_0
+    right_child: the inner node on the hayır (right) branch from depth_0 (same fields)
+
+  depth_2 (four leaf nodes):
+    left_left_leaf: cards that went LEFT at depth_0 then LEFT at left_child
+    left_right_leaf: cards that went LEFT at depth_0 then RIGHT at left_child
+    right_left_leaf: cards that went RIGHT at depth_0 then LEFT at right_child
+    right_right_leaf: cards that went RIGHT at depth_0 then RIGHT at right_child
+    Each leaf has: leaf_recommended_count and leaf_not_recommended_count
+
+  depth_2 leaf labels:
+    Each leaf also has a leaf_label field: the class label the student wrote in that leaf box.
+    Transcribe exactly: "tavsiye edilir", "tavsiye edilemez", or (bos) if blank.
+
+=== GUARDRAIL — OPERATOR TRANSCRIPTION (BAR CHECK) ===
+Apply this procedure to EVERY operator in the tree (depth_0, depth_1 left_child, depth_1 right_child).
+
+STEP 1: Find the angle mark in the ink (the < or > shape).
+STEP 2: Look directly below/above the tip of the angle for a horizontal stroke.
+  Clearly present → ≤ or ≥
+  Clearly absent  → < or >
+  CANNOT TELL     → transcribe your best guess AND note in page_notes:
+                    "[depth_X operator belirsiz: < veya ≤ olabilir]"
+
+CRITICAL — THE BAR IS OFTEN WRITTEN VERY SMALL:
+A thin visible line counts as a bar → write ≤ or ≥.
+No stroke at all → write < or >.
+Students may genuinely write < or > (student error is possible). Transcribe what is written, not what should be there.
+When ambiguous, write your best guess AND note it in page_notes.
+
+FORBIDDEN: do NOT infer one operator from the other.
+  If left is ≤, do NOT automatically write > for right — read each side independently.
+  ≤ → <   FORBIDDEN
+  ≥ → >   FORBIDDEN
+
+DIRECTION RULE — which operator belongs to which branch:
+  left_operator  = the operator written on or beside the LEFT (evet) branch arrow
+  right_operator = the operator written on or beside the RIGHT (hayır) branch arrow
+  Read the spatial position of the arrow carefully. Do NOT swap them.
+
+NULL RULES — use null (not 0, not "(bos)") when a field is blank:
+  - parsed_feature: null if the node box is empty
+  - node_recommended_count / node_not_recommended_count: null if student left blank
+  - left_operator / right_operator: null if no operator written
+  - left_threshold_value / right_threshold_value: null if no threshold written
+  - leaf_label: null if leaf box is empty
+  - leaf_recommended_count / leaf_not_recommended_count: null if student left blank
+
+ASYMMETRIC TREE — if one branch terminates at depth_1 (no further split):
+  Replace that child's fields with:
+  {{"is_direct_leaf": true, "leaf_label": "...", "leaf_recommended_count": N, "leaf_not_recommended_count": N}}
+  And set the corresponding depth_2 leaves to {{"not_applicable": true}}
+
+INCOMPLETE BRANCH — if a branch box is drawn but completely empty:
+  Write all fields as null. Do NOT invent counts or operators.
+  Note it in page_notes.
+
+DEPTH > 2 — if the student drew a 3rd level of splits:
+  Note it in page_notes. Fit the deepest reachable leaves into depth_2.
+
+"ws_snapshot": 2-3 sentences describing ONLY what you SEE on the paper: which features,
+  thresholds, and how complete the tree looks. Do NOT judge correctness.
+
+"page_notes": operator ambiguities, blank branches, threshold ambiguities, depth > 2. Write (bos) if none.
+
+Return ONLY the following JSON object. No text before or after it.
+{{
+  "student_id": "...",
+  "worksheet": "WS6",
+  "ws_snapshot": "...",
+  "page_notes": "...",
+  "extraction": {{
+    "tree_structure": {{
+      "depth_0": {{
+        "parsed_feature": "...",
+        "left_operator": "...",
+        "left_threshold_value": 0.0,
+        "right_operator": "...",
+        "right_threshold_value": 0.0
+      }},
+      "depth_1": {{
+        "left_child": {{
+          "parsed_feature": "...",
+          "node_recommended_count": 0,
+          "node_not_recommended_count": 0,
+          "left_operator": "...",
+          "left_threshold_value": 0.0,
+          "right_operator": "...",
+          "right_threshold_value": 0.0
+        }},
+        "right_child": {{
+          "parsed_feature": "...",
+          "node_recommended_count": 0,
+          "node_not_recommended_count": 0,
+          "left_operator": "...",
+          "left_threshold_value": 0.0,
+          "right_operator": "...",
+          "right_threshold_value": 0.0
+        }}
+      }},
+      "depth_2": {{
+        "leaf_nodes": {{
+          "left_left_leaf": {{"leaf_label": "...", "leaf_recommended_count": 0, "leaf_not_recommended_count": 0}},
+          "left_right_leaf": {{"leaf_label": "...", "leaf_recommended_count": 0, "leaf_not_recommended_count": 0}},
+          "right_left_leaf": {{"leaf_label": "...", "leaf_recommended_count": 0, "leaf_not_recommended_count": 0}},
+          "right_right_leaf": {{"leaf_label": "...", "leaf_recommended_count": 0, "leaf_not_recommended_count": 0}}
+        }}
+      }}
+    }}
+  }}
+}}"""
+
+PROMPT_WS7 = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
+Your task: extract the decision tree and rule-matching responses from Worksheet 7 (Karar Kuralları).
+You will receive ONE page image belonging to ONE pre-service teacher.
+
+{_NAME_INSTRUCTION}
+
+{_HANDWRITING_INSTRUCTION}
+
+WORKSHEET 7 PURPOSE:
+The student sees a printed two-level enerji/protein decision tree with empty threshold boxes.
+They must READ the printed if-then rules at the BOTTOM of the page and fill in the tree's
+threshold boxes by reverse-engineering from those rules.
+Expected threshold values: depth_0 (Enerji) = 180 kcal; depth_1 (Protein) = 7,7 g.
+Transcribe exactly what the student WROTE — not what they should have written.
+
+TREE STRUCTURE:
+  depth_0: root node split on Enerji
+    left branch (evet) → typically leads directly to a leaf (path A)
+    right branch (hayır) → leads to depth_1 inner node on Protein
+
+  depth_1:
+    left_child: the node on the left (evet) branch of depth_0.
+      If this is a DIRECT LEAF (no further split), use:
+        {{"path_label": "A", "node_recommended_count": N, "node_not_recommended_count": N}}
+      If this is an INNER NODE (has its own split), use:
+        {{"parsed_feature": "...", "left_operator": "...", "left_threshold_value": 0.0,
+          "right_operator": "...", "right_threshold_value": 0.0,
+          "node_recommended_count": N, "node_not_recommended_count": N}}
+    right_child: the node on the right (hayır) branch of depth_0 — always an inner node on Protein:
+        {{"parsed_feature": "Protein", "left_operator": "...", "left_threshold_value": 0.0,
+          "right_operator": "...", "right_threshold_value": 0.0,
+          "node_recommended_count": N, "node_not_recommended_count": N}}
+
+  depth_2: leaf nodes produced by depth_1 splits.
+    right_left_leaf: left (evet) branch of depth_1 right_child → path B
+    right_right_leaf: right (hayır) branch of depth_1 right_child → path C
+    Each leaf: {{"path_label": "...", "leaf_recommended_count": N, "leaf_not_recommended_count": N}}
+    If student left counts blank, use null.
+
+RULE MATCHING (bottom of page):
+  Three printed rule sentences with empty boxes beside them.
+  Student writes A, B, or C in each box. Transcribe exactly; null if box is empty.
+  Do NOT confuse the printed A/B/C branch labels on the tree itself with these boxes.
+  rule_1_box, rule_2_box, rule_3_box.
+
+=== GUARDRAIL — OPERATOR READING ===
+Apply to every operator in depth_0, depth_1 left_child, depth_1 right_child.
+
+STEP 1: Find the angle stroke (< or > shape).
+STEP 2: Look for a horizontal bar below/above the angle tip.
+  Bar present  → ≤ or ≥
+  Bar absent   → < or >
+  Ambiguous    → best guess + note in page_notes
+
+REVERSED NOTATION: some students write "190 <" instead of "< 190".
+  Parse the operator direction from context (left branch = smaller values, right branch = larger).
+  Report the operator as the direction it logically encodes (e.g. "190 <" → operator ">").
+  Note reversed notation in page_notes.
+
+FORBIDDEN: do NOT infer one operator from its pair. Read each independently.
+
+NULL RULES: use null (not "(bos)") for any field the student left blank.
+
+VALIDATION — compute from what you extracted:
+
+tree_completeness: is_correct=true if ALL of the following are non-null:
+  depth_0 left_operator, left_threshold_value, right_operator, right_threshold_value AND
+  depth_1 right_child operators and threshold AND leaf counts in depth_2.
+  error_flags (pick the most specific): "missing_root_thresholds" | "missing_protein_thresholds" |
+  "missing_leaf_counts" | null
+
+rule_mapping: is_correct=true if all three rule boxes have a letter (A, B, or C).
+  error_flag: "missing_rule_assignments" | null
+
+threshold_alignment: is_correct=true if depth_0 threshold value ≈ 180 AND
+  depth_1 right_child threshold value ≈ 7.7.
+  error_flag: "threshold_mismatch_with_instructions" | null
+
+system_analytical_summary: 2–3 sentences in Turkish. Describe what the student understood
+  (or failed to understand) about the reverse-engineering task. Cite specific values they wrote.
+  Compare against the expected 180 kcal / 7,7 g targets. Note rule-matching completion.
+
+"ws_snapshot": 2–3 sentences describing what you see on the page. Do NOT judge correctness.
+"page_notes": operator ambiguities, reversed notation, illegible counts, empty sections. (bos) if none.
+
+Return ONLY the following JSON object. No text before or after it.
+{{
+  "student_id": "...",
+  "worksheet": "WS7",
+  "ws_snapshot": "...",
+  "page_notes": "...",
+  "extraction": {{
+    "tree_structure": {{
+      "depth_0": {{
+        "left_operator": "...",
+        "left_threshold_value": 0.0,
+        "right_operator": "...",
+        "right_threshold_value": 0.0
+      }},
+      "depth_1": {{
+        "left_child": {{
+          "path_label": "A",
+          "node_recommended_count": 0,
+          "node_not_recommended_count": 0
+        }},
+        "right_child": {{
+          "parsed_feature": "Protein",
+          "node_recommended_count": 0,
+          "node_not_recommended_count": 0,
+          "left_operator": "...",
+          "left_threshold_value": 0.0,
+          "right_operator": "...",
+          "right_threshold_value": 0.0
+        }}
+      }},
+      "depth_2": {{
+        "leaf_nodes": {{
+          "right_left_leaf": {{
+            "path_label": "B",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 0
+          }},
+          "right_right_leaf": {{
+            "path_label": "C",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 0
+          }}
+        }}
+      }}
+    }},
+    "rule_matching": {{
+      "rule_1_box": "...",
+      "rule_2_box": "...",
+      "rule_3_box": "..."
+    }}
+  }},
+  "validation": {{
+    "item_checks": {{
+      "tree_completeness": {{"is_correct": true, "error_flag": null}},
+      "rule_mapping": {{"is_correct": true, "error_flag": null}},
+      "threshold_alignment": {{"is_correct": true, "error_flag": null}}
+    }},
+    "system_analytical_summary": "..."
+  }}
+}}"""
+
+PROMPT_WS10 = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
+Your task: transcribe WS10 (Sistematik Eşik — Systematic Threshold) from a single page image
+belonging to ONE pre-service teacher.
+
+{_NAME_INSTRUCTION}
+
+{_HANDWRITING_INSTRUCTION}
+
+{_SENTINEL_INSTRUCTION}
+
+WORKSHEET STRUCTURE — WS10:
+The page contains a printed table with 7 rows. Each row shows a candidate energy threshold value
+(printed on the left) and a blank where the student writes the number of misclassification errors
+for that threshold. Below the table is a line "Optimum eşik değer şudur:" where the student writes
+the threshold with the fewest errors.
+
+Printed threshold values (left column, do NOT confuse with student answers):
+  Row 1: 28 kcal   Row 2: 69 kcal   Row 3: 219 kcal  Row 4: 346 kcal
+  Row 5: 359 kcal  Row 6: 408 kcal  Row 7: 489 kcal
+
+Transcribe ONLY the HANDWRITTEN numeric value in each blank. If a blank is empty, use "(bos)".
+
+"WS10_B1"  Row 1 — misclassification count for threshold 28
+"WS10_B2"  Row 2 — misclassification count for threshold 69
+"WS10_B3"  Row 3 — misclassification count for threshold 219
+"WS10_B4"  Row 4 — misclassification count for threshold 346
+"WS10_B5"  Row 5 — misclassification count for threshold 359
+"WS10_B6"  Row 6 — misclassification count for threshold 408
+"WS10_B7"  Row 7 — misclassification count for threshold 489
+"WS10_B8"  Optimum threshold — the number written on the "Optimum eşik değer şudur:" line
+
+"ws_snapshot"
+  1-2 sentences: did the student complete the table? Are counts plausible (integers 0–11)?
+  Does B8 match the row with the lowest count? Be specific and evidence-based.
+
+"page_notes"
+  Brief note about scan quality or unusual layout. Write (bos) if no issues.
 
 Return ONLY the following JSON object. No text before or after it.
 {{
   "student_name": "...",
-  "WS6_B1": "...", "WS6_B2": "...", "WS6_B3": "...", "WS6_B4": "...", "WS6_B5": "...",
-  "WS6_B6": "...", "WS6_B7": "...", "WS6_B8": "...", "WS6_B9": "...", "WS6_B10": "...",
-  "WS6_B11": "...", "WS6_B12": "...", "WS6_B13": "...",
+  "WS10_B1": "...", "WS10_B2": "...", "WS10_B3": "...", "WS10_B4": "...",
+  "WS10_B5": "...", "WS10_B6": "...", "WS10_B7": "...", "WS10_B8": "...",
   "ws_snapshot": "...",
   "page_notes": "..."
 }}"""
@@ -828,7 +1298,11 @@ PROMPTS: dict[str, str] = {
     "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": PROMPT_DT,
     "24 Mart 2026 Çalışma Kâğıdı 1.pdf": PROMPT_WS1,
     "24 Mart 2026 Çalışma Kâğıdı 3.pdf": PROMPT_WS3,
+    "24 Mart 2026 Çalışma Kâğıdı 4.pdf": PROMPT_WS4,
+    "24 Mart 2026 Çalışma Kâğıdı 5.pdf": PROMPT_WS5,
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": PROMPT_WS6,
+    "31 Mart 2026 Çalışma Kâğıdı 7.pdf": PROMPT_WS7,
+    "31 Mart 2026 Çalışma Kâğıdı 10.pdf": PROMPT_WS10,
 }
 
 # ---------------------------------------------------------------------------
@@ -1414,7 +1888,7 @@ def process_pdf(
         print(f"  Group {idx + 1} ({page_label}, detected={detected_name})...", end=" ", flush=True)
         raw = transcribe_student_pages(client, page_images, pdf_name)
 
-        name_raw = raw.get("student_name") or ""
+        name_raw = raw.get("student_name") or raw.get("student_id") or ""
         key = resolve_student_key(name_raw, idx, pdf_name) or detected_name
         if key != detected_name:
             print(f"\n  WARNING: Claude read {name_raw!r} -> {key!r} but the page banner said "
@@ -1506,7 +1980,7 @@ def mode_pilot(
     page_images = images[group_info["start"] - 1: group_info["end"]]
 
     raw = transcribe_student_pages(client, page_images, pdf_name)
-    name_raw = raw.get("student_name") or ""
+    name_raw = raw.get("student_name") or raw.get("student_id") or ""
     key = resolve_student_key(name_raw, student_index, pdf_name) or detected_name
     if key != detected_name:
         print(f"  WARNING: Claude read {name_raw!r} -> {key!r} but the page banner said {detected_name!r}.")
@@ -1515,7 +1989,39 @@ def mode_pilot(
     responses = extract_item_responses(raw, pdf_name)
     answered = sum(1 for v in responses.values() if is_answered(v))
 
-    out_dir = OUT_DIR / f"_pilot_{key}"
+    # WS1: flat extraction — pass full raw dict
+    if pdf_name == "24 Mart 2026 Çalışma Kâğıdı 1.pdf":
+        from ws1_validation import build_ws1_validation_block
+        raw["validation"] = build_ws1_validation_block(raw)
+
+    # WS3: flat extraction — pass full raw dict
+    if pdf_name == "24 Mart 2026 Çalışma Kâğıdı 3.pdf":
+        from ws3_validation import build_ws3_validation_block
+        raw["validation"] = build_ws3_validation_block(raw)
+
+    # For WS5: attach validation block and ws_snapshot computed from extraction
+    if pdf_name == "24 Mart 2026 Çalışma Kâğıdı 4.pdf":
+        from ws4_validation import build_ws4_validation_block
+        extraction_block = raw.get("extraction") or {}
+        raw["validation"] = build_ws4_validation_block(extraction_block)
+
+    if pdf_name == "24 Mart 2026 Çalışma Kâğıdı 5.pdf":
+        from ws5_validation import build_ws5_validation_block, generate_ws5_snapshot
+        extraction_block = raw.get("extraction") or {}
+        validation_block = build_ws5_validation_block(extraction_block)
+        raw["validation"] = validation_block
+        raw["ws_snapshot"] = generate_ws5_snapshot(extraction_block, validation_block)
+
+    # For WS6: attach validation block (includes system_analytical_summary).
+    # ws_snapshot is written by Claude in the prompt — do not overwrite it here.
+    # If a manual validation already exists (e.g. 3-depth tree), preserve it.
+    if pdf_name == "31 Mart 2026 Çalışma Kâğıdı 6.pdf":
+        if not raw.get("validation"):
+            from ws6_validation import build_ws6_validation_block
+            extraction_block = raw.get("extraction") or {}
+            raw["validation"] = build_ws6_validation_block(extraction_block)
+
+    out_dir = OUT_DIR / key
     out_dir.mkdir(exist_ok=True)
     out_path = out_dir / pdf_name.replace(" ", "_").replace(".pdf", ".json").lower()
     with open(out_path, "w", encoding="utf-8") as f:

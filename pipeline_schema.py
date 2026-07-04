@@ -124,8 +124,9 @@ ITEM_IDS_WS4: list[str] = [f"WS4_B{i}" for i in range(1, 6)]
 ITEM_IDS_WS5: list[str] = [f"WS5_B{i}" for i in range(1, 26)]
 ITEM_IDS_WS6: list[str] = [f"WS6_B{i}" for i in range(1, 14)]
 ITEM_IDS_WS7: list[str] = (
-    [f"WS7_P1_box{i}" for i in range(1, 4)]
-    + [f"WS7_B{i}" for i in range(1, 8)]
+    [f"WS7_{i}" for i in range(1, 5)]          # Part 1 threshold expressions
+    + [f"WS7_P1_box{i}" for i in range(1, 4)]  # Part 1 path labels
+    + [f"WS7_B{i}" for i in range(1, 8)]       # Part 2 if-then rules
 )
 ITEM_IDS_WS10: list[str] = [f"WS10_B{i}" for i in range(1, 9)]
 
@@ -165,7 +166,11 @@ PDF_ITEM_IDS: dict[str, list[str]] = {
     "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": ITEM_IDS_DT,
     "24 Mart 2026 Çalışma Kâğıdı 1.pdf": ITEM_IDS_WS1,
     "24 Mart 2026 Çalışma Kâğıdı 3.pdf": ITEM_IDS_WS3,
+    "24 Mart 2026 Çalışma Kâğıdı 4.pdf": ITEM_IDS_WS4,
+    "24 Mart 2026 Çalışma Kâğıdı 5.pdf": ITEM_IDS_WS5,
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": ITEM_IDS_WS6,
+    "31 Mart 2026 Çalışma Kâğıdı 7.pdf": ITEM_IDS_WS7,
+    "31 Mart 2026 Çalışma Kâğıdı 10.pdf": ITEM_IDS_WS10,
 }
 
 WORKSHEET_ITEM_IDS: dict[str, list[str]] = {
@@ -185,14 +190,14 @@ WORKSHEET_PDF_SOURCE: dict[str, str] = {
     "WS_DT": "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf",
     "WS1":   "24 Mart 2026 Çalışma Kâğıdı 1.pdf",
     "WS3":   "24 Mart 2026 Çalışma Kâğıdı 3.pdf",
+    "WS5":   "24 Mart 2026 Çalışma Kâğıdı 5.pdf",
     "WS6":   "31 Mart 2026 Çalışma Kâğıdı 6.pdf",
     # 2025 cohort (combined PDFs — updated per worksheet as 2026 data lands)
     "WS1_legacy":  "Worksheets1-10.pdf",
-    "WS3":  "Worksheets1-10.pdf",
+    "WS3_legacy":  "Worksheets1-10.pdf",
     "WS4":  "Worksheets1-10.pdf",
-    "WS5":  "Worksheets1-10.pdf",
-    "WS7":  "Worksheets1-10.pdf",
-    "WS10": "Worksheets1-10.pdf",
+    "WS7":  "31 Mart 2026 Çalışma Kâğıdı 7.pdf",
+    "WS10": "31 Mart 2026 Çalışma Kâğıdı 10.pdf",
     "WS11": "Worksheet11_ Feedbacks.pdf",
 }
 
@@ -209,6 +214,7 @@ PDF_PAGES_PER_STUDENT: dict[str, int] = {
     "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf": 4,
     "24 Mart 2026 Çalışma Kâğıdı 1.pdf": 1,
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": 1,
+    "31 Mart 2026 Çalışma Kâğıdı 10.pdf": 1,
 }
 
 # Fixed page order inside Worksheets1-10.pdf (ProDaBi v4; calibrated on Felicity bundle).

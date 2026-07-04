@@ -547,3 +547,233 @@ def row_score_from_check(check: dict[str, Any], max_score: float = 1.0) -> float
     from rubric_deterministic import score_from_credit
 
     return score_from_credit(check, max_score)
+
+
+def _compute_leaf_counts(parsed: dict[str, Any], cards: tuple[dict[str, Any], ...]) -> dict[str, int]:
+    """Compute expected leaf counts for both branches from food card data."""
+    left_rec = left_not_rec = right_rec = right_not_rec = 0
+    for card in cards:
+        goes_left = predict_recommended(card, parsed)
+        is_rec = bool(card["recommended"])
+        if goes_left is True or goes_left is None:
+            if is_rec:
+                left_rec += 1
+            else:
+                left_not_rec += 1
+        else:
+            if is_rec:
+                right_rec += 1
+            else:
+                right_not_rec += 1
+    return {
+        "left_leaf_recommended": left_rec,
+        "left_leaf_not_recommended": left_not_rec,
+        "right_leaf_recommended": right_rec,
+        "right_leaf_not_recommended": right_not_rec,
+    }
+
+
+def build_ws5_validation_block(extraction: dict[str, Any]) -> dict[str, Any]:
+    """
+    Build the validation block from the WS5 extraction format.
+
+    Each trial has: parsed_feature, left_operator, left_threshold,
+    left_leaf_recommended, left_leaf_not_recommended,
+    right_operator, right_threshold,
+    right_leaf_recommended, right_leaf_not_recommended,
+    student_error_count, student_mcr.
+
+    Validation output per trial:
+      system_error_count, is_leaf_counts_correct,
+      is_error_count_correct, is_operator_logic_correct, error_flag
+    """
+    cards = load_food_cards()
+
+    raw_trials = extraction.get("trials") or []
+    final_decision_raw = extraction.get("final_decision_raw")
+
+    validated_trials: list[dict[str, Any]] = []
+    eligible: list[dict[str, Any]] = []
+
+    for trial in raw_trials:
+        trial_id = trial.get("trial_id")
+        feature = trial.get("parsed_feature")
+        left_op = trial.get("left_operator")
+        left_thresh = trial.get("left_threshold")
+        right_op = trial.get("right_operator")
+        right_thresh = trial.get("right_threshold")
+        student_errors = trial.get("student_error_count")
+
+        parsed = None
+        if feature and left_op and left_thresh is not None:
+            resolved = resolve_feature(feature)
+            if resolved:
+                parsed = {
+                    "feature": resolved,
+                    "operator": left_op,
+                    "value": float(left_thresh),
+                    "operator_inclusive": left_op in INCLUSIVE_OPS,
+                    "operator_strict": left_op in STRICT_OPS,
+                }
+
+        if parsed is None:
+            validated_trials.append({
+                "trial_id": trial_id,
+                "system_error_count": None,
+                "is_leaf_counts_correct": False,
+                "is_error_count_correct": False,
+                "is_operator_logic_correct": False,
+                "error_flag": "unparseable_threshold",
+            })
+            continue
+
+        # is_operator_logic_correct: complementary pair AND matching thresholds
+        op_flags: list[str] = []
+        op_logic_correct = True
+        if left_op and right_op:
+            if not operators_are_complementary(left_op, right_op):
+                expected_right = complementary_operator(left_op)
+                op_flags.append(
+                    f"non_complementary_operators"
+                    f" (left={left_op}, right={right_op}, expected_right={expected_right})"
+                )
+                op_logic_correct = False
+        else:
+            op_flags.append("missing_operator")
+            op_logic_correct = False
+
+        if left_thresh is not None and right_thresh is not None:
+            if abs(float(left_thresh) - float(right_thresh)) > 1e-9:
+                op_flags.append(
+                    f"threshold_mismatch (left={left_thresh}, right={right_thresh})"
+                )
+                op_logic_correct = False
+
+        # Leaf count check
+        system_leaves = _compute_leaf_counts(parsed, cards)
+        student_leaves = {
+            "left_leaf_recommended": trial.get("left_leaf_recommended"),
+            "left_leaf_not_recommended": trial.get("left_leaf_not_recommended"),
+            "right_leaf_recommended": trial.get("right_leaf_recommended"),
+            "right_leaf_not_recommended": trial.get("right_leaf_not_recommended"),
+        }
+        is_leaf_counts_correct = all(
+            student_leaves.get(k) == system_leaves[k] for k in system_leaves
+        )
+        if not is_leaf_counts_correct:
+            op_flags.append("leaf_count_mismatch")
+
+        expected = expected_row_counts(parsed, cards=cards)
+        system_errors = expected["errors"]
+        is_error_count_correct = student_errors is not None and student_errors == system_errors
+
+        if not is_error_count_correct:
+            op_flags.append("arithmetic_inconsistent")
+
+        error_flag = "; ".join(op_flags) if op_flags else None
+
+        validated_trials.append({
+            "trial_id": trial_id,
+            "system_error_count": system_errors,
+            "is_leaf_counts_correct": is_leaf_counts_correct,
+            "is_error_count_correct": is_error_count_correct,
+            "is_operator_logic_correct": op_logic_correct,
+            "error_flag": error_flag,
+        })
+
+        if is_error_count_correct and student_errors is not None:
+            eligible.append({
+                "trial_id": trial_id,
+                "feature": feature,
+                "left_threshold": left_thresh,
+                "student_errors": student_errors,
+            })
+
+    # final_decision_logical: student chose a trial with minimum student-reported errors
+    final_decision_logical = False
+    if final_decision_raw and eligible:
+        min_errors = min(t["student_errors"] for t in eligible)
+        parsed_final = parse_threshold_expression(final_decision_raw)
+        for t in eligible:
+            if t["student_errors"] != min_errors:
+                continue
+            matched = False
+            if parsed_final:
+                resolved = resolve_feature(t["feature"] or "")
+                matched = (
+                    parsed_final.get("feature") == resolved
+                    and abs(parsed_final.get("value", -1) - float(t["left_threshold"] or 0)) < 1e-9
+                )
+            if not matched and t["feature"]:
+                norm_final = normalize_token(final_decision_raw)
+                raw_val = t["left_threshold"] or 0
+                thresh_candidates = [str(raw_val), str(raw_val).replace(".", ",")]
+                if isinstance(raw_val, float) and raw_val == int(raw_val):
+                    thresh_candidates.append(str(int(raw_val)))
+                matched = normalize_token(t["feature"]) in norm_final and any(
+                    normalize_token(tc) in norm_final for tc in thresh_candidates
+                )
+            if matched:
+                final_decision_logical = True
+                break
+
+    return {
+        "trials": validated_trials,
+        "final_decision_logical": final_decision_logical,
+    }
+
+
+def generate_ws5_snapshot(extraction: dict[str, Any], validation: dict[str, Any]) -> str:
+    """Generate a Turkish ws_snapshot comparing extraction and validation results."""
+    ext_trials = extraction.get("trials") or []
+    val_trials = {t["trial_id"]: t for t in (validation.get("trials") or [])}
+    final_logical = validation.get("final_decision_logical", False)
+
+    parts: list[str] = []
+    n = len(ext_trials)
+    features = [t.get("parsed_feature", "?") for t in ext_trials]
+    parts.append(f"Öğrenci {n} deneme yapmış: {', '.join(features)} değişkenlerini test etmiş.")
+
+    trial_summaries: list[str] = []
+    for t in ext_trials:
+        tid = t.get("trial_id")
+        feature = t.get("parsed_feature", "?")
+        left_op = t.get("left_operator", "?")
+        left_thresh = t.get("left_threshold", "?")
+        student_err = t.get("student_error_count")
+        vt = val_trials.get(tid, {})
+        system_err = vt.get("system_error_count")
+        eflag = vt.get("error_flag") or ""
+
+        if student_err is not None and system_err is not None:
+            if student_err == system_err:
+                count_str = "doğru sayım"
+            else:
+                count_str = f"öğrenci {student_err}, sistem {system_err} — sayma hatası"
+        elif student_err is None:
+            count_str = "hata sayısı boş"
+        else:
+            count_str = "sistem doğrulanamadı"
+
+        extra = ""
+        if "non_complementary" in eflag:
+            extra = "; operatör çifti hatalı"
+        elif "threshold_mismatch" in eflag:
+            extra = "; eşik değerleri uyumsuz"
+        elif "leaf_count_mismatch" in eflag:
+            extra = "; dal sayıları hatalı"
+
+        trial_summaries.append(
+            f"Deneme {tid} ({feature} {left_op} {left_thresh}): {count_str}{extra}"
+        )
+
+    parts.append(" | ".join(trial_summaries) + ".")
+
+    if final_logical:
+        parts.append("Nihai kararında en düşük hata sayılı eşiği doğru seçmiş.")
+    else:
+        parts.append(
+            "Nihai kararı kendi sayımındaki en düşük hata sayılı denemeyle örtüşmüyor."
+        )
+
+    return " ".join(parts)

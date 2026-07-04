@@ -1,0 +1,76 @@
+{
+  "student_id": "Sample_Student",
+  "worksheet": "WS7",
+  "ws_snapshot": "Öğrenci kök düğümde Enerji için < 180 ve ≥ 180 eşiklerini doğru yazmış. Protein iç düğümünde < 7,7 ve ≥ 7,7 eşiklerini doğru yerleştirmiş. Yaprak sayıları eksiksiz doldurulmuş; alttaki A, B, C kural eşleştirme kutularına doğru harfleri yazmış.",
+  "page_notes": "(bos)",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "<",
+        "left_threshold_value": 180.0,
+        "right_operator": "≥",
+        "right_threshold_value": 180.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "node_recommended_count": 4,
+          "node_not_recommended_count": 0
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": 4,
+          "node_not_recommended_count": 3,
+          "left_operator": "<",
+          "left_threshold_value": 7.7,
+          "right_operator": "≥",
+          "right_threshold_value": 7.7
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 5
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": 2,
+            "leaf_not_recommended_count": 0
+          }
+        }
+      }
+    },
+    "rule_matching": {
+      "rule_1_box": "A",
+      "rule_2_box": "B",
+      "rule_3_box": "C"
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "tree_completeness": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "rule_mapping": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "threshold_alignment": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Öğrenci tersine mühendislik görevini eksiksiz tamamlamıştır. Enerji eşiği olarak beklenen 180 kcal değerini doğru operatörlerle (< ve ≥) yazmış, Protein eşiği olarak 7,7 g değerini yine doğru operatörlerle yerleştirmiştir. Kural eşleştirme kutularına da doğru harfleri (A, B, C) yazmıştır."
+  },
+  "operator_reading_notes": {
+    "critical_distinctions": [
+      "< vs ≤: el yazısında alt çizgi gözden kaçabilir. depth_0 ve depth_1 operatörlerini ayrı ayrı doğrula.",
+      "> vs ≥: aynı risk. Reversed notation ('190 <' gibi) sağ dal operatörü olarak '>' şeklinde parse edilmeli.",
+      "depth_0 ve depth_1.right_child complementary pair oluşturur; birbirinden bağımsız oku.",
+      "rule_matching kutularındaki A/B/C harfleri öğrenci el yazısıdır; ağaç üzerindeki basılı A/B/C etiketleriyle karıştırma."
+    ]
+  }
+}

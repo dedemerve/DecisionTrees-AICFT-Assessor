@@ -1,0 +1,66 @@
+{
+  "student_id": "Sample_Student",
+  "worksheet": "WS4",
+  "ws_snapshot": "Öğrenci yağ sıralamasında avokado ile patates kızartması arasına dikey bir çizgi çekmiş ve yanına '13.5' yazmış. Görev 1'de jelibon, kraker, yulaf ve avokado kartlarının etrafına daire çizmiş; yulaf ve kraker için isimleri de yazmış. Görev 2'de hata sayısının azaldığını belirtmiş. Görev 3'te Pia'nın haklı olduğunu ve elma ile reçelin yağ değerlerinin eşit (0.2g) olduğunu yazmış. Görev 4'te enerji eşik değeri olarak '200' yazmış.",
+  "page_notes": "B2'de daire çizimi net; jelibon ve avokado tam kart üzerinde, kraker ve yulaf ise sadece isim etiketi etrafında daire var. B5 değeri sayfanın sağ kenarına yazılmış.",
+  "extraction": {
+    "WS4_B1": {
+      "threshold_value_raw": "13.5",
+      "threshold_value_parsed": 13.5,
+      "placement_description": "Avokado ile patates kızartması arasına dikey çizgi çekilmiş"
+    },
+    "WS4_B2": {
+      "detection_method": "both",
+      "circled_cards": ["jelibon", "kraker", "yulaf", "avokado"],
+      "written_foods": "kraker, yulaf",
+      "foods_parsed": ["jelibon", "kraker", "yulaf", "avokado"]
+    },
+    "WS4_B3": {
+      "response_raw": "Daha az kart yanlış sınıflandırıldı. Önceki eşik değerinde 4 yanlış vardı, yeni eşikle 2 yanlış var."
+    },
+    "WS4_B4": {
+      "agrees_with_pia": true,
+      "response_raw": "Pia haklıdır çünkü elma ile ahududu reçelinin yağ değerleri eşit (0.2g). İkisi arasına sınır çizilmez."
+    },
+    "WS4_B5": {
+      "threshold_value_raw": "200",
+      "threshold_value_parsed": 200.0
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS4_B1": {
+        "parsed_value": 13.5,
+        "expected_range": [13.0, 14.0],
+        "is_correct": true,
+        "note": null
+      },
+      "WS4_B2": {
+        "found_foods": ["avokado", "jelibon", "kraker", "yulaf"],
+        "missing_foods": [],
+        "extra_foods": [],
+        "unrecognised_tokens": [],
+        "score": 1.0,
+        "is_correct": true
+      },
+      "WS4_B3": {
+        "is_correct": true,
+        "signal": "strong",
+        "note": null
+      },
+      "WS4_B4": {
+        "agrees_with_pia": true,
+        "mentions_equal_fat": true,
+        "score": 1.0,
+        "is_correct": true
+      },
+      "WS4_B5": {
+        "parsed_value": 200.0,
+        "expected_range": [160.0, 223.0],
+        "is_correct": true,
+        "note": null
+      }
+    },
+    "system_analytical_summary": "Görev 1: 4 yanlış sınıflandırılan kart doğru tespit edilmiş (jelibon, kraker, yulaf, avokado). Görev 2 — eşik: Avokado ile patates kızartması arasına doğru yerleştirilmiş (13.5g). Görev 2 — gerekçe: Hata sayısının azaldığını doğru biçimde gerekçelendirmiş. Görev 3 (Pia): Pia'nın haklı olduğunu ve elma ile reçelin yağ değerlerinin eşit (0.2g) olduğunu doğru açıklamış. Görev 4 — enerji eşiği: Doğru aralıkta (200.0 kcal, beklenen 160–223)."
+  }
+}

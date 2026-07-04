@@ -1,0 +1,98 @@
+{
+  "student_id": "Sample_Student",
+  "worksheet": "WS11",
+  "extraction": {
+    "survey": {
+      "WS11_B1": { "response_parsed": "İyi" },
+      "WS11_B2": { "response_parsed": "Evet" },
+      "WS11_B3": { "response_parsed": "Orta" },
+      "WS11_B4": { "response_parsed": "Evet" },
+      "WS11_B5": { "response_parsed": "Çok" },
+      "WS11_B6": { "response_parsed": "22" },
+      "WS11_B7": { "response_parsed": "Kız" }
+    },
+    "cognitive": {
+      "WS11_B8a": {
+        "response_parsed": "Tavsiye edilebilir"
+      },
+      "WS11_B8b": {
+        "response_parsed": "yağ ≤ 7,5 ve şeker < 12,5"
+      },
+      "WS11_B9": {
+        "response_parsed": "Karar ağacı, verileri belirli bir özelliğin eşik değerine göre iki gruba böler ve bu işlemi her düğümde tekrarlayarak sınıflandırma yapar."
+      },
+      "WS11_Q10": {
+        "WS11_Q10_1": { "response_parsed": "Doğru" },
+        "WS11_Q10_2": { "response_parsed": "Doğru" },
+        "WS11_Q10_3": { "response_parsed": "Yanlış" },
+        "WS11_Q10_4": { "response_parsed": "Doğru" },
+        "WS11_Q10_5": { "response_parsed": "Doğru" },
+        "WS11_Q10_6": { "response_parsed": "Yanlış" },
+        "WS11_Q10_7": { "response_parsed": "Yanlış" },
+        "WS11_Q10_8": { "response_parsed": "Doğru" }
+      },
+      "WS11_Q11": {
+        "WS11_Q11_2": { "response_parsed": 1 },
+        "WS11_Q11_3": { "response_parsed": 3 },
+        "WS11_Q11_4": { "response_parsed": 2 }
+      },
+      "WS11_Q12": {
+        "WS11_Q12_1": { "response_parsed": "Doğru" },
+        "WS11_Q12_2": { "response_parsed": "Yanlış" },
+        "WS11_Q12_3": { "response_parsed": "Yanlış" },
+        "WS11_Q12_4": { "response_parsed": "Yanlış" },
+        "WS11_Q12_5": { "response_parsed": "Doğru" }
+      }
+    },
+    "descriptive": {
+      "WS11_L10": {
+        "WS11_L10_1": { "response_parsed": "Doğru" },
+        "WS11_L10_2": { "response_parsed": "Doğru" },
+        "WS11_L10_3": { "response_parsed": "Yanlış" },
+        "WS11_L10_4": { "response_parsed": "Doğru" },
+        "WS11_L10_5": { "response_parsed": "Doğru" },
+        "WS11_L10_6": { "response_parsed": "Yanlış" },
+        "WS11_L10_7": { "response_parsed": "Yanlış" },
+        "WS11_L10_8": { "response_parsed": "Doğru" }
+      },
+      "WS11_L11": {
+        "WS11_L11_1": { "response_parsed": null },
+        "WS11_L11_2": { "response_parsed": 1 },
+        "WS11_L11_3": { "response_parsed": 3 }
+      },
+      "WS11_L12": {
+        "WS11_L12_1": { "response_parsed": "Doğru" },
+        "WS11_L12_2": { "response_parsed": "Yanlış" },
+        "WS11_L12_3": { "response_parsed": "Yanlış" },
+        "WS11_L12_4": { "response_parsed": "Yanlış" },
+        "WS11_L12_5": { "response_parsed": "Doğru" }
+      }
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "WS11_B8a": { "is_correct": true,  "error_flag": null },
+      "WS11_B8b": { "is_correct": true,  "error_flag": null },
+      "WS11_Q10_1": { "is_correct": true,  "error_flag": null },
+      "WS11_Q10_2": { "is_correct": true,  "error_flag": null },
+      "WS11_Q10_3": { "is_correct": true,  "error_flag": null },
+      "WS11_Q10_4": { "is_correct": true,  "error_flag": null },
+      "WS11_Q10_5": { "is_correct": true,  "error_flag": null },
+      "WS11_Q10_6": { "is_correct": true,  "error_flag": null },
+      "WS11_Q10_7": { "is_correct": true,  "error_flag": null },
+      "WS11_Q10_8": { "is_correct": true,  "error_flag": null },
+      "WS11_Q11_2": { "is_correct": true,  "error_flag": null },
+      "WS11_Q11_3": { "is_correct": true,  "error_flag": null },
+      "WS11_Q11_4": { "is_correct": true,  "error_flag": null },
+      "WS11_Q12_1": { "is_correct": true,  "error_flag": null },
+      "WS11_Q12_2": { "is_correct": true,  "error_flag": null },
+      "WS11_Q12_3": { "is_correct": true,  "error_flag": null },
+      "WS11_Q12_4": { "is_correct": true,  "error_flag": null },
+      "WS11_Q12_5": { "is_correct": true,  "error_flag": null }
+    },
+    "error_flags": [],
+    "system_analytical_summary": "Öğrenci bilişsel test bölümünü eksiksiz tamamlamıştır. B8a'da etiketi doğru belirlemiş, B8b'de kuralı operatör ve eşik değerleriyle doğru ifade etmiştir. Q10 Doğru/Yanlış ızgarasını, Q11 sıralama görevini ve Q12 boolean ızgarasını tamamı doğru yanıtlamıştır. Anket (B1–B7) puanlandırma kapsamı dışındadır."
+  },
+  "ws_snapshot": "Öğrenci WS11'i eksiksiz doldurmuş; anket bölümü ve bilişsel test sorularının tamamını yanıtlamıştır.",
+  "page_notes": "(bos)"
+}
