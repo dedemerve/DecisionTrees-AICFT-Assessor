@@ -1,6 +1,6 @@
 # Dataset Card: CODAP Arbor Process Codes (2025 + 2026 Cohorts)
 
-**Version:** 1.2 | **Date:** 2026-07-21 | **Scope:** process pipeline / methods (no proficiency scoring)
+**Version:** 1.3 | **Date:** 2026-07-21 | **Scope:** process pipeline / methods (no proficiency scoring)
 
 ---
 
@@ -90,40 +90,40 @@ See `training_datasets/2025/split_assignment.json` — frozen; do not re-randomi
 
 ## (f) Class distribution per code per split
 
-Overall observed rate: **6.2%** (260 / 4,220 cells) after V7 precheck correction. Severe class imbalance; see § Imbalance treatment.
+Overall observed rate: **6.0%** (252 / 4,220 cells) after full V7 precheck automation. Severe class imbalance; see § Imbalance treatment.
 
-Numbers reflect adjudicated calibration cells (gold_tier=expert_adjudicated) and V7 precheck applied (3 Edgar V7 cells reclassified to not_measurable).
+Per-code loss weights: `training_datasets/2025/cohort_imbalance_weights.json`.
 
-| Code | Label | Total obs/ep (rate) | Train obs/ep (rate) | Dev obs/ep | Test obs/ep | Train status |
+| Code | Label | Total obs (rate) | Train obs/117ep (rate) | Dev obs/47ep | Test obs/47ep | Train status |
 |---|---|---|---|---|---|---|
-| V1A | systematic_iteration | 68/211 (32.2%) | 35/117 (29.9%) | 17/47 | 16/47 | active |
-| V1B | chaotic_iteration | 0/211 (0.0%) | 0/117 | 0/47 | 0/47 | **zero-train** |
-| V2A | hesitation_disorientation | 6/211 (2.8%) | 3/117 (2.6%) | 1/47 | 2/47 | active |
-| V2B | interface_cycling | 0/211 (0.0%) | 0/117 | 0/47 | 0/47 | **zero-train** |
-| V3A | sustained_engagement | 0/211 (0.0%) | 0/117 | 0/47 | 0/47 | **zero-train** |
-| V3B | disengagement_passivity | 8/211 (3.8%) | 8/117 (6.8%) | 0/47 | 0/47 | active |
-| V4A | productive_recovery | 8/211 (3.8%) | 5/117 (4.3%) | 1/47 | 2/47 | active |
-| V4B | dead_end_loop | 2/211 (0.9%) | 1/117 (0.9%) | 1/47 | 0/47 | active (sparse) |
-| V5A | productive_help_seeking | 0/211 (0.0%) | 0/117 | 0/47 | 0/47 | **zero-train** |
-| V5B | dependent_execution | 46/211 (21.8%) | 19/117 (16.2%) | 5/47 | 22/47 | active |
-| V6A | mcr_zero_targeting | 2/211 (0.9%) | 0/117 (0.0%) | 1/47 | 1/47 | **zero-train** (in dev/test only) |
-| V6B | label_inversion | 0/211 (0.0%) | 0/117 | 0/47 | 0/47 | **zero-train** |
-| V6C | metric_scope_awareness | 3/211 (1.4%) | 2/117 (1.7%) | 1/47 | 0/47 | active (sparse) |
-| V7A | no_metric_inspection | 67/211 (31.8%) | 37/117 (31.6%) | 17/47 | 13/47 | active |
-| V7B | no_graph_reading | 17/211 (8.1%) | 7/117 (6.0%) | 3/47 | 7/47 | active |
-| V7C | no_comparison_despite_opportunity | 13/211 (6.2%) | 6/117 (5.1%) | 5/47 | 2/47 | active |
-| V8A | multi_instance_benchmarking | 0/211 (0.0%) | 0/117 | 0/47 | 0/47 | **retired** |
-| V8B | table_sort_threshold | 1/211 (0.5%) | 1/117 (0.9%) | 0/47 | 0/47 | active (sparse) |
-| V8C | ctr_in_place_edit | 13/211 (6.2%) | 5/117 (4.3%) | 2/47 | 6/47 | active |
-| V8D | import_failure_recovery | 6/211 (2.8%) | 6/117 (5.1%) | 0/47 | 0/47 | active |
+| V1A | systematic_iteration | 68/211 (32.2%) | 35 (29.9%) | 17 | 16 | active |
+| V1B | chaotic_iteration | 0/211 (0.0%) | 0 | 0 | 0 | **zero-train** |
+| V2A | hesitation_disorientation | 6/211 (2.8%) | 3 (2.6%) | 1 | 2 | active |
+| V2B | interface_cycling | 0/211 (0.0%) | 0 | 0 | 0 | **zero-train** |
+| V3A | sustained_engagement | 0/211 (0.0%) | 0 | 0 | 0 | **zero-train** |
+| V3B | disengagement_passivity | 8/211 (3.8%) | 8 (6.8%) | 0 | 0 | active |
+| V4A | productive_recovery | 8/211 (3.8%) | 5 (4.3%) | 1 | 2 | active |
+| V4B | dead_end_loop | 2/211 (0.9%) | 1 (0.9%) | 1 | 0 | active (sparse) |
+| V5A | productive_help_seeking | 0/211 (0.0%) | 0 | 0 | 0 | **zero-train** |
+| V5B | dependent_execution | 46/211 (21.8%) | 19 (16.2%) | 5 | 22 | active |
+| V6A | mcr_zero_targeting | 2/211 (0.9%) | 0 (0.0%) | 1 | 1 | **zero-train** (dev/test only) |
+| V6B | label_inversion | 0/211 (0.0%) | 0 | 0 | 0 | **zero-train** |
+| V6C | metric_scope_awareness | 3/211 (1.4%) | 2 (1.7%) | 1 | 0 | active (sparse) |
+| V7A | no_metric_inspection | 63/211 (29.9%) | 34 (29.1%) | 16 | 13 | active |
+| V7B | no_graph_reading | 15/211 (7.1%) | 5 (4.3%) | 3 | 7 | active |
+| V7C | no_comparison_despite_opportunity | 11/211 (5.2%) | 5 (4.3%) | 4 | 2 | active |
+| V8A | multi_instance_benchmarking | 0/211 (0.0%) | 0 | 0 | 0 | **retired** |
+| V8B | table_sort_threshold | 1/211 (0.5%) | 1 (0.9%) | 0 | 0 | active (sparse) |
+| V8C | ctr_in_place_edit | 13/211 (6.2%) | 5 (4.3%) | 2 | 6 | active |
+| V8D | import_failure_recovery | 6/211 (2.8%) | 6 (5.1%) | 0 | 0 | active |
 
-**Zero-in-train codes (Issue 4):** V1B, V2B, V3A, V5A, V6A, V6B, V8A — 7 codes have zero positive examples in the training split. These codes must be excluded from training loss. A model trained on this split cannot learn to predict any of these codes. See § Coverage gap table for recruitment plan.
+**Zero-in-train codes:** V1B, V2B, V3A, V5A, V6A, V6B, V8A — 7 codes have zero positive examples in the training split. Exclude from training loss. See § Coverage gap table for recruitment plan.
 
 **V6A structural note:** 2 cohort positives exist but both fall in dev/test splits. Exclude from training loss; include in eval as unseen-code probe.
 
 **Note on V8A (retired):** zero fires across 211 episodes; retired for 2025 task context. See codebook retired_codes section.
 
-**not_measurable cells:** 9 total (3 Edgar V7 upgraded by precheck; 6 from Pass 1 calibration). This confirms the third decision state is now reachable and correctly applied.
+**not_measurable cells: 17 total.** Breakdown: V7A=7, V7B=7, V7C=2, V2A=1. Sources: (a) V7 precheck automation — 8 cells (Ally 2, Calvin 1, David 1, Henry 1, Ozzy 3) where the episode contained an unanchored observation step; (b) prior application — 9 cells (Edgar 3 V7A from span=0 rule, 6 from Pass 1 calibration adjudication). Audit log: `training_datasets/2025/v7_precheck_auto_log.json`.
 
 ---
 
@@ -137,9 +137,9 @@ Numbers reflect adjudicated calibration cells (gold_tier=expert_adjudicated) and
 
 4. **Small cohort.** n=17 students limits generalizability. Rare-event codes with <5 positives across the cohort are not reliably trainable on this dataset alone.
 
-5. **Linkage tier — Issue 5 (resolved in data, documented here).** Four sessions are L3 (<70% silver timestamp span): Daisy (65%), David (70%), Edgar (0%), Felicity (0%). Edgar and Felicity have zero silver timestamp coverage, meaning their V-code labels were produced without any video time anchors — the expert narrative existed but no timestamp synchronization was possible. Edgar (21 episodes, train split) and Felicity (1 episode, train split) labels rest entirely on narrative text, not frame-anchored behavioral evidence. Their 3 V7 cells have been reclassified to `not_measurable` by the V7 precheck rule. All L3 sessions remain in the dataset but should be treated as lower-quality training signal. Any model that achieves high performance driven by Edgar's 21 episodes should be treated with suspicion until linkage is confirmed.
+5. **Linkage tier.** Three sessions have partial or no silver timestamp coverage: Daisy (65%), David (70%), Felicity (0%). Felicity has 1 episode and 1 step; L3 is correct for minimal engagement. Edgar originally had 0% span (all steps degenerated to frame_0001/ts=0 by the visual alignment algorithm); an ordinal-proportional heuristic alignment was applied — all 50 steps are now mapped proportionally across 74 frames. Edgar's `alignment_method = ordinal_proportional_heuristic` and `linkage_tier = L1` but timestamps are **approximate, not frame-matched**. The 3 Edgar V7A `not_measurable` cells are preserved. Edgar's EPC labels are valid for training; temporal bounds should not be used for fine-grained temporal analysis.
 
-6. **not_measurable now active.** 9 cells carry `not_measurable` after V7 precheck correction (3 Edgar V7 upgraded; 6 from Pass 1 calibration adjudication). The field is no longer universally zero. Future coding should apply the V7 precheck protocol to all remaining cohort V7* `observed` cells, particularly for Daisy and David (L3, partial span).
+6. **not_measurable now active: 17 cells.** All three decision states are reachable. The V7 precheck automation covered the full cohort; no remaining cohort V7* `observed` cells require manual review.
 
 7. **Adjudication is self-adjudication, not dual-rater.** The 600 expert_adjudicated cells come from a single researcher conducting Pass 1 and Pass 2 with ≥7-day washout, not two independent raters. This is documented as a scope decision (single-researcher lab context), not an oversight. Claims about inter-rater reliability must not be made from this process.
 
@@ -247,8 +247,13 @@ training_datasets/2025/
         <student>_episode_process_codes.parquet ← 1 row/episode×code; gold_tier, confidence_tier
         <student>_session_ml_features.parquet   ← 1 row/session (wide ML flags)
 
+training_datasets/2025/
+  v7_precheck_auto_log.json               ← audit log for V7 precheck automation
+  cohort_imbalance_weights.json           ← per-code loss_weight, use_focal_loss, exclude_from_train
+
 framework/
   VIDEO_PROCESS_CODEBOOK_v1.md            ← triage table, V7 pre-check protocol
+  EPISODE_SEGMENTATION_PROTOCOL_v1.md     ← boundary rule, categories, anchor events, 2026 extensions
   SCOPE_PROCESS_PIPELINE_ONLY.md          ← NON-GOALS
   Q1_CLAIM_LANGUAGE.md
 
@@ -275,15 +280,23 @@ DATASET_CARD.md                           ← this file
 | Zero-in-train codes undocumented | 2026-07-20 | Documented in § (f): 7 zero-train codes listed with train status column |
 | L3 linkage risk silent | 2026-07-20 | Documented in § (g) limitation 5; Edgar/Felicity V7 corrected in data |
 | Flat per-student directory; redundant formats; no traceability | 2026-07-21 | Migrated to v2 layered layout: `raw/`, `annotations/`, `intermediate/`, `metadata/`, `exports/tabular/`; silver_cost_matrix → `.npy`; tabular exports → `.parquet`; SHA-256 hashes in `session_manifest.json`; `source_timestamp_ms` added to every frame entry in extraction manifest |
+| V7 precheck not yet cohort-wide | 2026-07-21 | Automation applied to all 17 students; 8 cells changed; `v7_precheck_auto_log.json` records all changes |
+| No per-code loss weight table | 2026-07-21 | `cohort_imbalance_weights.json` computed: loss_weight and use_focal_loss per code |
+| Edgar visual alignment degenerate (all steps → frame_0001/ts=0) | 2026-07-21 | Ordinal-proportional heuristic alignment applied; `alignment_method` flag set; temporal bounds are approximate |
+| No segmentation protocol documented | 2026-07-21 | `framework/EPISODE_SEGMENTATION_PROTOCOL_v1.md` written (boundary rule, 4 categories, 18 anchor events, 2026 extensions) |
 
 ## Remaining human-action items
 
-| Step | Action | Owner |
+All 2025 preparation items are resolved. No outstanding human-action items.
+
+| Step | Status | Resolution |
 |---|---|---|
-| V7 | Case-by-case precheck on remaining cohort V7* observed cells (Daisy, David — L3 partial span) | Researcher |
-| Seg | Write two-page episode segmentation protocol; dual-segment 3 sessions | Researcher |
-| Model | Compute per-code imbalance ratios for training loss weighting table | Researcher |
-| L3 | Attempt silver timestamp recovery for Edgar and Felicity if source video available | Researcher |
+| V7 precheck (cohort-wide) | DONE | Automation applied; 8 cells updated; audit log saved |
+| Per-code imbalance weight table | DONE | `training_datasets/2025/cohort_imbalance_weights.json` |
+| Episode segmentation protocol | DONE | `framework/EPISODE_SEGMENTATION_PROTOCOL_v1.md` |
+| Edgar/Felicity timestamp recovery | DONE | Edgar: ordinal-proportional heuristic alignment. Felicity: single-step L3, closed. |
+
+**Pending (2026 pipeline, not 2025):** log-video sync test, Colab segmentation anchor event definition, `split_assignment.json` freeze.
 
 Calibration pack: `training_datasets/2025/adjudication/` — Pass 1 locked, Pass 2 complete, 9/9 disagreements resolved.
 
@@ -424,4 +437,4 @@ python scripts/build_video_analysis_bundle.py --student Amy --session codap_21ap
 python scripts/export_process_codes_tables.py --all-2026 --merge-cohort
 ```
 
-The `--year 2026` flag routes output to `training_datasets/2026/<student>/<session_id>/`. This flag does not yet exist in the scripts; it must be added before the pipeline can run on 2026 data.
+The `--year 2026` flag routes output to `training_datasets/2026/<student>/<session_id>/`.
