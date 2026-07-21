@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "created_at": "2026-07-20T19:06:34Z",
+  "rationale": "Student-level split to prevent episode leakage. Low-episode students (<=3 ep) forced to train. Test and dev each draw one student from high/mid/low tertile of episode counts.",
+  "splits": {
+    "train": [
+      "Bob",
+      "Calvin",
+      "Daisy",
+      "David",
+      "Edgar",
+      "Eliot",
+      "Felicity",
+      "Henry",
+      "Mike",
+      "Ozzy",
+      "Sabrina"
+    ],
+    "dev": [
+      "Ally",
+      "Boris",
+      "Daryl"
+    ],
+    "test": [
+      "Barbara",
+      "Frank",
+      "Zabby"
+    ]
+  },
+  "episode_counts": {
+    "Ally": 14,
+    "Barbara": 10,
+    "Bob": 2,
+    "Boris": 23,
+    "Calvin": 11,
+    "Daisy": 8,
+    "Daryl": 10,
+    "David": 18,
+    "Edgar": 21,
+    "Eliot": 7,
+    "Felicity": 1,
+    "Frank": 14,
+    "Henry": 18,
+    "Mike": 14,
+    "Ozzy": 6,
+    "Sabrina": 11,
+    "Zabby": 23
+  },
+  "note": "Do not re-randomize after observing model results. Frozen as of this commit."
+}

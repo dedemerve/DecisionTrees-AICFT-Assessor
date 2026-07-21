@@ -1,0 +1,23 @@
+{
+  "$schema": "schema/session_manifest.schema.json",
+  "artifact": "session_manifest",
+  "student_id": "Eliot",
+  "cohort_year": 2025,
+  "generated_at": "2026-07-21T05:42:59.428101+00:00",
+  "data_availability": {
+    "video": true,
+    "expert_narrative": true,
+    "log_metadata": false,
+    "audio_transcript": true,
+    "docx_screenshots": true
+  },
+  "linkage_tier": "L1",
+  "silver_timestamp_span_ms": 2354305,
+  "annotation_sha256": {
+    "Eliot_expert_process_narrative.v1.jsonl": "cd24254e4d8b28994e3e7d170bb2be6d798e353bc9e45935047572a237286569",
+    "Eliot_gold_behavior_alignment.v1.jsonl": "50ae5c4419ec59b00a0efcdb007930b3006c2232d9df7751741b709b72585082",
+    "Eliot_process_codes.v1.json": "cdc4ab08699942cb36e6edfd695a000ba4e3ec36e1a618d8f2f1ff9bcd715eb8"
+  },
+  "directory_layout_version": "v2",
+  "layout_note": "v2: raw/, annotations/, intermediate/, metadata/, exports/tabular/"
+}

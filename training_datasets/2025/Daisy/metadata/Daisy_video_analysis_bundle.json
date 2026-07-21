@@ -1,0 +1,58 @@
+{
+  "$schema": "schema/video_analysis_bundle.schema.json",
+  "student_id": "Daisy",
+  "cohort_year": 2025,
+  "bundle_version": "2.0-process-only",
+  "generated_at": "2026-07-20T18:41:59.741805+00:00",
+  "scope": "process_pipeline_methods_only",
+  "scoring_out_of_scope": true,
+  "artifacts": {
+    "expert_process_narrative": "training_datasets/2025/Daisy/annotations/Daisy_expert_process_narrative.v1.jsonl",
+    "expert_process_narrative_jsonl": "Daisy_expert_process_narrative.jsonl",
+    "process_codes": "training_datasets/2025/Daisy/annotations/Daisy_process_codes.v1.json",
+    "log_process_metadata": "training_datasets/2025/Daisy/metadata/Daisy_log_process_metadata.json",
+    "gold_behavior_alignment": "training_datasets/2025/Daisy/annotations/Daisy_gold_behavior_alignment.v1.jsonl",
+    "observation_steps_source": "Daisy_observation_steps.json",
+    "process_codes_tables_manifest": "tabular/Daisy_process_codes_tables_manifest.json"
+  },
+  "tabular_exports": {
+    "episodes": "training_datasets/2025/Daisy/exports/tabular/Daisy_episodes.parquet",
+    "episode_process_codes": "training_datasets/2025/Daisy/exports/tabular/Daisy_episode_process_codes.parquet",
+    "session_ml_features": "training_datasets/2025/Daisy/exports/tabular/Daisy_session_ml_features.parquet"
+  },
+  "measurement_layers": {
+    "process_narrative": "Full uzman_nitel_g\u00f6zlemi timeline (qualitative)",
+    "process_codes": "Episode-level V1-V8 process codes (non-scored)",
+    "log_metadata": "Task-4 chronology and log-only variables (null when no CSV)"
+  },
+  "coverage_audit": {
+    "steps_total": 38,
+    "steps_with_gold_shot": 38,
+    "steps_with_silver_anchor": 38,
+    "frames_total": 138,
+    "frames_with_step_inheritance": 138,
+    "video_duration_ms": 1393779,
+    "silver_timestamp_span_ms": 907256,
+    "low_silver_coverage": false,
+    "gaps_flagged": [
+      "rubric_gaps:1"
+    ],
+    "rubric_gaps_for_student": [
+      {
+        "gap_id": "GAP-R02",
+        "label": "Dataset column sorting for threshold exploration",
+        "why_not_covered": "B0 covers graph inspection and B1 covers representations. Table column sorting is a third modality of data appraisal not mentioned in either behavior. More importantly, sorting-for-threshold is a distinct reasoning pattern: it uses a tabular sort to estimate a split point without a graph. No current rule says whether this counts as B0-A2 evidence or as a separate data literacy behavior."
+      }
+    ],
+    "log_available": false,
+    "log_video_sync_status": "unavailable"
+  },
+  "dual_artifact_model": {
+    "process_layer": "Expert narrative + episode V-codes",
+    "log_layer": "Objective event chronology when CODAP CSV available",
+    "scoring_layer": "OUT OF SCOPE \u2014 see trash/scoring_out_of_scope_2026-07-20/",
+    "reference": "framework/VIDEO_PROCESS_CODEBOOK_v1.md"
+  },
+  "linkage_tier": "L3",
+  "layout_version": "v2"
+}

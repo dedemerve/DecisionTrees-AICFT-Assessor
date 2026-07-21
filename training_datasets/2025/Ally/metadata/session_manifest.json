@@ -1,0 +1,23 @@
+{
+  "$schema": "schema/session_manifest.schema.json",
+  "artifact": "session_manifest",
+  "student_id": "Ally",
+  "cohort_year": 2025,
+  "generated_at": "2026-07-21T05:42:36.505650+00:00",
+  "data_availability": {
+    "video": true,
+    "expert_narrative": true,
+    "log_metadata": false,
+    "audio_transcript": true,
+    "docx_screenshots": true
+  },
+  "linkage_tier": "L2",
+  "silver_timestamp_span_ms": 734840,
+  "annotation_sha256": {
+    "Ally_expert_process_narrative.v1.jsonl": "ff7602f2d7495127fb6100f3218e956e235de338d77e7bb5ed23b14a0e067f24",
+    "Ally_gold_behavior_alignment.v1.jsonl": "77defe1a2a8398d0466c9fdb187fd3642bc135fab3bd9a17094b8441d40504d6",
+    "Ally_process_codes.v1.json": "cb299a2d907fa165db90aaa59e79de724ff2b2724cb5acbdd2576fa8af5abdac"
+  },
+  "directory_layout_version": "v2",
+  "layout_note": "v2: raw/, annotations/, intermediate/, metadata/, exports/tabular/"
+}

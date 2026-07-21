@@ -1,0 +1,23 @@
+{
+  "$schema": "schema/session_manifest.schema.json",
+  "artifact": "session_manifest",
+  "student_id": "David",
+  "cohort_year": 2025,
+  "generated_at": "2026-07-21T05:42:59.271921+00:00",
+  "data_availability": {
+    "video": true,
+    "expert_narrative": true,
+    "log_metadata": false,
+    "audio_transcript": true,
+    "docx_screenshots": true
+  },
+  "linkage_tier": "L3",
+  "silver_timestamp_span_ms": 1647545,
+  "annotation_sha256": {
+    "David_expert_process_narrative.v1.jsonl": "b0dc967723baf7d239f8f76599d2bc493df70f53301b6950f6d0406c111e7b82",
+    "David_gold_behavior_alignment.v1.jsonl": "4960a5c0870c71e64e6dc58e9773fd644f02328771ba98e33d4005e879a55954",
+    "David_process_codes.v1.json": "08ade971b16baba654fccb754baacde469462996141066a1ffd2bc9111f7fd91"
+  },
+  "directory_layout_version": "v2",
+  "layout_note": "v2: raw/, annotations/, intermediate/, metadata/, exports/tabular/"
+}

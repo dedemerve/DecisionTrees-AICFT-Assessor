@@ -1,0 +1,38 @@
+{
+  "student_id": "Felicity",
+  "cohort_year": 2025,
+  "source_docx": "data_sources_2025/Felicity/Felicity_Analysis.docx",
+  "video_source": "Felicity_Screen_Recording.webm",
+  "parsed_at": "2026-07-19T19:32:29.517078+00:00",
+  "step_count": 1,
+  "docx_screenshot_count": 1,
+  "steps_with_docx_shot": 1,
+  "frames_in_manifest": 76,
+  "session_rubric": null,
+  "docx_screenshots": [
+    {
+      "shot_index": 0,
+      "paragraph_index": 2,
+      "path": "Felicity_docx_screenshots/docx_shot_0000.png",
+      "bytes": 270659
+    }
+  ],
+  "observation_steps": [
+    {
+      "step_index": 0,
+      "paragraph_index": 0,
+      "uzman_nitel_gözlemi": "Bu ekran kaydında önce CODAP Arbor açılır fakat sonrasında dataset yüklenmeden direkt bu ekrandan başka bir şey yoktur.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "docx_shot_index": 0,
+      "docx_shot_indices": [
+        0
+      ],
+      "ai_cft_evidence_justification": "Uzman gözlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanlı eşlendi; Word gömülü ekran görüntüsü birincil görsel GT.",
+      "sequence_pattern": null
+    }
+  ]
+}

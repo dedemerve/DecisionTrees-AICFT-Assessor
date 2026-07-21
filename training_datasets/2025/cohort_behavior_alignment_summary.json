@@ -1,0 +1,76 @@
+{
+  "cohort_year": 2025,
+  "generated_at": "2026-07-19T17:39:57.703438+00:00",
+  "students": [
+    {
+      "student_id": "Ally",
+      "status": "ok",
+      "steps": 37,
+      "frames_indexed": 107,
+      "match_confidence_histogram": {
+        "high": 10,
+        "medium": 10,
+        "low": 16,
+        "weak": 1
+      },
+      "top_behaviors": [
+        [
+          "DRAG_SPLIT_ATTRIBUTE",
+          18
+        ],
+        [
+          "ASSIGN_LEAF_LABEL",
+          17
+        ],
+        [
+          "SET_AXIS",
+          11
+        ],
+        [
+          "EMIT_TREE",
+          8
+        ],
+        [
+          "UPDATE_MOVABLE_VALUE",
+          7
+        ],
+        [
+          "CREATE_GRAPH",
+          5
+        ],
+        [
+          "ADD_MOVABLE_VALUE",
+          4
+        ],
+        [
+          "UPDATE_THRESHOLD",
+          4
+        ]
+      ],
+      "high_or_medium_matches": 20
+    }
+  ],
+  "codebook_size": 20,
+  "behavior_codes": [
+    "LOAD_DATASET",
+    "OPEN_ARBOR",
+    "TRAIN_TEST_SPLIT",
+    "SET_TARGET_ATTRIBUTE",
+    "CREATE_GRAPH",
+    "CLOSE_GRAPH",
+    "SET_AXIS",
+    "SWAP_AXES",
+    "ADD_MOVABLE_VALUE",
+    "UPDATE_MOVABLE_VALUE",
+    "DRAG_SPLIT_ATTRIBUTE",
+    "UPDATE_THRESHOLD",
+    "ASSIGN_LEAF_LABEL",
+    "EMIT_TREE",
+    "DELETE_TREE_OR_CTR_ROW",
+    "SELECT_CTR_ROW",
+    "INTERPRET_METRICS",
+    "COMPARE_MODELS",
+    "SEEK_HELP_OR_DIALOGUE",
+    "COLOR_OR_STYLE_GRAPH"
+  ]
+}

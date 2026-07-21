@@ -1,0 +1,37 @@
+{
+  "cohort_year": 2025,
+  "source": "inventory_followup",
+  "updated_at": "2026-07-19T15:55:00Z",
+  "counts": {
+    "student_folders": 20,
+    "video_plus_analysis_docx": 17,
+    "codap_only_no_video_no_word": [
+      "Daniella",
+      "Karl",
+      "Michael"
+    ],
+    "embedded_docx_screenshots_total": 543,
+    "codap_event_csv_for_2025": 0
+  },
+  "pilot": [
+    "Ally",
+    "Boris",
+    "Henry"
+  ],
+  "output_root": "training_datasets/2025",
+  "notes": [
+    "data_sources_2025 is FROZEN; all derived artifacts go under training_datasets/2025/",
+    "Primary visual ground truth = Analysis.docx embedded screenshots (order-zipped to text steps)",
+    "Motion keyframes from video are a secondary timeline modality for later Vision align",
+    "No 2025 CODAP log CSVs in repo; sistem_logu fields remain empty until recovered or derived",
+    "Daryl Analysis mentions 4 recordings but only 3 video files are on disk",
+    "all_students_2025_scores.json covers 13/17 Analysis students (Boris/Felicity/Sabrina/Zabby gaps)"
+  ],
+  "issues": [
+    {
+      "student_id": "Edgar",
+      "issue": "frozen_screen_recording",
+      "detail": "VP9 webm is a static still (~78 min); motion extraction yielded 0; salvaged 1 still for archive; use docx screenshots as primary visual GT."
+    }
+  ]
+}

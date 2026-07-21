@@ -1,0 +1,3939 @@
+{
+  "$schema_note": "Pass 1 LOCKED — expert proxy fill complete; await Pass 2 after >=7 day washout",
+  "form_id": "pass1_expert_coding",
+  "pass": 1,
+  "coder_id": "researcher_primary_proxy_expert_v1",
+  "claim_lock": "Expert-coded, self-adjudicated 2025 process training subset; pilot-model-ready for active V-codes. Not dual-rated; not all-20-codes training-ready.",
+  "instructions": [
+    "For each episode, open narrative + video/screenshots via source_files.",
+    "Code ALL 20 V-codes using observed | not_observed | not_measurable.",
+    "Do not look at pipeline_observed_codes until after you lock Pass 1.",
+    "For any V7* observed decision, complete v7_precheck three booleans; if any fail → not_measurable (or case-by-case note).",
+    "Write brief evidence_notes for every observed decision."
+  ],
+  "decision_states": [
+    "observed",
+    "not_observed",
+    "not_measurable"
+  ],
+  "v_codes": [
+    "V1A_systematic_iteration",
+    "V1B_chaotic_iteration",
+    "V2A_hesitation_disorientation",
+    "V2B_interface_cycling",
+    "V3A_sustained_engagement",
+    "V3B_disengagement_passivity",
+    "V4A_productive_recovery",
+    "V4B_dead_end_loop",
+    "V5A_productive_help_seeking",
+    "V5B_dependent_execution",
+    "V6A_mcr_zero_targeting",
+    "V6B_label_inversion",
+    "V6C_metric_scope_awareness",
+    "V7A_no_metric_inspection",
+    "V7B_no_graph_reading",
+    "V7C_no_comparison_despite_opportunity",
+    "V8A_multi_instance_benchmarking",
+    "V8B_table_sort_threshold",
+    "V8C_ctr_in_place_edit",
+    "V8D_import_failure_recovery"
+  ],
+  "episodes": [
+    {
+      "calibration_id": "cal_01",
+      "student_id": "Ally",
+      "episode_id": "ep_0001",
+      "split": "dev",
+      "start_ms": 486749,
+      "end_ms": 798027,
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Ally/Ally_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Ally/Ally_process_codes.json",
+        "bundle": "training_datasets/2025/Ally/Ally_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence_notes": "Sequential feature/threshold with inspection cycle.",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "observed",
+          "evidence_notes": "Delete/rebuild then productive reconfiguration.",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence_notes": "Graph used.",
+          "v7_precheck": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: systematic; graph+movable→threshold; MCR/Sens; independent.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_02",
+      "student_id": "Ally",
+      "episode_id": "ep_0002",
+      "split": "dev",
+      "start_ms": 633582,
+      "end_ms": 798027,
+      "step_indices": [
+        7,
+        8
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Ally/Ally_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Ally/Ally_process_codes.json",
+        "bundle": "training_datasets/2025/Ally/Ally_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "observed",
+          "evidence_notes": "Uncertainty/hesitation markers.",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "Delete/rebuild then productive reconfiguration.",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "observed",
+          "evidence_notes": "Metric scope / MCR-Sens discussion.",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence_notes": "Metric follow-up present.",
+          "v7_precheck": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: systematic; graph+movable→threshold; MCR/Sens; independent.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_03",
+      "student_id": "Ally",
+      "episode_id": "ep_0009",
+      "split": "dev",
+      "start_ms": 150116,
+      "end_ms": 798027,
+      "step_indices": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Ally/Ally_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Ally/Ally_process_codes.json",
+        "bundle": "training_datasets/2025/Ally/Ally_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence_notes": "Sequential feature/threshold with inspection cycle.",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence_notes": "Graph used.",
+          "v7_precheck": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: systematic; graph+movable→threshold; MCR/Sens; independent.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_04",
+      "student_id": "Boris",
+      "episode_id": "ep_0003",
+      "split": "dev",
+      "start_ms": 1007721,
+      "end_ms": 1122279,
+      "step_indices": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Boris/Boris_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Boris/Boris_process_codes.json",
+        "bundle": "training_datasets/2025/Boris/Boris_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence_notes": "Sequential feature/threshold with inspection cycle.",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence_notes": "Graph used.",
+          "v7_precheck": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: graph all features; systematic movable.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_05",
+      "student_id": "Boris",
+      "episode_id": "ep_0019",
+      "split": "dev",
+      "start_ms": 3979958,
+      "end_ms": 3979958,
+      "step_indices": [
+        50
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Boris/Boris_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Boris/Boris_process_codes.json",
+        "bundle": "training_datasets/2025/Boris/Boris_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence_notes": "Sequential feature/threshold with inspection cycle.",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence_notes": "Graph used.",
+          "v7_precheck": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: graph all features; systematic movable.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_06",
+      "student_id": "Daryl",
+      "episode_id": "ep_0001",
+      "split": "dev",
+      "start_ms": 259765,
+      "end_ms": 332395,
+      "step_indices": [
+        7,
+        8
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Daryl/Daryl_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Daryl/Daryl_process_codes.json",
+        "bundle": "training_datasets/2025/Daryl/Daryl_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: systematic features; trial thresholds.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_07",
+      "student_id": "Daryl",
+      "episode_id": "ep_0003",
+      "split": "dev",
+      "start_ms": 288210,
+      "end_ms": 555493,
+      "step_indices": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Daryl/Daryl_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Daryl/Daryl_process_codes.json",
+        "bundle": "training_datasets/2025/Daryl/Daryl_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: systematic features; trial thresholds.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_08",
+      "student_id": "Barbara",
+      "episode_id": "ep_0001",
+      "split": "test",
+      "start_ms": 1600441,
+      "end_ms": 2330889,
+      "step_indices": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Barbara/Barbara_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Barbara/Barbara_process_codes.json",
+        "bundle": "training_datasets/2025/Barbara/Barbara_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: teacher redirects.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_09",
+      "student_id": "Barbara",
+      "episode_id": "ep_0002",
+      "split": "test",
+      "start_ms": 1601459,
+      "end_ms": 1601459,
+      "step_indices": [
+        8
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Barbara/Barbara_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Barbara/Barbara_process_codes.json",
+        "bundle": "training_datasets/2025/Barbara/Barbara_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence_notes": "Metric follow-up present.",
+          "v7_precheck": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: teacher redirects.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_10",
+      "student_id": "Barbara",
+      "episode_id": "ep_0004",
+      "split": "test",
+      "start_ms": 1601459,
+      "end_ms": 2330889,
+      "step_indices": [
+        10,
+        11,
+        12
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Barbara/Barbara_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Barbara/Barbara_process_codes.json",
+        "bundle": "training_datasets/2025/Barbara/Barbara_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "observed",
+          "evidence_notes": "Delete/rebuild then productive reconfiguration.",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: teacher redirects.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_11",
+      "student_id": "Frank",
+      "episode_id": "ep_0001",
+      "split": "test",
+      "start_ms": 1669009,
+      "end_ms": 1669009,
+      "step_indices": [
+        4
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Frank/Frank_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Frank/Frank_process_codes.json",
+        "bundle": "training_datasets/2025/Frank/Frank_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "observed",
+          "evidence_notes": "Uncertainty/hesitation markers.",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence_notes": "Metric follow-up present.",
+          "v7_precheck": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: teacher scaffolding.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_12",
+      "student_id": "Frank",
+      "episode_id": "ep_0002",
+      "split": "test",
+      "start_ms": 1602325,
+      "end_ms": 1602325,
+      "step_indices": [
+        5
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Frank/Frank_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Frank/Frank_process_codes.json",
+        "bundle": "training_datasets/2025/Frank/Frank_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: teacher scaffolding.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_13",
+      "student_id": "Frank",
+      "episode_id": "ep_0008",
+      "split": "test",
+      "start_ms": 3400919,
+      "end_ms": 3400919,
+      "step_indices": [
+        17
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Frank/Frank_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Frank/Frank_process_codes.json",
+        "bundle": "training_datasets/2025/Frank/Frank_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "observed",
+          "evidence_notes": "Uncertainty/hesitation markers.",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence_notes": "Metric follow-up present.",
+          "v7_precheck": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: teacher scaffolding.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_14",
+      "student_id": "Zabby",
+      "episode_id": "ep_0007",
+      "split": "test",
+      "start_ms": 358529,
+      "end_ms": 542338,
+      "step_indices": [
+        23,
+        24,
+        25,
+        26
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Zabby/Zabby_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Zabby/Zabby_process_codes.json",
+        "bundle": "training_datasets/2025/Zabby/Zabby_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence_notes": "Sequential feature/threshold with inspection cycle.",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Sugar vs Fat compare; systematic.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_15",
+      "student_id": "Zabby",
+      "episode_id": "ep_0008",
+      "split": "test",
+      "start_ms": 362511,
+      "end_ms": 362511,
+      "step_indices": [
+        27
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Zabby/Zabby_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Zabby/Zabby_process_codes.json",
+        "bundle": "training_datasets/2025/Zabby/Zabby_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence_notes": "Sequential feature/threshold with inspection cycle.",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "observed",
+          "evidence_notes": "Delete/rebuild then productive reconfiguration.",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence_notes": "No emit in episode.",
+          "v7_precheck": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence_notes": "Graph used.",
+          "v7_precheck": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Sugar vs Fat compare; systematic.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_16",
+      "student_id": "Bob",
+      "episode_id": "ep_0000",
+      "split": "train",
+      "start_ms": 252883,
+      "end_ms": 252883,
+      "step_indices": [
+        0
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Bob/Bob_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Bob/Bob_process_codes.json",
+        "bundle": "training_datasets/2025/Bob/Bob_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "observed",
+          "evidence_notes": "Passive/minimal episode.",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence_notes": "No emit in episode.",
+          "v7_precheck": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_measurable",
+          "evidence_notes": "Graph opportunity unclear.",
+          "v7_precheck": {
+            "opportunity_visible": false,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Fat/Energy only; limited.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_17",
+      "student_id": "Bob",
+      "episode_id": "ep_0001",
+      "split": "train",
+      "start_ms": 471883,
+      "end_ms": 1668750,
+      "step_indices": [
+        1,
+        2,
+        3
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Bob/Bob_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Bob/Bob_process_codes.json",
+        "bundle": "training_datasets/2025/Bob/Bob_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence_notes": "Sequential feature/threshold with inspection cycle.",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence_notes": "Graph used.",
+          "v7_precheck": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Fat/Energy only; limited.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_18",
+      "student_id": "Calvin",
+      "episode_id": "ep_0004",
+      "split": "train",
+      "start_ms": 883178,
+      "end_ms": 883178,
+      "step_indices": [
+        12,
+        13
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Calvin/Calvin_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Calvin/Calvin_process_codes.json",
+        "bundle": "training_datasets/2025/Calvin/Calvin_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence_notes": "No emit in episode.",
+          "v7_precheck": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Tag→Label mistake.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_19",
+      "student_id": "Calvin",
+      "episode_id": "ep_0005",
+      "split": "train",
+      "start_ms": 1519537,
+      "end_ms": 1714115,
+      "step_indices": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Calvin/Calvin_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Calvin/Calvin_process_codes.json",
+        "bundle": "training_datasets/2025/Calvin/Calvin_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "observed",
+          "evidence_notes": "Delete/rebuild then productive reconfiguration.",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Tag→Label mistake.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_20",
+      "student_id": "Eliot",
+      "episode_id": "ep_0000",
+      "split": "train",
+      "start_ms": 23706,
+      "end_ms": 23706,
+      "step_indices": [
+        0
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Eliot/Eliot_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Eliot/Eliot_process_codes.json",
+        "bundle": "training_datasets/2025/Eliot/Eliot_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "observed",
+          "evidence_notes": "Passive/minimal episode.",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence_notes": "No emit in episode.",
+          "v7_precheck": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_measurable",
+          "evidence_notes": "Graph opportunity unclear.",
+          "v7_precheck": {
+            "opportunity_visible": false,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Fat then Label correction.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_21",
+      "student_id": "Eliot",
+      "episode_id": "ep_0001",
+      "split": "train",
+      "start_ms": 113935,
+      "end_ms": 1852647,
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Eliot/Eliot_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Eliot/Eliot_process_codes.json",
+        "bundle": "training_datasets/2025/Eliot/Eliot_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence_notes": "Sequential feature/threshold with inspection cycle.",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "observed",
+          "evidence_notes": "Delete/rebuild then productive reconfiguration.",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence_notes": "Graph used.",
+          "v7_precheck": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Fat then Label correction.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_22",
+      "student_id": "Henry",
+      "episode_id": "ep_0001",
+      "split": "train",
+      "start_ms": 16415,
+      "end_ms": 1277546,
+      "step_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Henry/Henry_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Henry/Henry_process_codes.json",
+        "bundle": "training_datasets/2025/Henry/Henry_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence_notes": "Sequential feature/threshold with inspection cycle.",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence_notes": "Graph used.",
+          "v7_precheck": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: many features; multi-depth.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_23",
+      "student_id": "Henry",
+      "episode_id": "ep_0003",
+      "split": "train",
+      "start_ms": 694468,
+      "end_ms": 694468,
+      "step_indices": [
+        14
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Henry/Henry_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Henry/Henry_process_codes.json",
+        "bundle": "training_datasets/2025/Henry/Henry_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: many features; multi-depth.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_24",
+      "student_id": "Mike",
+      "episode_id": "ep_0009",
+      "split": "train",
+      "start_ms": 1835733,
+      "end_ms": 1835733,
+      "step_indices": [
+        57
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Mike/Mike_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Mike/Mike_process_codes.json",
+        "bundle": "training_datasets/2025/Mike/Mike_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "observed",
+          "evidence_notes": "Passive/minimal episode.",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence_notes": "No emit in episode.",
+          "v7_precheck": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_measurable",
+          "evidence_notes": "Graph opportunity unclear.",
+          "v7_precheck": {
+            "opportunity_visible": false,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Label hesitation; label errors.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_25",
+      "student_id": "Mike",
+      "episode_id": "ep_0010",
+      "split": "train",
+      "start_ms": 1837806,
+      "end_ms": 1837806,
+      "step_indices": [
+        58
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Mike/Mike_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Mike/Mike_process_codes.json",
+        "bundle": "training_datasets/2025/Mike/Mike_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Label hesitation; label errors.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_26",
+      "student_id": "Mike",
+      "episode_id": "ep_0011",
+      "split": "train",
+      "start_ms": null,
+      "end_ms": null,
+      "step_indices": [
+        59
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Mike/Mike_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Mike/Mike_process_codes.json",
+        "bundle": "training_datasets/2025/Mike/Mike_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "observed",
+          "evidence_notes": "Uncertainty/hesitation markers.",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "observed",
+          "evidence_notes": "Passive/minimal episode.",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "observed",
+          "evidence_notes": "Metric scope / MCR-Sens discussion.",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence_notes": "No emit in episode.",
+          "v7_precheck": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_measurable",
+          "evidence_notes": "Graph opportunity unclear.",
+          "v7_precheck": {
+            "opportunity_visible": false,
+            "full_window_covered": false,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Label hesitation; label errors. | Partial visual anchors.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_27",
+      "student_id": "Ozzy",
+      "episode_id": "ep_0000",
+      "split": "train",
+      "start_ms": 113306,
+      "end_ms": 145183,
+      "step_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Ozzy/Ozzy_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Ozzy/Ozzy_process_codes.json",
+        "bundle": "training_datasets/2025/Ozzy/Ozzy_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "observed",
+          "evidence_notes": "Continued after difficulty.",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence_notes": "No emit in episode.",
+          "v7_precheck": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_measurable",
+          "evidence_notes": "Graph opportunity unclear.",
+          "v7_precheck": {
+            "opportunity_visible": false,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence_notes": "No multi-model opportunity.",
+          "v7_precheck": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: trial-error; teacher help; MCR=0 goal.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_28",
+      "student_id": "Ozzy",
+      "episode_id": "ep_0001",
+      "split": "train",
+      "start_ms": 577484,
+      "end_ms": 1490375,
+      "step_indices": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Ozzy/Ozzy_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Ozzy/Ozzy_process_codes.json",
+        "bundle": "training_datasets/2025/Ozzy/Ozzy_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "observed",
+          "evidence_notes": "Delete/rebuild then productive reconfiguration.",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence_notes": "Teacher-directed execution.",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: trial-error; teacher help; MCR=0 goal.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_29",
+      "student_id": "Sabrina",
+      "episode_id": "ep_0003",
+      "split": "train",
+      "start_ms": 1442755,
+      "end_ms": 1450722,
+      "step_indices": [
+        12,
+        13
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Sabrina/Sabrina_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Sabrina/Sabrina_process_codes.json",
+        "bundle": "training_datasets/2025/Sabrina/Sabrina_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Fat/Carb/SatFat; graph then trial-error.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    },
+    {
+      "calibration_id": "cal_30",
+      "student_id": "Sabrina",
+      "episode_id": "ep_0005",
+      "split": "train",
+      "start_ms": 1555583,
+      "end_ms": 1743022,
+      "step_indices": [
+        15,
+        16,
+        17
+      ],
+      "source_files": {
+        "narrative": "training_datasets/2025/Sabrina/Sabrina_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Sabrina/Sabrina_process_codes.json",
+        "bundle": "training_datasets/2025/Sabrina/Sabrina_video_analysis_bundle.json"
+      },
+      "codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence_notes": "Emit without metric-panel follow-up.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "observed",
+          "evidence_notes": "Tree work without graph.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "observed",
+          "evidence_notes": "Multi-emit without comparison language.",
+          "v7_precheck": {
+            "opportunity_visible": true,
+            "full_window_covered": true,
+            "no_offscreen_account": true
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence_notes": "",
+          "v7_precheck": null
+        }
+      },
+      "episode_notes": "Scheme: Fat/Carb/SatFat; graph then trial-error.",
+      "coded_at": "2026-07-20T19:30:50.948395+00:00"
+    }
+  ],
+  "pass1_locked_at": "2026-07-20T19:30:50.948395+00:00",
+  "coding_method": "Single-researcher expert proxy from narratives + qualitative scheme priors. Not dual-rated. Pipeline hints unused as gold."
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "schema/video_analysis_bundle.schema.json",
+  "student_id": "David",
+  "cohort_year": 2025,
+  "bundle_version": "2.0-process-only",
+  "generated_at": "2026-07-20T18:41:59.792136+00:00",
+  "scope": "process_pipeline_methods_only",
+  "scoring_out_of_scope": true,
+  "artifacts": {
+    "expert_process_narrative": "training_datasets/2025/David/annotations/David_expert_process_narrative.v1.jsonl",
+    "expert_process_narrative_jsonl": "David_expert_process_narrative.jsonl",
+    "process_codes": "training_datasets/2025/David/annotations/David_process_codes.v1.json",
+    "log_process_metadata": "training_datasets/2025/David/metadata/David_log_process_metadata.json",
+    "gold_behavior_alignment": "training_datasets/2025/David/annotations/David_gold_behavior_alignment.v1.jsonl",
+    "observation_steps_source": "David_observation_steps.json",
+    "process_codes_tables_manifest": "tabular/David_process_codes_tables_manifest.json"
+  },
+  "tabular_exports": {
+    "episodes": "training_datasets/2025/David/exports/tabular/David_episodes.parquet",
+    "episode_process_codes": "training_datasets/2025/David/exports/tabular/David_episode_process_codes.parquet",
+    "session_ml_features": "training_datasets/2025/David/exports/tabular/David_session_ml_features.parquet"
+  },
+  "measurement_layers": {
+    "process_narrative": "Full uzman_nitel_g\u00f6zlemi timeline (qualitative)",
+    "process_codes": "Episode-level V1-V8 process codes (non-scored)",
+    "log_metadata": "Task-4 chronology and log-only variables (null when no CSV)"
+  },
+  "coverage_audit": {
+    "steps_total": 31,
+    "steps_with_gold_shot": 28,
+    "steps_with_silver_anchor": 28,
+    "frames_total": 195,
+    "frames_with_step_inheritance": 195,
+    "video_duration_ms": 2357320,
+    "silver_timestamp_span_ms": 1647545,
+    "low_silver_coverage": false,
+    "gaps_flagged": [
+      "text_only_steps:3",
+      "rubric_gaps:3"
+    ],
+    "rubric_gaps_for_student": [
+      {
+        "gap_id": "GAP-R05",
+        "label": "Peer-taught threshold value (peer as knowledge source)",
+        "why_not_covered": "Section 6 currently defines scaffolded speech as teacher/researcher utterances. It does not explicitly address peer utterances. The implicit assumption is that peer-supplied information has the same status as teacher scaffolding (should not satisfy learner criteria). However, peer challenges (David's case) are different from peer instruction: a peer challenge where the learner defends or adjusts their model is more similar to learner-initiated reasoning than to a teacher scaffold."
+      },
+      {
+        "gap_id": "GAP-R06",
+        "label": "Precision metric awareness (metric outside rubric scope)",
+        "why_not_covered": "The rubric defines B8 in terms of MCR, sensitivity, and accuracy. B13 requires MCR + sensitivity integration specifically. Precision questions fall outside both. There is no rule for awareness of metrics beyond the CTR display. This is notable because precision-recall trade-off awareness is a legitimate AI literacy concept (UNESCO AI-CFT: 'understanding limitations of classification metrics')."
+      },
+      {
+        "gap_id": "GAP-R08",
+        "label": "Editing an existing CTR record (in-place model revision)",
+        "why_not_covered": "CTR record editing is not described in B7 (which assumes build\u2192emit\u2192rebuild). The current rubric implies CTR is append-only. In-place editing of a historical row means the CTR log no longer reflects the build history accurately. No rule addresses: (a) whether in-place edits count as B7-D1 refinement evidence; (b) whether the edited row still counts as a separate model for B12 comparison."
+      }
+    ],
+    "log_available": false,
+    "log_video_sync_status": "unavailable"
+  },
+  "dual_artifact_model": {
+    "process_layer": "Expert narrative + episode V-codes",
+    "log_layer": "Objective event chronology when CODAP CSV available",
+    "scoring_layer": "OUT OF SCOPE \u2014 see trash/scoring_out_of_scope_2026-07-20/",
+    "reference": "framework/VIDEO_PROCESS_CODEBOOK_v1.md"
+  },
+  "linkage_tier": "L3",
+  "layout_version": "v2"
+}

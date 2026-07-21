@@ -1,0 +1,44 @@
+{
+  "$schema": "schema/process_codes_tables.schema.json",
+  "export_version": "1.0",
+  "generated_at": "2026-07-20T19:42:41.806851+00:00",
+  "cohort_year": 2025,
+  "student_id": "Felicity",
+  "source_artifact": "process_codes",
+  "source_file": "Felicity_process_codes.json",
+  "tables": {
+    "episodes": {
+      "grain": "student_id × episode_id",
+      "primary_key": [
+        "student_id",
+        "cohort_year",
+        "episode_id"
+      ],
+      "row_count": 1,
+      "jsonl": "tabular/Felicity_episodes.jsonl",
+      "csv": "tabular/Felicity_episodes.csv",
+      "parquet": null
+    },
+    "episode_process_codes": {
+      "grain": "student_id × episode_id × v_code",
+      "primary_key": [
+        "row_id"
+      ],
+      "row_count": 20,
+      "jsonl": "tabular/Felicity_episode_process_codes.jsonl",
+      "csv": "tabular/Felicity_episode_process_codes.csv",
+      "parquet": null
+    },
+    "session_ml_features": {
+      "grain": "student_id",
+      "primary_key": [
+        "student_id",
+        "cohort_year"
+      ],
+      "row_count": 1,
+      "jsonl": "tabular/Felicity_session_ml_features.jsonl",
+      "csv": "tabular/Felicity_session_ml_features.csv",
+      "parquet": null
+    }
+  }
+}

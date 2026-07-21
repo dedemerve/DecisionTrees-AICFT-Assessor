@@ -1,0 +1,23 @@
+{
+  "$schema": "schema/session_manifest.schema.json",
+  "artifact": "session_manifest",
+  "student_id": "Felicity",
+  "cohort_year": 2025,
+  "generated_at": "2026-07-21T05:42:59.493051+00:00",
+  "data_availability": {
+    "video": true,
+    "expert_narrative": true,
+    "log_metadata": false,
+    "audio_transcript": true,
+    "docx_screenshots": true
+  },
+  "linkage_tier": "L3",
+  "silver_timestamp_span_ms": 0,
+  "annotation_sha256": {
+    "Felicity_expert_process_narrative.v1.jsonl": "1451ec724647071df1bb4960441ce20feef471a3c87484afcb35aaaad80b713d",
+    "Felicity_gold_behavior_alignment.v1.jsonl": "9d48cd882802eba69da0c4c1ecffda4e269931c03e8416c1a0b0e1281ff738ad",
+    "Felicity_process_codes.v1.json": "4617e88fdb12748f0eb31cf2c2c28c3de21d407c14f67faaa5b6623b97a19573"
+  },
+  "directory_layout_version": "v2",
+  "layout_note": "v2: raw/, annotations/, intermediate/, metadata/, exports/tabular/"
+}

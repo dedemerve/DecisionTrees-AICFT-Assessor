@@ -1,0 +1,44 @@
+{
+  "$schema": "schema/process_codes_tables.schema.json",
+  "export_version": "1.0",
+  "generated_at": "2026-07-20T19:42:41.816532+00:00",
+  "cohort_year": 2025,
+  "student_id": "Frank",
+  "source_artifact": "process_codes",
+  "source_file": "Frank_process_codes.json",
+  "tables": {
+    "episodes": {
+      "grain": "student_id × episode_id",
+      "primary_key": [
+        "student_id",
+        "cohort_year",
+        "episode_id"
+      ],
+      "row_count": 14,
+      "jsonl": "tabular/Frank_episodes.jsonl",
+      "csv": "tabular/Frank_episodes.csv",
+      "parquet": null
+    },
+    "episode_process_codes": {
+      "grain": "student_id × episode_id × v_code",
+      "primary_key": [
+        "row_id"
+      ],
+      "row_count": 280,
+      "jsonl": "tabular/Frank_episode_process_codes.jsonl",
+      "csv": "tabular/Frank_episode_process_codes.csv",
+      "parquet": null
+    },
+    "session_ml_features": {
+      "grain": "student_id",
+      "primary_key": [
+        "student_id",
+        "cohort_year"
+      ],
+      "row_count": 1,
+      "jsonl": "tabular/Frank_session_ml_features.jsonl",
+      "csv": "tabular/Frank_session_ml_features.csv",
+      "parquet": null
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "schema/session_manifest.schema.json",
+  "artifact": "session_manifest",
+  "student_id": "Zabby",
+  "cohort_year": 2025,
+  "generated_at": "2026-07-21T05:43:00.181776+00:00",
+  "data_availability": {
+    "video": true,
+    "expert_narrative": true,
+    "log_metadata": false,
+    "audio_transcript": true,
+    "docx_screenshots": true
+  },
+  "linkage_tier": "L2",
+  "silver_timestamp_span_ms": 1059709,
+  "annotation_sha256": {
+    "Zabby_expert_process_narrative.v1.jsonl": "b9025d0ae22829680590ab4ef2184a2314eb9f826627ebe873d8cf8d7e38e5a3",
+    "Zabby_gold_behavior_alignment.v1.jsonl": "7c62fc80a8a7d2e06f871b553f4be4e50780fdddcd3a1859af6b2ddb069b1445",
+    "Zabby_process_codes.v1.json": "ebb2c6bee875749b32542f479e1e2366da862c668056124de269862611df9542"
+  },
+  "directory_layout_version": "v2",
+  "layout_note": "v2: raw/, annotations/, intermediate/, metadata/, exports/tabular/"
+}

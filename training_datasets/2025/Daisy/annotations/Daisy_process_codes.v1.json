@@ -1,0 +1,1446 @@
+{
+  "$schema": "schema/video_process_codes.schema.json",
+  "artifact": "process_codes",
+  "student_id": "Daisy",
+  "cohort_year": 2025,
+  "schema_version": "1.0",
+  "generated_at": "2026-07-20T18:41:59.727838+00:00",
+  "codebook_id": "VIDEO_PROCESS_CODEBOOK_v1",
+  "interpretation_rule": "Episode-level V-codes support process interpretation and ML feature engineering. They are not proficiency scores. Heuristic decisions from expert narrative require human adjudication.",
+  "episodes": [
+    {
+      "episode_id": "ep_0000",
+      "step_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "dominant_category": "EXPLORE",
+      "anchor_event": "LOAD_DATASET",
+      "start_ms": 440793,
+      "end_ms": 699065,
+      "assistance_status": "independent",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "observed",
+          "evidence": [
+            "Ekran kaydında herhangi bir ses bulunmamaktadır. CODAP Arbor’a Food Training Dataset yüklenir. Grafik oluşturulur, y-eksenine “Label” ve x-eksenine “Energy” sürüklenir."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            0
+          ],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0001",
+      "step_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "dominant_category": "TUNE",
+      "anchor_event": "EMIT_TREE",
+      "start_ms": 722873,
+      "end_ms": 1148402,
+      "assistance_status": "independent",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence": [
+            "Grafikte x-ekseninde “Fat” yerine “Energy” sürüklenir. Movable value eklenir ve değeri 250 yerine 200 ve 215 olarak güncellenir.",
+            "Threshold değeri 582 yerine 215 olarak güncellenir ve emit function çalıştırılır.",
+            "Grafikte x-ekseninde “Energy” yerine “of which Saturated Fat” sürüklenir. Movable value 18.33 yerine 4 olarak güncellenir.",
+            "Grafikte x-ekseninde “of which Saturated Fat” yerine “Fat” sürüklenir. Movable value 3.9 yerine 10 olarak güncellenir.",
+            "DT’de depth 1’e “Fat” sürüklenir ve threshold değeri 30 yerine 10 olarak güncellenir. Nerenin recommendable or not recommendable olduğuna karar verilir ve emit function çalıştırılır."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            9,
+            11,
+            12,
+            13,
+            14
+          ],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence": [
+            "Threshold değeri 582 yerine 215 olarak güncellenir ve emit function çalıştırılır.",
+            "DT’de depth 1’e “Fat” sürüklenir ve threshold değeri 30 yerine 10 olarak güncellenir. Nerenin recommendable or not recommendable olduğuna karar verilir ve emit function çalıştırılır."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            11,
+            14
+          ],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0002",
+      "step_indices": [
+        15,
+        16
+      ],
+      "dominant_category": "EXPLORE",
+      "anchor_event": "SET_AXIS",
+      "start_ms": 1091378,
+      "end_ms": 1165852,
+      "assistance_status": "independent",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0003",
+      "step_indices": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "dominant_category": "TUNE",
+      "anchor_event": "EMIT_TREE",
+      "start_ms": 1039344,
+      "end_ms": 1333147,
+      "assistance_status": "independent",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence": [
+            "Grafikte x-ekseninde “Protein” yerine “Salt” sürüklenir. Movable value 1.83 yerine 0.32 olarak güncellenir.",
+            "Movable value 0.32 yerine 0.59 olarak güncellenir.",
+            "DT’de depth 1’e “Salt” sürüklenir ve threshold değeri 1.74 yerine 0.59 olarak güncellenir. Nerenin recommendable or not recommendable olduğuna karar verilir ve emit function çalıştırılır.",
+            "Grafikte movable value 0.59 yerine 0.2 olarak güncellenir. DT’de threshold değeri 0.59 yerine 0.2 ve 0.21 olarak güncellenir.",
+            "DT’de depth 1’e “Salt” sürüklenir ve threshold değeri 0.2 yerine 0.21 olarak güncellenir. Emit function çalıştırılır."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            17,
+            18,
+            19,
+            20,
+            21
+          ],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence": [
+            "DT’de depth 1’e “Salt” sürüklenir ve threshold değeri 1.74 yerine 0.59 olarak güncellenir. Nerenin recommendable or not recommendable olduğuna karar verilir ve emit function çalıştırılır.",
+            "DT’de depth 1’e “Salt” sürüklenir ve threshold değeri 0.2 yerine 0.21 olarak güncellenir. Emit function çalıştırılır."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            19,
+            21
+          ],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0004",
+      "step_indices": [
+        22
+      ],
+      "dominant_category": "EVALUATE",
+      "anchor_event": "EMIT_TREE",
+      "start_ms": 1136057,
+      "end_ms": 1136057,
+      "assistance_status": "independent",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence": [
+            "Nerenin recommendable or not recommendable olduğuna karar verilir. Classification Tree Records’ta 6. satır silinir ve emit function çalıştırılır."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            22
+          ],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0005",
+      "step_indices": [
+        23,
+        24,
+        25
+      ],
+      "dominant_category": "TUNE",
+      "anchor_event": "EMIT_TREE",
+      "start_ms": 1049863,
+      "end_ms": 1089562,
+      "assistance_status": "independent",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence": [
+            "Grafikte x-ekseninde “Salt” yerine “Energy” sürüklenir. Movable value 0 yerine 93 olarak güncellenir. Nerenin recommendable or not recommendable olduğuna karar verilir ve emit function çalıştırılır.",
+            "DT’de depth 1’e “Energy” sürüklenir ve threshold değeri 215 yerine 93 olarak güncellenir. Emit function çalıştırılır."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            23,
+            24
+          ],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence": [
+            "Grafikte x-ekseninde “Salt” yerine “Energy” sürüklenir. Movable value 0 yerine 93 olarak güncellenir. Nerenin recommendable or not recommendable olduğuna karar verilir ve emit function çalıştırılır.",
+            "DT’de depth 1’e “Energy” sürüklenir ve threshold değeri 215 yerine 93 olarak güncellenir. Emit function çalıştırılır."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            23,
+            24
+          ],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0006",
+      "step_indices": [
+        26,
+        27,
+        28
+      ],
+      "dominant_category": "EXPLORE",
+      "anchor_event": "SET_AXIS",
+      "start_ms": 1040396,
+      "end_ms": 1096235,
+      "assistance_status": "independent",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0007",
+      "step_indices": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "dominant_category": "TUNE",
+      "anchor_event": "EMIT_TREE",
+      "start_ms": 1128662,
+      "end_ms": 1348049,
+      "assistance_status": "independent",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence": [
+            "Movable value 94 yerine 382 olarak güncellenir.",
+            "DT’de depth 2’de sağ node’a “of which Sugar” yerine “Fat” sürüklenir. Threshold value 30 yerine 49.2 olarak güncellenir. Nerenin recommendable or not recommendable olduğuna karar verilir.",
+            "DT’de “Fat”in threshold value’su 49.2 yerine 32.4 olarak güncellenir.",
+            "Datasette “of which Saturated Fat” değerleri küçükten büyüğe doğru sıralanır. DT’de “Fat”in threshold value’su 32.4 yerine 5.08 olarak güncellenir.",
+            "DT’de “Fat”in threshold value’su 5.08 yerine 10 olarak güncellenir. Emit function çalıştırılır.",
+            "Grafiğin üzerindeki “Energy” yerine “Fat” bırakılır ve renkleri değiştirilir. DT’de “Fat”in threshold value’su 10 yerine 13.7 olarak güncellenir. Emit function çalıştırılır.",
+            "Grafiğin üzerindeki “Fat” yerine “Energy” bırakılır. Movable value 21 yerine 93-94 olarak güncellenir.",
+            "DT’de “Fat”in threshold value’su 13.7 yerine 24.6 ve arttırılıp azaltılarak 5 olarak güncellenir."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36
+          ],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence": [
+            "DT’de “Fat”in threshold value’su 5.08 yerine 10 olarak güncellenir. Emit function çalıştırılır.",
+            "Grafiğin üzerindeki “Energy” yerine “Fat” bırakılır ve renkleri değiştirilir. DT’de “Fat”in threshold value’su 10 yerine 13.7 olarak güncellenir. Emit function çalıştırılır.",
+            "Emit function çalıştırılır."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            33,
+            34,
+            37
+          ],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "observed",
+          "evidence": [
+            "Datasette “of which Saturated Fat” değerleri küçükten büyüğe doğru sıralanır. DT’de “Fat”in threshold value’su 32.4 yerine 5.08 olarak güncellenir."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            32
+          ],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    }
+  ],
+  "session_summary": {
+    "episode_count": 8,
+    "codes_observed": [
+      "V1A_systematic_iteration",
+      "V3B_disengagement_passivity",
+      "V7A_no_metric_inspection",
+      "V8B_table_sort_threshold"
+    ],
+    "codes_not_observed": [
+      "V1B_chaotic_iteration",
+      "V2A_hesitation_disorientation",
+      "V2B_interface_cycling",
+      "V3A_sustained_engagement",
+      "V4A_productive_recovery",
+      "V4B_dead_end_loop",
+      "V5A_productive_help_seeking",
+      "V5B_dependent_execution",
+      "V6A_mcr_zero_targeting",
+      "V6B_label_inversion",
+      "V6C_metric_scope_awareness",
+      "V7B_no_graph_reading",
+      "V7C_no_comparison_despite_opportunity",
+      "V8A_multi_instance_benchmarking",
+      "V8C_ctr_in_place_edit",
+      "V8D_import_failure_recovery"
+    ],
+    "codes_not_measurable": [],
+    "rubric_gap_ids": [
+      "GAP-R02"
+    ]
+  },
+  "ml_feature_flags": {
+    "systematic_iteration_present": true,
+    "chaotic_iteration_present": false,
+    "hesitation_episode_present": false,
+    "interface_cycling_present": false,
+    "sustained_engagement_present": false,
+    "disengagement_present": true,
+    "productive_recovery_present": false,
+    "dead_end_loop_present": false,
+    "productive_help_seeking_present": false,
+    "dependent_execution_present": false,
+    "mcr_zero_targeting_present": false,
+    "label_inversion_present": false,
+    "metric_scope_awareness_present": false,
+    "metric_inspection_absent_after_emit": true,
+    "graph_reading_absent": false,
+    "comparison_absent_despite_opportunity": false,
+    "multi_instance_strategy_present": false,
+    "table_sort_threshold_present": true,
+    "ctr_in_place_edit_present": false,
+    "import_failure_recovery_present": false
+  }
+}

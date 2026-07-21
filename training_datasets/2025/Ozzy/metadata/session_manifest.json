@@ -1,0 +1,23 @@
+{
+  "$schema": "schema/session_manifest.schema.json",
+  "artifact": "session_manifest",
+  "student_id": "Ozzy",
+  "cohort_year": 2025,
+  "generated_at": "2026-07-21T05:42:59.876348+00:00",
+  "data_availability": {
+    "video": true,
+    "expert_narrative": true,
+    "log_metadata": false,
+    "audio_transcript": true,
+    "docx_screenshots": true
+  },
+  "linkage_tier": "L2",
+  "silver_timestamp_span_ms": 2493442,
+  "annotation_sha256": {
+    "Ozzy_expert_process_narrative.v1.jsonl": "dfd8d47437143c0d0240a114a3847879d17158a012a8d361ae44cf8e0ee08450",
+    "Ozzy_gold_behavior_alignment.v1.jsonl": "f9da18c230e23522eb1e956b21b64005d3fe5ed5adc3b6956d00fea1f40d78d5",
+    "Ozzy_process_codes.v1.json": "c72035c5f4cb1fe768e745901326be7413d40e6cf8836bc6f39bbc97a2334bc9"
+  },
+  "directory_layout_version": "v2",
+  "layout_note": "v2: raw/, annotations/, intermediate/, metadata/, exports/tabular/"
+}

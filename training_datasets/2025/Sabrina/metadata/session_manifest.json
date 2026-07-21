@@ -1,0 +1,23 @@
+{
+  "$schema": "schema/session_manifest.schema.json",
+  "artifact": "session_manifest",
+  "student_id": "Sabrina",
+  "cohort_year": 2025,
+  "generated_at": "2026-07-21T05:42:59.975061+00:00",
+  "data_availability": {
+    "video": true,
+    "expert_narrative": true,
+    "log_metadata": false,
+    "audio_transcript": true,
+    "docx_screenshots": true
+  },
+  "linkage_tier": "L2",
+  "silver_timestamp_span_ms": 4037332,
+  "annotation_sha256": {
+    "Sabrina_expert_process_narrative.v1.jsonl": "c9b5cf45fb67353aac28eb9fe27173204720a9e150ef99caaad0db88900fa958",
+    "Sabrina_gold_behavior_alignment.v1.jsonl": "1de1127d381df22c3ec70c477eead1a05bfd295f1ad30182289454b85dd99898",
+    "Sabrina_process_codes.v1.json": "87383a22ed3fe60f4a5d2c4560ce632ffc8a950a2a450d84396f0bb5e1f48871"
+  },
+  "directory_layout_version": "v2",
+  "layout_note": "v2: raw/, annotations/, intermediate/, metadata/, exports/tabular/"
+}

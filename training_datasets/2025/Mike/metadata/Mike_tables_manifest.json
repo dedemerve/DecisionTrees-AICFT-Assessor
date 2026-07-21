@@ -1,0 +1,44 @@
+{
+  "$schema": "schema/process_codes_tables.schema.json",
+  "export_version": "1.0",
+  "generated_at": "2026-07-20T19:42:41.837417+00:00",
+  "cohort_year": 2025,
+  "student_id": "Mike",
+  "source_artifact": "process_codes",
+  "source_file": "Mike_process_codes.json",
+  "tables": {
+    "episodes": {
+      "grain": "student_id × episode_id",
+      "primary_key": [
+        "student_id",
+        "cohort_year",
+        "episode_id"
+      ],
+      "row_count": 14,
+      "jsonl": "tabular/Mike_episodes.jsonl",
+      "csv": "tabular/Mike_episodes.csv",
+      "parquet": null
+    },
+    "episode_process_codes": {
+      "grain": "student_id × episode_id × v_code",
+      "primary_key": [
+        "row_id"
+      ],
+      "row_count": 280,
+      "jsonl": "tabular/Mike_episode_process_codes.jsonl",
+      "csv": "tabular/Mike_episode_process_codes.csv",
+      "parquet": null
+    },
+    "session_ml_features": {
+      "grain": "student_id",
+      "primary_key": [
+        "student_id",
+        "cohort_year"
+      ],
+      "row_count": 1,
+      "jsonl": "tabular/Mike_session_ml_features.jsonl",
+      "csv": "tabular/Mike_session_ml_features.csv",
+      "parquet": null
+    }
+  }
+}

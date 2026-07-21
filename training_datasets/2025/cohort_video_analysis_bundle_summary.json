@@ -1,0 +1,449 @@
+{
+  "$schema": "schema/video_analysis_bundle.schema.json",
+  "cohort_year": 2025,
+  "bundle_version": "2.0-process-only",
+  "scope": "process_pipeline_methods_only",
+  "scoring_out_of_scope": true,
+  "generated_at": "2026-07-20T18:42:00.067256+00:00",
+  "students": [
+    {
+      "student_id": "Ally",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Ally/Ally_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 37,
+        "steps_with_gold_shot": 36,
+        "steps_with_silver_anchor": 36,
+        "frames_total": 107,
+        "frames_with_step_inheritance": 107,
+        "video_duration_ms": 950988,
+        "silver_timestamp_span_ms": 734840,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:1"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Barbara",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Barbara/Barbara_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 22,
+        "steps_with_gold_shot": 20,
+        "steps_with_silver_anchor": 20,
+        "frames_total": 141,
+        "frames_with_step_inheritance": 141,
+        "video_duration_ms": 5039756,
+        "silver_timestamp_span_ms": 4035448,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:2"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Bob",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Bob/Bob_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 4,
+        "steps_with_gold_shot": 4,
+        "steps_with_silver_anchor": 4,
+        "frames_total": 79,
+        "frames_with_step_inheritance": 79,
+        "video_duration_ms": 1909500,
+        "silver_timestamp_span_ms": 1415867,
+        "low_silver_coverage": false,
+        "gaps_flagged": [],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Boris",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Boris/Boris_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 55,
+        "steps_with_gold_shot": 53,
+        "steps_with_silver_anchor": 53,
+        "frames_total": 236,
+        "frames_with_step_inheritance": 236,
+        "video_duration_ms": 4760735,
+        "silver_timestamp_span_ms": 4052446,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:2"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Calvin",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Calvin/Calvin_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 28,
+        "steps_with_gold_shot": 27,
+        "steps_with_silver_anchor": 27,
+        "frames_total": 318,
+        "frames_with_step_inheritance": 318,
+        "video_duration_ms": 3100025,
+        "silver_timestamp_span_ms": 2457759,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:1",
+          "rubric_gaps:1"
+        ],
+        "rubric_gaps_for_student": [
+          {
+            "gap_id": "GAP-R08",
+            "label": "Editing an existing CTR record (in-place model revision)",
+            "why_not_covered": "CTR record editing is not described in B7 (which assumes build→emit→rebuild). The current rubric implies CTR is append-only. In-place editing of a historical row means the CTR log no longer reflects the build history accurately. No rule addresses: (a) whether in-place edits count as B7-D1 refinement evidence; (b) whether the edited row still counts as a separate model for B12 comparison."
+          }
+        ],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Daisy",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Daisy/Daisy_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 38,
+        "steps_with_gold_shot": 38,
+        "steps_with_silver_anchor": 38,
+        "frames_total": 138,
+        "frames_with_step_inheritance": 138,
+        "video_duration_ms": 1393779,
+        "silver_timestamp_span_ms": 907256,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "rubric_gaps:1"
+        ],
+        "rubric_gaps_for_student": [
+          {
+            "gap_id": "GAP-R02",
+            "label": "Dataset column sorting for threshold exploration",
+            "why_not_covered": "B0 covers graph inspection and B1 covers representations. Table column sorting is a third modality of data appraisal not mentioned in either behavior. More importantly, sorting-for-threshold is a distinct reasoning pattern: it uses a tabular sort to estimate a split point without a graph. No current rule says whether this counts as B0-A2 evidence or as a separate data literacy behavior."
+          }
+        ],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Daryl",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Daryl/Daryl_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 26,
+        "steps_with_gold_shot": 21,
+        "steps_with_silver_anchor": 21,
+        "frames_total": 87,
+        "frames_with_step_inheritance": 87,
+        "video_duration_ms": 650350,
+        "silver_timestamp_span_ms": 555476,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:5"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "David",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/David/David_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 31,
+        "steps_with_gold_shot": 28,
+        "steps_with_silver_anchor": 28,
+        "frames_total": 195,
+        "frames_with_step_inheritance": 195,
+        "video_duration_ms": 2357320,
+        "silver_timestamp_span_ms": 1647545,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:3",
+          "rubric_gaps:3"
+        ],
+        "rubric_gaps_for_student": [
+          {
+            "gap_id": "GAP-R05",
+            "label": "Peer-taught threshold value (peer as knowledge source)",
+            "why_not_covered": "Section 6 currently defines scaffolded speech as teacher/researcher utterances. It does not explicitly address peer utterances. The implicit assumption is that peer-supplied information has the same status as teacher scaffolding (should not satisfy learner criteria). However, peer challenges (David's case) are different from peer instruction: a peer challenge where the learner defends or adjusts their model is more similar to learner-initiated reasoning than to a teacher scaffold."
+          },
+          {
+            "gap_id": "GAP-R06",
+            "label": "Precision metric awareness (metric outside rubric scope)",
+            "why_not_covered": "The rubric defines B8 in terms of MCR, sensitivity, and accuracy. B13 requires MCR + sensitivity integration specifically. Precision questions fall outside both. There is no rule for awareness of metrics beyond the CTR display. This is notable because precision-recall trade-off awareness is a legitimate AI literacy concept (UNESCO AI-CFT: 'understanding limitations of classification metrics')."
+          },
+          {
+            "gap_id": "GAP-R08",
+            "label": "Editing an existing CTR record (in-place model revision)",
+            "why_not_covered": "CTR record editing is not described in B7 (which assumes build→emit→rebuild). The current rubric implies CTR is append-only. In-place editing of a historical row means the CTR log no longer reflects the build history accurately. No rule addresses: (a) whether in-place edits count as B7-D1 refinement evidence; (b) whether the edited row still counts as a separate model for B12 comparison."
+          }
+        ],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Edgar",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Edgar/Edgar_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 50,
+        "steps_with_gold_shot": 50,
+        "steps_with_silver_anchor": 50,
+        "frames_total": 74,
+        "frames_with_step_inheritance": 74,
+        "video_duration_ms": 4680000,
+        "silver_timestamp_span_ms": 0,
+        "low_silver_coverage": true,
+        "gaps_flagged": [
+          "low_silver_temporal_coverage",
+          "rubric_gaps:1"
+        ],
+        "rubric_gaps_for_student": [
+          {
+            "gap_id": "GAP-R04",
+            "label": "URL-based decision tree import attempt",
+            "why_not_covered": "The rubric covers tree building, comparison (B12), and CTR management, but not cross-session import or external DT loading. The URL import failure led to a blank session reset, which may have suppressed observable behaviors. No rule for session continuity behaviors or import-failure recovery."
+          }
+        ],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Eliot",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Eliot/Eliot_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 18,
+        "steps_with_gold_shot": 18,
+        "steps_with_silver_anchor": 18,
+        "frames_total": 173,
+        "frames_with_step_inheritance": 173,
+        "video_duration_ms": 2587099,
+        "silver_timestamp_span_ms": 2354305,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "rubric_gaps:1"
+        ],
+        "rubric_gaps_for_student": [
+          {
+            "gap_id": "GAP-R03",
+            "label": "Inverted leaf label assignment producing MCR=1 artifact",
+            "why_not_covered": "B5-A1 requires distinguishing two outcomes and choosing the target outcome. Label inversion means a student understood that two labels exist but reversed their meaning. Same-class assignment means a student collapsed the binary problem. Neither case has an explicit rule: (a) for inversion: does recognition + correction count as B5-A2 evidence or merely B5-A1? (b) for same-class: should this trigger not_observed (student did not demonstrate B5-A1) or should it be flagged as a misunderstanding code?"
+          }
+        ],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Felicity",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Felicity/Felicity_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 1,
+        "steps_with_gold_shot": 1,
+        "steps_with_silver_anchor": 1,
+        "frames_total": 76,
+        "frames_with_step_inheritance": 76,
+        "video_duration_ms": 4870930,
+        "silver_timestamp_span_ms": 0,
+        "low_silver_coverage": true,
+        "gaps_flagged": [
+          "low_silver_temporal_coverage"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Frank",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Frank/Frank_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 25,
+        "steps_with_gold_shot": 24,
+        "steps_with_silver_anchor": 24,
+        "frames_total": 161,
+        "frames_with_step_inheritance": 161,
+        "video_duration_ms": 4642960,
+        "silver_timestamp_span_ms": 4501384,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:1"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Henry",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Henry/Henry_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 48,
+        "steps_with_gold_shot": 47,
+        "steps_with_silver_anchor": 47,
+        "frames_total": 107,
+        "frames_with_step_inheritance": 107,
+        "video_duration_ms": 1332335,
+        "silver_timestamp_span_ms": 1308849,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:1",
+          "rubric_gaps:2"
+        ],
+        "rubric_gaps_for_student": [
+          {
+            "gap_id": "GAP-R01",
+            "label": "Multi-instance CODAP sessions (parallel windows per variable)",
+            "why_not_covered": "Current rubric assumes single CODAP instance. Multi-instance strategy is a distinct data organization behavior: it allows direct visual comparison of independent variable distributions but creates threshold collection across sessions. No rule addresses: (a) whether each instance counts as a separate session observation; (b) whether threshold transfer across instances counts as B11; (c) whether the combine-from-instances strategy is a Deepen variant of B10."
+          },
+          {
+            "gap_id": "GAP-R07",
+            "label": "MCR=0 as explicit optimization target (overfitting misconception behavior)",
+            "why_not_covered": "This is a misconception behavior: treating zero training error as the optimization goal without any awareness of generalization. Current rubric has no code for misconcept behaviors. B9 not_observed captures 'no test use' but does not capture the reasoning behind it. The MCR=0 goal is evidence of a specific learning target that the intervention could address."
+          }
+        ],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Mike",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Mike/Mike_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 62,
+        "steps_with_gold_shot": 57,
+        "steps_with_silver_anchor": 57,
+        "frames_total": 220,
+        "frames_with_step_inheritance": 220,
+        "video_duration_ms": 2629003,
+        "silver_timestamp_span_ms": 2060055,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:5",
+          "rubric_gaps:3"
+        ],
+        "rubric_gaps_for_student": [
+          {
+            "gap_id": "GAP-R03",
+            "label": "Inverted leaf label assignment producing MCR=1 artifact",
+            "why_not_covered": "B5-A1 requires distinguishing two outcomes and choosing the target outcome. Label inversion means a student understood that two labels exist but reversed their meaning. Same-class assignment means a student collapsed the binary problem. Neither case has an explicit rule: (a) for inversion: does recognition + correction count as B5-A2 evidence or merely B5-A1? (b) for same-class: should this trigger not_observed (student did not demonstrate B5-A1) or should it be flagged as a misunderstanding code?"
+          },
+          {
+            "gap_id": "GAP-R05",
+            "label": "Peer-taught threshold value (peer as knowledge source)",
+            "why_not_covered": "Section 6 currently defines scaffolded speech as teacher/researcher utterances. It does not explicitly address peer utterances. The implicit assumption is that peer-supplied information has the same status as teacher scaffolding (should not satisfy learner criteria). However, peer challenges (David's case) are different from peer instruction: a peer challenge where the learner defends or adjusts their model is more similar to learner-initiated reasoning than to a teacher scaffold."
+          },
+          {
+            "gap_id": "GAP-R06",
+            "label": "Precision metric awareness (metric outside rubric scope)",
+            "why_not_covered": "The rubric defines B8 in terms of MCR, sensitivity, and accuracy. B13 requires MCR + sensitivity integration specifically. Precision questions fall outside both. There is no rule for awareness of metrics beyond the CTR display. This is notable because precision-recall trade-off awareness is a legitimate AI literacy concept (UNESCO AI-CFT: 'understanding limitations of classification metrics')."
+          }
+        ],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Ozzy",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Ozzy/Ozzy_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 24,
+        "steps_with_gold_shot": 21,
+        "steps_with_silver_anchor": 21,
+        "frames_total": 284,
+        "frames_with_step_inheritance": 284,
+        "video_duration_ms": 2671154,
+        "silver_timestamp_span_ms": 2493442,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:3",
+          "rubric_gaps:1"
+        ],
+        "rubric_gaps_for_student": [
+          {
+            "gap_id": "GAP-R07",
+            "label": "MCR=0 as explicit optimization target (overfitting misconception behavior)",
+            "why_not_covered": "This is a misconception behavior: treating zero training error as the optimization goal without any awareness of generalization. Current rubric has no code for misconcept behaviors. B9 not_observed captures 'no test use' but does not capture the reasoning behind it. The MCR=0 goal is evidence of a specific learning target that the intervention could address."
+          }
+        ],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Sabrina",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Sabrina/Sabrina_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 31,
+        "steps_with_gold_shot": 30,
+        "steps_with_silver_anchor": 30,
+        "frames_total": 259,
+        "frames_with_step_inheritance": 259,
+        "video_duration_ms": 4213588,
+        "silver_timestamp_span_ms": 4037332,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:1"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Zabby",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Zabby/Zabby_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 68,
+        "steps_with_gold_shot": 68,
+        "steps_with_silver_anchor": 68,
+        "frames_total": 98,
+        "frames_with_step_inheritance": 98,
+        "video_duration_ms": 1194421,
+        "silver_timestamp_span_ms": 1059709,
+        "low_silver_coverage": false,
+        "gaps_flagged": [],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    }
+  ],
+  "artifact_layout": {
+    "expert_process_narrative": "<id>_expert_process_narrative.json",
+    "process_codes": "<id>_process_codes.json",
+    "log_process_metadata": "<id>_log_process_metadata.json",
+    "bundle_manifest": "<id>_video_analysis_bundle.json"
+  },
+  "scoring_quarantine": "trash/scoring_out_of_scope_2026-07-20/"
+}

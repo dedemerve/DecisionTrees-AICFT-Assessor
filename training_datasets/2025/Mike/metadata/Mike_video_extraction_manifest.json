@@ -1,0 +1,4935 @@
+{
+  "schema_version": "video_extraction_manifest_v1",
+  "generated_at": "2026-07-19T16:47:56.355678+00:00",
+  "student_id": "Mike",
+  "extraction_mode": "motion_only_fallback",
+  "path_resolution": {
+    "audio_root": "training_datasets/2025",
+    "video_root": "data_sources_2025",
+    "video_match_strategy": "video_root_subdir_fuzzy",
+    "searched_roots": [
+      "training_datasets/2025/Mike",
+      "data_sources_2025",
+      "data_sources_2025/Mike"
+    ],
+    "candidate_count": 1,
+    "source_video": "data_sources_2025/Mike/Mike_Screen_Recording.webm",
+    "source_video_absolute": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/data_sources_2025/Mike/Mike_Screen_Recording.webm",
+    "output_frames_dir": "training_datasets/2025/Mike/Mike_frames"
+  },
+  "modalities": {
+    "has_video": true,
+    "has_hybrid_diarization": false,
+    "has_transcript_segments": false,
+    "hybrid_segment_count": 0,
+    "transcript_segment_count": 0,
+    "has_usable_transcript_modality": false
+  },
+  "video_profile": {
+    "native_resolution": [
+      1658,
+      1078
+    ],
+    "extract_resolution": [
+      1658,
+      1078
+    ],
+    "aspect_ratio": 1.538033,
+    "fps": 22.1463,
+    "total_frames": 58426,
+    "duration_seconds": 2638.189,
+    "corrupt_frame_count": 31,
+    "pts_inversion_count": 1
+  },
+  "parameters": {
+    "max_width": 1920,
+    "motion_threshold_fraction": 0.005,
+    "cooldown_ms": 1000,
+    "boundary_epsilon_seconds": 0.05,
+    "speech_only": false,
+    "compute_type": "int8",
+    "visual_dedup_enabled": true,
+    "dedup_method": "phash",
+    "phash_threshold": 4,
+    "mse_threshold": null,
+    "filter_non_task_screens": true,
+    "non_task_policy": "skip",
+    "non_task_phash_threshold": 10,
+    "non_task_templates": "calibration/non_task_screen_templates",
+    "enable_codap_task_guard": true,
+    "codap_task_phash_threshold": 12,
+    "codap_task_templates": "calibration/codap_task_templates",
+    "codap_task_heuristics": true,
+    "task_activity": "codap",
+    "colab_task_templates": "calibration/colab_task_templates",
+    "require_codap_content": true,
+    "speech_gap_bypass_seconds": 120,
+    "single_pass": true,
+    "motion_preview_width": 960,
+    "silent_motion_threshold": 0.008,
+    "silent_screen_gap_fill_seconds": 90.0,
+    "codap_gap_fill_seconds": 90.0,
+    "silent_screen_recording": false
+  },
+  "summary": {
+    "speech_anchor_count": 0,
+    "motion_keyframe_count": 220,
+    "total_frames_extracted": 220,
+    "candidate_frames_considered": 1474,
+    "visual_duplicates_filtered": 1005,
+    "temporal_duplicates_filtered": 0,
+    "non_task_screens_filtered": 249,
+    "dedup_savings_percentage": 85.07
+  },
+  "segments": [
+    {
+      "frame_id": "frame_0001",
+      "source_timestamp_seconds": 0.726,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 15.3676,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0002",
+      "source_timestamp_seconds": 15.728,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 30.2083,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0003",
+      "source_timestamp_seconds": 17.725,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 30.0152,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0004",
+      "source_timestamp_seconds": 19.249,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.5812,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0005",
+      "source_timestamp_seconds": 22.128,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.45,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0006",
+      "source_timestamp_seconds": 28.485,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 18.6134,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0007",
+      "source_timestamp_seconds": 66.114,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.7927,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0008",
+      "source_timestamp_seconds": 71.248,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.1485,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0009",
+      "source_timestamp_seconds": 139.955,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.5458,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0010",
+      "source_timestamp_seconds": 141.605,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.8159,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0011",
+      "source_timestamp_seconds": 231.64,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": null,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0012",
+      "source_timestamp_seconds": 269.092,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 5.7011,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0013",
+      "source_timestamp_seconds": 271.761,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.4533,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0014",
+      "source_timestamp_seconds": 272.777,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.7366,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0015",
+      "source_timestamp_seconds": 274.723,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.37,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0016",
+      "source_timestamp_seconds": 276.038,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.67,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0017",
+      "source_timestamp_seconds": 277.65,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.7005,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0018",
+      "source_timestamp_seconds": 279.94,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.2801,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0019",
+      "source_timestamp_seconds": 281.549,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.2902,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0020",
+      "source_timestamp_seconds": 283.577,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 7.828,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0021",
+      "source_timestamp_seconds": 289.754,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.4542,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0022",
+      "source_timestamp_seconds": 291.406,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.4756,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0023",
+      "source_timestamp_seconds": 293.483,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 5.2953,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0024",
+      "source_timestamp_seconds": 297.048,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.3338,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0025",
+      "source_timestamp_seconds": 298.788,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.4537,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0026",
+      "source_timestamp_seconds": 308.152,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.8681,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0027",
+      "source_timestamp_seconds": 344.229,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.92,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0028",
+      "source_timestamp_seconds": 434.242,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": null,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0029",
+      "source_timestamp_seconds": 456.109,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.9992,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0030",
+      "source_timestamp_seconds": 457.889,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.9687,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0031",
+      "source_timestamp_seconds": 464.913,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.0298,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0032",
+      "source_timestamp_seconds": 484.534,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.3856,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0033",
+      "source_timestamp_seconds": 486.44,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.1827,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0034",
+      "source_timestamp_seconds": 491.183,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.6822,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0035",
+      "source_timestamp_seconds": 493.388,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.172,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0036",
+      "source_timestamp_seconds": 495.55,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.9903,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0037",
+      "source_timestamp_seconds": 497.75,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.0544,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0038",
+      "source_timestamp_seconds": 499.786,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.9769,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0039",
+      "source_timestamp_seconds": 501.057,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.1472,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0040",
+      "source_timestamp_seconds": 504.444,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.353,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0041",
+      "source_timestamp_seconds": 508.427,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.877,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0042",
+      "source_timestamp_seconds": 521.689,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.9923,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0043",
+      "source_timestamp_seconds": 524.704,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.1597,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0044",
+      "source_timestamp_seconds": 535.756,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.4822,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0045",
+      "source_timestamp_seconds": 538.255,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.2934,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0046",
+      "source_timestamp_seconds": 544.225,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.9689,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0047",
+      "source_timestamp_seconds": 555.588,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.8996,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0048",
+      "source_timestamp_seconds": 561.937,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.3847,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0049",
+      "source_timestamp_seconds": 564.058,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.4167,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0050",
+      "source_timestamp_seconds": 566.856,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.9501,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0051",
+      "source_timestamp_seconds": 570.325,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.675,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0052",
+      "source_timestamp_seconds": 577.917,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.2435,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0053",
+      "source_timestamp_seconds": 625.984,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.1392,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0054",
+      "source_timestamp_seconds": 628.527,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.1415,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0055",
+      "source_timestamp_seconds": 703.259,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.8885,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0056",
+      "source_timestamp_seconds": 705.075,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.7303,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0057",
+      "source_timestamp_seconds": 707.445,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.1115,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0058",
+      "source_timestamp_seconds": 708.887,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.3305,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0059",
+      "source_timestamp_seconds": 717.705,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.7219,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0060",
+      "source_timestamp_seconds": 721.984,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.5356,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0061",
+      "source_timestamp_seconds": 729.314,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.149,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0062",
+      "source_timestamp_seconds": 732.155,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.8871,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0063",
+      "source_timestamp_seconds": 733.722,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.8631,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0064",
+      "source_timestamp_seconds": 734.782,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.8893,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0065",
+      "source_timestamp_seconds": 737.068,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.3198,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0066",
+      "source_timestamp_seconds": 755.924,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.5356,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0067",
+      "source_timestamp_seconds": 845.937,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": null,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0068",
+      "source_timestamp_seconds": 909.507,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.4779,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0069",
+      "source_timestamp_seconds": 911.08,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.2172,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0070",
+      "source_timestamp_seconds": 1001.087,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": null,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0071",
+      "source_timestamp_seconds": 1028.133,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.4084,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0072",
+      "source_timestamp_seconds": 1103.6,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.4779,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0073",
+      "source_timestamp_seconds": 1106.608,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.9837,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0074",
+      "source_timestamp_seconds": 1109.53,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.4273,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0075",
+      "source_timestamp_seconds": 1144.946,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.6091,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0076",
+      "source_timestamp_seconds": 1150.153,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.8762,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0077",
+      "source_timestamp_seconds": 1153.884,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.5295,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0078",
+      "source_timestamp_seconds": 1155.834,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.8507,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0079",
+      "source_timestamp_seconds": 1157.236,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.2094,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0080",
+      "source_timestamp_seconds": 1192.297,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 11.5481,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0081",
+      "source_timestamp_seconds": 1193.571,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.537,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0082",
+      "source_timestamp_seconds": 1196.285,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.7906,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0083",
+      "source_timestamp_seconds": 1198.615,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.0284,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0084",
+      "source_timestamp_seconds": 1213.946,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.8516,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0085",
+      "source_timestamp_seconds": 1296.331,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.0134,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0086",
+      "source_timestamp_seconds": 1297.351,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.6004,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0087",
+      "source_timestamp_seconds": 1307.557,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 12.6187,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0088",
+      "source_timestamp_seconds": 1308.578,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.0136,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0089",
+      "source_timestamp_seconds": 1312.173,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.3735,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0090",
+      "source_timestamp_seconds": 1329.121,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.8819,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0091",
+      "source_timestamp_seconds": 1331.831,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 11.4543,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0092",
+      "source_timestamp_seconds": 1340.903,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 11.4572,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0093",
+      "source_timestamp_seconds": 1347.51,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 13.2,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0094",
+      "source_timestamp_seconds": 1350.351,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.3061,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0095",
+      "source_timestamp_seconds": 1354.246,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.0872,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0096",
+      "source_timestamp_seconds": 1395.151,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.1264,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0097",
+      "source_timestamp_seconds": 1396.853,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.0824,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0098",
+      "source_timestamp_seconds": 1397.869,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.8175,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0099",
+      "source_timestamp_seconds": 1400.078,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.1961,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0100",
+      "source_timestamp_seconds": 1483.302,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.5881,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0101",
+      "source_timestamp_seconds": 1484.485,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.3286,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0102",
+      "source_timestamp_seconds": 1486.133,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.7979,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0103",
+      "source_timestamp_seconds": 1488.165,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.5127,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0104",
+      "source_timestamp_seconds": 1493.083,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.4597,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0105",
+      "source_timestamp_seconds": 1496.18,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.9609,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0106",
+      "source_timestamp_seconds": 1497.705,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.0507,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0107",
+      "source_timestamp_seconds": 1502.068,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.0301,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0108",
+      "source_timestamp_seconds": 1503.17,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.9494,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0109",
+      "source_timestamp_seconds": 1507.112,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.1789,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0110",
+      "source_timestamp_seconds": 1509.143,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.941,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0111",
+      "source_timestamp_seconds": 1514.444,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.733,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0112",
+      "source_timestamp_seconds": 1588.448,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.9774,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0113",
+      "source_timestamp_seconds": 1590.456,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 9.4159,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0114",
+      "source_timestamp_seconds": 1593.903,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 11.9281,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0115",
+      "source_timestamp_seconds": 1595.051,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 8.5111,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0116",
+      "source_timestamp_seconds": 1608.985,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.5296,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0117",
+      "source_timestamp_seconds": 1614.444,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.1437,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0118",
+      "source_timestamp_seconds": 1615.462,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.89,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0119",
+      "source_timestamp_seconds": 1624.313,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 16.5642,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0120",
+      "source_timestamp_seconds": 1677.777,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.8144,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0121",
+      "source_timestamp_seconds": 1684.779,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.429,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0122",
+      "source_timestamp_seconds": 1685.838,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 8.3557,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0123",
+      "source_timestamp_seconds": 1687.7,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.137,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0124",
+      "source_timestamp_seconds": 1691.085,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 14.4546,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0125",
+      "source_timestamp_seconds": 1715.905,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.5303,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0126",
+      "source_timestamp_seconds": 1718.787,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.9054,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0127",
+      "source_timestamp_seconds": 1726.871,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.2054,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0128",
+      "source_timestamp_seconds": 1729.073,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.7926,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0129",
+      "source_timestamp_seconds": 1731.02,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.6411,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0130",
+      "source_timestamp_seconds": 1733.139,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.1261,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0131",
+      "source_timestamp_seconds": 1734.239,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.2176,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0132",
+      "source_timestamp_seconds": 1746.77,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.3844,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0133",
+      "source_timestamp_seconds": 1749.02,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 8.4051,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0134",
+      "source_timestamp_seconds": 1773.402,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.4833,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0135",
+      "source_timestamp_seconds": 1777.93,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 11.253,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0136",
+      "source_timestamp_seconds": 1783.102,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 11.2533,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0137",
+      "source_timestamp_seconds": 1812.928,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.2204,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0138",
+      "source_timestamp_seconds": 1814.788,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.025,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0139",
+      "source_timestamp_seconds": 1817.669,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.809,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0140",
+      "source_timestamp_seconds": 1828.058,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.3385,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0141",
+      "source_timestamp_seconds": 1830.26,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.8607,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0142",
+      "source_timestamp_seconds": 1835.733,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.7385,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0143",
+      "source_timestamp_seconds": 1837.806,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 13.6517,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0144",
+      "source_timestamp_seconds": 1841.328,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.6314,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0145",
+      "source_timestamp_seconds": 1844.335,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.5279,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0146",
+      "source_timestamp_seconds": 1845.434,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.6768,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0147",
+      "source_timestamp_seconds": 1847.812,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 12.1336,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0148",
+      "source_timestamp_seconds": 1853.372,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 16.7493,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0149",
+      "source_timestamp_seconds": 1855.66,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.0737,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0150",
+      "source_timestamp_seconds": 1860.528,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 8.6331,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0151",
+      "source_timestamp_seconds": 1865.061,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 14.1732,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0152",
+      "source_timestamp_seconds": 1866.836,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.3739,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0153",
+      "source_timestamp_seconds": 1871.954,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 8.8214,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0154",
+      "source_timestamp_seconds": 1880.388,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.6259,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0155",
+      "source_timestamp_seconds": 1884.703,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.0767,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0156",
+      "source_timestamp_seconds": 1895.815,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.3102,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0157",
+      "source_timestamp_seconds": 1904.722,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.2464,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0158",
+      "source_timestamp_seconds": 1906.794,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 5.5155,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0159",
+      "source_timestamp_seconds": 1910.438,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 5.4788,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0160",
+      "source_timestamp_seconds": 1912.599,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.0141,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0161",
+      "source_timestamp_seconds": 1913.613,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.1986,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0162",
+      "source_timestamp_seconds": 1914.634,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.0258,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0163",
+      "source_timestamp_seconds": 1925.602,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.4303,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0164",
+      "source_timestamp_seconds": 1929.503,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.0664,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0165",
+      "source_timestamp_seconds": 1933.144,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 11.0932,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0166",
+      "source_timestamp_seconds": 1939.585,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.3321,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0167",
+      "source_timestamp_seconds": 1942.888,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.1378,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0168",
+      "source_timestamp_seconds": 1955.077,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.8797,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0169",
+      "source_timestamp_seconds": 1957.107,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.9876,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0170",
+      "source_timestamp_seconds": 1960.316,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.0216,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0171",
+      "source_timestamp_seconds": 1961.333,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.6506,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0172",
+      "source_timestamp_seconds": 1962.729,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 8.4816,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0173",
+      "source_timestamp_seconds": 1969.304,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.4625,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0174",
+      "source_timestamp_seconds": 1971.921,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 6.9124,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0175",
+      "source_timestamp_seconds": 1979.924,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.3986,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0176",
+      "source_timestamp_seconds": 1981.619,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.9921,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0177",
+      "source_timestamp_seconds": 1984.117,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.5076,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0178",
+      "source_timestamp_seconds": 1985.136,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.7985,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0179",
+      "source_timestamp_seconds": 1990.609,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 8.537,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0180",
+      "source_timestamp_seconds": 1994.082,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.8211,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0181",
+      "source_timestamp_seconds": 2057.545,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.1439,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0182",
+      "source_timestamp_seconds": 2147.56,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": null,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0183",
+      "source_timestamp_seconds": 2181.635,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.5464,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0184",
+      "source_timestamp_seconds": 2183.67,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.5303,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0185",
+      "source_timestamp_seconds": 2188.583,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.5029,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0186",
+      "source_timestamp_seconds": 2201.671,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.6092,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0187",
+      "source_timestamp_seconds": 2291.695,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": null,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0188",
+      "source_timestamp_seconds": 2381.717,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": null,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0189",
+      "source_timestamp_seconds": 2391.726,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.2463,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0190",
+      "source_timestamp_seconds": 2479.217,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.9195,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0191",
+      "source_timestamp_seconds": 2485.918,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 58.9335,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0192",
+      "source_timestamp_seconds": 2496.664,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.9322,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0193",
+      "source_timestamp_seconds": 2498.4,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 59.1415,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0194",
+      "source_timestamp_seconds": 2501.322,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 0.9931,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0195",
+      "source_timestamp_seconds": 2502.636,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 58.7976,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0196",
+      "source_timestamp_seconds": 2504.924,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.9322,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0197",
+      "source_timestamp_seconds": 2523.135,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 59.7808,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0198",
+      "source_timestamp_seconds": 2529.775,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.0615,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0199",
+      "source_timestamp_seconds": 2530.794,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 10.3504,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0200",
+      "source_timestamp_seconds": 2531.898,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.9786,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0201",
+      "source_timestamp_seconds": 2533.468,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 4.8521,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0202",
+      "source_timestamp_seconds": 2534.485,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.7926,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0203",
+      "source_timestamp_seconds": 2535.634,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 13.6008,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0204",
+      "source_timestamp_seconds": 2536.741,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 34.8962,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0205",
+      "source_timestamp_seconds": 2549.41,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 10.8954,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0206",
+      "source_timestamp_seconds": 2556.348,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 30.5864,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0207",
+      "source_timestamp_seconds": 2560.641,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 47.1656,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0208",
+      "source_timestamp_seconds": 2562.337,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 21.9398,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0209",
+      "source_timestamp_seconds": 2564.664,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 7.604,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0210",
+      "source_timestamp_seconds": 2565.76,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 7.5952,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0211",
+      "source_timestamp_seconds": 2568.387,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 3.9174,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0212",
+      "source_timestamp_seconds": 2586.064,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 59.4266,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0213",
+      "source_timestamp_seconds": 2589.326,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.9677,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0214",
+      "source_timestamp_seconds": 2591.067,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 2.9641,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0215",
+      "source_timestamp_seconds": 2615.447,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 26.3442,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0216",
+      "source_timestamp_seconds": 2617.357,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.1213,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0217",
+      "source_timestamp_seconds": 2619.147,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 23.8956,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0218",
+      "source_timestamp_seconds": 2624.762,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 28.9151,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0219",
+      "source_timestamp_seconds": 2625.868,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 1.2413,
+      "high_value_interaction_zone": false
+    },
+    {
+      "frame_id": "frame_0220",
+      "source_timestamp_seconds": 2629.003,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "associated_transcript_id": null,
+      "associated_speaker_role": "unknown",
+      "pixel_change_percentage": 37.5145,
+      "high_value_interaction_zone": false
+    }
+  ],
+  "frames": [
+    {
+      "frame_id": "frame_0001",
+      "source_timestamp_seconds": 0.726,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 15.3676,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0001.jpg",
+      "source_timestamp_ms": 726
+    },
+    {
+      "frame_id": "frame_0002",
+      "source_timestamp_seconds": 15.728,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 30.2083,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0002.jpg",
+      "source_timestamp_ms": 15728
+    },
+    {
+      "frame_id": "frame_0003",
+      "source_timestamp_seconds": 17.725,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 30.0152,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0003.jpg",
+      "source_timestamp_ms": 17725
+    },
+    {
+      "frame_id": "frame_0004",
+      "source_timestamp_seconds": 19.249,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.5812,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0004.jpg",
+      "source_timestamp_ms": 19249
+    },
+    {
+      "frame_id": "frame_0005",
+      "source_timestamp_seconds": 22.128,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.45,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0005.jpg",
+      "source_timestamp_ms": 22128
+    },
+    {
+      "frame_id": "frame_0006",
+      "source_timestamp_seconds": 28.485,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 18.6134,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0006.jpg",
+      "source_timestamp_ms": 28485
+    },
+    {
+      "frame_id": "frame_0007",
+      "source_timestamp_seconds": 66.114,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.7927,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0007.jpg",
+      "source_timestamp_ms": 66114
+    },
+    {
+      "frame_id": "frame_0008",
+      "source_timestamp_seconds": 71.248,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.1485,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0008.jpg",
+      "source_timestamp_ms": 71248
+    },
+    {
+      "frame_id": "frame_0009",
+      "source_timestamp_seconds": 139.955,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.5458,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0009.jpg",
+      "source_timestamp_ms": 139955
+    },
+    {
+      "frame_id": "frame_0010",
+      "source_timestamp_seconds": 141.605,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.8159,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0010.jpg",
+      "source_timestamp_ms": 141605
+    },
+    {
+      "frame_id": "frame_0011",
+      "source_timestamp_seconds": 231.64,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false,
+        "codap_gap_seconds": 90.04
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0011.jpg",
+      "source_timestamp_ms": 231640
+    },
+    {
+      "frame_id": "frame_0012",
+      "source_timestamp_seconds": 269.092,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 5.7011,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0012.jpg",
+      "source_timestamp_ms": 269092
+    },
+    {
+      "frame_id": "frame_0013",
+      "source_timestamp_seconds": 271.761,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.4533,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0013.jpg",
+      "source_timestamp_ms": 271761
+    },
+    {
+      "frame_id": "frame_0014",
+      "source_timestamp_seconds": 272.777,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.7366,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0014.jpg",
+      "source_timestamp_ms": 272777
+    },
+    {
+      "frame_id": "frame_0015",
+      "source_timestamp_seconds": 274.723,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.37,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0015.jpg",
+      "source_timestamp_ms": 274723
+    },
+    {
+      "frame_id": "frame_0016",
+      "source_timestamp_seconds": 276.038,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.67,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0016.jpg",
+      "source_timestamp_ms": 276038
+    },
+    {
+      "frame_id": "frame_0017",
+      "source_timestamp_seconds": 277.65,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.7005,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0017.jpg",
+      "source_timestamp_ms": 277650
+    },
+    {
+      "frame_id": "frame_0018",
+      "source_timestamp_seconds": 279.94,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.2801,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0018.jpg",
+      "source_timestamp_ms": 279940
+    },
+    {
+      "frame_id": "frame_0019",
+      "source_timestamp_seconds": 281.549,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.2902,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0019.jpg",
+      "source_timestamp_ms": 281549
+    },
+    {
+      "frame_id": "frame_0020",
+      "source_timestamp_seconds": 283.577,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 7.828,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0020.jpg",
+      "source_timestamp_ms": 283577
+    },
+    {
+      "frame_id": "frame_0021",
+      "source_timestamp_seconds": 289.754,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.4542,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0021.jpg",
+      "source_timestamp_ms": 289754
+    },
+    {
+      "frame_id": "frame_0022",
+      "source_timestamp_seconds": 291.406,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.4756,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0022.jpg",
+      "source_timestamp_ms": 291406
+    },
+    {
+      "frame_id": "frame_0023",
+      "source_timestamp_seconds": 293.483,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 5.2953,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0023.jpg",
+      "source_timestamp_ms": 293483
+    },
+    {
+      "frame_id": "frame_0024",
+      "source_timestamp_seconds": 297.048,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.3338,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0024.jpg",
+      "source_timestamp_ms": 297048
+    },
+    {
+      "frame_id": "frame_0025",
+      "source_timestamp_seconds": 298.788,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.4537,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0025.jpg",
+      "source_timestamp_ms": 298788
+    },
+    {
+      "frame_id": "frame_0026",
+      "source_timestamp_seconds": 308.152,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.8681,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0026.jpg",
+      "source_timestamp_ms": 308152
+    },
+    {
+      "frame_id": "frame_0027",
+      "source_timestamp_seconds": 344.229,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.92,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0027.jpg",
+      "source_timestamp_ms": 344229
+    },
+    {
+      "frame_id": "frame_0028",
+      "source_timestamp_seconds": 434.242,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false,
+        "codap_gap_seconds": 90.01
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0028.jpg",
+      "source_timestamp_ms": 434242
+    },
+    {
+      "frame_id": "frame_0029",
+      "source_timestamp_seconds": 456.109,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.9992,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0029.jpg",
+      "source_timestamp_ms": 456109
+    },
+    {
+      "frame_id": "frame_0030",
+      "source_timestamp_seconds": 457.889,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.9687,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0030.jpg",
+      "source_timestamp_ms": 457889
+    },
+    {
+      "frame_id": "frame_0031",
+      "source_timestamp_seconds": 464.913,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.0298,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0031.jpg",
+      "source_timestamp_ms": 464913
+    },
+    {
+      "frame_id": "frame_0032",
+      "source_timestamp_seconds": 484.534,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.3856,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0032.jpg",
+      "source_timestamp_ms": 484534
+    },
+    {
+      "frame_id": "frame_0033",
+      "source_timestamp_seconds": 486.44,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.1827,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0033.jpg",
+      "source_timestamp_ms": 486440
+    },
+    {
+      "frame_id": "frame_0034",
+      "source_timestamp_seconds": 491.183,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.6822,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0034.jpg",
+      "source_timestamp_ms": 491183
+    },
+    {
+      "frame_id": "frame_0035",
+      "source_timestamp_seconds": 493.388,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.172,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0035.jpg",
+      "source_timestamp_ms": 493388
+    },
+    {
+      "frame_id": "frame_0036",
+      "source_timestamp_seconds": 495.55,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.9903,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0036.jpg",
+      "source_timestamp_ms": 495550
+    },
+    {
+      "frame_id": "frame_0037",
+      "source_timestamp_seconds": 497.75,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.0544,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0037.jpg",
+      "source_timestamp_ms": 497750
+    },
+    {
+      "frame_id": "frame_0038",
+      "source_timestamp_seconds": 499.786,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.9769,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0038.jpg",
+      "source_timestamp_ms": 499786
+    },
+    {
+      "frame_id": "frame_0039",
+      "source_timestamp_seconds": 501.057,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.1472,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0039.jpg",
+      "source_timestamp_ms": 501057
+    },
+    {
+      "frame_id": "frame_0040",
+      "source_timestamp_seconds": 504.444,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.353,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0040.jpg",
+      "source_timestamp_ms": 504444
+    },
+    {
+      "frame_id": "frame_0041",
+      "source_timestamp_seconds": 508.427,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.877,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0041.jpg",
+      "source_timestamp_ms": 508427
+    },
+    {
+      "frame_id": "frame_0042",
+      "source_timestamp_seconds": 521.689,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.9923,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0042.jpg",
+      "source_timestamp_ms": 521689
+    },
+    {
+      "frame_id": "frame_0043",
+      "source_timestamp_seconds": 524.704,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.1597,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0043.jpg",
+      "source_timestamp_ms": 524704
+    },
+    {
+      "frame_id": "frame_0044",
+      "source_timestamp_seconds": 535.756,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.4822,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0044.jpg",
+      "source_timestamp_ms": 535756
+    },
+    {
+      "frame_id": "frame_0045",
+      "source_timestamp_seconds": 538.255,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.2934,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0045.jpg",
+      "source_timestamp_ms": 538255
+    },
+    {
+      "frame_id": "frame_0046",
+      "source_timestamp_seconds": 544.225,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.9689,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0046.jpg",
+      "source_timestamp_ms": 544225
+    },
+    {
+      "frame_id": "frame_0047",
+      "source_timestamp_seconds": 555.588,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.8996,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0047.jpg",
+      "source_timestamp_ms": 555588
+    },
+    {
+      "frame_id": "frame_0048",
+      "source_timestamp_seconds": 561.937,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.3847,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0048.jpg",
+      "source_timestamp_ms": 561937
+    },
+    {
+      "frame_id": "frame_0049",
+      "source_timestamp_seconds": 564.058,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.4167,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0049.jpg",
+      "source_timestamp_ms": 564058
+    },
+    {
+      "frame_id": "frame_0050",
+      "source_timestamp_seconds": 566.856,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.9501,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0050.jpg",
+      "source_timestamp_ms": 566856
+    },
+    {
+      "frame_id": "frame_0051",
+      "source_timestamp_seconds": 570.325,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.675,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0051.jpg",
+      "source_timestamp_ms": 570325
+    },
+    {
+      "frame_id": "frame_0052",
+      "source_timestamp_seconds": 577.917,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.2435,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0052.jpg",
+      "source_timestamp_ms": 577917
+    },
+    {
+      "frame_id": "frame_0053",
+      "source_timestamp_seconds": 625.984,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.1392,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0053.jpg",
+      "source_timestamp_ms": 625984
+    },
+    {
+      "frame_id": "frame_0054",
+      "source_timestamp_seconds": 628.527,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.1415,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0054.jpg",
+      "source_timestamp_ms": 628527
+    },
+    {
+      "frame_id": "frame_0055",
+      "source_timestamp_seconds": 703.259,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.8885,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0055.jpg",
+      "source_timestamp_ms": 703259
+    },
+    {
+      "frame_id": "frame_0056",
+      "source_timestamp_seconds": 705.075,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.7303,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0056.jpg",
+      "source_timestamp_ms": 705075
+    },
+    {
+      "frame_id": "frame_0057",
+      "source_timestamp_seconds": 707.445,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.1115,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0057.jpg",
+      "source_timestamp_ms": 707445
+    },
+    {
+      "frame_id": "frame_0058",
+      "source_timestamp_seconds": 708.887,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.3305,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0058.jpg",
+      "source_timestamp_ms": 708887
+    },
+    {
+      "frame_id": "frame_0059",
+      "source_timestamp_seconds": 717.705,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.7219,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0059.jpg",
+      "source_timestamp_ms": 717705
+    },
+    {
+      "frame_id": "frame_0060",
+      "source_timestamp_seconds": 721.984,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.5356,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0060.jpg",
+      "source_timestamp_ms": 721984
+    },
+    {
+      "frame_id": "frame_0061",
+      "source_timestamp_seconds": 729.314,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.149,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0061.jpg",
+      "source_timestamp_ms": 729314
+    },
+    {
+      "frame_id": "frame_0062",
+      "source_timestamp_seconds": 732.155,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.8871,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0062.jpg",
+      "source_timestamp_ms": 732155
+    },
+    {
+      "frame_id": "frame_0063",
+      "source_timestamp_seconds": 733.722,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.8631,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0063.jpg",
+      "source_timestamp_ms": 733722
+    },
+    {
+      "frame_id": "frame_0064",
+      "source_timestamp_seconds": 734.782,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.8893,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0064.jpg",
+      "source_timestamp_ms": 734782
+    },
+    {
+      "frame_id": "frame_0065",
+      "source_timestamp_seconds": 737.068,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.3198,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0065.jpg",
+      "source_timestamp_ms": 737068
+    },
+    {
+      "frame_id": "frame_0066",
+      "source_timestamp_seconds": 755.924,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.5356,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0066.jpg",
+      "source_timestamp_ms": 755924
+    },
+    {
+      "frame_id": "frame_0067",
+      "source_timestamp_seconds": 845.937,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false,
+        "codap_gap_seconds": 90.01
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0067.jpg",
+      "source_timestamp_ms": 845937
+    },
+    {
+      "frame_id": "frame_0068",
+      "source_timestamp_seconds": 909.507,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.4779,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0068.jpg",
+      "source_timestamp_ms": 909507
+    },
+    {
+      "frame_id": "frame_0069",
+      "source_timestamp_seconds": 911.08,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.2172,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0069.jpg",
+      "source_timestamp_ms": 911080
+    },
+    {
+      "frame_id": "frame_0070",
+      "source_timestamp_seconds": 1001.087,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false,
+        "codap_gap_seconds": 90.01
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0070.jpg",
+      "source_timestamp_ms": 1001087
+    },
+    {
+      "frame_id": "frame_0071",
+      "source_timestamp_seconds": 1028.133,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.4084,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0071.jpg",
+      "source_timestamp_ms": 1028133
+    },
+    {
+      "frame_id": "frame_0072",
+      "source_timestamp_seconds": 1103.6,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.4779,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0072.jpg",
+      "source_timestamp_ms": 1103600
+    },
+    {
+      "frame_id": "frame_0073",
+      "source_timestamp_seconds": 1106.608,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.9837,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0073.jpg",
+      "source_timestamp_ms": 1106608
+    },
+    {
+      "frame_id": "frame_0074",
+      "source_timestamp_seconds": 1109.53,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.4273,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0074.jpg",
+      "source_timestamp_ms": 1109530
+    },
+    {
+      "frame_id": "frame_0075",
+      "source_timestamp_seconds": 1144.946,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.6091,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0075.jpg",
+      "source_timestamp_ms": 1144946
+    },
+    {
+      "frame_id": "frame_0076",
+      "source_timestamp_seconds": 1150.153,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.8762,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0076.jpg",
+      "source_timestamp_ms": 1150153
+    },
+    {
+      "frame_id": "frame_0077",
+      "source_timestamp_seconds": 1153.884,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.5295,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0077.jpg",
+      "source_timestamp_ms": 1153884
+    },
+    {
+      "frame_id": "frame_0078",
+      "source_timestamp_seconds": 1155.834,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.8507,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0078.jpg",
+      "source_timestamp_ms": 1155834
+    },
+    {
+      "frame_id": "frame_0079",
+      "source_timestamp_seconds": 1157.236,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.2094,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0079.jpg",
+      "source_timestamp_ms": 1157236
+    },
+    {
+      "frame_id": "frame_0080",
+      "source_timestamp_seconds": 1192.297,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 11.5481,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0080.jpg",
+      "source_timestamp_ms": 1192297
+    },
+    {
+      "frame_id": "frame_0081",
+      "source_timestamp_seconds": 1193.571,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.537,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0081.jpg",
+      "source_timestamp_ms": 1193571
+    },
+    {
+      "frame_id": "frame_0082",
+      "source_timestamp_seconds": 1196.285,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.7906,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0082.jpg",
+      "source_timestamp_ms": 1196285
+    },
+    {
+      "frame_id": "frame_0083",
+      "source_timestamp_seconds": 1198.615,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.0284,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0083.jpg",
+      "source_timestamp_ms": 1198615
+    },
+    {
+      "frame_id": "frame_0084",
+      "source_timestamp_seconds": 1213.946,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.8516,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0084.jpg",
+      "source_timestamp_ms": 1213946
+    },
+    {
+      "frame_id": "frame_0085",
+      "source_timestamp_seconds": 1296.331,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.0134,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0085.jpg",
+      "source_timestamp_ms": 1296331
+    },
+    {
+      "frame_id": "frame_0086",
+      "source_timestamp_seconds": 1297.351,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.6004,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0086.jpg",
+      "source_timestamp_ms": 1297351
+    },
+    {
+      "frame_id": "frame_0087",
+      "source_timestamp_seconds": 1307.557,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 12.6187,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0087.jpg",
+      "source_timestamp_ms": 1307557
+    },
+    {
+      "frame_id": "frame_0088",
+      "source_timestamp_seconds": 1308.578,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.0136,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0088.jpg",
+      "source_timestamp_ms": 1308578
+    },
+    {
+      "frame_id": "frame_0089",
+      "source_timestamp_seconds": 1312.173,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.3735,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0089.jpg",
+      "source_timestamp_ms": 1312173
+    },
+    {
+      "frame_id": "frame_0090",
+      "source_timestamp_seconds": 1329.121,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.8819,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0090.jpg",
+      "source_timestamp_ms": 1329121
+    },
+    {
+      "frame_id": "frame_0091",
+      "source_timestamp_seconds": 1331.831,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 11.4543,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0091.jpg",
+      "source_timestamp_ms": 1331831
+    },
+    {
+      "frame_id": "frame_0092",
+      "source_timestamp_seconds": 1340.903,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 11.4572,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0092.jpg",
+      "source_timestamp_ms": 1340903
+    },
+    {
+      "frame_id": "frame_0093",
+      "source_timestamp_seconds": 1347.51,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 13.2,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0093.jpg",
+      "source_timestamp_ms": 1347510
+    },
+    {
+      "frame_id": "frame_0094",
+      "source_timestamp_seconds": 1350.351,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.3061,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0094.jpg",
+      "source_timestamp_ms": 1350351
+    },
+    {
+      "frame_id": "frame_0095",
+      "source_timestamp_seconds": 1354.246,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.0872,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0095.jpg",
+      "source_timestamp_ms": 1354246
+    },
+    {
+      "frame_id": "frame_0096",
+      "source_timestamp_seconds": 1395.151,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.1264,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0096.jpg",
+      "source_timestamp_ms": 1395151
+    },
+    {
+      "frame_id": "frame_0097",
+      "source_timestamp_seconds": 1396.853,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.0824,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0097.jpg",
+      "source_timestamp_ms": 1396853
+    },
+    {
+      "frame_id": "frame_0098",
+      "source_timestamp_seconds": 1397.869,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.8175,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0098.jpg",
+      "source_timestamp_ms": 1397869
+    },
+    {
+      "frame_id": "frame_0099",
+      "source_timestamp_seconds": 1400.078,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.1961,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0099.jpg",
+      "source_timestamp_ms": 1400078
+    },
+    {
+      "frame_id": "frame_0100",
+      "source_timestamp_seconds": 1483.302,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.5881,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0100.jpg",
+      "source_timestamp_ms": 1483302
+    },
+    {
+      "frame_id": "frame_0101",
+      "source_timestamp_seconds": 1484.485,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.3286,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0101.jpg",
+      "source_timestamp_ms": 1484485
+    },
+    {
+      "frame_id": "frame_0102",
+      "source_timestamp_seconds": 1486.133,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.7979,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0102.jpg",
+      "source_timestamp_ms": 1486133
+    },
+    {
+      "frame_id": "frame_0103",
+      "source_timestamp_seconds": 1488.165,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.5127,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0103.jpg",
+      "source_timestamp_ms": 1488165
+    },
+    {
+      "frame_id": "frame_0104",
+      "source_timestamp_seconds": 1493.083,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.4597,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0104.jpg",
+      "source_timestamp_ms": 1493083
+    },
+    {
+      "frame_id": "frame_0105",
+      "source_timestamp_seconds": 1496.18,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.9609,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0105.jpg",
+      "source_timestamp_ms": 1496180
+    },
+    {
+      "frame_id": "frame_0106",
+      "source_timestamp_seconds": 1497.705,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.0507,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0106.jpg",
+      "source_timestamp_ms": 1497705
+    },
+    {
+      "frame_id": "frame_0107",
+      "source_timestamp_seconds": 1502.068,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.0301,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0107.jpg",
+      "source_timestamp_ms": 1502068
+    },
+    {
+      "frame_id": "frame_0108",
+      "source_timestamp_seconds": 1503.17,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.9494,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0108.jpg",
+      "source_timestamp_ms": 1503170
+    },
+    {
+      "frame_id": "frame_0109",
+      "source_timestamp_seconds": 1507.112,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.1789,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0109.jpg",
+      "source_timestamp_ms": 1507112
+    },
+    {
+      "frame_id": "frame_0110",
+      "source_timestamp_seconds": 1509.143,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.941,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0110.jpg",
+      "source_timestamp_ms": 1509143
+    },
+    {
+      "frame_id": "frame_0111",
+      "source_timestamp_seconds": 1514.444,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.733,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0111.jpg",
+      "source_timestamp_ms": 1514444
+    },
+    {
+      "frame_id": "frame_0112",
+      "source_timestamp_seconds": 1588.448,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.9774,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0112.jpg",
+      "source_timestamp_ms": 1588448
+    },
+    {
+      "frame_id": "frame_0113",
+      "source_timestamp_seconds": 1590.456,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 9.4159,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0113.jpg",
+      "source_timestamp_ms": 1590456
+    },
+    {
+      "frame_id": "frame_0114",
+      "source_timestamp_seconds": 1593.903,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 11.9281,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0114.jpg",
+      "source_timestamp_ms": 1593903
+    },
+    {
+      "frame_id": "frame_0115",
+      "source_timestamp_seconds": 1595.051,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 8.5111,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0115.jpg",
+      "source_timestamp_ms": 1595051
+    },
+    {
+      "frame_id": "frame_0116",
+      "source_timestamp_seconds": 1608.985,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.5296,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0116.jpg",
+      "source_timestamp_ms": 1608985
+    },
+    {
+      "frame_id": "frame_0117",
+      "source_timestamp_seconds": 1614.444,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.1437,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0117.jpg",
+      "source_timestamp_ms": 1614444
+    },
+    {
+      "frame_id": "frame_0118",
+      "source_timestamp_seconds": 1615.462,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.89,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0118.jpg",
+      "source_timestamp_ms": 1615462
+    },
+    {
+      "frame_id": "frame_0119",
+      "source_timestamp_seconds": 1624.313,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 16.5642,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0119.jpg",
+      "source_timestamp_ms": 1624313
+    },
+    {
+      "frame_id": "frame_0120",
+      "source_timestamp_seconds": 1677.777,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.8144,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0120.jpg",
+      "source_timestamp_ms": 1677777
+    },
+    {
+      "frame_id": "frame_0121",
+      "source_timestamp_seconds": 1684.779,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.429,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0121.jpg",
+      "source_timestamp_ms": 1684779
+    },
+    {
+      "frame_id": "frame_0122",
+      "source_timestamp_seconds": 1685.838,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 8.3557,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0122.jpg",
+      "source_timestamp_ms": 1685838
+    },
+    {
+      "frame_id": "frame_0123",
+      "source_timestamp_seconds": 1687.7,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.137,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0123.jpg",
+      "source_timestamp_ms": 1687700
+    },
+    {
+      "frame_id": "frame_0124",
+      "source_timestamp_seconds": 1691.085,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 14.4546,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0124.jpg",
+      "source_timestamp_ms": 1691085
+    },
+    {
+      "frame_id": "frame_0125",
+      "source_timestamp_seconds": 1715.905,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.5303,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0125.jpg",
+      "source_timestamp_ms": 1715905
+    },
+    {
+      "frame_id": "frame_0126",
+      "source_timestamp_seconds": 1718.787,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.9054,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0126.jpg",
+      "source_timestamp_ms": 1718787
+    },
+    {
+      "frame_id": "frame_0127",
+      "source_timestamp_seconds": 1726.871,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.2054,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0127.jpg",
+      "source_timestamp_ms": 1726871
+    },
+    {
+      "frame_id": "frame_0128",
+      "source_timestamp_seconds": 1729.073,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.7926,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0128.jpg",
+      "source_timestamp_ms": 1729073
+    },
+    {
+      "frame_id": "frame_0129",
+      "source_timestamp_seconds": 1731.02,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.6411,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0129.jpg",
+      "source_timestamp_ms": 1731020
+    },
+    {
+      "frame_id": "frame_0130",
+      "source_timestamp_seconds": 1733.139,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.1261,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0130.jpg",
+      "source_timestamp_ms": 1733139
+    },
+    {
+      "frame_id": "frame_0131",
+      "source_timestamp_seconds": 1734.239,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.2176,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0131.jpg",
+      "source_timestamp_ms": 1734239
+    },
+    {
+      "frame_id": "frame_0132",
+      "source_timestamp_seconds": 1746.77,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.3844,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0132.jpg",
+      "source_timestamp_ms": 1746770
+    },
+    {
+      "frame_id": "frame_0133",
+      "source_timestamp_seconds": 1749.02,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 8.4051,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0133.jpg",
+      "source_timestamp_ms": 1749020
+    },
+    {
+      "frame_id": "frame_0134",
+      "source_timestamp_seconds": 1773.402,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.4833,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0134.jpg",
+      "source_timestamp_ms": 1773402
+    },
+    {
+      "frame_id": "frame_0135",
+      "source_timestamp_seconds": 1777.93,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 11.253,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0135.jpg",
+      "source_timestamp_ms": 1777930
+    },
+    {
+      "frame_id": "frame_0136",
+      "source_timestamp_seconds": 1783.102,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 11.2533,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0136.jpg",
+      "source_timestamp_ms": 1783102
+    },
+    {
+      "frame_id": "frame_0137",
+      "source_timestamp_seconds": 1812.928,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.2204,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0137.jpg",
+      "source_timestamp_ms": 1812928
+    },
+    {
+      "frame_id": "frame_0138",
+      "source_timestamp_seconds": 1814.788,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.025,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0138.jpg",
+      "source_timestamp_ms": 1814788
+    },
+    {
+      "frame_id": "frame_0139",
+      "source_timestamp_seconds": 1817.669,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.809,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0139.jpg",
+      "source_timestamp_ms": 1817669
+    },
+    {
+      "frame_id": "frame_0140",
+      "source_timestamp_seconds": 1828.058,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.3385,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0140.jpg",
+      "source_timestamp_ms": 1828058
+    },
+    {
+      "frame_id": "frame_0141",
+      "source_timestamp_seconds": 1830.26,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.8607,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0141.jpg",
+      "source_timestamp_ms": 1830260
+    },
+    {
+      "frame_id": "frame_0142",
+      "source_timestamp_seconds": 1835.733,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.7385,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0142.jpg",
+      "source_timestamp_ms": 1835733
+    },
+    {
+      "frame_id": "frame_0143",
+      "source_timestamp_seconds": 1837.806,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 13.6517,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0143.jpg",
+      "source_timestamp_ms": 1837806
+    },
+    {
+      "frame_id": "frame_0144",
+      "source_timestamp_seconds": 1841.328,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.6314,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0144.jpg",
+      "source_timestamp_ms": 1841328
+    },
+    {
+      "frame_id": "frame_0145",
+      "source_timestamp_seconds": 1844.335,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.5279,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0145.jpg",
+      "source_timestamp_ms": 1844335
+    },
+    {
+      "frame_id": "frame_0146",
+      "source_timestamp_seconds": 1845.434,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.6768,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0146.jpg",
+      "source_timestamp_ms": 1845434
+    },
+    {
+      "frame_id": "frame_0147",
+      "source_timestamp_seconds": 1847.812,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 12.1336,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0147.jpg",
+      "source_timestamp_ms": 1847812
+    },
+    {
+      "frame_id": "frame_0148",
+      "source_timestamp_seconds": 1853.372,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 16.7493,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0148.jpg",
+      "source_timestamp_ms": 1853372
+    },
+    {
+      "frame_id": "frame_0149",
+      "source_timestamp_seconds": 1855.66,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.0737,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0149.jpg",
+      "source_timestamp_ms": 1855660
+    },
+    {
+      "frame_id": "frame_0150",
+      "source_timestamp_seconds": 1860.528,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 8.6331,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0150.jpg",
+      "source_timestamp_ms": 1860528
+    },
+    {
+      "frame_id": "frame_0151",
+      "source_timestamp_seconds": 1865.061,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 14.1732,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0151.jpg",
+      "source_timestamp_ms": 1865061
+    },
+    {
+      "frame_id": "frame_0152",
+      "source_timestamp_seconds": 1866.836,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.3739,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0152.jpg",
+      "source_timestamp_ms": 1866836
+    },
+    {
+      "frame_id": "frame_0153",
+      "source_timestamp_seconds": 1871.954,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 8.8214,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0153.jpg",
+      "source_timestamp_ms": 1871954
+    },
+    {
+      "frame_id": "frame_0154",
+      "source_timestamp_seconds": 1880.388,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.6259,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0154.jpg",
+      "source_timestamp_ms": 1880388
+    },
+    {
+      "frame_id": "frame_0155",
+      "source_timestamp_seconds": 1884.703,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.0767,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0155.jpg",
+      "source_timestamp_ms": 1884703
+    },
+    {
+      "frame_id": "frame_0156",
+      "source_timestamp_seconds": 1895.815,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.3102,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0156.jpg",
+      "source_timestamp_ms": 1895815
+    },
+    {
+      "frame_id": "frame_0157",
+      "source_timestamp_seconds": 1904.722,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.2464,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0157.jpg",
+      "source_timestamp_ms": 1904722
+    },
+    {
+      "frame_id": "frame_0158",
+      "source_timestamp_seconds": 1906.794,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 5.5155,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0158.jpg",
+      "source_timestamp_ms": 1906794
+    },
+    {
+      "frame_id": "frame_0159",
+      "source_timestamp_seconds": 1910.438,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 5.4788,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0159.jpg",
+      "source_timestamp_ms": 1910438
+    },
+    {
+      "frame_id": "frame_0160",
+      "source_timestamp_seconds": 1912.599,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.0141,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0160.jpg",
+      "source_timestamp_ms": 1912599
+    },
+    {
+      "frame_id": "frame_0161",
+      "source_timestamp_seconds": 1913.613,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.1986,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0161.jpg",
+      "source_timestamp_ms": 1913613
+    },
+    {
+      "frame_id": "frame_0162",
+      "source_timestamp_seconds": 1914.634,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.0258,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0162.jpg",
+      "source_timestamp_ms": 1914634
+    },
+    {
+      "frame_id": "frame_0163",
+      "source_timestamp_seconds": 1925.602,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.4303,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0163.jpg",
+      "source_timestamp_ms": 1925602
+    },
+    {
+      "frame_id": "frame_0164",
+      "source_timestamp_seconds": 1929.503,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.0664,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0164.jpg",
+      "source_timestamp_ms": 1929503
+    },
+    {
+      "frame_id": "frame_0165",
+      "source_timestamp_seconds": 1933.144,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 11.0932,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0165.jpg",
+      "source_timestamp_ms": 1933144
+    },
+    {
+      "frame_id": "frame_0166",
+      "source_timestamp_seconds": 1939.585,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.3321,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0166.jpg",
+      "source_timestamp_ms": 1939585
+    },
+    {
+      "frame_id": "frame_0167",
+      "source_timestamp_seconds": 1942.888,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.1378,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0167.jpg",
+      "source_timestamp_ms": 1942888
+    },
+    {
+      "frame_id": "frame_0168",
+      "source_timestamp_seconds": 1955.077,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.8797,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0168.jpg",
+      "source_timestamp_ms": 1955077
+    },
+    {
+      "frame_id": "frame_0169",
+      "source_timestamp_seconds": 1957.107,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.9876,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0169.jpg",
+      "source_timestamp_ms": 1957107
+    },
+    {
+      "frame_id": "frame_0170",
+      "source_timestamp_seconds": 1960.316,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.0216,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0170.jpg",
+      "source_timestamp_ms": 1960316
+    },
+    {
+      "frame_id": "frame_0171",
+      "source_timestamp_seconds": 1961.333,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.6506,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0171.jpg",
+      "source_timestamp_ms": 1961333
+    },
+    {
+      "frame_id": "frame_0172",
+      "source_timestamp_seconds": 1962.729,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 8.4816,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0172.jpg",
+      "source_timestamp_ms": 1962729
+    },
+    {
+      "frame_id": "frame_0173",
+      "source_timestamp_seconds": 1969.304,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.4625,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0173.jpg",
+      "source_timestamp_ms": 1969304
+    },
+    {
+      "frame_id": "frame_0174",
+      "source_timestamp_seconds": 1971.921,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 6.9124,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0174.jpg",
+      "source_timestamp_ms": 1971921
+    },
+    {
+      "frame_id": "frame_0175",
+      "source_timestamp_seconds": 1979.924,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.3986,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0175.jpg",
+      "source_timestamp_ms": 1979924
+    },
+    {
+      "frame_id": "frame_0176",
+      "source_timestamp_seconds": 1981.619,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.9921,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0176.jpg",
+      "source_timestamp_ms": 1981619
+    },
+    {
+      "frame_id": "frame_0177",
+      "source_timestamp_seconds": 1984.117,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.5076,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0177.jpg",
+      "source_timestamp_ms": 1984117
+    },
+    {
+      "frame_id": "frame_0178",
+      "source_timestamp_seconds": 1985.136,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.7985,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0178.jpg",
+      "source_timestamp_ms": 1985136
+    },
+    {
+      "frame_id": "frame_0179",
+      "source_timestamp_seconds": 1990.609,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 8.537,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0179.jpg",
+      "source_timestamp_ms": 1990609
+    },
+    {
+      "frame_id": "frame_0180",
+      "source_timestamp_seconds": 1994.082,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.8211,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0180.jpg",
+      "source_timestamp_ms": 1994082
+    },
+    {
+      "frame_id": "frame_0181",
+      "source_timestamp_seconds": 2057.545,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.1439,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0181.jpg",
+      "source_timestamp_ms": 2057545
+    },
+    {
+      "frame_id": "frame_0182",
+      "source_timestamp_seconds": 2147.56,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false,
+        "codap_gap_seconds": 90.01
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0182.jpg",
+      "source_timestamp_ms": 2147560
+    },
+    {
+      "frame_id": "frame_0183",
+      "source_timestamp_seconds": 2181.635,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.5464,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0183.jpg",
+      "source_timestamp_ms": 2181635
+    },
+    {
+      "frame_id": "frame_0184",
+      "source_timestamp_seconds": 2183.67,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.5303,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0184.jpg",
+      "source_timestamp_ms": 2183670
+    },
+    {
+      "frame_id": "frame_0185",
+      "source_timestamp_seconds": 2188.583,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.5029,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0185.jpg",
+      "source_timestamp_ms": 2188583
+    },
+    {
+      "frame_id": "frame_0186",
+      "source_timestamp_seconds": 2201.671,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.6092,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0186.jpg",
+      "source_timestamp_ms": 2201671
+    },
+    {
+      "frame_id": "frame_0187",
+      "source_timestamp_seconds": 2291.695,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false,
+        "codap_gap_seconds": 90.02
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0187.jpg",
+      "source_timestamp_ms": 2291695
+    },
+    {
+      "frame_id": "frame_0188",
+      "source_timestamp_seconds": 2381.717,
+      "extraction_trigger_reason": "silent_screen_gap_fill",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false,
+        "codap_gap_seconds": 90.02
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0188.jpg",
+      "source_timestamp_ms": 2381717
+    },
+    {
+      "frame_id": "frame_0189",
+      "source_timestamp_seconds": 2391.726,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.2463,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0189.jpg",
+      "source_timestamp_ms": 2391726
+    },
+    {
+      "frame_id": "frame_0190",
+      "source_timestamp_seconds": 2479.217,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.9195,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0190.jpg",
+      "source_timestamp_ms": 2479217
+    },
+    {
+      "frame_id": "frame_0191",
+      "source_timestamp_seconds": 2485.918,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 58.9335,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0191.jpg",
+      "source_timestamp_ms": 2485918
+    },
+    {
+      "frame_id": "frame_0192",
+      "source_timestamp_seconds": 2496.664,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.9322,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0192.jpg",
+      "source_timestamp_ms": 2496664
+    },
+    {
+      "frame_id": "frame_0193",
+      "source_timestamp_seconds": 2498.4,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 59.1415,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0193.jpg",
+      "source_timestamp_ms": 2498400
+    },
+    {
+      "frame_id": "frame_0194",
+      "source_timestamp_seconds": 2501.322,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 0.9931,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0194.jpg",
+      "source_timestamp_ms": 2501322
+    },
+    {
+      "frame_id": "frame_0195",
+      "source_timestamp_seconds": 2502.636,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 58.7976,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0195.jpg",
+      "source_timestamp_ms": 2502636
+    },
+    {
+      "frame_id": "frame_0196",
+      "source_timestamp_seconds": 2504.924,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.9322,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0196.jpg",
+      "source_timestamp_ms": 2504924
+    },
+    {
+      "frame_id": "frame_0197",
+      "source_timestamp_seconds": 2523.135,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 59.7808,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0197.jpg",
+      "source_timestamp_ms": 2523135
+    },
+    {
+      "frame_id": "frame_0198",
+      "source_timestamp_seconds": 2529.775,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.0615,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0198.jpg",
+      "source_timestamp_ms": 2529775
+    },
+    {
+      "frame_id": "frame_0199",
+      "source_timestamp_seconds": 2530.794,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 10.3504,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0199.jpg",
+      "source_timestamp_ms": 2530794
+    },
+    {
+      "frame_id": "frame_0200",
+      "source_timestamp_seconds": 2531.898,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.9786,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0200.jpg",
+      "source_timestamp_ms": 2531898
+    },
+    {
+      "frame_id": "frame_0201",
+      "source_timestamp_seconds": 2533.468,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 4.8521,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0201.jpg",
+      "source_timestamp_ms": 2533468
+    },
+    {
+      "frame_id": "frame_0202",
+      "source_timestamp_seconds": 2534.485,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.7926,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0202.jpg",
+      "source_timestamp_ms": 2534485
+    },
+    {
+      "frame_id": "frame_0203",
+      "source_timestamp_seconds": 2535.634,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 13.6008,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0203.jpg",
+      "source_timestamp_ms": 2535634
+    },
+    {
+      "frame_id": "frame_0204",
+      "source_timestamp_seconds": 2536.741,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 34.8962,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0204.jpg",
+      "source_timestamp_ms": 2536741
+    },
+    {
+      "frame_id": "frame_0205",
+      "source_timestamp_seconds": 2549.41,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 10.8954,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0205.jpg",
+      "source_timestamp_ms": 2549410
+    },
+    {
+      "frame_id": "frame_0206",
+      "source_timestamp_seconds": 2556.348,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 30.5864,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0206.jpg",
+      "source_timestamp_ms": 2556348
+    },
+    {
+      "frame_id": "frame_0207",
+      "source_timestamp_seconds": 2560.641,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 47.1656,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0207.jpg",
+      "source_timestamp_ms": 2560641
+    },
+    {
+      "frame_id": "frame_0208",
+      "source_timestamp_seconds": 2562.337,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 21.9398,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0208.jpg",
+      "source_timestamp_ms": 2562337
+    },
+    {
+      "frame_id": "frame_0209",
+      "source_timestamp_seconds": 2564.664,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 7.604,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0209.jpg",
+      "source_timestamp_ms": 2564664
+    },
+    {
+      "frame_id": "frame_0210",
+      "source_timestamp_seconds": 2565.76,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 7.5952,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0210.jpg",
+      "source_timestamp_ms": 2565760
+    },
+    {
+      "frame_id": "frame_0211",
+      "source_timestamp_seconds": 2568.387,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 3.9174,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0211.jpg",
+      "source_timestamp_ms": 2568387
+    },
+    {
+      "frame_id": "frame_0212",
+      "source_timestamp_seconds": 2586.064,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 59.4266,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0212.jpg",
+      "source_timestamp_ms": 2586064
+    },
+    {
+      "frame_id": "frame_0213",
+      "source_timestamp_seconds": 2589.326,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.9677,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0213.jpg",
+      "source_timestamp_ms": 2589326
+    },
+    {
+      "frame_id": "frame_0214",
+      "source_timestamp_seconds": 2591.067,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 2.9641,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0214.jpg",
+      "source_timestamp_ms": 2591067
+    },
+    {
+      "frame_id": "frame_0215",
+      "source_timestamp_seconds": 2615.447,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 26.3442,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0215.jpg",
+      "source_timestamp_ms": 2615447
+    },
+    {
+      "frame_id": "frame_0216",
+      "source_timestamp_seconds": 2617.357,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.1213,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0216.jpg",
+      "source_timestamp_ms": 2617357
+    },
+    {
+      "frame_id": "frame_0217",
+      "source_timestamp_seconds": 2619.147,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 23.8956,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0217.jpg",
+      "source_timestamp_ms": 2619147
+    },
+    {
+      "frame_id": "frame_0218",
+      "source_timestamp_seconds": 2624.762,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 28.9151,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0218.jpg",
+      "source_timestamp_ms": 2624762
+    },
+    {
+      "frame_id": "frame_0219",
+      "source_timestamp_seconds": 2625.868,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 1.2413,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0219.jpg",
+      "source_timestamp_ms": 2625868
+    },
+    {
+      "frame_id": "frame_0220",
+      "source_timestamp_seconds": 2629.003,
+      "extraction_trigger_reason": "motion_only_fallback",
+      "metrics": {
+        "pixel_change_percentage": 37.5145,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Mike/raw/frames/frame_0220.jpg",
+      "source_timestamp_ms": 2629003
+    }
+  ]
+}

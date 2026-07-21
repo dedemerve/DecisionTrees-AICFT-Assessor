@@ -1,0 +1,44 @@
+{
+  "$schema": "schema/process_codes_tables.schema.json",
+  "export_version": "1.0",
+  "generated_at": "2026-07-20T19:42:41.788299+00:00",
+  "cohort_year": 2025,
+  "student_id": "David",
+  "source_artifact": "process_codes",
+  "source_file": "David_process_codes.json",
+  "tables": {
+    "episodes": {
+      "grain": "student_id × episode_id",
+      "primary_key": [
+        "student_id",
+        "cohort_year",
+        "episode_id"
+      ],
+      "row_count": 18,
+      "jsonl": "tabular/David_episodes.jsonl",
+      "csv": "tabular/David_episodes.csv",
+      "parquet": null
+    },
+    "episode_process_codes": {
+      "grain": "student_id × episode_id × v_code",
+      "primary_key": [
+        "row_id"
+      ],
+      "row_count": 360,
+      "jsonl": "tabular/David_episode_process_codes.jsonl",
+      "csv": "tabular/David_episode_process_codes.csv",
+      "parquet": null
+    },
+    "session_ml_features": {
+      "grain": "student_id",
+      "primary_key": [
+        "student_id",
+        "cohort_year"
+      ],
+      "row_count": 1,
+      "jsonl": "tabular/David_session_ml_features.jsonl",
+      "csv": "tabular/David_session_ml_features.csv",
+      "parquet": null
+    }
+  }
+}

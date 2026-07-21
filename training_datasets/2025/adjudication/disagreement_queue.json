@@ -1,0 +1,266 @@
+{
+  "queue_id": "disagreement_queue_aiA_vs_expertB_v1",
+  "created_at": "2026-07-20T19:34:32.317836+00:00",
+  "roles": {
+    "ai_a": "Pass 1 form already filled (first AI / proxy)",
+    "expert_b": "This file — independent second expert (conservative)",
+    "human": "Pass 2 coder after >=7 days; resolves each queue item"
+  },
+  "cells_total": 600,
+  "agree": 591,
+  "disagree": 9,
+  "agreement_rate": 0.985,
+  "by_priority": {
+    "high": 9
+  },
+  "by_code": {
+    "V1A_systematic_iteration": 4,
+    "V6C_metric_scope_awareness": 2,
+    "V6B_label_inversion": 1,
+    "V2A_hesitation_disorientation": 1,
+    "V3A_sustained_engagement": 1
+  },
+  "instructions": [
+    "Do NOT treat AI agreement as gold.",
+    "Review HIGH priority first (observed vs not_observed flips).",
+    "Write human_final + human_rationale for every disagreement before Pass 2 washout ends.",
+    "After >=7 days, human codes Pass 2 blind; then reconcile Pass2 vs human_final queue."
+  ],
+  "items": [
+    {
+      "calibration_id": "cal_04",
+      "student_id": "Boris",
+      "episode_id": "ep_0003",
+      "v_code": "V1A_systematic_iteration",
+      "ai_a_pass1": "observed",
+      "expert_b": "not_observed",
+      "ai_a_notes": "Sequential feature/threshold with inspection cycle.",
+      "expert_b_notes": "",
+      "priority": "high",
+      "human_final": "not_observed",
+      "human_rationale": "Steps 17–20 are threshold fine-tuning (movable 18.3→2.1→4, then threshold 7→4) with emits; insufficient evidence of a clear change→inspect cycle for V1A systematic iteration. Aligns with Expert B.",
+      "source_files": {
+        "narrative": "training_datasets/2025/Boris/Boris_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Boris/Boris_process_codes.json",
+        "bundle": "training_datasets/2025/Boris/Boris_video_analysis_bundle.json"
+      },
+      "step_indices": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "resolved_at": "2026-07-20T19:36:30.466592+00:00",
+      "resolved_by": "researcher_primary"
+    },
+    {
+      "calibration_id": "cal_05",
+      "student_id": "Boris",
+      "episode_id": "ep_0019",
+      "v_code": "V1A_systematic_iteration",
+      "ai_a_pass1": "observed",
+      "expert_b": "not_observed",
+      "ai_a_notes": "Sequential feature/threshold with inspection cycle.",
+      "expert_b_notes": "",
+      "priority": "high",
+      "human_final": "not_observed",
+      "human_rationale": "Human: b — single-step movable oscillate→emit; no clear change→inspect systematic cycle.",
+      "source_files": {
+        "narrative": "training_datasets/2025/Boris/Boris_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Boris/Boris_process_codes.json",
+        "bundle": "training_datasets/2025/Boris/Boris_video_analysis_bundle.json"
+      },
+      "step_indices": [
+        50
+      ],
+      "resolved_at": "2026-07-20T19:40:04.241367+00:00",
+      "resolved_by": "researcher_primary"
+    },
+    {
+      "calibration_id": "cal_09",
+      "student_id": "Barbara",
+      "episode_id": "ep_0002",
+      "v_code": "V6C_metric_scope_awareness",
+      "ai_a_pass1": "not_observed",
+      "expert_b": "observed",
+      "ai_a_notes": "",
+      "expert_b_notes": "",
+      "priority": "high",
+      "human_final": "not_observed",
+      "human_rationale": "SUPERSEDED 2026-07-20T19:42:22.603900+00:00: researcher chose Pass2 wins over prior queue final (was observed). Pass2 global not_observed policy.",
+      "source_files": {
+        "narrative": "training_datasets/2025/Barbara/Barbara_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Barbara/Barbara_process_codes.json",
+        "bundle": "training_datasets/2025/Barbara/Barbara_video_analysis_bundle.json"
+      },
+      "step_indices": [
+        8
+      ],
+      "resolved_at": "2026-07-20T19:40:04.241367+00:00",
+      "resolved_by": "researcher_primary",
+      "superseded_at": "2026-07-20T19:42:22.603900+00:00",
+      "resolution_authority": "human_evidence_confirmed_not_observed",
+      "reinstatement_note": "not_observed confirmed by evidence review; blanket override was consistent with evidence in these cases"
+    },
+    {
+      "calibration_id": "cal_11",
+      "student_id": "Frank",
+      "episode_id": "ep_0001",
+      "v_code": "V6C_metric_scope_awareness",
+      "ai_a_pass1": "not_observed",
+      "expert_b": "observed",
+      "ai_a_notes": "",
+      "expert_b_notes": "",
+      "priority": "high",
+      "human_final": "not_observed",
+      "human_rationale": "SUPERSEDED 2026-07-20T19:42:22.603900+00:00: researcher chose Pass2 wins over prior queue final (was observed). Pass2 global not_observed policy.",
+      "source_files": {
+        "narrative": "training_datasets/2025/Frank/Frank_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Frank/Frank_process_codes.json",
+        "bundle": "training_datasets/2025/Frank/Frank_video_analysis_bundle.json"
+      },
+      "step_indices": [
+        4
+      ],
+      "resolved_at": "2026-07-20T19:40:04.241367+00:00",
+      "resolved_by": "researcher_primary",
+      "superseded_at": "2026-07-20T19:42:22.603900+00:00",
+      "resolution_authority": "human_evidence_confirmed_not_observed",
+      "reinstatement_note": "not_observed confirmed by evidence review; blanket override was consistent with evidence in these cases"
+    },
+    {
+      "calibration_id": "cal_14",
+      "student_id": "Zabby",
+      "episode_id": "ep_0007",
+      "v_code": "V1A_systematic_iteration",
+      "ai_a_pass1": "observed",
+      "expert_b": "not_observed",
+      "ai_a_notes": "Sequential feature/threshold with inspection cycle.",
+      "expert_b_notes": "",
+      "priority": "high",
+      "human_final": "not_observed",
+      "human_rationale": "Human: b — Energy/threshold/emit sequence is teacher-scripted; not independent systematic iteration.",
+      "source_files": {
+        "narrative": "training_datasets/2025/Zabby/Zabby_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Zabby/Zabby_process_codes.json",
+        "bundle": "training_datasets/2025/Zabby/Zabby_video_analysis_bundle.json"
+      },
+      "step_indices": [
+        23,
+        24,
+        25,
+        26
+      ],
+      "resolved_at": "2026-07-20T19:40:04.241367+00:00",
+      "resolved_by": "researcher_primary"
+    },
+    {
+      "calibration_id": "cal_15",
+      "student_id": "Zabby",
+      "episode_id": "ep_0008",
+      "v_code": "V1A_systematic_iteration",
+      "ai_a_pass1": "observed",
+      "expert_b": "not_observed",
+      "ai_a_notes": "Sequential feature/threshold with inspection cycle.",
+      "expert_b_notes": "",
+      "priority": "high",
+      "human_final": "not_observed",
+      "human_rationale": "SUPERSEDED 2026-07-20T19:42:22.603900+00:00: researcher chose Pass2 wins over prior queue final (was observed). Pass2 global not_observed policy.",
+      "source_files": {
+        "narrative": "training_datasets/2025/Zabby/Zabby_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Zabby/Zabby_process_codes.json",
+        "bundle": "training_datasets/2025/Zabby/Zabby_video_analysis_bundle.json"
+      },
+      "step_indices": [
+        27
+      ],
+      "resolved_at": "2026-07-20T19:40:04.241367+00:00",
+      "resolved_by": "researcher_primary",
+      "superseded_at": "2026-07-20T19:42:22.603900+00:00",
+      "resolution_authority": "human_evidence_confirmed_not_observed",
+      "reinstatement_note": "not_observed confirmed by evidence review; blanket override was consistent with evidence in these cases"
+    },
+    {
+      "calibration_id": "cal_25",
+      "student_id": "Mike",
+      "episode_id": "ep_0010",
+      "v_code": "V6B_label_inversion",
+      "ai_a_pass1": "observed",
+      "expert_b": "not_observed",
+      "ai_a_notes": "",
+      "expert_b_notes": "",
+      "priority": "high",
+      "human_final": "not_observed",
+      "human_rationale": "Human: b — does not code as label inversion for this cell (human override of AI-A).",
+      "source_files": {
+        "narrative": "training_datasets/2025/Mike/Mike_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Mike/Mike_process_codes.json",
+        "bundle": "training_datasets/2025/Mike/Mike_video_analysis_bundle.json"
+      },
+      "step_indices": [
+        58
+      ],
+      "resolved_at": "2026-07-20T19:40:04.241367+00:00",
+      "resolved_by": "researcher_primary"
+    },
+    {
+      "calibration_id": "cal_26",
+      "student_id": "Mike",
+      "episode_id": "ep_0011",
+      "v_code": "V2A_hesitation_disorientation",
+      "ai_a_pass1": "observed",
+      "expert_b": "not_observed",
+      "ai_a_notes": "Uncertainty/hesitation markers.",
+      "expert_b_notes": "",
+      "priority": "high",
+      "human_final": "not_measurable",
+      "human_rationale": "SUPERSEDED 2026-07-20T19:42:22.603900+00:00: researcher chose Pass2 wins over prior queue final (was not_measurable). Pass2 global not_observed policy.",
+      "source_files": {
+        "narrative": "training_datasets/2025/Mike/Mike_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Mike/Mike_process_codes.json",
+        "bundle": "training_datasets/2025/Mike/Mike_video_analysis_bundle.json"
+      },
+      "step_indices": [
+        59
+      ],
+      "resolved_at": "2026-07-20T19:40:29.628326+00:00",
+      "resolved_by": "researcher_primary",
+      "resolution_authority": "human_evidence_reinstated",
+      "reinstatement_note": "Step near session end; off-screen risk; not_measurable is correct per V7 precheck rule"
+    },
+    {
+      "calibration_id": "cal_27",
+      "student_id": "Ozzy",
+      "episode_id": "ep_0000",
+      "v_code": "V3A_sustained_engagement",
+      "ai_a_pass1": "observed",
+      "expert_b": "not_observed",
+      "ai_a_notes": "Continued after difficulty.",
+      "expert_b_notes": "",
+      "priority": "high",
+      "human_final": "not_observed",
+      "human_rationale": "Human: b — confusion at start without clear post-difficulty sustained task continuation.",
+      "source_files": {
+        "narrative": "training_datasets/2025/Ozzy/Ozzy_expert_process_narrative.json",
+        "process_codes": "training_datasets/2025/Ozzy/Ozzy_process_codes.json",
+        "bundle": "training_datasets/2025/Ozzy/Ozzy_video_analysis_bundle.json"
+      },
+      "step_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "resolved_at": "2026-07-20T19:40:04.241367+00:00",
+      "resolved_by": "researcher_primary"
+    }
+  ],
+  "human_resolve_progress": {
+    "resolved": 9,
+    "total": 9,
+    "updated_at": "2026-07-20T19:42:22.603900+00:00",
+    "status": "complete_pass2_authoritative"
+  },
+  "authority": "human_evidence_final_pass2_blanket_reverted",
+  "correction_note": "Blanket pass2_wins policy reverted 2026-07-20T20:11:23.517283+00:00. cal_26 V2A reinstated to not_measurable (pre-supersede human_final). All other superseded items confirmed not_observed by evidence rationale, not blanket. Calibration cells now written to EPC files with gold_tier=expert_adjudicated."
+}

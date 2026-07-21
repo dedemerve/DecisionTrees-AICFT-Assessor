@@ -1,0 +1,1004 @@
+{
+  "schema_version": "video_extraction_manifest_v1",
+  "generated_at": "2026-07-20T07:02:42.812593+00:00",
+  "student_id": "Edgar",
+  "extraction_mode": "ffmpeg_scene_change",
+  "path_resolution": {
+    "audio_root": "training_datasets/2025",
+    "video_root": "data_sources_2025",
+    "source_video": "data_sources_2025/Edgar/Edgar_Screen_Recording.webm",
+    "output_frames_dir": "training_datasets/2025/Edgar/Edgar_frames"
+  },
+  "modalities": {
+    "has_video": true,
+    "has_hybrid_diarization": false,
+    "has_transcript_segments": false,
+    "hybrid_segment_count": 0,
+    "transcript_segment_count": 0,
+    "has_usable_transcript_modality": false
+  },
+  "video_profile": {
+    "native_resolution": [
+      1920,
+      866
+    ],
+    "fps": 5.32,
+    "duration_seconds": 4705.516,
+    "note": "VP9 webm; cv2 VideoCapture fails to decode motion \u2014 extracted via ffmpeg scene detection instead"
+  },
+  "parameters": {
+    "scene_change_threshold": 0.05,
+    "min_gap_seconds": 5.0,
+    "gap_fill_seconds": 90.0,
+    "extraction_tool": "ffmpeg"
+  },
+  "summary": {
+    "scene_change_frames": 49,
+    "gap_fill_frames": 25,
+    "total_frames_extracted": 74
+  },
+  "frames": [
+    {
+      "frame_id": "frame_0001",
+      "source_timestamp_seconds": 0.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0001.jpg",
+      "source_timestamp_ms": 0
+    },
+    {
+      "frame_id": "frame_0002",
+      "source_timestamp_seconds": 112.8,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0002.jpg",
+      "source_timestamp_ms": 112800
+    },
+    {
+      "frame_id": "frame_0003",
+      "source_timestamp_seconds": 119.0,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0003.jpg",
+      "source_timestamp_ms": 119000
+    },
+    {
+      "frame_id": "frame_0004",
+      "source_timestamp_seconds": 124.9,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0004.jpg",
+      "source_timestamp_ms": 124900
+    },
+    {
+      "frame_id": "frame_0005",
+      "source_timestamp_seconds": 270.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0005.jpg",
+      "source_timestamp_ms": 270000
+    },
+    {
+      "frame_id": "frame_0006",
+      "source_timestamp_seconds": 360.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0006.jpg",
+      "source_timestamp_ms": 360000
+    },
+    {
+      "frame_id": "frame_0007",
+      "source_timestamp_seconds": 450.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0007.jpg",
+      "source_timestamp_ms": 450000
+    },
+    {
+      "frame_id": "frame_0008",
+      "source_timestamp_seconds": 540.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0008.jpg",
+      "source_timestamp_ms": 540000
+    },
+    {
+      "frame_id": "frame_0009",
+      "source_timestamp_seconds": 665.8,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0009.jpg",
+      "source_timestamp_ms": 665800
+    },
+    {
+      "frame_id": "frame_0010",
+      "source_timestamp_seconds": 810.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0010.jpg",
+      "source_timestamp_ms": 810000
+    },
+    {
+      "frame_id": "frame_0011",
+      "source_timestamp_seconds": 900.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0011.jpg",
+      "source_timestamp_ms": 900000
+    },
+    {
+      "frame_id": "frame_0012",
+      "source_timestamp_seconds": 990.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0012.jpg",
+      "source_timestamp_ms": 990000
+    },
+    {
+      "frame_id": "frame_0013",
+      "source_timestamp_seconds": 1080.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0013.jpg",
+      "source_timestamp_ms": 1080000
+    },
+    {
+      "frame_id": "frame_0014",
+      "source_timestamp_seconds": 1170.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0014.jpg",
+      "source_timestamp_ms": 1170000
+    },
+    {
+      "frame_id": "frame_0015",
+      "source_timestamp_seconds": 1274.9,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0015.jpg",
+      "source_timestamp_ms": 1274900
+    },
+    {
+      "frame_id": "frame_0016",
+      "source_timestamp_seconds": 1369.9,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0016.jpg",
+      "source_timestamp_ms": 1369900
+    },
+    {
+      "frame_id": "frame_0017",
+      "source_timestamp_seconds": 1375.0,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0017.jpg",
+      "source_timestamp_ms": 1375000
+    },
+    {
+      "frame_id": "frame_0018",
+      "source_timestamp_seconds": 1382.6,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0018.jpg",
+      "source_timestamp_ms": 1382600
+    },
+    {
+      "frame_id": "frame_0019",
+      "source_timestamp_seconds": 1395.9,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0019.jpg",
+      "source_timestamp_ms": 1395900
+    },
+    {
+      "frame_id": "frame_0020",
+      "source_timestamp_seconds": 1435.7,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0020.jpg",
+      "source_timestamp_ms": 1435700
+    },
+    {
+      "frame_id": "frame_0021",
+      "source_timestamp_seconds": 1500.8,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0021.jpg",
+      "source_timestamp_ms": 1500800
+    },
+    {
+      "frame_id": "frame_0022",
+      "source_timestamp_seconds": 1506.5,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0022.jpg",
+      "source_timestamp_ms": 1506500
+    },
+    {
+      "frame_id": "frame_0023",
+      "source_timestamp_seconds": 1626.4,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0023.jpg",
+      "source_timestamp_ms": 1626400
+    },
+    {
+      "frame_id": "frame_0024",
+      "source_timestamp_seconds": 1632.1,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0024.jpg",
+      "source_timestamp_ms": 1632100
+    },
+    {
+      "frame_id": "frame_0025",
+      "source_timestamp_seconds": 1736.5,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0025.jpg",
+      "source_timestamp_ms": 1736500
+    },
+    {
+      "frame_id": "frame_0026",
+      "source_timestamp_seconds": 1800.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0026.jpg",
+      "source_timestamp_ms": 1800000
+    },
+    {
+      "frame_id": "frame_0027",
+      "source_timestamp_seconds": 1890.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0027.jpg",
+      "source_timestamp_ms": 1890000
+    },
+    {
+      "frame_id": "frame_0028",
+      "source_timestamp_seconds": 1980.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0028.jpg",
+      "source_timestamp_ms": 1980000
+    },
+    {
+      "frame_id": "frame_0029",
+      "source_timestamp_seconds": 2070.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0029.jpg",
+      "source_timestamp_ms": 2070000
+    },
+    {
+      "frame_id": "frame_0030",
+      "source_timestamp_seconds": 2160.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0030.jpg",
+      "source_timestamp_ms": 2160000
+    },
+    {
+      "frame_id": "frame_0031",
+      "source_timestamp_seconds": 2250.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0031.jpg",
+      "source_timestamp_ms": 2250000
+    },
+    {
+      "frame_id": "frame_0032",
+      "source_timestamp_seconds": 2340.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0032.jpg",
+      "source_timestamp_ms": 2340000
+    },
+    {
+      "frame_id": "frame_0033",
+      "source_timestamp_seconds": 2430.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0033.jpg",
+      "source_timestamp_ms": 2430000
+    },
+    {
+      "frame_id": "frame_0034",
+      "source_timestamp_seconds": 2499.9,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0034.jpg",
+      "source_timestamp_ms": 2499900
+    },
+    {
+      "frame_id": "frame_0035",
+      "source_timestamp_seconds": 2538.4,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0035.jpg",
+      "source_timestamp_ms": 2538400
+    },
+    {
+      "frame_id": "frame_0036",
+      "source_timestamp_seconds": 2577.8,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0036.jpg",
+      "source_timestamp_ms": 2577800
+    },
+    {
+      "frame_id": "frame_0037",
+      "source_timestamp_seconds": 2678.3,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0037.jpg",
+      "source_timestamp_ms": 2678300
+    },
+    {
+      "frame_id": "frame_0038",
+      "source_timestamp_seconds": 2685.4,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0038.jpg",
+      "source_timestamp_ms": 2685400
+    },
+    {
+      "frame_id": "frame_0039",
+      "source_timestamp_seconds": 2704.2,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0039.jpg",
+      "source_timestamp_ms": 2704200
+    },
+    {
+      "frame_id": "frame_0040",
+      "source_timestamp_seconds": 2793.3,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0040.jpg",
+      "source_timestamp_ms": 2793300
+    },
+    {
+      "frame_id": "frame_0041",
+      "source_timestamp_seconds": 2823.4,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0041.jpg",
+      "source_timestamp_ms": 2823400
+    },
+    {
+      "frame_id": "frame_0042",
+      "source_timestamp_seconds": 2830.9,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0042.jpg",
+      "source_timestamp_ms": 2830900
+    },
+    {
+      "frame_id": "frame_0043",
+      "source_timestamp_seconds": 2873.9,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0043.jpg",
+      "source_timestamp_ms": 2873900
+    },
+    {
+      "frame_id": "frame_0044",
+      "source_timestamp_seconds": 2895.0,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0044.jpg",
+      "source_timestamp_ms": 2895000
+    },
+    {
+      "frame_id": "frame_0045",
+      "source_timestamp_seconds": 2999.7,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0045.jpg",
+      "source_timestamp_ms": 2999700
+    },
+    {
+      "frame_id": "frame_0046",
+      "source_timestamp_seconds": 3027.0,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0046.jpg",
+      "source_timestamp_ms": 3027000
+    },
+    {
+      "frame_id": "frame_0047",
+      "source_timestamp_seconds": 3039.3,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0047.jpg",
+      "source_timestamp_ms": 3039300
+    },
+    {
+      "frame_id": "frame_0048",
+      "source_timestamp_seconds": 3073.7,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0048.jpg",
+      "source_timestamp_ms": 3073700
+    },
+    {
+      "frame_id": "frame_0049",
+      "source_timestamp_seconds": 3106.0,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0049.jpg",
+      "source_timestamp_ms": 3106000
+    },
+    {
+      "frame_id": "frame_0050",
+      "source_timestamp_seconds": 3175.5,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0050.jpg",
+      "source_timestamp_ms": 3175500
+    },
+    {
+      "frame_id": "frame_0051",
+      "source_timestamp_seconds": 3198.2,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0051.jpg",
+      "source_timestamp_ms": 3198200
+    },
+    {
+      "frame_id": "frame_0052",
+      "source_timestamp_seconds": 3226.4,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0052.jpg",
+      "source_timestamp_ms": 3226400
+    },
+    {
+      "frame_id": "frame_0053",
+      "source_timestamp_seconds": 3237.8,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0053.jpg",
+      "source_timestamp_ms": 3237800
+    },
+    {
+      "frame_id": "frame_0054",
+      "source_timestamp_seconds": 3243.9,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0054.jpg",
+      "source_timestamp_ms": 3243900
+    },
+    {
+      "frame_id": "frame_0055",
+      "source_timestamp_seconds": 3268.6,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0055.jpg",
+      "source_timestamp_ms": 3268600
+    },
+    {
+      "frame_id": "frame_0056",
+      "source_timestamp_seconds": 3337.3,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0056.jpg",
+      "source_timestamp_ms": 3337300
+    },
+    {
+      "frame_id": "frame_0057",
+      "source_timestamp_seconds": 3374.7,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0057.jpg",
+      "source_timestamp_ms": 3374700
+    },
+    {
+      "frame_id": "frame_0058",
+      "source_timestamp_seconds": 3387.4,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0058.jpg",
+      "source_timestamp_ms": 3387400
+    },
+    {
+      "frame_id": "frame_0059",
+      "source_timestamp_seconds": 3409.5,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0059.jpg",
+      "source_timestamp_ms": 3409500
+    },
+    {
+      "frame_id": "frame_0060",
+      "source_timestamp_seconds": 3490.2,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0060.jpg",
+      "source_timestamp_ms": 3490200
+    },
+    {
+      "frame_id": "frame_0061",
+      "source_timestamp_seconds": 3522.1,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0061.jpg",
+      "source_timestamp_ms": 3522100
+    },
+    {
+      "frame_id": "frame_0062",
+      "source_timestamp_seconds": 3633.6,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0062.jpg",
+      "source_timestamp_ms": 3633600
+    },
+    {
+      "frame_id": "frame_0063",
+      "source_timestamp_seconds": 3780.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0063.jpg",
+      "source_timestamp_ms": 3780000
+    },
+    {
+      "frame_id": "frame_0064",
+      "source_timestamp_seconds": 3870.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0064.jpg",
+      "source_timestamp_ms": 3870000
+    },
+    {
+      "frame_id": "frame_0065",
+      "source_timestamp_seconds": 4006.4,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0065.jpg",
+      "source_timestamp_ms": 4006400
+    },
+    {
+      "frame_id": "frame_0066",
+      "source_timestamp_seconds": 4058.9,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0066.jpg",
+      "source_timestamp_ms": 4058900
+    },
+    {
+      "frame_id": "frame_0067",
+      "source_timestamp_seconds": 4065.1,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0067.jpg",
+      "source_timestamp_ms": 4065100
+    },
+    {
+      "frame_id": "frame_0068",
+      "source_timestamp_seconds": 4091.2,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0068.jpg",
+      "source_timestamp_ms": 4091200
+    },
+    {
+      "frame_id": "frame_0069",
+      "source_timestamp_seconds": 4230.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0069.jpg",
+      "source_timestamp_ms": 4230000
+    },
+    {
+      "frame_id": "frame_0070",
+      "source_timestamp_seconds": 4320.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0070.jpg",
+      "source_timestamp_ms": 4320000
+    },
+    {
+      "frame_id": "frame_0071",
+      "source_timestamp_seconds": 4410.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0071.jpg",
+      "source_timestamp_ms": 4410000
+    },
+    {
+      "frame_id": "frame_0072",
+      "source_timestamp_seconds": 4505.6,
+      "extraction_trigger_reason": "ffmpeg_scene_change",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0072.jpg",
+      "source_timestamp_ms": 4505600
+    },
+    {
+      "frame_id": "frame_0073",
+      "source_timestamp_seconds": 4590.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0073.jpg",
+      "source_timestamp_ms": 4590000
+    },
+    {
+      "frame_id": "frame_0074",
+      "source_timestamp_seconds": 4680.0,
+      "extraction_trigger_reason": "gap_fill_90s",
+      "metrics": {
+        "pixel_change_percentage": null,
+        "associated_speaker_role": "unknown",
+        "associated_transcript_id": null,
+        "high_value_interaction_zone": false
+      },
+      "file_path": "training_datasets/2025/Edgar/raw/frames/frame_0074.jpg",
+      "source_timestamp_ms": 4680000
+    }
+  ]
+}

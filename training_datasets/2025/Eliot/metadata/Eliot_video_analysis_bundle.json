@@ -1,0 +1,58 @@
+{
+  "$schema": "schema/video_analysis_bundle.schema.json",
+  "student_id": "Eliot",
+  "cohort_year": 2025,
+  "bundle_version": "2.0-process-only",
+  "generated_at": "2026-07-20T18:41:59.851627+00:00",
+  "scope": "process_pipeline_methods_only",
+  "scoring_out_of_scope": true,
+  "artifacts": {
+    "expert_process_narrative": "training_datasets/2025/Eliot/annotations/Eliot_expert_process_narrative.v1.jsonl",
+    "expert_process_narrative_jsonl": "Eliot_expert_process_narrative.jsonl",
+    "process_codes": "training_datasets/2025/Eliot/annotations/Eliot_process_codes.v1.json",
+    "log_process_metadata": "training_datasets/2025/Eliot/metadata/Eliot_log_process_metadata.json",
+    "gold_behavior_alignment": "training_datasets/2025/Eliot/annotations/Eliot_gold_behavior_alignment.v1.jsonl",
+    "observation_steps_source": "Eliot_observation_steps.json",
+    "process_codes_tables_manifest": "tabular/Eliot_process_codes_tables_manifest.json"
+  },
+  "tabular_exports": {
+    "episodes": "training_datasets/2025/Eliot/exports/tabular/Eliot_episodes.parquet",
+    "episode_process_codes": "training_datasets/2025/Eliot/exports/tabular/Eliot_episode_process_codes.parquet",
+    "session_ml_features": "training_datasets/2025/Eliot/exports/tabular/Eliot_session_ml_features.parquet"
+  },
+  "measurement_layers": {
+    "process_narrative": "Full uzman_nitel_g\u00f6zlemi timeline (qualitative)",
+    "process_codes": "Episode-level V1-V8 process codes (non-scored)",
+    "log_metadata": "Task-4 chronology and log-only variables (null when no CSV)"
+  },
+  "coverage_audit": {
+    "steps_total": 18,
+    "steps_with_gold_shot": 18,
+    "steps_with_silver_anchor": 18,
+    "frames_total": 173,
+    "frames_with_step_inheritance": 173,
+    "video_duration_ms": 2587099,
+    "silver_timestamp_span_ms": 2354305,
+    "low_silver_coverage": false,
+    "gaps_flagged": [
+      "rubric_gaps:1"
+    ],
+    "rubric_gaps_for_student": [
+      {
+        "gap_id": "GAP-R03",
+        "label": "Inverted leaf label assignment producing MCR=1 artifact",
+        "why_not_covered": "B5-A1 requires distinguishing two outcomes and choosing the target outcome. Label inversion means a student understood that two labels exist but reversed their meaning. Same-class assignment means a student collapsed the binary problem. Neither case has an explicit rule: (a) for inversion: does recognition + correction count as B5-A2 evidence or merely B5-A1? (b) for same-class: should this trigger not_observed (student did not demonstrate B5-A1) or should it be flagged as a misunderstanding code?"
+      }
+    ],
+    "log_available": false,
+    "log_video_sync_status": "unavailable"
+  },
+  "dual_artifact_model": {
+    "process_layer": "Expert narrative + episode V-codes",
+    "log_layer": "Objective event chronology when CODAP CSV available",
+    "scoring_layer": "OUT OF SCOPE \u2014 see trash/scoring_out_of_scope_2026-07-20/",
+    "reference": "framework/VIDEO_PROCESS_CODEBOOK_v1.md"
+  },
+  "linkage_tier": "L1",
+  "layout_version": "v2"
+}

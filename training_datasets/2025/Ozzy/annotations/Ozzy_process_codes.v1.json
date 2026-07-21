@@ -1,0 +1,1373 @@
+{
+  "$schema": "schema/video_process_codes.schema.json",
+  "artifact": "process_codes",
+  "student_id": "Ozzy",
+  "cohort_year": 2025,
+  "schema_version": "1.0",
+  "generated_at": "2026-07-20T18:41:59.963224+00:00",
+  "codebook_id": "VIDEO_PROCESS_CODEBOOK_v1",
+  "interpretation_rule": "Episode-level V-codes support process interpretation and ML feature engineering. They are not proficiency scores. Heuristic decisions from expert narrative require human adjudication.",
+  "episodes": [
+    {
+      "episode_id": "ep_0000",
+      "step_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "dominant_category": "EXPLORE",
+      "anchor_event": "OPEN_ARBOR",
+      "start_ms": 113306,
+      "end_ms": 145183,
+      "assistance_status": "instructor",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_27"
+          }
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0001",
+      "step_indices": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "dominant_category": "TUNE",
+      "anchor_event": "EMIT_TREE",
+      "start_ms": 577484,
+      "end_ms": 1490375,
+      "assistance_status": "instructor",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V5B_dependent_execution": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [
+            "expert_adjudication_pass2"
+          ],
+          "step_indices": [],
+          "log_corroboration": null,
+          "gold_tier": "expert_adjudicated",
+          "adjudication": {
+            "source": "pass2_wins",
+            "resolved_at": "2026-07-20T19:42:22.603900+00:00",
+            "calibration_id": "cal_28"
+          }
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0002",
+      "step_indices": [
+        17
+      ],
+      "dominant_category": "EVALUATE",
+      "anchor_event": "INTERPRET_METRICS",
+      "start_ms": 1909501,
+      "end_ms": 1909501,
+      "assistance_status": "instructor",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence": [
+            "Merve gelir ve “Her şey yolunda mı? Sanki karar ağacımız oldukça geniş.” der ve öğrenci “Hocam bence yeterince geniş değil.” der. Merve “Henüz değil mi, MCR’yi 0 yapamadık mı, sensitivity 0’a ulaşmadı mı?” der. Öğrenci karar ağacının sağ tarafını göstererek “Hocam şurayı tamamlasam 0’a ulaşacağım.” der."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            17
+          ],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0003",
+      "step_indices": [
+        18
+      ],
+      "dominant_category": "MISCONCEPTION",
+      "anchor_event": "SEEK_HELP_OR_DIALOGUE",
+      "start_ms": 1914136,
+      "end_ms": 1914136,
+      "assistance_status": "instructor",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "observed",
+          "evidence": [
+            "Merve “Karar ağacında 0’a ulaşmanı beklemiyorum, burada basit bir ağaç oluşturup onun doğru kararlar vermesini bekliyorum. Bazen öyle veriler oluyor ki işin içerisinden çıkamıyorum. Training kısmında yani bu verilerde bu karar ağacı çok güzel sonuçlar verebilir ama testing kısmına geçtiğim zaman olmaz. (Training’teki) verilerimi ezberlemiş oluyor ve ‘overfitting’ dediğimiz bir durum oluşuyor ve bu bizim hiç istediğimiz bir durum değil. Bu karar ağacı şu verilerle çok güzel sonuçlar üretir ama ben ona yeni veriler verdiğim zaman hatalar üreticek ki bende testing veri seti de var. Verdiğim zaman çok kötü bir sonuç çıkacak. O yüzden ben karar ağacımı bu kadar çok dallanıp budaklanmasını istemem.” der. Öğrenci de “Ne yapacağım o zaman?” der. Merve “Tamam, önce derinliği 1 olan bir karar ağacı oluşturalım. Mesela bu Energy’yi komple silelim karar ağacından. Sonrasında hangi değişkeni sürükleyelim?” der."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            18
+          ],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence": [
+            "Merve “Karar ağacında 0’a ulaşmanı beklemiyorum, burada basit bir ağaç oluşturup onun doğru kararlar vermesini bekliyorum. Bazen öyle veriler oluyor ki işin içerisinden çıkamıyorum. Training kısmında yani bu verilerde bu karar ağacı çok güzel sonuçlar verebilir ama testing kısmına geçtiğim zaman olmaz. (Training’teki) verilerimi ezberlemiş oluyor ve ‘overfitting’ dediğimiz bir durum oluşuyor ve bu bizim hiç istediğimiz bir durum değil. Bu karar ağacı şu verilerle çok güzel sonuçlar üretir ama ben ona yeni veriler verdiğim zaman hatalar üreticek ki bende testing veri seti de var. Verdiğim zaman çok kötü bir sonuç çıkacak. O yüzden ben karar ağacımı bu kadar çok dallanıp budaklanmasını istemem.” der. Öğrenci de “Ne yapacağım o zaman?” der. Merve “Tamam, önce derinliği 1 olan bir karar ağacı oluşturalım. Mesela bu Energy’yi komple silelim karar ağacından. Sonrasında hangi değişkeni sürükleyelim?” der."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            18
+          ],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0004",
+      "step_indices": [
+        19
+      ],
+      "dominant_category": "EXPLORE",
+      "anchor_event": "SET_AXIS",
+      "start_ms": 2081931,
+      "end_ms": 2081931,
+      "assistance_status": "instructor",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence": [
+            "Öğrenci “Hocam protein ile başlayalım.” der. Merve “Protein”de eşik değerimin kaç olması gerektiğini bu şekilde anlayamıyorum. Bunun için de şöyle yapalım mı (grafik oluşturalım mı)? Grafiğin x-eksenine Protein’i sürükleyelim mi? Label’ı da y-eksenine sürükleyelim mi?” der."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            19
+          ],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    },
+    {
+      "episode_id": "ep_0005",
+      "step_indices": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "dominant_category": "TUNE",
+      "anchor_event": "EMIT_TREE",
+      "start_ms": 2010565,
+      "end_ms": 2606748,
+      "assistance_status": "instructor",
+      "process_codes": {
+        "V1A_systematic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V1B_chaotic_iteration": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2A_hesitation_disorientation": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V2B_interface_cycling": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3A_sustained_engagement": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V3B_disengagement_passivity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4A_productive_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V4B_dead_end_loop": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5A_productive_help_seeking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V5B_dependent_execution": {
+          "decision": "observed",
+          "evidence": [
+            "Merve “Harika! Şimdi proteine baktığın zaman sence taşınabilir değerimi nereye koysam daha doğru bir değer elde ederim?” der ve öğrenci taşınabilir değeri 20 olarak ayarlar. Ardından DT’deki 8 olan threshold value’yu da 20 olarak günceller. Taşınabilir değer 9.6 olarak değiştirilir",
+            "Öğrenci “Hocam bence protein yapmayalım.” Der ve Merve “Neyi yapalım sence?” der. Öğrenci “Karbonhidratı alalım bence onu bir kere denemiştim.” der. Taşınabilir değer 41.6 olarak değiştirilir. Ardından DT’deki 8 olan threshold value’yu da 41.6 olarak günceller (DT’de hala daha Protein vardır, Carbohydrate yoktur.).",
+            "Oğuz Hoca’ya “Hocam olmuş mu?” der ve Oğuz Hoca da “Güzel, olmuş. Recommendable olup olmadığını seçmemişsin.” der. Nerenin recommendable or not recommendable olduğuna karar verilir. Emit function çalıştırılır."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            20,
+            21,
+            23
+          ],
+          "log_corroboration": null
+        },
+        "V6A_mcr_zero_targeting": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6B_label_inversion": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V6C_metric_scope_awareness": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7A_no_metric_inspection": {
+          "decision": "observed",
+          "evidence": [
+            "Oğuz Hoca’ya “Hocam olmuş mu?” der ve Oğuz Hoca da “Güzel, olmuş. Recommendable olup olmadığını seçmemişsin.” der. Nerenin recommendable or not recommendable olduğuna karar verilir. Emit function çalıştırılır."
+          ],
+          "evidence_sources": [
+            "expert_narrative",
+            "heuristic"
+          ],
+          "step_indices": [
+            23
+          ],
+          "log_corroboration": null
+        },
+        "V7B_no_graph_reading": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V7C_no_comparison_despite_opportunity": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8A_multi_instance_benchmarking": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8B_table_sort_threshold": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8C_ctr_in_place_edit": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        },
+        "V8D_import_failure_recovery": {
+          "decision": "not_observed",
+          "evidence": [],
+          "evidence_sources": [],
+          "step_indices": [],
+          "log_corroboration": null
+        }
+      },
+      "notes": null
+    }
+  ],
+  "session_summary": {
+    "episode_count": 6,
+    "codes_observed": [
+      "V1A_systematic_iteration",
+      "V5B_dependent_execution",
+      "V7A_no_metric_inspection"
+    ],
+    "codes_not_observed": [
+      "V1B_chaotic_iteration",
+      "V2A_hesitation_disorientation",
+      "V2B_interface_cycling",
+      "V3A_sustained_engagement",
+      "V3B_disengagement_passivity",
+      "V4A_productive_recovery",
+      "V4B_dead_end_loop",
+      "V5A_productive_help_seeking",
+      "V6A_mcr_zero_targeting",
+      "V6B_label_inversion",
+      "V6C_metric_scope_awareness",
+      "V7B_no_graph_reading",
+      "V7C_no_comparison_despite_opportunity",
+      "V8A_multi_instance_benchmarking",
+      "V8B_table_sort_threshold",
+      "V8C_ctr_in_place_edit",
+      "V8D_import_failure_recovery"
+    ],
+    "codes_not_measurable": [],
+    "rubric_gap_ids": [
+      "GAP-R07"
+    ]
+  },
+  "ml_feature_flags": {
+    "systematic_iteration_present": true,
+    "chaotic_iteration_present": false,
+    "hesitation_episode_present": false,
+    "interface_cycling_present": false,
+    "sustained_engagement_present": false,
+    "disengagement_present": false,
+    "productive_recovery_present": false,
+    "dead_end_loop_present": false,
+    "productive_help_seeking_present": false,
+    "dependent_execution_present": true,
+    "mcr_zero_targeting_present": false,
+    "label_inversion_present": false,
+    "metric_scope_awareness_present": false,
+    "metric_inspection_absent_after_emit": true,
+    "graph_reading_absent": false,
+    "comparison_absent_despite_opportunity": false,
+    "multi_instance_strategy_present": false,
+    "table_sort_threshold_present": false,
+    "ctr_in_place_edit_present": false,
+    "import_failure_recovery_present": false
+  }
+}
