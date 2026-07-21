@@ -3149,7 +3149,7 @@
           "log_corroboration": null
         },
         "V7A_no_metric_inspection": {
-          "decision": "observed",
+          "decision": "not_measurable",
           "evidence": [
             "Tek seviyeli karar ağacında, depth 1’de “Energy” olan DT için emit function çalıştırılır.",
             "Çok seviyeli DT için emit function çalıştırılır."
@@ -3162,7 +3162,8 @@
             46,
             47
           ],
-          "log_corroboration": null
+          "log_corroboration": null,
+          "auto_precheck_note": "V7_precheck_fail: episode contains unanchored step(s)"
         },
         "V7B_no_graph_reading": {
           "decision": "not_observed",

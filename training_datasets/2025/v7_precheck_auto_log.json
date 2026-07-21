@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-07-21T07:04:30.852904+00:00",
+  "rule": "V7* observed in episode containing unanchored step(s) \u2192 not_measurable",
+  "condition": "step has matched_frame_id=None or timestamp_ms=None in gold_behavior_alignment.v1.jsonl",
+  "total_cells_changed": 8,
+  "students_with_no_v7_impact_despite_unanchored_steps": [
+    "Barbara",
+    "Boris",
+    "Daryl",
+    "Mike",
+    "Sabrina"
+  ],
+  "note": "Those students had unanchored steps but no V7* observed cells in the affected episodes.",
+  "changes": [
+    {
+      "student": "Ally",
+      "unanchored_steps": [
+        6
+      ],
+      "affected_episodes": [
+        "ep_0001"
+      ],
+      "cells_changed": 2
+    },
+    {
+      "student": "Calvin",
+      "unanchored_steps": [
+        13
+      ],
+      "affected_episodes": [
+        "ep_0004"
+      ],
+      "cells_changed": 1
+    },
+    {
+      "student": "David",
+      "unanchored_steps": [
+        8,
+        11,
+        30
+      ],
+      "affected_episodes": [
+        "ep_0005",
+        "ep_0008",
+        "ep_0017"
+      ],
+      "cells_changed": 1
+    },
+    {
+      "student": "Henry",
+      "unanchored_steps": [
+        45
+      ],
+      "affected_episodes": [
+        "ep_0017"
+      ],
+      "cells_changed": 1
+    },
+    {
+      "student": "Ozzy",
+      "unanchored_steps": [
+        2,
+        3,
+        16
+      ],
+      "affected_episodes": [
+        "ep_0000",
+        "ep_0001"
+      ],
+      "cells_changed": 3
+    }
+  ]
+}

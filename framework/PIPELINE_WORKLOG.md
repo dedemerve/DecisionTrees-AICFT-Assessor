@@ -231,15 +231,15 @@ Düzeltme:
 
 ## Bekleyen İnsan-Eylem Kalemleri
 
-| Adım | Eylem |
-|---|---|
-| V7 precheck | Daisy, David (L3 kısmi span) için kalan V7* `observed` hücrelerin tek tek incelenmesi |
-| Seg protokolü | İki sayfalık episode segmentasyon protokolünün yazılması; 3 session'da çift-kodlama |
-| Model | Per-kod dengesizlik oranları tablosu (eğitim ağırlıklandırması için) |
-| L3 | Edgar ve Felicity için silver timestamp kurtarma denemesi (kaynak video mevcutsa) |
-| 2026 log sync | CODAP event CSV → video senkronizasyonu testi |
-| 2026 Colab seg | Colab Python session'ları için anchor event tanımı (hücre çalıştırma? çıktı görünümü?) |
-| 2026 split | Tüm session'lar işlendikten sonra `split_assignment.json` doldurulup dondurulacak |
+| Adım | Durum | Eylem |
+|---|---|---|
+| V7 precheck (otomatik) | DONE | Unanchored step kuralı cohort genelinde uygulandı; 8 hücre `not_measurable` olarak güncellendi |
+| Per-kod imbalance tablosu | DONE | `training_datasets/2025/cohort_imbalance_weights.json` oluşturuldu |
+| Seg protokolü | Bekliyor | İki sayfalık episode segmentasyon protokolünün yazılması; 3 session'da çift-kodlama |
+| L3 | Bekliyor | Edgar ve Felicity için silver timestamp kurtarma denemesi (kaynak video mevcutsa) |
+| 2026 log sync | Bekliyor | CODAP event CSV → video senkronizasyonu testi |
+| 2026 Colab seg | Bekliyor | Colab Python session'ları için anchor event tanımı (hücre çalıştırma? çıktı görünümü?) |
+| 2026 split | Bekliyor | Tüm session'lar işlendikten sonra `split_assignment.json` doldurulup dondurulacak |
 
 ---
 
@@ -253,3 +253,71 @@ Düzeltme:
 | `8bac3d2` | 2026-07-21 | training_datasets/2026 v2 iskeleti (15 öğrenci, 33 session) |
 | `4938a71` | 2026-07-21 | DATASET_CARD.md v1.2 (2026 bölümü) |
 | `33f0b51` | 2026-07-21 | Script'lere --year 2026 ve --session flag'leri eklendi |
+
+---
+
+## 2026-07-21 (devam)
+
+### V7 Precheck Otomasyonu (2025 Kohort, n=17)
+
+**Yapılan:**
+Kural tabanlı otomasyon uygulandı. Mantık: bir episode V7* `observed` kodu içeriyorsa ve o episode'daki herhangi bir adımın `gold_behavior_alignment.v1.jsonl` dosyasında `matched_frame_id=None` veya `timestamp_ms=None` ise → `not_measurable` olarak güncellendi.
+
+**Etkilenen öğrenciler:**
+
+| Öğrenci | Unanchored Adımlar | Etkilenen Episode'lar | Değiştirilen Hücre |
+|---|---|---|---|
+| Ally | [6] | ep_0001 | 2 |
+| Calvin | [13] | ep_0004 | 1 |
+| David | [8, 11, 30] | ep_0005, ep_0008, ep_0017 | 1 |
+| Henry | [45] | ep_0017 | 1 |
+| Ozzy | [2, 3, 16] | ep_0000, ep_0001 | 3 |
+| **Toplam** | | | **8** |
+
+**Not — V7 etkisi olmayan öğrenciler (unanchored adım var ama etkilenen episode'da V7* observed yok):**
+Barbara, Boris, Daryl, Mike, Sabrina
+
+**Not — Daisy (L3):**
+Tüm 38 adım frame-anchored. L3 tier span gap'inden kaynaklanıyor; V7* hücrelere dokunulmadı.
+
+**Güncellenen dosyalar:**
+- 5 öğrenci × `exports/tabular/<id>_episode_process_codes.parquet`
+- 5 öğrenci × `annotations/<id>_process_codes.v1.json`
+- `training_datasets/2025/v7_precheck_auto_log.json` (audit log)
+
+---
+
+### Per-Kod Dengesizlik Ağırlık Tablosu
+
+**Yapılan:**
+17 öğrenci × 20 V-kodu × tüm EPC parquet dosyaları üzerinde per-kod istatistikler hesaplandı.
+
+**Dosya:** `training_datasets/2025/cohort_imbalance_weights.json`
+
+**Özet (trainable cells üzerinden):**
+
+| V-Kodu | Observed | Trainable | Rate | Loss Weight | Focal? | Eğitimden Çıkar |
+|---|---|---|---|---|---|---|
+| V1A_systematic_iteration | 68 | 211 | 32.2% | 3.10 | No | No |
+| V5B_dependent_execution | 46 | 211 | 21.8% | 4.59 | No | No |
+| V7A_no_metric_inspection | 63 | 204 | 30.9% | 3.24 | No | No |
+| V7B_no_graph_reading | 15 | 204 | 7.4% | 13.60 | No | No |
+| V3B_disengagement_passivity | 8 | 211 | 3.8% | 26.37 | No | No |
+| V4A_productive_recovery | 8 | 211 | 3.8% | 26.37 | No | No |
+| V2A_hesitation_disorientation | 6 | 210 | 2.9% | 35.00 | Yes | No |
+| V8D_import_failure_recovery | 6 | 211 | 2.8% | 35.17 | Yes | No |
+| V7C_no_comparison_despite_opportunity | 11 | 209 | 5.3% | 19.00 | No | No |
+| V8C_ctr_in_place_edit | 13 | 211 | 6.2% | 16.23 | No | No |
+| V4B_dead_end_loop | 2 | 211 | 0.9% | 105.50 | Yes | No |
+| V6A_mcr_zero_targeting | 2 | 211 | 0.9% | 105.50 | Yes | No |
+| V6C_metric_scope_awareness | 3 | 211 | 1.4% | 70.33 | Yes | No |
+| V8B_table_sort_threshold | 1 | 211 | 0.5% | 211.00 | Yes | No |
+| V1B_chaotic_iteration | 0 | 211 | 0% | — | — | Yes |
+| V2B_interface_cycling | 0 | 211 | 0% | — | — | Yes |
+| V3A_sustained_engagement | 0 | 211 | 0% | — | — | Yes |
+| V5A_productive_help_seeking | 0 | 211 | 0% | — | — | Yes |
+| V6B_label_inversion | 0 | 211 | 0% | — | — | Yes |
+| V8A_multi_instance_benchmarking | 0 | 211 | 0% | — | — | Yes |
+
+**use_focal_loss = True:** rate < 1/30 (~3.3%) olan kodlar. γ=2 önerilir.
+**exclude_from_train = True:** 2025 verisi üzerinde gözlem yok; 2026 örneklerini toplamak hedefi.

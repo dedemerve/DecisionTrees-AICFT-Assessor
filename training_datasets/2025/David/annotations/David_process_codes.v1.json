@@ -900,7 +900,7 @@
           "log_corroboration": null
         },
         "V7A_no_metric_inspection": {
-          "decision": "observed",
+          "decision": "not_measurable",
           "evidence": [
             "DT’de depth 1’e “Fat” sürüklenir, nerenin recommendable or not recommendable olduğuna karar verilir ve emit function çalıştırılır."
           ],
@@ -911,7 +911,8 @@
           "step_indices": [
             8
           ],
-          "log_corroboration": null
+          "log_corroboration": null,
+          "auto_precheck_note": "V7_precheck_fail: episode contains unanchored step(s)"
         },
         "V7B_no_graph_reading": {
           "decision": "not_observed",
