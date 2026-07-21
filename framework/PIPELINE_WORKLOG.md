@@ -235,7 +235,7 @@ Düzeltme:
 |---|---|---|
 | V7 precheck (otomatik) | DONE | Unanchored step kuralı cohort genelinde uygulandı; 8 hücre `not_measurable` olarak güncellendi |
 | Per-kod imbalance tablosu | DONE | `training_datasets/2025/cohort_imbalance_weights.json` oluşturuldu |
-| Seg protokolü | DONE | `framework/EPISODE_SEGMENTATION_PROTOCOL_v1.md` oluşturuldu (8 bölüm, IRR planı dahil) |
+| Seg protokolü | DONE | `framework/EPISODE_SEGMENTATION_PROTOCOL_v1.md` oluşturuldu (7 bölüm) |
 | L3 (Edgar/Felicity) | DONE | Edgar: ordinal-proportional heuristic alignment uygulandı; linkage_tier L3→L1 (yaklaşık). Felicity: 1 adım, L3 doğru, kapatıldı. |
 | 2026 log sync | Bekliyor | CODAP event CSV → video senkronizasyonu testi |
 | 2026 Colab seg | Bekliyor | Colab Python session'ları için anchor event tanımı (hücre çalıştırma? çıktı görünümü?) |
@@ -356,12 +356,10 @@ Ordinal-proportional heuristic alignment uygulandı:
 
 **Dosya:** `framework/EPISODE_SEGMENTATION_PROTOCOL_v1.md`
 
-**Kapsam:** Algoritmik boundary detection + IRR planı + 2026 uzantıları
+**Kapsam:** Algoritmik boundary detection + 2026 uzantıları
 
 **Protokol özeti:**
 - Boundary kuralı: `bilişsel_davranış_kategorisi` değiştiğinde yeni episode başlar
 - 4 kategori: EXPLORE (35.1%) / TUNE (41.7%) / EVALUATE (18.5%) / MISCONCEPTION (4.7%)
 - 18 anchor event türü (EMIT_TREE en yaygın: %37.4)
 - 2025 kohort: 17 öğrenci, 211 episode, medyan 11 ep/öğrenci
-- IRR hedefi: Cohen's κ ≥ 0.75 (kategori etiketi + anchor event)
-- 3 session'da çift-kodlama planı belgelendi

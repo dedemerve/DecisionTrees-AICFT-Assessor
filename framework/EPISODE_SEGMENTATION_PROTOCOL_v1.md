@@ -108,25 +108,7 @@ If a student's alignment quality is L3 (silver_timestamp_span_ms < 70% of record
 
 ---
 
-## 7. Inter-Rater Reliability Plan
-
-The segmentation boundary rule is algorithmic (no human decision required for where to cut). IRR is assessed on two decisions made by the coder:
-
-1. **Category label assignment** — for each observation step
-2. **Anchor event assignment** — for each episode
-
-**Target:** Cohen's κ ≥ 0.75 on both.  
-**Procedure:**
-- Select 3 sessions from the 2025 cohort (one EXPLORE-heavy, one TUNE-heavy, one mixed).
-- Second coder independently labels all steps (category) and all episodes (anchor event) for those sessions without access to the primary coder's labels.
-- Compute κ separately for category labels and anchor events.
-- Disagreements are resolved by the primary coder with written justification.
-
-**Codebook reference:** `framework/VIDEO_PROCESS_CODEBOOK_v1.md`
-
----
-
-## 8. 2026 Extensions
+## 7. 2026 Extensions
 
 Two changes apply to 2026 Colab Python sessions (`colab_05may`):
 - Categories remain the same. TUNE now includes cell execution as a CODAP-equivalent action.
