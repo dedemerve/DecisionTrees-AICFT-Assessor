@@ -21,7 +21,7 @@
     "session_ml_features": "training_datasets/2025/Edgar/exports/tabular/Edgar_session_ml_features.parquet"
   },
   "measurement_layers": {
-    "process_narrative": "Full uzman_nitel_g\u00f6zlemi timeline (qualitative)",
+    "process_narrative": "Full uzman_nitel_gözlemi timeline (qualitative)",
     "process_codes": "Episode-level V1-V8 process codes (non-scored)",
     "log_metadata": "Task-4 chronology and log-only variables (null when no CSV)"
   },
@@ -32,7 +32,7 @@
     "frames_total": 74,
     "frames_with_step_inheritance": 74,
     "video_duration_ms": 4680000,
-    "silver_timestamp_span_ms": 0,
+    "silver_timestamp_span_ms": 4680000,
     "low_silver_coverage": true,
     "gaps_flagged": [
       "low_silver_temporal_coverage",
@@ -46,14 +46,16 @@
       }
     ],
     "log_available": false,
-    "log_video_sync_status": "unavailable"
+    "log_video_sync_status": "unavailable",
+    "alignment_method": "ordinal_proportional_heuristic",
+    "alignment_warning": "Visual alignment failed; ordinal proportional heuristic applied. Timestamps are approximate."
   },
   "dual_artifact_model": {
     "process_layer": "Expert narrative + episode V-codes",
     "log_layer": "Objective event chronology when CODAP CSV available",
-    "scoring_layer": "OUT OF SCOPE \u2014 see trash/scoring_out_of_scope_2026-07-20/",
+    "scoring_layer": "OUT OF SCOPE — see trash/scoring_out_of_scope_2026-07-20/",
     "reference": "framework/VIDEO_PROCESS_CODEBOOK_v1.md"
   },
-  "linkage_tier": "L3",
+  "linkage_tier": "L1",
   "layout_version": "v2"
 }

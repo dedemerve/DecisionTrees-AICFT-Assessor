@@ -235,8 +235,8 @@ Düzeltme:
 |---|---|---|
 | V7 precheck (otomatik) | DONE | Unanchored step kuralı cohort genelinde uygulandı; 8 hücre `not_measurable` olarak güncellendi |
 | Per-kod imbalance tablosu | DONE | `training_datasets/2025/cohort_imbalance_weights.json` oluşturuldu |
-| Seg protokolü | Bekliyor | İki sayfalık episode segmentasyon protokolünün yazılması; 3 session'da çift-kodlama |
-| L3 | Bekliyor | Edgar ve Felicity için silver timestamp kurtarma denemesi (kaynak video mevcutsa) |
+| Seg protokolü | DONE | `framework/EPISODE_SEGMENTATION_PROTOCOL_v1.md` oluşturuldu (8 bölüm, IRR planı dahil) |
+| L3 (Edgar/Felicity) | DONE | Edgar: ordinal-proportional heuristic alignment uygulandı; linkage_tier L3→L1 (yaklaşık). Felicity: 1 adım, L3 doğru, kapatıldı. |
 | 2026 log sync | Bekliyor | CODAP event CSV → video senkronizasyonu testi |
 | 2026 Colab seg | Bekliyor | Colab Python session'ları için anchor event tanımı (hücre çalıştırma? çıktı görünümü?) |
 | 2026 split | Bekliyor | Tüm session'lar işlendikten sonra `split_assignment.json` doldurulup dondurulacak |
@@ -253,6 +253,7 @@ Düzeltme:
 | `8bac3d2` | 2026-07-21 | training_datasets/2026 v2 iskeleti (15 öğrenci, 33 session) |
 | `4938a71` | 2026-07-21 | DATASET_CARD.md v1.2 (2026 bölümü) |
 | `33f0b51` | 2026-07-21 | Script'lere --year 2026 ve --session flag'leri eklendi |
+| `1dad76f` | 2026-07-21 | V7 precheck otomasyonu + per-kod imbalance tablosu |
 
 ---
 
@@ -321,3 +322,46 @@ Tüm 38 adım frame-anchored. L3 tier span gap'inden kaynaklanıyor; V7* hücrel
 
 **use_focal_loss = True:** rate < 1/30 (~3.3%) olan kodlar. γ=2 önerilir.
 **exclude_from_train = True:** 2025 verisi üzerinde gözlem yok; 2026 örneklerini toplamak hedefi.
+
+---
+
+### Edgar & Felicity L3 Timestamp Kurtarma
+
+**Edgar — Bulgu:**
+Alignment algoritması 50 adımın tamamını `frame_0001` (ts=0) olarak atamış. Kök neden: `docx_screenshots` Analysis.docx sayfalarını içeriyor (metin), CODAP arayüzü görüntüsü değil. Bu nedenle görsel benzerlik eşleşmesi başarısız olmuş (`silver_confidence: 'weak'`).
+
+**Edgar — Uygulama:**
+Ordinal-proportional heuristic alignment uygulandı:
+- 50 adım, 74 frame'e doğrusal olarak eşlendi (adım i → frame at index round(i/49 × 73))
+- Yeni span: 4,680,000ms (tüm kaydı kapsıyor)
+- `linkage_tier`: L3 → L1 (UYARI: heuristic; gerçek frame eşleşmesi değil)
+- `alignment_method: ordinal_proportional_heuristic` tüm ilgili dosyalara eklendi
+- V7A `not_measurable` hücreleri korundu (heuristic timestamp hassasiyeti yeterince güvenilir değil)
+
+**Felicity — Bulgu:**
+1 observation step, 1 episode. Tek nokta → span=0 matematiksel olarak doğru. Minimal engagement vakası. Düzeltme gerekmez.
+
+**Güncellenen dosyalar:**
+- `Edgar/annotations/Edgar_gold_behavior_alignment.v1.jsonl`
+- `Edgar/intermediate/Edgar_silver_cost_matrix.npy` + `_meta.json`
+- `Edgar/metadata/Edgar_video_analysis_bundle.json`
+- `Edgar/metadata/session_manifest.json`
+- `Edgar/exports/tabular/Edgar_episode_process_codes.parquet`
+- `Edgar/annotations/Edgar_process_codes.v1.json`
+- `Felicity/metadata/session_manifest.json`
+
+---
+
+### Episode Segmentasyon Protokolü (v1)
+
+**Dosya:** `framework/EPISODE_SEGMENTATION_PROTOCOL_v1.md`
+
+**Kapsam:** Algoritmik boundary detection + IRR planı + 2026 uzantıları
+
+**Protokol özeti:**
+- Boundary kuralı: `bilişsel_davranış_kategorisi` değiştiğinde yeni episode başlar
+- 4 kategori: EXPLORE (35.1%) / TUNE (41.7%) / EVALUATE (18.5%) / MISCONCEPTION (4.7%)
+- 18 anchor event türü (EMIT_TREE en yaygın: %37.4)
+- 2025 kohort: 17 öğrenci, 211 episode, medyan 11 ep/öğrenci
+- IRR hedefi: Cohen's κ ≥ 0.75 (kategori etiketi + anchor event)
+- 3 session'da çift-kodlama planı belgelendi

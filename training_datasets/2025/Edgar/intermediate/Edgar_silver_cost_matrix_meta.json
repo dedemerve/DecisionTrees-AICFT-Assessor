@@ -85,5 +85,6 @@
     74
   ],
   "npy_file": "Edgar_silver_cost_matrix.npy",
-  "note": "Cost matrix stored as NumPy binary; load with np.load(). Rows=steps, cols=frames."
+  "note": "Ordinal proportional: visual alignment failed; steps uniformly mapped onto frame timeline. Use with caution.",
+  "alignment_method": "ordinal_proportional_heuristic"
 }

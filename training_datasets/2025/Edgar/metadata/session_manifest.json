@@ -3,7 +3,7 @@
   "artifact": "session_manifest",
   "student_id": "Edgar",
   "cohort_year": 2025,
-  "generated_at": "2026-07-21T05:42:59.336759+00:00",
+  "generated_at": "2026-07-21T07:10:08.435312+00:00",
   "data_availability": {
     "video": true,
     "expert_narrative": true,
@@ -11,13 +11,15 @@
     "audio_transcript": true,
     "docx_screenshots": true
   },
-  "linkage_tier": "L3",
-  "silver_timestamp_span_ms": 0,
+  "linkage_tier": "L1",
+  "silver_timestamp_span_ms": 4680000,
   "annotation_sha256": {
     "Edgar_expert_process_narrative.v1.jsonl": "e50abff381ada5fdac8ae971ac54f2aacc752f8571728cd1cc3a3f61b26aa229",
     "Edgar_gold_behavior_alignment.v1.jsonl": "8484871b1be5154a82434c44f9053e948f4e29ee2380c23dbc30fa91a5135612",
     "Edgar_process_codes.v1.json": "2386c0c85ffda1f80a3c4d2f0c24b7a84a7172d8d176be72eac4d6204e23073b"
   },
   "directory_layout_version": "v2",
-  "layout_note": "v2: raw/, annotations/, intermediate/, metadata/, exports/tabular/"
+  "layout_note": "v2: raw/, annotations/, intermediate/, metadata/, exports/tabular/",
+  "alignment_method": "ordinal_proportional_heuristic",
+  "alignment_warning": "Visual frame matching failed; step timestamps are heuristic approximations only"
 }
