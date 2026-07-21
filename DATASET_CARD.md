@@ -1,6 +1,6 @@
-# Dataset Card: CODAP Arbor Process Codes (2025 Cohort)
+# Dataset Card: CODAP Arbor Process Codes (2025 + 2026 Cohorts)
 
-**Version:** 1.1 | **Date:** 2026-07-21 | **Scope:** process pipeline / methods (no proficiency scoring)
+**Version:** 1.2 | **Date:** 2026-07-21 | **Scope:** process pipeline / methods (no proficiency scoring)
 
 ---
 
@@ -286,3 +286,142 @@ DATASET_CARD.md                           ← this file
 | L3 | Attempt silver timestamp recovery for Edgar and Felicity if source video available | Researcher |
 
 Calibration pack: `training_datasets/2025/adjudication/` — Pass 1 locked, Pass 2 complete, 9/9 disagreements resolved.
+
+---
+
+# 2026 Cohort Extension
+
+**Status:** directory skeleton created; video analysis pipeline not yet run. All fields below reflect planned structure, not completed data.
+
+---
+
+## 2026 (a) Key differences from 2025
+
+| Dimension | 2025 | 2026 |
+|---|---|---|
+| Students | 17 | 15 |
+| Sessions per student | 1 | 1–3 |
+| Total sessions | 17 | 33 |
+| Task types | CODAP Arbor only | CODAP Arbor (21 Apr, 28 Apr) + Colab Python (5 May) |
+| Event log | Not available | Available (CODAP Arbor event CSV planned) |
+| task4_process_variables | All null | Expected to be populated |
+| linkage_tier target | L1–L3 (achieved L2 majority) | L1 target via log-video sync |
+| Directory layout | v2 (migrated) | v2 (built from scratch) |
+| Per-student structure | `<student>/` | `<student>/<session_id>/` |
+
+---
+
+## 2026 (b) Source data
+
+| Property | Value |
+|---|---|
+| Cohort | 2026, n=15 students |
+| Total sessions | 33 (across 3 task dates) |
+| Recording type | Screen recordings (.webm) |
+| Task dates | 21 April (CODAP Arbor), 28 April (CODAP Arbor), 5 May (Colab Python) |
+| Event log | CODAP Arbor event CSV available (planned sync) |
+| Language of narratives | Turkish (uzman_nitel_gözlemi field, same as 2025) |
+
+### Session coverage per student
+
+| Student | codap_21apr | codap_28apr | colab_05may | Total sessions |
+|---|---|---|---|---|
+| Amy | yes | — | yes | 2 |
+| Bruno | yes | yes | yes | 3 |
+| Helena | yes | — | yes | 2 |
+| Iris | yes | — | — | 1 |
+| Irma | yes | yes | yes | 3 |
+| Isabel | yes | yes | — | 2 |
+| Marco | yes | yes | yes | 3 |
+| Marcus | yes | — | — | 1 |
+| Melinda | — | yes | — | 1 |
+| Nadia | yes | yes | yes | 3 |
+| Serena | — | yes | yes | 2 |
+| Shana | yes | — | yes | 2 |
+| Sheila | yes | — | yes | 2 |
+| Ulysses | yes | yes | yes | 3 |
+| Zara | yes | yes | yes | 3 |
+| **Total** | 13 | 9 | 11 | **33** |
+
+---
+
+## 2026 (c) Directory layout
+
+```
+training_datasets/2026/
+  split_assignment.json                      ← pending; assign after pipeline completes
+  hf_export/                                 ← cohort-level merge (populated by pipeline)
+  <student>/
+    metadata/
+      student_manifest.json                  ← session list, task_type, log_available per session
+    <session_id>/                            ← codap_21apr | codap_28apr | colab_05may
+      raw/frames/                            ← extracted video frames
+      raw/docx_screenshots/                  ← Analysis.docx page images
+      annotations/                           ← expert_process_narrative.v1.jsonl
+                                                gold_behavior_alignment.v1.jsonl
+                                                process_codes.v1.json
+      intermediate/                          ← frame_behavior_coverage.jsonl
+                                                silver_cost_matrix.npy
+                                                log_event_sequence.parquet  ← NEW (CODAP sessions)
+      metadata/                              ← video_extraction_manifest.json
+                                                video_analysis_bundle.json
+                                                log_process_metadata.json   ← task4 vars populated
+                                                session_manifest.json
+      exports/tabular/                       ← episodes.parquet
+                                                episode_process_codes.parquet
+                                                session_ml_features.parquet
+```
+
+**New in 2026 vs 2025:**
+- `intermediate/log_event_sequence.parquet` — CODAP event CSV parsed to tidy format; one row per event with timestamp, action, attribute, value.
+- `metadata/log_process_metadata.json` — `log_available: true`; `task4_process_variables` populated (time_to_first_emit_ms, feature_change_count, etc.).
+- `metadata/video_analysis_bundle.json` — `log_video_sync_status: synced | partial | unavailable` per session.
+
+---
+
+## 2026 (d) V-code schema
+
+Same V1A–V8D schema as 2025. Codebook: `framework/VIDEO_PROCESS_CODEBOOK_v1.md`.
+
+**Expected differences in code firing rates for colab_05may sessions:**
+- V8A–V8D (CODAP-specific codes) are **not applicable** to Colab Python sessions. These cells should be coded `not_measurable` by default.
+- V5A (productive help-seeking) may fire more in Colab sessions if collaborative work is visible.
+- V1B (chaotic iteration) may fire if students lack notebook familiarity.
+
+---
+
+## 2026 (e) Splits
+
+Not yet assigned. The split will be student-level (same policy as 2025) to prevent session-level leakage across the train/dev/test boundary.
+
+**Constraint:** Students who appear in the 2025 test set (Barbara, Frank, Zabby) are not in the 2026 cohort. Cross-cohort eval is structurally clean.
+
+**When to freeze:** After all 33 sessions are processed and episode counts are known. See `training_datasets/2026/split_assignment.json` (status: pending).
+
+---
+
+## 2026 (f) Known limitations and open issues
+
+1. **Colab Python sessions use a different tool.** V8 codes (CODAP-specific strategies) cannot fire in `colab_05may` sessions. This creates within-student code-availability heterogeneity that must be handled in the feature schema before cross-session modeling.
+
+2. **Multi-session students complicate the unit of analysis.** A student with 3 sessions contributes 3 independent episode sets. Cross-session learning trajectories are not modeled in v1 of the codebook. Treat each session as an independent observation unit for now.
+
+3. **log_video_sync not yet validated.** The CODAP event CSV sync has not been tested against actual 2026 video. Linkage tier outcomes (L1/L2/L3) are unknown until the pipeline runs.
+
+4. **Episode segmentation for Colab sessions is undefined.** The current segmentation protocol is anchored to CODAP Arbor emit events. Colab Python requires a separate anchor event definition (cell execution? output appearance?) before coding can begin.
+
+5. **2026 split not frozen.** Do not begin modeling until `split_assignment.json` is written and committed.
+
+---
+
+## 2026 (g) Pipeline entry point
+
+```bash
+# After extracting frames for a student session:
+python scripts/build_video_analysis_bundle.py --student Amy --session codap_21apr --year 2026
+
+# Tabular export (after all sessions processed):
+python scripts/export_process_codes_tables.py --all-2026 --merge-cohort
+```
+
+The `--year 2026` flag routes output to `training_datasets/2026/<student>/<session_id>/`. This flag does not yet exist in the scripts; it must be added before the pipeline can run on 2026 data.
