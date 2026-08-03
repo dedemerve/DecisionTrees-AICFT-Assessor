@@ -1,0 +1,208 @@
+{
+  "student_id": "Amy",
+  "worksheet": "WS_DT_XENO",
+  "ws_snapshot": "Amy Xeno bolumunu eksiksiz tamamlamistir. 10 vakali egitim seti (3 pembe hasta, 7 mavi saglikli), 20 yeni vaka ile N=30, TP=12, TN=18, FP=FN=0. Tum metrikler 1.0, MCR=0. Confusion matrix tutarli. Ditto isareti (// ~~) kullanmis ancak anlam dogru. FN'yi daha tehlikeli olarak secmis, duyarlilik tercih etmis; gerekce saglikli.",
+  "page_notes": "(bos)",
+  "extraction": {
+    "DTI_01": "10 vaka içermektedir. %30'u pozitif yani hasta.",
+    "DTI_02": "Blue hair: 7 vaka, %0'ı hasta.",
+    "DTI_03": "Pink hair: 3 vaka, %100'u hasta.",
+    "DTI_04": "Pink hair (+) hasta olarak etiketlenmiştir.",
+    "DTI_05": "3 vaka bulunmaktadır. 3'ü de hasta.",
+    "DTI_06": "Evet çünkü mavi saçlıların tamamı sağlıklı pembe saçlıların tamamı sağlıksız.",
+    "DTI_07": "Yeni bir volenin (ya pembe ya mavi saçlı olması gerek) maviyse sağlıklı pembeyse hasta.",
+    "DTI_08": "FN hata türü daha tehlikeli çünkü ölüm riski daha fazla.",
+    "DTI_09": "Doğru yaptı. Blue: 13, %0 hasta; Pink: 7, %100 hasta.",
+    "DTI_10": "12",
+    "DTI_11": "Pink saçlı hasta (modelim doğru).",
+    "DTI_12": "18",
+    "DTI_13": "Blue saçlı sağlıklı (modelim doğru).",
+    "DTI_14": "0",
+    "DTI_15": "Yanlış tahmin edilen hasta yok.",
+    "DTI_16": "0",
+    "DTI_17": "Yanlış tahmin edilen sağlıklı yok.",
+    "DTI_18": "30",
+    "DTI_19": "30 vaka var.",
+    "DTI_20": "12+18=30/30 = (1)",
+    "DTI_21": "Tamamı doğru test doğru çalıştı.",
+    "DTI_22": "12/(12+0) = (1)",
+    "DTI_23": "// ~~",
+    "DTI_24": "18/(0+18) = (1)",
+    "DTI_25": "// ~~",
+    "DTI_26": "12/(12+0) = (1)",
+    "DTI_27": "// ~~",
+    "DTI_28": "Duyarlılığı kullanırım çünkü önemli olan hasta bireylerin ne kadarının hasta olduğunu tespit etmek.",
+    "DTI_29": "FN+FP/N = FN+FP/N",
+    "DTI_30": "Yanlış hasta ve yanlış sağlıklıyı. Tamamın doğru tahminlerinden hatalı hastaları çıkarıp topladı ne kadarı yanlış olduğunu tespit etim için yanlığı.",
+    "DTI_31": "Yanlış hasta ve yanlış sağlıklının fazla olduğu durumlarda.",
+    "DTI_32": "0/30",
+    "DTI_33": "Yanlış tespit edilen yok."
+  },
+  "validation": {
+    "xeno_consistency_checks": {
+      "tp_fn_sum_equals_sick": {
+        "check": "TP + FN = toplam hasta sayisi",
+        "student_tp": "12",
+        "student_fn": "0",
+        "sum": 12,
+        "is_correct": true,
+        "note": "FN=0 beklenir"
+      },
+      "tn_fp_sum_equals_healthy": {
+        "check": "TN + FP = toplam saglikli sayisi",
+        "student_tn": "18",
+        "student_fp": "0",
+        "sum": 18,
+        "is_correct": true,
+        "note": "FP=0 beklenir"
+      },
+      "total_n": {
+        "check": "TP + TN + FP + FN = N",
+        "n_sum": 30,
+        "student_n": "30",
+        "is_correct": true
+      },
+      "fp_fn_zero": {
+        "check": "sac rengi mukemmel ayirici => FP=FN=0",
+        "student_fp": "0",
+        "student_fn": "0",
+        "is_correct": true
+      }
+    },
+    "item_checks": {
+      "DTI_01": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_02": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_03": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_04": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_05": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_06": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_07": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_08": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_09": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_10": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_11": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_12": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_13": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_14": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_15": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_16": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_17": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_18": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_19": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_20": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_21": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_22": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_23": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_24": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_25": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_26": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_27": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_28": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_29": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_30": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_31": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_32": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_33": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Amy Xeno bolumunu eksiksiz tamamlamistir. 10 vakali egitim seti (3 pembe hasta, 7 mavi saglikli), 20 yeni vaka ile N=30, TP=12, TN=18, FP=FN=0. Tum metrikler 1.0, MCR=0. Confusion matrix tutarli. Ditto isareti (// ~~) kullanmis ancak anlam dogru. FN'yi daha tehlikeli olarak secmis, duyarlilik tercih etmis; gerekce saglikli."
+  }
+}

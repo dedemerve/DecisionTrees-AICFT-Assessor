@@ -1,0 +1,208 @@
+{
+  "student_id": "Serena",
+  "worksheet": "WS_DT_XENO",
+  "ws_snapshot": "Nadia's Xeno dataset had 26 cases at the root (%46,2 sick); the tree used hair color as predictor with mavi saçlı (14 cases) all healthy and pembe saçlı (12 cases) all sick. Confusion matrix values were TP=17, TN=20, FP=0, FN=0, N=37, so FP=FN=0 was achieved and all four standard metrics (accuracy, sensitivity, specificity, precision) equal 1. She also computed MCR=0 correctly and proposed a new metric TP/|TP-FP|.",
+  "page_notes": "Note: root node count (26) and confusion matrix N (37) are inconsistent within the student's own writing, but transcribed as written. Printed instruction pages (1,2,3,5,10) contain no student writing.",
+  "extraction": {
+    "DTI_01": "Kök düğüm 26 vaka içermekte. %46,2 sick",
+    "DTI_02": "Mavi saçlı kutuda 14 vaka var 0 tane sick. Bu grup %100 sağlıklı",
+    "DTI_03": "Pembe saçlı kutuda 12 vaka var. Bu vakaların 12 tanesi sick. Mavi saçlılar sağlıklı pembe saçlılar hasta",
+    "DTI_04": "Pembe saçlı hasta olarak etiketlenmekte. Bu kararı verirken hair olayını kullandım.",
+    "DTI_05": "(bos)",
+    "DTI_06": "Evet. Çünkü Pembe saçlıların hepsi hasta mavi saçlıların hepsi sağlıklı",
+    "DTI_07": "Yüksek ihtimalle doğru çıkardı ama güvenilirliği arttırmak için başka şeylere de bakabilirim.",
+    "DTI_08": "Bence FN (Yanlış Negatif) çünkü hasta olan birine müdahale edilmesi gerekir aksi takdirde ölebilir.",
+    "DTI_09": "Hata payı oluşmadı.",
+    "DTI_10": "17",
+    "DTI_11": "Doğru karar",
+    "DTI_12": "20",
+    "DTI_13": "Doğru karar",
+    "DTI_14": "0",
+    "DTI_15": "Gerçekte sağlıklı olmasına rağmen hasta teşhisi kondu yanlış karar",
+    "DTI_16": "0",
+    "DTI_17": "Gerçekte hasta olmasına rağmen sağlıklı teşhisi kondu yanlış karar",
+    "DTI_18": "37",
+    "DTI_19": "(bos)",
+    "DTI_20": "(17 + 20) / 37",
+    "DTI_21": "1",
+    "DTI_22": "17 / (17 + 0)",
+    "DTI_23": "1",
+    "DTI_24": "20 / (20 + 0)",
+    "DTI_25": "1",
+    "DTI_26": "17 / (17 + 0)",
+    "DTI_27": "1",
+    "DTI_28": "[corrected: Saç rengini → Hepsini] kullanırım çünkü hepsinde 1 sonucuna ulaştım ve hepsi doğru",
+    "DTI_29": "TP / |TP - FP|",
+    "DTI_30": "Hasta denen vakaların ne kadar hasta olduğu",
+    "DTI_31": "Hasta olanları bulmada",
+    "DTI_32": "(0 + 0) / 37",
+    "DTI_33": "0 [arrow] yanlış karar"
+  },
+  "validation": {
+    "xeno_consistency_checks": {
+      "tp_fn_sum_equals_sick": {
+        "check": "TP + FN = toplam hasta sayisi",
+        "student_tp": "17",
+        "student_fn": "0",
+        "sum": 17,
+        "is_correct": true,
+        "note": "FN=0 beklenir"
+      },
+      "tn_fp_sum_equals_healthy": {
+        "check": "TN + FP = toplam saglikli sayisi",
+        "student_tn": "20",
+        "student_fp": "0",
+        "sum": 20,
+        "is_correct": true,
+        "note": "FP=0 beklenir"
+      },
+      "total_n": {
+        "check": "TP + TN + FP + FN = N",
+        "n_sum": 37,
+        "student_n": "37",
+        "is_correct": true
+      },
+      "fp_fn_zero": {
+        "check": "sac rengi mukemmel ayirici => FP=FN=0",
+        "student_fp": "0",
+        "student_fn": "0",
+        "is_correct": true
+      }
+    },
+    "item_checks": {
+      "DTI_01": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_02": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_03": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_04": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_05": {
+        "is_correct": false,
+        "error_flag": "BLANK"
+      },
+      "DTI_06": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_07": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_08": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_09": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_10": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_11": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_12": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_13": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_14": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_15": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_16": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_17": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_18": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_19": {
+        "is_correct": false,
+        "error_flag": "BLANK"
+      },
+      "DTI_20": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_21": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_22": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_23": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_24": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_25": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_26": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_27": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_28": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_29": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_30": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_31": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_32": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_33": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Nadia's Xeno dataset had 26 cases at the root (%46,2 sick); the tree used hair color as predictor with mavi saçlı (14 cases) all healthy and pembe saçlı (12 cases) all sick. Confusion matrix values were TP=17, TN=20, FP=0, FN=0, N=37, so FP=FN=0 was achieved and all four standard metrics (accuracy, sensitivity, specificity, precision) equal 1. She also computed MCR=0 correctly and proposed a new metric TP/|TP-FP|."
+  }
+}

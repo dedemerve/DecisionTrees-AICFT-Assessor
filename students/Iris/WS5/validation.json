@@ -1,0 +1,40 @@
+{
+  "stage": "validation",
+  "student_id": "Iris",
+  "worksheet": "WS5",
+  "parse_success": true,
+  "ocr_quality": null,
+  "formula_parsed": true,
+  "tree_detected": null,
+  "missing_regions": [],
+  "deterministic_checks": {
+    "WS5_row1": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank_row"
+    },
+    "WS5_row2": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank_row"
+    },
+    "WS5_row3": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank_row"
+    },
+    "WS5_B25": {
+      "threshold": "(not_extracted)",
+      "trials_considered": [],
+      "ok": false,
+      "credit": "zero",
+      "score": 0.0,
+      "reason": "no_valid_grid_trials"
+    }
+  },
+  "blocked": false,
+  "blocked_reason": null
+}

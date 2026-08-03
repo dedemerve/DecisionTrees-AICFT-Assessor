@@ -1,0 +1,435 @@
+{
+  "student_id": "Ulysses",
+  "metadata": {
+    "total_models_created": 3,
+    "markdown_cells": 0,
+    "code_cells": 1,
+    "total_cells": 1
+  },
+  "execution": {
+    "code_cells_with_output": 1,
+    "code_cells_without_output": 0,
+    "execution_count_all_null": null,
+    "cells_with_errors": 0,
+    "infrastructure_interrupt": false,
+    "error_types": []
+  },
+  "data_source": {
+    "real_csv_loaded": true,
+    "row_count_in_output": 320,
+    "synthetic_data_used": true,
+    "data_source_note": "Orijinal 'lizard_data.csv' bulunamadı. Rapordaki dağılımlara uygun yapay veri üretiliyor..."
+  },
+  "step1_data_exploration": {
+    "data_loaded": true,
+    "row_count_reported": null,
+    "col_count_reported": null,
+    "columns_listed": false,
+    "value_counts_called": true,
+    "describe_called": false,
+    "q_lizard_count": null,
+    "q_habitat_most_frequent": null,
+    "q_habitat_least_frequent": null,
+    "q_imbalance_effect_reasoning": null,
+    "q_mass_average_reported": null,
+    "q_mass_by_species_reasoning": null
+  },
+  "formulated_research_questions": [
+    {
+      "target_variable": "YasamAlani",
+      "formulated_question": null
+    },
+    {
+      "target_variable": "Tur",
+      "formulated_question": null
+    },
+    {
+      "target_variable": "Cinsiyet",
+      "formulated_question": null
+    }
+  ],
+  "step3_split_global": {
+    "test_size": 0.2,
+    "stratify_used": true,
+    "random_state": 42,
+    "split_size_reported_train": null,
+    "split_size_reported_test": null,
+    "parameters_varied_across_models": false,
+    "q_stratify_removal_effect": null,
+    "q_random_state_change_effect": null
+  },
+  "preliminary_quick_models": null,
+  "dt_experiments": [
+    {
+      "target_variable": "YasamAlani",
+      "target_variable_intermediate_name": "hedef_degisken",
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "Tur_Anolis",
+          "Tur_Sceloporus",
+          "Tur_Uta",
+          "Cinsiyet_Disi",
+          "Cinsiyet_Erkek"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": null,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 10,
+        "depth_range_max_source": "range_call",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.511719,
+            "test_mcr": 0.546875
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.5,
+            "test_mcr": 0.546875
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.496094,
+            "test_mcr": 0.5625
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.453125,
+            "test_mcr": 0.578125
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.386719,
+            "test_mcr": 0.546875
+          },
+          {
+            "depth": 6,
+            "train_mcr": 0.3125,
+            "test_mcr": 0.59375
+          },
+          {
+            "depth": 7,
+            "train_mcr": 0.253906,
+            "test_mcr": 0.640625
+          },
+          {
+            "depth": 8,
+            "train_mcr": 0.195312,
+            "test_mcr": 0.625
+          },
+          {
+            "depth": 9,
+            "train_mcr": 0.160156,
+            "test_mcr": 0.609375
+          },
+          {
+            "depth": 10,
+            "train_mcr": 0.121094,
+            "test_mcr": 0.65625
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": null,
+        "zero_train_error_interpretation": null,
+        "divergence_point_identified": null,
+        "overfitting_named_or_described": null,
+        "preferred_depth_from_table": null,
+        "preferred_depth_from_graph": null
+      },
+      "step5_final_tree": {
+        "chosen_optimal_depth": 1,
+        "test_mcr_achieved": 0.546875,
+        "root_node_feature": null,
+        "root_node_threshold": null,
+        "q_root_node_reasoning": null,
+        "q_decisions_to_classify": null,
+        "q_root_changed_across_targets": null,
+        "q_codap_comparison": null,
+        "root_node_feature_computed": null,
+        "root_node_feature_source": null,
+        "is_optimal_depth_mathematically_correct": true,
+        "mathematically_optimal_depth": 1
+      },
+      "step4_responses_location": null
+    },
+    {
+      "target_variable": "Tur",
+      "target_variable_intermediate_name": "hedef_degisken",
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "YasamAlani_Agac",
+          "YasamAlani_Kaya",
+          "YasamAlani_Yer",
+          "Cinsiyet_Disi",
+          "Cinsiyet_Erkek"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": null,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 10,
+        "depth_range_max_source": "range_call",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.554688,
+            "test_mcr": 0.640625
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.523438,
+            "test_mcr": 0.59375
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.492188,
+            "test_mcr": 0.578125
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.457031,
+            "test_mcr": 0.609375
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.421875,
+            "test_mcr": 0.609375
+          },
+          {
+            "depth": 6,
+            "train_mcr": 0.363281,
+            "test_mcr": 0.625
+          },
+          {
+            "depth": 7,
+            "train_mcr": 0.300781,
+            "test_mcr": 0.578125
+          },
+          {
+            "depth": 8,
+            "train_mcr": 0.230469,
+            "test_mcr": 0.640625
+          },
+          {
+            "depth": 9,
+            "train_mcr": 0.183594,
+            "test_mcr": 0.671875
+          },
+          {
+            "depth": 10,
+            "train_mcr": 0.117188,
+            "test_mcr": 0.65625
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": null,
+        "zero_train_error_interpretation": null,
+        "divergence_point_identified": null,
+        "overfitting_named_or_described": null,
+        "preferred_depth_from_table": null,
+        "preferred_depth_from_graph": null
+      },
+      "step5_final_tree": {
+        "chosen_optimal_depth": 3,
+        "test_mcr_achieved": 0.578125,
+        "root_node_feature": null,
+        "root_node_threshold": null,
+        "q_root_node_reasoning": null,
+        "q_decisions_to_classify": null,
+        "q_root_changed_across_targets": null,
+        "q_codap_comparison": null,
+        "root_node_feature_computed": null,
+        "root_node_feature_source": null,
+        "is_optimal_depth_mathematically_correct": true,
+        "mathematically_optimal_depth": 3
+      },
+      "step4_responses_location": null
+    },
+    {
+      "target_variable": "Cinsiyet",
+      "target_variable_intermediate_name": "hedef_degisken",
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "YasamAlani_Agac",
+          "YasamAlani_Kaya",
+          "YasamAlani_Yer",
+          "Tur_Anolis",
+          "Tur_Sceloporus",
+          "Tur_Uta"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": null,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 10,
+        "depth_range_max_source": "range_call",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.386719,
+            "test_mcr": 0.421875
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.351562,
+            "test_mcr": 0.46875
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.320312,
+            "test_mcr": 0.453125
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.277344,
+            "test_mcr": 0.4375
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.226562,
+            "test_mcr": 0.46875
+          },
+          {
+            "depth": 6,
+            "train_mcr": 0.199219,
+            "test_mcr": 0.5
+          },
+          {
+            "depth": 7,
+            "train_mcr": 0.140625,
+            "test_mcr": 0.46875
+          },
+          {
+            "depth": 8,
+            "train_mcr": 0.089844,
+            "test_mcr": 0.53125
+          },
+          {
+            "depth": 9,
+            "train_mcr": 0.046875,
+            "test_mcr": 0.421875
+          },
+          {
+            "depth": 10,
+            "train_mcr": 0.019531,
+            "test_mcr": 0.453125
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": null,
+        "zero_train_error_interpretation": null,
+        "divergence_point_identified": null,
+        "overfitting_named_or_described": null,
+        "preferred_depth_from_table": null,
+        "preferred_depth_from_graph": null
+      },
+      "step5_final_tree": {
+        "chosen_optimal_depth": 1,
+        "test_mcr_achieved": 0.421875,
+        "root_node_feature": null,
+        "root_node_threshold": null,
+        "q_root_node_reasoning": null,
+        "q_decisions_to_classify": null,
+        "q_root_changed_across_targets": null,
+        "q_codap_comparison": null,
+        "root_node_feature_computed": null,
+        "root_node_feature_source": null,
+        "is_optimal_depth_mathematically_correct": true,
+        "mathematically_optimal_depth": 1
+      },
+      "step4_responses_location": null
+    }
+  ],
+  "cross_target_comparison": {
+    "comparison_present": false,
+    "optimal_depths_compared": null,
+    "root_nodes_compared": null,
+    "mcr_values_compared": [
+      {
+        "target_variable": "YasamAlani",
+        "test_mcr": 0.546875
+      },
+      {
+        "target_variable": "Tur",
+        "test_mcr": 0.578125
+      },
+      {
+        "target_variable": "Cinsiyet",
+        "test_mcr": 0.421875
+      }
+    ],
+    "comparison_reasoning": null
+  },
+  "step6_written_reflection": {
+    "q1_learning_journey": {
+      "raw_text": null,
+      "environments_mentioned": [],
+      "error_detection_discussed": null,
+      "word_count": null
+    },
+    "q2_data_understanding": {
+      "raw_text": null,
+      "root_feature_surprise_addressed": null,
+      "biological_reasoning_present": null,
+      "misclassified_habitat_discussed": null,
+      "word_count": null
+    },
+    "q3_model_performance": {
+      "raw_text": null,
+      "mcr_value_stated": null,
+      "best_predicted_class": null,
+      "worst_predicted_class": null,
+      "ideal_mcr_threshold_stated": null,
+      "cross_target_mcr_comparison_attempted": null,
+      "word_count": null
+    },
+    "q4_dt_limitations": {
+      "raw_text": null,
+      "error_pattern_described": null,
+      "alternative_model_named": null,
+      "data_improvement_suggested": null,
+      "dt_explanation_for_friend": null,
+      "word_count": null
+    }
+  }
+}

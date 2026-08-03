@@ -10,6 +10,7 @@
 | `21 April CODAP Arbor Screen Recordings/` | `.webm` per student |
 | `28 April CODAP Arbor Screen Recordings/` | `.webm` per student |
 | `05 May Colab Python Screen Recordings/` | `.webm` per student |
+| `colab_may_audio/` | Processed May Colab audio/video + transcripts |
 
 ## Git / GitHub
 

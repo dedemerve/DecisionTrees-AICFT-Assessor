@@ -1,0 +1,1431 @@
+{
+  "$schema": "schema/video_construct_scores.schema.json",
+  "artifact": "construct_scores",
+  "student_id": "Boris",
+  "cohort_year": 2025,
+  "rubric_id": "codap_arbor_v4_candidate",
+  "schema_version": "4.1",
+  "generated_at": "2026-07-20T11:17:56.595774+00:00",
+  "session_scores": {},
+  "session_notes": null,
+  "key_evidence": {},
+  "audio_available": null,
+  "step_level_inferences": [
+    {
+      "step_index": 0,
+      "behavior_codes": [
+        "LOAD_DATASET",
+        "OPEN_ARBOR"
+      ],
+      "behavior_details": [
+        {
+          "code": "LOAD_DATASET",
+          "gloss": "Dataset is loaded into CODAP/Arbor.",
+          "screen_change": "Table/case-card region populates with Food Data attributes and rows."
+        },
+        {
+          "code": "OPEN_ARBOR",
+          "gloss": "Arbor / CODAP workspace is opened or restarted.",
+          "screen_change": "Arbor tree canvas appears empty/reset; plugin chrome becomes visible."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0005"
+    },
+    {
+      "step_index": 1,
+      "behavior_codes": [
+        "TRAIN_TEST_SPLIT"
+      ],
+      "behavior_details": [
+        {
+          "code": "TRAIN_TEST_SPLIT",
+          "gloss": "Train/test split is configured (often via Choosy).",
+          "screen_change": "Case tags / Choosy UI for train vs test becomes visible."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0017"
+    },
+    {
+      "step_index": 2,
+      "behavior_codes": [
+        "SET_TARGET_ATTRIBUTE"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_TARGET_ATTRIBUTE",
+          "gloss": "Target / predict attribute is set on the tree.",
+          "screen_change": "Tree root shows selected dependent variable name."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0028"
+    },
+    {
+      "step_index": 3,
+      "behavior_codes": [
+        "CREATE_GRAPH",
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "CREATE_GRAPH",
+          "gloss": "A CODAP graph panel is created.",
+          "screen_change": "New CODAP graph panel opens (often beside Arbor)."
+        },
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0033"
+    },
+    {
+      "step_index": 4,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0033"
+    },
+    {
+      "step_index": 5,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0030"
+    },
+    {
+      "step_index": 6,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0033"
+    },
+    {
+      "step_index": 7,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0033"
+    },
+    {
+      "step_index": 8,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0033"
+    },
+    {
+      "step_index": 9,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0033"
+    },
+    {
+      "step_index": 10,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0033"
+    },
+    {
+      "step_index": 11,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0033"
+    },
+    {
+      "step_index": 12,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0033"
+    },
+    {
+      "step_index": 13,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0033"
+    },
+    {
+      "step_index": 14,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0034"
+    },
+    {
+      "step_index": 15,
+      "behavior_codes": [
+        "SET_AXIS",
+        "DRAG_SPLIT_ATTRIBUTE"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        },
+        {
+          "code": "DRAG_SPLIT_ATTRIBUTE",
+          "gloss": "A predictor attribute is dragged onto a tree depth/node.",
+          "screen_change": "Tree node gains a split attribute and child branches appear/update."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0033"
+    },
+    {
+      "step_index": 16,
+      "behavior_codes": [
+        "SET_AXIS",
+        "SWAP_AXES"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        },
+        {
+          "code": "SWAP_AXES",
+          "gloss": "Graph axes are swapped.",
+          "screen_change": "Graph orientation flips; clusters rearrange."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0037"
+    },
+    {
+      "step_index": 17,
+      "behavior_codes": [
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0037"
+    },
+    {
+      "step_index": 18,
+      "behavior_codes": [
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0037"
+    },
+    {
+      "step_index": 19,
+      "behavior_codes": [
+        "UPDATE_THRESHOLD",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_THRESHOLD",
+          "gloss": "Numeric split threshold on the tree is changed.",
+          "screen_change": "Split cut-point text/value on the node changes; leaf purity may change."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0035"
+    },
+    {
+      "step_index": 20,
+      "behavior_codes": [
+        "ASSIGN_LEAF_LABEL",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0035"
+    },
+    {
+      "step_index": 21,
+      "behavior_codes": [
+        "SET_AXIS",
+        "DRAG_SPLIT_ATTRIBUTE",
+        "ASSIGN_LEAF_LABEL",
+        "DELETE_TREE_OR_CTR_ROW"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        },
+        {
+          "code": "DRAG_SPLIT_ATTRIBUTE",
+          "gloss": "A predictor attribute is dragged onto a tree depth/node.",
+          "screen_change": "Tree node gains a split attribute and child branches appear/update."
+        },
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        },
+        {
+          "code": "DELETE_TREE_OR_CTR_ROW",
+          "gloss": "Tree is cleared or a CTR row is deleted.",
+          "screen_change": "Tree canvas clears or a CTR row disappears."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0067"
+    },
+    {
+      "step_index": 22,
+      "behavior_codes": [
+        "UPDATE_MOVABLE_VALUE",
+        "UPDATE_THRESHOLD",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        },
+        {
+          "code": "UPDATE_THRESHOLD",
+          "gloss": "Numeric split threshold on the tree is changed.",
+          "screen_change": "Split cut-point text/value on the node changes; leaf purity may change."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0079"
+    },
+    {
+      "step_index": 23,
+      "behavior_codes": [
+        "CREATE_GRAPH",
+        "CLOSE_GRAPH",
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "CREATE_GRAPH",
+          "gloss": "A CODAP graph panel is created.",
+          "screen_change": "New CODAP graph panel opens (often beside Arbor)."
+        },
+        {
+          "code": "CLOSE_GRAPH",
+          "gloss": "Graph panel is closed.",
+          "screen_change": "Graph panel disappears from the workspace."
+        },
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0084"
+    },
+    {
+      "step_index": 24,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0096"
+    },
+    {
+      "step_index": 25,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0084"
+    },
+    {
+      "step_index": 26,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0096"
+    },
+    {
+      "step_index": 27,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0084"
+    },
+    {
+      "step_index": 28,
+      "behavior_codes": [
+        "SET_AXIS",
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        },
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0089"
+    },
+    {
+      "step_index": 29,
+      "behavior_codes": [
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0089"
+    },
+    {
+      "step_index": 30,
+      "behavior_codes": [
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0089"
+    },
+    {
+      "step_index": 31,
+      "behavior_codes": [
+        "DRAG_SPLIT_ATTRIBUTE",
+        "UPDATE_THRESHOLD",
+        "ASSIGN_LEAF_LABEL",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "DRAG_SPLIT_ATTRIBUTE",
+          "gloss": "A predictor attribute is dragged onto a tree depth/node.",
+          "screen_change": "Tree node gains a split attribute and child branches appear/update."
+        },
+        {
+          "code": "UPDATE_THRESHOLD",
+          "gloss": "Numeric split threshold on the tree is changed.",
+          "screen_change": "Split cut-point text/value on the node changes; leaf purity may change."
+        },
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0093"
+    },
+    {
+      "step_index": 32,
+      "behavior_codes": [
+        "SELECT_CTR_ROW",
+        "INTERPRET_METRICS",
+        "COMPARE_MODELS",
+        "SEEK_HELP_OR_DIALOGUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "SELECT_CTR_ROW",
+          "gloss": "A saved tree row in Classification Tree Records is selected/inspected.",
+          "screen_change": "CTR highlight changes; reconstructed tree may reload on canvas."
+        },
+        {
+          "code": "INTERPRET_METRICS",
+          "gloss": "Performance metrics are referenced or compared.",
+          "screen_change": "Attention is on MCR/sensitivity/accuracy numerals in CTR or plugins."
+        },
+        {
+          "code": "COMPARE_MODELS",
+          "gloss": "Student compares alternative models / trees.",
+          "screen_change": "Multiple CTR rows / trees are inspected in sequence."
+        },
+        {
+          "code": "SEEK_HELP_OR_DIALOGUE",
+          "gloss": "Verbal help-seeking or teacher–student dialogue is recorded.",
+          "screen_change": "Screen may be static while conversation occurs."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0098"
+    },
+    {
+      "step_index": 33,
+      "behavior_codes": [
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0103"
+    },
+    {
+      "step_index": 34,
+      "behavior_codes": [
+        "SET_AXIS",
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        },
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0105"
+    },
+    {
+      "step_index": 35,
+      "behavior_codes": [
+        "SET_AXIS",
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        },
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0107"
+    },
+    {
+      "step_index": 36,
+      "behavior_codes": [
+        "SET_AXIS",
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        },
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0103"
+    },
+    {
+      "step_index": 37,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0121"
+    },
+    {
+      "step_index": 38,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0126"
+    },
+    {
+      "step_index": 39,
+      "behavior_codes": [
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0123"
+    },
+    {
+      "step_index": 40,
+      "behavior_codes": [
+        "SET_AXIS"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0120"
+    },
+    {
+      "step_index": 41,
+      "behavior_codes": [
+        "UPDATE_MOVABLE_VALUE",
+        "UPDATE_THRESHOLD",
+        "INTERPRET_METRICS",
+        "COMPARE_MODELS",
+        "SEEK_HELP_OR_DIALOGUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        },
+        {
+          "code": "UPDATE_THRESHOLD",
+          "gloss": "Numeric split threshold on the tree is changed.",
+          "screen_change": "Split cut-point text/value on the node changes; leaf purity may change."
+        },
+        {
+          "code": "INTERPRET_METRICS",
+          "gloss": "Performance metrics are referenced or compared.",
+          "screen_change": "Attention is on MCR/sensitivity/accuracy numerals in CTR or plugins."
+        },
+        {
+          "code": "COMPARE_MODELS",
+          "gloss": "Student compares alternative models / trees.",
+          "screen_change": "Multiple CTR rows / trees are inspected in sequence."
+        },
+        {
+          "code": "SEEK_HELP_OR_DIALOGUE",
+          "gloss": "Verbal help-seeking or teacher–student dialogue is recorded.",
+          "screen_change": "Screen may be static while conversation occurs."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0120"
+    },
+    {
+      "step_index": 42,
+      "behavior_codes": [
+        "SET_AXIS",
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        },
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0120"
+    },
+    {
+      "step_index": 43,
+      "behavior_codes": [
+        "UPDATE_MOVABLE_VALUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "TUNE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0141"
+    },
+    {
+      "step_index": 44,
+      "behavior_codes": [
+        "DRAG_SPLIT_ATTRIBUTE",
+        "ASSIGN_LEAF_LABEL",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "DRAG_SPLIT_ATTRIBUTE",
+          "gloss": "A predictor attribute is dragged onto a tree depth/node.",
+          "screen_change": "Tree node gains a split attribute and child branches appear/update."
+        },
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0137"
+    },
+    {
+      "step_index": 45,
+      "behavior_codes": [
+        "DRAG_SPLIT_ATTRIBUTE",
+        "ASSIGN_LEAF_LABEL",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "DRAG_SPLIT_ATTRIBUTE",
+          "gloss": "A predictor attribute is dragged onto a tree depth/node.",
+          "screen_change": "Tree node gains a split attribute and child branches appear/update."
+        },
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0137"
+    },
+    {
+      "step_index": 46,
+      "behavior_codes": [
+        "SET_AXIS",
+        "UPDATE_MOVABLE_VALUE",
+        "DRAG_SPLIT_ATTRIBUTE",
+        "UPDATE_THRESHOLD",
+        "ASSIGN_LEAF_LABEL",
+        "EMIT_TREE",
+        "DELETE_TREE_OR_CTR_ROW"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        },
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        },
+        {
+          "code": "DRAG_SPLIT_ATTRIBUTE",
+          "gloss": "A predictor attribute is dragged onto a tree depth/node.",
+          "screen_change": "Tree node gains a split attribute and child branches appear/update."
+        },
+        {
+          "code": "UPDATE_THRESHOLD",
+          "gloss": "Numeric split threshold on the tree is changed.",
+          "screen_change": "Split cut-point text/value on the node changes; leaf purity may change."
+        },
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        },
+        {
+          "code": "DELETE_TREE_OR_CTR_ROW",
+          "gloss": "Tree is cleared or a CTR row is deleted.",
+          "screen_change": "Tree canvas clears or a CTR row disappears."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0143"
+    },
+    {
+      "step_index": 47,
+      "behavior_codes": [
+        "SET_AXIS",
+        "UPDATE_MOVABLE_VALUE",
+        "UPDATE_THRESHOLD",
+        "ASSIGN_LEAF_LABEL",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        },
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        },
+        {
+          "code": "UPDATE_THRESHOLD",
+          "gloss": "Numeric split threshold on the tree is changed.",
+          "screen_change": "Split cut-point text/value on the node changes; leaf purity may change."
+        },
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0187"
+    },
+    {
+      "step_index": 48,
+      "behavior_codes": [
+        "SET_AXIS",
+        "DRAG_SPLIT_ATTRIBUTE",
+        "ASSIGN_LEAF_LABEL",
+        "EMIT_TREE",
+        "DELETE_TREE_OR_CTR_ROW"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_AXIS",
+          "gloss": "Graph axis attribute is assigned or changed.",
+          "screen_change": "Graph marks/points reconfigure to the assigned X/Y attribute."
+        },
+        {
+          "code": "DRAG_SPLIT_ATTRIBUTE",
+          "gloss": "A predictor attribute is dragged onto a tree depth/node.",
+          "screen_change": "Tree node gains a split attribute and child branches appear/update."
+        },
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        },
+        {
+          "code": "DELETE_TREE_OR_CTR_ROW",
+          "gloss": "Tree is cleared or a CTR row is deleted.",
+          "screen_change": "Tree canvas clears or a CTR row disappears."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0148"
+    },
+    {
+      "step_index": 49,
+      "behavior_codes": [
+        "TRAIN_TEST_SPLIT"
+      ],
+      "behavior_details": [
+        {
+          "code": "TRAIN_TEST_SPLIT",
+          "gloss": "Train/test split is configured (often via Choosy).",
+          "screen_change": "Case tags / Choosy UI for train vs test becomes visible."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "text_only",
+      "silver_confidence": "none",
+      "silver_frame_id": null
+    },
+    {
+      "step_index": 50,
+      "behavior_codes": [
+        "UPDATE_MOVABLE_VALUE",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_MOVABLE_VALUE",
+          "gloss": "Movable value position is updated (visual threshold probe on graph).",
+          "screen_change": "Movable line shifts; case partitions on either side change."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0170"
+    },
+    {
+      "step_index": 51,
+      "behavior_codes": [
+        "DRAG_SPLIT_ATTRIBUTE",
+        "ASSIGN_LEAF_LABEL"
+      ],
+      "behavior_details": [
+        {
+          "code": "DRAG_SPLIT_ATTRIBUTE",
+          "gloss": "A predictor attribute is dragged onto a tree depth/node.",
+          "screen_change": "Tree node gains a split attribute and child branches appear/update."
+        },
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0179"
+    },
+    {
+      "step_index": 52,
+      "behavior_codes": [
+        "UPDATE_THRESHOLD",
+        "ASSIGN_LEAF_LABEL",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "UPDATE_THRESHOLD",
+          "gloss": "Numeric split threshold on the tree is changed.",
+          "screen_change": "Split cut-point text/value on the node changes; leaf purity may change."
+        },
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0187"
+    },
+    {
+      "step_index": 53,
+      "behavior_codes": [
+        "TRAIN_TEST_SPLIT",
+        "COMPARE_MODELS"
+      ],
+      "behavior_details": [
+        {
+          "code": "TRAIN_TEST_SPLIT",
+          "gloss": "Train/test split is configured (often via Choosy).",
+          "screen_change": "Case tags / Choosy UI for train vs test becomes visible."
+        },
+        {
+          "code": "COMPARE_MODELS",
+          "gloss": "Student compares alternative models / trees.",
+          "screen_change": "Multiple CTR rows / trees are inspected in sequence."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0168"
+    },
+    {
+      "step_index": 54,
+      "behavior_codes": [
+        "SEEK_HELP_OR_DIALOGUE"
+      ],
+      "behavior_details": [
+        {
+          "code": "SEEK_HELP_OR_DIALOGUE",
+          "gloss": "Verbal help-seeking or teacher–student dialogue is recorded.",
+          "screen_change": "Screen may be static while conversation occurs."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "text_only",
+      "silver_confidence": "none",
+      "silver_frame_id": null
+    }
+  ],
+  "alignment_quality": {
+    "gold_with_screenshot": 53,
+    "step_count": 55,
+    "silver_confidence_histogram": {
+      "high": 53,
+      "none": 2
+    },
+    "revision": "v2c_adjacency_gold+seed_lock_silver"
+  },
+  "interpretation_rule": "Session_scores are human adjudicated B0-B13 construct levels. step_level_inferences are atomic behavior codes from text; they do not automatically change session_scores."
+}

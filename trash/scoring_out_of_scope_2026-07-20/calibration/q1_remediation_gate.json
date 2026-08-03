@@ -1,0 +1,76 @@
+{
+  "remediation_complete": false,
+  "remediation_date": "2026-07-20",
+  "phases_executed": [
+    "FAZ0",
+    "FAZ1A",
+    "FAZ1B",
+    "FAZ1C",
+    "FAZ1D",
+    "FAZ2",
+    "FAZ3",
+    "FAZ4",
+    "FAZ5"
+  ],
+  "acceptance_checks": "23/24 passed (1 false alarm: field exists, regex off)",
+  "claims_now": {
+    "C1": "not_supported",
+    "C2": "not_supported",
+    "C3": "supported_with_major_revision",
+    "C4": "supported_with_major_revision",
+    "C5": "not_supported",
+    "C6": "insufficient_evidence"
+  },
+  "claim_changes_from_gate": {
+    "C3": "not_supported → supported_with_major_revision (fewshot_v2 has positive examples; leakage fixed)",
+    "C4": "supported_with_major_revision maintained (human IRR and 2026 scoring still pending)"
+  },
+  "package_sufficient_for_q1_method_paper": false,
+  "package_sufficient_for_q1_main_results": false,
+  "automation_complete": true,
+  "remaining_human_tasks": [
+    "IRR kodlama: 2 bağımsız kodlayıcı, irr_coding_sheet.csv doldurulacak (80 episode)",
+    "compute_irr.py çalıştırarak κ ≥ 0.70 doğrulanacak",
+    "2026 skorlama: mmla_scorer.py 21apr/28apr/05may için çalıştırılacak",
+    "evaluate_session_construct_agreement.py ile session-level agreement hesaplanacak",
+    "Etik/IRB belgesi: öğrenci video verisi için etik komite onayı",
+    "CVI/CVR paneli: rubric için uzman paneli içerik geçerlilik indeksi",
+    "Dataset card: HF-compatible kart yazılacak",
+    "calibration/README.md: claim language notu eklenecek"
+  ],
+  "files_produced": [
+    "framework/Q1_CLAIM_LANGUAGE.md",
+    "framework/IRR_CODING_PROTOCOL_v1.md",
+    "framework/Q1_METHOD_DATASET_CHECKLIST.md",
+    "schema/calibration_dataset_v2.schema.json",
+    "scripts/build_2025_calibration_dataset_v2.py",
+    "scripts/build_fewshot_examples_v2.py",
+    "scripts/write_run_manifest.py",
+    "scripts/sample_irr_units.py",
+    "scripts/compute_irr.py",
+    "scripts/evaluate_session_construct_agreement.py",
+    "calibration/2025_calibration_dataset_v2.json",
+    "calibration/fewshot_examples_v2.json",
+    "calibration/splits_2025.json",
+    "calibration/irr_sample_manifest.json",
+    "calibration/irr_coding_sheet.csv",
+    "calibration/process_layer_validation_notes.md",
+    "calibration/runs/run_manifest.schema.json"
+  ],
+  "red_flags_addressed": [
+    "RF01",
+    "RF02",
+    "RF03",
+    "RF08",
+    "RF09",
+    "RF10",
+    "RF11",
+    "RF12"
+  ],
+  "red_flags_pending_human_action": [
+    "RF05",
+    "RF06",
+    "RF07"
+  ],
+  "summary_tr": "Tüm otomatize edilebilir remediation adımları tamamlandı. Dataset v2 üretildi (0 absolute path, label_status açık, B15-B17 process_flags'a taşındı). Fewshot v2'de her construct behavior için 2 pozitif + 2 negatif örnek var. Student split leakage-safe. IRR altyapısı (protokol, örneklem, sheet, hesaplama scripti) hazır. Session-grain evaluator inşa edildi; 2026 skorlama tamamlanınca çalışacak. Q1 method paper için kalan engel: insan IRR kodlaması ve 2026 scorer çıktısı. Bu ikisi tamamlanınca C4 supported ve C2 supported_with_major_revision hedeflenebilir."
+}

@@ -1,0 +1,218 @@
+{
+  "schema_version": "2026-v1",
+  "generated_at": "2026-07-21T11:23:20.048231+00:00",
+  "student_id": "Sheila",
+  "session": "colab_05may",
+  "source_document": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/data_sources_2026/Final Ödevi Dokümanları/Sheila.ipynb",
+  "source_type": "ipynb",
+  "observation_steps": [
+    {
+      "step_index": 0,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Şimdi veri setinin genel yapısına, sütun bilgilerine ve temel istatistiklerine bakalım.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 1,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "**Veri kümesinde kaç kertenkele var?** cevap: 320\n**Hangi yaşam alanı en kalabalık? **cevap: yer\n **Hangisi en az?** cevap:ağaç\n**Bu dengesizlik modelimizi nasıl etkileyebilir?** cevap: Veri dengesizliği, modelin baskın sınıfa odaklanmasına yol açar;cevap: bu nedenle çoğunluk sınıfını başarılı bir şekilde öğrenirken azınlık sınıfında düşük performans gösterebilir.\n\n**Kertenkelelerin ortalama ağırlığı nedir?** cevap: 10.50\n**Bu değer üç tür için farklı mıdır? Nedenini açıklayın.**\ncevap: Evet farklıdır. Çünk farklı kertenkele türleri, farklı yaşam alanlarına uyum sağlamıştır.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EVALUATE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 2,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "**stratify=y parametresini kaldırırsanız ne değişebilir? Deneyin ve farkı açıklayın.** cevap:stratify=y kullanıldığında sınıfların oranı eğitim ve test verilerinde korunur. Bu parametreyi kaldırdığımda bazı sınıfların eğitim veya test verisinde daha az yer aldığını gördüm. Bu da modelin başarısını etkileyebilir ve sonuçların daha dengesiz olmasına neden olabilir.\n\n**random_state=42 yerine random_state=7 yazarsanız sonuçlar değişir mi? Deneyin ve nedenini açıklayın.**\n cevap: Evet, sonuçlar değişebilir. Çünkü random_state verilerin nasıl bölüneceğini belirler. Farklı bir değer kullanıldığında eğitim ve test kümelerine giden veriler değişir. Bu nedenle modelin doğruluk oranı ve oluşturduğu karar ağacı da biraz farklı olabilir. Ancak veri seti büyükse bu fark genellikle çok fazla olmaz.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 3,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "**1)Çıktıya bakarak eğitim ve test hatasının derinlik arttıkça nasıl değişmektedir? Eğitim ve test değerlerine bakarak gerekçenizi yazın.**\n\ncevap: Derinlik arttıkça; eğitim hatası sürekli azalırken, biyere kadar azalıp ardından tekrar artışa geçmektedir.\n\n**2)Eğitim hatası sıfıra yaklaşıyorsa bu modelin \"mükemmel\" öğrendiği anlamına gelir mi? Sizce ne anlama geliyor?**\n\nDerinliğe ulaşıldığı anda karar ağacı modeli artık verideki genel yapıyı öğrenmekten çıkıp overfitting yapmaya, yani ezberlemeye geçmiştir. Mükemmel öğrendiği anlama gelmez.\n\n**3)Hangi derinlikte eğitim hatası düşmeye devam ederken test hatası artmaya başladı? O satırda modele ne olduğunu açıklayın.** 2. satırda derinliğe ulaşıldığı anda karar ağacı modeli artık verideki genel yapıyı öğrenmeyi bırakıp overfitting sürecine geçmiştir.\n\nBunun sonucunda model eğitim verisine aşırı uyum sağladığı için eğitim hatası düşerken, genelleme yeteneğini kaybetmiş ve ilk kez gördüğü test verilerinde daha fazla hata yapmaya başlayarak test hatasını artırmıştır.\n\n\n\n**4)Yalnızca bu sayılara bakarak hangi derinliği seçerdiniz? Hem eğitim hem test hatasını göz önünde bulundurarak gerekçenizi yazın.** cevap: derinlik 2 , genel kuralları en iyi öğrendiği ve test setinde en yüksek performansı gösterdiği en güvenli ve en ideal noktadır.\n\n**5)En düşük test hatası (MCR) ile en düşük eğitim hatası farklı derinliklerde mi çıktı? Bu size ne söylüyor?**\nEvet, çünkü model ezberleme kapasitesinin en üst seviyesine çıktığında eğitim hatası en düşük seviyeye iner; ancak bu ezber yeni verileri genelleştiremediği için test hatası yükselir. Bu nedenle makine öğrenmesinde eğitim ve test performansı genellikle aynı derinlikte en iyi sonucu vermez.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Deepen olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 4,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "**1)Grafikteki iki eğri birbirinden ne zaman ayrılmaya başlıyor? Bu ayrılma noktası size ne söylüyor?**\n\nGrafiği incelediğimizde, 4⁠ noktasında eğitim ve test hatasının birbirine oldukça yakın olduğunu, 5⁠ itibarıyla aradaki boşluğun belirginleşerek açılmaya başladığını görüyoruz. Bu bize ne söylüyor: Ayrılma noktası, modelin eğitim verisini ezberlemeye başladığı \"eşik değerini\" gösterir. 5. seviyeden sonra model, eğitim verisindeki gürültüleri de öğrenmeye başladığı için test setindeki başarımı düşmeye veya durağanlaşmaya başlarken, eğitim setindeki başarısı artmaya devam ediyor.\n\n**2)Eğitim ve test eğrileri arasındaki mesafe derinlikle birlikte açılıyorsa buna ne ad verilir?** Eğitim hatası düşerken (model ezberledikçe) test hatasının sabit kalması veya artmasıyla oluşan bu duruma Aşırı Öğrenme (Overfitting) denir. Model, eğitim verisine o kadar uyumlu hale gelir ki, daha önce görmediği test verisine genelleme yapma yeteneğini kaybeder.\n\n**3)Grafiğe bakarak hangi max_depth değerini seçerdiniz? Sayısal tablodaki kararınızla aynı mı? **cevap: Grafiğe baktığımızda, ⁠max_depth = 4⁠ noktası kritik bir dönüm noktasıdır. Bu noktadan sonra test hatası  iyileşmeyi durdurup yatay seyrederken veya hafifçe artarken, eğitim hatası hızla düşmektedir.  Eğer test hatasının minimum olduğu noktayı hedefliyorsak, 4 değeri en ideal noktadır. Çünkü 4'den sonra derinliği artırmak modelin karmaşıklığını artırır ancak test başarısını iyileştirmez; bu da gereksiz karmaşıklığa yol açar. Sayısal tabloyu göremiyorum ancak genellikle bu tip grafiklerde en düşük test hatası 3 ile 4 arasında gözlemlenir. Aynı çıktı.\n\n**4)Kurduğunuz her karar ağacı için bu grafiği ayrı ayrı çizin. Optimum derinlik her hedef için aynı mı çıktı? Farklılaştıysa neden?** (son grafiğin arkasında cevaplanacaktır)",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Create"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Create olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 5,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Ağacı yorumlama soruları:\n **1)Kök düğümde hangi değişken kullanılmış? Neden tam da bu değişkenin ilk sırada yer aldığını düşünüyorsunuz? cevap:** Değişken: Kök düğümde \"cinsiyet\" değişkeni kullanılmış. Neden: Karar ağacı algoritmaları , veriyi sınıflara en iyi ayıracak (en saf hale getirecek) değişkeni seçer. \"cinsiyet\", veri setindeki \"Yer\", \"Kaya\" ve \"Agac\" sınıflarını birbirinden ayırma konusunda en yüksek bilgi kazancını sağladığı için en tepede yer alır. Bu, ağacın \"en ayırt edici\" özelliğinin cinsiyet olduğunu gösterir.\n\n\n  **2)Ağaç yapraktan köke doğru okunduğunda bir kertenkeleyi sınıflandırmak için kaç karar yeterli oluyor? Bu sayı size ne söylüyor?**\n\ncevap: Grafiğe baktığımızda, herhangi bir yaprağa ulaşmak için kök düğümden sonra en az 3 en fazla 4 dal daha takip etmemiz gerekiyor. Yani toplam 4 karar bir kertenkeleyi sınıflandırmak için yeterli oluyor. Bu, modelin çok karmaşık olmayan, hızlı ve verimli bir sınıflandırma yaptığını gösterir.\n\n**3)Aynı veri, farklı bir hedef değişkenle (örneğin YasamAlani yerine Tur) çalıştırıldığında kök düğüm değişti mi? Değiştiyse bunu nasıl yorumlarsınız? Son hedef değişkenden sonra cevaplanacaktır.**\n\ncevap: Evet, kök düğüm değişecektir. Makine öğrenmesinde değişkenlerin önemi, hedef değişkenle olan ilişkilerine göre belirlenir. Eğer hedef değişkeni \"YaşamAlanı\"ndan \"Tür\"e çevirirseniz, verideki \"Tür\" bilgisini en iyi ayıran özellik (örneğin belki Bacak Uzunluğu veya Gövde Uzunluğu) \"Kütle\"den daha baskın hale gelebilir. Hedef değiştiğinde, ağacın \"sınıflandırma kriterleri\" yeniden hesaplanır ve ağaç yapısı buna göre şekillenir.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=Deepen olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 6,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "---",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 7,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "İkinci karar ağacımızı `Cinsiyet` hedef değişkeni",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 8,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Üçüncü karar ağacımızı `Tur` hedef değişkeni",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 9,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "---",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 10,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "İkinci karar ağacımızı `Tur` hedef değişkeni",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 11,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "**4)Kurduğunuz her karar ağacı için bu grafiği ayrı ayrı çizin. Optimum derinlik her hedef için aynı mı çıktı? Farklılaştıysa neden?** 3 karar ağacı için ayrı ayrı çizildi. Optimum derinlik farklı hedef değişkenler için farklı çıktı. Hedef değişkenlerinin verilerdeki durumu farklıdır. Bazı veriler düşük sayıda dal ile çözüme ulaştırırken bazıları daha fazla derinliğe ihtiyaç duyar.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 12,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "**3)Aynı veri, farklı bir hedef değişkenle (örneğin YasamAlani yerine Tur) çalıştırıldığında kök düğüm değişti mi? Değiştiyse bunu nasıl yorumlarsınız? Son hedef değişkenden sonra cevaplanacaktır.**\n\ncevap: Evet, kök düğüm değişecektir. Makine öğrenmesinde değişkenlerin önemi, hedef değişkenle olan ilişkilerine göre belirlenir. Her hedefin diğer değişkenlerle ilişkisi farklıdır. Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir. Bu nedenle hedef değiştiğinde kök düğüm de değişir.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 13,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Soru 1 — Öğrenme Yolculuğu\n\nBu dönemde data kartları, CODAP ve Python olmak üzere üç farklı ortamda karar ağacı oluşturdunuz. Aşağıdaki soruları bu ortamları göz önünde bulundurarak yanıtlayın:  \n\n1.  **Her ortam size farklı bir şey kattı mı? Her bir ortamın neler kattığını yazın.**\n    *Cevap: [Evet, her ortam farklı katkılar sağladı. Data kartları karar ağacının mantığını somut olarak görmemi ve karar verme sürecini adım adım anlamamı sağladı.]\n\n2.  **Hangi ortamda \"modelim ne yapıyor\" sorusunu daha iyi anladınız? Nedeninizi açıklayın.**\n    *Cevap: [Modelin ne yaptığını en iyi Codap ortamında anladım. Çünkü karar ağacının nasıl dallandığını ve verileri hangi kurallara göre ayırdığını görsel olarak takip edebildim. Bu sayede modelin karar verme sürecini daha net kavradım.]*\n\n3.  **Hangi ortam size daha kolay geldi? Bu kolaylık gerçekten anladığınızı mı, yoksa sadece alıştığınızı mı gösteriyor? Nedeninizi açıklayın.**\n    *Cevap: [Bana en kolay gelen ortam Codap oldu. Görsel bir yapıya sahip olduğu için ağacın oluşumunu takip etmek daha rahattı. Ancak bu kolaylık sadece alışkanlıktan değil, karar ağacının mantığını daha açık göstermesinden kaynaklanıyordu]*\n\n4.  **Hangi ortamda en çok zorlandınız ve bu zorluk neden kaynaklanıyordu? Aracın kendisi mi, yoksa karar ağacı kavramının o ortamda daha mı görünmez olması mıydı? Nedeninizi açıklayın.**\n    *Cevap: [En çok colap ortamında zorlandım. Çünkü  kodları doğru yazmak ve çıktıları yorumlamak dikkat gerektiriyordu. Ayrıca karar ağacının yapısı doğrudan görünmediği için modelin nasıl çalıştığını anlamak diğer ortamlara göre daha zordu.]*\n    \n\n5.  **Yaptığınız bir hatayı hangi ortamda daha kolay fark ettiniz? Sizi uyaran şey aracın kendisi miydi, yoksa başka bir şey mi?**\n    *Cevap: [Hatalarımı en kolay colab ortamında fark ettim. Çünkü elde ettiğim hata oranları ve performans değerleri beklediğim sonuçlardan farklı çıktığında bir sorun olduğunda hata veriyordu ve çalışmıyordu.]*\n\n6.  **Bir ortamda rahatlıkla yapabildiğiniz ama bir diğerinde hiç yapamadığınız bir şey oldu mu?**\n    *Cevap: [Evet. colab farklı derinlik değerlerini deneyerek eğitim ve test hatalarını ayrıntılı şekilde karşılaştırabildim. Bunu diğer ortamlarda ayrıntılı göremedim.]*\n\n7.  **Üç ortamdan birinin diğerinin yerini tutamayacağı bir durum var mı? Nedeninizi açıklayın.**\n    *Cevap: [Evet. colabın model performansını ayrıntılı olarak analiz etmek için gerekliydi ancak karar ağacının mantığını ilk kez öğrenmek için tek başına yeterli değildi. diğerleri ise veri analizi için yeterli detay veremiyordu. Bu nedenle birbirlerinin yerini tutamazlar]*",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Create"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Create olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 14,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Veri Anlayışı soruları\nKertenkele verisindeki üç yaşam alanı (Yer / Kaya / Ağaç) ile fiziksel özellikler arasındaki ilişkiyi düşünün:\n\n**1)Modelinizin kök düğümde seçtiği değişken sizi şaşırttı mı? Biyolojik açıdan bu seçim mantıklı mı? Cevap:** [hayır şaşırtmadı. Biyolojik açıdan bakıldığında da bu değişkenin yaşam alanıyla ilişkili olması mantıklı geldi Bu nedenle modelin yaptığı seçim biyolojik beklentilerle uyumludur.]\n\n**2)Ağaçta yaşayan bir kertenkelenin yerde yaşayandan fiziksel olarak farklı olmasını bekler miydiniz? Modeliniz bu farkı yakalayabildi mi? Cevap:** [Evet, farklı yaşam alanlarında yaşayan kertenkelelerin fiziksel özelliklerinde bazı farklılıklar olmasını beklerdim. Örneğin ağaçta yaşayan türlerin tutunma veya tırmanma gibi kabiliyeti artıracak özelliklerin olması gerekir. Model de kullandığı değişkenler aracılığıyla bu farklılıkları büyük ölçüde yakalayabilmiş ve yaşam alanlarını ayırt edebilmiştir.]\n\n**3)Modelinizin yanlış sınıflandırdığı bireyler hangi yaşam alanına aitti? Bunun biyolojik bir açıklaması olabilir mi? Cevap:** [Cevap: Yanlış sınıflandırılan bireyler genellikle özellikleri iki yaşam alanı arasında benzerlik gösteren bireylerdi. Bunun biyolojik bir açıklaması olabilir. Bazı kertenkeleler yaşadıkları ortama tam uyum sağlamamış olabilir ya da fiziksel özellikleri diğer yaşam alanındaki bireylerle benzerlik gösterebilir. Bu durum modelin sınıflandırma yaparken hata yapmasına neden olmuş olabilir.]\n\n**4)Veriyi ilk gördüğünüzde kendiniz hangi değişkenin en belirleyici olacağını tahmin etmiştiniz? Modelinizin bulgusuyla örtüştü mü? Cevap:** [Veriyi ilk gördüğümde en belirleyici değişkenin vücut yapısıyla veya hareket kabiliyetiyle ilişkili bir özellik olacağını düşünmüştüm. Modelin seçtiği değişken bu tahminimle büyük ölçüde örtüştü ve yaşam alanlarını ayırt etmede gerçekten etkili bir özellik olduğunu gösterdi.]",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Deepen olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 15,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "** Model Performansı soruları**\n\n**Seçtiğiniz optimum derinlikte elde ettiğiniz MCR değerini yazın ve gerekçelendirerek yanıtlayın:** mcr değerini 0.3281 olarak buldum. 0.3281 değeri, modelin genelleme performansının en iyi olduğu noktayı temsil etmektedir. Derinlik daha fazla artırıldığında model overfitting yapmaya başlayacağından test hatası artmakta, daha düşük derinliklerde ise verideki önemli örüntüler yeterince öğrenilememektedir.\n\n**Hangi sınıf en iyi, hangisi en kötü tahmin edildi? Bunun bir açıklaması var mı? Cevap:** [Cevap: Model, fiziksel özellikleri diğer sınıflardan daha belirgin olan yaşam alanını daha başarılı tahmin etti. En düşük başarı ise özellikleri diğer sınıflarla daha fazla benzerlik gösteren yaşam alanında görüldü. Bunun nedeni bazı bireylerin fiziksel özelliklerinin birbirine yakın olması ve sınıflar arasındaki sınırların net olmamasıdır.]\n\n**MCR değeriniz sizi tatmin etti mi? \"İyi\" bir model için bu değerin ne olması gerektiğini düşünüyorsunuz? Cevap:** [Cevap: Elde ettiğim MCR değeri genel olarak tatmin ediciydi çünkü model test verilerinin büyük kısmını doğru sınıflandırabildi. Bir modelin iyi kabul edilebilmesi için MCR değerinin mümkün olduğunca düşük olması gerekir. ]\n\n**Aynı veriyle farklı bir hedef değişken seçseydiniz (Tur ya da Cinsiyet) MCR değeri değişir miydi? Değiştiyse neden? (Bu soruyu diğer iki karar ağacını oluşturduktan sonra yanıtlayın.) Cevap:** [Evet, değişebilirdi. Çünkü bazı hedef değişkenler fiziksel özelliklerle daha güçlü ilişkilere sahipken bazıları daha zayıf ilişkilere sahip olabilir. Eğer seçilen hedef değişken veri içerisindeki diğer özelliklerle daha kolay ayırt edilebiliyorsa MCR değeri düşer, aksi durumda ise yükselir.]\n\nModelin başarısız olduğu durumlar size veri hakkında ne söylüyor? Cevap: [Cevap: Modelin hata yaptığı durumlar, veri içerisindeki bazı bireylerin özelliklerinin birbirine çok benzediğini gösteriyor. Ayrıca yaşam alanları arasında tamamen kesin sınırlar olmadığını ve bazı bireylerin birden fazla sınıfın özelliklerini taşıyabildiğini düşündürüyor. Bu durum verinin karmaşık yapısını ve modelin karşılaştığı zorlukları ortaya koymaktadır.]",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Deepen olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 16,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "**Karar Ağaçlarının Sınırları soruları**\n\n**Bu ödevde karar ağacının her zaman mükemmel çalışmadığını gördünüz:**\n\n\n**1)Modelinizin hata yaptığı durumlar rastgele mi görünüyor, yoksa belirli bir örüntü var mı? Cevap:** [Hatalar tamamen rastgele görünmüyor. Model genellikle fiziksel özellikleri birbirine benzeyen veya farklı sınıflar arasında kalan bireyleri yanlış sınıflandırdı. Bu durum, veri içinde belirli bir örüntü bulunduğunu ve modelin özellikle benzer özelliklere sahip bireyleri ayırt etmekte zorlandığını gösteriyor.]\n\n**2)Bu modelin daha iyi sonuç verebilmesi için neler yapılabilir? Yalnızca teknik değil, verinin kendisiyle ilgili ne değişebilir? Cevap:** [Modelin başarısını artırmak için daha fazla veri kullanılabilir ve yaşam alanlarını daha iyi açıklayan yeni değişkenler eklenebilir. Ayrıca eksik veya hatalı verilerin düzeltilmesi de performansı artırabilir. Teknik açıdan ise farklı derinlikler denenebilir veya budama yöntemleri kullanılarak overfitting önlenebilir.]\n\n**3)Karar ağacı yerine farklı bir model kullansaydınız sonuç değişir miydi? Neden? Cevap:** [Cevap: Evet, sonuçlar değişebilirdi. Karar ağaçları basit ve yorumlanabilir modellerdir ancak karmaşık ilişkileri her zaman yeterince iyi öğrenemeyebilirler. Birden fazla ağacın birlikte çalıştığı modeller kullanılsaydı daha düşük hata oranları elde etmek mümkün olabilirdi.]\n\n**4)Bu deneyimden sonra bir arkadaşınıza \"karar ağacı nedir, ne işe yarar, nerede yetersiz kalır?\" diye sorsalar ne söylerdiniz? Cevap:** [Cevap: Karar ağacı, verileri belirli kurallara göre dallara ayırarak tahmin yapan bir makine öğrenmesi modelidir. Hangi özelliklerin karar vermede etkili olduğunu açıkça göstermesi en büyük avantajlarından biridir. Ancak veri karmaşıklaştığında veya sınıflar arasında net farklar bulunmadığında hata yapabilir. Ayrıca ağacın derinliği gereğinden fazla artırılırsa veriyi ezberleyerek yeni veriler üzerinde başarısız sonuçlar verebilir.]",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Trial-and-error",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Trial-and-error' / LO=Deepen olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    }
+  ],
+  "step_count": 17,
+  "frame_count": 311,
+  "frame_manifest_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/data_sources_2026/colab_python_audio/Sheila/Sheila_video_extraction_manifest.json",
+  "alignment_ready": true
+}

@@ -1,0 +1,208 @@
+{
+  "student_id": "Nadia",
+  "worksheet": "WS_DT_XENO",
+  "ws_snapshot": "Marcus'un Xeno veri seti 16 vaka içeriyor (%62,5 hasta): 6 mavi saçlı (hepsi sağlıklı) ve 10 pembe saçlı (hepsi hasta). Karışıklık matrisi TP=10, TN=6, FP=0, FN=0 olarak doğru şekilde FP=FN=0 yapısal beklentisini karşılamıştır. Tüm metrikler (Doğruluk 16/16, Duyarlılık 10/10, Özgüllük 1, Kesinlik 10/10, MCR 0/16) mükemmel model performansını göstermekte ve öğrenci bunları 'çok iyi' olarak yorumlamıştır.",
+  "page_notes": "Sayfa 1,2,3,5,10 basılı yönerge; öğrenci yazısı yok. Sayfa 4 satır 5 üzeri çizilmiş/okunamaz. Bazı formül kutucuklarında daireler ve çizimler var.",
+  "extraction": {
+    "DTI_01": "16 vaka, %62,5, çoğunluk hastadır",
+    "DTI_02": "Mavi saçlıda 6 kişi, bunların hiç biri hasta durumda değildir, hastalık oranı yüksek",
+    "DTI_03": "10 vaka vardır ve hepsi hastadır, bu sonuç mavi saçlı olanların sağlıklı, pembe saçlı olanların ise hasta olduğu gösteriyor",
+    "DTI_04": "Pembe saçlı kişiler [circled/margin: pozitif], bu durum için sağlık ve saç durumuna göre ayarladık",
+    "DTI_05": "[corrected: struck-through] (okunamiyor)",
+    "DTI_06": "Evet çünkü hatasız çalışıyor",
+    "DTI_07": "Bence %100'e yakın bir şekilde tahmin ederdik, olası diğer durumu istisna olarak değerlendirirdim",
+    "DTI_08": "FN çünkü sonu acı bitme ihtimali var ve ihmaller var bu daha tehlikelidir",
+    "DTI_09": "Bi sorun olmadı",
+    "DTI_10": "10",
+    "DTI_11": "hasta ve modelim doğru bildi",
+    "DTI_12": "6",
+    "DTI_13": "hem sağlıklı ve model doğru tahmin etmiş",
+    "DTI_14": "0",
+    "DTI_15": "hasta ve modelim yanlış bilmiş",
+    "DTI_16": "0",
+    "DTI_17": "sağlıklı ve modelim yanlış tahmin etmiş",
+    "DTI_18": "16",
+    "DTI_19": "toplam kişiler",
+    "DTI_20": "10 + 6 / 16 [circled: 1] [circled: 16/16]",
+    "DTI_21": "Çok iyi",
+    "DTI_22": "10 / 10 + 0 [circled: 1] [circled: 10/10]",
+    "DTI_23": "Çok iyi",
+    "DTI_24": "6 / 6 + 0 = 1",
+    "DTI_25": "Çok iyi",
+    "DTI_26": "10 / 10 + 0",
+    "DTI_27": "Çok iyi",
+    "DTI_28": "Öncelik doğruluğa bakarım çünkü 3 farklı durumu kullanıyoruz ama hepsine bakarım yine de",
+    "DTI_29": "[corrected: TP+TN/N struck-through → ] FP + FN / [circled: 0]",
+    "DTI_30": "Sadece kesinliği gösteriyor",
+    "DTI_31": "[struck-through: ...olduğu durumlarda] her durumda",
+    "DTI_32": "0 / 16",
+    "DTI_33": "Net gösteriyor, model iyi durumda"
+  },
+  "validation": {
+    "xeno_consistency_checks": {
+      "tp_fn_sum_equals_sick": {
+        "check": "TP + FN = toplam hasta sayisi",
+        "student_tp": "10",
+        "student_fn": "0",
+        "sum": 10,
+        "is_correct": true,
+        "note": "FN=0 beklenir"
+      },
+      "tn_fp_sum_equals_healthy": {
+        "check": "TN + FP = toplam saglikli sayisi",
+        "student_tn": "6",
+        "student_fp": "0",
+        "sum": 6,
+        "is_correct": true,
+        "note": "FP=0 beklenir"
+      },
+      "total_n": {
+        "check": "TP + TN + FP + FN = N",
+        "n_sum": 16,
+        "student_n": "16",
+        "is_correct": true
+      },
+      "fp_fn_zero": {
+        "check": "sac rengi mukemmel ayirici => FP=FN=0",
+        "student_fp": "0",
+        "student_fn": "0",
+        "is_correct": true
+      }
+    },
+    "item_checks": {
+      "DTI_01": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_02": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_03": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_04": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_05": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_06": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_07": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_08": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_09": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_10": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_11": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_12": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_13": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_14": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_15": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_16": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_17": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_18": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_19": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_20": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_21": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_22": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_23": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_24": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_25": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_26": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_27": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_28": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_29": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_30": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_31": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_32": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_33": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Marcus'un Xeno veri seti 16 vaka içeriyor (%62,5 hasta): 6 mavi saçlı (hepsi sağlıklı) ve 10 pembe saçlı (hepsi hasta). Karışıklık matrisi TP=10, TN=6, FP=0, FN=0 olarak doğru şekilde FP=FN=0 yapısal beklentisini karşılamıştır. Tüm metrikler (Doğruluk 16/16, Duyarlılık 10/10, Özgüllük 1, Kesinlik 10/10, MCR 0/16) mükemmel model performansını göstermekte ve öğrenci bunları 'çok iyi' olarak yorumlamıştır."
+  }
+}

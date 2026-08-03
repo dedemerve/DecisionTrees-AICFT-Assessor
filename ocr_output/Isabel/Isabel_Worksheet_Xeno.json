@@ -1,0 +1,208 @@
+{
+  "student_id": "Isabel",
+  "worksheet": "WS_DT_XENO",
+  "ws_snapshot": "Öğrenci Xeno veri setinde 10 vaka ile çalışmış; kök düğümde %70 hasta, 3 mavi saçlı (%0 hasta) ve 7 pembe saçlı (%100 hasta) vaka bulmuş. CODAP otomatik testinde 20 vaka üzerinden TP=10, TN=10, FP=0, FN=0 elde ederek FP=FN=0 yapısal koşulunu sağlamış. Tüm metrikler (doğruluk, duyarlılık, özgüllük, kesinlik) 1 olarak doğru hesaplanmış ve MCR=0 bulunmuş; açıklamalar kısa ama tutarlı.",
+  "page_notes": "Sayfa 2, 3, 5, 10 baskı yönergesi olup öğrenci yazısı içermiyor. Bazı taranmış görsel kutular soluk fakat el yazısı cevaplar okunabilir durumda.",
+  "extraction": {
+    "DTI_01": "10 vaka vardır. %70'i hastadır. Çoğunluk hastadır.",
+    "DTI_02": "3 mavi saçlı vaka vardır. 3'ü hasta değildir. Mavi saçlıların hiçbiri hasta değildir. [corrected: 3'ü hasta değildir → hiçbiri hasta değildir]",
+    "DTI_03": "7 pembe saçlı vardır. 7'si hastadır. Pembe saçlıların hepsi hastadır.",
+    "DTI_04": "Sağdaki kutu hasta olarak etiketlenmiştir.",
+    "DTI_05": "7 pembe saçlı vardır. 7'si de hasta durumdadır.",
+    "DTI_06": "Evet. Çünkü hiçbir hata vermedi.",
+    "DTI_07": "%100.",
+    "DTI_08": "FN daha tehlikelidir. Çünkü hasta birey başkalarına da hastalığı bulaştırabilir.",
+    "DTI_09": "Kusursuz oldu.",
+    "DTI_10": "10",
+    "DTI_11": "Doğru karar verilmiş.",
+    "DTI_12": "10",
+    "DTI_13": "Doğru karar verilmiş.",
+    "DTI_14": "0",
+    "DTI_15": "Sağlıklı ama hasta olarak tahmin etmiş.",
+    "DTI_16": "0",
+    "DTI_17": "Hasta ama sağlıklı olarak tahmin etmiş.",
+    "DTI_18": "20",
+    "DTI_19": "20 kişi var.",
+    "DTI_20": "(TP+TN) / N = (10+10) / 20 = 1",
+    "DTI_21": "Karar ağacı doğru oldu.",
+    "DTI_22": "TP / (TP+FN) = 10 / (10+0) = 1",
+    "DTI_23": "Hastaları doğru tespit etti.",
+    "DTI_24": "TN / (TN+FP) = 10 / (10+0) = 1",
+    "DTI_25": "Sağlıklıları doğru tespit etti.",
+    "DTI_26": "TP / (TP+FP) = 10 / (10+0) = 1",
+    "DTI_27": "Hastaları doğru tespit etti.",
+    "DTI_28": "Duyarlılık ve özgüllüğü kullanırım. Çünkü hasta veya sağlıklı insanların gerçekten hasta ya da sağlıklı olduğunu tespit etmek daha önemli.",
+    "DTI_29": "(TP+TN) - (FP+FN)",
+    "DTI_30": "Gerçekten sağlıklı ve hasta insanları ayırır.",
+    "DTI_31": "Gerçek hasta ve sağlıklı insan sayısını bulmak için.",
+    "DTI_32": "(FP+FN) / N = (0+0) / 20 = 0",
+    "DTI_33": "Hata çıkmadı."
+  },
+  "validation": {
+    "xeno_consistency_checks": {
+      "tp_fn_sum_equals_sick": {
+        "check": "TP + FN = toplam hasta sayisi",
+        "student_tp": "10",
+        "student_fn": "0",
+        "sum": 10,
+        "is_correct": true,
+        "note": "FN=0 beklenir"
+      },
+      "tn_fp_sum_equals_healthy": {
+        "check": "TN + FP = toplam saglikli sayisi",
+        "student_tn": "10",
+        "student_fp": "0",
+        "sum": 10,
+        "is_correct": true,
+        "note": "FP=0 beklenir"
+      },
+      "total_n": {
+        "check": "TP + TN + FP + FN = N",
+        "n_sum": 20,
+        "student_n": "20",
+        "is_correct": true
+      },
+      "fp_fn_zero": {
+        "check": "sac rengi mukemmel ayirici => FP=FN=0",
+        "student_fp": "0",
+        "student_fn": "0",
+        "is_correct": true
+      }
+    },
+    "item_checks": {
+      "DTI_01": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_02": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_03": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_04": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_05": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_06": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_07": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_08": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_09": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_10": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_11": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_12": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_13": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_14": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_15": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_16": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_17": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_18": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_19": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_20": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_21": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_22": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_23": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_24": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_25": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_26": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_27": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_28": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_29": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_30": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_31": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_32": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_33": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Öğrenci Xeno veri setinde 10 vaka ile çalışmış; kök düğümde %70 hasta, 3 mavi saçlı (%0 hasta) ve 7 pembe saçlı (%100 hasta) vaka bulmuş. CODAP otomatik testinde 20 vaka üzerinden TP=10, TN=10, FP=0, FN=0 elde ederek FP=FN=0 yapısal koşulunu sağlamış. Tüm metrikler (doğruluk, duyarlılık, özgüllük, kesinlik) 1 olarak doğru hesaplanmış ve MCR=0 bulunmuş; açıklamalar kısa ama tutarlı."
+  }
+}

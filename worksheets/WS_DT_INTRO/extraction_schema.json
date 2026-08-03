@@ -1,0 +1,571 @@
+{
+  "worksheet": "WS_DT_INTRO",
+  "curriculum_status": "deployed",
+  "pipeline_stage": "extraction_only",
+  "interpretation_prohibited": true,
+  "ocr_engine": "claude_vision",
+  "source_type": "worksheet",
+  "note": "CODAP Arbor worksheet 'DT'ye Giriş' — transcribe student text and numeric fields verbatim. 80 blanks; item IDs DTI_01 … DTI_80.",
+  "fields": [
+    {
+      "field_id": "DTI_01",
+      "rubric_item_id": "DTI_01",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo: Karar Ağacını Okuyalım / Kök düğüm"
+    },
+    {
+      "field_id": "DTI_02",
+      "rubric_item_id": "DTI_02",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo: Karar Ağacını Okuyalım / Mavi saçlı kutu"
+    },
+    {
+      "field_id": "DTI_03",
+      "rubric_item_id": "DTI_03",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo: Karar Ağacını Okuyalım / Pembe saçlı kutu"
+    },
+    {
+      "field_id": "DTI_04",
+      "rubric_item_id": "DTI_04",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo: Karar Ağacını Okuyalım / Etiketleme"
+    },
+    {
+      "field_id": "DTI_05",
+      "rubric_item_id": "DTI_05",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo: Karar Ağacını Okuyalım / Pembe saçlı (tekrar)"
+    },
+    {
+      "field_id": "DTI_06",
+      "rubric_item_id": "DTI_06",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo: Karar Ağacını Okuyalım / Ayırıcı mı?"
+    },
+    {
+      "field_id": "DTI_07",
+      "rubric_item_id": "DTI_07",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo: Karar Ağacını Okuyalım / Yeni vaka tahmini"
+    },
+    {
+      "field_id": "DTI_08",
+      "rubric_item_id": "DTI_08",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 7: FP vs FN tıbbi tehlike"
+    },
+    {
+      "field_id": "DTI_09",
+      "rubric_item_id": "DTI_09",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 8: 10 yeni hastanın otomatik teşhisi"
+    },
+    {
+      "field_id": "DTI_10",
+      "rubric_item_id": "DTI_10",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 9 / TP sayısı"
+    },
+    {
+      "field_id": "DTI_11",
+      "rubric_item_id": "DTI_11",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 9 / TP anlamı"
+    },
+    {
+      "field_id": "DTI_12",
+      "rubric_item_id": "DTI_12",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 9 / TN sayısı"
+    },
+    {
+      "field_id": "DTI_13",
+      "rubric_item_id": "DTI_13",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 9 / TN anlamı"
+    },
+    {
+      "field_id": "DTI_14",
+      "rubric_item_id": "DTI_14",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 9 / FP sayısı"
+    },
+    {
+      "field_id": "DTI_15",
+      "rubric_item_id": "DTI_15",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 9 / FP anlamı"
+    },
+    {
+      "field_id": "DTI_16",
+      "rubric_item_id": "DTI_16",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 9 / FN sayısı"
+    },
+    {
+      "field_id": "DTI_17",
+      "rubric_item_id": "DTI_17",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 9 / FN anlamı"
+    },
+    {
+      "field_id": "DTI_18",
+      "rubric_item_id": "DTI_18",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 9 / N sayısı"
+    },
+    {
+      "field_id": "DTI_19",
+      "rubric_item_id": "DTI_19",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 9 / N anlamı"
+    },
+    {
+      "field_id": "DTI_20",
+      "rubric_item_id": "DTI_20",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 11 / Doğruluk hesabı"
+    },
+    {
+      "field_id": "DTI_21",
+      "rubric_item_id": "DTI_21",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 11 / Doğruluk yorumu"
+    },
+    {
+      "field_id": "DTI_22",
+      "rubric_item_id": "DTI_22",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 11 / Duyarlılık hesabı"
+    },
+    {
+      "field_id": "DTI_23",
+      "rubric_item_id": "DTI_23",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 11 / Duyarlılık yorumu"
+    },
+    {
+      "field_id": "DTI_24",
+      "rubric_item_id": "DTI_24",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 11 / Özgüllük hesabı"
+    },
+    {
+      "field_id": "DTI_25",
+      "rubric_item_id": "DTI_25",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 11 / Özgüllük yorumu"
+    },
+    {
+      "field_id": "DTI_26",
+      "rubric_item_id": "DTI_26",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 11 / Kesinlik hesabı"
+    },
+    {
+      "field_id": "DTI_27",
+      "rubric_item_id": "DTI_27",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 11 / Kesinlik yorumu"
+    },
+    {
+      "field_id": "DTI_28",
+      "rubric_item_id": "DTI_28",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 12: Öncelikli metrik"
+    },
+    {
+      "field_id": "DTI_29",
+      "rubric_item_id": "DTI_29",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 13a: Yeni metrik formülü"
+    },
+    {
+      "field_id": "DTI_30",
+      "rubric_item_id": "DTI_30",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 13b: Yeni metrik ne yakalar"
+    },
+    {
+      "field_id": "DTI_31",
+      "rubric_item_id": "DTI_31",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 13c: Yeni metrik ne zaman tercih"
+    },
+    {
+      "field_id": "DTI_32",
+      "rubric_item_id": "DTI_32",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 11 / MCR (Yanlış Sınıflandırma Oranı) hesabı"
+    },
+    {
+      "field_id": "DTI_33",
+      "rubric_item_id": "DTI_33",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 15 / MCR yorumu"
+    },
+    {
+      "field_id": "DTI_34",
+      "rubric_item_id": "DTI_34",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 20 / Kök düğüm"
+    },
+    {
+      "field_id": "DTI_35",
+      "rubric_item_id": "DTI_35",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 20 / Female"
+    },
+    {
+      "field_id": "DTI_36",
+      "rubric_item_id": "DTI_36",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 20 / Male"
+    },
+    {
+      "field_id": "DTI_37",
+      "rubric_item_id": "DTI_37",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 20 / Pozitif etiket"
+    },
+    {
+      "field_id": "DTI_38",
+      "rubric_item_id": "DTI_38",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 21 / Doğruluk"
+    },
+    {
+      "field_id": "DTI_39",
+      "rubric_item_id": "DTI_39",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 21 / Duyarlılık"
+    },
+    {
+      "field_id": "DTI_40",
+      "rubric_item_id": "DTI_40",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 21 / Özgüllük"
+    },
+    {
+      "field_id": "DTI_41",
+      "rubric_item_id": "DTI_41",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 21 / Kesinlik"
+    },
+    {
+      "field_id": "DTI_42",
+      "rubric_item_id": "DTI_42",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 21 / MCR"
+    },
+    {
+      "field_id": "DTI_43",
+      "rubric_item_id": "DTI_43",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 23 / Kök düğüm"
+    },
+    {
+      "field_id": "DTI_44",
+      "rubric_item_id": "DTI_44",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 23 / Female"
+    },
+    {
+      "field_id": "DTI_45",
+      "rubric_item_id": "DTI_45",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 23 / Male"
+    },
+    {
+      "field_id": "DTI_46",
+      "rubric_item_id": "DTI_46",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 23 / Pozitif etiket"
+    },
+    {
+      "field_id": "DTI_47",
+      "rubric_item_id": "DTI_47",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 24 / Doğruluk"
+    },
+    {
+      "field_id": "DTI_48",
+      "rubric_item_id": "DTI_48",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 24 / Duyarlılık"
+    },
+    {
+      "field_id": "DTI_49",
+      "rubric_item_id": "DTI_49",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 24 / Özgüllük"
+    },
+    {
+      "field_id": "DTI_50",
+      "rubric_item_id": "DTI_50",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 24 / Kesinlik"
+    },
+    {
+      "field_id": "DTI_51",
+      "rubric_item_id": "DTI_51",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 24 / MCR"
+    },
+    {
+      "field_id": "DTI_52",
+      "rubric_item_id": "DTI_52",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 25: Eğitim–test farkı (VS1)"
+    },
+    {
+      "field_id": "DTI_53",
+      "rubric_item_id": "DTI_53",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 27: Overfitting tanımı (VS1)"
+    },
+    {
+      "field_id": "DTI_54",
+      "rubric_item_id": "DTI_54",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 29: Duyarlılık düşüşü (VS1)"
+    },
+    {
+      "field_id": "DTI_55",
+      "rubric_item_id": "DTI_55",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 30: MCR artışı (VS1)"
+    },
+    {
+      "field_id": "DTI_56",
+      "rubric_item_id": "DTI_56",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 31 / Kök düğüm"
+    },
+    {
+      "field_id": "DTI_57",
+      "rubric_item_id": "DTI_57",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 31 / Female"
+    },
+    {
+      "field_id": "DTI_58",
+      "rubric_item_id": "DTI_58",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 31 / Male"
+    },
+    {
+      "field_id": "DTI_59",
+      "rubric_item_id": "DTI_59",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 31 / Pozitif etiket"
+    },
+    {
+      "field_id": "DTI_60",
+      "rubric_item_id": "DTI_60",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 32 / Doğruluk"
+    },
+    {
+      "field_id": "DTI_61",
+      "rubric_item_id": "DTI_61",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 32 / Duyarlılık"
+    },
+    {
+      "field_id": "DTI_62",
+      "rubric_item_id": "DTI_62",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 32 / Özgüllük"
+    },
+    {
+      "field_id": "DTI_63",
+      "rubric_item_id": "DTI_63",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 32 / Kesinlik"
+    },
+    {
+      "field_id": "DTI_64",
+      "rubric_item_id": "DTI_64",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 32 / MCR"
+    },
+    {
+      "field_id": "DTI_65",
+      "rubric_item_id": "DTI_65",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 34 / Kök düğüm"
+    },
+    {
+      "field_id": "DTI_66",
+      "rubric_item_id": "DTI_66",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 34 / Female"
+    },
+    {
+      "field_id": "DTI_67",
+      "rubric_item_id": "DTI_67",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 34 / Male"
+    },
+    {
+      "field_id": "DTI_68",
+      "rubric_item_id": "DTI_68",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 34 / Pozitif etiket"
+    },
+    {
+      "field_id": "DTI_69",
+      "rubric_item_id": "DTI_69",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 35 / Doğruluk"
+    },
+    {
+      "field_id": "DTI_70",
+      "rubric_item_id": "DTI_70",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 35 / Duyarlılık"
+    },
+    {
+      "field_id": "DTI_71",
+      "rubric_item_id": "DTI_71",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 35 / Özgüllük"
+    },
+    {
+      "field_id": "DTI_72",
+      "rubric_item_id": "DTI_72",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 35 / Kesinlik"
+    },
+    {
+      "field_id": "DTI_73",
+      "rubric_item_id": "DTI_73",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 35 / MCR"
+    },
+    {
+      "field_id": "DTI_74",
+      "rubric_item_id": "DTI_74",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 36: Eğitim–test farkı (VS2)"
+    },
+    {
+      "field_id": "DTI_75",
+      "rubric_item_id": "DTI_75",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 38: Underfitting tanımı (VS2)"
+    },
+    {
+      "field_id": "DTI_76",
+      "rubric_item_id": "DTI_76",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 40: Duyarlılık yorumu (VS2 – çelişkili soru köküyle)"
+    },
+    {
+      "field_id": "DTI_77",
+      "rubric_item_id": "DTI_77",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 41: MCR yorumu (VS2 – çelişkili soru köküyle)"
+    },
+    {
+      "field_id": "DTI_78",
+      "rubric_item_id": "DTI_78",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 43: İyi model nasıl olmalı"
+    },
+    {
+      "field_id": "DTI_79",
+      "rubric_item_id": "DTI_79",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 44: Neden sadece eğitim metrikleri yetmez"
+    },
+    {
+      "field_id": "DTI_80",
+      "rubric_item_id": "DTI_80",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS_DT_INTRO Tablo 45: Tek metrik yeterli mi"
+    }
+  ]
+}

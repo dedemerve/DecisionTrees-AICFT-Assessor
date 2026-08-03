@@ -1,0 +1,622 @@
+{
+  "student_id": "Ulysses",
+  "scoring_metadata": {
+    "extraction_schema_version": "2.0",
+    "scoring_schema_version": "1.0",
+    "rubric_version": "1.0-draft",
+    "scored_by": "pipeline_hybrid",
+    "llm_model": "claude-sonnet-5",
+    "scored_at": "2024-06-01T00:00:00Z"
+  },
+  "global_flags": {
+    "synthetic_data_used": true,
+    "infrastructure_interrupt": false,
+    "all_three_targets_attempted": true,
+    "mcr_tables_complete_count": 3,
+    "step4_responses_per_tree_count": 0,
+    "step4_responses_aggregated": false,
+    "any_cells_with_errors": false
+  },
+  "section_scores": {
+    "S1": {
+      "section_total_possible": 10,
+      "section_total_awarded": 0,
+      "criteria": [
+        {
+          "id": "S1.1",
+          "scoring_mode": "automated",
+          "points_possible": 2,
+          "points_awarded": 0,
+          "justification": "row_count_reported and col_count_reported are null even though data_loaded=true. Shape not confirmed by student.",
+          "flag": null,
+          "automated_check": {
+            "condition_met": false,
+            "detail": "row_count_reported is null; cannot verify 320/7"
+          }
+        },
+        {
+          "id": "S1.2",
+          "scoring_mode": "automated",
+          "points_possible": 2,
+          "points_awarded": 0,
+          "justification": "q_habitat_most_frequent and q_habitat_least_frequent are both null.",
+          "flag": null,
+          "automated_check": {
+            "condition_met": false,
+            "detail": "both habitat fields null"
+          }
+        },
+        {
+          "id": "S1.3",
+          "scoring_mode": "llm",
+          "points_possible": 3,
+          "points_awarded": 0,
+          "justification": "q_imbalance_effect_reasoning is null. No response to evaluate.",
+          "flag": null
+        },
+        {
+          "id": "S1.4",
+          "scoring_mode": "llm",
+          "points_possible": 3,
+          "points_awarded": 0,
+          "justification": "q_mass_by_species_reasoning is null. No response to evaluate.",
+          "flag": null
+        }
+      ]
+    },
+    "S2": {
+      "section_total_possible": 5,
+      "section_total_awarded": 0,
+      "criteria": [
+        {
+          "id": "S2.1",
+          "scoring_mode": "automated",
+          "points_possible": 3,
+          "points_awarded": 0,
+          "justification": "All three formulated_question fields are null.",
+          "flag": null,
+          "automated_check": {
+            "condition_met": false,
+            "detail": "0 of 3 formulated_question fields non-null"
+          }
+        },
+        {
+          "id": "S2.2",
+          "scoring_mode": "llm",
+          "points_possible": 2,
+          "points_awarded": 0,
+          "justification": "No questions present to evaluate for quality.",
+          "flag": null
+        }
+      ]
+    },
+    "S3": {
+      "section_total_possible": 5,
+      "section_total_awarded": 2,
+      "criteria": [
+        {
+          "id": "S3.1",
+          "scoring_mode": "hybrid",
+          "points_possible": 2,
+          "points_awarded": 2,
+          "justification": "test_size=0.2, stratify_used=true, random_state=42 — all correct and consistent across models (parameters_varied_across_models=false).",
+          "flag": null,
+          "automated_check": {
+            "condition_met": true,
+            "detail": "test_size==0.2 AND stratify_used AND random_state non-null"
+          }
+        },
+        {
+          "id": "S3.2",
+          "scoring_mode": "llm",
+          "points_possible": 2,
+          "points_awarded": 0,
+          "justification": "q_stratify_removal_effect is null.",
+          "flag": null
+        },
+        {
+          "id": "S3.3",
+          "scoring_mode": "llm",
+          "points_possible": 1,
+          "points_awarded": 0,
+          "justification": "q_random_state_change_effect is null.",
+          "flag": null
+        }
+      ]
+    },
+    "S4": {
+      "section_total_possible": 30,
+      "section_total_awarded": 9,
+      "per_target": [
+        {
+          "target_variable": "YasamAlani",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 10,
+          "target_total_awarded": 3,
+          "criteria": [
+            {
+              "id": "S4.YasamAlani.1",
+              "scoring_mode": "automated",
+              "points_possible": 3,
+              "points_awarded": 3,
+              "justification": "mcr_table has exactly 10 rows, depths 1-10.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "mcr_table row count == 10"
+              }
+            },
+            {
+              "id": "S4.YasamAlani.2",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "step4_markdown_analysis fields all null; step4_responses_location is null. No text to evaluate.",
+              "flag": "step4_missing",
+              "automated_check": {
+                "condition_met": true,
+                "detail": "train MCR mostly decreasing, test MCR has interior minimum at depth 1-2/5, but no student text present"
+              }
+            },
+            {
+              "id": "S4.YasamAlani.3",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "overfitting_named_or_described is null.",
+              "flag": "step4_missing",
+              "automated_check": {
+                "condition_met": false,
+                "detail": "overfitting_field_non_null=False"
+              }
+            },
+            {
+              "id": "S4.YasamAlani.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "divergence_point_identified is null.",
+              "flag": "step4_missing"
+            },
+            {
+              "id": "S4.YasamAlani.5",
+              "scoring_mode": "llm",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "preferred_depth_from_table and preferred_depth_from_graph both null.",
+              "flag": "step4_missing"
+            }
+          ]
+        },
+        {
+          "target_variable": "Tur",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 10,
+          "target_total_awarded": 3,
+          "criteria": [
+            {
+              "id": "S4.Tur.1",
+              "scoring_mode": "automated",
+              "points_possible": 3,
+              "points_awarded": 3,
+              "justification": "mcr_table has exactly 10 rows, depths 1-10.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "mcr_table row count == 10"
+              }
+            },
+            {
+              "id": "S4.Tur.2",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "step4_markdown_analysis is null for this tree.",
+              "flag": "step4_missing",
+              "automated_check": {
+                "condition_met": true,
+                "detail": "train MCR decreasing, test MCR has interior minimum at depth 3/7, but no student text present"
+              }
+            },
+            {
+              "id": "S4.Tur.3",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "overfitting_named_or_described is null.",
+              "flag": "step4_missing",
+              "automated_check": {
+                "condition_met": false,
+                "detail": "overfitting_field_non_null=False"
+              }
+            },
+            {
+              "id": "S4.Tur.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "divergence_point_identified is null.",
+              "flag": "step4_missing"
+            },
+            {
+              "id": "S4.Tur.5",
+              "scoring_mode": "llm",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "preferred_depth fields both null.",
+              "flag": "step4_missing"
+            }
+          ]
+        },
+        {
+          "target_variable": "Cinsiyet",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 10,
+          "target_total_awarded": 3,
+          "criteria": [
+            {
+              "id": "S4.Cinsiyet.1",
+              "scoring_mode": "automated",
+              "points_possible": 3,
+              "points_awarded": 3,
+              "justification": "mcr_table has exactly 10 rows, depths 1-10.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "mcr_table row count == 10"
+              }
+            },
+            {
+              "id": "S4.Cinsiyet.2",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "step4_markdown_analysis is null for this tree.",
+              "flag": "step4_missing",
+              "automated_check": {
+                "condition_met": true,
+                "detail": "train MCR decreasing, test MCR fluctuates with minimum at depth 1/9, but no student text present"
+              }
+            },
+            {
+              "id": "S4.Cinsiyet.3",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "overfitting_named_or_described is null.",
+              "flag": "step4_missing",
+              "automated_check": {
+                "condition_met": false,
+                "detail": "overfitting_field_non_null=False"
+              }
+            },
+            {
+              "id": "S4.Cinsiyet.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "divergence_point_identified is null.",
+              "flag": "step4_missing"
+            },
+            {
+              "id": "S4.Cinsiyet.5",
+              "scoring_mode": "llm",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "preferred_depth fields both null.",
+              "flag": "step4_missing"
+            }
+          ]
+        }
+      ]
+    },
+    "S5": {
+      "section_total_possible": 21,
+      "section_total_awarded": 15,
+      "per_target": [
+        {
+          "target_variable": "YasamAlani",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 7,
+          "target_total_awarded": 5,
+          "criteria": [
+            {
+              "id": "S5.YasamAlani.1",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "model_built, model_fitted, tree_visualized, mcr_plot_generated all true.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "all four code_evidence flags true"
+              }
+            },
+            {
+              "id": "S5.YasamAlani.2",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "is_optimal_depth_mathematically_correct=true (chosen depth 1 == mathematically optimal depth 1; note test MCR is tied between depth 1 and 2 at 0.546875, depth 1 is the first minimum).",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "is_optimal_depth_mathematically_correct==true"
+              }
+            },
+            {
+              "id": "S5.YasamAlani.3",
+              "scoring_mode": "automated",
+              "points_possible": 1,
+              "points_awarded": 1,
+              "justification": "root_node_feature is null and root_node_feature_source is null (not 'markdown_text'), so no contradiction exists; treated as omitted but code-derived per rule allowance.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "root_node_feature null, source null (not markdown_text) - no contradiction"
+              }
+            },
+            {
+              "id": "S5.YasamAlani.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "q_root_node_reasoning is null.",
+              "flag": null
+            },
+            {
+              "id": "S5.YasamAlani.5",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "q_codap_comparison is null.",
+              "flag": null
+            }
+          ]
+        },
+        {
+          "target_variable": "Tur",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 7,
+          "target_total_awarded": 5,
+          "criteria": [
+            {
+              "id": "S5.Tur.1",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "model_built, model_fitted, tree_visualized, mcr_plot_generated all true.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "all four code_evidence flags true"
+              }
+            },
+            {
+              "id": "S5.Tur.2",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "is_optimal_depth_mathematically_correct=true (chosen depth 3 matches mathematically_optimal_depth 3).",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "is_optimal_depth_mathematically_correct==true"
+              }
+            },
+            {
+              "id": "S5.Tur.3",
+              "scoring_mode": "automated",
+              "points_possible": 1,
+              "points_awarded": 1,
+              "justification": "root_node_feature is null and source is null (not markdown_text) — no contradiction.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "root_node_feature null, source null - no contradiction"
+              }
+            },
+            {
+              "id": "S5.Tur.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "q_root_node_reasoning is null.",
+              "flag": null
+            },
+            {
+              "id": "S5.Tur.5",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "q_codap_comparison is null.",
+              "flag": null
+            }
+          ]
+        },
+        {
+          "target_variable": "Cinsiyet",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 7,
+          "target_total_awarded": 5,
+          "criteria": [
+            {
+              "id": "S5.Cinsiyet.1",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "model_built, model_fitted, tree_visualized, mcr_plot_generated all true.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "all four code_evidence flags true"
+              }
+            },
+            {
+              "id": "S5.Cinsiyet.2",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "is_optimal_depth_mathematically_correct=true (chosen depth 1 matches mathematically_optimal_depth 1).",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "is_optimal_depth_mathematically_correct==true"
+              }
+            },
+            {
+              "id": "S5.Cinsiyet.3",
+              "scoring_mode": "automated",
+              "points_possible": 1,
+              "points_awarded": 1,
+              "justification": "root_node_feature is null and source is null (not markdown_text) — no contradiction.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "root_node_feature null, source null - no contradiction"
+              }
+            },
+            {
+              "id": "S5.Cinsiyet.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "q_root_node_reasoning is null.",
+              "flag": null
+            },
+            {
+              "id": "S5.Cinsiyet.5",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "q_codap_comparison is null.",
+              "flag": null
+            }
+          ]
+        }
+      ]
+    },
+    "S6": {
+      "section_total_possible": 20,
+      "section_total_awarded": 0,
+      "criteria": [
+        {
+          "id": "S6.1",
+          "scoring_mode": "llm",
+          "points_possible": 5,
+          "points_awarded": 0,
+          "justification": "raw_text is null. No reflection submitted.",
+          "flag": null
+        },
+        {
+          "id": "S6.2",
+          "scoring_mode": "llm",
+          "points_possible": 5,
+          "points_awarded": 0,
+          "justification": "raw_text is null. No reflection submitted.",
+          "flag": null
+        },
+        {
+          "id": "S6.3",
+          "scoring_mode": "llm",
+          "points_possible": 5,
+          "points_awarded": 0,
+          "justification": "raw_text is null. No reflection submitted.",
+          "flag": null
+        },
+        {
+          "id": "S6.4",
+          "scoring_mode": "llm",
+          "points_possible": 5,
+          "points_awarded": 0,
+          "justification": "raw_text is null. No reflection submitted.",
+          "flag": null
+        }
+      ]
+    },
+    "S7": {
+      "section_total_possible": 9,
+      "section_total_awarded": 0,
+      "criteria": [
+        {
+          "id": "S7.1",
+          "scoring_mode": "automated",
+          "points_possible": 1,
+          "points_awarded": 0,
+          "justification": "comparison_present=false.",
+          "flag": null,
+          "automated_check": {
+            "condition_met": false,
+            "detail": "comparison_present==false"
+          }
+        },
+        {
+          "id": "S7.2",
+          "scoring_mode": "llm",
+          "points_possible": 4,
+          "points_awarded": 0,
+          "justification": "optimal_depths_compared and comparison_reasoning are both null. No cross-target discussion present.",
+          "flag": null
+        },
+        {
+          "id": "S7.3",
+          "scoring_mode": "llm",
+          "points_possible": 4,
+          "points_awarded": 0,
+          "justification": "root_nodes_compared and comparison_reasoning are both null. No cross-target discussion present.",
+          "flag": null
+        }
+      ]
+    }
+  },
+  "score_summary": {
+    "section_totals": [
+      {
+        "section_id": "S1",
+        "possible": 10,
+        "awarded": 0
+      },
+      {
+        "section_id": "S2",
+        "possible": 5,
+        "awarded": 0
+      },
+      {
+        "section_id": "S3",
+        "possible": 5,
+        "awarded": 2
+      },
+      {
+        "section_id": "S4",
+        "possible": 30,
+        "awarded": 9
+      },
+      {
+        "section_id": "S5",
+        "possible": 21,
+        "awarded": 15
+      },
+      {
+        "section_id": "S6",
+        "possible": 20,
+        "awarded": 0
+      },
+      {
+        "section_id": "S7",
+        "possible": 9,
+        "awarded": 0
+      }
+    ],
+    "grand_total_possible": 90,
+    "grand_total_awarded": 26,
+    "percentage": 28.89,
+    "letter_grade": null
+  },
+  "scoring_overrides": []
+}

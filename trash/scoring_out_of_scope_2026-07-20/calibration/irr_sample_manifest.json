@@ -1,0 +1,1608 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-07-20T17:42:14.777909+00:00",
+  "source": "2025_calibration_dataset_v2.json",
+  "irr_students": [
+    "Ally",
+    "Barbara",
+    "Bob",
+    "Daisy",
+    "Eliot",
+    "Felicity",
+    "Ozzy"
+  ],
+  "n_episodes": 80,
+  "episode_length_s": 60.0,
+  "rare_behaviors_oversampled": [
+    "B11",
+    "B2",
+    "B8"
+  ],
+  "behavior_coverage": {
+    "B0": 17,
+    "B1": 12,
+    "B10": 20,
+    "B11": 5,
+    "B12": 7,
+    "B2": 9,
+    "B3": 5,
+    "B4": 41,
+    "B5": 35,
+    "B6": 25,
+    "B7": 27,
+    "B8": 4,
+    "B9": 1
+  },
+  "episodes": [
+    {
+      "episode_id": "Barbara_ep_001",
+      "student_id": "Barbara",
+      "start_s": 1.524,
+      "end_s": 60.304,
+      "n_frames": 5,
+      "frame_ids": [
+        "frame_0001",
+        "frame_0002",
+        "frame_0003",
+        "frame_0004",
+        "frame_0005"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Bob_ep_010",
+      "student_id": "Bob",
+      "start_s": 796.8,
+      "end_s": 842.033,
+      "n_frames": 9,
+      "frame_ids": [
+        "frame_0037",
+        "frame_0038",
+        "frame_0039",
+        "frame_0040",
+        "frame_0041",
+        "frame_0042",
+        "frame_0043",
+        "frame_0044",
+        "frame_0045"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_015",
+      "student_id": "Felicity",
+      "start_s": 1417.636,
+      "end_s": 1417.636,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0038"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Eliot_ep_008",
+      "student_id": "Eliot",
+      "start_s": 656.129,
+      "end_s": 686.242,
+      "n_frames": 3,
+      "frame_ids": [
+        "frame_0028",
+        "frame_0029",
+        "frame_0030"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Daisy_ep_016",
+      "student_id": "Daisy",
+      "start_s": 1275.408,
+      "end_s": 1333.147,
+      "n_frames": 8,
+      "frame_ids": [
+        "frame_0125",
+        "frame_0126",
+        "frame_0127",
+        "frame_0128",
+        "frame_0129",
+        "frame_0130",
+        "frame_0131",
+        "frame_0132"
+      ],
+      "behaviors_present": [
+        "B11",
+        "B2",
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Eliot_ep_024",
+      "student_id": "Eliot",
+      "start_s": 1946.489,
+      "end_s": 2002.712,
+      "n_frames": 10,
+      "frame_ids": [
+        "frame_0109",
+        "frame_0110",
+        "frame_0111",
+        "frame_0112",
+        "frame_0113",
+        "frame_0114",
+        "frame_0115",
+        "frame_0116",
+        "frame_0117",
+        "frame_0118"
+      ],
+      "behaviors_present": [
+        "B1",
+        "B6"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Eliot_ep_009",
+      "student_id": "Eliot",
+      "start_s": 776.97,
+      "end_s": 776.97,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0031"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ally_ep_003",
+      "student_id": "Ally",
+      "start_s": 131.81,
+      "end_s": 178.219,
+      "n_frames": 26,
+      "frame_ids": [
+        "frame_0011",
+        "frame_0012",
+        "frame_0013",
+        "frame_0014",
+        "frame_0015",
+        "frame_0016",
+        "frame_0017",
+        "frame_0018",
+        "frame_0019",
+        "frame_0020",
+        "frame_0021",
+        "frame_0022",
+        "frame_0023",
+        "frame_0024",
+        "frame_0025",
+        "frame_0026",
+        "frame_0027",
+        "frame_0028",
+        "frame_0029",
+        "frame_0030",
+        "frame_0031",
+        "frame_0032",
+        "frame_0033",
+        "frame_0034",
+        "frame_0035",
+        "frame_0036"
+      ],
+      "behaviors_present": [
+        "B1",
+        "B2"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_011",
+      "student_id": "Felicity",
+      "start_s": 1054.193,
+      "end_s": 1054.193,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0034"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_037",
+      "student_id": "Barbara",
+      "start_s": 3489.651,
+      "end_s": 3496.031,
+      "n_frames": 3,
+      "frame_ids": [
+        "frame_0110",
+        "frame_0111",
+        "frame_0112"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_002",
+      "student_id": "Ozzy",
+      "start_s": 235.833,
+      "end_s": 235.833,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0014"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_013",
+      "student_id": "Felicity",
+      "start_s": 1235.832,
+      "end_s": 1235.832,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0036"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Eliot_ep_006",
+      "student_id": "Eliot",
+      "start_s": 515.115,
+      "end_s": 569.97,
+      "n_frames": 2,
+      "frame_ids": [
+        "frame_0021",
+        "frame_0022"
+      ],
+      "behaviors_present": [
+        "B3",
+        "B4",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_019",
+      "student_id": "Ozzy",
+      "start_s": 1490.375,
+      "end_s": 1536.998,
+      "n_frames": 9,
+      "frame_ids": [
+        "frame_0138",
+        "frame_0139",
+        "frame_0140",
+        "frame_0141",
+        "frame_0142",
+        "frame_0143",
+        "frame_0144",
+        "frame_0145",
+        "frame_0146"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ally_ep_007",
+      "student_id": "Ally",
+      "start_s": 552.913,
+      "end_s": 612.527,
+      "n_frames": 10,
+      "frame_ids": [
+        "frame_0055",
+        "frame_0056",
+        "frame_0057",
+        "frame_0058",
+        "frame_0059",
+        "frame_0060",
+        "frame_0061",
+        "frame_0062",
+        "frame_0063",
+        "frame_0064"
+      ],
+      "behaviors_present": [
+        "B12",
+        "B2",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Bob_ep_003",
+      "student_id": "Bob",
+      "start_s": 161.717,
+      "end_s": 162.867,
+      "n_frames": 2,
+      "frame_ids": [
+        "frame_0016",
+        "frame_0017"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_013",
+      "student_id": "Barbara",
+      "start_s": 1160.002,
+      "end_s": 1160.002,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0053"
+      ],
+      "behaviors_present": [
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Daisy_ep_012",
+      "student_id": "Daisy",
+      "start_s": 1023.708,
+      "end_s": 1064.214,
+      "n_frames": 9,
+      "frame_ids": [
+        "frame_0086",
+        "frame_0087",
+        "frame_0088",
+        "frame_0089",
+        "frame_0090",
+        "frame_0091",
+        "frame_0092",
+        "frame_0093",
+        "frame_0094"
+      ],
+      "behaviors_present": [
+        "B1",
+        "B10",
+        "B11",
+        "B2",
+        "B4",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_036",
+      "student_id": "Barbara",
+      "start_s": 3403.724,
+      "end_s": 3403.724,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0109"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_004",
+      "student_id": "Barbara",
+      "start_s": 392.689,
+      "end_s": 409.578,
+      "n_frames": 5,
+      "frame_ids": [
+        "frame_0012",
+        "frame_0013",
+        "frame_0014",
+        "frame_0015",
+        "frame_0016"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Eliot_ep_010",
+      "student_id": "Eliot",
+      "start_s": 867.531,
+      "end_s": 867.531,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0032"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_044",
+      "student_id": "Barbara",
+      "start_s": 4078.2,
+      "end_s": 4137.683,
+      "n_frames": 5,
+      "frame_ids": [
+        "frame_0122",
+        "frame_0123",
+        "frame_0124",
+        "frame_0125",
+        "frame_0126"
+      ],
+      "behaviors_present": [],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_034",
+      "student_id": "Ozzy",
+      "start_s": 2569.375,
+      "end_s": 2606.748,
+      "n_frames": 8,
+      "frame_ids": [
+        "frame_0272",
+        "frame_0273",
+        "frame_0274",
+        "frame_0275",
+        "frame_0276",
+        "frame_0277",
+        "frame_0278",
+        "frame_0279"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Eliot_ep_011",
+      "student_id": "Eliot",
+      "start_s": 945.685,
+      "end_s": 982.734,
+      "n_frames": 2,
+      "frame_ids": [
+        "frame_0033",
+        "frame_0034"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Daisy_ep_014",
+      "student_id": "Daisy",
+      "start_s": 1152.224,
+      "end_s": 1210.717,
+      "n_frames": 7,
+      "frame_ids": [
+        "frame_0108",
+        "frame_0109",
+        "frame_0110",
+        "frame_0111",
+        "frame_0112",
+        "frame_0113",
+        "frame_0114"
+      ],
+      "behaviors_present": [
+        "B1",
+        "B11",
+        "B2",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_009",
+      "student_id": "Ozzy",
+      "start_s": 758.956,
+      "end_s": 795.461,
+      "n_frames": 6,
+      "frame_ids": [
+        "frame_0069",
+        "frame_0070",
+        "frame_0071",
+        "frame_0072",
+        "frame_0073",
+        "frame_0074"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Bob_ep_014",
+      "student_id": "Bob",
+      "start_s": 1246.0,
+      "end_s": 1246.0,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0056"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Bob_ep_015",
+      "student_id": "Bob",
+      "start_s": 1336.0,
+      "end_s": 1336.0,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0057"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Daisy_ep_005",
+      "student_id": "Daisy",
+      "start_s": 356.844,
+      "end_s": 356.844,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0020"
+      ],
+      "behaviors_present": [
+        "B1"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_034",
+      "student_id": "Barbara",
+      "start_s": 3221.419,
+      "end_s": 3222.94,
+      "n_frames": 2,
+      "frame_ids": [
+        "frame_0106",
+        "frame_0107"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_021",
+      "student_id": "Ozzy",
+      "start_s": 1611.7,
+      "end_s": 1669.851,
+      "n_frames": 16,
+      "frame_ids": [
+        "frame_0158",
+        "frame_0159",
+        "frame_0160",
+        "frame_0161",
+        "frame_0162",
+        "frame_0163",
+        "frame_0164",
+        "frame_0165",
+        "frame_0166",
+        "frame_0167",
+        "frame_0168",
+        "frame_0169",
+        "frame_0170",
+        "frame_0171",
+        "frame_0172",
+        "frame_0173"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_010",
+      "student_id": "Ozzy",
+      "start_s": 836.858,
+      "end_s": 891.104,
+      "n_frames": 7,
+      "frame_ids": [
+        "frame_0075",
+        "frame_0076",
+        "frame_0077",
+        "frame_0078",
+        "frame_0079",
+        "frame_0080",
+        "frame_0081"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Daisy_ep_013",
+      "student_id": "Daisy",
+      "start_s": 1089.562,
+      "end_s": 1148.402,
+      "n_frames": 13,
+      "frame_ids": [
+        "frame_0095",
+        "frame_0096",
+        "frame_0097",
+        "frame_0098",
+        "frame_0099",
+        "frame_0100",
+        "frame_0101",
+        "frame_0102",
+        "frame_0103",
+        "frame_0104",
+        "frame_0105",
+        "frame_0106",
+        "frame_0107"
+      ],
+      "behaviors_present": [
+        "B1",
+        "B10",
+        "B11",
+        "B12",
+        "B2",
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Daisy_ep_015",
+      "student_id": "Daisy",
+      "start_s": 1212.621,
+      "end_s": 1270.509,
+      "n_frames": 10,
+      "frame_ids": [
+        "frame_0115",
+        "frame_0116",
+        "frame_0117",
+        "frame_0118",
+        "frame_0119",
+        "frame_0120",
+        "frame_0121",
+        "frame_0122",
+        "frame_0123",
+        "frame_0124"
+      ],
+      "behaviors_present": [
+        "B1",
+        "B11",
+        "B2",
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_007",
+      "student_id": "Barbara",
+      "start_s": 621.824,
+      "end_s": 668.255,
+      "n_frames": 8,
+      "frame_ids": [
+        "frame_0032",
+        "frame_0033",
+        "frame_0034",
+        "frame_0035",
+        "frame_0036",
+        "frame_0037",
+        "frame_0038",
+        "frame_0039"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B9"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_027",
+      "student_id": "Barbara",
+      "start_s": 2650.649,
+      "end_s": 2651.998,
+      "n_frames": 2,
+      "frame_ids": [
+        "frame_0090",
+        "frame_0091"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_053",
+      "student_id": "Felicity",
+      "start_s": 4870.93,
+      "end_s": 4870.93,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0076"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Eliot_ep_031",
+      "student_id": "Eliot",
+      "start_s": 2436.961,
+      "end_s": 2473.67,
+      "n_frames": 7,
+      "frame_ids": [
+        "frame_0161",
+        "frame_0162",
+        "frame_0163",
+        "frame_0164",
+        "frame_0165",
+        "frame_0166",
+        "frame_0167"
+      ],
+      "behaviors_present": [
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_025",
+      "student_id": "Ozzy",
+      "start_s": 1857.947,
+      "end_s": 1914.136,
+      "n_frames": 3,
+      "frame_ids": [
+        "frame_0213",
+        "frame_0214",
+        "frame_0215"
+      ],
+      "behaviors_present": [
+        "B8"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_053",
+      "student_id": "Barbara",
+      "start_s": 4858.818,
+      "end_s": 4858.818,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0139"
+      ],
+      "behaviors_present": [
+        "B12"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_049",
+      "student_id": "Barbara",
+      "start_s": 4496.721,
+      "end_s": 4496.721,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0135"
+      ],
+      "behaviors_present": [
+        "B12"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Eliot_ep_004",
+      "student_id": "Eliot",
+      "start_s": 329.475,
+      "end_s": 329.475,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0018"
+      ],
+      "behaviors_present": [
+        "B3",
+        "B4",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ally_ep_005",
+      "student_id": "Ally",
+      "start_s": 359.265,
+      "end_s": 413.394,
+      "n_frames": 4,
+      "frame_ids": [
+        "frame_0038",
+        "frame_0039",
+        "frame_0040",
+        "frame_0041"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B2",
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_018",
+      "student_id": "Ozzy",
+      "start_s": 1414.068,
+      "end_s": 1473.962,
+      "n_frames": 8,
+      "frame_ids": [
+        "frame_0130",
+        "frame_0131",
+        "frame_0132",
+        "frame_0133",
+        "frame_0134",
+        "frame_0135",
+        "frame_0136",
+        "frame_0137"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5",
+        "B6"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Daisy_ep_009",
+      "student_id": "Daisy",
+      "start_s": 699.065,
+      "end_s": 748.07,
+      "n_frames": 12,
+      "frame_ids": [
+        "frame_0051",
+        "frame_0052",
+        "frame_0053",
+        "frame_0054",
+        "frame_0055",
+        "frame_0056",
+        "frame_0057",
+        "frame_0058",
+        "frame_0059",
+        "frame_0060",
+        "frame_0061",
+        "frame_0062"
+      ],
+      "behaviors_present": [
+        "B1",
+        "B2"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Eliot_ep_029",
+      "student_id": "Eliot",
+      "start_s": 2268.811,
+      "end_s": 2317.87,
+      "n_frames": 6,
+      "frame_ids": [
+        "frame_0149",
+        "frame_0150",
+        "frame_0151",
+        "frame_0152",
+        "frame_0153",
+        "frame_0154"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_027",
+      "student_id": "Ozzy",
+      "start_s": 1984.248,
+      "end_s": 2016.947,
+      "n_frames": 5,
+      "frame_ids": [
+        "frame_0232",
+        "frame_0233",
+        "frame_0234",
+        "frame_0235",
+        "frame_0236"
+      ],
+      "behaviors_present": [
+        "B6"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_003",
+      "student_id": "Felicity",
+      "start_s": 323.303,
+      "end_s": 327.902,
+      "n_frames": 4,
+      "frame_ids": [
+        "frame_0023",
+        "frame_0024",
+        "frame_0025",
+        "frame_0026"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_041",
+      "student_id": "Felicity",
+      "start_s": 3780.535,
+      "end_s": 3780.535,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0064"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_006",
+      "student_id": "Ozzy",
+      "start_s": 565.055,
+      "end_s": 623.664,
+      "n_frames": 17,
+      "frame_ids": [
+        "frame_0021",
+        "frame_0022",
+        "frame_0023",
+        "frame_0024",
+        "frame_0025",
+        "frame_0026",
+        "frame_0027",
+        "frame_0028",
+        "frame_0029",
+        "frame_0030",
+        "frame_0031",
+        "frame_0032",
+        "frame_0033",
+        "frame_0034",
+        "frame_0035",
+        "frame_0036",
+        "frame_0037"
+      ],
+      "behaviors_present": [
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_025",
+      "student_id": "Felicity",
+      "start_s": 2326.344,
+      "end_s": 2326.344,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0048"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_022",
+      "student_id": "Barbara",
+      "start_s": 2145.428,
+      "end_s": 2145.428,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0074"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Daisy_ep_001",
+      "student_id": "Daisy",
+      "start_s": 0.933,
+      "end_s": 52.838,
+      "n_frames": 3,
+      "frame_ids": [
+        "frame_0001",
+        "frame_0002",
+        "frame_0003"
+      ],
+      "behaviors_present": [
+        "B1"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ally_ep_006",
+      "student_id": "Ally",
+      "start_s": 429.057,
+      "end_s": 486.749,
+      "n_frames": 13,
+      "frame_ids": [
+        "frame_0042",
+        "frame_0043",
+        "frame_0044",
+        "frame_0045",
+        "frame_0046",
+        "frame_0047",
+        "frame_0048",
+        "frame_0049",
+        "frame_0050",
+        "frame_0051",
+        "frame_0052",
+        "frame_0053",
+        "frame_0054"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B3",
+        "B4",
+        "B5",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_017",
+      "student_id": "Ozzy",
+      "start_s": 1342.057,
+      "end_s": 1396.408,
+      "n_frames": 14,
+      "frame_ids": [
+        "frame_0116",
+        "frame_0117",
+        "frame_0118",
+        "frame_0119",
+        "frame_0120",
+        "frame_0121",
+        "frame_0122",
+        "frame_0123",
+        "frame_0124",
+        "frame_0125",
+        "frame_0126",
+        "frame_0127",
+        "frame_0128",
+        "frame_0129"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5",
+        "B6"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_022",
+      "student_id": "Felicity",
+      "start_s": 2053.705,
+      "end_s": 2053.705,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0045"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_024",
+      "student_id": "Ozzy",
+      "start_s": 1793.758,
+      "end_s": 1850.583,
+      "n_frames": 12,
+      "frame_ids": [
+        "frame_0201",
+        "frame_0202",
+        "frame_0203",
+        "frame_0204",
+        "frame_0205",
+        "frame_0206",
+        "frame_0207",
+        "frame_0208",
+        "frame_0209",
+        "frame_0210",
+        "frame_0211",
+        "frame_0212"
+      ],
+      "behaviors_present": [
+        "B8"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ally_ep_009",
+      "student_id": "Ally",
+      "start_s": 709.336,
+      "end_s": 761.356,
+      "n_frames": 4,
+      "frame_ids": [
+        "frame_0078",
+        "frame_0079",
+        "frame_0080",
+        "frame_0081"
+      ],
+      "behaviors_present": [
+        "B1",
+        "B12",
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Bob_ep_016",
+      "student_id": "Bob",
+      "start_s": 1399.1,
+      "end_s": 1403.917,
+      "n_frames": 4,
+      "frame_ids": [
+        "frame_0058",
+        "frame_0059",
+        "frame_0060",
+        "frame_0061"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Bob_ep_021",
+      "student_id": "Bob",
+      "start_s": 1851.917,
+      "end_s": 1909.5,
+      "n_frames": 2,
+      "frame_ids": [
+        "frame_0078",
+        "frame_0079"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_022",
+      "student_id": "Ozzy",
+      "start_s": 1672.041,
+      "end_s": 1731.012,
+      "n_frames": 15,
+      "frame_ids": [
+        "frame_0174",
+        "frame_0175",
+        "frame_0176",
+        "frame_0177",
+        "frame_0178",
+        "frame_0179",
+        "frame_0180",
+        "frame_0181",
+        "frame_0182",
+        "frame_0183",
+        "frame_0184",
+        "frame_0185",
+        "frame_0186",
+        "frame_0187",
+        "frame_0188"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5",
+        "B8"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_019",
+      "student_id": "Barbara",
+      "start_s": 1731.761,
+      "end_s": 1780.14,
+      "n_frames": 3,
+      "frame_ids": [
+        "frame_0065",
+        "frame_0066",
+        "frame_0067"
+      ],
+      "behaviors_present": [
+        "B3",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_026",
+      "student_id": "Felicity",
+      "start_s": 2417.258,
+      "end_s": 2417.258,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0049"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_028",
+      "student_id": "Barbara",
+      "start_s": 2725.421,
+      "end_s": 2725.421,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0092"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5",
+        "B6"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Bob_ep_009",
+      "student_id": "Bob",
+      "start_s": 717.817,
+      "end_s": 753.517,
+      "n_frames": 3,
+      "frame_ids": [
+        "frame_0034",
+        "frame_0035",
+        "frame_0036"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_052",
+      "student_id": "Barbara",
+      "start_s": 4768.019,
+      "end_s": 4768.019,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0138"
+      ],
+      "behaviors_present": [
+        "B12"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Bob_ep_018",
+      "student_id": "Bob",
+      "start_s": 1583.917,
+      "end_s": 1634.0,
+      "n_frames": 7,
+      "frame_ids": [
+        "frame_0063",
+        "frame_0064",
+        "frame_0065",
+        "frame_0066",
+        "frame_0067",
+        "frame_0068",
+        "frame_0069"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ally_ep_008",
+      "student_id": "Ally",
+      "start_s": 613.756,
+      "end_s": 672.894,
+      "n_frames": 13,
+      "frame_ids": [
+        "frame_0065",
+        "frame_0066",
+        "frame_0067",
+        "frame_0068",
+        "frame_0069",
+        "frame_0070",
+        "frame_0071",
+        "frame_0072",
+        "frame_0073",
+        "frame_0074",
+        "frame_0075",
+        "frame_0076",
+        "frame_0077"
+      ],
+      "behaviors_present": [
+        "B1",
+        "B12",
+        "B4",
+        "B5",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_029",
+      "student_id": "Felicity",
+      "start_s": 2689.959,
+      "end_s": 2689.959,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0052"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_023",
+      "student_id": "Ozzy",
+      "start_s": 1732.683,
+      "end_s": 1792.577,
+      "n_frames": 12,
+      "frame_ids": [
+        "frame_0189",
+        "frame_0190",
+        "frame_0191",
+        "frame_0192",
+        "frame_0193",
+        "frame_0194",
+        "frame_0195",
+        "frame_0196",
+        "frame_0197",
+        "frame_0198",
+        "frame_0199",
+        "frame_0200"
+      ],
+      "behaviors_present": [
+        "B8"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_021",
+      "student_id": "Felicity",
+      "start_s": 1962.839,
+      "end_s": 1962.839,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0044"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_011",
+      "student_id": "Ozzy",
+      "start_s": 896.961,
+      "end_s": 918.072,
+      "n_frames": 2,
+      "frame_ids": [
+        "frame_0082",
+        "frame_0083"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_002",
+      "student_id": "Barbara",
+      "start_s": 176.131,
+      "end_s": 180.694,
+      "n_frames": 2,
+      "frame_ids": [
+        "frame_0006",
+        "frame_0007"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ally_ep_004",
+      "student_id": "Ally",
+      "start_s": 268.903,
+      "end_s": 268.903,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0037"
+      ],
+      "behaviors_present": [
+        "B1"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_014",
+      "student_id": "Ozzy",
+      "start_s": 1160.406,
+      "end_s": 1203.616,
+      "n_frames": 6,
+      "frame_ids": [
+        "frame_0099",
+        "frame_0100",
+        "frame_0101",
+        "frame_0102",
+        "frame_0103",
+        "frame_0104"
+      ],
+      "behaviors_present": [
+        "B10",
+        "B4",
+        "B5",
+        "B6"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_039",
+      "student_id": "Barbara",
+      "start_s": 3677.84,
+      "end_s": 3677.84,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0114"
+      ],
+      "behaviors_present": [],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Eliot_ep_005",
+      "student_id": "Eliot",
+      "start_s": 420.017,
+      "end_s": 436.216,
+      "n_frames": 2,
+      "frame_ids": [
+        "frame_0019",
+        "frame_0020"
+      ],
+      "behaviors_present": [
+        "B3",
+        "B4",
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Felicity_ep_005",
+      "student_id": "Felicity",
+      "start_s": 508.774,
+      "end_s": 508.774,
+      "n_frames": 1,
+      "frame_ids": [
+        "frame_0028"
+      ],
+      "behaviors_present": [
+        "B0"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Ozzy_ep_004",
+      "student_id": "Ozzy",
+      "start_s": 416.806,
+      "end_s": 440.265,
+      "n_frames": 4,
+      "frame_ids": [
+        "frame_0016",
+        "frame_0017",
+        "frame_0018",
+        "frame_0019"
+      ],
+      "behaviors_present": [
+        "B7"
+      ],
+      "silver_confidence_dominant": "none"
+    },
+    {
+      "episode_id": "Barbara_ep_021",
+      "student_id": "Barbara",
+      "start_s": 2003.29,
+      "end_s": 2055.39,
+      "n_frames": 3,
+      "frame_ids": [
+        "frame_0071",
+        "frame_0072",
+        "frame_0073"
+      ],
+      "behaviors_present": [
+        "B4",
+        "B5"
+      ],
+      "silver_confidence_dominant": "none"
+    }
+  ]
+}

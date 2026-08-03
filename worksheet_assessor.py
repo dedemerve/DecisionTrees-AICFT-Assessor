@@ -652,7 +652,10 @@ def extract_decision_tree_structure(
         ],
     )
 
-    raw = response.content[0].text.strip()
+    text_block = next((b for b in response.content if b.type == "text"), None)
+    if text_block is None:
+        raise ValueError("No text block in response")
+    raw = text_block.text.strip()
     raw = re.sub(r"^```(?:json)?\s*", "", raw)
     raw = re.sub(r"\s*```$", "", raw)
 
@@ -1461,12 +1464,15 @@ def assess_item(
 
     response = client.messages.create(
         model=model,
-        max_tokens=512,
+        max_tokens=2048,
         system=_system_prompt_for_item(item_id, worksheet_id),
         messages=[{"role": "user", "content": "\n".join(user_content_parts)}],
     )
 
-    raw = response.content[0].text.strip()
+    text_block = next((b for b in response.content if b.type == "text"), None)
+    if text_block is None:
+        raise ValueError("No text block in response")
+    raw = text_block.text.strip()
 
     # Strip markdown code fences if present
     raw = re.sub(r"^```(?:json)?\s*", "", raw)

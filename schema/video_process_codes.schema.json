@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "video_process_codes",
+  "title": "Video Process Codes Artifact (V-layer)",
+  "description": "Episode-level process codes (V1-V8) parallel to B0-B13 construct scores. Captures iteration, load, engagement, recovery, help-seeking, misconceptions, negative evidence, and CODAP-specific strategies.",
+  "type": "object",
+  "required": [
+    "artifact",
+    "student_id",
+    "cohort_year",
+    "schema_version",
+    "generated_at",
+    "episodes",
+    "session_summary"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "artifact": { "const": "process_codes" },
+    "student_id": { "type": "string", "minLength": 1 },
+    "cohort_year": { "type": "integer" },
+    "schema_version": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "codebook_id": { "type": "string" },
+    "interpretation_rule": { "type": "string" },
+    "episodes": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/process_episode" }
+    },
+    "session_summary": { "$ref": "#/definitions/session_process_summary" },
+    "ml_feature_flags": {
+      "type": "object",
+      "description": "High-level boolean features derived from episode decisions (ILSA-style process layer).",
+      "additionalProperties": { "type": "boolean" }
+    }
+  },
+  "additionalProperties": true,
+  "definitions": {
+    "process_decision": {
+      "type": "string",
+      "enum": ["observed", "not_observed", "not_measurable"]
+    },
+    "process_code_entry": {
+      "type": "object",
+      "required": ["decision"],
+      "properties": {
+        "decision": { "$ref": "#/definitions/process_decision" },
+        "evidence": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "evidence_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["expert_narrative", "verbatim_transcript", "video_frame", "event_log", "heuristic"]
+          }
+        },
+        "step_indices": {
+          "type": "array",
+          "items": { "type": "integer" }
+        },
+        "log_corroboration": {
+          "type": ["object", "null"],
+          "properties": {
+            "present": { "type": "boolean" },
+            "note": { "type": "string" }
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "process_episode": {
+      "type": "object",
+      "required": ["episode_id", "step_indices", "process_codes"],
+      "properties": {
+        "episode_id": { "type": "string" },
+        "step_indices": {
+          "type": "array",
+          "items": { "type": "integer" }
+        },
+        "dominant_category": { "type": ["string", "null"] },
+        "anchor_event": { "type": ["string", "null"] },
+        "start_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "end_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "assistance_status": {
+          "type": "string",
+          "enum": ["independent", "peer", "instructor", "unclear", "not_measurable"]
+        },
+        "process_codes": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/process_code_entry" }
+        },
+        "notes": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "session_process_summary": {
+      "type": "object",
+      "required": ["episode_count"],
+      "properties": {
+        "episode_count": { "type": "integer", "minimum": 0 },
+        "codes_observed": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "codes_not_observed": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "codes_not_measurable": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "rubric_gap_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

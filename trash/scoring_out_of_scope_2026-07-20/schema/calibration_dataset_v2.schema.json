@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "calibration_dataset_v2.schema.json",
+  "title": "CODAP Arbor Calibration Dataset v2",
+  "description": "Frame-level behavior indicator dataset. All labels are step_inherited_indicator unless explicitly human_adjudicated. Absolute paths are prohibited.",
+  "type": "object",
+  "required": ["schema_version", "provenance", "students", "frames"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "2.0"},
+    "provenance": {
+      "type": "object",
+      "required": ["source_script", "generated_at", "git_commit_hint", "label_policy"],
+      "properties": {
+        "source_script": {"type": "string"},
+        "generated_at": {"type": "string", "format": "date-time"},
+        "git_commit_hint": {"type": "string"},
+        "label_policy": {
+          "type": "string",
+          "const": "step_inherited_indicator — NOT gold-standard. Labels propagated from expert step alignments via nearest-step matching. Independent adjudication not performed."
+        }
+      }
+    },
+    "students": {
+      "type": "object",
+      "description": "Student metadata keyed by student_id",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "cohort_year": {"type": "integer"},
+          "dataset_context": {"type": "string"},
+          "split_role": {
+            "type": "string",
+            "enum": ["fewshot", "irr_sample", "internal_val", "unassigned"],
+            "description": "Role in the leakage-safe split plan"
+          }
+        }
+      }
+    },
+    "frames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "frame_id", "student_id", "timestamp_s",
+          "frame_image_path", "label_status",
+          "rubric_behaviors", "b13_status", "process_flags"
+        ],
+        "properties": {
+          "frame_id": {"type": "string"},
+          "student_id": {"type": "string"},
+          "timestamp_s": {"type": "number"},
+          "frame_image_path": {
+            "type": "string",
+            "description": "Repo-relative path only. Absolute paths (/Users/...) are invalid.",
+            "not": {"pattern": "^/"}
+          },
+          "label_status": {
+            "type": "string",
+            "enum": ["step_inherited_indicator", "human_adjudicated", "not_coded"],
+            "description": "step_inherited_indicator = propagated from expert step alignment; human_adjudicated = independently double-coded; not_coded = no coverage"
+          },
+          "inherited_from_step": {
+            "type": ["string", "null"],
+            "description": "Step ID from which this frame's labels were propagated"
+          },
+          "silver_confidence": {
+            "type": "string",
+            "enum": ["high", "medium", "low", "none"],
+            "description": "Confidence of the step-to-frame alignment"
+          },
+          "expert_screenshot": {"type": "boolean"},
+          "rubric_behaviors": {
+            "type": "array",
+            "description": "Construct behaviors (B0-B12) present in this frame. B13 is tracked separately. B15/B16/B17 are in process_flags.",
+            "items": {
+              "type": "string",
+              "enum": ["B0","B1","B2","B3","B4","B5","B6","B7","B8","B9","B10","B11","B12"]
+            }
+          },
+          "b13_status": {
+            "type": "string",
+            "enum": [
+              "not_measurable_no_transcript",
+              "coded_present",
+              "coded_absent",
+              "not_coded"
+            ],
+            "description": "B13 requires transcript. not_measurable_no_transcript when transcript=none."
+          },
+          "process_flags": {
+            "type": "object",
+            "description": "Process-layer behavior indicators — NOT construct behaviors. Do not mix into rubric_behaviors.",
+            "properties": {
+              "B15_votat_log": {
+                "type": ["boolean", "null"],
+                "description": "Log-derived VOTAT indicator for this session segment"
+              },
+              "B16_error_recovery": {
+                "type": ["boolean", "null"],
+                "description": "Algorithmic error-recovery detection (delete+rebuild sequence)"
+              },
+              "B17_planning": {
+                "type": ["boolean", "null"],
+                "description": "Algorithmic planning detection (regex on observer text)"
+              }
+            }
+          },
+          "codebook_codes": {
+            "type": ["array", "null"],
+            "description": "Raw codebook codes from expert narrative, if available",
+            "items": {"type": "string"}
+          },
+          "label_source": {
+            "type": "string",
+            "description": "Legacy field preserved for backward compatibility. Use label_status instead."
+          }
+        }
+      }
+    }
+  }
+}

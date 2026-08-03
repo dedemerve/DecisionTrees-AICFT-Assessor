@@ -118,6 +118,13 @@ ITEM_IDS_DT: list[str] = [
     "DT_G_overfitting", "DT_G_DT_definition", "DT_G_Q1", "DT_G_Q2",
 ]
 
+# WS_DT_XENO / WS_DT_TITANIC — split from legacy WS_DT_INTRO (DT'ye Giriş).
+ITEM_IDS_DT_XENO: list[str] = [f"DTI_{i:02d}" for i in range(1, 34)]
+ITEM_IDS_DT_TITANIC: list[str] = [f"DTI_{i:02d}" for i in range(1, 48)]
+# Legacy combined worksheet (deprecated — use WS_DT_XENO + WS_DT_TITANIC).
+# Legacy combined intro: Xeno DTI_01-33 + Titanic mapped to DTI_34-80 for flat uniqueness.
+ITEM_IDS_DT_INTRO: list[str] = ITEM_IDS_DT_XENO + [f"DTI_{i:02d}" for i in range(34, 81)]
+
 ITEM_IDS_WS1: list[str] = [f"WS1_B{i}" for i in range(1, 12)]
 ITEM_IDS_WS3: list[str] = [f"WS3_B{i}" for i in range(1, 9)]
 ITEM_IDS_WS4: list[str] = [f"WS4_B{i}" for i in range(1, 6)]
@@ -155,7 +162,9 @@ ITEM_IDS_WS: list[str] = (
     + ITEM_IDS_WS5 + ITEM_IDS_WS6 + ITEM_IDS_WS7 + ITEM_IDS_WS10
 )
 
-ALL_ITEM_IDS: list[str] = ITEM_IDS_DT + ITEM_IDS_WS + ITEM_IDS_WS11
+ALL_ITEM_IDS: list[str] = (
+    ITEM_IDS_DT + ITEM_IDS_DT_XENO + ITEM_IDS_DT_TITANIC + ITEM_IDS_WS + ITEM_IDS_WS11
+)
 
 PDF_ITEM_IDS: dict[str, list[str]] = {
     # 2025 cohort
@@ -175,6 +184,9 @@ PDF_ITEM_IDS: dict[str, list[str]] = {
 
 WORKSHEET_ITEM_IDS: dict[str, list[str]] = {
     "WS_DT": ITEM_IDS_DT,
+    "WS_DT_XENO": ITEM_IDS_DT_XENO,
+    "WS_DT_TITANIC": ITEM_IDS_DT_TITANIC,
+    "WS_DT_INTRO": ITEM_IDS_DT_INTRO,
     "WS1": ITEM_IDS_WS1,
     "WS3": ITEM_IDS_WS3,
     "WS4": ITEM_IDS_WS4,
@@ -199,6 +211,10 @@ WORKSHEET_PDF_SOURCE: dict[str, str] = {
     "WS7":  "31 Mart 2026 Çalışma Kâğıdı 7.pdf",
     "WS10": "31 Mart 2026 Çalışma Kâğıdı 10.pdf",
     "WS11": "Worksheet11_ Feedbacks.pdf",
+    "WS_DT_XENO": "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf",
+    "WS_DT_TITANIC": "07 Nisan 2026 Çalışma Kâğıdı Titanic.pdf",
+    # Legacy alias (two PDFs merged)
+    "WS_DT_INTRO": "07 Nisan 2026 Çalışma Kâğıdı Titanic.pdf",
 }
 
 OCR_OUTPUT_DIR = REPO_ROOT / "ocr_output"
@@ -830,3 +846,288 @@ def worksheet_page_image(student_key: str, worksheet: str) -> Path | None:
 
 def layout_manifest_path(student_key: str, worksheet: str) -> Path:
     return LAYOUT_ROIS_DIR / student_key / f"{worksheet.upper()}_layout.json"
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MMLA RUBRIC SCORING — Video-based behavioural analysis (AI-CFT)
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# Three sessions per student, two rubric types:
+#   codap_arbor  →  21 April + 28 April  (Acquire + Deepen)
+#   colab_python →  5 May               (Create)
+#
+# Rubric files live in calibration/:
+#   calibration/codap_rubric.json
+#   calibration/colab_rubric.json
+#
+# Scored output (one JSON per student per session):
+#   logs/pipeline_runs/{Student}_{session_key}_rubric_scored.json
+# ───────────────────────────────────────────────────────────────────────────────
+
+CALIBRATION_DIR = REPO_ROOT / "calibration"
+MMLA_OUTPUT_DIR = REPO_ROOT / "logs" / "pipeline_runs"
+MMLA_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+# Behaviors first seen after this fraction of session duration are flagged as late_onset.
+# AI-CFT research convention: behaviors acquired in the final two-thirds of a session
+# indicate delayed uptake of the corresponding LO.
+MMLA_LATE_ONSET_THRESHOLD: float = 0.33
+
+# session_key → session_type
+MMLA_SESSION_TYPES: dict[str, str] = {
+    "21apr": "codap_arbor",
+    "28apr": "codap_arbor",
+    "05may": "colab_python",
+}
+
+# session_key → human label (for logs and UI)
+MMLA_SESSION_LABELS: dict[str, str] = {
+    "21apr": "21 Nisan 2026 — CODAP Arbor",
+    "28apr": "28 Nisan 2026 — CODAP Arbor",
+    "05may": "5 Mayıs 2026 — Colab Python",
+}
+
+# session_type → rubric file name
+MMLA_RUBRIC_FILES: dict[str, str] = {
+    "codap_arbor":  "codap_rubric.json",
+    "colab_python": "colab_rubric.json",
+}
+
+# session_type → ordered behavior IDs (defines JSON output key order)
+MMLA_BEHAVIOR_IDS: dict[str, list[str]] = {
+    "codap_arbor": [
+        "B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9",
+        "B10", "B11", "B12", "B13",
+    ],
+    "colab_python": [
+        "B1", "B2", "B3", "B4", "B5", "B6",
+        "B7_lo32", "B7_lo33",
+        "B8", "B9", "B10", "B11", "B12", "B13", "B14",
+        "B15_lo31", "B15_lo33",
+        "B16",
+        "B17_lo31", "B17_lo33",
+    ],
+}
+
+# session_type → LO → behavior IDs that trigger it (OR logic)
+MMLA_LO_TRIGGER_MAP: dict[str, dict[str, list[str]]] = {
+    "codap_arbor": {
+        "LO3.1": ["B0", "B1", "B3", "B7"],
+        "LO3.2": ["B2", "B3", "B4", "B5", "B6", "B8", "B10", "B11", "B12"],
+        "LO3.3": ["B9", "B10", "B13"],
+    },
+    "colab_python": {
+        "LO3.1": ["B3", "B14", "B15_lo31", "B17_lo31"],
+        "LO3.2": ["B1", "B2", "B4", "B5", "B6", "B7_lo32", "B8", "B9", "B11", "B12", "B16"],
+        "LO3.3": ["B7_lo33", "B10", "B13", "B15_lo33", "B17_lo33"],
+    },
+}
+
+# LO → AI-CFT level string per session_type
+MMLA_LO_LEVELS: dict[str, dict[str, str]] = {
+    "codap_arbor": {
+        "LO3.1": "Acquire",
+        "LO3.2": "Deepen",
+        "LO3.3": "Deepen",
+    },
+    "colab_python": {
+        "LO3.1": "Create",
+        "LO3.2": "Create",
+        "LO3.3": "Create",
+    },
+}
+
+
+@lru_cache(maxsize=None)
+def load_mmla_rubric(session_type: str) -> dict[str, Any]:
+    """Load MMLA rubric for the given session_type ('codap_arbor' or 'colab_python')."""
+    if session_type not in MMLA_RUBRIC_FILES:
+        raise KeyError(f"Unknown MMLA session_type: {session_type!r}. "
+                       f"Valid values: {list(MMLA_RUBRIC_FILES)}")
+    path = CALIBRATION_DIR / MMLA_RUBRIC_FILES[session_type]
+    if not path.exists():
+        raise FileNotFoundError(f"MMLA rubric not found: {path}")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def session_type_for_key(session_key: str) -> str:
+    """Return session_type for a session_key (e.g. '21apr' → 'codap_arbor')."""
+    if session_key not in MMLA_SESSION_TYPES:
+        raise KeyError(f"Unknown session_key: {session_key!r}. "
+                       f"Valid values: {list(MMLA_SESSION_TYPES)}")
+    return MMLA_SESSION_TYPES[session_key]
+
+
+def mmla_behavior_ids(session_key: str) -> list[str]:
+    """Return ordered behavior ID list for a session."""
+    return list(MMLA_BEHAVIOR_IDS[session_type_for_key(session_key)])
+
+
+def mmla_lo_triggers(session_key: str, lo: str) -> list[str]:
+    """Return behavior IDs that trigger the given LO for a session."""
+    return list(MMLA_LO_TRIGGER_MAP[session_type_for_key(session_key)].get(lo, []))
+
+
+def mmla_lo_level(session_key: str, lo: str) -> str:
+    """Return AI-CFT level string for a LO in a session ('Acquire', 'Deepen', 'Create')."""
+    return MMLA_LO_LEVELS[session_type_for_key(session_key)].get(lo, "Unknown")
+
+
+def mmla_aggregate_lo(session_key: str, triggered_behaviors: set[str]) -> dict[str, str]:
+    """
+    Given the set of triggered behavior IDs for a frame or session,
+    return LO status dict: {"LO3.1": "Triggered"|"Not Triggered", ...}
+    """
+    session_type = session_type_for_key(session_key)
+    result: dict[str, str] = {}
+    for lo, triggers in MMLA_LO_TRIGGER_MAP[session_type].items():
+        hit = any(b in triggered_behaviors for b in triggers)
+        result[lo] = "Triggered" if hit else "Not Triggered"
+    return result
+
+
+def mmla_output_path(student: str, session_key: str) -> Path:
+    """Return path for legacy scored session JSON output."""
+    return MMLA_OUTPUT_DIR / f"{student}_{session_key}_rubric_scored.json"
+
+
+def mmla_frame_obs_path(student: str, session_key: str) -> Path:
+    """Return path for per-frame behavior observation log."""
+    return MMLA_OUTPUT_DIR / f"{student}_{session_key}_frame_observations.json"
+
+
+def mmla_final_scored_path(student: str, session_key: str) -> Path:
+    """Return path for Boris-style final scored JSON (Deepen-only, aggregated from frames)."""
+    return MMLA_OUTPUT_DIR / f"{student}_{session_key}_final_scored.json"
+
+
+def mmla_empty_frame_result(session_key: str, frame_id: str) -> dict[str, Any]:
+    """
+    Return a blank frame result dict (all behaviors Not Triggered).
+    Use as the base before filling in API-detected evidence.
+    """
+    behavior_ids = mmla_behavior_ids(session_key)
+    session_type = session_type_for_key(session_key)
+    return {
+        "frame_id": frame_id,
+        "frame_description": "",
+        "behaviors_observed": [],
+        "evidence_detection": {
+            b: {"score": 0, "evidence": "", "description": ""} for b in behavior_ids
+        },
+        "learning_outcomes": {
+            lo: {
+                "status": "Not Triggered",
+                "level": MMLA_LO_LEVELS[session_type][lo],
+                "triggering_behaviors": [],
+            }
+            for lo in MMLA_LO_TRIGGER_MAP[session_type]
+        },
+    }
+
+
+def mmla_fill_lo_summary(frame_result: dict[str, Any], session_key: str) -> dict[str, Any]:
+    """
+    Compute and fill learning_outcomes and behavior_score from evidence_detection in-place.
+    Returns the updated frame_result.
+    """
+    session_type = session_type_for_key(session_key)
+    observed = {
+        b for b, v in frame_result["evidence_detection"].items()
+        if v.get("score", 0) > 0
+    }
+    for lo, triggers in MMLA_LO_TRIGGER_MAP[session_type].items():
+        hitting = [b for b in triggers if b in observed]
+        frame_result["learning_outcomes"][lo] = {
+            "status": "Triggered" if hitting else "Not Triggered",
+            "level": MMLA_LO_LEVELS[session_type][lo],
+            "triggering_behaviors": hitting,
+        }
+    frame_result["behavior_score"] = len(observed)
+    frame_result["behavior_score_sum"] = sum(
+        v.get("score", 0) for v in frame_result["evidence_detection"].values()
+    )
+    return frame_result
+
+
+def mmla_session_summary(
+    student: str,
+    session_key: str,
+    frame_results: list[dict[str, Any]],
+    frames_skipped: int = 0,
+    duration_seconds: float = 0.0,
+) -> dict[str, Any]:
+    """
+    Aggregate per-frame results into a session-level summary.
+    Returns the full scored session dict ready to write to mmla_output_path().
+    """
+    session_type = session_type_for_key(session_key)
+    all_behaviors = mmla_behavior_ids(session_key)
+    lo_keys = list(MMLA_LO_TRIGGER_MAP[session_type].keys())
+
+    # Track first occurrence per behavior
+    first_seen: dict[str, float | None] = {b: None for b in all_behaviors}
+    trigger_counts: dict[str, int] = {b: 0 for b in all_behaviors}
+
+    for fr in frame_results:
+        ts = fr.get("timestamp_seconds", 0.0)
+        for b, v in fr.get("evidence_detection", {}).items():
+            if v.get("score", 0) > 0:
+                trigger_counts[b] = trigger_counts.get(b, 0) + 1
+                if first_seen.get(b) is None:
+                    first_seen[b] = ts
+
+    # Session-level LO: Triggered if triggered in ANY frame
+    ever_triggered: set[str] = {
+        b for b, count in trigger_counts.items() if count > 0
+    }
+    lo_final = mmla_aggregate_lo(session_key, ever_triggered)
+
+    behaviors_triggered = {
+        b: {"count": trigger_counts[b], "first_seen_at_seconds": first_seen[b]}
+        for b in all_behaviors if trigger_counts[b] > 0
+    }
+    behaviors_never_seen = [b for b in all_behaviors if trigger_counts[b] == 0]
+
+    # Session LO score: number of distinct LOs triggered (0–3)
+    lo_score = sum(1 for status in lo_final.values() if status == "Triggered")
+
+    # Gap detection: never triggered OR first seen after >33% of session
+    late_threshold = duration_seconds * MMLA_LATE_ONSET_THRESHOLD if duration_seconds > 0 else float("inf")
+    gaps_late_onset = [
+        b for b in all_behaviors
+        if first_seen.get(b) is not None and first_seen[b] > late_threshold
+    ]
+
+    return {
+        "student_id": student,
+        "session_key": session_key,
+        "session_label": MMLA_SESSION_LABELS[session_key],
+        "session_type": session_type,
+        "rubric_id": load_mmla_rubric(session_type)["rubric_id"],
+        "frames_total": len(frame_results),
+        "frames_skipped": frames_skipped,
+        "duration_seconds": duration_seconds,
+        "lo_score": lo_score,
+        "frame_analyses": frame_results,
+        "behaviors_triggered": behaviors_triggered,
+        "behaviors_never_seen": behaviors_never_seen,
+        "learning_outcomes_session": {
+            lo: {
+                "status": lo_final[lo],
+                "level": MMLA_LO_LEVELS[session_type][lo],
+                "evidence_count": sum(
+                    1 for fr in frame_results
+                    if any(
+                        fr.get("evidence_detection", {}).get(b, {}).get("score", 0) > 0
+                        for b in MMLA_LO_TRIGGER_MAP[session_type][lo]
+                    )
+                ),
+            }
+            for lo in lo_keys
+        },
+        "gaps": {
+            "never_triggered": behaviors_never_seen,
+            "late_onset": gaps_late_onset,
+        },
+    }

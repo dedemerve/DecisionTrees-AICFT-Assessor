@@ -1,0 +1,193 @@
+Ağaçlarla Tanı Koyma Oyunu!
+Senaryo: Yabancı gezegen yaratıklarını inceleyen bir Xenobiyologsun. Bu yaratıklar zaman zaman hastalanıyor. Hikayemizin başında, bazıları "ague" adlı yabancı gezegen hastalığına yakalanmış 10 yaratığın kaydına sahipsin. Yaratıkları ague hastalığına karşı savunmasız kılan şey ne olabilir?
+İlk başta soldaki seçimi training (eğitim) olarak bırakın.
+Yaratıklarınıza ait 10 yeni vakayı otomatik olarak oluşturmak için “Make New Cases” simgesine tıklayın.
+Veri tablosunda, Xhealth sütunu onların hasta mı yoksa sağlıklı mı olduğunu gösterir.
+Xhealth’i tahmin etmek için başka hangi verileri kullanabileceğinizi bulun.
+Verinin bir grafiğini oluşturmak yardımcı olabilir. Eğer daha önce CODAP’ta hiç grafik oluşturmadıysanız, bunu deneyin.
+Fikirlerinizi doğrulamak için ek vakalar alın. Bunu, sağ taraftaki küçük Arbor Xenobiological Services panelinde bulunan make new cases düğmesine basarak yapın.
+Kendinizden emin olduğunuzda, soldaki seçimi one by one (teker teker) olarak değiştirin.
+Şimdi tek tek vakalara tanı koyacaksınız. Bakın bakalım doğru mu yapıyorsunuz. Eğer sürekli doğru yapmıyorsanız, verinizi yeniden gözden geçirin ve neyi kaçırmış olabileceğinizi görün. (Puan kazandığınızı fark edin!)
+Bunu iyice çözdüğünüzü düşündüğünüzde, bu yaratıklara tanı koyma sürecini otomatikleştireceğiz. Bunun için tanıda ağaçların kullanılmasıyla ilgili bir sonraki bölüme geçin.
+Teşhis İçin Ağaçlar
+Bir hastaya tanı koymak için ona bir dizi soru sorarız. Bu sorulara verilen cevaplar, onun bu hastalığa sahip olup olmadığını tahmin etmemize yardımcı olur. Bir sorunun cevabı ya bir teşhise (hasta / sağlıklı) ya da başka bir soruya yönlendirir. Bu süreci temsil etmek ve otomatikleştirmek için karar ağacını kullanacağız.
+Karar ağacını açmak için sağ üstteki “tree” simgesine  basın.
+Ağacı, başka hiçbir şeyin üstünü kapatmayacak şekilde taşıyın (Veri tablonuzu küçültmeniz gerekebilir.).
+İşe “hedef değişkeninizi” yani tahmin etmek istediğiniz şeyi ağaca sürükleyerek başlayın.
+Karar ağacınız bir sonraki resimdeki gibi görünmelidir ancak sizin sayılarınız farklı olabilir.
+Ağacınızı büyütmek için tablodaki değişken adlarını ağaca sürükleyin ve bunları “nodes (düğümler)” üzerine bırakın.
+Muhtemelen saç renginin önemli olduğunu zaten fark ettiniz, bu yüzden tablodan hair değişkenini sürükleyin ve beyaz kutunun üzerine bırakın.
+Şunu görmelisiniz:
+Bunun anlamı şudur:
+En üstteki kutu size Xhealth’i tahmin ettiğinizi ve sick değerinin “pozitif” olduğunu söyler.
+Bir sonraki kutuya bakın (şekildeki kutu, sizdeki sayılar farklı olabilir). Tüm yaratıklar arasında 10’un 6’sı (%50) hastadır.
+İlk “sorumuz” şudur: Hastanın saç rengi nedir? (Bu yüzden alt şeritte hair…? yazmaktadır.) İki olası cevap vardır: blue ve pink. Her biri farklı bir kutuya götürür.
+Soldaki kutu, mavi saçlı 4 yaratık olduğunu ve bunların hiçbirinin (%0) hasta olmadığını söyler.
+Sağdaki kutu ise pembe saçlı 6 yaratık olduğunu ve bunların hepsinin (%100) hasta olduğunu söyler.
+Not: Daha fazla bilgi almak için herhangi bir kutunun veya bağlantının üzerine de gelebilirsiniz.
+Pozitif ve Negatif
+Tıbbi alanda insanlar genellikle “pozitif” ve “negatif” tanı ve sonuçlardan bahseder. Biz de ağaç aracımızda “hasta” durumunu pozitif olarak düşüneceğiz. Tıpkı ague hastalığı için yapılan bir testin pozitif çıkması gibi. Hangi varlıkların ague hastalığına sahip olduğunu tahmin etmek için onları “pozitif” olarak etiketleyeceğiz.
+Otomasyon
+Diyelim ki tanılarımızı otomatikleştirmek istiyoruz. Bunun için ağaca, pembe saç kutusunu pozitif (“hasta”) gruba ve mavi saç kutusunu negatif (“sağlıklı”) gruba atamasını söylememiz gerekir. Üzerinde (?) bulunan gri daireler, o kutulara henüz tanı atamadığınızı gösterir.
+Tanı atamak için onlara tıklayın. Görünümün şöyle olmasını sağlayın:
+Karar Ağacını Okuyalım
+Oluşturduğunuz karar ağacına göre aşağıdaki soruları yanıtlayınız:
+Soru
+Cevap
+Kök düğüm (root node) kaç vaka içermektedir? Bu vakaların yüzde kaçı sick (hasta) durumundadır? Bu oran size veri seti hakkında ne söylemektedir?
+1) Kök düğüm 10 vaka içerir, bunların 6'sı (%60) sick (hasta) durumundadır. Bu, veri setinde hasta ve sağlıklı yaratıkların yakın sayıda olduğunu, hafif çoğunlukla hasta bulunduğunu gösterir.
+Mavi saçlı (blue hair) kutuda kaç vaka bulunmaktadır? Bu vakaların kaçı sick (hasta) durumundadır? Bu gruptaki hastalık oranını nasıl yorumlarsınız?
+2) Mavi saçlı kutuda 4 vaka vardır, bunların 0'ı (%0) hastadır. Yani mavi saçlıların tamamı sağlıklıdır.
+Pembe saçlı (pink hair) kutuda kaç vaka bulunmaktadır? Bu vakaların kaçı sick (hasta) durumundadır? Bu sonuç, saç rengi ile hastalık arasında nasıl bir ilişki olduğunu düşündürmektedir?
+3) Pembe saçlı kutuda 6 vaka vardır, bunların 6'sı (%100) hastadır. Pembe saçlıların tamamı hasta olduğundan saç rengi (pembe) ile hastalık arasında güçlü/tam bir ilişki vardır.
+Hangi kutu “negatif” (hasta) olarak etiketlenmiştir? Bu kararı verirken hangi ölçütü kullandınız? Alternatif bir etiketleme mümkün müydü? Açıklayınız.
+4) Pembe saçlı kutu pozitif (hasta), mavi saçlı kutu ise negatif (sağlıklı) olarak etiketlenmiştir. Ölçüt, her kutudaki hasta oranının büyüklüğüdür (çoğunluk kuralı): pembe kutu %100 hasta, mavi kutu %0 hasta. Ayrım tam olduğu için alternatif bir etiketleme mantıklı olmazdı.
+Pembe saçlı (pink hair) kutuda kaç vaka bulunmaktadır? Bu vakaların kaçı sick (hasta) durumundadır? Bu sonuç, saç rengi ile hastalık arasında nasıl bir ilişki olduğunu düşündürmektedir?
+5) Pembe saçlı kutuda 6 vaka vardır ve 6'sı da (%100) hastadır. Bu sonuç, pembe saç rengi ile hasta olma arasında tam (kusursuz) bir ilişki olduğunu düşündürür.
+Saç rengi değişkeni bu veri setinde iyi bir ayırıcı (predictor) mıdır? Neden?
+Saç rengi değişkeni bu veri setinde iyi bir ayırıcı (predictor) mıdır? Neden?
+6) Evet, saç rengi bu veri setinde mükemmel bir ayırıcıdır. Mavi saçlı 4 yaratığın tamamı sağlıklı (%0 hasta), pembe saçlı 6 yaratığın tamamı hastadır (%100 hasta). İki grup arasında hiç örtüşme yoktur, saç rengi tek başına Xhealth'i hatasız tahmin eder. Doğruluk, duyarlılık ve özgüllüğün %100 çıkması bunu sayısal olarak da doğrular.
+Eğer yeni bir vaka gelseydi, yalnızca saç rengine bakarak doğru tahmin yapma olasılığınız hakkında ne söyleyebilirsiniz?
+7) Bu veri setinde saç rengi mükemmel bir ayırıcıdır (pembe→hasta, mavi→sağlıklı). Bu nedenle yalnızca saç rengine bakarak yeni bir vakayı %100 doğru tahmin etmemiz beklenir.
+Karışıklık Matrisi (Confusion Matrix)
+Bir karar ağacı oluşturduk ve artık yeni vakalar için tahmin yapabiliyoruz. Peki modelimizin ne kadar iyi çalıştığını nasıl anlayacağız?
+Confusion Matrix, oluşturduğunuz karar ağacının tahminlerini gerçek sonuçlarla karşılaştıran bir tablodur. Bu tablo sayesinde modelinizin hangi uzaylıları doğru teşhis ettiğini, hangilerinde ise hata yaptığını sistematik olarak görebilirsiniz.
+Ağacın altındaki renkli kutulara dikkat et. Bu kutular, ağacın teşhis ettiği Gerçek Pozitif (TP) vb. sayıları gösteriyor. Daha fazla ayrıntı için üzerine gelin.
+3.1 Kavramları Tanıyalım
+Gerçek
+HASTA (−)
+SAĞLIKLI (+)
+Toplam
+Tahmin
+HASTA (−)
+TP (Doğru Pozitif)
+FP (Yanlış Pozitif)
+TP + FP
+SAĞLIKLI (+)
+FN (Yanlış Negatif)
+TN (Doğru Negatif)
+FN + TN
+Toplam
+TP + FN
+FP + TN
+N
+Karışıklık matrisini incele. Her hücrenin ne anlama geldiğini kendi cümlelerinizle açıklayın:
+TP (Doğru Pozitif)
+Tahmin: Hasta  ✓  Gerçek: Hasta
+Model 'hasta' dedi, gerçekten de hasta.
+TN (Doğru Negatif)
+Tahmin: Sağlıklı  ✓  Gerçek: Sağlıklı
+Model 'sağlıklı' dedi, gerçekten de sağlıklı.
+FP (Yanlış Pozitif)
+Tahmin: Hasta  ✗  Gerçek: Sağlıklı
+Model 'hasta' dedi, aslında sağlıklı. (Tip I Hata)
+FN (Yanlış Negatif)
+Tahmin: Sağlıklı  ✗  Gerçek: Hasta
+Model 'sağlıklı' dedi, aslında hasta. (Tip II Hata)
+Soru: Aşağıdaki hata türlerini tıbbi bağlamda değerlendiriniz:
+FP (Yanlış Pozitif): Sağlıklı bir bireyin hasta olarak sınıflandırılması
+FN (Yanlış Negatif): Hasta bir bireyin sağlıklı olarak sınıflandırılması
+Sizce hangi hata türü daha tehlikelidir? (FP mi FN mi?) Seçiminizin gerekçesini açıklayın.
+Cevap: 
+8) FN (Yanlış Negatif) daha tehlikelidir. Çünkü gerçekte hasta olan bir birey sağlıklı sanılır, tedavi edilmez, hastalık ilerleyebilir ve yayılabilir, ölüm riski artar. FP'de ise sağlıklı birine gereksiz ek test/tedavi uygulanır ama hayati risk çok daha düşüktür.
+CODAP'ten Değerleri Oku
+Karar ağacınzı istediğiniz şekilde ayarladıktan sonra Arbor Xenobiological Services'e geri dönün ve soldaki seçenekten auto'yu seçin. 
+Ardından 10 vaka oluşturmak için run tree (ağacı çalıştır) düğmesine tıklayın.
+Soru: Karar ağacınız 10 yeni hastayı otomatik olarak teşhis edecek. Ağacınız nasıl bir performans sergiledi?
+Cevap:
+9) Saç rengi mükemmel ayırıcı olduğu için ağaç 10 yeni vakanın tamamını doğru teşhis eder, hata (FP/FN) görülmez, doğruluk %100 olur. (Üretilen örneğe göre TP ve TN'nin dağılımı değişebilir ama FP=FN=0 beklenir.)
+Karar ağacında “table” sekmesine tıklayarak karışıklık matrisini (confusion matrix) açın.
+Karar ağacının altındaki renkli kutularda verilen değerleri inceleyiniz. Bu değerleri arka sayfadaki tabloya kaydedin.
+Değer
+Sayı
+Ne anlama geliyor? (Kendi cümlelerinizle açıklayınız.)
+TP (Doğru Pozitif)
+10) 6
+11) Model'in pembe saçlı (hasta) deyip gerçekten hasta çıkan yaratıklar.
+TN (Doğru Negatif)
+12) 4
+13) Model'in mavi saçlı (sağlıklı) deyip gerçekten sağlıklı çıkan yaratıklar.
+FP (Yanlış Pozitif)
+14) 0
+15) Sağlıklı olduğu hâlde yanlışlıkla hasta denen yaratık yok.
+FN (Yanlış Negatif)
+16) 0
+17) Hasta olduğu hâlde yanlışlıkla sağlıklı denen yaratık yok.
+N (Toplam)
+18) 10
+19) Toplam vaka sayısı (6 hasta + 4 sağlıklı).
+Performans Metrikleri
+Metrik
+Formül
+Ne Ölçer? (Açıklama)
+Doğruluk (Accuracy)
+(TP + TN) / N
+Tüm tahminler içinde doğru olanların oranını gösterir.
+Duyarlılık (Sensitivity / Recall)
+TP / (TP + FN)
+Gerçekten hasta olan bireylerin ne kadarının doğru şekilde “hasta” olarak tespit edildiğini gösterir (True Positive Rate).
+Özgüllük (Specificity)
+TN / (TN + FP)
+Gerçekten sağlıklı olan bireylerin ne kadarının doğru şekilde “sağlıklı” olarak sınıflandırıldığını gösterir (True Negative Rate).
+Kesinlik
+(Precision)
+TP / (TP + FP)
+Modelin “hasta” dediği vakaların ne kadarının gerçekten hasta olduğunu gösterir.
+CODAP’te oluşturduğunuz karışıklık matrisine göre aşağıdaki metrikleri hesaplayın.
+Metrik
+Hesaplama (Adım Adım)
+Sonucu Yorumlayın
+Doğruluk
+20) (TP+TN)/N = (6+4)/10 = 10/10 = 1,00 (%100)
+21) Tüm tahminler doğru, model kusursuz çalıştı.
+Duyarlılık
+22) TP/(TP+FN) = 6/(6+0) = 6/6 = 1,00 (%100)
+23) Gerçekten hasta olanların tamamı doğru yakalandı.
+Özgüllük
+24) TN/(TN+FP) = 4/(4+0) = 4/4 = 1,00 (%100)
+25) Gerçekten sağlıklı olanların tamamı doğru sınıflandırıldı.
+Kesinlik
+26) TP/(TP+FP) = 6/(6+0) = 6/6 = 1,00 (%100)
+27) 'Hasta' denen vakaların tamamı gerçekten hasta.
+Soru: Bir Xenobiyolog olarak hangi metriği öncelikli olarak kullanırsınız? Seçtiğiniz metriğin neden bu problem için en uygun ölçüt olduğunu açıklayın.
+Cevap:
+28) Duyarlılık (Sensitivity / Recall). Çünkü gerçekten hasta olan bir yaratığı kaçırmamak (FN'yi en aza indirmek) hayati önemdedir, hastalığın yayılmasını önlemek için tüm hastaları yakalamak önceliklidir.
+Soru: Mevcut metriklerden farklı olacak şekilde, modelin performansını değerlendirmek için yeni bir metrik tanımlayın (Birden fazla metriği birleştirebilirsiniz).
+a) Oluşturduğunuz metriğin formülünü yazın.
+29) Dengeli Doğruluk = (Duyarlılık + Özgüllük) / 2
+b) Oluşturduğunuz ölçü neyi daha iyi yakalamaktadır?
+30) Hem hasta hem sağlıklı sınıftaki başarıyı birlikte ölçer, tek bir sınıfta yüksek başarının yarattığı yanıltıcı yüksek doğruluğu maskelemez.
+c) Bu ölçü hangi durumlarda tercih edilmelidir?
+31) Sınıflar dengesiz olduğunda (bir sınıf diğerinden çok daha kalabalıkken) tercih edilmelidir.
+Yeni Bir Metriği Tanıyalım
+Metrik
+Formül
+Ne Ölçer? (Açıklama)
+Yanlış Sınıflandırma Oranı(MCR: Misclassification Rate)
+(FP + FN) / N
+Tüm tahminler içinde hatalı olanların oranını gösterir (MCR = 1 – Accuracy).
+CODAP’te oluşturduğunuz karışıklık matrisine göre TP, TN, FP, FN değerlerini kullanarak aşağıdaki metrikleri hesaplayın.
+Metrik
+Hesaplama (Adım Adım)
+Sonucu Yorumlayın
+MCR
+32) (FP+FN)/N = (0+0)/10 = 0 (%0)
+33) Hiç yanlış sınıflandırma yok, hata oranı %0. (MCR = 1 - Doğruluk = 1 - 1 = 0)
+Keşfedelim
+Henüz yapmadıysanız, koyduğunuz teşhisin neden işe yaradığını göstermek için verinin grafiklerini oluşturun.
+Veri tablosunda ya da bir grafikte bir vakaya tıklayın. Bunun ağaçta nasıl yansıdığını görün.
+Ağaçtaki alt kutulardan birine tıklayın. Bunun tabloda ve varsa grafiklerde nasıl yansıdığını görün.
+Kötü ağaçlar yapmayı deneyin ya da daha büyük ağaçlar oluşturup nasıl çalıştıklarını görün.
+Puanınızı neyin etkilediğini bulun.
+Diğer senaryoları deneyin. Onlar daha zordur. (Birini seçtiğinizde eski veriniz kaybolacaktır. Ayrıca değişkenleri yapılandırmanız gerekecek, aşağıya bakın.
+Değişkenleri Yapılandırma
+Daha zor senaryolarda çalışırken, sormak istediğiniz sorunun varsayılan ayarın izin verdiğinden farklı olmasını isteyeceğinizi fark edeceksiniz. Örneğin ağırlık hakkında soru sormak istediğinizi düşünün. Her soru ikili olduğu için yalnızca ağırlığın belli bir sayının üstünde mi altında mı olduğunu sorabilirsiniz. Ama hangi sayı?
+Değişkeni yapılandırmanız gerekir. Ağacın içinde değişken adının üzerine geldiğinizde, sol tarafında bir dişli çark belirdiğini göreceksiniz. Yapılandırma penceresini açmak için ona tıklayın.
+Sayısal bir değişken için:
+Kesme noktasını (cut point) ayarlayabilirsiniz.
+İşleci, yani büyüktür ya da küçüktür seçimini yapabilirsiniz.
+Kategorik bir değişken için:
+Olası değerleri sola ve sağa taşımak için üzerlerine tıklayabilirsiniz.
+Herhangi bir değişken için:
+Sol / sağ düğmesine tıklayarak sol ve sağ değerleri yer değiştirebilirsiniz.
+Etiketleri daha anlamlı olacak şekilde değiştirebilirsiniz. Örneğin ağırlık için heavy (ağır) ve light (hafif) etiketlerini kullanabilirsiniz.

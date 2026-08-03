@@ -1,0 +1,68 @@
+{
+  "stage": "extraction",
+  "student_id": "Irma",
+  "worksheet": "WS1",
+  "student_name": "Irma",
+  "pdf_source": "24 Mart 2026 Çalışma Kâğıdı 1.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-08-02T17:40:35.713672+00:00",
+    "ocr_model": "claude-sonnet-5",
+    "items": {
+      "WS1_B1": "Etiket",
+      "WS1_B2": "Nesne - Özellik",
+      "WS1_B3": "Değişken",
+      "WS1_B4": "Özellik",
+      "WS1_B5": "Nesne",
+      "WS1_B6": "Nesne",
+      "WS1_B7": "değişkenler",
+      "WS1_B8": "Karakteristik",
+      "WS1_B9": "Doymuş yağ, Karbonhidrat, Şeker, Protein, Tuz",
+      "WS1_B10": "Fındıklı Gofret",
+      "WS1_B11": "Etiket"
+    },
+    "raw_ocr": {
+      "WS1_B1": "Etiket",
+      "WS1_B2": "Nesne - Özellik",
+      "WS1_B3": "Değişken",
+      "WS1_B4": "Özellik",
+      "WS1_B5": "Nesne",
+      "WS1_B6": "Nesne",
+      "WS1_B7": "değişkenler",
+      "WS1_B8": "Karakteristik",
+      "WS1_B9": "Doymuş yağ, Karbonhidrat, Şeker, Protein, Tuz",
+      "WS1_B10": "Fındıklı Gofret",
+      "WS1_B11": "Etiket"
+    }
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 11,
+      "total": 11,
+      "blank_or_illegible": 0,
+      "missing": 0,
+      "completion_rate": 1.0
+    },
+    "warnings": [
+      "Missing item IDs in responses: ['DT_A_Q1', 'DT_A_Q2', 'DT_A_Q3', 'DT_A_Q4', 'DT_B_Q1', 'DT_B_Q2', 'DT_B_Q3', 'DT_B_Q4', 'DT_C_Q1', 'DT_C_Q2', 'DT_C_Q3', 'DT_D_Q1', 'DT_D_Q2', 'DT_D_Q3', 'DT_D_Q4', 'DT_E_TP', 'DT_E_FP', 'DT_E_sensitivity_formula', 'DT_E_MCR_formula', 'DT_E_sensitivity', 'DT_E_MCR', 'DT_E_Q1', 'DT_E_Q2', 'DT_E_Q3', 'DT_E_Q4', 'DT_F_Q1', 'DT_F_Q2', 'DT_G_overfitting', 'DT_G_DT_definition', 'DT_G_Q1', 'DT_G_Q2', 'DTI_01', 'DTI_02', 'DTI_03', 'DTI_04', 'DTI_05', 'DTI_06', 'DTI_07', 'DTI_08', 'DTI_09', 'DTI_10', 'DTI_11', 'DTI_12', 'DTI_13', 'DTI_14', 'DTI_15', 'DTI_16', 'DTI_17', 'DTI_18', 'DTI_19', 'DTI_20', 'DTI_21', 'DTI_22', 'DTI_23', 'DTI_24', 'DTI_25', 'DTI_26', 'DTI_27', 'DTI_28', 'DTI_29', 'DTI_30', 'DTI_31', 'DTI_32', 'DTI_33', 'DTI_01', 'DTI_02', 'DTI_03', 'DTI_04', 'DTI_05', 'DTI_06', 'DTI_07', 'DTI_08', 'DTI_09', 'DTI_10', 'DTI_11', 'DTI_12', 'DTI_13', 'DTI_14', 'DTI_15', 'DTI_16', 'DTI_17', 'DTI_18', 'DTI_19', 'DTI_20', 'DTI_21', 'DTI_22', 'DTI_23', 'DTI_24', 'DTI_25', 'DTI_26', 'DTI_27', 'DTI_28', 'DTI_29', 'DTI_30', 'DTI_31', 'DTI_32', 'DTI_33', 'DTI_34', 'DTI_35', 'DTI_36', 'DTI_37', 'DTI_38', 'DTI_39', 'DTI_40', 'DTI_41', 'DTI_42', 'DTI_43', 'DTI_44', 'DTI_45', 'DTI_46', 'DTI_47', 'WS3_B1', 'WS3_B2', 'WS3_B3', 'WS3_B4', 'WS3_B5', 'WS3_B6', 'WS3_B7', 'WS3_B8', 'WS4_B1', 'WS4_B2', 'WS4_B3', 'WS4_B4', 'WS4_B5', 'WS5_B1', 'WS5_B2', 'WS5_B3', 'WS5_B4', 'WS5_B5', 'WS5_B6', 'WS5_B7', 'WS5_B8', 'WS5_B9', 'WS5_B10', 'WS5_B11', 'WS5_B12', 'WS5_B13', 'WS5_B14', 'WS5_B15', 'WS5_B16', 'WS5_B17', 'WS5_B18', 'WS5_B19', 'WS5_B20', 'WS5_B21', 'WS5_B22', 'WS5_B23', 'WS5_B24', 'WS5_B25', 'WS6_B1', 'WS6_B2', 'WS6_B3', 'WS6_B4', 'WS6_B5', 'WS6_B6', 'WS6_B7', 'WS6_B8', 'WS6_B9', 'WS6_B10', 'WS6_B11', 'WS6_B12', 'WS6_B13', 'WS7_1', 'WS7_2', 'WS7_3', 'WS7_4', 'WS7_P1_box1', 'WS7_P1_box2', 'WS7_P1_box3', 'WS7_B1', 'WS7_B2', 'WS7_B3', 'WS7_B4', 'WS7_B5', 'WS7_B6', 'WS7_B7', 'WS10_B1', 'WS10_B2', 'WS10_B3', 'WS10_B4', 'WS10_B5', 'WS10_B6', 'WS10_B7', 'WS10_B8', 'WS11_B1', 'WS11_B2', 'WS11_B3', 'WS11_B4', 'WS11_B5', 'WS11_B6', 'WS11_B7', 'WS11_B8a', 'WS11_B8b', 'WS11_B9', 'WS11_Q10_1', 'WS11_Q10_2', 'WS11_Q10_3', 'WS11_Q10_4', 'WS11_Q10_5', 'WS11_Q10_6', 'WS11_Q10_7', 'WS11_Q10_8', 'WS11_Q11_2', 'WS11_Q11_3', 'WS11_Q11_4', 'WS11_Q12_1', 'WS11_Q12_2', 'WS11_Q12_3', 'WS11_Q12_4', 'WS11_Q12_5', 'WS11_L10_1', 'WS11_L10_2', 'WS11_L10_3', 'WS11_L10_4', 'WS11_L10_5', 'WS11_L10_6', 'WS11_L10_7', 'WS11_L10_8', 'WS11_L11_1', 'WS11_L11_2', 'WS11_L11_3', 'WS11_L12_1', 'WS11_L12_2', 'WS11_L12_3', 'WS11_L12_4', 'WS11_L12_5']"
+    ],
+    "student_snapshot": {
+      "completion_rate": 1.0,
+      "engagement_level": "high",
+      "llm_observations": "Öğretmen adayı Nesne, Değişken, Özellik ve Etiket terimlerini diyagram üzerinde ve paragrafta doğru şekilde kullanmıştır. Karakteristik isimleri listesinde beklenen tüm besin öğeleri (doymuş yağ, karbonhidrat, şeker, protein, tuz) doğru yazılmıştır. Genel olarak terimler tutarlı ve doğru yerleştirilmiş görünmektedir.",
+      "page_quality_notes": "(bos)"
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

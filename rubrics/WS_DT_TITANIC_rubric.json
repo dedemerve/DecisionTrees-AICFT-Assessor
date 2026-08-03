@@ -1,0 +1,1430 @@
+{
+  "worksheet": "WS_DT_TITANIC",
+  "worksheet_id": "WS_DT_TITANIC",
+  "metadata": {
+    "title": "Ağaçlarla Tanı Koyma Çalışma Kâğıdı – Titanic",
+    "source_file": "Çalışma Kâğıdı Titanic - CEVAP ANAHTARI.docx",
+    "platform": "CODAP Arbor",
+    "target_grade": "Öğretmen adayları / Giriş düzeyi ML",
+    "total_blanks": 47,
+    "max_total_score": 47,
+    "item_range": "DTI_01 – DTI_47",
+    "structure": [
+      "VS1 Eğitim Veri Seti (DTI_01-DTI_09): Kök düğüm, female/male kutu, etiket, metrikler (Doğruluk/Duyarlılık/Özgüllük/Kesinlik/MCR)",
+      "VS1 Test Veri Seti (DTI_10-DTI_18): Kök, kutular, etiket, metrikler",
+      "VS1 Karşılaştırma (DTI_19-DTI_22): Eğitim–test farkı, over/underfitting yorumu",
+      "VS2 Eğitim Veri Seti (DTI_23-DTI_31): Kök, female/male kutu, etiket, metrikler",
+      "VS2 Test Veri Seti (DTI_32-DTI_40): Kök, kutular, etiket, metrikler",
+      "VS2 Karşılaştırma (DTI_41-DTI_44): Eğitim–test farkı, underfitting yorumu (tuzak sorular)",
+      "Genel Değerlendirme (DTI_45-DTI_47): İyi model ölçütü, test seti gerekliliği, tek metrik yeterliliği"
+    ]
+  },
+  "scoring_policy": {
+    "default_mode": "titanic_numeric_canonical",
+    "principle": "Titanic veri seti tüm öğrencilere aynı CSV olarak dağıtıldığından sayısal değerler sabit ve kanonik değerlerle karşılaştırılır. ±0,02 tolerans uygulanır.",
+    "regimes": {
+      "titanic_numeric": {
+        "description": "DTI_01-DTI_09, DTI_10-DTI_18, DTI_23-DTI_31, DTI_32-DTI_40 için geçerlidir. Değerler titanic_canonical bloğundaki değerlerle karşılaştırılır.",
+        "tolerance": "±0,02 (yuvarlama farkları kabul edilir)",
+        "operator_correction_policy": "VS2 test verisi için sınıf genelinde hayatta/öldü sütun karışıklığı tespit edilmiştir. Doğru kanonik değerler (209/85, 82/61, 127/24) kullanılır; OPERATOR_CORRECTED flag varsa formül yapısı orijinal öğrenci yazısına göre değerlendirilir."
+      },
+      "titanic_categorical": {
+        "description": "Etiket soruları (DTI_04, DTI_13, DTI_26, DTI_35). 'Female kutusunu pozitif' seçmek doğrudur (female = hayatta kalan çoğunluk)."
+      },
+      "interpretive": {
+        "description": "DTI_19-DTI_22, DTI_41-DTI_44, DTI_45-DTI_47 için geçerlidir. Bileşen tabanlı puanlanır.",
+        "scoring": "İfade biçimi serbesttir; kavram doğruysa Türkçe/İngilizce terim ve farklı örnekler kabul edilir.",
+        "partial": "'need' kadar gerekli bileşen varsa tam puan, 'partial_on' kadarında kısmi puan.",
+        "trap_questions": {
+          "DTI_43": "VS2 yorumunda VS1 verisiyle yanlış karşılaştırma tuzağı; öğrenci tuzağa düşmeden çelişkiyi fark ederse tam puan.",
+          "DTI_44": "Aynı tuzak – MCR bağlamında."
+        }
+      }
+    },
+    "ocr_tolerance": "El yazısı yanıtlar; noktalama, büyük/küçük harf, ondalık ayırıcı (virgül/nokta) ve yazım hataları göz ardı edilir."
+  },
+  "titanic_canonical": {
+    "note": "Tüm öğrencilere dağıtılan Titanic CSV'si sabittir. Tüm kanonik değerler bu veriden türetilmiştir.",
+    "egitim_veri_seti1": {
+      "label": "VS1 Eğitim – Pozitif kutu: Female (hayatta kalan)",
+      "root": 812,
+      "female": {
+        "total": 290,
+        "survived": 290,
+        "died": 0
+      },
+      "male": {
+        "total": 522,
+        "survived": 0,
+        "died": 522
+      },
+      "TP": 290,
+      "TN": 522,
+      "FP": 0,
+      "FN": 0,
+      "N": 812,
+      "metrics": {
+        "accuracy": 1.0,
+        "sensitivity": 1.0,
+        "specificity": 1.0,
+        "precision": 1.0,
+        "MCR": 0.0
+      }
+    },
+    "test_veri_seti1": {
+      "label": "VS1 Test – Pozitif kutu: Female (hayatta kalan)",
+      "root": 231,
+      "root_survived": 105,
+      "female": {
+        "total": 96,
+        "survived": 56,
+        "died": 40
+      },
+      "male": {
+        "total": 135,
+        "survived": 49,
+        "died": 86
+      },
+      "TP": 56,
+      "TN": 86,
+      "FP": 40,
+      "FN": 49,
+      "N": 231,
+      "metrics": {
+        "accuracy": 0.615,
+        "accuracy_fraction": "142/231",
+        "sensitivity": 0.533,
+        "sensitivity_fraction": "56/105",
+        "specificity": 0.683,
+        "specificity_fraction": "86/126",
+        "precision": 0.583,
+        "precision_fraction": "56/96",
+        "MCR": 0.385,
+        "MCR_fraction": "89/231"
+      }
+    },
+    "egitim_veri_seti2": {
+      "label": "VS2 Eğitim – Pozitif kutu: Female (hayatta kalan)",
+      "root": 834,
+      "root_survived": 456,
+      "female": {
+        "total": 304,
+        "survived": 128,
+        "died": 176
+      },
+      "male": {
+        "total": 530,
+        "survived": 328,
+        "died": 202
+      },
+      "TP": 128,
+      "TN": 202,
+      "FP": 176,
+      "FN": 328,
+      "N": 834,
+      "metrics": {
+        "accuracy": 0.396,
+        "accuracy_fraction": "330/834",
+        "sensitivity": 0.281,
+        "sensitivity_fraction": "128/456",
+        "specificity": 0.534,
+        "specificity_fraction": "202/378",
+        "precision": 0.421,
+        "precision_fraction": "128/304",
+        "MCR": 0.604,
+        "MCR_fraction": "504/834"
+      }
+    },
+    "test_veri_seti2": {
+      "label": "VS2 Test – Pozitif kutu: Female (hayatta kalan)",
+      "root": 209,
+      "root_survived": 85,
+      "female": {
+        "total": 82,
+        "survived": 61,
+        "died": 21
+      },
+      "male": {
+        "total": 127,
+        "survived": 24,
+        "died": 103
+      },
+      "TP": 61,
+      "TN": 103,
+      "FP": 21,
+      "FN": 24,
+      "N": 209,
+      "metrics": {
+        "accuracy": 0.785,
+        "accuracy_fraction": "164/209",
+        "sensitivity": 0.718,
+        "sensitivity_fraction": "61/85",
+        "specificity": 0.831,
+        "specificity_fraction": "103/124",
+        "precision": 0.744,
+        "precision_fraction": "61/82",
+        "MCR": 0.215,
+        "MCR_fraction": "45/209"
+      },
+      "class_swap_note": "Sınıf genelinde VS2 test verisinde hayatta/öldü sütunları karışık dağıtılmıştır. OPERATOR_CORRECTION bu veri seti için geçerlidir."
+    }
+  },
+  "equivalence_sets": {
+    "positive_label": [
+      "female",
+      "kadın",
+      "bayan",
+      "sol kutu",
+      "hayatta kalan"
+    ],
+    "survived_synonyms": [
+      "hayatta kaldı",
+      "kurtuldu",
+      "sağ kurtuldu"
+    ],
+    "died_synonyms": [
+      "öldü",
+      "hayatta kalmadı",
+      "vefat etti"
+    ],
+    "overfitting_synonyms": [
+      "aşırı öğrenme",
+      "ezberleme",
+      "overfitting"
+    ],
+    "underfitting_synonyms": [
+      "yetersiz öğrenme",
+      "düşük performans",
+      "underfitting"
+    ]
+  },
+  "items": {
+    "DTI_01": {
+      "printed_question": 1,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "VS1 Eğitim / Kök düğüm",
+      "prompt": "VS1 eğitim veri setinde kök düğüm kaç yolcuyu kapsar?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": 812,
+      "scoring_rules": {
+        "1.0": "812 yazılmışsa.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "812 yolcu; 290'ı hayatta",
+      "reference_answer": "812 yolcu; 290'ı hayatta"
+    },
+    "DTI_02": {
+      "printed_question": 2,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "VS1 Eğitim / Female kutu",
+      "prompt": "VS1 eğitim – female kutusunda kaç yolcu var? Kaçı hayatta kaldı?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": {
+        "total": 290,
+        "survived": 290
+      },
+      "scoring_rules": {
+        "1.0": "290 toplam, 290 hayatta (veya hepsi hayatta / %100) yazılmışsa.",
+        "0.5": "Toplamı doğru ama hayatta kalma sayısı eksik.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "290 kişi; 290'ı (tamamı) hayatta",
+      "reference_answer": "290 kişi; 290'ı (tamamı) hayatta"
+    },
+    "DTI_03": {
+      "printed_question": 3,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "VS1 Eğitim / Male kutu",
+      "prompt": "VS1 eğitim – male kutusunda kaç yolcu var? Kaçı hayatta kaldı?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": {
+        "total": 522,
+        "survived": 0
+      },
+      "scoring_rules": {
+        "1.0": "522 toplam, 0 hayatta (veya hepsi öldü) yazılmışsa.",
+        "0.5": "Toplamı doğru ama hayatta kalma sayısı eksik.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "522 kişi; 0'ı hayatta",
+      "reference_answer": "522 kişi; 0'ı hayatta"
+    },
+    "DTI_04": {
+      "printed_question": 4,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "VS1 Eğitim / Etiket",
+      "prompt": "VS1 eğitim ağacında hangi kutu pozitif etiketlendi?",
+      "max_score": 1,
+      "evaluation": "titanic_categorical",
+      "expected_answer": "female",
+      "equivalence": [
+        "female",
+        "kadın",
+        "sol kutu",
+        "female (hayatta kalan)"
+      ],
+      "scoring_rules": {
+        "1.0": "Female / kadın / sol kutu yazılmışsa.",
+        "0.0": "Male / sağ kutu veya boş."
+      },
+      "example_answer": "Female (kadın) kutusu",
+      "reference_answer": "Female (kadın) kutusu"
+    },
+    "DTI_05": {
+      "printed_question": 5,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "VS1 Eğitim / Doğruluk",
+      "prompt": "VS1 eğitim – Doğruluk adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "(TP+TN)/N = (290+522)/812",
+      "expected_answer": 1.0,
+      "scoring_rules": {
+        "1.0": "Formül (290+522)/812 veya eşdeğeri ve sonuç 1,00 yazılmışsa.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "(290+522)/812 = 812/812 = 1,00 (%100)",
+      "reference_answer": "(290+522)/812 = 812/812 = 1,00 (%100)"
+    },
+    "DTI_06": {
+      "printed_question": 6,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "VS1 Eğitim / Duyarlılık",
+      "prompt": "VS1 eğitim – Duyarlılık adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TP/(TP+FN) = 290/(290+0)",
+      "expected_answer": 1.0,
+      "scoring_rules": {
+        "1.0": "Formül 290/(290+0) veya eşdeğeri ve sonuç 1,00 yazılmışsa.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "290/(290+0) = 290/290 = 1,00 (%100)",
+      "reference_answer": "290/(290+0) = 290/290 = 1,00 (%100)"
+    },
+    "DTI_07": {
+      "printed_question": 7,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "VS1 Eğitim / Özgüllük",
+      "prompt": "VS1 eğitim – Özgüllük adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TN/(TN+FP) = 522/(522+0)",
+      "expected_answer": 1.0,
+      "scoring_rules": {
+        "1.0": "Formül 522/(522+0) veya eşdeğeri ve sonuç 1,00 yazılmışsa.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "522/(522+0) = 522/522 = 1,00 (%100)",
+      "reference_answer": "522/(522+0) = 522/522 = 1,00 (%100)"
+    },
+    "DTI_08": {
+      "printed_question": 8,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "VS1 Eğitim / Kesinlik",
+      "prompt": "VS1 eğitim – Kesinlik adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TP/(TP+FP) = 290/(290+0)",
+      "expected_answer": 1.0,
+      "scoring_rules": {
+        "1.0": "Formül 290/(290+0) veya eşdeğeri ve sonuç 1,00 yazılmışsa.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "290/(290+0) = 290/290 = 1,00 (%100)",
+      "reference_answer": "290/(290+0) = 290/290 = 1,00 (%100)"
+    },
+    "DTI_09": {
+      "printed_question": 9,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "VS1 Eğitim / MCR",
+      "prompt": "VS1 eğitim – MCR adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "(FP+FN)/N = (0+0)/812",
+      "expected_answer": 0.0,
+      "scoring_rules": {
+        "1.0": "Formül (0+0)/812 veya eşdeğeri ve sonuç 0 yazılmışsa.",
+        "0.5": "Formül yapısı doğru ama payda yanlış (ör. 522 yazılmış); sonuç yine 0.",
+        "0.0": "Yanlış formül veya sonuç ya da boş."
+      },
+      "example_answer": "(0+0)/812 = 0 (%0)",
+      "reference_answer": "(0+0)/812 = 0 (%0)"
+    },
+    "DTI_10": {
+      "printed_question": 10,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Test / Kök düğüm",
+      "prompt": "VS1 test veri setinde kök düğüm kaç yolcuyu kapsar? Kaçı hayatta kaldı?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": {
+        "root": 231,
+        "survived": 105
+      },
+      "scoring_rules": {
+        "1.0": "231 toplam (105 hayatta veya 105 sağ kurtulan) yazılmışsa.",
+        "0.5": "Sadece 231 yazılmış, hayatta kalma sayısı eksik.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "231 yolcu; 105'i hayatta",
+      "reference_answer": "231 yolcu; 105'i hayatta"
+    },
+    "DTI_11": {
+      "printed_question": 11,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Test / Female kutu",
+      "prompt": "VS1 test – female kutusunda kaç yolcu var? Kaçı hayatta kaldı?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": {
+        "total": 96,
+        "survived": 56
+      },
+      "scoring_rules": {
+        "1.0": "96 toplam, 56 hayatta yazılmışsa.",
+        "0.5": "Bir değer doğru diğeri eksik/yanlış.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "96 kişi; 56'sı hayatta",
+      "reference_answer": "96 kişi; 56'sı hayatta"
+    },
+    "DTI_12": {
+      "printed_question": 12,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Test / Male kutu",
+      "prompt": "VS1 test – male kutusunda kaç yolcu var? Kaçı hayatta kaldı?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": {
+        "total": 135,
+        "survived": 49
+      },
+      "scoring_rules": {
+        "1.0": "135 toplam, 49 hayatta yazılmışsa.",
+        "0.5": "Bir değer doğru diğeri eksik/yanlış.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "135 kişi; 49'u hayatta",
+      "reference_answer": "135 kişi; 49'u hayatta"
+    },
+    "DTI_13": {
+      "printed_question": 13,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Test / Etiket",
+      "prompt": "VS1 test ağacında hangi kutu pozitif etiketlendi?",
+      "max_score": 1,
+      "evaluation": "titanic_categorical",
+      "expected_answer": "female",
+      "equivalence": [
+        "female",
+        "kadın",
+        "sol kutu"
+      ],
+      "scoring_rules": {
+        "1.0": "Female / kadın / sol kutu yazılmışsa.",
+        "0.0": "Male / sağ kutu veya boş."
+      },
+      "example_answer": "Female (kadın) kutusu",
+      "reference_answer": "Female (kadın) kutusu"
+    },
+    "DTI_14": {
+      "printed_question": 14,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Test / Doğruluk",
+      "prompt": "VS1 test – Doğruluk adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "(TP+TN)/N = (56+86)/231",
+      "expected_answer": 0.615,
+      "scoring_rules": {
+        "1.0": "Formül (56+86)/231 veya eşdeğeri; sonuç ~0,61–0,62 aralığında.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "(56+86)/231 = 142/231 = 0,615 (%61,5)",
+      "reference_answer": "(56+86)/231 = 142/231 = 0,615 (%61,5)"
+    },
+    "DTI_15": {
+      "printed_question": 15,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Test / Duyarlılık",
+      "prompt": "VS1 test – Duyarlılık adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TP/(TP+FN) = 56/(56+49)",
+      "expected_answer": 0.533,
+      "scoring_rules": {
+        "1.0": "Formül 56/(56+49) veya eşdeğeri; sonuç ~0,53–0,54 aralığında.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "56/(56+49) = 56/105 = 0,533 (%53,3)",
+      "reference_answer": "56/(56+49) = 56/105 = 0,533 (%53,3)"
+    },
+    "DTI_16": {
+      "printed_question": 16,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Test / Özgüllük",
+      "prompt": "VS1 test – Özgüllük adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TN/(TN+FP) = 86/(86+40)",
+      "expected_answer": 0.683,
+      "scoring_rules": {
+        "1.0": "Formül 86/(86+40) veya eşdeğeri; sonuç ~0,68–0,69 aralığında.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "86/(86+40) = 86/126 = 0,683 (%68,3)",
+      "reference_answer": "86/(86+40) = 86/126 = 0,683 (%68,3)"
+    },
+    "DTI_17": {
+      "printed_question": 17,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Test / Kesinlik",
+      "prompt": "VS1 test – Kesinlik adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TP/(TP+FP) = 56/(56+40)",
+      "expected_answer": 0.583,
+      "scoring_rules": {
+        "1.0": "Formül 56/(56+40) veya eşdeğeri; sonuç ~0,58–0,59 aralığında.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "56/(56+40) = 56/96 = 0,583 (%58,3)",
+      "reference_answer": "56/(56+40) = 56/96 = 0,583 (%58,3)"
+    },
+    "DTI_18": {
+      "printed_question": 18,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Test / MCR",
+      "prompt": "VS1 test – MCR adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "(FP+FN)/N = (40+49)/231",
+      "expected_answer": 0.385,
+      "scoring_rules": {
+        "1.0": "Formül (40+49)/231 veya eşdeğeri; sonuç ~0,38–0,39 aralığında.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "(40+49)/231 = 89/231 = 0,385 (%38,5)",
+      "reference_answer": "(40+49)/231 = 89/231 = 0,385 (%38,5)"
+    },
+    "DTI_19": {
+      "printed_question": 19,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Karşılaştırma / Eğitim-test farkı",
+      "prompt": "VS1 eğitim ve test metriklerini karşılaştırınca ne söylenebilir?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "perf_drop",
+          "idea": "eğitim setinde tüm metrikler 1,0 iken test setinde düştüğünü belirtir",
+          "required": true
+        },
+        {
+          "id": "overfit_hint",
+          "idea": "bu farkın modelin eğitim verisini ezberleyip genelleme yapamadığına işaret ettiğini (overfitting) söyler",
+          "required": false
+        }
+      ],
+      "need": 1,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "example_answer": "Evet, büyük bir fark var. Eğitimde doğruluk %100 iken testte %61,5'e düşüyor. Model, cinsiyetin hayatta kalmayı kusursuz ayırdığı eğitim setini ezberledi, ancak bu kural görülmemiş test verisinde bu kadar iyi genellemiyor.",
+      "reference_answer": "Evet, büyük bir fark var. Eğitimde doğruluk %100 iken testte %61,5'e düşüyor. Model, cinsiyetin hayatta kalmayı kusursuz ayırdığı eğitim setini ezberledi, ancak bu kural görülmemiş test verisinde bu kadar iyi genellemiyor."
+    },
+    "DTI_20": {
+      "printed_question": 20,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Karşılaştırma / Overfitting açıklaması",
+      "prompt": "Bu duruma (eğitim iyi, test kötü) ne ad verilir? Açıklayınız.",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "overfit_name",
+          "idea": "overfitting / aşırı öğrenme / ezberleme adını verir",
+          "required": true
+        },
+        {
+          "id": "overfit_def",
+          "idea": "modelin eğitim verisini ezberleyip yeni verilere genelleme yapamadığını açıklar",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "example_answer": "Aşırı öğrenme (overfitting), modelin eğitim verisini ezberleyip yeni/görülmemiş veride başarısız olmasıdır. Burada eğitim seti 1'de cinsiyet, hayatta kalmayı %100 ayırdığı için ağaç eğitimde kusursuz göründü, fakat test setinde kadın-erkek hayatta kalma ilişkisi bu kadar keskin olmadığından başarı belirgin biçimde düştü.",
+      "reference_answer": "Aşırı öğrenme (overfitting), modelin eğitim verisini ezberleyip yeni/görülmemiş veride başarısız olmasıdır. Burada eğitim seti 1'de cinsiyet, hayatta kalmayı %100 ayırdığı için ağaç eğitimde kusursuz göründü, fakat test setinde kadın-erkek hayatta kalma ilişkisi bu kadar keskin olmadığından başarı belirgin biçimde düştü."
+    },
+    "DTI_21": {
+      "printed_question": 21,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Karşılaştırma / Overfitting etkisi",
+      "prompt": "Overfitting modelin performansını nasıl etkiler?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "perf_effect",
+          "idea": "test/gerçek dünya performansını düşürür; eğitimde yüksek ama test/gerçekte düşük",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Eğitimde duyarlılık %100 iken testte %53,3'e düşmüştür. Model gerçekten hayatta kalanların eğitimde tamamını, testte ise ancak yarısını yakalayabilmiştir, bu, genelleme başarısının zayıf olduğunu (aşırı öğrenme) gösterir.",
+      "reference_answer": "Eğitimde duyarlılık %100 iken testte %53,3'e düşmüştür. Model gerçekten hayatta kalanların eğitimde tamamını, testte ise ancak yarısını yakalayabilmiştir, bu, genelleme başarısının zayıf olduğunu (aşırı öğrenme) gösterir."
+    },
+    "DTI_22": {
+      "printed_question": 22,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "VS1 Karşılaştırma / Genel yorum",
+      "prompt": "Bu modeli genel olarak nasıl değerlendirirsiniz?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "overall",
+          "idea": "modelin genelleme yapamadığını / sadece eğitimde iyi olduğunu vurgular; iyileştirme önerir",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Eğitimde MCR %0 iken testte %38,5'e çıkmıştır. Yeni veride yaklaşık her üç tahminden biri yanlıştır, model eğitimdeki kusursuzluğunu test verisine taşıyamamıştır (aşırı öğrenme).",
+      "reference_answer": "Eğitimde MCR %0 iken testte %38,5'e çıkmıştır. Yeni veride yaklaşık her üç tahminden biri yanlıştır, model eğitimdeki kusursuzluğunu test verisine taşıyamamıştır (aşırı öğrenme)."
+    },
+    "DTI_23": {
+      "printed_question": 23,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "VS2 Eğitim / Kök düğüm",
+      "prompt": "VS2 eğitim veri setinde kök düğüm kaç yolcuyu kapsar? Kaçı hayatta kaldı?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": {
+        "root": 834,
+        "survived": 456
+      },
+      "scoring_rules": {
+        "1.0": "834 toplam (456 hayatta) yazılmışsa.",
+        "0.5": "Sadece 834 yazılmış ya da ikisinden biri doğru.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "834 yolcu; 456'sı hayatta",
+      "reference_answer": "834 yolcu; 456'sı hayatta"
+    },
+    "DTI_24": {
+      "printed_question": 24,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "VS2 Eğitim / Female kutu",
+      "prompt": "VS2 eğitim – female kutusunda kaç yolcu var? Kaçı hayatta kaldı?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": {
+        "total": 304,
+        "survived": 128
+      },
+      "scoring_rules": {
+        "1.0": "304 toplam, 128 hayatta yazılmışsa.",
+        "0.5": "Bir değer doğru diğeri eksik/yanlış.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "304 kişi; 128'i hayatta",
+      "reference_answer": "304 kişi; 128'i hayatta"
+    },
+    "DTI_25": {
+      "printed_question": 25,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "VS2 Eğitim / Male kutu",
+      "prompt": "VS2 eğitim – male kutusunda kaç yolcu var? Kaçı hayatta kaldı?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": {
+        "total": 530,
+        "survived": 328
+      },
+      "scoring_rules": {
+        "1.0": "530 toplam, 328 hayatta yazılmışsa.",
+        "0.5": "Bir değer doğru diğeri eksik/yanlış.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "530 kişi; 328'i hayatta",
+      "reference_answer": "530 kişi; 328'i hayatta"
+    },
+    "DTI_26": {
+      "printed_question": 26,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "VS2 Eğitim / Etiket",
+      "prompt": "VS2 eğitim ağacında hangi kutu pozitif etiketlendi?",
+      "max_score": 1,
+      "evaluation": "titanic_categorical",
+      "expected_answer": "female",
+      "equivalence": [
+        "female",
+        "kadın",
+        "sol kutu"
+      ],
+      "scoring_rules": {
+        "1.0": "Female / kadın / sol kutu yazılmışsa.",
+        "0.0": "Male / sağ kutu veya boş."
+      },
+      "example_answer": "Female (kadın) kutusu",
+      "reference_answer": "Female (kadın) kutusu"
+    },
+    "DTI_27": {
+      "printed_question": 27,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "VS2 Eğitim / Doğruluk",
+      "prompt": "VS2 eğitim – Doğruluk adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "(TP+TN)/N = (128+202)/834",
+      "expected_answer": 0.396,
+      "scoring_rules": {
+        "1.0": "Formül (128+202)/834 veya eşdeğeri; sonuç ~0,39–0,40 aralığında.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "(128+202)/834 = 330/834 = 0,396 (%39,6)",
+      "reference_answer": "(128+202)/834 = 330/834 = 0,396 (%39,6)"
+    },
+    "DTI_28": {
+      "printed_question": 28,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "VS2 Eğitim / Duyarlılık",
+      "prompt": "VS2 eğitim – Duyarlılık adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TP/(TP+FN) = 128/(128+328)",
+      "expected_answer": 0.281,
+      "scoring_rules": {
+        "1.0": "Formül 128/(128+328) veya eşdeğeri; sonuç ~0,28–0,29 aralığında.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "128/(128+328) = 128/456 = 0,281 (%28,1)",
+      "reference_answer": "128/(128+328) = 128/456 = 0,281 (%28,1)"
+    },
+    "DTI_29": {
+      "printed_question": 29,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "VS2 Eğitim / Özgüllük",
+      "prompt": "VS2 eğitim – Özgüllük adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TN/(TN+FP) = 202/(202+176)",
+      "expected_answer": 0.534,
+      "scoring_rules": {
+        "1.0": "Formül 202/(202+176) veya eşdeğeri; sonuç ~0,53–0,54 aralığında.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "202/(202+176) = 202/378 = 0,534 (%53,4)",
+      "reference_answer": "202/(202+176) = 202/378 = 0,534 (%53,4)"
+    },
+    "DTI_30": {
+      "printed_question": 30,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "VS2 Eğitim / Kesinlik",
+      "prompt": "VS2 eğitim – Kesinlik adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TP/(TP+FP) = 128/(128+176)",
+      "expected_answer": 0.421,
+      "scoring_rules": {
+        "1.0": "Formül 128/(128+176) veya eşdeğeri; sonuç ~0,42–0,43 aralığında.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "128/(128+176) = 128/304 = 0,421 (%42,1)",
+      "reference_answer": "128/(128+176) = 128/304 = 0,421 (%42,1)"
+    },
+    "DTI_31": {
+      "printed_question": 31,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "VS2 Eğitim / MCR",
+      "prompt": "VS2 eğitim – MCR adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "(FP+FN)/N = (176+328)/834",
+      "expected_answer": 0.604,
+      "scoring_rules": {
+        "1.0": "Formül (176+328)/834 veya eşdeğeri; sonuç ~0,60–0,61 aralığında.",
+        "0.5": "Formül doğru ama işlem hatası; ya da yalnızca sonuç.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "(176+328)/834 = 504/834 = 0,604 (%60,4)",
+      "reference_answer": "(176+328)/834 = 504/834 = 0,604 (%60,4)"
+    },
+    "DTI_32": {
+      "printed_question": 32,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "VS2 Test / Kök düğüm",
+      "prompt": "VS2 test veri setinde kök düğüm kaç yolcuyu kapsar? Kaçı hayatta kaldı?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": {
+        "root": 209,
+        "survived": 85
+      },
+      "operator_correction_applicable": true,
+      "scoring_rules": {
+        "1.0": "209 toplam, 85 hayatta yazılmışsa (veya OPERATOR_CORRECTED dosyada 85 güncel değer kullanılmışsa).",
+        "0.5": "Sadece 209 yazılmış.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "209 yolcu; 85'i hayatta",
+      "reference_answer": "209 yolcu; 85'i hayatta"
+    },
+    "DTI_33": {
+      "printed_question": 33,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "VS2 Test / Female kutu",
+      "prompt": "VS2 test – female kutusunda kaç yolcu var? Kaçı hayatta kaldı?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": {
+        "total": 82,
+        "survived": 61
+      },
+      "operator_correction_applicable": true,
+      "scoring_rules": {
+        "1.0": "82 toplam, 61 hayatta yazılmışsa.",
+        "0.5": "Bir değer doğru diğeri eksik/yanlış.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "82 kişi; 61'i hayatta",
+      "reference_answer": "82 kişi; 61'i hayatta"
+    },
+    "DTI_34": {
+      "printed_question": 34,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "VS2 Test / Male kutu",
+      "prompt": "VS2 test – male kutusunda kaç yolcu var? Kaçı hayatta kaldı?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "expected_answer": {
+        "total": 127,
+        "survived": 24
+      },
+      "operator_correction_applicable": true,
+      "scoring_rules": {
+        "1.0": "127 toplam, 24 hayatta yazılmışsa.",
+        "0.5": "Bir değer doğru diğeri eksik/yanlış.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "127 kişi; 24'ü hayatta",
+      "reference_answer": "127 kişi; 24'ü hayatta"
+    },
+    "DTI_35": {
+      "printed_question": 35,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "VS2 Test / Etiket",
+      "prompt": "VS2 test ağacında hangi kutu pozitif etiketlendi?",
+      "max_score": 1,
+      "evaluation": "titanic_categorical",
+      "expected_answer": "female",
+      "equivalence": [
+        "female",
+        "kadın",
+        "sol kutu"
+      ],
+      "scoring_rules": {
+        "1.0": "Female / kadın / sol kutu yazılmışsa.",
+        "0.0": "Male / sağ kutu veya boş."
+      },
+      "example_answer": "Female (kadın) kutusu",
+      "reference_answer": "Female (kadın) kutusu"
+    },
+    "DTI_36": {
+      "printed_question": 36,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "VS2 Test / Doğruluk",
+      "prompt": "VS2 test – Doğruluk adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "(TP+TN)/N = (61+103)/209",
+      "expected_answer": 0.785,
+      "operator_correction_applicable": true,
+      "scoring_rules": {
+        "1.0": "Formül (61+103)/209 veya eşdeğeri; sonuç ~0,78–0,79 aralığında. OPERATOR_CORRECTED durumda öğrencinin kendi (yanlış) sayılarıyla formül yapısını doğru kurmuşsa da kabul.",
+        "0.5": "Formül yapısı doğru ama sayılar/işlem hatası.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "(61+103)/209 = 164/209 = 0,785 (%78,5)",
+      "reference_answer": "(61+103)/209 = 164/209 = 0,785 (%78,5)"
+    },
+    "DTI_37": {
+      "printed_question": 37,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "VS2 Test / Duyarlılık",
+      "prompt": "VS2 test – Duyarlılık adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TP/(TP+FN) = 61/(61+24)",
+      "expected_answer": 0.718,
+      "operator_correction_applicable": true,
+      "scoring_rules": {
+        "1.0": "Formül 61/(61+24) veya eşdeğeri; sonuç ~0,71–0,72 aralığında.",
+        "0.5": "Formül yapısı doğru ama sayılar/işlem hatası.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "61/(61+24) = 61/85 = 0,718 (%71,8)",
+      "reference_answer": "61/(61+24) = 61/85 = 0,718 (%71,8)"
+    },
+    "DTI_38": {
+      "printed_question": 38,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "VS2 Test / Özgüllük",
+      "prompt": "VS2 test – Özgüllük adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TN/(TN+FP) = 103/(103+21)",
+      "expected_answer": 0.831,
+      "operator_correction_applicable": true,
+      "scoring_rules": {
+        "1.0": "Formül 103/(103+21) veya eşdeğeri; sonuç ~0,83–0,84 aralığında.",
+        "0.5": "Formül yapısı doğru ama sayılar/işlem hatası.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "103/(103+21) = 103/124 = 0,831 (%83,1)",
+      "reference_answer": "103/(103+21) = 103/124 = 0,831 (%83,1)"
+    },
+    "DTI_39": {
+      "printed_question": 39,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "VS2 Test / Kesinlik",
+      "prompt": "VS2 test – Kesinlik adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "TP/(TP+FP) = 61/(61+21)",
+      "expected_answer": 0.744,
+      "operator_correction_applicable": true,
+      "scoring_rules": {
+        "1.0": "Formül 61/(61+21) veya eşdeğeri; sonuç ~0,74–0,75 aralığında.",
+        "0.5": "Formül yapısı doğru ama sayılar/işlem hatası.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "61/(61+21) = 61/82 = 0,744 (%74,4)",
+      "reference_answer": "61/(61+21) = 61/82 = 0,744 (%74,4)"
+    },
+    "DTI_40": {
+      "printed_question": 40,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "VS2 Test / MCR",
+      "prompt": "VS2 test – MCR adım adım hesap",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "formula": "(FP+FN)/N = (21+24)/209",
+      "expected_answer": 0.215,
+      "operator_correction_applicable": true,
+      "scoring_rules": {
+        "1.0": "Formül (21+24)/209 veya eşdeğeri; sonuç ~0,21–0,22 aralığında.",
+        "0.5": "Formül yapısı doğru ama sayılar/işlem hatası.",
+        "0.0": "Yanlış veya boş."
+      },
+      "example_answer": "(21+24)/209 = 45/209 = 0,215 (%21,5)",
+      "reference_answer": "(21+24)/209 = 45/209 = 0,215 (%21,5)"
+    },
+    "DTI_41": {
+      "printed_question": 41,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "VS2 Karşılaştırma / Eğitim-test farkı",
+      "prompt": "VS2 eğitim ve test metriklerini karşılaştırınca ne söylenebilir? Underfitting mi overfitting mi?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "underfit_name",
+          "idea": "underfitting / yetersiz öğrenme adını verir",
+          "required": true
+        },
+        {
+          "id": "underfit_def",
+          "idea": "hem eğitim hem test setinde düşük performansı underfitting ile ilişkilendirir",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "example_answer": "Evet, fark vardır. Eğitim seti 2'de cinsiyet-hayatta kalma ilişkisi zayıf (hatta ters) olduğundan sabit 'kadın=hayatta' kuralı eğitim verisine bile uymamış ve eğitim doğruluğu %39,6'da kalmıştır. Model, veriyi eğitim aşamasında bile yeterince öğrenememiştir (eksik/zayıf model = underfitting).",
+      "reference_answer": "Evet, fark vardır. Eğitim seti 2'de cinsiyet-hayatta kalma ilişkisi zayıf (hatta ters) olduğundan sabit 'kadın=hayatta' kuralı eğitim verisine bile uymamış ve eğitim doğruluğu %39,6'da kalmıştır. Model, veriyi eğitim aşamasında bile yeterince öğrenememiştir (eksik/zayıf model = underfitting)."
+    },
+    "DTI_42": {
+      "printed_question": 42,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "VS2 Karşılaştırma / Underfitting açıklaması",
+      "prompt": "Underfitting nedir? Bu veri setinde neden gerçekleşiyor?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "underfit_def",
+          "idea": "modelin veriyi yeterince öğrenemediğini, hem eğitim hem test setinde hata yaptığını açıklar",
+          "required": true
+        },
+        {
+          "id": "reason",
+          "idea": "modelin çok basit / değişkenlerin çok karmaşık / ağacın yetersiz derinlikte olduğunu belirtir",
+          "required": false
+        }
+      ],
+      "need": 1,
+      "example_answer": "Yetersiz uyum (underfitting), modelin verideki temel ilişkiyi kavrayamayacak kadar basit kalması ve bu yüzden hem eğitim hem de test verisinde yüksek hata (düşük başarı) göstermesidir. Bu senaryoda ağaç yalnızca cinsiyet (tek bir değişken) üzerinden karar veriyor, ancak eğitim seti 2'de hayatta kalma ile cinsiyet arasındaki ilişki zayıf/karışık olduğundan bu tek kural yetersiz kalıyor. Model eğitim verisinde bile doğruluğu %39,6'da bırakarak örüntüyü öğrenememiştir, yani ağaç fazla basit olduğu için eksik öğrenme (underfitting) gerçekleşmiştir.",
+      "reference_answer": "Yetersiz uyum (underfitting), modelin verideki temel ilişkiyi kavrayamayacak kadar basit kalması ve bu yüzden hem eğitim hem de test verisinde yüksek hata (düşük başarı) göstermesidir. Bu senaryoda ağaç yalnızca cinsiyet (tek bir değişken) üzerinden karar veriyor, ancak eğitim seti 2'de hayatta kalma ile cinsiyet arasındaki ilişki zayıf/karışık olduğundan bu tek kural yetersiz kalıyor. Model eğitim verisinde bile doğruluğu %39,6'da bırakarak örüntüyü öğrenememiştir, yani ağaç fazla basit olduğu için eksik öğrenme (underfitting) gerçekleşmiştir."
+    },
+    "DTI_43": {
+      "printed_question": 43,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "VS2 Tuzak Soru / VS1 karşılaştırma tuzağı",
+      "prompt": "VS2 test, VS1 test ile karşılaştırıldığında duyarlılık nasıl değişti? (Tuzak: VS1 test duyarlılığı ~0,53, VS2 test ~0,72; VS2 eğitimde ise ~0,28)",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "trap": true,
+      "trap_explanation": "Soru VS2 yorumunu VS1 bağlamıyla yaptırmak ister. VS2 test duyarlılığı VS1 test duyarlılığından (~0,53) yüksektir (~0,72). Ancak VS2 eğitim duyarlılığı çok düşüktür (~0,28). Doğru yanıt: VS2 test, VS2 eğitime göre daha iyi; fakat VS1'e kıyasla yorum bağlama göre değişir.",
+      "components": [
+        {
+          "id": "correct_comparison",
+          "idea": "VS2 test duyarlılığının VS2 eğitim duyarlılığından yüksek olduğunu fark eder (0,72 > 0,28)",
+          "required": true
+        },
+        {
+          "id": "context_awareness",
+          "idea": "VS1 ile VS2'nin farklı veri setleri olduğunu; doğrudan karşılaştırmanın yanıltıcı olabileceğini belirtir",
+          "required": false
+        }
+      ],
+      "need": 1,
+      "example_answer": "Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde duyarlılık %28,1 gibi çok düşük bir değerdedir. Sabit cinsiyet kuralı, eğitim seti 2'nin örüntüsünü yakalayamamıştır, yani model gerçek hastaların/hayatta kalanların çoğunu kaçırmıştır. Bu, aşırı öğrenmenin değil, eksik öğrenmenin (underfitting) göstergesidir.",
+      "reference_answer": "Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde duyarlılık %28,1 gibi çok düşük bir değerdedir. Sabit cinsiyet kuralı, eğitim seti 2'nin örüntüsünü yakalayamamıştır, yani model gerçek hastaların/hayatta kalanların çoğunu kaçırmıştır. Bu, aşırı öğrenmenin değil, eksik öğrenmenin (underfitting) göstergesidir.",
+      "trap_question": true,
+      "note": "TUZAK SORU: soru kökü VS1 (overfitting) senaryosundan kopyalanmıştır; VS2 gerçeği tersidir. Çelişkiyi fark edip underfitting olarak yorumlayan tam puan."
+    },
+    "DTI_44": {
+      "printed_question": 44,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "VS2 Tuzak Soru / MCR karşılaştırma tuzağı",
+      "prompt": "VS2 MCR, VS1 MCR ile karşılaştırıldığında nasıl değişti? (Tuzak: VS2 eğitim MCR ~0,60, VS2 test MCR ~0,21; VS1 test MCR ~0,38)",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "trap": true,
+      "trap_explanation": "VS2 test MCR (~0,21) VS2 eğitim MCR'dan (~0,60) düşük; yani test seti eğitime göre 'daha iyi' görünüyor. Bu underfitting ile tutarlı değil gibi görünse de VS2'nin aşırı basit modelinin farklı dağılımlarda şansla iyi sonuç verdiği bir durumdur.",
+      "components": [
+        {
+          "id": "correct_direction",
+          "idea": "VS2 test MCR'ın VS2 eğitim MCR'dan düşük olduğunu fark eder",
+          "required": true
+        },
+        {
+          "id": "interpretation",
+          "idea": "bu durumun underfitting ile çelişkili göründüğünü ama veri seti farklılığından kaynaklandığını yorumlar",
+          "required": false
+        }
+      ],
+      "need": 1,
+      "example_answer": "Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde MCR %60,4 gibi çok yüksektir, yani model eğitim verisinde bile tahminlerin çoğunu yanlış yapmıştır. Bu yüksek eğitim hatası, modelin veriyi öğrenemediğini (eksik öğrenme / underfitting) gösterir.",
+      "reference_answer": "Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde MCR %60,4 gibi çok yüksektir, yani model eğitim verisinde bile tahminlerin çoğunu yanlış yapmıştır. Bu yüksek eğitim hatası, modelin veriyi öğrenemediğini (eksik öğrenme / underfitting) gösterir.",
+      "trap_question": true,
+      "note": "TUZAK SORU: soru kökü VS1 (overfitting) senaryosundan kopyalanmıştır; VS2 gerçeği tersidir. Çelişkiyi fark edip underfitting olarak yorumlayan tam puan."
+    },
+    "DTI_45": {
+      "printed_question": 45,
+      "section": "Titanic",
+      "dataset": null,
+      "region": "Genel / İyi model ölçütü",
+      "prompt": "Bir modelin 'iyi' kabul edilmesi için metriklerinin nasıl olması gerekir?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "both_sets",
+          "idea": "hem eğitim hem test setinde iyi/yüksek metrikler olması gerektiğini belirtir",
+          "required": true
+        },
+        {
+          "id": "balanced",
+          "idea": "metrikler arasında dengenin önemli olduğunu vurgular (sadece doğruluk yetmez)",
+          "required": false
+        }
+      ],
+      "need": 1,
+      "example_answer": "İyi bir model hem eğitim hem test setinde yüksek ve birbirine yakın metrikler verir: doğruluk, duyarlılık ve özgüllük yüksek, MCR düşük olmalıdır. Eğitim ile test performansı arasındaki fark küçük olmalıdır (ne aşırı ne eksik öğrenme).",
+      "reference_answer": "İyi bir model hem eğitim hem test setinde yüksek ve birbirine yakın metrikler verir: doğruluk, duyarlılık ve özgüllük yüksek, MCR düşük olmalıdır. Eğitim ile test performansı arasındaki fark küçük olmalıdır (ne aşırı ne eksik öğrenme)."
+    },
+    "DTI_46": {
+      "printed_question": 46,
+      "section": "Titanic",
+      "dataset": null,
+      "region": "Genel / Test seti gerekliliği",
+      "prompt": "Neden sadece eğitim setine bakmak yeterli değil?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "generalization",
+          "idea": "eğitim başarısının genelleme gücünü garantilemediğini belirtir",
+          "required": true
+        },
+        {
+          "id": "new_data",
+          "idea": "modelin yeni/görülmemiş verilerle nasıl çalışacağını test seti ölçer, der",
+          "required": false
+        }
+      ],
+      "need": 1,
+      "example_answer": "Yalnızca eğitim metrikleri modelin ezberleyip ezberlemediğini göstermez. Eğitim seti 1'de %100 doğruluk aldık ama test %61,5'e düşüyor (aşırı öğrenme). Modelin gerçek başarıysa ancak görülmemiş test verisiyle anlaşılır.",
+      "reference_answer": "Yalnızca eğitim metrikleri modelin ezberleyip ezberlemediğini göstermez. Eğitim seti 1'de %100 doğruluk aldık ama test %61,5'e düşüyor (aşırı öğrenme). Modelin gerçek başarıysa ancak görülmemiş test verisiyle anlaşılır."
+    },
+    "DTI_47": {
+      "printed_question": 47,
+      "section": "Titanic",
+      "dataset": null,
+      "region": "Genel / Tek metrik yeterliliği",
+      "prompt": "Tek bir metriğe bakarak karar vermek yeterli midir? Neden?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "no",
+          "idea": "tek metrik yeterli değildir der",
+          "required": true
+        },
+        {
+          "id": "why",
+          "idea": "farklı metriklerin farklı boyutları ölçtüğünü; FP/FN gibi hataların tek metrikle görülemeyeceğini açıklar",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "example_answer": "Hayır. Tek bir metrik (örn. doğruluk) yanıltıcı olabilir, özellikle sınıflar dengesizse. Yüksek doğruluk, düşük duyarlılıkla bir arada olabilir. Bu yüzden doğruluk, duyarlılık, özgüllük, kesinlik ve MCR birlikte değerlendirilmelidir.",
+      "reference_answer": "Hayır. Tek bir metrik (örn. doğruluk) yanıltıcı olabilir, özellikle sınıflar dengesizse. Yüksek doğruluk, düşük duyarlılıkla bir arada olabilir. Bu yüzden doğruluk, duyarlılık, özgüllük, kesinlik ve MCR birlikte değerlendirilmelidir."
+    }
+  },
+  "item_count": 47,
+  "validation_schema": {
+    "item_checks": {
+      "description": "Her DTI için is_correct ve error_flag; Titanic sayısal alanlar kanonik değerlerle ±0,02 toleransla karşılaştırılır.",
+      "error_flags": [
+        "BLANK",
+        "NUMERIC_TOLERANCE",
+        "UNPARSEABLE",
+        "TRAP_NOT_RECOGNIZED",
+        "MISSING_COMPONENT",
+        "READING_ERROR"
+      ]
+    },
+    "titanic_numeric_checks": "vs1_egitim/test ve vs2_egitim/test metrik anahtarları",
+    "trap_question_check": [
+      "DTI_43",
+      "DTI_44"
+    ],
+    "titanic_reading_errors": "OPERATOR_CORRECTED hayatta/öldü swap ve kök okuma hataları"
+  },
+  "gold_standard": {
+    "student_id": "Merve",
+    "worksheet": "WS_DT_TITANIC",
+    "ws_snapshot": "Öğrenci, sabit verilere dayalı Titanic Eğitim ve Test veri setleri (1 ve 2) üzerindeki tüm frekans, etiketleme ve performans metriği adımlarını eksiksiz doldurmuştur. Overfitting ve underfitting kavramsal tanımları ile metrik değişimlerinin nedenleri veri gerçeğine uygun olarak doğru analiz edilmiştir. Tuzak olarak kurgulanan 43. ve 44. sorulardaki ters örüntü durumu öğrenci tarafından net bir şekilde fark edilerek gerekçelendirilmiştir.",
+    "page_notes": "Tablo değerleri ve hesaplama adımları net bir şekilde okunabilmektedir. Soru kökündeki çelişkilerin incelendiği açık uçlu yorum alanlarında eleştirel okuma izleri açıkça görülmektedir.",
+    "extraction": {
+      "DTI_01": "812 yolcu; 290'ı hayatta",
+      "DTI_02": "290 kişi; 290'ı (tamamı) hayatta",
+      "DTI_03": "522 kişi; 0'ı hayatta",
+      "DTI_04": "Female (kadın) kutusu",
+      "DTI_05": "(290+522)/812 = 812/812 = 1,00 (%100)",
+      "DTI_06": "290/(290+0) = 290/290 = 1,00 (%100)",
+      "DTI_07": "522/(522+0) = 522/522 = 1,00 (%100)",
+      "DTI_08": "290/(290+0) = 290/290 = 1,00 (%100)",
+      "DTI_09": "(0+0)/812 = 0 (%0)",
+      "DTI_10": "231 yolcu; 105'i hayatta",
+      "DTI_11": "96 kişi; 56'sı hayatta",
+      "DTI_12": "135 kişi; 49'u hayatta",
+      "DTI_13": "Female (kadın) kutusu",
+      "DTI_14": "(56+86)/231 = 142/231 = 0,615 (%61,5)",
+      "DTI_15": "56/(56+49) = 56/105 = 0,533 (%53,3)",
+      "DTI_16": "86/(86+40) = 86/126 = 0,683 (%68,3)",
+      "DTI_17": "56/(56+40) = 56/96 = 0,583 (%58,3)",
+      "DTI_18": "(40+49)/231 = 89/231 = 0,385 (%38,5)",
+      "DTI_19": "Evet, büyük bir fark var. Eğitimde doğruluk %100 iken testte %61,5'e düşüyor. Model, cinsiyetin hayatta kalmayı kusursuz ayırdığı eğitim setini ezberledi, ancak bu kural görülmemiş test verisinde bu kadar iyi genellemiyor.",
+      "DTI_20": "Aşırı öğrenme (overfitting), modelin eğitim verisini ezberleyip yeni/görülmemiş veride başarısız olmasıdır. Burada eğitim seti 1'de cinsiyet, hayatta kalmayı %100 ayırdığı için ağaç eğitimde kusursuz göründü, fakat test setinde kadın-erkek hayatta kalma ilişkisi bu kadar keskin olmadığından başarı belirgin biçimde düştü.",
+      "DTI_21": "Eğitimde duyarlılık %100 iken testte %53,3'e düşmüştür. Model gerçekten hayatta kalanların eğitimde tamamını, testte ise ancak yarısını yakalayabilmiştir, bu, genelleme başarısının zayıf olduğunu (aşırı öğrenme) gösterir.",
+      "DTI_22": "Eğitimde MCR %0 iken testte %38,5'e çıkmıştır. Yeni veride yaklaşık her üç tahminden biri yanlıştır, model eğitimdeki kusursuzluğunu test verisine taşıyamamıştır (aşırı öğrenme).",
+      "DTI_23": "834 yolcu; 456'sı hayatta",
+      "DTI_24": "304 kişi; 128'i hayatta",
+      "DTI_25": "530 kişi; 328'i hayatta",
+      "DTI_26": "Female (kadın) kutusu",
+      "DTI_27": "(128+202)/834 = 330/834 = 0,396 (%39,6)",
+      "DTI_28": "128/(128+328) = 128/456 = 0,281 (%28,1)",
+      "DTI_29": "202/(202+176) = 202/378 = 0,534 (%53,4)",
+      "DTI_30": "128/(128+176) = 128/304 = 0,421 (%42,1)",
+      "DTI_31": "(176+328)/834 = 504/834 = 0,604 (%60,4)",
+      "DTI_32": "209 yolcu; 85'i hayatta",
+      "DTI_33": "82 kişi; 61'i hayatta",
+      "DTI_34": "127 kişi; 24'ü hayatta",
+      "DTI_35": "Female (kadın) kutusu",
+      "DTI_36": "(61+103)/209 = 164/209 = 0,785 (%78,5)",
+      "DTI_37": "61/(61+24) = 61/85 = 0,718 (%71,8)",
+      "DTI_38": "103/(103+21) = 103/124 = 0,831 (%83,1)",
+      "DTI_39": "61/(61+21) = 61/82 = 0,744 (%74,4)",
+      "DTI_40": "(21+24)/209 = 45/209 = 0,215 (%21,5)",
+      "DTI_41": "Evet, fark vardır. Eğitim seti 2'de cinsiyet-hayatta kalma ilişkisi zayıf (hatta ters) olduğundan sabit 'kadın=hayatta' kuralı eğitim verisine bile uymamış ve eğitim doğruluğu %39,6'da kalmıştır. Model, veriyi eğitim aşamasında bile yeterince öğrenememiştir (eksik/zayıf model = underfitting).",
+      "DTI_42": "Yetersiz uyum (underfitting), modelin verideki temel ilişkiyi kavrayamayacak kadar basit kalması ve bu yüzden hem eğitim hem de test verisinde yüksek hata (düşük başarı) göstermesidir. Bu senaryoda ağaç yalnızca cinsiyet (tek bir değişken) üzerinden karar veriyor, ancak eğitim seti 2'de hayatta kalma ile cinsiyet arasındaki ilişki zayıf/karışık olduğundan bu tek kural yetersiz kalıyor. Model eğitim verisinde bile doğruluğu %39,6'da bırakarak örüntüyü öğrenememiştir, yani ağaç fazla basit olduğu için eksik öğrenme (underfitting) gerçekleşmiştir.",
+      "DTI_43": "Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde duyarlılık %28,1 gibi çok düşük bir değerdedir. Sabit cinsiyet kuralı, eğitim seti 2'nin örüntüsünü yakalayamamıştır, yani model gerçek hastaların/hayatta kalanların çoğunu kaçırmıştır. Bu, aşırı öğrenmenin değil, eksik öğrenmenin (underfitting) göstergesidir.",
+      "DTI_44": "Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde MCR %60,4 gibi çok yüksektir, yani model eğitim verisinde bile tahminlerin çoğunu yanlış yapmıştır. Bu yüksek eğitim hatası, modelin veriyi öğrenemediğini (eksik öğrenme / underfitting) gösterir.",
+      "DTI_45": "İyi bir model hem eğitim hem test setinde yüksek ve birbirine yakın metrikler verir: doğruluk, duyarlılık ve özgüllük yüksek, MCR düşük olmalıdır. Eğitim ile test performansı arasındaki fark küçük olmalıdır (ne aşırı ne eksik öğrenme).",
+      "DTI_46": "Yalnızca eğitim metrikleri modelin ezberleyip ezberlemediğini göstermez. Eğitim seti 1'de %100 doğruluk aldık ama test %61,5'e düşüyor (aşırı öğrenme). Modelin gerçek başarıysa ancak görülmemiş test verisiyle anlaşılır.",
+      "DTI_47": "Hayır. Tek bir metrik (örn. doğruluk) yanıltıcı olabilir, özellikle sınıflar dengesizse. Yüksek doğruluk, düşük duyarlılıkla bir arada olabilir. Bu yüzden doğruluk, duyarlılık, özgüllük, kesinlik ve MCR birlikte değerlendirilmelidir."
+    },
+    "validation": {
+      "item_checks": {
+        "DTI_01": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_02": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_03": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_04": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_05": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_06": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_07": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_08": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_09": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_10": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_11": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_12": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_13": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_14": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_15": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_16": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_17": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_18": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_19": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_20": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_21": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_22": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_23": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_24": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_25": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_26": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_27": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_28": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_29": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_30": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_31": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_32": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_33": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_34": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_35": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_36": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_37": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_38": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_39": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_40": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_41": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_42": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_43": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_44": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_45": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_46": {
+          "is_correct": true,
+          "error_flag": null
+        },
+        "DTI_47": {
+          "is_correct": true,
+          "error_flag": null
+        }
+      },
+      "system_analytical_summary": "Titanic bölümünde tüm kanonik sayısal veriler ve formül çıktıları tam anahtarla hatasız uyuşmaktadır. Öğrenci, veri seti 1'deki aşırı öğrenme (overfitting) örüntüsünü ve veri seti 2'deki yetersiz uyum (underfitting) örüntüsünü metrik dalgalanmalarına dayanarak hatasız teşhis etmiştir. Soru 43 ve Soru 44'teki kasıtlı hatalı yönlendirmelere kapılmayarak, veri kümesinin ham sayısal gerçeklerine sadık kalmış ve eleştirel analiz basamağında tam başarı göstermiştir."
+    }
+  }
+}

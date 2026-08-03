@@ -1,0 +1,883 @@
+{
+  "generated_at": "2026-07-20T08:11:17.666102+00:00",
+  "validation_source": "2026 CODAP Arbor event logs",
+  "calibration_source": "2025 observer gold alignment",
+  "verdict": {
+    "valid_behaviors": [
+      "B4",
+      "B6",
+      "B7",
+      "B10"
+    ],
+    "valid_with_caveat": {
+      "B3": "log fires ~10x; 2025 unique-only labeling is correct",
+      "B8": "not log-derivable; 2025 observer-only coding is correct"
+    },
+    "not_log_detectable": [
+      "B1",
+      "B2",
+      "B5",
+      "B9",
+      "B11",
+      "B12",
+      "B13"
+    ],
+    "frame_coverage_pct_within_30s": 84.1,
+    "video_truncation_note": "Irma/21apr, Marco/21apr, Shana/21apr stopped their screen recording before finishing in CODAP. Post-recording actions are not capturable. This is expected study-design behavior -- not a pipeline error."
+  },
+  "systematic_issues": [
+    "B3 (SET_TARGET_ATTRIBUTE): set_dependent_variable fires 57 unique attribute changes across 22 student-sessions. Raw log event count is ~10x higher due to automatic re-fires on tree rebuild. 2025 calibration correctly captures intentional B3 only.",
+    "B8 (INTERPRET_METRICS): emit_tree_data carries accuracy/MCR values but the student may not consciously interpret them. B8 requires visual or transcript evidence (student looking at/discussing CTR metrics). 2025 calibration labels B8 conservatively (observer-noted only). This is the correct approach — do NOT count all emits as B8.",
+    "Video truncation (expected, by study design) in: Irma/21apr, Marco/21apr, Shana/21apr. Students deliberately stopped screen recording before finishing in CODAP. Post-recording actions are not capturable by frame extraction. This is an expected artifact -- not a pipeline error. Scorer will miss post-recording tree submissions for these students."
+  ],
+  "per_student": {
+    "Amy_21apr": {
+      "student_id": "Amy",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 11,
+        "b10_count": 11,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 64,
+        "covered_lt_15s": 43,
+        "covered_15_30s": 12,
+        "covered_30_60s": 9,
+        "missed_gt_60s": 0,
+        "median_gap_s": 6.8,
+        "max_gap_s": 43.4,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Bruno_21apr": {
+      "student_id": "Bruno",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 8,
+        "b10_count": 7,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 52,
+        "covered_lt_15s": 30,
+        "covered_15_30s": 12,
+        "covered_30_60s": 10,
+        "missed_gt_60s": 0,
+        "median_gap_s": 12.5,
+        "max_gap_s": 43.7,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Helena_21apr": {
+      "student_id": "Helena",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 22,
+        "b10_count": 22,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 104,
+        "covered_lt_15s": 53,
+        "covered_15_30s": 36,
+        "covered_30_60s": 15,
+        "missed_gt_60s": 0,
+        "median_gap_s": 14.0,
+        "max_gap_s": 44.8,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Iris_21apr": {
+      "student_id": "Iris",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 13,
+        "b10_count": 13,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 43,
+        "covered_lt_15s": 18,
+        "covered_15_30s": 12,
+        "covered_30_60s": 13,
+        "missed_gt_60s": 0,
+        "median_gap_s": 15.8,
+        "max_gap_s": 44.9,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Irma_21apr": {
+      "student_id": "Irma",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 18,
+        "b10_count": 18,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 56,
+        "covered_lt_15s": 29,
+        "covered_15_30s": 8,
+        "covered_30_60s": 7,
+        "missed_gt_60s": 12,
+        "median_gap_s": 14.7,
+        "max_gap_s": 554.0,
+        "events_beyond_video_end": [
+          {
+            "action": "emit_tree_data",
+            "event_ts_s": 4514.7,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 65.4,
+            "params": {
+              "depth": 3,
+              "accuracy": 0.408,
+              "dependent_variable": "Column 1"
+            }
+          },
+          {
+            "action": "set_dependent_variable",
+            "event_ts_s": 4543.1,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 93.8,
+            "params": {
+              "attribute": "Column 1"
+            }
+          },
+          {
+            "action": "set_dependent_variable",
+            "event_ts_s": 4545.7,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 96.4,
+            "params": {
+              "attribute": "Column 1"
+            }
+          },
+          {
+            "action": "set_dependent_variable",
+            "event_ts_s": 4547.9,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 98.6,
+            "params": {
+              "attribute": "Column 1"
+            }
+          },
+          {
+            "action": "set_dependent_variable",
+            "event_ts_s": 4554.5,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 105.3,
+            "params": {
+              "attribute": "Column 1"
+            }
+          },
+          {
+            "action": "set_dependent_variable",
+            "event_ts_s": 4557.0,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 107.8,
+            "params": {
+              "attribute": "Column 1"
+            }
+          },
+          {
+            "action": "change_split_values",
+            "event_ts_s": 4950.1,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 500.8,
+            "params": {
+              "attribute": "Enerji (kcal)"
+            }
+          },
+          {
+            "action": "emit_tree_data",
+            "event_ts_s": 4959.6,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 510.3,
+            "params": {
+              "depth": 2,
+              "accuracy": 0.224,
+              "dependent_variable": "Column 1"
+            }
+          },
+          {
+            "action": "set_dependent_variable",
+            "event_ts_s": 4984.4,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 535.1,
+            "params": {
+              "attribute": "Column 1"
+            }
+          },
+          {
+            "action": "change_split_values",
+            "event_ts_s": 4995.1,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 545.8,
+            "params": {
+              "attribute": "Enerji (kcal)"
+            }
+          },
+          {
+            "action": "change_split_values",
+            "event_ts_s": 4999.9,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 550.6,
+            "params": {
+              "attribute": "Enerji (kcal)"
+            }
+          },
+          {
+            "action": "emit_tree_data",
+            "event_ts_s": 5003.3,
+            "nearest_frame_ts_s": 4449.3,
+            "gap_s": 554.0,
+            "params": {
+              "depth": 2,
+              "accuracy": 0.51,
+              "dependent_variable": "Column 1"
+            }
+          }
+        ]
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Isabel_21apr": {
+      "student_id": "Isabel",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 12,
+        "b10_count": 12,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 65,
+        "covered_lt_15s": 35,
+        "covered_15_30s": 17,
+        "covered_30_60s": 13,
+        "missed_gt_60s": 0,
+        "median_gap_s": 14.2,
+        "max_gap_s": 40.1,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Marco_21apr": {
+      "student_id": "Marco",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 14,
+        "b10_count": 14,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 42,
+        "covered_lt_15s": 24,
+        "covered_15_30s": 4,
+        "covered_30_60s": 6,
+        "missed_gt_60s": 8,
+        "median_gap_s": 11.0,
+        "max_gap_s": 472.1,
+        "events_beyond_video_end": [
+          {
+            "action": "drop_attribute",
+            "event_ts_s": 4495.6,
+            "nearest_frame_ts_s": 4327.9,
+            "gap_s": 167.7,
+            "params": {
+              "attribute": "Tuz (g)"
+            }
+          },
+          {
+            "action": "emit_tree_data",
+            "event_ts_s": 4500.8,
+            "nearest_frame_ts_s": 4327.9,
+            "gap_s": 172.9,
+            "params": {
+              "depth": 2,
+              "accuracy": 0.614,
+              "dependent_variable": "Column 1"
+            }
+          },
+          {
+            "action": "drop_attribute",
+            "event_ts_s": 4709.2,
+            "nearest_frame_ts_s": 4327.9,
+            "gap_s": 381.3,
+            "params": {
+              "attribute": "Yağ (g)"
+            }
+          },
+          {
+            "action": "change_split_values",
+            "event_ts_s": 4739.9,
+            "nearest_frame_ts_s": 4327.9,
+            "gap_s": 412.0,
+            "params": {
+              "attribute": "Yağ (g)"
+            }
+          },
+          {
+            "action": "set_dependent_variable",
+            "event_ts_s": 4769.1,
+            "nearest_frame_ts_s": 4327.9,
+            "gap_s": 441.2,
+            "params": {
+              "attribute": "Column 1"
+            }
+          },
+          {
+            "action": "set_dependent_variable",
+            "event_ts_s": 4772.1,
+            "nearest_frame_ts_s": 4327.9,
+            "gap_s": 444.2,
+            "params": {
+              "attribute": "Column 1"
+            }
+          },
+          {
+            "action": "change_split_values",
+            "event_ts_s": 4797.3,
+            "nearest_frame_ts_s": 4327.9,
+            "gap_s": 469.4,
+            "params": {
+              "attribute": "Yağ (g)"
+            }
+          },
+          {
+            "action": "emit_tree_data",
+            "event_ts_s": 4800.0,
+            "nearest_frame_ts_s": 4327.9,
+            "gap_s": 472.1,
+            "params": {
+              "depth": 2,
+              "accuracy": 0.659,
+              "dependent_variable": "Column 1"
+            }
+          }
+        ]
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Marcus_21apr": {
+      "student_id": "Marcus",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 10,
+        "b10_count": 10,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 28,
+        "covered_lt_15s": 17,
+        "covered_15_30s": 7,
+        "covered_30_60s": 4,
+        "missed_gt_60s": 0,
+        "median_gap_s": 11.6,
+        "max_gap_s": 39.2,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Nadia_21apr": {
+      "student_id": "Nadia",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 18,
+        "b10_count": 18,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 59,
+        "covered_lt_15s": 41,
+        "covered_15_30s": 13,
+        "covered_30_60s": 5,
+        "missed_gt_60s": 0,
+        "median_gap_s": 10.0,
+        "max_gap_s": 43.7,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Shana_21apr": {
+      "student_id": "Shana",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 13,
+        "b10_count": 13,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 59,
+        "covered_lt_15s": 22,
+        "covered_15_30s": 14,
+        "covered_30_60s": 22,
+        "missed_gt_60s": 1,
+        "median_gap_s": 23.1,
+        "max_gap_s": 211.2,
+        "events_beyond_video_end": [
+          {
+            "action": "set_dependent_variable",
+            "event_ts_s": 5167.0,
+            "nearest_frame_ts_s": 4955.8,
+            "gap_s": 211.2,
+            "params": {
+              "attribute": "Column 1"
+            }
+          }
+        ]
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Sheila_21apr": {
+      "student_id": "Sheila",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 9,
+        "b10_count": 9,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 72,
+        "covered_lt_15s": 52,
+        "covered_15_30s": 14,
+        "covered_30_60s": 6,
+        "missed_gt_60s": 0,
+        "median_gap_s": 6.6,
+        "max_gap_s": 39.8,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Ulysses_21apr": {
+      "student_id": "Ulysses",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 12,
+        "b10_count": 12,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 73,
+        "covered_lt_15s": 28,
+        "covered_15_30s": 27,
+        "covered_30_60s": 18,
+        "missed_gt_60s": 0,
+        "median_gap_s": 19.4,
+        "max_gap_s": 44.5,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Zara_21apr": {
+      "student_id": "Zara",
+      "session": "21apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 18,
+        "b10_count": 18,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 85,
+        "covered_lt_15s": 41,
+        "covered_15_30s": 28,
+        "covered_30_60s": 16,
+        "missed_gt_60s": 0,
+        "median_gap_s": 16.9,
+        "max_gap_s": 44.4,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Bruno_28apr": {
+      "student_id": "Bruno",
+      "session": "28apr",
+      "log_gt": {
+        "behaviors": [
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 8,
+        "b7_count": 2,
+        "b10_count": 2,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 57,
+        "covered_lt_15s": 54,
+        "covered_15_30s": 2,
+        "covered_30_60s": 1,
+        "missed_gt_60s": 0,
+        "median_gap_s": 4.1,
+        "max_gap_s": 30.1,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Irma_28apr": {
+      "student_id": "Irma",
+      "session": "28apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 5,
+        "b7_count": 15,
+        "b10_count": 15,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 117,
+        "covered_lt_15s": 100,
+        "covered_15_30s": 16,
+        "covered_30_60s": 1,
+        "missed_gt_60s": 0,
+        "median_gap_s": 4.1,
+        "max_gap_s": 35.1,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Isabel_28apr": {
+      "student_id": "Isabel",
+      "session": "28apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 1,
+        "b7_count": 7,
+        "b10_count": 7,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 71,
+        "covered_lt_15s": 57,
+        "covered_15_30s": 11,
+        "covered_30_60s": 3,
+        "missed_gt_60s": 0,
+        "median_gap_s": 5.9,
+        "max_gap_s": 43.9,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Marco_28apr": {
+      "student_id": "Marco",
+      "session": "28apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 4,
+        "b7_count": 11,
+        "b10_count": 11,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 51,
+        "covered_lt_15s": 22,
+        "covered_15_30s": 17,
+        "covered_30_60s": 12,
+        "missed_gt_60s": 0,
+        "median_gap_s": 18.0,
+        "max_gap_s": 44.3,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Melinda_28apr": {
+      "student_id": "Melinda",
+      "session": "28apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 2,
+        "b7_count": 27,
+        "b10_count": 27,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 115,
+        "covered_lt_15s": 57,
+        "covered_15_30s": 30,
+        "covered_30_60s": 28,
+        "missed_gt_60s": 0,
+        "median_gap_s": 15.4,
+        "max_gap_s": 45.1,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Nadia_28apr": {
+      "student_id": "Nadia",
+      "session": "28apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 1,
+        "b7_count": 12,
+        "b10_count": 12,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 94,
+        "covered_lt_15s": 77,
+        "covered_15_30s": 12,
+        "covered_30_60s": 5,
+        "missed_gt_60s": 0,
+        "median_gap_s": 3.6,
+        "max_gap_s": 44.2,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Serena_28apr": {
+      "student_id": "Serena",
+      "session": "28apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 6,
+        "b7_count": 32,
+        "b10_count": 30,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 187,
+        "covered_lt_15s": 145,
+        "covered_15_30s": 29,
+        "covered_30_60s": 13,
+        "missed_gt_60s": 0,
+        "median_gap_s": 5.6,
+        "max_gap_s": 43.6,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Ulysses_28apr": {
+      "student_id": "Ulysses",
+      "session": "28apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 3,
+        "b7_count": 5,
+        "b10_count": 5,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 31,
+        "covered_lt_15s": 24,
+        "covered_15_30s": 6,
+        "covered_30_60s": 1,
+        "missed_gt_60s": 0,
+        "median_gap_s": 9.2,
+        "max_gap_s": 40.9,
+        "events_beyond_video_end": []
+      },
+      "video_start_align_method": "first_log_event"
+    },
+    "Zara_28apr": {
+      "student_id": "Zara",
+      "session": "28apr",
+      "log_gt": {
+        "behaviors": [
+          "B0",
+          "B10",
+          "B3",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "b3_unique_count": 1,
+        "b7_count": 12,
+        "b10_count": 12,
+        "b8_note": "B8 (interpret_metrics) cannot be derived from log. emit_tree_data carries accuracy but emission != interpretation."
+      },
+      "frame_coverage": {
+        "total_critical_events": 125,
+        "covered_lt_15s": 53,
+        "covered_15_30s": 38,
+        "covered_30_60s": 33,
+        "missed_gt_60s": 1,
+        "median_gap_s": 19.6,
+        "max_gap_s": 96.1,
+        "events_beyond_video_end": [
+          {
+            "action": "set_dependent_variable",
+            "event_ts_s": 172.8,
+            "nearest_frame_ts_s": 268.9,
+            "gap_s": 96.1,
+            "params": {
+              "attribute": "Column 1"
+            }
+          }
+        ]
+      },
+      "video_start_align_method": "first_log_event"
+    }
+  }
+}

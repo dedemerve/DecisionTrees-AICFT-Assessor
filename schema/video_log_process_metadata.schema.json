@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "video_log_process_metadata",
+  "title": "Log and Process Metadata Artifact",
+  "description": "Objective CODAP event-log chronology, Task-4 process variables, and video-log sync audit. Fills measurement gaps that screen video alone cannot establish (emit timing, action counts, model configuration hashes, sync error).",
+  "type": "object",
+  "required": [
+    "artifact",
+    "student_id",
+    "cohort_year",
+    "schema_version",
+    "generated_at",
+    "log_available",
+    "modality_coverage",
+    "video_cannot_determine",
+    "task4_process_variables",
+    "video_log_sync"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "artifact": { "const": "log_process_metadata" },
+    "student_id": { "type": "string", "minLength": 1 },
+    "cohort_year": { "type": "integer" },
+    "schema_version": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "log_available": { "type": "boolean" },
+    "log_file_id": { "type": ["string", "null"] },
+    "interpretation_rule": { "type": "string" },
+    "modality_coverage": {
+      "type": "object",
+      "required": ["video", "event_log"],
+      "properties": {
+        "video": { "type": "boolean" },
+        "expert_narrative": { "type": "boolean" },
+        "audio_transcript": { "type": "boolean" },
+        "event_log": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "video_cannot_determine": {
+      "type": "array",
+      "description": "Constructs or process traces that require log and/or cannot be inferred from video alone.",
+      "items": { "type": "string" }
+    },
+    "log_can_corroborate": {
+      "type": "array",
+      "description": "Behaviors/process traces where log provides objective chronology (not interpretation).",
+      "items": { "type": "string" }
+    },
+    "task4_process_variables": {
+      "type": "object",
+      "description": "Rubric Task-4 appendix variables — never scored, support interpretation and ML.",
+      "properties": {
+        "time_to_first_target_ms": { "type": ["integer", "null"] },
+        "time_to_first_split_ms": { "type": ["integer", "null"] },
+        "time_to_first_emit_ms": { "type": ["integer", "null"] },
+        "feature_change_count": { "type": ["integer", "null"] },
+        "unique_features_tried": { "type": ["integer", "null"] },
+        "threshold_change_count": { "type": ["integer", "null"] },
+        "unique_thresholds_tried": { "type": ["integer", "null"] },
+        "emit_count": { "type": ["integer", "null"] },
+        "valid_emit_count": { "type": ["integer", "null"] },
+        "max_tree_depth": { "type": ["integer", "null"] },
+        "depth2_attempts": { "type": ["integer", "null"] },
+        "tree_rebuild_count": { "type": ["integer", "null"] },
+        "dataset_switch_count": { "type": ["integer", "null"] },
+        "comparison_cycles": { "type": ["integer", "null"] },
+        "undo_count": { "type": ["integer", "null"] },
+        "session_duration_minutes": { "type": ["number", "null"] },
+        "train_test_applied": { "type": ["boolean", "null"] },
+        "train_test_accuracy_gap": { "type": ["number", "null"] },
+        "exploration_index": { "type": ["number", "null"] },
+        "log_available_flag": { "type": ["boolean", "null"] },
+        "sync_error_ms": { "type": ["integer", "null"] },
+        "frame_coverage_ratio": { "type": ["number", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "log_derived_features": {
+      "type": ["object", "null"],
+      "description": "Full log_extractor output when event CSV is available."
+    },
+    "log_behavior_presence": {
+      "type": ["object", "null"],
+      "description": "Conservative log-to-rubric behavior presence (chronology only, not B8 interpretation).",
+      "properties": {
+        "behaviors": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "b8_note": { "type": "string" },
+        "b3_unique_count": { "type": "integer" },
+        "b7_count": { "type": "integer" },
+        "b10_count": { "type": "integer" }
+      },
+      "additionalProperties": true
+    },
+    "video_log_sync": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["aligned", "partial", "unavailable", "not_applicable"]
+        },
+        "method": { "type": ["string", "null"] },
+        "sync_error_ms": { "type": ["integer", "null"] },
+        "critical_events_covered": { "type": ["integer", "null"] },
+        "critical_events_total": { "type": ["integer", "null"] },
+        "events_beyond_video_end": { "type": "integer" },
+        "note": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "analyst_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

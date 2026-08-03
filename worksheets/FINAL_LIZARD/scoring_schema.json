@@ -1,0 +1,555 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Lizard_DT_Assignment_Scoring_v1",
+  "description": "Scoring output schema for the kertenkele final exam. Takes extraction JSON as input and produces a structured scoring document. Automated criteria are computed by the pipeline from extraction fields. LLM criteria require an LLM pass over the raw_text or code_evidence fields. Human criteria require a reviewer.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "student_id",
+    "scoring_metadata",
+    "global_flags",
+    "section_scores",
+    "score_summary"
+  ],
+
+  "properties": {
+
+    "student_id": {
+      "type": "string",
+      "description": "Copied from extraction.student_id."
+    },
+
+    "scoring_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["extraction_schema_version", "scoring_schema_version", "rubric_version", "scored_by"],
+      "properties": {
+        "extraction_schema_version":  { "type": "string" },
+        "scoring_schema_version":     { "type": "string", "const": "1.0" },
+        "rubric_version":             { "type": "string", "description": "Rubric point values are subject to instructor revision. Tag this field when points change." },
+        "scored_by":                  { "type": "string", "enum": ["pipeline_automated", "pipeline_llm", "human_reviewer", "pipeline_hybrid"] },
+        "llm_model":                  { "type": ["string", "null"], "description": "Model ID used for LLM scoring pass. Null for automated-only runs." },
+        "scored_at":                  { "type": ["string", "null"], "description": "ISO 8601 timestamp." }
+      }
+    },
+
+    "global_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Pre-scoring checks derived from extraction fields. These govern score eligibility across sections — computed before any criterion is scored.",
+      "required": [
+        "synthetic_data_used",
+        "infrastructure_interrupt",
+        "all_three_targets_attempted",
+        "mcr_tables_complete_count",
+        "step4_responses_per_tree_count",
+        "step4_responses_aggregated",
+        "any_cells_with_errors"
+      ],
+      "properties": {
+        "synthetic_data_used": {
+          "type": "boolean",
+          "description": "Copied from extraction.data_source.synthetic_data_used. When true, all S4 MCR-table criteria and S5 test_mcr criteria are set to 0 points with flag 'mcr_invalid_synthetic_data'."
+        },
+        "infrastructure_interrupt": {
+          "type": "boolean",
+          "description": "Copied from extraction.execution.infrastructure_interrupt. When true, cells_with_errors in execution is not penalized."
+        },
+        "all_three_targets_attempted": {
+          "type": "boolean",
+          "description": "True if dt_experiments contains entries for all three required targets: YasamAlani, Tur, Cinsiyet."
+        },
+        "mcr_tables_complete_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Count of dt_experiments where mcr_table has exactly 10 rows (depth 1–10). Drives S4.1 automated check."
+        },
+        "step4_responses_per_tree_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Count of dt_experiments where step4_responses_location == 'per_tree' AND at least one step4_markdown_analysis field is non-null."
+        },
+        "step4_responses_aggregated": {
+          "type": "boolean",
+          "description": "True if any dt_experiment has step4_responses_location == 'aggregated_end_of_notebook'. Scoring note: aggregated responses are distributed equally across all trees they cover."
+        },
+        "any_cells_with_errors": {
+          "type": "boolean",
+          "description": "True if extraction.execution.cells_with_errors > 0 AND infrastructure_interrupt is false."
+        }
+      }
+    },
+
+    "section_scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "One scoring block per rubric section. Section IDs map to assignment steps.",
+      "required": ["S1", "S2", "S3", "S4", "S5", "S6", "S7"],
+      "properties": {
+
+        "S1": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Veri Keşfi — Step 1 data exploration questions and code evidence. 10 points.",
+          "required": ["criteria", "section_total_possible", "section_total_awarded"],
+          "properties": {
+            "section_total_possible": { "type": "integer", "const": 10 },
+            "section_total_awarded":  { "$ref": "#/definitions/score_value" },
+            "criteria": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/criterion_item" },
+              "minItems": 4,
+              "maxItems": 4,
+              "description": "Fixed 4 criteria — see rubric_reference below.",
+              "rubric_reference": {
+                "S1.1": {
+                  "criterion": "Dataset loaded and shape confirmed. data_loaded==true AND row_count_reported==320 AND col_count_reported==7.",
+                  "points_possible": 2,
+                  "scoring_mode": "automated",
+                  "evidence": ["step1_data_exploration.data_loaded", "step1_data_exploration.row_count_reported", "step1_data_exploration.col_count_reported"]
+                },
+                "S1.2": {
+                  "criterion": "Habitat distribution answered: most-frequent AND least-frequent habitat named correctly (Yer / Agac).",
+                  "points_possible": 2,
+                  "scoring_mode": "automated",
+                  "evidence": ["step1_data_exploration.q_habitat_most_frequent", "step1_data_exploration.q_habitat_least_frequent"],
+                  "automated_rule": "2 pts if both present and contain 'Yer' and 'Agac' respectively (case-insensitive). 1 pt if one correct. 0 if both null."
+                },
+                "S1.3": {
+                  "criterion": "Class imbalance effect on the model explained. q_imbalance_effect_reasoning is non-null AND contains a reasoning about model bias or minority-class error.",
+                  "points_possible": 3,
+                  "scoring_mode": "llm",
+                  "evidence": ["step1_data_exploration.q_imbalance_effect_reasoning"],
+                  "llm_rubric": "3 pts: explains that the majority class (Yer) will be predicted better and the minority (Agac) will have higher error, using model reasoning (not just 'more data = better'). 2 pts: identifies the asymmetry but without model-level reasoning. 1 pt: vague answer ('model will be affected'). 0 pts: null or off-topic."
+                },
+                "S1.4": {
+                  "criterion": "Mass differences across species explained with biological or data reasoning.",
+                  "points_possible": 3,
+                  "scoring_mode": "llm",
+                  "evidence": ["step1_data_exploration.q_mass_by_species_reasoning"],
+                  "llm_rubric": "3 pts: identifies Sceloporus as largest, Uta as smallest, provides a biological or ecological reason. 2 pts: correct species ordering without explanation, or explanation without correct ordering. 1 pt: partial or vague. 0 pts: null."
+                }
+              }
+            }
+          }
+        },
+
+        "S2": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Araştırma Soruları — At least 3 research questions formulated, one per target. 5 points.",
+          "required": ["criteria", "section_total_possible", "section_total_awarded"],
+          "properties": {
+            "section_total_possible": { "type": "integer", "const": 5 },
+            "section_total_awarded":  { "$ref": "#/definitions/score_value" },
+            "criteria": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/criterion_item" },
+              "minItems": 2,
+              "maxItems": 2,
+              "rubric_reference": {
+                "S2.1": {
+                  "criterion": "Three targets present, each with a non-null formulated_question.",
+                  "points_possible": 3,
+                  "scoring_mode": "automated",
+                  "evidence": ["formulated_research_questions"],
+                  "automated_rule": "1 pt per non-null formulated_question for a distinct required target (YasamAlani, Tur, Cinsiyet). Max 3 pts."
+                },
+                "S2.2": {
+                  "criterion": "Question quality: each question is a specific predictive question (not just a restatement of the target variable name).",
+                  "points_possible": 2,
+                  "scoring_mode": "llm",
+                  "evidence": ["formulated_research_questions[*].formulated_question"],
+                  "llm_rubric": "2 pts: all present questions are phrased as a classification question ('Bu kertenkelenin ... nedir?' or similar). 1 pt: at least one specific question found. 0 pts: all null or all restate column names only."
+                }
+              }
+            }
+          }
+        },
+
+        "S3": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Train/Test Split — Parameter correctness and conceptual questions. 5 points.",
+          "required": ["criteria", "section_total_possible", "section_total_awarded"],
+          "properties": {
+            "section_total_possible": { "type": "integer", "const": 5 },
+            "section_total_awarded":  { "$ref": "#/definitions/score_value" },
+            "criteria": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/criterion_item" },
+              "minItems": 3,
+              "maxItems": 3,
+              "rubric_reference": {
+                "S3.1": {
+                  "criterion": "Correct split parameters: test_size=0.2, stratify_used=true, random_state set to any integer.",
+                  "points_possible": 2,
+                  "scoring_mode": "automated",
+                  "evidence": ["step3_split_global.test_size", "step3_split_global.stratify_used", "step3_split_global.random_state"],
+                  "automated_rule": "2 pts if all three correct. 1 pt if test_size and stratify correct but random_state null. 0 pts if stratify=false or test_size wrong."
+                },
+                "S3.2": {
+                  "criterion": "stratify removal effect explained in terms of class distribution in the test set.",
+                  "points_possible": 2,
+                  "scoring_mode": "llm",
+                  "evidence": ["step3_split_global.q_stratify_removal_effect"],
+                  "llm_rubric": "2 pts: explains that removing stratify could cause unequal class representation in train/test sets, with reference to the minority class (Agac) or imbalance. 1 pt: correct direction but no class-level reasoning. 0 pts: null or 'nothing changes'."
+                },
+                "S3.3": {
+                  "criterion": "random_state change effect explained: results change but model structure stays the same.",
+                  "points_possible": 1,
+                  "scoring_mode": "llm",
+                  "evidence": ["step3_split_global.q_random_state_change_effect"],
+                  "llm_rubric": "1 pt: explains that random_state controls which samples go to train/test, so results change slightly but model behavior is not fundamentally different. 0 pts: null or incorrect."
+                }
+              }
+            }
+          }
+        },
+
+        "S4": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Derinlik Analizi — Per-tree depth loop, MCR table, and markdown analysis. 30 points (10 per tree). When synthetic_data_used=true, S4.1 per-tree is 0 pts (flag: mcr_invalid_synthetic_data). When step4_responses_location is null for a tree, S4.2–S4.5 for that tree are 0 pts (flag: step4_missing).",
+          "required": ["per_target", "section_total_possible", "section_total_awarded"],
+          "properties": {
+            "section_total_possible": { "type": "integer", "const": 30 },
+            "section_total_awarded":  { "$ref": "#/definitions/score_value" },
+            "per_target": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["target_variable", "eligible", "criteria", "target_total_possible", "target_total_awarded"],
+                "properties": {
+                  "target_variable":       { "type": "string", "enum": ["YasamAlani", "Tur", "Cinsiyet"] },
+                  "eligible":              { "type": "boolean", "description": "False if synthetic_data_used=true. When false, all criteria in this block are 0 and flag is set." },
+                  "ineligible_reason":     { "type": ["string", "null"], "enum": ["synthetic_data", "target_not_attempted", null] },
+                  "target_total_possible": { "type": "integer", "const": 10 },
+                  "target_total_awarded":  { "$ref": "#/definitions/score_value" },
+                  "criteria": {
+                    "type": "array",
+                    "minItems": 5,
+                    "maxItems": 5,
+                    "items": { "$ref": "#/definitions/criterion_item" },
+                    "rubric_reference": {
+                      "S4.x.1": {
+                        "criterion": "MCR table present and covers depth 1–10 (10 rows).",
+                        "points_possible": 3,
+                        "scoring_mode": "automated",
+                        "evidence": ["dt_experiments[x].depth_search.mcr_table"],
+                        "automated_rule": "3 pts if mcr_table has exactly 10 rows with depth 1–10. 2 pts if 8–9 rows. 1 pt if < 8 rows but at least 5. 0 pts if null or < 5 rows."
+                      },
+                      "S4.x.2": {
+                        "criterion": "Trend accurately described: training MCR decreases monotonically; test MCR has a minimum then rises.",
+                        "points_possible": 2,
+                        "scoring_mode": "hybrid",
+                        "evidence": ["dt_experiments[x].step4_markdown_analysis.depth_mcr_trend_description", "dt_experiments[x].depth_search.mcr_table"],
+                        "automated_rule": "Verify from mcr_table: is train MCR monotonically non-increasing? Does test MCR have a minimum below depth 10? Set automated_check.result accordingly.",
+                        "llm_rubric": "2 pts: student text correctly identifies both directions (train falls, test has minimum). 1 pt: identifies one direction only. 0 pts: null or contradicts the table data."
+                      },
+                      "S4.x.3": {
+                        "criterion": "Overfitting correctly named or meaningfully described.",
+                        "points_possible": 2,
+                        "scoring_mode": "hybrid",
+                        "evidence": ["dt_experiments[x].step4_markdown_analysis.overfitting_named_or_described", "dt_experiments[x].step4_markdown_analysis.zero_train_error_interpretation"],
+                        "automated_rule": "1 pt base if overfitting_named_or_described is non-null.",
+                        "llm_rubric": "2 pts: uses the word 'overfitting' / 'aşırı öğrenme' AND explains the mechanism (train error falls while test error rises). 1 pt: names it correctly but explanation absent or vague. 0 pts: null."
+                      },
+                      "S4.x.4": {
+                        "criterion": "Divergence point between training and test curves identified.",
+                        "points_possible": 1,
+                        "scoring_mode": "llm",
+                        "evidence": ["dt_experiments[x].step4_markdown_analysis.divergence_point_identified"],
+                        "llm_rubric": "1 pt: specifies a depth or range where the two curves separate. 0 pts: null or says 'they always diverge'."
+                      },
+                      "S4.x.5": {
+                        "criterion": "Preferred depth stated with justification from both table and graph.",
+                        "points_possible": 2,
+                        "scoring_mode": "llm",
+                        "evidence": ["dt_experiments[x].step4_markdown_analysis.preferred_depth_from_table", "dt_experiments[x].step4_markdown_analysis.preferred_depth_from_graph"],
+                        "llm_rubric": "2 pts: preferred depth cited from table AND graph, both consistent with each other and with the mcr_table minimum. 1 pt: only one source cited, or depth inconsistent with minimum but with stated reasoning. 0 pts: null or depth contradicts both sources without explanation."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "S5": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Final Karar Ağacı — Per-tree final model, depth choice, visualization, and interpretation. 21 points (7 per tree).",
+          "required": ["per_target", "section_total_possible", "section_total_awarded"],
+          "properties": {
+            "section_total_possible": { "type": "integer", "const": 21 },
+            "section_total_awarded":  { "$ref": "#/definitions/score_value" },
+            "per_target": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["target_variable", "eligible", "criteria", "target_total_possible", "target_total_awarded"],
+                "properties": {
+                  "target_variable":       { "type": "string", "enum": ["YasamAlani", "Tur", "Cinsiyet"] },
+                  "eligible":              { "type": "boolean" },
+                  "ineligible_reason":     { "type": ["string", "null"], "enum": ["synthetic_data", "target_not_attempted", null] },
+                  "target_total_possible": { "type": "integer", "const": 7 },
+                  "target_total_awarded":  { "$ref": "#/definitions/score_value" },
+                  "criteria": {
+                    "type": "array",
+                    "minItems": 5,
+                    "maxItems": 5,
+                    "items": { "$ref": "#/definitions/criterion_item" },
+                    "rubric_reference": {
+                      "S5.x.1": {
+                        "criterion": "Model pipeline complete: model_built AND model_fitted AND tree_visualized AND mcr_plot_generated.",
+                        "points_possible": 2,
+                        "scoring_mode": "automated",
+                        "evidence": ["dt_experiments[x].code_evidence.model_built", "dt_experiments[x].code_evidence.model_fitted", "dt_experiments[x].code_evidence.tree_visualized", "dt_experiments[x].code_evidence.mcr_plot_generated"],
+                        "automated_rule": "2 pts if all four are true. 1 pt if model_built+model_fitted true but visualization missing. 0 pts if model not built."
+                      },
+                      "S5.x.2": {
+                        "criterion": "Chosen depth is mathematically optimal (minimum test MCR in mcr_table).",
+                        "points_possible": 2,
+                        "scoring_mode": "automated",
+                        "evidence": ["dt_experiments[x].step5_final_tree.is_optimal_depth_mathematically_correct", "dt_experiments[x].step5_final_tree.mathematically_optimal_depth", "dt_experiments[x].step5_final_tree.chosen_optimal_depth"],
+                        "automated_rule": "2 pts if is_optimal_depth_mathematically_correct == true. 1 pt if chosen depth is within 1 of mathematically_optimal_depth. 0 pts otherwise."
+                      },
+                      "S5.x.3": {
+                        "criterion": "Root node feature correctly identified and reported (student-reported vs computed agreement).",
+                        "points_possible": 1,
+                        "scoring_mode": "automated",
+                        "evidence": ["dt_experiments[x].step5_final_tree.root_node_feature", "dt_experiments[x].step5_final_tree.root_node_feature_computed", "dt_experiments[x].step5_final_tree.root_node_feature_source"],
+                        "automated_rule": "1 pt if root_node_feature (student-reported) matches the base variable name of root_node_feature_computed (e.g. 'Cinsiyet_Erkek' reported as 'Cinsiyet' is acceptable — stem match). 1 pt also if root_node_feature is null and source is 'computed' (student omitted but code ran correctly). 0 pts if student-reported and computed contradict and source is 'markdown_text'."
+                      },
+                      "S5.x.4": {
+                        "criterion": "Root node reasoning addresses why that feature is the most discriminative.",
+                        "points_possible": 1,
+                        "scoring_mode": "llm",
+                        "evidence": ["dt_experiments[x].step5_final_tree.q_root_node_reasoning"],
+                        "llm_rubric": "1 pt: reasoning mentions the feature's discriminative power or a biological/data-driven explanation for why it splits best. 0 pts: null, circular ('because the model chose it'), or off-topic."
+                      },
+                      "S5.x.5": {
+                        "criterion": "CODAP comparison present and meaningful.",
+                        "points_possible": 1,
+                        "scoring_mode": "llm",
+                        "evidence": ["dt_experiments[x].step5_final_tree.q_codap_comparison"],
+                        "llm_rubric": "1 pt: references the CODAP tree the student built earlier in the course, notes a similarity or difference in root node or structure. 0 pts: null or does not reference CODAP."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "S6": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Yazılı Yansıma — 4 reflection questions. 20 points (5 per question). Scored by LLM. All raw_text fields must be verbatim from extraction.",
+          "required": ["criteria", "section_total_possible", "section_total_awarded"],
+          "properties": {
+            "section_total_possible": { "type": "integer", "const": 20 },
+            "section_total_awarded":  { "$ref": "#/definitions/score_value" },
+            "criteria": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": { "$ref": "#/definitions/criterion_item" },
+              "rubric_reference": {
+                "S6.1": {
+                  "criterion": "Q1 — Öğrenme Yolculuğu: reflective comparison across data cards, CODAP, and Python environments.",
+                  "points_possible": 5,
+                  "scoring_mode": "llm",
+                  "evidence": ["step6_written_reflection.q1_learning_journey.raw_text", "step6_written_reflection.q1_learning_journey.environments_mentioned", "step6_written_reflection.q1_learning_journey.error_detection_discussed"],
+                  "llm_rubric": "5 pts: discusses all three environments with distinct observations, identifies where understanding was deepest, and addresses error detection. 4 pts: three environments present but one observation is superficial. 3 pts: two environments or error detection missing. 2 pts: one environment only or generic response. 1 pt: raw_text present but no substantive reflection. 0 pts: null."
+                },
+                "S6.2": {
+                  "criterion": "Q2 — Veri Anlayışı: biological reasoning about root node selection and misclassification patterns.",
+                  "points_possible": 5,
+                  "scoring_mode": "llm",
+                  "evidence": ["step6_written_reflection.q2_data_understanding.raw_text", "step6_written_reflection.q2_data_understanding.biological_reasoning_present", "step6_written_reflection.q2_data_understanding.root_feature_surprise_addressed", "step6_written_reflection.q2_data_understanding.misclassified_habitat_discussed"],
+                  "llm_rubric": "5 pts: biological explanation of root feature (why Sceloporus/mass/length is discriminative), addresses surprise or expectation, AND discusses which habitat is hardest to classify with a plausible biological reason. 4 pts: two of three dimensions present. 3 pts: biological reasoning present but shallow on misclassification. 2 pts: correct direction but generic phrasing. 1 pt: raw_text present, no biological reasoning. 0 pts: null."
+                },
+                "S6.3": {
+                  "criterion": "Q3 — Model Performansı: MCR interpretation, cross-target comparison, and performance threshold reasoning.",
+                  "points_possible": 5,
+                  "scoring_mode": "llm",
+                  "evidence": ["step6_written_reflection.q3_model_performance.raw_text", "step6_written_reflection.q3_model_performance.mcr_value_stated", "step6_written_reflection.q3_model_performance.best_predicted_class", "step6_written_reflection.q3_model_performance.worst_predicted_class", "step6_written_reflection.q3_model_performance.ideal_mcr_threshold_stated", "step6_written_reflection.q3_model_performance.cross_target_mcr_comparison_attempted"],
+                  "llm_rubric": "5 pts: states correct MCR value, identifies best and worst predicted class with a reason tied to data properties (morphological overlap, class size), proposes a numeric threshold for 'good' model, and compares performance across targets. 4 pts: three of four dimensions. 3 pts: MCR stated and best/worst class but no cross-target comparison or threshold. 2 pts: MCR stated but reasoning missing. 1 pt: partial text, no MCR value. 0 pts: null.",
+                  "automated_pre_check": "Verify mcr_value_stated matches test_mcr_achieved from at least one dt_experiment. If mismatch > 0.01, flag for LLM attention."
+                },
+                "S6.4": {
+                  "criterion": "Q4 — Karar Ağacının Sınırları: error pattern, data/model improvement, and plain-language explanation.",
+                  "points_possible": 5,
+                  "scoring_mode": "llm",
+                  "evidence": ["step6_written_reflection.q4_dt_limitations.raw_text", "step6_written_reflection.q4_dt_limitations.error_pattern_described", "step6_written_reflection.q4_dt_limitations.alternative_model_named", "step6_written_reflection.q4_dt_limitations.data_improvement_suggested", "step6_written_reflection.q4_dt_limitations.dt_explanation_for_friend"],
+                  "llm_rubric": "5 pts: identifies a systematic error pattern (not random), proposes data-level and/or model-level improvement, names an alternative model with a reason, AND provides a clear lay explanation of decision trees including the overfitting limitation. 4 pts: three of four dimensions. 3 pts: error pattern + explanation only, no alternative or improvement. 2 pts: lay explanation only. 1 pt: partial. 0 pts: null."
+                }
+              }
+            }
+          }
+        },
+
+        "S7": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Çapraz Hedef Karşılaştırma — Explicit comparison across all three trees. 9 points.",
+          "required": ["criteria", "section_total_possible", "section_total_awarded"],
+          "properties": {
+            "section_total_possible": { "type": "integer", "const": 9 },
+            "section_total_awarded":  { "$ref": "#/definitions/score_value" },
+            "criteria": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": { "$ref": "#/definitions/criterion_item" },
+              "rubric_reference": {
+                "S7.1": {
+                  "criterion": "Cross-target comparison section present in the notebook.",
+                  "points_possible": 1,
+                  "scoring_mode": "automated",
+                  "evidence": ["cross_target_comparison.comparison_present"],
+                  "automated_rule": "1 pt if comparison_present == true. 0 pts otherwise."
+                },
+                "S7.2": {
+                  "criterion": "Optimal depth differences across targets explained (each target may require a different depth).",
+                  "points_possible": 4,
+                  "scoring_mode": "llm",
+                  "evidence": ["cross_target_comparison.optimal_depths_compared", "cross_target_comparison.comparison_reasoning"],
+                  "llm_rubric": "4 pts: explains WHY optimal depths differ — e.g. Tur is more separable so fewer levels needed; Cinsiyet is noisier so more depth needed but still overfit early. References the specific MCR values or depth numbers. 3 pts: notes depths differ with a partial reason. 2 pts: notes depths differ, no reason. 1 pt: comparison_present but reasoning absent. 0 pts: null."
+                },
+                "S7.3": {
+                  "criterion": "Root node differences across targets noted and interpreted.",
+                  "points_possible": 4,
+                  "scoring_mode": "llm",
+                  "evidence": ["cross_target_comparison.root_nodes_compared", "cross_target_comparison.comparison_reasoning"],
+                  "llm_rubric": "4 pts: notes that different targets have different root nodes AND provides a biological or statistical interpretation (e.g. mass/length discriminates species, not gender). 3 pts: notes root node changes with partial reasoning. 2 pts: notes change, no reason. 1 pt: vague mention. 0 pts: null or no root node comparison."
+                }
+              }
+            }
+          }
+        }
+
+      }
+    },
+
+    "score_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["section_totals", "grand_total_possible", "grand_total_awarded"],
+      "properties": {
+        "section_totals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["section_id", "possible", "awarded"],
+            "properties": {
+              "section_id":  { "type": "string", "enum": ["S1", "S2", "S3", "S4", "S5", "S6", "S7"] },
+              "possible":    { "type": "integer" },
+              "awarded":     { "$ref": "#/definitions/score_value" }
+            }
+          }
+        },
+        "grand_total_possible": {
+          "type": "integer",
+          "const": 90,
+          "description": "S1(10)+S2(5)+S3(5)+S4(30)+S5(21)+S6(20)+S7(9)=100. Const 90 set for rubric v1 — pending instructor sign-off on S7 weight."
+        },
+        "grand_total_awarded":  { "$ref": "#/definitions/score_value" },
+        "percentage":           { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "letter_grade":         { "type": ["string", "null"] }
+      }
+    },
+
+    "scoring_overrides": {
+      "type": "array",
+      "description": "Human reviewer corrections applied after automated/LLM scoring. Each override replaces points_awarded for a specific criterion.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["criterion_id", "original_points", "override_points", "override_reason", "overridden_by"],
+        "properties": {
+          "criterion_id":    { "type": "string", "description": "e.g. 'S4.YasamAlani.2', 'S6.1'" },
+          "original_points": { "$ref": "#/definitions/score_value" },
+          "override_points": { "$ref": "#/definitions/score_value" },
+          "override_reason": { "type": "string" },
+          "overridden_by":   { "type": "string" }
+        }
+      }
+    }
+
+  },
+
+  "definitions": {
+
+    "score_value": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "description": "Actual awarded points. Null means not yet scored. Must not exceed the criterion's points_possible."
+    },
+
+    "criterion_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "scoring_mode", "points_possible", "points_awarded"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Criterion ID matching rubric_reference keys, e.g. 'S1.1', 'S4.YasamAlani.3'."
+        },
+        "scoring_mode": {
+          "type": "string",
+          "enum": ["automated", "llm", "hybrid", "human"],
+          "description": "automated = pipeline computes from extraction fields with no LLM. llm = LLM reads raw_text and scores. hybrid = automated base check + LLM text quality adjustment. human = reviewer only."
+        },
+        "points_possible": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "points_awarded": {
+          "$ref": "#/definitions/score_value"
+        },
+        "automated_check": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Result of the automated pre-check for hybrid/automated criteria.",
+          "properties": {
+            "condition_met": { "type": ["boolean", "null"] },
+            "detail":        { "type": ["string", "null"] }
+          }
+        },
+        "justification": {
+          "type": ["string", "null"],
+          "description": "LLM-generated or reviewer-written explanation of the awarded score."
+        },
+        "flag": {
+          "type": ["string", "null"],
+          "enum": [
+            "mcr_invalid_synthetic_data",
+            "step4_missing",
+            "step4_aggregated_distributed",
+            "target_not_attempted",
+            "infrastructure_interrupt_excluded",
+            "deferred_response_used",
+            null
+          ],
+          "description": "Special condition that affected scoring logic for this criterion."
+        }
+      }
+    }
+
+  }
+}

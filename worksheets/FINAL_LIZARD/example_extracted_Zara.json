@@ -1,0 +1,364 @@
+{
+  "student_id": "Zara",
+  "metadata": {
+    "total_models_created": 3,
+    "markdown_cells": 41,
+    "code_cells": 25,
+    "total_cells": 66
+  },
+  "execution": {
+    "code_cells_with_output": 20,
+    "code_cells_without_output": 5,
+    "execution_count_all_null": null,
+    "cells_with_errors": 0,
+    "infrastructure_interrupt": false,
+    "error_types": []
+  },
+  "data_source": {
+    "real_csv_loaded": true,
+    "row_count_in_output": 320,
+    "synthetic_data_used": false,
+    "data_source_note": null
+  },
+  "step1_data_exploration": {
+    "data_loaded": true,
+    "row_count_reported": 320,
+    "col_count_reported": 7,
+    "columns_listed": true,
+    "value_counts_called": true,
+    "describe_called": true,
+    "q_lizard_count": "Veri kümesinde 320 kertenkele bulunmaktadır.",
+    "q_habitat_most_frequent": "En kalabalık yaşam alanı Yer (151 birey),",
+    "q_habitat_least_frequent": "en az birey bulunan yaşam alanı ise Agac'tır (73 birey).",
+    "q_imbalance_effect_reasoning": "Sınıflar tam dengeli değildir.\nModel Yer sınıfını daha kolay öğrenebilir ve\n Agac sınıfında daha fazla hata yapabilir.",
+    "q_mass_average_reported": 12.502,
+    "q_mass_by_species_reasoning": "Evet, ortalama ağırlık üç tür arasında belirgin şekilde farklıdır. En ağır tür Sceloporus olup ortalama ağırlığı yaklaşık 19,36 gramdır. En hafif tür ise Uta olup ortalama ağırlığı yaklaşık 7,39 gramdır. Anolis türü ise yaklaşık 9,88 gramlık ortalama ağırlığıyla bu iki tür arasında yer almaktadır.\n\nBu farklılığın nedeni türlerin biyolojik özelliklerinin ve vücut yapılarının farklı olmasıdır. Türler farklı boyutlara, gövde uzunluklarına ve yaşam alanlarına uyum sağlamış oldukları için ağırlıkları da birbirinden farklıdır. Bu sonuç, kertenkele türünün ağırlık üzerinde önemli bir etkisi olduğunu göstermektedir."
+  },
+  "formulated_research_questions": [
+    {
+      "target_variable": "YasamAlani",
+      "formulated_question": "Bu kertenkelenin yaşam alanı ne olabilir?"
+    },
+    {
+      "target_variable": "Tur",
+      "formulated_question": "Bu kertenkelenin türü ne olabilir?"
+    },
+    {
+      "target_variable": "Cinsiyet",
+      "formulated_question": "Bu kertenkelenin cinsiyeti ne olabilir?"
+    }
+  ],
+  "step3_split_global": {
+    "test_size": 0.2,
+    "stratify_used": true,
+    "random_state": 42,
+    "split_size_reported_train": 256,
+    "split_size_reported_test": 64,
+    "parameters_varied_across_models": false,
+    "q_stratify_removal_effect": "stratify=y parametresi kaldırıldığında eğitim ve test setlerindeki sınıf oranları değişebilir. Örneğin veri setinde Yer, Kaya ve Ağaç yaşam alanları belirli oranlarda bulunurken, bölme işleminden sonra bazı sınıflar test setinde çok az temsil edilebilir. Bu durum modelin performansını doğru değerlendirmeyi zorlaştırır. stratify=y kullanıldığında ise her sınıf eğitim ve test setlerine orijinal veri setindeki oranlara yakın şekilde dağıtılır ve daha güvenilir sonuçlar elde edilir.",
+    "q_random_state_change_effect": "Evet, sonuçlar değişebilir. Çünkü random_state verinin hangi gözlemlerinin eğitim ve test setine gideceğini belirleyen rastgele seçim sürecini kontrol eder. random_state=42 ve random_state=7 farklı bölünmeler oluşturacağı için eğitim ve test kümeleri değişebilir. Buna bağlı olarak karar ağacının yapısı, doğruluk oranı ve MCR değerleri de farklı çıkabilir. Ancak veri seti aynı olduğu için sonuçlar genellikle birbirine yakın olur. random_state kullanmanın amacı deneylerin tekrarlandığında aynı sonuçların elde edilmesini sağlamaktır."
+  },
+  "preliminary_quick_models": null,
+  "dt_experiments": [
+    {
+      "target_variable": "YasamAlani",
+      "target_variable_intermediate_name": null,
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "Tur_Anolis",
+          "Tur_Sceloporus",
+          "Tur_Uta",
+          "Cinsiyet_Disi",
+          "Cinsiyet_Erkek"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": null,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 5,
+        "depth_range_max_source": "list_literal",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.352,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.344,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.223,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.215,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.156,
+            "test_mcr": 0.312
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": "Eğitim MCR (Mavi Çizgi): Derinlik arttıkça sürekli ve istikrarlı bir şekilde düşmektedir. Derinlik 1 iken hata oranı yaklaşık 0.490 seviyesindeyken, derinlik 5'e ulaştığında 0.285 seviyelerine kadar gerilemiştir. Çünkü ağaç derinleştikçe eğitim verisindeki detayları ve kuralları daha fazla öğrenir.\n\n Test MCR (Turuncu Çizgi): Eğitim çizgisi gibi doğrusal bir düşüş göstermemektedir. Derinlik 1'den 2'ye geçerken keskin bir düşüşle 0.312 civarına inmiş, ardından derinlik 3 ve 4'te 0.328 seviyelerinde hafifçe yükselip sabit kalmış, ancak derinlik 5'te hızla 0.437 seviyesine fırlamıştır.",
+        "zero_train_error_interpretation": "Hayır, mükemmel öğrendiği anlamına kesinlikle gelmez. Eğitim hatasının sıfıra yaklaşması, modelin verideki genel mantığı/örüntüyü kavramak yerine, eğitim setindeki kertenkelelerin bireysel özelliklerini ve gürültülerini (rastlantısal değerlerini) ezberlemeye (Overfitting / Aşırı Öğrenme) başladığını gösterir.",
+        "divergence_point_identified": "Grafiğe baktığımızda bu kırılma çok net bir şekilde max_depth = 4'ten sonra (yani 5. derinlikte) gerçekleşmiştir. Derinlik 4'ten 5'e geçerken mavi çizgi (Eğitim MCR) aşağı doğru düşmeye devam ederek modelin eğitim setinde daha \"başarılı\" olmasını sağlarken, turuncu çizgi (Test MCR) yukarı doğru sert bir tırmanış yapmıştır.",
+        "overfitting_named_or_described": "Bu satırda modele Overfitting (Aşırı Öğrenme) olmuştur; model artık ezber aşamasına geçtiği için hiç görmediği test verileriyle karşılaştığında çuvallamıştır.",
+        "preferred_depth_from_table": "Hem eğitim hem test hatasının dengeli olduğu, özellikle Test MCR değerinin en düşük (en başarılı) olduğu ve iki eğrinin henüz birbirinden aşırı kopmadığı derinlik seçilmelidir. Bu grafiğe göre seçilmesi gereken en ideal derinlik max_depth = 2 seviyesidir. Çünkü Test MCR (turuncu çizgi) en düşük (yani en başarılı) değerine (~0.312) tam olarak bu noktada ulaşmıştır. Aynı zamanda eğitim hatası ile test hatası arasındaki makas oldukça dardır ve model henüz ezber eğilimine girmemiştir. (Alternatif olarak derinlik 4 de düşünülebilir ancak derinlik 2 hem daha az adımla daha basit bir ağaç sunduğu için hem de en düşük test hatasına sahip olduğu için en optimum karardır).",
+        "preferred_depth_from_graph": "Grafiğe bakarak yine max_depth = 2 değerini seçerdim. Sayısal tablodaki kararımla birebir aynıdır; çünkü grafik, tablodaki verilerin görsel bir izdüşümüdür ve turuncu eğrinin çukur yaptığı (hatanın dip yaptığı) en dip nokta net bir şekilde 2. derinliktir."
+      },
+      "step5_final_tree": {
+        "chosen_optimal_depth": 2,
+        "test_mcr_achieved": 0.3125,
+        "root_node_feature": "ToplamUzunluk",
+        "root_node_threshold": 139.75,
+        "q_root_node_reasoning": "Karar ağacına baktığımızda kök düğümde (en tepede) ToplamUzunluk değişkeni kullanılmıştır (ToplamUzunluk <= 139.75). Bu değişkenin ilk sırada yer almasının nedeni; kertenkelelerin yaşam alanlarını (Yer / Kaya / Ağaç) birbirinden ayırmada en yüksek bilgi kazancını (Information Gain) sağlayan ve Gini saflık indeksini (Gini impurity) en çok düşüren en güçlü ayırt edici özellik olmasıdır.",
+        "q_decisions_to_classify": "Bir kertenkeleyi sınıflandırmak için en fazla 2 karar adımı (soru) yeterli olmaktadır (max_depth=2). Bu sayı bize modelin son derece pratik, sade, aşırı öğrenmeden uzak ve insanlar tarafından kolayca yorumlanabilir (açıklanabilir yapay zeka) olduğunu gösterir.",
+        "q_root_changed_across_targets": "Evet, hedef değişken değiştiğinde kök düğüm kesinlikle değişir. Çünkü kertenkelelerin \"yaşam alanlarını\" en iyi ayıran özellik (örneğin kuyruk dahil toplam boy) ile biyolojik \"türlerini\" veya \"cinsiyetlerini\" ayıran matematiksel özellikler tamamen farklıdır. Hedef değişince verinin bölme öncelikleri de tamamen yeniden hesaplanır.",
+        "q_codap_comparison": "CODAP ortamında sürükle-bırak yaparken bizler sınırları göz kararı ve görsel algımıza dayanarak elle çizeriz. Ancak Python (Scikit-Learn), ToplamUzunluk <= 139.75 gibi milimetrik ve matematiksel olarak en kusursuz eşik değerini Gini formülüyle kendisi bulur. Bu yüzden dal sayıları CODAP'taki tasarımlarımızla örtüşse bile, eşik değerlerin netliği ve kök düğüm seçimi Python'da çok daha keskin ve optimize bir şekilde karşımıza çıkmaktadır.",
+        "root_node_feature_computed": null,
+        "root_node_feature_source": "markdown_text",
+        "is_optimal_depth_mathematically_correct": true,
+        "mathematically_optimal_depth": 2
+      },
+      "step4_responses_location": "per_tree"
+    },
+    {
+      "target_variable": "Tur",
+      "target_variable_intermediate_name": null,
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "Cinsiyet_Disi",
+          "Cinsiyet_Erkek",
+          "YasamAlani_Agac",
+          "YasamAlani_Kaya",
+          "YasamAlani_Yer"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": null,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 5,
+        "depth_range_max_source": "list_literal",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.488,
+            "test_mcr": 0.484
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.359,
+            "test_mcr": 0.312
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.352,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.324,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.285,
+            "test_mcr": 0.438
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": null,
+        "zero_train_error_interpretation": null,
+        "divergence_point_identified": null,
+        "overfitting_named_or_described": null,
+        "preferred_depth_from_table": null,
+        "preferred_depth_from_graph": null
+      },
+      "step5_final_tree": {
+        "chosen_optimal_depth": 2,
+        "test_mcr_achieved": 0.2031,
+        "root_node_feature": "BacakUzunlugu",
+        "root_node_threshold": 26.25,
+        "q_root_node_reasoning": "Karar  ağacı incelendiğinde, kök düğümde (en tepede) BacakUzunlugu değişkeni kullanılmıştır (BacakUzunlugu <= 26.25). Bu değişkenin ilk sırada yer almasının nedeni; kertenkelelerin biyolojik türlerini (Anolis, Sceloporus, Uta) birbirinden ayırt etmede en yüksek bilgi kazancını (Information Gain) sağlayan ve Gini saflık indeksini (Gini impurity) en çok düşüren (yani veriyi en temiz şekilde ikiye bölen) en güçlü morfolojik özellik olmasıdır.",
+        "q_decisions_to_classify": "Bir kertenkelenin türünü belirlemek için ağaçta en fazla 2 karar adımı (soru) yeterli olmaktadır (max_depth=2). Bu sayı, modelin son derece sade, anlaşılır, aşırı öğrenmeden (overfitting) uzak ve insanlar tarafından kolayca takip edilip doğrulanabilir kurallar ürettiğini gösterir.",
+        "q_root_changed_across_targets": "Evet, kesinlikle değişti. Bir önceki modelde hedef değişken YasamAlani iken kök düğümde ToplamUzunluk (kuyruk boyu dahil) değişkeni seçilmişti; çünkü kertenkelelerin yaşam alanlarındaki (Ağaç, Yer, Kaya) dengeleri kuyruk boylarıyla doğrudan ilişkiliydi. Ancak hedef değişken Tur (Biyolojik Cins/Tür) olduğunda kök düğüm BacakUzunlugu olarak değişmiştir. Bunu şöyle yorumlarız: Kertenkelelerin genetik olarak tür sınıflarını (Anolis, Sceloporus, Uta) morfolojik açıdan en karakteristik biçimde ayıran biyolojik unsur, arka bacaklarının uzunluğudur. Bu değişim, modelin amacına göre verideki farklı matematiksel ilişkileri ve varyansları önceliklendirdiğini kanıtlar.",
+        "q_codap_comparison": "CODAP ortamında kertenkele türlerini ayırırken kategorik verileri veya görsel olarak ayrılan noktaları tamamen kendi gözlem yeteneğimize göre elle gruplamıştık. Python (Scikit-Learn) ise BacakUzunlugu <= 26.25, GovdeUzunlugu <= 55.45 ve Kutle <= 13.9 gibi tamamen nesnel, milimetrik ve Gini algoritmasına dayalı eşik değerleri hesaplamıştır. Dal sayıları ve hiyerarşik mantık CODAP'taki tasarımlarımızla büyük oranda örtüşse de, Python'un sunduğu bu ağaç insan hatasından ve öznel yorumlardan arındırılmış, matematiksel olarak en optimize sınırları çizen bir modeldir.",
+        "root_node_feature_computed": null,
+        "root_node_feature_source": "markdown_text",
+        "is_optimal_depth_mathematically_correct": true,
+        "mathematically_optimal_depth": 2
+      },
+      "step4_responses_location": "aggregated_end_of_notebook"
+    },
+    {
+      "target_variable": "Cinsiyet",
+      "target_variable_intermediate_name": null,
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "Tur_Anolis",
+          "Tur_Sceloporus",
+          "Tur_Uta",
+          "YasamAlani_Agac",
+          "YasamAlani_Kaya",
+          "YasamAlani_Yer"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": null,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 5,
+        "depth_range_max_source": "list_literal",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.266,
+            "test_mcr": 0.281
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.184,
+            "test_mcr": 0.203
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.184,
+            "test_mcr": 0.203
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.137,
+            "test_mcr": 0.297
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.105,
+            "test_mcr": 0.234
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": null,
+        "zero_train_error_interpretation": null,
+        "divergence_point_identified": null,
+        "overfitting_named_or_described": null,
+        "preferred_depth_from_table": null,
+        "preferred_depth_from_graph": null
+      },
+      "step5_final_tree": {
+        "chosen_optimal_depth": 2,
+        "test_mcr_achieved": 0.4375,
+        "root_node_feature": "Kutle",
+        "root_node_threshold": 11.82,
+        "q_root_node_reasoning": "Karar ağacına göre kök düğümde (en tepede) Kutle değişkeni kullanılmıştır (Kutle <= 11.82). Bu değişkenin ilk sırada yer almasının nedeni; kertenkelelerin biyolojik cinsiyetlerini (Erkek / Dişi) birbirinden ayırt etmede en yüksek bilgi kazancını (Information Gain) sağlayan ve Gini saflık indeksini en çok düşüren en güçlü ayırt edici morfolojik özelliğin ağırlık (kütle) olmasıdır.",
+        "q_decisions_to_classify": "Bir kertenkelenin cinsiyetini tahmin etmek için ağaçta en fazla 2 karar adımı (soru) yeterli olmaktadır (max_depth=2). Bu durum, cinsiyet ayrımını yapmak için modelin karmaşık kurallara ihtiyaç duymadığını; son derece sade, anlaşılır ve aşırı öğrenmeden uzak bir yapıda olduğunu gösterir.",
+        "q_root_changed_across_targets": "Evet, kök düğüm yine değişti. YasamAlani tahmininde kök düğüm ToplamUzunluk, Tur tahmininde BacakUzunlugu iken, Cinsiyet tahmininde kök düğüm Kutle olmuştur. Bunu şöyle yorumlarız: Kertenkelelerde cinsiyete bağlı morfolojik farklılıklar (seksüel dimorfizm), kendini en belirgin şekilde vücut ağırlığında (kütlede) göstermektedir. Model, hedefimiz değiştikçe verinin içindeki en yüksek bilgi kazancı sağlayan biyolojik varyasyonu başarıyla bulmuş ve her soru için en uygun morfolojik anahtarı (kök düğümü) seçmiştir.",
+        "q_codap_comparison": null,
+        "root_node_feature_computed": null,
+        "root_node_feature_source": "markdown_text",
+        "is_optimal_depth_mathematically_correct": true,
+        "mathematically_optimal_depth": 2
+      },
+      "step4_responses_location": "aggregated_end_of_notebook"
+    }
+  ],
+  "cross_target_comparison": {
+    "comparison_present": true,
+    "optimal_depths_compared": false,
+    "root_nodes_compared": true,
+    "mcr_values_compared": [
+      {
+        "target_variable": "YasamAlani",
+        "test_mcr": 0.3125
+      },
+      {
+        "target_variable": "Tur",
+        "test_mcr": 0.2031
+      },
+      {
+        "target_variable": "Cinsiyet",
+        "test_mcr": 0.4375
+      }
+    ],
+    "comparison_reasoning": "Yaptığımız tüm bu modelleme çalışmalarını ve elde ettiğimiz sonuçları karşılaştırdığımızda, en iyi ve en başarılı tahmin kesinlikle \"Tur\" (Kertenkele Türü) tahmini yaptığımız modeldir.\n\nCinsiyet modelinde %18.7, Yaşam Alanı modelinde ise %31 civarında hata (MCR) oranlarıyla boğuşurken; Tur modelinde hata oranımız neredeyse sıfıra yaklaşarak %4.7 (0.047) seviyesine düştü. Test setindeki 64 kertenkeleden 61 tanesini nokta atışı doğru bildik. Hele o Karışıklık Matrisindeki Anolis türünün 17'de 17 yapması, yani sıfır hatayla çalışması modelin ne kadar kusursuz bir başarı yakaladığının en büyük kanıtı.\n\nTürler arasındaki evrimsel boyut farkları o kadar belirgindir ki, kurulan basit bir karar ağacı bile sadece 3 kertenkelede yanılarak şifreyi anında çözebildi. Özetle, sunacağımız en güçlü ve doğanın mantığına en uygun çalışan \"şampiyon\" modelimiz Tur değişkenini hedef aldığımız model oldu."
+  },
+  "step6_written_reflection": {
+    "q1_learning_journey": {
+      "raw_text": "Açıkçası bu dönem veri bilimi yolculuğunda üç farklı dünyayı da deneyimlemek bana çok şey kattı. İlk başta Data Kartları ile çalışırken işin tamamen mantığını ve \"Fiziksel olarak veriyi bölmek ne demek?\" sorusunun cevabını dokunarak hissettim. Ancak itiraf etmeliyim ki az sayıda veriyle bile kartları destelemek tam bir sabır işiydi.\n\nArdından CODAP'a geçtiğimde adeta bir oyun alanına girmiş gibi hissettim. Görsel olarak verileri sağa sola çekiştirmek, grafikteki kümelerin nasıl bölündüğünü anlık izlemek muhteşem bir deneyimdi. Modelin arka planda tam olarak neyi amaçladığını, verileri nasıl dilimlediğini kesinlikle en iyi CODAP ortamında anladım. Çünkü her şey gözümün önündeydi, soyut hiçbir şey kalmamıştı.\n\nEn çok zorlandığım yer ise şüphesiz Python ve Colab aşaması oldu. Kod satırları arasında kaybolmak, bir virgülü unuttuğumda ya da küçük-büyük harf hatası yaptığımda (YasamAlani yerine yasamalani yazmak gibi) ekranın kırmızı hata mesajlarıyla dolması ilk başta gözümü korkuttu. Ancak garip bir şekilde, hatamı fark edip çözmemde de en büyük dostum Python oldu. CODAP'ta bir şeyi yanlış yaptığınızda hatayı görsel olarak gözden kaçırabiliyorsunuz, ama Python hiç affetmiyor; satır numarasını verip \"Bak burada IndentationError var\" diyerek beni doğrudan çözüme yönlendirdi. Kod yazmanın o katı ama adil yapısı bana daha çok disiplin kazandırdı diyebilirim.",
+      "environments_mentioned": [
+        "data_cards",
+        "codap",
+        "python"
+      ],
+      "error_detection_discussed": true,
+      "word_count": 216
+    },
+    "q2_data_understanding": {
+      "raw_text": "Kurduğum üç farklı modelde de matematiksel algoritmaların doğanın kendi gizli kurallarını nasıl bu kadar net yakalayabildiğine gerçekten hayret ettim.\n\nYaşam Alanı tahmininde kök düğümün ToplamUzunluk seçilmesi harika bir biyolojik adaptasyon örneği. Ağaçta yaşayan bir kertenkelenin daldan düşmemek için upuzun bir kuyruğa ihtiyaç duyması, yerdekilerin ise daha kompakt olması doğanın bir kuralı ve model bu kuralı hiç biyoloji bilmeden matematiksel olarak tak diye önümüze koydu.\n\nTür tahmininde kök düğümün BacakUzunlugu olması da aynı şekilde. Sceloporus, Anolis ve Uta türlerinin evrimsel süreçte birbirlerinden ayrışırken en karakteristik morfolojik farklarının bacak boylarında saklı olduğunu gördüm.\n\nCinsiyet tahmininde ise ilk sıraya Kutle değişkeninin oturması tam bir \"Erkeklik-Dişilik\" (seksüel dimorfizm) yansıması. Doğada erkek kertenkelelerin bölge korumak ve kavga etmek için daha iri ve ağır olması gerçeği, ağacın Kutle > 11.82 ise ve bacakları uzunsa baskın şekilde Erkek tahmini yapmasıyla birebir örtüşüyor.\n\nYani model sadece kuru sayılarla oynamadı; kertenkelelerin hayatta kalma stratejilerini ve evrimsel imzalarını matematiksel kurallara tercüme etti.",
+      "root_feature_surprise_addressed": true,
+      "biological_reasoning_present": true,
+      "misclassified_habitat_discussed": false,
+      "word_count": 176
+    },
+    "q3_model_performance": {
+      "raw_text": "Karışıklık matrislerini önüme koyup incelediğimde, derslerde konuştuğumuz \"sınıf dengesizliği\" tehlikesini canlı canlı gözlemlemiş oldum.\n\nÖrneğin Yaşam Alanı modelinde veri setinde en çok bulunan (baskın olan) sınıf \"Yer\" kertenkeleleriydi. Matriste de en yüksek doğru tahmin oranının \"Yer\" sınıfına ait olduğunu gördüm. Model adeta \"Ben en çok Yer kertenkelesi gördüm, o yüzden onları tanımakta çok iyiyim\" diyordu. Buna karşılık sayısı az olan \"Kaya\" kertenkeleleri ise sıklıkla \"Ağaç\" kertenkeleleriyle karıştırılmıştı. Azınlıkta kalan sınıfların model tarafından biraz \"ihmal edildiğini\" hissettim.\n\nTür tahmininde ise performans adeta kusursuzdu (%95.3 doğruluk). Orada Anolis sınıfının 17'de 17 yapması muazzam bir başarıydı. Cinsiyet tahmininde ise hata oranı biraz daha yüksekti (MCR: %18.7). Bunu da şuna bağlıyorum: İki farklı türü ayırmak (biri devasa, diyen minicik) çok kolayken; aynı türün iri bir dişisi ile küçük bir erkeği boyut olarak birbirine çok benzer. Modelin bu ara/gri bölgelerde kafasının karışmasını çok insani ve doğal buluyorum. Genel olarak aldığım MCR değerleri, bu kadar basit ve sadece 2 derinliğe sahip ağaçlar için bence fazlasıyla tatmin edici ve başarılı.",
+      "mcr_value_stated": 0.187,
+      "best_predicted_class": "Yer",
+      "worst_predicted_class": "Kaya",
+      "ideal_mcr_threshold_stated": null,
+      "cross_target_mcr_comparison_attempted": true,
+      "word_count": 190
+    },
+    "q4_dt_limitations": {
+      "raw_text": "Karar ağaçlarının en güçlü yönü kesinlikle \"açıklanabilir\" olması. Ağaca baktığımda modelin hangi kararı neden verdiğini bir insan gibi okuyabiliyorum (\"Kütlesi şundan büyükse erkektir\" gibi). Gizemli bir kara kutu değil, çok şeffaf. Ancak en büyük zayıflığı, sınırları çok keskin çizgilerle (balta keser gibi) ayırması. Doğada hayat her zaman Kutle <= 11.82 gibi net bir çizgiyle ikiye ayrılmıyor; esnek geçişler var.\n\nModelin yaptığı hatalar kesinlikle rastgele değil, çok net bir örüntüsü var: Birbirine fiziksel ölçü olarak çok benzeyen ara formları karıştırıyor. Eğer bu veri setini gelecekte geliştirme şansım olsaydı, sadece boy-kilo gibi kaba morfolojik ölçümlerle yetinmezdim. Veri kümesine kesinlikle \"Deri rengi / Desen türü\" veya \"Parmak yapısı / Vantuz varlığı\" gibi daha ayırt edici kategorik değişkenler eklerdim. Çünkü ağaçta yaşayan bir kertenkelenin parmak yapısı yerdekilerden çok farklıdır ve model bu değişkeni görseydi sıfır hatayla çalışabilirdi.\nBence kesinlikle değişirdi. Derste de gördüğümüz gibi karar ağaçları veriyi hep dikey ve yatay, yani çok keskin çizgilerle (Kutle <= 11.82 veya BacakUzunlugu <= 26.25 gibi) bıçakla keser gibi ayırıyor. Fakat doğadaki canlılar, bu kertenkeleler her zaman böyle katı matematiksel kutuların içine sığmıyorlar. İri bir dişi ile küçük bir erkek kertenkele çok rahat bir şekilde bu keskin sınıra denk gelip modeli yanıltabiliyor (zaten matrislerdeki hatalarımız da hep bu sınırlara yakın yerlerde oldu).\n\nEğer elimizde verileri böyle keskin bir çizgiyle değil de, daha esnek veya yuvarlak geçişlerle gruplayabilen farklı bir model olsaydı sonuçlar değişebilirdi. Örneğin, verileri çizgilerle bölmek yerine aralarındaki benzerlik mesafelerine göre kümeleyen ya da olasılık hesabı yapan başka bir mantık kullansaydık, o sınırda kalan ara formdaki kertenkeleleri daha iyi yönetebilirdik. Cinsiyet tahminindeki %18.7'lik hata oranımız belki daha da aşağı düşebilirdi. Karar ağacı bize çok net ve anlaşılır kurallar veriyor ama bu keskin sınır yapısı yüzünden bazı kertenkeleleri kaçırdığımızı düşünüyorum. O yüzden modelin değişmesi, veriye bakış açımızı ve tahmin esnekliğimizi kesinlikle etkilerdi.\n\nBu yoğun süreçten sonra kahve içerken bir arkadaşım bana bunu sorsa, ona hiç kitabi ve teorik cümlelere girmeden, bu kertenkele ödevindeki maceralarımdan yola çıkarak aynen şunları söylerdim:\n\nKarar Ağacı Nedir? \"Bak dostum, karar ağacı aslında bizim günlük hayatta yaptığımız 'Yol ayrımı' tercihlerinin bilgisayara yaptırılmış halidir. Verinin karşısına geçip sırayla 'Bu kertenkele 11 gramdan ağır mı? Evet ise sağa git, hayır ise sola git' diye mantıklı sorular soran ve bu soruların sonunda veriyi doğru kutulara (türlere veya yaşam alanlarına) yerleştiren bir 'Evet/Hayır' oyunudur.\"\n\nNe İşe Yarar? \"En büyük numarası şeffaf ve anlaşılır olmasıdır. Yapay zekanın neye bakarak karar verdiğini (örneğin kertenkelenin bacak boyuna baktığını) gözünle görebiliyorsun, arkada ne döndüğü belli olmayan bir 'kara kutu' değil. Veriyi hızla sınıflandırmaya ve karmaşık gibi duran tablolardan çok basit, herkesin okuyabileceği kurallar çıkarmaya yarar.\"\n\nNerede Yetersiz Kalır? \"İşte can alıcı yer burası. Bu ağaçlar çok çabuk ezberlemeye (overfitting) meyillidir. Ağacı çok derinleştirirsen (max_depth değerini artırırsan), verideki genel mantığı öğrenmeyi bırakıp kertenkelelerin tek tek şeceresini ezberliyor; sonra önüne hiç görmediği yeni bir kertenkele koyduğunda çuvallıyor (tıpkı test hatamızın 5. derinlikte fırlaması gibi). Bir de hayatı çok keskin çizgilerle ayırdığı için, birbirine çok benzeyen, ara formda kalan verilerde kafası acayip karışıyor ve yetersiz kalıyor.\"",
+      "error_pattern_described": true,
+      "alternative_model_named": null,
+      "data_improvement_suggested": true,
+      "dt_explanation_for_friend": "Bak dostum, karar ağacı aslında bizim günlük hayatta yaptığımız 'Yol ayrımı' tercihlerinin bilgisayara yaptırılmış halidir. Verinin karşısına geçip sırayla 'Bu kertenkele 11 gramdan ağır mı? Evet ise sağa git, hayır ise sola git' diye mantıklı sorular soran ve bu soruların sonunda veriyi doğru kutulara (türlere veya yaşam alanlarına) yerleştiren bir 'Evet/Hayır' oyunudur.",
+      "word_count": 481
+    }
+  }
+}

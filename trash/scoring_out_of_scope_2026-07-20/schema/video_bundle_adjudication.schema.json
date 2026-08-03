@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "video_bundle_adjudication",
+  "title": "Expert Adjudication of Video Analysis Bundle",
+  "type": "object",
+  "required": [
+    "adjudication_id",
+    "student_id",
+    "cohort_year",
+    "evaluator_role",
+    "artifacts_reviewed",
+    "overall_quality",
+    "dimension_scores",
+    "red_flags",
+    "behavior_level_audit",
+    "priority_revisions",
+    "confidence_in_this_adjudication",
+    "limitations_tr"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "adjudication_id": { "type": "string", "minLength": 1 },
+    "student_id": { "type": "string", "minLength": 1 },
+    "cohort_year": { "type": "integer" },
+    "evaluator_role": { "const": "measurement_expert" },
+    "artifacts_reviewed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 3
+    },
+    "overall_quality": {
+      "type": "object",
+      "required": ["score_1_to_4", "verdict", "summary_tr"],
+      "properties": {
+        "score_1_to_4": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "verdict": {
+          "type": "string",
+          "enum": ["acceptable", "acceptable_with_revisions", "not_acceptable"]
+        },
+        "summary_tr": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "dimension_scores": {
+      "type": "object",
+      "required": [
+        "A_construct_scores",
+        "B_expert_narrative",
+        "C_bundle_integrity",
+        "D_cross_artifact_consistency"
+      ],
+      "properties": {
+        "A_construct_scores": { "$ref": "#/definitions/dimension_score" },
+        "B_expert_narrative": { "$ref": "#/definitions/dimension_score" },
+        "C_bundle_integrity": { "$ref": "#/definitions/dimension_score" },
+        "D_cross_artifact_consistency": { "$ref": "#/definitions/dimension_score" }
+      },
+      "additionalProperties": true
+    },
+    "red_flags": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/red_flag" },
+      "minItems": 8,
+      "maxItems": 8
+    },
+    "behavior_level_audit": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/behavior_audit_row" }
+    },
+    "priority_revisions": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/priority_revision" }
+    },
+    "confidence_in_this_adjudication": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "limitations_tr": { "type": "string" }
+  },
+  "additionalProperties": true,
+  "definitions": {
+    "dimension_score": {
+      "type": "object",
+      "required": ["score", "rationale_tr"],
+      "properties": {
+        "score": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "rationale_tr": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "red_flag": {
+      "type": "object",
+      "required": ["id", "triggered"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": [
+            "RF01", "RF02", "RF03", "RF04",
+            "RF05", "RF06", "RF07", "RF08"
+          ]
+        },
+        "triggered": { "type": "boolean" },
+        "evidence": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "behavior_audit_row": {
+      "type": "object",
+      "required": ["behavior_id", "artifact_level", "recommended_action", "rationale_tr"],
+      "properties": {
+        "behavior_id": {
+          "type": "string",
+          "pattern": "^B([0-9]|1[0-3])$"
+        },
+        "artifact_level": { "type": "string" },
+        "expert_agrees": { "type": ["boolean", "null"] },
+        "recommended_action": {
+          "type": "string",
+          "enum": [
+            "keep",
+            "lower",
+            "raise",
+            "set_not_measurable",
+            "needs_video_review"
+          ]
+        },
+        "rationale_tr": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "priority_revision": {
+      "type": "object",
+      "required": ["priority", "artifact", "issue_tr", "fix_tr"],
+      "properties": {
+        "priority": { "type": "integer", "minimum": 1 },
+        "artifact": { "type": "string" },
+        "issue_tr": { "type": "string" },
+        "fix_tr": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

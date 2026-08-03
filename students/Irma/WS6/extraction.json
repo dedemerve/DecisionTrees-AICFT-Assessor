@@ -1,0 +1,174 @@
+{
+  "stage": "extraction",
+  "student_id": "Irma",
+  "worksheet": "WS6",
+  "student_name": "Irma",
+  "pdf_source": "31 Mart 2026 Çalışma Kâğıdı 6.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-08-02T17:49:38.721334+00:00",
+    "ocr_model": "claude-sonnet-5",
+    "items": {
+      "WS6_B1": "(not_extracted)",
+      "WS6_B2": "(not_extracted)",
+      "WS6_B3": "(not_extracted)",
+      "WS6_B4": "(not_extracted)",
+      "WS6_B5": "(not_extracted)",
+      "WS6_B6": "(not_extracted)",
+      "WS6_B7": "(not_extracted)",
+      "WS6_B8": "(not_extracted)",
+      "WS6_B9": "(not_extracted)",
+      "WS6_B10": "(not_extracted)",
+      "WS6_B11": "(not_extracted)",
+      "WS6_B12": "(not_extracted)",
+      "WS6_B13": "(not_extracted)"
+    },
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Yağ",
+        "left_operator": "≤",
+        "left_threshold_value": 13.0,
+        "right_operator": ">",
+        "right_threshold_value": 13.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Tuz",
+          "node_recommended_count": 6,
+          "node_not_recommended_count": 2,
+          "left_operator": "≤",
+          "left_threshold_value": 0.3,
+          "right_operator": ">",
+          "right_threshold_value": 0.3
+        },
+        "right_child": {
+          "parsed_feature": null,
+          "node_recommended_count": 0,
+          "node_not_recommended_count": 3,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 0
+          },
+          "left_right_leaf": {
+            "leaf_label": "(bos)",
+            "leaf_recommended_count": 4,
+            "leaf_not_recommended_count": 1,
+            "note": "this leaf further splits by Şeker into ≤20 (tavsiye 4, tavsiye x 0) and >20 (tavsiye x0, tavsiye x2)"
+          },
+          "right_left_leaf": {
+            "leaf_label": "(bos)",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null,
+            "not_applicable": true
+          },
+          "right_right_leaf": {
+            "leaf_label": "(bos)",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null,
+            "not_applicable": true
+          }
+        }
+      }
+    },
+    "raw_ocr": {
+      "student_id": "Irma",
+      "worksheet": "WS6",
+      "extraction": {
+        "tree_structure": {
+          "depth_0": {
+            "parsed_feature": "Yağ",
+            "left_operator": "≤",
+            "left_threshold_value": 13.0,
+            "right_operator": ">",
+            "right_threshold_value": 13.0
+          },
+          "depth_1": {
+            "left_child": {
+              "parsed_feature": "Tuz",
+              "node_recommended_count": 6,
+              "node_not_recommended_count": 2,
+              "left_operator": "≤",
+              "left_threshold_value": 0.3,
+              "right_operator": ">",
+              "right_threshold_value": 0.3
+            },
+            "right_child": {
+              "parsed_feature": null,
+              "node_recommended_count": 0,
+              "node_not_recommended_count": 3,
+              "left_operator": null,
+              "left_threshold_value": null,
+              "right_operator": null,
+              "right_threshold_value": null
+            }
+          },
+          "depth_2": {
+            "leaf_nodes": {
+              "left_left_leaf": {
+                "leaf_label": "tavsiye edilir",
+                "leaf_recommended_count": 0,
+                "leaf_not_recommended_count": 0
+              },
+              "left_right_leaf": {
+                "leaf_label": "(bos)",
+                "leaf_recommended_count": 4,
+                "leaf_not_recommended_count": 1,
+                "note": "this leaf further splits by Şeker into ≤20 (tavsiye 4, tavsiye x 0) and >20 (tavsiye x0, tavsiye x2)"
+              },
+              "right_left_leaf": {
+                "leaf_label": "(bos)",
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": null,
+                "not_applicable": true
+              },
+              "right_right_leaf": {
+                "leaf_label": "(bos)",
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": null,
+                "not_applicable": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 0,
+      "total": 13,
+      "blank_or_illegible": 0,
+      "missing": 13,
+      "completion_rate": 0.0,
+      "note": "WS6 scored from tree_structure, not flat items"
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 1.0,
+      "engagement_level": "high",
+      "llm_observations": "Root node splits on 'Yağ' at threshold 13, with left (evet) branch going to a 'Tuz' node and right (hayır) branch going to a mostly empty node with counts (tavsiye edilebilir 0, tavsiye edilemez 3). The Tuz node further splits into two leaves (≤0,3 and >0,3), and the right one splits again by 'Şeker' into two more leaves (≤20 and >20), making that branch depth 3. The right side of the root only has boxes drawn but left empty (no further splits documented).",
+      "page_quality_notes": "Right child of root (Yağ >13) appears to terminate at depth_1 with counts written (tavsiye edilebilir 0, tavsiye edilemez 3) but the two depth_2 boxes drawn under it are empty - treated as blank leaves. Left child (Tuz) branch has an extra depth (Şeker split under the >0,3 leaf), making that portion depth 3; deepest reachable leaves used for depth_2 mapping. [depth_0 operators belirsiz: left appears ≤13, right appears >13] [Tuz node operators: left ≤0,3, right >0,3] [Şeker node operators: left ≤20, right >20]"
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

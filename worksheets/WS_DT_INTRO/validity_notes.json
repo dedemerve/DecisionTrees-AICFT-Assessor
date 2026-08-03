@@ -1,0 +1,15 @@
+{
+  "worksheet": "WS_DT_INTRO",
+  "curriculum_status": "deployed",
+  "construct_threats": [
+    "Xeno numeric fields have NO fixed key — the dataset is randomly assigned per student, so sick/healthy counts differ. Score on internal consistency and structural invariants, not against canonical numbers.",
+    "Titanic numeric fields share fixed CSVs, so canonical values exist; still tolerate hand-reading / rounding differences (±0.02).",
+    "Interpretive items have no single correct answer — scorer drift if treated as keyed responses."
+  ],
+  "leakage_risks": [],
+  "evidence_limitations": [
+    "Interpretive sections require semantic scoring on rubric components, not example-answer matching.",
+    "Blanks DTI_76 and DTI_77 carry a copied prompt (VS1 overfitting wording) that contradicts the VS2 reality; credit correct critical reading."
+  ],
+  "cross_worksheet_dependencies": []
+}

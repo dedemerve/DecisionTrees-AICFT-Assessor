@@ -1,0 +1,421 @@
+{
+  "student_id": "Bruno",
+  "worksheet": "WS_DT_TITANIC",
+  "ws_snapshot": "Bruno Titanic bolumunu eksiksiz tamamlamistir (47/47). VS1 egitim/test okuma degerlerini dogru okumistur. VS1 test metriklerini dogru kesirlerle yazmistir. VS1 overfitting kavramini kullanmis ancak aciklamada 'cok fazla veri' yaniltici bir ifade kullanmistir. VS2 egitim ve test formulleri yapica dogrudur. VS2 test hayatta/oldu sutun karisimligi Amy ile ortusen sistemik hataydi (operator duzeltildi). DTI_69'da TN=25 (24 olmali). Tuzak soruler kisaca gecilmis.",
+  "page_notes": "(bos)",
+  "extraction": {
+    "titanic_vs1_egitim": {
+      "DTI_01": "812 kişi var 290 hayatta.",
+      "DTI_02": "290 kişi var 290'da hayatta.",
+      "DTI_03": "522 kişi var hepsi ölmüş.",
+      "DTI_04": "Female kutusu.",
+      "DTI_05": "(290+522)/812",
+      "DTI_06": "290/290+0",
+      "DTI_07": "522/522+0",
+      "DTI_08": "290/290+0",
+      "DTI_09": "(0+0)/522"
+    },
+    "titanic_vs1_test": {
+      "DTI_10": "231 kişiden 105 kişi yolcu.",
+      "DTI_11": "96 kişi var 56 hayatta.",
+      "DTI_12": "135 kişi var 49 hayatta.",
+      "DTI_13": "Female kutusu.",
+      "DTI_14": "(56+86)/231 = 142/231",
+      "DTI_15": "56/56+49 = 56/105",
+      "DTI_16": "86/86+40 = 86/126",
+      "DTI_17": "56/56+40 = 56/96",
+      "DTI_18": "40+49/231 = 89/231"
+    },
+    "titanic_vs1_interpretation": {
+      "DTI_19": "Evet var eğitim seti metriklerinde hata yokken test setinde hatalar var bundan kaynaklı metriklerde fark var.",
+      "DTI_20": "Çok fazla veri eklenince hatam arttı ve overfitting gerçekleşti.",
+      "DTI_21": "Performansı düştü çünkü hata sayısı daha fazla.",
+      "DTI_22": "Modelin performansı düşmüş."
+    },
+    "titanic_vs2_egitim": {
+      "DTI_23": "834 kişi 456 hayatta.",
+      "DTI_24": "304 kişi var 128 hayatta.",
+      "DTI_25": "530 kişi var 328 hayatta.",
+      "DTI_26": "Female.",
+      "DTI_27": "(128+202)/834",
+      "DTI_28": "128/128+328",
+      "DTI_29": "202/202+176",
+      "DTI_30": "128/128+176",
+      "DTI_31": "176+328/834"
+    },
+    "titanic_vs2_test": {
+      "DTI_32": "209/85",
+      "DTI_33": "82/61",
+      "DTI_34": "127/24",
+      "DTI_35": "Female.",
+      "DTI_36": "21+25/209",
+      "DTI_37": "21/21+103",
+      "DTI_38": "24/24+61",
+      "DTI_39": "21/21+61",
+      "DTI_40": "61+103/209"
+    },
+    "titanic_vs2_interpretation": {
+      "DTI_41": "Yok ikisi de iyi sonuç vermedi.",
+      "DTI_42": "Hem eğitim hemde test verisinde kötü sonuç elde etti bu yüzden underfitting olurtu.",
+      "DTI_43": "Performans düşmüş.",
+      "DTI_44": "Performansı biraz artmıştır."
+    },
+    "genel_sorular": {
+      "DTI_45": "Metriklerin hem eğitim hem test setinde iyi sonuç vermesi gerekir.",
+      "DTI_46": "Sadece eğitim setine bakarak karar alameyiz çünkü veri seti bize asıl sonucu veriyor.",
+      "DTI_47": "Hayır. Karmaşık veri setinde bakmama."
+    }
+  },
+  "validation": {
+    "titanic_numeric_checks": {
+      "vs1_egitim_accuracy": {
+        "student_formula": "(290+522)/812",
+        "student_value": 1.0,
+        "canonical": 1.0,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs1_egitim_sensitivity": {
+        "student_formula": "290/290+0",
+        "student_value": 1.0,
+        "canonical": 1.0,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs1_egitim_specificity": {
+        "student_formula": "522/522+0",
+        "student_value": 1.0,
+        "canonical": 1.0,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs1_egitim_precision": {
+        "student_formula": "290/290+0",
+        "student_value": 1.0,
+        "canonical": 1.0,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs1_egitim_MCR": {
+        "student_formula": "(0+0)/522",
+        "student_value": 0.0,
+        "canonical": 0.0,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs1_test_accuracy": {
+        "student_formula": "(56+86)/231 = 142/231",
+        "student_value": 0.615,
+        "canonical": 0.615,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs1_test_sensitivity": {
+        "student_formula": "56/56+49 = 56/105",
+        "student_value": 0.533,
+        "canonical": 0.533,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs1_test_specificity": {
+        "student_formula": "86/86+40 = 86/126",
+        "student_value": 0.683,
+        "canonical": 0.683,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs1_test_precision": {
+        "student_formula": "56/56+40 = 56/96",
+        "student_value": 0.583,
+        "canonical": 0.583,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs1_test_MCR": {
+        "student_formula": "40+49/231 = 89/231",
+        "student_value": 0.385,
+        "canonical": 0.385,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs2_egitim_accuracy": {
+        "student_formula": "(128+202)/834",
+        "student_value": 0.396,
+        "canonical": 0.396,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs2_egitim_sensitivity": {
+        "student_formula": "128/128+328",
+        "student_value": 0.281,
+        "canonical": 0.281,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs2_egitim_specificity": {
+        "student_formula": "202/202+176",
+        "student_value": 0.534,
+        "canonical": 0.534,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs2_egitim_precision": {
+        "student_formula": "128/128+176",
+        "student_value": 0.421,
+        "canonical": 0.421,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs2_egitim_MCR": {
+        "student_formula": "176+328/834",
+        "student_value": 0.604,
+        "canonical": 0.604,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs2_test_accuracy": {
+        "student_formula": "21+25/209",
+        "student_value": 0.22,
+        "canonical": 0.785,
+        "delta": 0.565,
+        "is_correct": false
+      },
+      "vs2_test_sensitivity": {
+        "student_formula": "21/21+103",
+        "student_value": 0.169,
+        "canonical": 0.718,
+        "delta": 0.549,
+        "is_correct": false
+      },
+      "vs2_test_specificity": {
+        "student_formula": "24/24+61",
+        "student_value": 0.282,
+        "canonical": 0.831,
+        "delta": 0.549,
+        "is_correct": false
+      },
+      "vs2_test_precision": {
+        "student_formula": "21/21+61",
+        "student_value": 0.256,
+        "canonical": 0.744,
+        "delta": 0.488,
+        "is_correct": false
+      },
+      "vs2_test_MCR": {
+        "student_formula": "61+103/209",
+        "student_value": 0.785,
+        "canonical": 0.215,
+        "delta": 0.57,
+        "is_correct": false
+      }
+    },
+    "titanic_reading_errors": {},
+    "trap_question_check": {
+      "DTI_43": {
+        "flag": "TUZAK_SORU",
+        "question_premise": "VS1 ifadesi VS2'ye uygulanir: egitim duyarliligi yuksekti. VS2 gercegi: ~%28.",
+        "student_answer": "Performans düşmüş.",
+        "student_recognized_contradiction": false,
+        "note": "Celiski belirtilmemis."
+      },
+      "DTI_44": {
+        "flag": "TUZAK_SORU",
+        "question_premise": "VS1 ifadesi VS2'ye uygulanir: egitim MCR dusuktu. VS2 gercegi: ~%60.",
+        "student_answer": "Performansı biraz artmıştır.",
+        "student_recognized_contradiction": false,
+        "note": "Celiski belirtilmemis."
+      }
+    },
+    "item_checks": {
+      "DTI_01": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_02": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_03": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_04": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_05": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_06": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_07": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_08": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_09": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_10": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_11": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_12": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_13": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_14": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_15": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_16": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_17": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_18": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_19": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_20": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_21": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_22": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_23": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_24": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_25": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_26": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_27": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_28": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_29": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_30": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_31": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_32": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_33": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_34": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_35": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_36": {
+        "is_correct": false,
+        "error_flag": "NUMERIC_TOLERANCE"
+      },
+      "DTI_37": {
+        "is_correct": false,
+        "error_flag": "NUMERIC_TOLERANCE"
+      },
+      "DTI_38": {
+        "is_correct": false,
+        "error_flag": "NUMERIC_TOLERANCE"
+      },
+      "DTI_39": {
+        "is_correct": false,
+        "error_flag": "NUMERIC_TOLERANCE"
+      },
+      "DTI_40": {
+        "is_correct": false,
+        "error_flag": "NUMERIC_TOLERANCE"
+      },
+      "DTI_41": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_42": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_43": {
+        "is_correct": false,
+        "error_flag": "TRAP_NOT_RECOGNIZED"
+      },
+      "DTI_44": {
+        "is_correct": false,
+        "error_flag": "TRAP_NOT_RECOGNIZED"
+      },
+      "DTI_45": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_46": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_47": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Bruno Titanic bolumunu eksiksiz tamamlamistir (47/47). VS1 egitim/test okuma degerlerini dogru okumistur. VS1 test metriklerini dogru kesirlerle yazmistir. VS1 overfitting kavramini kullanmis ancak aciklamada 'cok fazla veri' yaniltici bir ifade kullanmistir. VS2 egitim ve test formulleri yapica dogrudur. VS2 test hayatta/oldu sutun karisimligi Amy ile ortusen sistemik hataydi (operator duzeltildi). DTI_69'da TN=25 (24 olmali). Tuzak soruler kisaca gecilmis."
+  }
+}

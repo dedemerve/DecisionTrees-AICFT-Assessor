@@ -87,6 +87,8 @@ PAGES_PER_STUDENT: dict[str, int] = {
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": 1,
     "31 Mart 2026 Çalışma Kâğıdı 7.pdf": 1,
     "31 Mart 2026 Çalışma Kâğıdı 10.pdf": 1,
+    "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf": 10,
+    "07 Nisan 2026 Çalışma Kâğıdı Titanic.pdf": 10,
 }
 
 # ---------------------------------------------------------------------------
@@ -1289,6 +1291,230 @@ Return ONLY the following JSON object. No text before or after it.
   "page_notes": "..."
 }}"""
 
+PROMPT_DT_XENO = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
+Your task: transcribe one pre-service teacher's completed CODAP Arbor "Ağaçlarla Tanı Koyma" (Xeno) worksheet.
+
+You will receive 10 page images belonging to ONE pre-service teacher. Treat all 10 pages as one document.
+Most pages are printed instructions with no student writing. Student answers appear only in:
+  Page 4 — "Karar Ağacını Okuyalım" table (7-row Q&A table, handwritten answers in right column)
+  Page 6 — Two boxed Soru/Cevap blocks (FP/FN danger question; CODAP performance question)
+  Page 7 — "Karışıklık Matrisi" table (TP/TN/FP/FN/N counts + explanations)
+  Page 8 — Metric calculation table (Doğruluk/Duyarlılık/Özgüllük/Kesinlik) + three Soru/Cevap blocks
+  Page 9 — "Yeni Bir Metriği Tanıyalım" MCR table + one Soru/Cevap block
+
+{_NAME_INSTRUCTION}
+
+{_HANDWRITING_INSTRUCTION}
+
+{_SENTINEL_INSTRUCTION}
+
+IMPORTANT — XENO DATASET IS STUDENT-SPECIFIC:
+Each student received a randomly assigned dataset. The counts for blue/pink hair cases and sick/healthy
+totals will differ between students. Transcribe the student's own numbers exactly as written.
+The structural invariant is: blue hair = 0% sick, pink hair = 100% sick, so FP=FN=0 always.
+
+WHAT TO EXTRACT — return exactly these JSON keys with verbatim pre-service teacher answers:
+
+"student_name"
+  The pseudonym printed in the black name box (top-right corner of page 1).
+
+--- PAGE 4: Karar Ağacını Okuyalım (7-row Q&A table) ---
+"DTI_01"  Row 1 — Kök düğüm (root node): how many cases, what % are sick (hasta). Transcribe the full answer.
+"DTI_02"  Row 2 — Mavi saçlı (blue hair) kutu: how many cases, what % are sick. Transcribe the full answer.
+"DTI_03"  Row 3 — Pembe saçlı (pink hair) kutu: how many cases, what % are sick, interpretation. Transcribe the full answer.
+"DTI_04"  Row 4 — Which box was labeled "pozitif" (hasta/sick)? What criteria used? Alternative possible?
+"DTI_05"  Row 5 — Pembe saçlı (pink hair) kutu (repeated question about sick relationship). Transcribe the full answer.
+"DTI_06"  Row 6 — "Saç rengi değişkeni bu veri setinde iyi bir ayırıcı mıdır? Neden?" — Is hair color a good predictor?
+"DTI_07"  Row 7 — "Eğer yeni bir vaka gelseydi, yalnızca saç rengine bakarak..." — prediction for new case.
+
+--- PAGE 6: Boxed question blocks ---
+"DTI_08"  Soru: FP vs FN tıbbi tehlike — which error type is more dangerous and why (FP mi FN mi)?
+"DTI_09"  Soru: "Karar ağacınız 10 yeni hastayı otomatik olarak teşhis edecek. Ağacınız nasıl bir performans sergiledi?" — CODAP performance summary.
+
+--- PAGE 7: Karışıklık Matrisi table ---
+"DTI_10"  TP (Doğru Pozitif) — student's numeric value in "Sayı" column.
+"DTI_11"  TP — student's explanation in "Ne anlama geliyor?" column.
+"DTI_12"  TN (Doğru Negatif) — student's numeric value in "Sayı" column.
+"DTI_13"  TN — student's explanation in "Ne anlama geliyor?" column.
+"DTI_14"  FP (Yanlış Pozitif) — student's numeric value in "Sayı" column.
+"DTI_15"  FP — student's explanation in "Ne anlama geliyor?" column.
+"DTI_16"  FN (Yanlış Negatif) — student's numeric value in "Sayı" column.
+"DTI_17"  FN — student's explanation in "Ne anlama geliyor?" column.
+"DTI_18"  N (Toplam) — student's numeric value in "Sayı" column.
+"DTI_19"  N — student's explanation in "Ne anlama geliyor?" column.
+
+--- PAGE 8: Performans Metrikleri calculation table ---
+"DTI_20"  Doğruluk (Accuracy) — student's formula/calculation in "Hesaplama (Adım Adım)" column.
+"DTI_21"  Doğruluk — student's interpretation in "Sonucu Yorumlayın" column.
+"DTI_22"  Duyarlılık (Sensitivity) — student's formula/calculation.
+"DTI_23"  Duyarlılık — student's interpretation.
+"DTI_24"  Özgüllük (Specificity) — student's formula/calculation.
+"DTI_25"  Özgüllük — student's interpretation.
+"DTI_26"  Kesinlik (Precision) — student's formula/calculation.
+"DTI_27"  Kesinlik — student's interpretation.
+
+--- PAGE 8: Three Soru/Cevap blocks below the metrics table ---
+"DTI_28"  Soru: "Bir Xenobiyolog olarak hangi metriği öncelikli olarak kullanırsınız?" — which metric and why.
+"DTI_29"  Sub-question a) of new metric block: "Oluşturduğunuz metriğin formülünü yazın." — student's formula for a new metric.
+"DTI_30"  Sub-question b): "Oluşturduğunuz ölçü neyi daha iyi yakalamaktadır?" — what the new metric captures.
+"DTI_31"  Sub-question c): "Bu ölçü hangi durumlarda tercih edilmelidir?" — when to prefer this metric.
+
+--- PAGE 9: Yeni Bir Metriği Tanıyalım / MCR ---
+"DTI_32"  MCR (Yanlış Sınıflandırma Oranı) — student's formula/calculation in "Hesaplama" column.
+"DTI_33"  MCR — student's interpretation in "Sonucu Yorumlayın" column.
+
+"ws_snapshot"
+  2-3 sentence summary of the student's overall performance: their Xeno dataset counts,
+  whether FP=FN=0 was achieved, and notable observations about their metric calculations or written explanations.
+"page_notes"
+  Brief note about scan quality or skipped pages. Write (bos) if no issues.
+
+Return ONLY the following JSON object. No text before or after it.
+{{
+  "student_name": "...",
+  "DTI_01": "...", "DTI_02": "...", "DTI_03": "...", "DTI_04": "...",
+  "DTI_05": "...", "DTI_06": "...", "DTI_07": "...",
+  "DTI_08": "...", "DTI_09": "...",
+  "DTI_10": "...", "DTI_11": "...", "DTI_12": "...", "DTI_13": "...",
+  "DTI_14": "...", "DTI_15": "...", "DTI_16": "...", "DTI_17": "...",
+  "DTI_18": "...", "DTI_19": "...",
+  "DTI_20": "...", "DTI_21": "...", "DTI_22": "...", "DTI_23": "...",
+  "DTI_24": "...", "DTI_25": "...", "DTI_26": "...", "DTI_27": "...",
+  "DTI_28": "...", "DTI_29": "...", "DTI_30": "...", "DTI_31": "...",
+  "DTI_32": "...", "DTI_33": "...",
+  "ws_snapshot": "...",
+  "page_notes": "..."
+}}"""
+
+PROMPT_DT_TITANIC = f"""You are an expert at reading handwritten Turkish pre-service teacher worksheets.
+Your task: transcribe one pre-service teacher's completed CODAP Arbor "CODAP Arbor'da Titanic Verisi" worksheet.
+
+You will receive 10 page images belonging to ONE pre-service teacher. Treat all 10 pages as one document.
+Most pages contain printed instructions. Student handwriting appears in answer boxes and table cells.
+
+Page layout:
+  Page 1  — Cover (no student answers)
+  Page 2  — VS1 Eğitim: "Karar Ağacını Okuyalım" table (DTI_01–04) + "Değerleri Yazalım" metrics table (DTI_05–09)
+  Page 3  — VS1 Test: "Karar Ağacını Okuyalım" table (DTI_10–13) + "Değerleri Yazalım" metrics table (DTI_14–18)
+  Page 4  — VS1 interpretation Soru/Cevap blocks (DTI_19–22)
+  Page 5  — VS2 Eğitim: "Karar Ağacını Okuyalım" table (DTI_23–26) + "Değerleri Yazalım" metrics table (DTI_27–31)
+  Page 6  — VS2 Test: "Karar Ağacını Okuyalım" table (DTI_32–35) + "Değerleri Yazalım" metrics table (DTI_03–40)
+  Page 7  — VS2 interpretation Soru/Cevap blocks (DTI_08–44)
+  Page 8  — Final Soru/Cevap blocks about good models and single metrics (DTI_12–47)
+  Pages 9–10 — "Veri Setini Rastgele Bölme" instructions (no student answers)
+
+{_NAME_INSTRUCTION}
+
+{_HANDWRITING_INSTRUCTION}
+
+{_SENTINEL_INSTRUCTION}
+
+TITANIC DATASET — ALL STUDENTS USE THE SAME FIXED CSV FILES:
+  VS1 eğitim:  N=812, female=290 (all survived), male=522 (none survived) → perfect separation, all metrics=1.0
+  VS1 test:    N=231, female=96 (56 survived, 40 died), male=135 (49 survived, 86 died)
+  VS2 eğitim:  N=834, female=304 (128 survived, 176 died), male=530 (328 survived, 202 died)
+  VS2 test:    N=209, female=82 (61 survived, 21 died), male=127 (24 survived, 103 died)
+  Positive class in all datasets: female (hayatta kaldı = 1)
+  TP = female survived, FP = female died, TN = male died, FN = male survived
+
+Transcribe the student's written values exactly, even if they differ from the canonical values above.
+The scoring pipeline will compare against canonical; do not correct the student.
+
+TRAP QUESTION WARNING — DTI_43 and DTI_44:
+  The printed question stem for both blanks copies the VS1 wording ("eğitim duyarlılığı oldukça yüksekken"
+  and "MCR oldukça düşükken"). In VS2 reality, eğitim sensitivity is LOW (~28%) and MCR is HIGH (~60%).
+  A student who recognizes this contradiction and corrects for it deserves full credit.
+  Transcribe whatever the student wrote, including any notes about the contradiction.
+
+WHAT TO EXTRACT:
+
+"student_name"  The pseudonym in the black name box (top-right corner of page 1).
+
+--- PAGE 2: VS1 Eğitim ---
+"DTI_01"  "Karar Ağacını Okuyalım – Eğitim Veri Seti 1" table — Row 1: Kök düğüm kaç yolcu? Kaçı hayatta?
+"DTI_02"  Row 2: Female (kadın) kutusunda kaç kişi? Kaçı hayatta?
+"DTI_03"  Row 3: Male (erkek) kutusunda kaç kişi? Kaçı hayatta?
+"DTI_04"  Row 4: Hangi kutu 'pozitif' (hayatta) olarak etiketlendi?
+"DTI_05"  "Değerleri Yazalım – Eğitim Veri Seti 1" — Doğruluk: student's Hesaplama (Adım Adım) column.
+"DTI_06"  Duyarlılık: student's calculation.
+"DTI_07"  Özgüllük: student's calculation.
+"DTI_08"  Kesinlik: student's calculation.
+"DTI_09"  Yanlış Sınıflandırma Oranı (MCR): student's calculation.
+
+--- PAGE 3: VS1 Test ---
+"DTI_10"  "Karar Ağacını Okuyalım – Test Veri Seti 1" — Row 1: Kök düğüm kaç yolcu? Kaçı hayatta?
+"DTI_11"  Row 2: Female kutusunda kaç kişi? Kaçı hayatta?
+"DTI_12"  Row 3: Male kutusunda kaç kişi? Kaçı hayatta?
+"DTI_13"  Row 4: Hangi kutu 'pozitif' olarak etiketlendi?
+"DTI_14"  "Değerleri Yazalım – Test Veri Seti 1" — Doğruluk: student's calculation.
+"DTI_15"  Duyarlılık: student's calculation.
+"DTI_16"  Özgüllük: student's calculation.
+"DTI_17"  Kesinlik: student's calculation.
+"DTI_18"  Yanlış Sınıflandırma Oranı (MCR): student's calculation.
+
+--- PAGE 4: VS1 interpretation ---
+"DTI_19"  Soru: "Eğitim ve test seti metrikleri arasında büyük bir fark var mı? Varsa bu fark neden olabilir?"
+"DTI_20"  Soru: "Aşırı öğrenme (overfitting) nedir? Bu senaryoda neden aşırı öğrenme gerçekleşmiş olabilir?"
+"DTI_21"  Soru: "Eğitim veri setinde duyarlılık (sensitivity) değeri oldukça yüksek iken test veri setinde bu değerin belirgin biçimde düşmüştür. Bu durumu modelin performansı açısından yorumlayın."
+"DTI_22"  Soru: "Eğitim veri setinde yanlış sınıflandırma oranı (MCR) oldukça düşük iken test veri setinde bu oranın belirgin biçimde artmıştır. Bu durumu modelin performansı açısından yorumlayın."
+
+--- PAGE 5: VS2 Eğitim ---
+"DTI_23"  "Karar Ağacını Okuyalım – Eğitim Veri Seti 2" — Row 1: Kök düğüm kaç yolcu? Kaçı hayatta?
+"DTI_24"  Row 2: Female kutusunda kaç kişi? Kaçı hayatta?
+"DTI_25"  Row 3: Male kutusunda kaç kişi? Kaçı hayatta?
+"DTI_26"  Row 4: Hangi kutu 'pozitif' olarak etiketlendi?
+"DTI_27"  "Değerleri Yazalım – Eğitim Veri Seti 2" — Doğruluk: student's calculation.
+"DTI_28"  Duyarlılık: student's calculation.
+"DTI_29"  Özgüllük: student's calculation.
+"DTI_30"  Kesinlik: student's calculation.
+"DTI_31"  Yanlış Sınıflandırma Oranı (MCR): student's calculation.
+
+--- PAGE 6: VS2 Test ---
+"DTI_32"  "Karar Ağacını Okuyalım – Test Veri Seti 2" — Row 1: Kök düğüm kaç yolcu? Kaçı hayatta?
+"DTI_33"  Row 2: Female kutusunda kaç kişi? Kaçı hayatta?
+"DTI_34"  Row 3: Male kutusunda kaç kişi? Kaçı hayatta?
+"DTI_35"  Row 4: Hangi kutu 'pozitif' olarak etiketlendi?
+"DTI_36"  "Değerleri Yazalım – Test Veri Seti 2" — Doğruluk: student's calculation.
+"DTI_37"  Duyarlılık: student's calculation.
+"DTI_38"  Özgüllük: student's calculation.
+"DTI_39"  Kesinlik: student's calculation.
+"DTI_40"  Yanlış Sınıflandırma Oranı (MCR): student's calculation.
+
+--- PAGE 7: VS2 interpretation ---
+"DTI_41"  Soru: "Eğitim ve test seti metrikleri arasında büyük bir fark var mı? Varsa bu fark neden olabilir?"
+"DTI_42"  Soru: "Yetersiz uyum (underfitting) nedir? Bu senaryoda neden yetersiz uyum gerçekleşmiş olabilir?"
+"DTI_43"  TRAP QUESTION — Soru about sensitivity being high in training (prompt copied from VS1): transcribe student's answer even if they recognize the contradiction.
+"DTI_44"  TRAP QUESTION — Soru about MCR being low in training (prompt copied from VS1): transcribe student's answer even if they recognize the contradiction.
+
+--- PAGE 8: Final questions ---
+"DTI_45"  Soru: "'İyi' bir model nasıl olmalıdır? Hem eğitim hem test setinde hangi metriklerin nasıl olmasını beklersin?"
+"DTI_46"  Soru: "Bu iki senaryo size bir modeli değerlendirirken sadece eğitim seti metriklerine bakmanın neden yeterli olmadığını nasıl gösterdi?"
+"DTI_47"  Soru: "Bir modelin performansını yalnızca tek bir metriğe (örneğin doğruluk) bakarak değerlendirmek uygun mudur? Nedenini yazın."
+
+"ws_snapshot"
+  2-3 sentence summary: how the student handled the VS1 overfitting pattern, whether they correctly identified
+  underfitting in VS2, and any notable observations about blank answers or the trap questions DTI_43/44.
+"page_notes"
+  Brief note about scan quality or blank pages. Write (bos) if no issues.
+
+Return ONLY the following JSON object. No text before or after it.
+{{
+  "student_name": "...",
+  "DTI_01": "...", "DTI_02": "...", "DTI_03": "...", "DTI_04": "...",
+  "DTI_05": "...", "DTI_06": "...", "DTI_07": "...", "DTI_08": "...", "DTI_09": "...",
+  "DTI_10": "...", "DTI_11": "...", "DTI_12": "...", "DTI_13": "...",
+  "DTI_14": "...", "DTI_15": "...", "DTI_16": "...", "DTI_17": "...", "DTI_18": "...",
+  "DTI_19": "...", "DTI_20": "...", "DTI_21": "...", "DTI_22": "...",
+  "DTI_23": "...", "DTI_24": "...", "DTI_25": "...", "DTI_26": "...",
+  "DTI_27": "...", "DTI_28": "...", "DTI_29": "...", "DTI_30": "...", "DTI_31": "...",
+  "DTI_32": "...", "DTI_33": "...", "DTI_34": "...", "DTI_35": "...",
+  "DTI_36": "...", "DTI_37": "...", "DTI_38": "...", "DTI_39": "...", "DTI_40": "...",
+  "DTI_41": "...", "DTI_42": "...", "DTI_43": "...", "DTI_44": "...",
+  "DTI_45": "...", "DTI_46": "...", "DTI_47": "...",
+  "ws_snapshot": "...",
+  "page_notes": "..."
+}}"""
+
 PROMPTS: dict[str, str] = {
     # 2025
     "WorksheetDT.pdf": PROMPT_DT,
@@ -1303,6 +1529,9 @@ PROMPTS: dict[str, str] = {
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": PROMPT_WS6,
     "31 Mart 2026 Çalışma Kâğıdı 7.pdf": PROMPT_WS7,
     "31 Mart 2026 Çalışma Kâğıdı 10.pdf": PROMPT_WS10,
+    # 2026 — CODAP Arbor WS_DT_XENO / WS_DT_TITANIC (split from legacy WS_DT_INTRO)
+    "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf": PROMPT_DT_XENO,
+    "07 Nisan 2026 Çalışma Kâğıdı Titanic.pdf": PROMPT_DT_TITANIC,
 }
 
 # ---------------------------------------------------------------------------

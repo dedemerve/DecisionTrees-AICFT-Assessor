@@ -1,0 +1,51 @@
+{
+  "$schema": "schema/video_analysis_bundle.schema.json",
+  "student_id": "Marco",
+  "cohort_year": 2026,
+  "bundle_version": "2.0-process-only",
+  "layout_version": "v2",
+  "generated_at": "2026-07-21T11:43:10.430204+00:00",
+  "scope": "process_pipeline_methods_only",
+  "scoring_out_of_scope": true,
+  "session_id": "codap_28apr",
+  "artifacts": {
+    "expert_process_narrative": "annotations/Marco_expert_process_narrative.v1.jsonl",
+    "process_codes": "annotations/Marco_process_codes.v1.json",
+    "log_process_metadata": "metadata/Marco_log_process_metadata.json",
+    "gold_behavior_alignment": "annotations/Marco_gold_behavior_alignment.v1.json",
+    "observation_steps": "intermediate/Marco_observation_steps.json",
+    "tables_manifest": "metadata/Marco_tables_manifest.json"
+  },
+  "tabular_exports": {
+    "episodes": "exports/tabular/Marco_episodes.parquet",
+    "episode_process_codes": "exports/tabular/Marco_episode_process_codes.parquet",
+    "session_ml_features": "exports/tabular/Marco_session_ml_features.parquet"
+  },
+  "measurement_layers": {
+    "process_narrative": "Full uzman_nitel_gözlemi timeline (qualitative)",
+    "process_codes": "Episode-level V1-V8 process codes (non-scored)",
+    "log_metadata": "Task-4 chronology and log-only variables (null when no CSV)"
+  },
+  "coverage_audit": {
+    "steps_total": 25,
+    "steps_with_gold_shot": 0,
+    "steps_with_silver_anchor": 25,
+    "frames_total": 0,
+    "frames_with_step_inheritance": 0,
+    "video_duration_ms": null,
+    "silver_timestamp_span_ms": 4748503,
+    "low_silver_coverage": false,
+    "gaps_flagged": [
+      "text_only_steps:25"
+    ],
+    "rubric_gaps_for_student": [],
+    "log_available": false,
+    "log_video_sync_status": "unavailable"
+  },
+  "dual_artifact_model": {
+    "process_layer": "Expert narrative + episode V-codes",
+    "log_layer": "Objective event chronology when CODAP CSV available",
+    "scoring_layer": "OUT OF SCOPE — see trash/scoring_out_of_scope_2026-07-20/",
+    "reference": "framework/VIDEO_PROCESS_CODEBOOK_v1.md"
+  }
+}

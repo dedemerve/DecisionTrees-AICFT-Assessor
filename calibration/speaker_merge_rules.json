@@ -1,0 +1,38 @@
+{
+  "version": "2",
+  "method": "merged_transcript_hybrid_diarization_v2",
+  "diarization_pick": {
+    "max_gap_seconds": 18.0,
+    "interpolate_max_gap_seconds": 35.0
+  },
+  "review": {
+    "confidence_threshold": 0.5,
+    "flag_unknown": true,
+    "flag_role_flips": true
+  },
+  "focal_pt": {
+    "hocam_max_words": 18,
+    "hocam_teacher_pattern_max": 1
+  },
+  "teacher": {
+    "instructional_weak_min": 2,
+    "instructional_strong_min": 1,
+    "instructional_strong_requires_teacher_patterns": 1,
+    "monologue_min_words": 12
+  },
+  "context": {
+    "bridge_gap_seconds": 8.0,
+    "lecture_gap_seconds": 20.0,
+    "lecture_sandwich_gap_seconds": 15.0
+  },
+  "classmate_name_patterns": [
+    "ayşe",
+    "zeynep",
+    "irem",
+    "merve",
+    "şeyma",
+    "batu",
+    "muhammed",
+    "ismim"
+  ]
+}

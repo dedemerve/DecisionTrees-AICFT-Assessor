@@ -13,8 +13,50 @@ from student_bundle import extraction_responses
 from ws_extraction_normalize import normalize_scoring_responses, normalization_diff
 
 
+def _tree_structure_to_ws6_responses(tree_structure: dict) -> dict[str, str]:
+    """Map PROMPT_WS6 tree_structure to flat WS6_B* responses for validate_ws6_extraction."""
+    d0 = tree_structure.get("depth_0", {})
+    d1 = tree_structure.get("depth_1", {})
+    lc = d1.get("left_child", {})
+    rc = d1.get("right_child", {})
+    d2 = tree_structure.get("depth_2", {})
+    leaves = d2.get("leaf_nodes", {})
+
+    def _fmt(op: Any, val: Any) -> str:
+        if op is None or val is None:
+            return ""
+        return f"{op} {val}"
+
+    # Prefer left_child (evet branch) as the inner node; fall back to right_child.
+    inner = lc if lc.get("parsed_feature") else rc
+    inner_op = inner.get("left_operator")
+    inner_val = inner.get("left_threshold_value")
+
+    # Leaf labels: left_left = evet-evet, left_right = evet-hayır.
+    ll_label = str((leaves.get("left_left_leaf") or {}).get("leaf_label") or "")
+    lr_label = str((leaves.get("left_right_leaf") or {}).get("leaf_label") or "")
+
+    return {
+        "WS6_B1": str(d0.get("parsed_feature") or ""),
+        "WS6_B2": _fmt(d0.get("left_operator"), d0.get("left_threshold_value")),
+        "WS6_B3": ll_label,
+        "WS6_B4": lr_label,
+        "WS6_B6": str(inner.get("parsed_feature") or ""),
+        "WS6_B7": _fmt(inner_op, inner_val),
+        "WS6_B8": ll_label,
+        "WS6_B9": lr_label,
+    }
+
+
 def _responses_for_validation(worksheet: str, extraction: dict[str, Any]) -> tuple[dict[str, str], list[dict]]:
     raw = extraction_responses(extraction)
+    # For 2026 WS6: extraction stores tree_structure, not flat WS6_B* items.
+    # Convert to flat responses so validate_ws6_extraction can run normally.
+    if worksheet == "WS6":
+        gate1 = extraction.get("gate_1_extraction", {})
+        ts = gate1.get("tree_structure", {})
+        if ts and ts.get("depth_0", {}).get("parsed_feature"):
+            raw = _tree_structure_to_ws6_responses(ts)
     if worksheet not in {"WS5", "WS6"}:
         return raw, []
     normalized = normalize_scoring_responses(worksheet, raw)

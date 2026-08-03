@@ -1,0 +1,77 @@
+{
+  "stage": "extraction",
+  "student_id": "Sheila",
+  "worksheet": "WS_DT_XENO",
+  "student_name": "Sheila",
+  "pdf_source": "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf",
+  "rubric_ref": "rubrics/WS_DT_XENO_rubric.json",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-07-08T06:24:27.405990+00:00",
+    "ocr_model": "claude-opus-4-8",
+    "items": {
+      "DTI_01": "24 vaka içermekte %41.7 si hasta",
+      "DTI_02": "Bu vakaların 14 ü mavi saçlı",
+      "DTI_03": "10 tanesi pembe saçlı",
+      "DTI_04": "pink hair | pozitif [corrected: negatif → pozitif]",
+      "DTI_05": "10 tanesi hasta sick yazıyor %100 hasta",
+      "DTI_06": "Evet pembe renk saç hepsinde hasta",
+      "DTI_07": "%100 doğru çıkıyor yapabiliriz.",
+      "DTI_08": "FN (Yanlış) Çünkü hasta olana müdahale edilmeli",
+      "DTI_09": "Hata payı yok",
+      "DTI_10": "10",
+      "DTI_11": "Doğru karar",
+      "DTI_12": "0",
+      "DTI_13": "Doğru karar",
+      "DTI_14": "14",
+      "DTI_15": "Hasta dedi ama sağlıklı",
+      "DTI_16": "0",
+      "DTI_17": "Sağlıklı dedi ama hasta",
+      "DTI_18": "24",
+      "DTI_19": "toplam vaka",
+      "DTI_20": "(10+0) / 24 = 5/12",
+      "DTI_21": "Doğruluk oranım 5/12 dir",
+      "DTI_22": "10 / 24",
+      "DTI_23": "Oran yarısından daha az",
+      "DTI_24": "0 / 0+0 = 0",
+      "DTI_25": "Oran sıfır",
+      "DTI_26": "10 / 24",
+      "DTI_27": "Oran yarıdan daha az",
+      "DTI_28": "Özgüllük hariç hepsi eşit o yüzden diğerleride kullanılır.",
+      "DTI_29": "Kesinlik = Duyarlılık | TP+TN / FP+FN = 10+0 / 14+0 = 10/14",
+      "DTI_30": "Çünkü bu ölçü daha iyi teşhis ediyor",
+      "DTI_31": "Hem yanlış pozitifler hem yanlış negatifler önemliyse ör: Hastalık tespiti gibi durumlarda tercih edilir",
+      "DTI_32": "(bos)",
+      "DTI_33": "(bos)"
+    },
+    "raw_ocr": {}
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 31,
+      "total": 33,
+      "blank_or_illegible": 2,
+      "missing": 0,
+      "completion_rate": 0.939
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 0.939,
+      "engagement_level": "high",
+      "llm_observations": "Serena'nın Xeno veri setinde toplam 24 vaka bulunmakta (14 mavi saçlı, 10 pembe saçlı), pembe saçlıların %100'ü hasta ve mavi saçlıların hiçbiri hasta değil. Karışıklık matrisinde TP=10, TN=0, FP=14, FN=0, N=24 olarak yazmış; bu değerler FN=0 sağlamış ancak FP=0 sağlanamamış ve TN/FP değerleri yapıya (blue=%0 sick) uymuyor, öğrenci matristeki değerleri hatalı yorumlamış görünüyor. Metrik hesaplamalarında doğruluğu 5/12, duyarlılık ve kesinliği 10/24 olarak bulmuş, MCR tablosu boş bırakılmış.",
+      "page_notes": "Sayfa 9 MCR tablosu boş. Bazı el yazısı hızlı ve okunması güç; taramada silik alanlar mevcut ancak öğrenci cevapları okunabilir."
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

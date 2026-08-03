@@ -1,0 +1,429 @@
+{
+  "student_id": "Helena",
+  "metadata": {
+    "total_models_created": 3,
+    "markdown_cells": 15,
+    "code_cells": 31,
+    "total_cells": 46
+  },
+  "execution": {
+    "code_cells_with_output": 24,
+    "code_cells_without_output": 7,
+    "execution_count_all_null": null,
+    "cells_with_errors": 0,
+    "infrastructure_interrupt": false,
+    "error_types": []
+  },
+  "data_source": {
+    "real_csv_loaded": true,
+    "row_count_in_output": 320,
+    "synthetic_data_used": false,
+    "data_source_note": null
+  },
+  "step1_data_exploration": {
+    "data_loaded": true,
+    "row_count_reported": 320,
+    "col_count_reported": 7,
+    "columns_listed": true,
+    "value_counts_called": true,
+    "describe_called": true,
+    "q_lizard_count": "Veri kümesinde toplam 320 kertenkele (gözlem) bulunmaktadır.",
+    "q_habitat_most_frequent": "En kalabalık yaşam alanı: Yer (154 kertenkele)",
+    "q_habitat_least_frequent": "En az kertenkele barındıran yaşam alanı: Ağaç (79 kertenkele)",
+    "q_imbalance_effect_reasoning": "Veri kümesindeki sınıf dengesizliği, modelin adeta 'kolay yolu seçmesine' ve tembellik yapmasına neden olur. Model, veri sayısı çok olan çoğunluk sınıfına ait örüntüleri ezberleyip onu çok iyi öğrenirken; veri sayısı az olan azınlık sınıfını yeterince genelleyemez ve genelde çok kötü öğrenir.",
+    "q_mass_average_reported": 10.5,
+    "q_mass_by_species_reasoning": "Veri setindeki tüm kertenkelelerin ortalama ağırlığı (kütlesi) 10.5 gramdır.Bu değer üç farklı kertenkele türü (Anolis, Sceloporus, Uta) için belirgin şekilde farklıdır.Çünkü farklı kertenkele türleri, hayatta kalabilmek için farklı yaşam alanlarına uyum sağlamıştır."
+  },
+  "formulated_research_questions": [
+    {
+      "target_variable": "YasamAlani",
+      "formulated_question": null
+    },
+    {
+      "target_variable": "Cinsiyet",
+      "formulated_question": null
+    },
+    {
+      "target_variable": "Tur",
+      "formulated_question": null
+    }
+  ],
+  "step3_split_global": {
+    "test_size": 0.2,
+    "stratify_used": true,
+    "random_state": 42,
+    "split_size_reported_train": 256,
+    "split_size_reported_test": 64,
+    "parameters_varied_across_models": false,
+    "q_stratify_removal_effect": "stratify=y parametresini kullanmak, modelin hem eğitim hem de test aşamasında kertenkele yaşam alanlarını adil ve dengeli bir oranda görmesini sağlıyor. Eğer bu parametreyi yazmasaydım, tamamen şansa bağlı olarak eğitim kümesine çok fazla 'Yer' kertenkelesi doluşabilir, test kümesinde ise neredeyse hiç 'Ağaç' kertenkelesi kalmayabilirdi. Bu durum da modelin bazı sınıfları hiç öğrenememesine, dolayısıyla performansının düşmesine ve yanıltıcı sonuçlar üretmesine yol açardı.",
+    "q_random_state_change_effect": "random_state parametresini 42 yerine 7 yaptığımızda, kodun arkasındaki karıştırma şifresi değiştiği için eğitim ve test kümelerine dağıtılan kertenkele örnekleri tamamen değişmiştir. Model her seferinde farklı kertenkele kombinasyonları üzerinde eğitildiği için, karar ağacının kurduğu dallanmalar ve buna bağlı olarak elde ettiğimiz doğruluk sonuçları da küçük farklılıklar göstermiştir. Ancak elinizdeki veri seti yeterince büyük ve temsili olduğunda, bu tür başlangıç sayısı değişimlerinin modelin genel performansı üzerindeki etkisi genellikle sınırlı kalır."
+  },
+  "preliminary_quick_models": null,
+  "dt_experiments": [
+    {
+      "target_variable": "YasamAlani",
+      "target_variable_intermediate_name": "hedef_degisken",
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "Tur_Sceloporus",
+          "Tur_Uta",
+          "Cinsiyet_Erkek"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": null,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 10,
+        "depth_range_max_source": "range_call",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.488,
+            "test_mcr": 0.484
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.359,
+            "test_mcr": 0.312
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.352,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.324,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.285,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 6,
+            "train_mcr": 0.242,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 7,
+            "train_mcr": 0.156,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 8,
+            "train_mcr": 0.129,
+            "test_mcr": 0.469
+          },
+          {
+            "depth": 9,
+            "train_mcr": 0.066,
+            "test_mcr": 0.484
+          },
+          {
+            "depth": 10,
+            "train_mcr": 0.051,
+            "test_mcr": 0.484
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": "Modelin derinliği arttıkça, eğitim kümesindeki verileri ezberlemeye başladığı için eğitim hatası sürekli olarak azalır. Ancak test hatası sadece optimum bir noktaya kadar düşüş gösterir; ağaç daha da derinleştikçe model genel kuralları kaçırıp ezbere yöneldiği için test hatası yeniden tırmanışa geçer.",
+        "zero_train_error_interpretation": "Eğitim hatasının sıfıra yaklaşması modelin 'mükemmel öğrendiği' anlamına gelmez; aksine verinin genel mantığını kavramak yerine, eğitim setindeki tüm detayları ve gürültüleri ezberlediği (overfitting) anlamına gelir.",
+        "divergence_point_identified": "max_depth=2 derinliğine ulaşıldığı an, karar ağacı modeli artık veri setindeki genel örüntüleri ve mantığı öğrenmeyi bırakıp, \"aşırı öğrenme\" (overfitting) yani ezberleme evresine geçmiştir. Bu kırılma noktasından itibaren modelde şu değişimler yaşanmıştır: Aşırı Detaylı Dallanma: Karar ağacı derinleştikçe veriyi çok küçük ve önemsiz parçalara bölmeye başlar. 2. derinlikte model, eğitim verisindeki istisnai, tesadüfi ve gürültülü (noise) bilgileri bile genel geçer biyolojik kurallarmış gibi algılamaya başlamıştır. Özetle: 2. derinlik seviyesinde modelimiz kritik çizgiyi aşmış; veriyi mantıksal olarak analiz eden bir algoritmadan, eğitim setini kelimesi kelimesine ezberleyen bir yapıya dönüşmüştür.",
+        "overfitting_named_or_described": "max_depth=2 derinliğine ulaşıldığı an, karar ağacı modeli artık veri setindeki genel örüntüleri ve mantığı öğrenmeyi bırakıp, \"aşırı öğrenme\" (overfitting) yani ezberleme evresine geçmiştir.",
+        "preferred_depth_from_table": "Hem eğitim hem de test hata oranlarını birlikte değerlendirdiğimde 2. derinliği seçerdim. Çünkü bu seviye, modelin eğitim verilerini ezberleyerek aşırı öğrenmeye (overfitting) kapılmadığı, genel biyolojik kuralları en iyi kavradığı ve hiç görmediği test kümesinde en yüksek başarıyı yakaladığı en güvenli ve ideal denge noktasıdır.",
+        "preferred_depth_from_graph": "max_depth =4 seçilmelidir. Çünkü test hata oranının (turuncu çizgi) en düşük olduğu ve eğitim çizgisine en yakın kaldığı optimum denge noktası budur."
+      },
+      "step5_final_tree": {
+        "chosen_optimal_depth": 4,
+        "test_mcr_achieved": 0.3281,
+        "root_node_feature": "Cinsiyet",
+        "root_node_threshold": null,
+        "q_root_node_reasoning": "Karar ağacımızın en tepesindeki kök düğümde cinsiyet değişkeni kullanılmıştır. Karar ağacı oluşturulurken (varsayılan olan Gini safsızlığı ölçütüne göre) algoritma, veriyi en az hata payıyla ve en hızlı şekilde ayrıştıran özelliği en tepeye yerleştirir.",
+        "q_decisions_to_classify": "En fazla 4 en az 3 dal daha takip etmemiz gerekir.",
+        "q_root_changed_across_targets": "Farklı çıktı.Çünkü Her hedef değişkenin verideki durumu farklıdır.Bazı hedefler az sayıda dallanmayla çözülürken bazıları için daha fazla derinlik gerekir. / Her hedefin diğer değişkenlerle ilişkisi farklıdır.Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir.Dolayısıyla hedef değiştiğinde kök düğüm de değişir.",
+        "q_codap_comparison": null,
+        "root_node_feature_computed": null,
+        "root_node_feature_source": "markdown_text",
+        "is_optimal_depth_mathematically_correct": false,
+        "mathematically_optimal_depth": 2
+      },
+      "step4_responses_location": "per_tree"
+    },
+    {
+      "target_variable": "Cinsiyet",
+      "target_variable_intermediate_name": "hedef_degisken",
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "Tur_Sceloporus",
+          "Tur_Uta",
+          "YasamAlani_Kaya",
+          "YasamAlani_Yer"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": null,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 10,
+        "depth_range_max_source": "range_call",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.352,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.344,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.223,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.215,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.156,
+            "test_mcr": 0.312
+          },
+          {
+            "depth": 6,
+            "train_mcr": 0.152,
+            "test_mcr": 0.312
+          },
+          {
+            "depth": 7,
+            "train_mcr": 0.102,
+            "test_mcr": 0.375
+          },
+          {
+            "depth": 8,
+            "train_mcr": 0.051,
+            "test_mcr": 0.297
+          },
+          {
+            "depth": 9,
+            "train_mcr": 0.02,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 10,
+            "train_mcr": 0.012,
+            "test_mcr": 0.359
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": null,
+        "zero_train_error_interpretation": null,
+        "divergence_point_identified": null,
+        "overfitting_named_or_described": null,
+        "preferred_depth_from_table": null,
+        "preferred_depth_from_graph": null
+      },
+      "step5_final_tree": {
+        "chosen_optimal_depth": 3,
+        "test_mcr_achieved": 0.3281,
+        "root_node_feature": null,
+        "root_node_threshold": null,
+        "q_root_node_reasoning": null,
+        "q_decisions_to_classify": null,
+        "q_root_changed_across_targets": null,
+        "q_codap_comparison": null,
+        "root_node_feature_computed": null,
+        "root_node_feature_source": null,
+        "is_optimal_depth_mathematically_correct": false,
+        "mathematically_optimal_depth": 8
+      },
+      "step4_responses_location": "aggregated_end_of_notebook"
+    },
+    {
+      "target_variable": "Tur",
+      "target_variable_intermediate_name": "hedef_degisken",
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "Cinsiyet_Erkek",
+          "YasamAlani_Kaya",
+          "YasamAlani_Yer"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": null,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 10,
+        "depth_range_max_source": "range_call",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.266,
+            "test_mcr": 0.281
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.191,
+            "test_mcr": 0.219
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.184,
+            "test_mcr": 0.203
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.137,
+            "test_mcr": 0.281
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.102,
+            "test_mcr": 0.203
+          },
+          {
+            "depth": 6,
+            "train_mcr": 0.078,
+            "test_mcr": 0.25
+          },
+          {
+            "depth": 7,
+            "train_mcr": 0.031,
+            "test_mcr": 0.219
+          },
+          {
+            "depth": 8,
+            "train_mcr": 0.02,
+            "test_mcr": 0.234
+          },
+          {
+            "depth": 9,
+            "train_mcr": 0.0,
+            "test_mcr": 0.25
+          },
+          {
+            "depth": 10,
+            "train_mcr": 0.0,
+            "test_mcr": 0.25
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": null,
+        "zero_train_error_interpretation": null,
+        "divergence_point_identified": null,
+        "overfitting_named_or_described": null,
+        "preferred_depth_from_table": null,
+        "preferred_depth_from_graph": null
+      },
+      "step5_final_tree": {
+        "chosen_optimal_depth": 3,
+        "test_mcr_achieved": 0.2031,
+        "root_node_feature": null,
+        "root_node_threshold": null,
+        "q_root_node_reasoning": null,
+        "q_decisions_to_classify": null,
+        "q_root_changed_across_targets": null,
+        "q_codap_comparison": null,
+        "root_node_feature_computed": null,
+        "root_node_feature_source": null,
+        "is_optimal_depth_mathematically_correct": false,
+        "mathematically_optimal_depth": 3
+      },
+      "step4_responses_location": "aggregated_end_of_notebook"
+    }
+  ],
+  "cross_target_comparison": {
+    "comparison_present": true,
+    "optimal_depths_compared": true,
+    "root_nodes_compared": true,
+    "mcr_values_compared": [
+      {
+        "target_variable": "YasamAlani",
+        "test_mcr": 0.3281
+      },
+      {
+        "target_variable": "Cinsiyet",
+        "test_mcr": 0.3281
+      },
+      {
+        "target_variable": "Tur",
+        "test_mcr": 0.2031
+      }
+    ],
+    "comparison_reasoning": "Farklı çıktı.Çünkü Her hedef değişkenin verideki durumu farklıdır.Bazı hedefler az sayıda dallanmayla çözülürken bazıları için daha fazla derinlik gerekir. Her hedefin diğer değişkenlerle ilişkisi farklıdır.Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir.Dolayısıyla hedef değiştiğinde kök düğüm de değişir."
+  },
+  "step6_written_reflection": {
+    "q1_learning_journey": {
+      "raw_text": "Her ortam size farklı bir şey kattı mı? Her bir ortamın neler kattığını yazın.\nCevap: Karar ağacının temel mantığını, verileri elle bölerek ve somutlaştırarak kavramamı sağladı.\n\nHangi ortamda \"modelim ne yapıyor\" sorusunu daha iyi anladınız? Nedeninizi açıklayın.\nCevap: Hedef değişkeni cinsiyete göre seçtiğimde daha iyi anladım. Çünkü karar ağacı diğer iki değişkenime göre daha iyi sınıflandırdı.\n\nHangi ortam size daha kolay geldi? Bu kolaylık gerçekten anladığınızı mı, yoksa sadece alıştığınızı mı gösteriyor? Nedeninizi açıklayın.\nCevap: Cinsiyet değişkenine göre sınıflandırma daha kolay geldi. Karar ağacımı daha kolay oluşturdum çünkü.\n\nHangi ortamda en çok zorlandınız ve bu zorluk neden kaynaklanıyordu? Aracın kendisi mi, yoksa karar ağacı kavramının o ortamda daha mı görünmez olması mıydı? Nedeninizi açıklayın.\nCevap: Yaşam alanı. Çünkü karar ağacını oluştururken zorlandım.\n\nYaptığınız bir hatayı hangi ortamda daha kolay fark ettiniz? Sizi uyaran şey aracın kendisi miydi, yoksa başka bir şey mi?\nCevap: Cinsiyete göre sınıflandırırken daha kolay fark ettim. Çünkü karar ağacı diğer iki hedef değişkene göre daha az dallanarak oluştu.\n\nBir ortamda rahatlıkla yapabildiğiniz ama bir diğerinde hiç yapamadığınız bir şey oldu mu?\nCevap: Hayır olmadı. Her karar ağacını oluşturuken gerekli kodları girerek karar ağaçlarımı oluşturdum.\n\nÜç ortamdan birinin diğerinin yerini tutamayacağı bir durum var mı? Nedeninizi açıklayın.\nCevap: Yaşam alanı diyebilirim. Çünkü çok fazla dallanarak detaylı bir sınıflandırma yaptı.",
+      "environments_mentioned": [],
+      "error_detection_discussed": true,
+      "word_count": 205
+    },
+    "q2_data_understanding": {
+      "raw_text": "Modelinizin kök düğümde seçtiği değişken sizi şaşırttı mı? Biyolojik açıdan bu seçim mantıklı mı?\nCevap: Kök düğümde cinsiyet değişkeninin seçilmesi ilk bakışta şaşırtıcı gelebilir ancak kertenkelelerde eşeyli dimorfizm (cinsiyete bağlı fiziksel/boyutsal farklar) çok belirgin olduğu için biyolojik olarak son derece mantıklıdır. Model, yaşam alanını ayırt etmeden önce karmaşıklığı azaltmak adına veriyi en hızlı şekilde cinsiyete göre iki ana gruba bölmüştür.\n\nAğaçta yaşayan bir kertenkelenin yerde yaşayandan fiziksel olarak farklı olmasını bekler miydiniz? Modeliniz bu farkı yakalayabildi mi?\nCevap: Evet, ağaçta yaşayan kertenkelelerin tırmanma becerileri için daha farklı bacak veya gövde uzunluklarına sahip olması beklenir. Modelimiz de bu farkı yakalamış; sol taraftaki dallanmalarda BacakUzunlugu <= 27.9 ve GovdeUzunlugu gibi fiziksel kriterleri kullanarak \"Yer\" ile \"Ağaç\" sınıflarını başarıyla birbirinden ayırmıştır.\n\nModelinizin yanlış sınıflandırdığı bireyler hangi yaşam alanına aitti? Bunun biyolojik bir açıklaması olabilir mi?\nCevap: Modelin en çok hata yaptığı ve saf olmayan (Gini değeri yüksek) yapraklar genellikle \"Yer\" sınıfına ait olan, ancak içinde \"Ağaç\" ve \"Kaya\" bireylerini de barındıran karma düğümlerdir. Biyolojik olarak bazı kertenkele türleri hem yerde hem ağaç gövdelerinde/kayalıklarda avlanabildiği için fiziksel özellikleri birbirine çok benzeyebilir ve bu durum modelin net bir ayrım yapmasını zorlaştırır.\n\nVeriyi ilk gördüğünüzde kendiniz hangi değişkenin en belirleyici olacağını tahmin etmiştiniz? Modelinizin bulgusuyla örtüştü mü?\nCevap: Yaşam alanı tahmini için ilk başta bacak uzunluğu veya gövde boyutu gibi doğrudan fiziksel özelliklerin en belirleyici olacağını tahmin etmiştim. Model ise en tepeye cinsiyeti yerleştirse de hemen alt basamaklarda BacakUzunlugu, ToplamUzunluk ve GovdeUzunlugu değişkenlerini yoğun bir şekilde kullanarak bu tahminimi büyük oranda doğrulamış oldu.",
+      "root_feature_surprise_addressed": true,
+      "biological_reasoning_present": true,
+      "misclassified_habitat_discussed": true,
+      "word_count": 246
+    },
+    "q3_model_performance": {
+      "raw_text": "Hangi sınıf en iyi, hangisi en kötü tahmin edildi? Bunun bir açıklaması var mı?\nCevap: En iyi tahmin edilen: \"Tur: max_depth=3\" ağacında Gini değeri 0.0 olan 59 örnekli yaprağıyla Sceloporus (veya Cinsiyet ağacındaki Erkek sınıfı); en kötü tahmin edilen ise Gini değerleri yüksek kalan ve diğer sınıflarla çok karışan Yer (veya Dişi) sınıfıdır. Bazı sınıfların ayırt edici fiziksel özellikleri (örneğin Sceloporus türünün kütlesi veya erkeklerin bacak boyu) çok keskin sınırlara sahipken, diğer sınıfların özellikleri birbiriyle büyük oranda örtüşmektedir.\n\nMCR değeriniz sizi tatmin etti mi? \"İyi\" bir model için bu değerin ne olması gerektiğini düşünüyorsunuz?\nCevap: Yapraklardaki karışıklığa (saf olmayan düğümlere) bakılırsa MCR değeri tamamen tatmin edici değildir; \"iyi\" bir model için bu oran kabul edilebilir hata payına ve veri setinin karmaşıklığına göre değişmekle birlikte genellikle %10 ila %20'nin altında (başarı oranı %80+ olacak şekilde) olmalıdır.\n\nAynı veriyle farklı bir hedef değişken seçseydiniz (Tur ya da Cinsiyet) MCR değeri değişir miydi? Değiştiyse neden?\nCevap: Evet, MCR değeri kesinlikle değişirdi; çünkü \"Tur\" veya \"Cinsiyet\" ağaçlarında görüldüğü gibi, verideki fiziksel özelliklerin hedef değişkenleri (tür, cinsiyet veya yaşam alanı) birbirinden ayırma/açıklama gücü ve sınıfların kendi içindeki homojenliği birbirinden tamamen farklıdır.\n\nModelin başarısız olduğu durumlar size veri hakkında ne söylüyor?\nCevap: Modelin başarısız olduğu (sınıfları birbirine karıştırdığı) durumlar, kertenkelelerin fiziksel ölçümlerinin tek başına yaşam alanını veya türü ayırt etmekte %100 yeterli olmadığını ve veride birbirine morfolojik olarak çok benzeyen \"örtüşen\" bireylerin bulunduğunu söylüyor.",
+      "mcr_value_stated": null,
+      "best_predicted_class": "Sceloporus (veya Cinsiyet ağacındaki Erkek sınıfı)",
+      "worst_predicted_class": "Yer (veya Dişi)",
+      "ideal_mcr_threshold_stated": "genellikle %10 ila %20'nin altında (başarı oranı %80+ olacak şekilde) olmalıdır",
+      "cross_target_mcr_comparison_attempted": true,
+      "word_count": 214
+    },
+    "q4_dt_limitations": {
+      "raw_text": "Modelinizin hata yaptığı durumlar rastgele mi görünüyor, yoksa belirli bir örüntü var mı?\nCevap: Hatalar rastgele değildir; modellerin belirli fiziksel eşiklerde (örneğin Kutle <= 15.09 veya BacakUzunlugu <= 27.9) benzer özellikler gösteren farklı sınıfları birbirine karıştırması şeklinde belirgin bir örüntü vardır.\n\nBu modelin daha iyi sonuç verebilmesi için neler yapılabilir? Yalnızca teknik değil, verinin kendisiyle ilgili ne değişebilir?\nCevap: Teknik olarak ağaç derinliği (max_depth) optimize edilebilir; veri açısından ise kertenkelelerin sadece morfolojik ölçümleri yetersiz kaldığı için veriye coğrafi konum, iklim veya doğrudan genetik/tür alt bilgileri gibi yeni ayırt edici değişkenler eklenebilir.\n\nKarar ağacı yerine farklı bir model kullansaydınız sonuç değişir miydi? Neden?\nCevap: Evet değişirdi; çünkü Rastgele Orman (Random Forest) veya Gradient Boosting gibi daha karmaşık modeller verideki doğrusal olmayan karmaşık ilişkileri ve örtüşen sınırları tek bir karar ağacına göre çok daha iyi yakalayabilir.\n\nBu deneyimden sonra bir arkadaşınıza \"karar ağacı nedir, ne işe yarar, nerede yetersiz kalır?\" diye sorsalar ne söylerdiniz?\nCevap: Karar ağacı, veriyi özelliklerine göre yukarıdan aşağıya doğru sorular sorarak bölen görsel bir sınıflandırma aracıdır; veriyi hızlıca kurallara ayırmaya yarar ancak sınıfların fiziksel özellikleri birbirine çok benzediğinde ve net çizgilerle ayrılamadığında yetersiz kalır.",
+      "error_pattern_described": true,
+      "alternative_model_named": "Rastgele Orman (Random Forest) veya Gradient Boosting",
+      "data_improvement_suggested": true,
+      "dt_explanation_for_friend": "Karar ağacı, veriyi özelliklerine göre yukarıdan aşağıya doğru sorular sorarak bölen görsel bir sınıflandırma aracıdır; veriyi hızlıca kurallara ayırmaya yarar ancak sınıfların fiziksel özellikleri birbirine çok benzediğinde ve net çizgilerle ayrılamadığında yetersiz kalır.",
+      "word_count": 168
+    }
+  }
+}

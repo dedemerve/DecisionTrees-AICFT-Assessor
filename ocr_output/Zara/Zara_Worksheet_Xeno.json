@@ -1,0 +1,208 @@
+{
+  "student_id": "Zara",
+  "worksheet": "WS_DT_XENO",
+  "ws_snapshot": "Zara'nın Xeno veri setinde kök düğümde 10 vaka (%50 hasta) bulunmakta; mavi saçlı 5 vaka %0 hasta, pembe saçlı 5 vaka %100 hasta olarak yapılandırılmış. CODAP çıktısında 25 vakalık matriste TP=13, TN=12, FP=0, FN=0 elde edilmiş, böylece yapısal olarak beklenen FP=FN=0 sağlanmış. Tüm metrikler (doğruluk, duyarlılık, özgüllük, kesinlik) 1 olarak hesaplanmış ve MCR=0 bulunmuş; öğrenci açıklamalarını doğru ve tutarlı yapmış.",
+  "page_notes": "Sayfa 4'te 5. satır (DTI_05) boş bırakılmış. Baskı sayfalarındaki gömülü ekran görüntüleri düşük çözünürlüklü fakat öğrenci el yazısı okunabilir.",
+  "extraction": {
+    "DTI_01": "10 vaka, %50 hasta",
+    "DTI_02": "5 vaka, 0 tanesi hasta, Mavi saçlı sağlıklıdır",
+    "DTI_03": "5 vaka, 5'i hasta, Pembe saçlı olan hastadır",
+    "DTI_04": "Pembe saçlı kutu hasta",
+    "DTI_05": "(bos)",
+    "DTI_06": "Evet, hata oranı olarak daha az hata verdi",
+    "DTI_07": "%90 derdim.",
+    "DTI_08": "FN daha tehlikelidir, çünkü hasta bireyin hastalığına çözüm bulunmazsa hastanın hayatı tehlikeye girer.",
+    "DTI_09": "1 tane hata verdi",
+    "DTI_10": "13",
+    "DTI_11": "Model hasta dedi gerçekten hasta",
+    "DTI_12": "12",
+    "DTI_13": "Model sağlıklı dedi gerçekten sağlıklı",
+    "DTI_14": "0",
+    "DTI_15": "Model hasta dedi ama sağlıklı",
+    "DTI_16": "0",
+    "DTI_17": "Model sağlıklı dedi ama hasta",
+    "DTI_18": "25",
+    "DTI_19": "Toplam sayı",
+    "DTI_20": "13+12 / 25 = 1",
+    "DTI_21": "Doğruluk oranı iyi hata miktarı az.",
+    "DTI_22": "13 / 13+0 = 1",
+    "DTI_23": "Gerçekten hasta olan bireylerin hasta olduğu oranı 1",
+    "DTI_24": "12 / 12+0 = 1",
+    "DTI_25": "Gerçekten sağlıklı olan bireylerin sağlıklı olduğu oranı 1",
+    "DTI_26": "13 / 13+0 = 1",
+    "DTI_27": "Modelin hasta dediği vakaların ne kadarı gerçekten hasta",
+    "DTI_28": "Doğruluk metriğini kullanırım, Tüm tahminlerin içinde doğru olanın oranını verir.",
+    "DTI_29": "(TP+TN) / N / TP / (TP+FN) = 13+12/25 / 13/13+0 = 1",
+    "DTI_30": "TN/(TN+FP) . (TP+FP)/TP = 12/12+0 . 13+0/13 = 1",
+    "DTI_31": "Ekstra hata payının aza inmesi için kullanılabilir",
+    "DTI_32": "(0) / 25 = 0",
+    "DTI_33": "Hata oranı yok."
+  },
+  "validation": {
+    "xeno_consistency_checks": {
+      "tp_fn_sum_equals_sick": {
+        "check": "TP + FN = toplam hasta sayisi",
+        "student_tp": "13",
+        "student_fn": "0",
+        "sum": 13,
+        "is_correct": true,
+        "note": "FN=0 beklenir"
+      },
+      "tn_fp_sum_equals_healthy": {
+        "check": "TN + FP = toplam saglikli sayisi",
+        "student_tn": "12",
+        "student_fp": "0",
+        "sum": 12,
+        "is_correct": true,
+        "note": "FP=0 beklenir"
+      },
+      "total_n": {
+        "check": "TP + TN + FP + FN = N",
+        "n_sum": 25,
+        "student_n": "25",
+        "is_correct": true
+      },
+      "fp_fn_zero": {
+        "check": "sac rengi mukemmel ayirici => FP=FN=0",
+        "student_fp": "0",
+        "student_fn": "0",
+        "is_correct": true
+      }
+    },
+    "item_checks": {
+      "DTI_01": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_02": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_03": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_04": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_05": {
+        "is_correct": false,
+        "error_flag": "BLANK"
+      },
+      "DTI_06": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_07": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_08": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_09": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_10": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_11": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_12": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_13": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_14": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_15": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_16": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_17": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_18": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_19": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_20": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_21": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_22": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_23": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_24": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_25": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_26": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_27": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_28": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_29": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_30": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_31": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_32": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_33": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Zara'nın Xeno veri setinde kök düğümde 10 vaka (%50 hasta) bulunmakta; mavi saçlı 5 vaka %0 hasta, pembe saçlı 5 vaka %100 hasta olarak yapılandırılmış. CODAP çıktısında 25 vakalık matriste TP=13, TN=12, FP=0, FN=0 elde edilmiş, böylece yapısal olarak beklenen FP=FN=0 sağlanmış. Tüm metrikler (doğruluk, duyarlılık, özgüllük, kesinlik) 1 olarak hesaplanmış ve MCR=0 bulunmuş; öğrenci açıklamalarını doğru ve tutarlı yapmış."
+  }
+}

@@ -1,0 +1,1199 @@
+{
+  "schema_version": "2.0",
+  "generated_at": "2026-07-20T17:39:36.130355+00:00",
+  "source": "2025_calibration_dataset_v2",
+  "fewshot_students": [
+    "Boris",
+    "Daryl",
+    "David",
+    "Frank",
+    "Henry",
+    "Mike",
+    "Zabby"
+  ],
+  "n_positive_per_behavior": 2,
+  "n_negative_per_behavior": 2,
+  "leakage_note": "fewshot_students are disjoint from irr_students and internal_val_students per splits_2025.json",
+  "absolute_path_count": 0,
+  "excluded_behaviors": {
+    "B13": "excluded_reason: requires transcript; transcript not available for 2025 silent sessions",
+    "B14": "excluded_reason: no 2025 human labels; 2026-only behavior",
+    "B15": "process_only: log-derived VOTAT; not included in construct few-shot",
+    "B16": "process_only: algorithmic error-recovery detection; not included in construct few-shot",
+    "B17": "process_only: algorithmic planning detection; not included in construct few-shot"
+  },
+  "examples_by_behavior": {
+    "B0": [
+      {
+        "behavior_id": "B0",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Daryl",
+        "frame_id": "frame_0039",
+        "frame_image_path": "training_datasets/2025/Daryl/Daryl_frames/frame_0039.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Veri tablosunda sütun başlığı vurgulanmış VE aynı değişken tree split'te görünüyor: inspect-then-use kanıtı."
+      },
+      {
+        "behavior_id": "B0",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Mike",
+        "frame_id": "frame_0004",
+        "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0004.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Veri tablosunda sütun başlığı vurgulanmış VE aynı değişken tree split'te görünüyor: inspect-then-use kanıtı."
+      },
+      {
+        "behavior_id": "B0",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Boris",
+        "frame_id": "frame_0009",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0009.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Veri tablosu görünüyor ama sütun seçimi yok, transcript'te veri içeriğine özgü ifade yok."
+      },
+      {
+        "behavior_id": "B0",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Boris",
+        "frame_id": "frame_0140",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0140.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Veri tablosu görünüyor ama sütun seçimi yok, transcript'te veri içeriğine özgü ifade yok."
+      }
+    ],
+    "B1": [
+      {
+        "behavior_id": "B1",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Boris",
+        "frame_id": "frame_0151",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0151.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Scatter plot eksen değişkeni önceki kareden farklı; öğrenci veri keşfi yapıyor."
+      },
+      {
+        "behavior_id": "B1",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Henry",
+        "frame_id": "frame_0063",
+        "frame_image_path": "training_datasets/2025/Henry/Henry_frames/frame_0063.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Scatter plot eksen değişkeni önceki kareden farklı; öğrenci veri keşfi yapıyor."
+      },
+      {
+        "behavior_id": "B1",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Frank",
+        "frame_id": "frame_0029",
+        "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0029.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Scatter plot var ama eksen değişkeni değişmemiş; pattern extraction ifadesi yok."
+      },
+      {
+        "behavior_id": "B1",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Daryl",
+        "frame_id": "frame_0010",
+        "frame_image_path": "training_datasets/2025/Daryl/Daryl_frames/frame_0010.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Scatter plot var ama eksen değişkeni değişmemiş; pattern extraction ifadesi yok."
+      }
+    ],
+    "B2": [
+      {
+        "behavior_id": "B2",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Boris",
+        "frame_id": "frame_0191",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0191.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Movable value'nun sayısal etiketi önceki SESSION_CONTEXT değerinden farklı; iterasyon kanıtı."
+      },
+      {
+        "behavior_id": "B2",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Zabby",
+        "frame_id": "frame_0096",
+        "frame_image_path": "training_datasets/2025/Zabby/Zabby_frames/frame_0096.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Movable value'nun sayısal etiketi önceki SESSION_CONTEXT değerinden farklı; iterasyon kanıtı."
+      },
+      {
+        "behavior_id": "B2",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Boris",
+        "frame_id": "frame_0118",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0118.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Movable value görünüyor ama SESSION_CONTEXT'teki değerle aynı; iterasyon kanıtı yok."
+      },
+      {
+        "behavior_id": "B2",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Zabby",
+        "frame_id": "frame_0061",
+        "frame_image_path": "training_datasets/2025/Zabby/Zabby_frames/frame_0061.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Movable value görünüyor ama SESSION_CONTEXT'teki değerle aynı; iterasyon kanıtı yok."
+      }
+    ],
+    "B3": [
+      {
+        "behavior_id": "B3",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Frank",
+        "frame_id": "frame_0050",
+        "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0050.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Target drop zone dolu VE değişken önceki kareden farklı veya transcript hedef seçim gerekçesi veriyor."
+      },
+      {
+        "behavior_id": "B3",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Zabby",
+        "frame_id": "frame_0055",
+        "frame_image_path": "training_datasets/2025/Zabby/Zabby_frames/frame_0055.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Target drop zone dolu VE değişken önceki kareden farklı veya transcript hedef seçim gerekçesi veriyor."
+      },
+      {
+        "behavior_id": "B3",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Boris",
+        "frame_id": "frame_0037",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0037.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Drop zone boş ('Drag your target attribute here') veya değişken öncekiyle aynı, transcript gerekçesi yok."
+      },
+      {
+        "behavior_id": "B3",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "David",
+        "frame_id": "frame_0005",
+        "frame_image_path": "training_datasets/2025/David/David_frames/frame_0005.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Drop zone boş ('Drag your target attribute here') veya değişken öncekiyle aynı, transcript gerekçesi yok."
+      }
+    ],
+    "B4": [
+      {
+        "behavior_id": "B4",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Boris",
+        "frame_id": "frame_0064",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0064.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Domain-relevant özellik split attribute olarak seçilmiş VE transcript veya önceki grafikten rationale var."
+      },
+      {
+        "behavior_id": "B4",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Mike",
+        "frame_id": "frame_0055",
+        "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0055.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Domain-relevant özellik split attribute olarak seçilmiş VE transcript veya önceki grafikten rationale var."
+      },
+      {
+        "behavior_id": "B4",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Mike",
+        "frame_id": "frame_0158",
+        "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0158.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Özellik tree'de görünüyor ama rationale (transcript veya önceki graph) yok."
+      },
+      {
+        "behavior_id": "B4",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "David",
+        "frame_id": "frame_0116",
+        "frame_image_path": "training_datasets/2025/David/David_frames/frame_0116.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Özellik tree'de görünüyor ama rationale (transcript veya önceki graph) yok."
+      }
+    ],
+    "B5": [
+      {
+        "behavior_id": "B5",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Boris",
+        "frame_id": "frame_0091",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0091.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "İki farklı class label yaprak düğümde görünüyor; bu ilk veya ikinci tree (emit_count≤1)."
+      },
+      {
+        "behavior_id": "B5",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Mike",
+        "frame_id": "frame_0058",
+        "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0058.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "İki farklı class label yaprak düğümde görünüyor; bu ilk veya ikinci tree (emit_count≤1)."
+      },
+      {
+        "behavior_id": "B5",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Daryl",
+        "frame_id": "frame_0067",
+        "frame_image_path": "training_datasets/2025/Daryl/Daryl_frames/frame_0067.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Tree var ama her iki leaf aynı class label ya da emit_count>1 ve yeni etkileşim kanıtı yok."
+      },
+      {
+        "behavior_id": "B5",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Mike",
+        "frame_id": "frame_0215",
+        "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0215.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Tree var ama her iki leaf aynı class label ya da emit_count>1 ve yeni etkileşim kanıtı yok."
+      }
+    ],
+    "B6": [
+      {
+        "behavior_id": "B6",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Boris",
+        "frame_id": "frame_0196",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0196.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "CTR'da aynı predictor için farklı threshold değerleri görünüyor; deliberate iteration."
+      },
+      {
+        "behavior_id": "B6",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Deepen",
+        "student_id": "Henry",
+        "frame_id": "frame_0089",
+        "frame_image_path": "training_datasets/2025/Henry/Henry_frames/frame_0089.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "CTR'da aynı predictor için farklı threshold değerleri görünüyor; deliberate iteration."
+      },
+      {
+        "behavior_id": "B6",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "David",
+        "frame_id": "frame_0180",
+        "frame_image_path": "training_datasets/2025/David/David_frames/frame_0180.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Threshold görünüyor ama ilk kez; iterasyon veya transcript kanıtı yok."
+      },
+      {
+        "behavior_id": "B6",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Henry",
+        "frame_id": "frame_0041",
+        "frame_image_path": "training_datasets/2025/Henry/Henry_frames/frame_0041.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Threshold görünüyor ama ilk kez; iterasyon veya transcript kanıtı yok."
+      }
+    ],
+    "B7": [
+      {
+        "behavior_id": "B7",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Deepen",
+        "student_id": "David",
+        "frame_id": "frame_0039",
+        "frame_image_path": "training_datasets/2025/David/David_frames/frame_0039.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Eksiksiz geçerli decision tree görünüyor; leaf label, split koşul, non-zero case count var."
+      },
+      {
+        "behavior_id": "B7",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Frank",
+        "frame_id": "frame_0120",
+        "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0120.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Eksiksiz geçerli decision tree görünüyor; leaf label, split koşul, non-zero case count var."
+      },
+      {
+        "behavior_id": "B7",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "David",
+        "frame_id": "frame_0184",
+        "frame_image_path": "training_datasets/2025/David/David_frames/frame_0184.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Tree builder boş veya invalid tree (all-zero confusion matrix)."
+      },
+      {
+        "behavior_id": "B7",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Boris",
+        "frame_id": "frame_0087",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0087.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Tree builder boş veya invalid tree (all-zero confusion matrix)."
+      }
+    ],
+    "B8": [
+      {
+        "behavior_id": "B8",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Deepen",
+        "student_id": "David",
+        "frame_id": "frame_0184",
+        "frame_image_path": "training_datasets/2025/David/David_frames/frame_0184.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Geçerli confusion matrix (≥3 non-zero) VE transcript metriği yorumluyor."
+      },
+      {
+        "behavior_id": "B8",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Frank",
+        "frame_id": "frame_0093",
+        "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0093.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Geçerli confusion matrix (≥3 non-zero) VE transcript metriği yorumluyor."
+      },
+      {
+        "behavior_id": "B8",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Frank",
+        "frame_id": "frame_0031",
+        "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0031.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Confusion matrix görünüyor ama transcript='none'; yorumlama ifadesi yok."
+      },
+      {
+        "behavior_id": "B8",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Mike",
+        "frame_id": "frame_0076",
+        "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0076.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Confusion matrix görünüyor ama transcript='none'; yorumlama ifadesi yok."
+      }
+    ],
+    "B9": [
+      {
+        "behavior_id": "B9",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Boris",
+        "frame_id": "frame_0012",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0012.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Choosy plugin açık, test dataseti aktif olarak seçili."
+      },
+      {
+        "behavior_id": "B9",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Daryl",
+        "frame_id": "frame_0075",
+        "frame_image_path": "training_datasets/2025/Daryl/Daryl_frames/frame_0075.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Choosy plugin açık, test dataseti aktif olarak seçili."
+      },
+      {
+        "behavior_id": "B9",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Boris",
+        "frame_id": "frame_0201",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0201.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Choosy plugin kapalı veya training dataseti hâlâ seçili."
+      },
+      {
+        "behavior_id": "B9",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Boris",
+        "frame_id": "frame_0072",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0072.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Choosy plugin kapalı veya training dataseti hâlâ seçili."
+      }
+    ],
+    "B10": [
+      {
+        "behavior_id": "B10",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Mike",
+        "frame_id": "frame_0093",
+        "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0093.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Depth-2 tree VE transcript belirli leaf'in yüksek hatası için neden child split eklendiğini açıklıyor."
+      },
+      {
+        "behavior_id": "B10",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Deepen",
+        "student_id": "Henry",
+        "frame_id": "frame_0100",
+        "frame_image_path": "training_datasets/2025/Henry/Henry_frames/frame_0100.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Depth-2 tree VE transcript belirli leaf'in yüksek hatası için neden child split eklendiğini açıklıyor."
+      },
+      {
+        "behavior_id": "B10",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Daryl",
+        "frame_id": "frame_0036",
+        "frame_image_path": "training_datasets/2025/Daryl/Daryl_frames/frame_0036.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Depth-2 tree var ama subgroup reasoning kanıtı yok; sadece derinlik artırılmış."
+      },
+      {
+        "behavior_id": "B10",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "David",
+        "frame_id": "frame_0130",
+        "frame_image_path": "training_datasets/2025/David/David_frames/frame_0130.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Depth-2 tree var ama subgroup reasoning kanıtı yok; sadece derinlik artırılmış."
+      }
+    ],
+    "B11": [
+      {
+        "behavior_id": "B11",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Zabby",
+        "frame_id": "frame_0095",
+        "frame_image_path": "training_datasets/2025/Zabby/Zabby_frames/frame_0095.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Scatter plot movable value sayısal değeri tree threshold değeriyle eşleşiyor; graph-to-tree transfer."
+      },
+      {
+        "behavior_id": "B11",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Boris",
+        "frame_id": "frame_0226",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0226.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Scatter plot movable value sayısal değeri tree threshold değeriyle eşleşiyor; graph-to-tree transfer."
+      },
+      {
+        "behavior_id": "B11",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "David",
+        "frame_id": "frame_0066",
+        "frame_image_path": "training_datasets/2025/David/David_frames/frame_0066.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Scatter plot ve tree her ikisi görünüyor ama sayısal değerler eşleşmiyor."
+      },
+      {
+        "behavior_id": "B11",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Boris",
+        "frame_id": "frame_0001",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0001.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "Scatter plot ve tree her ikisi görünüyor ama sayısal değerler eşleşmiyor."
+      }
+    ],
+    "B12": [
+      {
+        "behavior_id": "B12",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Deepen",
+        "student_id": "David",
+        "frame_id": "frame_0179",
+        "frame_image_path": "training_datasets/2025/David/David_frames/frame_0179.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "CTR'da non-current satır seçili/highlighted VEYA satır silme işlemi görünüyor."
+      },
+      {
+        "behavior_id": "B12",
+        "polarity": "positive",
+        "score": 2,
+        "target_level": "Acquire",
+        "student_id": "Frank",
+        "frame_id": "frame_0130",
+        "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0130.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "CTR'da non-current satır seçili/highlighted VEYA satır silme işlemi görünüyor."
+      },
+      {
+        "behavior_id": "B12",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "David",
+        "frame_id": "frame_0080",
+        "frame_image_path": "training_datasets/2025/David/David_frames/frame_0080.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "CTR'da 2+ satır birikmiş ama aktif seçim/silme yok; yalnızca en son satır auto-highlighted."
+      },
+      {
+        "behavior_id": "B12",
+        "polarity": "negative",
+        "score": 0,
+        "target_level": "not_observed",
+        "student_id": "Boris",
+        "frame_id": "frame_0078",
+        "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0078.jpg",
+        "silver_confidence": "none",
+        "why_this_example_tr": "CTR'da 2+ satır birikmiş ama aktif seçim/silme yok; yalnızca en son satır auto-highlighted."
+      }
+    ]
+  },
+  "flat_examples": [
+    {
+      "behavior_id": "B0",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Daryl",
+      "frame_id": "frame_0039",
+      "frame_image_path": "training_datasets/2025/Daryl/Daryl_frames/frame_0039.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Veri tablosunda sütun başlığı vurgulanmış VE aynı değişken tree split'te görünüyor: inspect-then-use kanıtı."
+    },
+    {
+      "behavior_id": "B0",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Mike",
+      "frame_id": "frame_0004",
+      "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0004.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Veri tablosunda sütun başlığı vurgulanmış VE aynı değişken tree split'te görünüyor: inspect-then-use kanıtı."
+    },
+    {
+      "behavior_id": "B0",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Boris",
+      "frame_id": "frame_0009",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0009.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Veri tablosu görünüyor ama sütun seçimi yok, transcript'te veri içeriğine özgü ifade yok."
+    },
+    {
+      "behavior_id": "B0",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Boris",
+      "frame_id": "frame_0140",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0140.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Veri tablosu görünüyor ama sütun seçimi yok, transcript'te veri içeriğine özgü ifade yok."
+    },
+    {
+      "behavior_id": "B1",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Boris",
+      "frame_id": "frame_0151",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0151.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Scatter plot eksen değişkeni önceki kareden farklı; öğrenci veri keşfi yapıyor."
+    },
+    {
+      "behavior_id": "B1",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Henry",
+      "frame_id": "frame_0063",
+      "frame_image_path": "training_datasets/2025/Henry/Henry_frames/frame_0063.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Scatter plot eksen değişkeni önceki kareden farklı; öğrenci veri keşfi yapıyor."
+    },
+    {
+      "behavior_id": "B1",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Frank",
+      "frame_id": "frame_0029",
+      "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0029.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Scatter plot var ama eksen değişkeni değişmemiş; pattern extraction ifadesi yok."
+    },
+    {
+      "behavior_id": "B1",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Daryl",
+      "frame_id": "frame_0010",
+      "frame_image_path": "training_datasets/2025/Daryl/Daryl_frames/frame_0010.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Scatter plot var ama eksen değişkeni değişmemiş; pattern extraction ifadesi yok."
+    },
+    {
+      "behavior_id": "B2",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Boris",
+      "frame_id": "frame_0191",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0191.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Movable value'nun sayısal etiketi önceki SESSION_CONTEXT değerinden farklı; iterasyon kanıtı."
+    },
+    {
+      "behavior_id": "B2",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Zabby",
+      "frame_id": "frame_0096",
+      "frame_image_path": "training_datasets/2025/Zabby/Zabby_frames/frame_0096.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Movable value'nun sayısal etiketi önceki SESSION_CONTEXT değerinden farklı; iterasyon kanıtı."
+    },
+    {
+      "behavior_id": "B2",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Boris",
+      "frame_id": "frame_0118",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0118.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Movable value görünüyor ama SESSION_CONTEXT'teki değerle aynı; iterasyon kanıtı yok."
+    },
+    {
+      "behavior_id": "B2",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Zabby",
+      "frame_id": "frame_0061",
+      "frame_image_path": "training_datasets/2025/Zabby/Zabby_frames/frame_0061.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Movable value görünüyor ama SESSION_CONTEXT'teki değerle aynı; iterasyon kanıtı yok."
+    },
+    {
+      "behavior_id": "B3",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Frank",
+      "frame_id": "frame_0050",
+      "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0050.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Target drop zone dolu VE değişken önceki kareden farklı veya transcript hedef seçim gerekçesi veriyor."
+    },
+    {
+      "behavior_id": "B3",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Zabby",
+      "frame_id": "frame_0055",
+      "frame_image_path": "training_datasets/2025/Zabby/Zabby_frames/frame_0055.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Target drop zone dolu VE değişken önceki kareden farklı veya transcript hedef seçim gerekçesi veriyor."
+    },
+    {
+      "behavior_id": "B3",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Boris",
+      "frame_id": "frame_0037",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0037.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Drop zone boş ('Drag your target attribute here') veya değişken öncekiyle aynı, transcript gerekçesi yok."
+    },
+    {
+      "behavior_id": "B3",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "David",
+      "frame_id": "frame_0005",
+      "frame_image_path": "training_datasets/2025/David/David_frames/frame_0005.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Drop zone boş ('Drag your target attribute here') veya değişken öncekiyle aynı, transcript gerekçesi yok."
+    },
+    {
+      "behavior_id": "B4",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Boris",
+      "frame_id": "frame_0064",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0064.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Domain-relevant özellik split attribute olarak seçilmiş VE transcript veya önceki grafikten rationale var."
+    },
+    {
+      "behavior_id": "B4",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Mike",
+      "frame_id": "frame_0055",
+      "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0055.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Domain-relevant özellik split attribute olarak seçilmiş VE transcript veya önceki grafikten rationale var."
+    },
+    {
+      "behavior_id": "B4",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Mike",
+      "frame_id": "frame_0158",
+      "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0158.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Özellik tree'de görünüyor ama rationale (transcript veya önceki graph) yok."
+    },
+    {
+      "behavior_id": "B4",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "David",
+      "frame_id": "frame_0116",
+      "frame_image_path": "training_datasets/2025/David/David_frames/frame_0116.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Özellik tree'de görünüyor ama rationale (transcript veya önceki graph) yok."
+    },
+    {
+      "behavior_id": "B5",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Boris",
+      "frame_id": "frame_0091",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0091.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "İki farklı class label yaprak düğümde görünüyor; bu ilk veya ikinci tree (emit_count≤1)."
+    },
+    {
+      "behavior_id": "B5",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Mike",
+      "frame_id": "frame_0058",
+      "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0058.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "İki farklı class label yaprak düğümde görünüyor; bu ilk veya ikinci tree (emit_count≤1)."
+    },
+    {
+      "behavior_id": "B5",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Daryl",
+      "frame_id": "frame_0067",
+      "frame_image_path": "training_datasets/2025/Daryl/Daryl_frames/frame_0067.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Tree var ama her iki leaf aynı class label ya da emit_count>1 ve yeni etkileşim kanıtı yok."
+    },
+    {
+      "behavior_id": "B5",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Mike",
+      "frame_id": "frame_0215",
+      "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0215.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Tree var ama her iki leaf aynı class label ya da emit_count>1 ve yeni etkileşim kanıtı yok."
+    },
+    {
+      "behavior_id": "B6",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Boris",
+      "frame_id": "frame_0196",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0196.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "CTR'da aynı predictor için farklı threshold değerleri görünüyor; deliberate iteration."
+    },
+    {
+      "behavior_id": "B6",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Deepen",
+      "student_id": "Henry",
+      "frame_id": "frame_0089",
+      "frame_image_path": "training_datasets/2025/Henry/Henry_frames/frame_0089.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "CTR'da aynı predictor için farklı threshold değerleri görünüyor; deliberate iteration."
+    },
+    {
+      "behavior_id": "B6",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "David",
+      "frame_id": "frame_0180",
+      "frame_image_path": "training_datasets/2025/David/David_frames/frame_0180.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Threshold görünüyor ama ilk kez; iterasyon veya transcript kanıtı yok."
+    },
+    {
+      "behavior_id": "B6",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Henry",
+      "frame_id": "frame_0041",
+      "frame_image_path": "training_datasets/2025/Henry/Henry_frames/frame_0041.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Threshold görünüyor ama ilk kez; iterasyon veya transcript kanıtı yok."
+    },
+    {
+      "behavior_id": "B7",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Deepen",
+      "student_id": "David",
+      "frame_id": "frame_0039",
+      "frame_image_path": "training_datasets/2025/David/David_frames/frame_0039.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Eksiksiz geçerli decision tree görünüyor; leaf label, split koşul, non-zero case count var."
+    },
+    {
+      "behavior_id": "B7",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Frank",
+      "frame_id": "frame_0120",
+      "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0120.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Eksiksiz geçerli decision tree görünüyor; leaf label, split koşul, non-zero case count var."
+    },
+    {
+      "behavior_id": "B7",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "David",
+      "frame_id": "frame_0184",
+      "frame_image_path": "training_datasets/2025/David/David_frames/frame_0184.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Tree builder boş veya invalid tree (all-zero confusion matrix)."
+    },
+    {
+      "behavior_id": "B7",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Boris",
+      "frame_id": "frame_0087",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0087.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Tree builder boş veya invalid tree (all-zero confusion matrix)."
+    },
+    {
+      "behavior_id": "B8",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Deepen",
+      "student_id": "David",
+      "frame_id": "frame_0184",
+      "frame_image_path": "training_datasets/2025/David/David_frames/frame_0184.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Geçerli confusion matrix (≥3 non-zero) VE transcript metriği yorumluyor."
+    },
+    {
+      "behavior_id": "B8",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Frank",
+      "frame_id": "frame_0093",
+      "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0093.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Geçerli confusion matrix (≥3 non-zero) VE transcript metriği yorumluyor."
+    },
+    {
+      "behavior_id": "B8",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Frank",
+      "frame_id": "frame_0031",
+      "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0031.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Confusion matrix görünüyor ama transcript='none'; yorumlama ifadesi yok."
+    },
+    {
+      "behavior_id": "B8",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Mike",
+      "frame_id": "frame_0076",
+      "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0076.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Confusion matrix görünüyor ama transcript='none'; yorumlama ifadesi yok."
+    },
+    {
+      "behavior_id": "B9",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Boris",
+      "frame_id": "frame_0012",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0012.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Choosy plugin açık, test dataseti aktif olarak seçili."
+    },
+    {
+      "behavior_id": "B9",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Daryl",
+      "frame_id": "frame_0075",
+      "frame_image_path": "training_datasets/2025/Daryl/Daryl_frames/frame_0075.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Choosy plugin açık, test dataseti aktif olarak seçili."
+    },
+    {
+      "behavior_id": "B9",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Boris",
+      "frame_id": "frame_0201",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0201.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Choosy plugin kapalı veya training dataseti hâlâ seçili."
+    },
+    {
+      "behavior_id": "B9",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Boris",
+      "frame_id": "frame_0072",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0072.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Choosy plugin kapalı veya training dataseti hâlâ seçili."
+    },
+    {
+      "behavior_id": "B10",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Mike",
+      "frame_id": "frame_0093",
+      "frame_image_path": "training_datasets/2025/Mike/Mike_frames/frame_0093.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Depth-2 tree VE transcript belirli leaf'in yüksek hatası için neden child split eklendiğini açıklıyor."
+    },
+    {
+      "behavior_id": "B10",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Deepen",
+      "student_id": "Henry",
+      "frame_id": "frame_0100",
+      "frame_image_path": "training_datasets/2025/Henry/Henry_frames/frame_0100.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Depth-2 tree VE transcript belirli leaf'in yüksek hatası için neden child split eklendiğini açıklıyor."
+    },
+    {
+      "behavior_id": "B10",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Daryl",
+      "frame_id": "frame_0036",
+      "frame_image_path": "training_datasets/2025/Daryl/Daryl_frames/frame_0036.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Depth-2 tree var ama subgroup reasoning kanıtı yok; sadece derinlik artırılmış."
+    },
+    {
+      "behavior_id": "B10",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "David",
+      "frame_id": "frame_0130",
+      "frame_image_path": "training_datasets/2025/David/David_frames/frame_0130.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Depth-2 tree var ama subgroup reasoning kanıtı yok; sadece derinlik artırılmış."
+    },
+    {
+      "behavior_id": "B11",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Zabby",
+      "frame_id": "frame_0095",
+      "frame_image_path": "training_datasets/2025/Zabby/Zabby_frames/frame_0095.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Scatter plot movable value sayısal değeri tree threshold değeriyle eşleşiyor; graph-to-tree transfer."
+    },
+    {
+      "behavior_id": "B11",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Boris",
+      "frame_id": "frame_0226",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0226.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Scatter plot movable value sayısal değeri tree threshold değeriyle eşleşiyor; graph-to-tree transfer."
+    },
+    {
+      "behavior_id": "B11",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "David",
+      "frame_id": "frame_0066",
+      "frame_image_path": "training_datasets/2025/David/David_frames/frame_0066.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Scatter plot ve tree her ikisi görünüyor ama sayısal değerler eşleşmiyor."
+    },
+    {
+      "behavior_id": "B11",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Boris",
+      "frame_id": "frame_0001",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0001.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "Scatter plot ve tree her ikisi görünüyor ama sayısal değerler eşleşmiyor."
+    },
+    {
+      "behavior_id": "B12",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Deepen",
+      "student_id": "David",
+      "frame_id": "frame_0179",
+      "frame_image_path": "training_datasets/2025/David/David_frames/frame_0179.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "CTR'da non-current satır seçili/highlighted VEYA satır silme işlemi görünüyor."
+    },
+    {
+      "behavior_id": "B12",
+      "polarity": "positive",
+      "score": 2,
+      "target_level": "Acquire",
+      "student_id": "Frank",
+      "frame_id": "frame_0130",
+      "frame_image_path": "training_datasets/2025/Frank/Frank_frames/frame_0130.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "CTR'da non-current satır seçili/highlighted VEYA satır silme işlemi görünüyor."
+    },
+    {
+      "behavior_id": "B12",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "David",
+      "frame_id": "frame_0080",
+      "frame_image_path": "training_datasets/2025/David/David_frames/frame_0080.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "CTR'da 2+ satır birikmiş ama aktif seçim/silme yok; yalnızca en son satır auto-highlighted."
+    },
+    {
+      "behavior_id": "B12",
+      "polarity": "negative",
+      "score": 0,
+      "target_level": "not_observed",
+      "student_id": "Boris",
+      "frame_id": "frame_0078",
+      "frame_image_path": "training_datasets/2025/Boris/Boris_frames/frame_0078.jpg",
+      "silver_confidence": "none",
+      "why_this_example_tr": "CTR'da 2+ satır birikmiş ama aktif seçim/silme yok; yalnızca en son satır auto-highlighted."
+    }
+  ]
+}

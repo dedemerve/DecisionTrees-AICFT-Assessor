@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "run_manifest.schema.json",
+  "title": "Scoring Run Manifest",
+  "description": "Records provenance for every automated scoring run (RF10 remediation). One file per run.",
+  "type": "object",
+  "required": ["run_id", "model_id", "prompt_path", "prompt_sha256", "temperature", "n_frames", "git_commit", "timestamp_utc", "script", "purpose"],
+  "properties": {
+    "run_id": {"type": "string", "description": "Unique run identifier, e.g. 2026-07-20T14:00Z-validation"},
+    "model_id": {"type": "string", "description": "Full model identifier, e.g. claude-haiku-4-5-20251001"},
+    "prompt_path": {"type": "string", "description": "Repo-relative path to the system prompt source"},
+    "prompt_sha256": {"type": "string", "description": "SHA256 hash of the system prompt text at run time"},
+    "temperature": {"type": "number"},
+    "n_frames": {"type": "integer", "description": "Number of frames scored in this run"},
+    "git_commit": {"type": "string", "description": "Short git commit hash at run time"},
+    "timestamp_utc": {"type": "string", "format": "date-time"},
+    "script": {"type": "string", "description": "Script that generated this run"},
+    "purpose": {"type": "string", "enum": ["validation", "2026_scoring", "fewshot_selection", "irr_check"]},
+    "output_file": {"type": "string", "description": "Repo-relative path to the output JSON"},
+    "notes": {"type": "string"}
+  }
+}

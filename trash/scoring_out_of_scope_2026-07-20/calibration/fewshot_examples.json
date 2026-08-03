@@ -1,0 +1,942 @@
+{
+  "source": "2025_calibration_dataset",
+  "few_shot_count_per_rubric": 3,
+  "candidates": {
+    "B0": [
+      {
+        "student_id": "Daryl",
+        "frame_id": "frame_0001",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Daryl/Daryl_frames/frame_0001.jpg",
+        "expert_screenshot": "Daryl_docx_screenshots/docx_shot_0000.png",
+        "codebook_codes": [
+          "LOAD_DATASET",
+          "OPEN_ARBOR"
+        ],
+        "rubric_behaviors": [
+          "B0"
+        ],
+        "timestamp_s": 0.017,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Eliot",
+        "frame_id": "frame_0006",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Eliot/Eliot_frames/frame_0006.jpg",
+        "expert_screenshot": "Eliot_docx_screenshots/docx_shot_0000.png",
+        "codebook_codes": [
+          "LOAD_DATASET",
+          "OPEN_ARBOR"
+        ],
+        "rubric_behaviors": [
+          "B0"
+        ],
+        "timestamp_s": 23.706,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Ally",
+        "frame_id": "frame_0009",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Ally/Ally_frames/frame_0009.jpg",
+        "expert_screenshot": "Ally_docx_screenshots/docx_shot_0000.png",
+        "codebook_codes": [
+          "LOAD_DATASET",
+          "OPEN_ARBOR"
+        ],
+        "rubric_behaviors": [
+          "B0"
+        ],
+        "timestamp_s": 63.187,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B1": [
+      {
+        "student_id": "Henry",
+        "frame_id": "frame_0025",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Henry/Henry_frames/frame_0025.jpg",
+        "expert_screenshot": "Henry_docx_screenshots/docx_shot_0005.png",
+        "codebook_codes": [
+          "SET_AXIS",
+          "UPDATE_THRESHOLD"
+        ],
+        "rubric_behaviors": [
+          "B1",
+          "B6"
+        ],
+        "timestamp_s": 129.418,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Mike",
+        "frame_id": "frame_0026",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Mike/Mike_frames/frame_0026.jpg",
+        "expert_screenshot": "Mike_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "CREATE_GRAPH",
+          "SET_AXIS"
+        ],
+        "rubric_behaviors": [
+          "B1"
+        ],
+        "timestamp_s": 308.152,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Zabby",
+        "frame_id": "frame_0031",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Zabby/Zabby_frames/frame_0031.jpg",
+        "expert_screenshot": "Zabby_docx_screenshots/docx_shot_0002.png",
+        "codebook_codes": [
+          "SET_AXIS"
+        ],
+        "rubric_behaviors": [
+          "B1"
+        ],
+        "timestamp_s": 399.326,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B2": [
+      {
+        "student_id": "Zabby",
+        "frame_id": "frame_0047",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Zabby/Zabby_frames/frame_0047.jpg",
+        "expert_screenshot": "Zabby_docx_screenshots/docx_shot_0032.png",
+        "codebook_codes": [
+          "UPDATE_MOVABLE_VALUE"
+        ],
+        "rubric_behaviors": [
+          "B11",
+          "B2"
+        ],
+        "timestamp_s": 557.433,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Ally",
+        "frame_id": "frame_0061",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Ally/Ally_frames/frame_0061.jpg",
+        "expert_screenshot": "Ally_docx_screenshots/docx_shot_0003.png",
+        "codebook_codes": [
+          "ADD_MOVABLE_VALUE",
+          "UPDATE_MOVABLE_VALUE"
+        ],
+        "rubric_behaviors": [
+          "B2"
+        ],
+        "timestamp_s": 584.665,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Daisy",
+        "frame_id": "frame_0055",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Daisy/Daisy_frames/frame_0055.jpg",
+        "expert_screenshot": "Daisy_docx_screenshots/docx_shot_0009.png",
+        "codebook_codes": [
+          "SET_AXIS",
+          "ADD_MOVABLE_VALUE",
+          "UPDATE_MOVABLE_VALUE"
+        ],
+        "rubric_behaviors": [
+          "B1",
+          "B2"
+        ],
+        "timestamp_s": 722.873,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B3": [
+      {
+        "student_id": "Eliot",
+        "frame_id": "frame_0013",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Eliot/Eliot_frames/frame_0013.jpg",
+        "expert_screenshot": "Eliot_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "SET_TARGET_ATTRIBUTE",
+          "EMIT_TREE"
+        ],
+        "rubric_behaviors": [
+          "B3",
+          "B7"
+        ],
+        "timestamp_s": 113.935,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Henry",
+        "frame_id": "frame_0026",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Henry/Henry_frames/frame_0026.jpg",
+        "expert_screenshot": "Henry_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "SET_TARGET_ATTRIBUTE",
+          "DRAG_SPLIT_ATTRIBUTE",
+          "ASSIGN_LEAF_LABEL"
+        ],
+        "rubric_behaviors": [
+          "B3",
+          "B4",
+          "B5"
+        ],
+        "timestamp_s": 136.28,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "David",
+        "frame_id": "frame_0042",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/David/David_frames/frame_0042.jpg",
+        "expert_screenshot": "David_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "SET_TARGET_ATTRIBUTE",
+          "DRAG_SPLIT_ATTRIBUTE",
+          "EMIT_TREE",
+          "DELETE_TREE_OR_CTR_ROW",
+          "SELECT_CTR_ROW"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B16",
+          "B3",
+          "B4",
+          "B7"
+        ],
+        "timestamp_s": 210.595,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B4": [
+      {
+        "student_id": "Henry",
+        "frame_id": "frame_0026",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Henry/Henry_frames/frame_0026.jpg",
+        "expert_screenshot": "Henry_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "SET_TARGET_ATTRIBUTE",
+          "DRAG_SPLIT_ATTRIBUTE",
+          "ASSIGN_LEAF_LABEL"
+        ],
+        "rubric_behaviors": [
+          "B3",
+          "B4",
+          "B5"
+        ],
+        "timestamp_s": 136.28,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "David",
+        "frame_id": "frame_0042",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/David/David_frames/frame_0042.jpg",
+        "expert_screenshot": "David_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "SET_TARGET_ATTRIBUTE",
+          "DRAG_SPLIT_ATTRIBUTE",
+          "EMIT_TREE",
+          "DELETE_TREE_OR_CTR_ROW",
+          "SELECT_CTR_ROW"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B16",
+          "B3",
+          "B4",
+          "B7"
+        ],
+        "timestamp_s": 210.595,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Daryl",
+        "frame_id": "frame_0034",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Daryl/Daryl_frames/frame_0034.jpg",
+        "expert_screenshot": "Daryl_docx_screenshots/docx_shot_0013.png",
+        "codebook_codes": [
+          "DRAG_SPLIT_ATTRIBUTE",
+          "UPDATE_THRESHOLD",
+          "ASSIGN_LEAF_LABEL",
+          "EMIT_TREE"
+        ],
+        "rubric_behaviors": [
+          "B4",
+          "B5",
+          "B6",
+          "B7"
+        ],
+        "timestamp_s": 251.645,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B5": [
+      {
+        "student_id": "Henry",
+        "frame_id": "frame_0026",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Henry/Henry_frames/frame_0026.jpg",
+        "expert_screenshot": "Henry_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "SET_TARGET_ATTRIBUTE",
+          "DRAG_SPLIT_ATTRIBUTE",
+          "ASSIGN_LEAF_LABEL"
+        ],
+        "rubric_behaviors": [
+          "B3",
+          "B4",
+          "B5"
+        ],
+        "timestamp_s": 136.28,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "David",
+        "frame_id": "frame_0047",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/David/David_frames/frame_0047.jpg",
+        "expert_screenshot": "David_docx_screenshots/docx_shot_0002.png",
+        "codebook_codes": [
+          "ASSIGN_LEAF_LABEL"
+        ],
+        "rubric_behaviors": [
+          "B15",
+          "B5"
+        ],
+        "timestamp_s": 233.517,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Daryl",
+        "frame_id": "frame_0034",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Daryl/Daryl_frames/frame_0034.jpg",
+        "expert_screenshot": "Daryl_docx_screenshots/docx_shot_0013.png",
+        "codebook_codes": [
+          "DRAG_SPLIT_ATTRIBUTE",
+          "UPDATE_THRESHOLD",
+          "ASSIGN_LEAF_LABEL",
+          "EMIT_TREE"
+        ],
+        "rubric_behaviors": [
+          "B4",
+          "B5",
+          "B6",
+          "B7"
+        ],
+        "timestamp_s": 251.645,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B6": [
+      {
+        "student_id": "Daryl",
+        "frame_id": "frame_0023",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Daryl/Daryl_frames/frame_0023.jpg",
+        "expert_screenshot": "Daryl_docx_screenshots/docx_shot_0015.png",
+        "codebook_codes": [
+          "UPDATE_THRESHOLD"
+        ],
+        "rubric_behaviors": [
+          "B15",
+          "B6"
+        ],
+        "timestamp_s": 79.833,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Henry",
+        "frame_id": "frame_0025",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Henry/Henry_frames/frame_0025.jpg",
+        "expert_screenshot": "Henry_docx_screenshots/docx_shot_0005.png",
+        "codebook_codes": [
+          "SET_AXIS",
+          "UPDATE_THRESHOLD"
+        ],
+        "rubric_behaviors": [
+          "B1",
+          "B6"
+        ],
+        "timestamp_s": 129.418,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Zabby",
+        "frame_id": "frame_0027",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Zabby/Zabby_frames/frame_0027.jpg",
+        "expert_screenshot": "Zabby_docx_screenshots/docx_shot_0025.png",
+        "codebook_codes": [
+          "DRAG_SPLIT_ATTRIBUTE",
+          "UPDATE_THRESHOLD",
+          "ASSIGN_LEAF_LABEL",
+          "EMIT_TREE",
+          "COMPARE_MODELS",
+          "SEEK_HELP_OR_DIALOGUE"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B15",
+          "B4",
+          "B5",
+          "B6",
+          "B7"
+        ],
+        "timestamp_s": 360.949,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B7": [
+      {
+        "student_id": "Eliot",
+        "frame_id": "frame_0013",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Eliot/Eliot_frames/frame_0013.jpg",
+        "expert_screenshot": "Eliot_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "SET_TARGET_ATTRIBUTE",
+          "EMIT_TREE"
+        ],
+        "rubric_behaviors": [
+          "B3",
+          "B7"
+        ],
+        "timestamp_s": 113.935,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "David",
+        "frame_id": "frame_0042",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/David/David_frames/frame_0042.jpg",
+        "expert_screenshot": "David_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "SET_TARGET_ATTRIBUTE",
+          "DRAG_SPLIT_ATTRIBUTE",
+          "EMIT_TREE",
+          "DELETE_TREE_OR_CTR_ROW",
+          "SELECT_CTR_ROW"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B16",
+          "B3",
+          "B4",
+          "B7"
+        ],
+        "timestamp_s": 210.595,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Daryl",
+        "frame_id": "frame_0034",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Daryl/Daryl_frames/frame_0034.jpg",
+        "expert_screenshot": "Daryl_docx_screenshots/docx_shot_0013.png",
+        "codebook_codes": [
+          "DRAG_SPLIT_ATTRIBUTE",
+          "UPDATE_THRESHOLD",
+          "ASSIGN_LEAF_LABEL",
+          "EMIT_TREE"
+        ],
+        "rubric_behaviors": [
+          "B4",
+          "B5",
+          "B6",
+          "B7"
+        ],
+        "timestamp_s": 251.645,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B8": [
+      {
+        "student_id": "Frank",
+        "frame_id": "frame_0086",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Frank/Frank_frames/frame_0086.jpg",
+        "expert_screenshot": "Frank_docx_screenshots/docx_shot_0004.png",
+        "codebook_codes": [
+          "EMIT_TREE",
+          "INTERPRET_METRICS",
+          "SEEK_HELP_OR_DIALOGUE"
+        ],
+        "rubric_behaviors": [
+          "B17",
+          "B7",
+          "B8"
+        ],
+        "timestamp_s": 1669.009,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Boris",
+        "frame_id": "frame_0098",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Boris/Boris_frames/frame_0098.jpg",
+        "expert_screenshot": "Boris_docx_screenshots/docx_shot_0032.png",
+        "codebook_codes": [
+          "SELECT_CTR_ROW",
+          "INTERPRET_METRICS",
+          "COMPARE_MODELS",
+          "SEEK_HELP_OR_DIALOGUE"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B15",
+          "B8"
+        ],
+        "timestamp_s": 1704.1,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "David",
+        "frame_id": "frame_0173",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/David/David_frames/frame_0173.jpg",
+        "expert_screenshot": "David_docx_screenshots/docx_shot_0027.png",
+        "codebook_codes": [
+          "INTERPRET_METRICS",
+          "COMPARE_MODELS",
+          "SEEK_HELP_OR_DIALOGUE"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B17",
+          "B8"
+        ],
+        "timestamp_s": 1844.641,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B9": [
+      {
+        "student_id": "Daryl",
+        "frame_id": "frame_0002",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Daryl/Daryl_frames/frame_0002.jpg",
+        "expert_screenshot": "Daryl_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "TRAIN_TEST_SPLIT"
+        ],
+        "rubric_behaviors": [
+          "B9"
+        ],
+        "timestamp_s": 21.158,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Boris",
+        "frame_id": "frame_0017",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Boris/Boris_frames/frame_0017.jpg",
+        "expert_screenshot": "Boris_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "TRAIN_TEST_SPLIT"
+        ],
+        "rubric_behaviors": [
+          "B9"
+        ],
+        "timestamp_s": 450.792,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Frank",
+        "frame_id": "frame_0032",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Frank/Frank_frames/frame_0032.jpg",
+        "expert_screenshot": "Frank_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "TRAIN_TEST_SPLIT"
+        ],
+        "rubric_behaviors": [
+          "B9"
+        ],
+        "timestamp_s": 454.028,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B10": [
+      {
+        "student_id": "David",
+        "frame_id": "frame_0054",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/David/David_frames/frame_0054.jpg",
+        "expert_screenshot": "David_docx_screenshots/docx_shot_0003.png",
+        "codebook_codes": [
+          "DRAG_SPLIT_ATTRIBUTE",
+          "ASSIGN_LEAF_LABEL"
+        ],
+        "rubric_behaviors": [
+          "B10",
+          "B15",
+          "B16",
+          "B4",
+          "B5"
+        ],
+        "timestamp_s": 258.03,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Ally",
+        "frame_id": "frame_0041",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Ally/Ally_frames/frame_0041.jpg",
+        "expert_screenshot": "Ally_docx_screenshots/docx_shot_0021.png",
+        "codebook_codes": [
+          "DRAG_SPLIT_ATTRIBUTE",
+          "ASSIGN_LEAF_LABEL"
+        ],
+        "rubric_behaviors": [
+          "B10",
+          "B15",
+          "B4",
+          "B5"
+        ],
+        "timestamp_s": 413.394,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Henry",
+        "frame_id": "frame_0034",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Henry/Henry_frames/frame_0034.jpg",
+        "expert_screenshot": "Henry_docx_screenshots/docx_shot_0012.png",
+        "codebook_codes": [
+          "SET_AXIS",
+          "DRAG_SPLIT_ATTRIBUTE"
+        ],
+        "rubric_behaviors": [
+          "B1",
+          "B10",
+          "B4"
+        ],
+        "timestamp_s": 587.27,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B11": [
+      {
+        "student_id": "Zabby",
+        "frame_id": "frame_0047",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Zabby/Zabby_frames/frame_0047.jpg",
+        "expert_screenshot": "Zabby_docx_screenshots/docx_shot_0032.png",
+        "codebook_codes": [
+          "UPDATE_MOVABLE_VALUE"
+        ],
+        "rubric_behaviors": [
+          "B11",
+          "B2"
+        ],
+        "timestamp_s": 557.433,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Daisy",
+        "frame_id": "frame_0087",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Daisy/Daisy_frames/frame_0087.jpg",
+        "expert_screenshot": "Daisy_docx_screenshots/docx_shot_0021.png",
+        "codebook_codes": [
+          "DRAG_SPLIT_ATTRIBUTE",
+          "UPDATE_THRESHOLD",
+          "EMIT_TREE"
+        ],
+        "rubric_behaviors": [
+          "B11",
+          "B15",
+          "B4",
+          "B6",
+          "B7"
+        ],
+        "timestamp_s": 1039.344,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Boris",
+        "frame_id": "frame_0079",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Boris/Boris_frames/frame_0079.jpg",
+        "expert_screenshot": "Boris_docx_screenshots/docx_shot_0022.png",
+        "codebook_codes": [
+          "UPDATE_MOVABLE_VALUE",
+          "UPDATE_THRESHOLD",
+          "EMIT_TREE"
+        ],
+        "rubric_behaviors": [
+          "B11",
+          "B15",
+          "B2",
+          "B6",
+          "B7"
+        ],
+        "timestamp_s": 1440.512,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B12": [
+      {
+        "student_id": "David",
+        "frame_id": "frame_0042",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/David/David_frames/frame_0042.jpg",
+        "expert_screenshot": "David_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "SET_TARGET_ATTRIBUTE",
+          "DRAG_SPLIT_ATTRIBUTE",
+          "EMIT_TREE",
+          "DELETE_TREE_OR_CTR_ROW",
+          "SELECT_CTR_ROW"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B16",
+          "B3",
+          "B4",
+          "B7"
+        ],
+        "timestamp_s": 210.595,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Zabby",
+        "frame_id": "frame_0026",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Zabby/Zabby_frames/frame_0026.jpg",
+        "expert_screenshot": "Zabby_docx_screenshots/docx_shot_0023.png",
+        "codebook_codes": [
+          "EMIT_TREE",
+          "COMPARE_MODELS",
+          "SEEK_HELP_OR_DIALOGUE"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B7"
+        ],
+        "timestamp_s": 358.529,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Ally",
+        "frame_id": "frame_0072",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Ally/Ally_frames/frame_0072.jpg",
+        "expert_screenshot": "Ally_docx_screenshots/docx_shot_0002.png",
+        "codebook_codes": [
+          "CREATE_GRAPH",
+          "SET_AXIS",
+          "DRAG_SPLIT_ATTRIBUTE",
+          "ASSIGN_LEAF_LABEL",
+          "DELETE_TREE_OR_CTR_ROW"
+        ],
+        "rubric_behaviors": [
+          "B1",
+          "B12",
+          "B16",
+          "B4",
+          "B5"
+        ],
+        "timestamp_s": 640.877,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B13": [],
+    "B14": [],
+    "B15": [
+      {
+        "student_id": "Daryl",
+        "frame_id": "frame_0023",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Daryl/Daryl_frames/frame_0023.jpg",
+        "expert_screenshot": "Daryl_docx_screenshots/docx_shot_0015.png",
+        "codebook_codes": [
+          "UPDATE_THRESHOLD"
+        ],
+        "rubric_behaviors": [
+          "B15",
+          "B6"
+        ],
+        "timestamp_s": 79.833,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "David",
+        "frame_id": "frame_0047",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/David/David_frames/frame_0047.jpg",
+        "expert_screenshot": "David_docx_screenshots/docx_shot_0002.png",
+        "codebook_codes": [
+          "ASSIGN_LEAF_LABEL"
+        ],
+        "rubric_behaviors": [
+          "B15",
+          "B5"
+        ],
+        "timestamp_s": 233.517,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Zabby",
+        "frame_id": "frame_0027",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Zabby/Zabby_frames/frame_0027.jpg",
+        "expert_screenshot": "Zabby_docx_screenshots/docx_shot_0025.png",
+        "codebook_codes": [
+          "DRAG_SPLIT_ATTRIBUTE",
+          "UPDATE_THRESHOLD",
+          "ASSIGN_LEAF_LABEL",
+          "EMIT_TREE",
+          "COMPARE_MODELS",
+          "SEEK_HELP_OR_DIALOGUE"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B15",
+          "B4",
+          "B5",
+          "B6",
+          "B7"
+        ],
+        "timestamp_s": 360.949,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B16": [
+      {
+        "student_id": "David",
+        "frame_id": "frame_0042",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/David/David_frames/frame_0042.jpg",
+        "expert_screenshot": "David_docx_screenshots/docx_shot_0001.png",
+        "codebook_codes": [
+          "SET_TARGET_ATTRIBUTE",
+          "DRAG_SPLIT_ATTRIBUTE",
+          "EMIT_TREE",
+          "DELETE_TREE_OR_CTR_ROW",
+          "SELECT_CTR_ROW"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B16",
+          "B3",
+          "B4",
+          "B7"
+        ],
+        "timestamp_s": 210.595,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Ally",
+        "frame_id": "frame_0072",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Ally/Ally_frames/frame_0072.jpg",
+        "expert_screenshot": "Ally_docx_screenshots/docx_shot_0002.png",
+        "codebook_codes": [
+          "CREATE_GRAPH",
+          "SET_AXIS",
+          "DRAG_SPLIT_ATTRIBUTE",
+          "ASSIGN_LEAF_LABEL",
+          "DELETE_TREE_OR_CTR_ROW"
+        ],
+        "rubric_behaviors": [
+          "B1",
+          "B12",
+          "B16",
+          "B4",
+          "B5"
+        ],
+        "timestamp_s": 640.877,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Zabby",
+        "frame_id": "frame_0087",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Zabby/Zabby_frames/frame_0087.jpg",
+        "expert_screenshot": "Zabby_docx_screenshots/docx_shot_0006.png",
+        "codebook_codes": [
+          "DRAG_SPLIT_ATTRIBUTE",
+          "DELETE_TREE_OR_CTR_ROW",
+          "SEEK_HELP_OR_DIALOGUE"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B16",
+          "B4"
+        ],
+        "timestamp_s": 1002.348,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ],
+    "B17": [
+      {
+        "student_id": "Henry",
+        "frame_id": "frame_0075",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Henry/Henry_frames/frame_0075.jpg",
+        "expert_screenshot": "Henry_docx_screenshots/docx_shot_0006.png",
+        "codebook_codes": [
+          "UPDATE_THRESHOLD",
+          "SEEK_HELP_OR_DIALOGUE"
+        ],
+        "rubric_behaviors": [
+          "B17",
+          "B6"
+        ],
+        "timestamp_s": 901.746,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "Frank",
+        "frame_id": "frame_0086",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/Frank/Frank_frames/frame_0086.jpg",
+        "expert_screenshot": "Frank_docx_screenshots/docx_shot_0004.png",
+        "codebook_codes": [
+          "EMIT_TREE",
+          "INTERPRET_METRICS",
+          "SEEK_HELP_OR_DIALOGUE"
+        ],
+        "rubric_behaviors": [
+          "B17",
+          "B7",
+          "B8"
+        ],
+        "timestamp_s": 1669.009,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      },
+      {
+        "student_id": "David",
+        "frame_id": "frame_0173",
+        "frame_image_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2025/David/David_frames/frame_0173.jpg",
+        "expert_screenshot": "David_docx_screenshots/docx_shot_0027.png",
+        "codebook_codes": [
+          "INTERPRET_METRICS",
+          "COMPARE_MODELS",
+          "SEEK_HELP_OR_DIALOGUE"
+        ],
+        "rubric_behaviors": [
+          "B12",
+          "B17",
+          "B8"
+        ],
+        "timestamp_s": 1844.641,
+        "silver_confidence": "high",
+        "label_source": "nearest_gold_silver_anchor"
+      }
+    ]
+  }
+}

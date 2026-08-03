@@ -1,0 +1,126 @@
+{
+  "stage": "validation",
+  "student_id": "Marcus",
+  "worksheet": "WS6",
+  "parse_success": true,
+  "ocr_quality": null,
+  "formula_parsed": true,
+  "tree_detected": true,
+  "missing_regions": [],
+  "deterministic_checks": {
+    "WS6_root_feature": {
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
+      "feature": "energy_kcal"
+    },
+    "WS6_root_threshold": {
+      "parsed": {
+        "operator": "<",
+        "value": 220.0,
+        "operator_inclusive": false,
+        "operator_strict": true,
+        "expected_complement": ">="
+      },
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS6_root_labels": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank"
+    },
+    "WS6_inner_feature": {
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
+      "feature": "protein_g"
+    },
+    "WS6_inner_threshold": {
+      "parsed": {
+        "operator": "<",
+        "value": 13.0,
+        "operator_inclusive": false,
+        "operator_strict": true,
+        "expected_complement": ">="
+      },
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS6_inner_labels": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank"
+    },
+    "WS6_leaves": {
+      "ok": false,
+      "credit": "zero",
+      "score": 0.0,
+      "labeled_leaves": 0,
+      "required_leaves": 3,
+      "mcr": 1.0,
+      "errors": 11,
+      "path_errors": 0,
+      "note": "MCR=0 with two-level tree is valid; extra depth is not penalized."
+    },
+    "WS6_tree_structure": {
+      "ok": false,
+      "credit": "partial",
+      "score": 0.5,
+      "components": {
+        "depth": true,
+        "features": true,
+        "leaves_labeled": false,
+        "operators": false,
+        "operator_complement_gap": true
+      },
+      "components_met": 2,
+      "mcr": 1.0,
+      "errors": 11,
+      "two_level_ok": true,
+      "mcr_zero_valid": false,
+      "note": "Complementary operator pairs required: <↔≥, >↔≤, ≤↔>, ≥↔<. MCR=0 with two levels is acceptable."
+    },
+    "mcr": {
+      "dataset_size": 11,
+      "correct": 0,
+      "errors": 11,
+      "mcr": 1.0,
+      "unclassified": 11
+    },
+    "tree_model": {
+      "has_inner": true,
+      "root": {
+        "raw": "< 220.0",
+        "feature": "energy_kcal",
+        "feature_name": "Enerji",
+        "operator": "<",
+        "value": 220.0,
+        "operator_inclusive": false,
+        "operator_strict": true
+      },
+      "inner": {
+        "raw": "< 13.0",
+        "feature": "protein_g",
+        "feature_name": "Protein",
+        "operator": "<",
+        "value": 13.0,
+        "operator_inclusive": false,
+        "operator_strict": true
+      }
+    }
+  },
+  "blocked": false,
+  "blocked_reason": null,
+  "mcr": {
+    "dataset_size": 11,
+    "correct": 0,
+    "errors": 11,
+    "mcr": 1.0,
+    "unclassified": 11
+  }
+}

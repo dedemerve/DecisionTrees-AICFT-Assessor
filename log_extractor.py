@@ -73,7 +73,16 @@ _TURKISH_I_MAP = str.maketrans({"İ": "i", "I": "ı"})
 # Format: _normalise_id(raw) -> canonical_id to merge into
 IDENTITY_OVERRIDES: dict[str, str] = {
     "merve": "merve dede",
-    # "şeyda": "şeyda demirci",  # PENDING researcher decision
+    # Log CSV aliases not anonymized during preprocessing — mapped to pseudonyms.
+    # Keys are _normalise_id() output of the raw student_id value in the CSV.
+    "sena çiçek": "serena",
+    "senanur elhan çiçek": "serena",
+    "hatice sennur ayyıldız": "helena",   # "Sennur" in log; PSEUDONYM_MAP has "Şennur"
+    "hatice şennur ayyıldız": "helena",
+    "şeyda": "sheila",                    # Şeyda Demirci -> Sheila (PSEUDONYM_MAP confirmed)
+    "şeyma peltelk": "shana",             # log typo; PSEUDONYM_MAP: Şeyma Peltek -> Shana
+    # Excluded from analysis (researcher decision):
+    # "sahal" — test/instructor account, 4 rows only, no screen recording
 }
 
 

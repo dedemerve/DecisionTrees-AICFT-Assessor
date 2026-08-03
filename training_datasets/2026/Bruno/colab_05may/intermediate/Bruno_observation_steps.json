@@ -1,0 +1,170 @@
+{
+  "schema_version": "2026-v1",
+  "generated_at": "2026-07-21T11:23:19.741416+00:00",
+  "student_id": "Bruno",
+  "session": "colab_05may",
+  "source_document": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/data_sources_2026/Final Ödevi Dokümanları/Bruno.ipynb",
+  "source_type": "ipynb",
+  "observation_steps": [
+    {
+      "step_index": 0,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "SORULAR VE CEVAPLARI\n\n1-)Veri kümesinde kaç kertenkele var?\n\nVeri kümesinde toplam 320 kertenkele vardır.\n\n2-)Hangi yaşam alanı en kalabalık? Hangisi en az?\n\nEn kalabalık yaşam alanı \"yer\" en az olan ise \"ağaç\" dır.\n\n3-)Bu dengesizlik modelimizi nasıl etkileyebilir? (Dersimizdeki “sınıf dengesi” tartışmasını hatırlayın.)\n\nMCR oranını düşürmek için veri sayısı fazla olan sınıfı daha iyi öğrenmeye çalışırız.\n\n4-)Kertenkelelerin ortalama ağırlığı nedir? Bu değer üç tür için farklı mıdır? Nedenini açıklayın.\n\nAğırlık ortalaması 12.5 dir. Bnece her türün ağırlık ortalaması farklıdır çünkü\ntürlerin yaşam alanları ,özellikleri birbirinden farklılık göstermektedir.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EVALUATE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 1,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "#ADIM 2",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 2,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "#ADIM 3",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 3,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "stratify=y parametresini kaldırdığım zaman bana yaşam alanları orantılı bir şeklide dağıtmıyor. Buda mesela ağaçda yaşayan kertenkelelerin hepsinin test verisine gitmesine neden olabilir. yaptığım örnekte çok fark olmasada karar ağacımı hazırlarken öenmli değişikliklere sebep olabilir.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 4,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "random state değerini 7 ve 42 aldığımda mcr değerlerimde değişiklikler meydana geliyor bunun nedeni ise random state veriyi her seferinde aynı yerden bölmemizi sağlar bunu başka sayıda alabiliriz ama her zaman aynı sayıyı kullanmamız gerekir bu sabit bir değişkendir.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Create"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EVALUATE' / 'Domain-knowledge driven' / LO=Create olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 5,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "#ADIM 4",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 6,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "SORULAR VE CEVAPLARI\n\n1-)Çıktıya bakarak eğitim ve test hatasının derinlik arttıkça nasıl değişmektedir? Eğitim ve test değerlerine bakarak gerekçenizi yazın.\n\n\nDerinlik arttıkça Eğitim MCR sürekli ve düzenli bir şekilde düşmektedir. Model, eğitim setindeki kertenkeleleri her adımda daha detaylı öğrenmektedir. Ancak Test MCR için aynı şeyi söyleyemeyiz. Derinlik 1'den 2'ye geçerken test hatası düşmüş ve en başarı noktasını görmüştür; fakat derinlik 5'e ulaştığında test hatası ani ve çok büyük bir sıçrama yaparak 0.438'e yükselmiştir.\n\n2-)Eğitim hatası sıfıra yaklaşıyorsa bu modelin \"mükemmel\" öğrendiği anlamına gelir mi? Sizce ne anlama geliyor?\n\n\nHayır mükemmel öğrendiği anlamına gelmez bu durum modelin öğrenmeyi bırakıp ezbere geçtiği anlamına gelir bizim için önemli olan test verisindeki başarısıdır.\n\n3-)Hangi derinlikte eğitim hatası düşmeye devam ederken test hatası artmaya başladı? O satırda modele ne olduğunu açıklayın.\n\nDerinlik 5 te eğitim MCR si düşerken test MCR si yükselmiştir. Bu da overfitting durumudur.\n\n4-)Yalnızca bu sayılara bakarak hangi derinliği seçerdiniz? Hem eğitim hem test hatasını göz önünde bulundurarak gerekçenizi yazın.\n\n2 yi seçerdim çünkü benim için önemli olan test verisidir.\n\n5-)En düşük test hatası (MCR) ile en düşük eğitim hatası farklı derinliklerde mi çıktı? Bu size ne söylüyor?\n\n\nEvet, farklı derinliklerde çıkmıştır. En düşük test hatası Derinlik 2'de çıkarken, en düşük eğitim hatası Derinlik 5'te çıkmıştır. Bu durum bize karar ağaçlarının derinliği sınırlandırılmadığında sadece eğitim verisine odaklandığını söyler. Ayrıca makine öğrenmesinde model başarısını doğrulamak için neden veriyi \"Eğitim\" ve \"Test\" olarak ikiye ayırmamız gerektiğinin gerekçesidir.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Deepen olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 7,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "SORULAR VE CEVAPLARI\n\n1-)Grafikteki iki eğri birbirinden ne zaman ayrılmaya başlıyor? Bu ayrılma noktası size ne söylüyor?\n\nDerinlik 2'den sonra birbirinden ayrılmaya başlıyor. Derinlik 2'de test hatası dip noktayı görmüşken, derinlik arttıkça mavi eğri aşağı doğru inmeye devam ediyor, ancak turuncu eğri yönünü yukarı çeviriyor.\n\n2-)Eğitim ve test eğrileri arasındaki mesafe derinlikle birlikte açılıyorsa buna ne ad verilir?\n\nBu duruma makine öğrenmesinde Aşırı Öğrenme (Overfitting) denir\n\n3-)Grafiğe bakarak hangi max_depth değerini seçerdiniz? Sayısal tablodaki kararınızla aynı mı?\n\nEvet, sayısal tablodaki kararımla aynıdır. Çünkü turuncu çizginin en dipte yer aldığı, yani modelin en az hata yaptığı ve en yüksek başarıyı gösterdiği noktası tam olarak Derinlik 2 seviyesidir.\n\n4-)Kurduğunuz her karar ağacı için bu grafiği ayrı ayrı çizin. Optimum derinlik her hedef için aynı mı çıktı? Farklılaştıysa neden?\n\nHayır, her hedef değişken için optimum derinlik seviyeleri farklılık göstermiştir.Çünkü kertenkelelerin özellikleriyle sorduğumuz sorular arasındaki ilişki farklıdır. Örneğin, kertenkelenin Türünü tahmin etmek fiziksel ölçümlerle çok daha kolay ve netken, Cinsiyetini veya yaşam alanını bulmak daha karmaşık kurallar gerektirir. Bu yüzden her sorunun en başarılı olduğu derinlik seviyesi verinin kendi doğasına göre değişir.(diğer karar ağaçlarına baktıktan sonra cevapladım)",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Create"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Create olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 8,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "#ADIM 5",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 9,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "SORU VE CEVAPLAR\n\n1-)Kök düğümde hangi değişken kullanılmış? Neden tam da bu değişkenin ilk sırada yer aldığını düşünüyorsunuz?\n\nÜrettiğim şemada kök düğümde Tur_Sceloporus değişkeni kullanılmıştır.Bu değişkenin ilk sırada yer alması, kertenkelelerin yaşam alanlarını tahmin etmede en ayırt edici kriterinin kertenkelenin Sceloporus türüne ait olup olmaması olduğunu gösterir.\n\n2-)Ağaç yapraktan köke doğru okunduğunda bir kertenkeleyi sınıflandırmak için kaç karar yeterli oluyor? Bu sayı size ne söylüyor?\n\nHerhangi bir kertenkeleyi sınıflandırmak için en fazla 2 karar yeterli olmaktadır.Bu durum, modelin karmaşık kurallardan arınmış,sade, anlaşılır ve genelleme yeteneği yüksek bir yapıya sahip olduğunu söyler.\n\n3-)Aynı veri, farklı bir hedef değişkenle (örneğin YasamAlani yerine Tur) çalıştırıldığında kök düğüm değişti mi? Değiştiyse bunu nasıl yorumlarsınız?\n\nEvet, kök düğümler tamamen değişmiştir. Çünkü her ağaç en bilgi verici ve en ayırt edici özelliği kullanmıştır.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Create"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=Create olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 10,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "#DİĞER AĞAÇLAR",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 11,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "#ADIM 6",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 12,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "#Soru 1 — Öğrenme Yolculuğu\n\n\nHer ortam size farklı bir şey kattı mı? Her bir ortamın neler kattığını yazın.\n\n- Evet her ortam düşünme becerime farklı bir boyut kalktı. Data kartları karar ağaçlarının arkasındaki mantığı, verileri fiziksel olarak gruplamayı ve bölünme kriterlerini somut olarak anlamamı sağladı. CODAP ise büyük veri setlerinde değişkenler arasındaki ilişkileri  görmemi ve model kurma deneyimi edinmemi sağladı.Python ise işin içine matematik sokarak, büyük ölçekli verilerde insan hatasından arınmış, tamamen istatistiksel ve bilimsel modeller kurma gücü kattı.\n\nHangi ortamda \"modelim ne yapıyor\" sorusunu daha iyi anladınız? Nedeninizi açıklayın.\n\n- CODAP ortamında daha iyi anladım. Çünkü yaptığım her hamlede verinin grafik üzerinde nasıl değiştiğini inceleyebildik\n\nHangi ortam size daha kolay geldi? Bu kolaylık gerçekten anladığınızı mı, yoksa sadece alıştığınızı mı gösteriyor? Nedeninizi açıklayın.\n\n- Kullanım kolaylığı açısından CODAP ortamı en kolayıydı çünkü kod yazma baskısı veya kod hatası alma korkusu olmadan sadece veriye odaklanabiliyordum ama bu kolaylık konuyu tamamen anladığımı değil, aracın arayüzüne hızlıca alıştığımı gösteriyordu.\n\nHangi ortamda en çok zorlandınız ve bu zorluk neden kaynaklanıyordu? Aracın kendisi mi, yoksa karar ağacı kavramının o ortamda daha mı görünmez olması mıydı? Nedeninizi açıklayın.\n\n- En çok Python ortamında zorlandım. Bu zorluk karar ağacı kavramının görünmez olmasından değil, tamamen aracın kendisinden kaynaklanıyordu. Çünkü kodlama,  kütüphane entegrasyonları, ağaç çizimi için yazdığım kodlar bunlar karmaşık ve alışılması zordu.\n\nYaptığınız bir hatayı hangi ortamda daha kolay fark ettiniz? Sizi uyaran şey aracın kendisi miydi, yoksa başka bir şey mi?\n\n- Python ortamında fark ettim. Çünkü Python bir hata yapıldığında kodun hangi satırda durduğunu ve hatanın ne olduğunu söylüyordu.\n\nBir ortamda rahatlıkla yapabildiğiniz ama bir diğerinde hiç yapamadığınız bir şey oldu mu?\n\n- Python'daki for döngüsü olabilir.\n\nÜç ortamdan birinin diğerinin yerini tutamayacağı bir durum var mı? Nedeninizi açıklayın.\n\n- Bence data kartları çünkü somut nesnelerle öğrenmek çok daha kolay ve eğlenceliydi.\n\n\n#Soru 2 — Veri Anlayışı\n\nModelinizin kök düğümde seçtiği değişken sizi şaşırttı mı? Biyolojik açıdan bu seçim mantıklı mı?\n\n- Yasam alanı tahmininde modelin kök düğüm olarak tür değişkenini seçmesi başlangıçta şaşırttı çünkü ben ilk olarak fiziksel bir ölçüm bekliyordum. Ancak biyolojik açıdan düşününce bu seçim kesinlikle çok mantıklıymış.\n\n\nAğaçta yaşayan bir kertenkelenin yerde yaşayandan fiziksel olarak farklı olmasını bekler miydiniz? Modeliniz bu farkı yakalayabildi mi?\n\n- Beklerdim çünkü ağaçta yaşayan kertenkelelerin dallara tutunabilmesi ve tırmanış yapabilmek için bacak boylarının ve kütlelerinin yerde yaşayanlara göre daha farklı olması gerekir. Ağacda da zaten dalların birinde bacak uzunluğuna göre ağaç yaşam alanı sınıfına yerleştiriyor.\n\nModelinizin yanlış sınıflandırdığı bireyler hangi yaşam alanına aitti? Bunun biyolojik bir açıklaması olabilir mi?\n\n- Genellikle yer ve kaya türlerinde çünkü yaşam alanları birbirine benzer olduğundan dolayı biyolojik olarak da biribirine benziyorlar.\n\nVeriyi ilk gördüğünüzde kendiniz hangi değişkenin en belirleyici olacağını tahmin etmiştiniz? Modelinizin bulgusuyla örtüştü mü?\n\n- Kütle diye tahmin etmiştim ama modelim yaşam alanı seçti uyuşmadı ama sonradan düşününce yaşam alanı daha mantıklıymış.\n\n#Soru 3 — Model Performansı\n\nHangi sınıf en iyi, hangisi en kötü tahmin edildi? Bunun bir açıklaması var mı?\n\n- En iyi tahmin edilen sınıf Kaya ve Ağaç olurken, en kötü tahmin edilen  sınıf Yer sınıfı olmuştur. Bunun açıklaması sınıf dengesizliği ve morfolojik benzerlik olabilir.\n\nMCR değeriniz sizi tatmin etti mi? \"İyi\" bir model için bu değerin ne olması gerektiğini düşünüyorsunuz?\n\n- Bulduğum değer güzzel ama daha hatasız ve daha iyi sonuç elde edebilecek bir karar ağacı yapmak istiyorsam bunu daha da düşürmem gereklidir.\n\nAynı veriyle farklı bir hedef değişken seçseydiniz (Tur ya da Cinsiyet) MCR değeri değişir miydi? Değiştiyse neden?\n\n- Evet değişti ve kodlarımızda da bunu gördük. Örneğin hedef değişkeni Tur yaptığımızda test MCR değeri çok daha düşük çıktı çünkü kertenkelelerin tür özellikleri veride çok daha keskin sınırlara sahipti.\n\nModelin başarısız olduğu durumlar size veri hakkında ne söylüyor?\n\n- Modelin başarısız olduğu durumlar bize, kertenkeleleri sadece fiziksel ölçümlerine bakarak yaşam alanlarına ayırmanın yetersiz kalabileceğini söylüyor.\n\n#Soru 4 — Karar Ağaçlarının Sınırları\n\nModelinizin hata yaptığı durumlar rastgele mi görünüyor, yoksa belirli bir örüntü var mı?\n\n-Hatalar rastgele değildir belirli bir matematiksel örüntüye sahiptir.\n\nBu modelin daha iyi sonuç verebilmesi için neler yapılabilir? Yalnızca teknik değil, verinin kendisiyle ilgili ne değişebilir?\n\n-Veri setine biyolojik özellikler eklenebilir mesela beslenme türü veya yaşadıkları bölgenin iklimigibi sadece fiziksel özelliklerden çıkarak daha geniş bir açıdan bakabiliriz.\n\nKarar ağacı yerine farklı bir model kullansaydınız sonuç değişir miydi? Neden?\n\n- Karar ağacından başka modele bakmam.\n\nBu deneyimden sonra bir arkadaşınıza \"karar ağacı nedir, ne işe yarar, nerede yetersiz kalır?\" diye sorsalar ne söylerdiniz?\n\n-Karar ağacı verileri anlamlandırmaya, gruplandırmaya, en önemli değişkenleri keşfetmeye ve anlaşılır kurallar üretmeye yarar. Ancak veriyi öğrenmek yerine ezberlemeye geçerse yani overfitting yapmaya başlarsa işe yaramaz.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Trial-and-error",
+        "unesco_ai_cft_level": "Create"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Trial-and-error' / LO=Create olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    }
+  ],
+  "step_count": 13,
+  "frame_count": 112,
+  "frame_manifest_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/data_sources_2026/colab_python_audio/Bruno/Bruno_video_extraction_manifest.json",
+  "alignment_ready": true
+}

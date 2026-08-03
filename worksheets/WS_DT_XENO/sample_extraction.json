@@ -1,0 +1,209 @@
+{
+  "student_id": "Merve",
+  "worksheet": "WS_DT_XENO",
+  "ws_snapshot": "Öğrenci, Xeno veri seti üzerindeki tüm metrik hesaplama adımlarını (Doğruluk, Duyarlılık, Özgüllük, Kesinlik, MCR) formülleriyle birlikte eksiksiz doldurmuştur. Metinsel analiz ve yorumlama sorularına kavramsal olarak tam ve derinlikli yanıtlar verilmiştir.",
+  "page_notes": "El yazısı rakamlar, sadeleştirme adımları ve kesir formundaki hesaplamalar oldukça okunaklı ve nettir. Herhangi bir veri kaybı veya boş bırakılan alan bulunmamaktadır.",
+  "extraction": {
+    "DTI_01": "Kök düğüm 10 vaka içerir, bunların 6'sı (%60) sick (hasta) durumundadır. Bu, veri setinde hasta ve sağlıklı yaratıkların yakın sayıda olduğunu, hafif çoğunlukla hasta bulunduğunu gösterir.",
+    "DTI_02": "Mavi saçlı kutuda 4 vaka vardır, bunların 0'ı (%0) hastadır. Yani mavi saçlıların tamamı sağlıklıdır.",
+    "DTI_03": "Pembe saçlı kutuda 6 vaka vardır, bunların 6'sı (%100) hastadır. Pembe saçlıların tamamı hasta olduğundan saç rengi (pembe) ile hastalık arasında güçlü/tam bir ilişki vardır.",
+    "DTI_04": "Pembe saçlı kutu pozitif (hasta), mavi saçlı kutu ise negatif (sağlıklı) olarak etiketlenmiştir. Ölçüt, her kutudaki hasta oranının büyüklüğüdür (çoğunluk kuralı): pembe kutu %100 hasta, mavi kutu %0 hasta. Ayrım tam olduğu için alternatif bir etiketleme mantıklı olmazdı.",
+    "DTI_05": "Pembe saçlı kutuda 6 vaka vardır ve 6'sı da (%100) hastadır. Bu sonuç, pembe saç rengi ile hasta olma arasında tam (kusursuz) bir ilişki olduğunu düşündürür.",
+    "DTI_06": "Evet, saç rengi bu veri setinde mükemmel bir ayırıcıdır. Mavi saçlı 4 yaratığın tamamı sağlıklı (%0 hasta), pembe saçlı 6 yaratığın tamamı hastadır (%100 hasta). İki grup arasında hiç örtüşme yoktur, saç rengi tek başına Xhealth'i hatasız tahmin eder. Doğruluk, duyarlılık ve özgüllüğün %100 çıkması bunu sayısal olarak da doğrular.",
+    "DTI_07": "Bu veri setinde saç rengi mükemmel bir ayırıcıdır (pembe→hasta, mavi→sağlıklı). Bu nedenle yalnızca saç rengine bakarak yeni bir vakayı %100 doğru tahmin etmemiz beklenir.",
+    "DTI_08": "FN (Yanlış Negatif) daha tehlikelidir. Çünkü gerçekte hasta olan bir birey sağlıklı sanılır, tedavi edilmez, hastalık ilerleyebilir ve yayılabilir, ölüm riski artar. FP'de ise sağlıklı birine gereksiz ek test/tedavi uygulanır ama hayati risk çok daha düşüktür.",
+    "DTI_09": "Saç rengi mükemmel ayırıcı olduğu için ağaç 10 yeni vakanın tamamını doğru teşhis eder, hata (FP/FN) görülmez, doğruluk %100 olur. (Üretilen örneğe göre TP ve TN'nin dağılımı değişebilir ama FP=FN=0 beklenir.)",
+    "DTI_10": "6",
+    "DTI_11": "Model'in pembe saçlı (hasta) deyip gerçekten hasta çıkan yaratıklar.",
+    "DTI_12": "4",
+    "DTI_13": "Model'in mavi saçlı (sağlıklı) deyip gerçekten sağlıklı çıkan yaratıklar.",
+    "DTI_14": "0",
+    "DTI_15": "Sağlıklı olduğu hâlde yanlışlıkla hasta denen yaratık yok.",
+    "DTI_16": "0",
+    "DTI_17": "Hasta olduğu hâlde yanlışlıkla sağlıklı denen yaratık yok.",
+    "DTI_18": "10",
+    "DTI_19": "Toplam vaka sayısı (6 hasta + 4 sağlıklı).",
+    "DTI_20": "(TP+TN)/N = (6+4)/10 = 10/10 = 1,00 (%100)",
+    "DTI_21": "Tüm tahminler doğru, model kusursuz çalıştı.",
+    "DTI_22": "TP/(TP+FN) = 6/(6+0) = 6/6 = 1,00 (%100)",
+    "DTI_23": "Gerçekten hasta olanların tamamı doğru yakalandı.",
+    "DTI_24": "TN/(TN+FP) = 4/(4+0) = 4/4 = 1,00 (%100)",
+    "DTI_25": "Gerçekten sağlıklı olanların tamamı doğru sınıflandırıldı.",
+    "DTI_26": "TP/(TP+FP) = 6/(6+0) = 6/6 = 1,00 (%100)",
+    "DTI_27": "'Hasta' denen vakaların tamamı gerçekten hasta.",
+    "DTI_28": "Duyarlılık (Sensitivity / Recall). Çünkü gerçekten hasta olan bir yaratığı kaçırmamak (FN'yi en aza indirmek) hayati önemdedir, hastalığın yayılmasını önlemek için tüm hastaları yakalamak önceliklidir.",
+    "DTI_29": "Dengeli Doğruluk = (Duyarlılık + Özgüllük) / 2",
+    "DTI_30": "Hem hasta hem sağlıklı sınıftaki başarıyı birlikte ölçer, tek bir sınıfta yüksek başarının yarattığı yanıltıcı yüksek doğruluğu maskelemez.",
+    "DTI_31": "Sınıflar dengesiz olduğunda (bir sınıf diğerinden çok daha kalabalıkken) tercih edilmelidir.",
+    "DTI_32": "(FP+FN)/N = (0+0)/10 = 0 (%0)",
+    "DTI_33": "Hiç yanlış sınıflandırma yok, hata oranı %0. (MCR = 1 - Doğruluk = 1 - 1 = 0)"
+  },
+  "validation": {
+    "xeno_consistency_checks": {
+      "tp_fn_sum_equals_sick": {
+        "check": "TP + FN = toplam hasta sayisi",
+        "student_tp": "6",
+        "student_fn": "0",
+        "sum": 6,
+        "is_correct": true,
+        "note": "FN=0 beklenir"
+      },
+      "tn_fp_sum_equals_healthy": {
+        "check": "TN + FP = toplam saglikli sayisi",
+        "student_tn": "4",
+        "student_fp": "0",
+        "sum": 4,
+        "is_correct": true,
+        "note": "FP=0 beklenir"
+      },
+      "total_n": {
+        "check": "TP + TN + FP + FN = N",
+        "n_sum": 10,
+        "student_n": "10",
+        "is_correct": true
+      },
+      "fp_fn_zero": {
+        "check": "sac rengi mukemmel ayirici => FP=FN=0",
+        "student_fp": "0",
+        "student_fn": "0",
+        "is_correct": true
+      }
+    },
+    "item_checks": {
+      "DTI_01": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_02": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_03": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_04": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_05": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_06": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_07": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_08": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_09": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_10": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_11": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_12": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_13": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_14": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_15": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_16": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_17": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_18": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_19": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_20": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_21": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_22": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_23": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_24": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_25": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_26": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_27": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_28": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_29": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_30": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_31": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_32": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_33": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Öğrenci, rubrikte tanımlanan tüm Xeno kriterlerini kusursuz şekilde yerine getirmiştir. Dinamik ve iç tutarlılık gerektiren alanlar tam puan almıştır: mavi %0 hasta, pembe %100 hasta, FP=FN=0, tüm metrikler 1,00, MCR=0. Hiçbir kavramsal yanılgı veya eksik veri bulunmamaktadır."
+  },
+  "session_date": "2026-04-07"
+}

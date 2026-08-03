@@ -1,0 +1,54 @@
+{
+  "student_id": "Bruno",
+  "worksheet": "WS6",
+  "ws_snapshot": "Root node splits on Şeker with threshold 28 (left <28, right ≥28... written as 28/ and >28). Left child (evet) is Yağ with threshold 13,5 and leaf counts 6 tavsiye edilebilir / 0 tavsiye edilemez, further splitting into two leaves (6/0 and 0/2). Right child (hayır) branch box has counts 0/3 but no feature label written and appears to terminate without further split (no depth_2 shown for that side).",
+  "page_notes": "Root right_operator '>28' has no visible bar so read as > (not ≥); left_operator '28/' interpreted as ≤28 due to slight mark but ambiguous [depth_0 operator belirsiz: < veya ≤ olabilir]. Right child of root (hayır branch) box only shows 'Tavsiye edilebilir: 0, Tavsiye edilemez: 3' with no feature name and no further split drawn - treated as direct leaf (asymmetric tree). Left child (Yağ) operator '13,5' with '>' on both branches, threshold ambiguity noted [depth_1 left_child operator belirsiz: < veya ≤ olabilir].",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Şeker",
+        "left_operator": "≤",
+        "left_threshold_value": 28.0,
+        "right_operator": ">",
+        "right_threshold_value": 28.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Yağ",
+          "node_recommended_count": 6,
+          "node_not_recommended_count": 0,
+          "left_operator": "<",
+          "left_threshold_value": 13.5,
+          "right_operator": ">",
+          "right_threshold_value": 13.5
+        },
+        "right_child": {
+          "is_direct_leaf": true,
+          "leaf_label": "tavsiye edilemez",
+          "leaf_recommended_count": 0,
+          "leaf_not_recommended_count": 3
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": 6,
+            "leaf_not_recommended_count": 0
+          },
+          "left_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 2
+          },
+          "right_left_leaf": {
+            "not_applicable": true
+          },
+          "right_right_leaf": {
+            "not_applicable": true
+          }
+        }
+      }
+    }
+  }
+}

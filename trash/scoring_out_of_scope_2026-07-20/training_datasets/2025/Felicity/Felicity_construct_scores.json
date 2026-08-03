@@ -1,0 +1,50 @@
+{
+  "$schema": "schema/video_construct_scores.schema.json",
+  "artifact": "construct_scores",
+  "student_id": "Felicity",
+  "cohort_year": 2025,
+  "rubric_id": "codap_arbor_v4_candidate",
+  "schema_version": "4.1",
+  "generated_at": "2026-07-20T11:17:56.734417+00:00",
+  "session_scores": {},
+  "session_notes": null,
+  "key_evidence": {},
+  "audio_available": null,
+  "step_level_inferences": [
+    {
+      "step_index": 0,
+      "behavior_codes": [
+        "LOAD_DATASET",
+        "OPEN_ARBOR"
+      ],
+      "behavior_details": [
+        {
+          "code": "LOAD_DATASET",
+          "gloss": "Dataset is loaded into CODAP/Arbor.",
+          "screen_change": "Table/case-card region populates with Food Data attributes and rows."
+        },
+        {
+          "code": "OPEN_ARBOR",
+          "gloss": "Arbor / CODAP workspace is opened or restarted.",
+          "screen_change": "Arbor tree canvas appears empty/reset; plugin chrome becomes visible."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0026"
+    }
+  ],
+  "alignment_quality": {
+    "gold_with_screenshot": 1,
+    "step_count": 1,
+    "silver_confidence_histogram": {
+      "high": 1
+    },
+    "revision": "v2c_adjacency_gold+seed_lock_silver"
+  },
+  "interpretation_rule": "Session_scores are human adjudicated B0-B13 construct levels. step_level_inferences are atomic behavior codes from text; they do not automatically change session_scores."
+}

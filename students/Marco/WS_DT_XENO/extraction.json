@@ -1,0 +1,77 @@
+{
+  "stage": "extraction",
+  "student_id": "Marco",
+  "worksheet": "WS_DT_XENO",
+  "student_name": "Marco",
+  "pdf_source": "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf",
+  "rubric_ref": "rubrics/WS_DT_XENO_rubric.json",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-07-08T06:18:19.629506+00:00",
+    "ocr_model": "claude-opus-4-8",
+    "items": {
+      "DTI_01": "15 tane vaka içermektedir. 12 tanesi hasta, 3 tanesi sağlıklıdır. %80'i hastadır.",
+      "DTI_02": "Toplamda 3 tane mavi saçlı var. Mavi saçlıların tamamı (3 tane) [corrected: crossed out] sağlıklıdır, %0'ı hastadır.",
+      "DTI_03": "Toplamda 12 tane pembe saçlı vardır. Tamamı (%100'ü) hastadır. Pembe saç ile hastalık arasında doğru orantı vardır. Pembe saçlı herkes hastadır.",
+      "DTI_04": "Pembe saçlı olma durumuna baktım. | [üstte: pozitif (hasta olarak etiketlendi)]",
+      "DTI_05": "(bos)",
+      "DTI_06": "İyi bir ayırıcıdır. Tüm pembeler hasta, maviler sağlıklı.",
+      "DTI_07": "Muhtemelen doğru olurdu. Çünkü hata olasılığı sıfır.",
+      "DTI_08": "Bence FP daha tehlikeli, çünkü sağlıklı olan bireye tedavi uygulamak ölümcül olabilir.",
+      "DTI_09": "%100 doğru yaptı. Hastalar pembe, sağlıklılar mavi saçlı.",
+      "DTI_10": "20",
+      "DTI_11": "Model hasta dedi gerçekten hasta.",
+      "DTI_12": "13",
+      "DTI_13": "Model sağlıklı dedi gerçekten sağlıklı.",
+      "DTI_14": "0",
+      "DTI_15": "Model sağlıklı olmasına rağmen hasta dedi.",
+      "DTI_16": "0",
+      "DTI_17": "Model hasta olmasına rağmen sağlıklı dedi.",
+      "DTI_18": "33",
+      "DTI_19": "(bos)",
+      "DTI_20": "(TP+TN)/N  33/33 = 1",
+      "DTI_21": "Hepsi doğru",
+      "DTI_22": "TP 20/20 = 1",
+      "DTI_23": "Hepsi doğru",
+      "DTI_24": "13/13 = 1",
+      "DTI_25": "Hepsi doğru",
+      "DTI_26": "20/20 = 1",
+      "DTI_27": "Hepsi doğru.",
+      "DTI_28": "[corrected: crossed out] Bu veriler için hepsini kullanabilirim çünkü hepsi doğru.",
+      "DTI_29": "TP/(TP+TN+FN+FP)",
+      "DTI_30": "TP durumunun tüm durumlara oranını buluyor.",
+      "DTI_31": "Sadece TP olması ihtimalinin tüm durumuna tercih edildiği durumlarda kullanılmalı.",
+      "DTI_32": "0/33 = 0",
+      "DTI_33": "Yanlış karar."
+    },
+    "raw_ocr": {}
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 31,
+      "total": 33,
+      "blank_or_illegible": 2,
+      "missing": 0,
+      "completion_rate": 0.939
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 0.939,
+      "engagement_level": "high",
+      "llm_observations": "Melinda'nın veri seti 15 vaka içeriyor (12 hasta, 3 sağlıklı); mavi saçlı 3 vaka %0 hasta, pembe saçlı 12 vaka %100 hasta. FP=FN=0 yapısal değişmezi başarıyla elde edilmiş. CODAP karışıklık matrisinde TP=20, TN=13, N=33 değerleri kullanılmış; tüm metrikler (doğruluk, duyarlılık, özgüllük, kesinlik) 1 çıkmış ve MCR=0 olarak yorumlanmış.",
+      "page_notes": "(bos)"
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

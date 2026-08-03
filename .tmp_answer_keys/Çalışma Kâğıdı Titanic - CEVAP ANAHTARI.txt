@@ -1,0 +1,224 @@
+CODAP Arbor’da Titanic Verisi
+Şimdiye kadar Xeno veri setinde karar ağaçlarının nasıl oluşturulduğunu, nasıl yorumlandığını ve nasıl değerlendirildiğini öğrendik. Ancak gerçek veri setleri her zaman bu kadar düzenli ve açık örüntüler içermez. Bu bölümde Titanic veri setinden alınan örneklemler ile çalışacağız.
+Bir karar ağacının işe yarayıp yaramadığını anlayabilmek için veriyi iki parçaya ayırırız:
+Eğitim veri seti (training set): Modelin örüntüleri öğrenmesi için kullanılır.
+Test veri seti (test set): Modelin yeni ve daha önce görmediği veriler üzerinde ne kadar başarılı olduğunu görmek için kullanılır.
+Bu çalışmada veri setinin yaklaşık %80’i eğitim, %20’si test için ayrılmıştır. Bunun temel nedeni, modelin öğrenebilmesi için yeterince büyük bir veri grubuna ihtiyaç duymasıdır. Eğer eğitim veri seti çok küçük olursa, model verideki ilişkileri yeterince öğrenemeyebilir. Buna karşılık test veri setinin de tamamen ortadan kalkmaması gerekir. Çünkü modelin gerçekten genelleme yapıp yapamadığını ancak test verisiyle anlayabiliriz.
+Karar Ağacını Oluşturalım – Eğitim Veri Seti 1
+Aşağıdaki adımları sırayla uygulayınız:
+CODAP’e titanic_egitim_veri_seti1.csv isimli veri setini yükleyiniz. 
+Hedef değişkeni ağacın en üst kısmına sürükleyip bırakın.
+Veri tablosundaki sex değişkenini alıp ağacın üzerindeki beyaz düğüme sürükleyip bırakın.
+Dişli çark simgesine tıklayın. Female tarafını pozitif (hayatta kaldı = 1), male tarafını negatif (hayatını kaybetti = 0) olacak şekilde düzenleyin.
+Ağacın altındaki gri dairelere (?) tıklayarak female kutusunu pozitif, male kutusunu negatif olarak etiketleyin.
+Karar ağacı tamamlandı. Bu aşamada herkesin aynı karar ağacına sahip olması beklenmektedir.
+Karar Ağacını Okuyalım – Eğitim Veri Seti 1
+Soru
+Cevap
+Kök düğüm kaç yolcu içeriyor? Kaçı hayatta?
+1) Kök düğüm 812 yolcu içerir, bunların 290'ı hayatta kalmıştır.
+Female (kadın) kutusunda kaç kişi var? Kaçı hayatta?
+2) Female (kadın) kutusunda 290 kişi vardır, 290'ı (tamamı) hayatta kalmıştır.
+Male (erkek) kutusunda kaç kişi var? Kaçı hayatta?
+3) Male (erkek) kutusunda 522 kişi vardır, 0'ı (hiçbiri) hayatta kalmamıştır.
+Hangi kutu ‘pozitif’ (hayatta) olarak etiketlendi?
+4) Female (kadın) kutusu 'pozitif' (hayatta) olarak etiketlenmiştir.
+Değerleri Yazalım – Eğitim Veri Seti 1
+Metrik
+Formül
+Hesaplama (Adım Adım)
+Doğruluk (Accuracy)
+(TP + TN) / N
+5) (290+522)/812 = 812/812 = 1,00 (%100)
+Duyarlılık (Sensitivity)
+TP / (TP + FN)
+6) 290/(290+0) = 290/290 = 1,00 (%100)
+Özgüllük (Specificity)
+TN / (TN + FP)
+7) 522/(522+0) = 522/522 = 1,00 (%100)
+Kesinlik (Precision)
+TP / (TP + FP)
+8) 290/(290+0) = 290/290 = 1,00 (%100)
+Yanlış Sınıflandırma Oranı (MCR)
+(FP + FN) / N
+9) (0+0)/812 = 0 (%0)
+Karar Ağacını Oluşturalım – Test Veri Seti 1
+Şimdi aynı karar ağacını farklı bir veri setine (test seti) uygulayacaksınız. Bu veri seti de Titanic yolcularına ait ancak ağacın daha önce hiç görmediği kayıtları içermektedir.
+Aşağıdaki adımları sırayla uygulayınız:
+CODAP’e titanic_test_veri_seti1.csv isimli veri setini yükleyiniz. 
+Hedef değişkeni ağacın en üst kısmına sürükleyip bırakın.
+Veri tablosundaki sex değişkenini alıp ağacın üzerindeki beyaz düğüme sürükleyip bırakın.
+Dişli çark simgesine tıklayın. Female tarafını pozitif (hayatta kaldı = 1), male tarafını negatif (hayatını kaybetti = 0) olacak şekilde düzenleyin.
+Ağacın altındaki gri dairelere (?) tıklayarak female kutusunu pozitif, male kutusunu negatif olarak etiketleyin.
+Karar ağacı tamamlandı. Bu aşamada herkesin aynı karar ağacına sahip olması beklenmektedir.
+Karar Ağacını Okuyalım – Test Veri Seti 1
+Soru
+Cevap
+Kök düğüm kaç yolcu içeriyor? Kaçı hayatta?
+10) Kök düğüm 231 yolcu içerir, bunların 105'i hayatta kalmıştır.
+Female (kadın) kutusunda kaç kişi var? Kaçı hayatta?
+11) Female (kadın) kutusunda 96 kişi vardır, 56'sı hayatta kalmıştır.
+Male (erkek) kutusunda kaç kişi var? Kaçı hayatta?
+12) Male (erkek) kutusunda 135 kişi vardır, 49'u hayatta kalmıştır.
+Hangi kutu ‘pozitif’ (hayatta) olarak etiketlendi?
+13) Female (kadın) kutusu 'pozitif' (hayatta) olarak etiketlenmiştir.
+Değerleri Yazalım – Test Veri Seti 1
+Metrik
+Formül
+Hesaplama (Adım Adım)
+Doğruluk (Accuracy)
+(TP + TN) / N
+14) (56+86)/231 = 142/231 = 0,615 (%61,5)
+Duyarlılık (Sensitivity)
+TP / (TP + FN)
+15) 56/(56+49) = 56/105 = 0,533 (%53,3)
+Özgüllük (Specificity)
+TN / (TN + FP)
+16) 86/(86+40) = 86/126 = 0,683 (%68,3)
+Kesinlik (Precision)
+TP / (TP + FP)
+17) 56/(56+40) = 56/96 = 0,583 (%58,3)
+Yanlış Sınıflandırma Oranı (MCR)
+(FP + FN) / N
+18) (40+49)/231 = 89/231 = 0,385 (%38,5)
+Soru: Eğitim ve test seti metrikleri arasında büyük bir fark var mı? Varsa bu fark neden olabilir?
+Cevap:
+19) Evet, büyük bir fark var. Eğitimde doğruluk %100 iken testte %61,5'e düşüyor. Model, cinsiyetin hayatta kalmayı kusursuz ayırdığı eğitim setini ezberledi, ancak bu kural görülmemiş test verisinde bu kadar iyi genellemiyor.
+Düşünelim: Bir model eğitim verisinde çok iyi performans gösterip test verisinde belirgin biçimde kötü performans sergiliyorsa bu duruma ne ad verilir? Bu durumun ortaya çıkmasına ne sebep olmuş olabilir?
+Soru: Aşırı öğrenme (overfitting) nedir? Bu senaryoda neden aşırı öğrenme gerçekleşmiş olabilir? Kendi cümlelerinizle açıklayın.
+Cevap:
+20) Aşırı öğrenme (overfitting), modelin eğitim verisini ezberleyip yeni/görülmemiş veride başarısız olmasıdır. Burada eğitim seti 1'de cinsiyet, hayatta kalmayı %100 ayırdığı için ağaç eğitimde kusursuz göründü, fakat test setinde kadın-erkek hayatta kalma ilişkisi bu kadar keskin olmadığından başarı belirgin biçimde düştü.
+Bu senaryoda ağacınız eğitim setini neredeyse mükemmel öğrendi ancak test setinde başarısı belirgin biçimde düştü. Bu, modelin veriyi ezberlediğini ve genelleyemediğini gösterir.
+Soru: Eğitim veri setinde duyarlılık (sensitivity) değeri oldukça yüksek iken test veri setinde bu değerin belirgin biçimde düşmüştür. Bu durumu modelin performansı açısından yorumlayın.
+Cevap:
+21) Eğitimde duyarlılık %100 iken testte %53,3'e düşmüştür. Model gerçekten hayatta kalanların eğitimde tamamını, testte ise ancak yarısını yakalayabilmiştir, bu, genelleme başarısının zayıf olduğunu (aşırı öğrenme) gösterir.
+Soru: Eğitim veri setinde yanlış sınıflandırma oranı (MCR) oldukça düşük iken test veri setinde bu oranın belirgin biçimde artmıştır. Bu durumu modelin performansı açısından yorumlayın.
+Cevap:
+22) Eğitimde MCR %0 iken testte %38,5'e çıkmıştır. Yeni veride yaklaşık her üç tahminden biri yanlıştır, model eğitimdeki kusursuzluğunu test verisine taşıyamamıştır (aşırı öğrenme).
+Karar Ağacını Oluşturalım – Eğitim Veri Seti 2
+Aşağıdaki adımları sırayla uygulayınız:
+CODAP’e titanic_egitim_veri_seti2.csv isimli veri setini yükleyiniz. 
+Hedef değişkeni ağacın en üst kısmına sürükleyip bırakın.
+Veri tablosundaki sex değişkenini alıp ağacın üzerindeki beyaz düğüme sürükleyip bırakın.
+Dişli çark simgesine tıklayın. Female tarafını pozitif (hayatta kaldı = 1), male tarafını negatif (hayatını kaybetti = 0) olacak şekilde düzenleyin.
+Ağacın altındaki gri dairelere (?) tıklayarak female kutusunu pozitif, male kutusunu negatif olarak etiketleyin.
+Karar ağacı tamamlandı. Bu aşamada herkesin aynı karar ağacına sahip olması beklenmektedir.
+Karar Ağacını Okuyalım – Eğitim Veri Seti 2
+Soru
+Cevap
+Kök düğüm kaç yolcu içeriyor? Kaçı hayatta?
+23) Kök düğüm 834 yolcu içerir, bunların 456'sı hayatta kalmıştır.
+Female (kadın) kutusunda kaç kişi var? Kaçı hayatta?
+24) Female (kadın) kutusunda 304 kişi vardır, 128'i hayatta kalmıştır.
+Male (erkek) kutusunda kaç kişi var? Kaçı hayatta?
+25) Male (erkek) kutusunda 530 kişi vardır, 328'i hayatta kalmıştır.
+Hangi kutu ‘pozitif’ (hayatta) olarak etiketlendi?
+26) Female (kadın) kutusu 'pozitif' (hayatta) olarak etiketlenmiştir.
+Değerleri Yazalım – Eğitim Veri Seti 2
+Metrik
+Formül
+Hesaplama (Adım Adım)
+Doğruluk (Accuracy)
+(TP + TN) / N
+27) (128+202)/834 = 330/834 = 0,396 (%39,6)
+Duyarlılık (Sensitivity)
+TP / (TP + FN)
+28) 128/(128+328) = 128/456 = 0,281 (%28,1)
+Özgüllük (Specificity)
+TN / (TN + FP)
+29) 202/(202+176) = 202/378 = 0,534 (%53,4)
+Kesinlik (Precision)
+TP / (TP + FP)
+30) 128/(128+176) = 128/304 = 0,421 (%42,1)
+Yanlış Sınıflandırma Oranı (MCR)
+(FP + FN) / N
+31) (176+328)/834 = 504/834 = 0,604 (%60,4)
+Karar Ağacını Oluşturalım – Test Veri Seti 2
+Şimdi aynı karar ağacını farklı bir veri setine (test seti) uygulayacaksınız. Bu veri seti de Titanic yolcularına ait ancak ağacın daha önce hiç görmediği kayıtları içermektedir.
+Aşağıdaki adımları sırayla uygulayınız:
+CODAP’e titanic_test_veri_seti2.csv isimli veri setini yükleyiniz. 
+Hedef değişkeni ağacın en üst kısmına sürükleyip bırakın.
+Veri tablosundaki sex değişkenini alıp ağacın üzerindeki beyaz düğüme sürükleyip bırakın.
+Dişli çark simgesine tıklayın. Female tarafını pozitif (hayatta kaldı = 1), male tarafını negatif (hayatını kaybetti = 0) olacak şekilde düzenleyin.
+Ağacın altındaki gri dairelere (?) tıklayarak female kutusunu pozitif, male kutusunu negatif olarak etiketleyin.
+Karar ağacı tamamlandı. Bu aşamada herkesin aynı karar ağacına sahip olması beklenmektedir.
+Karar Ağacını Okuyalım – Test Veri Seti 2
+Soru
+Cevap
+Kök düğüm kaç yolcu içeriyor? Kaçı hayatta?
+32) Kök düğüm 209 yolcu içerir, bunların 85'i hayatta kalmıştır.
+Female (kadın) kutusunda kaç kişi var? Kaçı hayatta?
+33) Female (kadın) kutusunda 82 kişi vardır, 61'i hayatta kalmıştır.
+Male (erkek) kutusunda kaç kişi var? Kaçı hayatta?
+34) Male (erkek) kutusunda 127 kişi vardır, 24'ü hayatta kalmıştır.
+Hangi kutu ‘pozitif’ (hayatta) olarak etiketlendi?
+35) Female (kadın) kutusu 'pozitif' (hayatta) olarak etiketlenmiştir.
+Değerleri Yazalım – Test Veri Seti 2
+Metrik
+Formül
+Hesaplama (Adım Adım)
+Doğruluk (Accuracy)
+(TP + TN) / N
+36) (61+103)/209 = 164/209 = 0,785 (%78,5)
+Duyarlılık (Sensitivity)
+TP / (TP + FN)
+37) 61/(61+24) = 61/85 = 0,718 (%71,8)
+Özgüllük (Specificity)
+TN / (TN + FP)
+38) 103/(103+21) = 103/124 = 0,831 (%83,1)
+Kesinlik (Precision)
+TP / (TP + FP)
+39) 61/(61+21) = 61/82 = 0,744 (%74,4)
+Yanlış Sınıflandırma Oranı (MCR)
+(FP + FN) / N
+40) (21+24)/209 = 45/209 = 0,215 (%21,5)
+Soru: Eğitim ve test seti metrikleri arasında büyük bir fark var mı? Varsa bu fark neden olabilir?
+Cevap:
+41) Evet, fark vardır. Eğitim seti 2'de cinsiyet-hayatta kalma ilişkisi zayıf (hatta ters) olduğundan sabit 'kadın=hayatta' kuralı eğitim verisine bile uymamış ve eğitim doğruluğu %39,6'da kalmıştır. Model, veriyi eğitim aşamasında bile yeterince öğrenememiştir (eksik/zayıf model = underfitting).
+Düşünelim: Bir model hem eğitim hem de test verisinde kötü performans sergiliyorsa ne düşünürsünüz? Bu model yeterince güçlü bir kural öğrenebilmiş midir?
+Soru: Yetersiz uyum (underfitting) nedir? Bu senaryoda neden yetersiz uyum gerçekleşmiş olabilir? Kendi cümlelerinizle açıklayın.
+Cevap:
+42) Yetersiz uyum (underfitting), modelin verideki temel ilişkiyi kavrayamayacak kadar basit kalması ve bu yüzden hem eğitim hem de test verisinde yüksek hata (düşük başarı) göstermesidir. Bu senaryoda ağaç yalnızca cinsiyet (tek bir değişken) üzerinden karar veriyor, ancak eğitim seti 2'de hayatta kalma ile cinsiyet arasındaki ilişki zayıf/karışık olduğundan bu tek kural yetersiz kalıyor. Model eğitim verisinde bile doğruluğu %39,6'da bırakarak örüntüyü öğrenememiştir, yani ağaç fazla basit olduğu için eksik öğrenme (underfitting) gerçekleşmiştir.
+Bu senaryoda ağacınız  eğitim setini yeterince öğrenemedi ve hem eğitim hem de test setinde başarısı düşük kaldı. Bu, modelin verilerdeki temel ilişkiyi kavrayamadığını, yani eksik öğrendiğini gösterir.
+Soru: Eğitim veri setinde duyarlılık (sensitivity) değeri oldukça yüksek iken test veri setinde bu değerin belirgin biçimde düşmüştür. Bu durumu modelin performansı açısından yorumlayın.
+Cevap:
+43) Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde duyarlılık %28,1 gibi çok düşük bir değerdedir. Sabit cinsiyet kuralı, eğitim seti 2'nin örüntüsünü yakalayamamıştır, yani model gerçek hastaların/hayatta kalanların çoğunu kaçırmıştır. Bu, aşırı öğrenmenin değil, eksik öğrenmenin (underfitting) göstergesidir.
+Soru: Eğitim veri setinde yanlış sınıflandırma oranı (MCR) oldukça düşük iken test veri setinde bu oranın belirgin biçimde artmıştır. Bu durumu modelin performansı açısından yorumlayın.
+Cevap:
+44) Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde MCR %60,4 gibi çok yüksektir, yani model eğitim verisinde bile tahminlerin çoğunu yanlış yapmıştır. Bu yüksek eğitim hatası, modelin veriyi öğrenemediğini (eksik öğrenme / underfitting) gösterir.
+Aşırı Öğrenme (Overfitting): Modelin eğitim verisindeki detayları ezberlemesi sonucu bu veride çok başarılı olup, daha önce görmediği test verilerinde başarısız olması durumudur.
+Eksik Öğrenme (Underfitting): Modelin verideki temel ilişkiyi kavrayamayacak kadar basit kalması nedeniyle eğitim ve test verilerinde yüksek hata oranı sergilemesi durumudur.
+Aşırı ÖğrenmeEksik ÖğrenmeDengeliAşırı ÖğrenmeEksik ÖğrenmeDengeli
+Aşırı ÖğrenmeEksik ÖğrenmeDengeli
+Aşırı ÖğrenmeEksik ÖğrenmeDengeli
+Soru: “İyi” bir model nasıl olmalıdır? Hem eğitim hem test setinde hangi metriklerin nasıl olmasını beklersin?
+Cevap:
+45) İyi bir model hem eğitim hem test setinde yüksek ve birbirine yakın metrikler verir: doğruluk, duyarlılık ve özgüllük yüksek, MCR düşük olmalıdır. Eğitim ile test performansı arasındaki fark küçük olmalıdır (ne aşırı ne eksik öğrenme).
+Soru: Bu iki senaryo size bir modeli değerlendirirken sadece eğitim seti metriklerine bakmanın neden yeterli olmadığını nasıl gösterdi?
+Cevap:
+46) Yalnızca eğitim metrikleri modelin ezberleyip ezberlemediğini göstermez. Eğitim seti 1'de %100 doğruluk aldık ama test %61,5'e düştü (aşırı öğrenme). Modelin gerçek başarısı ancak görülmemiş test verisiyle anlaşılır.
+Soru: Bir modelin performansını yalnızca tek bir metriğe (örneğin doğruluk) bakarak değerlendirmek uygun mudur? Nedenini yazın.
+Cevap:
+47) Hayır. Tek bir metrik (örn. doğruluk) yanıltıcı olabilir, özellikle sınıflar dengesizse. Yüksek doğruluk, düşük duyarlılıkla bir arada olabilir. Bu yüzden doğruluk, duyarlılık, özgüllük, kesinlik ve MCR birlikte değerlendirilmelidir.
+Veri Setini Rastgele Bölme
+Aşağıdaki adımları sırayla uygulayın:
+CODAP’e titanic_veri_seti.csv isimli veri setini yükleyin. 
+Üst menüden Plugins (Eklentiler) sekmesine tıklayın.
+Açılan listeden sırasıyla Data Moves ardından Choosy seçeneklerini seçin.
+Bu işlem, veri üzerinde seçim ve bölme yapmanızı sağlayan aracı açacaktır.
+Açılan Choosy panelinde “Dataset” sekmesine gidin.
+Çalışacağınız veri setini (titanic veri seti) seçin.
+Panelde “Tag cases” sekmesine tıklayın. Bu bölüm verileri gruplara ayırmak için kullanılır.
+Varsayılan olarak gelen “Binary” seçeneğini değiştirin. Bunun yerine “Random” (rastgele) seçeneğini seçin. Bu, verilerin rastgele dağıtılmasını sağlar.
+“Proportion in group A” alanına bir değer girin. Örneğin 20% yazarsanız verilerin %20’si bu gruba atanır.
+Bu grubun neyi temsil edeceğini belirleyin:
+Call group A: Test
+Call group B: Eğitim
+Ayarları tamamladıktan sonra “apply tags” simgesine tıklayarak işlemi onaylayın.
+Veri tablonuza yeni bir değişken (Name for tag attribute: Tag) eklendiğini göreceksiniz.
+Oluşan yeni değişkeni (Tag) sol tarafta bulunan “drop attribute to create new collection” alanına sürükleyip bırakın.
+Bu işlem sonucunda veri setiniz iki ayrı gruba ayrılmış şekilde görselleştirilecektir. 
+Artık veri setinizin:
+yaklaşık %80’inin eğitim (training)
+yaklaşık %20’sinin test (test)
+olacak şekilde rastgele bölündüğünü gözlemleyebilirsiniz.

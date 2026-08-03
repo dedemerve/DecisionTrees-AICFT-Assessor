@@ -1,0 +1,154 @@
+{
+  "stage": "extraction",
+  "student_id": "Bruno",
+  "worksheet": "WS6",
+  "student_name": "Bruno",
+  "pdf_source": "31 Mart 2026 Çalışma Kâğıdı 6.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-08-02T17:49:38.720196+00:00",
+    "ocr_model": "claude-sonnet-5",
+    "items": {
+      "WS6_B1": "(not_extracted)",
+      "WS6_B2": "(not_extracted)",
+      "WS6_B3": "(not_extracted)",
+      "WS6_B4": "(not_extracted)",
+      "WS6_B5": "(not_extracted)",
+      "WS6_B6": "(not_extracted)",
+      "WS6_B7": "(not_extracted)",
+      "WS6_B8": "(not_extracted)",
+      "WS6_B9": "(not_extracted)",
+      "WS6_B10": "(not_extracted)",
+      "WS6_B11": "(not_extracted)",
+      "WS6_B12": "(not_extracted)",
+      "WS6_B13": "(not_extracted)"
+    },
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Şeker",
+        "left_operator": "≤",
+        "left_threshold_value": 28.0,
+        "right_operator": ">",
+        "right_threshold_value": 28.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Yağ",
+          "node_recommended_count": 6,
+          "node_not_recommended_count": 0,
+          "left_operator": "<",
+          "left_threshold_value": 13.5,
+          "right_operator": ">",
+          "right_threshold_value": 13.5
+        },
+        "right_child": {
+          "is_direct_leaf": true,
+          "leaf_label": "tavsiye edilemez",
+          "leaf_recommended_count": 0,
+          "leaf_not_recommended_count": 3
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": 6,
+            "leaf_not_recommended_count": 0
+          },
+          "left_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 2
+          },
+          "right_left_leaf": {
+            "not_applicable": true
+          },
+          "right_right_leaf": {
+            "not_applicable": true
+          }
+        }
+      }
+    },
+    "raw_ocr": {
+      "student_id": "Bruno",
+      "worksheet": "WS6",
+      "extraction": {
+        "tree_structure": {
+          "depth_0": {
+            "parsed_feature": "Şeker",
+            "left_operator": "≤",
+            "left_threshold_value": 28.0,
+            "right_operator": ">",
+            "right_threshold_value": 28.0
+          },
+          "depth_1": {
+            "left_child": {
+              "parsed_feature": "Yağ",
+              "node_recommended_count": 6,
+              "node_not_recommended_count": 0,
+              "left_operator": "<",
+              "left_threshold_value": 13.5,
+              "right_operator": ">",
+              "right_threshold_value": 13.5
+            },
+            "right_child": {
+              "is_direct_leaf": true,
+              "leaf_label": "tavsiye edilemez",
+              "leaf_recommended_count": 0,
+              "leaf_not_recommended_count": 3
+            }
+          },
+          "depth_2": {
+            "leaf_nodes": {
+              "left_left_leaf": {
+                "leaf_label": "tavsiye edilir",
+                "leaf_recommended_count": 6,
+                "leaf_not_recommended_count": 0
+              },
+              "left_right_leaf": {
+                "leaf_label": "tavsiye edilemez",
+                "leaf_recommended_count": 0,
+                "leaf_not_recommended_count": 2
+              },
+              "right_left_leaf": {
+                "not_applicable": true
+              },
+              "right_right_leaf": {
+                "not_applicable": true
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 0,
+      "total": 13,
+      "blank_or_illegible": 0,
+      "missing": 13,
+      "completion_rate": 0.0,
+      "note": "WS6 scored from tree_structure, not flat items"
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 1.0,
+      "engagement_level": "high",
+      "llm_observations": "Root node splits on Şeker with threshold 28 (left <28, right ≥28... written as 28/ and >28). Left child (evet) is Yağ with threshold 13,5 and leaf counts 6 tavsiye edilebilir / 0 tavsiye edilemez, further splitting into two leaves (6/0 and 0/2). Right child (hayır) branch box has counts 0/3 but no feature label written and appears to terminate without further split (no depth_2 shown for that side).",
+      "page_quality_notes": "Root right_operator '>28' has no visible bar so read as > (not ≥); left_operator '28/' interpreted as ≤28 due to slight mark but ambiguous [depth_0 operator belirsiz: < veya ≤ olabilir]. Right child of root (hayır branch) box only shows 'Tavsiye edilebilir: 0, Tavsiye edilemez: 3' with no feature name and no further split drawn - treated as direct leaf (asymmetric tree). Left child (Yağ) operator '13,5' with '>' on both branches, threshold ambiguity noted [depth_1 left_child operator belirsiz: < veya ≤ olabilir]."
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "video_analysis_bundle",
+  "title": "CODAP Video Analysis Bundle (process / pipeline)",
+  "description": "Manifest linking expert process narrative, episode process codes (V-layer), log/process metadata, and coverage audit. Construct scoring is OUT OF SCOPE.",
+  "type": "object",
+  "required": [
+    "student_id",
+    "cohort_year",
+    "bundle_version",
+    "generated_at",
+    "artifacts",
+    "coverage_audit",
+    "measurement_layers"
+  ],
+  "properties": {
+    "student_id": { "type": "string", "minLength": 1 },
+    "cohort_year": { "type": "integer" },
+    "bundle_version": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "scope": { "type": "string" },
+    "scoring_out_of_scope": { "type": "boolean" },
+    "artifacts": {
+      "type": "object",
+      "required": [
+        "expert_process_narrative",
+        "process_codes",
+        "log_process_metadata"
+      ],
+      "properties": {
+        "expert_process_narrative": { "type": "string" },
+        "expert_process_narrative_jsonl": { "type": "string" },
+        "process_codes": { "type": "string" },
+        "log_process_metadata": { "type": "string" },
+        "gold_behavior_alignment": { "type": "string" },
+        "observation_steps_source": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "tabular_exports": {
+      "type": "object",
+      "description": "Lossless tabular projections of process_codes.json",
+      "properties": {
+        "episodes": { "type": "string" },
+        "episode_process_codes": { "type": "string" },
+        "session_ml_features": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "measurement_layers": {
+      "type": "object",
+      "required": ["process_narrative", "process_codes", "log_metadata"],
+      "properties": {
+        "process_narrative": {
+          "type": "string",
+          "description": "Full expert observation stream; preserves qualitative process."
+        },
+        "process_codes": {
+          "type": "string",
+          "description": "Episode-level V1-V8 process codes (non-scored)."
+        },
+        "log_metadata": {
+          "type": "string",
+          "description": "Objective log chronology and Task-4 variables video cannot supply."
+        }
+      },
+      "additionalProperties": true
+    },
+    "coverage_audit": {
+      "type": "object",
+      "required": ["steps_total", "frames_total"],
+      "properties": {
+        "steps_total": { "type": "integer", "minimum": 0 },
+        "steps_with_gold_shot": { "type": "integer", "minimum": 0 },
+        "steps_with_silver_anchor": { "type": "integer", "minimum": 0 },
+        "frames_total": { "type": "integer", "minimum": 0 },
+        "frames_with_step_inheritance": { "type": "integer", "minimum": 0 },
+        "video_duration_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "silver_timestamp_span_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "low_silver_coverage": { "type": "boolean" },
+        "log_available": { "type": "boolean" },
+        "log_video_sync_status": { "type": ["string", "null"] },
+        "gaps_flagged": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "rubric_gaps_for_student": {
+          "type": "array",
+          "items": { "type": "object" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "dual_artifact_model": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

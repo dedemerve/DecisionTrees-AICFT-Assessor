@@ -1,0 +1,488 @@
+{
+  "worksheet": "WS_DT_INTRO",
+  "curriculum_status": "deployed",
+  "note": "Scoring reference derived from rubric; extraction remains non-interpretive.",
+  "items": {
+    "DTI_01": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "Kök düğüm 10 vaka içerir; bunların 6'sı (%60) hastadır. Veri setinde hasta ve sağlıklı yaratıklar yakın sayıda, hafif hasta çoğunluğu var. (Sayılar öğrenciye göre değişebilir.)",
+      "deterministic": true
+    },
+    "DTI_02": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "Mavi saçlı kutuda 4 vaka var; 0'ı (%0) hasta. Mavi saçlıların tamamı sağlıklı.",
+      "deterministic": true
+    },
+    "DTI_03": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "Pembe saçlı kutuda 6 vaka var; 6'sı (%100) hasta. Pembe saç ile hastalık arasında tam ilişki var.",
+      "deterministic": true
+    },
+    "DTI_04": {
+      "evaluation": "interpretive",
+      "example_answer": "Pembe kutu pozitif (hasta), mavi kutu negatif (sağlıklı) etiketlendi. Ölçüt her kutudaki hasta oranı (çoğunluk): pembe %100 hasta, mavi %0. Ayrım tam olduğu için alternatif etiketleme mantıklı olmazdı.",
+      "partial_score": 0.5
+    },
+    "DTI_05": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "Pembe saçlı kutuda 6 vaka var, 6'sı da (%100) hasta. Pembe saç ile hasta olma arasında tam ilişki var.",
+      "deterministic": true
+    },
+    "DTI_06": {
+      "evaluation": "interpretive",
+      "example_answer": "Evet, mükemmel bir ayırıcı. Mavi saçlıların %0'ı, pembe saçlıların %100'ü hasta; örtüşme yok, saç rengi tek başına Xhealth'i hatasız tahmin eder.",
+      "partial_score": 0.5
+    },
+    "DTI_07": {
+      "evaluation": "interpretive",
+      "example_answer": "Saç rengi kusursuz ayırıcı olduğundan yalnızca renge bakarak yeni vakayı %100'e yakın doğru tahmin ederiz (pembe->hasta, mavi->sağlıklı)."
+    },
+    "DTI_08": {
+      "evaluation": "interpretive",
+      "example_answer": "FN daha tehlikeli. Gerçekte hasta olan biri sağlıklı sanılır, tedavi edilmez; hastalık ilerler ve yayılabilir, ölüm riski artar. FP'de sağlıklı birine gereksiz tedavi olur ama hayati risk düşüktür.",
+      "partial_score": 0.5
+    },
+    "DTI_09": {
+      "evaluation": "interpretive",
+      "example_answer": "Saç rengi kusursuz ayırıcı olduğu için ağaç 10 yeni vakanın tamamını doğru teşhis etti; hata görülmedi, doğruluk %100. (TP/TN dağılımı öğrenciye göre değişir, FP=FN=0.)"
+    },
+    "DTI_10": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "6 (pembe/hasta doğru bilinen sayısı; öğrenciye göre değişir).",
+      "deterministic": true
+    },
+    "DTI_11": {
+      "evaluation": "interpretive",
+      "example_answer": "Model'in hasta (pembe) deyip gerçekten hasta çıkan yaratıklar."
+    },
+    "DTI_12": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "4 (mavi/sağlıklı doğru bilinen sayısı; öğrenciye göre değişir).",
+      "deterministic": true
+    },
+    "DTI_13": {
+      "evaluation": "interpretive",
+      "example_answer": "Model'in sağlıklı (mavi) deyip gerçekten sağlıklı çıkan yaratıklar."
+    },
+    "DTI_14": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "0 — sağlıklıyken yanlışlıkla hasta denen yaratık yok.",
+      "deterministic": true
+    },
+    "DTI_15": {
+      "evaluation": "interpretive",
+      "example_answer": "Sağlıklı olduğu hâlde yanlışlıkla hasta denen yaratık yok."
+    },
+    "DTI_16": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "0 — hastayken yanlışlıkla sağlıklı denen yaratık yok.",
+      "deterministic": true
+    },
+    "DTI_17": {
+      "evaluation": "interpretive",
+      "example_answer": "Hasta olduğu hâlde yanlışlıkla sağlıklı denen yaratık yok."
+    },
+    "DTI_18": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "10 — toplam vaka (6 hasta + 4 sağlıklı).",
+      "deterministic": true
+    },
+    "DTI_19": {
+      "evaluation": "interpretive",
+      "example_answer": "Değerlendirilen toplam vaka sayısı."
+    },
+    "DTI_20": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "(6+4)/10 = 10/10 = 1,00 (%100)",
+      "deterministic": true
+    },
+    "DTI_21": {
+      "evaluation": "interpretive",
+      "example_answer": "Tüm tahminler doğru; model kusursuz çalıştı."
+    },
+    "DTI_22": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "6/(6+0) = 6/6 = 1,00 (%100)",
+      "deterministic": true
+    },
+    "DTI_23": {
+      "evaluation": "interpretive",
+      "example_answer": "Gerçekten hasta olanların tamamı doğru yakalandı."
+    },
+    "DTI_24": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "4/(4+0) = 4/4 = 1,00 (%100)",
+      "deterministic": true
+    },
+    "DTI_25": {
+      "evaluation": "interpretive",
+      "example_answer": "Gerçekten sağlıklı olanların tamamı doğru sınıflandırıldı."
+    },
+    "DTI_26": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "6/(6+0) = 6/6 = 1,00 (%100)",
+      "deterministic": true
+    },
+    "DTI_27": {
+      "evaluation": "interpretive",
+      "example_answer": "'Hasta' denen vakaların tamamı gerçekten hasta."
+    },
+    "DTI_28": {
+      "evaluation": "interpretive",
+      "example_answer": "Duyarlılık. Gerçekten hasta olan bir yaratığı kaçırmamak (FN'yi en aza indirmek) hayati; hastalığın yayılmasını önlemek için tüm hastaları yakalamak öncelikli.",
+      "partial_score": 0.5
+    },
+    "DTI_29": {
+      "evaluation": "interpretive",
+      "example_answer": "Dengeli Doğruluk = (Duyarlılık + Özgüllük) / 2"
+    },
+    "DTI_30": {
+      "evaluation": "interpretive",
+      "example_answer": "Hem hasta hem sağlıklı sınıftaki başarıyı birlikte ölçer; tek sınıftaki yüksek başarının yarattığı yanıltıcı doğruluğu engeller."
+    },
+    "DTI_31": {
+      "evaluation": "interpretive",
+      "example_answer": "Sınıflar dengesiz olduğunda (bir sınıf çok daha kalabalıkken) tercih edilmelidir."
+    },
+    "DTI_32": {
+      "check": "numeric_consistency",
+      "evaluation": "xeno_numeric_consistency",
+      "example_answer": "(0+0)/10 = 0 (%0)",
+      "deterministic": true
+    },
+    "DTI_33": {
+      "evaluation": "interpretive",
+      "example_answer": "Hiç yanlış sınıflandırma yok; hata oranı %0. (MCR = 1 - Doğruluk = 0)"
+    },
+    "DTI_34": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_35": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_36": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_37": {
+      "check": "numeric_value",
+      "evaluation": "titanic_categorical",
+      "deterministic": true
+    },
+    "DTI_38": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_39": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_40": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_41": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_42": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_43": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_44": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_45": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_46": {
+      "check": "numeric_value",
+      "evaluation": "titanic_categorical",
+      "deterministic": true
+    },
+    "DTI_47": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_48": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_49": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_50": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_51": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_52": {
+      "evaluation": "interpretive",
+      "example_answer": "Evet, büyük fark var. Eğitimde %100 doğruluk testte %61,5'e düşüyor; model eğitim setini ezberledi ama görülmemiş veride genellemiyor (aşırı öğrenme).",
+      "partial_score": 0.5
+    },
+    "DTI_53": {
+      "evaluation": "interpretive",
+      "example_answer": "Overfitting, modelin eğitim verisini ezberleyip yeni veride başarısız olmasıdır. Burada cinsiyet eğitim seti 1'de hayatta kalmayı %100 ayırdı, ama test setinde ilişki bu kadar keskin olmadığından başarı düştü.",
+      "partial_score": 0.5
+    },
+    "DTI_54": {
+      "evaluation": "interpretive",
+      "example_answer": "Eğitimde %100 olan duyarlılık testte %53,3'e düştü; model hayatta kalanların testte ancak yarısını yakalayabildi, genelleme zayıf (aşırı öğrenme)."
+    },
+    "DTI_55": {
+      "evaluation": "interpretive",
+      "example_answer": "Eğitimde %0 olan MCR testte %38,5'e çıktı; yeni veride her üç tahminden biri yanlış, model genelleyemedi (aşırı öğrenme)."
+    },
+    "DTI_56": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_57": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_58": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_59": {
+      "check": "numeric_value",
+      "evaluation": "titanic_categorical",
+      "deterministic": true
+    },
+    "DTI_60": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_61": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_62": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_63": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_64": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_65": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_66": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_67": {
+      "check": "numeric_value",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_68": {
+      "check": "numeric_value",
+      "evaluation": "titanic_categorical",
+      "deterministic": true
+    },
+    "DTI_69": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_70": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_71": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_72": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_73": {
+      "check": "formula",
+      "evaluation": "titanic_numeric_canonical",
+      "deterministic": true
+    },
+    "DTI_74": {
+      "evaluation": "interpretive",
+      "example_answer": "Eğitim seti 2'de cinsiyet-hayatta kalma ilişkisi zayıf olduğundan sabit 'kadın=hayatta' kuralı eğitim verisine bile uymadı, eğitim doğruluğu %39,6'da kaldı. Model eğitimde bile öğrenemedi (eksik öğrenme).",
+      "partial_score": 0.5
+    },
+    "DTI_75": {
+      "evaluation": "interpretive",
+      "example_answer": "Underfitting, modelin verideki temel ilişkiyi kavrayamayacak kadar basit kalıp hem eğitim hem testte yüksek hata vermesidir. Burada ağaç yalnızca cinsiyeti kullanıyor; eğitim seti 2'de bu ilişki zayıf olduğundan model eğitimde bile %39,6 doğrulukta kaldı.",
+      "partial_score": 0.5
+    },
+    "DTI_76": {
+      "evaluation": "interpretive",
+      "example_answer": "Bu veri setinde durum sorunun tersidir: eğitim duyarlılığı zaten %28,1 gibi düşüktür. Sabit cinsiyet kuralı örüntüyü yakalayamamış, gerçek hayatta kalanların çoğu kaçırılmıştır; bu aşırı değil eksik öğrenmenin (underfitting) göstergesidir."
+    },
+    "DTI_77": {
+      "evaluation": "interpretive",
+      "example_answer": "Bu veri setinde eğitim MCR'si zaten %60,4 gibi çok yüksektir; model eğitim verisinde bile tahminlerin çoğunu yanlış yapmıştır. Yüksek eğitim hatası modelin veriyi öğrenemediğini (underfitting) gösterir."
+    },
+    "DTI_78": {
+      "evaluation": "interpretive",
+      "example_answer": "İyi model hem eğitim hem testte yüksek ve birbirine yakın metrikler verir: doğruluk/duyarlılık/özgüllük yüksek, MCR düşük ve iki set arasındaki fark küçük olmalı.",
+      "partial_score": 0.5
+    },
+    "DTI_79": {
+      "evaluation": "interpretive",
+      "example_answer": "Sadece eğitim metrikleri modelin ezberleyip ezberlemediğini göstermez. VS1'de eğitim %100 ama test %61,5 çıktı; gerçek başarı ancak test verisiyle anlaşılır."
+    },
+    "DTI_80": {
+      "evaluation": "interpretive",
+      "example_answer": "Hayır. Tek metrik yanıltıcı olabilir; dengesiz sınıflarda yüksek doğruluk düşük duyarlılıkla bir arada olabilir. Doğruluk, duyarlılık, özgüllük, kesinlik ve MCR birlikte değerlendirilmeli.",
+      "partial_score": 0.5
+    }
+  },
+  "equivalence_sets": {
+    "female": [
+      "female",
+      "kadın",
+      "kadin",
+      "kız",
+      "f"
+    ],
+    "male": [
+      "male",
+      "erkek",
+      "e",
+      "m"
+    ],
+    "sick": [
+      "hasta",
+      "sick",
+      "pozitif",
+      "positive",
+      "+"
+    ],
+    "healthy": [
+      "sağlıklı",
+      "saglikli",
+      "healthy",
+      "well",
+      "negatif",
+      "negative",
+      "-"
+    ],
+    "survived": [
+      "hayatta",
+      "hayatta kaldı",
+      "survived",
+      "yaşadı",
+      "1"
+    ],
+    "died": [
+      "öldü",
+      "hayatını kaybetti",
+      "died",
+      "0"
+    ],
+    "overfitting": [
+      "aşırı öğrenme",
+      "asiri ogrenme",
+      "overfitting",
+      "ezberleme",
+      "ezberledi"
+    ],
+    "underfitting": [
+      "yetersiz uyum",
+      "eksik öğrenme",
+      "eksik ogrenme",
+      "underfitting",
+      "az öğrenme"
+    ]
+  },
+  "scoring_policy": {
+    "default_mode": "interpretive",
+    "principle": "Hiçbir soruda tek bir 'kelimesi kelimesine' doğru cevap aranmaz. Sayısal sorularda iç tutarlılık ve doğru yapı; tanım/yorum sorularında gerekli kavramsal bileşenlerin varlığı puanlanır. Örnek cevaplar yalnızca kalite düzeyini gösterir; kabul edilen tek biçim değildir.",
+    "regimes": {
+      "xeno_numeric": {
+        "description": "Xeno bölümündeki sayısal alanlar ÖĞRENCİYE ÖZELDİR. Veri seti her öğrenciye rastgele atandığından kök düğümdeki hasta yüzdesi, mavi/pembe kutu sayıları ve TP/TN/N değerleri öğrenciden öğrenciye değişir. Bu alanlar sabit bir sayıyla KARŞILAŞTIRILMAZ; öğrencinin kendi ağacıyla iç tutarlılık ve değişmez yapı üzerinden puanlanır.",
+        "invariants": {
+          "blue_hair_sick_rate": "%0 (mavi saçlıların tamamı sağlıklı)",
+          "pink_hair_sick_rate": "%100 (pembe saçlıların tamamı hasta)",
+          "perfect_separator": "Saç rengi Xhealth'i kusursuz ayırır",
+          "confusion": "FP = 0 ve FN = 0",
+          "metrics": "Doğruluk = Duyarlılık = Özgüllük = Kesinlik = %100; MCR = %0",
+          "sum_rule": "TP + TN = N ve TP = pembe kutu sayısı, TN = mavi kutu sayısı",
+          "root_total": "Kök düğüm vaka sayısı = üretilen vaka sayısı (varsayılan 10; auto çalıştırmada 10'un katları olabilir)"
+        },
+        "scoring": "Değişmez yapı doğru yansıtılmış ve öğrencinin kendi sayıları birbiriyle tutarlıysa tam puan. Sayı sabit bir anahtara göre YANLIŞ sayılamaz."
+      },
+      "titanic_numeric": {
+        "description": "Titanic bölümündeki veri setleri (titanic_egitim/test_veri_seti1/2.csv) TÜM ÖĞRENCİLERE AYNI dağıtıldığından kanonik (sabit) doğru değerleri vardır. Ağaç cinsiyet (sex) değişkenine göre kurulur: female = pozitif (hayatta), male = negatif (hayatını kaybetti).",
+        "tolerance": "Öğrenciler değerleri CODAP ağacından elle okur. Oran/yüzde metriklerinde ±0,02 (±2 puan) yuvarlama toleransı uygulanır. Kesir (142/231), ondalık (0,615) veya yüzde (%61,5) biçimlerinin hepsi kabul edilir. Sayımlarda küçük okuma hatası (±birkaç kişi) kısmi puan alır; yapı doğru ama işlem/okuma hatalıysa 0.5.",
+        "canonical_source": "titanic_canonical bloğundaki değerler CSV'lerden birebir hesaplanmıştır."
+      },
+      "interpretive": {
+        "description": "Tanım, gerekçe ve yorum soruları. Bileşen tabanlı puanlanır: 'need' kadar gerekli bileşen varsa tam puan, 'partial_on' kadarında kısmi puan.",
+        "scoring": "İfade biçimi serbesttir; kavram doğruysa Türkçe/İngilizce terim, farklı örnek ve farklı cümle yapıları kabul edilir."
+      }
+    },
+    "ocr_tolerance": "Öğrenciler el yazısıyla yanıtlar; noktalama, büyük/küçük harf, ondalık ayırıcı (virgül/nokta) ve yazım hataları göz ardı edilir. Sayısal ifadelerde '%', 'kişi', 'vaka', 'g', 'kcal' gibi birimler opsiyoneldir."
+  }
+}

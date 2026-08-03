@@ -184,13 +184,22 @@ def _field_meta_ws7(field_id: str) -> dict[str, Any]:
             "scoring_item_id": field_id,
             "fixed_response": P1_ANSWERS.get(field_id),
         }
-    n = int(field_id.replace("WS7_B", ""))
+    if field_id.startswith("WS7_B"):
+        n = int(field_id.replace("WS7_B", ""))
+        return {
+            "printed_blank": n,
+            "scoring_mode": "cross_worksheet" if n <= 3 else "descriptive",
+            "scored": n <= 3,
+            "scoring_item_id": field_id if n <= 3 else None,
+            "depends_on": ["WS6"] if n <= 3 else None,
+        }
+    # WS7_1..4: Part 1 threshold expression blanks
+    n = int(field_id.replace("WS7_", ""))
     return {
         "printed_blank": n,
-        "scoring_mode": "cross_worksheet" if n <= 3 else "descriptive",
-        "scored": n <= 3,
-        "scoring_item_id": field_id if n <= 3 else None,
-        "depends_on": ["WS6"] if n <= 3 else None,
+        "scoring_mode": "fixed_exact",
+        "scored": True,
+        "scoring_item_id": field_id,
     }
 
 

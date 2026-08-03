@@ -1,0 +1,1107 @@
+{
+  "rubric_id": "codap_arbor_v4_candidate",
+  "title": "CODAP Arbor AI-CFT Cognitive Behavior Codebook",
+  "version": "4.1-candidate",
+  "status": "pending_expert_CVI_and_interrater_validation",
+  "scope": "Unplugged worksheet and CODAP Arbor decision-tree learning episodes",
+  "unit_of_analysis": {
+    "primary": "meaningful_episode",
+    "definition": "A temporally bounded sequence beginning with task-relevant inspection or intention evidence and ending after the resulting model action, output review, or abandonment.",
+    "frame_role": "Frames detect observable evidence; frames are not independent cognitive behavior units.",
+    "default_window": "Use the complete action episode. When an automatic window is required, inspect at least 30 seconds before and 20 seconds after the anchor event, extending to the next meaningful action."
+  },
+  "layers": {
+    "behavior": "Cognitive learning process to be coded.",
+    "evidence": "Observable worksheet, video, transcript, or log indicator supporting or refuting the behavior.",
+    "metadata": "Counts, timings, sequences, coverage, and technical quality variables that never determine a rubric level by themselves."
+  },
+  "decision_states": [
+    "observed",
+    "not_observed",
+    "not_measurable"
+  ],
+  "levels": {
+    "Acquire": "Minimum direct evidence that the learner can identify, frame, or carry out the focal process in a meaningful task context.",
+    "Deepen": "Direct evidence of comparison, justification, coordination, diagnosis, refinement, or generalization.",
+    "Create": "Requires customization or assembly of an AI tool or model into a locally relevant solution under UNESCO AI-CFT; not demonstrated by CODAP operation alone."
+  },
+  "global_scoring_rules": [
+    "Never score a behavior from interface state, click, drag, count, duration, or model accuracy alone.",
+    "Require all criteria stated for a level; higher levels inherit lower-level criteria unless explicitly stated otherwise.",
+    "Use not_measurable, not score 0, when required evidence is unavailable because of missing modalities or incomplete capture.",
+    "Do not infer intention from a final screen state. Require a learner-produced artifact, temporal action sequence, explanation, or convergent evidence.",
+    "Outcome improvement may corroborate a strategy but cannot establish reasoning by itself.",
+    "No CODAP B0-B13 behavior receives Create solely from constructing or evaluating a tree in Arbor."
+  ],
+  "behaviors": [
+    {
+      "id": "B0",
+      "name": "Data familiarization and variable appraisal",
+      "purpose": "Identify task-relevant properties of the dataset before or during model construction.",
+      "theoretical_construct": "data sensemaking and variable awareness",
+      "current_rubric_diagnosis": "Interface proxy: an open table with a visible column does not establish inspection or learning.",
+      "operational_definition": "Code when the learner actively inspects the dataset and produces or uses at least one correct observation about a variable's role, type, values, range, distribution, missingness, or class balance.",
+      "acquire_criteria": [
+        "Active inspection of at least one variable or case is observable.",
+        "A correct data-relevant observation is expressed in a worksheet/transcript or is used in the immediately connected modeling decision."
+      ],
+      "deepen_criteria": [
+        "Two or more variables, distributions, or data-quality properties are compared.",
+        "The comparison is explicitly connected to target, predictor, threshold, or evaluation strategy."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Correct description of variable type, range, distribution, class balance, or data quality.",
+          "Written comparison used to motivate a later model decision."
+        ],
+        "video": [
+          "Purposeful table scrolling, sorting, column selection, or case inspection followed by a connected statement or action."
+        ],
+        "transcript": [
+          "Specific, accurate statement about dataset content or variable properties."
+        ],
+        "log": [
+          "Data-context or case-selection events may locate the episode but cannot establish B0 alone."
+        ]
+      },
+      "video_evidence_indicators": [
+        "table revisited before model choice",
+        "cursor tracks values within a named column",
+        "graph or table consulted before target or predictor selection"
+      ],
+      "exclusion_rules": [
+        "Table merely open or already visible.",
+        "Scrolling without identifiable task connection.",
+        "Generic statement such as 'I looked at the data' without a data observation."
+      ],
+      "common_coding_errors": [
+        "Scoring software readiness as data familiarization.",
+        "Treating time on the table as evidence of attention.",
+        "Inferring a data observation from a later correct model."
+      ],
+      "relations": "B0 can support B1, B3, and B4 but is not a mandatory prerequisite when equivalent worksheet evidence exists.",
+      "llm_coding_notes": "Locate an explicit data observation or an inspection-to-decision link. If only the table state is visible, return not_observed. Do not use dwell duration as a level criterion.",
+      "confidence": {
+        "high": "Specific correct observation plus a connected action in another modality.",
+        "medium": "Specific correct observation in one complete modality.",
+        "low": "Inspection is visible but its cognitive purpose is only indirectly supported."
+      },
+      "aicft_alignment": [
+        "LO3.1.1",
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B1",
+      "name": "Graph-based data exploration",
+      "purpose": "Use a graph as an epistemic representation to examine patterns relevant to classification.",
+      "theoretical_construct": "visual and representational reasoning",
+      "current_rubric_diagnosis": "Interface proxy: graph visibility or creation alone measures tool state.",
+      "operational_definition": "Code when the learner intentionally constructs, changes, or revisits a graph and extracts or applies a pattern from it to the classification task.",
+      "acquire_criteria": [
+        "A task-relevant graph is intentionally configured or examined.",
+        "At least one visible pattern, separation, cluster, or relation is stated or used in a connected decision."
+      ],
+      "deepen_criteria": [
+        "Graphs or axis-variable configurations are compared.",
+        "The comparison justifies predictor or threshold selection, rejection, or refinement."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Graph interpretation linked to a variable or split."
+        ],
+        "video": [
+          "Axis change, graph comparison, or graph revisit followed by a model decision."
+        ],
+        "transcript": [
+          "Specific interpretation of plotted pattern or separation."
+        ],
+        "log": [
+          "Component creation/change identifies candidate episodes; it is not sufficient evidence."
+        ]
+      },
+      "video_evidence_indicators": [
+        "graph revisited before split",
+        "cursor traces clusters or boundary",
+        "axis variable changed",
+        "two graph panels compared"
+      ],
+      "exclusion_rules": [
+        "Graph merely visible.",
+        "Default graph accepted without evidence of examination.",
+        "Graph creation followed by unrelated activity."
+      ],
+      "common_coding_errors": [
+        "Equating graph creation with graph interpretation.",
+        "Confusing a scatter-plot movable value with a tree threshold.",
+        "Using graph count as a score."
+      ],
+      "relations": "B1 may lead to B2, B4, or B11. B1 does not imply B11 without cross-representational transfer.",
+      "llm_coding_notes": "Require a graph-to-meaning or graph-to-decision link. A plotted panel without that link is evidence metadata only.",
+      "confidence": {
+        "high": "Graph pattern is named and immediately used.",
+        "medium": "Purposeful graph comparison is visible but explanation is absent.",
+        "low": "Only a graph revisit or cursor trace suggests examination."
+      },
+      "aicft_alignment": [
+        "LO3.1.1",
+        "LO3.2.2"
+      ]
+    },
+    {
+      "id": "B2",
+      "name": "Candidate threshold exploration",
+      "purpose": "Generate and examine plausible decision boundaries before committing a tree split.",
+      "theoretical_construct": "hypothesis generation and threshold reasoning",
+      "current_rubric_diagnosis": "Interface proxy: the presence of a movable value does not establish threshold exploration.",
+      "operational_definition": "Code when the learner deliberately places or changes a graph movable value and examines how the candidate boundary partitions cases.",
+      "acquire_criteria": [
+        "A movable value is deliberately placed or changed on a relevant graph.",
+        "The resulting partition is inspected, described, or used as a candidate split."
+      ],
+      "deepen_criteria": [
+        "At least two candidate values are compared using separation, errors, or model consequences.",
+        "The retained or rejected candidate is justified by that comparison."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Alternative candidate thresholds and their partitions or errors."
+        ],
+        "video": [
+          "Movable value repositioned with subsequent inspection or comparison."
+        ],
+        "transcript": [
+          "Reason for trying, retaining, or rejecting a candidate threshold."
+        ],
+        "log": [
+          "Graph events may delimit the episode; tree threshold changes belong primarily to B6."
+        ]
+      },
+      "video_evidence_indicators": [
+        "pause before moving boundary",
+        "boundary moved and graph reread",
+        "cases near boundary inspected"
+      ],
+      "exclusion_rules": [
+        "Movable value already present with no learner interaction.",
+        "Single accidental drag.",
+        "Repeated movement without evidence that partitions are being examined."
+      ],
+      "common_coding_errors": [
+        "Scoring the visual line itself.",
+        "Treating movement count as Deepen.",
+        "Confusing B2 candidate exploration with B6 committed tree split."
+      ],
+      "relations": "B2 may support B6. B11 requires evidence coordinating B2 with B6.",
+      "llm_coding_notes": "Distinguish graph boundary from tree split. Deepen requires an evaluative comparison, not merely two logged values.",
+      "confidence": {
+        "high": "Alternative values and partition consequences are explicit.",
+        "medium": "Deliberate movement and inspection are visible.",
+        "low": "Only one movement is captured and its purpose is ambiguous."
+      },
+      "aicft_alignment": [
+        "LO3.1.1",
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B3",
+      "name": "Prediction-target framing",
+      "purpose": "Formulate what the decision tree is intended to predict.",
+      "theoretical_construct": "problem framing and target-predictor distinction",
+      "current_rubric_diagnosis": "Mixed: target selection can express problem framing, but a filled drop zone alone is an interface state.",
+      "operational_definition": "Code when the learner intentionally identifies or selects the dependent variable and treats it as the prediction outcome rather than as a predictor.",
+      "acquire_criteria": [
+        "The selected target is consistent with the task.",
+        "Evidence shows intentional selection or an accurate target-versus-predictor distinction."
+      ],
+      "deepen_criteria": [
+        "An alternative target is evaluated or a target is changed/reaffirmed.",
+        "The final choice is justified by the prediction question or consequences for interpretation."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Prediction question and target variable stated consistently."
+        ],
+        "video": [
+          "Target deliberately dragged or changed after task/data inspection."
+        ],
+        "transcript": [
+          "Statement of what is being predicted and why."
+        ],
+        "log": [
+          "set_dependent_variable is supporting evidence only because it may fire automatically."
+        ]
+      },
+      "video_evidence_indicators": [
+        "task prompt revisited before target choice",
+        "target changed after recognizing mismatch",
+        "predictor list inspected before selection"
+      ],
+      "exclusion_rules": [
+        "Target preloaded or already present at recording start.",
+        "Automatic set_dependent_variable event.",
+        "Correct target inferred only from final model."
+      ],
+      "common_coding_errors": [
+        "Treating a populated target field as intentional framing.",
+        "Scoring a target change as Deepen without a task-based reason.",
+        "Confusing target and positive-class definition."
+      ],
+      "relations": "B3 precedes coherent B7; B5 specifies the class semantics of the B3 target.",
+      "llm_coding_notes": "Prefer worksheet/transcript or a visible selection sequence. If the target is only present as a state, return not_observed unless provenance is available.",
+      "confidence": {
+        "high": "Intentional selection plus accurate prediction framing.",
+        "medium": "Intentional selection is visible without explanation.",
+        "low": "Only indirect provenance suggests learner selection."
+      },
+      "aicft_alignment": [
+        "LO3.1.1"
+      ]
+    },
+    {
+      "id": "B4",
+      "name": "Strategic predictor selection",
+      "purpose": "Choose predictors on the basis of data, domain, or model evidence.",
+      "theoretical_construct": "strategic variable selection",
+      "current_rubric_diagnosis": "Mixed: feature choice is meaningful, but domain relevance and dragging alone do not establish strategy.",
+      "operational_definition": "Code when the learner selects a predictor and evidence connects the choice to a plausible relationship with the target, observed data pattern, or prior model performance.",
+      "acquire_criteria": [
+        "A predictor is intentionally selected for a split.",
+        "A plausible data-, domain-, or task-based basis for the choice is observable."
+      ],
+      "deepen_criteria": [
+        "At least two predictors are compared or a predictor is replaced.",
+        "The choice or replacement is justified using separation, errors, or performance evidence."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Predictor choice with data- or domain-grounded rationale."
+        ],
+        "video": [
+          "Table/graph/model output consulted before predictor selection or replacement."
+        ],
+        "transcript": [
+          "Specific rationale linking predictor to target or model outcome."
+        ],
+        "log": [
+          "drop_attribute and feature sequence locate choices but cannot prove strategy."
+        ]
+      },
+      "video_evidence_indicators": [
+        "data consulted before drag",
+        "feature replaced after output review",
+        "alternative features compared"
+      ],
+      "exclusion_rules": [
+        "Random or teacher-directed drag with no ownership evidence.",
+        "Domain-relevant feature treated as automatically strategic.",
+        "Feature count used as level evidence."
+      ],
+      "common_coding_errors": [
+        "Rewarding any plausible feature.",
+        "Inferring rationale from accuracy improvement.",
+        "Conflating predictor selection with target selection."
+      ],
+      "relations": "B4 uses evidence from B0/B1 and contributes to B7/B10. B4 does not require B1.",
+      "llm_coding_notes": "Require a basis for selection. If only a feature name appears in a split, score B7 state evidence but not B4 behavior.",
+      "confidence": {
+        "high": "Explicit rationale and connected selection.",
+        "medium": "Clear inspection-to-selection sequence.",
+        "low": "Choice appears purposeful but rationale is not observable."
+      },
+      "aicft_alignment": [
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B5",
+      "name": "Class semantics and positive-class framing",
+      "purpose": "Define the meaning of model outcomes and the positive class in context.",
+      "theoretical_construct": "classification concept formation and semantic framing",
+      "current_rubric_diagnosis": "Interface proxy: visible labels may be defaults and meaningful wording alone does not show learner reasoning.",
+      "operational_definition": "Code when the learner defines or correctly applies the two outcome classes and the positive class in a way consistent with the task context.",
+      "acquire_criteria": [
+        "Both class meanings are correctly identified or applied.",
+        "The positive class is distinguishable from desirability or moral value."
+      ],
+      "deepen_criteria": [
+        "The learner explains how class framing changes TP/TN/FP/FN interpretation or decision consequences.",
+        "Alternative positive-class choices are evaluated when relevant."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Correct class labels, positive-class definition, and confusion-matrix semantics."
+        ],
+        "video": [
+          "Prediction labels deliberately assigned or corrected."
+        ],
+        "transcript": [
+          "Explicit statement of class meaning or positive outcome."
+        ],
+        "log": [
+          "Prediction-assignment events are evidence of action only; semantics require another source."
+        ]
+      },
+      "video_evidence_indicators": [
+        "leaf labels checked after assignment",
+        "prediction reversed after noticing class meaning",
+        "confusion matrix consulted after class assignment"
+      ],
+      "exclusion_rules": [
+        "Default class labels merely visible.",
+        "Two labels present with no evidence they were learner-defined or interpreted.",
+        "Treating positive as necessarily beneficial."
+      ],
+      "common_coding_errors": [
+        "Scoring context-appropriate text without provenance.",
+        "Conflating class definition with target selection.",
+        "Inferring confusion-matrix understanding from valid labels."
+      ],
+      "relations": "B5 specifies B3 target semantics and is needed for defensible B8/B13 metric interpretation.",
+      "llm_coding_notes": "Require semantic evidence, not text detection alone. When labels are visible but provenance is unknown, return not_observed or low-confidence supporting evidence.",
+      "confidence": {
+        "high": "Class and positive-class meaning are explicit and correctly used.",
+        "medium": "Deliberate assignment/correction is visible.",
+        "low": "Only contextual label consistency is available."
+      },
+      "aicft_alignment": [
+        "LO3.1.1",
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B6",
+      "name": "Decision-boundary reasoning",
+      "purpose": "Select and refine a split boundary according to its partition and classification consequences.",
+      "theoretical_construct": "quantitative threshold reasoning and iterative optimization",
+      "current_rubric_diagnosis": "Mixed: a threshold is a meaningful model parameter, but its visibility or change does not establish reasoning.",
+      "operational_definition": "Code when the learner applies a numeric or categorical split and accurately relates it to the cases assigned to each branch or to resulting classification errors.",
+      "acquire_criteria": [
+        "A committed split is learner-produced.",
+        "The learner accurately identifies or uses how the split partitions cases."
+      ],
+      "deepen_criteria": [
+        "Alternative splits are compared using partition quality, errors, or model evaluation.",
+        "The selected split is retained, rejected, or revised with an evidence-based rationale."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Correct split rule and case partition.",
+          "Threshold comparison or optimization reasoning."
+        ],
+        "video": [
+          "Split changed after graph/data/output review and resulting branches inspected."
+        ],
+        "transcript": [
+          "Explanation of why a value separates cases or changes errors."
+        ],
+        "log": [
+          "change_split_values provides values and sequence but not reasoning."
+        ]
+      },
+      "video_evidence_indicators": [
+        "branch memberships inspected",
+        "threshold revised after error review",
+        "near-boundary cases checked",
+        "graph consulted before split"
+      ],
+      "exclusion_rules": [
+        "Threshold merely visible.",
+        "Random numeric changes.",
+        "A different value alone treated as iteration.",
+        "Movable value without committed tree split."
+      ],
+      "common_coding_errors": [
+        "Using threshold-change count as Deepen.",
+        "Conflating B2 with B6.",
+        "Using improved accuracy as proof of reasoning."
+      ],
+      "relations": "B6 may follow B2; B11 requires coordinated B2 and B6. B6 contributes to B7 and B10.",
+      "llm_coding_notes": "A log value change is supporting evidence only. Require partition interpretation or evidence-based evaluation for a behavior code.",
+      "confidence": {
+        "high": "Split consequences and rationale are explicit.",
+        "medium": "Inspection-to-revision sequence is complete.",
+        "low": "A purposeful split is visible but interpretation is incomplete."
+      },
+      "aicft_alignment": [
+        "LO3.1.1",
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B7",
+      "name": "Coherent model construction and execution",
+      "purpose": "Integrate target, predictors, splits, and predictions into an executable classification model.",
+      "theoretical_construct": "procedural integration and model construction",
+      "current_rubric_diagnosis": "Interface proxy: a visible tree or emit event does not show that the learner constructed a coherent model.",
+      "operational_definition": "Code when the learner assembles and executes a valid decision tree whose target, split structure, and leaf predictions form a coherent response to the task.",
+      "acquire_criteria": [
+        "Learner authorship or meaningful modification is observable.",
+        "The executed tree is structurally valid and task-consistent."
+      ],
+      "deepen_criteria": [
+        "The learner reviews an output and deliberately rebuilds or reruns a changed configuration.",
+        "The revision is connected to a diagnosed model issue or explicit goal."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Coherent tree or rule set constructed for the task."
+        ],
+        "video": [
+          "Target, split, predictions, and emit assembled by the learner; output-driven rebuild."
+        ],
+        "transcript": [
+          "Model plan or reason for rerunning/rebuilding."
+        ],
+        "log": [
+          "Ordered target/drop/split/emit events corroborate authorship and revision."
+        ]
+      },
+      "video_evidence_indicators": [
+        "tree assembled incrementally",
+        "leaf predictions checked",
+        "output read before rebuild",
+        "reset followed by targeted reconstruction"
+      ],
+      "exclusion_rules": [
+        "Tree already present at recording start.",
+        "Copied tree run without meaningful modification or explanation.",
+        "Emit click alone.",
+        "Depth 2 alone treated as Deepen."
+      ],
+      "common_coding_errors": [
+        "Equating model visibility with construction.",
+        "Counting repeated emits as refinement.",
+        "Rewarding structurally invalid but visually complex trees."
+      ],
+      "relations": "B7 integrates B3-B6. B10 is local conditional refinement; B8 evaluates B7 output.",
+      "llm_coding_notes": "Require provenance and coherence. Use ordered evidence across the episode; do not code from a single final-state frame when authorship is unknown.",
+      "confidence": {
+        "high": "Complete construction sequence and valid output.",
+        "medium": "Meaningful modification and execution are visible.",
+        "low": "Only partial construction provenance is captured."
+      },
+      "aicft_alignment": [
+        "LO3.1.3",
+        "LO3.2.1",
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B8",
+      "name": "Model-performance interpretation",
+      "purpose": "Draw an accurate claim about model quality from valid evaluation output.",
+      "theoretical_construct": "reflective evaluation and statistical interpretation",
+      "current_rubric_diagnosis": "Construct-relevant in intent, but the current visibility rule measures output presence rather than interpretation.",
+      "operational_definition": "Code when the learner accurately interprets at least one valid performance measure and connects it to model quality, error pattern, or a next decision.",
+      "acquire_criteria": [
+        "A valid metric or confusion-matrix quantity is accurately interpreted.",
+        "The interpretation refers to the learner's current model rather than merely reading a label."
+      ],
+      "deepen_criteria": [
+        "At least two complementary measures or error types are integrated, or two models are compared.",
+        "The interpretation motivates a justified model decision or limitation claim."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Accurate interpretation of accuracy, confusion matrix, sensitivity, or MCR."
+        ],
+        "video": [
+          "Metric panel actively inspected before a connected decision."
+        ],
+        "transcript": [
+          "Specific metric/error interpretation tied to the model."
+        ],
+        "log": [
+          "emit_tree_data supplies valid values but cannot show interpretation."
+        ]
+      },
+      "video_evidence_indicators": [
+        "scroll to confusion matrix",
+        "cursor compares FP and FN",
+        "post-emit reading pause followed by targeted change"
+      ],
+      "exclusion_rules": [
+        "Metric merely visible.",
+        "Number read aloud without interpretation.",
+        "Invalid all-zero confusion matrix or no-prediction output.",
+        "Accuracy improvement treated as learner interpretation."
+      ],
+      "common_coding_errors": [
+        "Scoring output visibility.",
+        "Treating post-emit delay as reading.",
+        "Equating accuracy interpretation with error-cost reasoning in B13."
+      ],
+      "relations": "B8 requires valid B7 output. B8 supports B12; B8 does not imply B13.",
+      "llm_coding_notes": "Find a proposition about what a valid metric means. If only values are visible or logged, return not_observed.",
+      "confidence": {
+        "high": "Specific accurate interpretation plus connected decision.",
+        "medium": "Specific accurate interpretation in one modality.",
+        "low": "Active inspection suggests interpretation but semantic evidence is absent."
+      },
+      "aicft_alignment": [
+        "LO3.2.1",
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B9",
+      "name": "Training–test generalization reasoning",
+      "purpose": "Use training data for construction and held-out data for estimating generalization.",
+      "theoretical_construct": "generalization reasoning and validation awareness",
+      "current_rubric_diagnosis": "Mixed: dataset splitting is relevant, but visible dataset options or switching alone are interface actions.",
+      "operational_definition": "Code when the learner correctly distinguishes training and test roles and uses held-out performance to evaluate a model without treating test data as additional training evidence.",
+      "acquire_criteria": [
+        "Training and test roles are correctly identified.",
+        "The model is constructed on training data and evaluated on held-out test data."
+      ],
+      "deepen_criteria": [
+        "Training and test outcomes are compared.",
+        "The learner makes an accurate claim about generalization, overfitting, or model selection without tuning on the test set."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Correct distinction and comparison of training and test results."
+        ],
+        "video": [
+          "Purposeful dataset switch in the correct sequence with output comparison."
+        ],
+        "transcript": [
+          "Explanation of held-out evaluation or generalization gap."
+        ],
+        "log": [
+          "Dataset-change and emit sequences establish order but not conceptual distinction."
+        ]
+      },
+      "video_evidence_indicators": [
+        "training output recorded before test switch",
+        "test result inspected without rebuilding on test data",
+        "return to training after diagnosing generalization"
+      ],
+      "exclusion_rules": [
+        "Two dataset names merely visible.",
+        "Accidental dataset switch.",
+        "Test data used repeatedly to tune and then reported as unbiased performance.",
+        "Session where train/test evidence is unavailable: code not_measurable."
+      ],
+      "common_coding_errors": [
+        "Scoring the Choosy interface.",
+        "Assuming dataset order from names alone when labels are ambiguous.",
+        "Treating any performance difference as overfitting awareness."
+      ],
+      "relations": "B9 requires an executable B7 model and enables stronger B8 evaluation.",
+      "llm_coding_notes": "Verify sequence and role, not merely labels. When dataset identity is ambiguous, return not_measurable or request annotation.",
+      "confidence": {
+        "high": "Correct sequence and explicit generalization interpretation.",
+        "medium": "Correct sequence is complete without explanation.",
+        "low": "Dataset labels or capture coverage are ambiguous."
+      },
+      "aicft_alignment": [
+        "LO3.1.1",
+        "LO3.2.2",
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B10",
+      "name": "Conditional model refinement",
+      "purpose": "Refine a heterogeneous subgroup with an additional split while managing model complexity.",
+      "theoretical_construct": "conditional reasoning and model-complexity management",
+      "current_rubric_diagnosis": "Interface proxy: depth 2 is a structural property and does not by itself demonstrate refinement.",
+      "operational_definition": "Code when the learner adds or revises a child split to address a specific subgroup, residual error pattern, or conditional relationship.",
+      "acquire_criteria": [
+        "A child-node split is learner-produced.",
+        "Evidence identifies the subgroup or local classification problem the split is intended to address."
+      ],
+      "deepen_criteria": [
+        "Alternative child splits or depths are compared.",
+        "The refinement is justified using local errors, performance gain, interpretability, or overfitting risk."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Valid multi-level tree with conditional rationale."
+        ],
+        "video": [
+          "Child node inspected and split after subgroup/output review."
+        ],
+        "transcript": [
+          "Explanation of why a branch requires further division."
+        ],
+        "log": [
+          "Node-specific drop/focus events and depth values support the sequence."
+        ]
+      },
+      "video_evidence_indicators": [
+        "focus on one impure leaf",
+        "child split revised",
+        "tree pruned or simplified after comparison"
+      ],
+      "exclusion_rules": [
+        "Depth 2 tree merely visible.",
+        "Extra split added everywhere without subgroup rationale.",
+        "Complexity treated as automatically superior."
+      ],
+      "common_coding_errors": [
+        "Equating depth with cognitive level.",
+        "Duplicating B7 for every multi-level tree.",
+        "Using accuracy gain alone as rationale."
+      ],
+      "relations": "B10 elaborates B7 at a local node and may be evaluated through B8/B12.",
+      "llm_coding_notes": "Require subgroup-targeted intent or diagnosis. Structural depth metadata may corroborate but never trigger B10.",
+      "confidence": {
+        "high": "Subgroup diagnosis, child split, and evaluation are all observed.",
+        "medium": "Targeted child split sequence is clear.",
+        "low": "Only local focus and split are visible."
+      },
+      "aicft_alignment": [
+        "LO3.2.2",
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B11",
+      "name": "Cross-representational threshold coordination",
+      "purpose": "Coordinate a graphical boundary with a decision-tree split and evaluate their correspondence.",
+      "theoretical_construct": "representational fluency and transfer",
+      "current_rubric_diagnosis": "Genuine construct in intent; current numerical co-occurrence rule risks false transfer inferences.",
+      "operational_definition": "Code when the learner intentionally transfers or reconciles a threshold for the same variable between a graph and the tree.",
+      "acquire_criteria": [
+        "Graph and tree use the same variable.",
+        "Values match within display precision and temporal or semantic evidence supports intentional transfer."
+      ],
+      "deepen_criteria": [
+        "Transfer is repeated for another variable or revised after checking model consequences.",
+        "The learner explains agreement, rounding, or a deliberate discrepancy between representations."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Graph-derived threshold explicitly applied to a tree rule."
+        ],
+        "video": [
+          "Graph read immediately before matching tree entry; representations revisited for verification."
+        ],
+        "transcript": [
+          "Explicit graph-to-tree transfer statement."
+        ],
+        "log": [
+          "Temporal proximity of graph and threshold events supports but does not prove transfer."
+        ]
+      },
+      "video_evidence_indicators": [
+        "alternation between graph and tree",
+        "value read then entered",
+        "rounding checked",
+        "tree result used to revisit graph"
+      ],
+      "exclusion_rules": [
+        "B2 and B6 co-occur without transfer evidence.",
+        "Values happen to match.",
+        "Different variables or incompatible scales.",
+        "Approximate match outside display precision without explanation."
+      ],
+      "common_coding_errors": [
+        "Treating numerical equality as intentional transfer.",
+        "Ignoring variable identity and units.",
+        "Double-counting B2 and B6 evidence as B11 automatically."
+      ],
+      "relations": "B11 depends on evidence for B2 and B6 but remains a distinct coordination construct.",
+      "llm_coding_notes": "Match variable, units, value tolerance, and temporal/semantic linkage. If any is missing, do not score transfer.",
+      "confidence": {
+        "high": "Explicit transfer statement or complete read-enter-verify sequence.",
+        "medium": "Complete temporal sequence with matching variable/value.",
+        "low": "Only approximate co-occurrence is available."
+      },
+      "aicft_alignment": [
+        "LO3.2.2",
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B12",
+      "name": "Comparative model evaluation and record use",
+      "purpose": "Use retained model records to compare alternatives and make an evidence-based selection.",
+      "theoretical_construct": "comparative evaluation and metacognitive monitoring",
+      "current_rubric_diagnosis": "Interface proxy: multiple CTR rows or row deletion alone measures record management.",
+      "operational_definition": "Code when the learner uses at least two retained model records to compare configurations or outcomes according to an explicit criterion.",
+      "acquire_criteria": [
+        "At least two valid model records are identified as alternatives.",
+        "A comparison on at least one relevant criterion is observable."
+      ],
+      "deepen_criteria": [
+        "Multiple criteria, error costs, generalization, or complexity are integrated.",
+        "A model is selected, rejected, or retained with an explicit evidence-based justification."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Comparison of multiple models with selection rationale."
+        ],
+        "video": [
+          "CTR rows deliberately selected, revisited, or compared with outputs."
+        ],
+        "transcript": [
+          "Specific comparison and model-selection claim."
+        ],
+        "log": [
+          "Multiple valid emits and row interactions establish opportunity, not comparison."
+        ]
+      },
+      "video_evidence_indicators": [
+        "alternating row selection",
+        "model parameters and metrics compared",
+        "inferior record deleted after articulated criterion"
+      ],
+      "exclusion_rules": [
+        "Multiple rows merely accumulated.",
+        "Row deletion without evidence of evaluation.",
+        "Latest model assumed to be preferred.",
+        "Emit count used as a score."
+      ],
+      "common_coding_errors": [
+        "Scoring CTR housekeeping.",
+        "Inferring comparison from two visible records.",
+        "Conflating basic metric interpretation B8 with model comparison B12."
+      ],
+      "relations": "B12 requires multiple B7 outputs and at least basic B8 interpretation. B13 may provide a comparison criterion.",
+      "llm_coding_notes": "Identify alternatives, criterion, and comparison. All three are required; row count is metadata only.",
+      "confidence": {
+        "high": "Alternatives, criterion, and justified selection are explicit.",
+        "medium": "Direct comparison is visible without a final selection.",
+        "low": "Row navigation suggests comparison but semantic evidence is incomplete."
+      },
+      "aicft_alignment": [
+        "LO3.2.1",
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B13",
+      "name": "Cost-sensitive metric trade-off reasoning",
+      "purpose": "Evaluate model errors according to context-dependent consequences rather than accuracy alone.",
+      "theoretical_construct": "cost-sensitive evaluation and contextual judgment",
+      "current_rubric_diagnosis": "Genuine construct; current transcript-only rule creates modality bias and incorrectly maps the behavior to UNESCO Create.",
+      "operational_definition": "Code when the learner accurately interprets sensitivity, MCR, FP, or FN and uses contextual error consequences to compare or prioritize model outcomes.",
+      "acquire_criteria": [
+        "At least one relevant metric or error type is accurately interpreted.",
+        "The interpretation identifies which cases or errors the quantity represents."
+      ],
+      "deepen_criteria": [
+        "A trade-off between sensitivity and MCR, or between FP and FN consequences, is explicitly evaluated.",
+        "A priority or model choice is justified by the application context."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Correct calculation/interpretation and contextual trade-off explanation."
+        ],
+        "video": [
+          "Relevant outputs inspected before a contextual decision; video alone rarely establishes the trade-off."
+        ],
+        "transcript": [
+          "Explicit interpretation and contextual prioritization."
+        ],
+        "log": [
+          "Metric values support calculations but cannot establish trade-off reasoning."
+        ]
+      },
+      "video_evidence_indicators": [
+        "sensitivity/MCR fields compared",
+        "FP/FN cells revisited",
+        "two records inspected before a contextual choice"
+      ],
+      "exclusion_rules": [
+        "Metric term merely mentioned.",
+        "Formula recited without interpretation.",
+        "Accuracy-only comparison.",
+        "Missing semantic evidence coded as 0 rather than not_measurable."
+      ],
+      "common_coding_errors": [
+        "Treating metric vocabulary as reasoning.",
+        "Inferring cost sensitivity from low FN alone.",
+        "Mapping evaluation to UNESCO Create."
+      ],
+      "relations": "B13 presupposes B5 class semantics and B8 metric interpretation; B8 never automatically implies B13.",
+      "llm_coding_notes": "Require metric meaning plus contextual consequence. If transcript is missing, inspect worksheet evidence; if neither semantic source exists, return not_measurable.",
+      "confidence": {
+        "high": "Accurate metric meaning and explicit contextual trade-off.",
+        "medium": "Accurate contextual interpretation in one semantic source.",
+        "low": "Output inspection suggests attention but no complete trade-off statement."
+      },
+      "aicft_alignment": [
+        "LO3.2.1",
+        "LO3.2.3"
+      ]
+    },
+    {
+      "id": "B14",
+      "name": "Data fairness and class-balance awareness",
+      "purpose": "Recognize that unequal class distribution affects model reliability and fairness.",
+      "theoretical_construct": "data ethics and algorithmic fairness awareness",
+      "current_rubric_diagnosis": "Gap: AI-CFT ethical dimension not represented in B0-B13.",
+      "operational_definition": "Code when the learner notices or explicitly responds to class imbalance in the dataset — a condition where one outcome class has substantially more cases — and connects this observation to a modeling or evaluation decision.",
+      "acquire_criteria": [
+        "Learner pauses on or inspects the class distribution (e.g., scrolls the data table to count cases, examines a bar chart showing class frequencies).",
+        "An observation about unequal class counts is expressed or used in a connected action."
+      ],
+      "deepen_criteria": [
+        "Learner explicitly connects class imbalance to potential bias, unfair prediction, or unreliable accuracy.",
+        "Learner adjusts strategy (e.g., evaluates MCR rather than raw accuracy, changes leaf labels, or flags the limitation) as a response to imbalance."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Written note about class frequencies or imbalance.",
+          "Justification of metric choice referencing class distribution."
+        ],
+        "video": [
+          "Visible pause or scrolling over data table with attention to class column.",
+          "Student points to or highlights the minority class.",
+          "Strategy change following inspection of class frequencies."
+        ],
+        "transcript": [
+          "Explicit mention of unequal class counts or fairness concern.",
+          "Statement connecting class distribution to accuracy or metric choice."
+        ],
+        "log": [
+          "Log cannot establish B14 alone; class-column inspection is not logged."
+        ]
+      },
+      "video_evidence_indicators": [
+        "cursor tracks values in target/class column",
+        "data table sorted or filtered by class label",
+        "visible dwell on class frequency display before model action"
+      ],
+      "exclusion_rules": [
+        "Correct model produced without any observable class-balance inspection.",
+        "Generic mention of fairness without connection to the dataset distribution."
+      ],
+      "common_coding_errors": [
+        "Crediting B14 because the model happened to handle imbalance correctly.",
+        "Treating any target inspection as class-balance awareness."
+      ],
+      "relations": "B14 can inform B5 (positive-class framing) and B8 (metric interpretation); it is independent of B3.",
+      "llm_coding_notes": "Require visible inspection of class distribution AND a connected observation or strategy change. A correctly labeled tree with no distribution inspection is not_observed.",
+      "confidence": {
+        "high": "Explicit class-balance statement plus a connected modeling or evaluation decision.",
+        "medium": "Visible inspection of class column with a strategy change but no explicit statement.",
+        "low": "Pause on class column observable but no connected decision."
+      },
+      "aicft_alignment": [
+        "LO3.3.2",
+        "LO4.1"
+      ],
+      "measurement_modality": "video_primary",
+      "log_derivable": false
+    },
+    {
+      "id": "B15",
+      "name": "Systematic parameter exploration (VOTAT)",
+      "purpose": "Apply a Vary-One-Thing-At-A-Time strategy when iterating model parameters.",
+      "theoretical_construct": "scientific inquiry and controlled experimentation",
+      "current_rubric_diagnosis": "Gap: iteration quality not captured in B6 or B7. PISA CPS and inquiry-task research identifies VOTAT as the strongest predictor of successful exploration.",
+      "operational_definition": "Code when the learner changes exactly one model parameter (predictor, threshold, or target) between successive tree submissions or threshold updates, holding all other parameters constant, in at least two consecutive iterations.",
+      "acquire_criteria": [
+        "At least two consecutive iterations change only one parameter each.",
+        "The learner observes the result before changing the next parameter (visible pause or emit between changes)."
+      ],
+      "deepen_criteria": [
+        "Three or more consecutive VOTAT iterations, each informed by the prior result.",
+        "The learner articulates which parameter produced which change (in transcript or worksheet)."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Recorded comparison of model results across iterations with one variable changing at a time."
+        ],
+        "video": [
+          "Single-parameter change between submits, followed by visible result inspection.",
+          "Cursor returns to CTR/output before next parameter change."
+        ],
+        "transcript": [
+          "Statement identifying which parameter was varied and what changed as a result."
+        ],
+        "log": [
+          "Sequence of emit_tree_data events with change_split_values or drop_attribute events between them; VOTAT rate = fraction of inter-emit intervals with exactly one parameter change.",
+          "Log is the PRIMARY source for B15: VOTAT rate can be computed directly from the event sequence."
+        ]
+      },
+      "video_evidence_indicators": [
+        "only one split value changed between consecutive emits",
+        "student pauses to inspect CTR row before next change",
+        "no predictor swap between consecutive threshold changes"
+      ],
+      "exclusion_rules": [
+        "Multiple parameters changed simultaneously between submits.",
+        "No emit between parameter changes (parameter changed without observing result).",
+        "Single iteration only — VOTAT requires a repeated pattern."
+      ],
+      "common_coding_errors": [
+        "Crediting VOTAT for a single isolated change.",
+        "Ignoring cases where the student emits without inspecting the result."
+      ],
+      "relations": "B15 is a quality modifier for B6 and B7; high B15 suggests deliberate strategy within B6/B7 episodes.",
+      "llm_coding_notes": "Use SESSION_CONTEXT.prior_split_values and prior_predictor to detect single-parameter change. Require at least two consecutive VOTAT-compliant iterations.",
+      "confidence": {
+        "high": "Three or more consecutive VOTAT iterations with visible result inspection.",
+        "medium": "Two consecutive VOTAT iterations confirmed from log sequence.",
+        "low": "Pattern is consistent with VOTAT but only one inter-emit interval is observable."
+      },
+      "aicft_alignment": [
+        "LO3.2.2"
+      ],
+      "measurement_modality": "log_primary",
+      "log_derivable": true
+    },
+    {
+      "id": "B16",
+      "name": "Error recovery and adaptive correction",
+      "purpose": "Detect, diagnose, and correct a modeling error or unexpected outcome.",
+      "theoretical_construct": "self-regulated learning and adaptive error recovery",
+      "current_rubric_diagnosis": "Gap: error events are logged but self-initiated detection and corrective action are not coded. Error recovery literature (SRL, MMLA) identifies this as a key metacognitive indicator.",
+      "operational_definition": "Code when the learner detects an error or unexpected model outcome — before or without an explicit system error message — and takes a corrective action that addresses the root cause rather than repeating the same move.",
+      "acquire_criteria": [
+        "A deletion, undo, or systematic rebuild follows a visible error state or unexpected result.",
+        "The corrective action differs from the preceding failed action (not a blind repeat)."
+      ],
+      "deepen_criteria": [
+        "The learner diagnoses the cause of the error (wrong predictor, incorrect threshold, wrong target) and makes a targeted change.",
+        "The correction leads to an improved model outcome in the next emit."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Written reflection on what went wrong and what was changed."
+        ],
+        "video": [
+          "Visible deletion or rebuild following inspection of an error state.",
+          "Different action taken compared to the prior failed attempt.",
+          "Cursor tracks error indicator (e.g., high MCR leaf, wrong label) before correction."
+        ],
+        "transcript": [
+          "Student names the error and explains the corrective action.",
+          "Expression of surprise or recalibration after unexpected result."
+        ],
+        "log": [
+          "DELETE_TREE_OR_CTR_ROW event followed by drop_attribute with a different attribute.",
+          "Sequence: unexpected emit result → parameter change (different from prior) → improved emit.",
+          "Log supports episode detection but cannot confirm self-initiated vs. system-prompted detection."
+        ]
+      },
+      "video_evidence_indicators": [
+        "tree deleted after inspecting high-error leaf",
+        "predictor changed to a different attribute after failed emit",
+        "student pauses at error state before corrective action"
+      ],
+      "exclusion_rules": [
+        "Correction prompted solely by an explicit system error popup (system-cued, not self-initiated).",
+        "Same action repeated after error (perseveration, not recovery).",
+        "Tree deleted without observable inspection of the error state."
+      ],
+      "common_coding_errors": [
+        "Scoring a system-prompted correction as self-initiated B16.",
+        "Treating any deletion as error recovery without evidence of prior error inspection."
+      ],
+      "relations": "B16 is the corrective complement of B7; a B16 episode typically follows a B7 episode that produced an unsatisfactory result. B16 Deepen requires B8 evidence (the error was in the metrics).",
+      "llm_coding_notes": "Require: (1) evidence of error inspection in this or the prior frame, (2) corrective action that differs from the failed action. If deletion followed by identical rebuild, return not_observed.",
+      "confidence": {
+        "high": "Self-initiated detection plus targeted correction plus improved outcome.",
+        "medium": "Corrective action observable and differs from prior, but detection is indirect.",
+        "low": "Deletion observable but corrective intent is inferred without direct evidence."
+      },
+      "aicft_alignment": [
+        "LO3.2.3"
+      ],
+      "measurement_modality": "video_primary",
+      "log_derivable": false
+    },
+    {
+      "id": "B17",
+      "name": "Pre-task planning and orientation",
+      "purpose": "Establish task understanding and a modeling strategy before the first active intervention.",
+      "theoretical_construct": "planning and forethought phase of self-regulated learning (Zimmerman)",
+      "current_rubric_diagnosis": "Gap: PISA 2012 and TIMSS PSI research identify pre-action pause and task-description revisit as strong predictors of strategy quality. Not represented in B0-B13.",
+      "operational_definition": "Code when the learner demonstrates intentional task orientation before or instead of immediately beginning to manipulate the model: reading or re-reading the task prompt, inspecting the dataset with no immediate action, or verbalizing a plan.",
+      "acquire_criteria": [
+        "A pre-action pause of at least 15 seconds is observable before the first model manipulation (drop_attribute or set_dependent_variable).",
+        "During the pause, the learner visibly consults the task prompt, data table, or worksheet."
+      ],
+      "deepen_criteria": [
+        "The learner re-reads the task or inspects data after a failed attempt (re-orientation, not just initial planning).",
+        "A stated plan or strategy is expressed before a new modeling sequence."
+      ],
+      "create_criteria": "Not applicable.",
+      "observable_evidence": {
+        "worksheet": [
+          "Planning notes or strategy description written before model construction begins."
+        ],
+        "video": [
+          "Visible dwell on task prompt or data table before first drop_attribute.",
+          "Scrolling or reading behavior with no model manipulation.",
+          "Re-reading after a failed iteration."
+        ],
+        "transcript": [
+          "Explicit statement of a plan or goal before starting.",
+          "Re-orientation statement after an unexpected result."
+        ],
+        "log": [
+          "Time from session start to first drop_attribute is the primary log indicator.",
+          "Long pre-first-action interval (>30s) is consistent with B17 but not sufficient alone — must be corroborated by video or transcript."
+        ]
+      },
+      "video_evidence_indicators": [
+        "cursor stationary on data table before first tree action",
+        "visible reading or scrolling of task description",
+        "no model panel interaction during pause window"
+      ],
+      "exclusion_rules": [
+        "Pause caused by interface loading or technical delay.",
+        "Immediate model manipulation with no observable task inspection.",
+        "Worksheet written after model is complete (post-hoc, not planning)."
+      ],
+      "common_coding_errors": [
+        "Crediting B17 for any pre-first-action pause regardless of what the student was doing.",
+        "Treating worksheet completion alone as planning without video corroboration."
+      ],
+      "relations": "B17 is a session-opening behavior that predicts strategy quality in B4, B6, and B15. High B17 + high B15 is the strongest indicator of deliberate inquiry.",
+      "llm_coding_notes": "Check SESSION_CONTEXT.time_since_session_start. If <15s and no task-prompt consultation is visible, return not_observed. Only the first 2 minutes of the session are the primary window for Acquire; Deepen can occur after any failed iteration.",
+      "confidence": {
+        "high": "Visible task-prompt reading or data inspection plus pre-action pause >30s, corroborated by transcript.",
+        "medium": "Pre-action pause >15s with visible data table consultation but no verbal plan.",
+        "low": "Pause observable but student activity during pause is ambiguous."
+      },
+      "aicft_alignment": [
+        "LO3.1.1",
+        "LO3.2.1"
+      ],
+      "measurement_modality": "video_primary",
+      "log_derivable": false
+    }
+  ],
+  "dependency_rules": [
+    "B11 requires B2 and B6 evidence but neither B2 nor B6 implies B11.",
+    "B7 requires coherent target/model structure; B10 is a local refinement of B7, not a synonym.",
+    "B8 requires valid model output; B12 requires at least two outputs and an explicit comparison.",
+    "B13 requires class/error semantics and metric interpretation; B8 does not imply B13.",
+    "B9 is a generalization branch after B7 and is not required for all B8 evidence."
+  ],
+  "publication_gate": {
+    "expert_panel": "Use at least 8-10 international experts spanning content, learning sciences, measurement, MMLA, and HCI.",
+    "content_validity": "I-CVI >= 0.78 for every behavior and S-CVI/Ave >= 0.90.",
+    "human_interrater": "Per-behavior weighted Cohen kappa and ordinal Krippendorff alpha >= 0.80 on an untouched validation sample.",
+    "human_llm": "Per-behavior reporting plus macro precision, recall, and F1; macro-F1 >= 0.80.",
+    "current_status": "Unmet: no expert CVI or independent human-coded pilot data are currently available."
+  }
+}

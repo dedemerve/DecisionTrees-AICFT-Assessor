@@ -29,7 +29,48 @@ from typing import Any
 REPO = Path(__file__).resolve().parents[1]
 OUT_2025 = REPO / "training_datasets" / "2025"
 OUT_2026 = REPO / "training_datasets" / "2026"
-GAPS_PATH = REPO / "data_sources_2025" / "rubric_gaps_2025.json"
+def _gaps_path(cohort_year: int) -> Path:
+    return REPO / f"data_sources_{cohort_year}" / f"rubric_gaps_{cohort_year}.json"
+
+
+def _load_gaps(path: Path, cohort_year: int) -> tuple[dict[str, Any], bool]:
+    """Load rubric gaps JSON. Returns (doc, loaded_ok).
+
+    Logs an explicit WARNING when the file is missing so the absence is
+    never silently swallowed. The caller propagates loaded_ok into the
+    session_manifest data_availability block.
+    """
+    if path.is_file():
+        return load_json(path), True
+    LOGGER.warning(
+        "WARNING: Rubric gaps file for %d not found at %s. "
+        "Falling back to default empty schema. "
+        "Run with --init-missing-gaps to scaffold the file.",
+        cohort_year,
+        path,
+    )
+    return {"gaps": [], "document_id": f"rubric_gaps_{cohort_year}_MISSING", "schema_version": "4.1"}, False
+
+
+def _init_gaps_file(path: Path, cohort_year: int) -> None:
+    """Write an empty rubric_gaps scaffold, borrowing schema from 2025 if available."""
+    reference = _gaps_path(2025)
+    if reference.is_file():
+        base = load_json(reference)
+    else:
+        base = {"schema_version": "4.1", "gaps": []}
+
+    scaffold: dict[str, Any] = {
+        "document_id": f"rubric_gaps_{cohort_year}_codap_arbor",
+        "schema_version": base.get("schema_version", "4.1"),
+        "source_cohort": str(cohort_year),
+        "derived_from": f"Behavioral observation transcripts for {cohort_year} cohort (scaffold — populate before use)",
+        "note": "Auto-generated empty scaffold. Add gap entries before running analysis.",
+        "gaps": [],
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(scaffold, indent=2, ensure_ascii=False))
+    LOGGER.info("Scaffolded empty gaps file: %s", path)
 BUNDLE_VERSION = "2.0-process-only"
 
 _SKIP_DIRS = {"adjudication", "hf_export"}
@@ -59,6 +100,25 @@ from video_log_process_metadata import build_log_unavailable_metadata
 
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_alignment(path: Path) -> dict[str, Any]:
+    """Load a gold_behavior_alignment file.
+
+    Accepts both:
+    - .v1.json  : single JSON object with {"alignments": [...]} structure
+    - .v1.jsonl : one alignment row per line (produced by finalize_2026_gold_alignment.py)
+
+    Always returns a dict with an "alignments" list so callers are uniform.
+    """
+    text = path.read_text(encoding="utf-8").strip()
+    if path.suffix == ".jsonl" or "\n{" in text:
+        rows = [json.loads(line) for line in text.splitlines() if line.strip()]
+        return {"alignments": rows}
+    doc = json.loads(text)
+    if "alignments" not in doc and isinstance(doc, list):
+        return {"alignments": doc}
+    return doc
 
 
 def write_json(path: Path, data: dict[str, Any]) -> None:
@@ -266,7 +326,9 @@ def process_student(
         layout = "v2"
         out_dir = OUT_2026 / student_id / session_id
         obs_path = out_dir / "intermediate" / f"{student_id}_observation_steps.json"
-        align_path = out_dir / "annotations" / f"{student_id}_gold_behavior_alignment.v1.json"
+        _align_json = out_dir / "annotations" / f"{student_id}_gold_behavior_alignment.v1.json"
+        _align_jsonl = out_dir / "annotations" / f"{student_id}_gold_behavior_alignment.v1.jsonl"
+        align_path = _align_jsonl if _align_jsonl.is_file() else _align_json
         annotations_dir = out_dir / "annotations"
         metadata_dir = out_dir / "metadata"
     else:
@@ -278,12 +340,32 @@ def process_student(
         metadata_dir = out_dir
 
     if not obs_path.is_file():
-        raise FileNotFoundError(f"Missing {obs_path}")
+        LOGGER.warning("[%s] observation_steps.json not found — skipping (blocked_missing_raw_data)", student_id)
+        return {
+            "student_id": student_id,
+            "session_id": session_id,
+            "status": "blocked_missing_raw_data",
+            "data_availability": {
+                "observation_steps": False,
+                "gold_alignment": align_path.is_file(),
+                "status": "blocked_missing_raw_data",
+            },
+        }
     if not align_path.is_file():
-        raise FileNotFoundError(f"Missing {align_path}")
+        LOGGER.warning("[%s] gold_behavior_alignment not found — skipping (blocked_missing_raw_data)", student_id)
+        return {
+            "student_id": student_id,
+            "session_id": session_id,
+            "status": "blocked_missing_raw_data",
+            "data_availability": {
+                "observation_steps": True,
+                "gold_alignment": False,
+                "status": "blocked_missing_raw_data",
+            },
+        }
 
     obs_doc = load_json(obs_path)
-    align_doc = load_json(align_path)
+    align_doc = load_alignment(align_path)
     align_by_step = {
         int((a.get("metadata") or {}).get("observation_step_index")): a
         for a in (align_doc.get("alignments") or [])
@@ -463,13 +545,27 @@ def main() -> None:
                     help="Process all students/sessions in the cohort")
     ap.add_argument("--all-2025", action="store_true",
                     help="Shorthand for --year 2025 --all (backward compat)")
+    ap.add_argument(
+        "--init-missing-gaps",
+        action="store_true",
+        help=(
+            "If rubric_gaps_{year}.json is absent, create an empty scaffold "
+            "using the 2025 file's schema and exit"
+        ),
+    )
     args = ap.parse_args()
 
     if args.all_2025:
         args.year = 2025
         args.all_cohort = True
 
-    gaps_doc = load_json(GAPS_PATH) if GAPS_PATH.is_file() else {"gaps": []}
+    gaps_path = _gaps_path(args.year)
+
+    if args.init_missing_gaps and not gaps_path.is_file():
+        _init_gaps_file(gaps_path, args.year)
+        return
+
+    gaps_doc, rubric_gaps_loaded = _load_gaps(gaps_path, args.year)
 
     ok = 0
     summaries: list[dict[str, Any]] = []
@@ -564,6 +660,30 @@ def main() -> None:
         total = len(pairs)
 
     LOGGER.info("Done %d/%d", ok, total)
+
+    blocked = [s for s in summaries if s.get("status") == "blocked_missing_raw_data"]
+    errors = [s for s in summaries if s.get("status") == "error"]
+    if args.all_cohort or args.all_2025:
+        health = {
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "cohort_year": args.year,
+            "total": total,
+            "complete": ok,
+            "blocked_missing_raw_data": len(blocked),
+            "errors": len(errors),
+            "data_availability": {
+                "rubric_gaps_loaded": rubric_gaps_loaded,
+                "rubric_gaps_path": str(gaps_path),
+            },
+            "blocked_students": [
+                {"student_id": s.get("student_id"), "session_id": s.get("session_id"),
+                 "data_availability": s.get("data_availability")}
+                for s in blocked
+            ],
+        }
+        health_path = REPO / "pipeline_data_health.json"
+        write_json(health_path, health)
+        LOGGER.info("Health report → %s", health_path)
 
 
 if __name__ == "__main__":

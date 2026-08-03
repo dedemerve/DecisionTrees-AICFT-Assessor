@@ -1,0 +1,514 @@
+{
+  "review_id": "MMLA-Q1-GATE-2026-001",
+  "review_date": "2026-07-20",
+  "reviewer_role": "q1_methodology_editor",
+  "package_reviewed": [
+    "2025_calibration_dataset.json",
+    "validation_raw_scores.json",
+    "validation_metrics.json",
+    "fewshot_examples.json"
+  ],
+  "observed_facts": {
+    "n_calibration_frames": 2753,
+    "n_students": 17,
+    "n_validation_frames": 219,
+    "model": "claude-haiku-4-5-20251001",
+    "macro_f1": 0.2063,
+    "macro_kappa": 0.1007,
+    "metrics_verdict": "REFINE",
+    "label_source_dominant": "nearest_gold_silver_anchor (2753/2753 = %100)",
+    "silver_confidence_dominant": "none (2753/2753 = %100 — güven puanı atanmamış)",
+    "absolute_paths_present": true,
+    "absolute_path_count": 2753,
+    "human_human_irr_present": false,
+    "fewshot_positive_examples": 0,
+    "fewshot_negative_only_behaviors": [
+      "B0",
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6",
+      "B7",
+      "B8",
+      "B9",
+      "B10",
+      "B11",
+      "B12",
+      "B15",
+      "B16",
+      "B17"
+    ],
+    "fewshot_zero_example_behaviors": [
+      "B13",
+      "B14"
+    ],
+    "behaviors_present": [
+      "B0",
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6",
+      "B7",
+      "B8",
+      "B9",
+      "B10",
+      "B11",
+      "B12",
+      "B15",
+      "B16",
+      "B17"
+    ],
+    "process_ids_mixed_into_rubric": [
+      "B15",
+      "B16",
+      "B17"
+    ],
+    "b13_b14_excluded_from_validation": true,
+    "behaviors_f1_zero": [
+      "B0",
+      "B3",
+      "B15",
+      "B16",
+      "B17"
+    ],
+    "behaviors_kappa_negative": [
+      "B0",
+      "B3",
+      "B8",
+      "B17"
+    ],
+    "behaviors_above_06_f1": [
+      "B5",
+      "B7"
+    ],
+    "behaviors_above_06_kappa": []
+  },
+  "artifact_scores": {
+    "calibration_dataset": {
+      "score_1_to_4": 2,
+      "rationale_tr": "Pipeline dokümantasyonu ve frame yapısı tutarlı; 2753 frame değerli bir hammadde. Ancak tüm etiketler nearest_gold_silver_anchor miras zincirine dayalı, silver_confidence=none. Bağımsız gold kodlama yok, insan-insan IRR yok, tüm yollar makineye özgü mutlak path. Ön işleme ve davranış tespiti script-bazlı (B15-B17 algoritmik). Pilot/internal kalitesinde; Q1 appendix için major revision gerektirir."
+    },
+    "validation_raw_scores": {
+      "score_1_to_4": 2,
+      "rationale_tr": "Format eksiksiz, model skoru frame başına kaydedilmiş, resume mekanizması çalışıyor. Sorun: gold karşı alınan etiket bağımsız değil (RF01). Aynı miras zinciri. Grain = tek frame; deployment grain = session-level. B8 FP=115 prompt drift olduğunu gösteriyor. Yinelemeli geliştirme için kullanışlı ama yayımlanabilir bağımsız güvenilirlik kanıtı değil."
+    },
+    "validation_metrics": {
+      "score_1_to_4": 2,
+      "rationale_tr": "κ ve F1 hesaplama kodu metodolojik olarak doğru. Raporlama eksiksiz (TP/FP/FN/TN per behavior). Ancak sonuçların kendisi yayımlanamaz: macro_F1=0.206, macro_κ=0.101, eşiklerin çok altında. Beş behavior F1=0.000. Kappa paradoksu riski yüksek (B0, B3, B8, B17 negatif κ). Sınıf dengesizliği görmezden gelinmiş. Verdict=REFINE, proceede geçilemez."
+    },
+    "fewshot_examples": {
+      "score_1_to_4": 1,
+      "rationale_tr": "Kritik kusur: 18 davranışın tamamında score=2 (pozitif örnek) yok; yalnızca score=0 örnekler mevcut. Few-shot learning pozitif ankor olmadan Deepen seviyesini kalibre edemez. B13 ve B14 hiç örnek içermiyor. Tüm örneklerde mutlak path. Aynı 17 öğrenci hem kalibrasyon hem few-shot havuzunda (student leakage). Mevcut haliyle scorer'ı yanlı yapılandırır; geçersiz/yanıltıcı."
+    }
+  },
+  "claim_decisions": [
+    {
+      "claim_id": "C1",
+      "decision": "not_supported",
+      "rationale_tr": "Tüm 2753 frame etiketi nearest_gold_silver_anchor + silver_confidence=none. Bu etiket bağımsız gold değil; bir uzmanın gözlem adımlarından otomatik miras alınan yaklaşık etikettir. Bağımsız çift-kodlama, adjudikasyon ve insan-insan IRR yoktur. RF01 ve RF05 bu iddiayı tamamen engeller.",
+      "blocking_red_flags": [
+        "RF01",
+        "RF05"
+      ]
+    },
+    {
+      "claim_id": "C2",
+      "decision": "not_supported",
+      "rationale_tr": "macro_F1=0.206 (eşik 0.80), macro_κ=0.101 (eşik 0.60). 16 behavior'dan hiçbiri Q1 güvenilirlik eşiğini geçemiyor. B0, B3, B15, B16, B17 F1=0.000. Kural 4 uyarınca metrics verdict=REFINE ve macro eşik altı → C2 not_supported.",
+      "blocking_red_flags": [
+        "RF05",
+        "RF06",
+        "RF07",
+        "RF11"
+      ]
+    },
+    {
+      "claim_id": "C3",
+      "decision": "not_supported",
+      "rationale_tr": "fewshot_examples.json'daki 18 behavior için 0 pozitif örnek bulunuyor. Negatif-only few-shot Deepen seviyesi için hiçbir pozitif ankor sağlamaz. B13/B14 sıfır örnekli. Student leakage mevcut. RF07 ve RF08 bu iddiayı engeller.",
+      "blocking_red_flags": [
+        "RF07",
+        "RF08",
+        "RF10"
+      ]
+    },
+    {
+      "claim_id": "C4",
+      "decision": "supported_with_major_revision",
+      "rationale_tr": "Pipeline mimarisi, rubric tasarımı ve multi-modal entegrasyon Q1 method/dataset paper için doğru zemin. Ancak yayım öncesi zorunlu düzeltmeler: bağımsız çift-kodlama (IRR), mutlak path kaldırma, pozitif few-shot örnekleri, process behavior ayrımının metodoloji bölümünde açıklanması, model/prompt provenance belgelenmesi.",
+      "blocking_red_flags": []
+    },
+    {
+      "claim_id": "C5",
+      "decision": "not_supported",
+      "rationale_tr": "Session-level Acquire/Deepen skoru henüz üretilmemiş. Kural 3 uyarınca session coverage ve adjudikasyon olmadan öğrenci yeterliği iddiası desteklenemez. Validation REFINE verdiktiyle 2026 skorlama henüz başlatılmamış.",
+      "blocking_red_flags": [
+        "RF01",
+        "RF05",
+        "RF06",
+        "RF11",
+        "RF12"
+      ]
+    },
+    {
+      "claim_id": "C6",
+      "decision": "insufficient_evidence",
+      "rationale_tr": "Rubric yapısı detaylı ve referans çerçevesiyle (AI-CFT, PISA VOTAT) hizalı. Ancak CVI/CVR paneli yapılmamış, construct-process ayrımı (B0-B13 vs B15-B17) validasyon metninde netleştirilmemiş, confirmatory analiz (CFA/IRT) yok. Yapısal kapsam yeterli görünüyor; kanıt yetersiz.",
+      "blocking_red_flags": [
+        "RF02",
+        "RF03"
+      ]
+    }
+  ],
+  "gate_results": [
+    {
+      "gate_id": "G0",
+      "pass": false,
+      "severity": "fail_critical",
+      "findings_tr": "Tüm etiketler session-level uzman gözlem adımlarından frame düzeyine miras alınmış. silver_confidence=none (2753/2753). Frame presence ≠ session-level behavior. B0 FN=16 vakasında Claude doğru \"veri tablosu yok\" diyor; uzman etiketi session segmentini yansıtıyor. Grain uyuşmazlığı metodolojik."
+    },
+    {
+      "gate_id": "G1",
+      "pass": false,
+      "severity": "fail_major",
+      "findings_tr": "B15 (VOTAT), B16 (error recovery), B17 (planning) süreç davranışları aynı rubrik ve aynı scorer içinde B0-B13 construct davranışlarıyla birleştirilmiş. B15 log-derived; frame başına F1=0.000. B13 transcript-only; validation'dan hariç tutulmuş ama fewshot havuzunda listede. Construct–process kirlenmesi sistematik."
+    },
+    {
+      "gate_id": "G2",
+      "pass": false,
+      "severity": "fail_critical",
+      "findings_tr": "İnsan-insan IRR yok. Tek rater (uzman AI agent pipeline). LLM-human karşılaştırması var ama IRR olmadan validated iddiası yapılamaz. κ paradoksu: B0 (pos=%11), B3 (pos=%8), B8 (pos=%4) düşük prevalans → yüksek TN → κ negatif veya sıfır. Sınıf dengesi raporlanmamış."
+    },
+    {
+      "gate_id": "G3",
+      "pass": false,
+      "severity": "fail_major",
+      "findings_tr": "N=17 öğrenci, 219 validation frame. 2025 Food dataseti → 2026 Titanic/Xeno: dataset shift. Aynı 17 öğrenci hem kalibrasyon hem few-shot hem validation'da (student leakage). Generalizability sınırlı; tek sınıf, tek context, tek dönem."
+    },
+    {
+      "gate_id": "G4",
+      "pass": false,
+      "severity": "fail_critical",
+      "findings_tr": "Ölçüm birimi = tek video frame (~3-5 saniye). Deployment hedefi = session-level Deepen/Acquire. Frame-level F1 session-level reliability'ı temsil etmez. Örnek: B15 tek frame F1=0.000 ama log-derived B15 aynı öğrenci için Deepen gösteriyor. Grain uyuşmazlığı bağlayıcı hata."
+    },
+    {
+      "gate_id": "G5",
+      "pass": false,
+      "severity": "fail_major",
+      "findings_tr": "Tüm 2753 frame ve tüm fewshot örnek absolut path içeriyor (/Users/mrved/...). Non-portable. Model provenance eksik: hangi sistem prompt versiyonu kullanıldı? Prompt hash yok. Ethics: öğrenci video verisi; çalışma sırasında IRB/etik belge referansı yok."
+    },
+    {
+      "gate_id": "G6",
+      "pass": false,
+      "severity": "fail_major",
+      "findings_tr": "Per-behavior TP/FP/FN/TN raporlanmış (olumlu). Ancak: multi-label aggregation yöntemi (bir frame'de aynı anda B5+B7+B12 pozitif) bağımsızlık varsayımını ihlal ediyor. Makro-F1 ağırlıksız ortalama; prevalans farklılığı (B17: %2.6 vs B4: %37.9) görmezden gelinmiş. Weighted ve macro birlikte raporlanmalı."
+    },
+    {
+      "gate_id": "G7",
+      "pass": false,
+      "severity": "fail_critical",
+      "findings_tr": "fewshot_examples.json: 18 behavior × 3 örnek = 54 kayıt; tamamı score=0 (negatif). score=2 (Deepen) örneği sıfır. B13 ve B14 hiç örnek yok. Few-shot'un scorer'ı Deepen yönünde kalibre edecek pozitif ankorları eksik. Bu yapıda scorer sistematik olarak Deepen'i kaçırır."
+    }
+  ],
+  "red_flags": [
+    {
+      "id": "RF01",
+      "triggered": true,
+      "severity": "critical",
+      "evidence": "label_source: nearest_gold_silver_anchor = %100; silver_confidence: none = %100. Bağımsız gold kodlama yok; etiketler session-level uzman adımından frame düzeyine miras alınmış."
+    },
+    {
+      "id": "RF02",
+      "triggered": true,
+      "severity": "major",
+      "evidence": "B15 (VOTAT süreç davranışı), B16 (hata kurtarma), B17 (planlama) aynı scorer'da B0-B13 construct davranışlarıyla birleştirilmiş. Validasyon metninde ayrım belirtilmemiş."
+    },
+    {
+      "id": "RF03",
+      "triggered": true,
+      "severity": "major",
+      "evidence": "B13 validation'dan hariç (transcript-only); B14 hariç (2025 etiketi yok). Ancak B15/B16/B17 dahil edilmiş, F1=0.000. Bu behavior'ların 2025'te gerçek insan etiketi yok; algoritmik tespite dayanıyor."
+    },
+    {
+      "id": "RF04",
+      "triggered": false,
+      "severity": "none",
+      "evidence": "emit_count_so_far B7 ve B15 için SESSION_CONTEXT olarak kullanılıyor; B8'i proxy saymıyor. Doğrudan ihlal gözlemlenmedi."
+    },
+    {
+      "id": "RF05",
+      "triggered": true,
+      "severity": "critical",
+      "evidence": "İnsan-insan IRR hiçbir artefaktta raporlanmamış. Tek kaynak: uzman AI agent çıktısı. Validated iddiası için minimum çift-kodlama + κ ≥ 0.70 gerekir."
+    },
+    {
+      "id": "RF06",
+      "triggered": true,
+      "severity": "critical",
+      "evidence": "macro_F1=0.206 (eşik 0.80), macro_κ=0.101 (eşik 0.60). Tüm behavior'lar eşiğin altında. verdict=REFINE. Proceed kararı verilemez."
+    },
+    {
+      "id": "RF07",
+      "triggered": true,
+      "severity": "major",
+      "evidence": "B17: %2.6 pozitif (n=72/2753), B8: %3.3 (n=92). B4: %37.9 (n=1043). Sınıf dengesizliği κ paradoksunu tetikler. B0 κ=-0.024, B3 κ=-0.047, B8 κ=-0.017 (chance'den kötü). Dengesizlik düzeltmesi uygulanmamış."
+    },
+    {
+      "id": "RF08",
+      "triggered": true,
+      "severity": "major",
+      "evidence": "Kalibrasyon: 17 öğrenci. Fewshot: aynı 17 öğrenci havuzu. Validation sample: aynı 17 öğrenci. Student leakage: model, kalibre edildiği öğrencilerin karelerini validate ediyor."
+    },
+    {
+      "id": "RF09",
+      "triggered": true,
+      "severity": "major",
+      "evidence": "Tüm 2753 kalibrasyon frame'i ve 54 fewshot örneği /Users/mrved/Desktop/... absolut path içeriyor. Non-portable; reproduciblity imkansız."
+    },
+    {
+      "id": "RF10",
+      "triggered": true,
+      "severity": "major",
+      "evidence": "Kalibrasyon dataseti ve fewshot dosyasında sistem prompt versiyonu yok. Validation raw scores'da model adı var ama prompt hash/versiyon yok. Prompt değişikliği B8 FP'yi 6'dan 115'e çıkardı; bu değişim kayıt altında değil."
+    },
+    {
+      "id": "RF11",
+      "triggered": true,
+      "severity": "critical",
+      "evidence": "Validation grain: tek video frame (~3-5 sn). Deployment grain: session-level Deepen/Acquire (10-40 dakika). Frame-level F1=0.206 session-level güvenilirliği temsil etmez. Örnek: B15 frame F1=0.000; aynı öğrenci log-derived B15=Deepen."
+    },
+    {
+      "id": "RF12",
+      "triggered": true,
+      "severity": "critical",
+      "evidence": "Session-level Acquire/Deepen skoru henüz üretilmemiş. Final portfolio yok. Mevcut artefaktlar pilot altyapı; ana sonuç iddiası için yetersiz."
+    }
+  ],
+  "per_behavior_audit": [
+    {
+      "behavior_id": "B0",
+      "gold_definition_ok": false,
+      "n_gold_positive": 16,
+      "f1": 0.0,
+      "kappa": -0.024,
+      "q1_usable": false,
+      "note_tr": "Etiket grain sorunu: FN=16 kareler plugin landing page gösteriyor; uzman etiketi session segmentini yansıtıyor. Frame'de gözlemlenemez."
+    },
+    {
+      "behavior_id": "B1",
+      "gold_definition_ok": null,
+      "n_gold_positive": 31,
+      "f1": 0.276,
+      "kappa": 0.166,
+      "q1_usable": false,
+      "note_tr": "Axis-change detection kısmen çalışıyor; Q1 için F1≥0.8 gerekir."
+    },
+    {
+      "behavior_id": "B2",
+      "gold_definition_ok": null,
+      "n_gold_positive": 16,
+      "f1": 0.105,
+      "kappa": 0.084,
+      "q1_usable": false,
+      "note_tr": "Düşük prevalans (n=16) ve düşük F1. Movable value tespiti zayıf."
+    },
+    {
+      "behavior_id": "B3",
+      "gold_definition_ok": false,
+      "n_gold_positive": 17,
+      "f1": 0.0,
+      "kappa": -0.047,
+      "q1_usable": false,
+      "note_tr": "B0 ile aynı grain sorunu. FN=17: tree builder görünmüyor, uzman session'a bakıyor."
+    },
+    {
+      "behavior_id": "B4",
+      "gold_definition_ok": null,
+      "n_gold_positive": 93,
+      "f1": 0.256,
+      "kappa": 0.049,
+      "q1_usable": false,
+      "note_tr": "Yüksek prevalans (%37.9) ama düşük F1. Rationale bileşeni (b) zayıf tanınıyor."
+    },
+    {
+      "behavior_id": "B5",
+      "gold_definition_ok": null,
+      "n_gold_positive": 87,
+      "f1": 0.586,
+      "kappa": 0.215,
+      "q1_usable": false,
+      "note_tr": "En yüksek F1 dışında (B7 ile birlikte). FP=65: repeated-tree sorunu kısmen azaltıldı ama hâlâ yüksek. Promising."
+    },
+    {
+      "behavior_id": "B6",
+      "gold_definition_ok": null,
+      "n_gold_positive": 78,
+      "f1": 0.135,
+      "kappa": 0.051,
+      "q1_usable": false,
+      "note_tr": "Threshold iteration tespiti çok zayıf. FN=72: session context olmadan değişim görülemiyor."
+    },
+    {
+      "behavior_id": "B7",
+      "gold_definition_ok": null,
+      "n_gold_positive": 106,
+      "f1": 0.649,
+      "kappa": 0.289,
+      "q1_usable": false,
+      "note_tr": "En iyi performans. Görsel ağaç yapısı iyi tanınıyor. Major revision sonrası Q1 adayı olabilir."
+    },
+    {
+      "behavior_id": "B8",
+      "gold_definition_ok": null,
+      "n_gold_positive": 11,
+      "f1": 0.076,
+      "kappa": -0.017,
+      "q1_usable": false,
+      "note_tr": "Transcript bağımlılığı FN=6; prompt relaxation sonrası FP=115 patlaması. Transcript zorunluluğu kaldırılamaz."
+    },
+    {
+      "behavior_id": "B9",
+      "gold_definition_ok": null,
+      "n_gold_positive": 16,
+      "f1": 0.308,
+      "kappa": 0.267,
+      "q1_usable": false,
+      "note_tr": "Choosy plugin tespiti makul başlangıç. Düşük n sorun."
+    },
+    {
+      "behavior_id": "B10",
+      "gold_definition_ok": null,
+      "n_gold_positive": 47,
+      "f1": 0.194,
+      "kappa": 0.1,
+      "q1_usable": false,
+      "note_tr": "Derinlik tespiti zayıf; subgroup reasoning bileşeni görülemiyor."
+    },
+    {
+      "behavior_id": "B11",
+      "gold_definition_ok": null,
+      "n_gold_positive": 25,
+      "f1": 0.4,
+      "kappa": 0.358,
+      "q1_usable": false,
+      "note_tr": "Cross-representational transfer mantığı kısmen çalışıyor. FP=3 düşük (iyi). Major revision ile geliştirilebilir."
+    },
+    {
+      "behavior_id": "B12",
+      "gold_definition_ok": null,
+      "n_gold_positive": 29,
+      "f1": 0.317,
+      "kappa": 0.145,
+      "q1_usable": false,
+      "note_tr": "FP=72 hâlâ yüksek. CTR birikimini comparison saymama düzeltmesi kısmen işe yaradı (83→72)."
+    },
+    {
+      "behavior_id": "B13",
+      "gold_definition_ok": null,
+      "n_gold_positive": 0,
+      "f1": null,
+      "kappa": null,
+      "q1_usable": false,
+      "note_tr": "Validation'dan hariç tutulmuş (transcript-only). Doğru karar. Ayrı transcript-IRR ile değerlendirilmeli."
+    },
+    {
+      "behavior_id": "B14",
+      "gold_definition_ok": null,
+      "n_gold_positive": 0,
+      "f1": null,
+      "kappa": null,
+      "q1_usable": false,
+      "note_tr": "Validation'dan hariç tutulmuş (2025 etiketi yok). 2026 verisiyle ayrı validasyon gerekir."
+    },
+    {
+      "behavior_id": "B15",
+      "gold_definition_ok": false,
+      "n_gold_positive": 34,
+      "f1": 0.0,
+      "kappa": 0.0,
+      "q1_usable": false,
+      "note_tr": "Algoritmik etiket (detect_b15_steps). Frame-level F1=0.000 yapısal; log-derived. Ayrı log-validation raporlanmalı."
+    },
+    {
+      "behavior_id": "B16",
+      "gold_definition_ok": false,
+      "n_gold_positive": 19,
+      "f1": 0.0,
+      "kappa": 0.0,
+      "q1_usable": false,
+      "note_tr": "Algoritmik etiket. Tek frame'den error recovery görülmesi imkânsız. Ayrı video-episode kodlaması gerekir."
+    },
+    {
+      "behavior_id": "B17",
+      "gold_definition_ok": false,
+      "n_gold_positive": 22,
+      "f1": 0.0,
+      "kappa": -0.025,
+      "q1_usable": false,
+      "note_tr": "Algoritmik etiket. time_since_session_start SESSION_CONTEXT'te sağlanmıyor. Yapısal gap."
+    }
+  ],
+  "overall_q1_verdict": {
+    "package_sufficient_for_q1": false,
+    "highest_defensible_paper_type": "internal_pilot_or_method_development",
+    "score_1_to_4": 2,
+    "summary_tr": "Paket Q1 yayımı için yeterli değildir. Yedi kapının tamamı başarısız, 11/12 red flag tetiklenmiş. En temel sorunlar: (1) tüm etiketler miras zincirli, bağımsız gold yok (RF01); (2) IRR hiç yok (RF05); (3) macro_F1=0.206, 0.80 eşiğinin çok altında (RF06); (4) fewshot pozitif örneği sıfır (G7); (5) frame-session grain uyuşmazlığı bağlayıcı (RF11). Mevcut haliyle paket method development / pilot çalışma olarak raporlanabilir. C4 major revision ile Q1 method paper hedefi savunulabilir.",
+    "must_fix_before_submission": [
+      {
+        "priority": 1,
+        "issue_tr": "Bağımsız çift-kodlama yok",
+        "fix_tr": "En az 2 bağımsız kodlayıcı, rastgele örneklem frame'leri (≥200), Cohen κ ≥ 0.70 hedefi. Adjudikasyon protokolü.",
+        "maps_to_claim": "C1"
+      },
+      {
+        "priority": 2,
+        "issue_tr": "fewshot pozitif örnek sıfır",
+        "fix_tr": "Her behavior için ≥2 score=2 (Deepen) örneği ekle. B13/B14 için ayrı ek kaydı veya exclusion justification.",
+        "maps_to_claim": "C3"
+      },
+      {
+        "priority": 3,
+        "issue_tr": "Frame-session grain uyuşmazlığı",
+        "fix_tr": "Session-level davranış kararları için ayrı episode-based güvenilirlik ölçümü uygula. Frame-level F1 yalnızca ara adım olarak raporla.",
+        "maps_to_claim": "C2"
+      },
+      {
+        "priority": 4,
+        "issue_tr": "B15/B16/B17 algoritmik etiket — construct etiketi gibi sunuluyor",
+        "fix_tr": "Process behavior'ları ayrı metodoloji bölümünde tanımla. Log-derived (B15) ve video-episode-derived (B16, B17) ayrı validation raporla.",
+        "maps_to_claim": "C6"
+      },
+      {
+        "priority": 5,
+        "issue_tr": "Absolut path — non-portable dataset",
+        "fix_tr": "Tüm path'leri repo-root'a göre relatif yap. REPO_ROOT sabiti tüm scriptlerde kullanılıyor; dataset JSON'larında da uygulanmalı.",
+        "maps_to_claim": "C4"
+      },
+      {
+        "priority": 6,
+        "issue_tr": "Model/prompt provenance eksik",
+        "fix_tr": "Her skorlama çalışması için: model_id, prompt_hash (SHA256), timestamp kaydet. Validation raporu bu alanları içermeli.",
+        "maps_to_claim": "C4"
+      },
+      {
+        "priority": 7,
+        "issue_tr": "Student leakage: kalibrasyon = validation = fewshot havuzu",
+        "fix_tr": "2025 veri setini train/validation olarak böl veya 2026 öğrencilerini hold-out validation için kullan.",
+        "maps_to_claim": "C2"
+      }
+    ]
+  },
+  "recommended_reporting_language_tr": [
+    "GÜVENLİ: Bu çalışma, CODAP Arbor oturumlarından video frame düzeyinde davranış kodlaması için bir pilot pipeline geliştirmiştir. Pilot validasyonda (N=17, 219 frame) otomatik skorlayıcı ile uzman etiketleri arasında ortalama F1=0.21 (κ=0.10) elde edilmiştir. Bu sonuçlar, bağımsız insan-insan güvenilirlik çalışması tamamlanana dek ön nitelik taşımaktadır.",
+    "YASAK (overclaim): Otomatik skorlayıcı insan düzeyi güvenilirliğe ulaşmıştır.",
+    "YASAK: Validasyon sonuçları gold-standard frame etiketleriyle karşılaştırılmıştır.",
+    "YASAK: B15-B17 davranışları video-gözlem verisiyle doğrulanmıştır.",
+    "YASAK: Bu veri seti Q1 ana bulgular için yeterli kanıt sağlamaktadır."
+  ],
+  "confidence_in_this_review": "high",
+  "limitations_tr": "Bu inceleme artefakt dosyaları ve meta-verilerle sınırlıdır. Frame görüntüleri doğrudan analiz edilmemiştir. Uzman kodlama protokolünün tam dokümanı (codebook, rater training materials) incelenmemiştir. Etik/IRB belgesi mevcut olup olmadığı bilinmiyor."
+}

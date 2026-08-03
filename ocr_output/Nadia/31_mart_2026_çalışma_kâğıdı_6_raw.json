@@ -1,0 +1,61 @@
+{
+  "student_id": "Nadia",
+  "worksheet": "WS6",
+  "ws_snapshot": "Kök düğümde 'Şeker' değişkeni kullanılmış, eşik değer 18,5 olarak yazılmış (evet dalı >18,5, hayır dalı ≤18,5). Hayır dalındaki iç düğümde 'Yağ' değişkeni ile eşik 13,5 kullanılmış (evet dalı ≤13,5, hayır dalı >13). Evet dalındaki iç düğüm (Şeker >18,5) altında tavsiye edilebilir/edilemez kutucukları var ancak yaprak kutuları boş bırakılmış. Yağ düğümünün altındaki iki yaprak dolu: biri 'Tavsiye edilebilir', diğeri 'Tavsiye edilemez' yazılı.",
+  "page_notes": "Kök düğümdeki eşik değer 18,5 olarak okunmuş; sağ dal eşik değeri 13 ile sol dal eşik değeri 13,5 arasında küçük bir tutarsızlık var (öğrenci farklı yazmış olabilir). Şeker düğümünün (sol çocuk) altındaki iki yaprak kutusu boş bırakılmış, sadece çizgiler çekilmiş, herhangi bir sayı ya da etiket yok. [depth_1 sağ çocuk right_operator belirsiz: > veya ≥ olabilir, çubuk net görünmüyor]",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Şeker",
+        "left_operator": ">",
+        "left_threshold_value": 18.5,
+        "right_operator": "≤",
+        "right_threshold_value": 18.5
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": null,
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        },
+        "right_child": {
+          "parsed_feature": "Yağ",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "≤",
+          "left_threshold_value": 13.5,
+          "right_operator": ">",
+          "right_threshold_value": 13.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "left_right_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    }
+  }
+}

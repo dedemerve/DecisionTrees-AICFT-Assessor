@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "generated": "2026-07-13",
+  "description": "Students with confirmed silent audio across all formats (WAV, m4a, webm). RMS=0 at all sampled positions for all available audio files. Audio was not captured during Zoom recording — microphone was inactive or not configured at the OS/browser level. These students have no recoverable speech data.",
+  "verification_method": "ffprobe + ffmpeg raw PCM extraction (s16le 16kHz) at 30s offset, 60s window. All samples = 0 for all formats.",
+  "pipeline_instruction": "For sessions listed here: set transcript_context to null, set diarization_status to 'no_audio_captured', skip speech-anchor frame extraction, use motion_threshold + codap_log triggers only.",
+  "affected_sessions": [
+    {
+      "session": "21_april_2026",
+      "session_key": "codap_arbor_21april",
+      "students_no_audio": [
+        "Iris", "Irma", "Isabel", "Marco", "Nadia", "Sheila", "Ulysses", "Zara"
+      ],
+      "students_with_audio": [
+        "Amy", "Bruno", "Helena", "Marcus", "Shana"
+      ],
+      "note": "8/13 students silent. Diarization files for silent students show status=no_speech, segments=[]. Frame extraction ran in motion_only_fallback mode for these students."
+    },
+    {
+      "session": "28_april_2026",
+      "session_key": "codap_arbor_28april",
+      "students_no_audio": [
+        "Bruno", "Isabel", "Marco", "Nadia", "Serena", "Zara"
+      ],
+      "students_with_audio": [
+        "Irma", "Melinda", "Ulysses"
+      ],
+      "students_no_recording": [
+        "Iris", "Marcus", "Shana", "Sheila"
+      ],
+      "note": "6/9 students with recordings are silent. 4 students (Iris, Marcus, Shana, Sheila) have no audio directory at all — absent from session. Ulysses has diarization file but 0 segments. Irma and Melinda confirmed with audio."
+    }
+  ],
+  "total_affected_student_sessions": 14,
+  "methodology_note": "For affected students, MMLA v2 event JSON will carry transcript_context: null and behavioral_classification will rely solely on screen_ocr + log_context evidence. Confidence ratings will be downgraded from 'high' to 'medium' where speech would normally triangulate behavioral inferences. This limitation must be disclosed in the methodology section of any publication.",
+  "irrecoverable": true,
+  "recovery_attempts": [
+    "WAV RMS check: all zeros",
+    "m4a RMS check (via ffmpeg): all zeros",
+    "webm opus stream RMS check (map 0:a:0 and map 0:1): all zeros",
+    "Checked 30s window at 60s offset to avoid silence at recording start/end"
+  ]
+}

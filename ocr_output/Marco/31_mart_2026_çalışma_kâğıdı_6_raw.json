@@ -1,0 +1,47 @@
+{
+  "student_id": "Marco",
+  "worksheet": "WS6",
+  "ws_snapshot": "The tree shows a root node labeled 'Doymuş Yağ' with threshold 1 branching into two inner nodes. The left (evet) branch leads to a node showing 'Tavsiye edilebilir: 4, Tavsiye edilemez:' with food cards 'Salatalık, Elma, Patates, Kraker' and 'Ayçiçek çekirdeği/Jelibon' listed nearby. The right (hayır) branch leads to a node showing 'Tavsiye edilebilir: 2, Tavsiye edilemez: 3' with a card listing 'Yulaf, avokado'. The tree appears incomplete with no further depth_2 splits drawn, and several count fields are ambiguous or unlabeled.",
+  "page_notes": "Only one threshold value (1) is written near the root, positioned between the two branches, making it unclear whether it applies to left, right, or both branches equally. No operators (<, ≤, >, ≥) are visibly drawn on either branch arrow. The inner nodes appear to function as leaf-like summaries (with tavsiye edilebilir/edilemez counts) rather than true depth_1 split nodes with their own thresholds, meaning no depth_2 splits are visible. Treating this as an asymmetric tree where both depth_1 nodes are terminal leaves.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Doymuş Yağ",
+        "left_operator": null,
+        "left_threshold_value": 1.0,
+        "right_operator": null,
+        "right_threshold_value": 1.0
+      },
+      "depth_1": {
+        "left_child": {
+          "is_direct_leaf": true,
+          "leaf_label": "tavsiye edilir / tavsiye edilemez",
+          "leaf_recommended_count": 4,
+          "leaf_not_recommended_count": null
+        },
+        "right_child": {
+          "is_direct_leaf": true,
+          "leaf_label": "tavsiye edilir / tavsiye edilemez",
+          "leaf_recommended_count": 2,
+          "leaf_not_recommended_count": 3
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "not_applicable": true
+          },
+          "left_right_leaf": {
+            "not_applicable": true
+          },
+          "right_left_leaf": {
+            "not_applicable": true
+          },
+          "right_right_leaf": {
+            "not_applicable": true
+          }
+        }
+      }
+    }
+  }
+}

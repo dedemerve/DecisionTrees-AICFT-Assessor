@@ -1,0 +1,60 @@
+{
+  "stage": "validation",
+  "student_id": "Isabel",
+  "worksheet": "WS7",
+  "parse_success": false,
+  "ocr_quality": null,
+  "formula_parsed": true,
+  "tree_detected": null,
+  "missing_regions": [],
+  "deterministic_checks": {
+    "WS7_P1_box1": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank",
+      "expected": "B"
+    },
+    "WS7_P1_box2": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank",
+      "expected": "A"
+    },
+    "WS7_P1_box3": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank",
+      "expected": "C"
+    },
+    "WS7_B1": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "ws6_missing_or_unparseable",
+      "review": true,
+      "blocked_dependency": "WS6"
+    },
+    "WS7_B2": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "ws6_missing_or_unparseable",
+      "review": true,
+      "blocked_dependency": "WS6"
+    },
+    "WS7_B3": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "ws6_missing_or_unparseable",
+      "review": true,
+      "blocked_dependency": "WS6"
+    }
+  },
+  "blocked": false,
+  "blocked_reason": "WS6 extraction required for B1–B3 rule checks.",
+  "sample_tree_reference": "data/ws7_sample_tree.json"
+}

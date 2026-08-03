@@ -1,0 +1,432 @@
+{
+  "student_id": "Isabel",
+  "metadata": {
+    "total_models_created": 3,
+    "markdown_cells": 9,
+    "code_cells": 32,
+    "total_cells": 41
+  },
+  "execution": {
+    "code_cells_with_output": 24,
+    "code_cells_without_output": 8,
+    "execution_count_all_null": false,
+    "cells_with_errors": 0,
+    "infrastructure_interrupt": false,
+    "error_types": []
+  },
+  "data_source": {
+    "real_csv_loaded": true,
+    "row_count_in_output": 320,
+    "synthetic_data_used": false,
+    "data_source_note": null
+  },
+  "step1_data_exploration": {
+    "data_loaded": true,
+    "row_count_reported": 320,
+    "col_count_reported": 7,
+    "columns_listed": true,
+    "value_counts_called": true,
+    "describe_called": true,
+    "q_lizard_count": "320",
+    "q_habitat_most_frequent": "Yer yaşam alanı en kalabalık",
+    "q_habitat_least_frequent": "ağaç yaşam alanı en az kalabalıktır",
+    "q_imbalance_effect_reasoning": "Model çoğunluk sınıfını iyi öğrenirken azınlık sınıfı genelde kötü öğrenir.",
+    "q_mass_average_reported": 10.5,
+    "q_mass_by_species_reasoning": "Evet, bu değer üç farklı kertenkele türü için şekilde farklıdır.Çünkü farklı kertenkele türleri,farklı yaşam alanlarında yaşamaktadır."
+  },
+  "formulated_research_questions": [
+    {
+      "target_variable": "YasamAlani",
+      "formulated_question": null
+    },
+    {
+      "target_variable": "Cinsiyet",
+      "formulated_question": null
+    },
+    {
+      "target_variable": "Tur",
+      "formulated_question": null
+    }
+  ],
+  "step3_split_global": {
+    "test_size": 0.2,
+    "stratify_used": true,
+    "random_state": 42,
+    "split_size_reported_train": 256,
+    "split_size_reported_test": 64,
+    "parameters_varied_across_models": false,
+    "q_stratify_removal_effect": "Bu model parametrenin adil ve dengeli şekilde eğitilmesini sağladı.",
+    "q_random_state_change_effect": "Sayıyı değiştirdiğimizde model farklı verilerle eğitilmiş oldu."
+  },
+  "dt_experiments": [
+    {
+      "target_variable": "YasamAlani",
+      "target_variable_intermediate_name": "hedef_degisken",
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "Tur_Sceloporus",
+          "Tur_Uta",
+          "Cinsiyet_Erkek"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": false,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 10,
+        "depth_range_max_source": "range_call",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.488,
+            "test_mcr": 0.484
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.359,
+            "test_mcr": 0.312
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.352,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.324,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.285,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 6,
+            "train_mcr": 0.242,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 7,
+            "train_mcr": 0.156,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 8,
+            "train_mcr": 0.129,
+            "test_mcr": 0.469
+          },
+          {
+            "depth": 9,
+            "train_mcr": 0.066,
+            "test_mcr": 0.484
+          },
+          {
+            "depth": 10,
+            "train_mcr": 0.051,
+            "test_mcr": 0.484
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": "Derinlik arttıkça; eğitim hatası sürekli azalırken, test hatası belirli bir noktaya kadar azalıp ardından tekrar artışa geçmektedir.",
+        "zero_train_error_interpretation": "Overfitting yani aşırı öğrenme durumu gerçekleşmiştir.Mükemmel öğrendiği anlamına gelmemektedir.",
+        "divergence_point_identified": "2.satıra ulaşıldığı an, karar ağacı modeli artık veri setindeki genel mantığı öğrenmeyi bırakıp \"aşırı öğrenme\" (overfitting) yani ezberleme evresine geçmiştir.",
+        "overfitting_named_or_described": "Buna Aşırı Öğrenme Overfitting adı verilir. Eğitim ve test hataları arasındaki bu farkın büyümesi, modelin genelleme yeteneğini kaybettiğini ve sadece eğitim verisini ezberlediğini gösterir.",
+        "preferred_depth_from_table": "2. derinlik, modelin ezberlemeden (overfitting) genel kuralları en iyi öğrendiği ve test hatası en düşük derinlik",
+        "preferred_depth_from_graph": "Grafiğe bakarak test hatasının en dipte olduğu ve eğitim hatasıyla makul bir dengede durduğu 4. derinliği seçerdim. Sayısal tablodaki kararımla tamamen aynıdır."
+      },
+      "step4_responses_location": "per_tree",
+      "step5_final_tree": {
+        "chosen_optimal_depth": 4,
+        "test_mcr_achieved": 0.3281,
+        "root_node_feature": "Cinsiyet",
+        "root_node_feature_computed": "Tur_Sceloporus",
+        "root_node_feature_source": "markdown_text",
+        "root_node_threshold": 0.5,
+        "is_optimal_depth_mathematically_correct": false,
+        "mathematically_optimal_depth": 2,
+        "q_root_node_reasoning": "Çünkü veriyi sınıflara en iyi ayıracak değişken cinsiyettir.Yani ağacın \"en ayırt edici\" özelliği cinsiyettir.",
+        "q_decisions_to_classify": "Herhangi bir yaprağa ulaşmak için kök düğümden sonra en fazla 4 en az 3 dal daha takip etmemiz gerekiyor.Bu modelin verimli bir sınıflandırma yaptığını gösterir.",
+        "q_root_changed_across_targets": "Her hedefin diğer değişkenlerle ilişkisi farklıdır.Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir.Dolayısıyla hedef değiştiğinde kök düğümde değişir.",
+        "q_codap_comparison": null
+      }
+    },
+    {
+      "target_variable": "Cinsiyet",
+      "target_variable_intermediate_name": "hedef_degisken",
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "Tur_Sceloporus",
+          "Tur_Uta",
+          "YasamAlani_Kaya",
+          "YasamAlani_Yer"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": false,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 10,
+        "depth_range_max_source": "list_literal",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.352,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.344,
+            "test_mcr": 0.438
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.223,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.215,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.156,
+            "test_mcr": 0.312
+          },
+          {
+            "depth": 6,
+            "train_mcr": 0.152,
+            "test_mcr": 0.312
+          },
+          {
+            "depth": 7,
+            "train_mcr": 0.102,
+            "test_mcr": 0.375
+          },
+          {
+            "depth": 8,
+            "train_mcr": 0.051,
+            "test_mcr": 0.297
+          },
+          {
+            "depth": 9,
+            "train_mcr": 0.02,
+            "test_mcr": 0.328
+          },
+          {
+            "depth": 10,
+            "train_mcr": 0.012,
+            "test_mcr": 0.359
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": null,
+        "zero_train_error_interpretation": null,
+        "divergence_point_identified": null,
+        "overfitting_named_or_described": null,
+        "preferred_depth_from_table": null,
+        "preferred_depth_from_graph": null
+      },
+      "step4_responses_location": null,
+      "step5_final_tree": {
+        "chosen_optimal_depth": 3,
+        "test_mcr_achieved": 0.3281,
+        "root_node_feature": null,
+        "root_node_feature_computed": "ToplamUzunluk",
+        "root_node_feature_source": "computed",
+        "root_node_threshold": 172.95,
+        "is_optimal_depth_mathematically_correct": false,
+        "mathematically_optimal_depth": 8,
+        "q_root_node_reasoning": null,
+        "q_decisions_to_classify": null,
+        "q_root_changed_across_targets": null,
+        "q_codap_comparison": null
+      }
+    },
+    {
+      "target_variable": "Tur",
+      "target_variable_intermediate_name": "hedef_degisken",
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu",
+          "Cinsiyet_Erkek",
+          "YasamAlani_Kaya",
+          "YasamAlani_Yer"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": true,
+        "categorical_columns_excluded_instead": false,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 10,
+        "depth_range_max_source": "list_literal",
+        "mcr_table": [
+          {
+            "depth": 1,
+            "train_mcr": 0.266,
+            "test_mcr": 0.281
+          },
+          {
+            "depth": 2,
+            "train_mcr": 0.191,
+            "test_mcr": 0.219
+          },
+          {
+            "depth": 3,
+            "train_mcr": 0.184,
+            "test_mcr": 0.203
+          },
+          {
+            "depth": 4,
+            "train_mcr": 0.137,
+            "test_mcr": 0.281
+          },
+          {
+            "depth": 5,
+            "train_mcr": 0.102,
+            "test_mcr": 0.203
+          },
+          {
+            "depth": 6,
+            "train_mcr": 0.078,
+            "test_mcr": 0.25
+          },
+          {
+            "depth": 7,
+            "train_mcr": 0.031,
+            "test_mcr": 0.219
+          },
+          {
+            "depth": 8,
+            "train_mcr": 0.02,
+            "test_mcr": 0.234
+          },
+          {
+            "depth": 9,
+            "train_mcr": 0.0,
+            "test_mcr": 0.25
+          },
+          {
+            "depth": 10,
+            "train_mcr": 0.0,
+            "test_mcr": 0.25
+          }
+        ]
+      },
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": null,
+        "zero_train_error_interpretation": null,
+        "divergence_point_identified": null,
+        "overfitting_named_or_described": null,
+        "preferred_depth_from_table": null,
+        "preferred_depth_from_graph": null
+      },
+      "step4_responses_location": null,
+      "step5_final_tree": {
+        "chosen_optimal_depth": 3,
+        "test_mcr_achieved": 0.2031,
+        "root_node_feature": null,
+        "root_node_feature_computed": "Kutle",
+        "root_node_feature_source": "computed",
+        "root_node_threshold": 15.09,
+        "is_optimal_depth_mathematically_correct": true,
+        "mathematically_optimal_depth": 3,
+        "q_root_node_reasoning": null,
+        "q_decisions_to_classify": null,
+        "q_root_changed_across_targets": null,
+        "q_codap_comparison": null
+      }
+    }
+  ],
+  "cross_target_comparison": {
+    "comparison_present": true,
+    "optimal_depths_compared": true,
+    "root_nodes_compared": true,
+    "mcr_values_compared": [
+      {
+        "target_variable": "YasamAlani",
+        "test_mcr": 0.3281
+      },
+      {
+        "target_variable": "Cinsiyet",
+        "test_mcr": 0.3281
+      },
+      {
+        "target_variable": "Tur",
+        "test_mcr": 0.2031
+      }
+    ],
+    "comparison_reasoning": "Farklı çıktı.Çünkü Her hedef değişkenin verideki durumu farklıdır.Bazı hedefler  az sayıda dallanmayla çözülürken bazıları için daha fazla derinlik gerekir. / Her hedefin diğer değişkenlerle ilişkisi farklıdır.Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir.Dolayısıyla hedef değiştiğinde kök düğümde değişir."
+  },
+  "step6_written_reflection": {
+    "q1_learning_journey": {
+      "raw_text": "Evet farklı şeyler kattı.Veriyi 3 farklı şekişlde incelemiş olduk.data kartları ne yaptığımızı en iyi ve somut şekilde görmemi sağladı.CODAP ise verileri daha iyi karşılaştırmamı sağladı.COLAP ise veriler arasındaki ayrımı daha net görmeme katkı sağladı.\n\nData kartlarında daha iyi anladım.Çünkü somut olarak verileri görmem anlamamı kolaylaştırdı.\n\nData kartları daha kolay geldi.Bu kolaylık somut verilerle gerçekten anladığımı gösteriyor.\n\nEn çok COLAP ile zorlandım.Çünkü kod yazmak ve kodları anlamak benim için zordu.\n\nColap'ta daha kolay farkettim.Çünkü program sayesinde hatalarımı diğer adımı geçmeden farkedebildim.\n\nHayır.\n\nCOLAP daha detaylı bir şekilde veriyi incelemizi sağlıyor.Yani COLAP diğerlerinin yerini tutamaz.",
+      "environments_mentioned": [
+        "data_cards",
+        "codap",
+        "python"
+      ],
+      "error_detection_discussed": true,
+      "word_count": 107
+    },
+    "q2_data_understanding": {
+      "raw_text": "Hayır,şaşırtmadı.Bence de biyolojik olarak mantıklı.\n\nEvet, beklerdim. Biyolojik olarak ağaçta yaşayan kertenkelelerin tırmanabilmek ve tutunabilmek için daha uzun bacaklara, farklı gövde yapısına ve daha hafif bir kütleye sahip olması gerekir. modeliniz bu farkı yakalayabilmiştir.\nKarar ağaçlarına bakıldığında; modeli dallara ayıran en önemli kriterlerin Kutle, BacakUzunlugu ve GovdeUzunlugu gibi fiziksel ölçümler olması, modelin bu biyolojik farkları ayırt edici birer kural olarak tespit ettiğini kanıtlar\n\nEn çok yanlış sınıflandırılan bireyler, hem ağaçta hem yerde/kayada yaşayabilen ortak geçiş alanlarındaki kertenkelelerdir.Farklı yaşam alanlarında olsalar da benzer hareket biçimlerine sahip kertenkelelerin fiziksel özellikleri (bacak ve gövde uzunlukları) morfolojik olarak birbirine çok yaklaşır ve çakışır. Model, bu benzer ölçümler nedeniyle onları birbirine karıştırır.\n\nVeriyi ilk gördüğümde, kertenkelelerin yaşam alanlarını veya türlerini ayırt etmede Kutle değişkeninin en belirleyici özellik olacağını tahmin etmiştim.\nEvet, büyük oranda örtüştü. Karar ağaçları incelendiğinde, modelin veriyi bölmek için en tepeye koyduğu kök düğümlerde Kutleyi seçmiş olması bunu gösteriyor.",
+      "root_feature_surprise_addressed": true,
+      "biological_reasoning_present": true,
+      "misclassified_habitat_discussed": true,
+      "word_count": 166
+    },
+    "q3_model_performance": {
+      "raw_text": "MCR değeri 0.3281 dir.0.3281 değeri, modelin genelleme performansının en iyi olduğu noktayı temsil etmektedir. Derinlik daha fazla artırıldığında model overfitting yapmaya başlayacağından test hatası artmakta, daha düşük derinliklerde ise verideki önemli örüntüler yeterince öğrenilememektedir.\n\nEn İyi (Sceloporus): Kütlesi iri olan kertenkelelerdir. Fiziksel özellikleri çok belirgin ve ayırt edici olduğu için model onları neredeyse hatasız tahmin etmiştir.\nEn Kötü (Anolis / Uta): Kütlesi küçük olan kertenkelelerdir. Bu iki sınıfın boy, kilo ve bacak ölçüleri morfolojik olarak birbirine çok benzediği ve iç içe geçtiği için model bunları ayırt etmekte zorlanmıştır.\n\nHayır, etmedi. Yaklaşık %32'lik hata oranı (MCR), her 3 tahminden 1'inin yanlış olduğunu gösterir ve bu yüksek bir orandır.\nİyi Bir Model İçin bu değerin 0.10 - 0.15 MCR olmasını isterdim.\n\nDeğişebilirdi.Çünkü her değişkenin veriyle ilişkişsi farklıdır.\n\nModelin başarısız olduğu durumlar, verilerin bazı ölçümlerinin birbirine çok benzediğini ve ortak değerlerde çakıştığını söyler.",
+      "mcr_value_stated": 0.3281,
+      "best_predicted_class": "Sceloporus",
+      "worst_predicted_class": "Anolis / Uta",
+      "ideal_mcr_threshold_stated": "0.10 - 0.15",
+      "cross_target_mcr_comparison_attempted": true,
+      "word_count": 149
+    },
+    "q4_dt_limitations": {
+      "raw_text": "Belirli bir örüntü var.Hatalar, fiziksel özellikleri (kütle, boy vb.) birbirine çok benzeyen ve ölçümleri çakışan küçük kertenkele gruplarında (Anolis ve Uta arasında) yoğunlaşıyor. Model, verilerin iç içe geçtiği bu sınır bölgelerinde ayırt etme yeteneğini kaybederek sürekli aynı kural noktalarında hata yapıyor.\n\nSadece fiziksel ölçümlerle sınırlı kalınmayıp veriye kertenkelelerin coğrafi konumu, rengi, genetik bilgileri veya davranışsal özellikleri gibi yeni ayırt edici değişkenler eklenebilir.\nModelin birbirine karıştırdığı küçük kertenkele gruplarından (Anolis/Uta) daha fazla örnek toplanarak veri kümesi dengelenebilir.\n\nEvet değişirdi ve büyük olasılıkla daha başarılı bir sonuç elde edilirdi; çünkü tek bir karar ağacı veriyi sadece eksenlere dik çizgilerle bölebildiği için iç içe geçmiş kertenkele özelliklerini ayırmakta yetersiz kalır ve kolayca ezberlemeye (overfitting) meyleder.\n\nKarar ağacı, veriye sırayla \"evet/hayır\" gibi basit sorular sorarak ilerleyen akış şeması benzeri bir sınıflandırma modelidir. Karmaşık verileri özetlemeye yarasa da verilerin birbirine çok benzediği ve sınırların iç içe geçtiği durumlarda esnek kararlar veremez; ayrıca veriyi doğrudan ezberlemeye (overfitting) çok meyilli olduğundan karmaşık veri setlerinde tahmin başarısı hızla düşer.",
+      "error_pattern_described": true,
+      "alternative_model_named": null,
+      "data_improvement_suggested": true,
+      "dt_explanation_for_friend": "Karar ağacı, veriye sırayla \"evet/hayır\" gibi basit sorular sorarak ilerleyen akış şeması benzeri bir sınıflandırma modelidir. Karmaşık verileri özetlemeye yarasa da verilerin birbirine çok benzediği ve sınırların iç içe geçtiği durumlarda esnek kararlar veremez; ayrıca veriyi doğrudan ezberlemeye (overfitting) çok meyilli olduğundan karmaşık veri setlerinde tahmin başarısı hızla düşer.",
+      "word_count": 168
+    }
+  }
+}

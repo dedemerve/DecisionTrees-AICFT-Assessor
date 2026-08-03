@@ -1,0 +1,168 @@
+{
+  "stage": "extraction",
+  "student_id": "Amy",
+  "worksheet": "WS6",
+  "student_name": "Amy",
+  "pdf_source": "31 Mart 2026 Çalışma Kâğıdı 6.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-08-02T17:49:38.717632+00:00",
+    "ocr_model": "claude-sonnet-5",
+    "items": {
+      "WS6_B1": "(not_extracted)",
+      "WS6_B2": "(not_extracted)",
+      "WS6_B3": "(not_extracted)",
+      "WS6_B4": "(not_extracted)",
+      "WS6_B5": "(not_extracted)",
+      "WS6_B6": "(not_extracted)",
+      "WS6_B7": "(not_extracted)",
+      "WS6_B8": "(not_extracted)",
+      "WS6_B9": "(not_extracted)",
+      "WS6_B10": "(not_extracted)",
+      "WS6_B11": "(not_extracted)",
+      "WS6_B12": "(not_extracted)",
+      "WS6_B13": "(not_extracted)"
+    },
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Yağ",
+        "left_operator": "≤",
+        "left_threshold_value": 13.0,
+        "right_operator": ">",
+        "right_threshold_value": 13.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Şeker",
+          "node_recommended_count": 6,
+          "node_not_recommended_count": 2,
+          "left_operator": "≤",
+          "left_threshold_value": 11.0,
+          "right_operator": ">",
+          "right_threshold_value": 11.0
+        },
+        "right_child": {
+          "parsed_feature": "Enerji",
+          "node_recommended_count": 3,
+          "node_not_recommended_count": 0,
+          "left_operator": "<",
+          "left_threshold_value": 289.0,
+          "right_operator": "≥",
+          "right_threshold_value": 289.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": 6,
+            "leaf_not_recommended_count": 0
+          },
+          "left_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 2,
+            "leaf_not_recommended_count": 0
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 3
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilebilir",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 0
+          }
+        }
+      }
+    },
+    "raw_ocr": {
+      "student_id": "Amy",
+      "worksheet": "WS6",
+      "extraction": {
+        "tree_structure": {
+          "depth_0": {
+            "parsed_feature": "Yağ",
+            "left_operator": "≤",
+            "left_threshold_value": 13.0,
+            "right_operator": ">",
+            "right_threshold_value": 13.0
+          },
+          "depth_1": {
+            "left_child": {
+              "parsed_feature": "Şeker",
+              "node_recommended_count": 6,
+              "node_not_recommended_count": 2,
+              "left_operator": "≤",
+              "left_threshold_value": 11.0,
+              "right_operator": ">",
+              "right_threshold_value": 11.0
+            },
+            "right_child": {
+              "parsed_feature": "Enerji",
+              "node_recommended_count": 3,
+              "node_not_recommended_count": 0,
+              "left_operator": "<",
+              "left_threshold_value": 289.0,
+              "right_operator": "≥",
+              "right_threshold_value": 289.0
+            }
+          },
+          "depth_2": {
+            "leaf_nodes": {
+              "left_left_leaf": {
+                "leaf_label": "tavsiye edilir",
+                "leaf_recommended_count": 6,
+                "leaf_not_recommended_count": 0
+              },
+              "left_right_leaf": {
+                "leaf_label": "tavsiye edilemez",
+                "leaf_recommended_count": 2,
+                "leaf_not_recommended_count": 0
+              },
+              "right_left_leaf": {
+                "leaf_label": "tavsiye edilemez",
+                "leaf_recommended_count": 0,
+                "leaf_not_recommended_count": 3
+              },
+              "right_right_leaf": {
+                "leaf_label": "tavsiye edilebilir",
+                "leaf_recommended_count": 0,
+                "leaf_not_recommended_count": 0
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 0,
+      "total": 13,
+      "blank_or_illegible": 0,
+      "missing": 13,
+      "completion_rate": 0.0,
+      "note": "WS6 scored from tree_structure, not flat items"
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 1.0,
+      "engagement_level": "high",
+      "llm_observations": "Root node splits on 'Yağ' with threshold 13 (evet/left ≤13 goes to 'Şeker' node, hayır/right >13 goes to 'Enerji' node). The Şeker node splits at threshold 11 into two leaves, and the Enerji node splits at threshold 289 into two leaves, each leaf labeled with tavsiye edilir/tavsiye edilemez counts.",
+      "page_quality_notes": "Kök düğümdeki eşik değer alanı '≤13' olarak yazılmış; sol dal oku üzerinde ayrı operatör görünmüyor, eşik değer kutusundan çıkarım yapıldı. Şeker düğümünde sol dal '≤11' ve sağ dal '>11' olarak okundu; Enerji düğümünde sol dal '<289' ve sağ dal '≥289' olarak okundu (üstte ok işareti var)."
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

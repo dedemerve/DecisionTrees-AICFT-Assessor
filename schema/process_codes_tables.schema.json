@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "process_codes_tables_manifest",
+  "title": "Process Codes Tabular Export Manifest",
+  "description": "Lossless tabular views derived from process_codes.json. Canonical nested JSON remains source of truth; tables are analysis-ready projections.",
+  "type": "object",
+  "required": ["export_version", "tables", "generated_at"],
+  "properties": {
+    "export_version": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "cohort_year": { "type": "integer" },
+    "source_artifact": { "const": "process_codes" },
+    "tables": {
+      "type": "object",
+      "required": ["episodes", "episode_process_codes", "session_ml_features"],
+      "properties": {
+        "episodes": { "$ref": "#/definitions/table_ref" },
+        "episode_process_codes": { "$ref": "#/definitions/table_ref" },
+        "session_ml_features": { "$ref": "#/definitions/table_ref" }
+      }
+    }
+  },
+  "definitions": {
+    "table_ref": {
+      "type": "object",
+      "required": ["grain", "primary_key", "row_count"],
+      "properties": {
+        "grain": { "type": "string" },
+        "primary_key": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "row_count": { "type": "integer", "minimum": 0 },
+        "jsonl": { "type": "string" },
+        "csv": { "type": "string" },
+        "parquet": { "type": ["string", "null"] }
+      }
+    },
+    "episodes_row": {
+      "type": "object",
+      "required": ["student_id", "cohort_year", "episode_id", "episode_index"],
+      "properties": {
+        "student_id": { "type": "string" },
+        "cohort_year": { "type": "integer" },
+        "episode_id": { "type": "string" },
+        "episode_index": { "type": "integer", "minimum": 0 },
+        "dominant_category": { "type": ["string", "null"] },
+        "anchor_event": { "type": ["string", "null"] },
+        "start_ms": { "type": ["integer", "null"] },
+        "end_ms": { "type": ["integer", "null"] },
+        "duration_ms": { "type": ["integer", "null"] },
+        "step_count": { "type": "integer", "minimum": 0 },
+        "step_indices": { "type": "array", "items": { "type": "integer" } },
+        "assistance_status": { "type": "string" },
+        "codes_observed_count": { "type": "integer" },
+        "codes_observed": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "episode_process_codes_row": {
+      "type": "object",
+      "required": ["row_id", "student_id", "episode_id", "v_code", "decision"],
+      "properties": {
+        "row_id": { "type": "string" },
+        "student_id": { "type": "string" },
+        "cohort_year": { "type": "integer" },
+        "episode_id": { "type": "string" },
+        "v_code": { "type": "string" },
+        "v_code_family": { "type": "string" },
+        "v_code_label": { "type": ["string", "null"] },
+        "ml_feature_name": { "type": ["string", "null"] },
+        "decision": {
+          "type": "string",
+          "enum": ["observed", "not_observed", "not_measurable"]
+        },
+        "evidence_count": { "type": "integer", "minimum": 0 },
+        "evidence": { "type": "array", "items": { "type": "string" } },
+        "evidence_sources": { "type": "array", "items": { "type": "string" } },
+        "step_indices": { "type": "array", "items": { "type": "integer" } },
+        "log_corroboration_present": { "type": ["boolean", "null"] },
+        "log_corroboration_note": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

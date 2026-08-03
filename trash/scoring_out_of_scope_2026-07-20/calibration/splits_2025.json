@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-07-20",
+  "purpose": "Leakage-safe student splits for the 2025 calibration cohort (RF08 remediation).",
+  "split_policy": "fewshot_students and irr_students must be disjoint. internal_val_students must not overlap with fewshot_students.",
+  "constraint_check": "fewshot ∩ internal_val = ∅ (verified below)",
+  "external_val_cohort": "2026 — hold-out cohort; no overlap with 2025 splits by design",
+  "fewshot_students": [
+    "Boris", "Daryl", "David", "Frank", "Henry",
+    "Mike", "Zabby"
+  ],
+  "irr_students": [
+    "Ally", "Barbara", "Bob", "Daisy", "Eliot",
+    "Felicity", "Ozzy"
+  ],
+  "internal_val_students": [
+    "Calvin", "Edgar", "Sabrina"
+  ],
+  "unassigned": [],
+  "overlap_check": {
+    "fewshot_irr_intersection": [],
+    "fewshot_internal_val_intersection": [],
+    "irr_internal_val_intersection": []
+  },
+  "notes": [
+    "fewshot_students: source of few-shot examples in fewshot_examples_v2.json",
+    "irr_students: frames drawn from these students will form the IRR coding sample",
+    "internal_val_students: used for internal validation only; not in fewshot or IRR",
+    "external_val_cohort 2026: separate cohort; used as the deployment target, not for calibration",
+    "This split was designed for pilot purposes with N=17. Publication will require external hold-out validation on 2026 data."
+  ]
+}

@@ -1,0 +1,2008 @@
+{
+  "worksheet": "WS_DT_INTRO",
+  "worksheet_id": "WS_DT_INTRO",
+  "metadata": {
+    "title": "Ağaçlarla Tanı Koyma – Karar Ağaçlarına Giriş (Xeno + Titanic)",
+    "source_file": "Çalışma Kâğıdı DT'ye Giriş.docx",
+    "platform": "CODAP Arbor",
+    "target_grade": "Öğretmen adayları / Giriş düzeyi ML",
+    "total_blanks": 80,
+    "max_total_score": 80,
+    "author_role": "Eğitimde ölçme-değerlendirme uzmanı + yapay zeka mühendisi",
+    "structure": [
+      "Bölüm 1 — Xeno (ague) etkinliği: rastgele üretilen 10 vaka, saç rengi ile tanı",
+      "Bölüm 2 — Titanic: Eğitim/Test Veri Seti 1 (overfitting) ve 2 (underfitting)"
+    ]
+  },
+  "scoring_policy": {
+    "default_mode": "interpretive",
+    "principle": "Hiçbir soruda tek bir 'kelimesi kelimesine' doğru cevap aranmaz. Sayısal sorularda iç tutarlılık ve doğru yapı; tanım/yorum sorularında gerekli kavramsal bileşenlerin varlığı puanlanır. Örnek cevaplar yalnızca kalite düzeyini gösterir; kabul edilen tek biçim değildir.",
+    "regimes": {
+      "xeno_numeric": {
+        "description": "Xeno bölümündeki sayısal alanlar ÖĞRENCİYE ÖZELDİR. Veri seti her öğrenciye rastgele atandığından kök düğümdeki hasta yüzdesi, mavi/pembe kutu sayıları ve TP/TN/N değerleri öğrenciden öğrenciye değişir. Bu alanlar sabit bir sayıyla KARŞILAŞTIRILMAZ; öğrencinin kendi ağacıyla iç tutarlılık ve değişmez yapı üzerinden puanlanır.",
+        "invariants": {
+          "blue_hair_sick_rate": "%0 (mavi saçlıların tamamı sağlıklı)",
+          "pink_hair_sick_rate": "%100 (pembe saçlıların tamamı hasta)",
+          "perfect_separator": "Saç rengi Xhealth'i kusursuz ayırır",
+          "confusion": "FP = 0 ve FN = 0",
+          "metrics": "Doğruluk = Duyarlılık = Özgüllük = Kesinlik = %100; MCR = %0",
+          "sum_rule": "TP + TN = N ve TP = pembe kutu sayısı, TN = mavi kutu sayısı",
+          "root_total": "Kök düğüm vaka sayısı = üretilen vaka sayısı (varsayılan 10; auto çalıştırmada 10'un katları olabilir)"
+        },
+        "scoring": "Değişmez yapı doğru yansıtılmış ve öğrencinin kendi sayıları birbiriyle tutarlıysa tam puan. Sayı sabit bir anahtara göre YANLIŞ sayılamaz."
+      },
+      "titanic_numeric": {
+        "description": "Titanic bölümündeki veri setleri (titanic_egitim/test_veri_seti1/2.csv) TÜM ÖĞRENCİLERE AYNI dağıtıldığından kanonik (sabit) doğru değerleri vardır. Ağaç cinsiyet (sex) değişkenine göre kurulur: female = pozitif (hayatta), male = negatif (hayatını kaybetti).",
+        "tolerance": "Öğrenciler değerleri CODAP ağacından elle okur. Oran/yüzde metriklerinde ±0,02 (±2 puan) yuvarlama toleransı uygulanır. Kesir (142/231), ondalık (0,615) veya yüzde (%61,5) biçimlerinin hepsi kabul edilir. Sayımlarda küçük okuma hatası (±birkaç kişi) kısmi puan alır; yapı doğru ama işlem/okuma hatalıysa 0.5.",
+        "canonical_source": "titanic_canonical bloğundaki değerler CSV'lerden birebir hesaplanmıştır."
+      },
+      "interpretive": {
+        "description": "Tanım, gerekçe ve yorum soruları. Bileşen tabanlı puanlanır: 'need' kadar gerekli bileşen varsa tam puan, 'partial_on' kadarında kısmi puan.",
+        "scoring": "İfade biçimi serbesttir; kavram doğruysa Türkçe/İngilizce terim, farklı örnek ve farklı cümle yapıları kabul edilir."
+      }
+    },
+    "ocr_tolerance": "Öğrenciler el yazısıyla yanıtlar; noktalama, büyük/küçük harf, ondalık ayırıcı (virgül/nokta) ve yazım hataları göz ardı edilir. Sayısal ifadelerde '%', 'kişi', 'vaka', 'g', 'kcal' gibi birimler opsiyoneldir."
+  },
+  "titanic_canonical": {
+    "tree_rule": "sex -> female = pozitif (survived=1), male = negatif (survived=0)",
+    "positive_class": "hayatta kaldı (survived = 1) = female kutusu",
+    "egitim_veri_seti1": {
+      "root_total": 812,
+      "root_survived": 290,
+      "female_n": 290,
+      "female_survived": 290,
+      "female_died": 0,
+      "male_n": 522,
+      "male_survived": 0,
+      "male_died": 522,
+      "TP": 290,
+      "FP": 0,
+      "TN": 522,
+      "FN": 0,
+      "N": 812,
+      "accuracy": 1.0,
+      "sensitivity": 1.0,
+      "specificity": 1.0,
+      "precision": 1.0,
+      "MCR": 0.0,
+      "pattern": "Cinsiyet hayatta kalmayı KUSURSUZ ayırır -> eğitimde %100 (overfitting adayı)"
+    },
+    "test_veri_seti1": {
+      "root_total": 231,
+      "root_survived": 105,
+      "female_n": 96,
+      "female_survived": 56,
+      "female_died": 40,
+      "male_n": 135,
+      "male_survived": 49,
+      "male_died": 86,
+      "TP": 56,
+      "FP": 40,
+      "TN": 86,
+      "FN": 49,
+      "N": 231,
+      "accuracy": 0.615,
+      "sensitivity": 0.533,
+      "specificity": 0.683,
+      "precision": 0.583,
+      "MCR": 0.385,
+      "pattern": "Aynı kural test setinde %61,5'e düşer -> overfitting kanıtı"
+    },
+    "egitim_veri_seti2": {
+      "root_total": 834,
+      "root_survived": 456,
+      "female_n": 304,
+      "female_survived": 128,
+      "female_died": 176,
+      "male_n": 530,
+      "male_survived": 328,
+      "male_died": 202,
+      "TP": 128,
+      "FP": 176,
+      "TN": 202,
+      "FN": 328,
+      "N": 834,
+      "accuracy": 0.396,
+      "sensitivity": 0.281,
+      "specificity": 0.534,
+      "precision": 0.421,
+      "MCR": 0.604,
+      "pattern": "Cinsiyet-hayatta kalma ilişkisi zayıf/ters -> eğitimde bile %39,6 (underfitting)"
+    },
+    "test_veri_seti2": {
+      "root_total": 209,
+      "root_survived": 85,
+      "female_n": 82,
+      "female_survived": 61,
+      "female_died": 21,
+      "male_n": 127,
+      "male_survived": 24,
+      "male_died": 103,
+      "TP": 61,
+      "FP": 21,
+      "TN": 103,
+      "FN": 24,
+      "N": 209,
+      "accuracy": 0.785,
+      "sensitivity": 0.718,
+      "specificity": 0.831,
+      "precision": 0.744,
+      "MCR": 0.215,
+      "pattern": "Test setinde %78,5 -> eğitimden (39,6) YÜKSEK; zayıf sabit kuralın rastlantısal etkisi"
+    }
+  },
+  "equivalence_sets": {
+    "female": [
+      "female",
+      "kadın",
+      "kadin",
+      "kız",
+      "f"
+    ],
+    "male": [
+      "male",
+      "erkek",
+      "e",
+      "m"
+    ],
+    "sick": [
+      "hasta",
+      "sick",
+      "pozitif",
+      "positive",
+      "+"
+    ],
+    "healthy": [
+      "sağlıklı",
+      "saglikli",
+      "healthy",
+      "well",
+      "negatif",
+      "negative",
+      "-"
+    ],
+    "survived": [
+      "hayatta",
+      "hayatta kaldı",
+      "survived",
+      "yaşadı",
+      "1"
+    ],
+    "died": [
+      "öldü",
+      "hayatını kaybetti",
+      "died",
+      "0"
+    ],
+    "overfitting": [
+      "aşırı öğrenme",
+      "asiri ogrenme",
+      "overfitting",
+      "ezberleme",
+      "ezberledi"
+    ],
+    "underfitting": [
+      "yetersiz uyum",
+      "eksik öğrenme",
+      "eksik ogrenme",
+      "underfitting",
+      "az öğrenme"
+    ]
+  },
+  "items": {
+    "DTI_01": {
+      "printed_question": 1,
+      "section": "Xeno",
+      "region": "Tablo: Karar Ağacını Okuyalım / Kök düğüm",
+      "prompt": "Kök düğüm kaç vaka içerir? Yüzde kaçı hasta? Veri seti hakkında ne söyler?",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "student_specific": true,
+      "expected_structure": {
+        "root_total": "üretilen vaka sayısı (genelde 10)",
+        "sick_pct": "pembe_sayısı / toplam (öğrenciye özel)",
+        "interpretation": "hasta ve sağlıklı yaratıkların dağılımı hakkında yorum"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Öğrenci kök düğümdeki toplam vaka sayısını ve hasta yüzdesini kendi ağacına göre doğru okumuş ve dağılım hakkında makul bir yorum yapmışsa (öğrencinin kendi sayılarıyla tutarlı olması yeterlidir)."
+        },
+        "0.5": {
+          "condition": "Yapı büyük ölçüde doğru ama bir bileşen (sayı, yüzde veya yorum) eksik/tutarsız."
+        },
+        "0.0": {
+          "condition": "Değişmez yapı yanlış yansıtılmış (ör. mavi kutuda hasta var demiş, ayrımı ters kurmuş) veya boş."
+        }
+      },
+      "example_answer": "Kök düğüm 10 vaka içerir; bunların 6'sı (%60) hastadır. Veri setinde hasta ve sağlıklı yaratıklar yakın sayıda, hafif hasta çoğunluğu var. (Sayılar öğrenciye göre değişebilir.)"
+    },
+    "DTI_02": {
+      "printed_question": 2,
+      "section": "Xeno",
+      "region": "Tablo: Karar Ağacını Okuyalım / Mavi saçlı kutu",
+      "prompt": "Mavi saçlı kutuda kaç vaka var? Kaçı hasta? Oranı nasıl yorumlarsınız?",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "student_specific": true,
+      "expected_structure": {
+        "blue_n": "öğrenciye özel",
+        "blue_sick": 0,
+        "blue_sick_pct": "%0",
+        "interpretation": "mavi saçlıların tamamı sağlıklı"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Mavi kutudaki hasta oranı %0 (0 hasta) olarak belirtilmiş ve 'mavi saçlıların tamamı sağlıklı' yorumu yapılmışsa; vaka sayısı öğrencinin ağacıyla tutarlı olmalı (öğrencinin kendi sayılarıyla tutarlı olması yeterlidir)."
+        },
+        "0.5": {
+          "condition": "Yapı büyük ölçüde doğru ama bir bileşen (sayı, yüzde veya yorum) eksik/tutarsız."
+        },
+        "0.0": {
+          "condition": "Değişmez yapı yanlış yansıtılmış (ör. mavi kutuda hasta var demiş, ayrımı ters kurmuş) veya boş."
+        }
+      },
+      "example_answer": "Mavi saçlı kutuda 4 vaka var; 0'ı (%0) hasta. Mavi saçlıların tamamı sağlıklı."
+    },
+    "DTI_03": {
+      "printed_question": 3,
+      "section": "Xeno",
+      "region": "Tablo: Karar Ağacını Okuyalım / Pembe saçlı kutu",
+      "prompt": "Pembe saçlı kutuda kaç vaka var? Kaçı hasta? Saç rengi–hastalık ilişkisi?",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "student_specific": true,
+      "expected_structure": {
+        "pink_n": "öğrenciye özel",
+        "pink_sick_pct": "%100",
+        "interpretation": "pembe saçlıların tamamı hasta; saç rengi ile hastalık arasında güçlü/tam ilişki"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Pembe kutudaki hasta oranı %100 olarak belirtilmiş ve saç rengi ile hastalık arasında güçlü/tam ilişki kurulmuşsa (öğrencinin kendi sayılarıyla tutarlı olması yeterlidir)."
+        },
+        "0.5": {
+          "condition": "Yapı büyük ölçüde doğru ama bir bileşen (sayı, yüzde veya yorum) eksik/tutarsız."
+        },
+        "0.0": {
+          "condition": "Değişmez yapı yanlış yansıtılmış (ör. mavi kutuda hasta var demiş, ayrımı ters kurmuş) veya boş."
+        }
+      },
+      "example_answer": "Pembe saçlı kutuda 6 vaka var; 6'sı (%100) hasta. Pembe saç ile hastalık arasında tam ilişki var."
+    },
+    "DTI_04": {
+      "printed_question": 4,
+      "section": "Xeno",
+      "region": "Tablo: Karar Ağacını Okuyalım / Etiketleme",
+      "prompt": "Hangi kutu pozitif/negatif etiketlendi? Hangi ölçüt? Alternatif mümkün müydü?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "labeling",
+          "idea": "pembe kutu = pozitif (hasta), mavi kutu = negatif (sağlıklı) olarak belirtir",
+          "required": true
+        },
+        {
+          "id": "criterion",
+          "idea": "ölçütü açıklar: her kutudaki hasta oranı / çoğunluk kuralı",
+          "required": true
+        },
+        {
+          "id": "alternative",
+          "idea": "ayrım %0–%100 tam olduğu için ters etiketlemenin mantıksız olacağını belirtir",
+          "required": false
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "example_answer": "Pembe kutu pozitif (hasta), mavi kutu negatif (sağlıklı) etiketlendi. Ölçüt her kutudaki hasta oranı (çoğunluk): pembe %100 hasta, mavi %0. Ayrım tam olduğu için alternatif etiketleme mantıklı olmazdı."
+    },
+    "DTI_05": {
+      "printed_question": 5,
+      "section": "Xeno",
+      "region": "Tablo: Karar Ağacını Okuyalım / Pembe saçlı (tekrar)",
+      "prompt": "Pembe saçlı kutuda kaç vaka var? Kaçı hasta? İlişki?",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "student_specific": true,
+      "expected_structure": {
+        "pink_sick_pct": "%100",
+        "interpretation": "tam ilişki"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "3. soruyla tutarlı biçimde pembe kutunun %100 hasta olduğu ve tam ilişki yorumu verilmişse (bu satır formda tekrarlanmıştır) (öğrencinin kendi sayılarıyla tutarlı olması yeterlidir)."
+        },
+        "0.5": {
+          "condition": "Yapı büyük ölçüde doğru ama bir bileşen (sayı, yüzde veya yorum) eksik/tutarsız."
+        },
+        "0.0": {
+          "condition": "Değişmez yapı yanlış yansıtılmış (ör. mavi kutuda hasta var demiş, ayrımı ters kurmuş) veya boş."
+        }
+      },
+      "example_answer": "Pembe saçlı kutuda 6 vaka var, 6'sı da (%100) hasta. Pembe saç ile hasta olma arasında tam ilişki var."
+    },
+    "DTI_06": {
+      "printed_question": 6,
+      "section": "Xeno",
+      "region": "Tablo: Karar Ağacını Okuyalım / Ayırıcı mı?",
+      "prompt": "Saç rengi bu veri setinde iyi bir ayırıcı (predictor) mıdır? Neden?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "yes",
+          "idea": "evet, iyi/mükemmel bir ayırıcıdır der",
+          "required": true
+        },
+        {
+          "id": "why",
+          "idea": "gerekçe: iki grup hiç örtüşmez (mavi %0, pembe %100); saç rengi tek başına hastalığı hatasız ayırır",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "example_answer": "Evet, mükemmel bir ayırıcı. Mavi saçlıların %0'ı, pembe saçlıların %100'ü hasta; örtüşme yok, saç rengi tek başına Xhealth'i hatasız tahmin eder."
+    },
+    "DTI_07": {
+      "printed_question": 7,
+      "section": "Xeno",
+      "region": "Tablo: Karar Ağacını Okuyalım / Yeni vaka tahmini",
+      "prompt": "Yeni bir vaka gelseydi yalnızca saç rengine bakarak doğru tahmin olasılığınız?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "high_prob",
+          "idea": "yüksek/tam (%100'e yakın) doğru tahmin olasılığı belirtir",
+          "required": true
+        },
+        {
+          "id": "reason",
+          "idea": "gerekçesini saç renginin kusursuz ayırıcılığına bağlar (pembe->hasta, mavi->sağlıklı)",
+          "required": false
+        }
+      ],
+      "need": 1,
+      "example_answer": "Saç rengi kusursuz ayırıcı olduğundan yalnızca renge bakarak yeni vakayı %100'e yakın doğru tahmin ederiz (pembe->hasta, mavi->sağlıklı)."
+    },
+    "DTI_08": {
+      "printed_question": 8,
+      "section": "Xeno",
+      "region": "Tablo 7: FP vs FN tıbbi tehlike",
+      "prompt": "FP mi FN mi daha tehlikelidir? Gerekçesi.",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "choice_fn",
+          "idea": "FN'yi (yanlış negatif) daha tehlikeli seçer",
+          "required": true
+        },
+        {
+          "id": "medical_reason",
+          "idea": "gerekçe: hasta birinin sağlıklı sanılıp tedavisiz kalması / hastalığın ilerlemesi-yayılması / ölüm riski",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "note": "FP'yi seçip tutarlı gerekçelendiren (ör. gereksiz tedavi maliyeti/kaygı) yanıtlar da bağlama göre 0.5–1.0 alabilir; ancak tıbbi/bulaşıcı bağlamda beklenen yanıt FN'dir.",
+      "example_answer": "FN daha tehlikeli. Gerçekte hasta olan biri sağlıklı sanılır, tedavi edilmez; hastalık ilerler ve yayılabilir, ölüm riski artar. FP'de sağlıklı birine gereksiz tedavi olur ama hayati risk düşüktür."
+    },
+    "DTI_09": {
+      "printed_question": 9,
+      "section": "Xeno",
+      "region": "Tablo 8: 10 yeni hastanın otomatik teşhisi",
+      "prompt": "Ağacınız 10 yeni hastayı otomatik teşhis edince nasıl performans gösterdi?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "high_perf",
+          "idea": "yüksek/kusursuz performans (yaklaşık %100 doğruluk, hatasız) belirtir",
+          "required": true
+        },
+        {
+          "id": "consistency",
+          "idea": "öğrencinin bildirdiği sonuç kendi confusion matrisiyle tutarlı (FP=FN=0)",
+          "required": false
+        }
+      ],
+      "need": 1,
+      "note": "Sonuç öğrenciye özeldir; FP=FN=0 ve yüksek doğruluk beklenir. Öğrencinin gözlemi kendi verisiyle tutarlıysa tam puan.",
+      "example_answer": "Saç rengi kusursuz ayırıcı olduğu için ağaç 10 yeni vakanın tamamını doğru teşhis etti; hata görülmedi, doğruluk %100. (TP/TN dağılımı öğrenciye göre değişir, FP=FN=0.)"
+    },
+    "DTI_10": {
+      "printed_question": 10,
+      "section": "Xeno",
+      "region": "Tablo 9 / TP sayısı",
+      "prompt": "TP (Doğru Pozitif) sayısı",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "student_specific": true,
+      "expected_structure": {
+        "TP": "pembe kutu sayısı (öğrenciye özel)"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "TP değeri pembe (hasta) kutu sayısına eşit ve öğrencinin ağacıyla tutarlıysa (öğrencinin kendi sayılarıyla tutarlı olması yeterlidir)."
+        },
+        "0.5": {
+          "condition": "Yapı büyük ölçüde doğru ama bir bileşen (sayı, yüzde veya yorum) eksik/tutarsız."
+        },
+        "0.0": {
+          "condition": "Değişmez yapı yanlış yansıtılmış (ör. mavi kutuda hasta var demiş, ayrımı ters kurmuş) veya boş."
+        }
+      },
+      "example_answer": "6 (pembe/hasta doğru bilinen sayısı; öğrenciye göre değişir)."
+    },
+    "DTI_11": {
+      "printed_question": 11,
+      "section": "Xeno",
+      "region": "Tablo 9 / TP anlamı",
+      "prompt": "TP ne anlama gelir?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "tp_meaning",
+          "idea": "model 'hasta' dedi ve gerçekten hasta olan (doğru pozitif) yaratıkları anlatır",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Model'in hasta (pembe) deyip gerçekten hasta çıkan yaratıklar."
+    },
+    "DTI_12": {
+      "printed_question": 12,
+      "section": "Xeno",
+      "region": "Tablo 9 / TN sayısı",
+      "prompt": "TN (Doğru Negatif) sayısı",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "student_specific": true,
+      "expected_structure": {
+        "TN": "mavi kutu sayısı (öğrenciye özel)"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "TN değeri mavi (sağlıklı) kutu sayısına eşit ve tutarlıysa (öğrencinin kendi sayılarıyla tutarlı olması yeterlidir)."
+        },
+        "0.5": {
+          "condition": "Yapı büyük ölçüde doğru ama bir bileşen (sayı, yüzde veya yorum) eksik/tutarsız."
+        },
+        "0.0": {
+          "condition": "Değişmez yapı yanlış yansıtılmış (ör. mavi kutuda hasta var demiş, ayrımı ters kurmuş) veya boş."
+        }
+      },
+      "example_answer": "4 (mavi/sağlıklı doğru bilinen sayısı; öğrenciye göre değişir)."
+    },
+    "DTI_13": {
+      "printed_question": 13,
+      "section": "Xeno",
+      "region": "Tablo 9 / TN anlamı",
+      "prompt": "TN ne anlama gelir?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "tn_meaning",
+          "idea": "model 'sağlıklı' dedi ve gerçekten sağlıklı olan (doğru negatif) yaratıkları anlatır",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Model'in sağlıklı (mavi) deyip gerçekten sağlıklı çıkan yaratıklar."
+    },
+    "DTI_14": {
+      "printed_question": 14,
+      "section": "Xeno",
+      "region": "Tablo 9 / FP sayısı",
+      "prompt": "FP (Yanlış Pozitif) sayısı",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "student_specific": true,
+      "expected_structure": {
+        "FP": 0
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "FP = 0 yazılmışsa (kusursuz ayırıcı; yanlış pozitif olamaz) (öğrencinin kendi sayılarıyla tutarlı olması yeterlidir)."
+        },
+        "0.5": {
+          "condition": "Yapı büyük ölçüde doğru ama bir bileşen (sayı, yüzde veya yorum) eksik/tutarsız."
+        },
+        "0.0": {
+          "condition": "Değişmez yapı yanlış yansıtılmış (ör. mavi kutuda hasta var demiş, ayrımı ters kurmuş) veya boş."
+        }
+      },
+      "example_answer": "0 — sağlıklıyken yanlışlıkla hasta denen yaratık yok."
+    },
+    "DTI_15": {
+      "printed_question": 15,
+      "section": "Xeno",
+      "region": "Tablo 9 / FP anlamı",
+      "prompt": "FP ne anlama gelir?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "fp_meaning",
+          "idea": "sağlıklı olduğu hâlde yanlışlıkla hasta denen (yanlış pozitif) durumu anlatır",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Sağlıklı olduğu hâlde yanlışlıkla hasta denen yaratık yok."
+    },
+    "DTI_16": {
+      "printed_question": 16,
+      "section": "Xeno",
+      "region": "Tablo 9 / FN sayısı",
+      "prompt": "FN (Yanlış Negatif) sayısı",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "student_specific": true,
+      "expected_structure": {
+        "FN": 0
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "FN = 0 yazılmışsa (öğrencinin kendi sayılarıyla tutarlı olması yeterlidir)."
+        },
+        "0.5": {
+          "condition": "Yapı büyük ölçüde doğru ama bir bileşen (sayı, yüzde veya yorum) eksik/tutarsız."
+        },
+        "0.0": {
+          "condition": "Değişmez yapı yanlış yansıtılmış (ör. mavi kutuda hasta var demiş, ayrımı ters kurmuş) veya boş."
+        }
+      },
+      "example_answer": "0 — hastayken yanlışlıkla sağlıklı denen yaratık yok."
+    },
+    "DTI_17": {
+      "printed_question": 17,
+      "section": "Xeno",
+      "region": "Tablo 9 / FN anlamı",
+      "prompt": "FN ne anlama gelir?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "fn_meaning",
+          "idea": "hasta olduğu hâlde yanlışlıkla sağlıklı denen (yanlış negatif) durumu anlatır",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Hasta olduğu hâlde yanlışlıkla sağlıklı denen yaratık yok."
+    },
+    "DTI_18": {
+      "printed_question": 18,
+      "section": "Xeno",
+      "region": "Tablo 9 / N sayısı",
+      "prompt": "N (Toplam) sayısı",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "student_specific": true,
+      "expected_structure": {
+        "N": "TP+TN (öğrenciye özel; FP=FN=0 olduğundan TP+TN)"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "N = TP+TN+FP+FN toplamına eşitse (öğrencinin kendi değerleriyle tutarlı) (öğrencinin kendi sayılarıyla tutarlı olması yeterlidir)."
+        },
+        "0.5": {
+          "condition": "Yapı büyük ölçüde doğru ama bir bileşen (sayı, yüzde veya yorum) eksik/tutarsız."
+        },
+        "0.0": {
+          "condition": "Değişmez yapı yanlış yansıtılmış (ör. mavi kutuda hasta var demiş, ayrımı ters kurmuş) veya boş."
+        }
+      },
+      "example_answer": "10 — toplam vaka (6 hasta + 4 sağlıklı)."
+    },
+    "DTI_19": {
+      "printed_question": 19,
+      "section": "Xeno",
+      "region": "Tablo 9 / N anlamı",
+      "prompt": "N ne anlama gelir?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "n_meaning",
+          "idea": "test edilen toplam vaka/yaratık sayısı olduğunu belirtir",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Değerlendirilen toplam vaka sayısı."
+    },
+    "DTI_20": {
+      "printed_question": 20,
+      "section": "Xeno",
+      "region": "Tablo 11 / Doğruluk hesabı",
+      "prompt": "Doğruluk adım adım hesap",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "formula": "(TP+TN)/N",
+      "expected_structure": {
+        "value": "1,00 (%100)",
+        "note": "öğrenci kendi TP/TN/FP/FN değerlerini yerine koyar"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Formül doğru kurulmuş, öğrencinin kendi confusion değerleri yerine konmuş ve sonuç 1,00 (%100) çıkmış (kusursuz ayırıcı invariantı). Ara adımlar tutarlıysa tam puan."
+        },
+        "0.5": {
+          "condition": "Formül doğru ama işlem/sadeleştirme hatası; ya da yalnızca sonuç yazılmış, adım gösterilmemiş."
+        },
+        "0.0": {
+          "condition": "Yanlış formül veya sonuç, ya da boş."
+        }
+      },
+      "example_answer": "(6+4)/10 = 10/10 = 1,00 (%100)"
+    },
+    "DTI_21": {
+      "printed_question": 21,
+      "section": "Xeno",
+      "region": "Tablo 11 / Doğruluk yorumu",
+      "prompt": "Doğruluk sonucu yorumu",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "acc_interp",
+          "idea": "tüm tahminlerin doğru olduğunu / modelin kusursuz çalıştığını belirtir",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Tüm tahminler doğru; model kusursuz çalıştı."
+    },
+    "DTI_22": {
+      "printed_question": 22,
+      "section": "Xeno",
+      "region": "Tablo 11 / Duyarlılık hesabı",
+      "prompt": "Duyarlılık adım adım hesap",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "formula": "TP/(TP+FN)",
+      "expected_structure": {
+        "value": "1,00 (%100)",
+        "note": "öğrenci kendi TP/TN/FP/FN değerlerini yerine koyar"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Formül doğru kurulmuş, öğrencinin kendi confusion değerleri yerine konmuş ve sonuç 1,00 (%100) çıkmış (kusursuz ayırıcı invariantı). Ara adımlar tutarlıysa tam puan."
+        },
+        "0.5": {
+          "condition": "Formül doğru ama işlem/sadeleştirme hatası; ya da yalnızca sonuç yazılmış, adım gösterilmemiş."
+        },
+        "0.0": {
+          "condition": "Yanlış formül veya sonuç, ya da boş."
+        }
+      },
+      "example_answer": "6/(6+0) = 6/6 = 1,00 (%100)"
+    },
+    "DTI_23": {
+      "printed_question": 23,
+      "section": "Xeno",
+      "region": "Tablo 11 / Duyarlılık yorumu",
+      "prompt": "Duyarlılık sonucu yorumu",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "sens_interp",
+          "idea": "gerçekten hasta olanların tamamının doğru yakalandığını belirtir",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Gerçekten hasta olanların tamamı doğru yakalandı."
+    },
+    "DTI_24": {
+      "printed_question": 24,
+      "section": "Xeno",
+      "region": "Tablo 11 / Özgüllük hesabı",
+      "prompt": "Özgüllük adım adım hesap",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "formula": "TN/(TN+FP)",
+      "expected_structure": {
+        "value": "1,00 (%100)",
+        "note": "öğrenci kendi TP/TN/FP/FN değerlerini yerine koyar"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Formül doğru kurulmuş, öğrencinin kendi confusion değerleri yerine konmuş ve sonuç 1,00 (%100) çıkmış (kusursuz ayırıcı invariantı). Ara adımlar tutarlıysa tam puan."
+        },
+        "0.5": {
+          "condition": "Formül doğru ama işlem/sadeleştirme hatası; ya da yalnızca sonuç yazılmış, adım gösterilmemiş."
+        },
+        "0.0": {
+          "condition": "Yanlış formül veya sonuç, ya da boş."
+        }
+      },
+      "example_answer": "4/(4+0) = 4/4 = 1,00 (%100)"
+    },
+    "DTI_25": {
+      "printed_question": 25,
+      "section": "Xeno",
+      "region": "Tablo 11 / Özgüllük yorumu",
+      "prompt": "Özgüllük sonucu yorumu",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "spec_interp",
+          "idea": "gerçekten sağlıklı olanların tamamının doğru sınıflandırıldığını belirtir",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Gerçekten sağlıklı olanların tamamı doğru sınıflandırıldı."
+    },
+    "DTI_26": {
+      "printed_question": 26,
+      "section": "Xeno",
+      "region": "Tablo 11 / Kesinlik hesabı",
+      "prompt": "Kesinlik adım adım hesap",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "formula": "TP/(TP+FP)",
+      "expected_structure": {
+        "value": "1,00 (%100)",
+        "note": "öğrenci kendi TP/TN/FP/FN değerlerini yerine koyar"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Formül doğru kurulmuş, öğrencinin kendi confusion değerleri yerine konmuş ve sonuç 1,00 (%100) çıkmış (kusursuz ayırıcı invariantı). Ara adımlar tutarlıysa tam puan."
+        },
+        "0.5": {
+          "condition": "Formül doğru ama işlem/sadeleştirme hatası; ya da yalnızca sonuç yazılmış, adım gösterilmemiş."
+        },
+        "0.0": {
+          "condition": "Yanlış formül veya sonuç, ya da boş."
+        }
+      },
+      "example_answer": "6/(6+0) = 6/6 = 1,00 (%100)"
+    },
+    "DTI_27": {
+      "printed_question": 27,
+      "section": "Xeno",
+      "region": "Tablo 11 / Kesinlik yorumu",
+      "prompt": "Kesinlik sonucu yorumu",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "prec_interp",
+          "idea": "'hasta' denen vakaların tamamının gerçekten hasta olduğunu belirtir",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "'Hasta' denen vakaların tamamı gerçekten hasta."
+    },
+    "DTI_28": {
+      "printed_question": 28,
+      "section": "Xeno",
+      "region": "Tablo 12: Öncelikli metrik",
+      "prompt": "Bir Xenobiyolog olarak hangi metriği önceliklendirirsiniz? Neden?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "metric_named",
+          "idea": "belirli bir metrik seçer (duyarlılık/recall beklenir; tutarlı gerekçeyle kesinlik/doğruluk da olabilir)",
+          "required": true
+        },
+        {
+          "id": "justification",
+          "idea": "seçimi problemle ilişkilendirir (ör. hastayı kaçırmamak / FN'yi en aza indirmek, hastalığın yayılmasını önlemek)",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "note": "Tek doğru metrik yoktur; seçim gerekçeyle tutarlıysa kabul edilir. Bulaşıcı hastalık bağlamında duyarlılık en güçlü gerekçedir.",
+      "example_answer": "Duyarlılık. Gerçekten hasta olan bir yaratığı kaçırmamak (FN'yi en aza indirmek) hayati; hastalığın yayılmasını önlemek için tüm hastaları yakalamak öncelikli."
+    },
+    "DTI_29": {
+      "printed_question": 29,
+      "section": "Xeno",
+      "region": "Tablo 13a: Yeni metrik formülü",
+      "prompt": "Tanımladığınız yeni metriğin formülü",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "valid_formula",
+          "idea": "TP/TN/FP/FN/N'den türetilmiş, tanımlı ve anlamlı bir formül verir (ör. dengeli doğruluk, F1, (duyarlılık+özgüllük)/2)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "note": "Öğrenci özgün bir metrik tanımlar; matematiksel olarak geçerli ve confusion matrisinden hesaplanabilir olması yeterli.",
+      "example_answer": "Dengeli Doğruluk = (Duyarlılık + Özgüllük) / 2"
+    },
+    "DTI_30": {
+      "printed_question": 30,
+      "section": "Xeno",
+      "region": "Tablo 13b: Yeni metrik ne yakalar",
+      "prompt": "Oluşturduğunuz ölçü neyi daha iyi yakalıyor?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "captures",
+          "idea": "metriğin ne kazandırdığını açıklar (ör. iki sınıftaki başarıyı dengeli ölçer, dengesiz veride yanıltıcı doğruluğu maskelemez)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Hem hasta hem sağlıklı sınıftaki başarıyı birlikte ölçer; tek sınıftaki yüksek başarının yarattığı yanıltıcı doğruluğu engeller."
+    },
+    "DTI_31": {
+      "printed_question": 31,
+      "section": "Xeno",
+      "region": "Tablo 13c: Yeni metrik ne zaman tercih",
+      "prompt": "Bu ölçü hangi durumlarda tercih edilmeli?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "when",
+          "idea": "uygun kullanım bağlamını belirtir (ör. sınıflar dengesizken, FP ve FN maliyetleri farklıyken)",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Sınıflar dengesiz olduğunda (bir sınıf çok daha kalabalıkken) tercih edilmelidir."
+    },
+    "DTI_32": {
+      "printed_question": 32,
+      "section": "Xeno",
+      "region": "Tablo 11 / MCR (Yanlış Sınıflandırma Oranı) hesabı",
+      "prompt": "MCR (Yanlış Sınıflandırma Oranı) adım adım hesap",
+      "max_score": 1,
+      "evaluation": "xeno_numeric_consistency",
+      "check": "numeric_consistency",
+      "formula": "(FP+FN)/N",
+      "expected_structure": {
+        "value": "0 (%0)",
+        "note": "öğrenci kendi TP/TN/FP/FN değerlerini yerine koyar"
+      },
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Formül doğru kurulmuş, öğrencinin kendi confusion değerleri yerine konmuş ve sonuç 0 (%0) çıkmış (kusursuz ayırıcı invariantı). Ara adımlar tutarlıysa tam puan."
+        },
+        "0.5": {
+          "condition": "Formül doğru ama işlem/sadeleştirme hatası; ya da yalnızca sonuç yazılmış, adım gösterilmemiş."
+        },
+        "0.0": {
+          "condition": "Yanlış formül veya sonuç, ya da boş."
+        }
+      },
+      "example_answer": "(0+0)/10 = 0 (%0)"
+    },
+    "DTI_33": {
+      "printed_question": 33,
+      "section": "Xeno",
+      "region": "Tablo 15 / MCR yorumu",
+      "prompt": "MCR sonucu yorumu",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "mcr_interp",
+          "idea": "hiç yanlış sınıflandırma olmadığını / hata oranının %0 olduğunu (MCR = 1 - Doğruluk) belirtir",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "example_answer": "Hiç yanlış sınıflandırma yok; hata oranı %0. (MCR = 1 - Doğruluk = 0)"
+    },
+    "DTI_34": {
+      "printed_question": 34,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "Tablo 20 / Kök düğüm",
+      "prompt": "Kök düğüm kaç yolcu içerir? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "812 yolcu; 290'ı hayatta",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti1.root",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (812 yolcu; 290'ı hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_35": {
+      "printed_question": 35,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "Tablo 20 / Female",
+      "prompt": "Female kutusunda kaç kişi var? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "290 kişi; 290'ı (tamamı) hayatta",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti1.female",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (290 kişi; 290'ı (tamamı) hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_36": {
+      "printed_question": 36,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "Tablo 20 / Male",
+      "prompt": "Male kutusunda kaç kişi var? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "522 kişi; 0'ı hayatta",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti1.male",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (522 kişi; 0'ı hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_37": {
+      "printed_question": 37,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "Tablo 20 / Pozitif etiket",
+      "prompt": "Hangi kutu 'pozitif' (hayatta) etiketlendi?",
+      "max_score": 1,
+      "evaluation": "titanic_categorical",
+      "check": "numeric_value",
+      "expected_answer": "Female (kadın) kutusu",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Female/kadın kutusu belirtilmişse."
+        },
+        "0.0": {
+          "condition": "Male/erkek denmiş veya boş."
+        }
+      }
+    },
+    "DTI_38": {
+      "printed_question": 38,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "Tablo 21 / Doğruluk",
+      "prompt": "Doğruluk hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "(290+522)/812 = 1,00 (%100)",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti1.accuracy",
+      "formula": "(TP+TN)/N",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde ((290+522)/812 = 1,00 (%100)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_39": {
+      "printed_question": 39,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "Tablo 21 / Duyarlılık",
+      "prompt": "Duyarlılık hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "290/290 = 1,00 (%100)",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti1.sensitivity",
+      "formula": "TP/(TP+FN)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (290/290 = 1,00 (%100)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_40": {
+      "printed_question": 40,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "Tablo 21 / Özgüllük",
+      "prompt": "Özgüllük hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "522/522 = 1,00 (%100)",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti1.specificity",
+      "formula": "TN/(TN+FP)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (522/522 = 1,00 (%100)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_41": {
+      "printed_question": 41,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "Tablo 21 / Kesinlik",
+      "prompt": "Kesinlik hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "290/290 = 1,00 (%100)",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti1.precision",
+      "formula": "TP/(TP+FP)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (290/290 = 1,00 (%100)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_42": {
+      "printed_question": 42,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti1",
+      "region": "Tablo 21 / MCR",
+      "prompt": "MCR hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "(0+0)/812 = 0 (%0)",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti1.MCR",
+      "formula": "(FP+FN)/N",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde ((0+0)/812 = 0 (%0)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_43": {
+      "printed_question": 43,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "Tablo 23 / Kök düğüm",
+      "prompt": "Kök düğüm kaç yolcu? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "231 yolcu; 105'i hayatta",
+      "canonical_ref": "titanic_canonical.test_veri_seti1.root",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (231 yolcu; 105'i hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_44": {
+      "printed_question": 44,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "Tablo 23 / Female",
+      "prompt": "Female kutusu kaç kişi? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "96 kişi; 56'sı hayatta",
+      "canonical_ref": "titanic_canonical.test_veri_seti1.female",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (96 kişi; 56'sı hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_45": {
+      "printed_question": 45,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "Tablo 23 / Male",
+      "prompt": "Male kutusu kaç kişi? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "135 kişi; 49'u hayatta",
+      "canonical_ref": "titanic_canonical.test_veri_seti1.male",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (135 kişi; 49'u hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_46": {
+      "printed_question": 46,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "Tablo 23 / Pozitif etiket",
+      "prompt": "Hangi kutu 'pozitif' (hayatta) etiketlendi?",
+      "max_score": 1,
+      "evaluation": "titanic_categorical",
+      "check": "numeric_value",
+      "expected_answer": "Female (kadın) kutusu",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Female/kadın kutusu belirtilmişse."
+        },
+        "0.0": {
+          "condition": "Aksi veya boş."
+        }
+      }
+    },
+    "DTI_47": {
+      "printed_question": 47,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "Tablo 24 / Doğruluk",
+      "prompt": "Doğruluk hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "(56+86)/231 = 0,615 (%61,5)",
+      "canonical_ref": "titanic_canonical.test_veri_seti1.accuracy",
+      "formula": "(TP+TN)/N",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde ((56+86)/231 = 0,615 (%61,5)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_48": {
+      "printed_question": 48,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "Tablo 24 / Duyarlılık",
+      "prompt": "Duyarlılık hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "56/105 = 0,533 (%53,3)",
+      "canonical_ref": "titanic_canonical.test_veri_seti1.sensitivity",
+      "formula": "TP/(TP+FN)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (56/105 = 0,533 (%53,3)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_49": {
+      "printed_question": 49,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "Tablo 24 / Özgüllük",
+      "prompt": "Özgüllük hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "86/126 = 0,683 (%68,3)",
+      "canonical_ref": "titanic_canonical.test_veri_seti1.specificity",
+      "formula": "TN/(TN+FP)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (86/126 = 0,683 (%68,3)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_50": {
+      "printed_question": 50,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "Tablo 24 / Kesinlik",
+      "prompt": "Kesinlik hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "56/96 = 0,583 (%58,3)",
+      "canonical_ref": "titanic_canonical.test_veri_seti1.precision",
+      "formula": "TP/(TP+FP)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (56/96 = 0,583 (%58,3)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_51": {
+      "printed_question": 51,
+      "section": "Titanic",
+      "dataset": "test_veri_seti1",
+      "region": "Tablo 24 / MCR",
+      "prompt": "MCR hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "(40+49)/231 = 0,385 (%38,5)",
+      "canonical_ref": "titanic_canonical.test_veri_seti1.MCR",
+      "formula": "(FP+FN)/N",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde ((40+49)/231 = 0,385 (%38,5)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_52": {
+      "printed_question": 52,
+      "section": "Titanic",
+      "region": "Tablo 25: Eğitim–test farkı (VS1)",
+      "prompt": "Eğitim ve test metrikleri arasında büyük fark var mı? Neden?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "gap_yes",
+          "idea": "evet, büyük fark var der ve sayısal düşüşe değinir (%100 -> ~%61,5)",
+          "required": true
+        },
+        {
+          "id": "overfit_reason",
+          "idea": "nedeni ezberleme/aşırı öğrenme veya kuralın test verisinde genellememesiyle açıklar",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "example_answer": "Evet, büyük fark var. Eğitimde %100 doğruluk testte %61,5'e düşüyor; model eğitim setini ezberledi ama görülmemiş veride genellemiyor (aşırı öğrenme)."
+    },
+    "DTI_53": {
+      "printed_question": 53,
+      "section": "Titanic",
+      "region": "Tablo 27: Overfitting tanımı (VS1)",
+      "prompt": "Aşırı öğrenme (overfitting) nedir? Bu senaryoda neden oldu?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "definition",
+          "idea": "modelin eğitim verisini ezberleyip yeni/görülmemiş veride başarısız olması olarak tanımlar",
+          "required": true
+        },
+        {
+          "id": "why_here",
+          "idea": "burada cinsiyetin eğitim setinde hayatta kalmayı kusursuz ayırdığını, test setinde bunun bozulduğunu belirtir",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "example_answer": "Overfitting, modelin eğitim verisini ezberleyip yeni veride başarısız olmasıdır. Burada cinsiyet eğitim seti 1'de hayatta kalmayı %100 ayırdı, ama test setinde ilişki bu kadar keskin olmadığından başarı düştü."
+    },
+    "DTI_54": {
+      "printed_question": 54,
+      "section": "Titanic",
+      "region": "Tablo 29: Duyarlılık düşüşü (VS1)",
+      "prompt": "Eğitimde yüksek duyarlılık testte düştü. Yorumlayın.",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "interpret",
+          "idea": "testte modelin gerçek hayatta kalanların daha azını yakaladığını, genellemenin zayıf olduğunu (aşırı öğrenme) belirtir",
+          "required": true
+        },
+        {
+          "id": "numbers",
+          "idea": "sayısal desteğe değinir (%100 -> ~%53,3)",
+          "required": false
+        }
+      ],
+      "need": 1,
+      "example_answer": "Eğitimde %100 olan duyarlılık testte %53,3'e düştü; model hayatta kalanların testte ancak yarısını yakalayabildi, genelleme zayıf (aşırı öğrenme)."
+    },
+    "DTI_55": {
+      "printed_question": 55,
+      "section": "Titanic",
+      "region": "Tablo 30: MCR artışı (VS1)",
+      "prompt": "Eğitimde düşük MCR testte arttı. Yorumlayın.",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "interpret",
+          "idea": "testte hata oranının belirgin arttığını, modelin eğitimdeki kusursuzluğu taşıyamadığını (aşırı öğrenme) belirtir",
+          "required": true
+        },
+        {
+          "id": "numbers",
+          "idea": "sayısal desteğe değinir (%0 -> ~%38,5)",
+          "required": false
+        }
+      ],
+      "need": 1,
+      "example_answer": "Eğitimde %0 olan MCR testte %38,5'e çıktı; yeni veride her üç tahminden biri yanlış, model genelleyemedi (aşırı öğrenme)."
+    },
+    "DTI_56": {
+      "printed_question": 56,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "Tablo 31 / Kök düğüm",
+      "prompt": "Kök düğüm kaç yolcu? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "834 yolcu; 456'sı hayatta",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti2.root",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (834 yolcu; 456'sı hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_57": {
+      "printed_question": 57,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "Tablo 31 / Female",
+      "prompt": "Female kutusu kaç kişi? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "304 kişi; 128'i hayatta",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti2.female",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (304 kişi; 128'i hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_58": {
+      "printed_question": 58,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "Tablo 31 / Male",
+      "prompt": "Male kutusu kaç kişi? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "530 kişi; 328'i hayatta",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti2.male",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (530 kişi; 328'i hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_59": {
+      "printed_question": 59,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "Tablo 31 / Pozitif etiket",
+      "prompt": "Hangi kutu 'pozitif' (hayatta) etiketlendi?",
+      "max_score": 1,
+      "evaluation": "titanic_categorical",
+      "check": "numeric_value",
+      "expected_answer": "Female (kadın) kutusu",
+      "note": "Kural gereği female=pozitif etiketlenir; bu veri setinde female'lerin çoğu ölmüş olsa da etiketleme kuralı sabittir. Öğrenci kuralı doğru uygularsa tam puan.",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Female/kadın kutusu belirtilmişse."
+        },
+        "0.0": {
+          "condition": "Aksi veya boş."
+        }
+      }
+    },
+    "DTI_60": {
+      "printed_question": 60,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "Tablo 32 / Doğruluk",
+      "prompt": "Doğruluk hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "(128+202)/834 = 0,396 (%39,6)",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti2.accuracy",
+      "formula": "(TP+TN)/N",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde ((128+202)/834 = 0,396 (%39,6)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_61": {
+      "printed_question": 61,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "Tablo 32 / Duyarlılık",
+      "prompt": "Duyarlılık hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "128/456 = 0,281 (%28,1)",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti2.sensitivity",
+      "formula": "TP/(TP+FN)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (128/456 = 0,281 (%28,1)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_62": {
+      "printed_question": 62,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "Tablo 32 / Özgüllük",
+      "prompt": "Özgüllük hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "202/378 = 0,534 (%53,4)",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti2.specificity",
+      "formula": "TN/(TN+FP)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (202/378 = 0,534 (%53,4)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_63": {
+      "printed_question": 63,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "Tablo 32 / Kesinlik",
+      "prompt": "Kesinlik hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "128/304 = 0,421 (%42,1)",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti2.precision",
+      "formula": "TP/(TP+FP)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (128/304 = 0,421 (%42,1)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_64": {
+      "printed_question": 64,
+      "section": "Titanic",
+      "dataset": "egitim_veri_seti2",
+      "region": "Tablo 32 / MCR",
+      "prompt": "MCR hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "(176+328)/834 = 0,604 (%60,4)",
+      "canonical_ref": "titanic_canonical.egitim_veri_seti2.MCR",
+      "formula": "(FP+FN)/N",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde ((176+328)/834 = 0,604 (%60,4)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_65": {
+      "printed_question": 65,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "Tablo 34 / Kök düğüm",
+      "prompt": "Kök düğüm kaç yolcu? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "209 yolcu; 85'i hayatta",
+      "canonical_ref": "titanic_canonical.test_veri_seti2.root",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (209 yolcu; 85'i hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_66": {
+      "printed_question": 66,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "Tablo 34 / Female",
+      "prompt": "Female kutusu kaç kişi? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "82 kişi; 61'i hayatta",
+      "canonical_ref": "titanic_canonical.test_veri_seti2.female",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (82 kişi; 61'i hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_67": {
+      "printed_question": 67,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "Tablo 34 / Male",
+      "prompt": "Male kutusu kaç kişi? Kaçı hayatta?",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "numeric_value",
+      "expected_answer": "127 kişi; 24'ü hayatta",
+      "canonical_ref": "titanic_canonical.test_veri_seti2.male",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (127 kişi; 24'ü hayatta). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_68": {
+      "printed_question": 68,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "Tablo 34 / Pozitif etiket",
+      "prompt": "Hangi kutu 'pozitif' (hayatta) etiketlendi?",
+      "max_score": 1,
+      "evaluation": "titanic_categorical",
+      "check": "numeric_value",
+      "expected_answer": "Female (kadın) kutusu",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Female/kadın kutusu belirtilmişse."
+        },
+        "0.0": {
+          "condition": "Aksi veya boş."
+        }
+      }
+    },
+    "DTI_69": {
+      "printed_question": 69,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "Tablo 35 / Doğruluk",
+      "prompt": "Doğruluk hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "(61+103)/209 = 0,785 (%78,5)",
+      "canonical_ref": "titanic_canonical.test_veri_seti2.accuracy",
+      "formula": "(TP+TN)/N",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde ((61+103)/209 = 0,785 (%78,5)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_70": {
+      "printed_question": 70,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "Tablo 35 / Duyarlılık",
+      "prompt": "Duyarlılık hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "61/85 = 0,718 (%71,8)",
+      "canonical_ref": "titanic_canonical.test_veri_seti2.sensitivity",
+      "formula": "TP/(TP+FN)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (61/85 = 0,718 (%71,8)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_71": {
+      "printed_question": 71,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "Tablo 35 / Özgüllük",
+      "prompt": "Özgüllük hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "103/124 = 0,831 (%83,1)",
+      "canonical_ref": "titanic_canonical.test_veri_seti2.specificity",
+      "formula": "TN/(TN+FP)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (103/124 = 0,831 (%83,1)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_72": {
+      "printed_question": 72,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "Tablo 35 / Kesinlik",
+      "prompt": "Kesinlik hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "61/82 = 0,744 (%74,4)",
+      "canonical_ref": "titanic_canonical.test_veri_seti2.precision",
+      "formula": "TP/(TP+FP)",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde (61/82 = 0,744 (%74,4)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_73": {
+      "printed_question": 73,
+      "section": "Titanic",
+      "dataset": "test_veri_seti2",
+      "region": "Tablo 35 / MCR",
+      "prompt": "MCR hesabı",
+      "max_score": 1,
+      "evaluation": "titanic_numeric_canonical",
+      "check": "formula",
+      "expected_answer": "(21+24)/209 = 0,215 (%21,5)",
+      "canonical_ref": "titanic_canonical.test_veri_seti2.MCR",
+      "formula": "(FP+FN)/N",
+      "scoring_rules": {
+        "1.0": {
+          "condition": "Değer kanonik sonuca eşit ya da ±0,02 tolerans içinde ((21+24)/209 = 0,215 (%21,5)). Kesir/ondalık/yüzde biçimlerinin hepsi kabul."
+        },
+        "0.5": {
+          "condition": "Doğru formül/yapı kurulmuş ama sayısal okuma veya işlem hatası var; ya da yalnızca ara adım doğru."
+        },
+        "0.0": {
+          "condition": "Formül de sonuç da yanlış veya boş."
+        }
+      }
+    },
+    "DTI_74": {
+      "printed_question": 74,
+      "section": "Titanic",
+      "region": "Tablo 36: Eğitim–test farkı (VS2)",
+      "prompt": "Eğitim ve test metrikleri arasında büyük fark var mı? Neden?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "observation",
+          "idea": "metrikleri karşılaştırır; eğitim doğruluğunun düşük olduğunu (~%39,6) fark eder",
+          "required": true
+        },
+        {
+          "id": "underfit_reason",
+          "idea": "nedeni cinsiyet-hayatta kalma ilişkisinin bu sette zayıf/ters olması ve modelin eğitimde bile öğrenememesi (eksik öğrenme) ile açıklar",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "note": "Bu sette test doğruluğu (%78,5) eğitimden (%39,6) YÜKSEK; öğrenci ister 'ters yönde fark' ister 'eğitimde bile başarısız = underfitting' vurgusu yapsın, gözlem verisiyle tutarlıysa kabul.",
+      "example_answer": "Eğitim seti 2'de cinsiyet-hayatta kalma ilişkisi zayıf olduğundan sabit 'kadın=hayatta' kuralı eğitim verisine bile uymadı, eğitim doğruluğu %39,6'da kaldı. Model eğitimde bile öğrenemedi (eksik öğrenme)."
+    },
+    "DTI_75": {
+      "printed_question": 75,
+      "section": "Titanic",
+      "region": "Tablo 38: Underfitting tanımı (VS2)",
+      "prompt": "Yetersiz uyum (underfitting) nedir? Bu senaryoda neden oldu?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "definition",
+          "idea": "modelin çok basit kalıp verideki temel ilişkiyi kavrayamaması ve hem eğitim hem testte yüksek hata göstermesi olarak tanımlar",
+          "required": true
+        },
+        {
+          "id": "why_here",
+          "idea": "burada ağacın tek değişkene (cinsiyet) dayanması ve eğitim seti 2'nin ilişkisinin zayıf olması nedeniyle eğitimde bile başarısız olduğunu belirtir",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "example_answer": "Underfitting, modelin verideki temel ilişkiyi kavrayamayacak kadar basit kalıp hem eğitim hem testte yüksek hata vermesidir. Burada ağaç yalnızca cinsiyeti kullanıyor; eğitim seti 2'de bu ilişki zayıf olduğundan model eğitimde bile %39,6 doğrulukta kaldı."
+    },
+    "DTI_76": {
+      "printed_question": 76,
+      "section": "Titanic",
+      "region": "Tablo 40: Duyarlılık yorumu (VS2 – çelişkili soru köküyle)",
+      "prompt": "Soru 'eğitimde yüksek duyarlılık testte düştü' varsayar; VS2'de durum tersidir.",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "correct_reading",
+          "idea": "VS2'de eğitim duyarlılığının DÜŞÜK (~%28,1) olduğunu, modelin hayatta kalanların çoğunu kaçırdığını ve bunun eksik öğrenme (underfitting) işareti olduğunu belirtir",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "note": "TUZAK SORU: soru kökü VS1 (overfitting) senaryosundan kopyalanmıştır. Öğrenci (a) çelişkiyi fark edip VS2 gerçeğini (düşük eğitim duyarlılığı, underfitting) doğru yorumlarsa tam puan; (b) soru kökünü sorgulamadan genel/soyut doğru bir duyarlılık-düşüşü yorumu yaparsa 0.5. Bu maddede eleştirel okuma ödüllendirilir.",
+      "example_answer": "Bu veri setinde durum sorunun tersidir: eğitim duyarlılığı zaten %28,1 gibi düşüktür. Sabit cinsiyet kuralı örüntüyü yakalayamamış, gerçek hayatta kalanların çoğu kaçırılmıştır; bu aşırı değil eksik öğrenmenin (underfitting) göstergesidir."
+    },
+    "DTI_77": {
+      "printed_question": 77,
+      "section": "Titanic",
+      "region": "Tablo 41: MCR yorumu (VS2 – çelişkili soru köküyle)",
+      "prompt": "Soru 'eğitimde düşük MCR testte arttı' varsayar; VS2'de eğitim MCR'si zaten yüksektir.",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "correct_reading",
+          "idea": "VS2'de eğitim MCR'sinin YÜKSEK (~%60,4) olduğunu, modelin eğitimde bile çoğu tahmini yanlış yaptığını ve bunun underfitting olduğunu belirtir",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "note": "TUZAK SORU: soru kökü VS1'den kopyalanmıştır. Çelişkiyi fark edip VS2 gerçeğini doğru yorumlayan tam puan; soru kökünü izleyerek tutarlı genel yorum yapan 0.5.",
+      "example_answer": "Bu veri setinde eğitim MCR'si zaten %60,4 gibi çok yüksektir; model eğitim verisinde bile tahminlerin çoğunu yanlış yapmıştır. Yüksek eğitim hatası modelin veriyi öğrenemediğini (underfitting) gösterir."
+    },
+    "DTI_78": {
+      "printed_question": 78,
+      "section": "Titanic",
+      "region": "Tablo 43: İyi model nasıl olmalı",
+      "prompt": "'İyi' bir model nasıl olmalı? Eğitim ve testte hangi metrikler nasıl olmalı?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "high_both",
+          "idea": "hem eğitim hem testte yüksek doğruluk/duyarlılık/özgüllük, düşük MCR ister",
+          "required": true
+        },
+        {
+          "id": "small_gap",
+          "idea": "eğitim ile test performansı arasındaki farkın küçük olması gerektiğini (ne aşırı ne eksik öğrenme) belirtir",
+          "required": true
+        }
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "example_answer": "İyi model hem eğitim hem testte yüksek ve birbirine yakın metrikler verir: doğruluk/duyarlılık/özgüllük yüksek, MCR düşük ve iki set arasındaki fark küçük olmalı."
+    },
+    "DTI_79": {
+      "printed_question": 79,
+      "section": "Titanic",
+      "region": "Tablo 44: Neden sadece eğitim metrikleri yetmez",
+      "prompt": "Bu iki senaryo, sadece eğitim metriklerine bakmanın neden yetmediğini nasıl gösterdi?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "reason",
+          "idea": "eğitim metriklerinin ezberlemeyi/genelleme başarısını göstermediğini, gerçek başarının ancak görülmemiş test verisiyle anlaşıldığını belirtir",
+          "required": true
+        },
+        {
+          "id": "evidence",
+          "idea": "örnek verir (VS1'de %100 eğitim ama %61,5 test)",
+          "required": false
+        }
+      ],
+      "need": 1,
+      "example_answer": "Sadece eğitim metrikleri modelin ezberleyip ezberlemediğini göstermez. VS1'de eğitim %100 ama test %61,5 çıktı; gerçek başarı ancak test verisiyle anlaşılır."
+    },
+    "DTI_80": {
+      "printed_question": 80,
+      "section": "Titanic",
+      "region": "Tablo 45: Tek metrik yeterli mi",
+      "prompt": "Bir modeli yalnızca tek bir metriğe (ör. doğruluk) bakarak değerlendirmek uygun mu? Neden?",
+      "max_score": 1,
+      "evaluation": "interpretive",
+      "components": [
+        {
+          "id": "no",
+          "idea": "hayır der",
+          "required": true
+        },
+        {
+          "id": "why",
+          "idea": "tek metriğin yanıltıcı olabileceğini (özellikle dengesiz sınıflarda yüksek doğruluğun düşük duyarlılıkla birlikte olabileceğini) açıklar; birden çok metrik önerir",
+          "required": true
+        }
+      ],
+      "need": 1,
+      "partial_on": 1,
+      "partial_score": 0.5,
+      "example_answer": "Hayır. Tek metrik yanıltıcı olabilir; dengesiz sınıflarda yüksek doğruluk düşük duyarlılıkla bir arada olabilir. Doğruluk, duyarlılık, özgüllük, kesinlik ve MCR birlikte değerlendirilmeli."
+    }
+  },
+  "item_count": 80
+}

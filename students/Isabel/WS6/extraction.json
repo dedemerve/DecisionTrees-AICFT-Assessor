@@ -1,0 +1,168 @@
+{
+  "stage": "extraction",
+  "student_id": "Isabel",
+  "worksheet": "WS6",
+  "student_name": "Isabel",
+  "pdf_source": "31 Mart 2026 Çalışma Kâğıdı 6.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-08-02T17:49:38.721635+00:00",
+    "ocr_model": "claude-sonnet-5",
+    "items": {
+      "WS6_B1": "(not_extracted)",
+      "WS6_B2": "(not_extracted)",
+      "WS6_B3": "(not_extracted)",
+      "WS6_B4": "(not_extracted)",
+      "WS6_B5": "(not_extracted)",
+      "WS6_B6": "(not_extracted)",
+      "WS6_B7": "(not_extracted)",
+      "WS6_B8": "(not_extracted)",
+      "WS6_B9": "(not_extracted)",
+      "WS6_B10": "(not_extracted)",
+      "WS6_B11": "(not_extracted)",
+      "WS6_B12": "(not_extracted)",
+      "WS6_B13": "(not_extracted)"
+    },
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Enerji",
+        "left_operator": "≤",
+        "left_threshold_value": 191.5,
+        "right_operator": ">",
+        "right_threshold_value": 191.5
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": null,
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "≥",
+          "left_threshold_value": 11.0,
+          "right_operator": "≤",
+          "right_threshold_value": 11.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "left_right_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilebilir",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    },
+    "raw_ocr": {
+      "student_id": "Isabel",
+      "worksheet": "WS6",
+      "extraction": {
+        "tree_structure": {
+          "depth_0": {
+            "parsed_feature": "Enerji",
+            "left_operator": "≤",
+            "left_threshold_value": 191.5,
+            "right_operator": ">",
+            "right_threshold_value": 191.5
+          },
+          "depth_1": {
+            "left_child": {
+              "parsed_feature": null,
+              "node_recommended_count": null,
+              "node_not_recommended_count": null,
+              "left_operator": null,
+              "left_threshold_value": null,
+              "right_operator": null,
+              "right_threshold_value": null
+            },
+            "right_child": {
+              "parsed_feature": "Protein",
+              "node_recommended_count": null,
+              "node_not_recommended_count": null,
+              "left_operator": "≥",
+              "left_threshold_value": 11.0,
+              "right_operator": "≤",
+              "right_threshold_value": 11.0
+            }
+          },
+          "depth_2": {
+            "leaf_nodes": {
+              "left_left_leaf": {
+                "leaf_label": null,
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": null
+              },
+              "left_right_leaf": {
+                "leaf_label": null,
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": null
+              },
+              "right_left_leaf": {
+                "leaf_label": "tavsiye edilebilir",
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": null
+              },
+              "right_right_leaf": {
+                "leaf_label": "tavsiye edilemez",
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": null
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 0,
+      "total": 13,
+      "blank_or_illegible": 0,
+      "missing": 13,
+      "completion_rate": 0.0,
+      "note": "WS6 scored from tree_structure, not flat items"
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 1.0,
+      "engagement_level": "high",
+      "llm_observations": "Kök düğümde 'Enerji' değişkeni ve eşik değeri 191,5 yazılmış (sol dal ≤191,5, sağ dal >191,5). Sol alt düğüm boş bırakılmış (özellik yazılmamış) ama 'tavsiye edilebilir' işaretlenmiş ve iki alt kutuya ok çizilmiş, bu kutular boş. Sağ alt düğümde 'Protein' yazılı, 'tavsiye edilemez' işaretlenmiş, iki dala eşik değerleri (>11 ve ≤11) yazılmış ve yapraklar 'tavsiye edilebilir' ve 'tavsiye edilemez' olarak etiketlenmiş.",
+      "page_quality_notes": "Sol alt düğümün özellik adı yazılmamış (boş). Sol alt düğümün iki yaprak kutusu tamamen boş bırakılmış, sayı veya etiket yok. Sağ alt düğümdeki eşik değerleri '>11' ve '≤11' olarak okunmuş, ancak bar işareti belirsiz olduğu için '[depth_1 right_child operatör belirsiz: < veya ≤ olabilir]' notu eklenmiştir. Kök düğümdeki eşik değeri '191,5' olarak okunmuştur, el yazısı biraz belirsizdir."
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

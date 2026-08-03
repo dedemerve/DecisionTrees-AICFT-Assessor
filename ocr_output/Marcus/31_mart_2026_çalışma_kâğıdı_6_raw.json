@@ -1,0 +1,61 @@
+{
+  "student_id": "Marcus",
+  "worksheet": "WS6",
+  "ws_snapshot": "Root node splits on 'Enerji' with threshold 220 (left branch <220, right branch <220 as well but oriented differently). Left child inner node is 'Protein' with threshold 13 on the left branch and 18 on the right-most leaf branch. Four leaf boxes are drawn, two with food names (Saladin/Elma, Patates/Avokado, Yulaf, Ahududu/nasel fıstık/jelibon/kraker/soğuk çorba/patates kızartması) and marked tavsiye edilebilir with an X, others blank on tavsiye edilemez line.",
+  "page_notes": "Right child inner node box appears empty (no feature name written) - incomplete branch. Operators for depth_0 both appear as '<' without a clear horizontal bar, though direction/values are unclear since both branches show '220' with '<' - [depth_0 operator belirsiz: < veya ≤ olabilir, ve sağ dal değeri de aynı görünüyor, sol/sağ ayrımı net değil]. Depth_1 right_child feature and counts are blank/undeterminable from image.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Enerji",
+        "left_operator": "<",
+        "left_threshold_value": 220.0,
+        "right_operator": "<",
+        "right_threshold_value": 220.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "<",
+          "left_threshold_value": 13.0,
+          "right_operator": "<",
+          "right_threshold_value": 18.0
+        },
+        "right_child": {
+          "parsed_feature": null,
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": null
+          },
+          "left_right_leaf": {
+            "leaf_label": "tavsiye edilebilir",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": 0
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilebilir",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": 0
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    }
+  }
+}

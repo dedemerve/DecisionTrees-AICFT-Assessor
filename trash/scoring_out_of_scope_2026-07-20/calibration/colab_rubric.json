@@ -1,0 +1,211 @@
+{
+  "rubric_id": "colab_decision_tree_v1",
+  "session_type": "colab_python",
+  "aicft_level": "Create",
+  "version": "1.0",
+  "created": "2026-07-14",
+  "description": "Deterministik rubrik — Colab oturumlarında karar ağacı geliştirme sürecindeki 17 teknik davranışı ve karşılık gelen AI-CFT Create seviyesi LO'larını çerçeve kanıt kurallarına göre skorlar.",
+
+  "input_sources": [
+    "code_cell_ocr: Video frame'den OCR ile elde edilen kod hücresi içeriği",
+    "output_cell_ocr: Çalıştırılmış hücrenin çıktı alanı (metin, tablo, grafik açıklaması)",
+    "system_logs: Colab notebook etkileşim logları (varsa)",
+    "transcript: Öğrencinin ses/metin kaydı"
+  ],
+
+  "scoring_rules": "Bir davranış yalnızca 'Aranacak Kesin Kanıt' sütunundaki koşulun BİREBİR karşılanması durumunda tetiklendi sayılır. Kanıt yoksa Not Triggered.",
+
+  "behaviors": [
+    {
+      "id": "B1",
+      "name": "Kütüphane yükleme",
+      "lo": "LO3.2",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde import ifadesi görünmeli (ör. 'from sklearn', 'import pandas as pd', 'import numpy as np', 'import matplotlib'). import satırı çalıştırılmış (output hücresinde hata yok) olmalı."
+    },
+    {
+      "id": "B2",
+      "name": "Veri setini içe aktarma",
+      "lo": "LO3.2",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde veri yükleme fonksiyonu görünmeli: 'pd.read_csv()', 'pd.read_excel()', 'pd.read_json()' veya eşdeğeri. VEYA bir DataFrame değişkenine atama yapıldığı görülmeli."
+    },
+    {
+      "id": "B3",
+      "name": "Veri hakkında bilgi edinme",
+      "lo": "LO3.1",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde '.head()', '.info()', '.describe()', '.shape', '.value_counts()', '.dtypes' veya benzeri keşifsel fonksiyon çağrısı görünmeli VE çıktı hücresi aktif olmalı (sonuç üretilmiş). Yalnızca yazmak yeterli değil; çalıştırılmış olmalı."
+    },
+    {
+      "id": "B4",
+      "name": "Eksik/gürültülü veri temizleme",
+      "lo": "LO3.2",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde eksik/gürültülü veri işleme kodu görünmeli: '.dropna()', '.fillna()', '.isnull()', '.notnull()', '.replace()', veri filtreleme koşulu (ör. 'df[df[...] != ...]'). Çalıştırılmış ve hata üretmemiş olmalı."
+    },
+    {
+      "id": "B5",
+      "name": "Veriyi modele ayırma (X, y)",
+      "lo": "LO3.2",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde özellik matrisi (X) ve hedef değişken (y) ayrımı görünmeli: 'X = df[[...]]' ve 'y = df[...]' veya eşdeğeri atama ifadeleri. Her iki değişken de tanımlanmış olmalı."
+    },
+    {
+      "id": "B6",
+      "name": "Veri setini bölme (train-test split)",
+      "lo": "LO3.2",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde 'train_test_split()' çağrısı görünmeli. X_train, X_test, y_train, y_test değişkenlerine atama yapılmış olmalı."
+    },
+    {
+      "id": "B7_lo32",
+      "name": "Hiperparametre seçimi (LO3.2 kısmı)",
+      "lo": "LO3.2",
+      "level": "Create",
+      "evidence_rule": "DecisionTreeClassifier veya eşdeğeri sınıflandırıcı başlatılırken en az bir hiperparametre açıkça belirtilmiş olmalı: 'max_depth=', 'min_samples_split=', 'min_samples_leaf=', 'criterion=', 'max_features=' gibi. Varsayılan değer kullanımı (parametresiz çağrı) bu davranışı tetiklemez."
+    },
+    {
+      "id": "B7_lo33",
+      "name": "Hiperparametre optimizasyonu (LO3.3 kısmı)",
+      "lo": "LO3.3",
+      "level": "Create",
+      "evidence_rule": "Aynı hiperparametre için farklı değerlerle birden fazla model oluşturulduğu kod veya çıktıda görünmeli (ör. döngü ile farklı max_depth değerleri, GridSearchCV, farklı hücrelerde farklı parametreli model çağrıları). Tek bir parametre değeri bu kuralı tetiklemez."
+    },
+    {
+      "id": "B8",
+      "name": "Tek seviyeli karar ağacı oluşturma",
+      "lo": "LO3.2",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde 'DecisionTreeClassifier(max_depth=1)' veya 'max_depth=1' parametresi açıkça belirtilmiş model tanımı görünmeli. Çalıştırılmış olmalı."
+    },
+    {
+      "id": "B9",
+      "name": "Çok seviyeli karar ağacı oluşturma",
+      "lo": "LO3.2",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde 'max_depth=2' veya üzeri bir derinlik değeri belirtilmiş ya da 'max_depth' parametresi hiç verilmemiş (sınırsız derinlik) model tanımı görünmeli. Çalıştırılmış olmalı."
+    },
+    {
+      "id": "B10",
+      "name": "Optimum derinliği bulma",
+      "lo": "LO3.3",
+      "level": "Create",
+      "evidence_rule": "Farklı derinlik değerleri için model performansını karşılaştıran kod görünmeli: for döngüsü içinde farklı max_depth değerleri denenmeli VEYA birden fazla hücrede farklı derinliklerle model kurulup metrik hesaplanmış olmalı. Tek bir derinlik değeriyle model bu kuralı tetiklemez."
+    },
+    {
+      "id": "B11",
+      "name": "Modeli eğitme (fitting)",
+      "lo": "LO3.2",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde 'model.fit(X_train, y_train)' veya eşdeğeri çağrı görünmeli. Çalıştırılmış ve hata üretmemiş olmalı."
+    },
+    {
+      "id": "B12",
+      "name": "Tahmin üretme (inference)",
+      "lo": "LO3.2",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde 'model.predict(X_test)' veya 'model.predict_proba(X_test)' çağrısı görünmeli. Sonuç bir değişkene atanmış veya doğrudan çıktı üretilmiş olmalı."
+    },
+    {
+      "id": "B13",
+      "name": "Model metriklerini hesaplama",
+      "lo": "LO3.3",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde metrik hesaplama fonksiyonu görünmeli: 'accuracy_score()', 'confusion_matrix()', 'classification_report()', 'f1_score()' veya eşdeğeri. Çıktı hücresinde sayısal sonuç üretilmiş olmalı."
+    },
+    {
+      "id": "B14",
+      "name": "Çıktıları yorumlama",
+      "lo": "LO3.1",
+      "level": "Create",
+      "evidence_rule": "Çıktı hücresinde metrik değerleri görünür olmalı (accuracy, confusion matrix veya sınıflandırma raporu) VE transkriptte bu değerlere, sınıflara veya model başarısına spesifik atıf yapılmış olmalı (ör. 'yüzde 72 çıktı', 'TN düşük kaldı', 'test verisi üzerinde daha iyi'). Genel yorum ('fena değil', 'oldu') bu kuralı tetiklemez."
+    },
+    {
+      "id": "B15_lo31",
+      "name": "Error management (LO3.1 kısmı)",
+      "lo": "LO3.1",
+      "level": "Create",
+      "evidence_rule": "Ekranda bir hata mesajı (traceback, NameError, ValueError vb.) görünmeli VE transkriptte hataya doğrudan atıf yapılmış olmalı (ör. 'şu hata çıktı', 'neden hata veriyor'). Yalnızca hata görünmesi yeterli değil."
+    },
+    {
+      "id": "B15_lo33",
+      "name": "Error management (LO3.3 kısmı)",
+      "lo": "LO3.3",
+      "level": "Create",
+      "evidence_rule": "Hata mesajı sonrası kod hücresinde değişiklik yapılmış olmalı VE sonraki çalıştırmada hata giderilmiş olmalı. Hata → düzeltme → başarılı çalıştırma zinciri görünmeli."
+    },
+    {
+      "id": "B16",
+      "name": "Ağaç görselleştirme",
+      "lo": "LO3.2",
+      "level": "Create",
+      "evidence_rule": "Kod hücresinde 'plot_tree()', 'export_graphviz()', 'dtreeviz()' veya eşdeğeri görselleştirme fonksiyonu görünmeli VE çıktı hücresinde ağaç görseli veya .dot dosya içeriği üretilmiş olmalı."
+    },
+    {
+      "id": "B17_lo31",
+      "name": "Aşırı öğrenme kontrolü (LO3.1 kısmı)",
+      "lo": "LO3.1",
+      "level": "Create",
+      "evidence_rule": "Hem train hem test doğruluk değerleri çıktıda görünmeli VE transkriptte bu iki değer arasındaki farka doğrudan atıf yapılmış olmalı (ör. 'train'de yüksek ama test'te düştü', 'overfit olmuş')."
+    },
+    {
+      "id": "B17_lo33",
+      "name": "Aşırı öğrenme kontrolü (LO3.3 kısmı)",
+      "lo": "LO3.3",
+      "level": "Create",
+      "evidence_rule": "Train ve test doğruluğu hem hesaplanmış hem çıktıda görünmeli; iki değer arasındaki fark karşılaştırılmış olmalı. Kod içinde 'train_score' ve 'test_score' ayrımı VEYA 'score(X_train)' ve 'score(X_test)' çağrıları görünmeli. Transkript atfı zorunlu değil — kod ve çıktı kanıtı yeterli."
+    }
+  ],
+
+  "lo_summary_rules": {
+    "LO3.1": {
+      "level": "Create",
+      "triggered_if": "B3 VEYA B14 VEYA B15_lo31 VEYA B17_lo31 tetiklendiyse"
+    },
+    "LO3.2": {
+      "level": "Create",
+      "triggered_if": "B1 VEYA B2 VEYA B4 VEYA B5 VEYA B6 VEYA B7_lo32 VEYA B8 VEYA B9 VEYA B11 VEYA B12 VEYA B16 tetiklendiyse"
+    },
+    "LO3.3": {
+      "level": "Create",
+      "triggered_if": "B7_lo33 VEYA B10 VEYA B13 VEYA B15_lo33 VEYA B17_lo33 tetiklendiyse"
+    }
+  },
+
+  "output_schema": {
+    "frame_id": "string",
+    "session_context": {
+      "previous_code_state": "string | null",
+      "error_in_previous_frame": "boolean",
+      "emit_count_so_far": "integer"
+    },
+    "evidence_detection": {
+      "B1":        { "triggered": "boolean", "evidence": "string" },
+      "B2":        { "triggered": "boolean", "evidence": "string" },
+      "B3":        { "triggered": "boolean", "evidence": "string" },
+      "B4":        { "triggered": "boolean", "evidence": "string" },
+      "B5":        { "triggered": "boolean", "evidence": "string" },
+      "B6":        { "triggered": "boolean", "evidence": "string" },
+      "B7_lo32":   { "triggered": "boolean", "evidence": "string" },
+      "B7_lo33":   { "triggered": "boolean", "evidence": "string" },
+      "B8":        { "triggered": "boolean", "evidence": "string" },
+      "B9":        { "triggered": "boolean", "evidence": "string" },
+      "B10":       { "triggered": "boolean", "evidence": "string" },
+      "B11":       { "triggered": "boolean", "evidence": "string" },
+      "B12":       { "triggered": "boolean", "evidence": "string" },
+      "B13":       { "triggered": "boolean", "evidence": "string" },
+      "B14":       { "triggered": "boolean", "evidence": "string" },
+      "B15_lo31":  { "triggered": "boolean", "evidence": "string" },
+      "B15_lo33":  { "triggered": "boolean", "evidence": "string" },
+      "B16":       { "triggered": "boolean", "evidence": "string" },
+      "B17_lo31":  { "triggered": "boolean", "evidence": "string" },
+      "B17_lo33":  { "triggered": "boolean", "evidence": "string" }
+    },
+    "learning_outcomes": {
+      "LO3.1": { "status": "Triggered/Not Triggered", "level": "Create", "triggering_behaviors": [] },
+      "LO3.2": { "status": "Triggered/Not Triggered", "level": "Create", "triggering_behaviors": [] },
+      "LO3.3": { "status": "Triggered/Not Triggered", "level": "Create", "triggering_behaviors": [] }
+    }
+  }
+}

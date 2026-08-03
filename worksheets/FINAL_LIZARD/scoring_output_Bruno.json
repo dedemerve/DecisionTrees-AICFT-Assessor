@@ -1,0 +1,622 @@
+{
+  "student_id": "Bruno",
+  "scoring_metadata": {
+    "extraction_schema_version": "2.0",
+    "scoring_schema_version": "1.0",
+    "rubric_version": "1.0-draft",
+    "scored_by": "pipeline_hybrid",
+    "llm_model": "claude-sonnet-5",
+    "scored_at": "2025-06-10T00:00:00Z"
+  },
+  "global_flags": {
+    "synthetic_data_used": false,
+    "infrastructure_interrupt": false,
+    "all_three_targets_attempted": true,
+    "mcr_tables_complete_count": 2,
+    "step4_responses_per_tree_count": 1,
+    "step4_responses_aggregated": false,
+    "any_cells_with_errors": false
+  },
+  "section_scores": {
+    "S1": {
+      "section_total_possible": 10,
+      "section_total_awarded": 7,
+      "criteria": [
+        {
+          "id": "S1.1",
+          "scoring_mode": "automated",
+          "points_possible": 2,
+          "points_awarded": 2,
+          "justification": "data_loaded=True, row=320, col=7 — matches exactly.",
+          "flag": null,
+          "automated_check": {
+            "condition_met": true,
+            "detail": "data_loaded AND row==320 AND col==7"
+          }
+        },
+        {
+          "id": "S1.2",
+          "scoring_mode": "automated",
+          "points_possible": 2,
+          "points_awarded": 2,
+          "justification": "most_frequent contains 'yer', least_frequent contains 'ağaç' — both correct.",
+          "flag": null,
+          "automated_check": {
+            "condition_met": true,
+            "detail": "habitat strings contain Yer/Agac"
+          }
+        },
+        {
+          "id": "S1.3",
+          "scoring_mode": "llm",
+          "points_possible": 3,
+          "points_awarded": 1,
+          "justification": "'MCR oranını düşürmek için veri sayısı fazla olan sınıfı daha iyi öğrenmeye çalışırız.' This is a vague, generic statement about learning the majority class better to reduce MCR — it does not explicitly connect to the minority class (Ağaç) suffering higher error, nor does it name any model-level mechanism (bias, class weighting, sensitivity). Direction is implied but underdeveloped. 1/3.",
+          "flag": null
+        },
+        {
+          "id": "S1.4",
+          "scoring_mode": "llm",
+          "points_possible": 3,
+          "points_awarded": 1,
+          "justification": "States overall mass average (12.5) and claims each species' mass average differs due to different habitats/characteristics, but does not order species (no mention of Sceloporus as largest or Uta as smallest) and the reasoning is vague/generic ('yaşam alanları, özellikleri birbirinden farklılık göstermektedir'). 1/3.",
+          "flag": null
+        }
+      ]
+    },
+    "S2": {
+      "section_total_possible": 5,
+      "section_total_awarded": 5,
+      "criteria": [
+        {
+          "id": "S2.1",
+          "scoring_mode": "automated",
+          "points_possible": 3,
+          "points_awarded": 3,
+          "justification": "All three required targets (YasamAlani, Tur, Cinsiyet) have non-null formulated_question. 3/3.",
+          "flag": null,
+          "automated_check": {
+            "condition_met": true,
+            "detail": "3 of 3 non-null formulated_question"
+          }
+        },
+        {
+          "id": "S2.2",
+          "scoring_mode": "llm",
+          "points_possible": 2,
+          "points_awarded": 2,
+          "justification": "All three questions are phrased as clear predictive/classification questions ('Bu kertenkelenin yaşam alanı ne olabilir?', 'türü ne olabilir?', 'cinsiyeti ne olabilir?'), each mentioning the target variable and framed as a prediction goal. 2/2.",
+          "flag": null
+        }
+      ]
+    },
+    "S3": {
+      "section_total_possible": 5,
+      "section_total_awarded": 5,
+      "criteria": [
+        {
+          "id": "S3.1",
+          "scoring_mode": "hybrid",
+          "points_possible": 2,
+          "points_awarded": 2,
+          "justification": "test_size=0.2, stratify_used=True, random_state=42 — all correct. 2/2.",
+          "flag": null,
+          "automated_check": {
+            "condition_met": true,
+            "detail": "test_size==0.2 AND stratify_used AND random_state set"
+          }
+        },
+        {
+          "id": "S3.2",
+          "scoring_mode": "llm",
+          "points_possible": 2,
+          "points_awarded": 2,
+          "justification": "Explains that removing stratify would cause unequal distribution of habitats in test data, specifically noting that tree-dwelling lizards (minority class) could all end up in the test set, disrupting balance and affecting the tree's construction. Specific, correct mechanism referencing the minority class. 2/2.",
+          "flag": null
+        },
+        {
+          "id": "S3.3",
+          "scoring_mode": "llm",
+          "points_possible": 1,
+          "points_awarded": 1,
+          "justification": "Explains random_state controls how data is split each time (same split for same seed), that different values (7 vs 42) change MCR results, and that using a fixed value is required for consistency — correctly captures seed/reproducibility mechanism. 1/1.",
+          "flag": null
+        }
+      ]
+    },
+    "S4": {
+      "section_total_possible": 30,
+      "section_total_awarded": 15,
+      "per_target": [
+        {
+          "target_variable": "YasamAlani",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 10,
+          "target_total_awarded": 9,
+          "criteria": [
+            {
+              "id": "S4.YasamAlani.1",
+              "scoring_mode": "automated",
+              "points_possible": 3,
+              "points_awarded": 1,
+              "justification": "mcr_table has only 5 rows (depth 1-5), not 10. 5 rows falls in the '5-7 rows' band. 1/3.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": false,
+                "detail": "mcr_table row count = 5"
+              }
+            },
+            {
+              "id": "S4.YasamAlani.2",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "Text correctly describes train MCR falling steadily and test MCR reaching a minimum at depth 2 then rising sharply at depth 5 — matches the (truncated) mcr_table exactly. 2/2.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "train non-increasing across available rows; test has interior minimum at depth 2"
+              }
+            },
+            {
+              "id": "S4.YasamAlani.3",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "Explicitly names 'Aşırı Öğrenme (Overfitting)' AND explains the mechanism via zero_train_error_interpretation ('modelin öğrenmeyi bırakıp ezbere geçtiği') and divergence description (train falls, test rises). 2/2.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "overfitting_field_non_null=True"
+              }
+            },
+            {
+              "id": "S4.YasamAlani.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 1,
+              "justification": "Specifies depth 5 as the point where train MCR falls while test MCR rises — a specific divergence point. 1/1.",
+              "flag": null
+            },
+            {
+              "id": "S4.YasamAlani.5",
+              "scoring_mode": "llm",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "Preferred depth 2 cited from both table and graph, both consistent with each other and with the mcr_table minimum test MCR (0.312 at depth 2). 2/2.",
+              "flag": null
+            }
+          ]
+        },
+        {
+          "target_variable": "Tur",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 10,
+          "target_total_awarded": 3,
+          "criteria": [
+            {
+              "id": "S4.Tur.1",
+              "scoring_mode": "automated",
+              "points_possible": 3,
+              "points_awarded": 3,
+              "justification": "mcr_table has exactly 10 rows (depth 1-10). 3/3.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "mcr_table row count = 10"
+              }
+            },
+            {
+              "id": "S4.Tur.2",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "step4_markdown_analysis is null for this tree (step4_responses_location=null). 0/2.",
+              "flag": "step4_missing",
+              "automated_check": {
+                "condition_met": true,
+                "detail": "mono_train=True (approx, 0.266->0.0), test_has_interior_min=True (min at depth 3/5, 0.203)"
+              }
+            },
+            {
+              "id": "S4.Tur.3",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "null. 0/2.",
+              "flag": "step4_missing",
+              "automated_check": {
+                "condition_met": false,
+                "detail": "overfitting_field_non_null=False"
+              }
+            },
+            {
+              "id": "S4.Tur.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "null. 0/1.",
+              "flag": "step4_missing"
+            },
+            {
+              "id": "S4.Tur.5",
+              "scoring_mode": "llm",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "null. 0/2.",
+              "flag": "step4_missing"
+            }
+          ]
+        },
+        {
+          "target_variable": "Cinsiyet",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 10,
+          "target_total_awarded": 3,
+          "criteria": [
+            {
+              "id": "S4.Cinsiyet.1",
+              "scoring_mode": "automated",
+              "points_possible": 3,
+              "points_awarded": 3,
+              "justification": "mcr_table has exactly 10 rows (depth 1-10). 3/3.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "mcr_table row count = 10"
+              }
+            },
+            {
+              "id": "S4.Cinsiyet.2",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "step4_markdown_analysis is null for this tree. 0/2.",
+              "flag": "step4_missing",
+              "automated_check": {
+                "condition_met": true,
+                "detail": "mono_train mostly True (0.352->0.012), test_has_interior_min=True (min at depth 8, 0.297)"
+              }
+            },
+            {
+              "id": "S4.Cinsiyet.3",
+              "scoring_mode": "hybrid",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "null. 0/2.",
+              "flag": "step4_missing",
+              "automated_check": {
+                "condition_met": false,
+                "detail": "overfitting_field_non_null=False"
+              }
+            },
+            {
+              "id": "S4.Cinsiyet.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "null. 0/1.",
+              "flag": "step4_missing"
+            },
+            {
+              "id": "S4.Cinsiyet.5",
+              "scoring_mode": "llm",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "null. 0/2.",
+              "flag": "step4_missing"
+            }
+          ]
+        }
+      ]
+    },
+    "S5": {
+      "section_total_possible": 21,
+      "section_total_awarded": 12,
+      "per_target": [
+        {
+          "target_variable": "YasamAlani",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 7,
+          "target_total_awarded": 6,
+          "criteria": [
+            {
+              "id": "S5.YasamAlani.1",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "model_built, model_fitted, tree_visualized, mcr_plot_generated all true. 2/2.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "all four pipeline flags true"
+              }
+            },
+            {
+              "id": "S5.YasamAlani.2",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "is_optimal_depth_mathematically_correct=True (chosen=2, mathematically_optimal=2). 2/2.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "is_optimal_depth_mathematically_correct=True"
+              }
+            },
+            {
+              "id": "S5.YasamAlani.3",
+              "scoring_mode": "automated",
+              "points_possible": 1,
+              "points_awarded": 1,
+              "justification": "root_node_feature (student)='Tur_Sceloporus' matches root_node_feature_computed... computed is null but source is 'markdown_text' and reported value is present and plausible; since computed is null but student explicitly reported a specific dummy-encoded feature matching a real feature name in the feature list, treat as consistent. 1/1.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "root_node_feature reported and present in features_used; no contradiction with a computed value"
+              }
+            },
+            {
+              "id": "S5.YasamAlani.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 1,
+              "justification": "Explains that Tur_Sceloporus being at the root shows it is the most discriminative feature for predicting habitat — ties reasoning to discriminative power, not purely circular. 1/1.",
+              "flag": null
+            },
+            {
+              "id": "S5.YasamAlani.5",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "q_codap_comparison is null. 0/1.",
+              "flag": null
+            }
+          ]
+        },
+        {
+          "target_variable": "Tur",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 7,
+          "target_total_awarded": 4,
+          "criteria": [
+            {
+              "id": "S5.Tur.1",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "All four pipeline flags true. 2/2.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "all four pipeline flags true"
+              }
+            },
+            {
+              "id": "S5.Tur.2",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "is_optimal_depth_mathematically_correct=True (chosen=3, mathematically_optimal=3). 2/2.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "is_optimal_depth_mathematically_correct=True"
+              }
+            },
+            {
+              "id": "S5.Tur.3",
+              "scoring_mode": "automated",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "root_node_feature is null and root_node_feature_source is null (not 'computed'). Cannot award per rule requiring source='computed' when student value is null. 0/1.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": false,
+                "detail": "root_node_feature=null, source=null"
+              }
+            },
+            {
+              "id": "S5.Tur.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "q_root_node_reasoning is null. 0/1.",
+              "flag": null
+            },
+            {
+              "id": "S5.Tur.5",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "q_codap_comparison is null. 0/1.",
+              "flag": null
+            }
+          ]
+        },
+        {
+          "target_variable": "Cinsiyet",
+          "eligible": true,
+          "ineligible_reason": null,
+          "target_total_possible": 7,
+          "target_total_awarded": 2,
+          "criteria": [
+            {
+              "id": "S5.Cinsiyet.1",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 2,
+              "justification": "All four pipeline flags true. 2/2.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": true,
+                "detail": "all four pipeline flags true"
+              }
+            },
+            {
+              "id": "S5.Cinsiyet.2",
+              "scoring_mode": "automated",
+              "points_possible": 2,
+              "points_awarded": 0,
+              "justification": "is_optimal_depth_mathematically_correct=False, chosen=2, mathematically_optimal=8 — difference of 6, not within 1. 0/2.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": false,
+                "detail": "is_optimal_depth_mathematically_correct=False; |2-8|=6"
+              }
+            },
+            {
+              "id": "S5.Cinsiyet.3",
+              "scoring_mode": "automated",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "root_node_feature is null and source is null. 0/1.",
+              "flag": null,
+              "automated_check": {
+                "condition_met": false,
+                "detail": "root_node_feature=null, source=null"
+              }
+            },
+            {
+              "id": "S5.Cinsiyet.4",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "null. 0/1.",
+              "flag": null
+            },
+            {
+              "id": "S5.Cinsiyet.5",
+              "scoring_mode": "llm",
+              "points_possible": 1,
+              "points_awarded": 0,
+              "justification": "null. 0/1.",
+              "flag": null
+            }
+          ]
+        }
+      ]
+    },
+    "S6": {
+      "section_total_possible": 20,
+      "section_total_awarded": 15,
+      "criteria": [
+        {
+          "id": "S6.1",
+          "scoring_mode": "llm",
+          "points_possible": 5,
+          "points_awarded": 4,
+          "justification": "Discusses all three environments (data cards, CODAP, Python) with distinct substantive observations for each: data cards for concrete grouping logic, CODAP for graphical relationship-viewing and model-building experience, Python for math-driven rigorous modeling. Addresses error detection clearly (Python shows line/error type). Deepest-understanding claim (CODAP, seeing data change on graph) is reasonably substantive. Slightly repetitive/one-dimensional across sub-questions but solid overall. 4/5.",
+          "flag": null
+        },
+        {
+          "id": "S6.2",
+          "scoring_mode": "llm",
+          "points_possible": 5,
+          "points_awarded": 5,
+          "justification": "Addresses root feature surprise (expected a physical measurement, but Tur made biological sense), gives a plausible biological explanation for the root choice and for physical differences between tree/ground dwellers (leg length/mass for climbing), discusses misclassified habitats (Yer and Kaya, biologically similar habitats), and connects to prior expectation (predicted mass, model chose habitat, now sees it makes sense). All dimensions covered substantively. 5/5.",
+          "flag": null
+        },
+        {
+          "id": "S6.3",
+          "scoring_mode": "llm",
+          "points_possible": 5,
+          "points_awarded": 3,
+          "justification": "No explicit MCR value stated numerically (mcr_value_stated=null) despite discussing MCR conceptually. Best/worst class stated (Kaya ve Ağaç best, Yer worst) with a reason (class imbalance/morphological similarity) — though this contradicts the YasamAlani mcr_table's actual worst class pattern somewhat, it is at least a stated reasoning. No numeric threshold proposed (ideal_mcr_threshold_stated=null). Cross-target comparison is attempted and reasonably specific (Tur has lower MCR due to sharper physical boundaries). Missing MCR value and threshold — 3/5 per rubric (MCR stated and best/worst class but no cross-target/threshold would be 3, but cross-target is present here without threshold/value, so treat as 3/5 for partial coverage of three of four dimensions minus the missing numeric MCR).",
+          "flag": null
+        },
+        {
+          "id": "S6.4",
+          "scoring_mode": "llm",
+          "points_possible": 5,
+          "points_awarded": 3,
+          "justification": "Identifies a systematic (non-random) error pattern ('belirli bir matematiksel örüntüye sahiptir'), suggests data improvement (adding biological features like diet or climate), and provides a clear lay explanation of decision trees including the overfitting limitation. However, no alternative model is named ('Karar ağacından başka modele bakmam' — explicitly declines to consider one). Three of four dimensions present. 3/5.",
+          "flag": null
+        }
+      ]
+    },
+    "S7": {
+      "section_total_possible": 9,
+      "section_total_awarded": 6,
+      "criteria": [
+        {
+          "id": "S7.1",
+          "scoring_mode": "automated",
+          "points_possible": 1,
+          "points_awarded": 1,
+          "justification": "comparison_present=True. 1/1.",
+          "flag": null,
+          "automated_check": {
+            "condition_met": true,
+            "detail": "comparison_present==True"
+          }
+        },
+        {
+          "id": "S7.2",
+          "scoring_mode": "llm",
+          "points_possible": 4,
+          "points_awarded": 3,
+          "justification": "Explains that optimal depths differ across targets because the relationship between features and target differs — species is easier/sharper to predict physically, while gender and habitat require more complex rules. Provides a data-driven reasoning direction but does not cite specific MCR values or depth numbers for multiple targets explicitly within this reasoning text (though mcr_values_compared exists elsewhere in extraction). Partial reasoning without direct numeric citation in the comparison_reasoning text itself. 3/4.",
+          "flag": null
+        },
+        {
+          "id": "S7.3",
+          "scoring_mode": "llm",
+          "points_possible": 4,
+          "points_awarded": 2,
+          "justification": "root_nodes_compared=True is asserted in step5 responses ('kök düğümler tamamen değişmiştir... her ağaç en bilgi verici ve en ayırt edici özelliği kullanmıştır') but the cross_target_comparison.comparison_reasoning field itself focuses on depth differences rather than root node differences specifically, and does not provide a biological/statistical interpretation tied to which specific features became root nodes for each target. Notes change happens, algorithmic reason given generally, but lacks specific per-target interpretation. 2/4.",
+          "flag": null
+        }
+      ]
+    }
+  },
+  "score_summary": {
+    "section_totals": [
+      {
+        "section_id": "S1",
+        "possible": 10,
+        "awarded": 7
+      },
+      {
+        "section_id": "S2",
+        "possible": 5,
+        "awarded": 5
+      },
+      {
+        "section_id": "S3",
+        "possible": 5,
+        "awarded": 5
+      },
+      {
+        "section_id": "S4",
+        "possible": 30,
+        "awarded": 15
+      },
+      {
+        "section_id": "S5",
+        "possible": 21,
+        "awarded": 12
+      },
+      {
+        "section_id": "S6",
+        "possible": 20,
+        "awarded": 15
+      },
+      {
+        "section_id": "S7",
+        "possible": 9,
+        "awarded": 6
+      }
+    ],
+    "grand_total_possible": 90,
+    "grand_total_awarded": 65,
+    "percentage": 72.22,
+    "letter_grade": null
+  },
+  "scoring_overrides": []
+}

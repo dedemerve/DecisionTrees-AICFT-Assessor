@@ -1,0 +1,208 @@
+{
+  "student_id": "Iris",
+  "worksheet": "WS_DT_XENO",
+  "ws_snapshot": "Iris'in veri setinde toplam 37 vaka bulunmakta; 16 mavi saçlı (hiçbiri hasta değil, %0) ve 21 pembe saçlı (hepsi hasta, %100). Yapısal beklentiye uygun olarak FP=FN=0 elde edilmiş ve ağaç hatasız ayrım yapmıştır. Metrik hesaplamalarında TP=21, TN=16 doğru girilmiş, doğruluk/duyarlılık/özgüllük/kesinlik hesapları %100 olarak yorumlanmıştır; ancak MCR satırı boş bırakılmıştır.",
+  "page_notes": "Sayfa 9'daki MCR tablosu boş bırakılmış. Basılı sayfalardaki görseller soluk taranmış ancak öğrenci yazıları okunaklı.",
+  "extraction": {
+    "DTI_01": "37 vaka içermektedir. Bu vakaların %56'sı hastadır.",
+    "DTI_02": "Bunların 16'sı mavi saçlıdır. Bu vakaların hiç biri hasta değildir.",
+    "DTI_03": "Pembe saçlı kutuda 21 vaka bulunmaktadır. Bu vakaların hepsi hastadır.",
+    "DTI_04": "pink hair kutusu [corrected: negatif → pozitif]. Hair ölçütünü kullandım.",
+    "DTI_05": "Pembe saçlı kutuda 21 vaka vardır.",
+    "DTI_06": "Evet. Hatasız ayırdı.",
+    "DTI_07": "%100 doğru çıkardı",
+    "DTI_08": "FN çünkü hasta olana müdahale edilmeli.",
+    "DTI_09": "Hata payı oluşmadı",
+    "DTI_10": "21",
+    "DTI_11": "doğru karar",
+    "DTI_12": "16",
+    "DTI_13": "doğru karar",
+    "DTI_14": "0",
+    "DTI_15": "Hasta dedi ama sağlıklı",
+    "DTI_16": "0",
+    "DTI_17": "sağlıklı dedi ama hasta",
+    "DTI_18": "37",
+    "DTI_19": "toplam vaka",
+    "DTI_20": "(21+16) / 37",
+    "DTI_21": "doğruluk oranı %100",
+    "DTI_22": "21 / (21+0)",
+    "DTI_23": "doğruluk oranı %100",
+    "DTI_24": "16 / (16+0)",
+    "DTI_25": "//  //  //",
+    "DTI_26": "21 / (21+0)",
+    "DTI_27": "//  //  //",
+    "DTI_28": "Hepsini kullanabilirim hepsinin doğruluk değeri \"1\".",
+    "DTI_29": "(TP + FP) + TN / N = 21, 16 / 37",
+    "DTI_30": "doğruluğu",
+    "DTI_31": "Kesin sonuç istendiğinde",
+    "DTI_32": "(bos)",
+    "DTI_33": "(bos)"
+  },
+  "validation": {
+    "xeno_consistency_checks": {
+      "tp_fn_sum_equals_sick": {
+        "check": "TP + FN = toplam hasta sayisi",
+        "student_tp": "21",
+        "student_fn": "0",
+        "sum": 21,
+        "is_correct": true,
+        "note": "FN=0 beklenir"
+      },
+      "tn_fp_sum_equals_healthy": {
+        "check": "TN + FP = toplam saglikli sayisi",
+        "student_tn": "16",
+        "student_fp": "0",
+        "sum": 16,
+        "is_correct": true,
+        "note": "FP=0 beklenir"
+      },
+      "total_n": {
+        "check": "TP + TN + FP + FN = N",
+        "n_sum": 37,
+        "student_n": "37",
+        "is_correct": true
+      },
+      "fp_fn_zero": {
+        "check": "sac rengi mukemmel ayirici => FP=FN=0",
+        "student_fp": "0",
+        "student_fn": "0",
+        "is_correct": true
+      }
+    },
+    "item_checks": {
+      "DTI_01": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_02": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_03": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_04": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_05": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_06": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_07": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_08": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_09": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_10": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_11": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_12": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_13": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_14": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_15": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_16": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_17": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_18": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_19": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_20": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_21": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_22": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_23": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_24": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_25": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_26": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_27": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_28": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_29": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_30": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_31": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_32": {
+        "is_correct": false,
+        "error_flag": "BLANK"
+      },
+      "DTI_33": {
+        "is_correct": false,
+        "error_flag": "BLANK"
+      }
+    },
+    "system_analytical_summary": "Iris'in veri setinde toplam 37 vaka bulunmakta; 16 mavi saçlı (hiçbiri hasta değil, %0) ve 21 pembe saçlı (hepsi hasta, %100). Yapısal beklentiye uygun olarak FP=FN=0 elde edilmiş ve ağaç hatasız ayrım yapmıştır. Metrik hesaplamalarında TP=21, TN=16 doğru girilmiş, doğruluk/duyarlılık/özgüllük/kesinlik hesapları %100 olarak yorumlanmıştır; ancak MCR satırı boş bırakılmıştır."
+  }
+}

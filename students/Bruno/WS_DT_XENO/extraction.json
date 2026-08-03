@@ -1,0 +1,94 @@
+{
+  "stage": "extraction",
+  "student_id": "Bruno",
+  "worksheet": "WS_DT_XENO",
+  "student_name": "Bruno",
+  "pdf_source": "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf",
+  "rubric_ref": "rubrics/WS_DT_XENO_rubric.json",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-07-07T00:00:00+00:00",
+    "ocr_model": "manual-vision-extraction",
+    "items": {
+      "DTI_01": "26 tane vaka içermektedir. %46,2'si hasta durumunda. Çoğunluk kısmi hasta değilmiş.",
+      "DTI_02": "Mavi saçlı kutuda 14 vaka var. 0 tanesi hasta durumundadır. Çoğunluk sağlıklı.",
+      "DTI_03": "Pembe saçlı kutuda 12 vaka var. 12 hasta bulunmaktadır.",
+      "DTI_04": "Pembe saç rengi hasta olarak etiketlenmiştir. Ayırımda hata çıkmadığı için en iyi yöntem budur.",
+      "DTI_05": "(bos)",
+      "DTI_06": "Evet iyi bir ayırıcı çünkü hatasız şekilde ayırıyor.",
+      "DTI_07": "Çok yüksek bence çünkü sıfır hata sayısı 0'dır.",
+      "DTI_08": "Bence FN çünkü hasta bir bireyin sağlıklı olarak sınıflandırılması bireyin hayatını riske atıyor.",
+      "DTI_09": "Ağacım hata yapmadı, gayet güzel ayırdı.",
+      "DTI_10": "12",
+      "DTI_11": "Ben hastayım ve doğru tahmin etmiş.",
+      "DTI_12": "14",
+      "DTI_13": "Ben sağlıklıyım ve doğru tahmin etmiş.",
+      "DTI_14": "0",
+      "DTI_15": "Hastayım ama sağlıklı demiş.",
+      "DTI_16": "0",
+      "DTI_17": "Sağlıklıyım ama hasta demiş.",
+      "DTI_18": "26",
+      "DTI_19": "(bos)",
+      "DTI_20": "12+14/26 = 1",
+      "DTI_21": "Kesinlikle doğru.",
+      "DTI_22": "12/12+0 = 1",
+      "DTI_23": "Kesinlikle duyarlı.",
+      "DTI_24": "14/14+0 = 1",
+      "DTI_25": "Kesinlikle özgül.",
+      "DTI_26": "12/12+0 = 1",
+      "DTI_27": "Kesinlikle kesin.",
+      "DTI_28": "Hepsini kullanırım çünkü bütün metrikler benim için hatasız sonuç verdi.",
+      "DTI_29": "FP+FN/N",
+      "DTI_30": "Bana yanlış karar sayısının oranını veriyor.",
+      "DTI_31": "Yanlış karar oranını bulmak için.",
+      "DTI_32": "0+0/26 = 0",
+      "DTI_33": "Hatalı olanların oranı 0'mış. Demek ki hata yokmuş."
+    },
+    "raw_ocr": {}
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 31,
+      "total": 33,
+      "blank_or_illegible": 2,
+      "missing": 0,
+      "completion_rate": 0.939
+    },
+    "xeno_invariant_check": {
+      "blue_sick_rate_0": true,
+      "pink_sick_rate_100": true,
+      "fp_zero": true,
+      "fn_zero": true,
+      "metrics_all_1": true,
+      "mcr_zero": true,
+      "tp_tn_sum_note": "Bruno: TP=12, TN=14, N=26 (egitim seti; auto yeni vaka eklenmemis ya da N=26 olarak okumis). 12+14=26. Tutarli.",
+      "student_dataset": "12 pembe hasta + 14 mavi saglikli = 26 egitim vakasi (%46,2 hasta)."
+    },
+    "warnings": [
+      "DTI_05: Pembe saçlı kutudaki hasta sayisi aciklama sutunu bos birakilmis (N (Toplam) satiri ile karistirilmis olmayabilir; 5. soru atlandi).",
+      "DTI_15: 'Hastayım ama sağlıklı demiş' – FP tanimini vermis ama DTI_14=0 (FP=0) ile celisiyor; muhtemelen FP'nin ne oldugunu tarif etmek istedi, 'bu durumda boyle bir vaka yok' demek istedi.",
+      "DTI_17: 'Sağlıklıyım ama hasta demiş' – FN tanimini vermis ama DTI_16=0 ile celisiyor; ayni yorum gecerli.",
+      "DTI_19: N (Toplam) satirinin 'Ne anlama geliyor?' sutunu bos birakilmis.",
+      "DTI_28: 'Hepsini kullanırım' – Xeno'da tum metrikler 1.0 oldugu icin bu gerekce tutarlidir; metrik secimi konusunda ozgun tercih belirtmemis.",
+      "DTI_29: 'FP+FN/N' – MCR icin dogru formul yazmis (fakat DTI_32'de hesapla ilgili, DTI_29 yeni metrik sorusu icin; Bruno MCR formulunu yeni metrik olarak tanimlamis)."
+    ],
+    "student_snapshot": {
+      "completion_rate": 0.939,
+      "engagement_level": "high",
+      "llm_observations": "Bruno Xeno bolumunu yuksek tamamlanmayla bitirmistir. 26 vakali egitim seti (12 pembe hasta, 14 mavi saglikli). Karisiklik matrisi: TP=12, TN=14, FP=0, FN=0, N=26. Tum metrikler 1.0, MCR=0. FN'yi daha tehlikeli olarak secmis, hayati risk gerekce gostermis. Tum metrikler esit oldugunda hepsini kullanacagini soylemis. DTI_05 ve DTI_19 bos.",
+      "page_notes": "(bos)"
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

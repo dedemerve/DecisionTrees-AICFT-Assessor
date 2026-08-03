@@ -1,0 +1,341 @@
+{
+  "example_only": true,
+  "provenance_note": "Synthetic expected output illustrating the result of running selected Sample_Student frames through scripts/codap_frame_analyzer.py. It is not an observed API result and must not be used as research data.",
+  "student_id": "Sample_Student",
+  "session_date": "2026-04-28",
+  "session_label": "28_April_2026_CODAP",
+  "prompt_file": "prompts/MMLA_CODAP_video_system_prompt.md",
+  "provider": "anthropic",
+  "model": "claude-sonnet-5",
+  "assessed_at": "2026-04-28T12:30:00+00:00",
+  "alignment": {
+    "video_start_utc": "2026-04-28T09:00:00+00:00",
+    "method": "example_log_alignment",
+    "note": "Synthetic timestamp alignment for documentation."
+  },
+  "frame_selection": "log-anchored",
+  "frames_analyzed": 3,
+  "frames_total_in_manifest": 24,
+  "frames_with_validation_errors": 0,
+  "log_csv_used": true,
+  "session_stats": {
+    "total_emit_tree_data": 4,
+    "last_accuracy": 0.8,
+    "max_duration_minutes": 18.4,
+    "total_actions": 146
+  },
+  "frame_analyses": [
+    {
+      "student_id": "Sample_Student",
+      "session_date": "2026-04-28",
+      "frame_number": 7,
+      "timestamp_ms": 42100,
+      "frame_id": "frame_0007",
+      "source_trigger": "targeted:codap_component_change",
+      "pixel_change_pct": 7.84,
+      "screen_state": {
+        "arbor_open": true,
+        "codap_open": true,
+        "active_panel": "codap_graph",
+        "tree_visible": false,
+        "tree_has_nodes": false,
+        "node_count_visible": null,
+        "dependent_variable_set": false,
+        "dependent_variable_name": null,
+        "split_values_visible": false,
+        "accuracy_visible": false,
+        "accuracy_value": null,
+        "confusion_matrix_visible": false,
+        "dataset_name_visible": "Food_Dataset_Turkish_55",
+        "student_appears_active": true,
+        "ui_notes": "Enerji değişkeninin dağılım grafiği açık."
+      },
+      "log_visual_match": {
+        "log_action": "codap_component_change",
+        "visible_on_screen": true,
+        "match_confidence": "high",
+        "mismatch_reason": null,
+        "inferred_action": null
+      },
+      "behavioral_classification": {
+        "primary_behavior": "EXPLORE_DATA",
+        "secondary_behavior": null,
+        "behavior_confidence": "high",
+        "behavior_evidence": "Grafik panelinde enerji dağılımı görünür ve aynı zaman aralığındaki log grafik bileşeninin değiştirildiğini gösterir."
+      },
+      "cognitive_indicators": {
+        "systematic_variable_selection": {
+          "observed": false,
+          "evidence": "Enerji değişkeninin incelendiği görülüyor; ancak tek kare sistematik seçim veya karşılaştırma göstermiyor."
+        },
+        "threshold_reasoning": {
+          "observed": false,
+          "evidence": null
+        },
+        "accuracy_interpretation": {
+          "observed": false,
+          "evidence": null
+        },
+        "overfitting_awareness": {
+          "observed": false,
+          "evidence": null
+        },
+        "train_test_distinction": {
+          "observed": false,
+          "evidence": null
+        },
+        "confusion_matrix_reading": {
+          "observed": false,
+          "evidence": null
+        },
+        "iterative_refinement": {
+          "observed": false,
+          "evidence": null
+        }
+      },
+      "aicft_rubric": {
+        "LO3_1_acquire": {
+          "score": 1,
+          "evidence": "Bir veri değişkeninin dağılımını görsel olarak inceliyor."
+        },
+        "LO3_2_deepen": {
+          "score": 0,
+          "evidence": null
+        },
+        "LO3_3_create": {
+          "score": 0,
+          "evidence": null
+        },
+        "overall_lo3_snapshot": "Bu kare veri keşfine ilişkin sınırlı gözlemsel kanıt sağlar."
+      },
+      "flags": {
+        "off_task": false,
+        "off_task_note": null,
+        "technical_difficulty": false,
+        "technical_difficulty_note": null,
+        "misconception_detected": false,
+        "misconception_note": null,
+        "aha_moment_candidate": false,
+        "aha_moment_note": null,
+        "needs_human_review": false,
+        "review_reason": null
+      },
+      "frame_quality": {
+        "is_transition_frame": false,
+        "is_duplicate_candidate": false,
+        "occlusion_present": false,
+        "occlusion_note": null,
+        "analysis_confidence": "high",
+        "confidence_reason": "Grafik, değişken adı ve arayüz bileşenleri okunaklı."
+      }
+    },
+    {
+      "student_id": "Sample_Student",
+      "session_date": "2026-04-28",
+      "frame_number": 12,
+      "timestamp_ms": 103400,
+      "frame_id": "frame_0012",
+      "source_trigger": "targeted:change_split_values",
+      "pixel_change_pct": 4.31,
+      "screen_state": {
+        "arbor_open": true,
+        "codap_open": true,
+        "active_panel": "arbor",
+        "tree_visible": true,
+        "tree_has_nodes": true,
+        "node_count_visible": 3,
+        "dependent_variable_set": true,
+        "dependent_variable_name": "tavsiye",
+        "split_values_visible": true,
+        "accuracy_visible": true,
+        "accuracy_value": 0.73,
+        "confusion_matrix_visible": false,
+        "dataset_name_visible": "Food_Dataset_Turkish_55",
+        "student_appears_active": true,
+        "ui_notes": "Enerji kök düğümündeki eşik 281 olarak görünür."
+      },
+      "log_visual_match": {
+        "log_action": "change_split_values",
+        "visible_on_screen": true,
+        "match_confidence": "high",
+        "mismatch_reason": null,
+        "inferred_action": null
+      },
+      "behavioral_classification": {
+        "primary_behavior": "TUNE_THRESHOLD",
+        "secondary_behavior": "NAVIGATE_TREE",
+        "behavior_confidence": "high",
+        "behavior_evidence": "Log enerji eşiğinin değiştirildiğini, ekran ise kök düğümde 281 değerini gösterir."
+      },
+      "cognitive_indicators": {
+        "systematic_variable_selection": {
+          "observed": false,
+          "evidence": null
+        },
+        "threshold_reasoning": {
+          "observed": false,
+          "evidence": "Eşik ayarlama eylemi gözlendi; ancak bu karede veya logda 281 seçiminin gerekçesi yok."
+        },
+        "accuracy_interpretation": {
+          "observed": false,
+          "evidence": "Doğruluk görünür fakat öğrencinin değeri yorumladığına ilişkin semantik kanıt yok."
+        },
+        "overfitting_awareness": {
+          "observed": false,
+          "evidence": null
+        },
+        "train_test_distinction": {
+          "observed": false,
+          "evidence": null
+        },
+        "confusion_matrix_reading": {
+          "observed": false,
+          "evidence": null
+        },
+        "iterative_refinement": {
+          "observed": false,
+          "evidence": "Tek eşik değişimi, yinelemeli iyileştirmeyi tek başına kanıtlamaz."
+        }
+      },
+      "aicft_rubric": {
+        "LO3_1_acquire": {
+          "score": 0,
+          "evidence": null
+        },
+        "LO3_2_deepen": {
+          "score": 1,
+          "evidence": "Eşik parametresini değiştirme eylemi var; kavramsal gerekçe görünmüyor."
+        },
+        "LO3_3_create": {
+          "score": 0,
+          "evidence": null
+        },
+        "overall_lo3_snapshot": "Teknik eşik ayarı görülüyor; bilişsel gerekçe için episode düzeyinde ek kanıt gerekir."
+      },
+      "flags": {
+        "off_task": false,
+        "off_task_note": null,
+        "technical_difficulty": false,
+        "technical_difficulty_note": null,
+        "misconception_detected": false,
+        "misconception_note": null,
+        "aha_moment_candidate": false,
+        "aha_moment_note": null,
+        "needs_human_review": true,
+        "review_reason": "Eşik değişiminin amaçlı ve gerekçeli olup olmadığı tek kareden belirlenemez."
+      },
+      "frame_quality": {
+        "is_transition_frame": false,
+        "is_duplicate_candidate": false,
+        "occlusion_present": false,
+        "occlusion_note": null,
+        "analysis_confidence": "high",
+        "confidence_reason": "Eşik, hedef değişken ve ağaç yapısı okunaklı."
+      }
+    },
+    {
+      "student_id": "Sample_Student",
+      "session_date": "2026-04-28",
+      "frame_number": 18,
+      "timestamp_ms": 147800,
+      "frame_id": "frame_0018",
+      "source_trigger": "targeted:emit_tree_data",
+      "pixel_change_pct": 6.18,
+      "screen_state": {
+        "arbor_open": true,
+        "codap_open": true,
+        "active_panel": "arbor",
+        "tree_visible": true,
+        "tree_has_nodes": true,
+        "node_count_visible": 7,
+        "dependent_variable_set": true,
+        "dependent_variable_name": "tavsiye",
+        "split_values_visible": true,
+        "accuracy_visible": true,
+        "accuracy_value": 0.8,
+        "confusion_matrix_visible": true,
+        "dataset_name_visible": "Food_Dataset_Turkish_55",
+        "student_appears_active": true,
+        "ui_notes": "Enerji ve doymuş yağ değişkenlerini kullanan tamamlanmış ağaç görünür."
+      },
+      "log_visual_match": {
+        "log_action": "emit_tree_data",
+        "visible_on_screen": true,
+        "match_confidence": "high",
+        "mismatch_reason": null,
+        "inferred_action": null
+      },
+      "behavioral_classification": {
+        "primary_behavior": "EVALUATE_ACCURACY",
+        "secondary_behavior": "COMPARE_MODELS",
+        "behavior_confidence": "medium",
+        "behavior_evidence": "Yeni ağaç emit edilmiş, accuracy 0.80 ve confusion matrix görünür. Önceki emit değerinin 0.73 olduğu log penceresinde yer alır; öğrencinin karşılaştırmayı yorumladığı görülmez."
+      },
+      "cognitive_indicators": {
+        "systematic_variable_selection": {
+          "observed": false,
+          "evidence": "Enerji ve doymuş yağ kullanılmış; seçim süreci bu karede görünmüyor."
+        },
+        "threshold_reasoning": {
+          "observed": false,
+          "evidence": null
+        },
+        "accuracy_interpretation": {
+          "observed": false,
+          "evidence": "Accuracy ve confusion matrix görünür; sadece görünür olması yorumlama kanıtı değildir."
+        },
+        "overfitting_awareness": {
+          "observed": false,
+          "evidence": null
+        },
+        "train_test_distinction": {
+          "observed": false,
+          "evidence": null
+        },
+        "confusion_matrix_reading": {
+          "observed": false,
+          "evidence": "Matris görünür, ancak TP/FP/FN/TN değerlerinin okunduğunu gösteren semantik kanıt yok."
+        },
+        "iterative_refinement": {
+          "observed": true,
+          "evidence": "Log penceresinde önceki modelin 0.73 accuracy değerinden sonra parametre değişimi ve 0.80 accuracy ile yeni emit bulunur."
+        }
+      },
+      "aicft_rubric": {
+        "LO3_1_acquire": {
+          "score": 0,
+          "evidence": null
+        },
+        "LO3_2_deepen": {
+          "score": 2,
+          "evidence": "Ardışık model düzenleme ve yeniden emit etme kanıtı var; sonuçların semantik yorumu görünmüyor."
+        },
+        "LO3_3_create": {
+          "score": 0,
+          "evidence": null
+        },
+        "overall_lo3_snapshot": "Yinelemeli model geliştirme davranışı görülüyor; nihai yeterlik kararı için episode ve semantik kanıt gerekir."
+      },
+      "flags": {
+        "off_task": false,
+        "off_task_note": null,
+        "technical_difficulty": false,
+        "technical_difficulty_note": null,
+        "misconception_detected": false,
+        "misconception_note": null,
+        "aha_moment_candidate": false,
+        "aha_moment_note": null,
+        "needs_human_review": true,
+        "review_reason": "Görünür performans artışı öğrencinin metriği doğru yorumladığını kanıtlamaz."
+      },
+      "frame_quality": {
+        "is_transition_frame": false,
+        "is_duplicate_candidate": false,
+        "occlusion_present": false,
+        "occlusion_note": null,
+        "analysis_confidence": "high",
+        "confidence_reason": "Ağaç, accuracy ve confusion matrix okunaklı; bilişsel yorum konusunda güven daha düşüktür."
+      }
+    }
+  ]
+}

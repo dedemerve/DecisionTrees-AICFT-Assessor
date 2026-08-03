@@ -1,0 +1,916 @@
+{
+  "$schema": "schema/video_analysis_bundle.schema.json",
+  "cohort_year": 2026,
+  "bundle_version": "2.0-process-only",
+  "layout_version": "v2",
+  "scope": "process_pipeline_methods_only",
+  "scoring_out_of_scope": true,
+  "generated_at": "2026-07-21T11:23:38.346841+00:00",
+  "sessions": [
+    {
+      "student_id": "Amy",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Amy/codap_21apr/metadata/Amy_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 6,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 6,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4750093,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:6"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Amy",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Amy/codap_28apr/metadata/Amy_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 6,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:6"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Amy",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Amy/colab_05may/metadata/Amy_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 6,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 6,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 1346372,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:6"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Bruno",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Bruno/codap_21apr/metadata/Bruno_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 13,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 13,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4960617,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:13"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Bruno",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Bruno/codap_28apr/metadata/Bruno_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 13,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 13,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4417110,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:13"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Bruno",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Bruno/colab_05may/metadata/Bruno_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 13,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 13,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 1426533,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:13"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Helena",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Helena/codap_21apr/metadata/Helena_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 14,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 14,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 5224345,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:14"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Helena",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Helena/codap_28apr/metadata/Helena_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 14,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:14"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Helena",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Helena/colab_05may/metadata/Helena_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 14,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 14,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 2243381,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:14"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Iris",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Iris/codap_21apr/metadata/Iris_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 6,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 6,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4880297,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:6"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Iris",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Iris/codap_28apr/metadata/Iris_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 6,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:6"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Iris",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Iris/colab_05may/metadata/Iris_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 6,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:6"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Irma",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Irma/codap_21apr/metadata/Irma_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 19,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 19,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4423591,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:19"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Irma",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Irma/codap_28apr/metadata/Irma_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 19,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 19,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4423591,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:19"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Irma",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Irma/colab_05may/metadata/Irma_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 19,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 19,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 1245100,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:19"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Isabel",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Isabel/codap_21apr/metadata/Isabel_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 9,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 9,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 5190220,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:9"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Isabel",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Isabel/codap_28apr/metadata/Isabel_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 9,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 9,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4498590,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:9"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Isabel",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Isabel/colab_05may/metadata/Isabel_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 9,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:9"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Marco",
+      "session_id": "codap_21apr",
+      "status": "blocked_missing_raw_data",
+      "data_availability": {
+        "observation_steps": true,
+        "gold_alignment": false,
+        "status": "blocked_missing_raw_data"
+      }
+    },
+    {
+      "student_id": "Marcus",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Marcus/codap_21apr/metadata/Marcus_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 13,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 13,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4878955,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:13"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Marcus",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Marcus/codap_28apr/metadata/Marcus_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 13,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:13"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Marcus",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Marcus/colab_05may/metadata/Marcus_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 13,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:13"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Melinda",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Melinda/codap_21apr/metadata/Melinda_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 7,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:7"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Melinda",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Melinda/codap_28apr/metadata/Melinda_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 7,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 7,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4338251,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:7"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Melinda",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Melinda/colab_05may/metadata/Melinda_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 7,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:7"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Nadia",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Nadia/codap_21apr/metadata/Nadia_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 20,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 20,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4964314,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:20"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Nadia",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Nadia/codap_28apr/metadata/Nadia_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 20,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 20,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4471163,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:20"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Nadia",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Nadia/colab_05may/metadata/Nadia_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 20,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 20,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 1944334,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:20"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Serena",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Serena/codap_21apr/metadata/Serena_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 7,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:7"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Serena",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Serena/codap_28apr/metadata/Serena_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 7,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 7,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4417237,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:7"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Serena",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Serena/colab_05may/metadata/Serena_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 7,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 7,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 933200,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:7"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Shana",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Shana/codap_21apr/metadata/Shana_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 10,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 10,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4943444,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:10"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Shana",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Shana/codap_28apr/metadata/Shana_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 10,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:10"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Shana",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Shana/colab_05may/metadata/Shana_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 10,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 10,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 570700,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:10"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Sheila",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Sheila/codap_21apr/metadata/Sheila_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 17,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 17,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 5165694,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:17"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Sheila",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Sheila/codap_28apr/metadata/Sheila_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 17,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 0,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": null,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:17"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Sheila",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Sheila/colab_05may/metadata/Sheila_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 17,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 17,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 2785333,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:17"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Ulysses",
+      "session_id": "codap_21apr",
+      "status": "blocked_missing_raw_data",
+      "data_availability": {
+        "observation_steps": true,
+        "gold_alignment": false,
+        "status": "blocked_missing_raw_data"
+      }
+    },
+    {
+      "student_id": "Ulysses",
+      "session_id": "codap_28apr",
+      "status": "blocked_missing_raw_data",
+      "data_availability": {
+        "observation_steps": true,
+        "gold_alignment": false,
+        "status": "blocked_missing_raw_data"
+      }
+    },
+    {
+      "student_id": "Ulysses",
+      "session_id": "colab_05may",
+      "status": "blocked_missing_raw_data",
+      "data_availability": {
+        "observation_steps": true,
+        "gold_alignment": false,
+        "status": "blocked_missing_raw_data"
+      }
+    },
+    {
+      "student_id": "Zara",
+      "session_id": "codap_21apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Zara/codap_21apr/metadata/Zara_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 40,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 40,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4963633,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:40"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Zara",
+      "session_id": "codap_28apr",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Zara/codap_28apr/metadata/Zara_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 40,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 40,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 4963633,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:40"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    },
+    {
+      "student_id": "Zara",
+      "session_id": "colab_05may",
+      "status": "ok",
+      "bundle": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/training_datasets/2026/Zara/colab_05may/metadata/Zara_video_analysis_bundle.json",
+      "coverage_audit": {
+        "steps_total": 40,
+        "steps_with_gold_shot": 0,
+        "steps_with_silver_anchor": 40,
+        "frames_total": 0,
+        "frames_with_step_inheritance": 0,
+        "video_duration_ms": null,
+        "silver_timestamp_span_ms": 2119783,
+        "low_silver_coverage": false,
+        "gaps_flagged": [
+          "text_only_steps:40"
+        ],
+        "rubric_gaps_for_student": [],
+        "log_available": false,
+        "log_video_sync_status": "unavailable"
+      }
+    }
+  ],
+  "artifact_layout": {
+    "expert_process_narrative": "<student>/<session>/annotations/<id>_expert_process_narrative.v1.jsonl",
+    "process_codes": "<student>/<session>/annotations/<id>_process_codes.v1.json",
+    "log_process_metadata": "<student>/<session>/metadata/<id>_log_process_metadata.json",
+    "bundle_manifest": "<student>/<session>/metadata/<id>_video_analysis_bundle.json"
+  },
+  "scoring_quarantine": "trash/scoring_out_of_scope_2026-07-20/"
+}

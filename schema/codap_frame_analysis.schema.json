@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "codap_frame_analysis",
+  "title": "CODAP Frame Analysis",
+  "description": "Per-frame annotation output — 25-variable multimodal process data schema (v2)",
+  "type": "object",
+  "required": [
+    "frame_number",
+    "timestamp_ms",
+    "screen_context",
+    "tree_has_nodes",
+    "dependent_variable_set",
+    "split_values_visible",
+    "accuracy_visible",
+    "confusion_matrix_visible",
+    "primary_behavior",
+    "secondary_behavior",
+    "systematic_variable_selection",
+    "threshold_reasoning",
+    "accuracy_interpretation",
+    "overfitting_awareness",
+    "train_test_distinction",
+    "confusion_matrix_reading",
+    "iterative_refinement",
+    "deepen_phase",
+    "off_task",
+    "technical_difficulty",
+    "misconception_detected",
+    "aha_moment_candidate",
+    "is_transition_frame",
+    "is_duplicate_candidate",
+    "analysis_confidence"
+  ],
+  "properties": {
+    "frame_number": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "timestamp_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "screen_context": {
+      "type": "string",
+      "enum": ["TREE", "GRAPH", "TABLE", "MIXED", "MENU"]
+    },
+    "tree_has_nodes": {
+      "type": "boolean"
+    },
+    "dependent_variable_set": {
+      "type": "boolean"
+    },
+    "split_values_visible": {
+      "type": "boolean"
+    },
+    "accuracy_visible": {
+      "type": "boolean"
+    },
+    "confusion_matrix_visible": {
+      "type": "boolean"
+    },
+    "primary_behavior": {
+      "type": "string",
+      "enum": [
+        "EXPLORE_DATA",
+        "SELECT_TARGET",
+        "BUILD_TREE",
+        "TUNE_THRESHOLD",
+        "EVALUATE_MODEL",
+        "COMPARE_MODELS",
+        "INTERPRET_RESULTS",
+        "IDLE_THINKING",
+        "OFF_TASK"
+      ]
+    },
+    "secondary_behavior": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "EXPLORE_DATA",
+            "SELECT_TARGET",
+            "BUILD_TREE",
+            "TUNE_THRESHOLD",
+            "EVALUATE_MODEL",
+            "COMPARE_MODELS",
+            "INTERPRET_RESULTS",
+            "IDLE_THINKING",
+            "OFF_TASK"
+          ]
+        },
+        { "type": "null" }
+      ]
+    },
+    "systematic_variable_selection": {
+      "type": "boolean"
+    },
+    "threshold_reasoning": {
+      "type": "boolean"
+    },
+    "accuracy_interpretation": {
+      "type": "boolean"
+    },
+    "overfitting_awareness": {
+      "type": "boolean"
+    },
+    "train_test_distinction": {
+      "type": "boolean"
+    },
+    "confusion_matrix_reading": {
+      "type": "boolean"
+    },
+    "iterative_refinement": {
+      "type": "boolean"
+    },
+    "deepen_phase": {
+      "type": "string",
+      "enum": ["SETUP", "BUILDING", "TUNING", "EVALUATING", "IDLE"]
+    },
+    "off_task": {
+      "type": "boolean"
+    },
+    "technical_difficulty": {
+      "type": "boolean"
+    },
+    "misconception_detected": {
+      "type": "boolean"
+    },
+    "aha_moment_candidate": {
+      "type": "boolean"
+    },
+    "is_transition_frame": {
+      "type": "boolean"
+    },
+    "is_duplicate_candidate": {
+      "type": "boolean"
+    },
+    "analysis_confidence": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH"]
+    },
+    "student_id": { "type": "string" },
+    "session_date": { "type": "string" },
+    "frame_id": { "type": "string" },
+    "source_trigger": { "type": ["string", "null"] },
+    "pixel_change_pct": { "type": ["number", "null"] }
+  },
+  "additionalProperties": false
+}

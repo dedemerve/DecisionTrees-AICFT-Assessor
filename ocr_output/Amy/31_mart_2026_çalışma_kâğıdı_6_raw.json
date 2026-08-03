@@ -1,0 +1,61 @@
+{
+  "student_id": "Amy",
+  "worksheet": "WS6",
+  "ws_snapshot": "Root node splits on 'Yağ' with threshold 13 (evet/left ≤13 goes to 'Şeker' node, hayır/right >13 goes to 'Enerji' node). The Şeker node splits at threshold 11 into two leaves, and the Enerji node splits at threshold 289 into two leaves, each leaf labeled with tavsiye edilir/tavsiye edilemez counts.",
+  "page_notes": "Kök düğümdeki eşik değer alanı '≤13' olarak yazılmış; sol dal oku üzerinde ayrı operatör görünmüyor, eşik değer kutusundan çıkarım yapıldı. Şeker düğümünde sol dal '≤11' ve sağ dal '>11' olarak okundu; Enerji düğümünde sol dal '<289' ve sağ dal '≥289' olarak okundu (üstte ok işareti var).",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Yağ",
+        "left_operator": "≤",
+        "left_threshold_value": 13.0,
+        "right_operator": ">",
+        "right_threshold_value": 13.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Şeker",
+          "node_recommended_count": 6,
+          "node_not_recommended_count": 2,
+          "left_operator": "≤",
+          "left_threshold_value": 11.0,
+          "right_operator": ">",
+          "right_threshold_value": 11.0
+        },
+        "right_child": {
+          "parsed_feature": "Enerji",
+          "node_recommended_count": 3,
+          "node_not_recommended_count": 0,
+          "left_operator": "<",
+          "left_threshold_value": 289.0,
+          "right_operator": "≥",
+          "right_threshold_value": 289.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": 6,
+            "leaf_not_recommended_count": 0
+          },
+          "left_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 2,
+            "leaf_not_recommended_count": 0
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 3
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilebilir",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 0
+          }
+        }
+      }
+    }
+  }
+}

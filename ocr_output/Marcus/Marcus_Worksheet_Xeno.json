@@ -1,0 +1,208 @@
+{
+  "student_id": "Marcus",
+  "worksheet": "WS_DT_XENO",
+  "ws_snapshot": "Öğrenci kök düğümde 10 vaka (1 hasta, 9 sağlıklı) belirtmiş; mavi saçlıların %0, pembe saçlıların %100 hasta olduğunu doğru kaydetmiş. CODAP karışıklık matrisinde TP=6, TN=14, FP=0, FN=0, N=20 değerleriyle FP=FN=0 yapısal koşulu sağlanmış. Tüm metrikleri (doğruluk, duyarlılık, özgüllük, kesinlik) %100 olarak hesaplamış; yeni metrik formülünü (TP/(TP+TP)) yazmış ancak b, c şıkları ve MCR bölümünü boş bırakmış.",
+  "page_notes": "Sayfa 4'te 5. satır (DTI_05) X ile çizilerek iptal edilmiş. MCR tablosu ve bazı açıklama alanları boş bırakılmış.",
+  "extraction": {
+    "DTI_01": "10 | %10 hasta 1 hasta 9 sağlıklı",
+    "DTI_02": "9 vaka var hiç biri hasta değil",
+    "DTI_03": "1 vaka var %100 ' ü hasta",
+    "DTI_04": "[corrected: negatif → pozitif] Saç",
+    "DTI_05": "(bos)",
+    "DTI_06": "Evet çünkü 1 tane farklı, farklı renk var o da hasta",
+    "DTI_07": "Yapamazdık",
+    "DTI_08": "FN, çünkü birey ölebilir",
+    "DTI_09": "Pembe saçlılar gene hasta, maviler gene sağlıklı",
+    "DTI_10": "6",
+    "DTI_11": "Gerçekten hastayken, hastalar",
+    "DTI_12": "14",
+    "DTI_13": "Gerçekten sağlıklıyken, sağlıklılar",
+    "DTI_14": "0",
+    "DTI_15": "Sağlıklıyken hastalar",
+    "DTI_16": "0",
+    "DTI_17": "Hastayken sağlıklılar",
+    "DTI_18": "20",
+    "DTI_19": "(bos)",
+    "DTI_20": "20 / 20 = [circled: 1]",
+    "DTI_21": "%100 Doğru",
+    "DTI_22": "6 / 6 = [circled: 1]",
+    "DTI_23": "%100 Duyarlı",
+    "DTI_24": "14 / 14 = [circled: 1]",
+    "DTI_25": "%100 Özgüllü",
+    "DTI_26": "6 / 6 = [circled: 1]",
+    "DTI_27": "%100 kesinlik",
+    "DTI_28": "TP / (TP + FN) (Duyarlılık) → Bu metrik daha iyi sonuçlar veriyor",
+    "DTI_29": "TP / (TP + TP)",
+    "DTI_30": "(bos)",
+    "DTI_31": "(bos)",
+    "DTI_32": "(bos)",
+    "DTI_33": "(bos)"
+  },
+  "validation": {
+    "xeno_consistency_checks": {
+      "tp_fn_sum_equals_sick": {
+        "check": "TP + FN = toplam hasta sayisi",
+        "student_tp": "6",
+        "student_fn": "0",
+        "sum": 6,
+        "is_correct": true,
+        "note": "FN=0 beklenir"
+      },
+      "tn_fp_sum_equals_healthy": {
+        "check": "TN + FP = toplam saglikli sayisi",
+        "student_tn": "14",
+        "student_fp": "0",
+        "sum": 14,
+        "is_correct": true,
+        "note": "FP=0 beklenir"
+      },
+      "total_n": {
+        "check": "TP + TN + FP + FN = N",
+        "n_sum": 20,
+        "student_n": "20",
+        "is_correct": true
+      },
+      "fp_fn_zero": {
+        "check": "sac rengi mukemmel ayirici => FP=FN=0",
+        "student_fp": "0",
+        "student_fn": "0",
+        "is_correct": true
+      }
+    },
+    "item_checks": {
+      "DTI_01": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_02": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_03": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_04": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_05": {
+        "is_correct": false,
+        "error_flag": "BLANK"
+      },
+      "DTI_06": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_07": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_08": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_09": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_10": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_11": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_12": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_13": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_14": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_15": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_16": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_17": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_18": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_19": {
+        "is_correct": false,
+        "error_flag": "BLANK"
+      },
+      "DTI_20": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_21": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_22": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_23": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_24": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_25": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_26": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_27": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_28": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_29": {
+        "is_correct": true,
+        "error_flag": null
+      },
+      "DTI_30": {
+        "is_correct": false,
+        "error_flag": "BLANK"
+      },
+      "DTI_31": {
+        "is_correct": false,
+        "error_flag": "BLANK"
+      },
+      "DTI_32": {
+        "is_correct": false,
+        "error_flag": "BLANK"
+      },
+      "DTI_33": {
+        "is_correct": false,
+        "error_flag": "BLANK"
+      }
+    },
+    "system_analytical_summary": "Öğrenci kök düğümde 10 vaka (1 hasta, 9 sağlıklı) belirtmiş; mavi saçlıların %0, pembe saçlıların %100 hasta olduğunu doğru kaydetmiş. CODAP karışıklık matrisinde TP=6, TN=14, FP=0, FN=0, N=20 değerleriyle FP=FN=0 yapısal koşulu sağlanmış. Tüm metrikleri (doğruluk, duyarlılık, özgüllük, kesinlik) %100 olarak hesaplamış; yeni metrik formülünü (TP/(TP+TP)) yazmış ancak b, c şıkları ve MCR bölümünü boş bırakmış."
+  }
+}

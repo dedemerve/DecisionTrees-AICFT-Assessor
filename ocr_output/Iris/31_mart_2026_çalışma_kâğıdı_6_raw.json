@@ -1,0 +1,61 @@
+{
+  "student_id": "Iris",
+  "worksheet": "WS6",
+  "ws_snapshot": "Kök düğümde 'Protein' özelliği ile eşik değer 2g olarak ayrılmış (evet: <2g, hayır: >2g). Sol alt düğüm 'Enerji' özelliğine göre (<200g / >200g), sağ alt düğüm 'Yağ' özelliğine göre (<10,5g / >10,5g) bölünmüş. Dört yaprak düğümünün tümü doldurulmuş ve etiketlenmiş (tavsiye edilir/edilemez).",
+  "page_notes": "Kök düğümdeki eşik değer 'g' birimiyle yazılmış ama Protein için muhtemelen gram anlamında kullanılmış. Sol düğümdeki (Enerji) eşik değer birimi de 'g' yazılmış, muhtemelen kcal olması gerekirdi ama öğrenci 'g' yazmış - olduğu gibi transkribe edildi. Sağ alt düğümde (Yağ) eşik değer virgüllü '10,5' yazılmış. [depth_0 operator belirsiz: < veya ≤ olabilir, çubuk net görünmüyor] [depth_1 sol ve sağ çocuk operatörleri de aynı şekilde < veya ≤ olabilir, çubuk belirsiz]",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Protein",
+        "left_operator": "<",
+        "left_threshold_value": 2.0,
+        "right_operator": ">",
+        "right_threshold_value": 2.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": "Enerji",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "<",
+          "left_threshold_value": 200.0,
+          "right_operator": ">",
+          "right_threshold_value": 200.0
+        },
+        "right_child": {
+          "parsed_feature": "Yağ",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "<",
+          "left_threshold_value": 10.5,
+          "right_operator": ">",
+          "right_threshold_value": 10.5
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "left_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilebilir",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": "2026-v1",
+  "generated_at": "2026-07-21T11:23:19.702559+00:00",
+  "student_id": "Amy",
+  "session": "codap_21apr",
+  "source_document": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/data_sources_2026/Final Ödevi Dokümanları/Amy.ipynb",
+  "source_type": "ipynb",
+  "observation_steps": [
+    {
+      "step_index": 0,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Ödeviniz için Colab not defterinize doğrudan yazabileceğiniz kısa ve net cevaplar:\n\n1. Veri kümesinde kaç kertenkele var?\n\nCevap: Veri kümesinde toplam 320 kertenkele vardır.\n\n2. Hangi yaşam alanı en kalabalık? Hangisi en az?\n\nEn kalabalık: Yer\n\nEn az: Ağaç\n\n3. Bu dengesizlik modelimizi nasıl etkileyebilir?\n\nCevap: Modelde yanlılığa (bias) yol açar. Karar ağacı, verisi çok olan \"Yer\" sınıfını tahmin etmeye eğilim gösterirken; verisi az olan \"Ağaç\" sınıfını öğrenmekte zorlanır ve bu sınıf için doğru tahmin oranı (duyarlılık) düşük kalır.\n\n4. Kertenkelelerin ortalama ağırlığı nedir? Bu değer üç tür için farklı mıdır? Nedenini açıklayın.\n\nCevap: Genel ortalama kütle 11.17 g'dır. Evet, üç tür için farklıdır.\n\nNedeni: Türlerin anatomik (fiziksel) yapıları ve gövde uzunlukları birbirinden farklıdır. Gövde uzunluğu arttıkça kütle de artar. Örneğin Sceloporus iri ve ağır bir türken, Uta en küçük ve en hafif türdür.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 1,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "1. stratify=y parametresini kaldırırsanız ne değişebilir?\n\n Cevap: Sınıf dağılımındaki denge bozulabilir. Parametre varken eğitim ve test setlerine her kertenkele türünden eşit oranda (%80'e %20) paylaştırılır. Kaldırıldığında ise tamamen rastgele bir bölünme olacağı için bazı nadir türler test setine çok az gidebilir veya hiç gitmeyebilir; bu da modelin o sınıfı doğru test edilmesini zorlaştırır.\n\n2. random_state=42 yerine random_state=7 yazarsanız sonuçlar değişir mi?\n\n Cevap: Evet, veri setindeki kertenkelelerin eğitim ve test setlerine dağılımı (satır eşleşmeleri) değişir, dolayısıyla elde edilen başarı sonuçları da küçük miktarda farklılık gösterir.\n\nNedeni: random_state veriyi karıştırıp bölen mekanizmanın başlangıç noktasıdır (tohum değeridir). Sayıyı değiştirmek farklı bir rastgele karıştırma düzeni oluşturur; ancak kod her yeniden çalıştırıldığında kendi içinde hep aynı (sabit) bölünmeyi üretmeye devam eder.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Trial-and-error",
+        "unesco_ai_cft_level": "Create"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Trial-and-error' / LO=Create olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 2,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "1. Çıktıya bakarak eğitim ve test hatası derinlik arttıkça nasıl değişmektedir?\n\nCevap: Derinlik arttıkça eğitim hatası sürekli azalır ve sıfıra yaklaşır. Test hatası ise önce azalır, optimum bir derinlikte en düşük seviyeye ulaşır, ancak derinlik daha da artırıldığında tekrar yükselmeye (artmaya) başlar.\n\n2. Eğitim hatasının sıfıra yaklaşması modelin \"mükemmel\" öğrendiği anlamına gelir mi?\n\nCevap: Hayır, mükemmel öğrendiği anlamına gelmez; modelin eğitim verilerini ezberlediği (Overfitting / Aşırı Öğrenme) anlamına gelir. Model verideki genel kalıpları öğrenmek yerine gürültüleri ve özel detayları ezberlediği için yeni göreceği test verilerinde çuvallar.\n\n3. Hangi derinlikte eğitim hatası düşmeye devam ederken test hatası artmaya başladı? O satırda ne oldu?\n\nCevap: (Grafiğinizde test hatasının yukarı doğru kırıldığı derinliği yazmalısınız; genellikle bu veri setinde derinlik 4 veya 5'ten sonra gerçekleşir). O satırda modelde Aşırı Öğrenme (Overfitting) başlamıştır; model genel kurallar üretmeyi bırakıp eğitim setine özel detayları ezberlemeye geçmiştir.\n\n4. Yalnızca bu sayılara bakarak hangi derinliği seçerdiniz? Gerekçeniz nedir?\n\nCevap: Test hatasının (MCR) en düşük olduğu optimum derinliği (genellikle derinlik 3 veya 4) seçerdim. Gerekçesi ise bu derinliğin modelin henüz ezbere kaçmadan, yeni ve yabancı veriler (test seti) üzerinde en yüksek genelleme başarısını ve en düşük hatayı sunduğu nokta olmasıdır.\n\n5. En düşük test hatası ile en düşük eğitim hatası farklı derinliklerde mi çıktı? Bu size ne söylüyor?\n\nCevap: Evet, farklı derinliklerde çıkar (Eğitim hatası en yüksek derinlikte en düşüktür). Bu durum bize modelin başarısını ölçerken yalnızca eğitim hatasına güvenemeyeceğimizi, modelin gerçek performansını ve ezber yapıp yapmadığını sadece test hatasını takip ederek anlayabileceğimizi söyler.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Deepen olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 3,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "1. Grafikteki iki eğri birbirinden ne zaman ayrılmaya başlıyor? Bu ayrılma noktası size ne söylüyor?\n\nCevap: Eğriler genellikle derinlik 3 veya 4'ten sonra birbirinden ayrılmaya başlar. Bu nokta, modelin verideki genel kalıpları öğrenmeyi bitirip ezberlemeye (overfitting) geçiş yaptığı kırılma noktasını gösterir.\n\n2. Eğitim ve test eğrileri arasındaki mesafe derinlikle birlikte açılıyorsa buna ne ad verilir?\n\nCevap: Bu duruma Aşırı Öğrenme / Ezberleme (Overfitting) adı verilir. Gelişmiş aşamada model eğitim verilerinde yüksek başarı gösterirken, test verilerinde başarısız olur.\n\n3. Grafiğe bakarak hangi max_depth değerini seçerdiniz? Sayısal tablodaki kararınızla aynı mı?\n\nCevap: Test doğruluğunun en yüksek (veya test hatasının en düşük) olduğu optimum derinliği (genellikle 3 veya 4) seçerdim. Evet, sayısal tablodaki en yüksek test skoruyla grafikteki tepe noktası aynı derinliğe denk geldiği için kararım tablodakiyle aynıdır.\n\n4. Optimum derinlik her hedef için aynı mı çıktı? Farklılaştıysa neden?\n\nCevap: Hayır, her hedef değişken (Tür, Cinsiyet, Yaşam Alanı) için optimum derinlik farklı çıktı.\n\nNedeni: Her sorunun (hedef değişkenin) zorluk derecesi ve verideki diğer özelliklerle olan ilişkisi farklıdır. Örneğin, fiziksel ölçümler Tür tahmini yapmayı çok kolaylaştırıp az derinlikte (örn: 3) çözebilirken, Cinsiyet veya Yaşam Alanı gibi ayırt etmesi daha karmaşık olan hedefler daha farklı kurallar dizisi ve derinlik seviyesi gerektirir.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 4,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "1. Kök düğümde hangi değişken kullanılmış? Neden ilk sırada yer alıyor?\n\nCevap: Kök düğümde GovdeUzunlugu (veya model çıktınıza göre Kutle) kullanılmıştır. Bu değişkenin ilk sırada yer alma nedeni, hedef sınıfları (türleri veya yaşam alanlarını) birbirinden ayırmada en yüksek bilgi kazancına (Information Gain) veya en düşük Gini safsızlığına sahip, yani en ayırt edici özellik olmasıdır.\n\n2. Bir kertenkeleyi sınıflandırmak için kaç karar yeterli oluyor? Bu sayı size ne söylüyor?\n\nCevap: Belirlediğimiz max_depth=3 sınırına göre en fazla 3 karar (adım) yeterli oluyor. Bu sayı bize, karar ağaçlarının karmaşık veri setlerini bile çok az sayıda mantıksal soruyla hızlı ve etkili bir şekilde sınıflandırabildiğini (öğrenebildiğini) söyler.\n\n3. Farklı bir hedef değişkenle çalıştırıldığında kök düğüm değişti mi? Nasıl yorumlarsınız?\n\nCevap: Evet, hedef değişken değiştiğinde kök düğüm değişti. Bunu şöyle yorumlarız: Modelin amacı her seferinde farklı bir soruyu çözmektir. Tür tahmini yaparken en ayırt edici özellik gövde boyutu iken, Cinsiyet veya Yaşam Alanı tahmini yaparken verideki en güçlü ipucu ve en yüksek bilgi kazancı sağlayan değişken tamamen farklı bir özelliğe dönüşür.\n\n4. CODAP'ta kurduğunuz ağaçla karşılaştırma: Farklılık varsa nereden kaynaklanıyor?\n\nCevap: Kök düğüm ve kararlar büyük oranda örtüşüyor ancak dal sayılarında küçük farklılıklar olabilir. Bu durum, CODAP'ta ayrım çizgilerini (eşik değerlerini) bizim görsel olarak manuel seçmemizden, Python'ın ise (Gini kriterine göre) matematiksel olarak en optimum bölünme noktasını otomatik hesaplamasından kaynaklanmaktadır.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 5,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Soru 1 — Öğrenme Yolculuğu\nHer ortamın katkısı: Data kartları karar ağacının mantığını elle hissettirdi; CODAP veriyi görselleştirerek gruplamayı öğretti; Python ise büyük verilerde otomasyon ve matematiksel optimizasyonu (Gini) kavramamı sağladı.\n\n\"Modelim ne yapıyor\" sorusunu en iyi anladığım ortam: CODAP. Çünkü verilerin her bölünmede grafik üzerinde nasıl ayrıştığını ve saflaştığını anlık olarak gözlerimle görebildim.\n\nEn kolay gelen ortam: CODAP. Görsel ve sürükle-bırak yapısı sayesinde kavramsal olarak anlamayı kolaylaştırdı, sadece alışkanlık değil süreci somutlaştırdığı için kolay geldi.\n\nEn çok zorlanılan ortam: Python. Kod yazmanın getirdiği sözdizimi (syntax) kuralları ve hata mesajları nedeniyle zorlandım. Zorluk karar ağacı kavramından değil, aracın teknik dilinden kaynaklanıyordu.\n\nHatanın en kolay fark edildiği ortam: Python. Kod satırlarında hata olduğunda Python'ın kırmızı renkli, spesifik hata mesajları (ValueError vb.) beni doğrudan uyardı ve hatanın nerede olduğunu gösterdi.\n\nBirinde yapılıp diğerinde yapılamayan şey: Python'da saniyeler içinde 10 farklı derinliği otomatik deneyip grafiğini çizebilirken (döngülerle), bunu data kartlarında veya CODAP'ta elle yapmak imkansızdı.\n\nBirinin diğerinin yerini tutamayacağı durum: Data kartlarının yeri tutulamaz; çünkü algoritmanın temelindeki \"adım adım karar verme\" mantığını tamamen fiziksel ve somut bir şekilde kavramanın en iyi yolu odur.\n\nSoru 2 — Veri Anlayışı\nKök düğüm seçimi ve biyolojik mantığı: Kök düğümde seçilen değişken (örneğin GovdeUzunlugu veya Kutle) biyolojik olarak çok mantıklıdır. Çünkü farklı türlerin evrimsel olarak geliştirdiği vücut büyüklükleri ve ağırlıkları, onları ayırt etmedeki en radikal ve baskın fiziksel özelliktir.\n\nYaşam alanına göre fiziksel farklar: Evet, beklerdim. Ağaçta yaşayanların tırmanma için bacak boyu/vücut oranı farklı olmalıdır. Modelimiz de kurduğu dallarla (örneğin bacak ve gövde uzunluğu sınırlarıyla) bu farkı büyük oranda yakaladı.\n\nYanlış sınıflandırılan bireyler ve biyolojik açıklaması: Yanlış sınıflandırmalar çoğunlukla Ağaç veya Kaya alanlarındaki bireylerde oldu. Biyolojik açıklaması: Bazı kertenkelelerin genç (boyutça küçük) olması veya avlanma/kamuflaj amacıyla geçici olarak yer değiştirmesi, fiziksel ölçümlerinin diğer sınıflarla karışmasına yol açar.\n\nİlk tahmin ve modelin bulgusu: İlk başta ToplamUzunluk değişkeninin en belirleyici olacağını tahmin etmiştim; modelin gövde uzunluğu/kütle bulgusuyla büyük oranda örtüştü çünkü ikisi de genel kalıpsal büyüklüğü gösterir.\n\nSoru 3 — Model Performansı\nEn iyi ve en kötü tahmin edilen sınıflar: Verisi en çok olan Yer sınıfı (veya Sceloporus/Uta türü) en iyi tahmin edildi; verisi çok az ve dengesiz olan Ağaç sınıfı en kötü tahmin edildi. Nedeni, verideki sınıf dengesizliğidir.\n\nMCR tatmini ve ideal değer: Elde ettiğim MCR (Hata Oranı) değeri genel olarak tatmin edici (örn: %10-20 arası hata). İyi bir model için MCR değerinin 0.05 ile 0.15 arasında (yani %85-95 doğruluk) olmasını bekleriz.\n\nHedef değişken değişseydi MCR değişir miydi? Evet, kesinlikle değişirdi. Çünkü Tür tahmini yapmak fiziksel özelliklerle doğrudan ilişkili ve kolayken; Cinsiyet veya Yaşam Alanı verideki ayırt edici ipuçları daha zayıf olduğu için daha yüksek hata oranına (MCR) sahip olurdu.\n\nBaşarısız durumların veri hakkında söyledikleri: Verideki bazı kertenkelelerin birbirine çok benzediğini, yani sadece fiziksel ölçümlere bakarak yaşam alanı veya tür ayrımının %100 kusursuz yapılamayacağını, sınıflar arasında doğal bir örtüşme (gürültü) olduğunu söyler.\n\nSoru 4 — Karar Ağaçlarının Sınırları\nHata örüntüsü: Hatalar rastgele değildir; genellikle sınır değerlerdeki (birbirine boyut olarak çok yakın olan) veya veri sayısı çok az olan nadir sınıflara ait kertenkelelerde yoğunlaşan belirli bir örüntüye sahiptir.\n\nDaha iyi sonuç için ne yapılabilir? Teknik olarak budama yapılabilir. Veri açısından ise sınıf dengesi sağlanabilir (nadir sınıflardan daha çok örnek toplanabilir) ve kertenkelelerin rengi, coğrafi bölgesi gibi yeni ayırt edici özellikler (sütunlar) veriye eklenebilir.\n\nFarklı model kullanımı: Sonuç değişirdi. Örneğin Rastgele Orman (Random Forest) veya Lojistik Regresyon gibi modeller kullansaydık, tek bir ağacın keskin ve köşeli sınırları yerine daha esnek ve olasılıksal sınırlar çizileceği için test başarısı daha yüksek olabilirdi.\n\nArkadaşıma açıklama: \"Karar Ağacı, veriye sorular sorarak onu dallara ayıran ve tahminde bulunan akış şeması benzeri bir modeldir. Karmaşık kuralları anlaşılır kılmaya yarar. Ancak veriyi kolayca ezberlemeye (overfitting) meyilli olması ve verideki dengesizliklerden çok çabuk etkilenmesi yönüyle yetersiz kalır.\"",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Trial-and-error",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Trial-and-error' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    }
+  ],
+  "step_count": 6,
+  "frame_count": 370,
+  "frame_manifest_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/data_sources_2026/codap_arbor_21april_audio/Amy/Amy_video_extraction_manifest.json",
+  "alignment_ready": true
+}

@@ -1,0 +1,716 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Lizard_DT_Assignment_Extraction_Final",
+  "description": "Extraction schema for the kertenkele final exam notebook (.ipynb). Extraction only — no scoring, no interpretation. All judgment deferred to the scoring stage.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "student_id",
+    "metadata",
+    "execution",
+    "data_source",
+    "step1_data_exploration",
+    "formulated_research_questions",
+    "step3_split_global",
+    "dt_experiments",
+    "cross_target_comparison",
+    "step6_written_reflection"
+  ],
+
+  "properties": {
+
+    "student_id": {
+      "type": "string",
+      "description": "Derived from filename (ad-soyad.ipynb) by the pipeline before extraction begins. Never extracted from notebook content."
+    },
+
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Structural statistics derived directly from the .ipynb JSON — no LLM needed.",
+      "required": ["total_models_created", "markdown_cells", "code_cells", "total_cells"],
+      "properties": {
+        "total_models_created": {
+          "type": ["integer", "null"],
+          "description": "Count of distinct dt_experiments items found. Populated after dt_experiments is extracted."
+        },
+        "markdown_cells": {
+          "type": ["integer", "null"],
+          "description": "Count of cells where cell_type == 'markdown'."
+        },
+        "code_cells": {
+          "type": ["integer", "null"],
+          "description": "Count of cells where cell_type == 'code'."
+        },
+        "total_cells": {
+          "type": ["integer", "null"],
+          "description": "markdown_cells + code_cells."
+        }
+      }
+    },
+
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Notebook execution status from .ipynb cell metadata. IMPORTANT: Colab resets execution_count to null on kernel restart while preserving outputs. Use code_cells_with_output as the primary execution signal — never execution_count.",
+      "required": [
+        "code_cells_with_output",
+        "code_cells_without_output",
+        "execution_count_all_null",
+        "cells_with_errors",
+        "infrastructure_interrupt",
+        "error_types"
+      ],
+      "properties": {
+        "code_cells_with_output": {
+          "type": ["integer", "null"],
+          "description": "Count of code cells whose 'outputs' list is non-empty. Primary signal for 'did the student run this notebook'."
+        },
+        "code_cells_without_output": {
+          "type": ["integer", "null"],
+          "description": "Count of code cells with non-empty source but empty 'outputs'. These are candidates for unexecuted cells — but also include cells whose output is a plot or dataframe rendered by Colab without a text output entry."
+        },
+        "execution_count_all_null": {
+          "type": ["boolean", "null"],
+          "description": "True if every code cell has execution_count == null. This signals a Colab kernel reset and does NOT mean the notebook was not executed. Never use this field to infer execution status."
+        },
+        "cells_with_errors": {
+          "type": ["integer", "null"],
+          "description": "Count of cells where any output has output_type == 'error'. Excludes infrastructure_interrupt cases."
+        },
+        "infrastructure_interrupt": {
+          "type": ["boolean", "null"],
+          "description": "True if any cell produced a KeyboardInterrupt AND that cell's source contains 'files.upload' or 'drive.mount'. These Colab interactive upload widgets always interrupt in batch/offline environments. This is not a student code error and must not affect the score. Scoring stage must check this flag before penalising cells_with_errors."
+        },
+        "error_types": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Unique error ename values across all cells (e.g. KeyError, NameError, IndentationError). Empty array if none. KeyboardInterrupt from files.upload is expected and flagged separately in infrastructure_interrupt."
+        }
+      }
+    },
+
+    "data_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "How the student loaded the dataset. Determines whether all downstream MCR and accuracy values are valid. A student who fabricated data has no valid quantitative results.",
+      "required": ["real_csv_loaded", "row_count_in_output", "synthetic_data_used"],
+      "properties": {
+        "real_csv_loaded": {
+          "type": ["boolean", "null"],
+          "description": "True if pd.read_csv is called in the notebook. Does not guarantee the correct file was used — cross-check with row_count_in_output."
+        },
+        "row_count_in_output": {
+          "type": ["integer", "null"],
+          "description": "The actual row count confirmed from a df.shape or len(df) print output. Expected: 320. A value other than 320 indicates the wrong file or synthetic data."
+        },
+        "synthetic_data_used": {
+          "type": ["boolean", "null"],
+          "description": "True if the notebook constructs the main dataframe using numpy random generation, sklearn make_classification, or equivalent — i.e. the student could not load the real CSV. When true, all MCR values in dt_experiments are invalid and must be flagged in the scoring stage."
+        },
+        "data_source_note": {
+          "type": ["string", "null"],
+          "description": "Verbatim comment or print statement describing how data was obtained. E.g. 'Gercek veri kumesi bulunamadi, yapay veri uretiliyor'. Null if no note present."
+        }
+      }
+    },
+
+    "step1_data_exploration": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Adim 1: data loading and exploratory outputs. Numeric fields from cell outputs; text fields are verbatim student prose from markdown or comment cells.",
+      "required": [
+        "data_loaded",
+        "row_count_reported",
+        "col_count_reported",
+        "columns_listed",
+        "value_counts_called",
+        "describe_called",
+        "q_lizard_count",
+        "q_habitat_most_frequent",
+        "q_habitat_least_frequent",
+        "q_imbalance_effect_reasoning",
+        "q_mass_average_reported",
+        "q_mass_by_species_reasoning"
+      ],
+      "properties": {
+        "data_loaded": {
+          "type": ["boolean", "null"],
+          "description": "pd.read_csv called with any lizard data filename."
+        },
+        "row_count_reported": {
+          "type": ["integer", "null"],
+          "description": "Integer from df.shape output or explicit print statement. Expected: 320. If the value differs, flag for data_source review."
+        },
+        "col_count_reported": {
+          "type": ["integer", "null"],
+          "description": "Integer from df.shape output. Expected: 7."
+        },
+        "columns_listed": {
+          "type": ["boolean", "null"],
+          "description": "df.columns.tolist() or df.columns called with output present."
+        },
+        "value_counts_called": {
+          "type": ["boolean", "null"],
+          "description": "Any .value_counts() call with text output present in a cell."
+        },
+        "describe_called": {
+          "type": ["boolean", "null"],
+          "description": "df.describe() called with output present."
+        },
+        "q_lizard_count": {
+          "type": ["string", "null"],
+          "description": "Verbatim student answer to 'Veri kumesinde kac kertenkele var?'"
+        },
+        "q_habitat_most_frequent": {
+          "type": ["string", "null"],
+          "description": "Verbatim student answer identifying the most frequent YasamAlani class."
+        },
+        "q_habitat_least_frequent": {
+          "type": ["string", "null"],
+          "description": "Verbatim student answer identifying the least frequent YasamAlani class."
+        },
+        "q_imbalance_effect_reasoning": {
+          "type": ["string", "null"],
+          "description": "Verbatim student answer to 'Bu dengesizlik modelimizi nasil etkileyebilir?'"
+        },
+        "q_mass_average_reported": {
+          "type": ["number", "null"],
+          "description": "Numeric average mass value (grams) stated by the student. Null if only qualitative prose."
+        },
+        "q_mass_by_species_reasoning": {
+          "type": ["string", "null"],
+          "description": "Verbatim student answer explaining whether mean mass differs by species and why."
+        }
+      }
+    },
+
+    "formulated_research_questions": {
+      "type": "array",
+      "description": "Student's self-formulated questions, one per target variable. Assignment requires at least 3. EXTRACTION NOTE: many students write hedef = 'YasamAlani' then y = df[hedef]. Resolve the intermediate variable and record the string value (e.g. 'YasamAlani'), not the variable name ('hedef').",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["target_variable", "formulated_question"],
+        "properties": {
+          "target_variable": {
+            "type": "string",
+            "description": "Column name used as the prediction target. Resolve through intermediate variable names if needed.",
+            "enum": ["YasamAlani", "Tur", "Cinsiyet", "other"]
+          },
+          "formulated_question": {
+            "type": ["string", "null"],
+            "description": "Verbatim student question introducing this target. Null if the student built the model without writing a question."
+          }
+        }
+      }
+    },
+
+    "step3_split_global": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Train/test split configuration. These parameters apply once to all models unless the student explicitly varied them across targets. Record from the first train_test_split call. If parameters differ across trees, set parameters_varied_across_models to true and note which tree deviated.",
+      "required": [
+        "test_size",
+        "stratify_used",
+        "random_state",
+        "split_size_reported_train",
+        "split_size_reported_test",
+        "q_stratify_removal_effect",
+        "q_random_state_change_effect"
+      ],
+      "properties": {
+        "test_size": {
+          "type": ["number", "null"],
+          "description": "Value of the test_size argument. Expected: 0.2."
+        },
+        "stratify_used": {
+          "type": ["boolean", "null"],
+          "description": "True if stratify=y (or equivalent) is present in any train_test_split call."
+        },
+        "random_state": {
+          "type": ["number", "null"],
+          "description": "Value of the random_state argument."
+        },
+        "split_size_reported_train": {
+          "type": ["integer", "null"],
+          "description": "Training set size from printed output (e.g. 'Egitim seti: 256 kertenkele'). Expected: 256."
+        },
+        "split_size_reported_test": {
+          "type": ["integer", "null"],
+          "description": "Test set size from printed output. Expected: 64."
+        },
+        "parameters_varied_across_models": {
+          "type": ["boolean", "null"],
+          "description": "True if test_size or stratify differs between trees. Null if only one tree exists or parameters cannot be compared."
+        },
+        "q_stratify_removal_effect": {
+          "type": ["string", "null"],
+          "description": "Verbatim student answer to the stratify=y removal experiment question."
+        },
+        "q_random_state_change_effect": {
+          "type": ["string", "null"],
+          "description": "Verbatim student answer to the random_state change experiment question."
+        }
+      }
+    },
+
+    "preliminary_quick_models": {
+      "type": ["array", "null"],
+      "description": "Quick, fixed-depth models built before the main depth-search experiments. Common when students test all three targets at a single depth before running the proper MCR loop. Each item represents one such model. Null or empty when no preliminary models are present. Do NOT duplicate entries that are also represented in dt_experiments.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["target_variable", "features_used", "test_size", "random_state", "stratify_used", "fixed_depth", "train_accuracy_reported", "test_accuracy_reported", "tree_visualized", "other_targets_used_as_features"],
+        "properties": {
+          "target_variable": {
+            "type": "string",
+            "description": "The target column this model predicted."
+          },
+          "features_used": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Column names in X after encoding. List dummy columns for get_dummies users."
+          },
+          "other_targets_used_as_features": {
+            "type": ["boolean", "null"],
+            "description": "True if any of the three target columns (Tur, Cinsiyet, YasamAlani) appears in the feature set — even though it is not the target being predicted here. Common in preliminary models where students include all non-target columns."
+          },
+          "test_size": {
+            "type": ["number", "null"],
+            "description": "Fraction used as test set in this model's train_test_split call."
+          },
+          "random_state": {
+            "type": ["integer", "null"]
+          },
+          "stratify_used": {
+            "type": ["boolean", "null"]
+          },
+          "fixed_depth": {
+            "type": ["integer", "null"],
+            "description": "The hardcoded max_depth value. Null if not set (unlimited tree)."
+          },
+          "train_accuracy_reported": {
+            "type": ["number", "null"],
+            "description": "Training accuracy as printed (0–1 scale). Null if not printed."
+          },
+          "test_accuracy_reported": {
+            "type": ["number", "null"],
+            "description": "Test accuracy as printed (0–1 scale). Null if not printed."
+          },
+          "tree_visualized": {
+            "type": ["boolean", "null"],
+            "description": "True if plot_tree or export_graphviz was called for this model."
+          }
+        }
+      }
+    },
+
+    "dt_experiments": {
+      "type": "array",
+      "description": "One object per target variable. Assignment requires at least 3. EXTRACTION NOTE: resolve target variable from intermediate variable patterns (e.g. hedef = 'Tur' then y = df[hedef]) — record the string value, not the variable name.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target_variable",
+          "target_variable_intermediate_name",
+          "code_evidence",
+          "depth_search",
+          "step4_markdown_analysis",
+          "step5_final_tree"
+        ],
+        "properties": {
+
+          "target_variable": {
+            "type": "string",
+            "description": "Column name used as y. Resolve from intermediate variable if needed.",
+            "enum": ["YasamAlani", "Tur", "Cinsiyet", "other"]
+          },
+
+          "target_variable_intermediate_name": {
+            "type": ["string", "null"],
+            "description": "Name of the intermediate Python variable holding the target column name, if any. E.g. 'hedef', 'hedef_degisken'. Null if the student wrote y = df['YasamAlani'] directly."
+          },
+
+          "code_evidence": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Deterministic facts extracted from code source via AST or regex — no LLM interpretation.",
+            "required": [
+              "features_used",
+              "target_excluded_from_features",
+              "used_get_dummies",
+              "categorical_columns_excluded_instead",
+              "model_built",
+              "model_fitted",
+              "tree_visualized",
+              "mcr_plot_generated",
+              "train_curve_in_plot",
+              "test_curve_in_plot"
+            ],
+            "properties": {
+              "features_used": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Column names in X after any encoding. For students who used get_dummies, list the resulting dummy columns. For students who dropped categorical columns manually, list only the numeric columns passed to X."
+              },
+              "target_excluded_from_features": {
+                "type": ["boolean", "null"],
+                "description": "True if target_variable is absent from features_used. False signals a critical modelling error."
+              },
+              "used_get_dummies": {
+                "type": ["boolean", "null"],
+                "description": "pd.get_dummies() called as part of X construction for this model."
+              },
+              "categorical_columns_excluded_instead": {
+                "type": ["boolean", "null"],
+                "description": "True if the student avoided get_dummies by manually excluding all categorical columns from X (e.g. selecting only GovdeUzunlugu, ToplamUzunluk, Kutle, BacakUzunlugu). Technically valid but loses information. Null if get_dummies was used."
+              },
+              "model_built": {
+                "type": ["boolean", "null"],
+                "description": "DecisionTreeClassifier instantiated in code."
+              },
+              "model_fitted": {
+                "type": ["boolean", "null"],
+                "description": ".fit() called on the classifier."
+              },
+              "tree_visualized": {
+                "type": ["boolean", "null"],
+                "description": "plot_tree() called and the cell has an image output."
+              },
+              "mcr_plot_generated": {
+                "type": ["boolean", "null"],
+                "description": "plt.plot() called in the context of the depth loop with a plt.show(), producing a line chart."
+              },
+              "train_curve_in_plot": {
+                "type": ["boolean", "null"],
+                "description": "A label referencing training MCR or egitim present in the plt.plot calls for this model."
+              },
+              "test_curve_in_plot": {
+                "type": ["boolean", "null"],
+                "description": "A label referencing test MCR or test present in the plt.plot calls for this model."
+              }
+            }
+          },
+
+          "depth_search": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "The depth-loop experiment results. Numeric values from printed cell output.",
+            "required": ["depth_range_min", "depth_range_max", "mcr_table"],
+            "properties": {
+              "depth_range_min": {
+                "type": ["integer", "null"],
+                "description": "Smallest depth tested. Expected: 1. Read from derinlikler list literal or range() call."
+              },
+              "depth_range_max": {
+                "type": ["integer", "null"],
+                "description": "Largest depth tested. Expected: 10. EXTRACTION NOTE: many students write list literals ([1,2,3,4,5]) instead of range(1,11). If range() is absent or ambiguous, derive this value from the depth of the last row in mcr_table. Do not leave null if mcr_table is populated."
+              },
+              "depth_range_max_source": {
+                "type": ["string", "null"],
+                "description": "How depth_range_max was determined. One of: 'range_call', 'list_literal', 'mcr_table_last_row'. Null if mcr_table is null.",
+                "enum": ["range_call", "list_literal", "mcr_table_last_row", null]
+              },
+              "mcr_table": {
+                "type": ["array", "null"],
+                "description": "Rows of the printed depth loop output — one entry per depth tested. Null if the cell produced no text output (e.g. only an image). EXTRACTION NOTE: look for tabular text output with three columns (depth, train MCR, test MCR). Header rows should be skipped.",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["depth", "train_mcr", "test_mcr"],
+                  "properties": {
+                    "depth":     { "type": "integer" },
+                    "train_mcr": { "type": "number" },
+                    "test_mcr":  { "type": "number" }
+                  }
+                }
+              }
+            }
+          },
+
+          "step4_markdown_analysis": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Verbatim student prose answering Adim 4 questions for this tree. All fields nullable — some students answer globally in one cell rather than per-tree.",
+            "properties": {
+              "depth_mcr_trend_description": {
+                "type": ["string", "null"],
+                "description": "Student answer: how training and test MCR change as depth increases."
+              },
+              "zero_train_error_interpretation": {
+                "type": ["string", "null"],
+                "description": "Student answer: what near-zero training error means."
+              },
+              "divergence_point_identified": {
+                "type": ["string", "null"],
+                "description": "Student answer: at which depth train and test curves begin to separate."
+              },
+              "overfitting_named_or_described": {
+                "type": ["string", "null"],
+                "description": "Student answer: naming or describing overfitting at the divergence point."
+              },
+              "preferred_depth_from_table": {
+                "type": ["string", "null"],
+                "description": "Student answer: which depth they would select based on the numeric table alone."
+              },
+              "preferred_depth_from_graph": {
+                "type": ["string", "null"],
+                "description": "Student answer: which depth they would select from the graph, and whether it matches the table choice."
+              }
+            }
+          },
+
+          "step5_final_tree": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Final model built at the chosen optimal depth.",
+            "required": ["chosen_optimal_depth", "test_mcr_achieved"],
+            "properties": {
+              "chosen_optimal_depth": {
+                "type": ["integer", "null"],
+                "description": "Value assigned to optimum_derinlik or equivalent variable."
+              },
+              "test_mcr_achieved": {
+                "type": ["number", "null"],
+                "description": "MCR value from the final model's print output (e.g. 'Test Hatasi (MCR): 0.3125'). Range [0, 1]. Null if output not present. If data_source.synthetic_data_used is true, this value is invalid."
+              },
+              "root_node_feature": {
+                "type": ["string", "null"],
+                "description": "Feature name at the root node split. EXTRACTION NOTE: prefer the student's written answer in markdown. If absent, attempt to read the topmost label from the plot_tree image output. Do not infer independently — mark null if neither source is available.",
+                "extraction_note": "Do not LLM-infer the root node from data properties. Only extract from student-written text or plot label."
+              },
+              "root_node_threshold": {
+                "type": ["number", "null"],
+                "description": "Threshold value at the root split for numeric features (the value after '<=' in the tree plot label). Null for categorical splits or if not readable."
+              },
+              "q_root_node_reasoning": {
+                "type": ["string", "null"],
+                "description": "Verbatim student explanation of why the root node feature was selected."
+              },
+              "q_decisions_to_classify": {
+                "type": ["string", "null"],
+                "description": "Verbatim student answer: how many decisions are needed to classify one lizard (leaf-to-root path length)."
+              },
+              "q_root_changed_across_targets": {
+                "type": ["string", "null"],
+                "description": "Verbatim student answer comparing this tree's root node to a different target's tree."
+              },
+              "q_codap_comparison": {
+                "type": ["string", "null"],
+                "description": "Verbatim student comparison of this tree to the CODAP tree they built earlier in the course."
+              },
+              "root_node_feature_computed": {
+                "type": ["string", "null"],
+                "description": "Root node feature extracted deterministically from model.tree_.feature[0] after re-training at chosen_optimal_depth with the same parameters. Always populated when model_fitted is true. Disambiguates from the student-reported root_node_feature."
+              },
+              "root_node_feature_source": {
+                "type": ["string", "null"],
+                "enum": ["markdown_text", "plot_label", "computed", null],
+                "description": "Origin of root_node_feature: 'markdown_text' = student wrote it, 'plot_label' = read from tree image, 'computed' = only deterministic extraction available (no student text or readable plot label)."
+              },
+              "is_optimal_depth_mathematically_correct": {
+                "type": ["boolean", "null"],
+                "description": "True if chosen_optimal_depth equals the depth with the minimum test MCR in mcr_table (first occurrence on ties). Computed deterministically — not from student prose."
+              },
+              "mathematically_optimal_depth": {
+                "type": ["integer", "null"],
+                "description": "Depth with the lowest test MCR in mcr_table (first occurrence when tied). Populated regardless of student's choice. Enables scoring stage to detect suboptimal selection without re-parsing the table."
+              }
+            }
+          },
+
+          "step4_responses_location": {
+            "type": ["string", "null"],
+            "enum": ["per_tree", "aggregated_end_of_notebook", null],
+            "description": "Where the student wrote the step4 markdown analysis for this tree: 'per_tree' = immediately after this tree's depth loop, 'aggregated_end_of_notebook' = answered collectively at the end for all trees, null = not found anywhere in the notebook."
+          }
+
+        }
+      }
+    },
+
+    "cross_target_comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Student's comparison across all trees. This is a separate section — not per-tree.",
+      "required": ["comparison_present"],
+      "properties": {
+        "comparison_present": {
+          "type": ["boolean", "null"],
+          "description": "Student explicitly compared outcomes (MCR, root node, optimal depth) across different target variables in at least one cell."
+        },
+        "optimal_depths_compared": {
+          "type": ["boolean", "null"],
+          "description": "Student noted whether optimal depth differed across targets."
+        },
+        "root_nodes_compared": {
+          "type": ["boolean", "null"],
+          "description": "Student noted whether root node changed across targets."
+        },
+        "mcr_values_compared": {
+          "type": "array",
+          "description": "Per-target test MCR values as reported in cross-target prose or final print outputs. Populated from dt_experiments if not written separately.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["target_variable", "test_mcr"],
+            "properties": {
+              "target_variable": { "type": "string" },
+              "test_mcr":        { "type": ["number", "null"] }
+            }
+          }
+        },
+        "comparison_reasoning": {
+          "type": ["string", "null"],
+          "description": "Verbatim student explanation of why performance differed across targets."
+        }
+      }
+    },
+
+    "step6_written_reflection": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Adim 6 written reflection. All text fields are verbatim extractions from markdown or comment cells. Scoring stage evaluates depth — extraction only captures presence and content.",
+      "required": [
+        "q1_learning_journey",
+        "q2_data_understanding",
+        "q3_model_performance",
+        "q4_dt_limitations"
+      ],
+      "properties": {
+
+        "q1_learning_journey": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Soru 1: comparison of the three learning environments (data cards, CODAP, Python).",
+          "required": ["raw_text"],
+          "properties": {
+            "raw_text": {
+              "type": ["string", "null"],
+              "description": "Full verbatim text of the student's Q1 answer."
+            },
+            "environments_mentioned": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["data_cards", "codap", "python"]
+              },
+              "description": "Which of the three environments the student explicitly named in their answer."
+            },
+            "error_detection_discussed": {
+              "type": ["boolean", "null"],
+              "description": "Student addressed the sub-question about where they noticed errors more easily."
+            },
+            "word_count": {
+              "type": ["integer", "null"],
+              "description": "Word count of raw_text."
+            }
+          }
+        },
+
+        "q2_data_understanding": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Soru 2: biological interpretation of model findings.",
+          "required": ["raw_text"],
+          "properties": {
+            "raw_text": {
+              "type": ["string", "null"],
+              "description": "Full verbatim text of the student's Q2 answer."
+            },
+            "root_feature_surprise_addressed": {
+              "type": ["boolean", "null"],
+              "description": "Student addressed whether the root node feature surprised them."
+            },
+            "biological_reasoning_present": {
+              "type": ["boolean", "null"],
+              "description": "Student offered a biological or ecological explanation — not just a restatement of the numeric result."
+            },
+            "misclassified_habitat_discussed": {
+              "type": ["boolean", "null"],
+              "description": "Student discussed which habitat class was most often misclassified."
+            },
+            "word_count": {
+              "type": ["integer", "null"]
+            }
+          }
+        },
+
+        "q3_model_performance": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Soru 3: interpretation of MCR values.",
+          "required": ["raw_text"],
+          "properties": {
+            "raw_text": {
+              "type": ["string", "null"],
+              "description": "Full verbatim text of the student's Q3 answer."
+            },
+            "mcr_value_stated": {
+              "type": ["number", "null"],
+              "description": "A numeric MCR value explicitly stated in prose. Null if student only described qualitatively. If multiple values are stated, record the first one."
+            },
+            "best_predicted_class": {
+              "type": ["string", "null"],
+              "description": "Class the student identified as best predicted. Verbatim as written."
+            },
+            "worst_predicted_class": {
+              "type": ["string", "null"],
+              "description": "Class the student identified as worst predicted."
+            },
+            "ideal_mcr_threshold_stated": {
+              "type": ["string", "null"],
+              "description": "Any threshold or benchmark the student gave for what constitutes a good MCR. Verbatim."
+            },
+            "cross_target_mcr_comparison_attempted": {
+              "type": ["boolean", "null"],
+              "description": "Student compared MCR values across different target variables in this answer."
+            },
+            "word_count": {
+              "type": ["integer", "null"]
+            }
+          }
+        },
+
+        "q4_dt_limitations": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Soru 4: limitations of decision trees.",
+          "required": ["raw_text"],
+          "properties": {
+            "raw_text": {
+              "type": ["string", "null"],
+              "description": "Full verbatim text of the student's Q4 answer."
+            },
+            "error_pattern_described": {
+              "type": ["boolean", "null"],
+              "description": "Student described a non-random pattern in model errors."
+            },
+            "alternative_model_named": {
+              "type": ["string", "null"],
+              "description": "Name of any alternative algorithm the student mentioned. Verbatim. Null if none."
+            },
+            "data_improvement_suggested": {
+              "type": ["boolean", "null"],
+              "description": "Student suggested improving the data itself (adding features, collecting more samples) rather than only tuning the model."
+            },
+            "dt_explanation_for_friend": {
+              "type": ["string", "null"],
+              "description": "Verbatim student answer to the sub-question: 'bir arkadasiniza karar agaci nedir diye sorsalar ne soylerdiniz?'"
+            },
+            "word_count": {
+              "type": ["integer", "null"]
+            }
+          }
+        }
+
+      }
+    }
+
+  }
+}

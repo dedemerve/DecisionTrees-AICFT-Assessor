@@ -1,0 +1,254 @@
+{
+  "schema_version": "2026-v1",
+  "generated_at": "2026-07-21T11:23:19.926698+00:00",
+  "student_id": "Nadia",
+  "session": "codap_21apr",
+  "source_document": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/data_sources_2026/Final Ödevi Dokümanları/Nadia.ipynb",
+  "source_type": "ipynb",
+  "observation_steps": [
+    {
+      "step_index": 0,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Kertenkele Verisiyle Karar Ağacı Oluşturma\n**Bilgisayar Destekli Matematik Öğretimi — Final Ödevi**\n\nAd-Soyad: Nadia\n\nBu not defterinde aynı kertenkele veri setiyle **üç farklı soru** soruyorum ve her biri için ayrı bir karar ağacı kuruyorum:\n\n1. **Ağaç 1 — Yaşam Alanı:** Bir kertenkelenin ölçülerine bakarak *nerede yaşadığını* (Yer / Kaya / Ağaç) tahmin edebilir miyim?\n2. **Ağaç 2 — Tür:** Ölçülere bakarak *hangi türden* (Anolis / Sceloporus / Uta) olduğunu tahmin edebilir miyim?\n3. **Ağaç 3 — Cinsiyet:** Ölçülere bakarak *cinsiyetini* (Dişi / Erkek) tahmin edebilir miyim?\n\nHer ağaç aynı 6 adımdan geçiyor; tek değişen hedef değişken (`y`).",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 1,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Kütüphaneleri Yükleme\nBu hücreyi bir kez çalıştırman yeterli.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 2,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "ADIM 1: Veriyi Tanıma\n> *Veri kümesiyle tanışmadan model kurmak, soruyu okumadan sınava girmek gibidir.*\n\n**Not:** Dosya adı `lizard_data.csv` (alt çizgi ile). Colab'da dosyayı sol taraftaki 📁 panele sürükledikten sonra çalıştır.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 3,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Adım 1 — Soruların Yanıtları\n\n**• Veri kümesinde kaç kertenkele var?**\nToplam **320** kertenkele var (320 satır, 7 sütun).\n\n**• Hangi yaşam alanı en kalabalık, hangisi en az?**\nEn kalabalık alan **Yer (151 birey)**, ardından **Kaya (96)**, en az ise **Ağaç (73)**. Yani sınıflar dengeli değil; \"Yer\" sınıfı \"Ağaç\" sınıfının iki katından fazla.\n\n**• Bu dengesizlik modeli nasıl etkiler?**\nModel, gördüğü en kalabalık sınıfa (Yer) doğru bir eğilim (bias) geliştirebilir. Hiçbir şey öğrenmese bile her bireye \"Yer\" dese %47 doğru çıkar. Bu yüzden modelin başarısını değerlendirirken bu temel orana (baseline) göre bakmak gerekir; %47'nin altına inen bir hata \"iş yapıyor\" demektir. `train_test_split`'te `stratify=y` kullanmamızın sebebi de bu: bölme sırasında her sınıfın oranını korumak.\n\n**• Kertenkelelerin ortalama ağırlığı nedir? Üç tür için farklı mı?**\nGenel ortalama ağırlık **12.5 g**. Ancak tür bazında ciddi fark var: **Sceloporus ≈ 19.4 g**, **Anolis ≈ 9.9 g**, **Uta ≈ 7.4 g**. Sceloporus diğerlerinin yaklaşık iki katı. Bunun nedeni türlerin farklı gövde yapılarına sahip olması; Sceloporus daha iri ve kütleli bir tür. Bu fark, \"Tür\" tahmini yapan ağacın neden kütleyi ve gövde uzunluğunu kolayca kullanabildiğini açıklıyor.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 4,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "ADIM 2: Veriyi Modelin Anlayacağı Hale Getirme\n> Karar ağacı yalnızca sayılarla çalışır. `Tur`, `Cinsiyet`, `YasamAlani` gibi metin sütunlarını `pd.get_dummies()` ile 0/1 sütunlarına çeviriyoruz.\n\nÖnemli kural: Bir sütunu **hedef (y)** olarak seçtiğimizde, onu **özellikler (X)** içine koymayız — yoksa model cevabı doğrudan görür ve kopya çekmiş olur.\n\nAşağıda her ağaç için X ve y'yi ayrı ayrı tanımlayacağım. Örnek olarak ilk ağacın (Yaşam Alanı) ayrımını burada gösteriyorum:",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 5,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Adım 2 — Soruların Yanıtları\n\n**Neden `get_dummies` kullandık?**\nKarar ağacı \"Anolis > Uta\" gibi bir karşılaştırma yapamaz çünkü bunlar sayı değil, isim. `get_dummies()` her kategoriyi ayrı bir 0/1 sütununa çeviriyor: `Tur` sütunu → `Tur_Anolis`, `Tur_Sceloporus`, `Tur_Uta`. Böylece model \"Tur_Sceloporus == 1 mi?\" gibi evet/hayır sorusu sorabiliyor. Buna **one-hot encoding** deniyor.\n\n**Neden hedef değişkeni X'e koymuyoruz?**\nHedefi özelliklere koyarsak model tahmin etmek yerine doğrudan cevabı okur. Bu, sınavda soruyla birlikte cevap anahtarını da vermeye benzer; başarı sahte olur.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=Deepen olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 6,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "ADIM 3: Eğitim / Test Ayrımı\n> Modeli, daha önce görmediği sorularla sınamak istiyoruz. Bu yüzden veriyi %80 eğitim / %20 test olarak ayırıyoruz.\n\nAşağıdaki kod yukarıda tanımladığımız X ve y (Yaşam Alanı) üzerinde çalışıyor.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 7,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Adım 3 — Soruların Yanıtları\n\n**• `stratify=y` parametresini kaldırırsanız ne değişir?**\n`stratify` olmadan bölme tamamen rastgele yapılır. O zaman şanssızlık sonucu test setinde \"Ağaç\" sınıfından çok az birey kalabilir (zaten en az olan sınıf), hatta bazı sınıflar eğitimde eksik temsil edilebilir. Bu da hata oranını yanıltıcı şekilde yüksek ya da düşük gösterir. `stratify=y` her sınıfın %20'sini teste koyarak dağılımı korur, ölçümü güvenilir kılar. Aşağıdaki hücrede deneyip farkı görebilirsin.\n\n**• `random_state=42` yerine `random_state=7` yazarsanız sonuç değişir mi?**\nEvet, değişir. `random_state` hangi bireylerin eğitime hangilerinin teste düşeceğini belirleyen rastgeleliğin tohumu. Farklı tohum → farklı bölünme → biraz farklı hata oranları. Ama büyük resim (hangi derinlikten sonra overfitting başladığı gibi) genelde benzer kalır. Sabit tutmamızın tek sebebi: herkes aynı sonucu görsün, tekrarlanabilir olsun.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Trial-and-error",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Trial-and-error' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 8,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "ADIM 4: Farklı Derinlikleri Test Etme (Ağaç 1 — Yaşam Alanı)\n> En iyi `max_depth` değerini ezbere seçmiyoruz; 1'den 10'a kadar deneyip hatayı veriye sorduruyoruz.\n\n**MCR = Yanlış Sınıflandırma Oranı** = 1 − doğruluk. Küçük olması iyidir.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 9,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "4.2 Derinliği Grafikte Gösterme",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 10,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Adım 4.1 — Tablo (MCR) Sorularının Yanıtları (Yaşam Alanı)\n\n**• Derinlik arttıkça eğitim ve test hatası nasıl değişiyor?**\nEğitim hatası derinlikle birlikte sürekli düşüyor (derinlik 10'da neredeyse %5'e kadar iniyor). Test hatası ise önce düşüyor (derinlik 2'de en düşük, ~%31), sonra tekrar yükselmeye başlıyor (derinlik 5'ten itibaren %44'e tırmanıyor). İki eğri ters yönlere ayrılıyor.\n\n**• Eğitim hatası sıfıra yaklaşıyorsa model \"mükemmel\" mi öğrendi?**\nHayır. Eğitim hatasının sıfıra inmesi, modelin eğitim verisini **ezberlediği** anlamına gelir — her bireyin tikel özelliğini bile dallara ayırmış olur. Ama test (görmediği veri) hatası yükseliyorsa model genellemeyi kaybetmiştir. Yani \"mükemmel öğrenme\" değil, \"aşırı uyum/ezber\" söz konusudur.\n\n**• Hangi derinlikte eğitim hatası düşerken test hatası artmaya başladı?**\nYaklaşık **derinlik 2-3'ten sonra**. Derinlik 2'de test %31 ile en iyi; derinlik 5'te eğitim %28'e düşerken test %44'e fırlıyor. İşte o noktadan sonra model **aşırı öğrenmeye (overfitting)** başlıyor.\n\n**• Yalnızca bu sayılara bakarak hangi derinliği seçerdiniz?**\n**Derinlik 2'yi** seçerdim. Çünkü test hatasının en düşük olduğu yer orası (~%31) ve eğitim-test arası fark da küçük (model hem öğrenmiş hem genelliyor). Daha derin ağaçlar eğitimde iyi görünse de testte kötüleşiyor.\n\n**• En düşük test hatası ile en düşük eğitim hatası farklı derinliklerde mi çıktı? Bu ne söylüyor?**\nEvet. En düşük **eğitim** hatası derinlik 10'da; en düşük **test** hatası derinlik 2'de. Bu fark tam olarak overfitting'in tanımı: modeli eğitim verisine fazla uydurdukça, gerçek dünyadaki (test) başarısı azalıyor. Hedefimiz eğitim hatasını değil, test hatasını minimize etmek.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Create"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Create olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 11,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Adım 4.2 — Grafik Sorularının Yanıtları (Yaşam Alanı)\n\n**• Grafikteki iki eğri ne zaman ayrılmaya başlıyor? Bu ayrılma noktası ne söylüyor?**\nİki eğri yaklaşık **derinlik 2-3'ten itibaren** belirgin biçimde ayrılmaya başlıyor. Derinlik 1-2'de eğitim ve test MCR birbirine yakın seyrediyor; derinlik 4-5'ten sonra eğitim eğrisi aşağı inmeye devam ederken test eğrisi yukarı kıvrılıyor. Bu ayrılma noktası, modelin **artık genelleme yapmaktan çıkıp eğitim verisini ezberlemeye geçtiği** sınırı gösteriyor — yani \"öğrenme\" ile \"ezber\"in ayrıştığı eşik.\n\n**• Eğitim ve test eğrileri arasındaki mesafe derinlikle açılıyorsa buna ne ad verilir?**\nBuna **aşırı öğrenme (overfitting)** denir. Model eğitim verisine fazla uyum sağlayıp gürültüyü bile öğrenince, eğitim hatası düşer ama yeni (test) verideki hatası artar; iki eğri arasındaki bu açılan boşluk overfitting'in görsel imzasıdır.\n\n**• Grafiğe bakarak hangi max_depth değerini seçerdiniz? Tablodaki kararınızla aynı mı?**\nGrafiğe bakarak da **derinlik 2'yi** seçerdim: test eğrisinin en düşük olduğu (en dipte) nokta orası ve eğitim-test eğrileri henüz birbirine yakın. Bu, sayısal tabloya bakarak verdiğim kararla **aynı** — iki yöntem de aynı optimum derinliği işaret ediyor, bu da seçimin sağlamlığını doğruluyor.\n\n**• Her hedef için bu grafiği ayrı çizdiniz; optimum derinlik her hedefte aynı mı çıktı? Farklıysa neden?**\nHayır, aynı çıkmadı. Üç ağacın grafiklerini karşılaştırınca:\n- **Yaşam Alanı → derinlik 2** (test ~%31)\n- **Tür → derinlik 2** (test ~%20)\n- **Cinsiyet → derinlik 5 civarı** (test ~%30, eğri çok dalgalı, net bir dip yok)\n\nYaşam alanı ve tür için sığ bir ağaç (derinlik 2) yetiyor çünkü ayırt edici güçlü bir değişken (tür/kütle) var; model az soruyla doğru ayrım yapıyor. Cinsiyette ise ayırt edici güçlü bir sinyal olmadığı için model en iyi sonucu ancak daha derine inerek (daha çok soru sorarak) buluyor, ama o bile zayıf kalıyor. **Sonuç: optimum derinlik veriye ve sorulan soruya bağlıdır; \"her zaman şu derinlik en iyisidir\" denemez.**",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Create"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Create olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 12,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "ADIM 5: Optimum Karar Ağacını Oluşturma (Ağaç 1 — Yaşam Alanı)",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 13,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "5.2 Ağacı Çizme",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 14,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Adım 5 — Ağacı Yorumlama (Yaşam Alanı)\n\n**• Kök düğümde hangi değişken kullanılmış, neden?**\nKök düğümde **`Tur_Sceloporus`** (Sceloporus türü mü, değil mi?) sorusu yer alıyor. Model bunu ilk sıraya koyuyor çünkü bu soru veriyi en çok \"saflaştıran\", sınıfları en iyi ayıran soru (en yüksek bilgi kazancı). Biyolojik olarak da mantıklı: Sceloporus iri ve kütleli bir tür ve büyük oranda belirli bir yaşam alanıyla ilişkili; bu yüzden \"tür\" bilgisi yaşam alanını güçlü biçimde haber veriyor.\n\n**• Bir kertenkeleyi sınıflandırmak için kaç karar yetiyor?**\nDerinlik 2 olduğu için yaprağa ulaşmak en fazla **2 evet/hayır sorusu** yetiyor. Bu, modelin oldukça basit ve yorumlanabilir olduğunu gösteriyor — az soruyla karar verebiliyoruz.\n\n**• Hedefi (örneğin Tur) değiştirince kök düğüm değişti mi?**\nEvet (Ağaç 2'de göreceksin). Farklı soruyu en iyi ayıran değişken farklı olduğu için kök düğüm değişiyor. Bu, karar ağacının \"soruya göre\" en bilgilendirici değişkeni kendisinin seçtiğini gösteriyor.\n\n**• CODAP'ta kurduğunuz ağaçla karşılaştırma:**\nCODAP'ta da kök düğüm büyük olasılıkla tür ya da kütle/gövde temelli çıkmıştır çünkü her iki araç da aynı \"en çok ayıran soruyu öne al\" mantığını kullanır. Küçük farklar bölme rastgeleliğinden (random_state) veya CODAP'ın farklı eşik seçmesinden kaynaklanabilir.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Trial-and-error",
+        "unesco_ai_cft_level": "Create"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Trial-and-error' / LO=Create olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 15,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "---\n# AĞAÇ 2 — Tür Tahmini (Anolis / Sceloporus / Uta)\n> Soru: *Bir kertenkelenin ölçülerine bakarak hangi türden olduğunu tahmin edebilir miyim?*\n\nAynı 6 adımı tekrarlıyorum; tek fark hedef değişken artık `Tur`. Bu sefer `Tur`'u X'ten çıkarıp `YasamAlani`'nı özellik olarak kullanıyorum.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 16,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Ağaç 2 Yorumu (Tür)\nTür tahmini **en kolay** soru: en düşük test hatası ~**%20** (yaşam alanından bile düşük). Bunun nedeni türlerin fiziksel ölçülerinin belirgin farklı olması — özellikle kütle (Sceloporus ≈19g, Anolis ≈10g, Uta ≈7g). Kök düğüm büyük olasılıkla **kütle veya gövde uzunluğu** temelli çıkıyor; yani yaşam alanı ağacından farklı bir kök. Bu da gösteriyor ki ağaç, sorduğun soruya göre en bilgilendirici değişkeni kendi seçiyor. Burada da derinlik 2'den sonra eğitim hatası düşmeye devam ederken test hatası dalgalanıyor → yine overfitting eğilimi.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Deepen olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 17,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "---\n# AĞAÇ 3 — Cinsiyet Tahmini (Dişi / Erkek)\n> Soru: *Ölçülere bakarak cinsiyeti tahmin edebilir miyim?*\n\nHedef artık `Cinsiyet`.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "None"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'EXPLORE' / 'Domain-knowledge driven' / LO=None olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 18,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "Ağaç 3 Yorumu (Cinsiyet)\nCinsiyet **en zor** soru: en iyi test hatası bile ~**%30** civarında ve eğri çok dalgalı, net bir \"tatlı nokta\" yok. Bunun nedeni fiziksel ölçülerin (boy, kütle, bacak) cinsiyeti pek belli etmemesi — dişi ve erkek ölçüleri büyük ölçüde iç içe geçmiş. Yani sorun modelde değil, **veride**: cinsiyeti ayıracak güçlü bir sinyal yok. Bu, ödevin önemli bir dersi: bazen \"kötü model\" aslında \"yetersiz/ayırt edici olmayan veri\" demektir. Optimum derinliği grafikten kendin de farklı seçebilirsin; tablodaki en düşük test değerine bak.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Domain-knowledge driven",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Domain-knowledge driven' / LO=Deepen olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    },
+    {
+      "step_index": 19,
+      "source_cell_type": "markdown",
+      "uzman_nitel_gozlemi": "---\n# ADIM 6: Yazılı Değerlendirme ve Yansıma\n\n> **Not (önemli):** Aşağıdaki yanıtlar rubrikte \"özgün ve eleştirel\" istendiği için **taslak** niteliğinde. Hocan kendi cümlelerinle yazmanı bekliyor — bunları okuyup kendi deneyimine göre yeniden ifade et.\n\n## Soru 1 — Öğrenme Yolculuğu (Data Kartları / CODAP / Python)\n\n**• Her ortam ne kattı?**\nData kartları karar ağacının *mantığını* elle yaşatarak kavrattı: hangi soruyu sorunca grup ikiye bölünüyor, bunu fiziksel olarak gördüm. CODAP, sürükle-bırak ile aynı mantığı *görselleştirip* hızlıca farklı ağaçlar denememi sağladı. Python ise işi *ölçülebilir* hale getirdi — MCR, eğitim/test ayrımı, derinlik taraması gibi sayısal kavramları sadece kodla net gördüm.\n\n**• \"Modelim ne yapıyor\" sorusunu nerede daha iyi anladım?**\nData kartlarında, çünkü her bölünmeyi kendi elimle yaptığım için ağacın neyi neden sorduğunu birebir hissettim. Python güçlü ama kutu biraz \"kara kutu\" gibi kalabiliyor; data kartları o perdeyi araladı.\n\n**• Hangi ortam kolay geldi — bu anlamak mı, alışkanlık mı?**\nBana Python kolay geldi ama bunun sebebi karar ağacını çok iyi anlamam değil, koda alışkın olmam. Kolaylık her zaman anlama demek değil; CODAP'ta zorlanmam aslında kavramın görselde daha çıplak durmasındandı.\n\n**• En çok nerede zorlandım, neden?**\nCODAP'ta zorlandım çünkü orada karar ağacı kavramı görsel sürükle-bırakın arkasında biraz görünmezleşiyordu; \"neden bu dal?\" sorusunu sormak için ekstra çaba gerekti. Yani zorluk aracın kendisinden değil, kavramın o ortamda daha az açık olmasından kaynaklandı.\n\n**• Hatayı nerede daha kolay fark ettim?**\nPython'da — çünkü hata mesajı doğrudan ne yanlış gittiğini söyledi (yanlış sütun adı, eksik dosya gibi). Beni uyaran şey aracın kendisiydi.\n\n**• Bir ortamda yapıp diğerinde yapamadığım şey?**\nPython'da 10 farklı derinliği saniyeler içinde deneyip grafiğe döktüm; bunu data kartlarıyla elle yapmak imkânsızdı. Buna karşılık, ağacın \"hissini\" data kartları kadar net veren bir şey de Python'da yoktu.\n\n**• Birinin diğerinin yerini tutamayacağı durum?**\nEvet. Kavramı ilk kez öğretmek için data kartları/CODAP şart; ama gerçek veriyle ölçülebilir, tekrarlanabilir analiz için Python'ın yeri doldurulamaz. Üçü birbirini tamamlıyor.\n\n## Soru 2 — Veri Anlayışı\n\n**• Kök düğümdeki değişken şaşırttı mı? Biyolojik olarak mantıklı mı?**\nYaşam alanı ağacında kök düğüm **tür** temelli çıktı (Sceloporus mu?). Çok şaşırtmadı çünkü iri/kütleli bir tür olan Sceloporus'un belirli bir yaşam alanıyla ilişkili olması biyolojik olarak makul.\n\n**• Ağaçta yaşayan kertenkele yerde yaşayandan farklı olmalı mı? Model yakaladı mı?**\nEvet beklerdim — ağaçta yaşayan türler genelde tırmanmaya uygun (daha hafif, farklı bacak oranı) olur. Model bu farkı kısmen yakaladı ama mükemmel değil; \"Ağaç\" sınıfı en az veriye sahip olduğu için en çok karışan sınıf oldu.\n\n**• Yanlış sınıflanan bireyler hangi alandandı? Biyolojik açıklama?**\nConfusion matrix'e göre en çok karışma \"Ağaç\" ve \"Kaya\" arasında. Biyolojik açıklaması: bu iki alanda yaşayan türlerin ölçüleri birbirine yakın olabilir (ikisi de dikey/eğimli yüzeyde tırmanır), bu yüzden model onları ayırmakta zorlanıyor.\n\n**• İlk başta hangi değişkeni belirleyici sanmıştım? Örtüştü mü?**\nBen başta **kütleyi** en belirleyici sanmıştım; model ise türü öne çıkardı. Ama tür ile kütle güçlü ilişkili olduğu için tahminim dolaylı olarak doğruydu.\n\n## Soru 3 — Model Performansı\n\n**• Optimum derinlikteki MCR değerim:** Yaşam alanı için ~**0.31** (derinlik 2). Yani test bireylerinin yaklaşık üçte ikisini doğru sınıflandırdım.\n\n**• Hangi sınıf en iyi/en kötü tahmin edildi?**\nEn iyi **\"Yer\"** (en kalabalık sınıf olduğu için model onu iyi öğrendi), en kötü **\"Ağaç\"** (en az veriye sahip, üstelik Kaya ile karışıyor).\n\n**• MCR beni tatmin etti mi? \"İyi\" model ne olmalı?**\nKısmen. Rastgele tahmin %47 hata verirdi; benim modelim %31 — yani anlamlı bir öğrenme var. Ama \"iyi\" bir model için %20'nin altını hedeflerdim. Bu veri ve bu yöntemle daha iyisi zor.\n\n**• Farklı hedef (Tur/Cinsiyet) seçseydim MCR değişir miydi?**\nEvet, ciddi değişti: **Tür ~%20 (en kolay)**, **Cinsiyet ~%30 (en zor)**. Çünkü fiziksel ölçüler türü güçlü ayırırken cinsiyeti neredeyse hiç ayırmıyor. Aynı veri, farklı soru → farklı başarı.\n\n**• Başarısızlık veri hakkında ne söylüyor?**\nCinsiyet tahminindeki başarısızlık, veride cinsiyeti ayıracak ayırt edici bir ölçü olmadığını söylüyor. Yani sorun modelde değil, verinin o soruya cevap verecek bilgiyi içermemesinde.\n\n## Soru 4 — Karar Ağaçlarının Sınırları\n\n**• Hatalar rastgele mi, örüntülü mü?**\nÖrüntülü. Hatalar özellikle az veriye sahip (\"Ağaç\") ve birbirine benzeyen sınıflarda toplanıyor; rastgele dağılmıyor.\n\n**• Daha iyi sonuç için ne yapılabilir (teknik + veri)?**\nTeknik: budama (pruning), `min_samples_leaf` ayarı, ya da RandomForest gibi topluluk yöntemleri. Veri tarafında: az olan \"Ağaç\" sınıfından daha çok örnek toplamak, ya da yeni ayırt edici ölçüler (parmak yapısı, pul dokusu gibi) eklemek. Çoğu zaman daha iyi veri, daha karmaşık modelden değerlidir.\n\n**• Farklı bir model sonucu değiştirir miydi?**\nRandomForest gibi bir model muhtemelen test hatasını biraz düşürürdü çünkü tek ağacın aşırı öğrenmesini birden çok ağacın ortalamasıyla dengeler. Ama cinsiyet gibi verinin yetersiz olduğu yerde hiçbir model mucize yaratmaz.\n\n**• Bir arkadaşıma \"karar ağacı nedir\" desem:**\n\"Karar ağacı, bir veriyi art arda evet/hayır sorularıyla gruplara ayırıp tahmin yapan bir yöntem. En güçlü yanı çok anlaşılır olması — kararı adım adım okuyabilirsin. Ama veriyi fazla ezberleyip (overfitting) genelleme yeteneğini kaybedebiliyor ve verinin kendisi zayıfsa o da çaresiz kalıyor.\"\n\n---\n### Özet Tablo\n\n| Ağaç | Hedef | Optimum derinlik | En iyi test MCR | Zorluk |\n|---|---|---|---|---|\n| 1 | Yaşam Alanı | 2 | ~0.31 | Orta |\n| 2 | Tür | 2 | ~0.20 | Kolay |\n| 3 | Cinsiyet | 5 | ~0.30 | Zor |\n\n**Genel sonuç:** Aynı veri ve aynı kod yapısı, sorduğun soruya göre çok farklı başarı veriyor. Karar ağacının gücü yorumlanabilirliğinde; sınırı ise overfitting ve verinin ayırt ediciliğinde.",
+      "labels": {
+        "bilişsel_davranış_kategorisi": "MISCONCEPTION",
+        "pedagojik_strateji": "Trial-and-error",
+        "unesco_ai_cft_level": "Deepen"
+      },
+      "sequence_pattern": null,
+      "ai_cft_evidence_justification": "Uzman gozlemi 'MISCONCEPTION' / 'Trial-and-error' / LO=Deepen olarak kural tabanli eslendi; kaynak: ipynb markdown cell."
+    }
+  ],
+  "step_count": 20,
+  "frame_count": 178,
+  "frame_manifest_path": "/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor/data_sources_2026/codap_arbor_21april_audio/Nadia/Nadia_video_extraction_manifest.json",
+  "alignment_ready": true
+}

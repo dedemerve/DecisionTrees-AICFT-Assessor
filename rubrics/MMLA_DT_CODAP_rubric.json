@@ -1,0 +1,126 @@
+{
+  "rubric_id": "MMLA_DT_CODAP_21APRIL",
+  "title": "Multimodal Decision-Tree CODAP Session Rubric",
+  "scale": {
+    "min": 0,
+    "max": 3,
+    "step": 0.5
+  },
+  "dimensions": {
+    "conceptual_understanding": {
+      "description": "Strategic attribute selection and decision-boundary reasoning vs trial-and-error.",
+      "concept_markers": [
+        "karar ağac",
+        "sınıflandır",
+        "klasifikasyon",
+        "özellik",
+        "attribute",
+        "değişken",
+        "split",
+        "böl",
+        "eğitim",
+        "test",
+        "doğruluk",
+        "accuracy",
+        "confusion",
+        "karışıklık",
+        "threshold",
+        "eşik",
+        "leaf",
+        "yaprak",
+        "dal",
+        "branch",
+        "veri set",
+        "predict",
+        "tahmin"
+      ],
+      "strategic_markers": [
+        "çünkü",
+        "bu yüzden",
+        "daha iyi",
+        "en iyi",
+        "eminiz",
+        "eminim",
+        "mantıklı",
+        "doğru",
+        "yanlış",
+        "karşılaştır",
+        "seçtim",
+        "seçeriz",
+        "böyle olur",
+        "demek ki"
+      ],
+      "trial_error_markers": [
+        "deneyeyim",
+        "rastgele",
+        "bakalım",
+        "şans",
+        "tıkladım",
+        "bir daha"
+      ]
+    },
+    "software_interaction": {
+      "description": "Independent debugging vs teacher-dependent error recovery.",
+      "help_request_markers": [
+        "hocam bende",
+        "bende çıkmadı",
+        "gelmedi",
+        "çalışmıyor",
+        "yapamad",
+        "nasıl yap",
+        "nasıl sile",
+        "yardım",
+        "anlamadım",
+        "göremiyorum"
+      ],
+      "independent_recovery_markers": [
+        "düzelttim",
+        "buldum",
+        "şimdi oldu",
+        "çözdüm",
+        "geri aldım",
+        "tekrar denedim",
+        "kendim yaptım",
+        "hallettim"
+      ],
+      "motion_independent_gap_seconds": 45
+    },
+    "argumentation": {
+      "description": "Explanatory depth and justification quality in student speech.",
+      "justification_markers": [
+        "çünkü",
+        "bu yüzden",
+        "yani",
+        "demek ki",
+        "açıkl",
+        "gerekçe",
+        "sebep",
+        "model",
+        "robust",
+        "güvenilir",
+        "eminiz",
+        "kanıt",
+        "sonuç olarak"
+      ],
+      "bare_action_markers": [
+        "başlat",
+        "evet hocam",
+        "tamam hocam",
+        "hı hı",
+        "ok",
+        "oldu hocam"
+      ],
+      "min_words_substantive": 8
+    }
+  },
+  "grading_baselines": {
+    "conceptual_score": { "mean": 1.8, "std": 0.7 },
+    "software_interaction_score": { "mean": 2.0, "std": 0.8 },
+    "argumentation_score": { "mean": 1.5, "std": 0.6 }
+  },
+  "confidence_weights": {
+    "full_multimodal_sync": 1.0,
+    "motion_only_fallback": 0.55,
+    "partial_frame_coverage_penalty_per_missing_ratio": 0.35
+  }
+}

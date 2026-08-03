@@ -1,0 +1,77 @@
+{
+  "stage": "extraction",
+  "student_id": "Helena",
+  "worksheet": "WS_DT_XENO",
+  "student_name": "Helena",
+  "pdf_source": "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf",
+  "rubric_ref": "rubrics/WS_DT_XENO_rubric.json",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-07-08T06:10:07.092965+00:00",
+    "ocr_model": "claude-opus-4-8",
+    "items": {
+      "DTI_01": "10 vaka vardır. %60'ı hastadır.",
+      "DTI_02": "4 mavi saçlı vaka vardır. %0'ı hasta durumdadır.",
+      "DTI_03": "6 pembe saçlı vaka vardır. %100'ü hasta durumdadır. Pembe saçlıların \"hasta\" olduğunu ortaya çıkarır. (Hepsinin)",
+      "DTI_04": "Sol taraftaki kutu negatif hasta well (-) olarak etiketlenmiş. Bence doğru bir etiketleymeydi.",
+      "DTI_05": "6 pembe saçlı vaka vardır. 6'sı hasta durumdadır. Bu sonuç eğer pembe saçlılık varsa \"hasta\" durumunu ortaya çıkarır.",
+      "DTI_06": "Evet. Çünkü mavi saçların hepsi sağlıklı, pembeler ise hasta.",
+      "DTI_07": "%100 olurdu. Çünkü mavi saçların hepsi sağlıklı, pembe saçların ise hepsi hasta.",
+      "DTI_08": "FN daha tehlikelidir. Çünkü hasta bireyin sağlıklı olarak değerlendirilmesi kişinin hastalığının fark edilmeyip ilerlemesine yol açabilir.",
+      "DTI_09": "Doğru bir performans sergiledi. Pembelerin %100'ü hasta, mavilerin %0'ı hasta çıktı.",
+      "DTI_10": "9",
+      "DTI_11": "9 hastayı doğru pozitif olarak test etti. Yani 9 kişiyi hasta olarak tahmin ettik ve gerçekten hasta çıktı.",
+      "DTI_12": "11",
+      "DTI_13": "11 hastayı doğru negatif olarak test etti. Yani 11 kişiyi sağlıklı olarak tahmin ettik ve gerçekten de öyle oldu.",
+      "DTI_14": "0",
+      "DTI_15": "0 hasta yanlış pozitif olarak test edildi. Yani hasta tahmin edip sağlıklı birey çıkmadı.",
+      "DTI_16": "0",
+      "DTI_17": "0 hasta yanlış negatif olarak test edildi. Yani sağlıklı tahmin edip hasta birey çıkmadı.",
+      "DTI_18": "20",
+      "DTI_19": "Toplam 20 kişiyi test ettik. Model doğru çalıştı.",
+      "DTI_20": "(TP+TN)/N = (9+11)/20 = [circled: 1]",
+      "DTI_21": "Karar ağacı doğru oldu.",
+      "DTI_22": "TP/(TP+FN) = 9/9+0 = [circled: 1]",
+      "DTI_23": "\"Hasta\"ları doğru tespit etti.",
+      "DTI_24": "TN/(TN+FP) = 11/11+0 = [circled: 1]",
+      "DTI_25": "\"Sağlık\"lıları doğru tespit etti.",
+      "DTI_26": "TP/(TP+FP) = 9/9+0 = [circled: 1]",
+      "DTI_27": "Hastaları doğru tespit etti.",
+      "DTI_28": "Duyarlılığı öncelikli olarak kullanırım. Çünkü gerçekten hasta bireylerin ne kadarının doğru şekilde \"hasta\" olduğunu sınıflamak çok önemli.",
+      "DTI_29": "(TP+FP) / TN",
+      "DTI_30": "Özgüllüğü daha iyi tanımlıyor.",
+      "DTI_31": "Sağlıklı bireyleri tespit ederken.",
+      "DTI_32": "(FP+FN)/N = (0+0)/20 = [circled: 0]",
+      "DTI_33": "[corrected: struck-through text] Hasta çıkmadı."
+    },
+    "raw_ocr": {}
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 33,
+      "total": 33,
+      "blank_or_illegible": 0,
+      "missing": 0,
+      "completion_rate": 1.0
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 1.0,
+      "engagement_level": "high",
+      "llm_observations": "",
+      "page_notes": "Tüm öğrenci yazıları okunabilir durumda. Sayfa 9'da Sonucu Yorumlayın hücresinde üstü çizili bir ifade var, sadece son hali transkript edildi.; DTI_34'te sağ tarafta çizilmiş/karalanmış okunamayan bir kısım var. Genel tarama kalitesi iyi, öğrenci el yazısı okunaklı."
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

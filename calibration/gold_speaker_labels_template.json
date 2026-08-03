@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "description": "İnsan etiketli altın standart — clip içindeki her segment için speaker_role doldurun.",
+  "label_values": ["teacher", "student", "classmate", "unknown"],
+  "students": {
+    "Amy": {
+      "focal_pt_student_id": "Amy",
+      "clips": [
+        {
+          "clip_id": "amy_lesson_start",
+          "start": 0,
+          "end": 600,
+          "note": "Ders başı — kayıt açılışı, hocam diyalogları",
+          "segments": []
+        },
+        {
+          "clip_id": "amy_instructional_202s",
+          "start": 190,
+          "end": 280,
+          "note": "Bilinen sorun: makine öğrenmesi / veri anlatımı (~3:10–4:40)",
+          "segments": []
+        },
+        {
+          "clip_id": "amy_codap_explore",
+          "start": 900,
+          "end": 1200,
+          "note": "CODAP keşif ve öğrenci etkileşimi (~15:00)",
+          "segments": []
+        },
+        {
+          "clip_id": "amy_emit_metrics",
+          "start": 2700,
+          "end": 3000,
+          "note": "Emit / MCR / sensitivity (~45:00)",
+          "segments": []
+        }
+      ]
+    },
+    "Bruno": {
+      "focal_pt_student_id": "Bruno",
+      "clips": [
+        {"clip_id": "bruno_start", "start": 0, "end": 600, "note": "Ders başı", "segments": []},
+        {"clip_id": "bruno_mid", "start": 1200, "end": 1500, "note": "Orta anlatım", "segments": []},
+        {"clip_id": "bruno_interaction", "start": 2400, "end": 2700, "note": "Öğrenci etkileşimi", "segments": []}
+      ]
+    },
+    "Helena": {
+      "focal_pt_student_id": "Helena",
+      "clips": [
+        {"clip_id": "helena_start", "start": 0, "end": 600, "note": "Ders başı", "segments": []},
+        {"clip_id": "helena_mid", "start": 1200, "end": 1500, "note": "Orta anlatım", "segments": []},
+        {"clip_id": "helena_interaction", "start": 2400, "end": 2700, "note": "Öğrenci etkileşimi", "segments": []}
+      ]
+    },
+    "Marcus": {
+      "focal_pt_student_id": "Marcus",
+      "clips": [
+        {"clip_id": "marcus_start", "start": 0, "end": 600, "note": "Ders başı", "segments": []},
+        {"clip_id": "marcus_mid", "start": 1200, "end": 1500, "note": "Orta anlatım", "segments": []},
+        {"clip_id": "marcus_interaction", "start": 2400, "end": 2700, "note": "Öğrenci etkileşimi", "segments": []}
+      ]
+    },
+    "Shana": {
+      "focal_pt_student_id": "Shana",
+      "clips": [
+        {"clip_id": "shana_start", "start": 0, "end": 600, "note": "Ders başı", "segments": []},
+        {"clip_id": "shana_mid", "start": 1200, "end": 1500, "note": "Orta anlatım", "segments": []},
+        {"clip_id": "shana_interaction", "start": 2400, "end": 2700, "note": "Öğrenci etkileşimi", "segments": []}
+      ]
+    }
+  }
+}

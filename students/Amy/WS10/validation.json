@@ -1,0 +1,70 @@
+{
+  "stage": "validation",
+  "student_id": "Amy",
+  "worksheet": "WS10",
+  "deterministic_checks": {
+    "WS10_B1": {
+      "expected": 4,
+      "student": 4,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS10_B2": {
+      "expected": 3,
+      "student": 3,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS10_B3": {
+      "expected": 2,
+      "student": 2,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    },
+    "WS10_B4": {
+      "expected": 3,
+      "student": 2,
+      "ok": false,
+      "credit": "zero",
+      "score": 0.0,
+      "reason": "wrong_value"
+    },
+    "WS10_B5": {
+      "expected": 2,
+      "student": 1,
+      "ok": false,
+      "credit": "zero",
+      "score": 0.0,
+      "reason": "wrong_value"
+    },
+    "WS10_B6": {
+      "expected": 1,
+      "student": 0,
+      "ok": false,
+      "credit": "zero",
+      "score": 0.0,
+      "reason": "wrong_value"
+    },
+    "WS10_B7": {
+      "expected": 2,
+      "student": 0,
+      "ok": false,
+      "credit": "zero",
+      "score": 0.0,
+      "reason": "wrong_value"
+    },
+    "WS10_B8": {
+      "expected": 408,
+      "student": 408,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
+    }
+  },
+  "parse_success": true,
+  "all_correct": false,
+  "reference": "data/ws10_energy_reference.json"
+}

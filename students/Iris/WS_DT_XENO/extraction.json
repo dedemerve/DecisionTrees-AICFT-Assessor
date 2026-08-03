@@ -1,0 +1,77 @@
+{
+  "stage": "extraction",
+  "student_id": "Iris",
+  "worksheet": "WS_DT_XENO",
+  "student_name": "Iris",
+  "pdf_source": "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf",
+  "rubric_ref": "rubrics/WS_DT_XENO_rubric.json",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-07-08T06:16:07.285073+00:00",
+    "ocr_model": "claude-opus-4-8",
+    "items": {
+      "DTI_01": "37 vaka içermektedir. Bu vakaların %56'sı hastadır.",
+      "DTI_02": "Bunların 16'sı mavi saçlıdır. Bu vakaların hiç biri hasta değildir.",
+      "DTI_03": "Pembe saçlı kutuda 21 vaka bulunmaktadır. Bu vakaların hepsi hastadır.",
+      "DTI_04": "pink hair kutusu [corrected: negatif → pozitif]. Hair ölçütünü kullandım.",
+      "DTI_05": "Pembe saçlı kutuda 21 vaka vardır.",
+      "DTI_06": "Evet. Hatasız ayırdı.",
+      "DTI_07": "%100 doğru çıkardı",
+      "DTI_08": "FN çünkü hasta olana müdahale edilmeli.",
+      "DTI_09": "Hata payı oluşmadı",
+      "DTI_10": "21",
+      "DTI_11": "doğru karar",
+      "DTI_12": "16",
+      "DTI_13": "doğru karar",
+      "DTI_14": "0",
+      "DTI_15": "Hasta dedi ama sağlıklı",
+      "DTI_16": "0",
+      "DTI_17": "sağlıklı dedi ama hasta",
+      "DTI_18": "37",
+      "DTI_19": "toplam vaka",
+      "DTI_20": "(21+16) / 37",
+      "DTI_21": "doğruluk oranı %100",
+      "DTI_22": "21 / (21+0)",
+      "DTI_23": "doğruluk oranı %100",
+      "DTI_24": "16 / (16+0)",
+      "DTI_25": "//  //  //",
+      "DTI_26": "21 / (21+0)",
+      "DTI_27": "//  //  //",
+      "DTI_28": "Hepsini kullanabilirim hepsinin doğruluk değeri \"1\".",
+      "DTI_29": "(TP + FP) + TN / N = 21, 16 / 37",
+      "DTI_30": "doğruluğu",
+      "DTI_31": "Kesin sonuç istendiğinde",
+      "DTI_32": "(bos)",
+      "DTI_33": "(bos)"
+    },
+    "raw_ocr": {}
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 31,
+      "total": 33,
+      "blank_or_illegible": 2,
+      "missing": 0,
+      "completion_rate": 0.939
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 0.939,
+      "engagement_level": "high",
+      "llm_observations": "Iris'in veri setinde toplam 37 vaka bulunmakta; 16 mavi saçlı (hiçbiri hasta değil, %0) ve 21 pembe saçlı (hepsi hasta, %100). Yapısal beklentiye uygun olarak FP=FN=0 elde edilmiş ve ağaç hatasız ayrım yapmıştır. Metrik hesaplamalarında TP=21, TN=16 doğru girilmiş, doğruluk/duyarlılık/özgüllük/kesinlik hesapları %100 olarak yorumlanmıştır; ancak MCR satırı boş bırakılmıştır.",
+      "page_notes": "Sayfa 9'daki MCR tablosu boş bırakılmış. Basılı sayfalardaki görseller soluk taranmış ancak öğrenci yazıları okunaklı."
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

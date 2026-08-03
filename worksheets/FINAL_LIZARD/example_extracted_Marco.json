@@ -1,0 +1,160 @@
+{
+  "student_id": "Marco",
+
+  "metadata": {
+    "total_models_created": 1,
+    "markdown_cells": null,
+    "code_cells": null,
+    "total_cells": null
+  },
+
+  "execution": {
+    "execution_count_all_null": null,
+    "code_cells_with_output": null,
+    "code_cells_without_output": null,
+    "cells_with_errors": 0,
+    "infrastructure_interrupt": false,
+    "error_types": []
+  },
+
+  "data_source": {
+    "real_csv_loaded": true,
+    "row_count_in_output": 320,
+    "synthetic_data_used": false,
+    "data_source_note": "PDF rapor formatında teslim edilmiştir. Notebook kodu mevcut değildir; tüm alanlar rapor içeriğinden çıkarılmıştır."
+  },
+
+  "step1_data_exploration": {
+    "data_loaded": true,
+    "row_count_reported": 320,
+    "col_count_reported": null,
+    "columns_listed": false,
+    "value_counts_called": false,
+    "describe_called": false,
+    "q_lizard_count": null,
+    "q_habitat_most_frequent": null,
+    "q_habitat_least_frequent": null,
+    "q_imbalance_effect_reasoning": null,
+    "q_mass_average_reported": null,
+    "q_mass_by_species_reasoning": null
+  },
+
+  "formulated_research_questions": [
+    {
+      "target_variable": "Tur",
+      "formulated_question": null
+    }
+  ],
+
+  "step3_split_global": {
+    "test_size": 0.2,
+    "stratify_used": null,
+    "random_state": null,
+    "split_size_reported_train": 256,
+    "split_size_reported_test": 64,
+    "parameters_varied_across_models": false,
+    "q_stratify_removal_effect": null,
+    "q_random_state_change_effect": null
+  },
+
+  "preliminary_quick_models": null,
+
+  "dt_experiments": [
+    {
+      "target_variable": "Tur",
+      "target_variable_intermediate_name": null,
+
+      "code_evidence": {
+        "features_used": [
+          "GovdeUzunlugu",
+          "ToplamUzunluk",
+          "Kutle",
+          "BacakUzunlugu"
+        ],
+        "target_excluded_from_features": true,
+        "used_get_dummies": false,
+        "categorical_columns_excluded_instead": true,
+        "model_built": true,
+        "model_fitted": true,
+        "tree_visualized": true,
+        "mcr_plot_generated": true,
+        "train_curve_in_plot": true,
+        "test_curve_in_plot": true
+      },
+
+      "depth_search": {
+        "depth_range_min": 1,
+        "depth_range_max": 10,
+        "depth_range_max_source": "mcr_table_last_row",
+        "mcr_table": null
+      },
+
+      "step4_responses_location": "per_tree",
+
+      "step4_markdown_analysis": {
+        "depth_mcr_trend_description": "Grafikte mavi çizgi (eğitim verisindeki hata), derinlik arttıkça 0'a doğru yaklaşmaktadır. Bu, bilgisayarın veriyi ezberlemeye (Overfitting) başladığını gösterir. Turuncu çizginin (test verisindeki hata) düşmeyi bırakıp sabitlendiği/arttığı 3. derinlik seviyesi, modelin genellenebilirliği açısından en ideal nokta olarak belirlenmiştir.",
+        "zero_train_error_interpretation": "Grafikte mavi çizgi (eğitim verisindeki hata), derinlik arttıkça 0'a doğru yaklaşmaktadır. Bu, bilgisayarın veriyi ezberlemeye (Overfitting) başladığını gösterir.",
+        "divergence_point_identified": "3. derinlik seviyesi",
+        "overfitting_named_or_described": "Overfitting (Aşırı Öğrenme): bilgisayarın veriyi ezberlemeye başladığını gösterir.",
+        "preferred_depth_from_table": null,
+        "preferred_depth_from_graph": "Turuncu çizginin (test verisindeki hata) düşmeyi bırakıp sabitlendiği/arttığı 3. derinlik seviyesi, modelin genellenebilirliği açısından en ideal nokta olarak belirlenmiştir."
+      },
+
+      "step5_final_tree": {
+        "chosen_optimal_depth": 3,
+        "test_mcr_achieved": 0.2969,
+        "root_node_feature": "Kutle",
+        "root_node_feature_computed": "Kutle",
+        "root_node_feature_source": "plot_label",
+        "root_node_threshold": 15.09,
+        "is_optimal_depth_mathematically_correct": null,
+        "mathematically_optimal_depth": null,
+        "q_root_node_reasoning": null,
+        "q_decisions_to_classify": null,
+        "q_root_changed_across_targets": null,
+        "q_codap_comparison": null
+      }
+    }
+  ],
+
+  "cross_target_comparison": {
+    "comparison_present": false,
+    "optimal_depths_compared": false,
+    "root_nodes_compared": false,
+    "mcr_values_compared": [],
+    "comparison_reasoning": null
+  },
+
+  "step6_written_reflection": {
+    "q1_learning_journey": {
+      "raw_text": null,
+      "word_count": null,
+      "environments_mentioned": [],
+      "error_detection_discussed": null
+    },
+    "q2_data_understanding": {
+      "raw_text": "Duyarlılık grafiği, modelin Sceloporus türünü (mor çizgi) her derinlikte en yüksek tespit oranına (yaklaşık %85) sahip olduğunu göstermektedir. Çünkü bu tür, fiziksel eşitsizliklerle diğerlerinden çok net ayrılabilmektedir. Ancak Anolis ve Uta türleri birbirlerine biyolojik ölçü olarak benzedikleri için model bu iki türü tespit etmekte (yeşil ve kırmızı çizgiler) zorlanmaktadır.",
+      "word_count": 54,
+      "root_feature_surprise_addressed": false,
+      "biological_reasoning_present": true,
+      "misclassified_habitat_discussed": false
+    },
+    "q3_model_performance": {
+      "raw_text": null,
+      "word_count": null,
+      "mcr_value_stated": 0.2969,
+      "best_predicted_class": "Sceloporus",
+      "worst_predicted_class": "Anolis",
+      "ideal_mcr_threshold_stated": null,
+      "cross_target_mcr_comparison_attempted": false
+    },
+    "q4_dt_limitations": {
+      "raw_text": "Bilgisayar destekli matematik öğretimi kapsamında bu proje, öğrencilere \"Büyüktür (>), Küçüktür (<)\" eşitsizliklerinin biyolojik sınıflandırmada nasıl çalıştığını somut olarak göstermektedir. Ayrıca Sensitivity ve MCR grafiklerinin analiz edilmesi, öğrencilere istatistik okuryazarlığı kazandırarak bir algoritmanın ne zaman hata yaptığını veya veriyi ne zaman ezberlediğini grafikler üzerinden okuma becerisi sağlamaktadır.",
+      "word_count": 46,
+      "error_pattern_described": false,
+      "alternative_model_named": null,
+      "data_improvement_suggested": false,
+      "dt_explanation_for_friend": null
+    }
+  }
+}

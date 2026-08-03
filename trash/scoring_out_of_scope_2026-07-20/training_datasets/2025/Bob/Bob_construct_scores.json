@@ -1,0 +1,229 @@
+{
+  "$schema": "schema/video_construct_scores.schema.json",
+  "artifact": "construct_scores",
+  "student_id": "Bob",
+  "cohort_year": 2025,
+  "rubric_id": "codap_arbor_v4_candidate",
+  "schema_version": "4.1",
+  "generated_at": "2026-07-20T11:17:56.586341+00:00",
+  "session_scores": {
+    "B0": {
+      "level": "not_observed",
+      "confidence": "Low"
+    },
+    "B1": {
+      "level": "not_observed",
+      "confidence": "Low"
+    },
+    "B2": {
+      "level": "Acquire",
+      "confidence": "Low"
+    },
+    "B3": {
+      "level": "Acquire",
+      "confidence": "Low"
+    },
+    "B4": {
+      "level": "Acquire",
+      "confidence": "Low"
+    },
+    "B5": {
+      "level": "Acquire",
+      "confidence": "Low"
+    },
+    "B6": {
+      "level": "Acquire",
+      "confidence": "Low"
+    },
+    "B7": {
+      "level": "Acquire",
+      "confidence": "Low"
+    },
+    "B8": {
+      "level": "not_measurable",
+      "confidence": null
+    },
+    "B9": {
+      "level": "not_measurable",
+      "confidence": null
+    },
+    "B10": {
+      "level": "not_observed",
+      "confidence": "Low"
+    },
+    "B11": {
+      "level": "not_observed",
+      "confidence": "Low"
+    },
+    "B12": {
+      "level": "not_observed",
+      "confidence": "Low"
+    },
+    "B13": {
+      "level": "not_measurable",
+      "confidence": null
+    }
+  },
+  "session_notes": "Very short session. No graph use. 3 trees only (Fat and Energy, both threshold trials 15 then 13). No CTR comparison. Minimal engagement — behavioral evidence sparse across all criteria.",
+  "key_evidence": {
+    "B8": {
+      "note": "No audio and observation log shows no metric reading or CTR comparison. Modality absent — not_measurable."
+    },
+    "B2": {
+      "note": "Fat threshold: 15 then 13. Energy threshold: 15 then 13. Two iterations per variable but no graph and no verbal confirmation of partition reasoning. Acquire/Low."
+    }
+  },
+  "audio_available": false,
+  "step_level_inferences": [
+    {
+      "step_index": 0,
+      "behavior_codes": [
+        "LOAD_DATASET",
+        "OPEN_ARBOR"
+      ],
+      "behavior_details": [
+        {
+          "code": "LOAD_DATASET",
+          "gloss": "Dataset is loaded into CODAP/Arbor.",
+          "screen_change": "Table/case-card region populates with Food Data attributes and rows."
+        },
+        {
+          "code": "OPEN_ARBOR",
+          "gloss": "Arbor / CODAP workspace is opened or restarted.",
+          "screen_change": "Arbor tree canvas appears empty/reset; plugin chrome becomes visible."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EXPLORE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0018"
+    },
+    {
+      "step_index": 1,
+      "behavior_codes": [
+        "SET_TARGET_ATTRIBUTE",
+        "CREATE_GRAPH",
+        "DRAG_SPLIT_ATTRIBUTE",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "SET_TARGET_ATTRIBUTE",
+          "gloss": "Target / predict attribute is set on the tree.",
+          "screen_change": "Tree root shows selected dependent variable name."
+        },
+        {
+          "code": "CREATE_GRAPH",
+          "gloss": "A CODAP graph panel is created.",
+          "screen_change": "New CODAP graph panel opens (often beside Arbor)."
+        },
+        {
+          "code": "DRAG_SPLIT_ATTRIBUTE",
+          "gloss": "A predictor attribute is dragged onto a tree depth/node.",
+          "screen_change": "Tree node gains a split attribute and child branches appear/update."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "medium",
+      "silver_frame_id": "frame_0029"
+    },
+    {
+      "step_index": 2,
+      "behavior_codes": [
+        "DRAG_SPLIT_ATTRIBUTE",
+        "UPDATE_THRESHOLD",
+        "ASSIGN_LEAF_LABEL",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "DRAG_SPLIT_ATTRIBUTE",
+          "gloss": "A predictor attribute is dragged onto a tree depth/node.",
+          "screen_change": "Tree node gains a split attribute and child branches appear/update."
+        },
+        {
+          "code": "UPDATE_THRESHOLD",
+          "gloss": "Numeric split threshold on the tree is changed.",
+          "screen_change": "Split cut-point text/value on the node changes; leaf purity may change."
+        },
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0043"
+    },
+    {
+      "step_index": 3,
+      "behavior_codes": [
+        "DRAG_SPLIT_ATTRIBUTE",
+        "UPDATE_THRESHOLD",
+        "ASSIGN_LEAF_LABEL",
+        "EMIT_TREE"
+      ],
+      "behavior_details": [
+        {
+          "code": "DRAG_SPLIT_ATTRIBUTE",
+          "gloss": "A predictor attribute is dragged onto a tree depth/node.",
+          "screen_change": "Tree node gains a split attribute and child branches appear/update."
+        },
+        {
+          "code": "UPDATE_THRESHOLD",
+          "gloss": "Numeric split threshold on the tree is changed.",
+          "screen_change": "Split cut-point text/value on the node changes; leaf purity may change."
+        },
+        {
+          "code": "ASSIGN_LEAF_LABEL",
+          "gloss": "Leaf / side of a split is labeled recommendable vs not.",
+          "screen_change": "Leaf badges show recommendable / not recommendable."
+        },
+        {
+          "code": "EMIT_TREE",
+          "gloss": "Emit function writes the current tree into Classification Tree Records.",
+          "screen_change": "Classification Tree Records gains/updates a row with metrics."
+        }
+      ],
+      "construct_levels_hint": {
+        "bilişsel_davranış_kategorisi": "EVALUATE",
+        "unesco_ai_cft_level": "Acquire"
+      },
+      "certainty": "exact",
+      "silver_confidence": "high",
+      "silver_frame_id": "frame_0074"
+    }
+  ],
+  "alignment_quality": {
+    "gold_with_screenshot": 4,
+    "step_count": 4,
+    "silver_confidence_histogram": {
+      "high": 3,
+      "medium": 1
+    },
+    "revision": "v2c_adjacency_gold+seed_lock_silver"
+  },
+  "interpretation_rule": "Session_scores are human adjudicated B0-B13 construct levels. step_level_inferences are atomic behavior codes from text; they do not automatically change session_scores."
+}

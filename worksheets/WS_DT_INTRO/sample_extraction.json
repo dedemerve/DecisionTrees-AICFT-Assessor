@@ -1,0 +1,182 @@
+{
+  "student_id": "Sample_Student",
+  "worksheet": "WS_DT_INTRO",
+  "session_date": "2026-04-07",
+  "ws_snapshot": "Öğrenci Xeno bölümünde 10 yaratıktan oluşan veri setinde saç rengi değişkenini kullanarak kusursuz bir karar ağacı oluşturmuştur (6 pembe hasta, 4 mavi sağlıklı; FP=FN=0, tüm metrikler %100). Titanic bölümünde dört veri seti için confusion matrix tablolarını doldurmuş ve eğitim/test farklarından hareketle overfitting ve underfitting kavramlarını açıklamıştır.",
+  "page_notes": "(bos)",
+  "extraction": {
+    "xeno_section": {
+      "DTI_01": "10 yaratık var, 6'sı (%60) hasta.",
+      "DTI_02": "4 mavi saçlı yaratık var, 0'ı (%0) hasta.",
+      "DTI_03": "6 pembe saçlı yaratık var, 6'sı (%100) hasta.",
+      "DTI_04": "Pembe kutu pozitif (hasta), mavi kutu negatif (sağlıklı) etiketlendi.",
+      "DTI_05": "6 pembe saçlı yaratık var, 6'sı da (%100) hasta.",
+      "DTI_06": "Evet, mükemmel bir ayırıcı. Mavi saçlıların %0'ı hasta, pembe saçlıların %100'ü hasta.",
+      "DTI_07": "Yeni yaratığın saç rengine bakarım. Pembeseyse hasta, maviyse sağlıklı derim.",
+      "DTI_08": "FN daha tehlikeli. Hasta birinin sağlıklı sanılması tedaviyi geciktirir ve hayatını tehlikeye atar.",
+      "DTI_09": "Saç rengi mükemmel ayırıcı olduğu için ağaç 10 yeni vakanın tamamını doğru sınıflandırır.",
+      "DTI_10": "6",
+      "DTI_11": "Modelin hasta dediği ve gerçekten hasta olan yaratıklar.",
+      "DTI_12": "4",
+      "DTI_13": "Modelin sağlıklı dediği ve gerçekten sağlıklı olan yaratıklar.",
+      "DTI_14": "0",
+      "DTI_15": "Sağlıklı olduğu hâlde yanlışlıkla hasta denen yaratık yok.",
+      "DTI_16": "0",
+      "DTI_17": "Hasta olduğu hâlde yanlışlıkla sağlıklı denen yaratık yok.",
+      "DTI_18": "10",
+      "DTI_19": "Değerlendirilen toplam yaratık sayısı.",
+      "DTI_20": "(6+4)/10 = 10/10 = 1,00",
+      "DTI_21": "Tüm tahminler doğru çıktı, model mükemmel çalıştı.",
+      "DTI_22": "6/(6+0) = 1,00",
+      "DTI_23": "Gerçekten hasta olanların tamamı doğru yakalandı.",
+      "DTI_24": "4/(4+0) = 1,00",
+      "DTI_25": "Gerçekten sağlıklı olanların tamamı doğru sınıflandırıldı.",
+      "DTI_26": "6/(6+0) = 1,00",
+      "DTI_27": "Hasta denen vakaların tamamı gerçekten hasta.",
+      "DTI_28": "Duyarlılık. Gerçekten hasta olan bir yaratığı kaçırmamak kritik.",
+      "DTI_29": "Dengeli Doğruluk = (Duyarlılık + Özgüllük) / 2",
+      "DTI_30": "Hem hasta hem sağlıklı sınıftaki başarıyı birlikte ölçer.",
+      "DTI_31": "Sınıflar dengesiz olduğunda doğruluk yanıltıcı olabilir; bu metrik her iki sınıfı eşit ağırlıklandırır.",
+      "DTI_32": "(0+0)/10 = 0",
+      "DTI_33": "Hiç yanlış sınıflandırma yok, hata oranı %0."
+    },
+    "titanic_vs1_egitim": {
+      "DTI_34": "812",
+      "DTI_35": "290",
+      "DTI_36": "522",
+      "DTI_37": "female (hayatta kaldı)",
+      "DTI_38": "(290+522)/812 = 812/812 = 1,00",
+      "DTI_39": "290/(290+0) = 1,00",
+      "DTI_40": "522/(522+0) = 1,00",
+      "DTI_41": "290/(290+0) = 1,00",
+      "DTI_42": "(0+0)/812 = 0"
+    },
+    "titanic_vs1_test": {
+      "DTI_43": "231",
+      "DTI_44": "96",
+      "DTI_45": "135",
+      "DTI_46": "female (hayatta kaldı)",
+      "DTI_47": "(56+86)/231 = 0,615",
+      "DTI_48": "56/(56+49) = 0,533",
+      "DTI_49": "86/(86+40) = 0,683",
+      "DTI_50": "56/(56+40) = 0,583",
+      "DTI_51": "(40+49)/231 = 0,385"
+    },
+    "titanic_vs1_interpretation": {
+      "DTI_52": "Evet, büyük fark var. Eğitimde %100 doğruluk, testte %61,5'e düştü.",
+      "DTI_53": "Overfitting; model eğitim verisini ezberlemiş, yeni veriye genelleyemiyor.",
+      "DTI_54": "Eğitimde %100 olan duyarlılık testte %53,3'e düştü; model hastalı vakaların yarısını kaçırıyor.",
+      "DTI_55": "Eğitimde %0 olan MCR testte %38,5'e çıktı; her 10 tahminden yaklaşık 4'ü hatalı."
+    },
+    "titanic_vs2_egitim": {
+      "DTI_56": "834",
+      "DTI_57": "304",
+      "DTI_58": "530",
+      "DTI_59": "female (hayatta kaldı)",
+      "DTI_60": "(128+202)/834 = 0,396",
+      "DTI_61": "128/(128+328) = 0,281",
+      "DTI_62": "202/(202+176) = 0,534",
+      "DTI_63": "128/(128+176) = 0,421",
+      "DTI_64": "(176+328)/834 = 0,604"
+    },
+    "titanic_vs2_test": {
+      "DTI_65": "209",
+      "DTI_66": "82",
+      "DTI_67": "127",
+      "DTI_68": "female (hayatta kaldı)",
+      "DTI_69": "(61+103)/209 = 0,785",
+      "DTI_70": "61/(61+24) = 0,718",
+      "DTI_71": "103/(103+21) = 0,831",
+      "DTI_72": "61/(61+21) = 0,744",
+      "DTI_73": "(21+24)/209 = 0,215"
+    },
+    "titanic_vs2_interpretation": {
+      "DTI_74": "Eğitim seti 2'de cinsiyet-hayatta kalma ilişkisi zayıf; eğitim doğruluğu yalnızca %39,6.",
+      "DTI_75": "Underfitting; model verideki temel ilişkiyi bile yakalayamıyor.",
+      "DTI_76": "Bu veri setinde durum sorunun tersidir. Eğitim duyarlılığı düşük (%28,1), yüksek değil.",
+      "DTI_77": "Bu veri setinde eğitim MCR'si zaten %60,4 gibi çok yüksekti; model eğitimde de başarısız."
+    },
+    "genel_sorular": {
+      "DTI_78": "İyi model hem eğitim hem testte yüksek ve birbirine yakın metrikler üretmeli.",
+      "DTI_79": "Sadece eğitim metrikleri modelin ezberleyip ezberlemediğini göstermez; test seti gerçek performansı ölçer.",
+      "DTI_80": "Hayır. Tek metrik yanıltıcı olabilir; dengesiz sınıflarda doğruluk yüksek görünse de duyarlılık sıfır olabilir."
+    }
+  },
+  "validation": {
+    "xeno_consistency_checks": {
+      "tp_fn_sum_equals_sick": {
+        "check": "TP + FN = toplam hasta sayısı",
+        "expected": "6",
+        "student_tp": "6",
+        "student_fn": "0",
+        "sum": "6",
+        "is_correct": true
+      },
+      "tn_fp_sum_equals_healthy": {
+        "check": "TN + FP = toplam sağlıklı sayısı",
+        "expected": "4",
+        "student_tn": "4",
+        "student_fp": "0",
+        "sum": "4",
+        "is_correct": true
+      },
+      "total_n": {
+        "check": "TP + TN + FP + FN = N",
+        "expected": "10",
+        "student_n": "10",
+        "is_correct": true
+      },
+      "fp_fn_zero": {
+        "check": "hair-color mükemmel ayırıcı => FP=FN=0",
+        "is_correct": true
+      }
+    },
+    "titanic_numeric_checks": {
+      "vs1_egitim_accuracy": {
+        "student_value": 1.0,
+        "canonical": 1.0,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs1_test_accuracy": {
+        "student_value": 0.615,
+        "canonical": 0.615,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs2_egitim_accuracy": {
+        "student_value": 0.396,
+        "canonical": 0.396,
+        "delta": 0.0,
+        "is_correct": true
+      },
+      "vs2_test_accuracy": {
+        "student_value": 0.785,
+        "canonical": 0.785,
+        "delta": 0.0,
+        "is_correct": true
+      }
+    },
+    "trap_question_check": {
+      "DTI_76": {
+        "flag": "TUZAK_SORU",
+        "student_recognized_contradiction": true,
+        "note": "Ogrenci soruda 'yuksek egitim duyarlilig' yazdigini fark edip VS2 gercegini acikladi."
+      },
+      "DTI_77": {
+        "flag": "TUZAK_SORU",
+        "student_recognized_contradiction": true,
+        "note": "Ogrenci egitim MCR'nin zaten yuksek oldugunu belirtti."
+      }
+    },
+    "system_analytical_summary": "Öğrenci Xeno bölümünü eksiksiz tamamlamıştır: saç rengi mükemmel ayırıcı olduğu için FP=FN=0 ve tüm metrikler 1,00 çıkmıştır. Titanic VS1 bölümünde eğitim/test arasındaki büyük farkı (%100 → %61,5) overfitting olarak doğru teşhis etmiştir. VS2 bölümünde eğitimdeki düşük başarıyı (%39,6) underfitting olarak açıklamış; tuzak sorularda (DTI_76, DTI_77) soru kökünün VS2 gerçeğiyle çeliştiğini fark etmiştir."
+  },
+  "operator_reading_notes": {
+    "critical_distinctions": [
+      "Xeno TP/TN/FP/FN sayıları öğrenciye özel rastgele veri setine göre değişir; kanonik değerle değil iç tutarlılıkla değerlendir.",
+      "Titanic formül boşluklarında paydaların doğru TP/FP/TN/FN kullanılıp kullanılmadığını önce kontrol et, sonra sayısal sonuca bak.",
+      "DTI_76 ve DTI_77 tuzak sorulardır: soru kökü VS1 ifadesini kopyalamaktadır, VS2 gerçeği tam tersidir. Çelişkiyi fark eden öğrenciye tam puan ver.",
+      "Virgüllü ondalık (1,00 / 0,615) veya noktalı (1.00 / 0.615) her iki yazım kabul edilir."
+    ]
+  }
+}

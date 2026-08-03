@@ -1,0 +1,194 @@
+{
+  "rubric_id": "codap_arbor_v3",
+  "session_type": "codap_arbor",
+  "aicft_levels": ["Acquire", "Deepen"],
+  "version": "3.0",
+  "created": "2026-07-14",
+  "updated": "2026-07-15",
+  "description": "CODAP Arbor oturumlarında 14 davranışı (B0–B13) Acquire/Deepen ikili skoruyla değerlendirir. v3.0: B10 (depth 2+ ağaç), B11 (movable→threshold transfer), B12 (CTR yönetimi), B13 (Sensitivity/MCR trade-off) eklendi; B6 Deepen grafik tabanlı optimizasyonu kapsayacak şekilde güncellendi; B7 Deepen depth 2 dahil edildi.",
+
+  "transcript_availability_note": "Ses kaydı olmayan öğrencilerde transcript='none' gelir. Transcript gerektiren kurallar görsel kanıta indirgenir — hiçbir zaman otomatik score=0 sayılmaz.",
+
+  "input_sources": [
+    "screenshot: Frame görüntüsü — birincil kanıt kaynağı",
+    "transcript: Ses/metin kaydı (bazı öğrencilerde 'none')",
+    "session_context: previous_dependent_variable, emit_count_so_far"
+  ],
+
+  "visual_distinction_critical": {
+    "scatter_plot": "Veri noktalarını X-Y ekseninde gösteren grafik. B1 tetikler, B7 TETİKLEMEZ.",
+    "decision_tree_output": "Dal yapısıyla gösterilen karar ağacı. Dallarda bölünme koşulları, yapraklarda sınıf etiketleri. B7 tetikler.",
+    "movable_value": "Scatter plot üzerindeki dikey kesik çizgi + sayısal değer etiketi. B2 tetikler, B6 TETİKLEMEZ.",
+    "ctr": "Classification Tree Records — CODAP Arbor'da birden fazla emit çıktısını satırlar halinde listeleyen panel. B12 tetikler.",
+    "fake_100_accuracy": "Confusion matrix tüm değerleri 0 VE 'no prediction=N' görünüyorsa model tahmin yapmamış — B8 score=0."
+  },
+
+  "scoring_scale": {
+    "0": "Davranış bu frame'de gözlemlenmedi",
+    "1": "Acquire düzeyinde kanıt var",
+    "2": "Deepen düzeyinde kanıt var"
+  },
+
+  "behaviors": [
+    {
+      "id": "B0",
+      "name": "Veri yükleme ve inceleme",
+      "lo": "LO3.1",
+      "transcript_required": false,
+      "acquire_rule": "CODAP'ta bir veri tablosu açık ve en az bir kolon başlığı görünür.",
+      "deepen_rule": "Belirli bir kolona odaklanma (kolon seçili veya vurgulanmış) VEYA transcript'te verinin içeriği hakkında soru ya da yorum var."
+    },
+    {
+      "id": "B1",
+      "name": "Grafik oluşturma",
+      "lo": "LO3.1→LO3.2",
+      "transcript_required": false,
+      "acquire_rule": "Ekranda en az bir scatter plot veya grafik paneli açık ve veri noktaları görünür.",
+      "deepen_rule": "Birden fazla farklı feature için ayrı grafik oluşturulmuş — birden fazla grafik paneli görünür veya eksen değişkeninin değiştirildiği anlaşılıyor."
+    },
+    {
+      "id": "B2",
+      "name": "Movable value kullanımı",
+      "lo": "LO3.2",
+      "transcript_required": false,
+      "acquire_rule": "Bir scatter plot üzerinde dikey kesik çizgi + sayısal değer etiketi görünür (movable value).",
+      "deepen_rule": "Farklı eşik değerleri denenmiş (movable value sürüklenerek farklı konum) VEYA birden fazla grafiğe movable value eklenmiş.",
+      "not_measurable_note": "Tree branch threshold değerleri (B6) ile karıştırılmamalı."
+    },
+    {
+      "id": "B3",
+      "name": "Hedef değişkeni belirleme",
+      "lo": "LO3.1→LO3.2",
+      "transcript_required": false,
+      "acquire_rule": "CODAP ağaç oluşturucu panelindeki hedef öznitelik alanı boş olmayan bir değer içeriyor. 'Drag your target attribute here' görünüyorsa score=0.",
+      "deepen_rule": "Görüntüdeki hedef değişken session_context.previous_dependent_variable'dan farklı (değiştirilmiş) VEYA transcript'te hedef seçimine dair nedensellik açıklaması var — yalnızca adını anmak yeterli değil."
+    },
+    {
+      "id": "B4",
+      "name": "Feature seçimi",
+      "lo": "LO3.2",
+      "transcript_required": false,
+      "acquire_rule": "Split attribute alanında alan-bilgisiyle ilişkili bir özellik seçilmiş (Tuz, Enerji, Şeker, Protein, Yağ, Doymuş Yağ, Karbonhidrat ve benzerleri).",
+      "deepen_rule": "Acquire koşulu sağlanmış VE transcript mevcutsa bu seçimin nedensellik gerekçesi var. Transcript yoksa Acquire kanıtı yeterlidir."
+    },
+    {
+      "id": "B5",
+      "name": "Sınıf tanımlama",
+      "lo": "LO3.2",
+      "transcript_required": false,
+      "acquire_rule": "İki farklı sınıf etiketi CODAP ağacında görünür (ör. 'Recommendable / Not recommendable').",
+      "deepen_rule": "Acquire koşulu sağlanmış VE etiketler bağlama uygun ve anlamlı — 'Class A / Class B' gibi genel etiketler Deepen saymaz."
+    },
+    {
+      "id": "B6",
+      "name": "Threshold seçimi",
+      "lo": "LO3.2",
+      "transcript_required": false,
+      "acquire_rule": "Sayısal bir bölünme eşiği ağaç dallarında veya split value alanında görünüyor. Scatter plot movable value bu kuralı TETİKLEMEZ.",
+      "deepen_rule": "Acquire koşulu sağlanmış VE şunlardan en az biri: (a) önceki frame'den farklı bir threshold değeri görünüyor (iterasyon), (b) transcript'te eşiğin değiştirildiği belirtiliyor, (c) bu frame'de B2 de tetiklenmişse ve movable value değeri DT threshold'uyla eşleşiyorsa (grafik tabanlı optimizasyon). Sadece rastgele sayı değiştirme Deepen saymaz."
+    },
+    {
+      "id": "B7",
+      "name": "Model çalıştırma",
+      "lo": "LO3.1",
+      "transcript_required": false,
+      "acquire_rule": "Dal yapısına sahip bir KARAR AĞACI çıktısı görünüyor: dallarda bölünme koşulları, yaprak düğümlerde sınıf etiketleri ve sayılar. Scatter plot veya boş ağaç şablonu TETİKLEMEZ.",
+      "deepen_rule": "Acquire koşulu sağlanmış VE şunlardan en az biri: (a) session_context.emit_count_so_far > 1 (farklı konfigürasyonla yeniden çalıştırma), (b) ağaç sıfırlanıp yeniden oluşturulmuş (reset+rebuild), (c) depth 2 veya daha derin bir ağaç görünüyor (birden fazla katmanda split node mevcut), (d) transcript'te 'baştan yapalım', 'sıfırlayayım' ifadesi."
+    },
+    {
+      "id": "B8",
+      "name": "Çıktı yorumlama",
+      "lo": "LO3.3",
+      "transcript_required": false,
+      "acquire_rule": "Geçerli bir accuracy değeri VE confusion matrix (TP/TN/FP/FN) birlikte ekranda görünüyor. SAHTE 100% HARİÇ: tüm confusion matrix değerleri 0 ve 'no prediction=N' varsa score=0.",
+      "deepen_rule": "Acquire koşulu sağlanmış VE şunlardan en az biri: (a) transcript'te spesifik accuracy değeri anılıyor, (b) TP/TN/FP/FN değerlerine doğrudan atıf, (c) iki model arasında accuracy karşılaştırması, (d) MCR sözlü geçiyor. Transcript yoksa: accuracy + confusion matrix ikisi birden görünüyorsa Deepen tetiklenir."
+    },
+    {
+      "id": "B9",
+      "name": "Train/test ayrımı",
+      "lo": "LO3.3",
+      "transcript_required": false,
+      "acquire_rule": "Choosy eklentisi veya benzeri araçla veri seti training/test olarak bölünmüş — iki ayrı dataset seçeneği arayüzde aktif.",
+      "deepen_rule": "Acquire koşulu sağlanmış VE model training verisiyle kurulmuş, ardından test verisiyle ayrıca değerlendirilmiş — dataset geçişi (training→test veya tersi) görüntüde veya transcript'te gözlemleniyor.",
+      "not_measurable_note": "Choosy kullanılmayan oturumlarda (ör. 21 Nisan) tüm frame'lerde score=0."
+    },
+    {
+      "id": "B10",
+      "name": "Çok katmanlı ağaç kurma (Depth 2+)",
+      "lo": "LO3.2→LO3.3",
+      "transcript_required": false,
+      "acquire_rule": "CODAP ağacında depth 2 veya daha derin bir node'a feature sürüklenmiş — tree yapısında en az iki katman (root split + child split) görünüyor.",
+      "deepen_rule": "Acquire koşulu sağlanmış VE hem sol hem sağ child node'da farklı feature'lar denenmiş VEYA child node'da feature değiştirilmiş (iterasyon görünür)."
+    },
+    {
+      "id": "B11",
+      "name": "Grafik tabanlı eşik optimizasyonu (Movable→Threshold transfer)",
+      "lo": "LO3.2",
+      "transcript_required": false,
+      "acquire_rule": "Aynı frame'de veya art arda frame'lerde: (1) scatter plot üzerinde movable value görünüyor VE (2) DT'de o değere eşit veya yakın bir threshold uygulanmış — grafik→ağaç transfer kanıtı.",
+      "deepen_rule": "Acquire koşulu sağlanmış VE bu transfer birden fazla feature için tekrarlanmış VEYA transcript'te 'grafikten bakarak ayarladım' ya da eşdeğer ifade var.",
+      "not_measurable_note": "B2 (movable) ile B6 (threshold) aynı anda tetikleniyorsa bu behavior için ekstra kanıt ara. Transfer açıkça görünmüyorsa score=0."
+    },
+    {
+      "id": "B12",
+      "name": "Classification Tree Records (CTR) yönetimi",
+      "lo": "LO3.2→LO3.3",
+      "transcript_required": false,
+      "acquire_rule": "CTR panelinde en az 2 model satırı görünüyor — birden fazla emit sonucu biriktirilmiş.",
+      "deepen_rule": "Acquire koşulu sağlanmış VE şunlardan en az biri: (a) belirli bir satır silinmiş, (b) belirli bir satır seçilerek diğerleriyle karşılaştırılmış, (c) transcript'te satırlar arasında hangisinin daha iyi olduğuna dair değerlendirme var."
+    },
+    {
+      "id": "B13",
+      "name": "Sensitivity/MCR trade-off yorumlama",
+      "lo": "LO3.3",
+      "transcript_required": true,
+      "acquire_rule": "Transcript'te 'sensitivity', 'MCR', 'misclassification rate', 'TP/(TP+FN)' veya eşdeğeri sözlü geçiyor.",
+      "deepen_rule": "Acquire koşulu sağlanmış VE MCR ile sensitivity arasında trade-off yapılmış — bağlama göre (sağlık vs. sosyal bilim gibi) hangisinin önceliklendirileceği tartışılmış VEYA iki model bu iki metrik üzerinden karşılaştırılmış.",
+      "not_measurable_note": "Ses kaydı olmayan öğrencilerde bu davranış ölçülemez — transcript='none' ise score=0."
+    }
+  ],
+
+  "lo_summary_rules": {
+    "LO3.1": {
+      "level": "Acquire",
+      "triggered_if": "B0 VEYA B1 VEYA B3 VEYA B7 herhangi biri score>=1 ise"
+    },
+    "LO3.2": {
+      "level": "Deepen",
+      "triggered_if": "B1 VEYA B2 VEYA B3 VEYA B4 VEYA B5 VEYA B6 VEYA B10 VEYA B11 VEYA B12 herhangi biri score>=1 ise"
+    },
+    "LO3.3": {
+      "level": "Deepen",
+      "triggered_if": "B8 VEYA B9 VEYA B10 VEYA B12 VEYA B13 herhangi biri score>=1 ise"
+    }
+  },
+
+  "output_schema": {
+    "frame_id": "string",
+    "session_context": {
+      "previous_dependent_variable": "string | null",
+      "emit_count_so_far": "integer"
+    },
+    "evidence_detection": {
+      "B0":  { "score": "0/1/2", "evidence": "string" },
+      "B1":  { "score": "0/1/2", "evidence": "string" },
+      "B2":  { "score": "0/1/2", "evidence": "string" },
+      "B3":  { "score": "0/1/2", "evidence": "string" },
+      "B4":  { "score": "0/1/2", "evidence": "string" },
+      "B5":  { "score": "0/1/2", "evidence": "string" },
+      "B6":  { "score": "0/1/2", "evidence": "string" },
+      "B7":  { "score": "0/1/2", "evidence": "string" },
+      "B8":  { "score": "0/1/2", "evidence": "string" },
+      "B9":  { "score": "0/1/2", "evidence": "string" },
+      "B10": { "score": "0/1/2", "evidence": "string" },
+      "B11": { "score": "0/1/2", "evidence": "string" },
+      "B12": { "score": "0/1/2", "evidence": "string" },
+      "B13": { "score": "0/1/2", "evidence": "string" }
+    },
+    "learning_outcomes": {
+      "LO3.1": { "status": "Triggered/Not Triggered", "level": "Acquire", "triggering_behaviors": [] },
+      "LO3.2": { "status": "Triggered/Not Triggered", "level": "Deepen",  "triggering_behaviors": [] },
+      "LO3.3": { "status": "Triggered/Not Triggered", "level": "Deepen",  "triggering_behaviors": [] }
+    }
+  }
+}

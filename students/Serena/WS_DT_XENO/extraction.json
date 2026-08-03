@@ -1,0 +1,77 @@
+{
+  "stage": "extraction",
+  "student_id": "Serena",
+  "worksheet": "WS_DT_XENO",
+  "student_name": "Serena",
+  "pdf_source": "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf",
+  "rubric_ref": "rubrics/WS_DT_XENO_rubric.json",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-07-08T06:22:18.345968+00:00",
+    "ocr_model": "claude-opus-4-8",
+    "items": {
+      "DTI_01": "Kök düğüm 26 vaka içermekte. %46,2 sick",
+      "DTI_02": "Mavi saçlı kutuda 14 vaka var 0 tane sick. Bu grup %100 sağlıklı",
+      "DTI_03": "Pembe saçlı kutuda 12 vaka var. Bu vakaların 12 tanesi sick. Mavi saçlılar sağlıklı pembe saçlılar hasta",
+      "DTI_04": "Pembe saçlı hasta olarak etiketlenmekte. Bu kararı verirken hair olayını kullandım.",
+      "DTI_05": "(bos)",
+      "DTI_06": "Evet. Çünkü Pembe saçlıların hepsi hasta mavi saçlıların hepsi sağlıklı",
+      "DTI_07": "Yüksek ihtimalle doğru çıkardı ama güvenilirliği arttırmak için başka şeylere de bakabilirim.",
+      "DTI_08": "Bence FN (Yanlış Negatif) çünkü hasta olan birine müdahale edilmesi gerekir aksi takdirde ölebilir.",
+      "DTI_09": "Hata payı oluşmadı.",
+      "DTI_10": "17",
+      "DTI_11": "Doğru karar",
+      "DTI_12": "20",
+      "DTI_13": "Doğru karar",
+      "DTI_14": "0",
+      "DTI_15": "Gerçekte sağlıklı olmasına rağmen hasta teşhisi kondu yanlış karar",
+      "DTI_16": "0",
+      "DTI_17": "Gerçekte hasta olmasına rağmen sağlıklı teşhisi kondu yanlış karar",
+      "DTI_18": "37",
+      "DTI_19": "(bos)",
+      "DTI_20": "(17 + 20) / 37",
+      "DTI_21": "1",
+      "DTI_22": "17 / (17 + 0)",
+      "DTI_23": "1",
+      "DTI_24": "20 / (20 + 0)",
+      "DTI_25": "1",
+      "DTI_26": "17 / (17 + 0)",
+      "DTI_27": "1",
+      "DTI_28": "[corrected: Saç rengini → Hepsini] kullanırım çünkü hepsinde 1 sonucuna ulaştım ve hepsi doğru",
+      "DTI_29": "TP / |TP - FP|",
+      "DTI_30": "Hasta denen vakaların ne kadar hasta olduğu",
+      "DTI_31": "Hasta olanları bulmada",
+      "DTI_32": "(0 + 0) / 37",
+      "DTI_33": "0 [arrow] yanlış karar"
+    },
+    "raw_ocr": {}
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 31,
+      "total": 33,
+      "blank_or_illegible": 2,
+      "missing": 0,
+      "completion_rate": 0.939
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 0.939,
+      "engagement_level": "high",
+      "llm_observations": "Nadia's Xeno dataset had 26 cases at the root (%46,2 sick); the tree used hair color as predictor with mavi saçlı (14 cases) all healthy and pembe saçlı (12 cases) all sick. Confusion matrix values were TP=17, TN=20, FP=0, FN=0, N=37, so FP=FN=0 was achieved and all four standard metrics (accuracy, sensitivity, specificity, precision) equal 1. She also computed MCR=0 correctly and proposed a new metric TP/|TP-FP|.",
+      "page_notes": "Note: root node count (26) and confusion matrix N (37) are inconsistent within the student's own writing, but transcribed as written. Printed instruction pages (1,2,3,5,10) contain no student writing."
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

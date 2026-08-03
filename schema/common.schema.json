@@ -5,8 +5,8 @@
   "$defs": {
     "worksheet_id": {
       "type": "string",
-      "pattern": "^(WS\\d+|WS_DT)$",
-      "description": "Worksheet identifier: unplugged WS1–WS11 or CODAP WS_DT."
+      "pattern": "^(WS\\d+|WS_DT|WS_DT_XENO|WS_DT_TITANIC|WS_DT_INTRO)$",
+      "description": "Worksheet identifier: unplugged WS1–WS11 or CODAP WS_DT / WS_DT_XENO / WS_DT_TITANIC."
     },
     "curriculum_status": {
       "enum": [

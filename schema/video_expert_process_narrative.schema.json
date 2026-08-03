@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "video_expert_process_narrative",
+  "title": "Expert Process Narrative Artifact",
+  "type": "object",
+  "required": ["artifact", "student_id", "cohort_year", "generated_at", "source", "timeline", "episodes"],
+  "properties": {
+    "$schema": {"type": "string"},
+    "artifact": {"const": "expert_process_narrative"},
+    "student_id": {"type": "string", "minLength": 1},
+    "cohort_year": {"type": "integer"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "source": {"type": "object"},
+    "session_notes": {"type": ["string", "null"]},
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step_index", "uzman_nitel_gözlemi", "process_code_hints"],
+        "properties": {
+          "step_index": {"type": "integer"},
+          "paragraph_index": {"type": ["integer", "null"]},
+          "uzman_nitel_gözlemi": {"type": "string"},
+          "verbatim_utterances": {"type": "array", "items": {"type": "object"}},
+          "labels": {"type": ["object", "null"]},
+          "sequence_pattern": {"type": ["string", "null"]},
+          "ai_cft_evidence_justification": {"type": ["string", "null"]},
+          "visual_anchors": {"type": "object"},
+          "process_code_hints": {"type": "array", "items": {"type": "object"}},
+          "behavior_codes_linked": {"type": "array", "items": {"type": "string"}},
+          "rubric_gap_flags": {"type": "array", "items": {"type": "object"}},
+          "episode_id": {"type": ["string", "null"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "episodes": {"type": "array", "items": {"type": "object"}},
+    "docx_screenshot_count": {"type": ["integer", "null"]},
+    "interpretation_rule": {"type": "string"}
+  },
+  "additionalProperties": true
+}

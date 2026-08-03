@@ -1,0 +1,61 @@
+{
+  "student_id": "Helena",
+  "worksheet": "WS6",
+  "ws_snapshot": "Root node splits on 'Enerji' with threshold 200 kcal (≤ left / > right). The left child node's feature box is left blank (no label written) but shows counts 4 not recommended and 0 recommended; the right child node is labeled 'Şeker' with counts 2 recommended and 5 not recommended. Four leaf boxes are drawn at the bottom: two under the left inner node (both with blank/unclear threshold labels 'Eşik değer ...' and no visible counts inside), and two under the right inner node with threshold ≤1,5 and >1,5, containing recommendation counts.",
+  "page_notes": "Left child inner node's feature label is blank (not filled in). The two leftmost leaf boxes (left_left_leaf, left_right_leaf) appear empty/blank with no counts or labels visible, only 'Eşik değer ...' written above without a clear numeric value. [depth_1 left_child operator/threshold belirsiz: eşik değer yazılmamış]",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Enerji",
+        "left_operator": "≤",
+        "left_threshold_value": 200.0,
+        "right_operator": ">",
+        "right_threshold_value": 200.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": null,
+          "node_recommended_count": 0,
+          "node_not_recommended_count": 4,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        },
+        "right_child": {
+          "parsed_feature": "Şeker",
+          "node_recommended_count": 2,
+          "node_not_recommended_count": 5,
+          "left_operator": "≤",
+          "left_threshold_value": 1.5,
+          "right_operator": ">",
+          "right_threshold_value": 1.5
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "left_right_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": 2,
+            "leaf_not_recommended_count": 1
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 4
+          }
+        }
+      }
+    }
+  }
+}

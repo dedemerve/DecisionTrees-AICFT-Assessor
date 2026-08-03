@@ -1,0 +1,168 @@
+{
+  "stage": "extraction",
+  "student_id": "Helena",
+  "worksheet": "WS6",
+  "student_name": "Helena",
+  "pdf_source": "31 Mart 2026 Çalışma Kâğıdı 6.pdf",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-08-02T17:49:38.720580+00:00",
+    "ocr_model": "claude-sonnet-5",
+    "items": {
+      "WS6_B1": "(not_extracted)",
+      "WS6_B2": "(not_extracted)",
+      "WS6_B3": "(not_extracted)",
+      "WS6_B4": "(not_extracted)",
+      "WS6_B5": "(not_extracted)",
+      "WS6_B6": "(not_extracted)",
+      "WS6_B7": "(not_extracted)",
+      "WS6_B8": "(not_extracted)",
+      "WS6_B9": "(not_extracted)",
+      "WS6_B10": "(not_extracted)",
+      "WS6_B11": "(not_extracted)",
+      "WS6_B12": "(not_extracted)",
+      "WS6_B13": "(not_extracted)"
+    },
+    "tree_structure": {
+      "depth_0": {
+        "parsed_feature": "Enerji",
+        "left_operator": "≤",
+        "left_threshold_value": 200.0,
+        "right_operator": ">",
+        "right_threshold_value": 200.0
+      },
+      "depth_1": {
+        "left_child": {
+          "parsed_feature": null,
+          "node_recommended_count": 0,
+          "node_not_recommended_count": 4,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        },
+        "right_child": {
+          "parsed_feature": "Şeker",
+          "node_recommended_count": 2,
+          "node_not_recommended_count": 5,
+          "left_operator": "≤",
+          "left_threshold_value": 1.5,
+          "right_operator": ">",
+          "right_threshold_value": 1.5
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "left_left_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "left_right_leaf": {
+            "leaf_label": null,
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_left_leaf": {
+            "leaf_label": "tavsiye edilir",
+            "leaf_recommended_count": 2,
+            "leaf_not_recommended_count": 1
+          },
+          "right_right_leaf": {
+            "leaf_label": "tavsiye edilemez",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 4
+          }
+        }
+      }
+    },
+    "raw_ocr": {
+      "student_id": "Helena",
+      "worksheet": "WS6",
+      "extraction": {
+        "tree_structure": {
+          "depth_0": {
+            "parsed_feature": "Enerji",
+            "left_operator": "≤",
+            "left_threshold_value": 200.0,
+            "right_operator": ">",
+            "right_threshold_value": 200.0
+          },
+          "depth_1": {
+            "left_child": {
+              "parsed_feature": null,
+              "node_recommended_count": 0,
+              "node_not_recommended_count": 4,
+              "left_operator": null,
+              "left_threshold_value": null,
+              "right_operator": null,
+              "right_threshold_value": null
+            },
+            "right_child": {
+              "parsed_feature": "Şeker",
+              "node_recommended_count": 2,
+              "node_not_recommended_count": 5,
+              "left_operator": "≤",
+              "left_threshold_value": 1.5,
+              "right_operator": ">",
+              "right_threshold_value": 1.5
+            }
+          },
+          "depth_2": {
+            "leaf_nodes": {
+              "left_left_leaf": {
+                "leaf_label": null,
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": null
+              },
+              "left_right_leaf": {
+                "leaf_label": null,
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": null
+              },
+              "right_left_leaf": {
+                "leaf_label": "tavsiye edilir",
+                "leaf_recommended_count": 2,
+                "leaf_not_recommended_count": 1
+              },
+              "right_right_leaf": {
+                "leaf_label": "tavsiye edilemez",
+                "leaf_recommended_count": 0,
+                "leaf_not_recommended_count": 4
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 0,
+      "total": 13,
+      "blank_or_illegible": 0,
+      "missing": 13,
+      "completion_rate": 0.0,
+      "note": "WS6 scored from tree_structure, not flat items"
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 1.0,
+      "engagement_level": "high",
+      "llm_observations": "Root node splits on 'Enerji' with threshold 200 kcal (≤ left / > right). The left child node's feature box is left blank (no label written) but shows counts 4 not recommended and 0 recommended; the right child node is labeled 'Şeker' with counts 2 recommended and 5 not recommended. Four leaf boxes are drawn at the bottom: two under the left inner node (both with blank/unclear threshold labels 'Eşik değer ...' and no visible counts inside), and two under the right inner node with threshold ≤1,5 and >1,5, containing recommendation counts.",
+      "page_quality_notes": "Left child inner node's feature label is blank (not filled in). The two leftmost leaf boxes (left_left_leaf, left_right_leaf) appear empty/blank with no counts or labels visible, only 'Eşik değer ...' written above without a clear numeric value. [depth_1 left_child operator/threshold belirsiz: eşik değer yazılmamış]"
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}
