@@ -1,6 +1,6 @@
 {
   "student_id": "Iris",
-  "generated_at": "2026-08-03T09:49:53.653089+00:00",
+  "generated_at": "2026-08-03T10:43:54.280218+00:00",
   "is_final": false,
   "missing_sources": [
     "colab"
@@ -14,7 +14,7 @@
     "LO3.1": {
       "merged_score": 1.0,
       "merged_max": 1.0,
-      "evidence_strength": "weak",
+      "evidence_strength": "strong",
       "primary_source": "video",
       "source_detail": {
         "worksheet": {
@@ -23,7 +23,7 @@
         },
         "video": {
           "score": 1.0,
-          "strength": "weak"
+          "strength": "strong"
         }
       }
     },
@@ -39,7 +39,7 @@
         },
         "video": {
           "score": 1.0,
-          "strength": "weak"
+          "strength": "strong"
         }
       }
     },
@@ -60,13 +60,8 @@
       }
     }
   },
-  "ai_cft_proposal": "Acquire (provisional)",
+  "ai_cft_proposal": "Create",
   "review_flags": [
-    {
-      "flag": "low_confidence_evidence",
-      "lo": "LO3.1",
-      "severity": "low"
-    },
     {
       "flag": "ws_review_item_WS11_B9",
       "lo": "LO3.1",
@@ -363,12 +358,12 @@
       "severity": "medium"
     },
     {
-      "flag": "lo3_hierarchy_gap",
-      "detail": "LO3.3=strong but LO3.1=weak — Create claim outpaces Acquire evidence; review recommended",
+      "flag": "no_colab_data",
       "severity": "medium"
     },
     {
-      "flag": "no_colab_data",
+      "flag": "lo3_create_single_signal",
+      "detail": "Create proposal rests on a single LO3.3 behavior (B9); independent corroboration absent",
       "severity": "medium"
     }
   ],

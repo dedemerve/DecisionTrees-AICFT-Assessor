@@ -112,8 +112,10 @@ def normalise_video_source(
     from pipeline_schema import MMLA_LO_TRIGGER_MAP, MMLA_SESSION_TYPES
 
     # Accumulate across sessions.
+    # Confidence does NOT affect evidence_strength — only presence/absence of
+    # observed behaviors determines strength. Low-confidence behaviors appear
+    # in review_flags (handled by collect_review_flags) but do not cap the LO.
     lo_triggered: dict[str, bool] = {lo: False for lo in TOP_LEVEL_LOS}
-    lo_all_high: dict[str, bool] = {lo: True for lo in TOP_LEVEL_LOS}
     lo_has_any: dict[str, bool] = {lo: False for lo in TOP_LEVEL_LOS}
 
     for session_data in final_scored_files:
@@ -122,7 +124,14 @@ def normalise_video_source(
         trigger_map = MMLA_LO_TRIGGER_MAP.get(session_type, {})
         behaviors: dict[str, Any] = session_data.get("behaviors", {})
 
+        # LO3.3 evidence is valid only from real mmla_scorer output (B0-B13 rubric).
+        # Converter outputs (legacy codap_frame_analyses boolean flags) systematically
+        # overestimate higher-order behaviors; their LO3.3 signal is suppressed.
+        is_converter = "Converted from codap_frame_analyses" in (session_data.get("scoring_note") or "")
+
         for lo in TOP_LEVEL_LOS:
+            if lo == "LO3.3" and is_converter:
+                continue
             trigger_behaviors = trigger_map.get(lo, [])
             for b_id in trigger_behaviors:
                 b_rec = behaviors.get(b_id, {})
@@ -133,15 +142,11 @@ def normalise_video_source(
                         continue
                     lo_triggered[lo] = True
                     lo_has_any[lo] = True
-                    conf_str = b_rec.get("confidence")
-                    conf_num = _behavior_confidence_numeric(conf_str)
-                    if conf_num < CONFIDENCE_THRESHOLD:
-                        lo_all_high[lo] = False
 
     out: _NormalisedSource = {"source": source_label}
     for lo in TOP_LEVEL_LOS:
         if lo_triggered[lo]:
-            strength: EvidenceStrength = "strong" if lo_all_high[lo] else "weak"
+            strength: EvidenceStrength = "strong"
         else:
             strength = "absent"
         out[lo] = {
@@ -375,6 +380,28 @@ def build_portfolio(
 
     ai_cft_proposal = propose_ai_cft_level(lo_profiles)
     review_flags = collect_review_flags(lo_profiles, missing_sources, ws_lo_data)
+
+    # Flag Create proposals that rest on a single LO3.3 behavior in video.
+    if ai_cft_proposal == "Create" and video_files:
+        from pipeline_schema import MMLA_LO_TRIGGER_MAP, MMLA_SESSION_TYPES
+        lo33_observed_behaviors = []
+        for vf in video_files:
+            if "Converted from codap_frame_analyses" in (vf.get("scoring_note") or ""):
+                continue
+            session_type = MMLA_SESSION_TYPES.get(vf.get("session_key", ""), "codap_arbor")
+            triggers = MMLA_LO_TRIGGER_MAP.get(session_type, {}).get("LO3.3", [])
+            for b_id in triggers:
+                b_rec = vf.get("behaviors", {}).get(b_id, {})
+                if b_rec.get("decision") == "observed":
+                    fc = b_rec.get("deepen_frame_count", 1)
+                    if fc >= LO3_CREATE_MIN_FRAMES and b_id not in lo33_observed_behaviors:
+                        lo33_observed_behaviors.append(b_id)
+        if len(lo33_observed_behaviors) == 1:
+            review_flags.append({
+                "flag": "lo3_create_single_signal",
+                "detail": f"Create proposal rests on a single LO3.3 behavior ({lo33_observed_behaviors[0]}); independent corroboration absent",
+                "severity": "medium",
+            })
 
     return {
         "student_id": student_id,

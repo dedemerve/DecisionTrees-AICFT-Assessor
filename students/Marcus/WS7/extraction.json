@@ -5,26 +5,148 @@
   "student_name": "Marcus",
   "pdf_source": "31 Mart 2026 Çalışma Kâğıdı 7.pdf",
   "gate_1_extraction": {
-    "status": "fail",
-    "extracted_at": "2026-07-04T07:56:05.903647+00:00",
+    "status": "pass",
+    "extracted_at": "2026-08-11T12:00:27.220505+00:00",
     "ocr_model": "claude-sonnet-5",
     "items": {
-      "WS7_1": "(not_extracted)",
-      "WS7_2": "(not_extracted)",
-      "WS7_3": "(not_extracted)",
-      "WS7_4": "(not_extracted)",
-      "WS7_P1_box1": "(not_extracted)",
-      "WS7_P1_box2": "(not_extracted)",
-      "WS7_P1_box3": "(not_extracted)",
-      "WS7_B1": "(not_extracted)",
-      "WS7_B2": "(not_extracted)",
-      "WS7_B3": "(not_extracted)",
-      "WS7_B4": "(not_extracted)",
-      "WS7_B5": "(not_extracted)",
-      "WS7_B6": "(not_extracted)",
-      "WS7_B7": "(not_extracted)"
+      "WS7_1": "< 220.0",
+      "WS7_2": "> 220.0",
+      "WS7_3": "< 11.0",
+      "WS7_4": "> 11.0",
+      "WS7_5": "(bos)",
+      "WS7_6": "(bos)",
+      "WS7_7": "(bos)",
+      "WS7_P1_box1": "(bos)",
+      "WS7_P1_box2": "(bos)",
+      "WS7_P1_box3": "(bos)",
+      "WS7_B1": "(bos)",
+      "WS7_B2": "(bos)",
+      "WS7_B3": "(bos)",
+      "WS7_B4": "(bos)",
+      "WS7_B5": "(bos)",
+      "WS7_B6": "(bos)",
+      "WS7_B7": "(bos)"
     },
-    "raw_ocr": {}
+    "raw_ocr": {
+      "worksheet": "WS7",
+      "extraction": {
+        "tree_structure": {
+          "depth_0": {
+            "left_operator": "<",
+            "left_threshold_value": 220.0,
+            "right_operator": ">",
+            "right_threshold_value": 220.0
+          },
+          "depth_1": {
+            "left_child": {
+              "path_label": "A",
+              "node_recommended_count": null,
+              "node_not_recommended_count": null
+            },
+            "right_child": {
+              "parsed_feature": "Protein",
+              "node_recommended_count": null,
+              "node_not_recommended_count": null,
+              "left_operator": "<",
+              "left_threshold_value": 11.0,
+              "right_operator": ">",
+              "right_threshold_value": 11.0
+            }
+          },
+          "depth_2": {
+            "leaf_nodes": {
+              "right_left_leaf": {
+                "path_label": "B",
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": null
+              },
+              "right_right_leaf": {
+                "path_label": "C",
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": null
+              }
+            }
+          }
+        },
+        "rule_matching": {
+          "rule_1_box": null,
+          "rule_2_box": null,
+          "rule_3_box": null
+        }
+      },
+      "validation": {
+        "item_checks": {
+          "tree_completeness": {
+            "is_correct": false,
+            "error_flag": "missing_leaf_counts"
+          },
+          "rule_mapping": {
+            "is_correct": false,
+            "error_flag": "missing_rule_assignments"
+          },
+          "threshold_alignment": {
+            "is_correct": false,
+            "error_flag": "threshold_mismatch_with_instructions"
+          }
+        },
+        "system_analytical_summary": "Öğrenci ağaç yapısını doğru özelliklerle (Enerji, Protein) kurmuş ve eşik değerlerini her iki dal için de belirtmiştir, ancak yazılan değerler (220 kcal ve 11 g) beklenen 180 kcal ve 7,7 g hedefleriyle örtüşmemektedir; bu da kuralları ağaçtan doğru şekilde tersine mühendislik yapamadığını göstermektedir. Yaprak düğümlerdeki tavsiye sayaçları boş bırakılmış ve alt kısımdaki üç kuralın A/B/C harfleriyle eşleştirilmesi hiç yapılmamıştır. Genel olarak öğrenci ağaç mantığını kısmen kavramış ancak sayısal eşikleri metinden doğru çıkaramamış ve kural eşleştirme görevini tamamlamamıştır."
+      }
+    },
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "<",
+        "left_threshold_value": 220.0,
+        "right_operator": ">",
+        "right_threshold_value": 220.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "<",
+          "left_threshold_value": 11.0,
+          "right_operator": ">",
+          "right_threshold_value": 11.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    },
+    "validation_from_model": {
+      "item_checks": {
+        "tree_completeness": {
+          "is_correct": false,
+          "error_flag": "missing_leaf_counts"
+        },
+        "rule_mapping": {
+          "is_correct": false,
+          "error_flag": "missing_rule_assignments"
+        },
+        "threshold_alignment": {
+          "is_correct": false,
+          "error_flag": "threshold_mismatch_with_instructions"
+        }
+      },
+      "system_analytical_summary": "Öğrenci ağaç yapısını doğru özelliklerle (Enerji, Protein) kurmuş ve eşik değerlerini her iki dal için de belirtmiştir, ancak yazılan değerler (220 kcal ve 11 g) beklenen 180 kcal ve 7,7 g hedefleriyle örtüşmemektedir; bu da kuralları ağaçtan doğru şekilde tersine mühendislik yapamadığını göstermektedir. Yaprak düğümlerdeki tavsiye sayaçları boş bırakılmış ve alt kısımdaki üç kuralın A/B/C harfleriyle eşleştirilmesi hiç yapılmamıştır. Genel olarak öğrenci ağaç mantığını kısmen kavramış ancak sayısal eşikleri metinden doğru çıkaramamış ve kural eşleştirme görevini tamamlamamıştır."
+    }
   },
   "gate_2_validation": {
     "status": "fail",

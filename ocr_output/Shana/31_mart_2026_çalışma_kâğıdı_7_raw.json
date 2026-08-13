@@ -1,0 +1,68 @@
+{
+  "student_id": "Shana",
+  "worksheet": "WS7",
+  "ws_snapshot": "Sayfada enerji özelliği üzerinden dallanan bir karar ağacı görülmektedir; sol dal (<200) doğrudan 'tavsiye edilir' yaprağına (A) gitmekte, sağ dal (≥200) protein özelliğine göre ikinci bir düğüme ayrılmaktadır. Protein düğümünde sol dal (<11) 'tavsiye edilmez' (B) ve sağ dal (≥11) 'tavsiye edilir' (C) olarak işaretlenmiştir. Alt kısımdaki üç kural cümlesinin yanındaki kutucuklar boş bırakılmıştır.",
+  "page_notes": "Enerji eşik değeri öğrenci tarafından 200 olarak yazılmış (beklenen 180); protein eşik değeri 11 olarak yazılmış (beklenen 7,7). Yaprak düğümlerde tavsiye/tavsiye edilmez sayıları (node_recommended_count vb.) belirtilmemiş, sadece karar etiketleri yazılmış. Kural eşleştirme kutucukları (A/B/C) boş bırakılmış.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "<",
+        "left_threshold_value": 200.0,
+        "right_operator": "≥",
+        "right_threshold_value": 200.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "<",
+          "left_threshold_value": 11.0,
+          "right_operator": "≥",
+          "right_threshold_value": 11.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    },
+    "rule_matching": {
+      "rule_1_box": null,
+      "rule_2_box": null,
+      "rule_3_box": null
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "tree_completeness": {
+        "is_correct": false,
+        "error_flag": "missing_leaf_counts"
+      },
+      "rule_mapping": {
+        "is_correct": false,
+        "error_flag": "missing_rule_assignments"
+      },
+      "threshold_alignment": {
+        "is_correct": false,
+        "error_flag": "threshold_mismatch_with_instructions"
+      }
+    },
+    "system_analytical_summary": "Öğrenci karar ağacının dallanma mantığını (enerji sonra protein) doğru şekilde kurmuş ve karar etiketlerini (tavsiye edilir/edilmez) yerleştirmiştir, ancak eşik değerlerini kural cümlelerinden doğru şekilde geri çıkaramamıştır; enerji için 180 yerine 200, protein için 7,7 yerine 11 yazılmıştır. Ayrıca yaprak düğümlerdeki sayısal veriler ve alttaki üç kuralın A/B/C eşleştirme kutucukları tamamen boş bırakılmış, bu da görevin son adımının tamamlanmadığını göstermektedir."
+  }
+}

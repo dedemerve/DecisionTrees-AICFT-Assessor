@@ -1,0 +1,68 @@
+{
+  "student_id": "Iris",
+  "worksheet": "WS7",
+  "ws_snapshot": "Öğrenci karar ağacının kök düğümünü 'Enerji', ikinci seviyeyi 'Protein' olarak etiketlemiş; kök düğümde eşik değerleri sol için '<180g' sağ için '>180g' yazılmış, protein düğümünde sol için '<11g' sağ için '>11g' yazılmış (üzerinde çizik/düzeltme izleri var). Yapraklarda A dalı 'Tavsiye edilebilir', B dalı 'Tavsiye edilemez', C dalı 'Tavsiye edilebilir' olarak işaretlenmiş; sayaç değerleri (recommended/not recommended sayıları) okunaklı değil veya boş bırakılmış. Alt kısımdaki üç kural cümlesinin yanındaki kutucuklar boş bırakılmış (A/B/C harfleri yazılmamış).",
+  "page_notes": "Enerji birimi 'g' olarak yazılmış olsa da bu muhtemelen 'kcal' anlamında kullanılmış bir hata; eşik değeri 180 olarak doğru okunuyor. Protein eşik değeri '11g' olarak yazılmış, ancak beklenen değer 7,7g'dir - üzerinde çizik/karalama olduğundan orijinal yazı tam okunamıyor, '7,7' olabilir ama görünen rakam '11' şeklinde. Yaprak düğümlerindeki sayısal sayaçlar (recommended/not recommended) çok küçük/soluk yazılmış ve okunamıyor, null olarak işaretlendi. Kural eşleştirme kutucukları tamamen boş.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "<",
+        "left_threshold_value": 180.0,
+        "right_operator": ">",
+        "right_threshold_value": 180.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "<",
+          "left_threshold_value": 11.0,
+          "right_operator": ">",
+          "right_threshold_value": 11.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    },
+    "rule_matching": {
+      "rule_1_box": null,
+      "rule_2_box": null,
+      "rule_3_box": null
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "tree_completeness": {
+        "is_correct": false,
+        "error_flag": "missing_leaf_counts"
+      },
+      "rule_mapping": {
+        "is_correct": false,
+        "error_flag": "missing_rule_assignments"
+      },
+      "threshold_alignment": {
+        "is_correct": false,
+        "error_flag": "threshold_mismatch_with_instructions"
+      }
+    },
+    "system_analytical_summary": "Öğrenci kök düğümdeki enerji eşiğini doğru şekilde 180 olarak yazmış, bu beklenen 180 kcal değeriyle örtüşüyor. Ancak protein düğümünde eşik değerini 7,7 g yerine 11 g olarak yazmış, bu da kuralları doğru şekilde tersine mühendislik yapamadığını gösteriyor. Yaprak düğümlerindeki sayaç değerleri ve alt kısımdaki kural eşleştirme kutucukları tamamen boş bırakılmış, bu da görevin ikinci bölümünün tamamlanmadığını gösteriyor."
+  }
+}

@@ -180,7 +180,12 @@ def score_ws6_deterministic(
     from rubric_deterministic import score_from_credit, score_ws6_item
 
     rubric = load_rubric("WS6")
-    checks = (validation or {}).get("deterministic_checks") or {}
+    checks = dict((validation or {}).get("deterministic_checks") or {})
+    # The validation stores the composite tree check under "WS6_tree_structure";
+    # the rubric scoring item is "WS6_tree_validity".  Add the alias so
+    # score_ws6_item can look it up by the rubric key name.
+    if "WS6_tree_structure" in checks and "WS6_tree_validity" not in checks:
+        checks["WS6_tree_validity"] = checks["WS6_tree_structure"]
     items_out: list[dict[str, Any]] = []
     total = 0.0
     max_total = 0.0

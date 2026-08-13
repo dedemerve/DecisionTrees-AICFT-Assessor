@@ -1,0 +1,52 @@
+{
+  "student_id": "Zara",
+  "worksheet": "WS5",
+  "page_notes": "Deneme 1 (Enerji): sol/sağ operatörlerin altında çizgi görülmüyor, < ve > olarak okundu. Deneme 2 (Protein) ve Deneme 3 (Şeker) için de aynı şekilde bar tespit edilemedi, < ve > olarak transkribe edildi.",
+  "extraction": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "parsed_feature": "Enerji",
+        "left_operator": "<",
+        "left_threshold": 200.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": ">",
+        "right_threshold": 200.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 5,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 2,
+        "parsed_feature": "Protein",
+        "left_operator": "<",
+        "left_threshold": 2.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 1,
+        "right_operator": ">",
+        "right_threshold": 2.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 4,
+        "student_error_count": 3,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 3,
+        "parsed_feature": "Şeker",
+        "left_operator": "<",
+        "left_threshold": 2.0,
+        "left_leaf_recommended": 5,
+        "left_leaf_not_recommended": 1,
+        "right_operator": ">",
+        "right_threshold": 2.0,
+        "right_leaf_recommended": 1,
+        "right_leaf_not_recommended": 4,
+        "student_error_count": 2,
+        "student_mcr": null
+      }
+    ],
+    "final_decision_raw": "Şeker değişkeni için hangi eşik değerini seçiyorsunuz? Not alın: Hata sayısı 2 daha kullanışlı."
+  }
+}

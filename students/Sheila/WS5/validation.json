@@ -1,18 +1,35 @@
 {
-  "stage": "validation",
-  "student_id": "Sheila",
-  "worksheet": "WS5",
-  "parse_success": true,
-  "ocr_quality": null,
-  "formula_parsed": true,
-  "tree_detected": null,
-  "missing_regions": [],
   "deterministic_checks": {
     "WS5_row1": {
+      "threshold": "enerji < 16.0",
+      "parsed": {
+        "feature": "energy_kcal",
+        "operator": "<",
+        "value": 16.0,
+        "operator_inclusive": false,
+        "operator_strict": true,
+        "expected_complement": ">="
+      },
+      "expected": {
+        "dataset_size": 11,
+        "correct": 6,
+        "errors": 5,
+        "mcr": 0.4545,
+        "unclassified": 0
+      },
+      "student": {
+        "correct": 9,
+        "errors": 2,
+        "mcr": 0.1818
+      },
+      "sum": "9+2=11",
+      "arithmetic_ok": true,
       "ok": false,
-      "credit": "not_attempted",
-      "score": 0.0,
-      "reason": "blank_row"
+      "credit": "partial",
+      "score": 0.5,
+      "reason": "wrong_counts_with_valid_feature_and_arithmetic",
+      "review": true,
+      "review_reason": "counts_inconsistent_with_food_cards"
     },
     "WS5_row2": {
       "ok": false,
@@ -21,20 +38,64 @@
       "reason": "blank_row"
     },
     "WS5_row3": {
-      "ok": false,
-      "credit": "not_attempted",
-      "score": 0.0,
-      "reason": "blank_row"
-    },
-    "WS5_B25": {
-      "threshold": "(not_extracted)",
-      "trials_considered": [],
+      "threshold": "şeker < 12.0",
+      "parsed": {
+        "feature": "sugar_g",
+        "operator": "<",
+        "value": 12.0,
+        "operator_inclusive": false,
+        "operator_strict": true,
+        "expected_complement": ">="
+      },
+      "expected": {
+        "dataset_size": 11,
+        "correct": 9,
+        "errors": 2,
+        "mcr": 0.1818,
+        "unclassified": 0
+      },
+      "student": {
+        "correct": null,
+        "errors": null,
+        "mcr": null
+      },
       "ok": false,
       "credit": "zero",
       "score": 0.0,
-      "reason": "no_valid_grid_trials"
+      "reason": "incomplete_row"
+    },
+    "WS5_B25": {
+      "threshold": "eski bilgilerime göre daha değer sonuç verdiğini düşünüyorum",
+      "trials_considered": [
+        {
+          "row": "WS5_row1",
+          "threshold": "enerji < 16.0",
+          "errors": 2,
+          "mcr": 0.1818
+        }
+      ],
+      "minimum_errors": 2,
+      "tied_at_minimum": [
+        {
+          "row": "WS5_row1",
+          "threshold": "enerji < 16.0",
+          "errors": 2
+        }
+      ],
+      "tie_at_minimum": false,
+      "ok": false,
+      "credit": "zero",
+      "score": 0.0,
+      "reason": "threshold_not_in_grid"
     }
   },
+  "parse_success": true,
   "blocked": false,
-  "blocked_reason": null
+  "blocked_reason": null,
+  "row_failures": [
+    "WS5_row3"
+  ],
+  "student_id": "Sheila",
+  "worksheet": "WS5",
+  "validated_at": "2026-08-11T12:02:37.531572+00:00"
 }

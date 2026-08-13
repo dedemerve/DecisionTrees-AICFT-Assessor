@@ -1,40 +1,136 @@
 {
-  "stage": "validation",
-  "student_id": "Nadia",
-  "worksheet": "WS5",
-  "parse_success": true,
-  "ocr_quality": null,
-  "formula_parsed": true,
-  "tree_detected": null,
-  "missing_regions": [],
   "deterministic_checks": {
     "WS5_row1": {
-      "ok": false,
-      "credit": "not_attempted",
-      "score": 0.0,
-      "reason": "blank_row"
+      "threshold": "şeker ≤ 29.0",
+      "parsed": {
+        "feature": "sugar_g",
+        "operator": "<=",
+        "value": 29.0,
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
+      },
+      "expected": {
+        "dataset_size": 11,
+        "correct": 9,
+        "errors": 2,
+        "mcr": 0.1818,
+        "unclassified": 0
+      },
+      "student": {
+        "correct": 9,
+        "errors": 2,
+        "mcr": 0.1818
+      },
+      "sum": "9+2=11",
+      "arithmetic_ok": true,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS5_row2": {
-      "ok": false,
-      "credit": "not_attempted",
-      "score": 0.0,
-      "reason": "blank_row"
+      "threshold": "protein ≤ 2.0",
+      "parsed": {
+        "feature": "protein_g",
+        "operator": "<=",
+        "value": 2.0,
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
+      },
+      "expected": {
+        "dataset_size": 11,
+        "correct": 8,
+        "errors": 3,
+        "mcr": 0.2727,
+        "unclassified": 0
+      },
+      "student": {
+        "correct": 8,
+        "errors": 3,
+        "mcr": 0.2727
+      },
+      "sum": "8+3=11",
+      "arithmetic_ok": true,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS5_row3": {
-      "ok": false,
-      "credit": "not_attempted",
-      "score": 0.0,
-      "reason": "blank_row"
+      "threshold": "tuz ≤ 0.6",
+      "parsed": {
+        "feature": "salt_g",
+        "operator": "<=",
+        "value": 0.6,
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
+      },
+      "expected": {
+        "dataset_size": 11,
+        "correct": 7,
+        "errors": 4,
+        "mcr": 0.3636,
+        "unclassified": 0
+      },
+      "student": {
+        "correct": 7,
+        "errors": 4,
+        "mcr": 0.3636
+      },
+      "sum": "7+4=11",
+      "arithmetic_ok": true,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS5_B25": {
-      "threshold": "(not_extracted)",
-      "trials_considered": [],
-      "ok": false,
-      "credit": "zero",
-      "score": 0.0,
-      "reason": "no_valid_grid_trials"
+      "threshold": "şeker ≤ 29.0",
+      "trials_considered": [
+        {
+          "row": "WS5_row1",
+          "threshold": "şeker ≤ 29.0",
+          "errors": 2,
+          "mcr": 0.1818
+        },
+        {
+          "row": "WS5_row2",
+          "threshold": "protein ≤ 2.0",
+          "errors": 3,
+          "mcr": 0.2727
+        },
+        {
+          "row": "WS5_row3",
+          "threshold": "tuz ≤ 0.6",
+          "errors": 4,
+          "mcr": 0.3636
+        }
+      ],
+      "minimum_errors": 2,
+      "tied_at_minimum": [
+        {
+          "row": "WS5_row1",
+          "threshold": "şeker ≤ 29.0",
+          "errors": 2
+        }
+      ],
+      "tie_at_minimum": false,
+      "chosen": {
+        "row": "WS5_row1",
+        "threshold": "şeker ≤ 29.0",
+        "errors": 2
+      },
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
+      "reason": "minimum_misclassification_choice"
     }
   },
+  "parse_success": true,
   "blocked": false,
-  "blocked_reason": null
+  "blocked_reason": null,
+  "row_failures": [],
+  "student_id": "Nadia",
+  "worksheet": "WS5",
+  "validated_at": "2026-08-11T12:02:37.531572+00:00"
 }

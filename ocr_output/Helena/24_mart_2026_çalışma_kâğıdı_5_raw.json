@@ -1,0 +1,52 @@
+{
+  "student_id": "Helena",
+  "worksheet": "WS5",
+  "page_notes": "Deneme 3 (Tuz) sağ dal eşik değerinde birim yazımı tutarsız (>0,6 yerine >0.b gibi görünüyor, 0,6 olarak okundu). Diğer alanlar okunaklı.",
+  "extraction": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "parsed_feature": "Enerji",
+        "left_operator": "<=",
+        "left_threshold": 192.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": ">=",
+        "right_threshold": 192.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 5,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 2,
+        "parsed_feature": "Yağ",
+        "left_operator": "<=",
+        "left_threshold": 13.5,
+        "left_leaf_recommended": 6,
+        "left_leaf_not_recommended": 2,
+        "right_operator": ">=",
+        "right_threshold": 13.5,
+        "right_leaf_recommended": 0,
+        "right_leaf_not_recommended": 3,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 3,
+        "parsed_feature": "Tuz",
+        "left_operator": "<=",
+        "left_threshold": 0.6,
+        "left_leaf_recommended": 5,
+        "left_leaf_not_recommended": 3,
+        "right_operator": ">=",
+        "right_threshold": 0.6,
+        "right_leaf_recommended": 1,
+        "right_leaf_not_recommended": 2,
+        "student_error_count": 4,
+        "student_mcr": null
+      }
+    ],
+    "final_decision_raw": "Enerji değişkeni için 192 değerini seçiyorum. Çünkü diğerlerine göre yanlış sınıflandırma sayısı daha az çıktı."
+  }
+}

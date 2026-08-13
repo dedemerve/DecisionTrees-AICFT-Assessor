@@ -1,0 +1,52 @@
+{
+  "student_id": "Sheila",
+  "worksheet": "WS5",
+  "page_notes": "Deneme 2 değişken adı 'Kerbenwdro1' olarak yazılmış, muhtemelen 'karbonhidrat' kastedilmiş olabilir ama okunduğu şekliyle transkribe edildi. Deneme 2 ve 3 için Yanlış sınıflandırma sayısı boş bırakılmış. Deneme 1 sol/sağ operatör ve Deneme 2/3 operatörlerinde bar kontrolü yapıldı, net çizgi görülmedi, < ve > olarak okundu.",
+  "extraction": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "parsed_feature": "enerji",
+        "left_operator": "<",
+        "left_threshold": 16.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": ">",
+        "right_threshold": 16.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 5,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 2,
+        "parsed_feature": "Kerbenwdro1",
+        "left_operator": "<",
+        "left_threshold": 16.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": ">",
+        "right_threshold": 16.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 5,
+        "student_error_count": null,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 3,
+        "parsed_feature": "şeker",
+        "left_operator": "<",
+        "left_threshold": 12.0,
+        "left_leaf_recommended": 6,
+        "left_leaf_not_recommended": 2,
+        "right_operator": ">",
+        "right_threshold": 12.0,
+        "right_leaf_recommended": 0,
+        "right_leaf_not_recommended": 3,
+        "student_error_count": null,
+        "student_mcr": null
+      }
+    ],
+    "final_decision_raw": "eski bilgilerime göre daha değer sonuç verdiğini düşünüyorum"
+  }
+}

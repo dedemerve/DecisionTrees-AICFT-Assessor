@@ -1,0 +1,68 @@
+{
+  "student_id": "Sheila",
+  "worksheet": "WS7",
+  "ws_snapshot": "Sayfada enerji özelliğine göre bölünen bir köke sahip karar ağacı görülmekte; sol dal '<180', sağ dal '≥180' olarak işaretlenmiş. Sağ daldaki protein düğümünde sol dal '≤7,7', sağ dal '>7,7' olarak yazılmış. Ağaçtaki yaprak kutucuklarındaki 'tavsiye edilir/edilmez' alanları ve sayı kutucukları boş bırakılmış, alttaki üç kural cümlesinin yanındaki A/B/C kutucukları da doldurulmamış.",
+  "page_notes": "Depth_0 sol eşik değeri '<180' olarak yazılmış (bar yok, kesin '<'); sağ eşik değeri '≥180' şeklinde yazılmış görünüyor ama bar belirsiz, en iyi tahmin '≥'. Depth_1 sağ çocuk düğümünde sol operatör '≤7,7' (bar var), sağ operatör '>7,7' (bar belirsiz, en iyi tahmin '>'). Yaprak kutularındaki sayısal tavsiye sayıları (recommended/not recommended count) tamamen boş bırakılmış, okunamıyor. Kural eşleştirme kutucukları (A/B/C) boş.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "<",
+        "left_threshold_value": 180.0,
+        "right_operator": "≥",
+        "right_threshold_value": 180.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "≤",
+          "left_threshold_value": 7.7,
+          "right_operator": ">",
+          "right_threshold_value": 7.7
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    },
+    "rule_matching": {
+      "rule_1_box": null,
+      "rule_2_box": null,
+      "rule_3_box": null
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "tree_completeness": {
+        "is_correct": false,
+        "error_flag": "missing_leaf_counts"
+      },
+      "rule_mapping": {
+        "is_correct": false,
+        "error_flag": "missing_rule_assignments"
+      },
+      "threshold_alignment": {
+        "is_correct": true,
+        "error_flag": null
+      }
+    },
+    "system_analytical_summary": "Sheila, karar ağacındaki eşik değerlerini beklenen şekilde 180 kcal (enerji) ve 7,7 g (protein) olarak doğru biçimde doldurmuş, bu da eşik değerlerinin hedeflenen değerlerle uyumlu olduğunu göstermektedir. Ancak yaprak düğümlerindeki tavsiye edilir/edilmez sayılarını hiç yazmamış ve sayfanın alt kısmındaki üç kural cümlesiyle A/B/C yollarını eşleştirme kutucuklarını tamamen boş bırakmış. Bu durum, öğrencinin eşik değerlerini doğru çıkarsamasına rağmen görevin ikinci kısmını (kural eşleştirme ve sayısal doğrulama) tamamlamadığını göstermektedir."
+  }
+}

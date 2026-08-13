@@ -1,0 +1,52 @@
+{
+  "student_id": "Serena",
+  "worksheet": "WS5",
+  "page_notes": "Yanlış sınıflandırma sayısı alanları her üç denemede de boş bırakılmış.",
+  "extraction": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "parsed_feature": "Enerji",
+        "left_operator": "<",
+        "left_threshold": 200.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": ">",
+        "right_threshold": 200.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 5,
+        "student_error_count": null,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 2,
+        "parsed_feature": "Şeker",
+        "left_operator": "<",
+        "left_threshold": 2.0,
+        "left_leaf_recommended": 5,
+        "left_leaf_not_recommended": 1,
+        "right_operator": ">",
+        "right_threshold": 2.0,
+        "right_leaf_recommended": 1,
+        "right_leaf_not_recommended": 4,
+        "student_error_count": null,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 3,
+        "parsed_feature": "Protein",
+        "left_operator": "<",
+        "left_threshold": 2.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 1,
+        "right_operator": ">",
+        "right_threshold": 2.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 4,
+        "student_error_count": null,
+        "student_mcr": null
+      }
+    ],
+    "final_decision_raw": "Enerji ve Şeker değişkeni için hangi eşik değerini seçiyorsunuz? Not alın: Çünkü 2 hata var ikisinde de"
+  }
+}

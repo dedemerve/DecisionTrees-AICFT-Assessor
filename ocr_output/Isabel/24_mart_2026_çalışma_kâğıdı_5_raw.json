@@ -1,0 +1,52 @@
+{
+  "student_id": "Isabel",
+  "worksheet": "WS5",
+  "page_notes": "Deneme 1 left/right operatör belirsiz: < veya ≤ olabilir; sağ tarafta çarpı işareti ile üzeri çizilmiş bir sembol var, > olarak yorumlandı. Deneme 2 left operatör < olarak okundu, sağda çarpı işareti ile üzeri çizili bir işaret var, > olarak yorumlandı.",
+  "extraction": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "parsed_feature": "Enerji",
+        "left_operator": "<",
+        "left_threshold": 191.5,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": ">",
+        "right_threshold": 191.5,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 5,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 2,
+        "parsed_feature": "Doymuş Yağ",
+        "left_operator": "<",
+        "left_threshold": 8.3,
+        "left_leaf_recommended": 6,
+        "left_leaf_not_recommended": 3,
+        "right_operator": ">",
+        "right_threshold": 8.3,
+        "right_leaf_recommended": 0,
+        "right_leaf_not_recommended": 2,
+        "student_error_count": 3,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 3,
+        "parsed_feature": "Yağ",
+        "left_operator": "<",
+        "left_threshold": 13.5,
+        "left_leaf_recommended": 6,
+        "left_leaf_not_recommended": 2,
+        "right_operator": ">",
+        "right_threshold": 13.5,
+        "right_leaf_recommended": 0,
+        "right_leaf_not_recommended": 3,
+        "student_error_count": 2,
+        "student_mcr": null
+      }
+    ],
+    "final_decision_raw": "Yağ değişkeni için hangi eşik değerini seçiyorsunuz? Not alın: 13,5 eşik değeri belirledim."
+  }
+}

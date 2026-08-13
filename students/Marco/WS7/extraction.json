@@ -5,26 +5,148 @@
   "student_name": "Marco",
   "pdf_source": "31 Mart 2026 Çalışma Kâğıdı 7.pdf",
   "gate_1_extraction": {
-    "status": "fail",
-    "extracted_at": "2026-07-04T07:55:59.049877+00:00",
+    "status": "pass",
+    "extracted_at": "2026-08-11T12:00:27.220505+00:00",
     "ocr_model": "claude-sonnet-5",
     "items": {
-      "WS7_1": "(not_extracted)",
-      "WS7_2": "(not_extracted)",
-      "WS7_3": "(not_extracted)",
-      "WS7_4": "(not_extracted)",
-      "WS7_P1_box1": "(not_extracted)",
-      "WS7_P1_box2": "(not_extracted)",
-      "WS7_P1_box3": "(not_extracted)",
-      "WS7_B1": "(not_extracted)",
-      "WS7_B2": "(not_extracted)",
-      "WS7_B3": "(not_extracted)",
-      "WS7_B4": "(not_extracted)",
-      "WS7_B5": "(not_extracted)",
-      "WS7_B6": "(not_extracted)",
-      "WS7_B7": "(not_extracted)"
+      "WS7_1": "≤ 220.0",
+      "WS7_2": "> 780.0",
+      "WS7_3": "(bos)",
+      "WS7_4": "(bos)",
+      "WS7_5": "(bos)",
+      "WS7_6": "(bos)",
+      "WS7_7": "(bos)",
+      "WS7_P1_box1": "(bos)",
+      "WS7_P1_box2": "(bos)",
+      "WS7_P1_box3": "(bos)",
+      "WS7_B1": "(bos)",
+      "WS7_B2": "(bos)",
+      "WS7_B3": "(bos)",
+      "WS7_B4": "(bos)",
+      "WS7_B5": "(bos)",
+      "WS7_B6": "(bos)",
+      "WS7_B7": "(bos)"
     },
-    "raw_ocr": {}
+    "raw_ocr": {
+      "worksheet": "WS7",
+      "extraction": {
+        "tree_structure": {
+          "depth_0": {
+            "left_operator": "≤",
+            "left_threshold_value": 220.0,
+            "right_operator": ">",
+            "right_threshold_value": 780.0
+          },
+          "depth_1": {
+            "left_child": {
+              "path_label": "A",
+              "node_recommended_count": null,
+              "node_not_recommended_count": null
+            },
+            "right_child": {
+              "parsed_feature": "Doymuş Yağ",
+              "node_recommended_count": null,
+              "node_not_recommended_count": null,
+              "left_operator": null,
+              "left_threshold_value": null,
+              "right_operator": null,
+              "right_threshold_value": null
+            }
+          },
+          "depth_2": {
+            "leaf_nodes": {
+              "right_left_leaf": {
+                "path_label": "B",
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": 6
+              },
+              "right_right_leaf": {
+                "path_label": "C",
+                "leaf_recommended_count": null,
+                "leaf_not_recommended_count": 5
+              }
+            }
+          }
+        },
+        "rule_matching": {
+          "rule_1_box": null,
+          "rule_2_box": null,
+          "rule_3_box": null
+        }
+      },
+      "validation": {
+        "item_checks": {
+          "tree_completeness": {
+            "is_correct": false,
+            "error_flag": "missing_protein_thresholds"
+          },
+          "rule_mapping": {
+            "is_correct": false,
+            "error_flag": "missing_rule_assignments"
+          },
+          "threshold_alignment": {
+            "is_correct": false,
+            "error_flag": "threshold_mismatch_with_instructions"
+          }
+        },
+        "system_analytical_summary": "Öğrenci kök düğümdeki eşik değerleri beklenen 180 kcal yerine '220' ve '780' gibi farklı sayılarla doldurmuş, bu da kurallardan ters mühendislik yapma görevini tam kavrayamadığını gösteriyor. Ayrıca sağ çocuk düğümde özellik olarak 'Protein' yerine 'Doymuş Yağ' yazılmış ve buna ait eşik değerler boş bırakılmış, bu da 7,7 g hedefine ulaşılamadığını gösteriyor. Kural eşleştirme kutucukları tamamen boş bırakılmış, dolayısıyla alt kısımdaki kuralların A/B/C yollarıyla ilişkilendirilmesi tamamlanmamış."
+      }
+    },
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "≤",
+        "left_threshold_value": 220.0,
+        "right_operator": ">",
+        "right_threshold_value": 780.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null
+        },
+        "right_child": {
+          "parsed_feature": "Doymuş Yağ",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": null,
+          "left_threshold_value": null,
+          "right_operator": null,
+          "right_threshold_value": null
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": 6
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": 5
+          }
+        }
+      }
+    },
+    "validation_from_model": {
+      "item_checks": {
+        "tree_completeness": {
+          "is_correct": false,
+          "error_flag": "missing_protein_thresholds"
+        },
+        "rule_mapping": {
+          "is_correct": false,
+          "error_flag": "missing_rule_assignments"
+        },
+        "threshold_alignment": {
+          "is_correct": false,
+          "error_flag": "threshold_mismatch_with_instructions"
+        }
+      },
+      "system_analytical_summary": "Öğrenci kök düğümdeki eşik değerleri beklenen 180 kcal yerine '220' ve '780' gibi farklı sayılarla doldurmuş, bu da kurallardan ters mühendislik yapma görevini tam kavrayamadığını gösteriyor. Ayrıca sağ çocuk düğümde özellik olarak 'Protein' yerine 'Doymuş Yağ' yazılmış ve buna ait eşik değerler boş bırakılmış, bu da 7,7 g hedefine ulaşılamadığını gösteriyor. Kural eşleştirme kutucukları tamamen boş bırakılmış, dolayısıyla alt kısımdaki kuralların A/B/C yollarıyla ilişkilendirilmesi tamamlanmamış."
+    }
   },
   "gate_2_validation": {
     "status": "fail",

@@ -5,26 +5,148 @@
   "student_name": "Bruno",
   "pdf_source": "31 Mart 2026 Çalışma Kâğıdı 7.pdf",
   "gate_1_extraction": {
-    "status": "fail",
-    "extracted_at": "2026-07-04T07:54:50.868254+00:00",
+    "status": "pass",
+    "extracted_at": "2026-08-11T12:00:27.220505+00:00",
     "ocr_model": "claude-sonnet-5",
     "items": {
-      "WS7_1": "(not_extracted)",
-      "WS7_2": "(not_extracted)",
-      "WS7_3": "(not_extracted)",
-      "WS7_4": "(not_extracted)",
-      "WS7_P1_box1": "(not_extracted)",
-      "WS7_P1_box2": "(not_extracted)",
-      "WS7_P1_box3": "(not_extracted)",
-      "WS7_B1": "(not_extracted)",
-      "WS7_B2": "(not_extracted)",
-      "WS7_B3": "(not_extracted)",
-      "WS7_B4": "(not_extracted)",
-      "WS7_B5": "(not_extracted)",
-      "WS7_B6": "(not_extracted)",
-      "WS7_B7": "(not_extracted)"
+      "WS7_1": "< 190.0",
+      "WS7_2": "> 190.0",
+      "WS7_3": "< 11.0",
+      "WS7_4": "> 11.0",
+      "WS7_5": "(bos)",
+      "WS7_6": "(bos)",
+      "WS7_7": "(bos)",
+      "WS7_P1_box1": "(bos)",
+      "WS7_P1_box2": "(bos)",
+      "WS7_P1_box3": "(bos)",
+      "WS7_B1": "(bos)",
+      "WS7_B2": "(bos)",
+      "WS7_B3": "(bos)",
+      "WS7_B4": "(bos)",
+      "WS7_B5": "(bos)",
+      "WS7_B6": "(bos)",
+      "WS7_B7": "(bos)"
     },
-    "raw_ocr": {}
+    "raw_ocr": {
+      "worksheet": "WS7",
+      "extraction": {
+        "tree_structure": {
+          "depth_0": {
+            "left_operator": "<",
+            "left_threshold_value": 190.0,
+            "right_operator": ">",
+            "right_threshold_value": 190.0
+          },
+          "depth_1": {
+            "left_child": {
+              "path_label": "A",
+              "node_recommended_count": 0,
+              "node_not_recommended_count": 4
+            },
+            "right_child": {
+              "parsed_feature": "Protein",
+              "node_recommended_count": 5,
+              "node_not_recommended_count": 2,
+              "left_operator": "<",
+              "left_threshold_value": 11.0,
+              "right_operator": ">",
+              "right_threshold_value": 11.0
+            }
+          },
+          "depth_2": {
+            "leaf_nodes": {
+              "right_left_leaf": {
+                "path_label": "B",
+                "leaf_recommended_count": 5,
+                "leaf_not_recommended_count": 0
+              },
+              "right_right_leaf": {
+                "path_label": "C",
+                "leaf_recommended_count": 0,
+                "leaf_not_recommended_count": 2
+              }
+            }
+          }
+        },
+        "rule_matching": {
+          "rule_1_box": null,
+          "rule_2_box": null,
+          "rule_3_box": null
+        }
+      },
+      "validation": {
+        "item_checks": {
+          "tree_completeness": {
+            "is_correct": false,
+            "error_flag": "missing_protein_thresholds"
+          },
+          "rule_mapping": {
+            "is_correct": false,
+            "error_flag": "missing_rule_assignments"
+          },
+          "threshold_alignment": {
+            "is_correct": false,
+            "error_flag": "threshold_mismatch_with_instructions"
+          }
+        },
+        "system_analytical_summary": "Öğrenci ağacın kök düğümünde 190 kcal eşik değeri kullanmış ve bu değer beklenen 180 kcal'e yakın olsa da tam olarak eşleşmiyor; protein düğümünde ise 11 g eşik değeri kullanmış ki bu beklenen 7,7 g'dan oldukça farklı. Bu durum, öğrencinin kural cümlelerini dikkatlice okuyup tam sayısal değerleri ağaca doğru şekilde aktaramadığını gösteriyor. Kural eşleştirme kutuları (A/B/C) tamamen boş bırakılmış, bu da görevin bu kısmının tamamlanmadığını işaret ediyor."
+      }
+    },
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "<",
+        "left_threshold_value": 190.0,
+        "right_operator": ">",
+        "right_threshold_value": 190.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "node_recommended_count": 0,
+          "node_not_recommended_count": 4
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": 5,
+          "node_not_recommended_count": 2,
+          "left_operator": "<",
+          "left_threshold_value": 11.0,
+          "right_operator": ">",
+          "right_threshold_value": 11.0
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": 5,
+            "leaf_not_recommended_count": 0
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": 0,
+            "leaf_not_recommended_count": 2
+          }
+        }
+      }
+    },
+    "validation_from_model": {
+      "item_checks": {
+        "tree_completeness": {
+          "is_correct": false,
+          "error_flag": "missing_protein_thresholds"
+        },
+        "rule_mapping": {
+          "is_correct": false,
+          "error_flag": "missing_rule_assignments"
+        },
+        "threshold_alignment": {
+          "is_correct": false,
+          "error_flag": "threshold_mismatch_with_instructions"
+        }
+      },
+      "system_analytical_summary": "Öğrenci ağacın kök düğümünde 190 kcal eşik değeri kullanmış ve bu değer beklenen 180 kcal'e yakın olsa da tam olarak eşleşmiyor; protein düğümünde ise 11 g eşik değeri kullanmış ki bu beklenen 7,7 g'dan oldukça farklı. Bu durum, öğrencinin kural cümlelerini dikkatlice okuyup tam sayısal değerleri ağaca doğru şekilde aktaramadığını gösteriyor. Kural eşleştirme kutuları (A/B/C) tamamen boş bırakılmış, bu da görevin bu kısmının tamamlanmadığını işaret ediyor."
+    }
   },
   "gate_2_validation": {
     "status": "fail",

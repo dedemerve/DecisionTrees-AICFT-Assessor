@@ -84,6 +84,7 @@ PAGES_PER_STUDENT: dict[str, int] = {
     "24 Mart 2026 Çalışma Kâğıdı 1.pdf": 1,
     "24 Mart 2026 Çalışma Kâğıdı 3.pdf": 1,
     "24 Mart 2026 Çalışma Kâğıdı 4.pdf": 1,
+    "24 Mart 2026 Çalışma Kâğıdı 5.pdf": 1,
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": 1,
     "31 Mart 2026 Çalışma Kâğıdı 7.pdf": 1,
     "31 Mart 2026 Çalışma Kâğıdı 10.pdf": 1,

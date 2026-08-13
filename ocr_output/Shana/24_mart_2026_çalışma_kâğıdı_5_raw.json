@@ -1,0 +1,52 @@
+{
+  "student_id": "Shana",
+  "worksheet": "WS5",
+  "page_notes": "[Deneme 1 left/right operatör belirsiz: < veya ≤ olabilir; sağ dalda X işareti ile üzeri çizilmiş 200kcal yazısı var]",
+  "extraction": {
+    "trials": [
+      {
+        "trial_id": 1,
+        "parsed_feature": "enerji",
+        "left_operator": "<",
+        "left_threshold": 200.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": ">",
+        "right_threshold": 200.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 5,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 2,
+        "parsed_feature": "karbonhidrat",
+        "left_operator": "<",
+        "left_threshold": 25.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 0,
+        "right_operator": ">",
+        "right_threshold": 25.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 5,
+        "student_error_count": 2,
+        "student_mcr": null
+      },
+      {
+        "trial_id": 3,
+        "parsed_feature": "protein",
+        "left_operator": "<",
+        "left_threshold": 3.0,
+        "left_leaf_recommended": 4,
+        "left_leaf_not_recommended": 1,
+        "right_operator": ">",
+        "right_threshold": 3.0,
+        "right_leaf_recommended": 2,
+        "right_leaf_not_recommended": 4,
+        "student_error_count": 3,
+        "student_mcr": null
+      }
+    ],
+    "final_decision_raw": "karbonhidrat değişkeni için hangi eşik değerini seçiyorsunuz? Not alın:"
+  }
+}

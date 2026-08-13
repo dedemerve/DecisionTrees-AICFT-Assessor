@@ -1,0 +1,68 @@
+{
+  "student_id": "Isabel",
+  "worksheet": "WS7",
+  "ws_snapshot": "Sayfada Enerji özelliği üzerinden bölünen kök düğüm ve altında Protein özelliği üzerinden bölünen bir iç düğüm bulunan iki seviyeli bir karar ağacı görülmektedir. Öğrenci eşik değer kutularına el yazısıyla sayılar eklemiş ve yaprak düğümlerdeki tavsiye edilir/edilemez kutucuklarından birini işaretlemiştir. Sayfanın altında üç kural cümlesi yer almakta, ancak bunların yanındaki A/B/C atama kutuları boş bırakılmıştır.",
+  "page_notes": "Kök düğümdeki eşik değerleri üzerinde birden fazla rakam üst üste yazılmış ve karalanmış durumda (180 üzerine 130 gibi karışık yazılmış), bu nedenle tam olarak okunamamaktadır; en olası okuma 180 olarak alınmıştır ancak kesinlik düşüktür. Protein düğümündeki eşik değerleri de karalama/üst üste yazma nedeniyle net okunamamaktadır (sol tarafta '7,7' benzeri karalanmış bir değer, sağ tarafta da benzer şekilde belirsiz bir değer var). Yaprak düğümlerdeki sayısal tavsiye/tavsiye edilmeyen sayıları da okunaklı değildir, sadece B kutusunda bir işaretleme (daire içine alma) görülmektedir. Kural eşleştirme kutuları (A/B/C) tamamen boş bırakılmıştır.",
+  "extraction": {
+    "tree_structure": {
+      "depth_0": {
+        "left_operator": "≤",
+        "left_threshold_value": 180.0,
+        "right_operator": ">",
+        "right_threshold_value": 180.0
+      },
+      "depth_1": {
+        "left_child": {
+          "path_label": "A",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null
+        },
+        "right_child": {
+          "parsed_feature": "Protein",
+          "node_recommended_count": null,
+          "node_not_recommended_count": null,
+          "left_operator": "≤",
+          "left_threshold_value": null,
+          "right_operator": ">",
+          "right_threshold_value": null
+        }
+      },
+      "depth_2": {
+        "leaf_nodes": {
+          "right_left_leaf": {
+            "path_label": "B",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          },
+          "right_right_leaf": {
+            "path_label": "C",
+            "leaf_recommended_count": null,
+            "leaf_not_recommended_count": null
+          }
+        }
+      }
+    },
+    "rule_matching": {
+      "rule_1_box": null,
+      "rule_2_box": null,
+      "rule_3_box": null
+    }
+  },
+  "validation": {
+    "item_checks": {
+      "tree_completeness": {
+        "is_correct": false,
+        "error_flag": "missing_protein_thresholds"
+      },
+      "rule_mapping": {
+        "is_correct": false,
+        "error_flag": "missing_rule_assignments"
+      },
+      "threshold_alignment": {
+        "is_correct": false,
+        "error_flag": "threshold_mismatch_with_instructions"
+      }
+    },
+    "system_analytical_summary": "Isabel, kök düğümdeki eşik değerini yaklaşık 180 kcal olarak yazmış gibi görünse de üst üste yazma ve karalamalar nedeniyle net değildir, bu da hedeflenen 180 kcal değeriyle kısmen örtüşmektedir. Protein düğümündeki eşik değerleri (hedeflenen 7,7 g) okunamayacak kadar karışık yazılmış olup, yaprak düğümlerdeki sayısal veriler de eksik veya belirsizdir. Kural eşleştirme bölümü tamamen boş bırakılmış olup, öğrencinin görevin bu kısmını tamamlamadığı görülmektedir."
+  }
+}

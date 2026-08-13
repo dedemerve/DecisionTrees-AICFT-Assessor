@@ -14,7 +14,22 @@ from ws_extraction_normalize import normalize_scoring_responses, normalization_d
 
 
 def _tree_structure_to_ws6_responses(tree_structure: dict) -> dict[str, str]:
-    """Map PROMPT_WS6 tree_structure to flat WS6_B* responses for validate_ws6_extraction."""
+    """Map PROMPT_WS6 tree_structure to flat WS6_B* responses for validate_ws6_extraction.
+
+    Layout:
+        B1  = root feature name
+        B2  = root threshold string  (e.g. "≤ 13")
+        B3  = root left-branch operator label  (e.g. "≤")   ← YES branch
+        B4  = root right-branch operator label (e.g. ">")   ← NO  branch
+        B6  = inner-node feature name
+        B7  = inner-node threshold string
+        B8  = inner left-branch operator label
+        B9  = inner right-branch operator label
+        B10 = leaf label: root-YES & inner-YES  (left_left)
+        B11 = leaf label: root-YES & inner-NO   (left_right)
+        B13 = leaf label: root-NO branch        (right side — direct leaf, or
+                                                  right_left / right_right when rc has its own inner)
+    """
     d0 = tree_structure.get("depth_0", {})
     d1 = tree_structure.get("depth_1", {})
     lc = d1.get("left_child", {})
@@ -27,24 +42,36 @@ def _tree_structure_to_ws6_responses(tree_structure: dict) -> dict[str, str]:
             return ""
         return f"{op} {val}"
 
+    def _leaf_label(node: dict) -> str:
+        return str(node.get("leaf_label") or "")
+
     # Prefer left_child (evet branch) as the inner node; fall back to right_child.
     inner = lc if lc.get("parsed_feature") else rc
     inner_op = inner.get("left_operator")
     inner_val = inner.get("left_threshold_value")
 
-    # Leaf labels: left_left = evet-evet, left_right = evet-hayır.
-    ll_label = str((leaves.get("left_left_leaf") or {}).get("leaf_label") or "")
-    lr_label = str((leaves.get("left_right_leaf") or {}).get("leaf_label") or "")
+    # B13: right-branch leaf.
+    # rc may be a direct leaf (is_leaf / leaf_label present) or an inner node
+    # whose leaves are right_left_leaf / right_right_leaf.
+    if rc.get("is_leaf") or rc.get("leaf_label"):
+        b13 = _leaf_label(rc)
+    else:
+        rl = leaves.get("right_left_leaf") or {}
+        rr = leaves.get("right_right_leaf") or {}
+        b13 = _leaf_label(rl) or _leaf_label(rr)
 
     return {
-        "WS6_B1": str(d0.get("parsed_feature") or ""),
-        "WS6_B2": _fmt(d0.get("left_operator"), d0.get("left_threshold_value")),
-        "WS6_B3": ll_label,
-        "WS6_B4": lr_label,
-        "WS6_B6": str(inner.get("parsed_feature") or ""),
-        "WS6_B7": _fmt(inner_op, inner_val),
-        "WS6_B8": ll_label,
-        "WS6_B9": lr_label,
+        "WS6_B1":  str(d0.get("parsed_feature") or ""),
+        "WS6_B2":  _fmt(d0.get("left_operator"), d0.get("left_threshold_value")),
+        "WS6_B3":  str(d0.get("left_operator") or ""),   # branch label ≤ (YES)
+        "WS6_B4":  str(d0.get("right_operator") or ""),  # branch label >  (NO)
+        "WS6_B6":  str(inner.get("parsed_feature") or ""),
+        "WS6_B7":  _fmt(inner_op, inner_val),
+        "WS6_B8":  str(inner.get("left_operator") or ""),
+        "WS6_B9":  str(inner.get("right_operator") or ""),
+        "WS6_B10": _leaf_label(leaves.get("left_left_leaf") or {}),
+        "WS6_B11": _leaf_label(leaves.get("left_right_leaf") or {}),
+        "WS6_B13": b13,
     }
 
 
