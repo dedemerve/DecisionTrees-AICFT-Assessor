@@ -6,9 +6,9 @@ set -euo pipefail
 
 REPO="/Users/mrved/Desktop/DecisionTrees-AICFT-Assessor"
 ANALYZER="$REPO/scripts/codap_frame_analyzer.py"
+export ANTHROPIC_API_KEY="${ANTHROPIC_API_KEY:?ANTHROPIC_API_KEY is not set}"
 LOG="$REPO/scripts/run_all_frame_analyses.log"
 
-export ANTHROPIC_API_KEY="$API_KEY"
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG"; }
 
