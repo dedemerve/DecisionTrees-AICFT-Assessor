@@ -15,15 +15,15 @@ python validate_pipeline_outputs.py # Sample_Student pipeline artifacts
 
 | Schema | Instance file | Worksheets |
 |--------|---------------|------------|
-| `extraction_schema` | `extraction_schema.json` | WS1, WS3–WS7, WS10, WS11, **WS_DT** |
+| `extraction_schema` | `extraction_schema.json` | WS1, WS3–WS7, WS10, WS11, **WS12** |
 | `rubric` | `rubric.json` | same (+ legacy copy in `rubrics/`) |
 | `behaviour_opportunities` | `behaviour_opportunities.json` | same |
 | `validity_notes` | `validity_notes.json` | same |
 | `answer_key` | `answer_key.json` | same |
 
-Worksheet IDs use `common.schema.json#/$defs/worksheet_id` → `^(WS\d+|WS_DT)$`.
+Worksheet IDs use `common.schema.json#/$defs/worksheet_id` → `^(WS\d+|WS12)$`.
 
-**WS_DT** is CODAP/plugged; behaviour opportunities may list extraction fields only (OB map lives in `mappings/WS_DT_AICFT_mapping.json`).
+**WS12** is CODAP/plugged; behaviour opportunities may list extraction fields only (OB map lives in `mappings/WS_DT_AICFT_mapping.json`).
 
 ## Student pipeline (`students/<id>/<WS>/`)
 

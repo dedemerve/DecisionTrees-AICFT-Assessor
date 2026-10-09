@@ -1,4 +1,4 @@
-"""Validation + ocr_output export for WS_DT_XENO."""
+"""Validation + ocr_output export for WS13."""
 
 from __future__ import annotations
 
@@ -129,7 +129,7 @@ def build_ocr_output_document(
     extraction = {iid: items.get(iid, "(not_extracted)") for iid in XENO_ITEM_IDS}
     return {
         "student_id": student_id,
-        "worksheet": "WS_DT_XENO",
+        "worksheet": "WS13",
         "ws_snapshot": ws_snapshot or validation["system_analytical_summary"],
         "page_notes": page_notes,
         "extraction": extraction,

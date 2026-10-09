@@ -34,7 +34,7 @@ class TestObservableBehaviours(unittest.TestCase):
 
     def test_no_worksheet_references(self) -> None:
         blob = ONTOLOGY_PATH.read_text(encoding="utf-8")
-        for token in ("WS1", "WS4", "WS11", "WS_DT", "DT_A_Q"):
+        for token in ("WS1", "WS4", "WS11", "WS12", "DT_A_Q"):
             self.assertNotIn(token, blob, f"worksheet reference {token!r} found")
 
     def test_no_aicft_references(self) -> None:

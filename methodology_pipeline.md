@@ -40,7 +40,7 @@ Participants completed 8–11 paper worksheets across the instructional sequence
 
 Two processing groups were defined based on the nature of the correct response:
 
-**Group A (LLM-scored):** Worksheets where the correct response is interpretive or equivalence-based (WS1, WS3, WS4, WS10, WS11, WS_DT series). Responses were extracted by OCR and evaluated by a prompted LLM against rubric criteria. Deterministic Python scoring was applied for specific fields where the answer space is finite and exact (see §3.2.4).
+**Group A (LLM-scored):** Worksheets where the correct response is interpretive or equivalence-based (WS1, WS3, WS4, WS10, WS11, WS12 series). Responses were extracted by OCR and evaluated by a prompted LLM against rubric criteria. Deterministic Python scoring was applied for specific fields where the answer space is finite and exact (see §3.2.4).
 
 **Group B (deterministic-scored):** Worksheets where the correct response is fully computable from a reference dataset (WS5, WS6, WS7). LLMs extracted the text; Python rules scored it.
 

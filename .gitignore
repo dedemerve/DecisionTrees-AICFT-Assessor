@@ -48,3 +48,15 @@ logs/
 pending_manual_review/
 .venv-hybrid/
 ocr_output/.*
+
+# Training datasets (large; kept local)
+training_datasets/
+
+# Tool caches
+.pytest_cache/
+.claude/
+
+# Audio / image frames from video processing (too large; local only)
+*.wav
+*.m4a
+*_frames*/

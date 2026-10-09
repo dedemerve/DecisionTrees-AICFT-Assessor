@@ -60,7 +60,7 @@ class EvidenceExcerpt(BaseModel):
     timestamp: str | None = None
     worksheet: str | None = Field(
         default=None,
-        description="Worksheet id when source is worksheet (e.g. WS1, WS_DT)",
+        description="Worksheet id when source is worksheet (e.g. WS1, WS12)",
     )
     item_id: str | None = Field(default=None, description="Rubric item id when applicable")
 

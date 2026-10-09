@@ -31,7 +31,7 @@ BLANK_SENTINELS = frozenset({
 
 
 def _evidence_source_for_worksheet(ws: str) -> str:
-    return "codap_log" if ws == "WS_DT" else "worksheet"
+    return "codap_log" if ws == "WS12" else "worksheet"
 
 
 def _extraction_responses(extraction: dict[str, Any]) -> dict[str, str]:
@@ -126,7 +126,7 @@ def detect_data_gaps(
         if rec.get("review") and rec["item"] not in gaps_by_ws[rec["worksheet"]]["items"]:
             gaps_by_ws[rec["worksheet"]]["items"].append(rec["item"])
 
-    priority_map = {"WS_DT": 1, "WS5": 2, "WS6": 2, "WS7": 2, "WS11": 3, "WS3": 4}
+    priority_map = {"WS12": 1, "WS5": 2, "WS6": 2, "WS7": 2, "WS11": 3, "WS3": 4}
     out: list[dict[str, Any]] = []
     for ws in sorted(gaps_by_ws, key=lambda w: (priority_map.get(w, 9), w)):
         entry = gaps_by_ws[ws]

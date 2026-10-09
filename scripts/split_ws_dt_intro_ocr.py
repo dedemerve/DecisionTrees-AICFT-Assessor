@@ -19,20 +19,20 @@ from extract_ws_dt_intro import (  # noqa: E402
 
 
 def materialize_student_records(student_id: str) -> None:
-    """Create students/{id}/WS_DT_XENO|TITANIC/extraction.json from split sources."""
+    """Create students/{id}/WS13|TITANIC/extraction.json from split sources."""
     xeno_items, titanic_items, xeno_snap, titanic_snap, xeno_notes, titanic_notes = (
         load_split_items(student_id)
     )
     xeno_record = build_extraction_record(
-        student_id, "WS_DT_XENO", XENO_PDF, xeno_items,
+        student_id, "WS13", XENO_PDF, xeno_items,
         ws_snapshot=xeno_snap, page_notes=xeno_notes,
     )
     titanic_record = build_extraction_record(
-        student_id, "WS_DT_TITANIC", TITANIC_PDF, titanic_items,
+        student_id, "WS14", TITANIC_PDF, titanic_items,
         ws_snapshot=titanic_snap, page_notes=titanic_notes,
     )
-    save_record(student_id, "WS_DT_XENO", xeno_record)
-    save_record(student_id, "WS_DT_TITANIC", titanic_record)
+    save_record(student_id, "WS13", xeno_record)
+    save_record(student_id, "WS14", titanic_record)
 
 
 def main() -> int:
@@ -45,7 +45,7 @@ def main() -> int:
     for student in students:
         if materialize:
             materialize_student_records(student)
-            print(f"{student}: wrote students/*/WS_DT_XENO|TITANIC/extraction.json")
+            print(f"{student}: wrote students/*/WS13|TITANIC/extraction.json")
         else:
             xeno_path, titanic_path = export_split_ocr_output(student)
             print(f"{student}: {xeno_path.relative_to(REPO_ROOT)}")

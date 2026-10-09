@@ -39,7 +39,7 @@ class TestSchemaJsonValidate(unittest.TestCase):
 
     def test_ws_dt_worksheet_id_accepted(self) -> None:
         sample = json.loads(
-            (REPO / "worksheets" / "WS_DT" / "validity_notes.json").read_text(encoding="utf-8")
+            (REPO / "worksheets" / "WS12" / "validity_notes.json").read_text(encoding="utf-8")
         )
         self.assertEqual(
             validate_against_schema(sample, "validity_notes.schema.json"),

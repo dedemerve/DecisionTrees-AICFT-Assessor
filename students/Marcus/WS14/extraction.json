@@ -1,0 +1,91 @@
+{
+  "stage": "extraction",
+  "student_id": "Marcus",
+  "worksheet": "WS14",
+  "student_name": "Marcus",
+  "pdf_source": "07 Nisan 2026 Çalışma Kâğıdı Titanic.pdf",
+  "rubric_ref": "rubrics/WS14_rubric.json",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-07-08T06:19:16.288152+00:00",
+    "ocr_model": "claude-opus-4-8",
+    "items": {
+      "DTI_01": "812 var 290 hayatta",
+      "DTI_02": "290 kişi var 290 hayatta",
+      "DTI_03": "522 kişi var",
+      "DTI_04": "female kutusu",
+      "DTI_05": "290 + 522 / 812",
+      "DTI_06": "522 / 522+0",
+      "DTI_07": "290 / 290+0",
+      "DTI_08": "522 / 522+0",
+      "DTI_09": "0 + 0 / 812",
+      "DTI_10": "812 var 290",
+      "DTI_11": "290 var 290",
+      "DTI_12": "522",
+      "DTI_13": "female",
+      "DTI_14": "290 + 522 / 812",
+      "DTI_15": "522 / 522+0",
+      "DTI_16": "290 / 290+0",
+      "DTI_17": "522 / 522+0",
+      "DTI_18": "0 + 0 / 812",
+      "DTI_19": "Yok",
+      "DTI_20": "Sorunlu model olduğu görünüyor",
+      "DTI_21": "hata payını düşürmek için",
+      "DTI_22": "benim yaptığımda bir sorun göremedim",
+      "DTI_23": "834 yolcu var 456 hayatta",
+      "DTI_24": "304 kişi var 128 hayatta",
+      "DTI_25": "530 kişi var 328 hayatta",
+      "DTI_26": "female",
+      "DTI_27": "128 + 202 / 834",
+      "DTI_28": "128 / 128+0",
+      "DTI_29": "202 / 202+0",
+      "DTI_30": "128 / 128+0",
+      "DTI_31": "0 + 0 / 834",
+      "DTI_32": "209 ve 124'ü hayatta",
+      "DTI_33": "82 ve 21 hayatta",
+      "DTI_34": "127 ve 103 hayatta",
+      "DTI_35": "female",
+      "DTI_36": "21 + 24 / 209",
+      "DTI_37": "21 / 21+0",
+      "DTI_38": "24 / 24+0",
+      "DTI_39": "21 / 21+0",
+      "DTI_40": "0 + 0 / 209",
+      "DTI_41": "(bos)",
+      "DTI_42": "(bos)",
+      "DTI_43": "(bos)",
+      "DTI_44": "(bos)",
+      "DTI_45": "(bos)",
+      "DTI_46": "(bos)",
+      "DTI_47": "(bos)"
+    },
+    "raw_ocr": {}
+  },
+  "gate_2_validation": {
+    "status": "pass",
+    "item_coverage": {
+      "answered": 40,
+      "total": 47,
+      "blank_or_illegible": 7,
+      "missing": 0,
+      "completion_rate": 0.851
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 0.851,
+      "engagement_level": "high",
+      "llm_observations": "Öğretmen adayı VS1 için tüm metrikleri doğru okumuş ancak eğitim-test farkı sorusuna 'Yok' cevabı vererek overfitting örüntüsünü fark edememiştir. VS2'de değerleri okumakta zorlanmış, hesaplama sütunlarında TP/TN değerlerini karıştırmıştır. Underfitting durumunu açıkça tanımlayamamış; DTI_43/44 trap sorularını ve sayfa 7-8'deki yorumlama sorularını boş bırakmıştır.",
+      "page_notes": "Sayfa 7 ve 8'deki tüm yorumlama soruları boş görünüyor. El yazısı yer yer okunması güç ancak tablo cevapları büyük ölçüde okunabilir."
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}

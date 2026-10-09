@@ -1,0 +1,14 @@
+{
+  "worksheet": "WS14",
+  "curriculum_status": "deployed",
+  "construct_threats": [
+    "Titanic numeric fields share fixed CSVs — canonical values exist; tolerate hand-reading / rounding (±0.02).",
+    "VS2 test interpretation items DTI_43–DTI_44 copy VS1 wording with contradictory premises (trap questions)."
+  ],
+  "leakage_risks": [],
+  "evidence_limitations": [
+    "VS2 test set may show survived/died column swap in class scans; operator correction policy applies.",
+    "Interpretive sections require semantic scoring, not example matching."
+  ],
+  "cross_worksheet_dependencies": []
+}

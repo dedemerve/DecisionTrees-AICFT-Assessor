@@ -1,4 +1,4 @@
-"""Validation + ocr_output export for WS_DT_TITANIC."""
+"""Validation + ocr_output export for WS14."""
 
 from __future__ import annotations
 
@@ -99,7 +99,7 @@ def _parse_float_expr(expr: str) -> float | None:
 
 
 def _normalize_canonical_block(raw: dict[str, Any]) -> dict[str, Any]:
-    """Flatten WS_DT_TITANIC nested canonical into flat keys used by validators."""
+    """Flatten WS14 nested canonical into flat keys used by validators."""
     if "root_total" in raw:
         return dict(raw)
     out: dict[str, Any] = {
@@ -131,7 +131,7 @@ def _normalize_canonical_block(raw: dict[str, Any]) -> dict[str, Any]:
 
 
 def _load_canonical() -> dict[str, Any]:
-    raw = load_rubric("WS_DT_TITANIC")["titanic_canonical"]
+    raw = load_rubric("WS14")["titanic_canonical"]
     return {k: _normalize_canonical_block(v) for k, v in raw.items() if k != "note"}
 
 
@@ -308,7 +308,7 @@ def build_ocr_output_document(
     validation = build_validation(items, ws_snapshot=ws_snapshot)
     return {
         "student_id": student_id,
-        "worksheet": "WS_DT_TITANIC",
+        "worksheet": "WS14",
         "ws_snapshot": ws_snapshot or validation["system_analytical_summary"],
         "page_notes": page_notes,
         "extraction": sectioned_extraction(corrected),

@@ -45,7 +45,7 @@ class TestLearningObjects(unittest.TestCase):
                 ilo.get("description", ""),
                 ilo.get("instructional_purpose", ""),
             ])
-            for token in ("WS1", "WS_DT", "LO3.1", "LO3.2", "AI-CFT"):
+            for token in ("WS1", "WS12", "LO3.1", "LO3.2", "AI-CFT"):
                 self.assertNotIn(token, blob, f"{iid}: forbidden reference {token!r}")
 
     def test_no_orphan_ilos(self) -> None:

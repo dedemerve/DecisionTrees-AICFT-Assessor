@@ -68,7 +68,7 @@ WORKSHEET_META: dict[str, dict[str, Any]] = {
         "validate_script": "scripts/validate_ws11.py",
         "score_script": "scripts/score_ws11.py",
     },
-    "WS_DT": {"pipeline_group": "DT", "reference": None, "validation_module": None},
+    "WS12": {"pipeline_group": "DT", "reference": None, "validation_module": None},
 }
 
 # WS6 OCR field → composite scoring item
@@ -294,8 +294,8 @@ def field_registry_entry(worksheet: str, field_id: str, rubric: dict[str, Any] |
         })
         return entry
 
-    if worksheet == "WS_DT":
-        scored_set = set(scoring_item_ids("WS_DT"))
+    if worksheet == "WS12":
+        scored_set = set(scoring_item_ids("WS12"))
         item_id = field_id if field_id in scored_set else None
         item = (rubric or {}).get("items", {}).get(item_id or "", {})
         entry.update({
@@ -311,7 +311,7 @@ def field_registry_entry(worksheet: str, field_id: str, rubric: dict[str, Any] |
 
 def worksheet_field_ids(worksheet: str) -> list[str]:
     mapping = {
-        "WS_DT": ITEM_IDS_DT,
+        "WS12": ITEM_IDS_DT,
         "WS1": ITEM_IDS_WS1,
         "WS3": ITEM_IDS_WS3,
         "WS4": ITEM_IDS_WS4,

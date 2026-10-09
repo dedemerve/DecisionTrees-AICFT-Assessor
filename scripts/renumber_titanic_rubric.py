@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Renumber WS_DT_TITANIC rubric items DTI_34–80 → DTI_01–47 (single pass)."""
+"""Renumber WS14 rubric items DTI_34–80 → DTI_01–47 (single pass)."""
 
 from __future__ import annotations
 
@@ -9,8 +9,8 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SOURCE = REPO_ROOT / "worksheets" / "WS_DT_TITANIC" / "rubric.json"
-TARGET = REPO_ROOT / "rubrics" / "WS_DT_TITANIC_rubric.json"
+SOURCE = REPO_ROOT / "worksheets" / "WS14" / "rubric.json"
+TARGET = REPO_ROOT / "rubrics" / "WS14_rubric.json"
 
 OLD_MIN, OLD_MAX = 34, 80
 

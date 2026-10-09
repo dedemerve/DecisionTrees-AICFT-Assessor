@@ -63,7 +63,7 @@ def evaluation_bucket(
         return "discrete"
     if "reflect" in ev or ev in {"reflection_model", "reflection_student"}:
         return "reflection"
-    ws = worksheet or ("WS_DT" if item_id and item_id.startswith("DT_") else None)
+    ws = worksheet or ("WS12" if item_id and item_id.startswith("DT_") else None)
     if ws:
         try:
             rubric = load_rubric(ws)

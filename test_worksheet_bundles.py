@@ -51,7 +51,7 @@ def test_validate_all_bundles_passes() -> None:
 def test_ws_dt_bundle_validates() -> None:
     from schema_json_validate import validate_worksheet_bundle
 
-    assert validate_worksheet_bundle("WS_DT") == []
+    assert validate_worksheet_bundle("WS12") == []
 
 
 def test_deployed_rubrics_load_from_bundle() -> None:

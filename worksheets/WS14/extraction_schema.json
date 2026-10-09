@@ -1,0 +1,340 @@
+{
+  "worksheet": "WS14",
+  "curriculum_status": "deployed",
+  "pipeline_stage": "extraction_only",
+  "interpretation_prohibited": true,
+  "ocr_engine": "claude_vision",
+  "source_type": "worksheet",
+  "note": "CODAP Arbor Titanic worksheet — transcribe verbatim. 47 blanks; DTI_01 … DTI_47.",
+  "fields": [
+    {
+      "field_id": "DTI_01",
+      "rubric_item_id": "DTI_01",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Eğitim / Kök düğüm"
+    },
+    {
+      "field_id": "DTI_02",
+      "rubric_item_id": "DTI_02",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Eğitim / Female kutu"
+    },
+    {
+      "field_id": "DTI_03",
+      "rubric_item_id": "DTI_03",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Eğitim / Male kutu"
+    },
+    {
+      "field_id": "DTI_04",
+      "rubric_item_id": "DTI_04",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Eğitim / Etiket"
+    },
+    {
+      "field_id": "DTI_05",
+      "rubric_item_id": "DTI_05",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Eğitim / Doğruluk"
+    },
+    {
+      "field_id": "DTI_06",
+      "rubric_item_id": "DTI_06",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Eğitim / Duyarlılık"
+    },
+    {
+      "field_id": "DTI_07",
+      "rubric_item_id": "DTI_07",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Eğitim / Özgüllük"
+    },
+    {
+      "field_id": "DTI_08",
+      "rubric_item_id": "DTI_08",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Eğitim / Kesinlik"
+    },
+    {
+      "field_id": "DTI_09",
+      "rubric_item_id": "DTI_09",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Eğitim / MCR"
+    },
+    {
+      "field_id": "DTI_10",
+      "rubric_item_id": "DTI_10",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Test / Kök düğüm"
+    },
+    {
+      "field_id": "DTI_11",
+      "rubric_item_id": "DTI_11",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Test / Female kutu"
+    },
+    {
+      "field_id": "DTI_12",
+      "rubric_item_id": "DTI_12",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Test / Male kutu"
+    },
+    {
+      "field_id": "DTI_13",
+      "rubric_item_id": "DTI_13",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Test / Etiket"
+    },
+    {
+      "field_id": "DTI_14",
+      "rubric_item_id": "DTI_14",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Test / Doğruluk"
+    },
+    {
+      "field_id": "DTI_15",
+      "rubric_item_id": "DTI_15",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Test / Duyarlılık"
+    },
+    {
+      "field_id": "DTI_16",
+      "rubric_item_id": "DTI_16",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Test / Özgüllük"
+    },
+    {
+      "field_id": "DTI_17",
+      "rubric_item_id": "DTI_17",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Test / Kesinlik"
+    },
+    {
+      "field_id": "DTI_18",
+      "rubric_item_id": "DTI_18",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Test / MCR"
+    },
+    {
+      "field_id": "DTI_19",
+      "rubric_item_id": "DTI_19",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Karşılaştırma / Eğitim-test farkı"
+    },
+    {
+      "field_id": "DTI_20",
+      "rubric_item_id": "DTI_20",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Karşılaştırma / Overfitting açıklaması"
+    },
+    {
+      "field_id": "DTI_21",
+      "rubric_item_id": "DTI_21",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Karşılaştırma / Overfitting etkisi"
+    },
+    {
+      "field_id": "DTI_22",
+      "rubric_item_id": "DTI_22",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS1 Karşılaştırma / Genel yorum"
+    },
+    {
+      "field_id": "DTI_23",
+      "rubric_item_id": "DTI_23",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Eğitim / Kök düğüm"
+    },
+    {
+      "field_id": "DTI_24",
+      "rubric_item_id": "DTI_24",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Eğitim / Female kutu"
+    },
+    {
+      "field_id": "DTI_25",
+      "rubric_item_id": "DTI_25",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Eğitim / Male kutu"
+    },
+    {
+      "field_id": "DTI_26",
+      "rubric_item_id": "DTI_26",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Eğitim / Etiket"
+    },
+    {
+      "field_id": "DTI_27",
+      "rubric_item_id": "DTI_27",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Eğitim / Doğruluk"
+    },
+    {
+      "field_id": "DTI_28",
+      "rubric_item_id": "DTI_28",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Eğitim / Duyarlılık"
+    },
+    {
+      "field_id": "DTI_29",
+      "rubric_item_id": "DTI_29",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Eğitim / Özgüllük"
+    },
+    {
+      "field_id": "DTI_30",
+      "rubric_item_id": "DTI_30",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Eğitim / Kesinlik"
+    },
+    {
+      "field_id": "DTI_31",
+      "rubric_item_id": "DTI_31",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Eğitim / MCR"
+    },
+    {
+      "field_id": "DTI_32",
+      "rubric_item_id": "DTI_32",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Test / Kök düğüm"
+    },
+    {
+      "field_id": "DTI_33",
+      "rubric_item_id": "DTI_33",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Test / Female kutu"
+    },
+    {
+      "field_id": "DTI_34",
+      "rubric_item_id": "DTI_34",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Test / Male kutu"
+    },
+    {
+      "field_id": "DTI_35",
+      "rubric_item_id": "DTI_35",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Test / Etiket"
+    },
+    {
+      "field_id": "DTI_36",
+      "rubric_item_id": "DTI_36",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Test / Doğruluk"
+    },
+    {
+      "field_id": "DTI_37",
+      "rubric_item_id": "DTI_37",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Test / Duyarlılık"
+    },
+    {
+      "field_id": "DTI_38",
+      "rubric_item_id": "DTI_38",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Test / Özgüllük"
+    },
+    {
+      "field_id": "DTI_39",
+      "rubric_item_id": "DTI_39",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Test / Kesinlik"
+    },
+    {
+      "field_id": "DTI_40",
+      "rubric_item_id": "DTI_40",
+      "type": "emit_record",
+      "required": true,
+      "location_hint": "WS14 VS2 Test / MCR"
+    },
+    {
+      "field_id": "DTI_41",
+      "rubric_item_id": "DTI_41",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS14 VS2 Karşılaştırma / Eğitim-test farkı"
+    },
+    {
+      "field_id": "DTI_42",
+      "rubric_item_id": "DTI_42",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS14 VS2 Karşılaştırma / Underfitting açıklaması"
+    },
+    {
+      "field_id": "DTI_43",
+      "rubric_item_id": "DTI_43",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS14 VS2 Tuzak Soru / VS1 karşılaştırma tuzağı"
+    },
+    {
+      "field_id": "DTI_44",
+      "rubric_item_id": "DTI_44",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS14 VS2 Tuzak Soru / MCR karşılaştırma tuzağı"
+    },
+    {
+      "field_id": "DTI_45",
+      "rubric_item_id": "DTI_45",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS14 Genel / İyi model ölçütü"
+    },
+    {
+      "field_id": "DTI_46",
+      "rubric_item_id": "DTI_46",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS14 Genel / Test seti gerekliliği"
+    },
+    {
+      "field_id": "DTI_47",
+      "rubric_item_id": "DTI_47",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS14 Genel / Tek metrik yeterliliği"
+    }
+  ]
+}

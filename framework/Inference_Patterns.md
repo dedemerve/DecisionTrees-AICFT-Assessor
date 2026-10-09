@@ -265,7 +265,7 @@ governing_rules: [R14, R16, C1]
 example:
   sources:
     - WS6 tree_structure (worksheet)
-    - DT_D_Q2 two-level tree (WS_DT)
+    - DT_D_Q2 two-level tree (WS12)
   dimension: Procedural + Strategic
   effect: supports Tree Construction domain dimension
 ```

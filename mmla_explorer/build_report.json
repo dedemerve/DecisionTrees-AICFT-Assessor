@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-10-09T20:56:42",
+  "missing": [
+    {
+      "what": "OCR file WS1 for Amy",
+      "path": "ocr_output/Amy/Amy_Worksheet1.json"
+    },
+    {
+      "what": "OCR file WS3 for Amy",
+      "path": "ocr_output/Amy/Amy_Worksheet3.json"
+    },
+    {
+      "what": "OCR file WS4 for Amy",
+      "path": "ocr_output/Amy/Amy_Worksheet4.json"
+    },
+    {
+      "what": "OCR file WS5 for Amy",
+      "path": "ocr_output/Amy/Amy_Worksheet5.json"
+    },
+    {
+      "what": "OCR file WS1 for Marco",
+      "path": "ocr_output/Marco/Marco_Worksheet1.json"
+    },
+    {
+      "what": "OCR file WS3 for Marco",
+      "path": "ocr_output/Marco/Marco_Worksheet3.json"
+    },
+    {
+      "what": "OCR file WS4 for Marco",
+      "path": "ocr_output/Marco/Marco_Worksheet4.json"
+    },
+    {
+      "what": "OCR file WS5 for Marco",
+      "path": "ocr_output/Marco/Marco_Worksheet5.json"
+    },
+    {
+      "what": "OCR file WS6 for Melinda",
+      "path": "ocr_output/Melinda/Melinda_Worksheet6.json"
+    },
+    {
+      "what": "OCR file WS7 for Melinda",
+      "path": "ocr_output/Melinda/Melinda_Worksheet7.json"
+    },
+    {
+      "what": "OCR file WS10 for Melinda",
+      "path": "ocr_output/Melinda/Melinda_Worksheet10.json"
+    },
+    {
+      "what": "OCR file WS6 for Serena",
+      "path": "ocr_output/Serena/Serena_Worksheet6.json"
+    },
+    {
+      "what": "OCR file WS7 for Serena",
+      "path": "ocr_output/Serena/Serena_Worksheet7.json"
+    },
+    {
+      "what": "OCR file WS10 for Serena",
+      "path": "ocr_output/Serena/Serena_Worksheet10.json"
+    },
+    {
+      "what": "Final project notebook for Marco",
+      "path": null
+    }
+  ],
+  "notes": [
+    "Bruno codap_21apr: video listed in MANIFEST.json but not on disk",
+    "Irma codap_21apr: video file is byte-identical to ['codap_28apr']",
+    "Marcus codap_21apr: video listed in MANIFEST.json but not on disk",
+    "Nadia codap_21apr: video listed in MANIFEST.json but not on disk",
+    "Shana codap_21apr: video listed in MANIFEST.json but not on disk",
+    "Zara codap_21apr: video listed in MANIFEST.json but not on disk",
+    "Zara codap_21apr: video file is byte-identical to ['codap_28apr']",
+    "Irma codap_28apr: video file is byte-identical to ['codap_21apr']",
+    "Serena codap_28apr: video listed in MANIFEST.json but not on disk",
+    "Zara codap_28apr: video file is byte-identical to ['codap_21apr']"
+  ],
+  "checks": [
+    {
+      "check": "no full real names or real log IDs in output",
+      "names_checked": 21,
+      "passed": true,
+      "hit_count": 0
+    },
+    {
+      "check": "single name tokens found (review: may be ordinary words)",
+      "tokens_checked": 35,
+      "tokens_found": 0,
+      "occurrences": 0
+    },
+    {
+      "check": "no student real names in worksheet PDFs",
+      "passed": true,
+      "hit_count": 0
+    }
+  ],
+  "counts": {
+    "students": 15,
+    "frames": 5825,
+    "frames_with_behavior": 5824,
+    "thumbnails": 352,
+    "worksheet_ocr_files": 121,
+    "worksheet_response_rows": 2861,
+    "log_student_days": 37
+  }
+}

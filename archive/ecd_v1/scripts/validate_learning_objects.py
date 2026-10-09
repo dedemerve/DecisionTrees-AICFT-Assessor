@@ -32,7 +32,7 @@ REQUIRED_FIELDS = frozenset({
 CONSTRUCT_DIMENSIONS = frozenset({"conceptual", "procedural", "strategic", "reflective"})
 ID_PATTERN = re.compile(r"^ILO_[A-Z][A-Z0-9_]+$")
 OB_PATTERN = re.compile(r"^OB_[A-Z]{3}_[0-9]{3}$")
-WORKSHEET_REF = re.compile(r"\b(WS\d{1,2}|WS_DT|DT_[A-Z]_Q)\b", re.IGNORECASE)
+WORKSHEET_REF = re.compile(r"\b(WS\d{1,2}|WS12|DT_[A-Z]_Q)\b", re.IGNORECASE)
 AICFT_REF = re.compile(r"\b(LO3\.\d\.\d|AI-?CFT)\b", re.IGNORECASE)
 
 

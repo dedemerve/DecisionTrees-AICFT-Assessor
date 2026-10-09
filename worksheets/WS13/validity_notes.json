@@ -1,0 +1,14 @@
+{
+  "worksheet": "WS13",
+  "curriculum_status": "deployed",
+  "construct_threats": [
+    "Xeno numeric fields have NO fixed key — the dataset is randomly assigned per student. Score on internal consistency and structural invariants (blue=0% sick, pink=100% sick, FP=FN=0), not canonical numbers.",
+    "Interpretive items have no single correct answer — scorer drift if treated as keyed responses."
+  ],
+  "leakage_risks": [],
+  "evidence_limitations": [
+    "After auto-run, N may be 20 or 30 (multiples of 10), not only 10.",
+    "Interpretive sections require semantic scoring on rubric components."
+  ],
+  "cross_worksheet_dependencies": []
+}

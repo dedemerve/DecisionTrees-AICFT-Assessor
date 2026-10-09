@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Extract WS_DT_XENO + WS_DT_TITANIC (07 Nisan PDFs) for one or more students.
+Extract WS13 + WS14 (07 Nisan PDFs) for one or more students.
 
 Each student's 10-page Xeno block and 10-page Titanic block are sent to Claude
 separately. Results are saved as two worksheets:
-  students/{student}/WS_DT_XENO/extraction.json
-  students/{student}/WS_DT_TITANIC/extraction.json
+  students/{student}/WS13/extraction.json
+  students/{student}/WS14/extraction.json
 
 Usage:
     python scripts/extract_ws_dt_intro.py Amy Bruno
@@ -54,8 +54,8 @@ XENO_PDF = "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf"
 TITANIC_PDF = "07 Nisan 2026 Çalışma Kâğıdı Titanic.pdf"
 OCR_MODEL = "claude-opus-4-8"
 RUBRIC_BY_WORKSHEET = {
-    "WS_DT_XENO": "rubrics/WS_DT_XENO_rubric.json",
-    "WS_DT_TITANIC": "rubrics/WS_DT_TITANIC_rubric.json",
+    "WS13": "rubrics/WS13_rubric.json",
+    "WS14": "rubrics/WS14_rubric.json",
 }
 DONE_STUDENTS = frozenset({"Amy", "Bruno", "Helena", "Irma"})
 
@@ -259,18 +259,18 @@ def run(students: list[str]) -> None:
         xeno_items, titanic_items, meta = result
 
         xeno_record = build_extraction_record(
-            student, "WS_DT_XENO", XENO_PDF, xeno_items,
+            student, "WS13", XENO_PDF, xeno_items,
             ws_snapshot=meta["xeno_snapshot"],
             page_notes=meta["xeno_page_notes"] or "(bos)",
         )
         titanic_record = build_extraction_record(
-            student, "WS_DT_TITANIC", TITANIC_PDF, titanic_items,
+            student, "WS14", TITANIC_PDF, titanic_items,
             ws_snapshot=meta["titanic_snapshot"],
             page_notes=meta["titanic_page_notes"] or "(bos)",
         )
 
-        xeno_path = save_record(student, "WS_DT_XENO", xeno_record)
-        titanic_path = save_record(student, "WS_DT_TITANIC", titanic_record)
+        xeno_path = save_record(student, "WS13", xeno_record)
+        titanic_path = save_record(student, "WS14", titanic_record)
         log.info("Saved %s", xeno_path.relative_to(REPO_ROOT))
         log.info("Saved %s", titanic_path.relative_to(REPO_ROOT))
 

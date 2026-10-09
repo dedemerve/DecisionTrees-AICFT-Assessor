@@ -56,7 +56,7 @@ ID_PATTERN = re.compile(r"^OB_[A-Z]{3}_[0-9]{3}$")
 
 # Worksheet-specific leakage patterns (forbidden in ontology text).
 WORKSHEET_REF_PATTERN = re.compile(
-    r"\b(WS\d{1,2}|WS_DT|DT_[A-Z]_Q\d+|WS11_Q\d+)\b",
+    r"\b(WS\d{1,2}|WS12|DT_[A-Z]_Q\d+|WS11_Q\d+)\b",
     re.IGNORECASE,
 )
 AICFT_REF_PATTERN = re.compile(
