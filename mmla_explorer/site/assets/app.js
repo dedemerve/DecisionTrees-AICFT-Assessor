@@ -626,79 +626,12 @@
   function pageWorksheets() {
     return `<div class="page wide">${exploreShell("worksheets", `
       <h1>Worksheets</h1>
-      <p class="lead">Eleven paper worksheets, in the order they were used. Open one to compare all students. <a href="#/explore/scores">See score matrix →</a></p>
+      <p class="lead">Eleven paper worksheets, in the order they were used. Open one to compare all students.</p>
       ${table([{ t: "Worksheet" }, { t: "How answers were checked" }, { t: "Students with answers", num: 1 }],
         C.worksheets.map((w) => ({ href: `#/explore/worksheet/${w.code}`, cells: [`<a href="#/explore/worksheet/${h(w.code)}"><b>${h(w.code)} · ${h(wsTitle(w))}</b></a><div class="small">${h((WS_INFO[w.code] || {}).topic || "")}</div>`, w.pipeline === "deterministic" ? "Python rules" : "Rubric, with the language model", `${STUDENTS.filter((s) => C.ws[s][w.code].ocr).length} of ${STUDENTS.length}`] })))}
       <p>${methodLink("worksheets")}</p>`)}</div>`;
   }
 
-  function pageScores() {
-    const WS_SCORED = C.worksheets.filter((w) =>
-      STUDENTS.some((s) => C.ws[s][w.code].scoring)
-    );
-    if (!WS_SCORED.length) {
-      return `<div class="page wide">${exploreShell("worksheets", `
-        <p class="small"><a href="#/explore/worksheets">← All worksheets</a></p>
-        <h1>Score matrix</h1>
-        <p>No rubric scores are available yet.</p>`)}</div>`;
-    }
-
-    const pct = (sc) => {
-      if (!sc || sc.total_score == null || !sc.max_score) return null;
-      return sc.total_score / sc.max_score;
-    };
-    const bg = (p) => {
-      if (p === null) return "";
-      const r = Math.round(220 - p * 160);
-      const g = Math.round(100 + p * 120);
-      return ` style="background:rgb(${r},${g},90);color:#1d1b17"`;
-    };
-
-    const head = `<tr><th>Student</th>${WS_SCORED.map((w) =>
-      `<th class="vert"><a href="#/explore/worksheet/${h(w.code)}">${h(w.code)}</a></th>`
-    ).join("")}<th class="num">Total</th></tr>`;
-
-    const body = STUDENTS.map((s) => {
-      let sumScore = 0, sumMax = 0;
-      const cells = WS_SCORED.map((w) => {
-        const sc = C.ws[s][w.code].scoring;
-        if (!sc) return `<td class="cell na" title="${h(s)} · ${h(w.code)}: no data">–</td>`;
-        const p = pct(sc);
-        sumScore += sc.total_score || 0;
-        sumMax += sc.max_score || 0;
-        const label = `${sc.total_score != null ? sc.total_score : "?"} / ${sc.max_score != null ? sc.max_score : "?"}`;
-        return `<td class="cell"${bg(p)} title="${h(s)} · ${h(w.code)}: ${label}">${label}</td>`;
-      }).join("");
-      const totalPct = sumMax ? sumScore / sumMax : null;
-      const totalLabel = sumMax ? `${Math.round(sumScore * 10) / 10} / ${sumMax}` : "–";
-      return `<tr class="click" data-href="#/explore/student/${h(s)}/worksheets">
-        <td><a href="#/explore/student/${h(s)}/worksheets">${h(s)}</a></td>
-        ${cells}
-        <td class="num"${bg(totalPct)}>${totalLabel}</td>
-      </tr>`;
-    }).join("");
-
-    const colAvgs = WS_SCORED.map((w) => {
-      const scores = STUDENTS.map((s) => C.ws[s][w.code].scoring).filter(Boolean);
-      if (!scores.length) return `<td class="num">–</td>`;
-      const avg = scores.reduce((a, sc) => a + (sc.total_score || 0), 0) / scores.length;
-      const maxScore = scores[0].max_score || 0;
-      const p = maxScore ? avg / maxScore : null;
-      return `<td class="num"${bg(p)}>${Math.round(avg * 10) / 10}</td>`;
-    }).join("");
-
-    return `<div class="page wide">${exploreShell("worksheets", `
-      <p class="small"><a href="#/explore/worksheets">← All worksheets</a></p>
-      <h1>Score matrix</h1>
-      <p class="lead">Rubric scores for all students across scored worksheets. Each cell shows <b>student score / max score</b>. Colour runs from red (low) to green (high). Click a row to open that student.</p>
-      <div class="table-wrap"><table>
-        ${head}${body}
-        <tr class="avg-row"><td><b>Average</b></td>${colAvgs}<td class="num">–</td></tr>
-      </table></div>
-      <p class="small">Worksheets WS11 and WS12 are excluded: WS11 could not be extracted (PDF quality), WS12 scoring was not completed.</p>
-      <p>${methodLink("worksheets", "How worksheet responses were processed")}</p>
-    `)}</div>`;
-  }
   function pageWorksheet(code) {
     const w = C.worksheets.find((x) => x.code === code);
     if (!w) return pageWorksheets();
@@ -1146,7 +1079,6 @@
       if (sub === "student") html = pageStudent(parts[2], parts[3]);
       else if (sub === "worksheets") html = pageWorksheets();
       else if (sub === "worksheet") html = pageWorksheet(parts[2]);
-      else if (sub === "scores") html = pageScores();
       else if (sub === "recordings") html = pageRecordings();
       else if (sub === "frames") { html = pageFrames(q); after = bindFrames; }
       else if (sub === "logs") html = pageLogs();
