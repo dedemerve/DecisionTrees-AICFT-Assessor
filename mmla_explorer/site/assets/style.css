@@ -537,6 +537,89 @@ svg text { font-family: var(--sans); }
 .stages > li::before { counter-increment: st; content: counter(st); font-family: var(--mono); color: var(--blue); font-size: 14px; padding-top: 2px; }
 .stages > li h3 { margin: 0 0 6px; font-size: 1rem; }
 
+/* -- section-nav: updated active state -- */
+.section-nav a.active { background: var(--navy); color: #fff; }
+.section-nav a.active .mark { background: #fff; }
+
+/* -- process navigator -- */
+.process-nav { margin: 4px 0 22px; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+.process-steps {
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-bottom: 1px solid var(--rule); background: var(--pale-2);
+}
+.process-step {
+  appearance: none; border: 0; background: none; cursor: pointer;
+  font-family: var(--sans);
+  display: flex; flex-direction: column; gap: 2px; padding: 12px 12px 10px;
+  text-align: left; border-right: 1px solid var(--rule); border-bottom: 3px solid transparent;
+  margin-bottom: -1px; transition: background 0.1s;
+}
+.process-step:last-child { border-right: 0; }
+.process-step:hover { background: var(--pale); }
+.process-step[aria-selected="true"] { background: var(--surface); border-bottom-color: var(--navy); }
+.process-step[aria-selected="true"] .ps-title { color: var(--navy); }
+.ps-num { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--blue); letter-spacing: 0.04em; margin-bottom: 2px; }
+.ps-title { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+.ps-summary { font-size: 12px; color: var(--muted); line-height: 1.3; margin-top: 2px; }
+.process-panel { background: var(--surface); padding: 20px 22px 18px; }
+.process-panel[hidden] { display: none; }
+.process-panel > p { margin: 0 0 12px; }
+.process-panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 36px; margin-top: 4px; }
+.process-panel-col h4 { margin: 0 0 6px; font-size: 13.5px; }
+.process-panel-col ul { margin: 0; padding-left: 1.2em; font-size: 13px; color: var(--ink-2); }
+.process-panel-col ul li { margin: 3px 0; }
+.process-output {
+  padding: 10px 14px; background: var(--pale); border-radius: 8px;
+  border-left: 3px solid var(--blue); font-size: 13px; color: var(--ink-2); line-height: 1.45;
+}
+.process-output b { color: var(--ink); display: block; margin-bottom: 4px; }
+
+/* -- method flow diagram -- */
+.method-flow {
+  display: flex; align-items: center; gap: 0;
+  margin: 16px 0 20px; overflow-x: auto; padding: 2px 0 4px;
+}
+.flow-node {
+  flex: 0 0 auto; background: var(--surface); border: 1.5px solid var(--rule-strong);
+  border-radius: 8px; padding: 8px 12px;
+  font-size: 12.5px; font-weight: 500; color: var(--ink-2);
+  text-align: center; min-width: 100px; line-height: 1.3;
+}
+.flow-node--accent { background: var(--pale); border-color: var(--blue); color: var(--navy); font-weight: 600; }
+.flow-node--output { background: var(--navy); color: #fff; border-color: var(--navy); }
+.flow-node-sub { font-size: 11px; font-weight: 400; opacity: 0.75; display: block; }
+.flow-arr { flex: 0 0 auto; padding: 0 6px; color: var(--rule-strong); font-size: 18px; line-height: 1; }
+
+/* -- log metrics -- */
+.log-metrics {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px; margin: 14px 0 20px;
+}
+.log-metric { background: var(--surface); border-radius: 8px; padding: 12px 14px; border: 1px solid var(--rule); }
+.lm-label { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
+.lm-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.2; }
+.lm-desc { font-size: 12.5px; color: var(--ink-2); line-height: 1.4; }
+
+/* -- evidence quality grid -- */
+.evidence-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px; margin: 14px 0 20px;
+}
+.evidence-col { background: var(--surface); border-radius: 10px; padding: 14px 16px; border: 1px solid var(--rule); }
+.evidence-col-head { font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+.evidence-col--auto .evidence-col-head { color: var(--good, #2e7d32); }
+.evidence-col--human .evidence-col-head { color: var(--blue); }
+.evidence-col--limit .evidence-col-head { color: var(--warn-ink, #b45309); }
+.evidence-col ul { margin: 0; padding-left: 1.1em; font-size: 13px; color: var(--ink-2); }
+.evidence-col ul li { margin: 5px 0; }
+
+/* -- notebook inspection cards -- */
+.nb-stages { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin: 14px 0 20px; }
+.nb-stage { background: var(--surface); border-radius: 8px; padding: 12px 14px; border: 1px solid var(--rule); }
+.nb-num { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.04em; color: var(--blue); margin-bottom: 4px; text-transform: uppercase; }
+.nb-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.2; }
+.nb-items { font-size: 12.5px; color: var(--ink-2); line-height: 1.4; }
+
 .empty { font-size: 14px; color: var(--muted); padding: 14px 0; }
 
 .dataset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 28px; }
@@ -613,6 +696,13 @@ button.thumb.big { margin-bottom: 4px; }
 #fOut td:last-child { min-width: 180px; }
 
 @media (max-width: 980px) {
+  .process-steps { grid-template-columns: 1fr; }
+  .process-step { flex-direction: row; align-items: flex-start; gap: 10px; padding: 11px 14px; border-right: 0; border-bottom: 0; border-left: 3px solid transparent; margin-bottom: 0; }
+  .process-step[aria-selected="true"] { border-left-color: var(--navy); border-bottom-color: transparent; }
+  .ps-summary { display: none; }
+  .process-panel-grid { grid-template-columns: 1fr; }
+  .log-metrics { grid-template-columns: 1fr 1fr; }
+  .evidence-grid { grid-template-columns: 1fr; }
   .top-nav { display: none; }
   .hero, .portal, .metric-row, .dataset-grid, .two, .three { grid-template-columns: 1fr; }
   .hero { gap: 28px; align-items: start; }
@@ -634,6 +724,8 @@ button.thumb.big { margin-bottom: 4px; }
   h1 { font-size: 1.5rem; }
   .hero h1 { font-size: 1.7rem; }
   .metric-row, .flow, .compare { grid-template-columns: 1fr; }
+  .log-metrics { grid-template-columns: 1fr; }
+  .nb-stages { grid-template-columns: 1fr 1fr; }
   .thumbs { grid-template-columns: 1fr 1fr; }
   details.ws > .body { padding-left: 0; }
   .hbar { grid-template-columns: 110px 1fr 40px; }
