@@ -329,8 +329,48 @@ def build_worksheets() -> tuple[list, dict]:
             per_student[s][ws["code"]] = {
                 "ocr": read_ocr_worksheet(s, ws),
                 "stage": read_stage_artifacts(s, ws),
+                "scoring": read_scoring(s, ws),
             }
     return meta, per_student
+
+
+def read_scoring(student: str, ws: dict) -> dict | None:
+    """Read item-level rubric scores from scoring.json.  Returns None when the
+    file is missing, blocked, or every item has score=0 with confidence=0 (i.e.
+    the scoring stage ran but produced no real output)."""
+    p = ROOT / "students" / student / ws["key"] / "scoring.json"
+    if not p.exists():
+        return None
+    d = load_json(p)
+    if d.get("blocked"):
+        return None
+    items = d.get("items") or []
+    if items and all(i.get("score", 0) == 0 and i.get("confidence", 0) == 0 for i in items):
+        return None
+    return {
+        "total_score": d.get("total_score"),
+        "max_score": d.get("max_score"),
+        "items": [
+            {"item": i["item"], "score": i.get("score"), "max_score": _item_max(i["item"]),
+             "confidence": i.get("confidence"), "review": i.get("review", False)}
+            for i in items
+        ],
+        "source": rel(p),
+    }
+
+
+def _item_max(item_id: str) -> float | None:
+    """Look up the maximum possible score for an item from its rubric."""
+    ws_code = item_id.split("_")[0]
+    rub = ROOT / "rubrics" / f"{ws_code}_rubric.json"
+    if not rub.exists():
+        return None
+    d = load_json(rub)
+    item = (d.get("items") or {}).get(item_id, {})
+    rules = item.get("scoring_rules") or {}
+    if not rules:
+        return None
+    return max(float(k) for k in rules)
 
 
 # ---------------------------------------------------------------- screen recordings
