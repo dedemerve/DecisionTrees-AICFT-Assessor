@@ -481,7 +481,7 @@ svg text { font-family: var(--sans); }
 .methods h1 { margin-bottom: 12px; }
 .methods h2 { scroll-margin-top: 132px; margin: 0 0 14px; font-size: 1.4rem; }
 .methods h3 { margin: 22px 0 6px; font-size: 1.05rem; font-weight: 600; }
-.methods p { line-height: 1.65; }
+.methods p { line-height: 1.65; max-width: none; }
 .method-block { scroll-margin-top: 132px; margin-top: 3.25rem; }
 .method-block:first-of-type { margin-top: 1.75rem; }
 .section-nav {
@@ -697,7 +697,7 @@ button.thumb.big { margin-bottom: 4px; }
 
 /* -- student roster -- */
 .student-roster {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 10px; margin: 16px 0 24px;
 }
 .student-card {
@@ -763,6 +763,7 @@ p.why { font-size: 14px; color: var(--ink-2); }
   .log-metrics { grid-template-columns: 1fr 1fr; }
   .evidence-grid { grid-template-columns: 1fr; }
   .top-nav { display: none; }
+  .student-roster { grid-template-columns: 1fr 1fr; }
   .hero, .portal, .metric-row, .dataset-grid, .two, .three { grid-template-columns: 1fr; }
   .hero { gap: 28px; align-items: start; }
   .hero-visual { max-width: 520px; }
@@ -795,7 +796,7 @@ p.why { font-size: 14px; color: var(--ink-2); }
   dl.terms dd { margin-bottom: 8px; }
   img.mini { width: 64px; }
   .hdr-search { flex-basis: 120px; }
-  .student-roster { grid-template-columns: 1fr 1fr; }
+  .student-roster { grid-template-columns: 1fr; }
 }
 @media (max-width: 1280px) {
   .split { grid-template-columns: 1fr; }

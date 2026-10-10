@@ -59,6 +59,70 @@ Amy,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,1,False,count_
 Amy,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,0,False,count_mismatch,ocr_output/Amy/Amy_Worksheet10.json
 Amy,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,0,False,count_mismatch,ocr_output/Amy/Amy_Worksheet10.json
 Amy,WS10,optimal_threshold,optimal_threshold.value_parsed,408.0,,,ocr_output/Amy/Amy_Worksheet10.json
+Amy,WS11,DTI_01,DTI_01,10 vaka içermektedir. %30'u pozitif yani hasta.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_02,DTI_02,"Blue hair: 7 vaka, %0'ı hasta.",,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_03,DTI_03,"Pink hair: 3 vaka, %100'u hasta.",,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_04,DTI_04,Pink hair (+) hasta olarak etiketlenmiştir.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_05,DTI_05,3 vaka bulunmaktadır. 3'ü de hasta.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_06,DTI_06,Evet çünkü mavi saçlıların tamamı sağlıklı pembe saçlıların tamamı sağlıksız.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_07,DTI_07,Yeni bir volenin (ya pembe ya mavi saçlı olması gerek) maviyse sağlıklı pembeyse hasta.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_08,DTI_08,FN hata türü daha tehlikeli çünkü ölüm riski daha fazla.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_09,DTI_09,"Doğru yaptı. Blue: 13, %0 hasta; Pink: 7, %100 hasta.",,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_10,DTI_10,12,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_11,DTI_11,Pink saçlı hasta (modelim doğru).,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_12,DTI_12,18,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_13,DTI_13,Blue saçlı sağlıklı (modelim doğru).,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_14,DTI_14,0,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_15,DTI_15,Yanlış tahmin edilen hasta yok.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_16,DTI_16,0,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_17,DTI_17,Yanlış tahmin edilen sağlıklı yok.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_18,DTI_18,30,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_19,DTI_19,30 vaka var.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_20,DTI_20,12+18=30/30 = (1),,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_21,DTI_21,Tamamı doğru test doğru çalıştı.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_22,DTI_22,12/(12+0) = (1),,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_23,DTI_23,// ~~,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_24,DTI_24,18/(0+18) = (1),,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_25,DTI_25,// ~~,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_26,DTI_26,12/(12+0) = (1),,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_27,DTI_27,// ~~,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_28,DTI_28,Duyarlılığı kullanırım çünkü önemli olan hasta bireylerin ne kadarının hasta olduğunu tespit etmek.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_29,DTI_29,FN+FP/N = FN+FP/N,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_30,DTI_30,Yanlış hasta ve yanlış sağlıklıyı. Tamamın doğru tahminlerinden hatalı hastaları çıkarıp topladı ne kadarı yanlış olduğunu tespit etim için yanlığı.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_31,DTI_31,Yanlış hasta ve yanlış sağlıklının fazla olduğu durumlarda.,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_32,DTI_32,0/30,,,students/Amy/WS11/extraction.json
+Amy,WS11,DTI_33,DTI_33,Yanlış tespit edilen yok.,,,students/Amy/WS11/extraction.json
+Amy,WS13,DT_A_Q1,DT_A_Q1,Doymuş yağ oranı ürünün tavsiye edilip edilmediğinde önemli bir detaydır.,True,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_A_Q2,DT_A_Q2,Yaş ve enerji tavsiye edilme durumunu etkiliyor.,,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_A_Q3,DT_A_Q3,Yaş oranı tavsiye edilebilirlikte gözle görülür bir fark oluşturdu.,True,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_A_Q4,DT_A_Q4,Yaş oranını kullanırdım. Grafikle incelediğimizde belirgin fark oluştu çünkü.,True,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_B_Q1,DT_B_Q1,Tuz oranı için bir karar ağacı oluşturduk. Karar ağacının tahmin oranı %40 çıktı. [corrected: doğru → yanlış],False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_B_Q2,DT_B_Q2,Yaş oranı için karar ağacı oluşturdum. Karar ağacının yanlış tahmin oranı %47 çıktı.,False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_B_Q3,DT_B_Q3,Protein oranı için karar ağacı oluşturdum. Karar ağacının yanlış tahmin oranı %57 çıktı.,False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_B_Q4,DT_B_Q4,Tuz yanlış tahmin oranı en düşük olandı. Yanlış tahmin oranı en düşük olana göre seçtim.,True,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_C_Q1,DT_C_Q1,"Tuzu geri çağırdım. Eşik değerini 0,9'dan 0,6'ya düşürdüm. Yanlış tahmin oranım %35'e düştü.",False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_C_Q2,DT_C_Q2,Doğru tahmin ve yanlış tahmin oranım değişti.,,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_C_Q3,DT_C_Q3,"Tek tek eşik değerini değiştirdim, EMIT'den tıklayıp yanlış tahmin oranına baktım. En iyi eşik değer 0,6 çıktı çünkü yanlış tahmin oranı en düşük o.",True,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_D_Q1,DT_D_Q1,Doymuş yağ ekledim.,False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_D_Q2,DT_D_Q2,Sınıflandırmayı kötüleştirdi. %35'den %40'a çıktı MCR değeri.,True,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_D_Q3,DT_D_Q3,Karbonhidratı ekledim doymuş yağ yerine ve eşik değerimi değiştirdim. MCR oranım %23'e düştü. [corrected: Karbonhidrat → Karbonhidratı],True,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_D_Q4,DT_D_Q4,MCR değerinin düşük çıkmasına göre.,True,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_E_sensitivity,DT_E_sensitivity,(bos),False,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_E_MCR,DT_E_MCR,(bos),False,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_E_Q1,DT_E_Q1,(bos),False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_E_Q2,DT_E_Q2,(bos),False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_E_Q4,DT_E_Q4,(bos),False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_F_Q1,DT_F_Q1,(bos),False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_F_Q2,DT_F_Q2,(bos),False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_G_Q1,DT_G_Q1,(bos),False,,students/Amy/WS13/extraction.json
+Amy,WS13,DT_G_Q2,DT_G_Q2,(bos),False,,students/Amy/WS13/extraction.json
 Amy,WS14,DTI_01,DTI_01,10 vaka içermektedir. %30'u pozitif yani hasta.,True,,ocr_output/Amy/Amy_Worksheet_Xeno.json
 Amy,WS14,DTI_02,DTI_02,"Blue hair: 7 vaka, %0'ı hasta.",True,,ocr_output/Amy/Amy_Worksheet_Xeno.json
 Amy,WS14,DTI_03,DTI_03,"Pink hair: 3 vaka, %100'u hasta.",True,,ocr_output/Amy/Amy_Worksheet_Xeno.json
@@ -261,6 +325,70 @@ Bruno,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,True,,ocr_
 Bruno,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,True,,ocr_output/Bruno/Bruno_Worksheet10.json
 Bruno,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,True,,ocr_output/Bruno/Bruno_Worksheet10.json
 Bruno,WS10,optimal_threshold,optimal_threshold.value_parsed,408.0,,,ocr_output/Bruno/Bruno_Worksheet10.json
+Bruno,WS11,DTI_01,DTI_01,"26 tane vaka içermektedir. %46,2'si hasta durumunda. Çoğunluk kısmi hasta değilmiş.",,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_02,DTI_02,Mavi saçlı kutuda 14 vaka var. 0 tanesi hasta durumundadır. Çoğunluk sağlıklı.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_03,DTI_03,Pembe saçlı kutuda 12 vaka var. 12 hasta bulunmaktadır.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_04,DTI_04,Pembe saç rengi hasta olarak etiketlenmiştir. Ayırımda hata çıkmadığı için en iyi yöntem budur.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_05,DTI_05,(bos),,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_06,DTI_06,Evet iyi bir ayırıcı çünkü hatasız şekilde ayırıyor.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_07,DTI_07,Çok yüksek bence çünkü sıfır hata sayısı 0'dır.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_08,DTI_08,Bence FN çünkü hasta bir bireyin sağlıklı olarak sınıflandırılması bireyin hayatını riske atıyor.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_09,DTI_09,"Ağacım hata yapmadı, gayet güzel ayırdı.",,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_10,DTI_10,12,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_11,DTI_11,Ben hastayım ve doğru tahmin etmiş.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_12,DTI_12,14,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_13,DTI_13,Ben sağlıklıyım ve doğru tahmin etmiş.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_14,DTI_14,0,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_15,DTI_15,Hastayım ama sağlıklı demiş.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_16,DTI_16,0,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_17,DTI_17,Sağlıklıyım ama hasta demiş.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_18,DTI_18,26,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_19,DTI_19,(bos),,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_20,DTI_20,12+14/26 = 1,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_21,DTI_21,Kesinlikle doğru.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_22,DTI_22,12/12+0 = 1,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_23,DTI_23,Kesinlikle duyarlı.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_24,DTI_24,14/14+0 = 1,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_25,DTI_25,Kesinlikle özgül.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_26,DTI_26,12/12+0 = 1,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_27,DTI_27,Kesinlikle kesin.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_28,DTI_28,Hepsini kullanırım çünkü bütün metrikler benim için hatasız sonuç verdi.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_29,DTI_29,FP+FN/N,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_30,DTI_30,Bana yanlış karar sayısının oranını veriyor.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_31,DTI_31,Yanlış karar oranını bulmak için.,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_32,DTI_32,0+0/26 = 0,,,students/Bruno/WS11/extraction.json
+Bruno,WS11,DTI_33,DTI_33,Hatalı olanların oranı 0'mış. Demek ki hata yokmuş.,,,students/Bruno/WS11/extraction.json
+Bruno,WS13,DT_A_Q1,DT_A_Q1,"Enerji miktarı, Protein miktarı, Yağ miktarı, Karbonhidrat miktarı, Tuz miktarı",True,,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_A_Q2,DT_A_Q2,Enerji,,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_A_Q3,DT_A_Q3,Enerji miktarı çünkü hata miktarı daha az.,,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_A_Q4,DT_A_Q4,Enerji çünkü ilk aşama için en az hatayı veriyor.,True,,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_B_Q1,DT_B_Q1,Enerji değerini seçtikten sonra eşik değerini 369 yaptığımda sens değerim 1'e yükseltti.,,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_B_Q2,DT_B_Q2,"Şeker değerini seçtiğimde ve eşik değeri 13 yaptığımda bu sefer MCR değerim 1, sens değerim 0 oldu.",,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_B_Q3,DT_B_Q3,"Yağ değerini seçtiğimde ve eşik değeri 19 yaptığında sens değerim 1 olup MCR 0,25 oldu.",,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_B_Q4,DT_B_Q4,Enerji verdi. Sens ve MCR değerine baktım.,True,,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_C_Q1,DT_C_Q1,(bos),False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_C_Q2,DT_C_Q2,Karar ağacında hata sayısını azalttı ve daha iyi bir ayrım yaptırdı.,,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_C_Q3,DT_C_Q3,Enerji için 369 değeri en iyi şekilde ayırıyor. Grafiği inceleyerek en uygun eşik değeri buldum.,True,,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_D_Q1,DT_D_Q1,(bos),False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_D_Q2,DT_D_Q2,Evet. MCR değerimi ve hata sayımı azalttı.,,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_D_Q3,DT_D_Q3,Enerji - Yağ,,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_D_Q4,DT_D_Q4,"Sens değerim 1, MCR değerim 0,182'ye düşürürken.",True,,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_E_TP,DT_E_TP,20,False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_E_FP,DT_E_FP,8,False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_E_sensitivity,DT_E_sensitivity,1,True,,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_E_MCR,DT_E_MCR,"0,182",False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_E_Q1,DT_E_Q1,MCR çünkü ne kadar düşük olursa hata oranım o kadar az.,True,,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_E_Q2,DT_E_Q2,Tavsiye edilen olarak işaretlendi ama aslında tavsiye edilmemeli.,,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_E_Q4,DT_E_Q4,Olabilir ama çok fazla dallanma yapmamız gerekebilir.,False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_F_Q1,DT_F_Q1,"Hata oranım arttı. MCR değerim 0,455'e yükselirken sens değerim 0,667'ye düştü.",False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_F_Q2,DT_F_Q2,"Test verisindeki performansım düştü. MCR değerim yükseldi, sens değerim düştü.",,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_G_Q1,DT_G_Q1,"Yiyeceklerin tavsiye edilip edilemeyeceğini, ayırmayı öğrendi.",,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_G_Q2,DT_G_Q2,"Karar ağacı oluşturma, dallandırma, eşik değer bulma gibi özellikleri öğrendim.",True,,students/Bruno/WS13/extraction.json
 Bruno,WS14,DTI_01,DTI_01,"26 tane vaka içermektedir. %46,2'si hasta durumunda. Çoğunluk kısmi hasta değilmiş.",True,,ocr_output/Bruno/Bruno_Worksheet_Xeno.json
 Bruno,WS14,DTI_02,DTI_02,Mavi saçlı kutuda 14 vaka var. 0 tanesi hasta durumundadır. Çoğunluk sağlıklı.,True,,ocr_output/Bruno/Bruno_Worksheet_Xeno.json
 Bruno,WS14,DTI_03,DTI_03,Pembe saçlı kutuda 12 vaka var. 12 hasta bulunmaktadır.,True,,ocr_output/Bruno/Bruno_Worksheet_Xeno.json
@@ -464,6 +592,70 @@ Helena,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,True,,ocr
 Helena,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,True,,ocr_output/Helena/Helena_Worksheet10.json
 Helena,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,True,,ocr_output/Helena/Helena_Worksheet10.json
 Helena,WS10,optimal_threshold,optimal_threshold.value_parsed,408.0,,,ocr_output/Helena/Helena_Worksheet10.json
+Helena,WS11,DTI_01,DTI_01,10 vaka vardır. %60'ı hastadır.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_02,DTI_02,4 mavi saçlı vaka vardır. %0'ı hasta durumdadır.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_03,DTI_03,"6 pembe saçlı vaka vardır. %100'ü hasta durumdadır. Pembe saçlıların ""hasta"" olduğunu ortaya çıkarır. (Hepsinin)",,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_04,DTI_04,Sol taraftaki kutu negatif hasta well (-) olarak etiketlenmiş. Bence doğru bir etiketleymeydi.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_05,DTI_05,"6 pembe saçlı vaka vardır. 6'sı hasta durumdadır. Bu sonuç eğer pembe saçlılık varsa ""hasta"" durumunu ortaya çıkarır.",,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_06,DTI_06,"Evet. Çünkü mavi saçların hepsi sağlıklı, pembeler ise hasta.",,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_07,DTI_07,"%100 olurdu. Çünkü mavi saçların hepsi sağlıklı, pembe saçların ise hepsi hasta.",,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_08,DTI_08,FN daha tehlikelidir. Çünkü hasta bireyin sağlıklı olarak değerlendirilmesi kişinin hastalığının fark edilmeyip ilerlemesine yol açabilir.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_09,DTI_09,"Doğru bir performans sergiledi. Pembelerin %100'ü hasta, mavilerin %0'ı hasta çıktı.",,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_10,DTI_10,9,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_11,DTI_11,9 hastayı doğru pozitif olarak test etti. Yani 9 kişiyi hasta olarak tahmin ettik ve gerçekten hasta çıktı.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_12,DTI_12,11,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_13,DTI_13,11 hastayı doğru negatif olarak test etti. Yani 11 kişiyi sağlıklı olarak tahmin ettik ve gerçekten de öyle oldu.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_14,DTI_14,0,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_15,DTI_15,0 hasta yanlış pozitif olarak test edildi. Yani hasta tahmin edip sağlıklı birey çıkmadı.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_16,DTI_16,0,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_17,DTI_17,0 hasta yanlış negatif olarak test edildi. Yani sağlıklı tahmin edip hasta birey çıkmadı.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_18,DTI_18,20,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_19,DTI_19,Toplam 20 kişiyi test ettik. Model doğru çalıştı.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_20,DTI_20,(TP+TN)/N = (9+11)/20 = [circled: 1],,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_21,DTI_21,Karar ağacı doğru oldu.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_22,DTI_22,TP/(TP+FN) = 9/9+0 = [circled: 1],,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_23,DTI_23,"""Hasta""ları doğru tespit etti.",,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_24,DTI_24,TN/(TN+FP) = 11/11+0 = [circled: 1],,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_25,DTI_25,"""Sağlık""lıları doğru tespit etti.",,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_26,DTI_26,TP/(TP+FP) = 9/9+0 = [circled: 1],,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_27,DTI_27,Hastaları doğru tespit etti.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_28,DTI_28,"Duyarlılığı öncelikli olarak kullanırım. Çünkü gerçekten hasta bireylerin ne kadarının doğru şekilde ""hasta"" olduğunu sınıflamak çok önemli.",,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_29,DTI_29,(TP+FP) / TN,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_30,DTI_30,Özgüllüğü daha iyi tanımlıyor.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_31,DTI_31,Sağlıklı bireyleri tespit ederken.,,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_32,DTI_32,(FP+FN)/N = (0+0)/20 = [circled: 0],,,students/Helena/WS11/extraction.json
+Helena,WS11,DTI_33,DTI_33,[corrected: struck-through text] Hasta çıkmadı.,,,students/Helena/WS11/extraction.json
+Helena,WS13,DT_A_Q1,DT_A_Q1,Yağ değişkenine bakarak tahmin edebiliriz.,True,,students/Helena/WS13/extraction.json
+Helena,WS13,DT_A_Q2,DT_A_Q2,"Yağ, şeker yiyeceğin tavsiye edilme durumunu etkiliyor çünkü proteinde istatiksel verileri değişti.",,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_A_Q3,DT_A_Q3,Yağ. Çünkü daha iyi saptadı. (Daha az hata),True,,students/Helena/WS13/extraction.json
+Helena,WS13,DT_A_Q4,DT_A_Q4,Yağ değişkenini kullanırdım. Çünkü daha iyi saptadı.,,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_B_Q1,DT_B_Q1,"Yağ değişkenine göre değerlendirme mantıklı. Çünkü MCR (hata payı) düşük çıktı. 0,1 çıktı.",False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_B_Q2,DT_B_Q2,"Tuzlu seçtim. Eşik değerini 0,8 olarak belirledim. MCR değeri 0,4 sens ise 0,7 çıktı.",,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_B_Q3,DT_B_Q3,"Şeker seçtim. Eşik değerini 50 olarak belirledim. Sens değeri 0,9 oldu. Hata payı ise 0,5 çıktı.",,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_B_Q4,DT_B_Q4,Şeker değişkenini seçmek daha mantıklı. Çünkü en hassas ölçümü onda buldum.,True,,students/Helena/WS13/extraction.json
+Helena,WS13,DT_C_Q1,DT_C_Q1,"Şeker. 80, 30, 25, 10 gibi değerler denedim. 10 eşik değeri en iyi veriyi verdi.",False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_C_Q2,DT_C_Q2,Hata payı ve hassaslığı dolayısıyla değişime sonucu etkiliyor.,,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_C_Q3,DT_C_Q3,10 eşik değeri daha iyi ayırdı. Şeker değişkeni için farklı farklı eşik değerleri deneyerek ulaştım.,True,,students/Helena/WS13/extraction.json
+Helena,WS13,DT_D_Q1,DT_D_Q1,Şeker değişkenine ek olarak enerji değişkenini ekledim.,False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_D_Q2,DT_D_Q2,"Evet. MCR değeri 0,2 oldu. Sens ise 0,8.",,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_D_Q3,DT_D_Q3,"İki seviyeli şeker ve enerji kombinasyonu iyi sonuç verdi. Sens değeri aynı, MCR ise ilk duruma göre 0,3'ten 0,2'ye düştü.",True,,students/Helena/WS13/extraction.json
+Helena,WS13,DT_D_Q4,DT_D_Q4,"MCR değerim 0,3'ten 0,2'ye düştü.",,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_E_sensitivity,DT_E_sensitivity,(okunamiyor - üzeri çizilmiş),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_E_MCR,DT_E_MCR,(okunamiyor - üzeri çizilmiş),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_E_Q1,DT_E_Q1,(bos),False,,students/Helena/WS13/extraction.json
+Helena,WS13,DT_E_Q2,DT_E_Q2,(bos),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_E_Q4,DT_E_Q4,(bos),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_F_Q1,DT_F_Q1,(bos),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_F_Q2,DT_F_Q2,(bos),False,,students/Helena/WS13/extraction.json
+Helena,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_G_Q1,DT_G_Q1,(bos),False,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_G_Q2,DT_G_Q2,(bos),False,,students/Helena/WS13/extraction.json
 Helena,WS14,DTI_01,DTI_01,10 vaka vardır. %60'ı hastadır.,True,,ocr_output/Helena/Helena_Worksheet_Xeno.json
 Helena,WS14,DTI_02,DTI_02,4 mavi saçlı vaka vardır. %0'ı hasta durumdadır.,True,,ocr_output/Helena/Helena_Worksheet_Xeno.json
 Helena,WS14,DTI_03,DTI_03,"6 pembe saçlı vaka vardır. %100'ü hasta durumdadır. Pembe saçlıların ""hasta"" olduğunu ortaya çıkarır. (Hepsinin)",True,,ocr_output/Helena/Helena_Worksheet_Xeno.json
@@ -674,6 +866,70 @@ Iris,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,True,,ocr_o
 Iris,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,True,,ocr_output/Iris/Iris_Worksheet10.json
 Iris,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,True,,ocr_output/Iris/Iris_Worksheet10.json
 Iris,WS10,optimal_threshold,optimal_threshold.value_parsed,408.0,,,ocr_output/Iris/Iris_Worksheet10.json
+Iris,WS11,DTI_01,DTI_01,37 vaka içermektedir. Bu vakaların %56'sı hastadır.,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_02,DTI_02,Bunların 16'sı mavi saçlıdır. Bu vakaların hiç biri hasta değildir.,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_03,DTI_03,Pembe saçlı kutuda 21 vaka bulunmaktadır. Bu vakaların hepsi hastadır.,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_04,DTI_04,pink hair kutusu [corrected: negatif → pozitif]. Hair ölçütünü kullandım.,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_05,DTI_05,Pembe saçlı kutuda 21 vaka vardır.,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_06,DTI_06,Evet. Hatasız ayırdı.,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_07,DTI_07,%100 doğru çıkardı,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_08,DTI_08,FN çünkü hasta olana müdahale edilmeli.,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_09,DTI_09,Hata payı oluşmadı,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_10,DTI_10,21,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_11,DTI_11,doğru karar,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_12,DTI_12,16,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_13,DTI_13,doğru karar,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_14,DTI_14,0,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_15,DTI_15,Hasta dedi ama sağlıklı,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_16,DTI_16,0,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_17,DTI_17,sağlıklı dedi ama hasta,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_18,DTI_18,37,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_19,DTI_19,toplam vaka,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_20,DTI_20,(21+16) / 37,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_21,DTI_21,doğruluk oranı %100,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_22,DTI_22,21 / (21+0),,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_23,DTI_23,doğruluk oranı %100,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_24,DTI_24,16 / (16+0),,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_25,DTI_25,//  //  //,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_26,DTI_26,21 / (21+0),,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_27,DTI_27,//  //  //,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_28,DTI_28,"Hepsini kullanabilirim hepsinin doğruluk değeri ""1"".",,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_29,DTI_29,"(TP + FP) + TN / N = 21, 16 / 37",,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_30,DTI_30,doğruluğu,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_31,DTI_31,Kesin sonuç istendiğinde,,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_32,DTI_32,(bos),,,students/Iris/WS11/extraction.json
+Iris,WS11,DTI_33,DTI_33,(bos),,,students/Iris/WS11/extraction.json
+Iris,WS13,DT_A_Q1,DT_A_Q1,"Enerji, yağ, karbonhidrat, şeker, protein, tuz",True,,students/Iris/WS13/extraction.json
+Iris,WS13,DT_A_Q2,DT_A_Q2,"Tuz, enerji, yağ",,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_A_Q3,DT_A_Q3,Saptayamadım. Anlamlı bir fark gösteren özellik birden fazla var.,,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_A_Q4,DT_A_Q4,Yağ değişkenini kullanırdım. Değişkenler arasında en az hatayı veriyor.,True,,students/Iris/WS13/extraction.json
+Iris,WS13,DT_B_Q1,DT_B_Q1,Yağ değişkeninin MCR'ye bakarak daha iyi olduğunu düşünüyorum.,False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_B_Q2,DT_B_Q2,"Tuz değişkenine göre MCR 0,432 oldu",False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_B_Q3,DT_B_Q3,"Şeker değişkenine göre MCR 0,341, his 0,864 oldu.",,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_B_Q4,DT_B_Q4,Enerji değişkeni en iyi sonucu verdi. MCR'ye bakarak karar verdim.,True,,students/Iris/WS13/extraction.json
+Iris,WS13,DT_C_Q1,DT_C_Q1,(bos),False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_C_Q2,DT_C_Q2,Karar ağacı daha iyi performans gösterdi.,False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_C_Q3,DT_C_Q3,<200 en iyi şekilde ayırıyor. MCR değeri azalıyor.,True,,students/Iris/WS13/extraction.json
+Iris,WS13,DT_D_Q1,DT_D_Q1,(bos),False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_D_Q2,DT_D_Q2,"Hayır. MCR değeri arttı, yağ değişkeni etkiledi.",True,,students/Iris/WS13/extraction.json
+Iris,WS13,DT_D_Q3,DT_D_Q3,Enerji - yağ,,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_D_Q4,DT_D_Q4,"MCR değeri düşük, sensitivity yüksek çıktı.",True,,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,864",False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_MCR,DT_E_MCR,"0,341",,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_Q1,DT_E_Q1,"Sensitivity, yüksek çıktı.",,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_Q2,DT_E_Q2,Pozitif yaptı.,,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_Q3,DT_E_Q3,"MCR düşük, sensitivity yüksek çıkarsa",,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_Q4,DT_E_Q4,Hayır.,,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_F_Q1,DT_F_Q1,(bos),False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_F_Q2,DT_F_Q2,(bos),False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_G_Q1,DT_G_Q1,En iyi veri setinin nasıl oluşturulacağını,False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_G_Q2,DT_G_Q2,EMIT fonksiyonunu,,review,students/Iris/WS13/extraction.json
 Iris,WS14,DTI_01,DTI_01,37 vaka içermektedir. Bu vakaların %56'sı hastadır.,True,,ocr_output/Iris/Iris_Worksheet_Xeno.json
 Iris,WS14,DTI_02,DTI_02,Bunların 16'sı mavi saçlıdır. Bu vakaların hiç biri hasta değildir.,True,,ocr_output/Iris/Iris_Worksheet_Xeno.json
 Iris,WS14,DTI_03,DTI_03,Pembe saçlı kutuda 21 vaka bulunmaktadır. Bu vakaların hepsi hastadır.,True,,ocr_output/Iris/Iris_Worksheet_Xeno.json
@@ -889,6 +1145,70 @@ Irma,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,True,,ocr_o
 Irma,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,True,,ocr_output/Irma/Irma_Worksheet10.json
 Irma,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,True,,ocr_output/Irma/Irma_Worksheet10.json
 Irma,WS10,optimal_threshold,optimal_threshold.value_parsed,400.0,,,ocr_output/Irma/Irma_Worksheet10.json
+Irma,WS11,DTI_01,DTI_01,10 vaka var. Ve bu vakaların %50 si hastadır. Veri setimde yarıya yarı bir oran vardır.,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_02,DTI_02,Mavi renkli saça 2 vaka bulunmakta ve bunların ikiside [corrected: hastadır → sağlıklıdır]. Gruptaki hastalık oranı 0/2 | /10,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_03,DTI_03,Pembe renkli saça 8 vaka var ve bunların 8 i de hastalıklıdır. Gruptaki hastalık oranı %100 dür,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_04,DTI_04,pink hair hasta olarak etiketlenmiştir [corrected: negatif → pozitif],,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_05,DTI_05,(bos),,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_06,DTI_06,"Evet, Çünkü mavi saçların hepsi sağlıklıyken pembe saçların hepsi hastalıklıdır.",,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_07,DTI_07,Yeni bir vakada sağa bakarız ama doğru tahmin yapabilmemiz için diğer değişkenlere de bakmamız gerek,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_08,DTI_08,Hasta bir bireyin sağlıklı olarak sınıflandırılması daha tehlikelidir. Çünkü hastalığı tedavi edilemez.,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_09,DTI_09,Ağaca yeni veriler eklememe rağmen hata vermedi.,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_10,DTI_10,15,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_11,DTI_11,Hastayım ve doğru tahmin etmiş.,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_12,DTI_12,15,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_13,DTI_13,Hasta değilim ve doğru tahmin etmiş.,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_14,DTI_14,0,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_15,DTI_15,Hastayım ve yanlış tahmin etmiş,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_16,DTI_16,0,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_17,DTI_17,Hasta değilim ve yanlış tahmin etmiş,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_18,DTI_18,30,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_19,DTI_19,(bos),,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_20,DTI_20,(TP + TN) / N | (15+15) 30 = 1,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_21,DTI_21,Testimiz başarılı,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_22,DTI_22,15 / (15+0) = 1,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_23,DTI_23,Testimiz başarılı,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_24,DTI_24,15 (15+0) = 1,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_25,DTI_25,Testimiz başarılı,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_26,DTI_26,15 (15+0) = 1,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_27,DTI_27,Testimiz başarılı,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_28,DTI_28,Hepsini kullanırım. Çünkü hesaplarımızın hepsinin cevabı 1 geldi.,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_29,DTI_29,FP + FN / N,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_30,DTI_30,Yanlışları yakalamak için,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_31,DTI_31,Testimizin başarılı olup olmadığını test etmek için,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_32,DTI_32,(FP + FN) / N | 0+0 / 30 = 0,,,students/Irma/WS11/extraction.json
+Irma,WS11,DTI_33,DTI_33,MCR = 1-0 = 1 Testimiz başarılı,,,students/Irma/WS11/extraction.json
+Irma,WS13,DT_A_Q1,DT_A_Q1,Yağ oranına göre tavsiye edilip edilmediğine bakabiliriz. Eğer yağ oranı fazlaysa tavsiye edilmediğini söyleyebiliriz.,True,,students/Irma/WS13/extraction.json
+Irma,WS13,DT_A_Q2,DT_A_Q2,Enerji ve yağ oranı genellikle sağlıklı olarak adlandırılır.,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_A_Q3,DT_A_Q3,Şeker oranı olabilir. Şeker oranı yüksek olunca tavsiye edilemez oranı daha artar.,True,,students/Irma/WS13/extraction.json
+Irma,WS13,DT_A_Q4,DT_A_Q4,Şeker. Şeker oranları arttıkça sağlıksız yani tavsiye edilemezde daha fazla veri var.,True,,students/Irma/WS13/extraction.json
+Irma,WS13,DT_B_Q1,DT_B_Q1,"Tuzun eşik değerini <0,92 seçerek yaptığımız veri ağacı çok doğru sonuçlar vermiyor olabilir. Çünkü mcr yüzdesi sens yüzdesinden daha fazla.",False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_B_Q2,DT_B_Q2,Enerjiyi seçtim ve bu sefer mcr oranı sens oranından daha düşük,False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_B_Q3,DT_B_Q3,Yağ oranını seçtim ve bu da yağ oranının enerjideki gibi sens oranının daha yüksek olduğunu gösterir,False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_B_Q4,DT_B_Q4,Enerji. Çünkü doğru olma olasılığı daha yüksek,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_C_Q1,DT_C_Q1,Enerjiyi çağırdım. Eşik değeri 600 olunca en iyi veriyi verdi.,False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_C_Q2,DT_C_Q2,Karar ağacında daha sağlıklı bir şekilde karar vermemi sağlar.,False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_C_Q3,DT_C_Q3,Enerji için denedim ve en iyi [corrected: 600 de bu → eşik değerimi] 600 seçince daha iyi bir karar ağacı oluşturdum.,True,,students/Irma/WS13/extraction.json
+Irma,WS13,DT_D_Q1,DT_D_Q1,Yağ değişkenini ekledim,False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_D_Q2,DT_D_Q2,Benim sınıflandırmamı az daha kötüleştirdi. Çünkü his değerim azaldı.,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_D_Q3,DT_D_Q3,İlk değişken enerji sonraki yağ,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_D_Q4,DT_D_Q4,Mcr ve his değerlerine bakarak karar verdim,True,,students/Irma/WS13/extraction.json
+Irma,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,741",True,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_E_MCR,DT_E_MCR,"0,571",False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_E_Q1,DT_E_Q1,İlk enerjiye göre dallandırıp sonra şeker oranına göre ayırmak. Çünkü mcr oranı sens oranından daha düşük,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_E_Q2,DT_E_Q2,FP daha fazla,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_E_Q3,DT_E_Q3,Eşik değerlerini değiştirdikten sonra daha iyi bir karar ağacı oluşturabiliriz.,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_E_Q4,DT_E_Q4,Ufak tefek hatalar olabilir.,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_F_Q1,DT_F_Q1,Sens oranım 1 çıktı yani test veri setim iyi bir karar ağacı olduğunu kanıtladı.,False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_F_Q2,DT_F_Q2,His ve mcr oranına göre karşılaştırdım. His oranı daha yüksek olan test verisidir.,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_G_Q1,DT_G_Q1,Tavsiye edilebilir ve tavsiye edilemez olan yiyecekleri daha iyi karar vermeyi öğrendi.,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_G_Q2,DT_G_Q2,Kararı netleştirmek için olabildiğince eşik değeri iyi tutmayı. Gerektiği yerde dallandırma yaparak karar ağacını mükemmel olarak sınıflandırmayı.,True,,students/Irma/WS13/extraction.json
 Irma,WS14,DTI_01,DTI_01,10 vaka var. Ve bu vakaların %50 si hastadır. Veri setimde yarıya yarı bir oran vardır.,True,,ocr_output/Irma/Irma_Worksheet_Xeno.json
 Irma,WS14,DTI_02,DTI_02,Mavi renkli saça 2 vaka bulunmakta ve bunların ikiside [corrected: hastadır → sağlıklıdır]. Gruptaki hastalık oranı 0/2 | /10,True,,ocr_output/Irma/Irma_Worksheet_Xeno.json
 Irma,WS14,DTI_03,DTI_03,Pembe renkli saça 8 vaka var ve bunların 8 i de hastalıklıdır. Gruptaki hastalık oranı %100 dür,True,,ocr_output/Irma/Irma_Worksheet_Xeno.json
@@ -1099,6 +1419,70 @@ Isabel,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,False,cou
 Isabel,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,False,count_mismatch,ocr_output/Isabel/Isabel_Worksheet10.json
 Isabel,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,False,count_mismatch,ocr_output/Isabel/Isabel_Worksheet10.json
 Isabel,WS10,optimal_threshold,optimal_threshold.value_parsed,,,,ocr_output/Isabel/Isabel_Worksheet10.json
+Isabel,WS11,DTI_01,DTI_01,10 vaka vardır. %70'i hastadır. Çoğunluk hastadır.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_02,DTI_02,3 mavi saçlı vaka vardır. 3'ü hasta değildir. Mavi saçlıların hiçbiri hasta değildir. [corrected: 3'ü hasta değildir → hiçbiri hasta değildir],,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_03,DTI_03,7 pembe saçlı vardır. 7'si hastadır. Pembe saçlıların hepsi hastadır.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_04,DTI_04,Sağdaki kutu hasta olarak etiketlenmiştir.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_05,DTI_05,7 pembe saçlı vardır. 7'si de hasta durumdadır.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_06,DTI_06,Evet. Çünkü hiçbir hata vermedi.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_07,DTI_07,%100.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_08,DTI_08,FN daha tehlikelidir. Çünkü hasta birey başkalarına da hastalığı bulaştırabilir.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_09,DTI_09,Kusursuz oldu.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_10,DTI_10,10,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_11,DTI_11,Doğru karar verilmiş.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_12,DTI_12,10,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_13,DTI_13,Doğru karar verilmiş.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_14,DTI_14,0,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_15,DTI_15,Sağlıklı ama hasta olarak tahmin etmiş.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_16,DTI_16,0,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_17,DTI_17,Hasta ama sağlıklı olarak tahmin etmiş.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_18,DTI_18,20,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_19,DTI_19,20 kişi var.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_20,DTI_20,(TP+TN) / N = (10+10) / 20 = 1,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_21,DTI_21,Karar ağacı doğru oldu.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_22,DTI_22,TP / (TP+FN) = 10 / (10+0) = 1,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_23,DTI_23,Hastaları doğru tespit etti.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_24,DTI_24,TN / (TN+FP) = 10 / (10+0) = 1,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_25,DTI_25,Sağlıklıları doğru tespit etti.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_26,DTI_26,TP / (TP+FP) = 10 / (10+0) = 1,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_27,DTI_27,Hastaları doğru tespit etti.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_28,DTI_28,Duyarlılık ve özgüllüğü kullanırım. Çünkü hasta veya sağlıklı insanların gerçekten hasta ya da sağlıklı olduğunu tespit etmek daha önemli.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_29,DTI_29,(TP+TN) - (FP+FN),,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_30,DTI_30,Gerçekten sağlıklı ve hasta insanları ayırır.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_31,DTI_31,Gerçek hasta ve sağlıklı insan sayısını bulmak için.,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_32,DTI_32,(FP+FN) / N = (0+0) / 20 = 0,,,students/Isabel/WS11/extraction.json
+Isabel,WS11,DTI_33,DTI_33,Hata çıkmadı.,,,students/Isabel/WS11/extraction.json
+Isabel,WS13,DT_A_Q1,DT_A_Q1,"Enerji, yağ, karbonhidrat, tuz, doymuş yağ tahmin edebilir.",True,,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_A_Q2,DT_A_Q2,"Enerji, yağ, karbonhidrat tavsiye edilme durumunu etkileyebilir.",,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_A_Q3,DT_A_Q3,Enerji anlamlı farklılık gösteren bir özellik olabilir. Çünkü genelde kalorisi yüksek olan yiyecekler tavsiye edilemez çıktı.,True,,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_A_Q4,DT_A_Q4,Enerji değişkenini kullanırdım. Çünkü daha doğru sonuç verdiğini düşünüyorum.,,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_B_Q1,DT_B_Q1,"Enerji değişkenini seçtim. 0,225 oranında yanlış hesapladı ve duyarlılık oranı 0,36 [corrected: 0,955 → 0,36] çıktı.",,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_B_Q2,DT_B_Q2,"Yağ değişkenini ve eşik değeri 14 seçtim. MCR= 0,275 sens= 0,808 değeri çıktı. [üzeri çizili: Karbonhidrat]",,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_B_Q3,DT_B_Q3,"Karbonhidrat değişkenini seçtim. Eşik değeri 28 olarak seçtim. MCR=0,13 [corrected: 0,135 → 0,13] sens=0,727 çıktı.",,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_B_Q4,DT_B_Q4,Enerji daha iyi sonuç verdi. MCR oranı daha az çıktı. Daha az hata verme oranına dikkat ettim.,True,,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_C_Q1,DT_C_Q1,"Eşik değerini 200 seçtim MCR=0,225 / 320 MCR=0,375 / 386 MCR=0,275 [arrow] En iyi",False,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_C_Q2,DT_C_Q2,Eşik değeri değiştirmek hata oranını onunla değiştiriyor.,,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_C_Q3,DT_C_Q3,386 eşik değeri en iyi şekilde ayırdı. Doğru olanların en iyi hatalıların en az olacak şekilde seçmeye çalıştım.,True,,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_D_Q1,DT_D_Q1,Yağ değişkenini seçtim,False,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_D_Q2,DT_D_Q2,İyileştirmedi. Hata oranı çok az düştü ancak duyarlılık çok özeldi.,,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_D_Q3,DT_D_Q3,Yağ değerlerine göre daha iyi,,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_D_Q4,DT_D_Q4,MCR oranının daha az olmasına baktım.,True,,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,636",True,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_E_MCR,DT_E_MCR,"0,225",,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_E_Q1,DT_E_Q1,"Bence MCR daha önemli çünkü doğruların ne kadarını doğru tahmin ettiği değil, ne kadar hata yaptığı daha somut bir sonuç verir.",True,,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_E_Q2,DT_E_Q2,Daha çok yanlış negatif (FN) yaptı,,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_E_Q3,DT_E_Q3,Ne kadar az hata veriyorsa o kadar iyidir.,,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_E_Q4,DT_E_Q4,"Hayır, ancak çok az veri varsa hata yapmayabilir. Ama çok veri varsa hata yapma olasılığı yüksek.",True,,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_F_Q1,DT_F_Q1,"MCR=1, Duyarlılık=0",False,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_F_Q2,DT_F_Q2,Test verisinde hiç iyi performans gösteremedi,,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_G_Q1,DT_G_Q1,Test verisinde başarı gösteremedi.,False,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_G_Q2,DT_G_Q2,Eğitim verisinde iyi performans gösterse de test verisinde başarı gösteremeyebilirmiş.,,review,students/Isabel/WS13/extraction.json
 Isabel,WS14,DTI_01,DTI_01,10 vaka vardır. %70'i hastadır. Çoğunluk hastadır.,True,,ocr_output/Isabel/Isabel_Worksheet_Xeno.json
 Isabel,WS14,DTI_02,DTI_02,3 mavi saçlı vaka vardır. 3'ü hasta değildir. Mavi saçlıların hiçbiri hasta değildir. [corrected: 3'ü hasta değildir → hiçbiri hasta değildir],True,,ocr_output/Isabel/Isabel_Worksheet_Xeno.json
 Isabel,WS14,DTI_03,DTI_03,7 pembe saçlı vardır. 7'si hastadır. Pembe saçlıların hepsi hastadır.,True,,ocr_output/Isabel/Isabel_Worksheet_Xeno.json
@@ -1227,6 +1611,70 @@ Marco,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,True,,ocr_
 Marco,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,True,,ocr_output/Marco/Marco_Worksheet10.json
 Marco,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,True,,ocr_output/Marco/Marco_Worksheet10.json
 Marco,WS10,optimal_threshold,optimal_threshold.value_parsed,408.0,,,ocr_output/Marco/Marco_Worksheet10.json
+Marco,WS11,DTI_01,DTI_01,"15 tane vaka içermektedir. 12 tanesi hasta, 3 tanesi sağlıklıdır. %80'i hastadır.",,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_02,DTI_02,"Toplamda 3 tane mavi saçlı var. Mavi saçlıların tamamı (3 tane) [corrected: crossed out] sağlıklıdır, %0'ı hastadır.",,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_03,DTI_03,Toplamda 12 tane pembe saçlı vardır. Tamamı (%100'ü) hastadır. Pembe saç ile hastalık arasında doğru orantı vardır. Pembe saçlı herkes hastadır.,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_04,DTI_04,Pembe saçlı olma durumuna baktım. | [üstte: pozitif (hasta olarak etiketlendi)],,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_05,DTI_05,(bos),,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_06,DTI_06,"İyi bir ayırıcıdır. Tüm pembeler hasta, maviler sağlıklı.",,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_07,DTI_07,Muhtemelen doğru olurdu. Çünkü hata olasılığı sıfır.,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_08,DTI_08,"Bence FP daha tehlikeli, çünkü sağlıklı olan bireye tedavi uygulamak ölümcül olabilir.",,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_09,DTI_09,"%100 doğru yaptı. Hastalar pembe, sağlıklılar mavi saçlı.",,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_10,DTI_10,20,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_11,DTI_11,Model hasta dedi gerçekten hasta.,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_12,DTI_12,13,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_13,DTI_13,Model sağlıklı dedi gerçekten sağlıklı.,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_14,DTI_14,0,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_15,DTI_15,Model sağlıklı olmasına rağmen hasta dedi.,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_16,DTI_16,0,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_17,DTI_17,Model hasta olmasına rağmen sağlıklı dedi.,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_18,DTI_18,33,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_19,DTI_19,(bos),,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_20,DTI_20,(TP+TN)/N  33/33 = 1,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_21,DTI_21,Hepsi doğru,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_22,DTI_22,TP 20/20 = 1,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_23,DTI_23,Hepsi doğru,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_24,DTI_24,13/13 = 1,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_25,DTI_25,Hepsi doğru,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_26,DTI_26,20/20 = 1,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_27,DTI_27,Hepsi doğru.,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_28,DTI_28,[corrected: crossed out] Bu veriler için hepsini kullanabilirim çünkü hepsi doğru.,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_29,DTI_29,TP/(TP+TN+FN+FP),,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_30,DTI_30,TP durumunun tüm durumlara oranını buluyor.,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_31,DTI_31,Sadece TP olması ihtimalinin tüm durumuna tercih edildiği durumlarda kullanılmalı.,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_32,DTI_32,0/33 = 0,,,students/Marco/WS11/extraction.json
+Marco,WS11,DTI_33,DTI_33,Yanlış karar.,,,students/Marco/WS11/extraction.json
+Marco,WS13,DT_A_Q1,DT_A_Q1,Sağlığa etkisini baz alarak tahmin edilebilir,False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_A_Q2,DT_A_Q2,"Enerji, karbonhidrat, şeker",,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_A_Q3,DT_A_Q3,Saptayamadım. Çünkü karmaşık veriler vardı.,,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_A_Q4,DT_A_Q4,Yağ değişkenini seçerdim. Çünkü ayırt edilmesi daha kolay olur.,,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_B_Q1,DT_B_Q1,Doymuş Yağ: <10 / ≥10 | Değişkenden memnunum. Sensitive yüksek geldi. Yüksek olduğu için daha kolay anlaşılabilir.,False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_B_Q2,DT_B_Q2,Protein: <7 / ≥7 | Değişkenden memnun değilim. Eşik değer uygun değil.,False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_B_Q3,DT_B_Q3,"TU2: <0,73 / ≥0,73 | Değişkenden memnunum. MCR oranı düştü.",,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_B_Q4,DT_B_Q4,"En iyisi protein, sonra eşik değer değiştirince istediğim sonucu elde ettim.",,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_C_Q1,DT_C_Q1,Protein,False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_C_Q2,DT_C_Q2,"MCR iyi düzeyde, sensitiviteyi",,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_C_Q3,DT_C_Q3,(bos),False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_D_Q1,DT_D_Q1,"Yağ, Doymuş Yağ",False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_D_Q2,DT_D_Q2,"MCR yönünden kötüleştirdi, sensitive yönünden iyileştirdi.",,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_D_Q3,DT_D_Q3,Doymuş Yağ,,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_D_Q4,DT_D_Q4,"MCR iyi, erişilecek, sensitiviteyi arttırdığı zaman.",True,,students/Marco/WS13/extraction.json
+Marco,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,,students/Marco/WS13/extraction.json
+Marco,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,,students/Marco/WS13/extraction.json
+Marco,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,895",True,,students/Marco/WS13/extraction.json
+Marco,WS13,DT_E_MCR,DT_E_MCR,"0,244",,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_E_Q1,DT_E_Q1,Duyarlılık,,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_E_Q2,DT_E_Q2,Daha çok yanlış pozitif yaptı,,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_E_Q4,DT_E_Q4,Yok,False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_F_Q1,DT_F_Q1,(bos),False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_F_Q2,DT_F_Q2,(bos),False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_G_Q1,DT_G_Q1,(bos),False,,students/Marco/WS13/extraction.json
+Marco,WS13,DT_G_Q2,DT_G_Q2,(bos),False,,students/Marco/WS13/extraction.json
 Marco,WS14,DTI_01,DTI_01,"15 tane vaka içermektedir. 12 tanesi hasta, 3 tanesi sağlıklıdır. %80'i hastadır.",True,,ocr_output/Marco/Marco_Worksheet_Xeno.json
 Marco,WS14,DTI_02,DTI_02,"Toplamda 3 tane mavi saçlı var. Mavi saçlıların tamamı (3 tane) [corrected: crossed out] sağlıklıdır, %0'ı hastadır.",True,,ocr_output/Marco/Marco_Worksheet_Xeno.json
 Marco,WS14,DTI_03,DTI_03,Toplamda 12 tane pembe saçlı vardır. Tamamı (%100'ü) hastadır. Pembe saç ile hastalık arasında doğru orantı vardır. Pembe saçlı herkes hastadır.,True,,ocr_output/Marco/Marco_Worksheet_Xeno.json
@@ -1437,6 +1885,70 @@ Marcus,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,True,,ocr
 Marcus,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,True,,ocr_output/Marcus/Marcus_Worksheet10.json
 Marcus,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,True,,ocr_output/Marcus/Marcus_Worksheet10.json
 Marcus,WS10,optimal_threshold,optimal_threshold.value_parsed,408.0,,,ocr_output/Marcus/Marcus_Worksheet10.json
+Marcus,WS11,DTI_01,DTI_01,10 | %10 hasta 1 hasta 9 sağlıklı,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_02,DTI_02,9 vaka var hiç biri hasta değil,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_03,DTI_03,1 vaka var %100 ' ü hasta,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_04,DTI_04,[corrected: negatif → pozitif] Saç,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_05,DTI_05,(bos),,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_06,DTI_06,"Evet çünkü 1 tane farklı, farklı renk var o da hasta",,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_07,DTI_07,Yapamazdık,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_08,DTI_08,"FN, çünkü birey ölebilir",,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_09,DTI_09,"Pembe saçlılar gene hasta, maviler gene sağlıklı",,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_10,DTI_10,6,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_11,DTI_11,"Gerçekten hastayken, hastalar",,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_12,DTI_12,14,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_13,DTI_13,"Gerçekten sağlıklıyken, sağlıklılar",,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_14,DTI_14,0,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_15,DTI_15,Sağlıklıyken hastalar,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_16,DTI_16,0,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_17,DTI_17,Hastayken sağlıklılar,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_18,DTI_18,20,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_19,DTI_19,(bos),,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_20,DTI_20,20 / 20 = [circled: 1],,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_21,DTI_21,%100 Doğru,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_22,DTI_22,6 / 6 = [circled: 1],,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_23,DTI_23,%100 Duyarlı,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_24,DTI_24,14 / 14 = [circled: 1],,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_25,DTI_25,%100 Özgüllü,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_26,DTI_26,6 / 6 = [circled: 1],,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_27,DTI_27,%100 kesinlik,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_28,DTI_28,TP / (TP + FN) (Duyarlılık) → Bu metrik daha iyi sonuçlar veriyor,,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_29,DTI_29,TP / (TP + TP),,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_30,DTI_30,(bos),,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_31,DTI_31,(bos),,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_32,DTI_32,(bos),,,students/Marcus/WS11/extraction.json
+Marcus,WS11,DTI_33,DTI_33,(bos),,,students/Marcus/WS11/extraction.json
+Marcus,WS13,DT_A_Q1,DT_A_Q1,Bence yağın fazla olması zararlı olduğunu gösterir çünkü böyle bir genel algı var.,True,,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_A_Q2,DT_A_Q2,Yağ ve protein etkiliyor bence.,,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_A_Q3,DT_A_Q3,Karbonhidrat olabilir. Karbonhidrat yüksek olanlar genelde tavsiye edilemez oluyor.,True,,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_A_Q4,DT_A_Q4,Yüksek karbonhidrat tavsiye edilmez. Çünkü kendi bildiğim gıdalarda da böyle oluyor.,,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_B_Q1,DT_B_Q1,"Değişken Enerji seçtim ama bence yetersiz bir sonuç aldım diğer başka sonuçlara da baktım. Karbonhidrat, yağ, doymuş yağ gibi bunlar bence birbirine yakın sonuçlar verdi, bence en iyisi Doymuş yağ oldu.",False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_B_Q2,DT_B_Q2,Enerji'yi seçtim. MCR'si doymuş yağ kadar iyi olmasada Sens değeri gayet güzel geldi.,False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_B_Q3,DT_B_Q3,Karbonhidrat seçtim ortalama bir sonuç verdi kötü değil ama çok iyi de değil.,False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_B_Q4,DT_B_Q4,Doymuş yağ oldu benim için çünkü MCR oranı en iyi olan doymuş yağ. Sens değeri de fena değil bence en iyi doymuş yağ oldu.,True,,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_C_Q1,DT_C_Q1,"Çok da iyiye gitmedi. MCR yükseldi, Sens de yükseldi.",False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_C_Q2,DT_C_Q2,Daha iyiye gidiyor.,,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_C_Q3,DT_C_Q3,Bence enerjiyi düzenleyince çok daha iyi oldu.,,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_D_Q1,DT_D_Q1,Tamam,False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_D_Q2,DT_D_Q2,İyileştirdi. Karbonhidrat ve enerji.,,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_D_Q3,DT_D_Q3,"Karbonhidrat, enerji",,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_D_Q4,DT_D_Q4,Denedim.,False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_E_sensitivity,DT_E_sensitivity,(bos),False,,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_E_MCR,DT_E_MCR,(bos),False,,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_E_Q1,DT_E_Q1,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_E_Q2,DT_E_Q2,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_E_Q4,DT_E_Q4,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_F_Q1,DT_F_Q1,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_F_Q2,DT_F_Q2,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_G_Q1,DT_G_Q1,(bos),False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_G_Q2,DT_G_Q2,(bos),False,,students/Marcus/WS13/extraction.json
 Marcus,WS14,DTI_01,DTI_01,10 | %10 hasta 1 hasta 9 sağlıklı,True,,ocr_output/Marcus/Marcus_Worksheet_Xeno.json
 Marcus,WS14,DTI_02,DTI_02,9 vaka var hiç biri hasta değil,True,,ocr_output/Marcus/Marcus_Worksheet_Xeno.json
 Marcus,WS14,DTI_03,DTI_03,1 vaka var %100 ' ü hasta,True,,ocr_output/Marcus/Marcus_Worksheet_Xeno.json
@@ -1585,6 +2097,70 @@ Melinda,WS5,trials[3],trials[3].right_leaf_not_recommended,3,,,ocr_output/Melind
 Melinda,WS5,trials[3],trials[3].student_error_count,4,,,ocr_output/Melinda/Melinda_Worksheet5.json
 Melinda,WS5,trials[3],trials[3].student_mcr,,,,ocr_output/Melinda/Melinda_Worksheet5.json
 Melinda,WS5,final_decision_raw,final_decision_raw,Şeker değişkeni için hangi eşik değerini seçiyorsunuz? Not alın: Eşik değeri 29 gr,,,ocr_output/Melinda/Melinda_Worksheet5.json
+Melinda,WS11,DTI_01,DTI_01,"30, 20 sağlıklı, %33 hasta, 10 hasta",,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_02,DTI_02,"20 vaka, 0 hasta, %100 sağlıklı",,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_03,DTI_03,"10 vaka, 10 hasta, %100 hasta",,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_04,DTI_04,"POZİTİF | Xhealth sıck, hair, mümkün değildi",,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_05,DTI_05,(bos),,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_06,DTI_06,"[corrected: Hayır → Evet], Hata tespit edilmedi",,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_07,DTI_07,Yapamazdık.,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_08,DTI_08,"FN, adam ölebilir",,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_09,DTI_09,"Pinkler gene hasta, blueler gene well",,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_10,DTI_10,58,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_11,DTI_11,Gerçekten hastayken hasta çıkanlar,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_12,DTI_12,52,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_13,DTI_13,Gerçekten sağlıklıyken sağlıklı çıkanlar,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_14,DTI_14,0,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_15,DTI_15,Sağlıklıyken hasta çıkanlar,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_16,DTI_16,0,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_17,DTI_17,Hastayken sağlıklı çıkanlar,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_18,DTI_18,110,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_19,DTI_19,(bos),,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_20,DTI_20,1,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_21,DTI_21,Doğrudur %100,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_22,DTI_22,1,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_23,DTI_23,%100 Duyarlıdır,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_24,DTI_24,1,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_25,DTI_25,%100 özgüldür.,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_26,DTI_26,1,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_27,DTI_27,%100 kesindir.,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_28,DTI_28,Kesinliği kullanırım çünkü kesinlik insanın içini rahatlatır.,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_29,DTI_29,(TP+TN)/(N+FP),,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_30,DTI_30,Emin değilim bir şeyi daha iyi yakaladığından,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_31,DTI_31,Sabah mesaisinde tercih edilmelidir.,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_32,DTI_32,0/110,,,students/Melinda/WS11/extraction.json
+Melinda,WS11,DTI_33,DTI_33,Sonuç 0 çıktı,,,students/Melinda/WS11/extraction.json
+Melinda,WS13,DT_A_Q1,DT_A_Q1,"Doymuş yağ, şeker, karbonhidrat, enerji",True,,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_A_Q2,DT_A_Q2,"Doymuş yağ, şeker, karbonhidrat",,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_A_Q3,DT_A_Q3,"Evet buldum. Örneğin yağ değişkeninde eşik değeri 2,7 aldığımızda en doğru tahto çıkıyor.",True,,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_A_Q4,DT_A_Q4,Yağ seçerdim çünkü veri setinde gerçeğe en yakın çıkan yağ oldu.,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_B_Q1,DT_B_Q1,"Doymuş yağ seçtim eşik değer 4,6 yaptım. MCR 0.289 ve sensitivity 0.944 çıktı. Gerçeğe en uygun değer bu oluyor.",False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_B_Q2,DT_B_Q2,Enerji seçtim. Eşik değer 250 aldım. MCR 0.244 ve sens. 0.778,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_B_Q3,DT_B_Q3,Karbonhidrat seçtim. Eşik değer 24.3 seçtim. MCR 0.356 sens. 0.722,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_B_Q4,DT_B_Q4,En iyi sonuç doymuş yağ.,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_C_Q1,DT_C_Q1,En iyi doymuş yağ.,False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_C_Q2,DT_C_Q2,Veri setinin daha doğru sonuç vermesini sağlar.,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_C_Q3,DT_C_Q3,Doymuş yağ ayırıyor.,False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_D_Q1,DT_D_Q1,(bos),False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_D_Q2,DT_D_Q2,İyileştirdi. MCR değeri düştü.,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_D_Q3,DT_D_Q3,Enerji ve yağ en iyi sonucu verdi.,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_D_Q4,DT_D_Q4,Daha fazla ve farklı değişkenler girildiğinde MCR değeri arttı bu da istemediğimiz bir durum.,True,,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_E_TP,DT_E_TP,7,False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_E_FP,DT_E_FP,0,False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_E_sensitivity,DT_E_sensitivity,0.875,True,,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_E_MCR,DT_E_MCR,0.1,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_E_Q1,DT_E_Q1,MCR daha önemli gözüküyor. Ne kadar az hatamız olursa test verisi o kadar iyi çalışıyor demektir.,True,,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_E_Q2,DT_E_Q2,Daha çok yanlış negatif yaptı. TP=7 FP=0 TN=2 FN=1,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_E_Q4,DT_E_Q4,Düşünmüyorum.,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_F_Q1,DT_F_Q1,Enerji (şeker) tuz karbonhidrat,False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_F_Q2,DT_F_Q2,Test verisindeki doğruluk oranı daha yüksek çıktı.,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_G_Q1,DT_G_Q1,Birden fazla veriyi kullanarak en doğru sonuca yaklaşabildik.,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_G_Q2,DT_G_Q2,%100 doğru sonuca ulaşamıyoruz ancak değerleri kullanarak en doğru sonuca yaklaşabiliyoruz.,,review,students/Melinda/WS13/extraction.json
 Melinda,WS14,DTI_01,DTI_01,"30, 20 sağlıklı, %33 hasta, 10 hasta",True,,ocr_output/Melinda/Melinda_Worksheet_Xeno.json
 Melinda,WS14,DTI_02,DTI_02,"20 vaka, 0 hasta, %100 sağlıklı",True,,ocr_output/Melinda/Melinda_Worksheet_Xeno.json
 Melinda,WS14,DTI_03,DTI_03,"10 vaka, 10 hasta, %100 hasta",True,,ocr_output/Melinda/Melinda_Worksheet_Xeno.json
@@ -1795,6 +2371,70 @@ Nadia,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,True,,ocr_
 Nadia,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,True,,ocr_output/Nadia/Nadia_Worksheet10.json
 Nadia,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,True,,ocr_output/Nadia/Nadia_Worksheet10.json
 Nadia,WS10,optimal_threshold,optimal_threshold.value_parsed,408.0,,,ocr_output/Nadia/Nadia_Worksheet10.json
+Nadia,WS11,DTI_01,DTI_01,"16 vaka, %62,5, çoğunluk hastadır",,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_02,DTI_02,"Mavi saçlıda 6 kişi, bunların hiç biri hasta durumda değildir, hastalık oranı yüksek",,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_03,DTI_03,"10 vaka vardır ve hepsi hastadır, bu sonuç mavi saçlı olanların sağlıklı, pembe saçlı olanların ise hasta olduğu gösteriyor",,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_04,DTI_04,"Pembe saçlı kişiler [circled/margin: pozitif], bu durum için sağlık ve saç durumuna göre ayarladık",,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_05,DTI_05,[corrected: struck-through] (okunamiyor),,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_06,DTI_06,Evet çünkü hatasız çalışıyor,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_07,DTI_07,"Bence %100'e yakın bir şekilde tahmin ederdik, olası diğer durumu istisna olarak değerlendirirdim",,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_08,DTI_08,FN çünkü sonu acı bitme ihtimali var ve ihmaller var bu daha tehlikelidir,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_09,DTI_09,Bi sorun olmadı,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_10,DTI_10,10,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_11,DTI_11,hasta ve modelim doğru bildi,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_12,DTI_12,6,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_13,DTI_13,hem sağlıklı ve model doğru tahmin etmiş,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_14,DTI_14,0,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_15,DTI_15,hasta ve modelim yanlış bilmiş,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_16,DTI_16,0,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_17,DTI_17,sağlıklı ve modelim yanlış tahmin etmiş,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_18,DTI_18,16,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_19,DTI_19,toplam kişiler,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_20,DTI_20,10 + 6 / 16 [circled: 1] [circled: 16/16],,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_21,DTI_21,Çok iyi,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_22,DTI_22,10 / 10 + 0 [circled: 1] [circled: 10/10],,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_23,DTI_23,Çok iyi,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_24,DTI_24,6 / 6 + 0 = 1,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_25,DTI_25,Çok iyi,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_26,DTI_26,10 / 10 + 0,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_27,DTI_27,Çok iyi,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_28,DTI_28,Öncelik doğruluğa bakarım çünkü 3 farklı durumu kullanıyoruz ama hepsine bakarım yine de,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_29,DTI_29,[corrected: TP+TN/N struck-through → ] FP + FN / [circled: 0],,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_30,DTI_30,Sadece kesinliği gösteriyor,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_31,DTI_31,[struck-through: ...olduğu durumlarda] her durumda,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_32,DTI_32,0 / 16,,,students/Nadia/WS11/extraction.json
+Nadia,WS11,DTI_33,DTI_33,"Net gösteriyor, model iyi durumda",,,students/Nadia/WS11/extraction.json
+Nadia,WS13,DT_A_Q1,DT_A_Q1,"Enerji, Yağ, Şeker, Protein, Tuz, Karbonhidrat.",True,,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_A_Q2,DT_A_Q2,"Tuz, Yağ",,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_A_Q3,DT_A_Q3,Evet bence var. Çünkü 20'nin altındaki değerler için TP değeri çok daha fazla.,True,,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_A_Q4,DT_A_Q4,Yağ değişkeni. Sebebi yine TP değerinin yüksek olması,True,,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_B_Q1,DT_B_Q1,"Enerji değişkenini seçtim ve eşik değerini 290 yaptım ve MCR 0,244 oldu. O yüzden daha iyi old. düşünüyorum.",,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_B_Q2,DT_B_Q2,"Yağ değişkeni ve eşik değeri 3 yaptım. MCR 0,267 oldu.",,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_B_Q3,DT_B_Q3,"Yağ seçtim eşik değerini 28,3 yaptım ve sens 0,909 oldu",,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_B_Q4,DT_B_Q4,Enerji değeri çünkü TP ve TN değerleri en yüksek bu değişkende,True,,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_C_Q1,DT_C_Q1,(bos),False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_C_Q2,DT_C_Q2,Olumlu etkiler. TP ve TN değerleri aynı zamanda sens değeri artış gösterir.,,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_C_Q3,DT_C_Q3,Enerji için 390,,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_D_Q1,DT_D_Q1,(bos),False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_D_Q2,DT_D_Q2,"Evet iyileştirdi. MCR'yi 0,244'den 0,222'ye geçti bu da olumlu yönde bir ilerleme.",True,,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_D_Q3,DT_D_Q3,Enerji - Tuz,,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_D_Q4,DT_D_Q4,MCR en düşük değere ulaştı.,True,,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,864",True,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_E_MCR,DT_E_MCR,"0,2",,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_E_Q1,DT_E_Q1,MCR. Çünkü en düşük değer,,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_E_Q2,DT_E_Q2,Yanlış pozitif daha fazla,,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_E_Q4,DT_E_Q4,Evet. Dallandırmayı arttırırsak bu mümkün olabilir.,False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_F_Q1,DT_F_Q1,"Enerji kullandım. Sens 0,955 bence oldukça iyi. Enerji - [Tuz çizili] yaparsam MCR değerim 0,164.",False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_F_Q2,DT_F_Q2,"Eğitim verisi MCR'si test verisi MCR'sinden daha yüksek, test verisi daha iyi",,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_G_Q1,DT_G_Q1,MCR ve sens değerleri.,False,review,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_G_Q2,DT_G_Q2,MCR'nin düşük olması ya da sensin yüksek olması benim istediğim bir şey.,,review,students/Nadia/WS13/extraction.json
 Nadia,WS14,DTI_01,DTI_01,"16 vaka, %62,5, çoğunluk hastadır",True,,ocr_output/Nadia/Nadia_Worksheet_Xeno.json
 Nadia,WS14,DTI_02,DTI_02,"Mavi saçlıda 6 kişi, bunların hiç biri hasta durumda değildir, hastalık oranı yüksek",True,,ocr_output/Nadia/Nadia_Worksheet_Xeno.json
 Nadia,WS14,DTI_03,DTI_03,"10 vaka vardır ve hepsi hastadır, bu sonuç mavi saçlı olanların sağlıklı, pembe saçlı olanların ise hasta olduğu gösteriyor",True,,ocr_output/Nadia/Nadia_Worksheet_Xeno.json
@@ -1943,6 +2583,70 @@ Serena,WS5,trials[3],trials[3].right_leaf_not_recommended,4,,,ocr_output/Serena/
 Serena,WS5,trials[3],trials[3].student_error_count,,,,ocr_output/Serena/Serena_Worksheet5.json
 Serena,WS5,trials[3],trials[3].student_mcr,,,,ocr_output/Serena/Serena_Worksheet5.json
 Serena,WS5,final_decision_raw,final_decision_raw,Enerji ve Şeker değişkeni için hangi eşik değerini seçiyorsunuz? Çünkü 2 hata var ikisinde de,,,ocr_output/Serena/Serena_Worksheet5.json
+Serena,WS11,DTI_01,DTI_01,"Kök düğüm 26 vaka içermekte. %46,2 sick",,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_02,DTI_02,Mavi saçlı kutuda 14 vaka var 0 tane sick. Bu grup %100 sağlıklı,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_03,DTI_03,Pembe saçlı kutuda 12 vaka var. Bu vakaların 12 tanesi sick. Mavi saçlılar sağlıklı pembe saçlılar hasta,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_04,DTI_04,Pembe saçlı hasta olarak etiketlenmekte. Bu kararı verirken hair olayını kullandım.,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_05,DTI_05,(bos),,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_06,DTI_06,Evet. Çünkü Pembe saçlıların hepsi hasta mavi saçlıların hepsi sağlıklı,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_07,DTI_07,Yüksek ihtimalle doğru çıkardı ama güvenilirliği arttırmak için başka şeylere de bakabilirim.,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_08,DTI_08,Bence FN (Yanlış Negatif) çünkü hasta olan birine müdahale edilmesi gerekir aksi takdirde ölebilir.,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_09,DTI_09,Hata payı oluşmadı.,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_10,DTI_10,17,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_11,DTI_11,Doğru karar,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_12,DTI_12,20,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_13,DTI_13,Doğru karar,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_14,DTI_14,0,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_15,DTI_15,Gerçekte sağlıklı olmasına rağmen hasta teşhisi kondu yanlış karar,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_16,DTI_16,0,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_17,DTI_17,Gerçekte hasta olmasına rağmen sağlıklı teşhisi kondu yanlış karar,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_18,DTI_18,37,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_19,DTI_19,(bos),,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_20,DTI_20,(17 + 20) / 37,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_21,DTI_21,1,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_22,DTI_22,17 / (17 + 0),,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_23,DTI_23,1,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_24,DTI_24,20 / (20 + 0),,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_25,DTI_25,1,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_26,DTI_26,17 / (17 + 0),,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_27,DTI_27,1,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_28,DTI_28,[corrected: Saç rengini → Hepsini] kullanırım çünkü hepsinde 1 sonucuna ulaştım ve hepsi doğru,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_29,DTI_29,TP / |TP - FP|,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_30,DTI_30,Hasta denen vakaların ne kadar hasta olduğu,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_31,DTI_31,Hasta olanları bulmada,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_32,DTI_32,(0 + 0) / 37,,,students/Serena/WS11/extraction.json
+Serena,WS11,DTI_33,DTI_33,0 [arrow] yanlış karar,,,students/Serena/WS11/extraction.json
+Serena,WS13,DT_A_Q1,DT_A_Q1,"Yağ, Şeker, Tuz",True,,students/Serena/WS13/extraction.json
+Serena,WS13,DT_A_Q2,DT_A_Q2,"Enerji, Doymuş yağ",,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_A_Q3,DT_A_Q3,Evet grafik üzerinde bakınca tuz oranı 2.21 altındaysa tavsiye edilebilir,True,,students/Serena/WS13/extraction.json
+Serena,WS13,DT_A_Q4,DT_A_Q4,Şeker oranına bakardım,,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_B_Q1,DT_B_Q1,"Enerji değişkenini seçtim ve eşik değerini 250 yaptım ve MCR 0,273 o yüzden daha iyi oldu",,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_B_Q2,DT_B_Q2,"Yağ değişkeni ve eşik değeri 10 yaptım MCR 0,227 oldu",,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_B_Q3,DT_B_Q3,"Yağ seçtim eşik değerini 22 yaptım MCR 0,318 oldu",,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_B_Q4,DT_B_Q4,Enerji değeri çünkü TP ve TN değerleri en yüksek bu değişkende,True,,students/Serena/WS13/extraction.json
+Serena,WS13,DT_C_Q1,DT_C_Q1,(bos),False,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_C_Q2,DT_C_Q2,Olumsuz etkiliyor en iyi eşik değer 250,,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_C_Q3,DT_C_Q3,Enerji için 250,,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_D_Q1,DT_D_Q1,(bos),False,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_D_Q2,DT_D_Q2,Evet iyileştirdi MCR'yi düşürdü,,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_D_Q3,DT_D_Q3,Enerji ve yağ en iyi sonucu verdi,,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_D_Q4,DT_D_Q4,MCR en düşük değere ulaştı,True,,students/Serena/WS13/extraction.json
+Serena,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,,students/Serena/WS13/extraction.json
+Serena,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,4",True,,students/Serena/WS13/extraction.json
+Serena,WS13,DT_E_MCR,DT_E_MCR,"0,273",,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_E_Q1,DT_E_Q1,Önceki yaptığım ile bu değer aynı çıktı,False,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_E_Q2,DT_E_Q2,Aynı şekilde bulmuştum öncesinde o yüzden model düzgün çalışıyor,False,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_E_Q3,DT_E_Q3,MCR'nin en az olduğu durumda sens'in en fazla olduğu durum en iyi durum,,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_E_Q4,DT_E_Q4,Her durumda olacağını düşünmüyorum,,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_F_Q1,DT_F_Q1,"Enerji, şeker, tuz",False,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_F_Q2,DT_F_Q2,Test verisindeki doğruluk oranı değişiyor,,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_G_Q1,DT_G_Q1,Her zaman en yakın sonucu bulamıyoruz aşırı öğrenme durumu oluşuyor,,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_G_Q2,DT_G_Q2,2'den fazla olunca oran daha kötü oluyor,,review,students/Serena/WS13/extraction.json
 Serena,WS14,DTI_01,DTI_01,"Kök düğüm 26 vaka içermekte. %46,2 sick",True,,ocr_output/Serena/Serena_Worksheet_Xeno.json
 Serena,WS14,DTI_02,DTI_02,Mavi saçlı kutuda 14 vaka var 0 tane sick. Bu grup %100 sağlıklı,True,,ocr_output/Serena/Serena_Worksheet_Xeno.json
 Serena,WS14,DTI_03,DTI_03,Pembe saçlı kutuda 12 vaka var. Bu vakaların 12 tanesi sick. Mavi saçlılar sağlıklı pembe saçlılar hasta,True,,ocr_output/Serena/Serena_Worksheet_Xeno.json
@@ -2153,6 +2857,70 @@ Shana,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,True,,ocr_
 Shana,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,True,,ocr_output/Shana/Shana_Worksheet10.json
 Shana,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,True,,ocr_output/Shana/Shana_Worksheet10.json
 Shana,WS10,optimal_threshold,optimal_threshold.value_parsed,408.0,,,ocr_output/Shana/Shana_Worksheet10.json
+Shana,WS11,DTI_01,DTI_01,"10 kişi var, %50'si hasta. Hasta ve sağlıklı oranı aynı",,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_02,DTI_02,5 kişi mavi saçlıdır. Bu vakaların [circled: 0]'ı hastadır. Bu grubun hastalık oranı %0'dır,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_03,DTI_03,Pembe saçlı 5 vaka vardır. Bu vakaların hepsi hastadır. Pembe saçlı olanların hepsi hastadır,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_04,DTI_04,Pembe saçlı olanların olduğu sağ kutu hasta olarak etiketlenir,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_05,DTI_05,Pembe saçlı kutuda 5 vaka vardır. Hepsi yani 5 kişi hastadır. Pembe saçlıların hepsi hastadır,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_06,DTI_06,Bu veri seti için iyi bir ayırıcıdır,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_07,DTI_07,%100 doğru olması beklenir,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_08,DTI_08,Sağlıklı bir birey hasta olarak değerlendirildiğinde yanlış tedavi uygulanıp gereğinde hasta olmasına neden olabilir. Hasta bir bireyin sağlıklı olarak değerlendirilmesi tedavisi geciktirilip bireyin sağlığında olmasına neden olabilir,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_09,DTI_09,[corrected: struck-through text] Tahminler hala doğru tahmin etmekte,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_10,DTI_10,9,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_11,DTI_11,Test tüm hastaları doğru tahmin etti,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_12,DTI_12,11,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_13,DTI_13,Test hasta olmayanı doğru tahmin etti,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_14,DTI_14,0,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_15,DTI_15,test hatası yok,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_16,DTI_16,0,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_17,DTI_17,test hatası yok,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_18,DTI_18,20,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_19,DTI_19,(bos),,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_20,DTI_20,20 / 20 = 1,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_21,DTI_21,Doğru oranı emekle [okunamiyor],,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_22,DTI_22,9 / 9 = 1,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_23,DTI_23,Gerçekten hasta olanı doğru tespit etti,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_24,DTI_24,11 / 11 = 1,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_25,DTI_25,Gerçekten sağlıklı olan bireyi doğru buluyor,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_26,DTI_26,9 / 9 = 1,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_27,DTI_27,Ne kadar hasta olduğunu hesaplıyor,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_28,DTI_28,"Duyarlılığı, sanırım doğru tahmin etme oranını verdiği için",,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_29,DTI_29,|TP + TN| / |TN + FP| =,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_30,DTI_30,Hastaları ve doğru olanların oranını verdiğini olduğundan,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_31,DTI_31,Doğru olmasını tahmin etmek istediğinde,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_32,DTI_32,0 + 0 / 10 = 0    1 - 0 = 1,,,students/Shana/WS11/extraction.json
+Shana,WS11,DTI_33,DTI_33,Hata oranı çok düşük hata yok. Bu da bunu gösterir,,,students/Shana/WS11/extraction.json
+Shana,WS13,DT_A_Q1,DT_A_Q1,Bence yağ ve şeker belirleyici olur.,True,,students/Shana/WS13/extraction.json
+Shana,WS13,DT_A_Q2,DT_A_Q2,"Yağ, şeker, doymuş yağ, tuz, vs. belirleyici oluyor.",,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_A_Q3,DT_A_Q3,Yağ bence en belirleyici olan faktör. Şeker de yağ gibi belirleyici bir faktör.,,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_A_Q4,DT_A_Q4,Ben incelediğim değerlere göre en belirleyici olanın yağ olduğunu düşünüyorum o yüzden ilk yağla bakardım.,,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_B_Q1,DT_B_Q1,"Oranları karşılaştırdık ve MCR, sens değerlerini inceledik. Tuz değeri için doğru veya yanlış karar alınıp alınmadığını karşılaştırdık. Tuz için yanlış sınıflandırma oranı: 0.4",,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_B_Q2,DT_B_Q2,Yağ için aynı şekilde karşılaştırma yaptım. Yanlış sınıflandırma oranı: 0.3,False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_B_Q3,DT_B_Q3,Şeker için aynı şekilde karşılaştırma yaptım. Yanlış sınıflandırma oranı: 0.35,False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_B_Q4,DT_B_Q4,Yanlış sınıflandırma oranının (MCR) en az olduğu değişken yağ. Şeker en tavsiye edilemez ürün için en belirleyici olan özelliğin yağ olduğunu düşündüm.,True,,students/Shana/WS13/extraction.json
+Shana,WS13,DT_C_Q1,DT_C_Q1,En iyi performans gösteren değişkenimi yağ olarak seçtim. Eşik değer olarak denediğimde en iyi eşik değerin 0.93 olduğuna karar verdim.,False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_C_Q2,DT_C_Q2,Doğru sonuç alınma oranını ve hata yapma olasılığını azaltır / sağlar.,,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_C_Q3,DT_C_Q3,Yağ için 0.93 ve 30 eşit değerlerine baktığımda 0.93 eşik değerinin daha doğru olduğunu gördüm. Yanlış hata oranı ve sens değerlerini kıyaslayarak bu sonuca vardım.,True,,students/Shana/WS13/extraction.json
+Shana,WS13,DT_D_Q1,DT_D_Q1,Yağın üstüne şekeri ekledim.,False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_D_Q2,DT_D_Q2,Sadece yağ değişkeninde MCR: 0.3 Sens: 0.55 idi. Şekeri ikinci değişken olarak eklediğimde MCR: 0.35 Sens: [circled: 1] oldu. Hata oranı çok az yükseldi ama sens yarıya yükseldi.,True,,students/Shana/WS13/extraction.json
+Shana,WS13,DT_D_Q3,DT_D_Q3,Yağ üstüne karbonhidrat ekleyince en iyi sonucu aldım. MCR: 0.275 Sens: 0.8 oldu. Hata oranım gayet azaldı. Duyarlılık değerim de oldukça arttı.,True,,students/Shana/WS13/extraction.json
+Shana,WS13,DT_D_Q4,DT_D_Q4,"Hata oranım (MCR) az, Sens değerim yüksek olduğunda.",True,,students/Shana/WS13/extraction.json
+Shana,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_E_sensitivity,DT_E_sensitivity,(bos),False,,students/Shana/WS13/extraction.json
+Shana,WS13,DT_E_MCR,DT_E_MCR,(bos),False,,students/Shana/WS13/extraction.json
+Shana,WS13,DT_E_Q1,DT_E_Q1,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_E_Q2,DT_E_Q2,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_E_Q4,DT_E_Q4,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_F_Q1,DT_F_Q1,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_F_Q2,DT_F_Q2,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_G_Q1,DT_G_Q1,(bos),False,review,students/Shana/WS13/extraction.json
+Shana,WS13,DT_G_Q2,DT_G_Q2,(bos),False,,students/Shana/WS13/extraction.json
 Shana,WS14,DTI_01,DTI_01,"10 kişi var, %50'si hasta. Hasta ve sağlıklı oranı aynı",True,,ocr_output/Shana/Shana_Worksheet_Xeno.json
 Shana,WS14,DTI_02,DTI_02,5 kişi mavi saçlıdır. Bu vakaların [circled: 0]'ı hastadır. Bu grubun hastalık oranı %0'dır,True,,ocr_output/Shana/Shana_Worksheet_Xeno.json
 Shana,WS14,DTI_03,DTI_03,Pembe saçlı 5 vaka vardır. Bu vakaların hepsi hastadır. Pembe saçlı olanların hepsi hastadır,True,,ocr_output/Shana/Shana_Worksheet_Xeno.json
@@ -2364,6 +3132,70 @@ Sheila,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,True,,ocr
 Sheila,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,True,,ocr_output/Sheila/Sheila_Worksheet10.json
 Sheila,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,True,,ocr_output/Sheila/Sheila_Worksheet10.json
 Sheila,WS10,optimal_threshold,optimal_threshold.value_parsed,,,,ocr_output/Sheila/Sheila_Worksheet10.json
+Sheila,WS11,DTI_01,DTI_01,24 vaka içermekte %41.7 si hasta,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_02,DTI_02,Bu vakaların 14 ü mavi saçlı,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_03,DTI_03,10 tanesi pembe saçlı,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_04,DTI_04,pink hair | pozitif [corrected: negatif → pozitif],,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_05,DTI_05,10 tanesi hasta sick yazıyor %100 hasta,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_06,DTI_06,Evet pembe renk saç hepsinde hasta,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_07,DTI_07,%100 doğru çıkıyor yapabiliriz.,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_08,DTI_08,FN (Yanlış) Çünkü hasta olana müdahale edilmeli,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_09,DTI_09,Hata payı yok,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_10,DTI_10,10,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_11,DTI_11,Doğru karar,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_12,DTI_12,0,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_13,DTI_13,Doğru karar,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_14,DTI_14,14,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_15,DTI_15,Hasta dedi ama sağlıklı,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_16,DTI_16,0,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_17,DTI_17,Sağlıklı dedi ama hasta,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_18,DTI_18,24,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_19,DTI_19,toplam vaka,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_20,DTI_20,(10+0) / 24 = 5/12,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_21,DTI_21,Doğruluk oranım 5/12 dir,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_22,DTI_22,10 / 24,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_23,DTI_23,Oran yarısından daha az,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_24,DTI_24,0 / 0+0 = 0,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_25,DTI_25,Oran sıfır,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_26,DTI_26,10 / 24,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_27,DTI_27,Oran yarıdan daha az,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_28,DTI_28,Özgüllük hariç hepsi eşit o yüzden diğerleride kullanılır.,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_29,DTI_29,Kesinlik = Duyarlılık | TP+TN / FP+FN = 10+0 / 14+0 = 10/14,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_30,DTI_30,Çünkü bu ölçü daha iyi teşhis ediyor,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_31,DTI_31,Hem yanlış pozitifler hem yanlış negatifler önemliyse ör: Hastalık tespiti gibi durumlarda tercih edilir,,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_32,DTI_32,(bos),,,students/Sheila/WS11/extraction.json
+Sheila,WS11,DTI_33,DTI_33,(bos),,,students/Sheila/WS11/extraction.json
+Sheila,WS13,DT_A_Q1,DT_A_Q1,Yağ değişkenine göre bakılarak tahmin edilebilir diye düşünüyorum.,True,,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_A_Q2,DT_A_Q2,Şeker tavsiye edilme durumunu etkiliyor olabilir.,,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_A_Q3,DT_A_Q3,"Evet saptadım, 10 üzerinde şeker varsa genelde tavsiye edilemez.",True,,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_A_Q4,DT_A_Q4,Şeker değişkenini kullanırdım; 13 üzerinde ise tavsiye edilemez olma ihtimali yüksek.,,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_B_Q1,DT_B_Q1,"Yağ değişkenine göre karar ağacı oluşturuldu. MCR: 0,5  Sensitivity: 1 olarak değerlendirildi.",,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_B_Q2,DT_B_Q2,"Şeker seçtim, eşik değer 10 oldu. MCR: 0,375  Sens: 0,882 oldu.",,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_B_Q3,DT_B_Q3,"Enerji olarak seçtim, eşik değer 200 seçtim. MCR: 0,115  Sens: 0,765 oldu.",,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_B_Q4,DT_B_Q4,"Enerji daha iyi sonuç verdi, FP ve FN daha düşük.",True,,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_C_Q1,DT_C_Q1,Yaptım [arrow] Enerji olarak belirledim.,False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_C_Q2,DT_C_Q2,Karar ağacında doğru seçim yapmamızı sağlar.,,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_C_Q3,DT_C_Q3,"Enerji için eşik değeri 200 olarak belirledim, en iyi şekilde ayırdığını düşündüm.",,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_D_Q1,DT_D_Q1,"Enerjiyi seçip (200), sonra yağı (5) olarak soğdum.",,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_D_Q2,DT_D_Q2,"İyileştirmedi. MCR iyi yükselti, sensi düşürdü.",,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_D_Q3,DT_D_Q3,"Yağ enerjinle (enerji ve yağ kombinasyonu) iyi sonuç verdi, diğerlerinden daha iyi.",,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_D_Q4,DT_D_Q4,MCR ve sens'e göre karar verdim.,True,,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_E_sensitivity,DT_E_sensitivity,(bos),False,,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_E_MCR,DT_E_MCR,(bos),False,,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_E_Q1,DT_E_Q1,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_E_Q2,DT_E_Q2,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_E_Q4,DT_E_Q4,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_F_Q1,DT_F_Q1,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_F_Q2,DT_F_Q2,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_G_Q1,DT_G_Q1,(bos),False,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_G_Q2,DT_G_Q2,(bos),False,,students/Sheila/WS13/extraction.json
 Sheila,WS14,DTI_01,DTI_01,24 vaka içermekte %41.7 si hasta,True,,ocr_output/Sheila/Sheila_Worksheet_Xeno.json
 Sheila,WS14,DTI_02,DTI_02,Bu vakaların 14 ü mavi saçlı,True,,ocr_output/Sheila/Sheila_Worksheet_Xeno.json
 Sheila,WS14,DTI_03,DTI_03,10 tanesi pembe saçlı,True,,ocr_output/Sheila/Sheila_Worksheet_Xeno.json
@@ -2570,6 +3402,70 @@ Ulysses,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,True,,oc
 Ulysses,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,True,,ocr_output/Ulysses/Ulysses_Worksheet10.json
 Ulysses,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,True,,ocr_output/Ulysses/Ulysses_Worksheet10.json
 Ulysses,WS10,optimal_threshold,optimal_threshold.value_parsed,408.0,,,ocr_output/Ulysses/Ulysses_Worksheet10.json
+Ulysses,WS11,DTI_01,DTI_01,"22 vaka içermekte. %54,5 hasta. Hastaların yarıdan fazlası hasta",,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_02,DTI_02,Mavi saçlı 10 vaka var hiçbiri hasta değil. Hastalık oranı 0. Mavi saçlı olunca hasta olmuyor.,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_03,DTI_03,Pembe saçlı 12 vaka var ve hepsi hasta. Hastalık oranı 100. Pembe saçlı olunca hasta oluyor.,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_04,DTI_04,Pembe saçlılar hasta (+) mavi saçlılar (-) olarak etiketlenmiştir,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_05,DTI_05,(bos),,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_06,DTI_06,Evet incelediğimiz tüm vakalarda saç rengi iyi bir ayırıcı hata vermiyor.,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_07,DTI_07,Saç rengi %100 doğru bir değişken olduğu için direkt olarak tahmin yapabiliriz.,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_08,DTI_08,"Tabiki FN (yanlış negatif), hasta birisi sonu ölümle bile sonuçlanabilecek bir hastalıktaysa onu sağlıklı nitelendirip iyileştirmemek büyük suçtur.",,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_09,DTI_09,Aynı şekilde sağa göre kesin sonuç veren yeni hastalar gördük.,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_10,DTI_10,17,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_11,DTI_11,Hastayken hasta dediğimiz,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_12,DTI_12,15,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_13,DTI_13,Sağlıklıyken sağlıklı dediğimiz,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_14,DTI_14,0,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_15,DTI_15,sağlıklıyken hasta dediğimiz,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_16,DTI_16,0,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_17,DTI_17,hastayken sağlıklı dediğimiz,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_18,DTI_18,32,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_19,DTI_19,hasta ve sağlıklı toplam,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_20,DTI_20,17+15 / 32 = 32/32,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_21,DTI_21,tahminlerdeki doğru oranı,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_22,DTI_22,17 / (17+0) = 17/17,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_23,DTI_23,hastaların doğru şekilde hasta tespit edildiğini gösterir,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_24,DTI_24,15 / (15+0) = 15/15,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_25,DTI_25,sağlıklıların doğru şekilde sağlıklı tespit edildiğini gösterir,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_26,DTI_26,17/(17+0) = 17/17,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_27,DTI_27,hastaların gerçekte ne kadarı hasta,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_28,DTI_28,[corrected: struck-through text → Duyarlılığı kullanırım. Tüm hastalar içinde gerçekten doğru şekilde hasta olanları tespit ederim.],,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_29,DTI_29,TP / TN,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_30,DTI_30,Hastaların sağlıklılara oranını verir. Hangisinin daha çok olduğunu görebiliriz.,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_31,DTI_31,Karşılaştırma yaparken tercih edilebilir.,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_32,DTI_32,0+0 / 32 = 0,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS11,DTI_33,DTI_33,yanlış tespit ettiğimiz biri yok,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS13,DT_A_Q1,DT_A_Q1,"Paketli gıda olup olmadığı, doğal olup olmadığı, alerjinin olup olmadığı",True,,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_A_Q2,DT_A_Q2,Tuz değişkenini eklediğinde büyük oranda tuzsuz gıdalar sağlıklı olarak sınır. Protein değişkenini eklediğinde çok belirgin bir ayırt etme sonucu gözlemleyemedim.,True,,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_A_Q3,DT_A_Q3,Tavsiye edilen ve tavsiye edilmeyen yiyecekler arasında anlamlı bir fark gösteren bir özellik saptayamadım.,,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_A_Q4,DT_A_Q4,Yağ → çünkü sağlıksız,,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_B_Q1,DT_B_Q1,"Şeker, MCR=0,341 Sens=0,895 TP=17 FN=2 FP=13 TN=12 N:44 base:0,432 nodes:3",True,,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_B_Q2,DT_B_Q2,"Karbonhidrat, MCR=0,568 Sens=0,842 TP=16 FN=3 FP=22 TN=3 N:44 base:0,432 nodes=3",True,,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_B_Q3,DT_B_Q3,"Protein: TP16 TN3 FP22 FN3 N 44 base 0,432 MCR 0,568 Sens 0,842 nodes 3",,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_B_Q4,DT_B_Q4,Şeker verdi. Sonuç eşik değeri en iyi şekilde belirlediğimde hata payı az olmuşsa (sens yüksek MCR düşük),True,,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_C_Q1,DT_C_Q1,1. soruda yapmıştım,False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_C_Q2,DT_C_Q2,"Eşik değeri doğru seçilirse iyi, seçilmezse kötü etkiler.",,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_C_Q3,DT_C_Q3,"Değişkenlere göre değişir. Şekerde 2,6 şıklı. Grafiğe göre yorumlamanız icap etmektedir.",,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_D_Q1,DT_D_Q1,"2,6 değeri en iyisi (şeker)",False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_D_Q2,DT_D_Q2,"Hayır, iyileştirmedi",,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_D_Q3,DT_D_Q3,"Şeker (MCR: 0,341 Sens(0,895)",,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_D_Q4,DT_D_Q4,Elde ettiklerin arasında en iyi oydu,False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,895",True,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_E_MCR,DT_E_MCR,"0,341",,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_E_Q1,DT_E_Q1,MCR'si çok önemli duruyor. Hata oranını 0'a olabildiğince yaklaştırmalıyız.,True,,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_E_Q2,DT_E_Q2,"Modelim daha çok yanlış pozitif yaptı. (FP=13, FN=2)",,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_E_Q4,DT_E_Q4,(bos),False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_F_Q1,DT_F_Q1,(bos),False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_F_Q2,DT_F_Q2,(bos),False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_G_Q1,DT_G_Q1,(bos),False,review,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_G_Q2,DT_G_Q2,(bos),False,,students/Ulysses/WS13/extraction.json
 Ulysses,WS14,DTI_01,DTI_01,"22 vaka içermekte. %54,5 hasta. Hastaların yarıdan fazlası hasta",True,,ocr_output/Ulysses/Ulysses_Worksheet_Xeno.json
 Ulysses,WS14,DTI_02,DTI_02,Mavi saçlı 10 vaka var hiçbiri hasta değil. Hastalık oranı 0. Mavi saçlı olunca hasta olmuyor.,True,,ocr_output/Ulysses/Ulysses_Worksheet_Xeno.json
 Ulysses,WS14,DTI_03,DTI_03,Pembe saçlı 12 vaka var ve hepsi hasta. Hastalık oranı 100. Pembe saçlı olunca hasta oluyor.,True,,ocr_output/Ulysses/Ulysses_Worksheet_Xeno.json
@@ -2780,6 +3676,70 @@ Zara,WS10,WS10_B5,threshold_error_table.WS10_B5.error_count_parsed,2,True,,ocr_o
 Zara,WS10,WS10_B6,threshold_error_table.WS10_B6.error_count_parsed,1,True,,ocr_output/Zara/Zara_Worksheet10.json
 Zara,WS10,WS10_B7,threshold_error_table.WS10_B7.error_count_parsed,2,True,,ocr_output/Zara/Zara_Worksheet10.json
 Zara,WS10,optimal_threshold,optimal_threshold.value_parsed,408.0,,,ocr_output/Zara/Zara_Worksheet10.json
+Zara,WS11,DTI_01,DTI_01,"10 vaka, %50 hasta",,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_02,DTI_02,"5 vaka, 0 tanesi hasta, Mavi saçlı sağlıklıdır",,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_03,DTI_03,"5 vaka, 5'i hasta, Pembe saçlı olan hastadır",,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_04,DTI_04,Pembe saçlı kutu hasta,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_05,DTI_05,(bos),,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_06,DTI_06,"Evet, hata oranı olarak daha az hata verdi",,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_07,DTI_07,%90 derdim.,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_08,DTI_08,"FN daha tehlikelidir, çünkü hasta bireyin hastalığına çözüm bulunmazsa hastanın hayatı tehlikeye girer.",,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_09,DTI_09,1 tane hata verdi,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_10,DTI_10,13,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_11,DTI_11,Model hasta dedi gerçekten hasta,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_12,DTI_12,12,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_13,DTI_13,Model sağlıklı dedi gerçekten sağlıklı,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_14,DTI_14,0,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_15,DTI_15,Model hasta dedi ama sağlıklı,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_16,DTI_16,0,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_17,DTI_17,Model sağlıklı dedi ama hasta,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_18,DTI_18,25,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_19,DTI_19,Toplam sayı,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_20,DTI_20,13+12 / 25 = 1,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_21,DTI_21,Doğruluk oranı iyi hata miktarı az.,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_22,DTI_22,13 / 13+0 = 1,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_23,DTI_23,Gerçekten hasta olan bireylerin hasta olduğu oranı 1,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_24,DTI_24,12 / 12+0 = 1,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_25,DTI_25,Gerçekten sağlıklı olan bireylerin sağlıklı olduğu oranı 1,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_26,DTI_26,13 / 13+0 = 1,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_27,DTI_27,Modelin hasta dediği vakaların ne kadarı gerçekten hasta,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_28,DTI_28,"Doğruluk metriğini kullanırım, Tüm tahminlerin içinde doğru olanın oranını verir.",,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_29,DTI_29,(TP+TN) / N / TP / (TP+FN) = 13+12/25 / 13/13+0 = 1,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_30,DTI_30,TN/(TN+FP) . (TP+FP)/TP = 12/12+0 . 13+0/13 = 1,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_31,DTI_31,Ekstra hata payının aza inmesi için kullanılabilir,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_32,DTI_32,(0) / 25 = 0,,,students/Zara/WS11/extraction.json
+Zara,WS11,DTI_33,DTI_33,Hata oranı yok.,,,students/Zara/WS11/extraction.json
+Zara,WS13,DT_A_Q1,DT_A_Q1,"Şeker, tuz, yağ, enerji bu gibi değişkenlere bakarak tahmin edebiliriz.",True,,students/Zara/WS13/extraction.json
+Zara,WS13,DT_A_Q2,DT_A_Q2,Enerji ve şeker,,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_A_Q3,DT_A_Q3,Enerjide bir fark gözlemledim.,,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_A_Q4,DT_A_Q4,Enerji modelini kullanırdım. Çünkü diğerlerine oranla daha iyi sonuç verdi.,,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_B_Q1,DT_B_Q1,"Şeker değişkenini seçtim. Çünkü MCR değeri diğerlerine oranla daha düşük çıktı. Sens değeri 1 çıktı, MCR değeri (0,357)",False,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_B_Q2,DT_B_Q2,"Doymuş yağ değişkenini seçtim. Hata payı düşük, sens değeri (0,94) [arrow] (0,31) çıktı.",,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_B_Q3,DT_B_Q3,"Karbonhidrat değişkenini seçtim [arrow] MCR değeri = 0,357 [arrow] Sens değeri = 0,737",,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_B_Q4,DT_B_Q4,"Şeker değişkeni en iyisi, hata oranı az. Doğru sonucu daha iyi verdi. Eşik değeri 27.",True,,students/Zara/WS13/extraction.json
+Zara,WS13,DT_C_Q1,DT_C_Q1,(bos),False,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_C_Q2,DT_C_Q2,Şeker için değişmedi,,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_C_Q3,DT_C_Q3,"İlkinde 27, ikincisinde 25 eşik değeri kullandım. İki değerde de aynı çıktı.",True,,students/Zara/WS13/extraction.json
+Zara,WS13,DT_D_Q1,DT_D_Q1,(bos),False,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_D_Q2,DT_D_Q2,Enerji değişkeni. Hata oranını azalttı ama sens değeri düştü.,,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_D_Q3,DT_D_Q3,Şeker ve Tuz değişkeni iyi sonuç verdi,,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_D_Q4,DT_D_Q4,"MCR değeri = 0,238, Sens değeri = 0,842",,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_E_MCR_formula,DT_E_MCR_formula,(bos),False,,students/Zara/WS13/extraction.json
+Zara,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,842",True,,students/Zara/WS13/extraction.json
+Zara,WS13,DT_E_MCR,DT_E_MCR,"0,238",,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_E_Q1,DT_E_Q1,Hata oranı (MCR) daha önemli gibi. Çünkü ne kadar az hata yaparsak modelimiz o kadar iyi olmuş olur.,True,,students/Zara/WS13/extraction.json
+Zara,WS13,DT_E_Q2,DT_E_Q2,"FP=7, FN=3. FP değeri FN değerinden daha fazla",,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_E_Q3,DT_E_Q3,"TP, TN, FP, FN değerlerine göre karar verir. Ben olsam hata oranına göre karar verirdim.",,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_E_Q4,DT_E_Q4,Yani daha iyiye gitmesi için yönlendirerek mükemmele yakın olabilir.,False,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_F_Q1,DT_F_Q1,(bos),False,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_F_Q2,DT_F_Q2,Evet eğitim seti kötü ama test verisi daha iyi ona göre,,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_G_Q1,DT_G_Q1,Eğitim seti ile test verilerinin her zaman uyumlu olmadığını öğrendi.,,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_G_Q2,DT_G_Q2,Daha iyi model için eşik değeri değiştirerek hata oranını düşürmekle daha iyi model ortaya çıkabilir. Ama mükemmeli bulmak zor. Çünkü test verisinde illa bir hata çıkacaktır.,True,,students/Zara/WS13/extraction.json
 Zara,WS14,DTI_01,DTI_01,"10 vaka, %50 hasta",True,,ocr_output/Zara/Zara_Worksheet_Xeno.json
 Zara,WS14,DTI_02,DTI_02,"5 vaka, 0 tanesi hasta, Mavi saçlı sağlıklıdır",True,,ocr_output/Zara/Zara_Worksheet_Xeno.json
 Zara,WS14,DTI_03,DTI_03,"5 vaka, 5'i hasta, Pembe saçlı olan hastadır",True,,ocr_output/Zara/Zara_Worksheet_Xeno.json
