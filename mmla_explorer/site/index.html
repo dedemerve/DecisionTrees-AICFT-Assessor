@@ -7,67 +7,59 @@
 <meta name="description" content="A browsable record of the 2026 decision tree unit: worksheets, screen recordings, platform logs and notebooks, and how each was processed.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261010115100">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231d1b17'/%3E%3Cpath d='M16 6v8M16 14l-7 6M16 14l7 6M9 20v6M23 20v6' stroke='%23f3efe6' stroke-width='2.4' fill='none'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=20261010141000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23142B4A'/%3E%3Cpath d='M16 6v8M16 14l-7 6M16 14l7 6M9 20v6M23 20v6' stroke='%23DCE8F5' stroke-width='2.4' fill='none'/%3E%3C/svg%3E">
 </head>
 <body>
-<header class="masthead" role="banner">
+<header class="masthead">
   <div class="masthead-inner">
-    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navDrawer" aria-label="Open navigation">
-      <span class="burger-icon" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </span>
-      <span class="burger-label">Menu</span>
-    </button>
-    <a class="wordmark" href="#/">Decision Tree Learning Archive</a>
-    <span class="masthead-spacer"></span>
+    <a class="wordmark" href="#/">
+      <svg class="mark" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4v8M16 12l-8 7M16 12l8 7M8 19v8M24 19v8" stroke="#DCE8F5" stroke-width="2.2" fill="none"/></svg>
+      <span class="wordmark-text">Decision Tree Learning Archive</span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a class="top-link" href="#/explore/worksheets" data-r="worksheets">Activities</a>
+      <a class="top-link" href="#/explore/recordings" data-r="recordings">Recordings</a>
+      <a class="top-link" href="#/explore/frames" data-r="frames">Frames</a>
+      <a class="top-link" href="#/docs" data-r="docs">Datasets</a>
+    </nav>
+    <form class="hdr-search" role="search" id="hdrSearchForm">
+      <label class="sr-only" for="hdrSearch">Find a student</label>
+      <input id="hdrSearch" type="search" list="hdrStudents" placeholder="Find a student" autocomplete="off">
+      <datalist id="hdrStudents"></datalist>
+    </form>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme">Theme</button>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navDrawer" aria-label="Open section directory">
+      <span class="burger-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="burger-label">Sections</span>
+    </button>
   </div>
 </header>
 
-<div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
-<nav class="nav-drawer" id="navDrawer" aria-label="Site navigation" role="navigation">
+<div class="nav-overlay" id="navOverlay" hidden></div>
+<nav class="nav-drawer" id="navDrawer" aria-label="Section directory" aria-hidden="true" inert>
   <div class="nav-drawer-inner">
-    <div class="nav-section-label">Start here</div>
-    <a class="nav-link" href="#/" data-r="">
-      <span class="nav-num">01</span>Overview
-    </a>
-    <a class="nav-link" href="#/methods" data-r="methods">
-      <span class="nav-num">02</span>How the system works
-    </a>
-
-    <div class="nav-section-label">Learning activities</div>
-    <a class="nav-link" href="#/explore/students" data-r="students">
-      <span class="nav-num">03</span>Students
-    </a>
-    <a class="nav-link" href="#/explore/worksheets" data-r="worksheets">
-      <span class="nav-num">04</span>Worksheets
-    </a>
-    <a class="nav-link" href="#/explore/recordings" data-r="recordings">
-      <span class="nav-num">05</span>Screen recordings
-    </a>
-    <a class="nav-link" href="#/explore/frames" data-r="frames">
-      <span class="nav-num">06</span>Frame explorer
-    </a>
-    <a class="nav-link" href="#/explore/logs" data-r="logs">
-      <span class="nav-num">07</span>Platform logs
-    </a>
-    <a class="nav-link" href="#/explore/notebooks" data-r="notebooks">
-      <span class="nav-num">08</span>Python notebooks
-    </a>
-
-    <div class="nav-section-label">Reference</div>
-    <a class="nav-link" href="#/docs" data-r="docs">
-      <span class="nav-num">09</span>Research data &amp; downloads
-    </a>
-    <a class="nav-link" href="#/docs/limitations" data-r="limitations">
-      <span class="nav-num">10</span>Data notes
-    </a>
-    <a class="nav-link" href="#/docs/glossary" data-r="glossary">
-      <span class="nav-num">11</span>Glossary
-    </a>
-
+    <details class="nav-group" open>
+      <summary>Start</summary>
+      <a class="nav-link" href="#/" data-r=""><span class="nav-num">01</span>Overview</a>
+      <a class="nav-link" href="#/methods" data-r="methods"><span class="nav-num">02</span>How the system works</a>
+    </details>
+    <details class="nav-group" open>
+      <summary>Learning activities</summary>
+      <a class="nav-link" href="#/explore/students" data-r="students"><span class="nav-num">03</span>Students</a>
+      <a class="nav-link" href="#/explore/worksheets" data-r="worksheets"><span class="nav-num">04</span>Worksheets</a>
+      <a class="nav-link" href="#/explore/recordings" data-r="recordings"><span class="nav-num">05</span>Screen recordings</a>
+      <a class="nav-link" href="#/explore/frames" data-r="frames"><span class="nav-num">06</span>Frame explorer</a>
+      <a class="nav-link" href="#/explore/logs" data-r="logs"><span class="nav-num">07</span>Platform logs</a>
+      <a class="nav-link" href="#/explore/notebooks" data-r="notebooks"><span class="nav-num">08</span>Python notebooks</a>
+    </details>
+    <details class="nav-group" open>
+      <summary>Reference</summary>
+      <a class="nav-link" href="#/docs" data-r="docs"><span class="nav-num">09</span>Research data and downloads</a>
+      <a class="nav-link" href="#/docs/limitations" data-r="limitations"><span class="nav-num">10</span>Data notes</a>
+      <a class="nav-link" href="#/docs/glossary" data-r="glossary"><span class="nav-num">11</span>Glossary</a>
+    </details>
     <div class="nav-footer" id="navFooter"></div>
   </div>
 </nav>
@@ -77,6 +69,6 @@
 
 <script src="data/core.js?v=20261010115100"></script>
 <script src="data/frames.js?v=20261010115100"></script>
-<script src="assets/app.js?v=20261010115100"></script>
+<script src="assets/app.js?v=20261010140000"></script>
 </body>
 </html>

@@ -235,11 +235,59 @@
   const navDrawer = document.getElementById("navDrawer");
   const navOverlay = document.getElementById("navOverlay");
   const menuBtn = document.getElementById("menuBtn");
-  function openNav() { navDrawer.classList.add("open"); navOverlay.classList.add("open"); navOverlay.removeAttribute("aria-hidden"); menuBtn.setAttribute("aria-expanded", "true"); }
-  function closeNav() { navDrawer.classList.remove("open"); navOverlay.classList.remove("open"); navOverlay.setAttribute("aria-hidden", "true"); menuBtn.setAttribute("aria-expanded", "false"); }
-  menuBtn.addEventListener("click", () => { navDrawer.classList.contains("open") ? closeNav() : openNav(); });
-  navOverlay.addEventListener("click", closeNav);
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && navDrawer.classList.contains("open")) { closeNav(); menuBtn.focus(); } });
+  const hdrSearch = document.getElementById("hdrSearch");
+  const hdrList = document.getElementById("hdrStudents");
+  if (hdrList) hdrList.innerHTML = STUDENTS.map((s) => `<option value="${h(s)}">`).join("");
+  function goStudent(raw, exact) {
+    const v = (raw || "").trim().toLowerCase();
+    if (!v) return;
+    const s = STUDENTS.find((x) => exact ? x.toLowerCase() === v : x.toLowerCase().startsWith(v));
+    if (s) location.hash = `#/explore/student/${s}`;
+  }
+  if (hdrSearch) {
+    document.getElementById("hdrSearchForm").addEventListener("submit", (e) => { e.preventDefault(); goStudent(hdrSearch.value, false); });
+    hdrSearch.addEventListener("change", () => goStudent(hdrSearch.value, true));
+  }
+  function navItems() {
+    return Array.from(navDrawer.querySelectorAll("a, summary")).filter((el) => {
+      const group = el.closest("details");
+      return !group || group.open || el.tagName === "SUMMARY";
+    });
+  }
+  function openNav() {
+    navDrawer.classList.add("open");
+    navDrawer.inert = false;
+    navDrawer.setAttribute("aria-hidden", "false");
+    navOverlay.hidden = false;
+    navOverlay.classList.add("open");
+    menuBtn.setAttribute("aria-expanded", "true");
+    document.body.classList.add("nav-open");
+    const first = navDrawer.querySelector("a");
+    if (first) first.focus();
+  }
+  function closeNav(restore) {
+    const was = navDrawer.classList.contains("open");
+    navDrawer.classList.remove("open");
+    navDrawer.inert = true;
+    navDrawer.setAttribute("aria-hidden", "true");
+    navOverlay.classList.remove("open");
+    navOverlay.hidden = true;
+    menuBtn.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-open");
+    if (restore && was) menuBtn.focus();
+  }
+  menuBtn.addEventListener("click", () => { navDrawer.classList.contains("open") ? closeNav(true) : openNav(); });
+  navOverlay.addEventListener("click", () => closeNav(true));
+  document.addEventListener("keydown", (e) => {
+    if (!navDrawer.classList.contains("open")) return;
+    if (e.key === "Escape") { e.preventDefault(); closeNav(true); return; }
+    if (e.key !== "Tab") return;
+    const items = navItems();
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 
   // Lightbox for frame images.
   const lb = document.createElement("div");
@@ -294,47 +342,61 @@
   const methodLink = (anchor, text = "How this was processed") => `<a class="more" href="#/methods${anchor ? "/" + anchor : ""}">${h(text)} →</a>`;
 
   // ------------------------------------------------------------------ 01 Overview
+  const codedFrameCount = F.filter((f) => f.b).length;
   function pageOverview() {
-    const codedFrames = F.filter((f) => f.b).length;
-    return `<div class="page">
+    return `<div class="page wide">
       <div class="hero">
-        <p class="hero-kicker">Pre-service teacher education · Decision tree unit · 2026</p>
-        <h1>Documenting How Pre-Service Teachers Learn Decision Trees</h1>
-        <p class="hero-lead">This archive documents a decision tree learning activity involving 15 pre-service teachers. It brings together their worksheets, screen recordings, platform interaction logs, and Python notebooks, alongside documentation of how each was processed and analysed.</p>
-        <div class="hero-actions">
-          <a class="btn-primary" href="#/explore/worksheets">Explore learning activities</a>
-          <a class="btn-secondary" href="#/docs">Research datasets</a>
+        <div>
+          <p class="kicker">Pre-service teacher education · 2026</p>
+          <h1>Documenting How Pre-Service Teachers Learn Decision Trees</h1>
+          <p class="hero-lead">A research archive of worksheets, screen recordings, platform logs, and notebooks from a decision-tree unit with ${STUDENTS.length} pre-service teachers, shown only by pseudonym.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="#/explore/worksheets">Explore learning activities</a>
+            <a class="btn-secondary" href="#/docs">Browse research datasets</a>
+          </div>
+        </div>
+        <figure class="hero-visual">
+          <svg viewBox="0 0 360 210" role="img" aria-label="Schematic of the worksheet rule: if fat is at most 8 grams, the card is recommended; otherwise it is not.">
+            <line x1="180" y1="46" x2="92" y2="108" stroke="#24548c" stroke-width="1.6"/>
+            <line x1="180" y1="46" x2="268" y2="108" stroke="#24548c" stroke-width="1.6"/>
+            <rect x="112" y="18" width="136" height="36" rx="8" fill="#142b4a"/>
+            <text x="180" y="41" text-anchor="middle" fill="#f4f7fb" font-size="14">fat ≤ 8 g</text>
+            <text x="118" y="96" text-anchor="middle" fill="#3d4a5c" font-size="11">yes</text>
+            <text x="244" y="96" text-anchor="middle" fill="#3d4a5c" font-size="11">no</text>
+            <rect x="28" y="108" width="128" height="34" rx="8" fill="#dce8f5"/>
+            <text x="92" y="130" text-anchor="middle" fill="#142b4a" font-size="13">Recommended</text>
+            <rect x="204" y="108" width="140" height="34" rx="8" fill="#e8eef6"/>
+            <text x="274" y="130" text-anchor="middle" fill="#142b4a" font-size="13">Not recommended</text>
+          </svg>
+          <figcaption>The rule students apply to the 11 food cards in worksheet 3. This is a teaching example, not a finding from the recordings.</figcaption>
+        </figure>
+      </div>
+      <div class="metric-row">
+        <a class="metric" href="#/explore/students"><div class="v">${STUDENTS.length}</div><div class="l">Participants</div><div class="s">Pseudonyms only</div></a>
+        <a class="metric" href="#/explore/worksheets"><div class="v">${C.worksheets.length}</div><div class="l">Worksheets</div><div class="s">${num(schemaFields)} response fields</div></a>
+        <a class="metric" href="#/explore/frames"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} coded for behaviour</div></a>
+        <a class="metric" href="#/explore/logs"><div class="v">${num(logEvents)}</div><div class="l">Log events</div><div class="s">CODAP Arbor, 3 class days</div></a>
+      </div>
+      <div class="portal">
+        <section class="portal-card">
+          <h2>Learning activities</h2>
+          <p>Paper worksheets from naming table parts through building and reading trees, plus the CODAP Arbor tasks. Each entry links to student responses and the blank PDF.</p>
+          <div class="portal-links"><a href="#/explore/worksheets">Open the worksheet catalogue</a><a href="#/explore/students">Browse by student</a></div>
+        </section>
+        <div class="portal-side">
+          <section class="portal-card">
+            <h2>Research data</h2>
+            <p>Screen-recording frames are published separately from the CODAP interaction logs. ${num(uniqueVideoList.length)} recordings and ${notebooksPresent} final notebooks sit alongside them.</p>
+            <div class="portal-links"><a href="#/docs">Datasets and downloads</a><a href="#/explore/frames">Frame explorer</a></div>
+          </section>
+          <section class="portal-card">
+            <h2>Methods</h2>
+            <p>How answers were read, frames were selected, and codes were checked.</p>
+            <div class="portal-links"><a href="#/methods">How the system works</a><a href="#/docs/limitations">Data notes</a></div>
+          </section>
         </div>
       </div>
-
-      <div class="figures">
-        <a class="figure" href="#/explore/students"><div class="v">${STUDENTS.length}</div><div class="l">Participants</div><div class="s">shown only by pseudonym</div></a>
-        <a class="figure" href="#/explore/worksheets"><div class="v">${C.worksheets.length}</div><div class="l">Worksheets</div><div class="s">${num(schemaFields)} response fields defined</div></a>
-        <a class="figure" href="#/explore/recordings"><div class="v">${num(uniqueVideoList.length)}</div><div class="l">Screen recordings</div><div class="s">${dur(uniqueVideoSeconds)} in total</div></a>
-        <a class="figure" href="#/explore/frames"><div class="v">${num(F.length)}</div><div class="l">Frames extracted</div><div class="s">${num(codedFrames)} coded for behaviour</div></a>
-        <a class="figure" href="#/explore/logs"><div class="v">${num(logEvents)}</div><div class="l">Platform log events</div><div class="s">CODAP Arbor, 3 class days</div></a>
-        <a class="figure" href="#/explore/notebooks"><div class="v">${notebooksPresent}</div><div class="l">Final project notebooks</div><div class="s">Python, Google Colab</div></a>
-      </div>
-
-      <div class="overview-sections">
-        <div class="overview-section">
-          <h3>Learning activities</h3>
-          <p>Worksheets, student responses, and screen-recording data from two CODAP Arbor sessions.</p>
-          <a class="section-link" href="#/explore/worksheets">Browse worksheets →</a>
-        </div>
-        <div class="overview-section">
-          <h3>Research data</h3>
-          <p>Behaviour-coded screen frames and platform interaction logs, available as datasets.</p>
-          <a class="section-link" href="#/docs">View datasets →</a>
-        </div>
-        <div class="overview-section">
-          <h3>Methods</h3>
-          <p>How student work was extracted, scored, and reviewed — step by step.</p>
-          <a class="section-link" href="#/methods">How the system works →</a>
-        </div>
-      </div>
-
-      <p class="small">Students appear only under pseudonyms. Screen images are cropped and softened so that no on-screen text can be read.</p>
+      <p class="small">Screen previews are cropped and softened so that on-screen text cannot be read. Listed frames are the rows in each session manifest; a frame is coded only when it has a behaviour label.</p>
     </div>`;
   }
 
@@ -508,6 +570,18 @@
     }).join("");
     return `<div class="strip" role="img" aria-label="Frames over the session">${ticks}</div><div class="axis"><span>0:00</span><span>${clock(total / 2)}</span><span>${clock(total)}</span></div>`;
   }
+  // 21 April only. The extraction summary, the pilot manifest, and the coded list
+  // were checked as separate records: the pilot images are not a subset of the
+  // directory counted by the summary. Other sessions are left unchanged.
+  const SEPARATE_FRAME_COUNTS = new Set(["Sheila|codap_21apr", "Ulysses|codap_21apr", "Zara|codap_21apr"]);
+  function frameCountNote(s, ssid, m, cd) {
+    if (!SEPARATE_FRAME_COUNTS.has(s + "|" + ssid)) return "";
+    const kept = m.summary && m.summary.total_frames_extracted;
+    const listed = m.frames;
+    const coded = cd && cd.frames_coded;
+    if (typeof kept !== "number" || typeof listed !== "number" || kept === listed || coded !== listed) return "";
+    return `<p class="small">The extraction summary reports ${num(kept)} kept frames. The pilot manifest and the coded frame list contain ${num(listed)}. These are separate extraction records.</p>`;
+  }
   function sessionBlock(s, ss) {
     const r = C.sessions[s][ss.id];
     let out = `<section class="session"><h3>${h(SESS_NAME[ss.id])} <span class="small">${h(SESS_DATE[ss.id])}</span></h3>`;
@@ -528,6 +602,7 @@
     const m = r.manifest, sp = r.speech, ep = (C.episodes[s] || {})[ss.id];
     const SUM = { candidate_frames_considered: "Candidate frames considered", visual_duplicates_filtered: "Removed as near-duplicates", temporal_duplicates_filtered: "Removed as too close in time", non_task_screens_filtered: "Removed as unrelated screens", pruned_frames_removed: "Removed in a later clean-up", total_frames_extracted: "Frames kept" };
     let t = `<h4>How frames were selected</h4>` + kv(Object.entries(m.summary || {}).filter(([k]) => SUM[k]).map(([k, v]) => [SUM[k], num(v)])) +
+      frameCountNote(s, ss.id, m, cd) +
       `<h4>Why each frame was taken</h4>` + hbars(m.triggers, (k) => (TRIGGERS[k] || k).replace(/\.$/, ""));
     if (cd) {
       t += `<div class="three compact"><div><h4>Screen</h4>${hbars(cd.screen_context, (k) => cap(k, SCREEN))}</div><div><h4>Phase</h4>${hbars(cd.deepen_phase, (k) => cap(k, PHASE))}</div><div><h4>Coder confidence</h4>${hbars(cd.confidence, (k) => cap(k, {}))}</div></div>`;
@@ -657,30 +732,32 @@
       const dl = (C.downloads && C.downloads.worksheets || []).find((d) => d.code === w.code);
       const links = [`<a href="#/explore/worksheet/${h(w.code)}">Student responses</a>`];
       if (dl) links.push(`<a href="${h(dl.file)}" download>Download PDF</a>`);
-      return `<div class="ws-card" data-code="${h(w.code)}" data-title="${h(wsTitle(w)).toLowerCase()} ${h((info.topic || "")).toLowerCase()}">
+      const group = (WS_GROUPS.find((g) => g.codes.includes(w.code)) || {}).label || "";
+      return `<article class="ws-card" data-code="${h(w.code)}" data-group="${h(group)}" data-title="${h(wsTitle(w)).toLowerCase()} ${h((info.topic || "")).toLowerCase()} ${h(group).toLowerCase()}">
         <div class="ws-card-code">${h(w.code)}</div>
-        <div>
-          <div class="ws-card-title">${h(wsTitle(w))}</div>
-          ${info.date ? `<div class="ws-card-date">${h(info.date)}</div>` : ""}
-          <div class="ws-card-desc">${h(info.topic || "")}</div>
-          <div class="ws-card-actions">${links.join("")}<span class="small">${have} of ${STUDENTS.length} students</span></div>
-        </div>
-      </div>`;
+        <h2 class="ws-card-title">${h(wsTitle(w))}</h2>
+        ${info.date ? `<div class="ws-card-date">${h(info.date)}</div>` : ""}
+        <p class="ws-card-desc">${h(info.topic || "")}</p>
+        <div class="ws-card-actions">${links.join("")}<span class="small">${have} of ${STUDENTS.length} with answers</span></div>
+      </article>`;
     });
+    const chips = `<div class="ws-filters" role="group" aria-label="Filter by worksheet purpose">${["All"].concat(WS_GROUPS.map((g) => g.label)).map((label, i) =>
+      `<button type="button" class="chip${i === 0 ? " on" : ""}" data-group="${i === 0 ? "" : h(label)}" aria-pressed="${i === 0 ? "true" : "false"}">${h(label)}</button>`).join("")}</div>`;
     const groups = WS_GROUPS.map((g) => {
       const cards = g.codes.map((code) => {
         const idx = C.worksheets.findIndex((w) => w.code === code);
         return idx >= 0 ? allCards[idx] : "";
       }).join("");
-      return `<div class="ws-group" data-codes="${h(g.codes.join(","))}"><div class="ws-group-label">${h(g.label)}</div>${cards}</div>`;
+      return `<section class="ws-group" data-codes="${h(g.codes.join(","))}"><h2 class="ws-group-label">${h(g.label)}</h2><div class="ws-group-cards">${cards}</div></section>`;
     }).join("");
     return `<div class="page wide">${exploreShell("worksheets", `
       <h1>Worksheets</h1>
-      <p class="lead">Eleven paper worksheets used across the unit. Each links to student responses and a downloadable PDF.</p>
+      <p class="lead">${C.worksheets.length} paper worksheets from the unit. Search by title or topic, or filter by purpose. Each card links to student responses and the blank PDF.</p>
       <div class="ws-search-bar">
         <input type="search" id="wsSearch" placeholder="Search worksheets…" aria-label="Search worksheets">
         <span class="ws-count" id="wsCount">${C.worksheets.length} worksheets</span>
       </div>
+      ${chips}
       <div id="wsGroups">${groups}</div>
       <p>${methodLink("worksheets")}</p>`)}</div>`;
   }
@@ -776,7 +853,7 @@
     allSessions.forEach((r) => { if (r.coding) addCounts(tot, r.coding.behaviors); });
     return `<div class="page wide">${exploreShell("recordings", `
       <h1>Screen recordings</h1>
-      <p class="lead">One row per student and session. The coloured bar shows what the students were doing in the selected frames.</p>
+      <p class="lead">One row per student and session. The frame count is the manifest list for that session. ${num(codedFrameCount)} of ${num(F.length)} listed frames have a behaviour code. Where an extraction summary reports a different total, the session page says so.</p>
       ${legend(BEHAV.map((b) => b[0]))}
       ${table([{ t: "Student" }, { t: "Session" }, { t: "Length" }, { t: "Frames", num: 1 }, { t: "Behaviour mix" }], rows)}
       <h2>All coded frames together</h2>
@@ -794,7 +871,7 @@
     const opt = (vals, cur, label = (x) => x) => `<option value="">All</option>` + vals.map((v) => `<option value="${h(v)}"${v === cur ? " selected" : ""}>${h(label(v))}</option>`).join("");
     return `<div class="page wide">${exploreShell("frames", `
       <h1>Frame explorer</h1>
-      <p class="lead">Every frame selected from the screen recordings. Click a row to see what was observed and why the frame was taken.</p>
+      <p class="lead">${num(F.length)} frames listed in the session manifests. ${num(codedFrameCount)} of them are coded for behaviour. Click a row to see what was observed and why the frame was taken.</p>
       <div class="filters">
         <label>Student<select id="fS">${opt(STUDENTS, fState.s)}</select></label>
         <label>Session<select id="fSS">${opt(SESS.map((x) => x.id), fState.ss, (x) => SESS_NAME[x])}</select></label>
@@ -869,12 +946,15 @@
     const inp = document.getElementById("wsSearch");
     const countEl = document.getElementById("wsCount");
     if (!inp) return;
+    let group = "";
     function filterWs() {
       const q = inp.value.trim().toLowerCase();
       const cards = document.querySelectorAll(".ws-card");
       let visible = 0;
       cards.forEach((card) => {
-        const match = !q || card.dataset.title.includes(q) || card.dataset.code.includes(q);
+        const textOk = !q || card.dataset.title.includes(q) || card.dataset.code.toLowerCase().includes(q);
+        const groupOk = !group || card.dataset.group === group;
+        const match = textOk && groupOk;
         card.classList.toggle("ws-hidden", !match);
         if (match) visible++;
       });
@@ -882,9 +962,21 @@
         const hasVisible = Array.from(g.querySelectorAll(".ws-card")).some((c) => !c.classList.contains("ws-hidden"));
         g.classList.toggle("ws-hidden", !hasVisible);
       });
-      if (countEl) countEl.textContent = q ? `${visible} of ${cards.length} worksheets` : `${cards.length} worksheets`;
+      const filtering = q || group;
+      if (countEl) countEl.textContent = filtering ? `${visible} of ${cards.length} worksheets` : `${cards.length} worksheets`;
     }
     inp.addEventListener("input", filterWs);
+    document.querySelectorAll(".ws-filters .chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        group = btn.dataset.group || "";
+        document.querySelectorAll(".ws-filters .chip").forEach((b) => {
+          const on = b === btn;
+          b.classList.toggle("on", on);
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        filterWs();
+      });
+    });
   }
   function bindFrames() {
     const upd = () => {
@@ -956,13 +1048,13 @@
       <p class="lead">Teaching materials, research datasets, and analysis tables from the 2026 decision tree unit.</p>
 
       <h2>Research datasets</h2>
-      <p>Two datasets are published on Hugging Face under a CC BY 4.0 licence. Each links to the dataset page on Hugging Face.</p>
+      <p>Screen-recording frames and CODAP interaction logs are separate collections. The frame dataset is published on Hugging Face under a CC BY 4.0 licence. The interaction logs are available in this archive and are not a published Hugging Face dataset.</p>
       <div class="dataset-grid">
         <div class="dataset-card">
           <div class="ds-type">Screen-recording frames</div>
           <div class="ds-title">DecisionTrees-AICFT-Frames</div>
-          <div class="ds-desc">5,825 behaviour-coded screen-recording frames from two CODAP Arbor sessions. Each frame includes behavioural codes, screen context labels, confidence ratings, and per-frame observation flags.</div>
-          <div class="ds-meta">${num(F.length)} frames · 15 participants · 2 sessions · CC BY 4.0</div>
+          <div class="ds-desc">${num(F.length)} frames listed from two CODAP Arbor sessions, of which ${num(codedFrameCount)} are coded for behaviour. Each coded frame includes a behaviour code, screen context, confidence, and observation flags.</div>
+          <div class="ds-meta">${num(F.length)} listed · ${STUDENTS.length} participants · 2 sessions · CC BY 4.0</div>
           <div class="ds-links">
             <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">View on Hugging Face →</a>
             <a href="#/explore/frames">Browse frames</a>
@@ -1191,7 +1283,7 @@
     tip.style.display = "none";
     const navKey = top === "explore" ? ({ student: "students", worksheet: "worksheets" }[parts[1]] || parts[1] || "students")
       : top === "docs" ? (parts[1] === "limitations" ? "limitations" : parts[1] === "glossary" ? "glossary" : "docs") : top;
-    document.querySelectorAll(".nav-link").forEach((a) => a.classList.toggle("active", a.dataset.r === navKey));
+    document.querySelectorAll(".nav-link, .top-link").forEach((a) => a.classList.toggle("active", a.dataset.r === navKey));
     closeNav();
     window.scrollTo(0, 0);
     if (after) after();
