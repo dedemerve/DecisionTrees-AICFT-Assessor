@@ -401,17 +401,20 @@
       </div>
       <div class="portal">
         <section class="portal-card">
+          <p class="kicker">Explore</p>
           <h2>Learning activities</h2>
           <p>Paper worksheets from naming table parts through building and reading trees, plus the CODAP Arbor tasks. Each entry links to student responses and the blank PDF.</p>
           <div class="portal-links"><a href="#/explore/worksheets">Open the worksheet catalogue</a><a href="#/explore/students">Browse by student</a></div>
         </section>
         <div class="portal-side">
           <section class="portal-card">
+            <p class="kicker">Data</p>
             <h2>Research data</h2>
             <p>Screen-recording frames are published separately from the CODAP interaction logs. ${num(uniqueVideoList.length)} recordings and ${notebooksPresent} final notebooks sit alongside them.</p>
             <div class="portal-links"><a href="#/docs">Datasets and downloads</a><a href="#/explore/frames">Frame explorer</a></div>
           </section>
           <section class="portal-card">
+            <p class="kicker">Reference</p>
             <h2>Methods</h2>
             <p>How answers were read, frames were selected, and codes were checked.</p>
             <div class="portal-links"><a href="#/methods">How the system works</a><a href="#/docs/limitations">Data notes</a></div>
@@ -708,7 +711,13 @@
     return `<div class="page wide">${exploreShell("students", `
       <h1>Students</h1>
       <p class="lead">Fifteen participants, each shown by a pseudonym. Open a student to see their worksheets, recordings, logs and notebook.</p>
-      ${table([{ t: "Student" }, { t: "Available data" }, { t: "" }], STUDENTS.map((s) => ({ href: `#/explore/student/${s}`, cells: [`<b>${h(s)}</b>`, h(availableSummary(s)), `<a href="#/explore/student/${h(s)}">Explore →</a>`] })))}`)}</div>`;
+      <div class="student-roster">
+        ${STUDENTS.map((s) => `<a class="student-card" href="#/explore/student/${h(s)}">
+          <div class="student-card-name">${h(s)}</div>
+          <div class="student-card-data">${h(availableSummary(s))}</div>
+          <div class="student-card-cta">Explore →</div>
+        </a>`).join("")}
+      </div>`)}</div>`;
   }
 
   // ---- student: worksheets
@@ -1212,10 +1221,37 @@
       const vt = meta.ss && C.sessions[s][meta.ss].votat;
       rows.push({ href: `#/explore/student/${s}/logs`, cells: [`<a href="#/explore/student/${h(s)}/logs">${h(s)}</a>`, h(meta.name), num(v.emit_count), v.last_emit_accuracy == null ? "–" : num(v.last_emit_accuracy * 100, 1) + "%", num(v.unique_attributes_dropped.length), vt ? num(vt.votat_rate * 100, 0) + "%" : "–"] });
     }));
+    const totalEmits = STUDENTS.reduce((t, s) => t + Object.values(logDays[s] || {}).reduce((a, v) => a + (v.emit_count || 0), 0), 0);
+    const accuracies = STUDENTS.flatMap((s) => Object.values(logDays[s] || {}).map((v) => v.last_emit_accuracy).filter((v) => v != null));
+    const avgAcc = accuracies.length ? accuracies.reduce((a, b) => a + b, 0) / accuracies.length : null;
+    const maxEmits = Math.max(...STUDENTS.map((s) => Object.values(logDays[s] || {}).reduce((a, v) => a + (v.emit_count || 0), 0)));
+    const sessionsWithData = STUDENTS.reduce((t, s) => t + Object.keys(logDays[s] || {}).length, 0);
     const L = C.logs;
     return `<div class="page wide">${exploreShell("logs", `
       <h1>Platform logs</h1>
       <p class="lead">CODAP Arbor recorded every action. One row per student and session.</p>
+      <div class="log-metrics">
+        <div class="log-metric">
+          <div class="lm-label">Total model attempts</div>
+          <div class="lm-name">${num(totalEmits)}</div>
+          <div class="lm-desc">All students · both sessions</div>
+        </div>
+        <div class="log-metric">
+          <div class="lm-label">Mean last accuracy</div>
+          <div class="lm-name">${avgAcc != null ? num(avgAcc * 100, 1) + "%" : "–"}</div>
+          <div class="lm-desc">Each student's final attempt</div>
+        </div>
+        <div class="log-metric">
+          <div class="lm-label">Most attempts (one student)</div>
+          <div class="lm-name">${num(maxEmits)}</div>
+          <div class="lm-desc">Across both CODAP sessions</div>
+        </div>
+        <div class="log-metric">
+          <div class="lm-label">Sessions with log data</div>
+          <div class="lm-name">${num(sessionsWithData)}</div>
+          <div class="lm-desc">Student × session pairs</div>
+        </div>
+      </div>
       <dl class="terms compact-terms"><dt>Model attempts</dt><dd>Times the student submitted a tree's results.</dd><dt>Predictors tried</dt><dd>Different variables placed into the tree.</dd><dt>One thing at a time</dt><dd>Share of steps where only one setting changed between attempts.</dd></dl>
       ${table([{ t: "Student" }, { t: "Session" }, { t: "Model attempts", num: 1 }, { t: "Last accuracy", num: 1 }, { t: "Predictors tried", num: 1 }, { t: "One thing at a time", num: 1 }], rows)}
       <p>${methodLink("logs", "What these measures mean")}</p>
