@@ -50,8 +50,8 @@ WORKSHEETS = [
     {"code": "WS6", "key": "WS6", "ocr": "Worksheet6", "raw": "31_mart_2026_çalışma_kâğıdı_6_raw.json"},
     {"code": "WS7", "key": "WS7", "ocr": "Worksheet7", "raw": "31_mart_2026_çalışma_kâğıdı_7_raw.json"},
     {"code": "WS10", "key": "WS10", "ocr": "Worksheet10", "raw": None},
-    {"code": "WS11", "key": "WS11", "ocr": None, "raw": None},
-    {"code": "WS13", "key": "WS13", "ocr": None, "raw": None},
+    {"code": "WS11", "key": "WS11", "ocr": None, "raw": None, "stage_ocr": True},
+    {"code": "WS13", "key": "WS13", "ocr": None, "raw": None, "stage_ocr": True},
     {"code": "WS14", "key": "WS14", "ocr": "Worksheet_Xeno", "raw": None},
     {"code": "WS15", "key": "WS15", "ocr": "Worksheet_Titanic", "raw": None},
 ]
@@ -243,6 +243,76 @@ def read_ocr_worksheet(student: str, ws: dict) -> dict | None:
     }
 
 
+def read_stage_as_ocr(student: str, ws: dict) -> dict | None:
+    """Read WS11/WS13-style extraction from students/*/WSxx/extraction.json.
+
+    Converts gate_1 items to the same `responses` / `checks` format that
+    read_ocr_worksheet() returns, so the site template can render them
+    without modification.
+    """
+    base = ROOT / "students" / student / ws["key"]
+    ep = base / "extraction.json"
+    if not ep.exists():
+        missing(f"stage extraction {ws['code']} for {student}", rel(ep))
+        return None
+    d = load_json(ep)
+    g1 = d.get("gate_1_extraction") or {}
+    items = g1.get("items") or {}
+
+    responses = [
+        {"path": k, "item": k, "value": scalar(v)}
+        for k, v in items.items()
+    ]
+
+    # Build checks from scoring.json (score → correct)
+    checks = []
+    sp = base / "scoring.json"
+    if sp.exists():
+        sd = load_json(sp)
+        if not sd.get("blocked"):
+            for it in (sd.get("items") or []):
+                iid = it.get("item", "")
+                score = it.get("score")
+                review = it.get("review", False)
+                if score is None:
+                    correct = None
+                elif score >= 1.0:
+                    correct = True
+                elif score == 0.0:
+                    correct = False
+                else:
+                    correct = None   # partial (0.5)
+                flag = "review" if review else None
+                checks.append({
+                    "check": f"item_checks.{iid}",
+                    "correct": correct,
+                    "flag": flag,
+                    "detail": {"score": score} if score is not None else {},
+                    "note": None,
+                })
+
+    st = os.stat(ep)
+    raw_path = None
+    rw = ws.get("raw")
+    if rw:
+        rp = ROOT / "ocr_output" / student / rw
+        if rp.exists():
+            raw_path = rel(rp)
+
+    return {
+        "source": rel(ep),
+        "modified": datetime.fromtimestamp(st.st_mtime).strftime("%Y-%m-%d"),
+        "responses": responses,
+        "checks": checks,
+        "other_validation": [],
+        "snapshot": None,
+        "page_notes": None,
+        "system_summary": None,
+        "raw_source": raw_path,
+        "raw_diff": [],
+    }
+
+
 def read_stage_artifacts(student: str, ws: dict) -> dict:
     base = ROOT / "students" / student / ws["key"]
     out = {"folder": rel(base) if base.exists() else None}
@@ -327,7 +397,7 @@ def build_worksheets() -> tuple[list, dict]:
         per_student[s] = {}
         for ws in WORKSHEETS:
             per_student[s][ws["code"]] = {
-                "ocr": read_ocr_worksheet(s, ws),
+                "ocr": read_stage_as_ocr(s, ws) if ws.get("stage_ocr") else read_ocr_worksheet(s, ws),
                 "stage": read_stage_artifacts(s, ws),
                 "scoring": read_scoring(s, ws),
             }
