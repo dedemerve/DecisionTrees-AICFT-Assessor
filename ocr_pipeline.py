@@ -55,6 +55,7 @@ import json
 import os
 import re
 import time
+import traceback
 from io import BytesIO
 from pathlib import Path
 from typing import Any, Optional
@@ -1792,7 +1793,7 @@ def save_page_images(
     Save page images for manual inspection, one folder per detected student group.
     Also writes resume markers .{name}_{pdf_stem}.
     """
-    pdf_stem = pdf_to_images_stem(pdf_name)
+    pdf_stem = pdf_to_images_stem(pdf_name).lower()
     base = OUT_DIR / "_images" / pdf_stem
 
     seen: dict[str, int] = {}
@@ -1866,7 +1867,7 @@ def transcribe_student_pages(
             print(f"    Rate limit. Waiting {wait}s...")
             time.sleep(wait)
         except Exception as e:
-            return {"_error": str(e)}
+            return {"_error": str(e), "_tb": traceback.format_exc()}
     return {"_error": "Max retries exceeded"}
 
 

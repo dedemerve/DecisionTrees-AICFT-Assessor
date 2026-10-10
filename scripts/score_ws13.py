@@ -36,7 +36,8 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
 from student_bundle import load_artifact, save_scoring_bundle, extraction_responses
-from worksheet_assessor import assess_worksheet_dt
+from worksheet_assessor import assess_worksheet_dt, scoring_item_ids, load_rubric
+from rubric_deterministic import score_from_credit
 import log_extractor
 
 STUDENTS_DIR = REPO / "students"
@@ -172,17 +173,90 @@ def score_student(
     extraction = load_artifact(student_id, WORKSHEET, "extraction", STUDENTS_DIR)
     responses = extraction_responses(extraction)
 
-    scoring = assess_worksheet_dt(
+    assessment = assess_worksheet_dt(
         client=client,
-        student_id=student_id,
+        candidate_id=student_id,
         responses=responses,
         model=model,
         log_features=log_features,
     )
 
+    rubric_items = load_rubric(WORKSHEET).get("items", {})
+    items_out = []
+    total = 0.0
+    max_total = 0.0
+    for item in assessment.item_scores:
+        cfg = rubric_items.get(item.item_id, {})
+        max_score = float(cfg.get("max_score", 1))
+        max_total += max_score
+        score = score_from_credit({"credit": item.credit}, max_score)
+        total += score
+        items_out.append({
+            "item": item.item_id,
+            "score": score,
+            "max_score": max_score,
+            "confidence": 1.0 if item.credit == "full" and not item.flag else 0.6,
+            "review": item.credit in {"partial", "zero"} or item.flag is not None,
+            "credit": item.credit,
+            "rationale": item.llm_rationale,
+            "evidence": item.evidence_quote,
+            "flag": item.flag,
+        })
+
+    scoring = {
+        "stage": "scoring",
+        "student_id": student_id,
+        "worksheet": WORKSHEET,
+        "total_score": round(total, 2),
+        "max_score": round(max_total, 2),
+        "items": items_out,
+        "scored_at": datetime.now(timezone.utc).isoformat(),
+        "scoring_model": model,
+    }
     save_scoring_bundle(student_id, WORKSHEET, scoring, base_dir=STUDENTS_DIR)
-    item_count = len(scoring.get("items", {}))
-    return f"SCORED: {item_count} items"
+    return f"SCORED: {len(items_out)} items"
+
+
+def _load_api_key() -> str:
+    """
+    Return a clean ASCII API key.
+    Checks ANTHROPIC_API_KEY env var first; if it contains non-ASCII chars
+    (e.g. bullet placeholders from a masked copy-paste), falls back to the
+    .env file in the repo root. Creates .env with instructions if missing.
+    """
+    key = os.environ.get("ANTHROPIC_API_KEY", "")
+    try:
+        key.encode("ascii")
+        if key:
+            return key
+    except UnicodeEncodeError:
+        logger.warning(
+            "ANTHROPIC_API_KEY in environment contains non-ASCII characters "
+            "(probably copied while masked). Falling back to .env file."
+        )
+
+    env_path = REPO / ".env"
+    if env_path.exists():
+        for line in env_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith("ANTHROPIC_API_KEY="):
+                candidate = line.split("=", 1)[1].strip().strip("'\"")
+                try:
+                    candidate.encode("ascii")
+                    if candidate:
+                        return candidate
+                except UnicodeEncodeError:
+                    pass
+    else:
+        env_path.write_text(
+            "# Add your Anthropic API key here (paste the real key, not a masked copy)\n"
+            "ANTHROPIC_API_KEY=\n",
+            encoding="utf-8",
+        )
+        logger.error(
+            "Created %s — paste your real API key there, then re-run.", env_path
+        )
+    return ""
 
 
 def main():
@@ -216,9 +290,9 @@ def main():
         print("\nDone (dry run).")
         return
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    api_key = _load_api_key()
     if not api_key:
-        logger.error("ANTHROPIC_API_KEY not set. Cannot run LLM scoring.")
+        logger.error("ANTHROPIC_API_KEY not set. Add it to .env or export it.")
         sys.exit(1)
 
     from anthropic import Anthropic
