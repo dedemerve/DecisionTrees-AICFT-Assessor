@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261010141000">
+<link rel="stylesheet" href="assets/style.css?v=20261010144000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23142B4A'/%3E%3Cpath d='M16 6v8M16 14l-7 6M16 14l7 6M9 20v6M23 20v6' stroke='%23DCE8F5' stroke-width='2.4' fill='none'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -19,10 +19,10 @@
       <span class="wordmark-text">Decision Tree Learning Archive</span>
     </a>
     <nav class="top-nav" aria-label="Primary">
-      <a class="top-link" href="#/explore/worksheets" data-r="worksheets">Activities</a>
+      <a class="top-link" href="#/explore/worksheets" data-r="worksheets">Worksheets</a>
       <a class="top-link" href="#/explore/recordings" data-r="recordings">Recordings</a>
       <a class="top-link" href="#/explore/frames" data-r="frames">Frames</a>
-      <a class="top-link" href="#/docs" data-r="docs">Datasets</a>
+      <a class="top-link" href="#/docs" data-r="docs">Data</a>
     </nav>
     <form class="hdr-search" role="search" id="hdrSearchForm">
       <label class="sr-only" for="hdrSearch">Find a student</label>
@@ -41,24 +41,25 @@
 <nav class="nav-drawer" id="navDrawer" aria-label="Section directory" aria-hidden="true" inert>
   <div class="nav-drawer-inner">
     <details class="nav-group" open>
-      <summary>Start</summary>
-      <a class="nav-link" href="#/" data-r=""><span class="nav-num">01</span>Overview</a>
-      <a class="nav-link" href="#/methods" data-r="methods"><span class="nav-num">02</span>How the system works</a>
+      <summary>Start here</summary>
+      <a class="nav-link" href="#/" data-r="">Overview</a>
+      <a class="nav-link" href="#/methods" data-r="methods">How the system works</a>
     </details>
-    <details class="nav-group" open>
-      <summary>Learning activities</summary>
-      <a class="nav-link" href="#/explore/students" data-r="students"><span class="nav-num">03</span>Students</a>
-      <a class="nav-link" href="#/explore/worksheets" data-r="worksheets"><span class="nav-num">04</span>Worksheets</a>
-      <a class="nav-link" href="#/explore/recordings" data-r="recordings"><span class="nav-num">05</span>Screen recordings</a>
-      <a class="nav-link" href="#/explore/frames" data-r="frames"><span class="nav-num">06</span>Frame explorer</a>
-      <a class="nav-link" href="#/explore/logs" data-r="logs"><span class="nav-num">07</span>Platform logs</a>
-      <a class="nav-link" href="#/explore/notebooks" data-r="notebooks"><span class="nav-num">08</span>Python notebooks</a>
+    <details class="nav-group" id="navData">
+      <summary>The data</summary>
+      <a class="nav-link" href="#/explore/students" data-r="students">Students</a>
+      <a class="nav-link" href="#/explore/worksheets" data-r="worksheets">Worksheets</a>
+      <a class="nav-link" href="#/explore/recordings" data-r="recordings">Screen recordings</a>
+      <a class="nav-link" href="#/explore/frames" data-r="frames">Frame explorer</a>
+      <a class="nav-link" href="#/explore/logs" data-r="logs">Platform logs</a>
+      <a class="nav-link" href="#/explore/notebooks" data-r="notebooks">Python notebooks</a>
     </details>
-    <details class="nav-group" open>
+    <details class="nav-group" id="navRef">
       <summary>Reference</summary>
-      <a class="nav-link" href="#/docs" data-r="docs"><span class="nav-num">09</span>Research data and downloads</a>
-      <a class="nav-link" href="#/docs/limitations" data-r="limitations"><span class="nav-num">10</span>Data notes</a>
-      <a class="nav-link" href="#/docs/glossary" data-r="glossary"><span class="nav-num">11</span>Glossary</a>
+      <a class="nav-link" href="#/docs" data-r="docs">Data and downloads</a>
+      <a class="nav-link" href="#/docs/limitations" data-r="limitations">Data notes</a>
+      <a class="nav-link" href="#/docs/glossary" data-r="glossary">Glossary</a>
+      <a class="nav-link sub" href="#/docs/technical" data-r="technical">Technical documentation</a>
     </details>
     <div class="nav-footer" id="navFooter"></div>
   </div>
@@ -69,6 +70,6 @@
 
 <script src="data/core.js?v=20261010115100"></script>
 <script src="data/frames.js?v=20261010115100"></script>
-<script src="assets/app.js?v=20261010140000"></script>
+<script src="assets/app.js?v=20261010142500"></script>
 </body>
 </html>

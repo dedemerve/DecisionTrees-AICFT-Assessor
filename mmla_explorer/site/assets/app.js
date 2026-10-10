@@ -99,6 +99,24 @@
     if ((m = /^DTI_(\d+)$/.exec(id))) return `Question ${Number(m[1])}`;
     return null;
   };
+  function rubricItem(code, id) {
+    const w = C.worksheets.find((x) => x.code === code);
+    const items = w && w.rubric_data && w.rubric_data.items;
+    return items && items[id];
+  }
+  function rubricItemLabel(code, id, max) {
+    const it = rubricItem(code, id);
+    if (!it) return null;
+    const exp = String(it.expected_answer || "").replace(/\s+/g, " ").trim();
+    const n = it.printed_question;
+    if (exp && exp.length <= max) return (n != null ? n + ". " : "") + exp;
+    if (n != null) return "Question " + n;
+    return null;
+  }
+  function questionLabel(code, raw) {
+    const id = String(raw).replace(/^item_checks\./, "");
+    return rubricItemLabel(code, id, 80) || itemLabel(id) || checkLabel(raw);
+  }
   const fieldLabel = (path) => {
     const parts = path.match(/[^.\[\]]+|\[[^\]]+\]/g) || [path];
     const out = [];
@@ -344,11 +362,11 @@
   // ------------------------------------------------------------------ 01 Overview
   const codedFrameCount = F.filter((f) => f.b).length;
   function pageOverview() {
-    return `<div class="page wide">
+    return `<div class="page wide home">
       <div class="hero">
-        <div>
+        <div class="hero-copy">
           <p class="kicker">Pre-service teacher education · 2026</p>
-          <h1>Documenting How Pre-Service Teachers Learn Decision Trees</h1>
+          <h1><span class="hero-line">Documenting How Pre-Service Teachers</span> <span class="hero-line">Learn Decision Trees</span></h1>
           <p class="hero-lead">A research archive of worksheets, screen recordings, platform logs, and notebooks from a decision-tree unit with ${STUDENTS.length} pre-service teachers, shown only by pseudonym.</p>
           <div class="hero-actions">
             <a class="btn-primary" href="#/explore/worksheets">Explore learning activities</a>
@@ -356,17 +374,19 @@
           </div>
         </div>
         <figure class="hero-visual">
-          <svg viewBox="0 0 360 210" role="img" aria-label="Schematic of the worksheet rule: if fat is at most 8 grams, the card is recommended; otherwise it is not.">
-            <line x1="180" y1="46" x2="92" y2="108" stroke="#24548c" stroke-width="1.6"/>
-            <line x1="180" y1="46" x2="268" y2="108" stroke="#24548c" stroke-width="1.6"/>
-            <rect x="112" y="18" width="136" height="36" rx="8" fill="#142b4a"/>
-            <text x="180" y="41" text-anchor="middle" fill="#f4f7fb" font-size="14">fat ≤ 8 g</text>
-            <text x="118" y="96" text-anchor="middle" fill="#3d4a5c" font-size="11">yes</text>
-            <text x="244" y="96" text-anchor="middle" fill="#3d4a5c" font-size="11">no</text>
-            <rect x="28" y="108" width="128" height="34" rx="8" fill="#dce8f5"/>
-            <text x="92" y="130" text-anchor="middle" fill="#142b4a" font-size="13">Recommended</text>
-            <rect x="204" y="108" width="140" height="34" rx="8" fill="#e8eef6"/>
-            <text x="274" y="130" text-anchor="middle" fill="#142b4a" font-size="13">Not recommended</text>
+          <p class="hero-diagram-label">Worksheet 3 · given rule</p>
+          <svg viewBox="0 0 560 220" role="img" aria-label="Schematic of the worksheet rule: if fat is at most 8 grams, the card is recommended; otherwise it is not.">
+            <path d="M280 56 V104 H145 V148 M280 104 H415 V148" fill="none" stroke="#2458A6" stroke-width="1.5"/>
+            <rect x="176" y="4" width="208" height="52" fill="#172B4D"/>
+            <text x="280" y="36" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="600">Fat ≤ 8.0 g</text>
+            <text x="212" y="96" text-anchor="middle" fill="#2458A6" font-size="12" font-weight="600">yes</text>
+            <text x="348" y="96" text-anchor="middle" fill="#586579" font-size="12" font-weight="600">no</text>
+            <rect x="40" y="148" width="210" height="64" fill="#EDF3FB" stroke="#2458A6" stroke-width="1"/>
+            <text x="145" y="176" text-anchor="middle" fill="#172B4D" font-size="15" font-weight="600">Recommended</text>
+            <text x="145" y="196" text-anchor="middle" fill="#586579" font-size="12">fat is at most 8.0 g</text>
+            <rect x="310" y="148" width="210" height="64" fill="#F6F8FB" stroke="#D8DEE8" stroke-width="1"/>
+            <text x="415" y="176" text-anchor="middle" fill="#172B4D" font-size="15" font-weight="600">Not recommended</text>
+            <text x="415" y="196" text-anchor="middle" fill="#586579" font-size="12">fat is above 8.0 g</text>
           </svg>
           <figcaption>The rule students apply to the 11 food cards in worksheet 3. This is a teaching example, not a finding from the recordings.</figcaption>
         </figure>
@@ -495,10 +515,7 @@
 
   // ------------------------------------------------------------------ 03 Explore
   function exploreShell(active, body) {
-    return `<div class="explore-head">
-        <p class="kicker">Explore the data</p>
-        <div class="finder"><label for="finder">Find a student</label><input id="finder" type="search" list="stuList" placeholder="Type a pseudonym, e.g. Amy" autocomplete="off"><datalist id="stuList">${STUDENTS.map((s) => `<option value="${h(s)}">`).join("")}</datalist></div>
-      </div>${body}`;
+    return `<p class="kicker">The data</p>${body}`;
   }
   function availableSummary(s) {
     const ws = C.worksheets.filter((w) => C.ws[s][w.code].ocr).length;
@@ -533,17 +550,21 @@
         const c = chkBy["item_checks." + id] || chkBy[id];
         if (c) used.add(c.check);
         const v = x.value === null || x.value === "(bos)" ? '<span class="na">blank</span>' : `<span class="orig">${h(x.value)}</span>`;
-        const cells = [h(fieldLabel(x.path)), v];
+        const pathLabel = fieldLabel(x.path);
+        const blank = itemLabel(id);
+        const rub = rubricItemLabel(w.code, id, 64);
+        const label = rub && blank && (pathLabel === blank || pathLabel.startsWith(blank + " · ")) ? pathLabel.replace(blank, rub) : pathLabel;
+        const cells = [h(label), v];
         if (hasExpected) cells.push(fixed[id] !== undefined ? `<span class="mono">${h(fixed[id])}</span>` : "");
         cells.push(c ? `<span${c.flag ? tipAttr(h(c.flag)) : ""}>${result(c.correct)}</span>` : "");
         return { cells };
       });
       const passed = o.checks.filter((c) => c.correct === true).length;
-      status = o.checks.length ? `${passed} of ${o.checks.length} checks passed` : `${o.responses.length} answers`;
+      status = o.checks.length ? `${passed} of ${o.checks.length} items correct` : `${o.responses.length} answers`;
       const head = [{ t: "Question" }, { t: "Student answer" }].concat(hasExpected ? [{ t: "Expected" }] : []).concat([{ t: "Result" }]);
       body += table(head, rows, { max: 560 });
       const rest = o.checks.filter((c) => !used.has(c.check));
-      if (rest.length) body += `<h4>Further checks</h4>` + table([{ t: "Check" }, { t: "Result" }], rest.map((c) => ({ cells: [h(checkLabel(c.check)), `<span${tipAttr(h([c.flag, c.note, Object.entries(c.detail || {}).map(([k, v]) => `${k}: ${v}`).join(", ")].filter(Boolean).join(" · ")))}>${result(c.correct)}</span>`] })));
+      if (rest.length) body += `<h4>Further checks</h4>` + table([{ t: "Check" }, { t: "Result" }], rest.map((c) => ({ cells: [h(questionLabel(w.code, c.check)), `<span${tipAttr(h([c.flag, c.note, Object.entries(c.detail || {}).map(([k, v]) => `${k}: ${v}`).join(", ")].filter(Boolean).join(" · ")))}>${result(c.correct)}</span>`] })));
       body += `<p class="small">Answers are shown in the original Turkish. <a href="#/docs/glossary">Common Turkish words →</a></p>`;
       const notes = [["Page summary written by the model", o.snapshot], ["Reading notes", o.page_notes], ["Check summary", o.system_summary]].filter((n) => n[1] && n[1] !== "(bos)");
       let t = "";
@@ -588,7 +609,7 @@
     if (!r.manifest) return out + `<p class="empty">No screen recording from this session.</p></section>`;
     const cd = r.coding;
     sessionIssues(r).forEach((m) => { out += `<div class="warn">${h(m)} <a href="#/docs/limitations">Why this matters →</a></div>`; });
-    out += kv([["Length", dur(lengthOf(r))], ["Frames selected", num(r.manifest.frames)], ["Coded for behaviour", cd ? num(cd.frames_coded) : "No"]]);
+    out += kv([["Length", dur(lengthOf(r))], ["Frames listed", num(r.manifest.frames)], ["Coded for behaviour", cd ? num(cd.frames_coded) : "No"]]);
     out += strip(s, ss.id, r);
     if (cd) {
       out += legend(behKeys(cd.behaviors)) + behaviorStack(cd.behaviors) + behaviorTable(cd.behaviors);
@@ -735,7 +756,7 @@
       const group = (WS_GROUPS.find((g) => g.codes.includes(w.code)) || {}).label || "";
       return `<article class="ws-card" data-code="${h(w.code)}" data-group="${h(group)}" data-title="${h(wsTitle(w)).toLowerCase()} ${h((info.topic || "")).toLowerCase()} ${h(group).toLowerCase()}">
         <div class="ws-card-code">${h(w.code)}</div>
-        <h2 class="ws-card-title">${h(wsTitle(w))}</h2>
+        <h3 class="ws-card-title">${h(wsTitle(w))}</h3>
         ${info.date ? `<div class="ws-card-date">${h(info.date)}</div>` : ""}
         <p class="ws-card-desc">${h(info.topic || "")}</p>
         <div class="ws-card-actions">${links.join("")}<span class="small">${have} of ${STUDENTS.length} with answers</span></div>
@@ -759,6 +780,7 @@
       </div>
       ${chips}
       <div id="wsGroups">${groups}</div>
+      <p class="empty" id="wsEmpty" hidden>No worksheets match. Clear the search or choose All.</p>
       <p>${methodLink("worksheets")}</p>`)}</div>`;
   }
 
@@ -774,23 +796,15 @@
     let answerKey = "";
     if (w.rubric_data && w.rubric_data.items) {
       const items = Object.entries(w.rubric_data.items);
-      const rows = items.map(([id, item]) => {
-        const q = item.printed_question != null ? `Q${item.printed_question}` : h(id.replace(/^[A-Z0-9]+_/, ""));
-        const expected = h(item.expected_answer || "");
-        const rules = Object.entries(item.scoring_rules || {}).map(([score, rule]) => {
-          const cond = typeof rule === "string" ? rule : (rule.condition || "");
-          return `<li><b>${h(score)}</b> — ${h(cond)}</li>`;
-        }).join("");
-        return `{ cells: [\`<b>${q}</b>\`, \`${expected}\`, \`<ul class="scoring-rules">${rules}</ul>\`] }`;
-      });
       const akLink = w.answer_key_url
-        ? ` <a class="btn small" href="${h(w.answer_key_url)}" download>Download answer key PDF</a>`
+        ? `<p><a href="${h(w.answer_key_url)}" download>Download answer key PDF</a></p>`
         : "";
-      answerKey = `<h2>Answer key and scoring criteria${akLink}</h2>
-        <p class="small">Expected answers and scoring rules from the researcher's rubric. Items are in worksheet order.</p>
+      answerKey = `<h2 id="answer-key">Answer key and scoring criteria</h2>
+        ${akLink}
+        <p class="small">Expected answers and scoring rules from the researcher's rubric, in worksheet order. The expected text is shown as written in the rubric.</p>
         ${table([{ t: "Item" }, { t: "Expected answer" }, { t: "Scoring rules" }],
           items.map(([id, item]) => {
-            const q = item.printed_question != null ? `Q${item.printed_question}` : id.replace(/^[A-Z0-9]+_/, "");
+            const q = rubricItemLabel(code, id, 72) || (item.printed_question != null ? `Question ${item.printed_question}` : id.replace(/^[A-Z0-9]+_/, ""));
             const expected = item.expected_answer || "";
             const rules = Object.entries(item.scoring_rules || {}).map(([score, rule]) => {
               const cond = typeof rule === "string" ? rule : (rule.condition || "");
@@ -799,13 +813,12 @@
             return { cells: [`<b>${h(q)}</b>`, h(expected), `<ul class="scoring-rules">${rules}</ul>`] };
           }))}`;
     } else if (w.answer_key_url) {
-      answerKey = `<h2>Answer key</h2><p><a class="btn small" href="${h(w.answer_key_url)}" download>Download answer key PDF</a></p>`;
+      answerKey = `<h2 id="answer-key">Answer key</h2><p><a href="${h(w.answer_key_url)}" download>Download answer key PDF</a></p>`;
     }
 
     // Student results matrix
     let matrix = "";
     if (cols.length) {
-      const head = `<tr><th>Student</th>${cols.map((c) => `<th class="vert">${h(checkLabel(c))}</th>`).join("")}<th class="num">Score</th></tr>`;
       const alias = ITEM_ALIAS[code] || {};
       const body = have.map((s) => {
         const o = C.ws[s][code].ocr;
@@ -816,16 +829,17 @@
           const k = by[c];
           if (!k) return `<td class="cell na">·</td>`;
           const item = c.replace(/^item_checks\./, "");
+          const label = rubricItemLabel(code, item, 28) || checkLabel(c);
           const vals = o.responses.filter((x) => (alias[x.item] || x.item) === item || x.item === c).map((x) => x.value).slice(0, 3);
-          return `<td class="cell"${tipAttr(`<b>${h(s)} · ${h(checkLabel(c))}</b><br>${k.correct === true ? "Correct" : k.correct === false ? "Not correct" : "No verdict"}${vals.length ? "<br>Answer: " + vals.map(h).join(" · ") : ""}`)}>${mark(k.correct)}</td>`;
+          return `<td class="cell"${tipAttr(`<b>${h(s)} · ${h(label)}</b><br>${k.correct === true ? "Correct" : k.correct === false ? "Not correct" : "No verdict"}${vals.length ? "<br>Answer: " + vals.map(h).join(" · ") : ""}`)}>${mark(k.correct)}</td>`;
         }).join("")}<td class="num">${correct}/${total}</td></tr>`;
       }).join("");
-      matrix = `<h2>Results by student</h2><p>Each column is one check. Hover a cell to see the answer. Click a row to open that student.</p><div class="table-wrap"><table>${head}${body}</table></div>`;
+      matrix = `<h2 id="responses">Student responses</h2><p>Each column is one check. The score is items marked correct out of checks recorded for that student. A dot means that check was not recorded. Hover a cell for the answer. Click a row to open that student.</p><div class="table-wrap"><table><tr><th>Student</th>${cols.map((c) => `<th class="vert" title="${h(questionLabel(code, c))}">${h(rubricItemLabel(code, c.replace(/^item_checks\./, ""), 28) || checkLabel(c))}</th>`).join("")}<th class="num">Items correct</th></tr>${body}</table></div>`;
     }
 
     // Processing workflow section
     const isDeterministic = w.pipeline === "deterministic";
-    const workflow = `<h2>How responses were processed</h2>
+    const workflow = `<h2 id="processing">How responses were processed</h2>
       ${isDeterministic
         ? `<p>This worksheet uses a <b>deterministic pipeline</b>. The language model reads and extracts the handwritten values. Python then checks each value against a fixed rule derived from the 11 food cards. There is no judgement call: a value either matches or it does not.</p>`
         : `<p>This worksheet uses a <b>rubric-based pipeline</b>. The language model reads the handwriting and compares each answer against the researcher's rubric. Python aggregates the per-item scores. Partial credit (0.5) is possible where the rubric defines it.</p>`}
@@ -835,7 +849,15 @@
       <p class="small"><a href="#/explore/worksheets">← All worksheets</a></p>
       <h1>${h(code)} · ${h(wsTitle(w))}</h1>
       <p class="lead">${h(info.topic || "")}</p>
-      ${kv([["Used in class", h(info.date || "No scanned student file")], ["How answers were checked", `${h(howChecked(w))} ${methodLink("worksheets", "More")}`], ["Students with answers", `${have.length} of ${STUDENTS.length}`]])}
+      <nav class="jump" aria-label="On this page">
+        <a href="#about">About</a>
+        ${answerKey ? `<a href="#answer-key">Answer key</a>` : ""}
+        ${matrix ? `<a href="#responses">Student responses</a>` : ""}
+        <a href="#processing">Processing</a>
+      </nav>
+      <h2 id="about">About this worksheet</h2>
+      ${kv([["Used in class", h(info.date || "No scanned student file")], ["How answers were checked", `${h(howChecked(w))}`], ["Students with extracted answers", `${have.length} of ${STUDENTS.length}`]])}
+      <p>${methodLink("worksheets", "How worksheet processing works")}</p>
       ${!have.length ? `<div class="warn">No student answers were extracted for this worksheet. <a href="#/docs/limitations">See data quality →</a></div>` : ""}
       ${answerKey}
       ${matrix}
@@ -964,6 +986,8 @@
       });
       const filtering = q || group;
       if (countEl) countEl.textContent = filtering ? `${visible} of ${cards.length} worksheets` : `${cards.length} worksheets`;
+      const empty = document.getElementById("wsEmpty");
+      if (empty) empty.hidden = visible !== 0;
     }
     inp.addEventListener("input", filterWs);
     document.querySelectorAll(".ws-filters .chip").forEach((btn) => {
@@ -1034,7 +1058,10 @@
   }
 
   // ------------------------------------------------------------------ 04 Documentation
-  const docShell = (active, body) => `<p class="kicker">Reference</p>${body}`;
+  const docShell = (active, body) => {
+    const back = active ? `<p class="back"><a href="#/docs">← Data and downloads</a></p>` : "";
+    return `${back}<p class="kicker">Reference</p>${body}`;
+  };
 
   function pageDownloads() {
     const DICT = {
@@ -1044,11 +1071,32 @@
       "episodes.csv": ["One episode of a session (from the video pipeline's Parquet tables)", [["student", "Pseudonym"], ["session", "Session ID"], ["episode_id", "Episode within the session"], ["category", "Episode category"], ["start_ms / end_ms / duration_ms", "Timing in milliseconds"], ["steps", "Observation steps in the episode"], ["assistance", "Independent or assisted"]]],
     };
     return `<div class="page">${docShell("", `
-      <h1>Research data &amp; downloads</h1>
-      <p class="lead">Teaching materials, research datasets, and analysis tables from the 2026 decision tree unit.</p>
+      <h1>Data and downloads</h1>
+      <p class="lead">Files from the 2026 decision tree unit, and where to read how they were made. Screen-recording frames and CODAP logs are separate collections.</p>
+      <nav class="jump" aria-label="On this page">
+        <a href="#guide">Where to go</a>
+        <a href="#datasets">Datasets</a>
+        <a href="#worksheets">Worksheets</a>
+        <a href="#food">Food cards</a>
+        <a href="#tables">Analysis tables</a>
+      </nav>
 
-      <h2>Research datasets</h2>
-      <p>Screen-recording frames and CODAP interaction logs are separate collections. The frame dataset is published on Hugging Face under a CC BY 4.0 licence. The interaction logs are available in this archive and are not a published Hugging Face dataset.</p>
+      <h2 id="guide">Where to go</h2>
+      <ul class="guide">
+        <li><a href="#/">Overview</a><span>What the archive contains, and the counts behind it.</span></li>
+        <li><a href="#/methods">How the system works</a><span>How answers were read, frames were selected, and codes were checked.</span></li>
+        <li><a href="#/explore/worksheets">Worksheets</a><span>Purpose, student responses, and the blank PDFs.</span></li>
+        <li><a href="#/explore/recordings">Screen recordings</a><span>One row per student and session, with behaviour over time.</span></li>
+        <li><a href="#/explore/frames">Frame explorer</a><span>Manifest-listed frames and their behaviour codes.</span></li>
+        <li><a href="#/explore/logs">Platform logs</a><span>CODAP Arbor actions. These logs are not a Hugging Face dataset.</span></li>
+        <li><a href="#/explore/notebooks">Python notebooks</a><span>Final projects on the lizard data.</span></li>
+        <li><a href="#/docs/limitations">Data notes</a><span>Where a file is missing, duplicated, or differs from the written method.</span></li>
+        <li><a href="#/docs/glossary">Glossary</a><span>Terms used on this site, including Turkish words in student answers.</span></li>
+        <li><a href="#/docs/technical">Technical documentation</a><span>Folder paths, rebuild commands, and the coverage table.</span></li>
+      </ul>
+
+      <h2 id="datasets">Research datasets</h2>
+      <p>The frame dataset is published on Hugging Face under a CC BY 4.0 licence. The interaction logs stay in this archive.</p>
       <div class="dataset-grid">
         <div class="dataset-card">
           <div class="ds-type">Screen-recording frames</div>
@@ -1056,44 +1104,46 @@
           <div class="ds-desc">${num(F.length)} frames listed from two CODAP Arbor sessions, of which ${num(codedFrameCount)} are coded for behaviour. Each coded frame includes a behaviour code, screen context, confidence, and observation flags.</div>
           <div class="ds-meta">${num(F.length)} listed · ${STUDENTS.length} participants · 2 sessions · CC BY 4.0</div>
           <div class="ds-links">
-            <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">View on Hugging Face →</a>
+            <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">View on Hugging Face</a>
             <a href="#/explore/frames">Browse frames</a>
+            <a href="data/frames.csv" download>frames.csv</a>
           </div>
         </div>
         <div class="dataset-card">
           <div class="ds-type">Platform interaction logs</div>
           <div class="ds-title">CODAP Arbor interaction logs</div>
-          <div class="ds-desc">Time-stamped platform action logs from CODAP Arbor sessions. Includes model submission events with accuracy, depth, and confusion matrix counts.</div>
-          <div class="ds-meta">${num(logEvents)} events · 15 participants · 3 log days</div>
+          <div class="ds-desc">Time-stamped platform actions, including model submissions with accuracy, depth, and confusion-matrix counts. Not published as a Hugging Face dataset.</div>
+          <div class="ds-meta">${num(logEvents)} events · ${STUDENTS.length} participants · 3 log days</div>
           <div class="ds-links">
             <a href="#/explore/logs">Browse log data</a>
+            <a href="data/log_sessions.csv" download>log_sessions.csv</a>
           </div>
         </div>
       </div>
 
       ${materials()}
-      <h2>Analysis tables</h2>
-      <p>The tables behind this site, as CSV files that open in any spreadsheet program.</p>
+      <h2 id="tables">Analysis tables</h2>
+      <p>The tables behind this site. Column definitions stay closed until you open them.</p>
       ${Object.entries(DICT).map(([f, [desc, cols]]) => `<section class="dl"><h3><a href="data/${f}" download>${f}</a></h3><p>${h(desc)}</p>${tech("Data dictionary", table([{ t: "Column" }, { t: "Meaning" }], cols.map(([c, m]) => ({ cells: [`<code>${h(c)}</code>`, h(m)] }))))}</section>`).join("")}
-      <h2>Access</h2>
-      <p>All tables use pseudonyms only. They still contain student work, so sharing beyond the research team should follow the project's data protection rules (<code>DATA_PROTECTION.md</code> in the repository). The original Parquet tables stay in the repository and are described under <a href="#/docs/technical">Technical documentation</a>.</p>`)}</div>`;
+      <h2 id="access">Access</h2>
+      <p>All tables use pseudonyms only. They still contain student work, so sharing beyond the research team should follow the project's data protection rules (<code>DATA_PROTECTION.md</code> in the repository). The original Parquet tables stay in the repository and are described in the <a href="#/docs/technical">technical documentation</a>.</p>`)}</div>`;
   }
   function materials() {
     const D = C.downloads || {};
     const cards = D.cards;
     const LABEL = { recommended: "Recommended", not_recommended: "Not recommended" };
-    let out = `<h2>Worksheets</h2><p>The ${D.worksheets.length} worksheets as PDF files. These are the blank editions, as handed to the students.</p>` +
+    let out = `<h2 id="worksheets">Worksheet PDFs</h2><p>Blank editions, as handed to the students. Descriptions and extracted responses are in the <a href="#/explore/worksheets">worksheet catalogue</a>.</p>` +
       table([{ t: "Worksheet" }, { t: "Topic" }, { t: "File", num: 1 }], D.worksheets.map((d) => {
         const w = C.worksheets.find((x) => x.code === d.code);
         return { cells: [`<a href="${h(d.file)}" download><b>${h(d.code)} · ${h(wsTitle(w))}</b></a>`, `<span class="small">${h((WS_INFO[d.code] || {}).topic || "")}</span>`, `<a href="${h(d.file)}" download>PDF, ${bytes(d.bytes)}</a>`] };
       }));
     if (cards) {
       const nutr = [["energy_kcal", "Energy (kcal)"], ["fat_g", "Fat (g)"], ["saturated_fat_g", "Saturated fat (g)"], ["carbohydrates_g", "Carbohydrates (g)"], ["sugar_g", "Sugar (g)"], ["protein_g", "Protein (g)"], ["salt_g", "Salt (g)"]];
-      out += `<h2>Food data cards</h2><p>The ${cards.rows.length} food cards used in worksheets 4 to 7. The Python checks for WS5, WS6 and WS7 compute the correct answers from this table. <a href="${h(cards.file)}" download>Download CSV</a></p>` +
+      out += `<h2 id="food">Food data cards</h2><p>The ${cards.rows.length} food cards used in worksheets 4 to 7. The Python checks for WS5, WS6 and WS7 compute the correct answers from this table. <a href="${h(cards.file)}" download>Download CSV</a></p>` +
         table([{ t: "Food" }, { t: "Turkish name" }, { t: "Label" }].concat(nutr.map(([, l]) => ({ t: l, num: 1 }))),
           cards.rows.map((r) => ({ cells: [h(r.name_en), `<span class="orig">${h(r.name_tr)}</span>`, h(LABEL[r.label] || r.label)].concat(nutr.map(([k]) => h(r[k]))) })));
     }
-    out += `<h2>Datasets</h2><p>The class datasets (food data, Xeno, Titanic and the lizard data) are not stored as separate files in the project folder. The food data exists only inside the students' saved CODAP documents, and those copies differ because students filtered or edited cases. They are therefore not offered here as a single download.</p>`;
+    out += `<h2 id="class-data">Class datasets</h2><p>The class datasets (food data, Xeno, Titanic and the lizard data) are not stored as separate files in the project folder. The food data exists only inside the students' saved CODAP documents, and those copies differ because students filtered or edited cases. They are therefore not offered here as a single download.</p>`;
     return out;
   }
 
@@ -1148,7 +1198,8 @@
     return `<div class="page">${docShell("limitations", `
       <h1>Data notes</h1>
       <p class="lead">Where the data are incomplete, duplicated, or differ from the written method, and what that means for the results. Each point is computed from the files. File-level details are in the <a href="#/docs/technical">technical documentation</a>.</p>
-      ${limitationItems().map(([g, items]) => `<h2>${h(g)}</h2>${items.map((it) => `<section class="lim"><h3>${it.title}</h3><p>${it.what}</p><p class="why"><b>Why it matters.</b> ${it.why}</p>${it.detail ? tech("Details", `<div>${it.detail}</div>`) : ""}</section>`).join("")}`).join("")}`)}</div>`;
+      <nav class="jump" aria-label="On this page">${limitationItems().map(([g], i) => `<a href="#note-${i}">${h(g)}</a>`).join("")}</nav>
+      ${limitationItems().map(([g, items], i) => `<h2 id="note-${i}">${h(g)}</h2>${items.map((it) => `<section class="lim"><h3>${it.title}</h3><p>${it.what}</p><p class="why"><b>Why it matters.</b> ${it.why}</p>${it.detail ? tech("Details", `<div>${it.detail}</div>`) : ""}</section>`).join("")}`).join("")}`)}</div>`;
   }
   function pageGlossary() {
     const treeFundamentals = [
@@ -1203,17 +1254,25 @@
     return `<div class="page">${docShell("glossary", `
       <h1>Glossary</h1>
       <p class="lead">Terms used on this site, grouped by topic.</p>
-      <h2>Decision tree fundamentals</h2>
+      <nav class="jump" aria-label="On this page">
+        <a href="#g-tree">Decision trees</a>
+        <a href="#g-eval">Evaluation</a>
+        <a href="#g-data">Research data</a>
+        <a href="#g-methods">Methods</a>
+        <a href="#g-privacy">Privacy</a>
+        <a href="#g-tr">Turkish words</a>
+      </nav>
+      <h2 id="g-tree">Decision tree fundamentals</h2>
       ${mkTable(treeFundamentals)}
-      <h2>Model evaluation</h2>
+      <h2 id="g-eval">Model evaluation</h2>
       ${mkTable(evaluation)}
-      <h2>Research data and behavioural analysis</h2>
+      <h2 id="g-data">Research data and behavioural analysis</h2>
       ${mkTable(researchData)}
-      <h2>Computational methods</h2>
+      <h2 id="g-methods">Computational methods</h2>
       ${mkTable(computational)}
-      <h2>Privacy</h2>
+      <h2 id="g-privacy">Privacy</h2>
       ${mkTable(privacyTerms)}
-      <h2>Turkish words in student answers</h2>
+      <h2 id="g-tr">Turkish words in student answers</h2>
       ${table([{ t: "Turkish" }, { t: "English" }], tr.map(([a, b]) => ({ cells: [`<span class="orig">${h(a)}</span>`, h(b)] })))}
       ${tech("Technical terms", mkTable(techTerms))}`)}</div>`;
   }
@@ -1282,8 +1341,12 @@
     app.innerHTML = html;
     tip.style.display = "none";
     const navKey = top === "explore" ? ({ student: "students", worksheet: "worksheets" }[parts[1]] || parts[1] || "students")
-      : top === "docs" ? (parts[1] === "limitations" ? "limitations" : parts[1] === "glossary" ? "glossary" : "docs") : top;
-    document.querySelectorAll(".nav-link, .top-link").forEach((a) => a.classList.toggle("active", a.dataset.r === navKey));
+      : top === "docs" ? (parts[1] || "docs") : top;
+    document.querySelectorAll(".nav-link, .top-link").forEach((a) => {
+      const on = a.dataset.r === navKey || (a.classList.contains("top-link") && a.dataset.r === "docs" && top === "docs");
+      a.classList.toggle("active", on);
+    });
+    document.querySelectorAll(".nav-group").forEach((g) => { if (g.querySelector(".nav-link.active")) g.open = true; });
     closeNav();
     window.scrollTo(0, 0);
     if (after) after();
