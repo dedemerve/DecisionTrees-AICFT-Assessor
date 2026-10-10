@@ -477,7 +477,36 @@ svg text { font-family: var(--sans); }
 .thumbs img, button.thumb img { width: 100%; display: block; background: var(--surface-2); border-radius: 6px; aspect-ratio: 16 / 7.6; object-fit: cover; }
 .thumbs figcaption { font-size: 12px; color: var(--ink-2); margin-top: 5px; line-height: 1.35; }
 
-.flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
+.page.methods { max-width: 860px; }
+.methods h2 { scroll-margin-top: 76px; }
+.methods h3 { font-size: 1rem; margin: 18px 0 6px; }
+.sources {
+  list-style: none; padding: 0; margin: 8px 0 4px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--rule);
+}
+.sources li {
+  padding: 12px 18px 12px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink-2); font-size: 14.5px;
+}
+.sources strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 2px; }
+.principle {
+  margin: 18px 0 8px; padding: 2px 0 2px 14px;
+  border-left: 3px solid var(--blue);
+  font-size: 1.05rem; max-width: 62ch;
+}
+.principle strong { font-weight: 600; }
+.process {
+  list-style: none; padding: 0; margin: 8px 0 4px;
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px;
+}
+.process li { border-top: 2px solid var(--ink); padding-top: 8px; min-width: 0; }
+.process .k { display: block; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.process p { margin: 0; font-size: 13.5px; color: var(--ink-2); max-width: none; }
+.explore-next { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 8px; }
+.explore-next a { font-weight: 600; text-decoration: none; }
+.explore-next a:hover { text-decoration: underline; }
 .flow .step { background: var(--surface); border-radius: 10px; padding: 12px 14px; }
 .flow .step .n { font-family: var(--mono); font-size: 12px; color: var(--blue); }
 .flow .step .h { font-weight: 600; font-size: 14.5px; margin: 4px 0; }
@@ -569,6 +598,8 @@ button.thumb.big { margin-bottom: 4px; }
   .hero-visual { max-width: 520px; }
   .metric-row { grid-template-columns: 1fr 1fr; }
   .flow { grid-template-columns: 1fr 1fr; }
+  .process { grid-template-columns: 1fr; }
+  .process li { border-top: 0; border-left: 2px solid var(--ink); padding: 0 0 12px 12px; }
 }
 @media (max-width: 720px) {
   main { padding: 20px 16px 72px; }
@@ -579,6 +610,7 @@ button.thumb.big { margin-bottom: 4px; }
   h1 { font-size: 1.5rem; }
   .hero h1 { font-size: 1.7rem; }
   .metric-row, .flow { grid-template-columns: 1fr; }
+  .sources { grid-template-columns: 1fr; }
   .thumbs { grid-template-columns: 1fr 1fr; }
   details.ws > .body { padding-left: 0; }
   .hbar { grid-template-columns: 110px 1fr 40px; }

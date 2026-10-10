@@ -62,9 +62,11 @@
     deterministic: "Python rules compare each value with the 11 food cards. The language model only reads the handwriting.",
     llm_rubric: "Each answer is compared with the researcher's rubric and answer key. Python adds up the item scores.",
   };
-  const howChecked = (w) => w.code === "WS14" ? "Numbers are checked against rules that always hold for this data (FP = 0, FN = 0, TP + TN = N). Open answers use the rubric."
-    : w.code === "WS15" ? "Numbers are compared with the true Titanic values, allowing ±2% for reading off the screen. Open answers use the rubric."
-      : HOW_CHECKED[w.pipeline];
+  const howChecked = (w) => w.code === "WS14" ? "Numbers are checked against rules that always hold for this data (the four counts add up, and false positives and false negatives are zero). Open answers use the rubric."
+    : w.code === "WS15" ? "Numbers are compared with the Titanic reference values, within 0.02. Open answers use the rubric."
+      : w.code === "WS10" ? "Python rules check the energy-threshold table. The language model only reads the handwriting. This is not the Titanic worksheet."
+        : w.code === "WS11" ? "No extracted student answers are in the archive, so this survey is not treated as scored evidence."
+          : HOW_CHECKED[w.pipeline];
 
   // Readable labels for worksheet fields.
   const TOKEN = {
@@ -443,73 +445,102 @@
     const tables = { ep: 0, codes: 0 };
     STUDENTS.forEach((s) => Object.values(C.episodes[s] || {}).forEach((e) => { tables.ep += (e.episodes || []).length; tables.codes += e.code_rows || 0; }));
     const linkedFrames = F.filter((f) => f.gx).length;
+    const noExtracted = C.worksheets.filter((w) => STUDENTS.every((s) => !C.ws[s][w.code].ocr)).map((w) => w.code);
+    const reportOnly = STUDENTS.filter((s) => C.notebooks[s] && !C.notebooks[s].file && C.notebooks[s].extraction);
 
-    return `<div class="page">
+    return `<div class="page methods">
       <p class="kicker">How the data were processed</p>
-      <h1>From student work to analysable data</h1>
-      <p class="lead">This page explains each step once. The pages under Explore link back here.</p>
-      <nav class="jump"><a href="#/methods/idea">Core idea</a><a href="#/methods/worksheets">Worksheets</a><a href="#/methods/recordings">Screen recordings</a><a href="#/methods/logs">Platform logs</a><a href="#/methods/notebooks">Notebooks</a><a href="#/methods/review">Researcher review</a></nav>
+      <h1>From Student Activity to Research Evidence</h1>
+      <p class="lead">This study brought together students’ written work, screen recordings, platform activity logs, and final coding notebooks. Each source captures a different part of the learning process. We processed these sources using a combination of AI-assisted extraction, predefined rules, and researcher review.</p>
+      <ul class="sources">
+        <li><strong>Worksheets</strong> What students wrote and drew.</li>
+        <li><strong>Screen recordings</strong> What was visible during their work.</li>
+        <li><strong>Platform logs</strong> Actions recorded by the software.</li>
+        <li><strong>Notebooks</strong> Code and analysis steps in the final project.</li>
+      </ul>
+      <p class="principle"><strong>AI helps organise evidence.</strong> Rules check what can be checked. Researchers remain responsible for interpretation.</p>
+      <nav class="jump" aria-label="On this page"><a href="#/methods/idea">How processing works</a><a href="#/methods/worksheets">Worksheets</a><a href="#/methods/recordings">Screen recordings</a><a href="#/methods/logs">Platform logs</a><a href="#/methods/notebooks">Notebooks</a><a href="#/methods/review">Reliability</a></nav>
 
-      <h2 id="m-idea">The core idea: look up the rule, then answer</h2>
-      <p>A language model that can read images can read handwriting or describe a screen. Left alone, it might also invent things. So the system never asks it an open question. For each answer it first <b>looks up</b> the matching rule written by the researcher. It then <b>places</b> that rule next to the student's work. Only then does the model <b>respond</b>, and only in a fixed format. This is called <b>retrieval-augmented generation</b>.</p>
-      <div class="flow" aria-label="Processing steps">
-        <div class="step"><div class="n">1</div><div class="h">Student work</div><div class="d">A scanned worksheet or a screen frame.</div></div>
-        <div class="step"><div class="n">2</div><div class="h">Look up</div><div class="d">The rubric, answer key or codebook entry for this exact item.</div></div>
-        <div class="step"><div class="n">3</div><div class="h">Combine</div><div class="d">Work, rule and output format go into one request.</div></div>
-        <div class="step"><div class="n">4</div><div class="h">Answer</div><div class="d">Structured fields only. No new categories, no totals.</div></div>
-        <div class="step"><div class="n">5</div><div class="h">Check</div><div class="d">Python tests values against reference data and adds up.</div></div>
-        <div class="step"><div class="n">6</div><div class="h">Review</div><div class="d">The researcher reads the outputs and corrects them.</div></div>
-      </div>
-      <p class="small">The look-up is direct: each item has an ID, and the entry with that ID is loaded from the rubric files. It is not a fuzzy search through many documents.</p>
+      <h2 id="m-idea">How the processing works</h2>
+      <p>The four sources do not pass through one identical pipeline. They share a sequence, and the check at each step depends on the source.</p>
+      <ol class="process" aria-label="Shared processing sequence">
+        <li><span class="k">Collect</span><p>Gather the original student work and the digital records.</p></li>
+        <li><span class="k">Extract</span><p>Read responses, identify visible actions, or parse recorded events.</p></li>
+        <li><span class="k">Check</span><p>Apply answer keys, rubrics, a behaviour codebook, or computational rules where they exist.</p></li>
+        <li><span class="k">Analyse</span><p>Turn the checked or qualified evidence into structured records and measures.</p></li>
+        <li><span class="k">Review</span><p>Inspect uncertain cases. Correct an error only where the audit trail supports the change.</p></li>
+      </ol>
 
       <h2 id="m-worksheets">Worksheets</h2>
-      <p>Students filled in ${C.worksheets.length} paper worksheets. Answers came as words, numbers, operators like ≤, tree drawings, sums and survey ticks. So there are two ways of checking.</p>
-      ${table([{ t: "How answers were checked" }, { t: "Worksheets" }, { t: "Why" }], [
-        { cells: ["<b>Rubric, with the language model</b>", "WS1, WS3, WS4, WS10, WS11, WS13, WS14, WS15", "Answers need interpretation, or several answers can be right. The model compares each answer with the rubric and answer key."] },
-        { cells: ["<b>Python rules</b>", "WS5, WS6, WS7", "The right values can be computed from the 11 food cards. The model only reads the handwriting."] },
-      ])}
-      <ol class="stages">
-        <li><div><h3>Scan and find the answer areas</h3><p>Each worksheet was scanned. The system knows where every answer box is. Tables in WS5, WS6 and WS10 were split into cells. In WS10 the column tells which blank a number belongs to.</p></div></li>
-        <li><div><h3>Read text and handwriting</h3><p>Each answer area went to the model with its ID, the expected type of answer and any limits, for example that an operator must be ≤, &lt;, ≥ or &gt;. The raw reading was saved unchanged.</p></div></li>
-        <li><div><h3>Clean up and check by hand</h3><p>Mechanical fixes were applied, such as writing <code>&lt;=</code> as ≤ or a decimal comma as a point. The researcher then reviewed every student's answers.${rawEx ? ` Example: in ${h(rawEx.s)}'s ${h(rawEx.code)}, the raw reading <code>${h(rawEx.d.raw)}</code> became <code>${h(rawEx.d.normalized)}</code>.` : ""}</p></div></li>
-        <li><div><h3>Check and score</h3><p>For WS5 to WS7, Python checks operators, threshold ranges, card counts, opposite operator pairs and the misclassification rate. WS7 is checked against the tree the same student drew in WS6.</p>
-          <p>For the other worksheets the model sees one rubric item at a time. It returns a score, the rubric criterion it used, a short reason and a verbatim quote from the student. Python adds up the scores.</p>
-          <p>WS14 (Xeno) gives each student a different random case set, so numbers are checked against rules that always hold: FP = 0, FN = 0, TP + TN = N, accuracy = 100%. WS15 (Titanic) uses the same data for everyone, so numbers are compared with the true values, allowing ±2%.${checkEx ? ` Example: ${h(checkEx.s)} wrote <code>${h(checkEx.v)}</code> as the best threshold in WS10. Result: ${result(checkEx.chk.correct)}.` : ""}</p></div></li>
-      </ol>
+      <h3>What was collected</h3>
+      <p>Students completed ${C.worksheets.length} paper worksheets. Answers include words, numbers, operators such as ≤, decision-tree drawings, calculations, and survey responses.</p>
+      <h3>How it was processed</h3>
+      <p>Scans were divided into known answer areas. A model read the handwriting in each area. The raw reading was kept. Mechanical clean-up, such as writing <code>&lt;=</code> as ≤, was recorded separately from that reading.</p>
+      <h3>How it was checked</h3>
+      <p>Two kinds of check are in use, and they are not interchangeable. For WS1, WS3, and WS4, the model scores each item against the researcher’s rubric and answer key, and Python adds up those scores. For WS5, WS6, WS7, and WS10, Python applies fixed rules after the handwriting has been read. WS10 checks an energy-threshold table. It is not the Titanic task.</p>
+      <p>WS13, WS14, and WS15 use the rubric model for open answers. WS14 also checks that the four outcome counts add up, and that false positives and false negatives are zero, as that activity expects. WS15 compares numeric answers with the Titanic reference values and accepts a difference of at most 0.02. ${noExtracted.length ? `${noExtracted.map(h).join(" and ")} ${noExtracted.length === 1 ? "has" : "have"} no extracted student answers, so ${noExtracted.length === 1 ? "it does" : "they do"} not contribute scored evidence.` : ""}</p>
+      <h3>What it contributes</h3>
+      <p>Worksheet records show what students wrote, and how those writings compare with a rubric or a computable rule. They do not show what a student was thinking while writing.</p>
+      ${tech("Which worksheet uses which check", table([{ t: "Worksheets" }, { t: "Reading" }, { t: "Check" }], [
+        { cells: ["WS1, WS3, WS4", "Model reads handwriting", "Model scores each item against the rubric. Python sums the scores."] },
+        { cells: ["WS5, WS6, WS7", "Model reads handwriting", "Python rules from the 11 food cards. WS7 is checked against the tree that student drew on WS6."] },
+        { cells: ["WS10", "Model reads handwriting", "Python rules for the energy-threshold table. Not the Titanic worksheet (WS15)."] },
+        { cells: ["WS13", "Model reads the answers", "Rubric scoring. Log measures are attached only when that student’s log exists."] },
+        { cells: ["WS14", "Model reads the answers", "Rubric for open answers. Python checks that the four counts sum to N and that false positives and false negatives are zero."] },
+        { cells: ["WS15", "Model reads the answers", "Rubric for open answers. Python compares numbers with the Titanic reference, within 0.02."] },
+        { cells: ["WS11", noExtracted.includes("WS11") ? "Not extracted" : "Model reads the answers", "A checker exists for some closed survey items. This worksheet is not treated as a validated response set" + (noExtracted.includes("WS11") ? " because no student answers were extracted." : ".")] },
+      ]) + `<p class="small">For a rubric item, the scorer loads the entry with that item’s ID. It does not search across documents.</p>` + (rawEx ? `<p class="small">Clean-up example: in ${h(rawEx.s)}’s ${h(rawEx.code)}, the raw reading <code>${h(rawEx.d.raw)}</code> was stored as <code>${h(rawEx.d.normalized)}</code>.</p>` : "") + (checkEx ? `<p class="small">WS10 check example: ${h(checkEx.s)} wrote <code>${h(checkEx.v)}</code> for the chosen threshold. Result: ${result(checkEx.chk.correct)}.</p>` : "") + `<p class="small">WS14 and WS15 were split from an earlier combined worksheet. They are checked separately. The combined form is not a current validated worksheet.</p>`)}
 
       <h2 id="m-recordings">Screen recordings</h2>
-      <p>Students recorded their screens with a simple browser recorder built for this study during the two CODAP Arbor sessions. A session lasts more than an hour, so the system picks the moments that matter and describes them with a fixed list of behaviours.</p>
-      <ol class="stages">
-        <li><div><h3>Sound: who is speaking?</h3><p>The audio was transcribed with Whisper. Voices were grouped and labelled teacher, student or classmate using typical teacher phrases. Recordings without usable speech were marked as such, and no talk-based judgement was made for them.</p></div></li>
-        <li><div><h3>Pick frames when something happens</h3><p>Instead of one image every few seconds, a frame is taken when the screen changes enough or when someone speaks. If nothing has been captured for a while, a frame is forced, so quiet stretches are still represented. Near-identical frames are removed.</p>
-          ${tech("Settings recorded in the files", kv([
-            ["Share of screen that must change", pv("motion_threshold_fraction")],
-            ["Same, in silent recordings", pv("silent_motion_threshold")],
-            ["Forced frame after a gap of (seconds)", pv("codap_gap_fill_seconds")],
-            ["Forced frame after a speech gap of (seconds)", pv("speech_gap_bypass_seconds")],
-          ]) + `<h4>Why frames were taken</h4>` + hbars(trigTotals, (k) => (TRIGGERS[k] || k).replace(/\.$/, ""), (k, v) => `<code>${h(k)}</code><br>${num(v)} frames`))}</div></li>
-        <li><div><h3>Describe each frame with the codebook</h3><p>Each CODAP frame was sent to the model with the researcher's codebook. The codebook comes from earlier second-by-second human coding of recordings (Koklu et al., 2026). The model may only choose from nine behaviours. It also records what is visible, such as whether the tree has nodes or the accuracy is shown. Anything it cannot see is left empty.</p>
-          ${table([{ t: "Behaviour" }, { t: "Meaning" }], BEHAV.map((b) => ({ cells: [`<span class="sw" style="background:var(${b[3]})"></span>${h(b[1])}`, h(b[2])] })))}
-          <p>Each frame also gets a screen type (tree, graph, table, mixed or menu) and a phase (setup, building, tuning, evaluating or idle). When a frame fits two behaviours, building a tree comes first.</p></div></li>
-        <li><div><h3>Link video and platform log</h3><p>Some actions are hard to see on screen, so the plan is to match log events to frames in time. In the 2026 files this matching is not recorded for individual frames. Instead, ${num(linkedFrames)} frames are linked to the researcher's written observation steps by order in time. These links are automatic, not checked by a person. <a href="#/docs/limitations">See data quality →</a></p></div></li>
-      </ol>
-      <p>The results form three tables per student and session: one summary row per session, ${num(tables.ep)} episodes (longer stretches of related activity), and ${num(tables.codes)} episode-by-code rows.</p>
+      <h3>What was collected</h3>
+      <p>Students recorded their screens during the CODAP Arbor sessions with a browser recorder built for this study. The manifests list ${num(F.length)} frames, of which ${num(codedFrameCount)} have a behaviour label.</p>
+      <h3>How it was processed</h3>
+      <p>The pipeline keeps a frame when the screen changes enough, when someone is speaking, or when nothing has been captured for a while. Near-duplicate frames are removed. Usable speech is transcribed. Recordings without usable speech are marked, and no judgement is made from talk in those files. Each kept frame is then labelled with one behaviour from a predefined codebook.</p>
+      <p class="callout">A screen frame shows what was visible at a particular moment. It does not, by itself, establish what a student was thinking.</p>
+      <h3>How it was checked</h3>
+      <p>The codebook comes from earlier human coding of recordings and allows nine labels only. The labels fall into three groups: working with the data or the tree (explore, choose a target, build, adjust a threshold), judging the model (evaluate, compare, interpret), and other visible states (idle or off task). When a frame could fit two labels, building a tree comes first. Anything the coder cannot see is left empty.</p>
+      <h3>What it contributes</h3>
+      <p>The frames describe visible activity over time. They are not a record of intention. ${num(linkedFrames)} frames are tied to written observation steps by order in time. Those links are automatic and have not been checked one by one. The session tables also contain ${num(tables.ep)} episodes and ${num(tables.codes)} episode-by-code rows. Episode categories are not the same nine labels, so the two tables should not be read as the same measurement.</p>
+      ${tech("Behaviour labels and frame-selection settings", table([{ t: "Behaviour" }, { t: "What it names" }], BEHAV.map((b) => ({ cells: [`<span class="sw" style="background:var(${b[3]})"></span>${h(b[1])}`, h(b[2])] }))) + kv([
+        ["Share of the screen that must change", pv("motion_threshold_fraction")],
+        ["Same threshold in silent recordings", pv("silent_motion_threshold")],
+        ["Forced frame after a gap (seconds)", pv("codap_gap_fill_seconds")],
+        ["Forced frame after a speech gap (seconds)", pv("speech_gap_bypass_seconds")],
+      ]) + `<h4>Why frames were taken</h4>` + hbars(trigTotals, (k) => (TRIGGERS[k] || k).replace(/\.$/, ""), (k, v) => `<code>${h(k)}</code><br>${num(v)} frames`))}
 
       <h2 id="m-logs">Platform logs</h2>
-      <p>CODAP Arbor writes a time-stamped line for every action. No language model is involved. Plain rules turn the lines into measures.</p>
-      <dl class="terms">
-        <dt>Model attempts</dt><dd>How often the student submitted a tree's results. Each attempt records accuracy and the counts of right and wrong decisions.</dd>
-        <dt>Time to first attempt</dt><dd>Minutes from the student's first action to the first submitted model.</dd>
-        <dt>Accuracy spread</dt><dd>How much accuracy varied between attempts (standard deviation).</dd>
-        <dt>Changed one thing at a time</dt><dd>Share of steps between two attempts where only the predictor or only the threshold changed. Researchers call this VOTAT. A high share suggests controlled testing.</dd>
-        <dt>Recovering from errors</dt><dd>Deleting a tree and rebuilding it with another predictor. ${C.logs.delete_events_present ? "" : "The 2026 logs contain no delete actions, so this is not measured."}</dd>
-      </dl>
+      <h3>What was collected</h3>
+      <p>CODAP Arbor writes a time-stamped line for each software action. ${num(logEvents)} events are in the archive. No language model reads these files.</p>
+      <h3>How it was processed</h3>
+      <p>Python rules turn the events into measures: how many trees were submitted, how long until the first submission, how much accuracy varied, and whether the student changed one thing at a time.</p>
+      <h3>How it was checked</h3>
+      <p>A step counts as changing one thing at a time when only the predictor changes or only the threshold changes. This is often called VOTAT: vary one thing at a time, and hold the other still. The share of such steps is a description of the log, not proof that the student planned a controlled experiment.</p>
+      <p>${C.logs.delete_events_present ? "Delete actions are present, so rebuilding after a deletion can be counted." : "The 2026 logs contain no delete actions, so recovery by deleting a tree and rebuilding it cannot be calculated from these logs."}</p>
+      <h3>What it contributes</h3>
+      <p>Logs show actions the software recorded. They do not show why a student took an action, and they are not matched to individual screen frames in these files.</p>
 
       <h2 id="m-notebooks">Python notebooks</h2>
-      <p>For the final project students analysed lizard data in Google Colab. They wrote at least three research questions, built a tree for each, tried several depths, compared training and test errors and chose a final tree. The notebook files are read directly: which cells exist, which ran, whether the student went back to earlier code, and whether errors appeared. A second step records which analysis steps are present. Choosing one's own questions is linked to competency LO3.3.3. Trying settings such as tree depth is linked to LO3.3.2.</p>
+      <h3>What was collected</h3>
+      <p>For the final project, students analysed lizard data in Google Colab. ${notebooksPresent} notebook files are in the archive.${reportOnly.length ? ` ${reportOnly.map(h).join(" and ")} submitted a report instead, so cell order and errors cannot be read for ${reportOnly.length === 1 ? "that file" : "those files"}.` : ""}</p>
+      <h3>How it was processed</h3>
+      <p>The notebook file is read directly. The record notes which code cells are present, which of those cells were executed, whether the student returned to an earlier cell, and whether a cell printed an error. A second pass notes analysis steps that are present, such as loading the lizard data, fitting a decision tree, splitting training and test data, or trying more than one tree depth.</p>
+      <h3>How it was checked</h3>
+      <p>These are observations about the file. They are not a grade. In the study design, posing one’s own questions is associated with competency LO3.3.3, and changing tool settings such as tree depth with LO3.3.2. Those codes name learning goals. The notebook file does not itself assign them.</p>
+      <h3>What it contributes</h3>
+      <p>Notebooks show the questions, experiments, and model comparisons students left in the final project. An absent cell means that step was not found in the file. It does not show that the student never considered it.</p>
 
-      <h2 id="m-review">The researcher's role</h2>
-      <p>The automation organises and pre-processes. It does not judge. Raw readings stay untouched. The researcher checked the outputs, corrected reading errors and decided what counts. Measures produced only by rules are kept apart from evidence a person has confirmed.</p>
+      <h2 id="m-review">How reliability is supported</h2>
+      <h3>Predefined criteria</h3>
+      <p>Responses and behaviours are compared with rubrics, answer keys, the behaviour codebook, or computational rules written before the check is run.</p>
+      <h3>Traceable evidence</h3>
+      <p>Where the pipeline stores them, the original reading and the cleaned value are both kept, and a score can point back to the rubric item or the rule that produced it. Not every record has that link.</p>
+      <h3>Researcher oversight</h3>
+      <p>Automation organises the material. It does not decide what a behaviour means. The files in this archive label the checks and behaviour codes as automated. They do not store a separate researcher decision for each answer or frame. <a href="#/docs/limitations">Data notes</a> list the gaps, including duplicated videos and frames that do not cover a whole recording.</p>
+
+      <h2 id="m-conclude">What the data can tell us</h2>
+      <p>Written answers, visible screens, software events, and notebook files are different kinds of evidence. One cannot stand in for another, and none of them is direct proof of what a student was thinking.</p>
+      <p>Some links and extracted records remain unchecked. Frame-to-observation links are automatic. Worksheets with no extracted answers add no scored responses. Where a stage score file disagrees with the extracted answers, the site shows the answers rather than that file.</p>
+      <p class="explore-next"><a href="#/explore/worksheets">Worksheets</a><a href="#/explore/recordings">Screen recordings</a><a href="#/explore/frames">Frames</a><a href="#/docs">Research data</a></p>
     </div>`;
   }
 
