@@ -53,6 +53,7 @@ LOG_FILE_ID = "codap_food_log_21apr2026"
 ALL_STUDENTS = [
     "Amy", "Bruno", "Helena", "Iris", "Irma", "Isabel",
     "Marco", "Marcus", "Nadia", "Shana", "Sheila", "Ulysses", "Zara",
+    "Melinda", "Serena",
 ]
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")

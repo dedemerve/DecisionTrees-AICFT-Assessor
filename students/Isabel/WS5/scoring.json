@@ -2,23 +2,35 @@
   "stage": "scoring",
   "student_id": "Isabel",
   "worksheet": "WS5",
+  "blocked": false,
   "total_score": 4.0,
   "max_score": 4.0,
-  "validated_at": "2026-08-11T12:02:37.531572+00:00",
   "items": [
     {
-      "item": "WS5_rows",
-      "score": 3,
-      "max": 3,
-      "rows_ok": 3
+      "item": "WS5_row1",
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": false
+    },
+    {
+      "item": "WS5_row2",
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": false
+    },
+    {
+      "item": "WS5_row3",
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": false
     },
     {
       "item": "WS5_B25",
       "score": 1.0,
-      "max": 1,
-      "credit": "full",
-      "chosen": "Yağ < 13.5",
-      "min_errors": 2
+      "confidence": 1.0,
+      "review": true,
+      "researcher_override": true,
+      "override_rationale": "Named variable + minimum-error threshold (tied). Scorer failure only."
     }
   ]
 }

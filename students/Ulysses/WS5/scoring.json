@@ -2,23 +2,35 @@
   "stage": "scoring",
   "student_id": "Ulysses",
   "worksheet": "WS5",
-  "total_score": 2.5,
+  "blocked": false,
+  "total_score": 3.0,
   "max_score": 4.0,
-  "validated_at": "2026-08-11T12:02:37.531572+00:00",
   "items": [
     {
-      "item": "WS5_rows",
-      "score": 2,
-      "max": 3,
-      "rows_ok": 2
+      "item": "WS5_row1",
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": false
+    },
+    {
+      "item": "WS5_row2",
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": false
+    },
+    {
+      "item": "WS5_row3",
+      "score": 0.5,
+      "confidence": 0.85,
+      "review": true
     },
     {
       "item": "WS5_B25",
       "score": 0.5,
-      "max": 1,
-      "credit": "partial",
-      "chosen": "protein ≤ 2.0",
-      "min_errors": 2
+      "confidence": 0.85,
+      "review": true,
+      "researcher_override": true,
+      "override_rationale": "Threshold value in grid (protein <= 2.0) but worst trial (5 errors). Rubric 0.5: non-minimum grid threshold."
     }
   ]
 }

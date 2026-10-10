@@ -72,18 +72,30 @@ def _flatten(obj, prefix="", out=None):
 
 
 def extract_ws5(raw: dict) -> dict:
-    """WS5: threshold-search trials + final decision."""
+    """WS5: threshold-search trials + final decision.
+
+    Preserves all leaf-count and error-count fields that ws5_validation
+    needs for row_consistency scoring, plus the final decision text.
+    """
     ext = raw.get("extraction", {})
     trials = ext.get("trials", [])
     items = {}
     for trial in trials:
         tid = trial.get("trial_id", "?")
-        items[f"WS5_trial_{tid}_feature"] = str(trial.get("parsed_feature", "(not_extracted)"))
-        items[f"WS5_trial_{tid}_left_op"] = str(trial.get("left_operator", "(not_extracted)"))
-        items[f"WS5_trial_{tid}_left_threshold"] = str(trial.get("left_threshold", "(not_extracted)"))
-        items[f"WS5_trial_{tid}_right_op"] = str(trial.get("right_operator", "(not_extracted)"))
-        items[f"WS5_trial_{tid}_right_threshold"] = str(trial.get("right_threshold", "(not_extracted)"))
-    fd = ext.get("final_decision_raw", "(not_extracted)")
+        def _s(v):
+            return str(v) if v is not None else "(not_extracted)"
+        items[f"WS5_trial_{tid}_feature"]          = _s(trial.get("parsed_feature"))
+        items[f"WS5_trial_{tid}_left_op"]          = _s(trial.get("left_operator"))
+        items[f"WS5_trial_{tid}_left_threshold"]   = _s(trial.get("left_threshold"))
+        items[f"WS5_trial_{tid}_right_op"]         = _s(trial.get("right_operator"))
+        items[f"WS5_trial_{tid}_right_threshold"]  = _s(trial.get("right_threshold"))
+        items[f"WS5_trial_{tid}_left_rec"]         = _s(trial.get("left_leaf_recommended"))
+        items[f"WS5_trial_{tid}_left_not_rec"]     = _s(trial.get("left_leaf_not_recommended"))
+        items[f"WS5_trial_{tid}_right_rec"]        = _s(trial.get("right_leaf_recommended"))
+        items[f"WS5_trial_{tid}_right_not_rec"]    = _s(trial.get("right_leaf_not_recommended"))
+        items[f"WS5_trial_{tid}_errors"]           = _s(trial.get("student_error_count"))
+        items[f"WS5_trial_{tid}_mcr"]              = _s(trial.get("student_mcr"))
+    fd = ext.get("final_decision_raw")
     items["WS5_final_decision"] = str(fd) if fd else "(not_extracted)"
     return items
 
@@ -167,16 +179,31 @@ def extract_ws7(raw: dict) -> tuple[dict, dict]:
 
 
 def extract_ws10(raw: dict) -> dict:
-    """WS10: threshold error table."""
+    """WS10: threshold error table.
+
+    Rubric items WS10_B1..B7 = error counts per threshold row.
+    WS10_B8 = student's optimal threshold selection (numeric value).
+
+    Melinda/Serena have Worksheet_Titanic.json (a different worksheet).
+    The bridge returns a sentinel item so the caller can detect this.
+    """
     ext = raw.get("extraction", {})
+    # Detect Titanic worksheet -- it has titanic_vs1_egitim instead of threshold_error_table
+    if "titanic_vs1_egitim" in ext:
+        return {"WS10__WRONG_WORKSHEET": "Titanic worksheet -- not WS10"}
+
     table = ext.get("threshold_error_table", {})
     items = {}
     for item_id, cell in table.items():
-        if isinstance(cell, dict):
-            for field, val in cell.items():
-                items[f"{item_id}_{field}"] = str(val) if val is not None else "(not_extracted)"
-        else:
-            items[item_id] = str(cell) if cell is not None else "(not_extracted)"
+        # item_id is already WS10_B1..B7 -- extract just the error count
+        val = cell.get("error_count_parsed") if isinstance(cell, dict) else cell
+        items[item_id] = str(val) if val is not None else "(not_extracted)"
+
+    # WS10_B8 = optimal threshold value
+    opt = ext.get("optimal_threshold", {})
+    opt_val = opt.get("value_parsed") if isinstance(opt, dict) else opt
+    items["WS10_B8"] = str(opt_val) if opt_val is not None else "(not_extracted)"
+
     return items or {"WS10_B1": "(not_extracted)"}
 
 
@@ -186,7 +213,7 @@ def extract_ws11(raw: dict) -> dict:
     items = {}
     for k, v in ext.items():
         items[k] = str(v) if v is not None else "(not_extracted)"
-    return items or {"WS11_B1": "(not_extracted)"}
+    return items or {"DTI_01": "(not_extracted)"}
 
 
 def extract_ws_dt_intro(raw: dict) -> dict:
@@ -215,7 +242,7 @@ WORKSHEET_CONFIG = {
         "patterns": ["_Worksheet10.json", "_Worksheet_Titanic.json"],
         "extractor": extract_ws10,
     },
-    "WS11": {
+    "WS14": {
         "patterns": ["_Worksheet_Xeno.json"],
         "extractor": extract_ws11,
     },
