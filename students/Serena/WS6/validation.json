@@ -1,0 +1,98 @@
+{
+  "stage": "validation",
+  "student_id": "Serena",
+  "worksheet": "WS6",
+  "parse_success": false,
+  "ocr_quality": null,
+  "formula_parsed": true,
+  "tree_detected": false,
+  "missing_regions": [],
+  "deterministic_checks": {
+    "WS6_root_feature": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank"
+    },
+    "WS6_root_threshold": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank"
+    },
+    "WS6_root_labels": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank"
+    },
+    "WS6_inner_feature": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank"
+    },
+    "WS6_inner_threshold": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank"
+    },
+    "WS6_inner_labels": {
+      "ok": false,
+      "credit": "not_attempted",
+      "score": 0.0,
+      "reason": "blank"
+    },
+    "WS6_leaves": {
+      "ok": false,
+      "credit": "zero",
+      "score": 0.0,
+      "labeled_leaves": 0,
+      "required_leaves": 2,
+      "mcr": 1.0,
+      "errors": 11,
+      "path_errors": 0,
+      "note": "MCR=0 with two-level tree is valid; extra depth is not penalized."
+    },
+    "WS6_tree_structure": {
+      "ok": false,
+      "credit": "zero",
+      "score": 0.0,
+      "components": {
+        "depth": false,
+        "features": false,
+        "leaves_labeled": false,
+        "operators": false,
+        "operator_complement_gap": true
+      },
+      "components_met": 0,
+      "mcr": 1.0,
+      "errors": 11,
+      "two_level_ok": false,
+      "mcr_zero_valid": false,
+      "note": "Complementary operator pairs required: <↔≥, >↔≤, ≤↔>, ≥↔<. MCR=0 with two levels is acceptable."
+    },
+    "mcr": {
+      "dataset_size": 11,
+      "correct": 0,
+      "errors": 11,
+      "mcr": 1.0,
+      "unclassified": 11
+    },
+    "tree_model": {
+      "has_inner": false,
+      "root": null,
+      "inner": null
+    }
+  },
+  "blocked": false,
+  "blocked_reason": null,
+  "mcr": {
+    "dataset_size": 11,
+    "correct": 0,
+    "errors": 11,
+    "mcr": 1.0,
+    "unclassified": 11
+  }
+}

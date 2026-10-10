@@ -1,4 +1,12 @@
 {
+  "stage": "validation",
+  "student_id": "Amy",
+  "worksheet": "WS6",
+  "parse_success": true,
+  "ocr_quality": null,
+  "formula_parsed": true,
+  "tree_detected": true,
+  "missing_regions": [],
   "deterministic_checks": {
     "WS6_root_feature": {
       "ok": true,
@@ -103,8 +111,6 @@
       }
     }
   },
-  "parse_success": true,
-  "tree_detected": true,
   "blocked": false,
   "blocked_reason": null,
   "mcr": {
@@ -113,9 +119,5 @@
     "errors": 0,
     "mcr": 0.0,
     "unclassified": 0
-  },
-  "student_id": "Amy",
-  "worksheet": "WS6",
-  "revalidated_at": "2026-08-11T11:38:29.514581+00:00",
-  "revalidation_note": "Re-validated 2026-08-11 after fixing _tree_structure_to_ws6_responses: B3/B4 now map to root branch operators (not leaf labels); B8/B9 to inner operators; B10/B11/B13 to leaf labels."
+  }
 }

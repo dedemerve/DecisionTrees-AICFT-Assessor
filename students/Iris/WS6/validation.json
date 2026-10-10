@@ -1,4 +1,12 @@
 {
+  "stage": "validation",
+  "student_id": "Iris",
+  "worksheet": "WS6",
+  "parse_success": true,
+  "ocr_quality": null,
+  "formula_parsed": true,
+  "tree_detected": true,
+  "missing_regions": [],
   "deterministic_checks": {
     "WS6_root_feature": {
       "ok": true,
@@ -8,29 +16,20 @@
     },
     "WS6_root_threshold": {
       "parsed": {
-        "operator": "<",
+        "operator": "<=",
         "value": 2.0,
-        "operator_inclusive": false,
-        "operator_strict": true,
-        "expected_complement": ">="
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
       },
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
-      "operator_issue": "complementary_operator_mismatch",
-      "reason": "false_branch_operator_must_complement_true",
-      "false_operator": ">",
-      "expected_complement": ">="
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS6_root_labels": {
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
-      "reason": "false_branch_operator_must_complement_true",
-      "operator_issue": "complementary_operator_mismatch",
-      "true_operator": "<",
-      "false_operator": ">",
-      "expected_complement": ">="
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS6_inner_feature": {
       "ok": true,
@@ -40,29 +39,20 @@
     },
     "WS6_inner_threshold": {
       "parsed": {
-        "operator": "<",
+        "operator": "<=",
         "value": 200.0,
-        "operator_inclusive": false,
-        "operator_strict": true,
-        "expected_complement": ">="
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
       },
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
-      "operator_issue": "complementary_operator_mismatch",
-      "reason": "false_branch_operator_must_complement_true",
-      "false_operator": ">",
-      "expected_complement": ">="
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS6_inner_labels": {
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
-      "reason": "false_branch_operator_must_complement_true",
-      "operator_issue": "complementary_operator_mismatch",
-      "true_operator": "<",
-      "false_operator": ">",
-      "expected_complement": ">="
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS6_leaves": {
       "ok": true,
@@ -76,17 +66,16 @@
       "note": "MCR=0 with two-level tree is valid; extra depth is not penalized."
     },
     "WS6_tree_structure": {
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
       "components": {
         "depth": true,
         "features": true,
         "leaves_labeled": true,
-        "operators": false,
-        "operator_complement_gap": true
+        "operators": true
       },
-      "components_met": 3,
+      "components_met": 4,
       "mcr": 0.3636,
       "errors": 4,
       "two_level_ok": true,
@@ -103,27 +92,25 @@
     "tree_model": {
       "has_inner": true,
       "root": {
-        "raw": "< 2.0",
+        "raw": "≤ 2.0",
         "feature": "protein_g",
         "feature_name": "Protein",
-        "operator": "<",
+        "operator": "<=",
         "value": 2.0,
-        "operator_inclusive": false,
-        "operator_strict": true
+        "operator_inclusive": true,
+        "operator_strict": false
       },
       "inner": {
-        "raw": "< 200.0",
+        "raw": "≤ 200.0",
         "feature": "energy_kcal",
         "feature_name": "Enerji",
-        "operator": "<",
+        "operator": "<=",
         "value": 200.0,
-        "operator_inclusive": false,
-        "operator_strict": true
+        "operator_inclusive": true,
+        "operator_strict": false
       }
     }
   },
-  "parse_success": true,
-  "tree_detected": true,
   "blocked": false,
   "blocked_reason": null,
   "mcr": {
@@ -132,9 +119,5 @@
     "errors": 4,
     "mcr": 0.3636,
     "unclassified": 0
-  },
-  "student_id": "Iris",
-  "worksheet": "WS6",
-  "revalidated_at": "2026-08-11T11:38:29.522113+00:00",
-  "revalidation_note": "Re-validated 2026-08-11 after fixing _tree_structure_to_ws6_responses: B3/B4 now map to root branch operators (not leaf labels); B8/B9 to inner operators; B10/B11/B13 to leaf labels."
+  }
 }

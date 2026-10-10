@@ -1,4 +1,12 @@
 {
+  "stage": "validation",
+  "student_id": "Marcus",
+  "worksheet": "WS6",
+  "parse_success": true,
+  "ocr_quality": null,
+  "formula_parsed": true,
+  "tree_detected": true,
+  "missing_regions": [],
   "deterministic_checks": {
     "WS6_root_feature": {
       "ok": true,
@@ -19,7 +27,7 @@
       "score": 0.5,
       "operator_issue": "complementary_operator_mismatch",
       "reason": "false_branch_operator_must_complement_true",
-      "false_operator": "<",
+      "false_operator": "<=",
       "expected_complement": ">="
     },
     "WS6_root_labels": {
@@ -36,11 +44,11 @@
     },
     "WS6_inner_threshold": {
       "parsed": {
-        "operator": "<",
+        "operator": "<=",
         "value": 13.0,
-        "operator_inclusive": false,
-        "operator_strict": true,
-        "expected_complement": ">="
+        "operator_inclusive": true,
+        "operator_strict": false,
+        "expected_complement": ">"
       },
       "ok": false,
       "credit": "partial",
@@ -48,22 +56,26 @@
       "operator_issue": "complementary_operator_mismatch",
       "reason": "false_branch_operator_must_complement_true",
       "false_operator": "<",
-      "expected_complement": ">="
+      "expected_complement": ">"
     },
     "WS6_inner_labels": {
       "ok": false,
-      "credit": "not_attempted",
-      "score": 0.0,
-      "reason": "blank"
+      "credit": "partial",
+      "score": 0.5,
+      "reason": "false_branch_operator_must_complement_true",
+      "operator_issue": "complementary_operator_mismatch",
+      "true_operator": "<=",
+      "false_operator": "<",
+      "expected_complement": ">"
     },
     "WS6_leaves": {
-      "ok": true,
-      "credit": "full",
-      "score": 1.0,
-      "labeled_leaves": 3,
+      "ok": false,
+      "credit": "zero",
+      "score": 0.0,
+      "labeled_leaves": 0,
       "required_leaves": 3,
-      "mcr": 0.8182,
-      "errors": 9,
+      "mcr": 1.0,
+      "errors": 11,
       "path_errors": 0,
       "note": "MCR=0 with two-level tree is valid; extra depth is not penalized."
     },
@@ -74,23 +86,23 @@
       "components": {
         "depth": true,
         "features": true,
-        "leaves_labeled": true,
+        "leaves_labeled": false,
         "operators": false,
         "operator_complement_gap": true
       },
-      "components_met": 3,
-      "mcr": 0.8182,
-      "errors": 9,
+      "components_met": 2,
+      "mcr": 1.0,
+      "errors": 11,
       "two_level_ok": true,
       "mcr_zero_valid": false,
       "note": "Complementary operator pairs required: <↔≥, >↔≤, ≤↔>, ≥↔<. MCR=0 with two levels is acceptable."
     },
     "mcr": {
       "dataset_size": 11,
-      "correct": 2,
-      "errors": 9,
-      "mcr": 0.8182,
-      "unclassified": 0
+      "correct": 0,
+      "errors": 11,
+      "mcr": 1.0,
+      "unclassified": 11
     },
     "tree_model": {
       "has_inner": true,
@@ -104,29 +116,23 @@
         "operator_strict": true
       },
       "inner": {
-        "raw": "< 13.0",
+        "raw": "≤ 13.0",
         "feature": "protein_g",
         "feature_name": "Protein",
-        "operator": "<",
+        "operator": "<=",
         "value": 13.0,
-        "operator_inclusive": false,
-        "operator_strict": true
+        "operator_inclusive": true,
+        "operator_strict": false
       }
     }
   },
-  "parse_success": true,
-  "tree_detected": true,
   "blocked": false,
   "blocked_reason": null,
   "mcr": {
     "dataset_size": 11,
-    "correct": 2,
-    "errors": 9,
-    "mcr": 0.8182,
-    "unclassified": 0
-  },
-  "student_id": "Marcus",
-  "worksheet": "WS6",
-  "revalidated_at": "2026-08-11T11:38:29.531453+00:00",
-  "revalidation_note": "Re-validated 2026-08-11 after fixing _tree_structure_to_ws6_responses: B3/B4 now map to root branch operators (not leaf labels); B8/B9 to inner operators; B10/B11/B13 to leaf labels."
+    "correct": 0,
+    "errors": 11,
+    "mcr": 1.0,
+    "unclassified": 11
+  }
 }

@@ -2,52 +2,52 @@
   "stage": "scoring",
   "student_id": "Sheila",
   "worksheet": "WS7",
-  "total_score": 3.0,
+  "blocked": false,
+  "blocked_reason": "WS6 extraction required for B1–B3 rule checks.",
+  "total_score": 2.0,
   "max_score": 7.0,
-  "revalidated_at": "2026-08-11T12:11:33.670392+00:00",
   "items": [
     {
       "item": "WS7_1",
       "score": 1.0,
-      "credit": "full",
-      "student": "< 180.0",
-      "expected": "< 180"
+      "confidence": 1.0,
+      "review": false
     },
     {
       "item": "WS7_2",
-      "score": 0.5,
-      "credit": "partial",
-      "student": "≥ 180.0",
-      "expected": "≥ 180"
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": false
     },
     {
       "item": "WS7_3",
-      "score": 0.5,
-      "credit": "partial",
-      "student": "≤ 7.7",
-      "expected": "< 7.7"
+      "score": 0.0,
+      "confidence": 0.85,
+      "review": false
     },
     {
       "item": "WS7_4",
-      "score": 1.0,
-      "credit": "full",
-      "student": "> 7.7",
-      "expected": "≥ 7.7"
+      "score": 0.0,
+      "confidence": 0.85,
+      "review": false
     },
     {
       "item": "WS7_5",
       "score": 0.0,
-      "credit": "not_attempted"
+      "confidence": 0.85,
+      "review": false
     },
     {
       "item": "WS7_6",
       "score": 0.0,
-      "credit": "not_attempted"
+      "confidence": 0.85,
+      "review": false
     },
     {
       "item": "WS7_7",
       "score": 0.0,
-      "credit": "not_attempted"
+      "confidence": 0.85,
+      "review": false
     }
   ]
 }

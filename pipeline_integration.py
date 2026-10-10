@@ -240,6 +240,17 @@ def score_ws7_deterministic(
     total = 0.0
     max_total = 0.0
 
+    # Threshold expected values for WS7_1..4 (used when checks don't have these IDs)
+    _WS7_THRESHOLD_EXPECTED = {
+        "WS7_1": (180.0, {"<", "lt"}),
+        "WS7_2": (180.0, {">=", "≥", "gte", "ge"}),
+        "WS7_3": (7.7, {"<", "lt"}),
+        "WS7_4": (7.7, {">=", "≥", "gte", "ge"}),
+    }
+    _WS7_LETTER_EXPECTED = {"WS7_5": "B", "WS7_6": "A", "WS7_7": "C"}
+
+    from rubric_deterministic import extract_numbers, normalize_token
+
     for item_id in scoring_item_ids("WS7"):
         cfg = rubric["items"][item_id]
         max_score = float(cfg.get("max_score", 1))
@@ -254,6 +265,24 @@ def score_ws7_deterministic(
         check = checks.get(item_id) or {}
         if check and score <= 0 and check.get("credit") in {"full", "partial"}:
             score = score_from_credit(check, max_score)
+
+        # Fallback: score threshold items directly from response when checks are empty
+        if score <= 0 and not check and item_id in _WS7_THRESHOLD_EXPECTED:
+            resp = responses.get(item_id, "")
+            if resp and "(not_extracted)" not in resp:
+                expected_val, expected_ops = _WS7_THRESHOLD_EXPECTED[item_id]
+                nums = extract_numbers(resp)
+                resp_lower = resp.lower().replace("≥", ">=").replace("≤", "<=")
+                has_num = any(abs(n - expected_val) < 0.01 for n in nums)
+                has_op = any(op in resp_lower for op in expected_ops)
+                if has_num and has_op:
+                    score = max_score
+
+        # Fallback: score path-letter items directly from response when checks are empty
+        if score <= 0 and not check and item_id in _WS7_LETTER_EXPECTED:
+            resp = (responses.get(item_id) or "").strip().upper()
+            if resp == _WS7_LETTER_EXPECTED[item_id]:
+                score = max_score
 
         total += score
         if det.get("credit") == "not_attempted" and item_id.startswith("WS7_P1"):
