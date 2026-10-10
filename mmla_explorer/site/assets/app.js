@@ -204,7 +204,7 @@
     return out;
   };
 
-  document.getElementById("tocFoot").innerHTML = h(C.built_at.slice(0, 4));
+  document.getElementById("navFooter").innerHTML = "Built " + h(C.built_at.slice(0, 4));
 
   // ------------------------------------------------------------------ tooltip, theme, menu
   document.addEventListener("mouseover", (e) => {
@@ -232,8 +232,14 @@
     applyTheme(next);
     try { localStorage.setItem("dta-theme", next); } catch (e) { /* ignore */ }
   });
-  const toc = document.getElementById("toc"), menuBtn = document.getElementById("menuBtn");
-  menuBtn.addEventListener("click", () => { const o = toc.classList.toggle("open"); menuBtn.setAttribute("aria-expanded", String(o)); });
+  const navDrawer = document.getElementById("navDrawer");
+  const navOverlay = document.getElementById("navOverlay");
+  const menuBtn = document.getElementById("menuBtn");
+  function openNav() { navDrawer.classList.add("open"); navOverlay.classList.add("open"); navOverlay.removeAttribute("aria-hidden"); menuBtn.setAttribute("aria-expanded", "true"); }
+  function closeNav() { navDrawer.classList.remove("open"); navOverlay.classList.remove("open"); navOverlay.setAttribute("aria-hidden", "true"); menuBtn.setAttribute("aria-expanded", "false"); }
+  menuBtn.addEventListener("click", () => { navDrawer.classList.contains("open") ? closeNav() : openNav(); });
+  navOverlay.addEventListener("click", closeNav);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && navDrawer.classList.contains("open")) { closeNav(); menuBtn.focus(); } });
 
   // Lightbox for frame images.
   const lb = document.createElement("div");
@@ -291,30 +297,43 @@
   function pageOverview() {
     const codedFrames = F.filter((f) => f.b).length;
     return `<div class="page">
-      <p class="kicker">Pre-service teacher education · Decision tree unit · 2026</p>
-      <h1>Documenting How Pre-Service Teachers<br>Learn Decision Trees</h1>
-      <p class="lead">This archive documents a decision tree learning activity involving 15 pre-service teachers. It brings together their worksheets, screen recordings, platform interaction logs, and Python notebooks, alongside documentation of how these materials were processed and analysed. The archive provides a transparent overview of the collected data, the analytical procedures applied, and the resulting research outputs.</p>
+      <div class="hero">
+        <p class="hero-kicker">Pre-service teacher education · Decision tree unit · 2026</p>
+        <h1>Documenting How Pre-Service Teachers Learn Decision Trees</h1>
+        <p class="hero-lead">This archive documents a decision tree learning activity involving 15 pre-service teachers. It brings together their worksheets, screen recordings, platform interaction logs, and Python notebooks, alongside documentation of how each was processed and analysed.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#/explore/worksheets">Explore learning activities</a>
+          <a class="btn-secondary" href="#/docs">Research datasets</a>
+        </div>
+      </div>
+
       <div class="figures">
         <a class="figure" href="#/explore/students"><div class="v">${STUDENTS.length}</div><div class="l">Participants</div><div class="s">shown only by pseudonym</div></a>
         <a class="figure" href="#/explore/worksheets"><div class="v">${C.worksheets.length}</div><div class="l">Worksheets</div><div class="s">${num(schemaFields)} response fields defined</div></a>
-        <a class="figure" href="#/explore/recordings"><div class="v">${num(uniqueVideoList.length)}</div><div class="l">Distinct screen recordings</div><div class="s">${dur(uniqueVideoSeconds)} in total</div></a>
+        <a class="figure" href="#/explore/recordings"><div class="v">${num(uniqueVideoList.length)}</div><div class="l">Screen recordings</div><div class="s">${dur(uniqueVideoSeconds)} in total</div></a>
         <a class="figure" href="#/explore/frames"><div class="v">${num(F.length)}</div><div class="l">Frames extracted</div><div class="s">${num(codedFrames)} coded for behaviour</div></a>
         <a class="figure" href="#/explore/logs"><div class="v">${num(logEvents)}</div><div class="l">Platform log events</div><div class="s">CODAP Arbor, 3 class days</div></a>
         <a class="figure" href="#/explore/notebooks"><div class="v">${notebooksPresent}</div><div class="l">Final project notebooks</div><div class="s">Python, Google Colab</div></a>
       </div>
 
-      <h2>What the system does</h2>
-      <p>Student work was analysed through a structured workflow combining researcher-defined criteria, computational tools, and human review. Depending on the task, handwritten responses were extracted and evaluated using predefined rubrics or answer keys, while screen recordings and platform logs were processed to examine students’ actions during the activity. Python supported data processing and quantitative calculations, and language models assisted with selected extraction and interpretation tasks under researcher-defined instructions. The resulting outputs were reviewed by the researcher.</p>
-      <p>${methodLink("", "Read how the data were processed")}</p>
+      <div class="overview-sections">
+        <div class="overview-section">
+          <h3>Learning activities</h3>
+          <p>Worksheets, student responses, and screen-recording data from two CODAP Arbor sessions.</p>
+          <a class="section-link" href="#/explore/worksheets">Browse worksheets →</a>
+        </div>
+        <div class="overview-section">
+          <h3>Research data</h3>
+          <p>Behaviour-coded screen frames and platform interaction logs, available as datasets.</p>
+          <a class="section-link" href="#/docs">View datasets →</a>
+        </div>
+        <div class="overview-section">
+          <h3>Methods</h3>
+          <p>How student work was extracted, scored, and reviewed — step by step.</p>
+          <a class="section-link" href="#/methods">How the system works →</a>
+        </div>
+      </div>
 
-      <h2>Where to go next</h2>
-      ${table([{ t: "If you want to" }, { t: "Go to" }], [
-        { href: "#/methods", cells: ["Learn how the materials were collected and processed, step by step", '<a href="#/methods">How the data were processed</a>'] },
-        { href: "#/explore/students", cells: ["See all materials from one participant", '<a href="#/explore/students">Students</a>'] },
-        { href: "#/explore/frames", cells: ["Browse still images from the screen recordings and the actions observed in them", '<a href="#/explore/frames">Frame explorer</a>'] },
-        { href: "#/docs", cells: ["Download the worksheets, food data cards and summary tables", '<a href="#/docs">Data frames &amp; downloads</a>'] },
-        { href: "#/docs/limitations", cells: ["Read about missing or duplicated data and other limitations", '<a href="#/docs/limitations">Data notes</a>'] },
-      ])}
       <p class="small">Students appear only under pseudonyms. Screen images are cropped and softened so that no on-screen text can be read.</p>
     </div>`;
   }
@@ -623,12 +642,46 @@
   }
 
   // ---- cohort views
+  const WS_GROUPS = [
+    { label: "Conceptual foundations", codes: ["WS1"] },
+    { label: "Manual classification", codes: ["WS3", "WS4", "WS5"] },
+    { label: "Building decision trees", codes: ["WS6", "WS7", "WS10"] },
+    { label: "CODAP Arbor sessions", codes: ["WS12", "WS13", "WS14"] },
+    { label: "Feedback survey", codes: ["WS11"] },
+  ];
   function pageWorksheets() {
+    const wsMap = Object.fromEntries(C.worksheets.map((w) => [w.code, w]));
+    const allCards = C.worksheets.map((w) => {
+      const info = WS_INFO[w.code] || {};
+      const have = STUDENTS.filter((s) => C.ws[s][w.code].ocr).length;
+      const dl = (C.downloads && C.downloads.worksheets || []).find((d) => d.code === w.code);
+      const links = [`<a href="#/explore/worksheet/${h(w.code)}">Student responses</a>`];
+      if (dl) links.push(`<a href="${h(dl.file)}" download>Download PDF</a>`);
+      return `<div class="ws-card" data-code="${h(w.code)}" data-title="${h(wsTitle(w)).toLowerCase()} ${h((info.topic || "")).toLowerCase()}">
+        <div class="ws-card-code">${h(w.code)}</div>
+        <div>
+          <div class="ws-card-title">${h(wsTitle(w))}</div>
+          ${info.date ? `<div class="ws-card-date">${h(info.date)}</div>` : ""}
+          <div class="ws-card-desc">${h(info.topic || "")}</div>
+          <div class="ws-card-actions">${links.join("")}<span class="small">${have} of ${STUDENTS.length} students</span></div>
+        </div>
+      </div>`;
+    });
+    const groups = WS_GROUPS.map((g) => {
+      const cards = g.codes.map((code) => {
+        const idx = C.worksheets.findIndex((w) => w.code === code);
+        return idx >= 0 ? allCards[idx] : "";
+      }).join("");
+      return `<div class="ws-group" data-codes="${h(g.codes.join(","))}"><div class="ws-group-label">${h(g.label)}</div>${cards}</div>`;
+    }).join("");
     return `<div class="page wide">${exploreShell("worksheets", `
       <h1>Worksheets</h1>
-      <p class="lead">Eleven paper worksheets, in the order they were used. Open one to compare all students.</p>
-      ${table([{ t: "Worksheet" }, { t: "How answers were checked" }, { t: "Students with answers", num: 1 }],
-        C.worksheets.map((w) => ({ href: `#/explore/worksheet/${w.code}`, cells: [`<a href="#/explore/worksheet/${h(w.code)}"><b>${h(w.code)} · ${h(wsTitle(w))}</b></a><div class="small">${h((WS_INFO[w.code] || {}).topic || "")}</div>`, w.pipeline === "deterministic" ? "Python rules" : "Rubric, with the language model", `${STUDENTS.filter((s) => C.ws[s][w.code].ocr).length} of ${STUDENTS.length}`] })))}
+      <p class="lead">Eleven paper worksheets used across the unit. Each links to student responses and a downloadable PDF.</p>
+      <div class="ws-search-bar">
+        <input type="search" id="wsSearch" placeholder="Search worksheets…" aria-label="Search worksheets">
+        <span class="ws-count" id="wsCount">${C.worksheets.length} worksheets</span>
+      </div>
+      <div id="wsGroups">${groups}</div>
       <p>${methodLink("worksheets")}</p>`)}</div>`;
   }
 
@@ -812,6 +865,27 @@
     const selF = fState.sel && rows.find((f) => f.id === fState.sel);
     frameDetail(selF || null);
   }
+  function bindWsSearch() {
+    const inp = document.getElementById("wsSearch");
+    const countEl = document.getElementById("wsCount");
+    if (!inp) return;
+    function filterWs() {
+      const q = inp.value.trim().toLowerCase();
+      const cards = document.querySelectorAll(".ws-card");
+      let visible = 0;
+      cards.forEach((card) => {
+        const match = !q || card.dataset.title.includes(q) || card.dataset.code.includes(q);
+        card.classList.toggle("ws-hidden", !match);
+        if (match) visible++;
+      });
+      document.querySelectorAll(".ws-group").forEach((g) => {
+        const hasVisible = Array.from(g.querySelectorAll(".ws-card")).some((c) => !c.classList.contains("ws-hidden"));
+        g.classList.toggle("ws-hidden", !hasVisible);
+      });
+      if (countEl) countEl.textContent = q ? `${visible} of ${cards.length} worksheets` : `${cards.length} worksheets`;
+    }
+    inp.addEventListener("input", filterWs);
+  }
   function bindFrames() {
     const upd = () => {
       fState.s = document.getElementById("fS").value; fState.ss = document.getElementById("fSS").value;
@@ -878,8 +952,33 @@
       "episodes.csv": ["One episode of a session (from the video pipeline's Parquet tables)", [["student", "Pseudonym"], ["session", "Session ID"], ["episode_id", "Episode within the session"], ["category", "Episode category"], ["start_ms / end_ms / duration_ms", "Timing in milliseconds"], ["steps", "Observation steps in the episode"], ["assistance", "Independent or assisted"]]],
     };
     return `<div class="page">${docShell("", `
-      <h1>Data frames &amp; downloads</h1>
-      <p class="lead">Teaching materials used in the unit, and the tables behind this site.</p>
+      <h1>Research data &amp; downloads</h1>
+      <p class="lead">Teaching materials, research datasets, and analysis tables from the 2026 decision tree unit.</p>
+
+      <h2>Research datasets</h2>
+      <p>Two datasets are published on Hugging Face under a CC BY 4.0 licence. Each links to the dataset page on Hugging Face.</p>
+      <div class="dataset-grid">
+        <div class="dataset-card">
+          <div class="ds-type">Screen-recording frames</div>
+          <div class="ds-title">DecisionTrees-AICFT-Frames</div>
+          <div class="ds-desc">5,825 behaviour-coded screen-recording frames from two CODAP Arbor sessions. Each frame includes behavioural codes, screen context labels, confidence ratings, and per-frame observation flags.</div>
+          <div class="ds-meta">${num(F.length)} frames · 15 participants · 2 sessions · CC BY 4.0</div>
+          <div class="ds-links">
+            <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">View on Hugging Face →</a>
+            <a href="#/explore/frames">Browse frames</a>
+          </div>
+        </div>
+        <div class="dataset-card">
+          <div class="ds-type">Platform interaction logs</div>
+          <div class="ds-title">CODAP Arbor interaction logs</div>
+          <div class="ds-desc">Time-stamped platform action logs from CODAP Arbor sessions. Includes model submission events with accuracy, depth, and confusion matrix counts.</div>
+          <div class="ds-meta">${num(logEvents)} events · 15 participants · 3 log days</div>
+          <div class="ds-links">
+            <a href="#/explore/logs">Browse log data</a>
+          </div>
+        </div>
+      </div>
+
       ${materials()}
       <h2>Analysis tables</h2>
       <p>The tables behind this site, as CSV files that open in any spreadsheet program.</p>
@@ -1077,7 +1176,7 @@
     else if (top === "explore") {
       const sub = parts[1] || "students";
       if (sub === "student") html = pageStudent(parts[2], parts[3]);
-      else if (sub === "worksheets") html = pageWorksheets();
+      else if (sub === "worksheets") { html = pageWorksheets(); after = bindWsSearch; }
       else if (sub === "worksheet") html = pageWorksheet(parts[2]);
       else if (sub === "recordings") html = pageRecordings();
       else if (sub === "frames") { html = pageFrames(q); after = bindFrames; }
@@ -1092,8 +1191,8 @@
     tip.style.display = "none";
     const navKey = top === "explore" ? ({ student: "students", worksheet: "worksheets" }[parts[1]] || parts[1] || "students")
       : top === "docs" ? (parts[1] === "limitations" ? "limitations" : parts[1] === "glossary" ? "glossary" : "docs") : top;
-    document.querySelectorAll(".toc a").forEach((a) => a.classList.toggle("active", a.dataset.r === navKey));
-    toc.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false");
+    document.querySelectorAll(".nav-link").forEach((a) => a.classList.toggle("active", a.dataset.r === navKey));
+    closeNav();
     window.scrollTo(0, 0);
     if (after) after();
     const finder = document.getElementById("finder");
