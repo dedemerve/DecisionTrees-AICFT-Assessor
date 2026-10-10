@@ -5,238 +5,224 @@
   "interpretation_prohibited": true,
   "ocr_engine": "claude_vision",
   "source_type": "worksheet",
-  "note": "CODAP Arbor Xeno worksheet — transcribe verbatim. 33 blanks; DTI_01 … DTI_33.",
+  "note": "CODAP Arbor worksheet DT — transcribe student text and EMIT fields verbatim. Sections A–G; item IDs DT_A_Q1 … DT_G_Q2.",
   "fields": [
     {
-      "field_id": "DTI_01",
-      "rubric_item_id": "DTI_01",
+      "field_id": "DT_A_Q1",
+      "rubric_item_id": "DT_A_Q1",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Tablo: Karar Ağacını Okuyalım / Kök düğüm"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_02",
-      "rubric_item_id": "DTI_02",
+      "field_id": "DT_A_Q2",
+      "rubric_item_id": "DT_A_Q2",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Tablo: Karar Ağacını Okuyalım / Mavi saçlı kutu"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_03",
-      "rubric_item_id": "DTI_03",
+      "field_id": "DT_A_Q3",
+      "rubric_item_id": "DT_A_Q3",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Tablo: Karar Ağacını Okuyalım / Pembe saçlı kutu"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_04",
-      "rubric_item_id": "DTI_04",
+      "field_id": "DT_A_Q4",
+      "rubric_item_id": "DT_A_Q4",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Tablo: Karar Ağacını Okuyalım / Etiketleme"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_05",
-      "rubric_item_id": "DTI_05",
-      "type": "free_text",
-      "required": true,
-      "location_hint": "WS13 Tablo: Karar Ağacını Okuyalım / Pembe saçlı (tekrar)"
-    },
-    {
-      "field_id": "DTI_06",
-      "rubric_item_id": "DTI_06",
-      "type": "free_text",
-      "required": true,
-      "location_hint": "WS13 Tablo: Karar Ağacını Okuyalım / Ayırıcı mı?"
-    },
-    {
-      "field_id": "DTI_07",
-      "rubric_item_id": "DTI_07",
-      "type": "free_text",
-      "required": true,
-      "location_hint": "WS13 Tablo: Karar Ağacını Okuyalım / Yeni vaka tahmini"
-    },
-    {
-      "field_id": "DTI_08",
-      "rubric_item_id": "DTI_08",
-      "type": "free_text",
-      "required": true,
-      "location_hint": "WS13 FP vs FN tıbbi tehlike"
-    },
-    {
-      "field_id": "DTI_09",
-      "rubric_item_id": "DTI_09",
-      "type": "free_text",
-      "required": true,
-      "location_hint": "WS13 10 yeni hastanın otomatik teşhisi"
-    },
-    {
-      "field_id": "DTI_10",
-      "rubric_item_id": "DTI_10",
+      "field_id": "DT_B_Q1",
+      "rubric_item_id": "DT_B_Q1",
       "type": "emit_record",
       "required": true,
-      "location_hint": "WS13 Tablo / TP sayısı"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_11",
-      "rubric_item_id": "DTI_11",
-      "type": "free_text",
-      "required": true,
-      "location_hint": "WS13 Tablo / TP anlamı"
-    },
-    {
-      "field_id": "DTI_12",
-      "rubric_item_id": "DTI_12",
+      "field_id": "DT_B_Q2",
+      "rubric_item_id": "DT_B_Q2",
       "type": "emit_record",
       "required": true,
-      "location_hint": "WS13 Tablo / TN sayısı"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_13",
-      "rubric_item_id": "DTI_13",
-      "type": "free_text",
-      "required": true,
-      "location_hint": "WS13 Tablo / TN anlamı"
-    },
-    {
-      "field_id": "DTI_14",
-      "rubric_item_id": "DTI_14",
+      "field_id": "DT_B_Q3",
+      "rubric_item_id": "DT_B_Q3",
       "type": "emit_record",
       "required": true,
-      "location_hint": "WS13 Tablo / FP sayısı"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_15",
-      "rubric_item_id": "DTI_15",
+      "field_id": "DT_B_Q4",
+      "rubric_item_id": "DT_B_Q4",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Tablo / FP anlamı"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_16",
-      "rubric_item_id": "DTI_16",
+      "field_id": "DT_C_Q1",
+      "rubric_item_id": "DT_C_Q1",
       "type": "emit_record",
       "required": true,
-      "location_hint": "WS13 Tablo / FN sayısı"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_17",
-      "rubric_item_id": "DTI_17",
+      "field_id": "DT_C_Q2",
+      "rubric_item_id": "DT_C_Q2",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Tablo / FN anlamı"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_18",
-      "rubric_item_id": "DTI_18",
+      "field_id": "DT_C_Q3",
+      "rubric_item_id": "DT_C_Q3",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_D_Q1",
+      "rubric_item_id": "DT_D_Q1",
       "type": "emit_record",
       "required": true,
-      "location_hint": "WS13 Tablo / N sayısı"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_19",
-      "rubric_item_id": "DTI_19",
+      "field_id": "DT_D_Q2",
+      "rubric_item_id": "DT_D_Q2",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Tablo / N anlamı"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_20",
-      "rubric_item_id": "DTI_20",
+      "field_id": "DT_D_Q3",
+      "rubric_item_id": "DT_D_Q3",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_D_Q4",
+      "rubric_item_id": "DT_D_Q4",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_E_TP",
+      "rubric_item_id": "DT_E_TP",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_E_FP",
+      "rubric_item_id": "DT_E_FP",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_E_sensitivity_formula",
+      "rubric_item_id": "DT_E_sensitivity_formula",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_E_MCR_formula",
+      "rubric_item_id": "DT_E_MCR_formula",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_E_sensitivity",
+      "rubric_item_id": "DT_E_sensitivity",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_E_MCR",
+      "rubric_item_id": "DT_E_MCR",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_E_Q1",
+      "rubric_item_id": "DT_E_Q1",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_E_Q2",
+      "rubric_item_id": "DT_E_Q2",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_E_Q3",
+      "rubric_item_id": "DT_E_Q3",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_E_Q4",
+      "rubric_item_id": "DT_E_Q4",
+      "type": "free_text",
+      "required": true,
+      "location_hint": "WS13 section field"
+    },
+    {
+      "field_id": "DT_F_Q1",
+      "rubric_item_id": "DT_F_Q1",
       "type": "emit_record",
       "required": true,
-      "location_hint": "WS13 Tablo / Doğruluk hesabı"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_21",
-      "rubric_item_id": "DTI_21",
+      "field_id": "DT_F_Q2",
+      "rubric_item_id": "DT_F_Q2",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Tablo / Doğruluk yorumu"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_22",
-      "rubric_item_id": "DTI_22",
-      "type": "emit_record",
-      "required": true,
-      "location_hint": "WS13 Tablo / Duyarlılık hesabı"
-    },
-    {
-      "field_id": "DTI_23",
-      "rubric_item_id": "DTI_23",
+      "field_id": "DT_G_overfitting",
+      "rubric_item_id": "DT_G_overfitting",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Tablo / Duyarlılık yorumu"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_24",
-      "rubric_item_id": "DTI_24",
-      "type": "emit_record",
-      "required": true,
-      "location_hint": "WS13 Tablo / Özgüllük hesabı"
-    },
-    {
-      "field_id": "DTI_25",
-      "rubric_item_id": "DTI_25",
+      "field_id": "DT_G_DT_definition",
+      "rubric_item_id": "DT_G_DT_definition",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Tablo / Özgüllük yorumu"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_26",
-      "rubric_item_id": "DTI_26",
-      "type": "emit_record",
-      "required": true,
-      "location_hint": "WS13 Tablo / Kesinlik hesabı"
-    },
-    {
-      "field_id": "DTI_27",
-      "rubric_item_id": "DTI_27",
+      "field_id": "DT_G_Q1",
+      "rubric_item_id": "DT_G_Q1",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Tablo / Kesinlik yorumu"
+      "location_hint": "WS13 section field"
     },
     {
-      "field_id": "DTI_28",
-      "rubric_item_id": "DTI_28",
+      "field_id": "DT_G_Q2",
+      "rubric_item_id": "DT_G_Q2",
       "type": "free_text",
       "required": true,
-      "location_hint": "WS13 Öncelikli metrik"
-    },
-    {
-      "field_id": "DTI_29",
-      "rubric_item_id": "DTI_29",
-      "type": "free_text",
-      "required": true,
-      "location_hint": "WS13 Yeni metrik – formül"
-    },
-    {
-      "field_id": "DTI_30",
-      "rubric_item_id": "DTI_30",
-      "type": "free_text",
-      "required": true,
-      "location_hint": "WS13 Yeni metrik – ne yakalar"
-    },
-    {
-      "field_id": "DTI_31",
-      "rubric_item_id": "DTI_31",
-      "type": "free_text",
-      "required": true,
-      "location_hint": "WS13 Yeni metrik – ne zaman tercih"
-    },
-    {
-      "field_id": "DTI_32",
-      "rubric_item_id": "DTI_32",
-      "type": "emit_record",
-      "required": true,
-      "location_hint": "WS13 MCR hesabı"
-    },
-    {
-      "field_id": "DTI_33",
-      "rubric_item_id": "DTI_33",
-      "type": "free_text",
-      "required": true,
-      "location_hint": "WS13 MCR yorumu"
+      "location_hint": "WS13 section field"
     }
   ]
 }

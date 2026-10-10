@@ -5,88 +5,88 @@
     {
       "item_id": "DTI_01",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "290",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_02",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "290",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_03",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "522",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_04",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "290",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_05",
-      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "(290+522) / (290+522)",
+      "content": "22 vaka içermekte. %54,5 hasta. Hastaların yarıdan fazlası hasta",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
       }
     },
     {
-      "item_id": "DTI_06",
+      "item_id": "DTI_02",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "290/(290+0)",
+      "evidence_completeness": "complete",
+      "content": "Mavi saçlı 10 vaka var hiçbiri hasta değil. Hastalık oranı 0. Mavi saçlı olunca hasta olmuyor.",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
+      }
+    },
+    {
+      "item_id": "DTI_03",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "complete",
+      "content": "Pembe saçlı 12 vaka var ve hepsi hasta. Hastalık oranı 100. Pembe saçlı olunca hasta oluyor.",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    },
+    {
+      "item_id": "DTI_04",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "complete",
+      "content": "Pembe saçlılar hasta (+) mavi saçlılar (-) olarak etiketlenmiştir",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    },
+    {
+      "item_id": "DTI_05",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "blank",
+      "content": "(bos)",
+      "confidence": {
+        "extraction": 0.4,
+        "evidence_quality": 0.232
+      }
+    },
+    {
+      "item_id": "DTI_06",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "complete",
+      "content": "Evet incelediğimiz tüm vakalarda saç rengi iyi bir ayırıcı hata vermiyor.",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_07",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "522/(522+0)",
+      "evidence_completeness": "complete",
+      "content": "Saç rengi %100 doğru bir değişken olduğu için direkt olarak tahmin yapabiliriz.",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_08",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "290/(290+0)",
+      "evidence_completeness": "complete",
+      "content": "Tabiki FN (yanlış negatif), hasta birisi sonu ölümle bile sonuçlanabilecek bir hastalıktaysa onu sağlıklı nitelendirip iyileştirmemek büyük suçtur.",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_09",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "(0+0)/(522+290)",
+      "content": "Aynı şekilde sağa göre kesin sonuç veren yeni hastalar gördük.",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -96,7 +96,7 @@
       "item_id": "DTI_10",
       "evidence_unit_type": "definition",
       "evidence_completeness": "partial",
-      "content": "250",
+      "content": "17",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.5215
@@ -105,18 +105,18 @@
     {
       "item_id": "DTI_11",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "450",
+      "evidence_completeness": "complete",
+      "content": "Hastayken hasta dediğimiz",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_12",
       "evidence_unit_type": "definition",
       "evidence_completeness": "partial",
-      "content": "12",
+      "content": "15",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.5215
@@ -125,18 +125,18 @@
     {
       "item_id": "DTI_13",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "27",
+      "evidence_completeness": "complete",
+      "content": "Sağlıklıyken sağlıklı dediğimiz",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_14",
       "evidence_unit_type": "definition",
       "evidence_completeness": "partial",
-      "content": "(56+86)",
+      "content": "0",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.5215
@@ -145,48 +145,48 @@
     {
       "item_id": "DTI_15",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "sağlıklıyken hasta dediğimiz",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_16",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "partial",
+      "content": "0",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.5215
       }
     },
     {
       "item_id": "DTI_17",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "hastayken sağlıklı dediğimiz",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_18",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "partial",
+      "content": "32",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.5215
       }
     },
     {
       "item_id": "DTI_19",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "çok da büyük bir fark yok, bazı farklar mevcuttur.",
+      "content": "hasta ve sağlıklı toplam",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -195,281 +195,141 @@
     {
       "item_id": "DTI_20",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "17+15 / 32 = 32/32",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_21",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "tahminlerdeki doğru oranı",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_22",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "17 / (17+0) = 17/17",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_23",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "hastaların doğru şekilde hasta tespit edildiğini gösterir",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_24",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "15 / (15+0) = 15/15",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_25",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "sağlıklıların doğru şekilde sağlıklı tespit edildiğini gösterir",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_26",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "17/(17+0) = 17/17",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_27",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "hastaların gerçekte ne kadarı hasta",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_28",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "[corrected: struck-through text → Duyarlılığı kullanırım. Tüm hastalar içinde gerçekten doğru şekilde hasta olanları tespit ederim.]",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_29",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "partial",
+      "content": "TP / TN",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.5215
       }
     },
     {
       "item_id": "DTI_30",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "Hastaların sağlıklılara oranını verir. Hangisinin daha çok olduğunu görebiliriz.",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_31",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "Karşılaştırma yaparken tercih edilebilir.",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_32",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
+      "evidence_completeness": "complete",
+      "content": "0+0 / 32 = 0",
       "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
+        "extraction": 0.85,
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_33",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_34",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_35",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_36",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_37",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_38",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_39",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_40",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_41",
-      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "var, eğitimden geçemedi",
+      "content": "yanlış tespit ettiğimiz biri yok",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_42",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "model hem eğitim hem test durumunda yanlış sergiledi underfitting durumu oldu.",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_43",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "veri setiyle alakalı bir durum.",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_44",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_45",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "Dengeli olmalıdır.",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_46",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "Test ettiğimizde diğer değerleri karşılaştırdığımızda yeni yanlışlar çıkması gerçek olarak her şeyin mükemmel olmadığını gösterir.",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_47",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
       }
     }
   ]

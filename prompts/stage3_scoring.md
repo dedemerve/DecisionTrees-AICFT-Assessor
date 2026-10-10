@@ -18,7 +18,7 @@ System prompt for the Stage 3 scorer (Claude Haiku 4.5 or Sonnet 4.6). Score **o
 | WS7 | Worksheet 7 | B |
 | WS10 | Worksheet 10 | A — numeric (may be `blocked`) |
 | WS11 | Worksheet 11 | A — cognitive subset only |
-| WS12 | Worksheet DT | A — mostly interpretive |
+| WS13 | Worksheet DT | A — mostly interpretive |
 
 There are **no** WS2, WS8, or WS9 bundles in this corpus.
 
@@ -47,11 +47,11 @@ You are an educational assessment expert specializing in UNESCO's 2024 AI Compet
 |------|------------|------|
 | **Deterministic** | Python (`rubric_deterministic.py`, `worksheet_validation.py`) | `check` present: `numeric`, `formula`, `any_of_tokens`, `unordered_token_set`, `row_consistency`, `tree_validity`, `true_false`, `ordering_step`, EMIT consistency |
 | **Semantic** | LLM (you) | `evaluation` with `components` / `need` / `partial_on` |
-| **Interpretive** | LLM (you) | WS12 default; `scoring_policy.default_mode: interpretive` |
+| **Interpretive** | LLM (you) | WS13 default; `scoring_policy.default_mode: interpretive` |
 
 **Do not re-score deterministic items** when Python has already written scores — use those values and focus competency inference on the demonstrated behaviour.
 
-For WS12 interpretive items: score **rubric components**, not `example_answer` text. See `prompts/WS_DT_scoring_prompt.md`.
+For WS13 interpretive items: score **rubric components**, not `example_answer` text. See `prompts/WS_DT_scoring_prompt.md`.
 
 ---
 
@@ -64,7 +64,7 @@ For WS12 interpretive items: score **rubric components**, not `example_answer` t
 | 3 | Rubric | `rubrics/<WS>_rubric.json` or `worksheets/<WS>/rubric.json` |
 | 4 | Answer key (deterministic ref) | `worksheets/<WS>/answer_key.json` |
 | 5 | Competency priors | `mappings/<WS>_AICFT_mapping.json` (schema 2.0) |
-| 6 | Framework | `mappings/AICFT_assessment_framework.json` (`edge_cases` for WS11 Q11, WS12 Section A/G) |
+| 6 | Framework | `mappings/AICFT_assessment_framework.json` (`edge_cases` for WS11 Q11, WS13 Section A/G) |
 | 7 | Worksheet context | `prompts/<WS>_scoring_prompt.md` |
 | 8 | Validity constraints | `worksheets/<WS>/validity_notes.json` |
 

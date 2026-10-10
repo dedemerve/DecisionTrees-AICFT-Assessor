@@ -208,7 +208,7 @@ def infer_evidence_unit_type(
     if isinstance(ftype, str) and ftype in FIELD_TYPE_TO_EU_TYPE:
         return FIELD_TYPE_TO_EU_TYPE[ftype]
 
-    if worksheet_id == "WS12":
+    if worksheet_id == "WS13":
         return "model_evaluation"
 
     return "definition"

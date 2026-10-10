@@ -27,7 +27,7 @@ WORKSHEET_PROFILES: dict[str, dict[str, str]] = {
     "WS7": {"Acquire": "none", "Deepen": "primary", "Create": "none"},
     "WS10": {"Acquire": "none", "Deepen": "primary", "Create": "none"},
     "WS11": {"Acquire": "supporting", "Deepen": "primary", "Create": "none"},
-    "WS12": {"Acquire": "supporting", "Deepen": "primary", "Create": "supporting"},
+    "WS13": {"Acquire": "supporting", "Deepen": "primary", "Create": "supporting"},
 }
 
 COMPETENCY_DEFINITIONS: dict[str, dict[str, Any]] = {
@@ -469,7 +469,7 @@ ALL_WORKSHEET_ITEMS: dict[str, dict[str, list[dict[str, Any]]]] = {
     "WS7": ws7_mappings(),
     "WS10": ws10_mappings(),
     "WS11": ws11_mappings(),
-    "WS12": ws_dt_mappings(),
+    "WS13": ws_dt_mappings(),
 }
 
 

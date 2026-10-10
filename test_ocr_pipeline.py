@@ -1157,14 +1157,14 @@ class TestSaveWorksheetJsons:
     def test_WJ08_missing_item_gets_not_extracted_sentinel(self, tmp_path):
         """Items absent from responses appear as '(not_extracted)' in gate_1 items."""
         self._call("Marco", {}, tmp_path)
-        data = self._load(tmp_path, "WS12")
+        data = self._load(tmp_path, "WS13")
         for v in data["gate_1_extraction"]["items"].values():
             assert v == "(not_extracted)"
 
     def test_WJ09_ocr_model_in_gate1(self, tmp_path):
         """Default ocr_model in gate_1_extraction must be claude-sonnet-4-6."""
         self._call("Marco", self._make_full_responses(), tmp_path)
-        data = self._load(tmp_path, "WS12")
+        data = self._load(tmp_path, "WS13")
         assert data["gate_1_extraction"]["ocr_model"] == "claude-sonnet-4-6"
 
     def test_WJ10_custom_ocr_model_persisted(self, tmp_path):
@@ -1175,9 +1175,9 @@ class TestSaveWorksheetJsons:
             assert data["gate_1_extraction"]["ocr_model"] == "claude-opus-4-8"
 
     def test_WJ11_no_cross_contamination_between_worksheets(self, tmp_path):
-        """WS1 items must not appear in WS12 extraction and vice versa."""
+        """WS1 items must not appear in WS13 extraction and vice versa."""
         self._call("Marco", self._make_full_responses(), tmp_path)
-        dt_keys  = set(self._load(tmp_path, "WS12")["gate_1_extraction"]["items"])
+        dt_keys  = set(self._load(tmp_path, "WS13")["gate_1_extraction"]["items"])
         ws1_keys = set(self._load(tmp_path, "WS1")["gate_1_extraction"]["items"])
         assert dt_keys.isdisjoint(ws1_keys)
 
@@ -1231,6 +1231,6 @@ class TestSaveWorksheetJsons:
         """gate_1_extraction.extracted_at must be a parseable ISO datetime string."""
         from datetime import datetime
         self._call("Marco", self._make_full_responses(), tmp_path)
-        data = self._load(tmp_path, "WS12")
+        data = self._load(tmp_path, "WS13")
         ts = data["gate_1_extraction"]["extracted_at"]
         assert datetime.fromisoformat(ts)  # raises if invalid

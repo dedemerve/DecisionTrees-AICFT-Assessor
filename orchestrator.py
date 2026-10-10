@@ -14,7 +14,7 @@ WS10 validation + scoring, WS11 deterministic items (Q10-Q12), evidence_units.js
 build + schema validation, confidence calibration, portfolio.json build.
 
 Optional LLM path (--llm-score, requires ANTHROPIC_API_KEY): interpretive scoring
-for WS1, WS3, WS4 via worksheet_assessor.assess_worksheet. WS12 is intentionally
+for WS1, WS3, WS4 via worksheet_assessor.assess_worksheet. WS13 is intentionally
 excluded — it needs log_extractor-derived features (assess_worksheet_dt) that this
 orchestrator does not assemble; score it separately until that wiring exists.
 
@@ -85,7 +85,7 @@ from ws_extraction_normalize import normalize_scoring_responses
 from worksheet_validation import build_technical_validation
 
 GROUP_B_WORKSHEETS = ("WS5", "WS6", "WS7")
-GROUP_A_LLM_WORKSHEETS = ("WS1", "WS3", "WS4")  # WS12 needs assess_worksheet_dt + log features
+GROUP_A_LLM_WORKSHEETS = ("WS1", "WS3", "WS4")  # WS13 needs assess_worksheet_dt + log features
 KNOWN_DIAGNOSTIC_REASONS = {"unparseable_threshold", "arithmetic_inconsistent", "rubric_item_missing"}
 
 LOG_DIR = REPO_ROOT / "logs"
@@ -325,7 +325,7 @@ def _score_group_a_llm(student_id: str, worksheet: str, client: Any, model: str,
 
 
 def _flag_group_a_gaps(student_id: str, diag: DiagnosticLog, skip: set[str]) -> None:
-    for worksheet in (*GROUP_A_LLM_WORKSHEETS, "WS12"):
+    for worksheet in (*GROUP_A_LLM_WORKSHEETS, "WS13"):
         if worksheet in skip:
             continue
         try:
@@ -336,7 +336,7 @@ def _flag_group_a_gaps(student_id: str, diag: DiagnosticLog, skip: set[str]) -> 
             if not scoring:
                 diag.record(student_id=student_id, worksheet=worksheet, stage="scoring",
                              level="warning", status="skipped", reason="pending_llm_scoring",
-                             detail="run --llm-score (WS1/WS3/WS4) or assess_worksheet_dt manually (WS12)")
+                             detail="run --llm-score (WS1/WS3/WS4) or assess_worksheet_dt manually (WS13)")
         except Exception as exc:  # noqa: BLE001 — a corrupt artifact here must not sink the whole student
             diag.record(student_id=student_id, worksheet=worksheet, stage="scoring",
                          level="error", status="failed", reason="corrupt_artifact", detail=str(exc))

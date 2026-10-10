@@ -6,7 +6,7 @@
       "item_id": "DTI_01",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "812 var 290 hayatta",
+      "content": "10 | %10 hasta 1 hasta 9 sağlıklı",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -16,7 +16,7 @@
       "item_id": "DTI_02",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "290 kişi var 290 hayatta",
+      "content": "9 vaka var hiç biri hasta değil",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -26,7 +26,7 @@
       "item_id": "DTI_03",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "522 kişi var",
+      "content": "1 vaka var %100 ' ü hasta",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -36,7 +36,7 @@
       "item_id": "DTI_04",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "female kutusu",
+      "content": "[corrected: negatif → pozitif] Saç",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -45,28 +45,28 @@
     {
       "item_id": "DTI_05",
       "evidence_unit_type": "definition",
+      "evidence_completeness": "blank",
+      "content": "(bos)",
+      "confidence": {
+        "extraction": 0.4,
+        "evidence_quality": 0.232
+      }
+    },
+    {
+      "item_id": "DTI_06",
+      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "290 + 522 / 812",
+      "content": "Evet çünkü 1 tane farklı, farklı renk var o da hasta",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
       }
     },
     {
-      "item_id": "DTI_06",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "522 / 522+0",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
       "item_id": "DTI_07",
       "evidence_unit_type": "definition",
       "evidence_completeness": "partial",
-      "content": "290 / 290+0",
+      "content": "Yapamazdık",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.5215
@@ -75,28 +75,28 @@
     {
       "item_id": "DTI_08",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "522 / 522+0",
+      "evidence_completeness": "complete",
+      "content": "FN, çünkü birey ölebilir",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_09",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "0 + 0 / 812",
+      "evidence_completeness": "complete",
+      "content": "Pembe saçlılar gene hasta, maviler gene sağlıklı",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_10",
       "evidence_unit_type": "definition",
       "evidence_completeness": "partial",
-      "content": "812 var 290",
+      "content": "6",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.5215
@@ -105,18 +105,18 @@
     {
       "item_id": "DTI_11",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "290 var 290",
+      "evidence_completeness": "complete",
+      "content": "Gerçekten hastayken, hastalar",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_12",
       "evidence_unit_type": "definition",
       "evidence_completeness": "partial",
-      "content": "522",
+      "content": "14",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.5215
@@ -125,38 +125,38 @@
     {
       "item_id": "DTI_13",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "female",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_14",
-      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "290 + 522 / 812",
+      "content": "Gerçekten sağlıklıyken, sağlıklılar",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
       }
     },
     {
-      "item_id": "DTI_15",
+      "item_id": "DTI_14",
       "evidence_unit_type": "definition",
       "evidence_completeness": "partial",
-      "content": "522 / 522+0",
+      "content": "0",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.5215
       }
     },
     {
+      "item_id": "DTI_15",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "complete",
+      "content": "Sağlıklıyken hastalar",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    },
+    {
       "item_id": "DTI_16",
       "evidence_unit_type": "definition",
       "evidence_completeness": "partial",
-      "content": "290 / 290+0",
+      "content": "0",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.5215
@@ -165,18 +165,18 @@
     {
       "item_id": "DTI_17",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "522 / 522+0",
+      "evidence_completeness": "complete",
+      "content": "Hastayken sağlıklılar",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_18",
       "evidence_unit_type": "definition",
       "evidence_completeness": "partial",
-      "content": "0 + 0 / 812",
+      "content": "20",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.5215
@@ -185,18 +185,18 @@
     {
       "item_id": "DTI_19",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "Yok",
+      "evidence_completeness": "blank",
+      "content": "(bos)",
       "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "extraction": 0.4,
+        "evidence_quality": 0.232
       }
     },
     {
       "item_id": "DTI_20",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "Sorunlu model olduğu görünüyor",
+      "content": "20 / 20 = [circled: 1]",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -205,18 +205,18 @@
     {
       "item_id": "DTI_21",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "hata payını düşürmek için",
+      "evidence_completeness": "partial",
+      "content": "%100 Doğru",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.82
+        "evidence_quality": 0.5215
       }
     },
     {
       "item_id": "DTI_22",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "benim yaptığımda bir sorun göremedim",
+      "content": "6 / 6 = [circled: 1]",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -226,7 +226,7 @@
       "item_id": "DTI_23",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "834 yolcu var 456 hayatta",
+      "content": "%100 Duyarlı",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -236,7 +236,7 @@
       "item_id": "DTI_24",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "304 kişi var 128 hayatta",
+      "content": "14 / 14 = [circled: 1]",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -246,7 +246,7 @@
       "item_id": "DTI_25",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "530 kişi var 328 hayatta",
+      "content": "%100 Özgüllü",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -255,18 +255,18 @@
     {
       "item_id": "DTI_26",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "female",
+      "evidence_completeness": "complete",
+      "content": "6 / 6 = [circled: 1]",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_27",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "128 + 202 / 834",
+      "content": "%100 kesinlik",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -275,195 +275,55 @@
     {
       "item_id": "DTI_28",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "128 / 128+0",
+      "evidence_completeness": "complete",
+      "content": "TP / (TP + FN) (Duyarlılık) → Bu metrik daha iyi sonuçlar veriyor",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_29",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "202 / 202+0",
+      "evidence_completeness": "complete",
+      "content": "TP / (TP + TP)",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_30",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "128 / 128+0",
+      "evidence_completeness": "blank",
+      "content": "(bos)",
       "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "extraction": 0.4,
+        "evidence_quality": 0.232
       }
     },
     {
       "item_id": "DTI_31",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "0 + 0 / 834",
+      "evidence_completeness": "blank",
+      "content": "(bos)",
       "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "extraction": 0.4,
+        "evidence_quality": 0.232
       }
     },
     {
       "item_id": "DTI_32",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "209 ve 124'ü hayatta",
+      "evidence_completeness": "blank",
+      "content": "(bos)",
       "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
+        "extraction": 0.4,
+        "evidence_quality": 0.232
       }
     },
     {
       "item_id": "DTI_33",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "82 ve 21 hayatta",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_34",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "127 ve 103 hayatta",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_35",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "female",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_36",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "21 + 24 / 209",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_37",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "21 / 21+0",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_38",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "24 / 24+0",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_39",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "21 / 21+0",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_40",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "0 + 0 / 209",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_41",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_42",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_43",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_44",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_45",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_46",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_47",
       "evidence_unit_type": "definition",
       "evidence_completeness": "blank",
       "content": "(bos)",

@@ -1,4 +1,4 @@
-"""Tests for WS12 interpretive scoring policy."""
+"""Tests for WS13 interpretive scoring policy."""
 
 from __future__ import annotations
 
@@ -17,11 +17,11 @@ from pipeline_schema import (
 class TestWsDtInterpretive(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.rubric = load_rubric("WS12")
+        cls.rubric = load_rubric("WS13")
 
     def test_text_items_are_interpretive(self):
         for item_id in ("DT_A_Q1", "DT_A_Q4", "DT_B_Q4", "DT_G_Q2"):
-            item = rubric_item("WS12", item_id)
+            item = rubric_item("WS13", item_id)
             self.assertTrue(
                 is_interpretive_rubric_item(item, self.rubric, item_id=item_id),
                 item_id,
@@ -29,20 +29,20 @@ class TestWsDtInterpretive(unittest.TestCase):
 
     def test_emit_items_are_not_interpretive(self):
         for item_id in WS_DT_DETERMINISTIC_ITEM_IDS:
-            item = rubric_item("WS12", item_id)
+            item = rubric_item("WS13", item_id)
             self.assertFalse(
                 is_interpretive_rubric_item(item, self.rubric, item_id=item_id),
                 item_id,
             )
 
     def test_assessor_criteria_no_single_answer(self):
-        criteria = get_assessor_rubric("DT_A_Q4", "WS12")
+        criteria = get_assessor_rubric("DT_A_Q4", "WS13")
         joined = " ".join(criteria["full_credit_criteria"]).lower()
         self.assertIn("no single canonical", joined)
         self.assertIn("illustrative example only", criteria["prompt_description"].lower())
 
     def test_e_q4_conceptual_not_rigid_no(self):
-        item = rubric_item("WS12", "DT_E_Q4")
+        item = rubric_item("WS13", "DT_E_Q4")
         self.assertEqual(item["evaluation"], "conceptual_limitation")
         self.assertEqual(item.get("scoring_mode"), "interpretive")
         ideas = " ".join(c["idea"] for c in item["components"])

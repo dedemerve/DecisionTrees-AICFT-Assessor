@@ -71,7 +71,7 @@ RUBRIC_DETERMINISTIC_EVALUATIONS = frozenset({
     "numeric_range",
 })
 
-# WS12: EMIT records and formula/numeric fields are deterministic; all other items are interpretive.
+# WS13: EMIT records and formula/numeric fields are deterministic; all other items are interpretive.
 WS_DT_DETERMINISTIC_ITEM_IDS: frozenset[str] = frozenset({
     "DT_B_Q1", "DT_B_Q2", "DT_B_Q3",
     "DT_C_Q1", "DT_D_Q1", "DT_F_Q1",
@@ -89,7 +89,7 @@ def is_interpretive_rubric_item(
     """
     True when an item should be scored on rubric components, not a single answer key.
 
-    WS12 text/reflection items are interpretive by default; EMIT and metric fields are not.
+    WS13 text/reflection items are interpretive by default; EMIT and metric fields are not.
     """
     mode = item.get("scoring_mode")
     if mode == "interpretive":
@@ -102,7 +102,7 @@ def is_interpretive_rubric_item(
         return False
     if item.get("evaluation") in ("emit_output", "numeric_value"):
         return False
-    return (rubric or {}).get("worksheet") == "WS12"
+    return (rubric or {}).get("worksheet") == "WS13"
 
 # OCR extraction item IDs (verbatim fields transcribed from worksheets)
 # ---------------------------------------------------------------------------
@@ -118,10 +118,10 @@ ITEM_IDS_DT: list[str] = [
     "DT_G_overfitting", "DT_G_DT_definition", "DT_G_Q1", "DT_G_Q2",
 ]
 
-# WS13 / WS14 — split from legacy WS_DT_INTRO (DT'ye Giriş).
+# WS14 / WS15 — split from legacy WS_DT_INTRO (DT'ye Giriş).
 ITEM_IDS_DT_XENO: list[str] = [f"DTI_{i:02d}" for i in range(1, 34)]
 ITEM_IDS_DT_TITANIC: list[str] = [f"DTI_{i:02d}" for i in range(1, 48)]
-# Legacy combined worksheet (deprecated — use WS13 + WS14).
+# Legacy combined worksheet (deprecated — use WS14 + WS15).
 # Legacy combined intro: Xeno DTI_01-33 + Titanic mapped to DTI_34-80 for flat uniqueness.
 ITEM_IDS_DT_INTRO: list[str] = ITEM_IDS_DT_XENO + [f"DTI_{i:02d}" for i in range(34, 81)]
 
@@ -183,9 +183,9 @@ PDF_ITEM_IDS: dict[str, list[str]] = {
 }
 
 WORKSHEET_ITEM_IDS: dict[str, list[str]] = {
-    "WS12": ITEM_IDS_DT,
-    "WS13": ITEM_IDS_DT_XENO,
-    "WS14": ITEM_IDS_DT_TITANIC,
+    "WS13": ITEM_IDS_DT,
+    "WS14": ITEM_IDS_DT_XENO,
+    "WS15": ITEM_IDS_DT_TITANIC,
     "WS_DT_INTRO": ITEM_IDS_DT_INTRO,
     "WS1": ITEM_IDS_WS1,
     "WS3": ITEM_IDS_WS3,
@@ -199,7 +199,7 @@ WORKSHEET_ITEM_IDS: dict[str, list[str]] = {
 
 WORKSHEET_PDF_SOURCE: dict[str, str] = {
     # 2026 cohort (per-worksheet PDFs where available, else 2025 legacy)
-    "WS12": "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf",
+    "WS13": "21-28 Nisan 2026 Çalışma Kâğıdı DT.pdf",
     "WS1":   "24 Mart 2026 Çalışma Kâğıdı 1.pdf",
     "WS3":   "24 Mart 2026 Çalışma Kâğıdı 3.pdf",
     "WS5":   "24 Mart 2026 Çalışma Kâğıdı 5.pdf",
@@ -211,8 +211,8 @@ WORKSHEET_PDF_SOURCE: dict[str, str] = {
     "WS7":  "31 Mart 2026 Çalışma Kâğıdı 7.pdf",
     "WS10": "31 Mart 2026 Çalışma Kâğıdı 10.pdf",
     "WS11": "Worksheet11_ Feedbacks.pdf",
-    "WS13": "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf",
-    "WS14": "07 Nisan 2026 Çalışma Kâğıdı Titanic.pdf",
+    "WS14": "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf",
+    "WS15": "07 Nisan 2026 Çalışma Kâğıdı Titanic.pdf",
     # Legacy alias (two PDFs merged)
     "WS_DT_INTRO": "07 Nisan 2026 Çalışma Kâğıdı Titanic.pdf",
 }
@@ -265,7 +265,7 @@ WORKSHEET_DEMOGRAPHIC_ONLY: dict[str, list[str]] = {
 # ---------------------------------------------------------------------------
 
 WORKSHEET_SCORING_ITEM_IDS: dict[str, list[str]] = {
-    "WS12": ITEM_IDS_DT,
+    "WS13": ITEM_IDS_DT,
     "WS11": ITEM_IDS_WS11_COGNITIVE,
 }
 
@@ -696,18 +696,18 @@ def get_assessor_rubric(item_id: str, worksheet: str | None = None) -> dict[str,
 
 def _worksheet_from_item_id(item_id: str) -> str:
     if item_id.startswith("DT_"):
-        return "WS12"
+        return "WS13"
     if item_id.startswith("WS"):
         return item_id.split("_")[0]
     raise KeyError(f"Cannot infer worksheet from item_id: {item_id!r}")
 
 
 def normalize_worksheet_id(worksheet_id: str) -> str:
-    """Accept 'DT' or 'WS12' and return canonical worksheet label."""
+    """Accept 'DT' or 'WS13' and return canonical worksheet label."""
     if worksheet_id in WORKSHEET_ITEM_IDS:
         return worksheet_id
     if worksheet_id == "DT":
-        return "WS12"
+        return "WS13"
     raise KeyError(f"Unknown worksheet_id: {worksheet_id!r}")
 
 

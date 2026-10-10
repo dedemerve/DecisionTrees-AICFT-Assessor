@@ -42,7 +42,7 @@ def flatten_combined_extraction(extraction: dict[str, Any]) -> dict[str, str]:
 
 
 def titanic_split_to_legacy_intro(items: dict[str, str]) -> dict[str, str]:
-    """Map WS14 DTI_01-47 → legacy combined DTI_34-80."""
+    """Map WS15 DTI_01-47 → legacy combined DTI_34-80."""
     return {
         f"DTI_{i + LEGACY_TITANIC_OFFSET:02d}": items[f"DTI_{i:02d}"]
         for i in range(1, 48)
@@ -107,11 +107,11 @@ def load_split_items(
     combined_doc: dict[str, Any] | None = None,
 ) -> tuple[dict[str, str], dict[str, str], str, str, str, str]:
     """Resolve Xeno/Titanic item dicts and metadata for split ocr_output export."""
-    xeno_items = _student_record_items(student_id, "WS13")
-    titanic_items = _student_record_items(student_id, "WS14")
+    xeno_items = _student_record_items(student_id, "WS14")
+    titanic_items = _student_record_items(student_id, "WS15")
 
-    xeno_snapshot, xeno_notes = _student_record_meta(student_id, "WS13")
-    titanic_snapshot, titanic_notes = _student_record_meta(student_id, "WS14")
+    xeno_snapshot, xeno_notes = _student_record_meta(student_id, "WS14")
+    titanic_snapshot, titanic_notes = _student_record_meta(student_id, "WS15")
 
     if xeno_items is None or titanic_items is None:
         intro_items = _intro_record_items(student_id)
@@ -170,7 +170,7 @@ def export_split_ocr_output(
     *,
     combined_doc: dict[str, Any] | None = None,
 ) -> tuple[Path, Path]:
-    """Write separate WS13 and WS14 ocr_output JSON files."""
+    """Write separate WS14 and WS15 ocr_output JSON files."""
     (
         xeno_items,
         titanic_items,

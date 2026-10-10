@@ -24,7 +24,7 @@ full      Process all three PDFs. Skips students already processed (resume-safe)
 Output per student
 ------------------
 students/{student_key}/
-  WS1.json, WS3.json, ... WS12.json   — per-worksheet pipeline sections
+  WS1.json, WS3.json, ... WS13.json   — per-worksheet pipeline sections
   portfolio.json                       — AI-CFT rollup
   worksheet_dt_raw.json
   worksheets_1_10_raw.json
@@ -1530,7 +1530,7 @@ PROMPTS: dict[str, str] = {
     "31 Mart 2026 Çalışma Kâğıdı 6.pdf": PROMPT_WS6,
     "31 Mart 2026 Çalışma Kâğıdı 7.pdf": PROMPT_WS7,
     "31 Mart 2026 Çalışma Kâğıdı 10.pdf": PROMPT_WS10,
-    # 2026 — CODAP Arbor WS13 / WS14 (split from legacy WS_DT_INTRO)
+    # 2026 — CODAP Arbor WS14 / WS15 (split from legacy WS_DT_INTRO)
     "07 Nisan 2026 Çalışma Kâğıdı Xeno.pdf": PROMPT_DT_XENO,
     "07 Nisan 2026 Çalışma Kâğıdı Titanic.pdf": PROMPT_DT_TITANIC,
 }

@@ -3,7 +3,7 @@ worksheet_assessor.py
 Phase 1 — Worksheet assessment agent using few-shot prompting.
 
 Covers:
-  - Worksheet DT (WS12, Sections A-G)
+  - Worksheet DT (WS13, Sections A-G)
   - ProDaBi worksheets: WS1, WS3, WS4, WS5, WS6, WS7, WS10, WS11
 
 Rubrics and item IDs are loaded from pipeline_schema.py (rubrics/*.json).
@@ -1325,7 +1325,7 @@ Respond ONLY with a valid JSON object matching this schema:
 
 
 WS_DT_INTERPRETIVE_SUPPLEMENT = """
-WS12 interpretive scoring (applies to this item):
+WS13 interpretive scoring (applies to this item):
 - There is NO single correct answer. Pre-service teachers choose their own variables, thresholds, and conclusions from CODAP.
 - Score ONLY on whether rubric components are met (data reference, justification, metric use, reflection).
 - NEVER penalize because the pre-service teacher's answer differs from the illustrative example (different feature names, thresholds, or metric values are expected).
@@ -1336,7 +1336,7 @@ WS12 interpretive scoring (applies to this item):
 
 def _system_prompt_for_item(item_id: str, worksheet_id: str | None) -> str:
     ws = normalize_worksheet_id(worksheet_id) if worksheet_id else None
-    if ws != "WS12":
+    if ws != "WS13":
         return SYSTEM_PROMPT
     rubric = load_rubric(ws)
     item = rubric_item(ws, item_id)

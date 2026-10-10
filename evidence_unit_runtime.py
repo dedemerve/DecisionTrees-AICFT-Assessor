@@ -227,7 +227,7 @@ def normalize_field_content(raw: str | None) -> NormalizationResult:
 
 
 def source_family_for_field(worksheet_id: str, field_id: str) -> str:
-    if worksheet_id == "WS12":
+    if worksheet_id == "WS13":
         return "codap"
     descriptive = WORKSHEET_DESCRIPTIVE_ONLY.get(worksheet_id, [])
     demographic = WORKSHEET_DEMOGRAPHIC_ONLY.get(worksheet_id, [])

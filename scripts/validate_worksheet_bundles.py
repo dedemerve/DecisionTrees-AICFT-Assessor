@@ -2,7 +2,7 @@
 """
 validate_worksheet_bundles.py
 
-Validate worksheet bundles (unplugged WS1, WS3–WS11, plus CODAP WS12) against
+Validate worksheet bundles (unplugged WS1, WS3–WS11, plus CODAP WS13) against
 JSON Schema and framework constraints.
 """
 

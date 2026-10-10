@@ -51,9 +51,9 @@ WORKSHEETS = [
     {"code": "WS7", "key": "WS7", "ocr": "Worksheet7", "raw": "31_mart_2026_çalışma_kâğıdı_7_raw.json"},
     {"code": "WS10", "key": "WS10", "ocr": "Worksheet10", "raw": None},
     {"code": "WS11", "key": "WS11", "ocr": None, "raw": None},
-    {"code": "WS12", "key": "WS12", "ocr": None, "raw": None},
-    {"code": "WS13", "key": "WS13", "ocr": "Worksheet_Xeno", "raw": None},
-    {"code": "WS14", "key": "WS14", "ocr": "Worksheet_Titanic", "raw": None},
+    {"code": "WS13", "key": "WS13", "ocr": None, "raw": None},
+    {"code": "WS14", "key": "WS14", "ocr": "Worksheet_Xeno", "raw": None},
+    {"code": "WS15", "key": "WS15", "ocr": "Worksheet_Titanic", "raw": None},
 ]
 
 SESSIONS = [

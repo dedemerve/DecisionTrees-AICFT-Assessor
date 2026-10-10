@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build worksheets/WS13 and worksheets/WS14 bundles."""
+"""Build worksheets/WS14 and worksheets/WS15 bundles."""
 
 from __future__ import annotations
 
@@ -65,7 +65,7 @@ def build_behaviour_stub(worksheet: str, rubric: dict[str, Any]) -> dict[str, An
 
 def build_xeno_validity_notes() -> dict[str, Any]:
     return {
-        "worksheet": "WS13",
+        "worksheet": "WS14",
         "curriculum_status": "deployed",
         "construct_threats": [
             "Xeno numeric fields have NO fixed key — the dataset is randomly "
@@ -85,7 +85,7 @@ def build_xeno_validity_notes() -> dict[str, Any]:
 
 def build_titanic_validity_notes() -> dict[str, Any]:
     return {
-        "worksheet": "WS14",
+        "worksheet": "WS15",
         "curriculum_status": "deployed",
         "construct_threats": [
             "Titanic numeric fields share fixed CSVs — canonical values exist; "
@@ -151,7 +151,7 @@ def write_bundle(worksheet: str, rubric: dict[str, Any], extras: dict[str, Any])
 
 
 def build_xeno_bundle() -> Path:
-    worksheet = "WS13"
+    worksheet = "WS14"
     rubric = load_rubric(worksheet)
     return write_bundle(
         worksheet,
@@ -171,7 +171,7 @@ def build_xeno_bundle() -> Path:
 
 
 def build_titanic_bundle() -> Path:
-    worksheet = "WS14"
+    worksheet = "WS15"
     rubric = load_rubric(worksheet)
     return write_bundle(
         worksheet,
@@ -193,7 +193,7 @@ def build_titanic_bundle() -> Path:
 def main() -> int:
     build_xeno_bundle()
     build_titanic_bundle()
-    log.info("Built WS13 and WS14 bundles under %s", WORKSHEETS_DIR)
+    log.info("Built WS14 and WS15 bundles under %s", WORKSHEETS_DIR)
     return 0
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build worksheets/WS12 bundle (CODAP plugged inquiry worksheet)."""
+"""Build worksheets/WS13 bundle (CODAP plugged inquiry worksheet)."""
 
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ from worksheet_bundle_data import BEHAVIOUR_ONTOLOGY_PROVENANCE, OB_REF  # noqa:
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 log = logging.getLogger(__name__)
 
-WORKSHEET = "WS12"
+WORKSHEET = "WS13"
 
 
 def load_rubric() -> dict[str, Any]:
@@ -41,7 +41,7 @@ def build_behaviour_opportunities_stub(rubric: dict[str, Any]) -> dict[str, Any]
         "behaviour_ontology_reference": OB_REF,
         "note": (
             f"{BEHAVIOUR_ONTOLOGY_PROVENANCE} "
-            "WS12 behaviour map maintained in mappings/WS_DT_AICFT_mapping.json "
+            "WS13 behaviour map maintained in mappings/WS_DT_AICFT_mapping.json "
             "at portfolio layer; worksheet bundle lists rubric item IDs only."
         ),
         "items": {
@@ -122,7 +122,7 @@ def write_bundle() -> Path:
 
 def main() -> int:
     write_bundle()
-    log.info("Built WS12 bundle under %s", WORKSHEETS_DIR / WORKSHEET)
+    log.info("Built WS13 bundle under %s", WORKSHEETS_DIR / WORKSHEET)
     return 0
 
 

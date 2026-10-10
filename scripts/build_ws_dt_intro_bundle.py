@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deprecated — use scripts/build_ws_dt_codap_bundles.py (WS13 + WS14)."""
+"""Deprecated — use scripts/build_ws_dt_codap_bundles.py (WS14 + WS15)."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ log = logging.getLogger(__name__)
 
 def main() -> int:
     log.warning(
-        "WS_DT_INTRO bundle is deprecated. Building WS13 + WS14 instead."
+        "WS_DT_INTRO bundle is deprecated. Building WS14 + WS15 instead."
     )
     from build_ws_dt_codap_bundles import main as build_codap  # noqa: E402
 

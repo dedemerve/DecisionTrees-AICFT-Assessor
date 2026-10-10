@@ -55,7 +55,7 @@ BEHAVIOR_GUIDE = REPO_ROOT / "screen_recording_analysis_guide.md"
 
 KNOWN_WORKSHEETS = [
     "WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS11",
-    "WS12", "WS_DT_INTRO", "WS14", "WS13",
+    "WS13", "WS_DT_INTRO", "WS15", "WS14",
 ]
 WORKSHEET_ARTIFACTS = ["extraction", "scoring", "evidence", "validation"]
 SESSIONS = ["21april", "28april", "colab_may"]
@@ -158,7 +158,7 @@ class WorksheetArtifactInput(BaseModel):
         ...,
         description=(
             "Worksheet ID, one of: WS1, WS3, WS4, WS5, WS6, WS7, WS10, WS11, "
-            "WS12, WS_DT_INTRO, WS14, WS13."
+            "WS13, WS_DT_INTRO, WS15, WS14."
         ),
     )
     artifact: str = Field(

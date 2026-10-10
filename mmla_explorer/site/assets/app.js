@@ -53,17 +53,17 @@
     WS7: { date: "31 March 2026", topic: "Read the paths A, B and C of a tree and write them as if-then rules." },
     WS10: { date: "31 March 2026", topic: "Test thresholds between neighbouring energy values and find the one with the fewest errors." },
     WS11: { date: null, topic: "Feedback on the lesson series (survey items and open questions)." },
-    WS12: { date: "21–28 April 2026", title: "Decision trees for classification activity", topic: "Choosing variables, reading a tree, TP/FP, sensitivity, misclassification rate and overfitting." },
-    WS13: { date: "7 April 2026", title: "Diagnosis game with trees (Xeno)", topic: "Diagnose an alien disease with a tree in CODAP Arbor. Each student receives a randomly generated case set." },
-    WS14: { date: "7 April 2026", title: "Titanic data in CODAP Arbor", topic: "Build a tree on a Titanic training sample, then check it on a test sample." },
+    WS13: { date: "21–28 April 2026", title: "Decision trees for classification activity", topic: "Choosing variables, reading a tree, TP/FP, sensitivity, misclassification rate and overfitting." },
+    WS14: { date: "7 April 2026", title: "Diagnosis game with trees (Xeno)", topic: "Diagnose an alien disease with a tree in CODAP Arbor. Each student receives a randomly generated case set." },
+    WS15: { date: "7 April 2026", title: "Titanic data in CODAP Arbor", topic: "Build a tree on a Titanic training sample, then check it on a test sample." },
   };
   const wsTitle = (w) => (WS_INFO[w.code] && WS_INFO[w.code].title) || (w.printed_title ? w.printed_title.replace(/^Worksheet \d+:\s*/, "") : w.code);
   const HOW_CHECKED = {
     deterministic: "Python rules compare each value with the 11 food cards. The language model only reads the handwriting.",
     llm_rubric: "Each answer is compared with the researcher's rubric and answer key. Python adds up the item scores.",
   };
-  const howChecked = (w) => w.code === "WS13" ? "Numbers are checked against rules that always hold for this data (FP = 0, FN = 0, TP + TN = N). Open answers use the rubric."
-    : w.code === "WS14" ? "Numbers are compared with the true Titanic values, allowing ±2% for reading off the screen. Open answers use the rubric."
+  const howChecked = (w) => w.code === "WS14" ? "Numbers are checked against rules that always hold for this data (FP = 0, FN = 0, TP + TN = N). Open answers use the rubric."
+    : w.code === "WS15" ? "Numbers are compared with the true Titanic values, allowing ±2% for reading off the screen. Open answers use the rubric."
       : HOW_CHECKED[w.pipeline];
 
   // Readable labels for worksheet fields.
@@ -383,7 +383,7 @@
       <h2 id="m-worksheets">Worksheets</h2>
       <p>Students filled in ${C.worksheets.length} paper worksheets. Answers came as words, numbers, operators like ≤, tree drawings, sums and survey ticks. So there are two ways of checking.</p>
       ${table([{ t: "How answers were checked" }, { t: "Worksheets" }, { t: "Why" }], [
-        { cells: ["<b>Rubric, with the language model</b>", "WS1, WS3, WS4, WS10, WS11, WS12, WS13, WS14", "Answers need interpretation, or several answers can be right. The model compares each answer with the rubric and answer key."] },
+        { cells: ["<b>Rubric, with the language model</b>", "WS1, WS3, WS4, WS10, WS11, WS13, WS14, WS15", "Answers need interpretation, or several answers can be right. The model compares each answer with the rubric and answer key."] },
         { cells: ["<b>Python rules</b>", "WS5, WS6, WS7", "The right values can be computed from the 11 food cards. The model only reads the handwriting."] },
       ])}
       <ol class="stages">
@@ -392,7 +392,7 @@
         <li><div><h3>Clean up and check by hand</h3><p>Mechanical fixes were applied, such as writing <code>&lt;=</code> as ≤ or a decimal comma as a point. The researcher then reviewed every student's answers.${rawEx ? ` Example: in ${h(rawEx.s)}'s ${h(rawEx.code)}, the raw reading <code>${h(rawEx.d.raw)}</code> became <code>${h(rawEx.d.normalized)}</code>.` : ""}</p></div></li>
         <li><div><h3>Check and score</h3><p>For WS5 to WS7, Python checks operators, threshold ranges, card counts, opposite operator pairs and the misclassification rate. WS7 is checked against the tree the same student drew in WS6.</p>
           <p>For the other worksheets the model sees one rubric item at a time. It returns a score, the rubric criterion it used, a short reason and a verbatim quote from the student. Python adds up the scores.</p>
-          <p>WS13 (Xeno) gives each student a different random case set, so numbers are checked against rules that always hold: FP = 0, FN = 0, TP + TN = N, accuracy = 100%. WS14 (Titanic) uses the same data for everyone, so numbers are compared with the true values, allowing ±2%.${checkEx ? ` Example: ${h(checkEx.s)} wrote <code>${h(checkEx.v)}</code> as the best threshold in WS10. Result: ${result(checkEx.chk.correct)}.` : ""}</p></div></li>
+          <p>WS14 (Xeno) gives each student a different random case set, so numbers are checked against rules that always hold: FP = 0, FN = 0, TP + TN = N, accuracy = 100%. WS15 (Titanic) uses the same data for everyone, so numbers are compared with the true values, allowing ±2%.${checkEx ? ` Example: ${h(checkEx.s)} wrote <code>${h(checkEx.v)}</code> as the best threshold in WS10. Result: ${result(checkEx.chk.correct)}.` : ""}</p></div></li>
       </ol>
 
       <h2 id="m-recordings">Screen recordings</h2>
@@ -646,7 +646,7 @@
     { label: "Conceptual foundations", codes: ["WS1"] },
     { label: "Manual classification", codes: ["WS3", "WS4", "WS5"] },
     { label: "Building decision trees", codes: ["WS6", "WS7", "WS10"] },
-    { label: "CODAP Arbor sessions", codes: ["WS12", "WS13", "WS14"] },
+    { label: "CODAP Arbor sessions", codes: ["WS13", "WS14", "WS15"] },
     { label: "Feedback survey", codes: ["WS11"] },
   ];
   function pageWorksheets() {
@@ -947,7 +947,7 @@
   function pageDownloads() {
     const DICT = {
       "frames.csv": [`One selected screen frame (${num(F.length)} rows)`, [["student", "Pseudonym"], ["session", "codap_21apr or codap_28apr"], ["frame_id", "Frame name within the session"], ["time_s", "Seconds from the start of the recording"], ["trigger", "Why the frame was selected"], ["pixel_change_pct", "Share of the screen that changed"], ["speaker_role", "Who was speaking at that moment, if known"], ["primary_behavior", "Observed behaviour (one of nine codes)"], ["secondary_behavior", "A second behaviour, if any"], ["screen_context", "Tree, graph, table, mixed or menu"], ["deepen_phase", "Setup, building, tuning, evaluating or idle"], ["confidence", "The coder's own confidence"]]],
-      "worksheet_responses.csv": [`One extracted worksheet value (${num(responseRows)} rows)`, [["student", "Pseudonym"], ["worksheet", "WS1 to WS14"], ["item", "Question or blank ID"], ["field_path", "Exact position of the value in the extraction file"], ["extracted_value", "What the student wrote, as read and cleaned"], ["item_check_correct", "Result of the check: True, False or empty"], ["item_check_flag", "Short code describing an error, if any"], ["source_file", "Extraction file the value came from"]]],
+      "worksheet_responses.csv": [`One extracted worksheet value (${num(responseRows)} rows)`, [["student", "Pseudonym"], ["worksheet", "WS1 to WS15"], ["item", "Question or blank ID"], ["field_path", "Exact position of the value in the extraction file"], ["extracted_value", "What the student wrote, as read and cleaned"], ["item_check_correct", "Result of the check: True, False or empty"], ["item_check_flag", "Short code describing an error, if any"], ["source_file", "Extraction file the value came from"]]],
       "log_sessions.csv": ["One student in one CODAP session", [["student", "Pseudonym"], ["date", "Session date"], ["events", "All recorded actions"], ["span_minutes", "Minutes from first to last action"], ["emit_count", "Model attempts"], ["minutes_to_first_emit", "Minutes to the first attempt"], ["last_emit_accuracy", "Accuracy of the last attempt (0 to 1)"], ["accuracy_sd", "Standard deviation of accuracy across attempts"], ["predictor_drops", "Predictor placements"], ["unique_attributes", "Different predictors tried"], ["emit_tree_data … data_context_change", "Counts of the six modelling actions"]]],
       "episodes.csv": ["One episode of a session (from the video pipeline's Parquet tables)", [["student", "Pseudonym"], ["session", "Session ID"], ["episode_id", "Episode within the session"], ["category", "Episode category"], ["start_ms / end_ms / duration_ms", "Timing in milliseconds"], ["steps", "Observation steps in the episode"], ["assistance", "Independent or assisted"]]],
     };

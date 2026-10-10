@@ -5,58 +5,58 @@
     {
       "item_id": "DTI_01",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_02",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_03",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_04",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "blank",
-      "content": "(bos)",
-      "confidence": {
-        "extraction": 0.4,
-        "evidence_quality": 0.232
-      }
-    },
-    {
-      "item_id": "DTI_05",
-      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "(290 + 522) / 812 = 1",
+      "content": "10 vaka var. Ve bu vakaların %50 si hastadır. Veri setimde yarıya yarı bir oran vardır.",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
       }
     },
     {
+      "item_id": "DTI_02",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "complete",
+      "content": "Mavi renkli saça 2 vaka bulunmakta ve bunların ikiside [corrected: hastadır → sağlıklıdır]. Gruptaki hastalık oranı 0/2 | /10",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    },
+    {
+      "item_id": "DTI_03",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "complete",
+      "content": "Pembe renkli saça 8 vaka var ve bunların 8 i de hastalıklıdır. Gruptaki hastalık oranı %100 dür",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    },
+    {
+      "item_id": "DTI_04",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "complete",
+      "content": "pink hair hasta olarak etiketlenmiştir [corrected: negatif → pozitif]",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    },
+    {
+      "item_id": "DTI_05",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "blank",
+      "content": "(bos)",
+      "confidence": {
+        "extraction": 0.4,
+        "evidence_quality": 0.232
+      }
+    },
+    {
       "item_id": "DTI_06",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "290 / 290+0 = 1",
+      "content": "Evet, Çünkü mavi saçların hepsi sağlıklıyken pembe saçların hepsi hastalıklıdır.",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -66,7 +66,7 @@
       "item_id": "DTI_07",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "522 / 522+0 = 1",
+      "content": "Yeni bir vakada sağa bakarız ama doğru tahmin yapabilmemiz için diğer değişkenlere de bakmamız gerek",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -76,7 +76,7 @@
       "item_id": "DTI_08",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "290 / 290+0 = 1",
+      "content": "Hasta bir bireyin sağlıklı olarak sınıflandırılması daha tehlikelidir. Çünkü hastalığı tedavi edilemez.",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -86,7 +86,7 @@
       "item_id": "DTI_09",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "0+0 / 812 = 0",
+      "content": "Ağaca yeni veriler eklememe rağmen hata vermedi.",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -95,28 +95,28 @@
     {
       "item_id": "DTI_10",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "231 kişi 96 hayatta",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_11",
-      "evidence_unit_type": "definition",
       "evidence_completeness": "partial",
-      "content": "96 \\ 56",
+      "content": "15",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.5215
       }
     },
     {
+      "item_id": "DTI_11",
+      "evidence_unit_type": "definition",
+      "evidence_completeness": "complete",
+      "content": "Hastayım ve doğru tahmin etmiş.",
+      "confidence": {
+        "extraction": 0.85,
+        "evidence_quality": 0.82
+      }
+    },
+    {
       "item_id": "DTI_12",
       "evidence_unit_type": "definition",
       "evidence_completeness": "partial",
-      "content": "135 \\ 49",
+      "content": "15",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.5215
@@ -126,7 +126,7 @@
       "item_id": "DTI_13",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "female kutusu",
+      "content": "Hasta değilim ve doğru tahmin etmiş.",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -135,18 +135,18 @@
     {
       "item_id": "DTI_14",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "(56 + 86) / 231 = 142 / 231",
+      "evidence_completeness": "partial",
+      "content": "0",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.82
+        "evidence_quality": 0.5215
       }
     },
     {
       "item_id": "DTI_15",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "56 / 86+49 = 56 / 135",
+      "content": "Hastayım ve yanlış tahmin etmiş",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -155,18 +155,18 @@
     {
       "item_id": "DTI_16",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "86 / 86+40 = 86 / 126",
+      "evidence_completeness": "partial",
+      "content": "0",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.82
+        "evidence_quality": 0.5215
       }
     },
     {
       "item_id": "DTI_17",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "56 / 56+40 = 56 / 96",
+      "content": "Hasta değilim ve yanlış tahmin etmiş",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -175,28 +175,28 @@
     {
       "item_id": "DTI_18",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "40+49 / 231 = 89 / 231",
+      "evidence_completeness": "partial",
+      "content": "30",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.82
+        "evidence_quality": 0.5215
       }
     },
     {
       "item_id": "DTI_19",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "Evet var. Eğitim sistemi daha iyi sonuçlar elde ettik.",
+      "evidence_completeness": "blank",
+      "content": "(bos)",
       "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
+        "extraction": 0.4,
+        "evidence_quality": 0.232
       }
     },
     {
       "item_id": "DTI_20",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "Veri setine çok fazla veri eklenirse aşırı öğrenme gerçekleşmiştir.",
+      "content": "(TP + TN) / N | (15+15) 30 = 1",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -206,7 +206,7 @@
       "item_id": "DTI_21",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "Performansı düşmüştür. Çünkü test başarısı 1'den daha düşüktür.",
+      "content": "Testimiz başarılı",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -216,7 +216,7 @@
       "item_id": "DTI_22",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "MCR = 1 - yanlış oran 1 iken test verisinde yanlış oran arttığı için modelin performansı değişip düşmüştür.",
+      "content": "15 / (15+0) = 1",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -225,48 +225,48 @@
     {
       "item_id": "DTI_23",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "834 / 456",
+      "evidence_completeness": "complete",
+      "content": "Testimiz başarılı",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_24",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "304 \\ 128",
+      "evidence_completeness": "complete",
+      "content": "15 (15+0) = 1",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_25",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "530 \\ 328",
+      "evidence_completeness": "complete",
+      "content": "Testimiz başarılı",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_26",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "female",
+      "evidence_completeness": "complete",
+      "content": "15 (15+0) = 1",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_27",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "128 + 202 / 834",
+      "content": "Testimiz başarılı",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -276,7 +276,7 @@
       "item_id": "DTI_28",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "128 / 128+328",
+      "content": "Hepsini kullanırım. Çünkü hesaplarımızın hepsinin cevabı 1 geldi.",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -285,18 +285,18 @@
     {
       "item_id": "DTI_29",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "202 / 202+176",
+      "evidence_completeness": "partial",
+      "content": "FP + FN / N",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.82
+        "evidence_quality": 0.5215
       }
     },
     {
       "item_id": "DTI_30",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "128 / 128+176",
+      "content": "Yanlışları yakalamak için",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -306,7 +306,7 @@
       "item_id": "DTI_31",
       "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "176 + 328 / 834",
+      "content": "Testimizin başarılı olup olmadığını test etmek için",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82
@@ -315,158 +315,18 @@
     {
       "item_id": "DTI_32",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "209 / 124",
+      "evidence_completeness": "complete",
+      "content": "(FP + FN) / N | 0+0 / 30 = 0",
       "confidence": {
         "extraction": 0.85,
-        "evidence_quality": 0.5215
+        "evidence_quality": 0.82
       }
     },
     {
       "item_id": "DTI_33",
       "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "82 \\ 21",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_34",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "127 / 103",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_35",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "female",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_36",
-      "evidence_unit_type": "definition",
       "evidence_completeness": "complete",
-      "content": "21 + 24 / 209",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_37",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "21 / 21+103",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_38",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "24 / 24+61",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_39",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "partial",
-      "content": "21 / 21+61",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.5215
-      }
-    },
-    {
-      "item_id": "DTI_40",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "61 + 103 / 209",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_41",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "[corrected: Modelimiz → iyi] test edemedi",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_42",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "Veri setiyle alakalı bir durum.",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_43",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "Çünkü veri setinde eksiklikler var.",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_44",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "1'den daha düşük bir değer olduğu için.",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_45",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "Veri setimdeki değerlerin 1'e yakın olmalı ve dengeli olmalıdır.",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_46",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "Bize kesin bir sonuç vermez.",
-      "confidence": {
-        "extraction": 0.85,
-        "evidence_quality": 0.82
-      }
-    },
-    {
-      "item_id": "DTI_47",
-      "evidence_unit_type": "definition",
-      "evidence_completeness": "complete",
-      "content": "Hayır. Birden çok metriğe bakarak doğruluğunu ölçmeliyiz",
+      "content": "MCR = 1-0 = 1 Testimiz başarılı",
       "confidence": {
         "extraction": 0.85,
         "evidence_quality": 0.82

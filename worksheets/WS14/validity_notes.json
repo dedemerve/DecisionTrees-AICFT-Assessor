@@ -2,13 +2,13 @@
   "worksheet": "WS14",
   "curriculum_status": "deployed",
   "construct_threats": [
-    "Titanic numeric fields share fixed CSVs — canonical values exist; tolerate hand-reading / rounding (±0.02).",
-    "VS2 test interpretation items DTI_43–DTI_44 copy VS1 wording with contradictory premises (trap questions)."
+    "Xeno numeric fields have NO fixed key — the dataset is randomly assigned per student. Score on internal consistency and structural invariants (blue=0% sick, pink=100% sick, FP=FN=0), not canonical numbers.",
+    "Interpretive items have no single correct answer — scorer drift if treated as keyed responses."
   ],
   "leakage_risks": [],
   "evidence_limitations": [
-    "VS2 test set may show survived/died column swap in class scans; operator correction policy applies.",
-    "Interpretive sections require semantic scoring, not example matching."
+    "After auto-run, N may be 20 or 30 (multiples of 10), not only 10.",
+    "Interpretive sections require semantic scoring on rubric components."
   ],
   "cross_worksheet_dependencies": []
 }

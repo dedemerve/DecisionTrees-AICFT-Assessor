@@ -235,7 +235,7 @@ def build_validity_notes(worksheet: str) -> dict[str, Any]:
 
 
 def build_answer_key(worksheet: str, rubric: dict[str, Any]) -> dict[str, Any]:
-    if worksheet == "WS12":
+    if worksheet == "WS13":
         status = "deployed"
     else:
         status = "deployed" if worksheet in DEPLOYED_WORKSHEETS else "not_deployed"
@@ -305,7 +305,7 @@ def build_rubric(worksheet: str) -> dict[str, Any]:
     out = dict(rubric)
     out.pop("curriculum_status", None)
     out.pop("schema_version", None)
-    if worksheet in DEPLOYED_WORKSHEETS or worksheet == "WS12":
+    if worksheet in DEPLOYED_WORKSHEETS or worksheet == "WS13":
         out.setdefault("curriculum_status", "deployed")
     return out
 

@@ -1,0 +1,91 @@
+{
+  "stage": "extraction",
+  "student_id": "Marco",
+  "worksheet": "WS15",
+  "student_name": "Marco",
+  "pdf_source": "07 Nisan 2026 Çalışma Kâğıdı Titanic.pdf",
+  "rubric_ref": "rubrics/WS15_rubric.json",
+  "gate_1_extraction": {
+    "status": "pass",
+    "extracted_at": "2026-07-08T06:18:19.629605+00:00",
+    "ocr_model": "claude-opus-4-8",
+    "items": {
+      "DTI_01": "(bos)",
+      "DTI_02": "(bos)",
+      "DTI_03": "(bos)",
+      "DTI_04": "(bos)",
+      "DTI_05": "(bos)",
+      "DTI_06": "(bos)",
+      "DTI_07": "(bos)",
+      "DTI_08": "(bos)",
+      "DTI_09": "(bos)",
+      "DTI_10": "290",
+      "DTI_11": "290",
+      "DTI_12": "522",
+      "DTI_13": "290",
+      "DTI_14": "290 + 522 / 822 = 812 / 822 = [circled: 1]",
+      "DTI_15": "290 / 290 = 1",
+      "DTI_16": "0 / 0 = 522 / 522 = 1",
+      "DTI_17": "290 / 290 = 1",
+      "DTI_18": "0 + 0 / 822 = 0",
+      "DTI_19": "Eğitim çok iyi",
+      "DTI_20": "(bos)",
+      "DTI_21": "(bos)",
+      "DTI_22": "(bos)",
+      "DTI_23": "(bos)",
+      "DTI_24": "(bos)",
+      "DTI_25": "(bos)",
+      "DTI_26": "(bos)",
+      "DTI_27": "(bos)",
+      "DTI_28": "(bos)",
+      "DTI_29": "(bos)",
+      "DTI_30": "(bos)",
+      "DTI_31": "(bos)",
+      "DTI_32": "231",
+      "DTI_33": "(bos)",
+      "DTI_34": "(bos)",
+      "DTI_35": "(bos)",
+      "DTI_36": "(bos)",
+      "DTI_37": "(bos)",
+      "DTI_38": "(bos)",
+      "DTI_39": "(bos)",
+      "DTI_40": "(bos)",
+      "DTI_41": "(bos)",
+      "DTI_42": "(bos)",
+      "DTI_43": "(bos)",
+      "DTI_44": "(bos)",
+      "DTI_45": "(bos)",
+      "DTI_46": "underfitting durumu söz konusudur",
+      "DTI_47": "(bos)"
+    },
+    "raw_ocr": {}
+  },
+  "gate_2_validation": {
+    "status": "fail",
+    "item_coverage": {
+      "answered": 12,
+      "total": 47,
+      "blank_or_illegible": 35,
+      "missing": 0,
+      "completion_rate": 0.255
+    },
+    "warnings": [],
+    "student_snapshot": {
+      "completion_rate": 0.255,
+      "engagement_level": "low",
+      "llm_observations": "Öğretmen adayı yalnızca VS1 test metriklerini (hepsi 1 çıkacak şekilde) hesaplamış, VS1 eğitim tablosunu ve VS2 bölümlerinin çoğunu boş bırakmıştır. Overfitting/underfitting kavramlarına ilişkin açık yorumlar büyük ölçüde eksik olup, yalnızca 'Eğitim çok iyi' ve 'underfitting durumu söz konusudur' gibi çok kısa notlar bırakılmıştır. Trap sorular DTI_43/44 boş bırakılmıştır.",
+      "page_notes": "Sayfa 2, 5 ve 6'daki tablo/metrik hücrelerinin çoğu boş. Sadece sayfa 3 tam doldurulmuş; sayfa 4, 7, 8'de kısa veya boş cevaplar var."
+    }
+  },
+  "gate_3_scoring": {
+    "status": "pending",
+    "scored_at": null,
+    "scoring_model": null,
+    "items": {}
+  },
+  "gate_4_aicft": {
+    "status": "pending",
+    "level": null,
+    "evidence": null
+  }
+}
