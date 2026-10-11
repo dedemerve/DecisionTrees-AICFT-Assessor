@@ -313,6 +313,7 @@ main:has(.home) { max-width: 1160px; }
   padding: 9px 16px; border-radius: 4px; text-decoration: none; cursor: pointer;
   line-height: 1.2;
 }
+.dl-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 4px 0 8px; }
 .btn-primary { background: #2878c8; color: #fff; border: 1px solid #2878c8; }
 .btn-primary:hover { background: #1a6bbf; color: #fff; border-color: #1a6bbf; text-decoration: none; }
 .btn-secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--rule-strong); }
@@ -875,4 +876,3 @@ details.item-compare > div { padding: 0 14px 14px; }
   color: var(--ink);
   word-break: break-word;
 }
-.dl-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }

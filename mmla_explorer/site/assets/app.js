@@ -1480,39 +1480,41 @@
   function pageWorksheet(code) {
     const w = C.worksheets.find((x) => x.code === code);
     if (!w) {
-      return `<div class=”page”>${crumbs([[“Collected data”, “#/collected”], [“Worksheets”, “#/explore/worksheets”], [“Not found”]])}
-        <h1>Worksheet not found</h1><p>No worksheet with the code “${h(code)}” is in this archive.</p><p><a href=”#/explore/worksheets”>Back to the worksheets</a></p></div>`;
+      return `<div class="page">${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], ["Not found"]])}
+        <h1>Worksheet not found</h1><p>No worksheet with the code "${h(code)}" is in this archive.</p><p><a href="#/explore/worksheets">Back to the worksheets</a></p></div>`;
     }
     const info = WS_INFO[code] || {};
     const doc = docOf(code);
-    const dlEntry = C.downloads.worksheets.find((d) => d.file && d.file.includes(code));
-    const blankHref = dlEntry ? `downloads/worksheets/${h(code)}.pdf` : null;
+    const sheets = (C.downloads && C.downloads.worksheets) || [];
+    const dlEntry = sheets.find((d) => d.code === code);
+    const blankHref = dlEntry && dlEntry.file ? dlEntry.file : "";
     const akHref = answerKeyHref(w);
     const template = w.rubric_data && w.rubric_data.scoring_policy && w.rubric_data.scoring_policy.no_canonical_tree;
     const blankBtn = blankHref
-      ? `<a class=”btn-primary” href=”${blankHref}” download>Download blank worksheet (PDF)</a>`
-      : `<span class=”na”>Blank worksheet PDF not available</span>`;
+      ? `<a class="btn-primary" href="${h(blankHref)}" download>Download blank worksheet (PDF)</a>`
+      : `<span class="na">Blank worksheet PDF not available</span>`;
     const akBtn = akHref
-      ? `<a class=”btn-secondary” href=”${h(akHref)}” download>${template ? “Download printed template (PDF)” : “Download answer key (PDF)”}</a>`
-      : `<span class=”na”>${template ? “Printed template PDF not available” : “Answer key PDF not available”}</span>`;
+      ? `<a class="btn-secondary" href="${h(akHref)}" download>${template ? "Download printed template (PDF)" : "Download answer key (PDF)"}</a>`
+      : `<span class="na">${template ? "Printed template PDF not available" : "Answer key PDF not available"}</span>`;
     const withOcr = STUDENTS.filter((s) => C.ws[s][code].ocr).length;
-    return `<div class=”page wide”>${crumbs([[“Collected data”, “#/collected”], [“Worksheets”, “#/explore/worksheets”], [code]])}
-      ${exploreShell(“worksheets”, `
+    const sizeLabel = dlEntry && dlEntry.bytes ? Math.round(dlEntry.bytes / 1024) + " KB" : "\u2013";
+    return `<div class="page wide">${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], [code]])}
+      ${exploreShell("worksheets", `
       <h1>${h(code)} · ${h(wsTitle(w))}</h1>
-      <p class=”lead”>${h(info.topic || “”)}</p>
-      <section class=”section-block” id=”downloads”><h2>Downloads</h2>
-        <div class=”dl-actions”>${blankBtn} ${akBtn}</div>
-        ${dlEntry ? `<p class=”small”>File size: ${h(dlEntry.bytes ? Math.round(dlEntry.bytes / 1024) + “ KB” : “–“)}</p>` : “”}
+      <p class="lead">${h(info.topic || "")}</p>
+      <section class="section-block" id="downloads"><h2>Downloads</h2>
+        <div class="dl-actions">${blankBtn} ${akBtn}</div>
+        ${dlEntry ? `<p class="small">File size: ${h(sizeLabel)}</p>` : ""}
       </section>
-      <section class=”section-block” id=”overview”><h2>Overview</h2>
+      <section class="section-block" id="overview"><h2>Overview</h2>
         ${kv([
-          [“In class”, h(info.date || “No class date on the scanned-file names”)],
-          [“Check method”, h(howChecked(w))],
-          [“Extraction files on file”, `${withOcr} of ${STUDENTS.length} students`],
-          doc.curriculum_status && [“Schema curriculum status”, h(doc.curriculum_status)],
+          ["In class", h(info.date || "No class date on the scanned-file names")],
+          ["Check method", h(howChecked(w))],
+          ["Extraction files on file", `${withOcr} of ${STUDENTS.length} students`],
+          doc.curriculum_status && ["Schema curriculum status", h(doc.curriculum_status)],
         ])}
-        ${doc.interpretation_prohibited ? `<p class=”small”>The schema forbids treating the extraction as an interpretation of competency.</p>` : “”}
-        <p class=”small”>Response data, item scoring, and automated outputs are part of the research dataset and are not published in this public archive. <a href=”#/methods”>Data processing and analysis →</a></p>
+        ${doc.interpretation_prohibited ? `<p class="small">The schema forbids treating the extraction as an interpretation of competency.</p>` : ""}
+        <p class="small">Response data, item scoring, and automated outputs are part of the research dataset and are not published in this public archive. <a href="#/methods">Data processing and analysis \u2192</a></p>
       </section>
       `)}</div>`;
   }
