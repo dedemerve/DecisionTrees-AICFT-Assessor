@@ -6,6 +6,7 @@ Reads only files that already exist in this repository and writes:
   mmla_explorer/site/data/frames.js   one row per extracted screen-recording frame
   mmla_explorer/site/thumbs/*.jpg     small sample thumbnails of extracted frames
   mmla_explorer/site/data/*.csv       downloadable data frames
+  mmla_explorer/site/data/score_extra.js  item notes and blocked flags from scoring.json
   mmla_explorer/build_report.json     what was read, what was missing, sanity checks
 
 Nothing is invented. When a file is missing, the value is null and the gap is
@@ -1123,6 +1124,39 @@ def build_worksheet_docs() -> dict:
     return docs
 
 
+def write_score_extra() -> dict:
+    """Item notes and blocked flags that the published score table does not carry.
+
+    Reads students/*/WS*/scoring.json. Does not rewrite those files.
+    """
+    notes: dict = {}
+    status: dict = {}
+    for student in STUDENTS:
+        for ws in WORKSHEETS:
+            path = ROOT / "students" / student / ws["key"] / "scoring.json"
+            if not path.exists():
+                continue
+            data = load_json(path)
+            item_notes = {}
+            for item in data.get("items") or []:
+                note = item.get("note")
+                if note:
+                    item_notes[item.get("item")] = note
+            if item_notes:
+                notes.setdefault(student, {})[ws["code"]] = item_notes
+            if data.get("blocked") or data.get("blocked_reason"):
+                status.setdefault(student, {})[ws["code"]] = {
+                    "blocked": bool(data.get("blocked")),
+                    "blocked_reason": data.get("blocked_reason"),
+                    "source": rel(path),
+                }
+    extra = {"notes": notes, "status": status}
+    blob = json.dumps(extra, ensure_ascii=False, separators=(",", ":"), default=str)
+    privacy_scan(blob)
+    (DATA_OUT / "score_extra.js").write_text("window.SCORE_EXTRA=" + blob + ";\n", encoding="utf-8")
+    return extra
+
+
 def write_worksheet_docs() -> dict:
     docs = build_worksheet_docs()
     blob = json.dumps(docs, ensure_ascii=False, separators=(",", ":"), default=str)
@@ -1183,6 +1217,7 @@ def main():
     (DATA_OUT / "core.js").write_text("window.CORE=" + core_js + ";\n", encoding="utf-8")
     (DATA_OUT / "frames.js").write_text("window.FRAMES=" + frames_js + ";\n", encoding="utf-8")
     write_worksheet_docs()
+    write_score_extra()
 
     # Downloadable data frames.
     def write_csv(name, header, rows):
@@ -1248,14 +1283,23 @@ def main():
 
 
 if __name__ == "__main__":
-    if "--docs-only" in sys.argv:
+    if "--docs-only" in sys.argv or "--notes-only" in sys.argv:
         DATA_OUT.mkdir(parents=True, exist_ok=True)
-        docs = write_worksheet_docs()
-        print(json.dumps({
-            "worksheets": len(docs["worksheets"]),
-            "overrides": len(docs["overrides"]),
-            "with_mapping": sum(1 for w in docs["worksheets"].values() if w.get("mapping")),
-            "with_answer_key": sum(1 for w in docs["worksheets"].values() if w.get("answer_key_url")),
-        }, indent=2))
+        if "--notes-only" in sys.argv and "--docs-only" not in sys.argv:
+            extra = write_score_extra()
+            print(json.dumps({
+                "students_with_notes": len(extra["notes"]),
+                "students_with_status": len(extra["status"]),
+            }, indent=2))
+        else:
+            docs = write_worksheet_docs()
+            extra = write_score_extra()
+            print(json.dumps({
+                "worksheets": len(docs["worksheets"]),
+                "overrides": len(docs["overrides"]),
+                "with_mapping": sum(1 for w in docs["worksheets"].values() if w.get("mapping")),
+                "with_answer_key": sum(1 for w in docs["worksheets"].values() if w.get("answer_key_url")),
+                "students_with_notes": len(extra["notes"]),
+            }, indent=2))
     else:
         main()

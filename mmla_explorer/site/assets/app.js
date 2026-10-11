@@ -2283,7 +2283,7 @@
   }
   function pageFindings() {
     const cards = [
-      ["Worksheet findings", "How extracted answers were checked. A stored score is a pipeline result, not a reviewed conclusion about learning.", "#/findings/worksheets", "Explore worksheet findings"],
+      ["Worksheet findings", "Extracted responses, item scores, and worksheet summaries. A stored score is a pipeline result, not a reviewed conclusion about learning.", "#/findings/worksheets", "Explore worksheet findings"],
       ["Screen recording findings", "What the behaviour labels mean. Counts of those labels are not reported as results.", "#/findings/recordings", "Explore screen recording findings"],
       ["Platform log findings", "Recorded actions in CODAP Arbor, including model attempts. A log does not show what a participant understood.", "#/findings/logs", "Explore platform log findings"],
       ["Python notebook findings", "What the inspection found in the final homework files. Pipeline rubric points are not a reviewed grade.", "#/findings/notebooks", "Explore Python notebook findings"],
@@ -2307,25 +2307,8 @@
     </div>`;
   }
   function pageFindingWorksheets() {
-    const nOverride = (DOCS.overrides || []).length;
-    const rows = C.worksheets.map((w) => ({
-      href: `#/explore/worksheet/${w.code}`,
-      cells: [`<a href="#/explore/worksheet/${h(w.code)}">${h(w.code)}</a>`, h(pipelineShort(w)), h(extractedLabel(w.code))],
-    }));
-    return `<div class="page wide">${findingsCrumb("Worksheet findings")}
-      <h1>Worksheet findings</h1>
-      <p class="lead">Extracted answers can be checked against a rubric or a fixed rule. The result is a pipeline record. It is not a reviewed grade.</p>
-      <h2>Key findings</h2>
-      <p>${nOverride ? `${num(nOverride)} scoring items store a researcher override.` : "No researcher-override records are in the site data."} A review flag means the pipeline asked for a person to look. It does not mean a person accepted the score.</p>
-      ${WS11_IS_WS14 ? `<p>For every participant, the WS11 extraction is identical to that participant's WS14 extraction. Those values are not treated as WS11 survey answers.</p>` : ""}
-      <h2>Results</h2>
-      <p>The check column says how a score would be produced. The last column says whether an extraction file is on record. A file being present is not a score.</p>
-      ${table([{ t: "Worksheet" }, { t: "Check" }, { t: "Extracted answers on file" }], rows)}
-      <h2>Interpretation</h2>
-      <p>A rubric score compares an extracted answer with criteria written in the rubric. A rule-based check compares a value with a fixed rule, such as a count from the food cards. Neither comparison establishes what the participant understood. Item-level scores stay on each worksheet's participant pages. They are not repeated here as a class result.</p>
-      ${tech("Technical details", `<p class="log-note">Rubric worksheets in this set are scored by comparing each item with the rubric entry that has the same item ID. Rule-based worksheets use Python checks after the handwriting is read. WS12 uses consistency checks. Its rubric says there is no single correct tree. ${methodLink("worksheets", "How worksheets were checked")}</p>`)}
-      ${relatedCollected([["#/explore/worksheets", "Worksheets", "Blank files, answer keys, and the scanned submissions."]])}
-    </div>`;
+    if (window.WorksheetFindings) return window.WorksheetFindings.index();
+    return `<div class="page"><h1>Worksheet findings</h1><p>The findings script did not load.</p></div>`;
   }
   function pageFindingRecordings() {
     const linked = F.filter((f) => f.gx).length;
@@ -2385,7 +2368,12 @@
     else if (top === "findings") {
       const sub = parts[1] || "";
       if (sub === "participants") html = pageStudents();
-      else if (sub === "worksheets") html = pageFindingWorksheets();
+      else if (sub === "worksheets") {
+        html = parts[2] && window.WorksheetFindings
+          ? window.WorksheetFindings.page(parts[2], q)
+          : pageFindingWorksheets();
+        after = () => { if (window.WorksheetFindings) window.WorksheetFindings.bind(); };
+      }
       else if (sub === "recordings" || sub === "frames") html = pageFindingRecordings();
       else if (sub === "logs") html = pageFindingLogs();
       else if (sub === "notebooks") html = pageFindingNotebooks();
