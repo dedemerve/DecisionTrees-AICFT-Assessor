@@ -2305,15 +2305,6 @@
           <span class="find-go">Open student profiles</span>
         </a>
       </section>
-      <section class="find-place">
-        <h2>Where this page sits</h2>
-        <ul class="find-flow">
-          <li><a href="#/collected"><strong>Collected data</strong><span>The materials gathered during the activities.</span></a></li>
-          <li><a href="#/methods"><strong>Processing</strong><span>How those materials were prepared, coded, or analysed.</span></a></li>
-          <li><span class="here"><strong>Findings</strong><span>The results and participant profiles from the available evidence.</span></span></li>
-          <li><a href="#/docs"><strong>Reference</strong><span>Documentation and supporting research materials.</span></a></li>
-        </ul>
-      </section>
     </div>`;
   }
   function pageFindingWorksheets() {
