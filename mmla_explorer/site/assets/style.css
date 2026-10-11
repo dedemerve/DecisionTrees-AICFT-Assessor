@@ -711,9 +711,18 @@ svg text { font-family: var(--sans); }
 
 /* -- log metrics -- */
 .log-dataset { margin-top: 0; }
-.log-sample-wrap { margin-top: 4px; }
+.log-sample-title { margin: 4px 0 2px; font-size: 1.05rem; }
+.log-sample-wrap { margin-top: 0; }
+table.log-examples { table-layout: fixed; font-size: 14px; }
 table.log-examples th { white-space: normal; }
+table.log-examples .log-c-who { width: 16%; }
+table.log-examples .log-c-action { width: 30%; }
+table.log-examples .log-c-code { width: 28%; }
+table.log-examples .log-c-detail { width: 26%; }
+table.log-examples td:nth-child(2) { font-weight: 500; }
+table.log-examples code { font-size: 12.5px; }
 .log-caption { margin: 0 0 8px; font-size: 13px; color: var(--muted); max-width: none; }
+.lead.log-lead { max-width: none; }
 .log-metrics {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px; margin: 14px 0 20px;
@@ -913,8 +922,9 @@ p.why { font-size: 14px; color: var(--ink-2); }
   .hero h1 { font-size: 1.7rem; }
   .metric-row, .flow, .compare { grid-template-columns: 1fr; }
   .log-metrics { grid-template-columns: 1fr; }
-  .lead, .log-caption { max-width: 100%; }
+  .lead, .log-caption, .lead.log-lead, .page.wide { max-width: 100%; }
   .log-sample-wrap { overflow: visible; }
+  table.log-examples { table-layout: auto; }
   table.log-examples thead { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
   table.log-examples, table.log-examples tbody, table.log-examples tr, table.log-examples td { display: block; width: auto; }
   table.log-examples tr { border: 1px solid var(--rule); border-radius: 12px; margin: 0 0 8px; padding: 8px 12px; background: var(--surface); }

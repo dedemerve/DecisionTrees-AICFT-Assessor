@@ -1807,12 +1807,14 @@
     return `<div class="page wide">${exploreShell("logs", `
       ${crumbs([["Collected data", "#/collected"], ["CODAP platform logs"]])}
       <h1>CODAP platform logs</h1>
-      <p class="lead">Platform logs record actions made by participants while working in CODAP Arbor. Each record captures an interaction that can help researchers understand how the activity was carried out.</p>
+      <p class="lead log-lead">Platform logs record participants’ actions in CODAP Arbor, helping researchers understand how they interact with the decision-tree activity.</p>
+      <h2 class="log-sample-title">Example log records</h2>
+      <p class="log-caption">Selected records from the complete dataset.</p>
       <div class="table-wrap log-sample-wrap"><table class="log-examples">
+        <colgroup><col class="log-c-who"><col class="log-c-action"><col class="log-c-code"><col class="log-c-detail"></colgroup>
         <thead><tr><th>Participant</th><th>Action</th><th>Action code</th><th>Detail</th></tr></thead>
         <tbody>${sampleRows}</tbody>
       </table></div>
-      <p class="log-caption">Ten example records from the platform logs. The complete dataset contains the full collection.</p>
       <h2>Complete dataset</h2>
       <section class="section-block" id="log-dataset">
         <div class="dataset-card log-dataset">
