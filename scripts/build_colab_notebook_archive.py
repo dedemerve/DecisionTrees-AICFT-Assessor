@@ -395,10 +395,35 @@ Screen recordings that were stored beside some notebooks are not part of this co
 """
     (ARCHIVE / "README.md").write_text(readme, encoding="utf-8")
 
+    final_dir = ROOT / "data_sources_2026" / "Final Ödevi Dokümanları"
+    final_public = PUBLIC / "final"
+    final_public.mkdir(parents=True, exist_ok=True)
+    for old in final_public.glob("*.ipynb"):
+        old.unlink()
+    final_rows = []
+    for who in STUDENTS:
+        src = final_dir / f"{who}.ipynb"
+        if not src.exists():
+            flagged.append({"pseudonym": who, "stage": "final", "reason": "no notebook file"})
+            continue
+        cleaned, notes = prepare(load_notebook(src))
+        raw = json.dumps(cleaned, ensure_ascii=False)
+        hits = residual_names(raw)
+        if hits:
+            flagged.append({"pseudonym": who, "stage": "final", "reason": ",".join(hits)})
+            continue
+        name = f"{who}.ipynb"
+        (final_public / name).write_text(json.dumps(cleaned, ensure_ascii=False, indent=1), encoding="utf-8")
+        final_rows.append({"pseudonym": who, "file": f"downloads/notebooks/final/{name}", "cells": len(cleaned.get("cells") or [])})
+        if notes:
+            redactions.append({"pseudonym": who, "stage": "final", "notes": notes})
+
     catalog = {
         "teacher": "downloads/notebooks/teacher_instructions.ipynb" if teacher_public else None,
         "students": public_students,
+        "final": final_rows,
         "dependency": "/content/Food_Dataset_Turkish.csv",
+        "final_dataset": "lizard_data.csv",
     }
     CATALOG.write_text("window.NOTEBOOKS = " + json.dumps(catalog, ensure_ascii=False, indent=2) + ";\n", encoding="utf-8")
     INVENTORY.write_text(json.dumps({
@@ -416,6 +441,7 @@ Screen recordings that were stored beside some notebooks are not part of this co
     missing = [s for s in STUDENTS if s not in {r["pseudonym"] for r in public_students}]
     print("missing", missing)
     print("identical_to_example", [r["pseudonym"] for r in public_students if r["same_as_teacher_example"]])
+    print("final_public", len(final_rows), "final_held", [row["pseudonym"] for row in flagged if row.get("stage") == "final"])
 
 
 if __name__ == "__main__":
