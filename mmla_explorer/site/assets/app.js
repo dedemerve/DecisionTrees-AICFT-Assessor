@@ -1886,10 +1886,11 @@
     const row = (name, href, label) => `<li><span class="nb-who">${h(name)}</span><a class="nb-dl" href="${h(href)}" download>${h(label)}</a></li>`;
     const guidedRows = guided.map((s) => row(s.pseudonym, s.file, "Download")).join("");
     const finalRows = STUDENTS.slice().sort((a, b) => a.localeCompare(b)).map((name) => {
-      if (name === "Marco") return `<li><span class="nb-who">Marco</span><span class="nb-kind">PDF report</span><a class="nb-dl" href="downloads/notebooks/final/Marco.pdf" download>Download PDF</a></li>`;
+      if (name === "Marco") return `<li><span class="nb-who">Marco</span><span class="nb-kind">PDF</span><a class="nb-dl" href="downloads/notebooks/final/Marco.pdf" download>Download</a></li>`;
       const file = byFinal[name];
       if (!file) return "";
-      return `<li><span class="nb-who">${h(name)}</span><span class="nb-kind">Notebook</span><a class="nb-dl" href="${h(file.file)}" download>Download</a></li>`;
+      const kind = String(file.file).toLowerCase().endsWith(".ipynb") ? "Notebook" : "";
+      return `<li><span class="nb-who">${h(name)}</span>${kind ? `<span class="nb-kind">${kind}</span>` : ""}<a class="nb-dl" href="${h(file.file)}" download>Download</a></li>`;
     }).join("");
     return `<div class="page wide nb-page">${exploreShell("notebooks", `
       ${crumbs([["Collected data", "#/collected"], ["Python notebooks"]])}
@@ -1905,13 +1906,13 @@
         </ol>
       </section>
       <section class="nb-section">
-        <h2>Teacher instructions</h2>
+        <h2>Teacher instructions for the Colab learning sequence</h2>
         <div class="nb-pack">
           <div class="nb-pack-row">
             <div>
-              <p>A guided notebook that introduces Python and builds toward training and evaluating a decision tree.</p>
+              <p>This is the teacher's guided notebook used across Colab Sessions 1, 2, and 3. It structures the progression from Python foundations and data exploration to decision-tree construction and model evaluation.</p>
             </div>
-            ${pack.teacher ? `<a class="nb-dl" href="${h(pack.teacher)}" download>Download notebook</a>` : ""}
+            ${pack.teacher ? `<a class="nb-dl" href="${h(pack.teacher)}" download>Download teacher instruction notebook</a>` : ""}
           </div>
         </div>
       </section>
