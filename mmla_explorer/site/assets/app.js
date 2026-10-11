@@ -1193,7 +1193,6 @@
       ${chips}
       <div id="wsGroups">${body}</div>
       <p class="empty" id="wsEmpty" hidden>No worksheets match. Clear the search or choose All.</p>
-      <p class="small">WS_DT_INTRO is not listed. An audit in the repository describes its extraction as the same text as WS13, and this site does not publish it as a separate worksheet. The final lizard project is under <a href="#/explore/notebooks">Python notebooks</a>.</p>
       <p>${methodLink("worksheets")}</p>`)}</div>`;
   }
   function bindWsSearch() {
