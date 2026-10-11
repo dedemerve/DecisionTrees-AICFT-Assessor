@@ -1581,7 +1581,6 @@
     return `<div class="page wide">${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], [code]])}
       ${exploreShell("worksheets", `
       <h1>${h(code)} · ${h(wsTitle(w))}</h1>
-      <p class="lead">${h(info.topic || "")}</p>
       <section class="section-block" id="overview"><h2>Worksheet overview</h2>
         <p>${h(info.topic || "No purpose statement is stored for this worksheet.")}</p>
         ${loBrief(code)}
