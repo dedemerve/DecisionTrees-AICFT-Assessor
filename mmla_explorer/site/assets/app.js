@@ -2350,7 +2350,10 @@
         after = () => { if (window.RecordingFindings) window.RecordingFindings.bind(); };
       }
       else if (sub === "logs") html = pageFindingLogs();
-      else if (sub === "notebooks") html = pageFindingNotebooks();
+      else if (sub === "notebooks") {
+        html = pageFindingNotebooks();
+        after = () => { if (window.NotebookFindings) window.NotebookFindings.bind(); };
+      }
       else html = pageFindings();
     }
     else if (top === "methods") { html = pageMethods(); after = () => { const a = parts[1] && document.getElementById("m-" + parts[1]); if (a && a.scrollIntoView) a.scrollIntoView(); bindMethods(); }; }

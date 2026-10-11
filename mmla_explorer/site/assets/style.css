@@ -1242,7 +1242,26 @@ table.find-table tr[hidden] { display: none !important; }
 .find-page .find-headline .small { margin: 6px 0 0; max-width: none; line-height: 1.4; }
 .find-people td:first-child { font-weight: 600; }
 .find-targets { display: inline-block; max-width: 16rem; white-space: normal; }
-.find-sub { display: block; margin-top: 3px; font-weight: 400; color: var(--muted); font-size: 0.82rem; line-height: 1.35; }
+.find-kind { display: inline-block; margin-left: 6px; padding: 1px 7px; border: 1px solid var(--rule); border-radius: 99px; font-size: 0.75rem; font-weight: 500; color: var(--muted); vertical-align: 1px; }
+.find-board { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px; }
+.find-panel { border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); padding: 14px 16px 10px; }
+.find-panel h3 { margin: 0 0 8px; font-size: 1rem; }
+.find-panel-wide { margin: 0 0 12px; }
+.find-panel .small { margin: 8px 0 4px; }
+.find-mini { width: 100%; border-collapse: collapse; }
+.find-mini th, .find-mini td { padding: 5px 8px 5px 0; font-weight: 500; text-align: left; vertical-align: middle; }
+.find-mini td.num, .find-mini th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.find-bar { display: inline-block; width: 72px; height: 6px; margin-left: 8px; background: var(--rule); border-radius: 99px; vertical-align: middle; overflow: hidden; }
+.find-bar > span { display: block; height: 100%; background: var(--blue); border-radius: 99px; }
+.find-notes { margin: 0; padding-left: 1.15rem; }
+.find-notes li { margin: 4px 0; }
+.find-toggle { background: none; border: 0; padding: 0; color: var(--blue); font: inherit; cursor: pointer; }
+.find-toggle:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.find-extra td { font-weight: 400; background: var(--surface-2, transparent); }
+.find-extra p { margin: 0 0 8px; }
+.find-check { display: grid; grid-template-columns: 1fr auto; gap: 3px 16px; max-width: 36rem; }
+.find-check .st { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.find-check .st-not_found, .find-check .st-undetermined { color: var(--muted); }
 .find-scorebar { display: block; width: 72px; height: 5px; margin-top: 5px; margin-left: auto; background: var(--rule); border-radius: 99px; overflow: hidden; }
 .find-scorebar > span { display: block; height: 100%; background: var(--blue); border-radius: 99px; }
 .find-fold { border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); margin: 16px 0; }
@@ -1257,6 +1276,8 @@ table.find-table tr[hidden] { display: none !important; }
 @media (max-width: 800px) {
   .stat-row.cols-4 { grid-template-columns: 1fr 1fr; }
   .find-page .stat-row.find-headline { grid-template-columns: 1fr 1fr; }
+  .find-board { grid-template-columns: 1fr; }
+  .find-panel { overflow-x: auto; }
   .find-scorebar { margin-left: 0; }
   table.find-table td.num { text-align: left; padding-right: 0; }
   .find-facts { grid-template-columns: 1fr; }

@@ -1,8 +1,8 @@
 /* Final-homework findings.
-   Counts come from window.CORE.notebooks, which build_site_data.py reads from
-   each participant's final file, inspection record, and scoring record.
-   A notebook file supports cell-level measures. A written report does not.
-   Stored rubric points are pipeline totals. They are not a reviewed grade. */
+   Notebook structure is read from window.NOTEBOOK_EVIDENCE, built by
+   scripts/extract_notebook_evidence.py from the notebook files and the
+   stored inspection records. Rubric totals stay in window.CORE and are
+   not recalculated. A written report has no notebook cell counts. */
 (function (root) {
   "use strict";
 
@@ -13,6 +13,7 @@
     Number(v).toLocaleString("en-GB", { maximumFractionDigits: d, minimumFractionDigits: 0 });
   const sum = (arr) => arr.reduce((a, b) => a + b, 0);
   const na = '<span class="na">–</span>';
+  const STATUS = { found: "Found", not_found: "Not in file", undetermined: "Not determined" };
 
   function nameList(names) {
     const a = names.slice().sort((x, y) => x.localeCompare(y));
@@ -31,46 +32,47 @@
     if (!values.length || values.some((v) => v == null || Number.isNaN(Number(v)))) return null;
     return sum(values.map(Number));
   }
-  function fileNote(note) {
-    if (!note) return "";
-    const n = String(note).replace(/\s+/g, " ").trim();
-    if (n.includes("PDF rapor") && n.includes("Notebook kodu")) {
-      return "Written report. The inspection read the report because the file has no notebook cells.";
-    }
-    if (n.includes("lizard_data.csv") && n.includes("bulunamad")) {
-      return "The stored note says the original lizard_data.csv was not found, and that a substitute table was generated to match distributions in the report.";
-    }
-    return n.length > 180 ? n.slice(0, 177) + "…" : n;
+  function tally(rows, keyFn) {
+    const map = new Map();
+    rows.forEach((r) => {
+      const k = keyFn(r);
+      if (k == null || k === "") return;
+      if (!map.has(k)) map.set(k, []);
+      map.get(k).push(r);
+    });
+    return [...map.entries()].sort((a, b) => b[1].length - a[1].length || String(a[0]).localeCompare(String(b[0])));
   }
 
-  function analyze(core) {
+  function analyze(core, evidence) {
+    const pack = evidence || { rows: [], tasks: [], cell_count_disagreements: [] };
+    const byName = {};
+    (pack.rows || []).forEach((r) => { byName[r.student] = r; });
     const rows = (core.students || []).map((s) => {
       const n = (core.notebooks || {})[s] || {};
       const scoring = n.scoring || null;
+      const ev = byName[s] || null;
+      const ins = ev ? ev.inspection : null;
       return {
         s,
-        file: n.file || null,
-        extraction: n.extraction || null,
+        kind: ev ? ev.kind : (n.file ? "notebook" : "report"),
+        file: ev ? ev.file : null,
+        inspection: ins,
         awarded: scoring ? sectionTotal(scoring.sections, "awarded") : null,
         possible: scoring ? sectionTotal(scoring.sections, "possible") : null,
         scoredBy: scoring ? scoring.scored_by || null : null,
         rubricVersion: scoring ? scoring.rubric_version || null : null,
       };
     });
-    const notebooks = rows.filter((r) => r.file);
-    const reports = rows.filter((r) => !r.file && r.extraction);
-    const withTargets = rows.filter((r) => r.extraction && Array.isArray(r.extraction.targets) && r.extraction.targets.length);
-    const withModels = rows.filter((r) => r.extraction && r.extraction.models != null);
-    const notebookModels = notebooks.filter((r) => r.extraction && r.extraction.models != null);
+    const notebooks = rows.filter((r) => r.kind === "notebook");
+    const reports = rows.filter((r) => r.kind === "report");
     const scored = rows.filter((r) => r.awarded != null && r.possible != null);
     const possibles = [...new Set(scored.map((r) => r.possible))];
     return {
       rows,
       notebooks,
       reports,
-      withTargets,
-      withModels,
-      notebookModels,
+      tasks: pack.tasks || [],
+      disagreements: pack.cell_count_disagreements || [],
       scored,
       samePossible: possibles.length === 1 ? possibles[0] : null,
       medianAwarded: median(scored.map((r) => r.awarded)),
@@ -80,217 +82,212 @@
   }
 
   function card(value, label, note) {
-    return `<div class="stat-card"><div class="v">${value}</div><div class="l">${label}</div><p class="small">${note}</p></div>`;
+    return `<div class="stat-card"><div class="v">${value}</div><div class="l">${h(label)}</div>${note ? `<p class="small">${note}</p>` : ""}</div>`;
   }
-
-  function modelGroups(rows) {
-    const groups = new Map();
-    rows.forEach((r) => {
-      const k = r.extraction.models;
-      if (!groups.has(k)) groups.set(k, []);
-      groups.get(k).push(r.s);
-    });
-    return [...groups.entries()].sort((a, b) => b[1].length - a[1].length || a[0] - b[0]);
+  function bar(n, total) {
+    const w = total ? Math.max(0, Math.min(100, Math.round(100 * n / total))) : 0;
+    return `<span class="find-bar" aria-hidden="true"><span style="width:${w}%"></span></span>`;
+  }
+  function panel(title, body, note) {
+    return `<section class="find-panel"><h3>${h(title)}</h3>${body}${note ? `<p class="small">${note}</p>` : ""}</section>`;
   }
 
   function cards(model) {
-    const nNote = model.notebooks.length;
     const cohort = model.rows.length;
+    const nNote = model.notebooks.length;
     const reportNames = nameList(model.reports.map((r) => r.s));
-    const reportNote = model.reports.length
-      ? `${reportNames} submitted a written report, so cell-level measures are blank there.`
-      : "Each of these files can be read cell by cell.";
-    const errN = model.notebooks.filter((r) => r.file.cells_with_error_output > 0).length;
-    const groups = modelGroups(model.notebookModels);
+    const groups = tally(model.notebooks.filter((r) => r.inspection && r.inspection.stored_model_count != null), (r) => r.inspection.stored_model_count);
     const mode = groups.length && (groups.length === 1 || groups[0][1].length > groups[1][1].length) ? groups[0][0] : null;
-    const modeNote = groups.map(([k, names]) => names.length === 1
-      ? `One records ${num(k)}`
-      : `${num(names.length)} of ${num(model.notebookModels.length)} record ${num(k)}`).join(". ") + ".";
-    const scored = model.scored.length;
+    const modeNote = groups.map(([k, names]) => names.length === 1 ? `One records ${num(k)}` : `${num(names.length)} of ${num(groups.reduce((a, g) => a + g[1].length, 0))} record ${num(k)}`).join(". ") + ".";
+    const errs = model.notebooks.filter((r) => r.file && r.file.cells_with_error > 0);
+    const upload = errs.length && errs.every((r) => r.file.upload_interrupt && (r.file.error_types || []).join() === "KeyboardInterrupt");
+    const errNote = upload ? "Each one is a KeyboardInterrupt on a file upload." : "A stored output whose type is error.";
     const rubricValue = model.medianAwarded == null ? "–" : (model.samePossible != null ? `${num(model.medianAwarded, 1)} of ${num(model.samePossible, 1)}` : num(model.medianAwarded, 1));
-    const rubricNote = scored
-      ? `Median of ${num(scored)} stored totals${model.samePossible != null ? `, each out of ${num(model.samePossible, 1)}` : ""}. A pipeline total, not a reviewed grade.`
-      : "No stored rubric total is available.";
     return `<div class="stat-row cols-4 find-headline">
-      ${card(`${num(nNote)} of ${num(cohort)}`, "Inspectable notebooks", reportNote)}
-      ${card(mode == null ? "–" : num(mode), "Most common model count", modeNote + " The count is what the inspection stored. It is not a measure of mastery.")}
-      ${card(`${num(errN)} of ${num(nNote)}`, "Notebooks with an error output", "A code cell whose stored output is an error. No error output is not proof the code was correct.")}
-      ${card(rubricValue, "Median stored rubric points", rubricNote)}
+      ${card(`${num(nNote)} of ${num(cohort)}`, "Inspectable notebooks", reportNames ? `${h(reportNames)} submitted a written report.` : "")}
+      ${card(mode == null ? "–" : num(mode), "Most common model count", modeNote)}
+      ${card(`${num(errs.length)} of ${num(nNote)}`, "Stored error outputs", errNote)}
+      ${card(rubricValue, "Median stored rubric points", `Pipeline total for ${num(model.scored.length)} files, not a reviewed grade.`)}
     </div>`;
   }
 
-  function overall(model) {
-    const paras = [];
-    const cohort = model.withTargets.length;
-    if (cohort) {
-      const first = new Map();
-      model.withTargets.forEach((r) => {
-        const t = r.extraction.targets[0];
-        if (!first.has(t)) first.set(t, []);
-        first.get(t).push(r.s);
-      });
-      const ordered = [...first.entries()].sort((a, b) => b[1].length - a[1].length);
-      const bits = ordered.map(([t, names]) => {
-        const verb = names.length === 1 ? "lists" : "list";
-        const who = names.length > 3
-          ? `${num(names.length)} of ${num(cohort)} files`
-          : `${nameList(names)} (${num(names.length)} of ${num(cohort)})`;
-        return `${who} ${verb} ${t} first`;
-      });
-      paras.push(`The inspection stores target columns in the order it found them. ${bits.join(". ")}. That order is the order in the file. It does not show how the participant chose the target.`);
-      const names = ["YasamAlani", "Tur", "Cinsiyet"];
-      const allThree = model.withTargets.filter((r) => names.every((t) => r.extraction.targets.includes(t)));
-      const missing = model.withTargets.filter((r) => !names.every((t) => r.extraction.targets.includes(t)));
-      if (allThree.length) {
-        const miss = missing.map((r) => `${r.s}'s file lists ${r.extraction.targets.join(", ")}`).join("; ");
-        paras.push(`${num(allThree.length)} of ${num(cohort)} files list YasamAlani, Tur, and Cinsiyet, the three category columns in the lizard table.${miss ? " " + miss + "." : ""}`);
-      }
-    }
-    if (model.notebookModels.length) {
-      const groups = modelGroups(model.notebookModels);
-      const bits = groups.map(([k, names]) => names.length === 1
-        ? `${names[0]}'s notebook records ${num(k)}`
-        : `${num(names.length)} of ${num(model.notebookModels.length)} notebooks record ${num(k)}`);
-      const reportBits = model.reports.filter((r) => r.extraction && r.extraction.models != null)
-        .map((r) => `${r.s}'s report records ${num(r.extraction.models)}`);
-      paras.push(`${bits.join(". ")}.${reportBits.length ? " " + reportBits.join(". ") + "." : ""} A model count describes the inspection record. It does not establish mastery.`);
-    }
-    const errRows = model.notebooks.filter((r) => r.file.cells_with_error_output > 0);
-    const clear = model.notebooks.filter((r) => r.file.cells_with_error_output === 0);
-    if (model.notebooks.length) {
-      const who = errRows.length ? `${nameList(errRows.map((r) => r.s))} ${errRows.length === 1 ? "has" : "have"} an error output stored` : "No notebook has an error output stored";
-      const each = errRows.length && errRows.every((r) => r.file.cells_with_error_output === errRows[0].file.cells_with_error_output)
-        ? ` (${num(errRows[0].file.cells_with_error_output)} cell${errRows[0].file.cells_with_error_output === 1 ? "" : "s"} each)` : "";
-      paras.push(`${who}${each}. ${num(clear.length)} of ${num(model.notebooks.length)} notebooks have none. A missing error output does not show that the code was correct, and a recorded error does not, by itself, show a lack of understanding.`);
-    }
-    const back = model.notebooks.filter((r) => r.file.order_reversals > 0);
-    if (model.notebooks.length) {
-      const once = back.length && back.every((r) => r.file.order_reversals === 1);
-      const who = back.length
-        ? `The run counter goes backwards in ${num(back.length)} of ${num(model.notebooks.length)} notebooks: ${nameList(back.map((r) => r.s))}${once ? ", once each" : ""}.`
-        : `The run counter does not go backwards in any of the ${num(model.notebooks.length)} notebooks.`;
-      paras.push(`${who} That mark means an earlier code cell was run again. It does not show whether the change helped.`);
-    }
-    const asked = model.notebooks.filter((r) => r.extraction && r.extraction.questions_written > 0);
-    if (model.notebooks.length) {
-      paras.push(asked.length
-        ? `A written question is stored for ${num(asked.length)} of ${num(model.notebooks.length)} notebooks: ${nameList(asked.map((r) => r.s))}. The other notebooks list target columns without that question text. Missing question text is not evidence that no question was considered.`
-        : `None of the ${num(model.notebooks.length)} notebooks store a written question beside the target columns. Missing question text is not evidence that no question was considered.`);
-    }
-    const useKeys = ["lizard_data.csv", "DecisionTreeClassifier", "train_test_split", "max_depth", "plot_tree", "get_dummies"];
-    const useLabel = {
-      "lizard_data.csv": "lizard_data",
-      DecisionTreeClassifier: "DecisionTreeClassifier",
-      train_test_split: "train_test_split",
-      max_depth: "max_depth",
-      plot_tree: "plot_tree",
-      get_dummies: "get_dummies",
-    };
-    if (model.notebooks.length && model.notebooks.every((r) => r.file.uses)) {
-      const present = useKeys.filter((k) => model.notebooks.every((r) => r.file.uses[k]));
-      const partial = useKeys.filter((k) => !present.includes(k));
-      if (present.length) {
-        const rest = partial.map((k) => {
-          const hit = model.notebooks.filter((r) => r.file.uses[k]);
-          const miss = model.notebooks.filter((r) => !r.file.uses[k]);
-          const absent = miss.length === 1 ? `${miss[0].s}'s notebook` : `the notebooks of ${nameList(miss.map((r) => r.s))}`;
-          return `${useLabel[k]} appears in ${num(hit.length)} of ${num(model.notebooks.length)}${miss.length ? ` and is absent from ${absent}` : ""}`;
+  function targetPanel(model) {
+    const withTargets = model.rows.filter((r) => r.inspection && r.inspection.targets && r.inspection.targets.length);
+    const groups = tally(withTargets, (r) => r.inspection.targets[0]);
+    const total = withTargets.length;
+    const body = `<table class="find-mini"><tbody>${groups.map(([name, rows]) => `<tr><th>${h(name)}</th><td class="num">${num(rows.length)} of ${num(total)}</td><td>${bar(rows.length, total)}</td></tr>`).join("")}</tbody></table>`;
+    return panel("First stored target", body, "Order stored in the inspection. Not a record of how the target was chosen.");
+  }
+  function modelPanel(model) {
+    const groups = tally(model.rows.filter((r) => r.inspection && r.inspection.stored_model_count != null), (r) => r.inspection.stored_model_count);
+    const total = model.rows.filter((r) => r.inspection && r.inspection.stored_model_count != null).length;
+    const body = `<table class="find-mini"><tbody>${groups.map(([k, rows]) => `<tr><th>${num(k)}</th><td class="num">${num(rows.length)} of ${num(total)}</td><td>${bar(rows.length, total)}</td></tr>`).join("")}</tbody></table>`;
+    return panel("Stored model count", body, "The number stored on the inspection record.");
+  }
+  function taskPanel(model) {
+    const total = model.rows.length;
+    const body = `<table class="find-mini find-tasks"><thead><tr><th>Assignment evidence</th><th class="num">Found</th><th class="num">Not in file</th><th class="num">Not determined</th></tr></thead><tbody>${
+      model.tasks.map((task) => {
+        const counts = { found: 0, not_found: 0, undetermined: 0 };
+        model.rows.forEach((r) => {
+          const v = r.inspection && r.inspection.tasks ? r.inspection.tasks[task.id] : "undetermined";
+          counts[v] = (counts[v] || 0) + 1;
         });
-        const labels = present.map((k) => useLabel[k]);
-        const listed = labels.length < 2 ? labels.join("") : labels.slice(0, -1).join(", ") + ", and " + labels[labels.length - 1];
-        paras.push(`The code text of all ${num(model.notebooks.length)} notebooks includes ${listed}.${rest.length ? " " + rest.join(". ") + "." : ""} Finding a name in the code is not evidence that the step ran correctly.`);
-      }
-    }
-    if (model.scored.length && model.medianAwarded != null) {
-      const of = model.samePossible != null ? ` of ${num(model.samePossible, 1)}` : "";
-      paras.push(`Stored rubric points are available for ${num(model.scored.length)} of ${num(model.rows.length)} files. The totals run from ${num(model.minAwarded, 1)} to ${num(model.maxAwarded, 1)}${of}. The median is ${num(model.medianAwarded, 1)}${of}. These are pipeline totals. A higher total does not establish learning gain.`);
-    }
-    model.rows.forEach((r) => {
-      const note = r.file && r.extraction && r.extraction.data_source_note;
-      const text = fileNote(note);
-      if (text && r.file) paras.push(`${r.s}: ${text}`);
-    });
-    paras.push("These patterns describe the final homework files. They do not describe the guided Colab sessions, and they do not show what a participant understood.");
-    return `<h2>Overall findings</h2>${paras.map((p) => `<p>${p}</p>`).join("")}`;
+        return `<tr><th>${h(task.label)}</th><td class="num">${num(counts.found)} of ${num(total)} ${bar(counts.found, total)}</td><td class="num">${num(counts.not_found)}</td><td class="num">${num(counts.undetermined)}</td></tr>`;
+      }).join("")
+    }</tbody></table>`;
+    return `<section class="find-panel find-panel-wide">${body}<p class="small">Found means the inspection stored that evidence. Not in file means it was not stored. That is not a judgement that the step never happened.</p></section>`;
   }
 
-  function errorText(r) {
-    if (!r.file || r.file.cells_with_error_output == null) return na;
-    const n = r.file.cells_with_error_output;
-    if (n === 0) return "None";
-    return n === 1 ? "Yes, 1 cell" : `Yes, ${num(n)} cells`;
+  function patterns(model) {
+    const items = [];
+    const sized = model.rows.filter((r) => r.inspection && r.inspection.test_size != null);
+    const sizeGroups = tally(sized, (r) => r.inspection.test_size);
+    if (sizeGroups.length > 1) {
+      const [mode, modeRows] = sizeGroups[0];
+      const rest = sizeGroups.slice(1).map(([k, rows]) => `${nameList(rows.map((r) => r.s))} records ${k}`);
+      items.push(`${num(modeRows.length)} of ${num(sized.length)} files record a test fraction of ${mode}. ${rest.join(". ")}.`);
+    }
+    const odd = model.rows.filter((r) => r.inspection && r.inspection.stored_model_count != null && r.inspection.stored_model_count !== r.inspection.depth_search_records);
+    odd.forEach((r) => {
+      items.push(`${r.s}'s stored model count is ${num(r.inspection.stored_model_count)}. The inspection lists ${num(r.inspection.depth_search_records)} depth-search record${r.inspection.depth_search_records === 1 ? "" : "s"} and ${num(r.inspection.preliminary_models)} preliminary model${r.inspection.preliminary_models === 1 ? "" : "s"}.`);
+    });
+    const synthetic = model.rows.filter((r) => r.inspection && r.inspection.synthetic === true);
+    if (synthetic.length) items.push(`${nameList(synthetic.map((r) => r.s))}: the inspection records a substitute table rather than the original lizard file.`);
+    const back = model.notebooks.filter((r) => r.file && r.file.order_reversals > 0);
+    if (back.length) {
+      const once = back.every((r) => r.file.order_reversals === 1);
+      items.push(`The run counter goes backwards in ${num(back.length)} of ${num(model.notebooks.length)} notebooks: ${nameList(back.map((r) => r.s))}${once ? ", once each" : ""}.`);
+    }
+    if (!items.length) return "";
+    return `<section class="find-panel find-panel-wide"><h3>Patterns worth noting</h3><ul class="find-notes">${items.map((t) => `<li>${t}</li>`).join("")}</ul></section>`;
   }
-  function revisitText(r) {
-    if (!r.file || r.file.order_reversals == null) return na;
-    const n = r.file.order_reversals;
-    if (n === 0) return "None";
-    return n === 1 ? "Yes, once" : `Yes, ${num(n)} times`;
+
+  function depthCell(r) {
+    if (!r.inspection) return na;
+    const n = r.inspection.depth_search_records;
+    const t = r.inspection.depth_tables;
+    if (n == null) return na;
+    if (!n) return na;
+    if (!t) return "Not stored";
+    return `${num(t)} of ${num(n)}`;
   }
   function rubricText(r) {
     if (r.awarded == null) return na;
     if (r.possible == null) return num(r.awarded, 1);
     return `${num(r.awarded, 1)} of ${num(r.possible, 1)}`;
   }
+  function statusText(v) {
+    return STATUS[v] || "Not determined";
+  }
+
+  function detail(r, tasks) {
+    const bits = [];
+    if (r.kind === "report") bits.push("<p>Read from the written report. Notebook cell counts and run counters are not available.</p>");
+    if (r.file) {
+      const f = r.file;
+      const codeNoun = f.code_cells === 1 ? "code cell" : "code cells";
+      const textNoun = f.markdown_cells === 1 ? "text cell" : "text cells";
+      const outNoun = f.cells_with_output === 1 ? "code cell has" : "code cells have";
+      let counter = "Every code cell has a run counter.";
+      if (f.code_without_execution_count) {
+        const gapNoun = f.code_without_execution_count === 1 ? "code cell has" : "code cells have";
+        counter = `${num(f.code_without_execution_count)} ${gapNoun} no run counter.`;
+        if (f.cells_with_output) counter += " A missing counter is not treated as an unrun cell, because a stored output can remain after a kernel restart.";
+      }
+      bits.push(`<p>${num(f.code_cells)} ${codeNoun} and ${num(f.markdown_cells)} ${textNoun}. ${num(f.cells_with_output)} ${outNoun} a stored output. ${counter}</p>`);
+      if (f.cells_with_error) bits.push(`<p>Stored error: ${h((f.error_types || []).join(", ") || "error")}.${f.upload_interrupt ? " The cell calls a file upload." : ""}</p>`);
+      const missing = Object.entries(f.code_present || {}).filter(([, v]) => !v).map(([k]) => k);
+      bits.push(`<p>${missing.length ? "Not found in the code text: " + missing.map(h).join(", ") + "." : "The checked code names are present in the code text."}</p>`);
+    }
+    if (r.inspection && r.inspection.depths && r.inspection.depths.length) {
+      const chosen = r.inspection.depths.filter((d) => d.chosen != null).map((d) => `${h(d.target)} ${num(d.chosen)}`);
+      if (chosen.length) bits.push(`<p>Recorded depth choice: ${chosen.join(", ")}.</p>`);
+    }
+    if (tasks.length && r.inspection && r.inspection.tasks) {
+      bits.push(`<div class="find-check">${tasks.map((t) => `<span>${h(t.label)}</span><span class="st st-${h(r.inspection.tasks[t.id] || "undetermined")}">${h(statusText(r.inspection.tasks[t.id]))}</span>`).join("")}</div>`);
+    }
+    return bits.join("");
+  }
 
   function table(model) {
-    const head = ["Participant", "Target variables", "Models", "Error output recorded", "Earlier code revisited", "Stored rubric points"];
+    const head = ["Participant", "Target variables", "Models", "Depth table", "Stored rubric points", "Details"];
     const body = model.rows.map((r) => {
-      const targets = r.extraction && Array.isArray(r.extraction.targets) && r.extraction.targets.length
-        ? `<span class="find-targets">${r.extraction.targets.map((t) => h(t)).join(", ")}</span>`
-        : na;
-      const models = r.extraction && r.extraction.models != null ? num(r.extraction.models) : na;
-      const note = fileNote(r.extraction && r.extraction.data_source_note);
+      const targets = r.inspection && r.inspection.targets && r.inspection.targets.length
+        ? `<span class="find-targets">${r.inspection.targets.map(h).join(", ")}</span>` : na;
+      const models = r.inspection && r.inspection.stored_model_count != null ? num(r.inspection.stored_model_count) : na;
+      const kind = r.kind === "report" ? ` <span class="find-kind">Written report</span>` : "";
       const cells = [
-        `<span class="who">${h(r.s)}</span>${note ? `<span class="find-sub">${h(note)}</span>` : ""}`,
+        `${h(r.s)}${kind}`,
         targets,
         models,
-        errorText(r),
-        revisitText(r),
+        depthCell(r),
         rubricText(r),
+        `<button type="button" class="find-toggle" data-nb="${h(r.s)}" aria-expanded="false">Details</button>`,
       ];
-      return `<tr>${cells.map((c, i) => `<td${i >= 2 ? ' class="num"' : ""} data-label="${h(head[i])}">${c}</td>`).join("")}</tr>`;
+      const main = `<tr>${cells.map((c, i) => `<td${i >= 2 && i < 5 ? ' class="num"' : ""} data-label="${h(head[i])}">${c}</td>`).join("")}</tr>`;
+      const extra = `<tr id="nb-${h(r.s)}" class="find-extra" hidden><td colspan="6" data-label="Details">${detail(r, model.tasks)}</td></tr>`;
+      return main + extra;
     }).join("");
     return `<h2>Participant results</h2>
-      <p>One row per participant. Target variables are the columns stored for that file, in the stored order. A dash means the measure was not available. It is not a zero.</p>
       <div class="table-wrap"><table class="find-table find-people">
-        <thead><tr>${head.map((t, i) => `<th${i >= 2 ? ' class="num"' : ""}>${h(t)}</th>`).join("")}</tr></thead>
+        <thead><tr>${head.map((t, i) => `<th${i >= 2 && i < 5 ? ' class="num"' : ""}>${h(t)}</th>`).join("")}</tr></thead>
         <tbody>${body}</tbody>
-      </table></div>`;
+      </table></div>
+      <p class="small">A dash means the measure was not available. Not stored is not a zero.</p>`;
   }
 
   function method(model) {
     const versions = [...new Set(model.scored.map((r) => r.rubricVersion).filter(Boolean))];
     const scorers = [...new Set(model.scored.map((r) => r.scoredBy).filter(Boolean))];
-    const versionText = versions.length === 1 ? ` The stored rubric version is ${h(versions[0])}.` : "";
-    const scorerText = scorers.length === 1 ? ` The scoring record names the scorer as ${h(scorers[0])}.` : "";
     const reportNames = nameList(model.reports.map((r) => r.s));
+    const disagree = model.disagreements || [];
     return `<details class="find-fold" id="method">
       <summary>Methodology and data quality</summary>
       <div class="find-fold-body">
-        <h3>What was inspected</h3>
-        <p>Each final homework notebook was read for its cells, code text, stored outputs, and run counter. The teacher instruction notebook and the weekly Colab notebooks are a separate collection. They are not in this table, and these files are not a record of the guided sessions.</p>
-        <h3>Target variables and model counts</h3>
-        <p>Target variables are the target columns stored on the inspection’s question list, in that stored order. The model count is the total stored by the inspection. A written question count is the number of those targets that also have question text stored. Zero means the text was not stored.</p>
-        <h3>Error outputs and earlier code</h3>
-        <p>An error output is a code cell whose stored output is an error. Revisiting earlier code counts places where the run counter on successive executed cells goes down. Both measures need a notebook file.</p>
-        <h3>Scoring method and limitations</h3>
-        <p>Stored rubric points are the sum of the section totals in the scoring record.${scorerText}${versionText} The site does not record a separate manual review of these totals, so they are not a verified grade. A higher total does not establish learning gain. This page does not calculate a new grade.</p>
-        <h3>Written reports</h3>
-        <p>${reportNames ? `${h(reportNames)} submitted a written report rather than a notebook. Target variables, the model count, and stored rubric points were taken from that report. Error outputs and run-counter changes cannot be read from it, so those cells stay blank.` : "Every participant in this table has a notebook file."} A dash is not a zero.</p>
+        <ul class="find-notes">
+          <li>The 15 final homework files were inspected. Weekly Colab notebooks and the teacher instruction notebook are not included.</li>
+          <li>Cell counts, run counters, and stored error names are read from the current notebook file. The notebook is not executed.</li>
+          <li>A model count is the number stored on the inspection record. It is not the number of times a classifier name appears in the code.</li>
+          <li>Depth-search records and preliminary models are separate lists. This page does not add them together.</li>
+          <li>An error output is a stored output of type error. A KeyboardInterrupt on a file upload is an upload interrupt, not a judgement of the model.</li>
+          <li>Assignment evidence is marked found, not in the file, or not determined. A missing step is not evidence that the participant never did it.</li>
+          <li>A run counter that goes backwards shows that an earlier cell was executed again. It does not show why.</li>
+          ${disagree.length ? `<li>For ${num(disagree.length)} of ${num(model.notebooks.length)} notebooks, cell counts in the older inspection record differ from the current file (${h(nameList(disagree))}). This page uses the current file and does not change that record.</li>` : ""}
+          <li>Stored rubric points are the unchanged pipeline totals${scorers.length === 1 ? `, recorded as ${h(scorers[0])}` : ""}${versions.length === 1 ? `, rubric ${h(versions[0])}` : ""}. They are not a reviewed grade, and a higher total is not a learning gain.</li>
+          <li>${reportNames ? `${h(reportNames)} submitted a written report. Target, model, and rubric fields that the inspection stored are shown. Notebook cell counts and run counters are left blank.` : "Every file in this table is a notebook."}</li>
+        </ul>
       </div>
     </details>`;
   }
 
-  function page(core) {
-    const model = analyze(core || root.CORE);
+  function page(core, evidence) {
+    const model = analyze(core || root.CORE, evidence || root.NOTEBOOK_EVIDENCE);
     const reportNames = nameList(model.reports.map((r) => r.s));
-    const lead = `This page describes the final homework files. ${num(model.notebooks.length)} of ${num(model.rows.length)} participants have an inspectable notebook.${reportNames ? ` ${h(reportNames)} submitted a written report, so notebook-only measures are left blank.` : ""} The teacher instruction notebook is the guided resource for Colab Sessions 1, 2, and 3. Weekly Colab notebooks are separate collected materials. They are not mixed into these results, and a final homework file is not a complete record of the guided sessions.`;
+    const lead = `Final homework files only. ${num(model.notebooks.length)} of ${num(model.rows.length)} are notebooks${reportNames ? `; ${h(reportNames)} submitted a written report` : ""}. The teacher instruction notebook and the weekly Colab notebooks are separate, and these files are not a record of the guided sessions.`;
     return `<p class="lead">${lead}</p>
       ${cards(model)}
-      ${overall(model)}
+      <h2>Overall patterns</h2>
+      <div class="find-board">${targetPanel(model)}${modelPanel(model)}</div>
+      ${taskPanel(model)}
+      ${patterns(model)}
       ${table(model)}
       ${method(model)}`;
   }
 
-  root.NotebookFindings = { analyze, page };
+  function bind() {
+    document.querySelectorAll(".find-toggle").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const row = document.getElementById("nb-" + btn.getAttribute("data-nb"));
+        if (!row) return;
+        const open = row.hasAttribute("hidden");
+        if (open) row.removeAttribute("hidden");
+        else row.setAttribute("hidden", "");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        btn.textContent = open ? "Hide" : "Details";
+      });
+    });
+  }
+
+  root.NotebookFindings = { analyze, page, bind };
 })(typeof window !== "undefined" ? window : globalThis);

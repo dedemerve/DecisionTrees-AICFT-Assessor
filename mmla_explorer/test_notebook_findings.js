@@ -1,4 +1,4 @@
-/* Checks final-homework findings against the site notebook records.
+/* Checks final-homework findings against the notebook files and inspection records.
    Run from the repository root:
      node mmla_explorer/test_notebook_findings.js
 */
@@ -14,13 +14,19 @@ const context = { console: console };
 context.window = context;
 context.globalThis = context;
 vm.createContext(context);
-vm.runInContext(fs.readFileSync(path.join(site, "data/core.js"), "utf8"), context, { filename: "core.js" });
-vm.runInContext(fs.readFileSync(path.join(site, "assets/notebook_findings.js"), "utf8"), context, { filename: "notebook_findings.js" });
+
+function load(rel) {
+  vm.runInContext(fs.readFileSync(path.join(site, rel), "utf8"), context, { filename: rel });
+}
+load("data/core.js");
+load("data/notebook_evidence.js");
+load("assets/notebook_findings.js");
 
 const core = context.CORE;
+const evidence = context.NOTEBOOK_EVIDENCE;
 const NF = context.NotebookFindings;
-const model = NF.analyze(core);
-const html = NF.page(core);
+const model = NF.analyze(core, evidence);
+const html = NF.page(core, evidence);
 let failed = 0;
 function check(cond, msg) {
   if (!cond) {
@@ -29,54 +35,54 @@ function check(cond, msg) {
   }
 }
 
-check(model.rows.length === core.students.length, "one row per participant");
-check(model.notebooks.length === 14, "14 inspectable notebooks");
-check(model.reports.map((r) => r.s).join() === "Marco", "Marco is the written report");
-check(!model.reports[0].file, "Marco has no notebook file");
-check(model.reports[0].extraction.models === 1, "Marco's report stores 1 model");
-check(model.reports[0].extraction.targets.join() === "Tur", "Marco's report stores Tur only");
+check(model.rows.length === 15, "one row per participant");
+check(model.notebooks.length === 14, "14 notebooks");
+check(model.reports.map((r) => r.s).join() === "Marco", "Marco is the report");
+check(model.reports[0].file == null, "Marco has no notebook structure");
+check(model.reports[0].inspection.stored_model_count === 1, "Marco stored model count is 1");
+check(model.medianAwarded === 58 && model.samePossible === 100, "rubric median stays 58 of 100");
+check(model.minAwarded === 16 && model.maxAwarded === 74, "rubric range stays 16 to 74");
 
-const irma = model.notebooks.find((r) => r.s === "Irma");
-check(irma.extraction.models === 4, "Irma records 4 models");
-check(model.notebookModels.filter((r) => r.extraction.models === 3).length === 13, "13 notebooks record 3 models");
+const irma = model.rows.find((r) => r.s === "Irma");
+check(irma.inspection.stored_model_count === 4, "Irma stored count stays 4");
+check(irma.inspection.depth_search_records === 1, "Irma depth-search list stays 1");
+check(irma.inspection.preliminary_models === 3, "Irma preliminary list stays 3");
+check(irma.file.code_present.get_dummies === false, "get_dummies is absent from Irma's code");
+check(irma.file.code_cells === 16 && irma.file.markdown_cells === 19, "Irma cell counts match the file");
 
-const errors = model.notebooks.filter((r) => r.file.cells_with_error_output > 0).map((r) => r.s).sort();
-check(errors.join() === "Melinda,Serena", "error outputs are Melinda and Serena");
-const revisits = model.notebooks.filter((r) => r.file.order_reversals > 0).map((r) => r.s).sort();
-check(revisits.join() === "Irma,Melinda,Serena", "run-counter drops are Irma, Melinda, Serena");
+const amy = model.rows.find((r) => r.s === "Amy");
+check(amy.file.code_cells === 16 && amy.file.markdown_cells === 6, "Amy cell counts match the file");
+check(amy.inspection.test_size === 0.3, "Amy test fraction stays 0.3");
 
-check(model.scored.length === 15, "stored rubric totals for all 15");
-check(model.samePossible === 100, "every stored total is out of 100");
-check(model.medianAwarded === 58, "median stored rubric points is 58");
-check(model.minAwarded === 16 && model.maxAwarded === 74, "rubric range is 16 to 74");
+["Melinda", "Serena"].forEach((name) => {
+  const row = model.rows.find((r) => r.s === name);
+  check(row.file.error_types.join() === "KeyboardInterrupt", name + " error is KeyboardInterrupt");
+  check(row.file.upload_interrupt === true, name + " error is an upload interrupt");
+});
 
-check(html.includes("Inspectable notebooks"), "summary card for notebooks");
-check(html.includes("Most common model count"), "summary card for models");
-check(html.includes("Notebooks with an error output"), "summary card for errors");
-check(html.includes("Median stored rubric points"), "summary card for rubric points");
-check(html.includes("Overall findings"), "overall findings section");
-check(html.includes("Participant results"), "participant table");
-check(html.includes("Methodology and data quality"), "methodology fold");
-check(html.includes("Scoring method and limitations"), "scoring limitations");
-check(html.includes("not a verified grade"), "rubric is not called a verified grade");
-check(html.includes("does not establish learning gain"), "rubric is not called learning gain");
-check(html.includes("not proof the code was correct"), "missing error is not correctness");
-check(html.includes("does not, by itself, show a lack of understanding"), "an error is not a lack of understanding");
-check(html.includes("does not show how the participant chose"), "target order is not reasoning");
-check(html.includes("does not show whether the change helped"), "revisiting is not interpreted");
-check(!html.includes('open'), "methodology starts closed");
-check(!html.includes("#/explore/student/"), "participant rows do not open a profile");
-check(!html.includes("scoring_output_"), "raw scoring paths stay off the page");
-check(!html.includes("Final Ödevi"), "raw homework folder stays off the page");
-check(html.includes("Written report"), "Marco's report is labelled");
-check(html.includes("not a zero"), "a dash is not described as zero");
-check(html.includes("weekly Colab") || html.includes("Weekly Colab"), "guided notebooks stay separate");
-check(html.includes("YasamAlani"), "stored target names are shown");
-check((html.match(/data-label="Error output recorded"/g) || []).length === 15, "error column for every participant");
+const ulysses = model.rows.find((r) => r.s === "Ulysses");
+check(ulysses.inspection.synthetic === true, "Ulysses substitute table flag stays");
+check(ulysses.file.code_cells === 1, "Ulysses file has one code cell");
 
-const marcoRow = html.split("<tr>").find((row) => row.includes(">Marco<"));
-check(marcoRow && marcoRow.includes('class="na"'), "Marco's unavailable measures are a dash");
-check(marcoRow && !/>0</.test(marcoRow), "Marco's blank cells are not a zero");
+check(html.includes("Written report"), "Marco is labelled Written report");
+check(!html.includes("The inspection read the report because"), "Marco has no paragraph under the name");
+check(!html.includes("successful"), "no success judgement");
+check(!html.includes("unsuccessful"), "no failure judgement");
+check(!html.includes("mastered"), "no mastery judgement");
+check(html.includes("Assignment evidence"), "task table is present");
+check(html.includes("Patterns worth noting"), "patterns section is present");
+check(html.includes("Not stored is not a zero"), "a missing depth table is not called a zero");
+check(html.includes("not a reviewed grade"), "rubric is not a reviewed grade");
+check(html.includes("Methodology and data quality"), "methodology fold exists");
+check(!html.includes("<details class=\"find-fold\" id=\"method\" open"), "methodology starts closed");
+check(!html.includes("#/explore/student/"), "rows do not open a profile");
+check(!html.includes("scoring_output_"), "scoring paths stay off the page");
+check((html.match(/class="find-toggle"/g) || []).length === 15, "each participant can expand");
+check(html.includes("data-nb=\"Marco\""), "Marco has a details control");
+
+const marco = html.split('data-nb="Marco"')[0].split("<tr>").pop();
+check(marco && marco.includes("Written report"), "the label sits on Marco's row");
+check(marco && !marco.includes("files.upload"), "the upload note is not on Marco's row");
 
 if (failed) {
   console.error(failed + " failed");
