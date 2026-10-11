@@ -1786,13 +1786,25 @@
   ];
   function pageLogs() {
     const L = C.logs;
-    const excluded = sum(Object.values(L.rows_excluded_unmatched_by_day || {}));
-    const statedPublicRows = 9561;
-    const dayTable = table(
+    const excludedByDay = L.rows_excluded_unmatched_by_day || {};
+    const excluded = sum(Object.values(excludedByDay));
+    const sessionDates = Object.keys(LOG_DAYS);
+    const sourceCount = (d) => L.rows_by_day[d] || 0;
+    const publicCount = (d) => sourceCount(d) - (excludedByDay[d] || 0);
+    const publicRows = sum(sessionDates.map(publicCount));
+    const countTable = (counts) => table(
       [{ t: "Session" }, { t: "Date in created_at" }, { t: "Rows", num: 1 }],
-      Object.entries(L.rows_by_day).filter(([d]) => LOG_DAYS[d]).map(([d, n]) => ({ cells: [h(LOG_DAYS[d].name), h(d), num(n)] })),
-      { cls: "log-dict" }
+      sessionDates.map((d) => ({ cells: [h(LOG_DAYS[d].name), h(d), num(counts(d))] })),
+      { cls: "log-dict log-counts" }
     );
+    const publicSessionTable = table(
+      [{ t: "Session" }, { t: "Rows", num: 1 }],
+      sessionDates.map((d) => ({ cells: [h(LOG_DAYS[d].name), num(publicCount(d))] })),
+      { cls: "log-dict log-counts" }
+    );
+    const session1Gap = sourceCount("2026-04-21") !== publicCount("2026-04-21")
+      ? `<p class="log-note">CODAP session 1 has ${num(publicCount("2026-04-21"))} rows in the public file and ${num(sourceCount("2026-04-21"))} rows in the source file. The difference is the ${num(excludedByDay["2026-04-21"] || 0)} source rows dated 21 April whose identifier did not match a pseudonym. Those rows are included in the excluded-row count above, and they are not in the public file. The event IDs of the other rows match. CODAP session 2 has ${num(sourceCount("2026-04-28"))} rows in both.</p>`
+      : "";
     const sampleRows = LOG_SAMPLE.map(([who, code, detail]) => `<tr>
         <td data-label="Participant">${h(who)}</td>
         <td data-label="Action">${h(ACTION[code] || code)}</td>
@@ -1825,27 +1837,29 @@
           ["Source file", `<code class="log-path">${h(L.source)}</code>`],
           ["Format", "CSV"],
           ["Original row count", num(L.rows_total)],
-          ["Date field", "<code>created_at</code>. The first 10 characters are the calendar date. CODAP session 1 is 2026-04-21. CODAP session 2 is 2026-04-28."],
+          ["Date field", "<code>created_at</code>. The first 10 characters are the calendar date."],
           ["Rows with identifiers changed to pseudonyms", num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))],
           ["Rows excluded because the identifier did not match a pseudonym", num(excluded)],
         ])}
-        <p class="log-note">The public file names the two sessions instead of showing the date. CODAP session 1 has ${num(5302)} rows. CODAP session 2 has ${num(4259)} rows. Together that is ${num(statedPublicRows)} rows in <code>codap_log_anonymized.csv</code>. Records dated 7 April 2026 are not in that file. Its columns are <code>id</code>, <code>student_id</code>, <code>session</code>, <code>action</code>, <code>timestamp_ms</code>, and <code>parameters</code>. It does not include <code>created_at</code>, <code>raw_data</code>, the frame images, or <code>metadata.csv</code>.</p>
-        <h3>Records by session</h3>
-        <p class="log-note-label">How the session name is assigned</p>
-        <p class="log-note">CODAP session 1 and CODAP session 2 are names for the two sessions. The name comes from the calendar date in <code>created_at</code>, not from a count of rows. Records dated 7 April 2026 are in the source file this site reads. They are not one of these sessions, and they are not in the public dataset. A few rows dated 25 April 2026 are also in that source file and are not one of the two sessions.</p>
-        ${dayTable}
+        <p class="log-note">This source file contains records from multiple dates. The two CODAP sessions are identified using the date in <code>created_at</code>: 21 April 2026 for Session 1 and 28 April 2026 for Session 2. Records from other dates are not part of these two sessions.</p>
         <p class="log-note-label">Relationship to earlier files</p>
-        <p class="log-note">This site reads one source file. CODAP session 1 is the 21 April portion of that file. The earlier 21 April file is a prefix of it, with the same rows in the same order. The 7 April file is not loaded again. Its event IDs are already in the current source, and those rows are not CODAP session 1 or CODAP session 2.</p>
+        <p class="log-note">The 21 April file is a prefix of the current source file, with the same rows in the same order. The earlier 7 April file is not loaded again because its event IDs are already present in the current source. Records dated 7 April are not part of either CODAP session.</p>
+        <h3>Records in the source file</h3>
+        ${countTable(sourceCount)}
+        <h3>Public dataset</h3>
+        <p class="log-note">The public file is <code>codap_log_anonymized.csv</code>. It has ${num(publicRows)} rows. Its columns are <code>id</code>, <code>student_id</code>, <code>session</code>, <code>action</code>, <code>timestamp_ms</code>, and <code>parameters</code>. It does not include <code>created_at</code>, <code>raw_data</code>, the frame images, or <code>metadata.csv</code>.</p>
+        ${publicSessionTable}
+        ${session1Gap}
         <h3>Data fields</h3>
         ${table([{ t: "Column" }, { t: "Meaning" }], [
           { cells: ["<code>id</code>", "Event identifier."] },
-          { cells: [`<code>created_at</code> <span class="src-only">Source only</span>`, "When the row was stored. The date in this field decides the session name. Not listed in the public file."] },
-          { cells: ["<code>session</code>", "CODAP session 1 or CODAP session 2. This column is in the public file. It is not a column of the source file this site reads."] },
-          { cells: ["<code>student_id</code>", "Participant identifier. On this site it is a pseudonym."] },
-          { cells: ["<code>action</code>", "The action code."] },
-          { cells: ["<code>timestamp_ms</code>", "Elapsed milliseconds in that participant's session."] },
-          { cells: ["<code>parameters</code>", "Details for that action, stored as text."] },
-          { cells: [`<code>raw_data</code> <span class="src-only">Source only</span>`, "Present in the source file and empty on every row. Not listed on the public dataset card."] },
+          { cells: [`<code>created_at</code> <span class="field-where">Source only</span>`, "When the row was stored. Its date determines the session name. This column is not included in the public dataset."] },
+          { cells: [`<code>session</code> <span class="field-where">Public dataset only</span>`, "CODAP session 1 or CODAP session 2. This column is added to the public dataset and is not a column in the original source file."] },
+          { cells: ["<code>student_id</code>", "Participant identifier, represented by a pseudonym on the website."] },
+          { cells: ["<code>action</code>", "Action code describing the recorded event."] },
+          { cells: ["<code>timestamp_ms</code>", "Elapsed milliseconds in the participant's session."] },
+          { cells: ["<code>parameters</code>", "Action-specific details stored as text."] },
+          { cells: [`<code>raw_data</code> <span class="field-where">Source only</span>`, "Present in the source file but empty in every row. It is not included in the public dataset."] },
         ], { cls: "log-dict" })}
         <h3>Action codes</h3>
         ${table([{ t: "Action code" }, { t: "Meaning" }], Object.entries(ACTION).map(([k, label]) => ({ cells: [`<code>${h(k)}</code>`, h(label)] })), { cls: "log-dict" })}
