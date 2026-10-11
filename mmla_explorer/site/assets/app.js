@@ -2246,7 +2246,7 @@
         <p>Explore each participant’s research profile, bringing together the available evidence from worksheets, screen recordings, platform logs, and Python notebooks.</p>
         <a class="find-profile" href="#/findings/participants">
           <h3>Student profiles</h3>
-          <p>${STUDENTS.length} pseudonyms. Each profile lists the worksheets, screen recordings, platform logs, and Python files on record. These summaries describe the archive. They are not learning outcomes.</p>
+          <p>${STUDENTS.length} pseudonyms. Each profile brings together worksheet scores, extracted frames, class-session logs, and the final Python assignment. These summaries describe the available records. They are not learning outcomes.</p>
           <span class="find-go">Open student profiles</span>
         </a>
       </section>
@@ -2303,7 +2303,7 @@
     else if (top === "collected") html = pageCollected();
     else if (top === "findings") {
       const sub = parts[1] || "";
-      if (sub === "participants") html = pageStudents();
+      if (sub === "participants" || sub === "student-profiles") html = pageStudents();
       else if (sub === "worksheets") {
         html = parts[2] && window.WorksheetFindings
           ? window.WorksheetFindings.page(parts[2], q)

@@ -195,121 +195,261 @@
   function plural(n, word) {
     return num(n) + " " + word + (n === 1 ? "" : "s");
   }
+  function nice(v) {
+    if (v == null || Number.isNaN(Number(v))) return "–";
+    const n = Number(v);
+    return Math.abs(n - Math.round(n)) < 1e-9 ? String(Math.round(n)) : n.toFixed(1);
+  }
+  function pct(part) {
+    if (part == null || Number.isNaN(Number(part))) return "–";
+    return nice(100 * part) + "%";
+  }
+  function sheetModels() {
+    if (!root.WorksheetFindings || !root.CORE) return null;
+    return root.WorksheetFindings.analyze(root.CORE, root.SCORE_EXTRA || {}, root.WORKSHEET_DOCS || {});
+  }
+  const CODAP_SHEETS = ["WS13", "WS14", "WS15"];
 
-  function coverageChart(model) {
-    const n = model.people.length;
-    const fullWs = model.people.filter((p) => p.missing.length === 0).length;
-    const bothFrames = model.people.filter((p) => p.frameSessions.length === CLASS_DAYS.length).length;
-    const oneFrame = model.people.filter((p) => p.frameSessions.length === 1).length;
-    const bothLogs = model.people.filter((p) => p.logSessions.length === CLASS_DAYS.length).length;
-    const oneLog = model.people.filter((p) => p.logSessions.length === 1).length;
-    const notebooks = model.people.filter((p) => p.pythonKind === "notebook").length;
-    const reports = model.people.filter((p) => p.pythonKind === "report").length;
-    const rows = [
-      ["Worksheets", [
-        { n: fullWs, label: "all " + model.expectedWorksheets + " files", color: "var(--blue)" },
-        { n: n - fullWs, label: "a partial set", color: "var(--muted)" },
-      ]],
-      ["Frames", [
-        { n: bothFrames, label: "both sessions", color: "var(--blue)" },
-        { n: oneFrame, label: "one session", color: "var(--muted)" },
-      ]],
-      ["Platform logs", [
-        { n: bothLogs, label: "both sessions", color: "var(--blue)" },
-        { n: oneLog, label: "one session", color: "var(--muted)" },
-      ]],
-      ["Final submission", [
-        { n: notebooks, label: notebooks === 1 ? "notebook" : "notebooks", color: "var(--blue)" },
-        { n: reports, label: reports === 1 ? "written report" : "written reports", color: "var(--muted)" },
-      ]],
-    ];
-    const body = rows.map(([label, parts]) => {
-      const segs = parts.filter((part) => part.n > 0).map((part) => {
-        const width = n ? (100 * part.n / n) : 0;
-        return `<span style="width:${width.toFixed(2)}%;background:${part.color}" title="${h(num(part.n) + " " + part.label)}"></span>`;
-      }).join("");
-      const caption = parts.filter((part) => part.n > 0).map((part) => num(part.n) + " " + part.label).join(" · ");
-      return `<div class="cov-row"><div class="cov-name">${h(label)}</div><div class="cov-track" role="img" aria-label="${h(label + ": " + caption)}">${segs}</div><div class="cov-cap">${h(caption)}</div></div>`;
-    }).join("");
-    return `<div class="cov-chart">${body}</div><p class="small">The caption beside each bar states the count. A stored file is not a score.</p>`;
+  function scoredSheets(sheets) {
+    return Object.keys(sheets).map((code) => sheets[code]).filter((sheet) => {
+      return sheet.cohort.length && sheet.sameMax && sheet.mean != null && !sheet.duplicateOf;
+    }).map((sheet) => ({
+      code: sheet.code,
+      title: sheet.title,
+      method: sheet.method.id,
+      mean: sheet.mean,
+      max: sheet.sameMax,
+      n: sheet.cohort.length,
+      share: sheet.mean / sheet.sameMax,
+      ids: sheet.cohort.map((p) => p.id).slice().sort().join("|"),
+      sheet: sheet,
+    })).sort((a, b) => b.share - a.share);
+  }
+  function sameCohortContrast(rows) {
+    const rules = rows.filter((row) => row.method === "rule");
+    const groups = new Map();
+    rules.forEach((row) => {
+      if (!groups.has(row.ids)) groups.set(row.ids, []);
+      groups.get(row.ids).push(row);
+    });
+    let best = [];
+    groups.forEach((list) => { if (list.length > best.length) best = list; });
+    if (best.length < 2) return null;
+    const ordered = best.slice().sort((a, b) => b.share - a.share);
+    return { high: ordered[0], low: ordered[ordered.length - 1], n: ordered[0].n };
+  }
+  function outsidePhrase(sheet) {
+    return sheet.people.filter((p) => !p.inCohort).map((p) => {
+      if (p.scoring === "published" && p.state !== "present") return p.id + " has a published score and no usable extraction";
+      if (p.scoring === "none") return p.id + " has no scoring file";
+      if (p.state === "absent") return p.id + " has no extraction file";
+      return p.id + " is not included";
+    });
+  }
+  function codapShare(sheets, id) {
+    if (!sheets) return { n: 0, mean: null };
+    const parts = [];
+    CODAP_SHEETS.forEach((code) => {
+      const sheet = sheets[code];
+      if (!sheet) return;
+      const row = sheet.people.find((p) => p.id === id);
+      if (row && row.inCohort && typeof row.total === "number" && row.max > 0) parts.push(row.total / row.max);
+    });
+    return { n: parts.length, mean: parts.length ? sum(parts) / parts.length : null };
+  }
+  function depthPhrase(row) {
+    const tables = row.checks && row.checks.depth_tables;
+    if (row.pythonKind === "report") return tables > 0 ? "Written report, table stored" : "Written report, table not stored";
+    if (row.pythonKind !== "notebook") return "Not stored";
+    return tables > 0 ? "Notebook, table stored" : "Notebook, table not stored";
+  }
+  function framePhrase(row) {
+    if (!row.codedFrames) return "Not stored";
+    return row.topLabel + " · " + pct(row.topN / row.codedFrames);
+  }
+  function hbars(rows) {
+    return `<div class="cov-chart">${rows.map((row) => {
+      const width = Math.max(0, Math.min(100, row.share));
+      return `<div class="cov-row"><div class="cov-name">${h(row.name)}</div><div class="cov-track" role="img" aria-label="${h(row.name + " " + row.caption)}"><span style="width:${width.toFixed(2)}%;background:${row.color || "var(--blue)"}"></span></div><div class="cov-cap">${h(row.caption)}</div></div>`;
+    }).join("")}</div>`;
   }
 
-  function worksheetBars(model) {
-    const n = model.people.length;
-    const counts = model.codes.map((code) => ({
-      code: code,
-      n: model.people.filter((p) => p.extracted.includes(code)).length,
-    }));
-    const widest = Math.max(n, 1);
-    const rows = counts.map((row) => {
-      const width = (100 * row.n / widest).toFixed(2);
-      return `<div class="cov-row"><div class="cov-name">${h(row.code)}</div><div class="cov-track" role="img" aria-label="${h(row.code + ": " + row.n + " / " + n)}"><span style="width:${width}%;background:var(--blue)"></span></div><div class="cov-cap">${num(row.n)} / ${num(n)}</div></div>`;
+  function researchPage(model) {
+    const sheets = sheetModels();
+    const rows = sheets ? scoredSheets(sheets) : [];
+    const contrast = sameCohortContrast(rows);
+    const scoreChart = rows.length ? hbars(rows.map((row) => ({
+      name: row.code,
+      share: 100 * row.share,
+      caption: nice(row.mean) + " / " + nice(row.max) + " · n=" + row.n,
+      color: "var(--blue)",
+    }))) : "";
+    let contrastText = "";
+    if (contrast) {
+      const lowOut = outsidePhrase(contrast.low.sheet);
+      const highOut = outsidePhrase(contrast.high.sheet);
+      const who = nameList(contrast.low.sheet.people.filter((p) => !p.inCohort).map((p) => p.id));
+      const zeros = contrast.low.sheet.items.filter((item) => item.denom === contrast.low.n && item.full === 0);
+      contrastText = `<p>Among rule-based worksheets scored for the same ${num(contrast.n)} participants, ${h(contrast.high.code)} (${h(contrast.high.title)}) has the highest mean stored score, ${nice(contrast.high.mean)} of ${nice(contrast.high.max)}. ${h(contrast.low.code)} (${h(contrast.low.title)}) has the lowest, ${nice(contrast.low.mean)} of ${nice(contrast.low.max)}. ${who ? h(who) + " " + (who.includes(" and ") || who.includes(",") ? "are" : "is") + " outside both summaries." : ""}</p>`
+        + (lowOut.length || highOut.length ? `<p class="small">${h(contrast.low.code)}: ${h(lowOut.join("; ") || "everyone with a record is included")}. ${h(contrast.high.code)}: ${h(highOut.join("; ") || "everyone with a record is included")}. A missing extraction is left out of the mean. It is not scored as zero.</p>` : "")
+        + (zeros.length ? `<p class="small">On ${h(contrast.low.code)}, ${num(zeros.length)} of ${num(contrast.low.sheet.items.length)} items have no stored full credit in that summary. A stored zero is no credit on a scored item. It is not a missing response.</p>` : "");
+    }
+
+    const checked = model.people.filter((p) => p.checks);
+    const withTable = checked.filter((p) => p.checks.depth_tables > 0);
+    const withoutTable = checked.filter((p) => !(p.checks.depth_tables > 0));
+    const withCodap = checked.filter((p) => p.checks.codap_notes > 0);
+    const assignmentText = checked.length
+      ? `<p>A depth-search table is stored for ${num(withTable.length)} of ${num(checked.length)} final submissions. ${withoutTable.length ? h(nameList(withoutTable.map((p) => p.id))) + (withoutTable.length === 1 && withoutTable[0].pythonKind === "report" ? " submitted a written report, and that report does not store a depth-search table." : " " + (withoutTable.length === 1 ? "has" : "have") + " no depth-search table in the submitted file.") : ""} A written comparison with a CODAP tree is stored for ${num(withCodap.length)} of ${num(checked.length)}. Stored text is not a mark of how complete the comparison is.</p>`
+      : "";
+
+    const counts = {};
+    let labelled = 0;
+    model.people.forEach((p) => {
+      Object.keys(p.frameCounts).forEach((code) => {
+        counts[code] = (counts[code] || 0) + p.frameCounts[code];
+        labelled += p.frameCounts[code];
+      });
+    });
+    const frameRows = Object.keys(BEHAV).filter((code) => counts[code]).concat(Object.keys(counts).filter((code) => !BEHAV[code])).map((code) => ({
+      name: BEHAV[code] || code,
+      n: counts[code],
+      share: labelled ? 100 * counts[code] / labelled : 0,
+      caption: num(counts[code]) + " · " + pct(labelled ? counts[code] / labelled : null),
+      color: BEHAV_COLOR[code] || "var(--ink-2)",
+    })).sort((a, b) => b.share - a.share);
+    const frameLead = frameRows[0];
+    const frameText = labelled && frameLead
+      ? `<p>${h(frameLead.name)} is the most frequent primary label, ${num(frameLead.n)} of ${num(labelled)} labelled frames (${pct(frameLead.n / labelled)}). Shares use labelled frames as the denominator. Extracted frames are a sample, not a continuous record of a session.</p>`
+      : "";
+
+    const both = model.people.filter((p) => p.logSessions.length === 2);
+    const lower = both.filter((p) => p.logSessions[1].threshold < p.logSessions[0].threshold);
+    const higher = both.filter((p) => p.logSessions[1].threshold > p.logSessions[0].threshold);
+    const shiftRows = both.map((p) => `<tr>
+      <td data-label="Participant">${h(p.id)}</td>
+      <td class="num" data-label="Session 1">${num(p.logSessions[0].threshold)}</td>
+      <td class="num" data-label="Session 2">${num(p.logSessions[1].threshold)}</td>
+    </tr>`).join("");
+    const shiftText = both.length
+      ? `<p>Among ${num(both.length)} participants with a log for both class sessions, ${num(lower.length)} record fewer threshold changes in session 2 than in session 1. ${higher.length ? h(higher.map((p) => p.id + " records " + num(p.logSessions[0].threshold) + " in session 1 and " + num(p.logSessions[1].threshold) + " in session 2").join("; ")) + "." : ""} A larger count is not evidence of difficulty or of a planned strategy.</p>`
+        + `<div class="table-wrap"><table class="find-table"><thead><tr><th>Participant</th><th class="num">Session 1</th><th class="num">Session 2</th></tr></thead><tbody>${shiftRows}</tbody></table></div>`
+      : "";
+
+    const head = model.people.map((p) => {
+      const share = codapShare(sheets, p.id);
+      const codap = share.mean == null ? "Not stored" : pct(share.mean) + " · " + num(share.n) + (share.n === 1 ? " worksheet" : " worksheets");
+      return `<tr>
+        <td data-label="Participant"><a href="#/explore/student/${encodeURIComponent(p.id)}">${h(p.id)}</a></td>
+        <td data-label="CODAP worksheets">${h(codap)}</td>
+        <td data-label="Model submissions">${p.logSessions.length ? num(p.emits) : "Not stored"}</td>
+        <td data-label="Threshold changes">${p.logSessions.length ? num(p.threshold) : "Not stored"}</td>
+        <td data-label="Leading frame label">${h(framePhrase(p))}</td>
+        <td data-label="Depth-search table">${h(depthPhrase(p))}</td>
+      </tr>`;
     }).join("");
-    const groups = new Map();
-    model.people.filter((p) => p.missing.length).forEach((p) => {
-      const key = p.missing.join(", ");
-      if (!groups.has(key)) groups.set(key, []);
-      groups.get(key).push(p.id);
-    });
-    const notes = [];
-    groups.forEach((names, key) => {
-      notes.push(nameList(names) + (names.length === 1 ? " has" : " have") + " no extraction for " + key);
-    });
-    const note = notes.length ? notes.join(". ") + "." : "";
-    return `<div class="cov-chart">${rows}</div><p class="small">Each bar counts extraction files, out of ${num(n)}. A file is not a correct answer. ${h(note)}</p>`;
+    const cards = model.people.map((p) => {
+      const share = codapShare(sheets, p.id);
+      const codap = share.mean == null ? "Not stored" : pct(share.mean) + " of each maximum";
+      return `<a class="student-card" href="#/explore/student/${encodeURIComponent(p.id)}">
+        <b class="student-card-name">${h(p.id)}</b>
+        <dl class="student-card-meta">
+          <div><dt>CODAP worksheets</dt><dd>${h(codap)}</dd></div>
+          <div><dt>Threshold changes</dt><dd>${p.logSessions.length ? num(p.threshold) : "Not stored"}</dd></div>
+        </dl>
+        <span class="student-card-cta">Open profile</span>
+      </a>`;
+    }).join("");
+
+    return `<div class="page wide profile-page">
+      <p class="kicker">Findings</p>
+      <p class="crumbs"><a href="#/">Overview</a><span>/</span><a href="#/findings">Findings</a><span>/</span>Student profiles</p>
+      <h1>Student profiles</h1>
+      <p class="profile-intro">Worksheet responses, extracted screen frames, CODAP platform logs, and final Python assignments for ${num(model.people.length)} pseudonymised participants.</p>
+      <p>These findings describe the available records. They are not measures of ability or intention.</p>
+      <h2>Cohort findings</h2>
+      <section class="insight">
+        <h3>Stored worksheet scores, each scaled by its own maximum</h3>
+        ${contrastText}
+        ${scoreChart}
+        <p class="small">Each bar is the mean stored score divided by that worksheet’s maximum. The count is the participants included in that summary. It is not the same set on every worksheet. WS12 records agreement within the written tree. It is not a mark for one correct tree. WS11 is omitted because its extraction repeats WS14 and no published WS11 score is used.</p>
+      </section>
+      <section class="insight">
+        <h3>Evidence stored in the final assignment</h3>
+        ${assignmentText}
+      </section>
+      <section class="insight">
+        <h3>Primary labels on extracted frames</h3>
+        ${frameText}
+        ${frameRows.length ? hbars(frameRows) : ""}
+        <p class="small">“Idle / thinking” means no visible interaction was coded. It does not show that thinking was observed.</p>
+      </section>
+      <section class="insight">
+        <h3>Threshold changes in the two class sessions</h3>
+        ${shiftText}
+        <p class="small">A threshold change is the stored action change_split_values. Model submissions are stored emit counts. The 7 April log is not one of these sessions.</p>
+      </section>
+      <h2>What the four sources can be compared on</h2>
+      <div class="theme-grid">
+        <section class="insight">
+          <h3>Worksheet performance</h3>
+          <p>Comparable scores are published item totals for participants with a usable extraction. Raw totals are not compared across worksheets, because the maxima differ.</p>
+        </section>
+        <section class="insight">
+          <h3>Modelling in the class logs</h3>
+          <p>The log records model submissions, threshold changes, and predictors placed in the tree. It does not record why those actions were taken.</p>
+        </section>
+        <section class="insight">
+          <h3>Frame labels</h3>
+          <p>Each coded frame has one primary behaviour label from the existing scheme. The set of frames is not the whole recording.</p>
+        </section>
+        <section class="insight">
+          <h3>Final assignment</h3>
+          <p>Checks describe evidence present in the submitted file. A written report is not scored as a notebook with empty cells. Pipeline rubric points are not a reviewed grade.</p>
+        </section>
+      </div>
+      <section class="insight">
+        <h3>Cross-source limits</h3>
+        <p>The same pseudonym identifies a participant across the four sources. There is no verified join from a worksheet item to a frame or to a log event, so this page does not report an association between worksheet scores and threshold changes, or between frames and logged actions.</p>
+      </section>
+      <h2>Participant comparison</h2>
+      <div class="table-wrap"><table class="find-table profile-store">
+        <thead><tr><th>Participant</th><th>CODAP worksheets</th><th>Model submissions</th><th>Threshold changes</th><th>Leading frame label</th><th>Depth-search table</th></tr></thead>
+        <tbody>${head}</tbody>
+      </table></div>
+      <p class="small">CODAP worksheets are the mean of each participant’s stored score divided by that worksheet’s maximum, for WS13, WS14, and WS15. Those three include all ${num(model.people.length)} participants. Threshold changes and model submissions cover the class sessions that have a log. A missing log is not shown as zero.</p>
+      <h2>Open a profile</h2>
+      <div class="student-roster">${cards}</div>
+      <details class="profile-notes">
+        <summary>How these figures were counted</summary>
+        <ul>
+          <li>Worksheet means copy the published scoring files. Participants without a usable extraction are left out of a worksheet’s mean.</li>
+          <li>A stored zero on a scored item is no credit. A missing file is not entered as zero.</li>
+          <li>Frame percentages use labelled frames. One primary label is counted per labelled frame.</li>
+          <li>Notebook checks describe evidence in the submitted file. They do not re-run the notebook.</li>
+        </ul>
+      </details>
+    </div>`;
   }
 
   function page(core, frames, evidence) {
     const data = core || root.CORE;
     if (!data) return `<div class="page wide profile-page"><p class="empty">No data loaded.</p></div>`;
     const model = analyze(data, frames || root.FRAMES || [], evidence || root.NOTEBOOK_EVIDENCE);
-    const n = model.people.length;
-    const head = model.people.map((p) => `<tr>
-      <td data-label="Participant"><a href="#/explore/student/${encodeURIComponent(p.id)}">${h(p.id)}</a></td>
-      <td data-label="Worksheets">${num(p.extracted.length)}/${num(p.expected)}</td>
-      <td data-label="Frames">${h(sessionPhrase(p.frameSessions))}</td>
-      <td data-label="Platform logs">${h(sessionPhrase(p.logSessions))}</td>
-      <td data-label="Final submission">${h(submissionPhrase(p))}</td>
-    </tr>`).join("");
-    const cards = model.people.map((p) => `<a class="student-card" href="#/explore/student/${encodeURIComponent(p.id)}">
-      <b class="student-card-name">${h(p.id)}</b>
-      <dl class="student-card-meta">
-        <div><dt>Worksheets</dt><dd>${num(p.extracted.length)}/${num(p.expected)}</dd></div>
-        <div><dt>Frames</dt><dd>${h(sessionPhrase(p.frameSessions))}</dd></div>
-        <div><dt>Platform logs</dt><dd>${h(sessionPhrase(p.logSessions))}</dd></div>
-        <div><dt>Python</dt><dd>${h(submissionPhrase(p))}</dd></div>
-      </dl>
-      <span class="student-card-cta">Open profile</span>
-    </a>`).join("");
-    return `<div class="page wide profile-page">
-      <p class="kicker">Findings</p>
-      <p class="crumbs"><a href="#/">Overview</a><span>/</span><a href="#/findings">Findings</a><span>/</span>Student profiles</p>
-      <h1>Student profiles</h1>
-      <p class="profile-intro">Explore the completeness of the archived evidence and the patterns observed across ${num(n)} pseudonymised participants. Each profile brings together worksheet responses, extracted screen frames, CODAP platform logs, and the final Python submission.</p>
-      <p>Observed records describe the available evidence, not a participant's ability, understanding, or intent.</p>
-      <h2>Cohort overview</h2>
-      ${coverageChart(model)}
-      <h3>Worksheet files</h3>
-      ${worksheetBars(model)}
-      <h2>What is stored for each participant</h2>
-      <div class="table-wrap"><table class="find-table profile-store">
-        <thead><tr><th>Participant</th><th>Worksheets</th><th>Frames</th><th>Platform logs</th><th>Final submission</th></tr></thead>
-        <tbody>${head}</tbody>
-      </table></div>
-      <p class="small">Worksheet cells count extraction files, not correct answers. Frame and log cells count the two CODAP class sessions. A 7 April log is stored separately and is not one of those sessions. A missing record does not prove that an activity did not occur.</p>
-      <h2>Open a profile</h2>
-      <div class="student-roster">${cards}</div>
-    </div>`;
+    return researchPage(model);
   }
 
   function summary(id, core, frames, evidence) {
     const model = modelFor(core, frames, evidence);
     const row = model && person(model, id);
     if (!row) return "";
-    const facts = "Worksheets " + num(row.extracted.length) + "/" + num(row.expected)
-      + " · Frames " + sessionPhrase(row.frameSessions)
-      + " · Logs " + sessionPhrase(row.logSessions)
-      + " · " + submissionPhrase(row);
+    const sheets = sheetModels();
+    const share = codapShare(sheets, row.id);
+    const bits = [];
+    if (share.mean != null) bits.push("CODAP worksheets " + pct(share.mean) + " of each maximum (" + num(share.n) + ")");
+    if (row.logSessions.length) bits.push("Threshold changes " + num(row.threshold) + " · Model submissions " + num(row.emits));
+    else bits.push("No class-session log stored");
+    bits.push(submissionPhrase(row));
     const notes = [];
     if (row.missing.length) notes.push("No worksheet extraction for " + row.missing.join(", ") + ".");
     if (row.scoreWithoutExtraction.length) {
@@ -327,13 +467,14 @@
     const note = notes.length
       ? `<details class="profile-notes"><summary>Evidence notes</summary><ul>${notes.map((item) => `<li>${h(item)}</li>`).join("")}</ul></details>`
       : "";
-    return `<p class="profile-facts">${h(facts)}</p><p class="small">Counts describe stored records, not learning.</p>${note}`;
+    return `<p class="profile-facts">${h(bits.join(" · "))}</p><p class="small">Counts describe stored records, not learning.</p>${note}`;
   }
+
 
   function framesNote() {
     const data = root.CORE;
     const thumbs = data && data.thumbs_per_session;
-    return `<p class="small">Original screen recordings are not published. The archive shows up to ${num(PREVIEW_CAP)} CODAP-screen examples for a session. ${thumbs ? num(thumbs) + " preview images are stored for each session." : ""} The complete extracted-frame set is on <a href="${h(HF_FRAMES)}">Hugging Face</a>. Listed frames are not minutes of attention. Percentages use labelled frames as the denominator. “Idle / thinking” means no visible interaction was coded. It does not show that thinking was observed.</p>`;
+    return `<p class="small">Original screen recordings are not published. The archive shows up to ${num(PREVIEW_CAP)} CODAP-screen examples for a session. ${thumbs ? num(thumbs) + " preview images are stored for each session." : ""} The complete extracted-frame set is on <a href="${h(HF_FRAMES)}">Hugging Face</a>. Extracted frames are a sample, not a continuous record of the session, and they are not minutes of attention. Percentages use labelled frames as the denominator. “Idle / thinking” means no visible interaction was coded. It does not show that thinking was observed.</p>`;
   }
 
   function sessionChart(id, sessionId, core, frames, evidence) {
@@ -378,7 +519,10 @@
     const extra = row.extraLogEvents != null
       ? ` A log from 7 April is also stored (${num(row.extraLogEvents)} events). It is not one of the two class sessions, and it is not included in the counts below.`
       : "";
-    return `<p class="small">Class-session logs: ${h(names)}. Recorded threshold changes: ${num(row.threshold)}. Model submissions: ${num(row.emits)}. Predictor changes: ${num(row.predictors)}. A larger count is not evidence of difficulty or of a planned strategy.${h(extra)}</p>`;
+    const split = stored.length === 2
+      ? ` ${stored[0].short} records ${num(stored[0].threshold)} threshold changes and ${num(stored[0].emits)} model submissions. ${stored[1].short} records ${num(stored[1].threshold)} threshold changes and ${num(stored[1].emits)} model submissions.`
+      : "";
+    return `<p class="small">Class-session logs: ${h(names)}. Recorded threshold changes: ${num(row.threshold)}. Model submissions: ${num(row.emits)}. Predictor changes: ${num(row.predictors)}. A larger count is not evidence of difficulty or of a planned strategy.${h(split)}${h(extra)}</p>`;
   }
 
   function checkStatus(value) {
