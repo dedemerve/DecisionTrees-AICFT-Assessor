@@ -1836,14 +1836,11 @@
         ${kv([
           ["Source file", `<code class="log-path">${h(L.source)}</code>`],
           ["Format", "CSV"],
-          ["Original row count", num(L.rows_total)],
           ["Date field", "<code>created_at</code>. The first 10 characters are the calendar date."],
           ["Rows with identifiers changed to pseudonyms", num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))],
           ["Rows excluded because the identifier did not match a pseudonym", num(excluded)],
         ])}
-        <p class="log-note">This source file contains records from multiple dates. The two CODAP sessions are identified using the date in <code>created_at</code>: 21 April 2026 for Session 1 and 28 April 2026 for Session 2. Records from other dates are not part of these two sessions.</p>
-        <p class="log-note-label">Relationship to earlier files</p>
-        <p class="log-note">The 21 April file is a prefix of the current source file, with the same rows in the same order. The earlier 7 April file is not loaded again because its event IDs are already present in the current source. Records dated 7 April are not part of either CODAP session.</p>
+        <p class="log-note">The two CODAP sessions are identified using the date in <code>created_at</code>: 21 April 2026 for CODAP session 1 and 28 April 2026 for CODAP session 2.</p>
         <h3>Records in the source file</h3>
         ${countTable(sourceCount)}
         <h3>Public dataset</h3>
@@ -1894,8 +1891,7 @@
       ${table([{ t: "Student" }, { t: "Session" }, { t: "Model attempts", num: 1 }, { t: "Last accuracy", num: 1 }, { t: "Predictors tried", num: 1 }, { t: "One thing at a time", num: 1 }], rows)}
       <p>${methodLink("logs", "What these measures mean")}</p>
       <h3>Actions in the log</h3>
-      ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}
-      <p class="small">The 7 April rows in the same source file are not CODAP session 1 or CODAP session 2, and they are not in the public dataset. Session names are explained on the <a href="#/explore/logs">platform logs</a> page.</p>`;
+      ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}`;
   }
   function pageNotebooks() {
     const rows = STUDENTS.map((s) => {
