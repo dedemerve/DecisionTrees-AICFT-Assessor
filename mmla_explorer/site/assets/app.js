@@ -1565,12 +1565,33 @@
   const CODAP_SCREEN = new Set(["TREE", "GRAPH", "TABLE", "MIXED", "CODAP"]);
   const frameView = { s: "", ss: "" };
   const isCodapScreen = (f) => CODAP_SCREEN.has(f.sc);
+  const PREVIEW_CAP = 12;
   const codapPreviews = (s, ss) => F.filter((f) => f.s === s && (!ss || f.ss === ss) && f.th && isCodapScreen(f));
+  function previewSample(pics) {
+    if (pics.length <= PREVIEW_CAP) return pics;
+    const used = new Set();
+    const picked = [];
+    for (let i = 0; i < PREVIEW_CAP; i++) {
+      let idx = Math.round((i * (pics.length - 1)) / (PREVIEW_CAP - 1));
+      if (used.has(idx)) {
+        for (let d = 1; d < pics.length; d++) {
+          if (idx + d < pics.length && !used.has(idx + d)) { idx += d; break; }
+          if (idx - d >= 0 && !used.has(idx - d)) { idx -= d; break; }
+        }
+      }
+      used.add(idx);
+      picked.push(idx);
+    }
+    picked.sort((a, b) => a - b);
+    return picked.map((i) => pics[i]);
+  }
   const sessionHasFrames = (s, ss) => !!(C.sessions[s] && C.sessions[s][ss] && C.sessions[s][ss].manifest);
 
   function firstSessionWithFrames(s) {
+    const withPictures = SESS.find((ss) => codapPreviews(s, ss.id).length);
+    if (withPictures) return withPictures.id;
     const hit = SESS.find((ss) => sessionHasFrames(s, ss.id));
-    return hit ? hit.id : "";
+    return hit ? hit.id : (SESS[0] ? SESS[0].id : "");
   }
   function pageRecordings(q) {
     frameView.s = (q && q.s) || "";
@@ -1579,21 +1600,17 @@
     const sessionsWithFrames = allSessions.filter((r) => r.manifest).length;
     const storedPreviews = F.filter((f) => f.th).length;
     const shownPreviews = F.filter((f) => f.th && isCodapScreen(f)).length;
-    const who = STUDENTS.map((s) => {
-      const n = codapPreviews(s).length;
-      return `<button type="button" class="person-card" data-who="${h(s)}" aria-pressed="false"><span class="person-name">${h(s)}</span><span class="person-n">${n ? num(n) + " CODAP previews" : "No previews"}</span></button>`;
-    }).join("");
+    const who = STUDENTS.map((s) => `<button type="button" class="person-card" data-who="${h(s)}" aria-pressed="false"><span class="person-name">${h(s)}</span></button>`).join("");
     return `<div class="page wide">${exploreShell("recordings", `
       ${crumbs([["Collected data", "#/collected"], ["Screen recording frames"]])}
       <h1>Screen recording frames</h1>
       <p class="lead">Still images from students working in CODAP Arbor. The original videos are not available for download.</p>
       <div class="stat-row">
         <div class="stat-card"><div class="v">${num(F.length)}</div><div class="l">Extracted frames</div></div>
-        <div class="stat-card"><div class="v">${num(codedFrameCount)}</div><div class="l">Frames with a behaviour label</div></div>
         <div class="stat-card"><div class="v">${num(sessionsWithFrames)}</div><div class="l">Sessions with frames</div></div>
       </div>
       <details class="tech"><summary>About the pictures on this page</summary><div class="tech-body">
-        <p>${num(storedPreviews)} preview images are stored on this site, ${num(C.thumbs_per_session)} per session, spaced through the recording. ${num(shownPreviews)} of them are the CODAP screen: a table, graph, tree, or the CODAP window. Menus and other screens are not shown. The full set of frame images is in the dataset below.</p>
+        <p>Each session view shows up to 12 examples from the CODAP screen, spaced through that session. ${num(storedPreviews)} preview images are stored on this site, ${num(C.thumbs_per_session)} per session. ${num(shownPreviews)} of those are a table, graph, tree, or the CODAP window. Menus and other screens are not shown. The full set of frame images is in the dataset below.</p>
       </div></details>
 
       <section class="section-block" id="frame-explore">
@@ -1607,8 +1624,10 @@
           <div class="ds-type">Complete dataset · CC BY 4.0</div>
           <div class="ds-title">All extracted frames on Hugging Face</div>
           <p class="ds-desc">The public dataset holds the frame images, <code>metadata.csv</code>, and <code>codap_log_anonymized.csv</code>. It does not include the original videos.</p>
-          <a class="btn btn-primary frame-dataset-btn" href="${HF_FRAMES}" target="_blank" rel="noopener">Open the complete frame dataset</a>
-          <a class="frame-method" href="#/methods/recordings">How these frames were chosen and labelled</a>
+          <div class="frame-actions">
+            <a class="btn btn-primary frame-dataset-btn" href="${HF_FRAMES}" target="_blank" rel="noopener">Open the complete frame dataset</a>
+            <a class="frame-method" href="#/methods/recordings">How these frames were chosen and labelled</a>
+          </div>
         </div>
       </section>
       `)}</div>`;
@@ -1622,30 +1641,26 @@
       b.setAttribute("aria-pressed", on ? "true" : "false");
     });
     if (!frameView.s) {
-      out.innerHTML = `<p class="frame-prompt">Select a participant to see frames from the CODAP screen.</p>`;
+      out.innerHTML = `<p class="frame-prompt">Choose a participant, then a session, to see examples from the CODAP screen.</p>`;
       return;
     }
     if (!frameView.ss) frameView.ss = firstSessionWithFrames(frameView.s);
     const tabs = SESS.map((ss) => {
-      const has = sessionHasFrames(frameView.s, ss.id);
-      const n = codapPreviews(frameView.s, ss.id).length;
-      const sub = has ? (n ? num(n) + " pictures" : "No CODAP pictures") : "No frames in this collection";
-      return `<button type="button" role="tab" class="sess-tab" data-ss="${h(ss.id)}" aria-selected="${frameView.ss === ss.id ? "true" : "false"}"><span>${h(SESS_NAME[ss.id])}</span><span class="when">${h(SESS_DATE[ss.id])} · ${h(sub)}</span></button>`;
+      const ready = codapPreviews(frameView.s, ss.id).length > 0;
+      const sub = ready ? SESS_DATE[ss.id] : `${SESS_DATE[ss.id]} · No previews`;
+      return `<button type="button" role="tab" class="sess-tab" data-ss="${h(ss.id)}" aria-selected="${frameView.ss === ss.id ? "true" : "false"}"><span>${h(SESS_NAME[ss.id])}</span><span class="when">${h(sub)}</span></button>`;
     }).join("");
-    const has = sessionHasFrames(frameView.s, frameView.ss);
-    const other = SESS.find((ss) => ss.id !== frameView.ss && sessionHasFrames(frameView.s, ss.id));
-    let body;
-    if (!has) {
-      body = `<div class="empty-session"><p>No frame images are available for this session in the current collection.${other ? " You can explore this participant’s frames from another available session." : ""}</p>${other ? `<button type="button" class="btn btn-primary" id="openOther" data-ss="${h(other.id)}">Open ${h(SESS_NAME[other.id])}</button>` : ""}</div>`;
-    } else {
-      const pics = codapPreviews(frameView.s, frameView.ss);
-      body = pics.length
-        ? `<div class="thumbs frame-grid">${pics.map((f) => {
-            const capText = `${f.s} · ${SESS_NAME[f.ss]} · ${clock(f.t)} · ${f.b ? behLabel(f.b) : "No label"} · ${f.id}`;
-            return `<figure><button type="button" class="thumb" data-zoom="thumbs/${h(f.th)}" data-cap="${h(capText)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt="${h(capText)}"></button><figcaption><span class="mono">${clock(f.t)}</span><br>${h(f.b ? behLabel(f.b) : "No label")}</figcaption></figure>`;
-          }).join("")}</div>`
-        : `<div class="empty-session"><p>This session has extracted frames, but none of the pictures stored on this site are the CODAP screen.</p></div>`;
-    }
+    const picsAll = codapPreviews(frameView.s, frameView.ss);
+    const pics = previewSample(picsAll);
+    const other = SESS.find((ss) => ss.id !== frameView.ss && codapPreviews(frameView.s, ss.id).length);
+    const heading = `<h3 class="preview-heading">${h(frameView.s)} · ${h(SESS_NAME[frameView.ss])}</h3>`;
+    const note = picsAll.length > PREVIEW_CAP ? `<p class="preview-note">12 examples from this session.</p>` : "";
+    const body = pics.length
+      ? `${heading}${note}<div class="thumbs frame-grid">${pics.map((f) => {
+          const capText = `${f.s} · ${SESS_NAME[f.ss]} · ${clock(f.t)} · ${f.b ? behLabel(f.b) : "No label"} · ${f.id}`;
+          return `<figure><button type="button" class="thumb" data-zoom="thumbs/${h(f.th)}" data-cap="${h(capText)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt="${h(capText)}"></button><figcaption><span class="mono">${clock(f.t)}</span><br>${h(f.b ? behLabel(f.b) : "No label")}</figcaption></figure>`;
+        }).join("")}</div>`
+      : `${heading}<div class="empty-session"><p>No previews are available for ${h(frameView.s)}, ${h(SESS_NAME[frameView.ss])}.</p>${other ? `<button type="button" class="btn btn-primary" id="openOther" data-ss="${h(other.id)}">Open ${h(SESS_NAME[other.id])}</button>` : ""}</div>`;
     out.innerHTML = `<h2 class="sess-heading">Choose a session</h2><div class="sess-tabs" role="tablist">${tabs}</div>${body}`;
     out.querySelectorAll(".sess-tab").forEach((b) => {
       b.addEventListener("click", () => { frameView.ss = b.dataset.ss; syncFrameQuery(); });
