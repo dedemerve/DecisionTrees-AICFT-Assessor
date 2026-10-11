@@ -883,7 +883,8 @@
     if (!n.file && !n.extraction) return `<p class="empty">No final project file for this student.</p>`;
     const f = n.file, e = n.extraction;
     const weekly = ((window.NOTEBOOKS || {}).students || []).find((row) => row.pseudonym === s);
-    let out = weekly ? `<p>The weekly Colab notebook for ${h(s)} is a different file, selected from ${h(weekly.stage)}. <a href="${h(weekly.file)}" download>Download it</a> from the <a href="#/explore/notebooks">notebook collection</a>.</p>` : "";
+    const weeklySession = { "5 May": "Colab Session 1", "12 May": "Colab Session 2", "2 June": "Colab Session 3" }[weekly && weekly.stage] || "";
+    let out = weekly ? `<p>The weekly Colab notebook for ${h(s)} is a different file, from ${h(weeklySession)}. <a href="${h(weekly.file)}" download>Download it</a> from the <a href="#/explore/notebooks">notebook collection</a>.</p>` : "";
     if (e && e.data_source_note && !f) out += `<div class="warn">No notebook was submitted. The details below were taken from a submitted report.</div>`;
     out += kv([
       e && ["Target variables", e.targets.map((t) => `<code>${h(t)}</code>`).join(" ")],
@@ -1878,43 +1879,94 @@
     const students = (pack.students || []).slice().sort((a, b) => a.pseudonym.localeCompare(b.pseudonym));
     const present = new Set(students.map((s) => s.pseudonym));
     const absent = STUDENTS.filter((s) => !present.has(s));
-    const cards = students.map((s) => `<article class="nb-card" data-who="${h(s.pseudonym)}">
-        <h3>${h(s.pseudonym)}</h3>
-        <p>Selected from ${h(s.stage)}</p>
-        ${s.same_as_teacher_example ? `<p class="file-meta">This file is the same as the teacher instructions notebook.</p>` : ""}
-        <a class="btn btn-secondary" href="${h(s.file)}" download>Download notebook</a>
-      </article>`).join("");
-    return `<div class="page">${exploreShell("notebooks", `
+    const sessionName = { "5 May": "Colab Session 1", "12 May": "Colab Session 2", "2 June": "Colab Session 3" };
+    const cards = students.map((s) => `<button type="button" class="nb-card" data-who="${h(s.pseudonym)}" aria-pressed="false">
+        <span class="nb-card-name">${h(s.pseudonym)}</span>
+        <span class="nb-card-session">${h(sessionName[s.stage] || s.stage)}</span>
+      </button>`).join("");
+    return `<div class="page wide nb-page">${exploreShell("notebooks", `
       ${crumbs([["Collected data", "#/collected"], ["Python notebooks"]])}
       <h1>Python notebooks: learning to build decision trees</h1>
       <p class="lead">These notebooks document how non-major students developed Python skills for building decision trees through a sequence of guided activities. Each student's most recent available notebook is included, with names replaced by pseudonyms.</p>
       <h2>Learning sequence</h2>
       <ol class="nb-seq">
-        <li><span class="n">1</span><h3>5 May</h3><p>Students start using Python and its libraries.</p></li>
-        <li><span class="n">2</span><h3>12 May</h3><p>The notebook turns to a one-level decision tree.</p></li>
-        <li><span class="n">3</span><h3>2 June</h3><p>The latest continuation of that same notebook.</p></li>
+        <li><span class="n">1</span><h3>Colab Session 1</h3><p class="nb-kicker">Python foundations</p><p>The earliest notebooks introduce Python, variables, lists, and the food dataset, and they separate features from the recommendation label. They do not yet fit a tree.</p></li>
+        <li><span class="n">2</span><h3>Colab Session 2</h3><p class="nb-kicker">Building a first decision tree</p><p>These later copies split training and test data, fit a decision tree, set a maximum depth, and look at accuracy.</p></li>
+        <li><span class="n">3</span><h3>Colab Session 3</h3><p class="nb-kicker">Exploring tree depth</p><p>The latest copies. Most of them loop over more than one tree depth. The instruction notebook also compares training and test performance and discusses overfitting. Not every file reaches that comparison.</p></li>
       </ol>
-      <p class="small">The stages build on one another. A later file replaces the earlier one for that student. It is not combined with the earlier weeks.</p>
+      <p class="nb-note">Each student is represented by their most recent available notebook. Earlier versions are retained in the source archive but are not combined into the selected notebook.</p>
       <h2>Teacher instructions</h2>
-      <p>The instruction notebook sets out the steps students were guided through: writing to the screen, using a library, getting to know the data, splitting training and test data, building a decision tree, and reading a one-level tree.</p>
-      ${pack.teacher ? `<p><a class="btn btn-secondary" href="${h(pack.teacher)}" download>Download the instruction notebook</a></p>` : ""}
+      <p>This guided notebook introduces non-major students to Python and builds toward training and evaluating a decision tree, step by step.</p>
+      ${pack.teacher ? `<p><a class="btn" href="${h(pack.teacher)}" download>Download the instruction notebook</a></p>` : ""}
       <h2>Student notebooks</h2>
-      <p>${num(students.length)} pseudonymised notebooks. The label is the week of the file that was kept. Not every student has a file from every week.${absent.length ? ` ${absent.map(h).join(", ")} ${absent.length === 1 ? "has" : "have"} no notebook in this collection.` : ""}</p>
-      <label class="nb-find">Find a student <input id="nbFind" type="search" placeholder="Pseudonym"></label>
-      <div class="nb-grid">${cards}</div>
+      <p>Session labels indicate the stage of the Colab activity from which the selected notebook comes. Each student is shown with their most recent available submission; not every student has a notebook from every session.</p>
+      ${absent.length ? `<p class="nb-note">${absent.map(h).join(", ")} ${absent.length === 1 ? "is" : "are"} among the ${num(STUDENTS.length)} participants. No notebook from these sessions is in this collection.</p>` : ""}
+      <label class="nb-find">Find a student <input id="nbFind" type="search" placeholder="Pseudonym" autocomplete="off"></label>
+      <div class="nb-grid" role="list">${cards}</div>
+      <section id="nbDetail" class="nb-detail" hidden aria-live="polite">
+        <h3 id="nbDetailName"></h3>
+        <p class="nb-kicker" id="nbDetailSession"></p>
+        <p id="nbDetailText"></p>
+        <a id="nbDetailDownload" class="btn" download>Download notebook</a>
+      </section>
       ${tech("Technical details", `<div class="log-tech">
-        <p class="log-note">Each public file is a Jupyter notebook (<code>.ipynb</code>). The kept file is the 2 June notebook when one exists, otherwise 12 May, otherwise 5 May. Names in filenames, text, and saved text outputs were replaced with the project's pseudonyms. A given name shared by two students is written as Classmate. Colab account names, user ids, and provenance metadata were removed. The instructor's given name in the welcome example was replaced with Instructor.</p>
-        <p class="log-note">The notebooks read <code>${h(pack.dependency || "/content/Food_Dataset_Turkish.csv")}</code> from Colab. That table is not in this archive, and it has not been replaced with a different dataset. Screen recordings stored beside some submissions are not included.</p>
-        <p class="log-note">A separate set of final-project notebooks is still unpublished. Their inspection counts and rubric points stay on <a href="#/findings">Findings</a>. Those points are pipeline scores, not a reviewed grade.</p>
-      </div>`)}`)}</div>`;
+        <h3>Learning objectives and progression</h3>
+        <p class="log-note">The instruction notebook leads non-major students through one activity in Google Colab. The steps below are that guided sequence. A student notebook may stop before the last step.</p>
+        <ol class="nb-steps">
+          <li><strong>Python foundations.</strong> <code>print()</code>, variables, lists, and basic programming.</li>
+          <li><strong>Libraries.</strong> <code>pandas</code>, <code>matplotlib</code>, and scikit-learn.</li>
+          <li><strong>Understanding the data.</strong> Loading and exploring the food table.</li>
+          <li><strong>Preparing the data.</strong> Separating features (<code>X</code>) and the target (<code>y</code>), then splitting training and test sets.</li>
+          <li><strong>Training a decision tree.</strong> Fitting a <code>DecisionTreeClassifier</code> and drawing the tree.</li>
+          <li><strong>Evaluating the model.</strong> Looking at performance on the training rows and on the held-out rows.</li>
+          <li><strong>Exploring model depth.</strong> Comparing trees with different maximum depths.</li>
+          <li><strong>Selecting a suitable depth.</strong> Comparing training and test performance and discussing overfitting.</li>
+        </ol>
+        <h3>Tools and libraries</h3>
+        <p class="log-note">The notebooks run in Google Colab. <code>pandas</code> reads the table and selects columns. <code>matplotlib</code> draws the depth comparison. scikit-learn builds, fits, and scores the decision tree.</p>
+        <h3>Dataset and model setup</h3>
+        <p class="log-note">The instruction notebook loads <code>Food_Dataset_Turkish.csv</code>. The target column is <code>Öneri</code>, the recommendation label. <code>X</code> is the other measured columns, without the product name. <code>y</code> is that label. The split keeps some rows for training and some for a test, so the score is not only a memory of the rows used to fit the tree. <code>max_depth</code> limits how many levels the tree may grow. The table is not in this archive, and it has not been replaced with a different dataset. Weekly notebooks often read the same file from Colab's <code>/content/</code> folder.</p>
+        <h3>Evaluation and model complexity</h3>
+        <p class="log-note">The later part of the instruction notebook fits the tree at several depths and compares misclassification on the training rows with misclassification on the test rows. A deeper tree can follow the training rows more closely and then do worse on rows it has not seen. The archive does not state a best depth or a best score.</p>
+        <p class="log-note">Names in the public notebooks were replaced with pseudonyms. In the instruction notebook, the name in the welcome example was replaced with Instructor, and example names in a loop that matched students were replaced with pseudonyms. Colab account names and user ids were removed. The lesson steps were not rewritten. Screen recordings stored beside some submissions are not included. Inspection counts for the separate final-project notebooks stay on <a href="#/findings">Findings</a>.</p>
+      </div>`)}
+    `)}</div>`;
   }
   function bindNotebookSearch() {
+    const pack = window.NOTEBOOKS || { students: [] };
+    const byName = {};
+    (pack.students || []).forEach((s) => { byName[s.pseudonym] = s; });
+    const sessionName = { "5 May": "Colab Session 1", "12 May": "Colab Session 2", "2 June": "Colab Session 3" };
+    const about = {
+      "5 May": "This is the earliest notebook. It introduces Python and the food table and separates features from the recommendation label. It does not fit a tree.",
+      "12 May": "This later copy fits a decision tree and sets a maximum depth. It continues the same activity.",
+      "2 June": "This is the latest notebook. It continues the decision-tree activity. Most notebooks from this session also compare more than one tree depth.",
+    };
     const q = document.getElementById("nbFind");
+    const detail = document.getElementById("nbDetail");
+    const cards = () => document.querySelectorAll(".nb-card");
+    const select = (btn) => {
+      cards().forEach((el) => el.setAttribute("aria-pressed", el === btn ? "true" : "false"));
+      const row = byName[btn.dataset.who];
+      if (!row || !detail) return;
+      detail.hidden = false;
+      document.getElementById("nbDetailName").textContent = row.pseudonym;
+      document.getElementById("nbDetailSession").textContent = sessionName[row.stage] || row.stage;
+      let text = about[row.stage] || "";
+      if (row.same_as_teacher_example) text += " This file matches the example notebook that was copied into the weekly folders, so it does not include the depth comparison.";
+      document.getElementById("nbDetailText").textContent = text;
+      const link = document.getElementById("nbDetailDownload");
+      link.href = row.file;
+      link.setAttribute("download", row.pseudonym + ".ipynb");
+    };
+    cards().forEach((btn) => btn.addEventListener("click", () => select(btn)));
     if (!q) return;
     q.addEventListener("input", () => {
       const s = q.value.trim().toLowerCase();
-      document.querySelectorAll(".nb-card").forEach((el) => {
-        el.hidden = !!(s && !el.dataset.who.toLowerCase().includes(s));
+      cards().forEach((el) => {
+        const hide = !!(s && !el.dataset.who.toLowerCase().includes(s));
+        el.hidden = hide;
+        if (hide && el.getAttribute("aria-pressed") === "true" && detail) detail.hidden = true;
       });
     });
   }

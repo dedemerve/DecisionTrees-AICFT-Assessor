@@ -717,28 +717,49 @@ p.span-line { max-width: none; white-space: nowrap; }
 .explore-path h3 { margin: 10px 0 6px; font-size: 1rem; }
 .explore-path p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink-2); max-width: none; }
 .material-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 8px 0 16px; }
+.nb-page { max-width: none; }
+.nb-page .lead, .nb-page .nb-note, .nb-page h2 + p { max-width: none; }
 .nb-seq {
-  list-style: none; margin: 8px 0 10px; padding: 0;
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+  list-style: none; margin: 8px 0 12px; padding: 0; width: 100%;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;
 }
 .nb-seq li {
-  background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 14px 16px;
+  position: relative; min-height: 100%;
+  display: flex; flex-direction: column;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px 18px;
+}
+.nb-seq li:not(:last-child)::after {
+  content: ""; position: absolute; top: 30px; right: -18px; width: 18px; height: 2px;
+  background: var(--rule-strong);
 }
 .nb-seq .n {
   width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
   background: var(--navy); color: #fff; font-size: 13px; font-weight: 600;
 }
-.nb-seq h3 { margin: 10px 0 6px; font-size: 1rem; }
-.nb-seq p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink-2); max-width: none; }
+.nb-seq h3 { margin: 12px 0 4px; font-size: 1.05rem; }
+.nb-kicker { margin: 0 0 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.01em; color: var(--blue); }
+.nb-seq p:last-child { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); max-width: none; }
+.nb-note { color: var(--ink-2); }
 .nb-find { display: block; margin: 8px 0 12px; font-size: 14px; color: var(--ink-2); }
-.nb-find input { display: block; margin-top: 4px; width: min(280px, 100%); }
-.nb-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 16px; }
+.nb-find input { display: block; margin-top: 4px; width: min(320px, 100%); }
+.nb-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0 0 14px; width: 100%; }
 .nb-card {
+  appearance: none; width: 100%; text-align: left; cursor: pointer; font: inherit; color: inherit;
   background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px;
 }
-.nb-card h3 { margin: 0 0 6px; font-size: 1.05rem; }
-.nb-card p { margin: 0 0 10px; max-width: none; }
-.nb-card .btn { margin-top: 4px; }
+.nb-card:hover { border-color: var(--blue); }
+.nb-card:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.nb-card[aria-pressed="true"] { background: var(--pale); border-color: var(--blue); box-shadow: inset 3px 0 0 var(--blue); }
+.nb-card-name { display: block; font-weight: 600; font-size: 1.02rem; }
+.nb-card-session { display: block; margin-top: 4px; color: var(--ink-2); font-size: 13.5px; }
+.nb-detail {
+  margin: 0 0 18px; padding: 16px 18px 18px;
+  background: var(--surface); border: 1px solid var(--blue); border-radius: 12px;
+}
+.nb-detail h3 { margin: 0 0 4px; }
+.nb-detail p { max-width: none; }
+.nb-steps { margin: 8px 0 16px; padding-left: 1.2em; }
+.nb-steps li { margin: 0 0 6px; }
 .material-card {
   background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px 12px;
 }
@@ -965,7 +986,6 @@ p.why { font-size: 14px; color: var(--ink-2); }
   .student-roster { grid-template-columns: 1fr 1fr; }
   .hero, .portal, .metric-row, .dataset-grid, .two, .three, .arch-grid, .cat-grid, .ws-catalogue, .code-grid { grid-template-columns: 1fr; }
   .explore-path, .nb-grid { grid-template-columns: 1fr 1fr; }
-  .nb-seq { grid-template-columns: 1fr; }
   .hero { gap: 28px; align-items: start; }
   .hero-visual { max-width: 520px; }
   .metric-row { grid-template-columns: 1fr 1fr; }
@@ -990,6 +1010,8 @@ p.why { font-size: 14px; color: var(--ink-2); }
   h1 { font-size: 1.5rem; }
   .hero h1 { font-size: 1.7rem; }
   .metric-row, .flow, .compare, .explore-path, .nb-seq, .nb-grid { grid-template-columns: 1fr; }
+  .nb-seq li:not(:last-child)::after { display: none; }
+  .nb-grid { grid-template-columns: 1fr 1fr; }
   .log-metrics { grid-template-columns: 1fr; }
   .lead, .log-caption, .lead.log-lead, .page.wide, .log-tech { max-width: 100%; }
   p.span-line { white-space: normal; }

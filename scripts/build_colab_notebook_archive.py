@@ -72,7 +72,11 @@ def name_tokens() -> tuple[list[tuple[str, str]], list[str], list[str]]:
             key = tok.casefold()
             owners.setdefault(key, set()).add(pseudo)
             role[key] = "first" if i == 0 else ("last" if i == len(parts) - 1 else "mid")
-    unique = [(tok, next(iter(pseudos))) for tok, pseudos in owners.items() if len(pseudos) == 1]
+    unique = [
+        (tok, next(iter(pseudos)))
+        for tok, pseudos in owners.items()
+        if len(pseudos) == 1 and tok.casefold() != INSTRUCTOR_GIVEN.casefold()
+    ]
     unique.sort(key=lambda item: len(item[0]), reverse=True)
     shared_first = [tok for tok, pseudos in owners.items() if len(pseudos) > 1 and role[tok] == "first"]
     shared_other = [tok for tok, pseudos in owners.items() if len(pseudos) > 1 and role[tok] != "first"]
@@ -273,7 +277,7 @@ def main() -> None:
             if pseudo_from_filename(path) is None:
                 example_paths.append(path)
     hashes = {hashlib.sha256(p.read_bytes()).hexdigest() for p in example_paths}
-    teacher_src = next(p for p in example_paths if p.name.lower().startswith("örnek") or p.name.lower().startswith("ornek"))
+    teacher_src = next(DOWNLOADS.glob("Karar_*.ipynb"))
 
     selected = []
     inventory = []
