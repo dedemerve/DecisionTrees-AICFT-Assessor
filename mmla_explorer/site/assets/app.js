@@ -411,7 +411,7 @@
       <div class="metric-row">
         <a class="metric" href="#/explore/students"><div class="v">${STUDENTS.length}</div><div class="l">Participants</div><div class="s">Pseudonyms only</div></a>
         <a class="metric" href="#/explore/worksheets"><div class="v">${C.worksheets.length}</div><div class="l">Worksheets</div><div class="s">${num(schemaFields)} response fields</div></a>
-        <a class="metric" href="#/explore/frames"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} coded for behaviour</div></a>
+        <a class="metric" href="#/explore/recordings"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} with a behaviour label</div></a>
         <a class="metric" href="#/explore/logs"><div class="v">${num(logEvents)}</div><div class="l">Log events</div><div class="s">CODAP Arbor, 3 class days</div></a>
       </div>
       <h2>How the archive is organised</h2>
@@ -559,7 +559,7 @@
           <div class="flow-arr" aria-hidden="true">→</div>
           <div class="flow-node flow-node--output">Coded<br>evidence</div>
         </div>
-        <p>The source files are listed in the <a href="#/explore/recordings">screen-recording catalogue</a>. <a href="#/explore/frames">Frame Explorer</a> is where the kept frames and their codes can be inspected. It is not an extra processing stage, and it does not repeat the file list.</p>
+        <p>The extracted frames, including the previews stored on this site, are listed under <a href="#/explore/recordings">Screen recording frames</a>. That page is the data. The definitions of the nine behaviour codes are below. Counts and comparisons of those codes are not reported as findings.</p>
         <p>The pipeline keeps a frame when the screen changes enough, when someone is speaking, or when nothing has been captured for a while, and drops near-duplicates. Where a recording has usable speech, that speech is transcribed. Recordings without usable speech are marked.</p>
         <p>Each kept frame receives one label from a nine-code codebook developed after earlier human coding. The labels describe visible activity: working with data or the tree, judging the model, or idle and off-task states. When two labels could fit, building a tree takes precedence.</p>
         <p>A frame shows one moment of visible activity. It does not show what the student was thinking. ${num(linkedFrames)} frames are matched to researcher observation steps by time order — automatically and without per-frame verification. Episode categories in the session tables are not the nine behaviour labels.</p>
@@ -636,7 +636,7 @@
           </div>
         </div>
         <p>Written answers, screens, software events, and notebooks are different evidence. None is direct proof of what a student was thinking. Where a stage-score file disagrees with the extracted answers, the site shows the answers. Further limitations are in the <a href="#/docs/limitations">data notes</a>.</p>
-        <p class="explore-next"><a href="#/explore/worksheets">Worksheets</a><a href="#/explore/recordings">Screen recordings</a><a href="#/explore/frames">Frames</a><a href="#/docs">Data and downloads</a><a href="#/findings">Research findings</a></p>
+        <p class="explore-next"><a href="#/explore/worksheets">Worksheets</a><a href="#/explore/recordings">Screen recording frames</a><a href="#/docs">Data and downloads</a><a href="#/findings">Research findings</a></p>
       </section>
     </div>`;
   }
@@ -809,16 +809,9 @@
     if (!r.manifest) return out + `<p class="empty">No screen recording from this session.</p></section>`;
     const cd = r.coding;
     sessionIssues(r).forEach((m) => { out += `<div class="warn">${h(m)} <a href="#/docs/limitations">Why this matters →</a></div>`; });
-    out += kv([["Length", dur(lengthOf(r))], ["Frames listed", num(r.manifest.frames)], ["Coded for behaviour", cd ? num(cd.frames_coded) : "No"]]);
-    out += strip(s, ss.id, r);
-    if (cd) {
-      out += legend(behKeys(cd.behaviors)) + behaviorStack(cd.behaviors) + behaviorTable(cd.behaviors);
-    } else out += `<p class="small">Each tick is a selected frame. Hover to see why it was taken.</p>`;
-    const thumbs = F.filter((f) => f.s === s && f.ss === ss.id && f.th);
-    if (thumbs.length) {
-      out += `<h4>Sample frames</h4><div class="thumbs">${thumbs.map((f) => `<figure><button class="thumb" type="button" data-zoom="thumbs/${h(f.th)}" data-cap="${h(`${s} · ${SESS_NAME[ss.id]} · ${clock(f.t)} · ${behLabel(f.b)}`)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt="Screen at ${clock(f.t)}"></button><figcaption><span class="mono">${clock(f.t)}</span> · ${h(f.b ? behLabel(f.b) : "Not coded")}</figcaption></figure>`).join("")}</div>`;
-    }
-    out += `<p><a class="btn" href="#/explore/frames?s=${h(s)}&ss=${h(ss.id)}">Open in Frame Explorer</a> <a href="#/explore/recordings#rec-${h(s)}-${h(ss.id)}">Recording in the catalogue</a> ${methodLink("recordings")}</p>`;
+    out += kv([["Length of the source recording", dur(lengthOf(r))], ["Frames listed", num(r.manifest.frames)], ["Frames with a behaviour label", cd ? num(cd.frames_coded) : "No"]]);
+    out += `<p>The original video is not published. The extracted frames for this session are in the frame collection.</p>`;
+    out += `<p><a class="btn" href="#/explore/recordings?s=${encodeURIComponent(s)}&ss=${encodeURIComponent(ss.id)}">View the frames from this session</a></p>`;
     // technical
     const m = r.manifest, sp = r.speech, ep = (C.episodes[s] || {})[ss.id];
     const SUM = { candidate_frames_considered: "Candidate frames considered", visual_duplicates_filtered: "Removed as near-duplicates", temporal_duplicates_filtered: "Removed as too close in time", non_task_screens_filtered: "Removed as unrelated screens", pruned_frames_removed: "Removed in a later clean-up", total_frames_extracted: "Frames kept" };
@@ -826,7 +819,6 @@
       frameCountNote(s, ss.id, m, cd) +
       `<h4>Why each frame was taken</h4>` + hbars(m.triggers, (k) => (TRIGGERS[k] || k).replace(/\.$/, ""));
     if (cd) {
-      t += `<div class="three compact"><div><h4>Screen</h4>${hbars(cd.screen_context, (k) => cap(k, SCREEN))}</div><div><h4>Phase</h4>${hbars(cd.deepen_phase, (k) => cap(k, PHASE))}</div><div><h4>Coder confidence</h4>${hbars(cd.confidence, (k) => cap(k, {}))}</div></div>`;
       t += kv([["Coding model", `<code>${h(cd.model || "–")}</code>`], ["Prompt", `<code>${h(cd.prompt_file || "–")}</code> ${h(cd.prompt_version || "")}`]]);
     }
     if (sp) t += `<h4>Speech</h4>` + kv([["Status", h(sp.status)], sp.role_counts && ["Speech segments by role", Object.entries(sp.role_counts).map(([k, v]) => `${h(k)} ${num(v)}`).join(", ")]]);
@@ -920,7 +912,7 @@
   function pageStudent(s, tab) {
     if (!STUDENTS.includes(s)) return `<div class="page">${exploreShell("students", `<h1>Not found</h1><p>No student with the pseudonym “${h(s)}”.</p>`)}</div>`;
     tab = tab || "worksheets";
-    const tabs = [["worksheets", "Worksheets"], ["recordings", "Screen recordings"], ["logs", "Platform logs"], ["notebook", "Notebook"]];
+    const tabs = [["worksheets", "Worksheets"], ["recordings", "Frames"], ["logs", "Platform logs"], ["notebook", "Notebook"]];
     const i = STUDENTS.indexOf(s);
     let body = "";
     if (tab === "worksheets") body = C.worksheets.map((w) => wsBlock(s, w)).join("");
@@ -1113,8 +1105,7 @@
       <p class="lead">Material gathered from the ${STUDENTS.length} pre-service teachers in the decision-tree unit. Choose a category. Processing steps and research claims are in the other sections.</p>
       <div class="cat-grid">
         <a class="cat-card" href="#/explore/worksheets"><div class="arch-ico" aria-hidden="true">WS</div><h3>Worksheets</h3><p>${C.worksheets.length} instructional worksheets. Open one for its blank file, answer key, and the scanned student submissions.</p></a>
-        <a class="cat-card" href="#/explore/recordings"><div class="arch-ico" aria-hidden="true">SR</div><h3>Screen recordings</h3><p>${num(sessions)} session recordings with a manifest, listed as a collection. The original video files are not published on this site.</p></a>
-        <a class="cat-card" href="#/explore/frames"><div class="arch-ico" aria-hidden="true">FR</div><h3>Frame explorer</h3><p>${num(F.length)} listed frames, ${num(codedFrameCount)} coded. The page shows examples and a paged list, not every image.</p></a>
+        <a class="cat-card" href="#/explore/recordings"><div class="arch-ico" aria-hidden="true">FR</div><h3>Screen recording frames</h3><p>${num(F.length)} frames extracted from the CODAP sessions. Previews on this site are a spaced subset. Original videos are not published.</p></a>
         <a class="cat-card" href="#/explore/logs"><div class="arch-ico" aria-hidden="true">LG</div><h3>Platform logs</h3><p>${num(logEvents)} time-stamped CODAP Arbor actions. Logs are not matched to individual frames.</p></a>
         <a class="cat-card" href="#/explore/notebooks"><div class="arch-ico" aria-hidden="true">NB</div><h3>Python notebooks</h3><p>${num(notebooksPresent)} final-project notebook files were inspected. Raw notebook files are not published on this site.</p></a>
         <a class="cat-card" href="#/explore/students"><div class="arch-ico" aria-hidden="true">ST</div><h3>Student profiles</h3><p>${STUDENTS.length} pseudonyms. Each profile gathers that person’s worksheets, recordings, logs, and notebook record.</p></a>
@@ -1570,229 +1561,166 @@
       `)}</div>`;
   }
 
-  function recordingFileNote(r) {
-    if (!r.video_bytes) return "No video file is listed";
-    const parts = [`WebM · ${bytes(r.video_bytes)}`];
-    parts.push(r.video_on_disk === false ? "no longer in the data folder" : "in the research folder, not published");
-    if (r.same_video_file_as) parts.push(`same file as ${r.same_video_file_as.map((id) => SESS_NAME[id]).join(" and ")}`);
-    return parts.join(" · ");
+  const HF_FRAMES = "https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames";
+  const frameView = { s: "", ss: "", previewPage: 0, listPage: 0, sel: "" };
+
+  function framesForView() {
+    return F.filter((f) => (!frameView.s || f.s === frameView.s) && (!frameView.ss || f.ss === frameView.ss));
   }
-  function pageRecordings() {
-    const listed = allSessions.filter((r) => r.manifest);
-    const totalSec = sum(listed.map(lengthOf));
+  function pageRecordings(q) {
+    frameView.s = (q && q.s) || "";
+    frameView.ss = (q && q.ss) || "";
+    frameView.sel = (q && q.f) || "";
+    frameView.previewPage = 0;
+    frameView.listPage = 0;
+    const sessionsWithFrames = allSessions.filter((r) => r.manifest).length;
+    const previewN = F.filter((f) => f.th).length;
     const absent = [];
-    STUDENTS.forEach((s) => SESS.forEach((ss) => { if (!C.sessions[s][ss.id].manifest) absent.push(`${s} · ${SESS_NAME[ss.id]}`); }));
-    const groups = SESS.map((ss) => {
-      const rows = [];
-      STUDENTS.forEach((s) => {
-        const r = C.sessions[s][ss.id];
-        if (!r.manifest) return;
-        rows.push({ cells: [
-          `<span id="rec-${h(s)}-${h(ss.id)}">${h(s)}</span>`,
-          dur(lengthOf(r)),
-          num(r.manifest.frames),
-          h(recordingFileNote(r)),
-          `<a href="#/explore/frames?s=${encodeURIComponent(s)}&ss=${encodeURIComponent(ss.id)}">Frames</a> · <a href="#/explore/student/${h(s)}/recordings">Session notes</a>`,
-        ] });
-      });
-      return { ss, rows };
-    });
+    STUDENTS.forEach((s) => SESS.forEach((ss) => { if (!C.sessions[s][ss.id].manifest) absent.push(s + " · " + SESS_NAME[ss.id]); }));
+    const who = STUDENTS.map((s) => `<button type="button" class="chip" data-who="${h(s)}">${h(s)}</button>`).join("");
+    const sess = `<button type="button" class="chip" data-ss="">Both sessions</button>` + SESS.map((ss) => `<button type="button" class="chip" data-ss="${h(ss.id)}">${h(SESS_NAME[ss.id])}</button>`).join("");
     return `<div class="page wide">${exploreShell("recordings", `
-      ${crumbs([["Collected data", "#/collected"], ["Screen recordings"]])}
-      <h1>Screen recordings</h1>
-      <p class="lead">These are the raw screen recordings from the CODAP Arbor sessions. Each row is one recording in the collection. Behaviour codes are not listed here.</p>
-      <div class="metric-row">
-        <div class="metric"><div class="v">${num(listed.length)}</div><div class="l">Recordings with a manifest</div><div class="s">${num(uniqueVideoList.length)} distinct video files</div></div>
-        <div class="metric"><div class="v">${dur(totalSec)}</div><div class="l">Listed length</div><div class="s">${dur(uniqueVideoSeconds)} if duplicate files are counted once</div></div>
-        <div class="metric"><div class="v">${SESS.length}</div><div class="l">Sessions</div><div class="s">WebM</div></div>
-        <div class="metric"><div class="v">${num(absent.length)}</div><div class="l">Pairs with no recording</div><div class="s">of ${num(STUDENTS.length * SESS.length)} participant–session pairs</div></div>
-      </div>
-      <p>Participants are pseudonyms. A recording is the participant’s own screen during one session. Two sessions share one file for Irma, and two sessions share one file for Zara, so those lengths are not two separate videos. ${absent.length ? `No recording file is listed for ${absent.map(h).join("; ")}.` : ""}</p>
-      <p>The original WebM files are not published on this site, and they are not in the public frame dataset. Where a file is still in the research folder, that is an access note for the archive, not a download.</p>
-      <p><a href="#/explore/frames">Open Frame Explorer</a> · ${methodLink("recordings", "How recordings were processed")} · <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">Explore the complete frame dataset on Hugging Face</a></p>
-      ${groups.map(({ ss, rows }) => `<h2 id="session-${h(ss.id)}">${h(SESS_NAME[ss.id])}</h2><p class="small">${h(SESS_DATE[ss.id])} · ${num(rows.length)} recordings · WebM</p>${table([{ t: "Pseudonym" }, { t: "Length" }, { t: "Frames listed", num: 1 }, { t: "Video file" }, { t: "Open" }], rows)}`).join("")}
-      <p class="small">Frame counts are the rows in each session manifest. A session note records a duplicate file, a missing original, or a difference between extraction records. It is not a separate copy of this catalogue.</p>
+      ${crumbs([["Collected data", "#/collected"], ["Screen recording frames"]])}
+      <h1>Screen recording frames</h1>
+      <p class="lead">These frames were extracted from screen recordings of the CODAP Arbor sessions. This page shares the frame images stored for the archive, and the metadata that goes with them. The original videos are not offered for download.</p>
+
+      <section class="section-block" id="frame-overview"><h2>Dataset overview</h2>
+        <div class="metric-row">
+          <div class="metric"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} have a behaviour label</div></div>
+          <div class="metric"><div class="v">${num(sessionsWithFrames)}</div><div class="l">Sessions with frames</div><div class="s">${SESS.length} class sessions</div></div>
+          <div class="metric"><div class="v">${num(previewN)}</div><div class="l">Previews on this site</div><div class="s">${num(C.thumbs_per_session)} per session, spaced apart</div></div>
+          <div class="metric"><div class="v">JPEG</div><div class="l">Preview format</div><div class="s">Cropped and softened</div></div>
+        </div>
+        <p>Each frame record has a pseudonym, a session, an elapsed time in that recording, a frame identifier, and a behaviour label when one was coded. ${h(SESS_NAME.codap_21apr)} is ${h(SESS_DATE.codap_21apr)}. ${h(SESS_NAME.codap_28apr)} is ${h(SESS_DATE.codap_28apr)}. ${absent.length ? `No frames were extracted for ${absent.map(h).join("; ")}.` : ""}</p>
+        <p>The previews on this website are not every extracted frame. They are ${num(C.thumbs_per_session)} images per session, taken at intervals through the recording. The other frames are listed with their metadata. Their images are in the public dataset below.</p>
+      </section>
+
+      <section class="section-block" id="frame-explore"><h2>Explore frames</h2>
+        <p>Choose a participant, then a session if you want only one. The labels on each frame are the codes stored with that frame. They are not a summary of the participant.</p>
+        <p class="who-label">Participant</p>
+        <div class="who-row" id="whoRow">${who}</div>
+        <p class="who-label">Session</p>
+        <div class="who-row" id="sessRow">${sess}</div>
+        <div id="frameOut"></div>
+      </section>
+
+      <section class="section-block" id="frame-dataset"><h2>Complete dataset</h2>
+        <div class="dataset-card frame-dataset">
+          <div class="ds-type">Hugging Face · CC BY 4.0</div>
+          <div class="ds-title">DecisionTrees-AICFT-Frames</div>
+          <p class="ds-desc">The public dataset contains the extracted frame images, <code>metadata.csv</code>, and <code>codap_log_anonymized.csv</code>. It does not contain the original videos. Worksheets are not in this dataset.</p>
+          <p class="ds-meta">${num(F.length)} images listed in the dataset repository.</p>
+          <a class="btn frame-dataset-btn" href="${HF_FRAMES}" target="_blank" rel="noopener">Open the complete frame dataset on Hugging Face</a>
+        </div>
+        <p><a class="btn" href="#/methods/recordings">How frames were selected and coded</a></p>
+      </section>
       `)}</div>`;
   }
-
-  // ---- frames
-  const fState = { s: "", ss: "", b: "", prev: false, page: 0, sel: null };
-  const filteredFrames = () => F.filter((f) => (!fState.s || f.s === fState.s) && (!fState.ss || f.ss === fState.ss) &&
-    (!fState.b || (fState.b === "__none" ? !f.b : f.b === fState.b)) && (!fState.prev || f.th));
-  // One existing preview per behaviour code. Participants are taken in archive order,
-  // and a later code uses a different participant when another preview exists.
-  // The set illustrates the codes. It is not a statistical sample.
-  function exampleFrames() {
-    const used = new Set();
-    const out = [];
-    BEHAV.forEach(([code]) => {
-      const cands = F.filter((f) => f.b === code && f.th);
-      if (!cands.length) return;
-      const pick = cands.find((f) => !used.has(f.s)) || cands[0];
-      used.add(pick.s);
-      out.push(pick);
-    });
-    return out;
+  function frameMeta(f) {
+    const flags = (f.ev || []).map((k) => EVIDENCE[k] || k);
+    return `<div class="frame-meta">
+      <p><b>${h(f.s)}</b> · ${h(SESS_NAME[f.ss])} · <span class="mono">${clock(f.t)}</span></p>
+      <dl class="kv">
+        <dt>Frame identifier</dt><dd><code>${h(f.id)}</code></dd>
+        <dt>Elapsed time</dt><dd>${num(f.t, 1)} seconds</dd>
+        <dt>Behaviour label</dt><dd>${f.b ? h(behLabel(f.b)) + " (" + h(f.b) + ")" : "No label stored"}</dd>
+        ${flags.length ? `<dt>Flags stored with the frame</dt><dd>${flags.map(h).join("; ")}</dd>` : ""}
+      </dl>
+    </div>`;
   }
-  function pageFrames(q) {
-    Object.assign(fState, { s: q.s || "", ss: q.ss || "", b: q.b || "", prev: q.p === "1", page: 0, sel: q.f || null });
-    const opt = (vals, cur, label = (x) => x) => `<option value="">All</option>` + vals.map((v) => `<option value="${h(v)}"${v === cur ? " selected" : ""}>${h(label(v))}</option>`).join("");
-    const examples = exampleFrames();
-    const noPreview = BEHAV.filter(([code]) => F.some((f) => f.b === code) && !examples.some((f) => f.b === code)).map(([code]) => behLabel(code));
-    const absentCode = BEHAV.filter(([code]) => !F.some((f) => f.b === code)).map(([, label]) => label);
-    const gallery = `<div class="thumbs">${examples.map((f) => `<figure><a class="thumb" href="#/explore/frames?s=${encodeURIComponent(f.s)}&ss=${encodeURIComponent(f.ss)}&b=${encodeURIComponent(f.b)}&f=${encodeURIComponent(f.id)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt=""></a><figcaption><b>${h(behLabel(f.b))}</b><br>${h(f.s)} · ${h(SESS_NAME[f.ss])} · <span class="mono">${clock(f.t)}</span></figcaption></figure>`).join("")}</div>`;
-    return `<div class="page wide">${exploreShell("frames", `
-      ${crumbs([["Collected data", "#/collected"], ["Frame explorer"]])}
-      <h1>Frame explorer</h1>
-      <p class="lead">This page explores selected frames and the codes already stored for them. It is not the recording catalogue. ${num(F.length)} frames are listed in the session manifests, and ${num(codedFrameCount)} have a behaviour code. The table below shows 25 rows at a time. Images load only for the current page, and only where a preview already exists.</p>
-      <p><a href="#/explore/recordings">Back to the screen-recording catalogue</a> · ${methodLink("recordings", "How a frame was selected and coded")} · <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">Explore the complete frame dataset on Hugging Face</a></p>
-      <h2>Examples by behaviour code</h2>
-      <p class="small">One existing preview for each behaviour code that has one. A later code uses a different participant when that is possible. These examples show what the codes look like. They are not a statistical sample of the ${num(F.length)} frames.${noPreview.length ? ` No preview image is stored for ${noPreview.map(h).join(", ")}.` : ""}${absentCode.length ? ` No listed frame has the code ${absentCode.map(h).join(", ")}.` : ""}</p>
-      ${gallery}
-      <div class="filters">
-        <label>Student<select id="fS">${opt(STUDENTS, fState.s)}</select></label>
-        <label>Session<select id="fSS">${opt(SESS.map((x) => x.id), fState.ss, (x) => SESS_NAME[x])}</select></label>
-        <label>Observed behaviour<select id="fB">${opt(BEHAV.map((b) => b[0]).filter((k) => F.some((f) => f.b === k)), fState.b, behLabel)}${F.some((f) => !f.b) ? `<option value="__none"${fState.b === "__none" ? " selected" : ""}>Not coded</option>` : ""}</select></label>
-        <label class="chk"><input type="checkbox" id="fP"${fState.prev ? " checked" : ""}> Only frames with a preview</label>
-        <button class="btn" id="fCsv" type="button">Download these rows (CSV)</button>
-      </div>
-      <div class="split"><div id="fOut"></div><aside id="fDetail" class="detail" aria-live="polite"></aside></div>`)}</div>`;
-  }
-  function frameDetail(f) {
-    const el = document.getElementById("fDetail");
-    if (!el) return;
-    if (!f) { el.innerHTML = `<p class="empty">Select a frame to see its details.</p>`; return; }
-    const rec = C.sessions[f.s][f.ss];
-    const g = f.gx;
-    const issues = sessionIssues(rec);
-    el.innerHTML = `<h3>${h(f.s)} · ${h(SESS_NAME[f.ss])} · ${clock(f.t)}</h3>
-      ${f.th ? `<button class="thumb big" type="button" data-zoom="thumbs/${h(f.th)}" data-cap="${h(`${f.s} · ${SESS_NAME[f.ss]} · ${clock(f.t)}`)}"><img src="thumbs/${h(f.th)}" alt="Screen at ${clock(f.t)}"></button><p class="small">Cropped and softened for privacy. Click to enlarge.</p>` : `<p class="small">No preview image for this frame. Previews exist for ${C.thumbs_per_session} evenly spaced frames per session.</p>`}
-      ${kv([
-        ["Recording", `<a href="#/explore/recordings#rec-${h(f.s)}-${h(f.ss)}">${h(f.s)} · ${h(SESS_NAME[f.ss])}</a>`],
-        ["Observed behaviour", f.b ? `<span class="sw" style="background:${behColor(f.b)}"></span>${h(behLabel(f.b))}` : "Not coded"],
-        f.b2 && ["Also observed", h(behLabel(f.b2))],
-        f.sc && ["Screen", h(cap(f.sc, SCREEN))],
-        f.ph && ["Phase", h(cap(f.ph, PHASE))],
-        f.b && ["Visible on screen", f.ev ? f.ev.map((k) => h(EVIDENCE[k] || k)).join("<br>") : "No observation flags set"],
-        f.cf && ["Coder confidence", h(cap(f.cf, {}))],
-        ["Why this frame was selected", h(TRIGGERS[f.tr] || f.tr)],
-        f.sp && f.sp !== "unknown" && ["Speaker at that moment", h(f.sp)],
-        ["Related log event", "Not linked frame by frame in the 2026 files"],
-        ["Validation", g ? `Automated coding. Matched by order in time to the researcher's observation step ${h(g.step)} (${h(g.category)}). This match was not checked by a person.` : "Automated coding"],
-      ])}
-      ${issues.length ? `<div class="warn">${h(issues[0])}</div>` : ""}
-      ${tech("Technical details", kv([["Frame ID", `<code>${h(f.id)}</code>`], ["Time in recording (s)", num(f.t, 1)], ["Selection code", `<code>${h(f.tr)}</code>`], f.px != null && ["Screen change (%)", num(f.px, 2)], f.b && ["Behaviour code", `<code>${h(f.b)}</code>`], f.ab && ["Added by", `<code>${h(f.ab)}</code>`]]) + (g && g.note ? `<h4>Observation step text (Turkish)</h4><p class="orig">${h(g.note)}</p>` + src(g.source) : "") + src(rec.manifest && rec.manifest.source) + src(rec.coding && rec.coding.source))}`;
-  }
-  function renderFrameTable() {
-    const out = document.getElementById("fOut");
+  function renderFrameBrowse() {
+    const out = document.getElementById("frameOut");
     if (!out) return;
-    const rows = filteredFrames();
-    const per = 25, pages = Math.max(1, Math.ceil(rows.length / per));
-    if (fState.sel) { const idx = rows.findIndex((f) => f.id === fState.sel); if (idx >= 0) fState.page = Math.floor(idx / per); }
-    fState.page = Math.min(fState.page, pages - 1);
-    const slice = rows.slice(fState.page * per, fState.page * per + per);
-    const showStudent = !fState.s, showSession = !fState.ss;
-    const head = [].concat(showStudent ? [{ t: "Student" }] : []).concat(showSession ? [{ t: "Session" }] : []).concat([{ t: "Time" }, { t: "Preview" }, { t: "Observed behaviour" }, { t: "Evidence" }]);
-    out.innerHTML = `<p class="small">${num(rows.length)} frames${fState.s ? ` for ${h(fState.s)}` : ""}${fState.ss ? ` in ${h(SESS_NAME[fState.ss])}` : ""}</p>
-      ${table(head, slice.map((f) => ({
-        attrs: ` data-fid="${h(f.s + "|" + f.ss + "|" + f.id)}"${fState.sel === f.id ? ' aria-selected="true"' : ""}`,
-        cells: [].concat(showStudent ? [h(f.s)] : []).concat(showSession ? [h(SESS_NAME[f.ss])] : []).concat([
-          `<span class="mono">${clock(f.t)}</span>`,
-          f.th ? `<img class="mini" loading="lazy" src="thumbs/${h(f.th)}" alt="">` : '<span class="na">–</span>',
-          f.b ? `<span class="sw" style="background:${behColor(f.b)}"></span>${h(behLabel(f.b))}` : '<span class="na">Not coded</span>',
-          `<span class="small">${h(f.ev && f.ev.length > 3 ? f.ev.slice(0, 3).map((k) => EVIDENCE[k] || k).join(" · ") + ` · +${f.ev.length - 3} more` : evidenceText(f))}</span>`]),
-      })))}
-      <div class="pager"><button class="btn" id="fPrev" ${fState.page ? "" : "disabled"}>← Previous</button><span>Page ${fState.page + 1} of ${pages}</span><button class="btn" id="fNext" ${fState.page < pages - 1 ? "" : "disabled"}>Next →</button></div>`;
-    out.querySelectorAll("tr[data-fid]").forEach((tr) => {
-      tr.classList.add("click");
-      tr.addEventListener("click", () => {
-        const [s, ss, id] = tr.getAttribute("data-fid").split("|");
-        fState.sel = id;
-        out.querySelectorAll("tr[aria-selected]").forEach((x) => x.removeAttribute("aria-selected"));
-        tr.setAttribute("aria-selected", "true");
-        frameDetail(F.find((f) => f.s === s && f.ss === ss && f.id === id));
-        if (window.innerWidth <= 1280) document.getElementById("fDetail").scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
-    const p = document.getElementById("fPrev"), n = document.getElementById("fNext");
-    if (p) p.onclick = () => { fState.page--; fState.sel = null; renderFrameTable(); };
-    if (n) n.onclick = () => { fState.page++; fState.sel = null; renderFrameTable(); };
-    const selF = fState.sel && rows.find((f) => f.id === fState.sel);
-    frameDetail(selF || null);
-  }
-  function bindWsSearch() {
-    const inp = document.getElementById("wsSearch");
-    const countEl = document.getElementById("wsCount");
-    if (!inp) return;
-    let group = "";
-    function filterWs() {
-      const q = inp.value.trim().toLowerCase();
-      const cards = document.querySelectorAll(".ws-card");
-      let visible = 0;
-      cards.forEach((card) => {
-        const textOk = !q || card.dataset.title.includes(q) || card.dataset.code.toLowerCase().includes(q);
-        const groupOk = !group || card.dataset.group === group;
-        const match = textOk && groupOk;
-        card.classList.toggle("ws-hidden", !match);
-        if (match) visible++;
-      });
-      document.querySelectorAll(".ws-group").forEach((g) => {
-        const hasVisible = Array.from(g.querySelectorAll(".ws-card")).some((c) => !c.classList.contains("ws-hidden"));
-        g.classList.toggle("ws-hidden", !hasVisible);
-      });
-      const filtering = q || group;
-      if (countEl) countEl.textContent = filtering ? `${visible} of ${cards.length} worksheets` : `${cards.length} worksheets`;
-      const empty = document.getElementById("wsEmpty");
-      if (empty) empty.hidden = visible !== 0;
+    document.querySelectorAll("#whoRow .chip").forEach((b) => b.classList.toggle("on", b.dataset.who === frameView.s));
+    document.querySelectorAll("#sessRow .chip").forEach((b) => b.classList.toggle("on", (b.dataset.ss || "") === frameView.ss));
+    if (!frameView.s) {
+      out.innerHTML = `<p>Choose a participant to see that person’s frames. Images load after a participant is selected.</p>`;
+      return;
     }
-    inp.addEventListener("input", filterWs);
-    document.querySelectorAll(".ws-filters .chip").forEach((btn) => {
+    const rows = framesForView();
+    const previews = rows.filter((f) => f.th);
+    const perP = 12;
+    const previewPages = Math.max(1, Math.ceil(previews.length / perP) || 1);
+    if (frameView.sel) {
+      const at = previews.findIndex((f) => f.id === frameView.sel);
+      if (at >= 0) frameView.previewPage = Math.floor(at / perP);
+    }
+    frameView.previewPage = Math.min(frameView.previewPage, previewPages - 1);
+    const slice = previews.slice(frameView.previewPage * perP, frameView.previewPage * perP + perP);
+    const grid = slice.length
+      ? `<div class="thumbs">${slice.map((f) => `<figure><button type="button" class="thumb" data-fid="${h(f.s + "|" + f.ss + "|" + f.id)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt="Frame ${h(f.id)} at ${clock(f.t)}"></button><figcaption><span class="mono">${clock(f.t)}</span> · <code>${h(f.id)}</code><br>${h(f.b ? behLabel(f.b) : "No label")}</figcaption></figure>`).join("")}</div>`
+      : `<p>No preview image is stored on this site for this selection.</p>`;
+    const sel = frameView.sel && rows.find((f) => f.id === frameView.sel);
+    const perL = 25;
+    const listPages = Math.max(1, Math.ceil(rows.length / perL) || 1);
+    frameView.listPage = Math.min(frameView.listPage, listPages - 1);
+    const list = rows.slice(frameView.listPage * perL, frameView.listPage * perL + perL);
+    const tableHtml = table(
+      [{ t: "Time" }, { t: "Frame identifier" }, { t: "Session" }, { t: "Behaviour label" }, { t: "Preview on this site" }],
+      list.map((f) => ({ cells: [`<span class="mono">${clock(f.t)}</span>`, `<code>${h(f.id)}</code>`, h(SESS_NAME[f.ss]), h(f.b ? behLabel(f.b) : "No label"), f.th ? "Yes" : "No"] }))
+    );
+    out.innerHTML = `
+      <h3>Previews for ${h(frameView.s)}${frameView.ss ? " · " + h(SESS_NAME[frameView.ss]) : ""}</h3>
+      <p>${num(previews.length)} preview image${previews.length === 1 ? "" : "s"} on this site, out of ${num(rows.length)} listed frames. Twelve images are shown at a time.</p>
+      ${grid}
+      <div class="pager"><button class="btn" type="button" id="pPrev" ${frameView.previewPage ? "" : "disabled"}>Previous previews</button><span>Page ${previews.length ? frameView.previewPage + 1 : 0} of ${previews.length ? previewPages : 0}</span><button class="btn" type="button" id="pNext" ${frameView.previewPage < previewPages - 1 && previews.length ? "" : "disabled"}>Next previews</button></div>
+      ${sel ? frameMeta(sel) : `<p class="small">Select a preview to read its identifier, time, and stored label.</p>`}
+      <h3>Every listed frame in this selection</h3>
+      <p>This table is the manifest. It does not load an image for every row. ${num(rows.length)} frames. Twenty-five rows are shown at a time.</p>
+      ${tableHtml}
+      <div class="pager"><button class="btn" type="button" id="lPrev" ${frameView.listPage ? "" : "disabled"}>Previous rows</button><span>Page ${rows.length ? frameView.listPage + 1 : 0} of ${rows.length ? listPages : 0}</span><button class="btn" type="button" id="lNext" ${frameView.listPage < listPages - 1 && rows.length ? "" : "disabled"}>Next rows</button></div>
+      <p><button class="btn" type="button" id="frameCsv">Download this frame list (CSV)</button></p>`;
+    const prev = document.getElementById("pPrev"), next = document.getElementById("pNext");
+    if (prev) prev.onclick = () => { frameView.previewPage--; frameView.sel = ""; renderFrameBrowse(); };
+    if (next) next.onclick = () => { frameView.previewPage++; frameView.sel = ""; renderFrameBrowse(); };
+    const lprev = document.getElementById("lPrev"), lnext = document.getElementById("lNext");
+    if (lprev) lprev.onclick = () => { frameView.listPage--; renderFrameBrowse(); };
+    if (lnext) lnext.onclick = () => { frameView.listPage++; renderFrameBrowse(); };
+    out.querySelectorAll("button.thumb[data-fid]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        group = btn.dataset.group || "";
-        document.querySelectorAll(".ws-filters .chip").forEach((b) => {
-          const on = b === btn;
-          b.classList.toggle("on", on);
-          b.setAttribute("aria-pressed", on ? "true" : "false");
-        });
-        filterWs();
+        frameView.sel = btn.getAttribute("data-fid").split("|")[2];
+        renderFrameBrowse();
       });
     });
-  }
-  function bindWsDetail() {
-    const tabs = document.querySelectorAll(".resp-tabs [role=tab]");
-    if (!tabs.length) return;
-    tabs.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const panelId = btn.getAttribute("aria-controls");
-        tabs.forEach((b) => {
-          const on = b === btn;
-          b.classList.toggle("on", on);
-          b.setAttribute("aria-selected", on ? "true" : "false");
-          const panel = document.getElementById(b.getAttribute("aria-controls"));
-          if (panel) panel.hidden = !on;
-        });
-      });
-    });
-  }
-  function bindFrames() {
-    const upd = () => {
-      fState.s = document.getElementById("fS").value; fState.ss = document.getElementById("fSS").value;
-      fState.b = document.getElementById("fB").value; fState.prev = document.getElementById("fP").checked; fState.page = 0; fState.sel = null;
-      const qs = [["s", fState.s], ["ss", fState.ss], ["b", fState.b], ["p", fState.prev ? "1" : ""]].filter((x) => x[1]).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join("&");
-      history.replaceState(null, "", "#/explore/frames" + (qs ? "?" + qs : ""));
-      renderFrameTable();
-    };
-    ["fS", "fSS", "fB", "fP"].forEach((id) => { document.getElementById(id).onchange = upd; });
-    document.getElementById("fCsv").onclick = () => {
-      const head = ["student", "session", "time_s", "primary_behavior", "secondary_behavior", "screen_context", "deepen_phase", "evidence_flags", "confidence", "trigger", "frame_id"];
+    const csvBtn = document.getElementById("frameCsv");
+    if (csvBtn) csvBtn.onclick = () => {
+      const head = ["student", "session", "time_s", "frame_id", "behavior", "preview_on_site"];
       const esc = (v) => { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v; };
-      const csv = [head.join(",")].concat(filteredFrames().map((f) => [f.s, f.ss, f.t, f.b, f.b2, f.sc, f.ph, (f.ev || []).join(";"), f.cf, f.tr, f.id].map(esc).join(","))).join("\n");
+      const csv = [head.join(",")].concat(rows.map((f) => [f.s, f.ss, f.t, f.id, f.b || "", f.th ? "yes" : "no"].map(esc).join(","))).join("\n");
       const a = document.createElement("a");
       a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
-      a.download = "frames_filtered.csv"; document.body.appendChild(a); a.click(); a.remove();
+      a.download = `frames_${frameView.s}${frameView.ss ? "_" + frameView.ss : ""}.csv`;
+      document.body.appendChild(a); a.click(); a.remove();
     };
-    renderFrameTable();
   }
+  function bindFrameBrowse() {
+    const sync = () => {
+      const qs = [["s", frameView.s], ["ss", frameView.ss]].filter((x) => x[1]).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join("&");
+      const next = "#/explore/recordings" + (qs ? "?" + qs : "");
+      if (location.hash !== next && window.history && window.history.replaceState) window.history.replaceState(null, "", next);
+      renderFrameBrowse();
+    };
+    document.querySelectorAll("#whoRow .chip").forEach((b) => {
+      b.addEventListener("click", () => {
+        frameView.s = b.dataset.who;
+        frameView.previewPage = 0;
+        frameView.listPage = 0;
+        frameView.sel = "";
+        sync();
+      });
+    });
+    document.querySelectorAll("#sessRow .chip").forEach((b) => {
+      b.addEventListener("click", () => {
+        frameView.ss = b.dataset.ss || "";
+        frameView.previewPage = 0;
+        frameView.listPage = 0;
+        frameView.sel = "";
+        sync();
+      });
+    });
+    renderFrameBrowse();
+  }
+
 
   function pageLogs() {
     const rows = [];
@@ -1891,8 +1819,7 @@
       <ul class="guide">
         <li><a href="#/explore/worksheets">Worksheets</a><span>Purpose, student responses, item scores, and the blank PDFs.</span></li>
         <li><a href="#/explore/students">Student profiles</a><span>All worksheets, recordings, logs, and notebooks for one student.</span></li>
-        <li><a href="#/explore/recordings">Screen recordings</a><span>The collection of session recordings. Original video files are not published here.</span></li>
-        <li><a href="#/explore/frames">Frame explorer</a><span>Selected frames, behaviour codes, and a paged list. Not the recording catalogue.</span></li>
+        <li><a href="#/explore/recordings">Screen recording frames</a><span>Frames extracted from the sessions, with previews on this site and the full image set on Hugging Face. Original videos are not published.</span></li>
         <li><a href="#/explore/logs">Platform logs</a><span>Session summaries. The anonymised event log is in the Hugging Face frame dataset.</span></li>
         <li><a href="#/explore/notebooks">Python notebooks</a><span>Inspection of the final lizard-data notebooks. Raw notebook files are not published.</span></li>
       </ul>
@@ -1922,7 +1849,7 @@
           <div class="ds-meta">${num(F.length)} listed · ${STUDENTS.length} participants · 2 sessions · CC BY 4.0</div>
           <div class="ds-links">
             <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">View on Hugging Face</a>
-            <a href="#/explore/frames">Browse frames</a>
+            <a href="#/explore/recordings">Browse frames</a>
             <a href="data/frames.csv" download>frames.csv</a>
           </div>
         </div>
@@ -2127,13 +2054,12 @@
       <p class="lead">Verified findings supported by completed analyses will appear here.</p>
       <div class="warn">
         <p><b>This section is not yet populated.</b> The archive currently holds collected data (worksheets, recordings, logs, and notebooks) and the processing pipeline that transforms it into structured evidence. Analytical findings require a completed analysis pass that has not yet been documented in this archive.</p>
-        <p>The evidence collected is browsable in the <a href="#/explore/worksheets">worksheet catalogue</a>, the <a href="#/explore/frames">frame explorer</a>, and the <a href="#/explore/logs">platform logs</a>. The methods used to process this evidence are described in the <a href="#/methods">processing workflow</a>. When verified findings are available, they will be added here with links to the analyses that support them.</p>
+        <p>The evidence collected is browsable in the <a href="#/explore/worksheets">worksheet catalogue</a>, the <a href="#/explore/recordings">screen recording frames</a>, and the <a href="#/explore/logs">platform logs</a>. The methods used to process this evidence are described in the <a href="#/methods">processing workflow</a>. When verified findings are available, they will be added here with links to the analyses that support them.</p>
       </div>
       <h2>Available evidence</h2>
       <ul class="guide">
         <li><a href="#/explore/worksheets">Worksheets</a><span>Extracted student responses with item-level scores for ${C.worksheets.length} worksheets.</span></li>
-        <li><a href="#/explore/recordings">Screen recordings</a><span>The collected session files. Original videos are not published on this site.</span></li>
-        <li><a href="#/explore/frames">Frame explorer</a><span>${num(F.length)} listed frames, ${num(codedFrameCount)} coded. Examples and a paged list, not every image.</span></li>
+        <li><a href="#/explore/recordings">Screen recording frames</a><span>${num(F.length)} extracted frames. Original videos are not published on this site.</span></li>
         <li><a href="#/explore/logs">Platform logs</a><span>${num(logEvents)} CODAP Arbor events across ${STUDENTS.length} participants.</span></li>
         <li><a href="#/explore/notebooks">Python notebooks</a><span>Final project notebooks on the lizard data.</span></li>
       </ul>
@@ -2170,8 +2096,8 @@
       if (sub === "student") html = pageStudent(parts[2], parts[3]);
       else if (sub === "worksheets") { html = pageWorksheets(); after = bindWsSearch; }
       else if (sub === "worksheet") { html = pageWorksheet(parts[2], q); after = bindRespFilter; }
-      else if (sub === "recordings") html = pageRecordings();
-      else if (sub === "frames") { html = pageFrames(q); after = bindFrames; }
+      else if (sub === "recordings") { html = pageRecordings(q); after = bindFrameBrowse; }
+      else if (sub === "frames") { location.replace("#/explore/recordings" + (query ? "?" + query : "")); return; }
       else if (sub === "logs") html = pageLogs();
       else if (sub === "notebooks") html = pageNotebooks();
       else html = pageStudents();
