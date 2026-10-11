@@ -1549,8 +1549,8 @@
     }
     if (code === "WS12") {
       return `<section class="section-block" id="food-cards"><h2>Extended food card dataset (13 cards)</h2>
-        <p>Worksheet 12 uses the same 11 cards as worksheets 4 and 5, plus Somun Ekmek and Vegan Salam. This file is that 13-card set. It is not the 11-card file.</p>
-        <p>The two cards were added so the tree would need a second split. The reason given for that design is that one fat threshold already separated the original 11 cards. The card values do not support that claim. The fat threshold with the fewest mistakes still misclassifies 2 of the 11 cards: Ahududu reçeli (0.2 g fat) and Jelibon (0.1 g fat), both labelled tavsiye edilemez, while some higher-fat cards are labelled tavsiye edilebilir. Those labels were not changed. Somun Ekmek and Vegan Salam are not in the original 11-card source file; their rows are the values supplied for this set.</p>
+        <p>Worksheet 12 uses the 11 food cards from Worksheets 4 and 5, plus Somun Ekmek and Vegan Salam. The extended dataset supports exploring two-level decision trees.</p>
+        <p>Note: The original 11 cards cannot be perfectly separated by a single fat threshold. The original labels and card values have been preserved.</p>
         ${foodDownload("downloads/food_cards_13.csv", "13 food cards", 827)}
         ${foodTable(FOOD_11_ROWS.concat(FOOD_EXTRA_ROWS))}
       </section>`;
