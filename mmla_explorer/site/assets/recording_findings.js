@@ -148,7 +148,7 @@
       const meaning = known ? BEH[code].desc : (kind === "second" ? "Stored as a second label. It is not one of the nine primary codes." : "Not in the nine-code list.");
       return `<tr><td>${swatch(code)}${h(known ? BEH[code].label : code)}</td><td>${h(meaning)}</td><td class="num">${num(counts[code])}</td><td class="num">${pct(counts[code], denom)}</td></tr>`;
     }).join("");
-    return `<div class="table-wrap"><table><thead><tr><th>${kind === "second" ? "Second label" : "Observed behaviour"}</th><th>Meaning</th><th class="num">Frames</th><th class="num">Share</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    return `<div class="table-wrap"><table><thead><tr><th>${kind === "second" ? "Second label" : "Behaviour"}</th><th>Meaning</th><th class="num">Frames</th><th class="num">Share</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   }
 
   function ribbon(model) {
@@ -163,22 +163,7 @@
     const last = model.runs[model.runs.length - 1].end;
     return `<div class="run-ribbon" role="img" aria-label="Order of listed frames by primary behaviour">${bars}</div>
       <div class="axis"><span>First frame ${clock(first)}</span><span>Last frame ${clock(last)}</span></div>
-      <p class="small">Each coloured segment is consecutive listed frames with the same primary label. Width follows how many of the ${num(total)} listed frames are in that segment.</p>`;
-  }
-
-  const CONF_ORDER = ["HIGH", "MEDIUM", "LOW"];
-  function orderedConf(counts) {
-    const keys = CONF_ORDER.filter((k) => counts[k]);
-    Object.keys(counts).forEach((k) => { if (CONF_ORDER.indexOf(k) === -1) keys.push(k); });
-    return keys;
-  }
-
-  function episodes(model) {
-    if (!model.episodes.length) return "";
-    const rows = model.episodes.map((e) => `<tr><td><code>${h(e.id)}</code></td><td>${h(e.category || "–")}</td><td>${clock((e.start || 0) / 1000)}</td><td>${clock((e.end || 0) / 1000)}</td><td>${h(e.assistance || "–")}</td></tr>`).join("");
-    return `<h3>Episode table</h3>
-      <p>This table is a separate coding scheme stored with the session. Its categories are not the nine frame labels, and they are not drawn in those colours.</p>
-      <div class="table-wrap"><table><thead><tr><th>Episode</th><th>Category</th><th>From</th><th>To</th><th>Assistance</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+      <p class="small">The timeline shows the order of listed frames by primary behaviour label. Segment width reflects the number of consecutive frames in each segment, not necessarily elapsed time. These ${num(total)} listed frames are the width.</p>`;
   }
 
   function limits(model) {
@@ -199,8 +184,7 @@
     if (model.fileCounts && !model.countsMatch) {
       items.push("The behaviour totals in the coding file do not match the listed frames. The table uses the listed frames.");
     }
-    items.push("A label describes the visible activity on that frame. It does not describe what the participant understood.");
-    items.push("Original videos are not published. The frame images for this session stay with the collected frames.");
+    items.push("Labels describe the visible activity in the extracted frames. They do not, by themselves, establish the participant's understanding or learning.");
     return `<ul>${items.map((x) => `<li>${h(x)}</li>`).join("")}</ul>`;
   }
 
@@ -208,47 +192,27 @@
     const model = pack.byStudent[student] && pack.byStudent[student][sessionId];
     if (!model) return `<p class="empty">That session is not in this archive.</p>`;
     if (!model.hasRecording) {
-      const episodeNote = model.episodes.length
-        ? `<p>An episode table is stored for this session, and no extracted frames are on record. Those episodes are not shown as frame findings.</p>`
-        : "";
       return `<h3 class="preview-heading">${h(student)} · ${h(model.name)}</h3>
-        <div class="empty-session"><p>No screen recording frames are on record for ${h(student)}, ${h(model.name)}.</p></div>
-        ${episodeNote}`;
+        <div class="empty-session"><p>No screen recording frames are on record for ${h(student)}, ${h(model.name)}.</p></div>`;
     }
     if (!model.coded) {
-      return `<h3 class="preview-heading">${h(student)} · ${h(model.name)}</h3>
+      return `<h3 class="preview-heading">${h(student)} · ${h(model.name)} <span class="small">${h(model.date)}</span></h3>
         <p>${num(model.listed)} frames are listed for this session. Behaviour coding for these frames is unavailable.</p>
-        <p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Open the collected frames for this session</a></p>`;
+        <p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Explore collected frames for this session</a></p>`;
     }
     const denom = model.coded;
     const stack = `<div class="stack" role="img" aria-label="Share of coded frames by behaviour">${orderedCodes(model.primary).map((code) =>
       `<div style="flex:${model.primary[code]};background:${colorOf(code)}"${tipAttr(`<b>${h(labelOf(code))}</b><br>${num(model.primary[code])} frames · ${pct(model.primary[code], denom)}`)}></div>`).join("")}</div>`;
     const legend = `<div class="legend">${orderedCodes(model.primary).map((code) => `<span><i style="background:${colorOf(code)}"></i>${h(labelOf(code))}</span>`).join("")}</div>`;
-    const agree = model.countsMatch ? `<p class="small">These totals match the behaviour counts stored in the coding file (${num(model.framesCodedFile)} coded frames).</p>` : "";
-    const confKeys = orderedConf(model.confidence);
-    const confSum = confKeys.reduce((a, k) => a + model.confidence[k], 0);
-    const conf = confKeys.length ? `<h4>Coder confidence</h4>
-      <p>Confidence is stored on ${num(confSum)} of the ${num(model.coded)} labelled frames. This is the coder’s confidence in the annotation, not a judgment of the participant.</p>
-      <div class="table-wrap"><table><thead><tr><th>Confidence</th><th class="num">Frames</th><th class="num">Share of labelled frames</th></tr></thead><tbody>${confKeys.map((k) => `<tr><td>${h(k.charAt(0) + k.slice(1).toLowerCase())}</td><td class="num">${num(model.confidence[k])}</td><td class="num">${pct(model.confidence[k], denom)}</td></tr>`).join("")}</tbody></table></div>` : `<h4>Coder confidence</h4><p class="missing-line">No coder confidence is stored on these labelled frames.</p>`;
-    const second = model.secondaryFrameCount ? `<h4>Second label</h4>
-      <p>The primary label is the main coded behaviour. A second label is an additional annotation on the same frame. A frame may have both. These counts are not added to the behaviour shares above.</p>
-      <p>${num(model.secondaryFrameCount)} of ${num(model.listed)} listed frames store a second label. Each share below is that label’s count divided by the ${num(model.listed)} listed frames.</p>
-      ${countTable(model.secondary, model.listed, "second")}` : "";
-    const source = model.codingSource ? `<div class="src">${h(model.codingSource)}</div>` : "";
-    const collected = `<p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Open the collected frames for this session</a></p>`;
+    const collected = `<p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Explore collected frames for this session</a></p>`;
     return `<h3 class="preview-heading">${h(student)} · ${h(model.name)} <span class="small">${h(model.date)}</span></h3>
-      <p>${num(model.listed)} frames are listed. ${num(model.coded)} have a primary behaviour label. The shares below use those ${num(denom)} labelled frames as the denominator.</p>
+      <p>${num(model.listed)} frames are listed. ${num(model.coded)} have a primary behaviour label. Shares use those ${num(denom)} labelled frames as the denominator.</p>
       <h3>Observed behaviour</h3>
       ${stack}${legend}
       ${countTable(model.primary, denom, "primary")}
-      ${agree}
       <h3>Order of coded frames</h3>
       ${ribbon(model)}
       ${collected}
-      <details class="tech"><summary>Additional coding details</summary><div class="tech-body">
-        ${second}${conf}${source}
-      </div></details>
-      ${episodes(model)}
       <h3>Limitations</h3>
       ${limits(model)}`;
   }
@@ -265,9 +229,7 @@
     }).join("");
     let current = available[0].id;
     if (sessionId && pack.byStudent[student][sessionId]) current = sessionId;
-    const hidden = pack.sessions.filter((ss) => ss.id !== current && !pack.byStudent[student][ss.id].hasRecording && pack.byStudent[student][ss.id].episodes.length);
-    const aside = hidden.length ? `<p class="small rec-note">${hidden.map((ss) => h(ss.name)).join(" and ")} ${hidden.length === 1 ? "has" : "have"} an episode table and no extracted frames. Those episodes are not shown as frame findings.</p>` : "";
-    return `<h2 class="sess-heading">Choose a session</h2><div class="sess-tabs" role="tablist">${buttons}</div>${aside}<div id="recSession" data-ss="${h(current)}">${sessionPanel(pack, student, current)}</div>`;
+    return `<h2 class="sess-heading">Choose a session</h2><div class="sess-tabs" role="tablist">${buttons}</div><div id="recSession" data-ss="${h(current)}">${sessionPanel(pack, student, current)}</div>`;
   }
 
   function page(q) {
@@ -277,20 +239,17 @@
     const student = pack.students.indexOf(q.s) !== -1 ? q.s : "";
     const sessionId = student ? (q.ss || "") : "";
     const who = pack.students.map((s) => `<button type="button" class="person-card${s === student ? " on" : ""}" data-who="${h(s)}" aria-pressed="${s === student ? "true" : "false"}"><span class="person-name">${h(s)}</span></button>`).join("");
-    const body = student ? tabs(pack, student, sessionId) : `<p class="frame-prompt">Choose a participant, then a session, to read the coded behaviour for that recording.</p>`;
+    const body = student ? tabs(pack, student, sessionId) : `<p class="frame-prompt">Choose a participant, then a session, to read the coded behaviour for that recording.</p><p><a href="#/explore/recordings">Explore collected frames</a></p>`;
     return `<div class="page wide find-page" id="recFind" data-student="${h(student)}" data-session="${h(sessionId)}">
       <p class="kicker">Findings</p>
       <nav class="crumbs" aria-label="Breadcrumb"><a href="#/findings">Findings</a><span aria-hidden="true">/</span><span aria-current="page">Screen recording findings</span></nav>
       <h1>Screen recording findings</h1>
-      <p class="lead">Each listed frame can carry one primary behaviour label. The label names what is visible on that frame. It does not name what the participant understood. Counts are the number of listed frames with that label.</p>
+      <p class="lead">Each frame is coded with a primary behaviour label describing the activity visible in that frame. The results below summarise the distribution and order of these labels; they do not establish what the participant understood.</p>
       <section class="section-block" id="rec-explore">
         <h2>Choose a participant</h2>
         <div class="person-grid" id="recWho">${who}</div>
         <div id="recOut">${body}</div>
       </section>
-      <h2>Collected frames</h2>
-      <p>The frame images, including the preview subset on this site, stay with the collected data. <a href="#/explore/recordings">Open the screen recording frames</a>. Original videos are not published.</p>
-      <p><a href="#/methods/recordings">How frames were selected and coded</a></p>
     </div>`;
   }
 
@@ -309,7 +268,7 @@
       });
       const out = document.getElementById("recOut");
       if (!out) return;
-      out.innerHTML = view.s ? tabs(pack, view.s, view.ss) : `<p class="frame-prompt">Choose a participant, then a session, to read the coded behaviour for that recording.</p>`;
+      out.innerHTML = view.s ? tabs(pack, view.s, view.ss) : `<p class="frame-prompt">Choose a participant, then a session, to read the coded behaviour for that recording.</p><p><a href="#/explore/recordings">Explore collected frames</a></p>`;
       out.querySelectorAll(".sess-tab").forEach((b) => {
         b.addEventListener("click", () => {
           view.ss = b.dataset.ss;

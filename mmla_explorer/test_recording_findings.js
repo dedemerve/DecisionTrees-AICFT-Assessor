@@ -78,8 +78,12 @@ core.students.forEach((student) => {
       check(html.indexOf("#/explore/recordings?s=" + encodeURIComponent(student)) !== -1, student + " " + ss.id + " links to collected frames");
       const obs = html.indexOf("Observed behaviour");
       const order = html.indexOf("Order of coded frames");
-      const extra = html.indexOf("Additional coding details");
-      check(obs !== -1 && order > obs && extra > order, student + " " + ss.id + " section order");
+      const frames = html.indexOf("Explore collected frames for this session");
+      check(obs !== -1 && order > obs && frames > order, student + " " + ss.id + " section order");
+      check(html.indexOf("Additional coding details") === -1, student + " " + ss.id + " omits additional coding details");
+      check(html.indexOf("Second label") === -1 && html.indexOf("Coder confidence") === -1, student + " " + ss.id + " omits second labels and coder confidence");
+      check(html.indexOf("Episode table") === -1, student + " " + ss.id + " omits the episode table");
+      check(html.indexOf(model.codingSource || "___no_source___") === -1, student + " " + ss.id + " omits the coding-file path");
     }
   });
 });
@@ -96,16 +100,15 @@ check(amy.indexOf("140") !== -1 && amy.indexOf("370") !== -1, "Amy session shows
 check(amy.indexOf("loading=\"lazy\"") === -1 && amy.indexOf("preview images") === -1, "Amy findings omit preview images");
 check(amy.indexOf(".webm") === -1 && amy.indexOf(".mp4") === -1, "original videos are not linked");
 check(amy.indexOf("#/explore/recordings?s=Amy") !== -1, "session links to collected frames");
-check(amy.indexOf("not the nine frame labels") !== -1, "episodes stay a separate scheme");
-check(amy.indexOf("Select target") !== -1, "Amy's second label select target is shown");
+check(amy.indexOf("Episode table") === -1 && amy.indexOf("Select target") === -1, "Amy's page does not show the episode table or a second label");
 
 const amyMissing = RF.page({ s: "Amy", ss: "codap_28apr" });
 check(amyMissing.indexOf("No screen recording frames are on record") !== -1, "Amy session 2 states that frames are missing");
-check(amyMissing.indexOf("not shown as frame findings") !== -1, "Amy session 2 does not treat the episode table as frame findings");
+check(amyMissing.indexOf("Episode table") === -1, "Amy session 2 does not show an episode table");
 check(amyMissing.indexOf("Observed behaviour") === -1, "Amy session 2 does not invent a behaviour summary");
 
 const helena = RF.page({ s: "Helena", ss: "codap_21apr" });
-check(helena.indexOf("STRUGGLE") !== -1 && helena.indexOf("not one of the nine primary codes") !== -1, "an unknown second label stays outside the nine codes");
+check(helena.indexOf("STRUGGLE") === -1, "Helena's unknown second label is not shown on the findings page");
 
 const irma = RF.page({ s: "Irma", ss: "codap_28apr" });
 check(irma.indexOf("same file") !== -1, "Irma's duplicate video is named");
@@ -134,12 +137,14 @@ check(bruno.secondary.TUNE_THRESHOLD === 3, "Bruno session 2 secondary tune thre
 check(bruno.secondaryFrameCount === 165, "Bruno session 2 has 165 frames with a second label");
 check(bruno.confidence.HIGH === 46 && bruno.confidence.MEDIUM === 198 && bruno.confidence.LOW === 2, "Bruno session 2 confidence counts");
 const brunoHtml = RF.page({ s: "Bruno", ss: "codap_28apr" });
-check(brunoHtml.indexOf("165 of 246 listed frames store a second label") !== -1, "Bruno session 2 states the second-label denominator");
+check(brunoHtml.indexOf("165 of 246 listed frames store a second label") === -1, "Bruno session 2 does not show the second-label table");
+check(brunoHtml.indexOf("Coder confidence") === -1 && brunoHtml.indexOf("Episode table") === -1, "Bruno session 2 omits confidence and episodes");
 check(brunoHtml.indexOf("Preview frames") === -1, "Bruno session 2 has no preview gallery");
+check(brunoHtml.indexOf("157") !== -1 && brunoHtml.indexOf("53") !== -1, "Bruno session 2 still shows the primary counts");
 const brunoObs = brunoHtml.indexOf(">Observed behaviour<");
 const brunoOrder = brunoHtml.indexOf("Order of coded frames");
-const brunoExtra = brunoHtml.indexOf("Additional coding details");
-check(brunoObs !== -1 && brunoOrder > brunoObs && brunoExtra > brunoOrder, "Bruno session 2 puts the timeline before additional coding");
+const brunoFrames = brunoHtml.indexOf("Explore collected frames for this session");
+check(brunoObs !== -1 && brunoOrder > brunoObs && brunoFrames > brunoOrder, "Bruno session 2 puts the timeline before the collected-frames link");
 
 const fixtureCore = {
   students: ["Ada"],
