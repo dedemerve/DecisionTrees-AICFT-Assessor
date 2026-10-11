@@ -743,7 +743,7 @@ section.dl h3 { margin: 8px 0 4px; font-family: var(--mono); font-size: 15px; fo
 .detail .kv dt { margin-top: 8px; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; }
 tr[aria-selected="true"] td { background: var(--accent-soft); }
 img.mini { width: 96px; height: auto; display: block; border-radius: 4px; }
-button.thumb { padding: 0; border: 0; background: none; cursor: zoom-in; display: block; width: 100%; }
+button.thumb, a.thumb { padding: 0; border: 0; background: none; cursor: zoom-in; display: block; width: 100%; text-decoration: none; color: inherit; }
 button.thumb.big { margin-bottom: 4px; }
 .lightbox { position: fixed; inset: 0; z-index: 140; background: rgba(12, 24, 40, 0.88); display: none; align-items: center; justify-content: center; flex-direction: column; gap: 12px; padding: 24px; }
 .lightbox.open { display: flex; }

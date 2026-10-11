@@ -559,6 +559,7 @@
           <div class="flow-arr" aria-hidden="true">→</div>
           <div class="flow-node flow-node--output">Coded<br>evidence</div>
         </div>
+        <p>The source files are listed in the <a href="#/explore/recordings">screen-recording catalogue</a>. <a href="#/explore/frames">Frame Explorer</a> is where the kept frames and their codes can be inspected. It is not an extra processing stage, and it does not repeat the file list.</p>
         <p>The pipeline keeps a frame when the screen changes enough, when someone is speaking, or when nothing has been captured for a while, and drops near-duplicates. Where a recording has usable speech, that speech is transcribed. Recordings without usable speech are marked.</p>
         <p>Each kept frame receives one label from a nine-code codebook developed after earlier human coding. The labels describe visible activity: working with data or the tree, judging the model, or idle and off-task states. When two labels could fit, building a tree takes precedence.</p>
         <p>A frame shows one moment of visible activity. It does not show what the student was thinking. ${num(linkedFrames)} frames are matched to researcher observation steps by time order — automatically and without per-frame verification. Episode categories in the session tables are not the nine behaviour labels.</p>
@@ -817,7 +818,7 @@
     if (thumbs.length) {
       out += `<h4>Sample frames</h4><div class="thumbs">${thumbs.map((f) => `<figure><button class="thumb" type="button" data-zoom="thumbs/${h(f.th)}" data-cap="${h(`${s} · ${SESS_NAME[ss.id]} · ${clock(f.t)} · ${behLabel(f.b)}`)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt="Screen at ${clock(f.t)}"></button><figcaption><span class="mono">${clock(f.t)}</span> · ${h(f.b ? behLabel(f.b) : "Not coded")}</figcaption></figure>`).join("")}</div>`;
     }
-    out += `<p><a class="btn" href="#/explore/frames?s=${h(s)}&ss=${h(ss.id)}">See all ${num(r.manifest.frames)} frames</a> ${methodLink("recordings")}</p>`;
+    out += `<p><a class="btn" href="#/explore/frames?s=${h(s)}&ss=${h(ss.id)}">Open in Frame Explorer</a> <a href="#/explore/recordings#rec-${h(s)}-${h(ss.id)}">Recording in the catalogue</a> ${methodLink("recordings")}</p>`;
     // technical
     const m = r.manifest, sp = r.speech, ep = (C.episodes[s] || {})[ss.id];
     const SUM = { candidate_frames_considered: "Candidate frames considered", visual_duplicates_filtered: "Removed as near-duplicates", temporal_duplicates_filtered: "Removed as too close in time", non_task_screens_filtered: "Removed as unrelated screens", pruned_frames_removed: "Removed in a later clean-up", total_frames_extracted: "Frames kept" };
@@ -1112,8 +1113,8 @@
       <p class="lead">Material gathered from the ${STUDENTS.length} pre-service teachers in the decision-tree unit. Choose a category. Processing steps and research claims are in the other sections.</p>
       <div class="cat-grid">
         <a class="cat-card" href="#/explore/worksheets"><div class="arch-ico" aria-hidden="true">WS</div><h3>Worksheets</h3><p>${C.worksheets.length} instructional worksheets. Open one for its blank file, answer key, and the scanned student submissions.</p></a>
-        <a class="cat-card" href="#/explore/recordings"><div class="arch-ico" aria-hidden="true">SR</div><h3>Screen recordings</h3><p>${num(sessions)} CODAP Arbor session manifests. A row is one student in one session.</p></a>
-        <a class="cat-card" href="#/explore/frames"><div class="arch-ico" aria-hidden="true">FR</div><h3>Frames</h3><p>${num(F.length)} listed frames, ${num(codedFrameCount)} coded. The browser shows a filterable sample, not every image.</p></a>
+        <a class="cat-card" href="#/explore/recordings"><div class="arch-ico" aria-hidden="true">SR</div><h3>Screen recordings</h3><p>${num(sessions)} session recordings with a manifest, listed as a collection. The original video files are not published on this site.</p></a>
+        <a class="cat-card" href="#/explore/frames"><div class="arch-ico" aria-hidden="true">FR</div><h3>Frame explorer</h3><p>${num(F.length)} listed frames, ${num(codedFrameCount)} coded. The page shows examples and a paged list, not every image.</p></a>
         <a class="cat-card" href="#/explore/logs"><div class="arch-ico" aria-hidden="true">LG</div><h3>Platform logs</h3><p>${num(logEvents)} time-stamped CODAP Arbor actions. Logs are not matched to individual frames.</p></a>
         <a class="cat-card" href="#/explore/notebooks"><div class="arch-ico" aria-hidden="true">NB</div><h3>Python notebooks</h3><p>${num(notebooksPresent)} final-project notebook files were inspected. Raw notebook files are not published on this site.</p></a>
         <a class="cat-card" href="#/explore/students"><div class="arch-ico" aria-hidden="true">ST</div><h3>Student profiles</h3><p>${STUDENTS.length} pseudonyms. Each profile gathers that person’s worksheets, recordings, logs, and notebook record.</p></a>
@@ -1483,6 +1484,50 @@
       return true;
     });
   }
+  const FOOD_HEADERS = ["Yiyecek Adı", "Enerji (kcal)", "Yağ (g)", "Doymuş Yağ (g)", "Karbonhidrat (g)", "Şeker (g)", "Protein (g)", "Tuz (g)", "Etiket"];
+  const FOOD_11_ROWS = [
+    ["Salatalık", "12", "0.1", "0", "3.6", "1.7", "0.7", "0", "Tavsiye edilebilir"],
+    ["Patates", "71", "0.1", "0", "15", "0.8", "1.7", "2", "Tavsiye edilebilir"],
+    ["Elma", "52", "0.2", "0", "13.8", "11", "0.3", "0", "Tavsiye edilebilir"],
+    ["Ahududu reçeli", "223", "0.2", "0", "52.2", "51.7", "0.7", "0", "Tavsiye edilemez"],
+    ["Yulaf", "368", "7", "1.5", "58.7", "0.7", "13.5", "0", "Tavsiye edilebilir"],
+    ["Jelibon", "343", "0.1", "0.1", "77", "46", "6.9", "0.1", "Tavsiye edilemez"],
+    ["Avokado", "160", "13", "2.8", "2", "0.7", "1.5", "0.1", "Tavsiye edilebilir"],
+    ["Sütlü çikolata", "530", "29.5", "17.5", "58.5", "57.5", "6.6", "0.2", "Tavsiye edilemez"],
+    ["Kraker", "349", "3", "0.7", "61", "0.7", "12", "0.5", "Tavsiye edilebilir"],
+    ["Patates kızartması", "289", "14", "1.3", "36", "0.3", "3.4", "0.7", "Tavsiye edilemez"],
+    ["Patlamış mısır", "499", "23", "13.8", "57", "3.8", "10.7", "1.8", "Tavsiye edilemez"]
+  ];
+  const FOOD_EXTRA_ROWS = [
+    ["Somun Ekmek", "271", "1.6", "0.5", "55", "1.2", "8", "1.7", "Tavsiye edilemez"],
+    ["Vegan Salam", "345", "33", "23", "5.8", "1.6", "5.7", "1.6", "Tavsiye edilemez"]
+  ];
+  function foodTable(rows) {
+    const head = `<tr>${FOOD_HEADERS.map((c) => `<th>${h(c)}</th>`).join("")}</tr>`;
+    const body = rows.map((r) => `<tr>${r.map((c) => `<td>${h(c)}</td>`).join("")}</tr>`).join("");
+    return `<div class="table-wrap"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  }
+  function foodDownload(href, title, size) {
+    return `<ul class="file-list"><li class="file-item"><a href="${h(href)}" download="${h(href.split("/").pop())}">${h(title)}</a><span class="file-meta">CSV, UTF-8 · ${num(size)} bytes</span></li></ul>`;
+  }
+  function foodCardSection(code) {
+    if (code === "WS4" || code === "WS5") {
+      return `<section class="section-block" id="food-cards"><h2>Food card dataset</h2>
+        <p>These are the 11 food cards for the task “search for the fat threshold that misclassifies the fewest cards.” The rows are the classroom set used to check worksheets 4 to 7. Names and nutrient values are copied from that source. The label is the Turkish class wording.</p>
+        ${foodDownload("downloads/food_cards_11.csv", "11 food cards", 718)}
+        ${foodTable(FOOD_11_ROWS)}
+      </section>`;
+    }
+    if (code === "WS12") {
+      return `<section class="section-block" id="food-cards"><h2>Extended food card dataset (13 cards)</h2>
+        <p>Worksheet 12 uses the same 11 cards as worksheets 4 and 5, plus Somun Ekmek and Vegan Salam. This file is that 13-card set. It is not the 11-card file.</p>
+        <p>The two cards were added so the tree would need a second split. The reason given for that design is that one fat threshold already separated the original 11 cards. The card values do not support that claim. The fat threshold with the fewest mistakes still misclassifies 2 of the 11 cards: Ahududu reçeli (0.2 g fat) and Jelibon (0.1 g fat), both labelled tavsiye edilemez, while some higher-fat cards are labelled tavsiye edilebilir. Those labels were not changed. Somun Ekmek and Vegan Salam are not in the original 11-card source file; their rows are the values supplied for this set.</p>
+        ${foodDownload("downloads/food_cards_13.csv", "13 food cards", 827)}
+        ${foodTable(FOOD_11_ROWS.concat(FOOD_EXTRA_ROWS))}
+      </section>`;
+    }
+    return "";
+  }
   function fileList(items, empty) {
     const unique = uniqueFiles(items);
     if (!unique.length) return `<p class="missing-line">${empty}</p>`;
@@ -1513,6 +1558,7 @@
         ${loBrief(code)}
         <p class="small">Extracted answers and item scores are not listed on this page. <a href="#/methods/worksheets">How worksheets were checked \u2192</a></p>
       </section>
+      ${foodCardSection(code)}
       <section class="section-block" id="materials"><h2>Worksheet materials</h2>
         <p class="small">Each distinct blank worksheet or answer key is listed once.</p>
         ${fileList(files.materials, "No blank worksheet or answer key could be matched to this worksheet.")}
@@ -1524,38 +1570,85 @@
       `)}</div>`;
   }
 
+  function recordingFileNote(r) {
+    if (!r.video_bytes) return "No video file is listed";
+    const parts = [`WebM · ${bytes(r.video_bytes)}`];
+    parts.push(r.video_on_disk === false ? "no longer in the data folder" : "in the research folder, not published");
+    if (r.same_video_file_as) parts.push(`same file as ${r.same_video_file_as.map((id) => SESS_NAME[id]).join(" and ")}`);
+    return parts.join(" · ");
+  }
   function pageRecordings() {
-    const rows = [];
-    STUDENTS.forEach((s) => SESS.forEach((ss) => {
-      const r = C.sessions[s][ss.id];
-      if (!r.manifest) return;
-      rows.push({ href: `#/explore/student/${s}/recordings`, cells: [`<a href="#/explore/student/${h(s)}/recordings">${h(s)}</a>`, h(SESS_NAME[ss.id]), dur(lengthOf(r)), num(r.manifest.frames), r.coding ? `<div class="mix">${behaviorStack(r.coding.behaviors)}</div>` : '<span class="na">not coded</span>'] });
-    }));
-    const tot = {};
-    allSessions.forEach((r) => { if (r.coding) addCounts(tot, r.coding.behaviors); });
+    const listed = allSessions.filter((r) => r.manifest);
+    const totalSec = sum(listed.map(lengthOf));
+    const absent = [];
+    STUDENTS.forEach((s) => SESS.forEach((ss) => { if (!C.sessions[s][ss.id].manifest) absent.push(`${s} · ${SESS_NAME[ss.id]}`); }));
+    const groups = SESS.map((ss) => {
+      const rows = [];
+      STUDENTS.forEach((s) => {
+        const r = C.sessions[s][ss.id];
+        if (!r.manifest) return;
+        rows.push({ cells: [
+          `<span id="rec-${h(s)}-${h(ss.id)}">${h(s)}</span>`,
+          dur(lengthOf(r)),
+          num(r.manifest.frames),
+          h(recordingFileNote(r)),
+          `<a href="#/explore/frames?s=${encodeURIComponent(s)}&ss=${encodeURIComponent(ss.id)}">Frames</a> · <a href="#/explore/student/${h(s)}/recordings">Session notes</a>`,
+        ] });
+      });
+      return { ss, rows };
+    });
     return `<div class="page wide">${exploreShell("recordings", `
       ${crumbs([["Collected data", "#/collected"], ["Screen recordings"]])}
       <h1>Screen recordings</h1>
-      <p class="lead">One row per student and session. The frame count is the manifest list for that session. ${num(codedFrameCount)} of ${num(F.length)} listed frames have a behaviour code. Where an extraction summary reports a different total, the session page says so.</p>
-      ${legend(BEHAV.map((b) => b[0]))}
-      ${table([{ t: "Student" }, { t: "Session" }, { t: "Length" }, { t: "Frames", num: 1 }, { t: "Behaviour mix" }], rows)}
-      <h2>All coded frames together</h2>
-      <p>${num(sum(Object.values(tot)))} frames from the two CODAP sessions.</p>
-      ${behaviorStack(tot)}${behaviorTable(tot)}
-      <p>${methodLink("recordings")}</p>`)}</div>`;
+      <p class="lead">These are the raw screen recordings from the CODAP Arbor sessions. Each row is one recording in the collection. Behaviour codes are not listed here.</p>
+      <div class="metric-row">
+        <div class="metric"><div class="v">${num(listed.length)}</div><div class="l">Recordings with a manifest</div><div class="s">${num(uniqueVideoList.length)} distinct video files</div></div>
+        <div class="metric"><div class="v">${dur(totalSec)}</div><div class="l">Listed length</div><div class="s">${dur(uniqueVideoSeconds)} if duplicate files are counted once</div></div>
+        <div class="metric"><div class="v">${SESS.length}</div><div class="l">Sessions</div><div class="s">WebM</div></div>
+        <div class="metric"><div class="v">${num(absent.length)}</div><div class="l">Pairs with no recording</div><div class="s">of ${num(STUDENTS.length * SESS.length)} participant–session pairs</div></div>
+      </div>
+      <p>Participants are pseudonyms. A recording is the participant’s own screen during one session. Two sessions share one file for Irma, and two sessions share one file for Zara, so those lengths are not two separate videos. ${absent.length ? `No recording file is listed for ${absent.map(h).join("; ")}.` : ""}</p>
+      <p>The original WebM files are not published on this site, and they are not in the public frame dataset. Where a file is still in the research folder, that is an access note for the archive, not a download.</p>
+      <p><a href="#/explore/frames">Open Frame Explorer</a> · ${methodLink("recordings", "How recordings were processed")} · <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">Explore the complete frame dataset on Hugging Face</a></p>
+      ${groups.map(({ ss, rows }) => `<h2 id="session-${h(ss.id)}">${h(SESS_NAME[ss.id])}</h2><p class="small">${h(SESS_DATE[ss.id])} · ${num(rows.length)} recordings · WebM</p>${table([{ t: "Pseudonym" }, { t: "Length" }, { t: "Frames listed", num: 1 }, { t: "Video file" }, { t: "Open" }], rows)}`).join("")}
+      <p class="small">Frame counts are the rows in each session manifest. A session note records a duplicate file, a missing original, or a difference between extraction records. It is not a separate copy of this catalogue.</p>
+      `)}</div>`;
   }
 
   // ---- frames
   const fState = { s: "", ss: "", b: "", prev: false, page: 0, sel: null };
   const filteredFrames = () => F.filter((f) => (!fState.s || f.s === fState.s) && (!fState.ss || f.ss === fState.ss) &&
     (!fState.b || (fState.b === "__none" ? !f.b : f.b === fState.b)) && (!fState.prev || f.th));
+  // One existing preview per behaviour code. Participants are taken in archive order,
+  // and a later code uses a different participant when another preview exists.
+  // The set illustrates the codes. It is not a statistical sample.
+  function exampleFrames() {
+    const used = new Set();
+    const out = [];
+    BEHAV.forEach(([code]) => {
+      const cands = F.filter((f) => f.b === code && f.th);
+      if (!cands.length) return;
+      const pick = cands.find((f) => !used.has(f.s)) || cands[0];
+      used.add(pick.s);
+      out.push(pick);
+    });
+    return out;
+  }
   function pageFrames(q) {
     Object.assign(fState, { s: q.s || "", ss: q.ss || "", b: q.b || "", prev: q.p === "1", page: 0, sel: q.f || null });
     const opt = (vals, cur, label = (x) => x) => `<option value="">All</option>` + vals.map((v) => `<option value="${h(v)}"${v === cur ? " selected" : ""}>${h(label(v))}</option>`).join("");
+    const examples = exampleFrames();
+    const noPreview = BEHAV.filter(([code]) => F.some((f) => f.b === code) && !examples.some((f) => f.b === code)).map(([code]) => behLabel(code));
+    const absentCode = BEHAV.filter(([code]) => !F.some((f) => f.b === code)).map(([, label]) => label);
+    const gallery = `<div class="thumbs">${examples.map((f) => `<figure><a class="thumb" href="#/explore/frames?s=${encodeURIComponent(f.s)}&ss=${encodeURIComponent(f.ss)}&b=${encodeURIComponent(f.b)}&f=${encodeURIComponent(f.id)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt=""></a><figcaption><b>${h(behLabel(f.b))}</b><br>${h(f.s)} · ${h(SESS_NAME[f.ss])} · <span class="mono">${clock(f.t)}</span></figcaption></figure>`).join("")}</div>`;
     return `<div class="page wide">${exploreShell("frames", `
       ${crumbs([["Collected data", "#/collected"], ["Frame explorer"]])}
       <h1>Frame explorer</h1>
-      <p class="lead">${num(F.length)} frames are listed in the session manifests. ${num(codedFrameCount)} are coded for behaviour. This page filters that list. It does not display every frame image. Previews exist for ${C.thumbs_per_session} evenly spaced frames per session. The full coded-frame collection, including images, is the public dataset <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">DecisionTrees-AICFT-Frames</a>.</p>
+      <p class="lead">This page explores selected frames and the codes already stored for them. It is not the recording catalogue. ${num(F.length)} frames are listed in the session manifests, and ${num(codedFrameCount)} have a behaviour code. The table below shows 25 rows at a time. Images load only for the current page, and only where a preview already exists.</p>
+      <p><a href="#/explore/recordings">Back to the screen-recording catalogue</a> · ${methodLink("recordings", "How a frame was selected and coded")} · <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">Explore the complete frame dataset on Hugging Face</a></p>
+      <h2>Examples by behaviour code</h2>
+      <p class="small">One existing preview for each behaviour code that has one. A later code uses a different participant when that is possible. These examples show what the codes look like. They are not a statistical sample of the ${num(F.length)} frames.${noPreview.length ? ` No preview image is stored for ${noPreview.map(h).join(", ")}.` : ""}${absentCode.length ? ` No listed frame has the code ${absentCode.map(h).join(", ")}.` : ""}</p>
+      ${gallery}
       <div class="filters">
         <label>Student<select id="fS">${opt(STUDENTS, fState.s)}</select></label>
         <label>Session<select id="fSS">${opt(SESS.map((x) => x.id), fState.ss, (x) => SESS_NAME[x])}</select></label>
@@ -1575,6 +1668,7 @@
     el.innerHTML = `<h3>${h(f.s)} · ${h(SESS_NAME[f.ss])} · ${clock(f.t)}</h3>
       ${f.th ? `<button class="thumb big" type="button" data-zoom="thumbs/${h(f.th)}" data-cap="${h(`${f.s} · ${SESS_NAME[f.ss]} · ${clock(f.t)}`)}"><img src="thumbs/${h(f.th)}" alt="Screen at ${clock(f.t)}"></button><p class="small">Cropped and softened for privacy. Click to enlarge.</p>` : `<p class="small">No preview image for this frame. Previews exist for ${C.thumbs_per_session} evenly spaced frames per session.</p>`}
       ${kv([
+        ["Recording", `<a href="#/explore/recordings#rec-${h(f.s)}-${h(f.ss)}">${h(f.s)} · ${h(SESS_NAME[f.ss])}</a>`],
         ["Observed behaviour", f.b ? `<span class="sw" style="background:${behColor(f.b)}"></span>${h(behLabel(f.b))}` : "Not coded"],
         f.b2 && ["Also observed", h(behLabel(f.b2))],
         f.sc && ["Screen", h(cap(f.sc, SCREEN))],
@@ -1797,8 +1891,8 @@
       <ul class="guide">
         <li><a href="#/explore/worksheets">Worksheets</a><span>Purpose, student responses, item scores, and the blank PDFs.</span></li>
         <li><a href="#/explore/students">Student profiles</a><span>All worksheets, recordings, logs, and notebooks for one student.</span></li>
-        <li><a href="#/explore/recordings">Screen recordings</a><span>One row per student and session, with behaviour over time.</span></li>
-        <li><a href="#/explore/frames">Frame explorer</a><span>Manifest-listed frames and their behaviour codes.</span></li>
+        <li><a href="#/explore/recordings">Screen recordings</a><span>The collection of session recordings. Original video files are not published here.</span></li>
+        <li><a href="#/explore/frames">Frame explorer</a><span>Selected frames, behaviour codes, and a paged list. Not the recording catalogue.</span></li>
         <li><a href="#/explore/logs">Platform logs</a><span>Session summaries. The anonymised event log is in the Hugging Face frame dataset.</span></li>
         <li><a href="#/explore/notebooks">Python notebooks</a><span>Inspection of the final lizard-data notebooks. Raw notebook files are not published.</span></li>
       </ul>
@@ -1862,7 +1956,7 @@
       }));
     if (cards) {
       const nutr = [["energy_kcal", "Energy (kcal)"], ["fat_g", "Fat (g)"], ["saturated_fat_g", "Saturated fat (g)"], ["carbohydrates_g", "Carbohydrates (g)"], ["sugar_g", "Sugar (g)"], ["protein_g", "Protein (g)"], ["salt_g", "Salt (g)"]];
-      out += `<h2 id="food">Food data cards</h2><p>The ${cards.rows.length} food cards used in worksheets 4 to 7. The Python checks for WS5, WS6 and WS7 compute the correct answers from this table. <a href="${h(cards.file)}" download>Download CSV</a></p>` +
+      out += `<h2 id="food">Food data cards</h2><p>The ${cards.rows.length} food cards used in worksheets 4 to 7. The Python checks for WS5, WS6 and WS7 compute the correct answers from this table. <a href="${h(cards.file)}" download>Download CSV</a> Worksheets 4 and 5 also offer this set with Turkish column names. Worksheet 12 uses those 11 cards plus Somun Ekmek and Vegan Salam; that 13-card file is on the worksheet 12 page.</p>` +
         table([{ t: "Food" }, { t: "Turkish name" }, { t: "Label" }].concat(nutr.map(([, l]) => ({ t: l, num: 1 }))),
           cards.rows.map((r) => ({ cells: [h(r.name_en), `<span class="orig">${h(r.name_tr)}</span>`, h(LABEL[r.label] || r.label)].concat(nutr.map(([k]) => h(r[k]))) })));
     }
@@ -2038,8 +2132,8 @@
       <h2>Available evidence</h2>
       <ul class="guide">
         <li><a href="#/explore/worksheets">Worksheets</a><span>Extracted student responses with item-level scores for ${C.worksheets.length} worksheets.</span></li>
-        <li><a href="#/explore/recordings">Screen recordings</a><span>Behaviour-coded frames from CODAP Arbor sessions.</span></li>
-        <li><a href="#/explore/frames">Frame explorer</a><span>${num(F.length)} frames, ${num(codedFrameCount)} coded for behaviour.</span></li>
+        <li><a href="#/explore/recordings">Screen recordings</a><span>The collected session files. Original videos are not published on this site.</span></li>
+        <li><a href="#/explore/frames">Frame explorer</a><span>${num(F.length)} listed frames, ${num(codedFrameCount)} coded. Examples and a paged list, not every image.</span></li>
         <li><a href="#/explore/logs">Platform logs</a><span>${num(logEvents)} CODAP Arbor events across ${STUDENTS.length} participants.</span></li>
         <li><a href="#/explore/notebooks">Python notebooks</a><span>Final project notebooks on the lizard data.</span></li>
       </ul>
