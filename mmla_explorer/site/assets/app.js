@@ -391,39 +391,40 @@
           </div>
         </div>
         <figure class="hero-visual">
-          <p class="hero-diagram-label">Worksheet 3 · given rule</p>
-          <svg viewBox="0 0 560 220" role="img" aria-label="Schematic of the worksheet rule: if fat is at most 8 grams, the card is recommended; otherwise it is not.">
-            <path d="M280 56 V104 H145 V148 M280 104 H415 V148" fill="none" stroke="#2458A6" stroke-width="1.5"/>
-            <rect x="176" y="4" width="208" height="52" fill="#172B4D"/>
-            <text x="280" y="36" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="600">Fat ≤ 8.0 g</text>
-            <text x="212" y="96" text-anchor="middle" fill="#2458A6" font-size="12" font-weight="600">yes</text>
-            <text x="348" y="96" text-anchor="middle" fill="#586579" font-size="12" font-weight="600">no</text>
-            <rect x="40" y="148" width="210" height="64" fill="#EDF3FB" stroke="#2458A6" stroke-width="1"/>
-            <text x="145" y="176" text-anchor="middle" fill="#172B4D" font-size="15" font-weight="600">Recommended</text>
-            <text x="145" y="196" text-anchor="middle" fill="#586579" font-size="12">fat is at most 8.0 g</text>
-            <rect x="310" y="148" width="210" height="64" fill="#F6F8FB" stroke="#D8DEE8" stroke-width="1"/>
-            <text x="415" y="176" text-anchor="middle" fill="#172B4D" font-size="15" font-weight="600">Not recommended</text>
-            <text x="415" y="196" text-anchor="middle" fill="#586579" font-size="12">fat is above 8.0 g</text>
+          <p class="hero-diagram-label">Illustration</p>
+          <svg viewBox="0 0 560 248" role="img" aria-label="Illustration of a decision tree. Fat is the feature. A rule sends the food card down one branch. The leaf is the prediction: recommended or not recommended.">
+            <path d="M280 78 V118 H150 V162 M280 118 H410 V162" fill="none" stroke="#2458A6" stroke-width="1.5"/>
+            <rect x="168" y="8" width="224" height="70" fill="#172B4D"/>
+            <text x="280" y="30" text-anchor="middle" fill="#8FB4E8" font-size="11" font-weight="600">Feature</text>
+            <text x="280" y="52" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="600">Fat</text>
+            <text x="280" y="68" text-anchor="middle" fill="#D5E3F7" font-size="11">Rule: at or below the cut-off?</text>
+            <text x="188" y="112" text-anchor="middle" fill="#2458A6" font-size="12" font-weight="600">yes</text>
+            <text x="372" y="112" text-anchor="middle" fill="#586579" font-size="12" font-weight="600">no</text>
+            <rect x="40" y="162" width="220" height="70" fill="#EDF3FB" stroke="#2458A6" stroke-width="1"/>
+            <text x="150" y="186" text-anchor="middle" fill="#2458A6" font-size="11" font-weight="600">Prediction</text>
+            <text x="150" y="210" text-anchor="middle" fill="#172B4D" font-size="15" font-weight="600">Recommended</text>
+            <rect x="300" y="162" width="220" height="70" fill="#F6F8FB" stroke="#D8DEE8" stroke-width="1"/>
+            <text x="410" y="186" text-anchor="middle" fill="#586579" font-size="11" font-weight="600">Prediction</text>
+            <text x="410" y="210" text-anchor="middle" fill="#172B4D" font-size="15" font-weight="600">Not recommended</text>
           </svg>
-          <figcaption>The rule students apply to the 11 food cards in worksheet 3. This is a teaching example, not a finding from the recordings.</figcaption>
+          <figcaption>A new food card starts at the feature. The rule chooses the branch, and the leaf is the prediction. This drawing uses the food-card words. It is not a tree a student built, and it is not a result from the archive.</figcaption>
         </figure>
       </div>
       <div class="metric-row">
         <a class="metric" href="#/explore/students"><div class="v">${STUDENTS.length}</div><div class="l">Participants</div><div class="s">Pseudonyms only</div></a>
         <a class="metric" href="#/explore/worksheets"><div class="v">${C.worksheets.length}</div><div class="l">Worksheets</div><div class="s">${num(schemaFields)} response fields</div></a>
-        <a class="metric" href="#/explore/recordings"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} with a behaviour label</div></a>
+        <a class="metric" href="#/explore/recordings"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} with a behaviour label</div><p class="metric-privacy">Frame previews are cropped and softened to reduce the readability of on-screen text. The archive lists extracted frames and their available behaviour labels.</p></a>
         <a class="metric" href="#/explore/logs"><div class="v">${num(logEvents)}</div><div class="l">Log events</div><div class="s">CODAP Arbor, 3 class days</div></a>
       </div>
       <h2>How the archive is organised</h2>
-      <p>Each part of the site has a different job. The counts above describe what was collected. They are not results about learning.</p>
-      <div class="arch-flow" aria-hidden="true"><span>Collected data</span> → <span>Processing</span> → <span>Findings</span> → <span>Reference</span></div>
-      <div class="arch-grid">
-        <a class="arch-card" href="#/collected"><div class="arch-ico" aria-hidden="true">01</div><h3>Collected data</h3><p>Worksheets, screen recordings, frames, platform logs, and notebooks. This is the evidence, under pseudonyms.</p></a>
-        <a class="arch-card" href="#/methods"><div class="arch-ico" aria-hidden="true">02</div><h3>Data processing and analysis</h3><p>How handwriting was read, frames were selected and coded, and checks were applied.</p></a>
-        <a class="arch-card" href="#/findings"><div class="arch-ico" aria-hidden="true">03</div><h3>Findings and research insights</h3><p>Reserved for researcher-reviewed results. No findings report is published in this archive.</p></a>
-        <a class="arch-card" href="#/docs"><div class="arch-ico" aria-hidden="true">04</div><h3>Reference and documentation</h3><p>Data notes, glossary, file definitions, and the verified Hugging Face dataset.</p></a>
-      </div>
-      <p class="small">Screen previews are cropped and softened so that on-screen text cannot be read. Listed frames are the rows in each session manifest; a frame is coded only when it has a behaviour label.</p>
+      <p class="span-line">Collected data describe what was gathered; Findings present what the analyses reveal.</p>
+      <ol class="explore-path">
+        <li><a href="#/collected"><span class="n">1</span><h3>Collected Data</h3><p>Explore the worksheets, screen-recording frames, platform logs, and other research materials.</p></a></li>
+        <li><a href="#/methods"><span class="n">2</span><h3>Processing</h3><p>Learn how the collected materials were prepared, coded, and analysed.</p></a></li>
+        <li><a href="#/findings"><span class="n">3</span><h3>Findings</h3><p>Explore the results, patterns, and interpretations derived from the data.</p></a></li>
+        <li><a href="#/docs"><span class="n">4</span><h3>Reference</h3><p>Consult documentation, definitions, and supporting resources.</p></a></li>
+      </ol>
+      <p class="small">This is a recommended way to explore the archive. It is not a claim that every research task follows this sequence.</p>
     </div>`;
   }
 
@@ -1872,21 +1873,46 @@
       ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}`;
   }
   function pageNotebooks() {
+    const withFile = STUDENTS.filter((s) => C.notebooks[s] && C.notebooks[s].file);
+    const reportOnly = STUDENTS.filter((s) => C.notebooks[s] && !C.notebooks[s].file && C.notebooks[s].extraction);
+    const reportNote = reportOnly.length
+      ? ` ${reportOnly.map(h).join(" and ")} submitted a report instead of a notebook.`
+      : "";
+    return `<div class="page">${exploreShell("notebooks", `
+      ${crumbs([["Collected data", "#/collected"], ["Python notebooks"]])}
+      <h1>Python notebooks</h1>
+      <p class="lead">The final project asked students to construct decision trees in Google Colab. This page lists the materials. Inspection counts and rubric points are on <a href="#/findings">Findings</a>.</p>
+      <div class="material-grid">
+        <section class="material-card">
+          <h2>Learning notebook</h2>
+          <p>A separate activity-template notebook is not stored in the project folder, so there is no file to download. The inspection schema records these steps: data exploration, written research questions, a train/test split, decision-tree experiments, a comparison across target variables, and a written reflection.</p>
+          <p class="file-meta">Format: not a separate file</p>
+        </section>
+        <section class="material-card">
+          <h2>Dataset</h2>
+          <p>The notebooks refer to lizard data. That dataset is not stored as its own file in the project folder, so it is not offered as a download.</p>
+          <p class="file-meta">Format: not a separate file</p>
+        </section>
+        <section class="material-card">
+          <h2>Student-submitted notebooks</h2>
+          <p>${num(withFile.length)} notebook files are in the archive, one for each pseudonym that submitted a notebook.${reportNote} They are not offered for download. A privacy check found a real name in one notebook, so the set stays unpublished.</p>
+          <p class="file-meta">Format: Jupyter notebook (<code>.ipynb</code>), held in the archive</p>
+          <p><a href="#/explore/students">Open a student profile</a> for that person's notebook record.</p>
+        </section>
+      </div>
+      <p class="small">How the notebooks were inspected is on the <a href="#/methods/notebooks">processing</a> page. The cohort table of models, errors, and rubric points is on <a href="#/findings">Findings</a>. Those points are pipeline scores, not a reviewed grade.</p>`)}</div>`;
+  }
+  function notebookFindingsSection() {
     const rows = STUDENTS.map((s) => {
       const n = C.notebooks[s] || {}, f = n.file, e = n.extraction;
       const tot = n.scoring ? sum(Object.values(n.scoring.sections).map((x) => x.awarded)) : null;
       const pos = n.scoring ? sum(Object.values(n.scoring.sections).map((x) => x.possible)) : null;
       return { href: `#/explore/student/${s}/notebook`, cells: [`<a href="#/explore/student/${h(s)}/notebook">${h(s)}</a>`, e ? e.targets.map((t) => `<code>${h(t)}</code>`).join(" ") : "–", e ? num(e.models) : "–", f ? (f.cells_with_error_output ? "Yes" : "None") : "–", f ? num(f.order_reversals) : "–", tot == null ? "–" : `${num(tot, 1)} / ${num(pos, 1)}`] };
     });
-    return `<div class="page wide">${exploreShell("notebooks", `
-      ${crumbs([["Collected data", "#/collected"], ["Python notebooks"]])}
-      <h1>Python notebooks</h1>
-      <p class="lead">The final project asked students to analyse lizard data in Google Colab. The inspection records whether each notebook contains research questions, decision-tree models, a train/test split, cell outputs, and returns to earlier cells.</p>
-      <p>The assignment steps recorded by the extraction schema are data exploration, written research questions, a train/test split, decision-tree experiments, a comparison across target variables, and a written reflection. Learning-objective codes LO3.3.3 and LO3.3.2 name posing one’s own questions and changing settings such as tree depth. The notebook inspection does not assign those codes, and the rubric points below are pipeline scores, not a reviewed grade.</p>
-      <div class="warn"><p>The original <code>.ipynb</code> files are not offered for download. A privacy check found a real name in one notebook, so the set is held back until that review is finished. The table uses pseudonyms and inspection counts only.</p></div>
+    return `<h2 id="notebook-inspection">Notebook inspection</h2>
+      <p>These counts come from the notebook inspection. They describe the files. They are not a reviewed conclusion about what students learned, and they are not a grade.</p>
       ${table([{ t: "Student" }, { t: "Target variables" }, { t: "Models", num: 1 }, { t: "Errors in outputs" }, { t: "Revisiting earlier code", num: 1 }, { t: "Rubric points", num: 1 }], rows)}
-      <p class="small">“Revisiting earlier code” counts places where the student went back and re-ran earlier cells. It describes how the notebook was produced, not what the student intended.</p>
-      <p>${methodLink("notebooks")}</p>`)}</div>`;
+      <p class="small">“Revisiting earlier code” counts places where the run counter went backwards. The notebook files themselves stay on the <a href="#/explore/notebooks">Python notebooks</a> page, and they are not published.</p>`;
   }
 
   // ------------------------------------------------------------------ 04 Documentation
@@ -1922,7 +1948,7 @@
         <li><a href="#/explore/students">Student profiles</a><span>All worksheets, recordings, logs, and notebooks for one student.</span></li>
         <li><a href="#/explore/recordings">Screen recording frames</a><span>Frames extracted from the sessions, with previews on this site and the full image set on Hugging Face. Original videos are not published.</span></li>
         <li><a href="#/explore/logs">Platform logs</a><span>Ten example records. The complete log is a separate dataset on Hugging Face.</span></li>
-        <li><a href="#/explore/notebooks">Python notebooks</a><span>Inspection of the final lizard-data notebooks. Raw notebook files are not published.</span></li>
+        <li><a href="#/explore/notebooks">Python notebooks</a><span>Final-project notebook files. Raw notebooks are not published. Inspection counts are under Findings.</span></li>
       </ul>
       <h3 class="guide-group-label">Data Processing &amp; Analysis</h3>
       <ul class="guide">
@@ -2155,15 +2181,16 @@
       <h1>Research Findings</h1>
       <p class="lead">Reviewed conclusions about what students learned are not in this archive yet.</p>
       <div class="warn">
-        <p>Nothing on this page is a reviewed finding about learning. The platform-log summaries below are counts computed from the log file. The sessions and the dataset link stay on the <a href="#/explore/logs">platform logs</a> page.</p>
+        <p>Nothing on this page is a reviewed finding about learning. The platform-log summaries and the notebook inspection table are counts computed from the files. The sessions and the dataset link stay on the <a href="#/explore/logs">platform logs</a> page. The notebook files stay on the <a href="#/explore/notebooks">Python notebooks</a> page.</p>
       </div>
       ${logFindingsSection()}
+      ${notebookFindingsSection()}
       <h2>Collected data</h2>
       <ul class="guide">
         <li><a href="#/explore/worksheets">Worksheets</a><span>Extracted student responses with item-level scores for ${C.worksheets.length} worksheets.</span></li>
         <li><a href="#/explore/recordings">Screen recording frames</a><span>${num(F.length)} extracted frames. Original videos are not published on this site.</span></li>
         <li><a href="#/explore/logs">Platform logs</a><span>Example records and the public log file. The counts are in the summaries above.</span></li>
-        <li><a href="#/explore/notebooks">Python notebooks</a><span>Final project notebooks on the lizard data.</span></li>
+        <li><a href="#/explore/notebooks">Python notebooks</a><span>The materials. Inspection counts are in the table above.</span></li>
       </ul>
     </div>`;
   }

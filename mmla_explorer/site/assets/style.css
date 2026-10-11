@@ -362,6 +362,7 @@ a.metric:hover .v { color: var(--blue); }
 .metric .v { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1.1; color: var(--ink); }
 .metric .l { font-size: 13px; color: var(--ink-2); margin-top: 3px; }
 .metric .s { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.metric-privacy { margin: 10px 0 0; max-width: none; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
 
 .portal {
   display: grid;
@@ -697,6 +698,31 @@ p.span-line { max-width: none; white-space: nowrap; }
   margin: 8px 0 18px; color: var(--muted); font-size: 13px; font-weight: 600;
 }
 .arch-flow span { color: var(--navy); }
+.explore-path {
+  list-style: none; margin: 8px 0 10px; padding: 0;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px;
+}
+.explore-path li { position: relative; min-width: 0; }
+.explore-path a {
+  display: flex; flex-direction: column; height: 100%;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 12px;
+  padding: 14px 14px 16px; text-decoration: none; color: inherit;
+}
+.explore-path a:hover { border-color: var(--blue); text-decoration: none; }
+.explore-path a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.explore-path .n {
+  width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--navy); color: #fff; font-size: 13px; font-weight: 600;
+}
+.explore-path h3 { margin: 10px 0 6px; font-size: 1rem; }
+.explore-path p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink-2); max-width: none; }
+.material-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 8px 0 16px; }
+.material-card {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px 12px;
+}
+.material-card h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.material-card p { margin: 0 0 8px; max-width: none; }
+.material-card p:last-child { margin-bottom: 0; }
 .ws-catalogue { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .ws-cat {
   display: block; padding: 14px 16px; border: 1px solid var(--rule); border-radius: 10px;
@@ -916,6 +942,7 @@ p.why { font-size: 14px; color: var(--ink-2); }
   .top-nav { display: none; }
   .student-roster { grid-template-columns: 1fr 1fr; }
   .hero, .portal, .metric-row, .dataset-grid, .two, .three, .arch-grid, .cat-grid, .ws-catalogue, .code-grid { grid-template-columns: 1fr; }
+  .explore-path { grid-template-columns: 1fr 1fr; }
   .hero { gap: 28px; align-items: start; }
   .hero-visual { max-width: 520px; }
   .metric-row { grid-template-columns: 1fr 1fr; }
@@ -939,7 +966,7 @@ p.why { font-size: 14px; color: var(--ink-2); }
   .theme-btn { padding: 6px 8px; }
   h1 { font-size: 1.5rem; }
   .hero h1 { font-size: 1.7rem; }
-  .metric-row, .flow, .compare { grid-template-columns: 1fr; }
+  .metric-row, .flow, .compare, .explore-path { grid-template-columns: 1fr; }
   .log-metrics { grid-template-columns: 1fr; }
   .lead, .log-caption, .lead.log-lead, .page.wide, .log-tech { max-width: 100%; }
   p.span-line { white-space: normal; }
