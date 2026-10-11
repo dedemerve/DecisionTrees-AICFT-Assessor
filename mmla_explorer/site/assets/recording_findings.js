@@ -97,6 +97,8 @@
           ? (core.episodes[student][ss.id].episodes || []) : [];
         const confidence = {};
         coded.forEach((f) => { if (f.cf) confidence[f.cf] = (confidence[f.cf] || 0) + 1; });
+        const secondary = countOf(listed, "b2");
+        const secondaryFrameCount = listed.filter((f) => f.b2).length;
         byStudent[student][ss.id] = {
           id: ss.id,
           name: ss.name,
@@ -110,9 +112,9 @@
           fileCounts: fileCounts,
           countsMatch: fileCounts ? sameCounts(primary, fileCounts) : false,
           framesCodedFile: rec.coding ? rec.coding.frames_coded : null,
-          secondary: countOf(listed, "b2"),
+          secondary: secondary,
+          secondaryFrameCount: secondaryFrameCount,
           runs: runsOf(listed),
-          thumbs: listed.filter((f) => f.th).map((f) => ({ id: f.id, t: f.t, b: f.b || "", th: f.th })),
           duplicateOf: rec.same_video_file_as || [],
           coverage: typeof rec.frame_coverage === "number" ? rec.frame_coverage : null,
           kept: typeof kept === "number" ? kept : null,
@@ -164,16 +166,11 @@
       <p class="small">Each coloured segment is consecutive listed frames with the same primary label. Width follows how many of the ${num(total)} listed frames are in that segment.</p>`;
   }
 
-  function thumbs(model, student) {
-    if (!model.thumbs.length) {
-      return `<p class="missing-line">Preview images for this session are not stored on this site. The counts above still use the listed frames.</p>`;
-    }
-    const figs = model.thumbs.map((f) => {
-      const name = f.b ? labelOf(f.b) : "No label";
-      const cap = `${student} · ${model.name} · ${clock(f.t)} · ${name}`;
-      return `<figure><button type="button" class="thumb" data-zoom="thumbs/${h(f.th)}" data-cap="${h(cap)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt="${h(cap)}"></button><figcaption><span class="mono">${clock(f.t)}</span><span class="beh-line"><i style="background:${f.b ? colorOf(f.b) : "var(--rule-strong)"}"></i>${h(name)}</span></figcaption></figure>`;
-    }).join("");
-    return `<p class="small">${num(model.thumbs.length)} preview images are stored for this session, spaced through the recording. The counts above use every listed frame, not only these pictures.</p><div class="thumbs frame-grid">${figs}</div>`;
+  const CONF_ORDER = ["HIGH", "MEDIUM", "LOW"];
+  function orderedConf(counts) {
+    const keys = CONF_ORDER.filter((k) => counts[k]);
+    Object.keys(counts).forEach((k) => { if (CONF_ORDER.indexOf(k) === -1) keys.push(k); });
+    return keys;
   }
 
   function episodes(model) {
@@ -203,7 +200,7 @@
       items.push("The behaviour totals in the coding file do not match the listed frames. The table uses the listed frames.");
     }
     items.push("A label describes the visible activity on that frame. It does not describe what the participant understood.");
-    items.push("Original videos are not published. The pictures on this page are extracted frames.");
+    items.push("Original videos are not published. The frame images for this session stay with the collected frames.");
     return `<ul>${items.map((x) => `<li>${h(x)}</li>`).join("")}</ul>`;
   }
 
@@ -221,36 +218,39 @@
     if (!model.coded) {
       return `<h3 class="preview-heading">${h(student)} · ${h(model.name)}</h3>
         <p>${num(model.listed)} frames are listed for this session. Behaviour coding for these frames is unavailable.</p>
-        <p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Open the collected frames for this session</a></p>
-        ${thumbs(model, student)}`;
+        <p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Open the collected frames for this session</a></p>`;
     }
     const denom = model.coded;
     const stack = `<div class="stack" role="img" aria-label="Share of coded frames by behaviour">${orderedCodes(model.primary).map((code) =>
       `<div style="flex:${model.primary[code]};background:${colorOf(code)}"${tipAttr(`<b>${h(labelOf(code))}</b><br>${num(model.primary[code])} frames · ${pct(model.primary[code], denom)}`)}></div>`).join("")}</div>`;
     const legend = `<div class="legend">${orderedCodes(model.primary).map((code) => `<span><i style="background:${colorOf(code)}"></i>${h(labelOf(code))}</span>`).join("")}</div>`;
     const agree = model.countsMatch ? `<p class="small">These totals match the behaviour counts stored in the coding file (${num(model.framesCodedFile)} coded frames).</p>` : "";
-    const confKeys = Object.keys(model.confidence);
-    const conf = confKeys.length ? `<p class="small">Coder confidence stored on the labelled frames: ${confKeys.map((k) => `${num(model.confidence[k])} ${h(k.toLowerCase())}`).join(", ")}. This is the coder’s confidence in the label, not a judgment of the participant.</p>` : "";
-    const secondKeys = Object.keys(model.secondary);
-    const second = secondKeys.length ? `<h3>Second label</h3>
-      <p>Some frames also store a second label. It is not the primary code, and it is not added into the shares above. The share in this table is out of the ${num(model.listed)} listed frames.</p>
+    const confKeys = orderedConf(model.confidence);
+    const confSum = confKeys.reduce((a, k) => a + model.confidence[k], 0);
+    const conf = confKeys.length ? `<h4>Coder confidence</h4>
+      <p>Confidence is stored on ${num(confSum)} of the ${num(model.coded)} labelled frames. This is the coder’s confidence in the annotation, not a judgment of the participant.</p>
+      <div class="table-wrap"><table><thead><tr><th>Confidence</th><th class="num">Frames</th><th class="num">Share of labelled frames</th></tr></thead><tbody>${confKeys.map((k) => `<tr><td>${h(k.charAt(0) + k.slice(1).toLowerCase())}</td><td class="num">${num(model.confidence[k])}</td><td class="num">${pct(model.confidence[k], denom)}</td></tr>`).join("")}</tbody></table></div>` : `<h4>Coder confidence</h4><p class="missing-line">No coder confidence is stored on these labelled frames.</p>`;
+    const second = model.secondaryFrameCount ? `<h4>Second label</h4>
+      <p>The primary label is the main coded behaviour. A second label is an additional annotation on the same frame. A frame may have both. These counts are not added to the behaviour shares above.</p>
+      <p>${num(model.secondaryFrameCount)} of ${num(model.listed)} listed frames store a second label. Each share below is that label’s count divided by the ${num(model.listed)} listed frames.</p>
       ${countTable(model.secondary, model.listed, "second")}` : "";
+    const source = model.codingSource ? `<div class="src">${h(model.codingSource)}</div>` : "";
+    const collected = `<p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Open the collected frames for this session</a></p>`;
     return `<h3 class="preview-heading">${h(student)} · ${h(model.name)} <span class="small">${h(model.date)}</span></h3>
       <p>${num(model.listed)} frames are listed. ${num(model.coded)} have a primary behaviour label. The shares below use those ${num(denom)} labelled frames as the denominator.</p>
-      ${stack}${legend}
       <h3>Observed behaviour</h3>
+      ${stack}${legend}
       ${countTable(model.primary, denom, "primary")}
-      ${agree}${conf}
+      ${agree}
       <h3>Order of coded frames</h3>
       ${ribbon(model)}
-      ${second}
-      <h3>Preview frames</h3>
-      ${thumbs(model, student)}
-      <p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Open the collected frames for this session</a></p>
+      ${collected}
+      <details class="tech"><summary>Additional coding details</summary><div class="tech-body">
+        ${second}${conf}${source}
+      </div></details>
       ${episodes(model)}
       <h3>Limitations</h3>
-      ${limits(model)}
-      ${model.codingSource ? `<details class="tech"><summary>Source path</summary><div class="tech-body"><div class="src">${h(model.codingSource)}</div></div></details>` : ""}`;
+      ${limits(model)}`;
   }
 
   function tabs(pack, student, sessionId) {
