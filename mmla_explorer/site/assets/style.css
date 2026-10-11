@@ -1243,6 +1243,11 @@ table.find-table tr[hidden] { display: none !important; }
 .find-people td:first-child { font-weight: 600; }
 .find-targets { display: inline-block; max-width: 16rem; white-space: normal; }
 .find-kind { display: inline-block; margin-left: 6px; padding: 1px 7px; border: 1px solid var(--rule); border-radius: 99px; font-size: 0.75rem; font-weight: 500; color: var(--muted); vertical-align: 1px; }
+.find-dim { border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); padding: 14px 16px 8px; margin: 0 0 12px; }
+.find-kicker { margin: 0 0 2px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--blue); }
+.find-dim > h2 { margin: 0 0 6px; font-size: 1.25rem; }
+.find-dim > p { margin: 0 0 10px; }
+.find-subfold { margin: 8px 0 4px; box-shadow: none; }
 .find-board { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px; }
 .find-panel { border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); padding: 14px 16px 10px; }
 .find-panel h3 { margin: 0 0 8px; font-size: 1rem; }

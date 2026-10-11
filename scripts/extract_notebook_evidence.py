@@ -123,6 +123,10 @@ def structure_of(path: Path) -> dict:
         "order_reversals": reversals,
         "repeated_execution_counts": len(repeated),
         "cells_with_output": with_output,
+        "cells_with_image": sum(
+            1 for cell in code
+            if any("image/png" in (o.get("data") or {}) for o in (cell.get("outputs") or []))
+        ),
         "cells_with_error": len(errors),
         "error_types": sorted(set(errors)),
         "upload_interrupt": upload,
@@ -157,6 +161,131 @@ def tasks_of(doc: dict) -> dict:
         "depth_table": ("found" if any(tables) else "not_found") if experiments else "undetermined",
         "drawing": any_status(drawn) if experiments else "undetermined",
         "reflection": text_status(list(reflection.values())) if reflection else "undetermined",
+    }
+
+
+def tri_from_bool(value):
+    return tri_bool(value)
+
+
+def reflection_text(block) -> bool:
+    if not isinstance(block, dict):
+        return text_present(block)
+    return text_present(block.get("raw_text"))
+
+
+def dimension_checks(doc: dict) -> dict:
+    """Evidence status for the four rubric dimensions on page 8 of the assignment.
+
+    found: the inspection stored the evidence.
+    not_found: the inspection recorded that the evidence was absent.
+    undetermined: the inspection did not record a yes or no.
+    """
+    step1 = doc.get("step1_data_exploration") or {}
+    split = doc.get("step3_split_global") or {}
+    experiments = doc.get("dt_experiments") or []
+    reflection = doc.get("step6_written_reflection") or {}
+    note_fields = [
+        step1.get("q_lizard_count"),
+        step1.get("q_habitat_most_frequent"),
+        step1.get("q_imbalance_effect_reasoning"),
+        step1.get("q_mass_by_species_reasoning"),
+    ]
+    dummies = [(e.get("code_evidence") or {}).get("used_get_dummies") for e in experiments]
+    curves = [
+        (e.get("code_evidence") or {}).get("train_curve_in_plot") is True
+        and (e.get("code_evidence") or {}).get("test_curve_in_plot") is True
+        for e in experiments
+    ]
+    comments = [
+        any(text_present(v) for v in (e.get("step4_markdown_analysis") or {}).values())
+        for e in experiments
+    ]
+    rows = []
+    drawings = 0
+    root_written = 0
+    root_plot = 0
+    decision_notes = 0
+    codap_notes = 0
+    test_mcr_n = 0
+    tables = 0
+    for exp in experiments:
+        ce = exp.get("code_evidence") or {}
+        search = exp.get("depth_search") or {}
+        final = exp.get("step5_final_tree") or {}
+        if ce.get("tree_visualized") is True:
+            drawings += 1
+        if text_present(final.get("q_root_node_reasoning")):
+            root_written += 1
+        if final.get("root_node_feature_source") == "plot_label":
+            root_plot += 1
+        if text_present(final.get("q_decisions_to_classify")):
+            decision_notes += 1
+        if text_present(final.get("q_codap_comparison")):
+            codap_notes += 1
+        if final.get("test_mcr_achieved") is not None:
+            test_mcr_n += 1
+        if search.get("mcr_table"):
+            tables += 1
+        mcr = final.get("test_mcr_achieved")
+        rows.append({
+            "target": exp.get("target_variable"),
+            "chosen_depth": final.get("chosen_optimal_depth"),
+            "test_mcr": mcr if isinstance(mcr, (int, float)) and 0 <= mcr <= 1 else None,
+            "test_mcr_stored": final.get("test_mcr_achieved") is not None,
+            "table": bool(search.get("mcr_table")),
+            "both_curves": ce.get("train_curve_in_plot") is True and ce.get("test_curve_in_plot") is True,
+            "drawing": ce.get("tree_visualized") is True,
+        })
+    q1 = reflection.get("q1_learning_journey") or {}
+    q2 = reflection.get("q2_data_understanding") or {}
+    q3 = reflection.get("q3_model_performance") or {}
+    q4 = reflection.get("q4_dt_limitations") or {}
+    envs = q1.get("environments_mentioned") if isinstance(q1, dict) else []
+    if not isinstance(envs, list):
+        envs = []
+    n = len(experiments)
+
+    def any_found(flags):
+        if any(v is True for v in flags):
+            return "found"
+        if n and all(v is False for v in flags):
+            return "not_found"
+        if not n:
+            return "undetermined"
+        return "undetermined"
+
+    return {
+        "loaded": tri_from_bool(step1.get("data_loaded")),
+        "value_counts": tri_from_bool(step1.get("value_counts_called")),
+        "describe": tri_from_bool(step1.get("describe_called")),
+        "table_notes": "found" if any(text_present(v) for v in note_fields) else "not_found",
+        "table_notes_n": sum(1 for v in note_fields if text_present(v)),
+        "encoding": any_found(dummies),
+        "test_size": split.get("test_size"),
+        "random_state": split.get("random_state"),
+        "stratify": "found" if split.get("stratify_used") is True else "not_found" if split.get("stratify_used") is False else "undetermined",
+        "stratify_note": "found" if text_present(split.get("q_stratify_removal_effect")) else "not_found",
+        "random_note": "found" if text_present(split.get("q_random_state_change_effect")) else "not_found",
+        "depth_tables": tables,
+        "depth_records": n,
+        "both_curves": sum(1 for v in curves if v),
+        "depth_comments": sum(1 for v in comments if v),
+        "test_mcr_n": test_mcr_n,
+        "drawings": drawings,
+        "root_written": root_written,
+        "root_from_plot": root_plot,
+        "decision_notes": decision_notes,
+        "codap_notes": codap_notes,
+        "reflection": {
+            "settings": "found" if reflection_text(q1) else "not_found",
+            "data": "found" if reflection_text(q2) else "not_found",
+            "performance": "found" if reflection_text(q3) else "not_found",
+            "limits": "found" if reflection_text(q4) else "not_found",
+            "environments": envs,
+            "all_three": set(envs) >= {"data_cards", "codap", "python"},
+        },
+        "models": rows,
     }
 
 
@@ -196,6 +325,7 @@ def inspection_of(doc: dict) -> dict:
         "row_count": source.get("row_count_in_output"),
         "synthetic": source.get("synthetic_data_used"),
         "tasks": tasks_of(doc),
+        "checks": dimension_checks(doc),
     }
 
 
