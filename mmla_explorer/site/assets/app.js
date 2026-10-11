@@ -1477,6 +1477,27 @@
     };
     inp.addEventListener("input", apply);
   }
+  function uniqueFiles(items) {
+    const seen = new Set();
+    return (items || []).filter((item) => {
+      const key = item.sha256 || item.href;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+  function fileList(items, empty) {
+    const unique = uniqueFiles(items);
+    if (!unique.length) return `<p class="missing-line">${empty}</p>`;
+    return `<ul class="file-list">${unique.map((item) => {
+      const groups = item.groups || [];
+      const people = groups.reduce((n, g) => n + g.length, 0);
+      const who = groups.length
+        ? `<details class="file-who"><summary>${num(people)} pseudonym${people === 1 ? "" : "s"} in this file</summary><p>${groups.map((g) => g.map(h).join(" and ")).join(", ")}</p></details>`
+        : "";
+      return `<li class="file-item"><a href="${h(encodeURI(item.href))}" download="${h(item.download || "")}">${h(item.title)}</a><span class="file-meta">PDF · ${bytes(item.bytes)}</span>${who}</li>`;
+    }).join("")}</ul>`;
+  }
   function pageWorksheet(code) {
     const w = C.worksheets.find((x) => x.code === code);
     if (!w) {
@@ -1484,37 +1505,23 @@
         <h1>Worksheet not found</h1><p>No worksheet with the code "${h(code)}" is in this archive.</p><p><a href="#/explore/worksheets">Back to the worksheets</a></p></div>`;
     }
     const info = WS_INFO[code] || {};
-    const doc = docOf(code);
-    const sheets = (C.downloads && C.downloads.worksheets) || [];
-    const dlEntry = sheets.find((d) => d.code === code);
-    const blankHref = dlEntry && dlEntry.file ? dlEntry.file : "";
-    const akHref = answerKeyHref(w);
-    const template = w.rubric_data && w.rubric_data.scoring_policy && w.rubric_data.scoring_policy.no_canonical_tree;
-    const blankBtn = blankHref
-      ? `<a class="btn-primary" href="${h(blankHref)}" download>Download blank worksheet (PDF)</a>`
-      : `<span class="na">Blank worksheet PDF not available</span>`;
-    const akBtn = akHref
-      ? `<a class="btn-secondary" href="${h(akHref)}" download>${template ? "Download printed template (PDF)" : "Download answer key (PDF)"}</a>`
-      : `<span class="na">${template ? "Printed template PDF not available" : "Answer key PDF not available"}</span>`;
-    const withOcr = STUDENTS.filter((s) => C.ws[s][code].ocr).length;
-    const sizeLabel = dlEntry && dlEntry.bytes ? Math.round(dlEntry.bytes / 1024) + " KB" : "\u2013";
+    const files = (window.WS_FILES && window.WS_FILES[code]) || { materials: [], completed: [] };
+    const completed = uniqueFiles(files.completed);
     return `<div class="page wide">${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], [code]])}
       ${exploreShell("worksheets", `
       <h1>${h(code)} · ${h(wsTitle(w))}</h1>
       <p class="lead">${h(info.topic || "")}</p>
-      <section class="section-block" id="downloads"><h2>Downloads</h2>
-        <div class="dl-actions">${blankBtn} ${akBtn}</div>
-        ${dlEntry ? `<p class="small">File size: ${h(sizeLabel)}</p>` : ""}
+      <section class="section-block" id="overview"><h2>Worksheet overview</h2>
+        <p>${h(info.topic || "No purpose statement is stored for this worksheet.")}</p>
+        <p class="small">Extracted answers and item scores are not listed on this page. <a href="#/methods">Data processing and analysis \u2192</a></p>
       </section>
-      <section class="section-block" id="overview"><h2>Overview</h2>
-        ${kv([
-          ["In class", h(info.date || "No class date on the scanned-file names")],
-          ["Check method", h(howChecked(w))],
-          ["Extraction files on file", `${withOcr} of ${STUDENTS.length} students`],
-          doc.curriculum_status && ["Schema curriculum status", h(doc.curriculum_status)],
-        ])}
-        ${doc.interpretation_prohibited ? `<p class="small">The schema forbids treating the extraction as an interpretation of competency.</p>` : ""}
-        <p class="small">Response data, item scoring, and automated outputs are part of the research dataset and are not published in this public archive. <a href="#/methods">Data processing and analysis \u2192</a></p>
+      <section class="section-block" id="materials"><h2>Worksheet materials</h2>
+        <p class="small">Each distinct blank worksheet or answer key is listed once.</p>
+        ${fileList(files.materials, "No blank worksheet or answer key could be matched to this worksheet.")}
+      </section>
+      <section class="section-block" id="completed"><h2>Completed student worksheets</h2>
+        <p class="small">${completed.length ? `${num(completed.length)} file${completed.length === 1 ? "" : "s"}. ` : ""}The original scans are shown as they were stored. Different students were not merged into a new PDF, and no dates are shown.</p>
+        ${fileList(files.completed, "No completed student PDF is on record for this worksheet.")}
       </section>
       `)}</div>`;
   }
