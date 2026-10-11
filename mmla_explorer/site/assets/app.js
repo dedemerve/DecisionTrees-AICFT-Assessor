@@ -1793,9 +1793,6 @@
       Object.entries(L.rows_by_day).filter(([d]) => LOG_DAYS[d]).map(([d, n]) => ({ cells: [h(LOG_DAYS[d].name), h(d), num(n)] })),
       { cls: "log-dict" }
     );
-    const otherFiles = L.other_files_row_counts
-      ? table([{ t: "Earlier file (not loaded)" }, { t: "Rows", num: 1 }], Object.entries(L.other_files_row_counts).map(([name, n]) => ({ cells: [`<code class="log-path">${h(name)}</code>`, num(n)] })), { cls: "log-dict" })
-      : "";
     const sampleRows = LOG_SAMPLE.map(([who, code, detail]) => `<tr>
         <td data-label="Participant">${h(who)}</td>
         <td data-label="Action">${h(ACTION[code] || code)}</td>
@@ -1837,9 +1834,6 @@
         <p class="log-note-label">How the session name is assigned</p>
         <p class="log-note">CODAP session 1 and CODAP session 2 are names for the two sessions. The name comes from the calendar date in <code>created_at</code>, not from a count of rows. Records dated 7 April 2026 are in the source file this site reads. They are not one of these sessions, and they are not in the public dataset. A few rows dated 25 April 2026 are also in that source file and are not one of the two sessions.</p>
         ${dayTable}
-        ${otherFiles}
-        <p class="log-note-label">Relationship to earlier files</p>
-        <p class="log-note">The 21 April file is a prefix of the current source file, with the same rows in the same order. The 7 April file uses event IDs already present in the current source. Neither earlier file is loaded again.</p>
         <h3>Data fields</h3>
         ${table([{ t: "Column" }, { t: "Meaning" }], [
           { cells: ["<code>id</code>", "Event identifier."] },
