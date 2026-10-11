@@ -1513,7 +1513,7 @@
       return true;
     });
   }
-  const FOOD_HEADERS = ["Yiyecek Adı", "Enerji (kcal)", "Yağ (g)", "Doymuş Yağ (g)", "Karbonhidrat (g)", "Şeker (g)", "Protein (g)", "Tuz (g)", "Etiket"];
+  const FOOD_HEADERS = ["YİYECEK ADI", "ENERJİ (KCAL)", "YAĞ (G)", "DOYMUŞ YAĞ (G)", "KARBONHİDRAT (G)", "ŞEKER (G)", "PROTEİN (G)", "TUZ (G)", "ETİKET"];
   const FOOD_11_ROWS = [
     ["Salatalık", "12", "0.1", "0", "3.6", "1.7", "0.7", "0", "Tavsiye edilebilir"],
     ["Patates", "71", "0.1", "0", "15", "0.8", "1.7", "2", "Tavsiye edilebilir"],
@@ -1534,7 +1534,7 @@
   function foodTable(rows) {
     const head = `<tr>${FOOD_HEADERS.map((c) => `<th>${h(c)}</th>`).join("")}</tr>`;
     const body = rows.map((r) => `<tr>${r.map((c) => `<td>${h(c)}</td>`).join("")}</tr>`).join("");
-    return `<div class="table-wrap"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+    return `<div class="table-wrap"><table class="food-table"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
   }
   function foodDownload(href, title, size) {
     return `<ul class="file-list"><li class="file-item"><a href="${h(href)}" download="${h(href.split("/").pop())}">${h(title)}</a><span class="file-meta">CSV, UTF-8 · ${num(size)} bytes</span></li></ul>`;

@@ -386,6 +386,7 @@ a.metric:hover .v { color: var(--blue); }
 table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
 th, td { text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
 th { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+table.food-table th { text-transform: none; }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; padding-right: 14px; }
 td.mono { font-family: var(--mono); font-size: 12px; }
 td.txt { max-width: 46ch; }
