@@ -2283,23 +2283,22 @@
   }
   function pageFindings() {
     const cards = [
-      ["WS", "Worksheet findings", "How extracted answers were checked. A stored score is a pipeline result, not a reviewed conclusion about learning.", "#/findings/worksheets", "Explore worksheet findings"],
-      ["FR", "Screen recording findings", "What the behaviour labels mean. Counts of those labels are not reported as results.", "#/findings/recordings", "Explore screen recording findings"],
-      ["LG", "Platform log findings", "Recorded actions in CODAP Arbor, including model attempts. A log does not show what a participant understood.", "#/findings/logs", "Explore platform log findings"],
-      ["NB", "Python notebook findings", "What the inspection found in the final homework files. Pipeline rubric points are not a reviewed grade.", "#/findings/notebooks", "Explore Python notebook findings"],
+      ["Worksheet findings", "How extracted answers were checked. A stored score is a pipeline result, not a reviewed conclusion about learning.", "#/findings/worksheets", "Explore worksheet findings"],
+      ["Screen recording findings", "What the behaviour labels mean. Counts of those labels are not reported as results.", "#/findings/recordings", "Explore screen recording findings"],
+      ["Platform log findings", "Recorded actions in CODAP Arbor, including model attempts. A log does not show what a participant understood.", "#/findings/logs", "Explore platform log findings"],
+      ["Python notebook findings", "What the inspection found in the final homework files. Pipeline rubric points are not a reviewed grade.", "#/findings/notebooks", "Explore Python notebook findings"],
     ];
     return `<div class="page find-page">
       ${crumbs([["Findings"]])}
       <h1>Findings &amp; Research Insights</h1>
       <p class="lead">Explore the findings derived from the worksheets, screen-recording frames, platform logs, and Python notebooks collected during the learning activities.</p>
       <div class="find-grid">
-        ${cards.map(([ico, title, text, href, action]) => `<a href="${href}"><div class="arch-ico" aria-hidden="true">${ico}</div><h2>${title}</h2><p>${text}</p><span class="find-go">${action}</span></a>`).join("")}
+        ${cards.map(([title, text, href, action]) => `<a href="${href}"><h2>${title}</h2><p>${text}</p><span class="find-go">${action}</span></a>`).join("")}
       </div>
       <section class="find-profiles">
         <h2>Student profiles</h2>
         <p>Explore each participant’s research profile, bringing together the available evidence from worksheets, screen recordings, platform logs, and Python notebooks.</p>
         <a class="find-profile" href="#/findings/participants">
-          <div class="arch-ico" aria-hidden="true">ST</div>
           <h3>Student profiles</h3>
           <p>${STUDENTS.length} pseudonyms. Each profile lists the worksheets, screen recordings, platform logs, and Python files on record. These summaries describe the archive. They are not learning outcomes.</p>
           <span class="find-go">Open student profiles</span>
