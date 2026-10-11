@@ -149,10 +149,24 @@
   }
   function itemTitle(w, id) {
     const item = rubricItems(w)[id];
-    if (!item) return id;
-    if (item.label) return item.label;
-    if (item.printed_question != null) return "Item " + item.printed_question;
-    return id;
+    if (item && item.label) return item.label;
+    if (item && item.printed_question != null) {
+      const q = String(item.printed_question);
+      return /^\d+$/.test(q) ? "Item " + q : q;
+    }
+    const row = /_row(\d+)$/i.exec(id);
+    if (row) return "Row " + row[1];
+    const blank = /(?:^|_)B(\d+)$/i.exec(id);
+    if (blank) return "Item " + blank[1];
+    const tree = /^DT_([A-G])_(.+)$/.exec(id);
+    if (tree) {
+      const q = /^Q(\d+)$/.exec(tree[2]);
+      return "Tree " + tree[1] + ", " + (q ? "question " + q[1] : tree[2].replace(/_/g, " "));
+    }
+    let s = id;
+    if (w && w.code && s.indexOf(w.code + "_") === 0) s = s.slice(w.code.length + 1);
+    s = s.replace(/_/g, " ");
+    return s ? s.charAt(0).toUpperCase() + s.slice(1) : id;
   }
   function sortKey(w, id) {
     const item = rubricItems(w)[id];
@@ -451,8 +465,8 @@
     const body = rows.map((r) => `<tr${r.attrs || ""}>${r.cells.map((c, i) => `<td data-label="${h(head[i].t)}"${head[i].num ? ' class="num"' : ""}>${c}</td>`).join("")}</tr>`).join("");
     return `<div class="table-wrap"><table class="find-table"><thead><tr>${th}</tr></thead><tbody>${body || `<tr><td colspan="${head.length}">No rows.</td></tr>`}</tbody></table></div>`;
   }
-  function cards(items) {
-    return `<div class="stat-row cols-4">${items.filter(Boolean).map((x) => `<div class="stat-card"><div class="v">${x.v}</div><div class="l">${h(x.l)}</div>${x.d ? `<p class="small">${x.d}</p>` : ""}</div>`).join("")}</div>`;
+  function cards(items, extra) {
+    return `<div class="stat-row cols-4${extra ? " " + extra : ""}">${items.filter(Boolean).map((x) => `<div class="stat-card"><div class="v">${x.v}</div><div class="l">${h(x.l)}</div>${x.d ? `<p class="small">${h(x.d)}</p>` : ""}</div>`).join("")}</div>`;
   }
   function crumbs(parts) {
     const last = parts.length - 1;
@@ -487,44 +501,39 @@
   }
 
   function personCells(model, p) {
-    const published = p.scoring === "published" && typeof p.total === "number";
-    const total = published
-      ? num(p.total) + (typeof p.max === "number" ? " of " + num(p.max) : "") + (p.inCohort ? "" : " · not in summary")
+    const included = p.inCohort && p.scoring === "published" && typeof p.total === "number";
+    const score = included
+      ? num(p.total) + (typeof p.max === "number" ? " of " + num(p.max) : "")
       : "–";
-    const percent = p.inCohort && published && typeof p.max === "number" && p.max > 0
-      ? share(p.total, p.max) : "–";
-    const showCredit = p.inCohort && model.hasCredit;
-    return [
-      `<a href="#/explore/student/${h(p.id)}">${h(p.id)}</a>`,
-      h(extractText(p)),
-      h(statusText(p)),
-      showCredit ? num(p.full) : "–",
-      showCredit ? num(p.partial) : "–",
-      showCredit ? num(p.none) : "–",
-      total,
-      percent,
-      `<a href="#/findings/worksheets/${h(model.code)}?student=${h(p.id)}">Items</a>`,
-    ];
+    let percent = "–";
+    if (included && typeof p.max === "number" && p.max > 0) {
+      const width = Math.max(0, Math.min(100, 100 * p.total / p.max));
+      percent = `<span class="find-pct">${h(share(p.total, p.max))}</span><span class="find-scorebar" aria-hidden="true"><span style="width:${width}%"></span></span>`;
+    }
+    const cells = [`<b>${h(p.id)}</b>`, score, percent];
+    if (model.hasCredit) {
+      cells.push(included ? num(p.full) : "–", included ? num(p.partial) : "–", included ? num(p.none) : "–");
+    }
+    return cells;
   }
 
   function itemTable(model) {
     if (!model.items.length) return `<p class="missing-line">No published item scores for this worksheet.</p>`;
     const credit = model.hasCredit;
-    const head = [{ t: "Item" }, { t: "Criterion" }].concat(credit
-      ? [{ t: "Full credit", num: 1 }, { t: "Partial", num: 1 }, { t: "No credit", num: 1 }]
-      : [{ t: "Scored", num: 1 }]).concat([{ t: "Mean score", num: 1 }, { t: "Most frequent filled response" }]);
-    return table(head, model.items.map((it) => ({
-      attrs: ` data-item="${h(it.id)}" data-label="${h((it.id + " " + it.title + " " + it.criterion).toLowerCase())}"`,
-      cells: [
-        `<b>${h(it.title)}</b><div class="small"><code>${h(it.id)}</code>${it.max == null ? "" : " · max " + h(it.max)}</div>`,
-        it.criterion ? h(it.criterion) : `<span class="na">No criterion text in the rubric</span>`,
-      ].concat(credit
-        ? [pctText(it.full, it.denom), pctText(it.partial, it.denom), pctText(it.none, it.denom)]
-        : [num(it.denom)]).concat([
-        it.mean == null ? "–" : num(it.mean),
-        it.frequent ? `${h(it.frequent.text)} <span class="small">${h(pctText(it.frequent.n, it.frequent.denom))} non-empty</span>` : `<span class="na">–</span>`,
-      ]),
-    })));
+    const head = [{ t: "Item" }].concat(credit
+      ? [{ t: "Full credit", num: 1 }, { t: "Partial credit", num: 1 }, { t: "No credit", num: 1 }]
+      : [{ t: "Scored", num: 1 }]).concat([{ t: "Average score", num: 1 }]);
+    return `<p class="small">Each share uses the included participants who have a numeric score on that item. Full credit means the stored score reached the item maximum. Partial credit is above zero and below that maximum. No credit is a stored zero. A missing score is not counted as no credit.</p>`
+      + table(head, model.items.map((it) => ({
+        attrs: ` data-item="${h(it.id)}" data-label="${h((it.id + " " + it.title + " " + it.criterion).toLowerCase())}"`,
+        cells: [
+          `<b>${h(it.title)}</b>${it.criterion ? `<div class="small">${h(it.criterion)}</div>` : ""}`,
+        ].concat(credit
+          ? [pctText(it.full, it.denom), pctText(it.partial, it.denom), pctText(it.none, it.denom)]
+          : [num(it.denom)]).concat([
+          it.mean == null ? "–" : num(it.mean) + (it.max == null ? "" : " of " + num(it.max)),
+        ]),
+      })));
   }
 
   function fieldTable(model) {
@@ -566,12 +575,12 @@
     return `<p>Rubric items on file: ${num(items.length)}.${model.rubricPath ? ` Source: <code>${h(model.rubricPath)}</code>.` : ""}</p>`
       + (model.rubricNote ? `<p>${h(clip(model.rubricNote, 500))}</p>` : "")
       + (policyBits ? `<ul class="scoring-rules">${policyBits}</ul>` : "")
-      + `<details class="tech"><summary>Criteria</summary><div class="tech-body">${table(
+      + `<h3>Criteria on file</h3>${table(
         [{ t: "Item" }, { t: "Maximum", num: 1 }, { t: "Criterion on file" }],
         items.map(([id, item]) => ({
-          cells: [`<code>${h(id)}</code> ${h(item.label || "")}`, item.max_score == null ? "–" : num(item.max_score), h(clip(criterionText(item), 220)) || `<span class="na">–</span>`],
+          cells: [`${h(item.label || itemTitle(w, id))}<div class="small"><code>${h(id)}</code></div>`, item.max_score == null ? "–" : num(item.max_score), h(clip(criterionText(item), 220)) || `<span class="na">–</span>`],
         }))
-      )}</div></details>`
+      )}`
       + (model.totalsMatch && model.cohort.length ? `<p class="small">For every participant in the summary, the stored total equals the sum of that file’s item scores. This page copies the stored total.</p>` : "");
   }
 
@@ -697,9 +706,97 @@
     </div>`;
   }
 
-  function page(code, q) {
+  function methodSentence(model) {
+    if (model.method.id === "consistency") return "The score describes whether the recorded tree agrees with itself. A higher score is not a mark for one correct tree.";
+    if (model.method.id === "rule") return "Each score comes from a rule-based check: a stored value is compared with a fixed rule. A result that passes is not, by itself, evidence that the participant understood the idea.";
+    if (model.method.id === "mixed") return "Some items are scored with a rubric. Separate rules check specific counts or numbers. A rule that passes is not, by itself, evidence of understanding.";
+    return "Each item is scored against a rubric, and those item scores are added. The total describes the published scores. It is not a measure of learning.";
+  }
+
+  function headlineCards(model) {
+    const n = model.cohort.length;
+    const out = [{
+      v: n + " of " + model.nStudents,
+      l: "Participants included",
+      d: "A published score and a response that could be read.",
+    }];
+    if (!n || model.mean == null) return out;
+    if (model.sameMax != null) {
+      const ofMax = "Out of " + num(model.sameMax) + ".";
+      const averageNote = model.method.id === "consistency" ? ofMax + " Agreement within the recorded tree, not one correct answer." : ofMax;
+      out.push(
+        { v: num(model.mean), l: "Average score", d: averageNote },
+        { v: num(model.median), l: "Median score", d: ofMax },
+        { v: num(model.min) + "–" + num(model.maxTotal), l: "Score range", d: ofMax }
+      );
+    } else {
+      out.push({ v: num(model.mean), l: "Average score", d: "The files do not share one maximum, so this is not shown as a percentage." });
+    }
+    return out;
+  }
+
+  function distributionSentence(model) {
+    if (!model.cohort.length || model.sameMax == null) return "";
+    const counts = new Map();
+    model.cohort.forEach((p) => {
+      if (typeof p.total !== "number") return;
+      counts.set(p.total, (counts.get(p.total) || 0) + 1);
+    });
+    const rows = Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || a[0] - b[0]);
+    if (!rows.length) return "";
+    if (rows.length === 1) return "Every included participant has a stored score of " + num(rows[0][0]) + " of " + num(model.sameMax) + ".";
+    return rows[0][1] + " of " + model.cohort.length + " included participants have a stored score of " + num(rows[0][0]) + " of " + num(model.sameMax) + ". The scores run from " + num(model.min) + " to " + num(model.maxTotal) + ".";
+  }
+
+  function nameList(ids) {
+    if (ids.length <= 1) return ids.join("");
+    if (ids.length === 2) return ids[0] + " and " + ids[1];
+    return ids.slice(0, -1).join(", ") + ", and " + ids[ids.length - 1];
+  }
+
+  function itemContrast(model) {
+    const rated = model.items.filter((it) => typeof it.mean === "number" && typeof it.max === "number" && it.max > 0 && it.denom > 0);
+    if (rated.length < 2) return "";
+    const rate = (it) => it.mean / it.max;
+    const minR = Math.min.apply(null, rated.map(rate));
+    const maxR = Math.max.apply(null, rated.map(rate));
+    if (Math.abs(maxR - minR) < 0.02) return "";
+    const highs = rated.filter((it) => Math.abs(rate(it) - maxR) < 0.001);
+    const lows = rated.filter((it) => Math.abs(rate(it) - minR) < 0.001);
+    const label = (list) => list.length > 3 ? list.length + " items" : nameList(list.map((it) => it.title));
+    const highBit = highs.length === 1 ? "on " + label(highs) : "shared by " + label(highs);
+    const lowBit = "on " + label(lows);
+    return "The highest average score is " + num(highs[0].mean) + " of " + num(highs[0].max) + ", " + highBit + ". The lowest is " + num(lows[0].mean) + " of " + num(lows[0].max) + ", " + lowBit + ". A lower average describes the stored scores. It is not, by itself, evidence that participants misunderstood the idea.";
+  }
+
+  function checkContrast(model) {
+    const rows = (model.rules && model.rules.rows) || [];
+    if (!rows.length || model.rules.derived) return "";
+    let n = 0;
+    rows.filter((r) => r.family !== "rule").forEach((r) => {
+      const id = String(r.id).replace(/^item_checks\./, "");
+      const it = model.items.find((x) => x.id === id);
+      if (!it || !it.denom) return;
+      if (it.full + it.partial > it.none && r.fail > r.pass) n += 1;
+    });
+    if (!n) return "";
+    return "On " + n + (n === 1 ? " item" : " items") + ", most included participants received partial or full credit, while a separate yes-or-no check failed more often than it passed. That check is not the rubric score.";
+  }
+
+  function notesBlock(model) {
+    const lines = [];
+    Object.keys(model.notes || {}).forEach((student) => {
+      const ws = (model.notes[student] || {})[model.code] || {};
+      Object.keys(ws).forEach((item) => {
+        if (ws[item]) lines.push(student + ", " + item + ": " + ws[item]);
+      });
+    });
+    if (!lines.length) return "";
+    return `<h3>Notes stored on scores</h3><ul>${lines.map((line) => `<li>Note stored on the score. ${h(line)}</li>`).join("")}</ul>`;
+  }
+
+  function page(code) {
     const pack = data();
-    q = q || {};
     if (!pack.core) return `<div class="page"><h1>Worksheet findings</h1><p>Data files are missing.</p></div>`;
     const model = pack.all[code];
     if (!model) {
@@ -707,91 +804,74 @@
         <h1>Worksheet not found</h1><p>No worksheet “${h(code)}” is in this archive.</p><p><a href="#/findings/worksheets">Back to worksheet findings</a></p></div>`;
     }
     if (model.duplicateOf) return duplicatePage(model);
-    const withFile = model.people.filter((p) => p.state !== "absent").length;
-    const filled = model.people.filter((p) => p.nText > 0).length;
-    const head = [{ t: "Participant" }, { t: "Extraction" }, { t: "Scoring status" }, { t: "Full credit", num: 1 }, { t: "Partial", num: 1 }, { t: "No credit", num: 1 }, { t: "Stored total" }, { t: "Percent of maximum" }, { t: "Detail" }];
+    const leftOut = model.people.filter((p) => !p.inCohort).map((p) => p.id);
+    const overall = [
+      methodSentence(model),
+      model.cohort.length ? "" : "No participant has both a published score and a readable response, so there is no score summary.",
+      distributionSentence(model),
+      itemContrast(model),
+      checkContrast(model),
+      leftOut.length ? nameList(leftOut) + (leftOut.length === 1 ? " is" : " are") + " not included. A dash in the table is not a score of zero." : "",
+    ].filter(Boolean);
+    const head = [{ t: "Participant" }, { t: "Score" }, { t: "Share of maximum" }].concat(model.hasCredit
+      ? [{ t: "Full credit", num: 1 }, { t: "Partial credit", num: 1 }, { t: "No credit", num: 1 }]
+      : []);
     const rows = model.people.map((p) => ({
       attrs: ` data-student="${h(p.id)}"`,
       cells: personCells(model, p),
     }));
-    const selected = pack.core.students.indexOf(q.student) !== -1 ? q.student : "";
-    const panels = pack.core.students.map((s) => personPanel(model, pack.core, pack.docs, s, selected)).join("");
-    const summaryCards = [
-      { v: num(withFile), l: "Participants with an extraction file", d: "Of " + model.nStudents + " pseudonyms." },
-      { v: num(filled), l: "With at least one filled response", d: "A blank or a failed extraction is not counted here." },
-      { v: num(model.cohort.length), l: "Included in the score summary", d: "Published score and a usable extraction." },
-      model.sameMax != null && model.cohort.length ? { v: num(model.mean), l: "Mean stored total", d: "Of " + num(model.sameMax) + ". Median " + num(model.median) + ". Range " + num(model.min) + "–" + num(model.maxTotal) + "." } : null,
-    ];
-    const policyLine = model.code === "WS10"
-      ? `<p>The processing notes describe Python rules for the energy-threshold table. The site data’s pipeline label for this worksheet is <code>${h(model.pipeline || "–")}</code>. Item scores and boolean checks are both shown, and they are not treated as the same result.</p>`
-      : `<p>Assessment label used on this page: ${h(model.method.label)}. Pipeline label stored in the site data: <code>${h(model.pipeline || "–")}</code>.</p>`;
+    const blankNote = model.items.some((it) => it.blankScore)
+      ? `<p class="small">${model.items.reduce((a, it) => a + it.blankScore, 0)} scored items in the summary have no filled response on the joined field. A blank can still carry a stored score. A score of zero is no credit. A blank is not labelled incorrect on its own.</p>`
+      : "";
     return `<div class="page wide find-page">${crumbs([["Findings", "#/findings"], ["Worksheet findings", "#/findings/worksheets"], [code]])}
       <p class="kicker">Worksheet findings</p>
       <h1>${h(code)} · ${h(model.title)}</h1>
-      <p class="lead">${h(model.topic)} The figures below count extracted responses and published scores. They describe what is in the files. They are not a measure of learning gain.</p>
-      <nav class="jump" aria-label="On this page">
-        <a href="#overview">Overview</a>
-        <a href="#participants">Participants</a>
-        <a href="#items">Items</a>
-        <a href="#summary">Summary</a>
-        <a href="#assessment">Assessment</a>
-        <a href="#limits">Limitations</a>
-      </nav>
-      ${cards(summaryCards)}
-      <section class="section-block" id="overview"><h2>Overview</h2>
-        ${policyLine}
-        <p>A response can be extracted, scored, flagged for review, or missing. An extraction file is not itself a score. ${model.cohort.length ? `The score summary uses ${model.cohort.length} of ${model.nStudents} participants: those with a published scoring file and an extraction that contains at least one value other than a failed read.` : "No participant meets both conditions, so there is no score summary."}</p>
-        <p><a href="#/explore/worksheet/${h(code)}">Blank worksheet, answer key, and scanned submissions</a></p>
+      <p class="lead">${h(model.topic)}</p>
+      ${cards(headlineCards(model), "find-headline")}
+      <section class="section-block" id="overall"><h2>Overall findings</h2>
+        ${overall.map((line) => `<p>${h(line)}</p>`).join("")}
+        ${distribution(model)}
       </section>
       <section class="section-block" id="participants"><h2>Participant results</h2>
-        <p>Full credit, partial credit, and no credit count published item scores for participants in the summary. A participant without a published score shows a dash, not a zero. Percent is shown only when the scoring file stores both a total and a maximum.</p>
-        <div class="ws-search-bar">
+        <p>Each row is this worksheet only. A dash means the participant is not in the summary. It is not a score of zero.</p>
+        <div class="ws-search-bar find-tools">
           <label class="sr-only" for="findPsearch">Filter participants</label>
-          <input type="search" id="findPsearch" placeholder="Filter by pseudonym" autocomplete="off">
+          <input type="search" id="findPsearch" class="find-query" placeholder="Filter by pseudonym" autocomplete="off">
         </div>
-        ${table(head, rows)}
+        <div class="find-people">${table(head, rows)}</div>
         <p class="empty" id="findPempty" hidden>No participants match.</p>
       </section>
-      <section class="section-block" id="items"><h2>Item results</h2>
-        <p>${model.aligned ? "Each item is joined to the extracted field that uses the same identifier." : "Item scores and extracted fields do not share identifiers. The score table and the field table are separate."} Proportions use only participants in the score summary who have a numeric score for that item. ${model.items[0] ? "The denominator is shown in each cell." : ""}</p>
-        ${model.items.some((it) => it.blankScore) ? `<p class="small">${model.items.reduce((a, it) => a + it.blankScore, 0)} scored items in the summary have no filled extraction on the joined field. A blank is counted in the extraction columns and, when the score is 0, also as no credit. It is not labelled incorrect on its own.</p>` : ""}
-        <div class="ws-search-bar">
-          <label class="sr-only" for="findIsearch">Filter items</label>
-          <input type="search" id="findIsearch" placeholder="Filter items" autocomplete="off">
+      <details class="find-fold" id="items"><summary>Explore results by item</summary>
+        <div class="find-fold-body">
+          <div class="ws-search-bar">
+            <label class="sr-only" for="findIsearch">Filter items</label>
+            <input type="search" id="findIsearch" placeholder="Filter items" autocomplete="off">
+          </div>
+          ${itemTable(model)}
+          ${blankNote}
+          ${fieldTable(model)}
         </div>
-        ${itemTable(model)}
-        ${fieldTable(model)}
-        <h3>One participant</h3>
-        <p class="small">Open a participant to read each stored score and, where the identifiers match, the extracted response.</p>
-        <label>Participant <select id="findStudent"><option value="">Choose a participant</option>${pack.core.students.map((s) => `<option value="${h(s)}"${s === selected ? " selected" : ""}>${h(s)}</option>`).join("")}</select></label>
-        <p id="findPersonEmpty"${selected ? " hidden" : ""}>Choose a participant to read item-level responses.</p>
-        <div id="findPeople">${panels}</div>
-      </section>
-      <section class="section-block" id="summary"><h2>Aggregate findings</h2>
-        ${model.cohort.length ? `<p>Included participants: ${h(model.cohort.map((p) => p.id).join(", "))}.</p>
-          <p>Mean stored total ${h(num(model.mean))}, median ${h(num(model.median))}, range ${h(num(model.min))}–${h(num(model.maxTotal))}${model.sameMax != null ? ", each out of " + h(num(model.sameMax)) + ". The mean is " + h(share(model.mean, model.sameMax)) + " of that maximum." : ". A single percentage is not shown because the files do not share one maximum."}</p>
-          ${distribution(model)}
-          <h3>By item</h3>
-          <p class="small">The item table above is the aggregate. Full, partial, and no credit are disjoint. Their denominator is the number of included participants with a numeric score on that item, not the full cohort of ${h(model.nStudents)}.</p>`
-          : `<p class="missing-line">No aggregate score is available. A published score and a usable extraction are both required.</p>`}
-        ${model.cohortOverrides.length ? `<h3>Researcher overrides</h3><p>${model.cohortOverrides.length} item score${model.cohortOverrides.length === 1 ? "" : "s"} in the summary record a researcher override.</p>${table([{ t: "Participant" }, { t: "Item" }, { t: "Stored score" }, { t: "Rationale in the file" }], model.cohortOverrides.map((o) => ({ cells: [h(o.student), `<code>${h(o.item)}</code>`, num(o.score), h(o.rationale || "–")] })))}` : ""}
-      </section>
-      <section class="section-block" id="assessment"><h2>Assessment and validation</h2>
-        <h3>${model.method.id === "rule" ? "Rule-based scores" : model.method.id === "consistency" ? "Consistency scores" : "Rubric scores"}</h3>
-        ${rubricBlock(model, pack.core)}
-        ${model.method.id === "consistency" ? `<p>The rubric scores internal consistency. A high score means the recorded tree agrees with itself. It does not mean the tree matches one correct answer.</p>` : ""}
-        <h3>Rule-based and boolean checks</h3>
-        ${ruleTable(model)}
-        <p class="small">A check that passes does not, by itself, establish that the participant understood the concept.</p>
-      </section>
-      <section class="section-block" id="limits"><h2>Limitations and coverage</h2>
-        ${model.limits.length ? `<ul>${model.limits.map((x) => `<li>${h(x)}</li>`).join("")}</ul>` : `<p>No further coverage gap is recorded for this worksheet.</p>`}
-        <details class="tech"><summary>Source paths</summary><div class="tech-body">
+      </details>
+      <details class="find-fold" id="method"><summary>Methodology and data quality</summary>
+        <div class="find-fold-body">
+          <h3>Scoring method</h3>
+          <p>${h(methodSentence(model))} The label used here is ${h(model.method.label)}.${model.pipeline ? ` The internal pipeline label is <code>${h(model.pipeline)}</code>.` : ""}</p>
+          <h3>${model.method.id === "rule" ? "Rule-based scores" : model.method.id === "consistency" ? "Consistency scores" : "Rubric scores"}</h3>
+          ${rubricBlock(model, pack.core)}
+          <h3>Rule-based and yes-or-no checks</h3>
+          <p>A rubric compares a response with scoring criteria. A rule-based check tests a predefined condition. A check that passes does not, by itself, establish that the participant understood the concept.</p>
+          ${ruleTable(model)}
+          ${notesBlock(model)}
+          ${model.cohortOverrides.length ? `<h3>Researcher overrides</h3><p>${model.cohortOverrides.length} item score${model.cohortOverrides.length === 1 ? "" : "s"} in the summary record a researcher override.</p>${table([{ t: "Participant" }, { t: "Item" }, { t: "Stored score" }, { t: "Rationale in the file" }], model.cohortOverrides.map((o) => ({ cells: [h(o.student), `<code>${h(o.item)}</code>`, num(o.score), h(o.rationale || "–")] })))}` : ""}
+          <h3>Data coverage and limitations</h3>
+          ${model.limits.length ? `<ul>${model.limits.map((x) => `<li>${h(x)}</li>`).join("")}</ul>` : `<p>No further coverage gap is recorded for this worksheet.</p>`}
+          <h3>Sources</h3>
           ${model.rubricPath ? `<div class="src">${h(model.rubricPath)}</div>` : ""}
           ${model.people.filter((p) => p.ocrSource).slice(0, 1).map((p) => `<div class="src">${h(p.ocrSource)}</div>`).join("")}
           ${model.people.filter((p) => p.source).slice(0, 1).map((p) => `<div class="src">${h(p.source)}</div>`).join("")}
-        </div></details>
-      </section>
+          <p><a href="#/explore/worksheet/${h(code)}">Blank worksheet, answer key, and scanned submissions</a></p>
+        </div>
+      </details>
       <p><a href="#/findings/worksheets">All worksheet findings</a></p>
     </div>`;
   }
@@ -801,18 +881,22 @@
       <p class="kicker">Worksheet findings</p>
       <h1>${h(model.code)} · ${h(model.title)}</h1>
       <p class="lead">${h(model.topic)}</p>
-      <div class="warn">WS11 is not used as scored evidence. The extraction record repeats WS14 for every participant, and the scoring files are not published.</div>
-      <section class="section-block" id="overview"><h2>Overview</h2>
-        <p>The worksheet rubric describes a feedback survey and a short set of closed items. The extraction files stored under WS11 do not provide a separate response set.</p>
-        <p><a href="#/findings/worksheets/${h(model.duplicateOf)}">WS14 findings</a> · <a href="#/explore/worksheet/WS11">WS11 files in collected data</a></p>
+      ${cards([{ v: "Not scored", l: "Participants included", d: "This worksheet is not used as scored evidence." }], "find-headline")}
+      <section class="section-block" id="overall"><h2>Overall findings</h2>
+        <p>WS11 is not used as scored evidence. The extraction record repeats ${h(model.duplicateOf)} for every participant, and the scoring files are not published.</p>
+        <p>The rubric describes a feedback survey. The files stored under WS11 do not provide a separate response set, so this page does not report a score.</p>
+        <p><a href="#/findings/worksheets/${h(model.duplicateOf)}">${h(model.duplicateOf)} findings</a></p>
       </section>
-      <section class="section-block" id="assessment"><h2>Assessment</h2>
-        <p>Rubric source: <code>${h(model.rubricPath || "–")}</code>. ${model.rubricCount ? h(model.rubricCount) + " rubric entries are on file." : "No rubric entries are on file."}</p>
-        <p>The method is documented. Corresponding published scores are not. Zero-confidence files are not shown as results, and the repeated WS14 text is not scored again here.</p>
-      </section>
-      <section class="section-block" id="limits"><h2>Limitations and coverage</h2>
-        <ul>${model.limits.map((x) => `<li>${h(x)}</li>`).join("")}</ul>
-      </section>
+      <details class="find-fold" id="method"><summary>Methodology and data quality</summary>
+        <div class="find-fold-body">
+          <h3>Scoring method</h3>
+          <p>The method is documented. Corresponding published scores are not. Zero-confidence files are not shown as results, and the repeated ${h(model.duplicateOf)} text is not scored again here.</p>
+          <p>Rubric source: <code>${h(model.rubricPath || "–")}</code>. ${model.rubricCount ? h(model.rubricCount) + " rubric entries are on file." : "No rubric entries are on file."}</p>
+          <h3>Data coverage and limitations</h3>
+          <ul>${model.limits.map((x) => `<li>${h(x)}</li>`).join("")}</ul>
+          <p><a href="#/explore/worksheet/${h(model.code)}">Blank worksheet and files in collected data</a></p>
+        </div>
+      </details>
       <p><a href="#/findings/worksheets">All worksheet findings</a></p>
     </div>`;
   }

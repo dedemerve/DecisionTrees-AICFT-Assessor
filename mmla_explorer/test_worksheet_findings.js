@@ -113,7 +113,15 @@ if (amyNote) {
 check(all.WS5.cohortOverrides.length === 5 || (docs.overrides || []).filter((o) => o.worksheet === "WS5").length === 5, "WS5 overrides");
 
 const studentHtml = WF.page("WS1", { student: "Bruno" });
-check(studentHtml.indexOf('data-person="Bruno"') !== -1 && studentHtml.indexOf('data-person="Amy" hidden') !== -1, "participant detail opens Bruno and hides others");
+check(studentHtml.indexOf('href="#/explore/student/') === -1, "worksheet findings do not open a cross-worksheet profile");
+check(studentHtml.indexOf(">Items<") === -1, "worksheet findings do not add an Items navigation column");
+check(studentHtml.indexOf("Participants included") !== -1 && studentHtml.indexOf("Average score") !== -1, "WS1 shows the headline scores");
+check(studentHtml.indexOf("Explore results by item") !== -1 && studentHtml.indexOf("Methodology and data quality") !== -1, "item results and methodology are disclosures");
+check(studentHtml.indexOf('class="jump"') === -1, "worksheet findings do not use section tabs");
+["WS5", "WS12", "WS14"].forEach((code) => {
+  const html = WF.page(code, {});
+  check(html.indexOf("Overall findings") !== -1 && html.indexOf('href="#/explore/student/') === -1, code + " uses the simplified findings page");
+});
 
 console.log(failed ? failed + " failed" : "worksheet findings checks passed");
 process.exit(failed ? 1 : 0);
