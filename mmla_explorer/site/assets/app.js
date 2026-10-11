@@ -1881,50 +1881,65 @@
     const guided = (pack.students || []).slice().sort((a, b) => a.pseudonym.localeCompare(b.pseudonym));
     const finals = (pack.final || []).slice().sort((a, b) => a.pseudonym.localeCompare(b.pseudonym));
     const guidedMissing = STUDENTS.filter((s) => !guided.some((row) => row.pseudonym === s));
-    const finalMissing = STUDENTS.filter((s) => !finals.some((row) => row.pseudonym === s));
+    const byFinal = {};
+    finals.forEach((s) => { byFinal[s.pseudonym] = s; });
     const row = (name, href, label) => `<li><span class="nb-who">${h(name)}</span><a class="nb-dl" href="${h(href)}" download>${h(label)}</a></li>`;
     const guidedRows = guided.map((s) => row(s.pseudonym, s.file, "Download")).join("");
-    const finalRows = finals.map((s) => row(s.pseudonym, s.file, "Download")).join("");
+    const finalRows = STUDENTS.slice().sort((a, b) => a.localeCompare(b)).map((name) => {
+      if (name === "Marco") return `<li><span class="nb-who">Marco</span><span class="nb-kind">PDF report</span><a class="nb-dl" href="downloads/notebooks/final/Marco.pdf" download>Download PDF</a></li>`;
+      const file = byFinal[name];
+      if (!file) return "";
+      return `<li><span class="nb-who">${h(name)}</span><span class="nb-kind">Notebook</span><a class="nb-dl" href="${h(file.file)}" download>Download</a></li>`;
+    }).join("");
     return `<div class="page wide nb-page">${exploreShell("notebooks", `
       ${crumbs([["Collected data", "#/collected"], ["Python notebooks"]])}
       <h1>Python notebooks: learning to build decision trees</h1>
       <p class="lead">These materials show how the class learned to build a decision tree in Python. The teacher notebook sets out the guided work. The final homework asks students to use that process on a new dataset.</p>
-      <h2>Learning sequence</h2>
-      <p>The three sessions are stages of one guided notebook, not three separate assignments. Weekly student files follow this notebook, so they are not listed as the main collection.</p>
-      <ol class="nb-seq">
-        <li><span class="n">1</span><h3>Colab Session 1</h3><p class="nb-kicker">Python foundations and data exploration</p><p>Students write to the screen, use variables and lists, import the libraries, and load and inspect the food table.</p></li>
-        <li><span class="n">2</span><h3>Colab Session 2</h3><p class="nb-kicker">Preparing data and building a decision tree</p><p>Students separate features from the recommendation label, split training and test rows, and fit a decision tree.</p></li>
-        <li><span class="n">3</span><h3>Colab Session 3</h3><p class="nb-kicker">Exploring tree depth and evaluating performance</p><p>Students compare trees of different depths and look at training and test error, including overfitting.</p></li>
-      </ol>
-      <article class="nb-offer">
-        <div>
-          <h2>Teacher instructions</h2>
-          <p>A guided notebook that introduces Python and builds toward training and evaluating a decision tree.</p>
-        </div>
-        ${pack.teacher ? `<a class="nb-dl" href="${h(pack.teacher)}" download>Download notebook</a>` : ""}
-      </article>
-      <section class="nb-assignment">
-        <h2>Final homework: guided application</h2>
-        <p>The final assignment asks students to apply their Python and decision-tree skills to the lizard dataset. Start with the homework instructions, then use the supplied dataset to complete the activities.</p>
-        <div class="nb-offer nb-offer-primary">
-          <div>
-            <h3>Homework instructions</h3>
-            <p>The step-by-step assignment. It uses the lizard table described below.</p>
+      <section class="nb-section">
+        <h2>Learning sequence</h2>
+        <p>The three sessions are stages of one guided notebook, not three separate assignments. Weekly student files follow this notebook, so they are not listed as the main collection.</p>
+        <ol class="nb-seq">
+          <li><span class="n">1</span><h3>Colab Session 1</h3><p class="nb-kicker">Python foundations and data exploration</p><p>Students write to the screen, use variables and lists, import the libraries, and load and inspect the food table.</p></li>
+          <li><span class="n">2</span><h3>Colab Session 2</h3><p class="nb-kicker">Preparing data and building a decision tree</p><p>Students separate features from the recommendation label, split training and test rows, and fit a decision tree.</p></li>
+          <li><span class="n">3</span><h3>Colab Session 3</h3><p class="nb-kicker">Exploring tree depth and evaluating performance</p><p>Students compare trees of different depths and look at training and test error, including overfitting.</p></li>
+        </ol>
+      </section>
+      <section class="nb-section">
+        <h2>Teacher instructions</h2>
+        <div class="nb-pack">
+          <div class="nb-pack-row">
+            <div>
+              <p>A guided notebook that introduces Python and builds toward training and evaluating a decision tree.</p>
+            </div>
+            ${pack.teacher ? `<a class="nb-dl" href="${h(pack.teacher)}" download>Download notebook</a>` : ""}
           </div>
-          <a class="nb-dl" href="downloads/notebooks/homework/final_homework_instructions.pdf" download>Download homework instructions (PDF)</a>
-        </div>
-        <div class="nb-offer nb-offer-sub">
-          <div>
-            <h3>Dataset for this assignment</h3>
-            <p>The CSV used in the homework. 320 rows and 7 columns.</p>
-          </div>
-          <a class="nb-dl" href="downloads/notebooks/homework/lizard_data.csv" download>Download lizard dataset (CSV)</a>
         </div>
       </section>
-      <h2>Student submissions</h2>
-      <p>These files are the students' own notebooks. Names are replaced by pseudonyms.</p>
-      <p class="nb-muted">Marco submitted a written report instead of a notebook. <a class="nb-dl nb-dl-quiet" href="downloads/notebooks/final/Marco.pdf" download>Download PDF</a></p>
-      <ul class="nb-files">${finalRows}</ul>
+      <section class="nb-section">
+        <h2>Final homework: guided application</h2>
+        <p>The final assignment asks students to apply their Python and decision-tree skills to the lizard dataset. Start with the homework instructions, then use the supplied dataset to complete the activities.</p>
+        <div class="nb-pack">
+          <div class="nb-pack-row">
+            <div>
+              <h3>Homework instructions</h3>
+              <p>The step-by-step assignment. It uses the lizard dataset below.</p>
+            </div>
+            <a class="nb-dl" href="downloads/notebooks/homework/final_homework_instructions.pdf" download>Download homework instructions (PDF)</a>
+          </div>
+          <div class="nb-pack-row">
+            <div>
+              <h3>Dataset for this assignment</h3>
+              <p>The CSV used in the homework. 320 rows and 7 columns.</p>
+            </div>
+            <a class="nb-dl" href="downloads/notebooks/homework/lizard_data.csv" download>Download lizard dataset (CSV)</a>
+          </div>
+        </div>
+      </section>
+      <section class="nb-section">
+        <h2>Student submissions</h2>
+        <p>These files are the students' own work. Names are replaced by pseudonyms.</p>
+        <ul class="nb-files nb-cohort">${finalRows}</ul>
+      </section>
       <details class="nb-more">
         <summary>Guided session notebooks</summary>
         <div class="nb-more-body">
