@@ -693,20 +693,36 @@ p.span-line { max-width: none; white-space: nowrap; }
   width: 36px; height: 36px; border-radius: 8px; display: grid; place-items: center;
   background: var(--pale); color: var(--navy); font-weight: 600; font-size: 13px;
 }
+.find-page p, .find-page .lead { max-width: none; }
 .find-grid {
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px; margin: 18px 0 8px;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px; margin: 8px 0 8px;
 }
-.find-grid a {
+.find-grid a, .find-profile {
   display: flex; flex-direction: column; height: 100%; min-width: 0;
   background: var(--surface); border: 1px solid var(--rule); border-radius: 12px;
   padding: 16px 16px 14px; text-decoration: none; color: inherit;
 }
-.find-grid a:hover { border-color: var(--blue); text-decoration: none; }
-.find-grid a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
-.find-grid h2 { margin: 10px 0 6px; font-size: 1.05rem; }
-.find-grid p { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); max-width: none; }
+.find-grid a:hover, .find-profile:hover { border-color: var(--blue); text-decoration: none; }
+.find-grid a:focus-visible, .find-profile:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.find-grid h2, .find-profile h3 { margin: 10px 0 6px; font-size: 1.05rem; }
+.find-grid p, .find-profile p { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
 .find-go { margin-top: auto; padding-top: 14px; color: var(--blue); font-size: 14px; font-weight: 600; }
+.find-profiles, .find-place { margin-top: 28px; }
+.find-profiles > h2, .find-place > h2 { margin-bottom: 8px; }
+.find-flow {
+  list-style: none; margin: 8px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;
+}
+.find-flow a, .find-flow .here {
+  display: block; height: 100%;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 12px;
+  padding: 14px 16px; text-decoration: none; color: inherit;
+}
+.find-flow a:hover { border-color: var(--blue); text-decoration: none; }
+.find-flow a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.find-flow strong { display: block; margin-bottom: 4px; }
+.find-flow span { display: block; color: var(--ink-2); font-size: 14.5px; line-height: 1.45; }
 .arch-flow {
   display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
   margin: 8px 0 18px; color: var(--muted); font-size: 13px; font-weight: 600;
@@ -1076,7 +1092,7 @@ p.why { font-size: 14px; color: var(--ink-2); }
   .theme-btn { padding: 6px 8px; }
   h1 { font-size: 1.5rem; }
   .hero h1 { font-size: 1.7rem; }
-  .metric-row, .flow, .compare, .explore-path, .nb-seq, .nb-grid, .find-grid { grid-template-columns: 1fr; }
+  .metric-row, .flow, .compare, .explore-path, .nb-seq, .nb-grid, .find-grid, .find-flow { grid-template-columns: 1fr; }
   .nb-seq li:not(:last-child)::after { display: none; }
   .nb-grid, .nb-files, .nb-cohort { grid-template-columns: 1fr; }
   .nb-pack-row { align-items: flex-start; flex-direction: column; }

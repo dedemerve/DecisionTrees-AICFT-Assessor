@@ -746,8 +746,8 @@
     };
     return `<div class="page wide">
       <p class="kicker">Findings</p>
-      ${crumbs([["Findings", "#/findings"], ["Participant overview"]])}
-      <h1>Participant overview</h1>
+      ${crumbs([["Findings", "#/findings"], ["Student profiles"]])}
+      <h1>Student profiles</h1>
       <p class="lead">Explore the participant-level overview of the archived materials. Each participant is represented by a pseudonym, with a summary of the available worksheets, screen recordings, platform logs, and Python work.</p>
       <p>These lines describe which files are in the archive. They are not measures of learning, performance, or engagement.</p>
       <div class="student-roster">${STUDENTS.map(card).join("")}</div>
@@ -939,7 +939,7 @@
   }
 
   function pageStudent(s, tab) {
-    if (!STUDENTS.includes(s)) return `<div class="page"><p class="kicker">Findings</p><h1>Not found</h1><p>No participant with the pseudonym “${h(s)}”.</p><p><a href="#/findings/participants">Participant overview</a></p></div>`;
+    if (!STUDENTS.includes(s)) return `<div class="page"><p class="kicker">Findings</p><h1>Not found</h1><p>No participant with the pseudonym “${h(s)}”.</p><p><a href="#/findings/participants">Student profiles</a></p></div>`;
     tab = tab || "worksheets";
     const tabs = [["worksheets", "Worksheets"], ["recordings", "Frames"], ["logs", "Platform logs"], ["notebook", "Notebook"]];
     const i = STUDENTS.indexOf(s);
@@ -951,7 +951,7 @@
     const prev = i > 0 ? `<a href="#/explore/student/${h(STUDENTS[i - 1])}/${tab}">← ${h(STUDENTS[i - 1])}</a>` : "";
     const next = i < STUDENTS.length - 1 ? `<a href="#/explore/student/${h(STUDENTS[i + 1])}/${tab}">${h(STUDENTS[i + 1])} →</a>` : "";
     return `<div class="page"><p class="kicker">Findings</p>
-      ${crumbs([["Findings", "#/findings"], ["Participant overview", "#/findings/participants"], [s]])}
+      ${crumbs([["Findings", "#/findings"], ["Student profiles", "#/findings/participants"], [s]])}
       <h1>${h(s)}</h1>
       <p class="small">Pseudonym · ${h(availableSummary(s))}</p>
       <nav class="tabs sub">${tabs.map(([k, l]) => `<a href="#/explore/student/${h(s)}/${k}" class="${k === tab ? "active" : ""}">${l}</a>`).join("")}</nav>
@@ -1123,7 +1123,7 @@
     return `<p class="small">Automated check ${verdict}.${flag} This is the pipeline check, not a researcher-reviewed decision.</p>`;
   }
   function studentHead(student) {
-    return `<header><h3><a href="#/explore/student/${h(student)}">${h(student)}</a></h3><a class="small" href="#/explore/student/${h(student)}/worksheets">Participant record</a></header>`;
+    return `<header><h3><a href="#/explore/student/${h(student)}">${h(student)}</a></h3><a class="small" href="#/explore/student/${h(student)}/worksheets">Student profile</a></header>`;
   }
 
   function pageCollected() {
@@ -1405,7 +1405,7 @@
       ])}
       ${code === "WS11" && WS11_IS_WS14 ? `<p>The extraction files under WS11 repeat WS14 for every student. Field counts above describe that repeated text, not a WS11 survey.</p>` : ""}
       ${clashes.length ? `<div class="warn">Model-written page summaries name a different pseudonym from the file for: ${clashes.map(h).join("; ")}. Those summaries are not treated as verified attributions, and they are not quoted here.</div>` : ""}
-      <p>There is no verified join from a worksheet item to a screen recording or a CODAP log event. A pseudonym does link to that participant’s <a href="#/findings/participants">overview</a>.</p>
+      <p>There is no verified join from a worksheet item to a screen recording or a CODAP log event. A pseudonym does link to that participant’s <a href="#/findings/participants">student profile</a>.</p>
       <p>${methodLink("worksheets", "Extraction and scoring methods")} <a href="#/docs/limitations">Data notes</a></p>
       ${tech("Source paths", [w.schema, w.rubric, w.answer_key || doc.answer_key, doc.schema].filter(Boolean).map(src).join(""))}</section>`;
   }
@@ -2055,7 +2055,7 @@
       <h3 class="guide-group-label">Findings &amp; Research Insights</h3>
       <ul class="guide">
         <li><a href="#/findings">Findings</a><span>Four source categories: worksheets, screen recordings, platform logs, and Python notebooks.</span></li>
-        <li><a href="#/findings/participants">Participant overview</a><span>Which worksheets, recordings, logs, and Python files are on record for each pseudonym. These counts are not learning outcomes.</span></li>
+        <li><a href="#/findings/participants">Student profiles</a><span>Which worksheets, recordings, logs, and Python files are on record for each pseudonym. These counts are not learning outcomes.</span></li>
       </ul>
       <h3 class="guide-group-label">Reference &amp; Documentation</h3>
       <ul class="guide">
@@ -2288,15 +2288,32 @@
       ["LG", "Platform log findings", "Recorded actions in CODAP Arbor, including model attempts. A log does not show what a participant understood.", "#/findings/logs", "Explore platform log findings"],
       ["NB", "Python notebook findings", "What the inspection found in the final homework files. Pipeline rubric points are not a reviewed grade.", "#/findings/notebooks", "Explore Python notebook findings"],
     ];
-    return `<div class="page wide">
-      <p class="kicker">Findings &amp; Research Insights</p>
-      ${crumbs([["Findings & research insights"]])}
+    return `<div class="page find-page">
+      ${crumbs([["Findings"]])}
       <h1>Findings &amp; Research Insights</h1>
       <p class="lead">Explore the findings derived from the worksheets, screen-recording frames, platform logs, and Python notebooks collected during the learning activities.</p>
       <div class="find-grid">
         ${cards.map(([ico, title, text, href, action]) => `<a href="${href}"><div class="arch-ico" aria-hidden="true">${ico}</div><h2>${title}</h2><p>${text}</p><span class="find-go">${action}</span></a>`).join("")}
       </div>
-      <p><a href="#/findings/participants">Participant overview</a> lists which files are on record for each pseudonym. Those counts describe the archive. They are not findings.</p>
+      <section class="find-profiles">
+        <h2>Student profiles</h2>
+        <p>Explore each participant’s research profile, bringing together the available evidence from worksheets, screen recordings, platform logs, and Python notebooks.</p>
+        <a class="find-profile" href="#/findings/participants">
+          <div class="arch-ico" aria-hidden="true">ST</div>
+          <h3>Student profiles</h3>
+          <p>${STUDENTS.length} pseudonyms. Each profile lists the worksheets, screen recordings, platform logs, and Python files on record. These summaries describe the archive. They are not learning outcomes.</p>
+          <span class="find-go">Open student profiles</span>
+        </a>
+      </section>
+      <section class="find-place">
+        <h2>Where this page sits</h2>
+        <ul class="find-flow">
+          <li><a href="#/collected"><strong>Collected data</strong><span>The materials gathered during the activities.</span></a></li>
+          <li><a href="#/methods"><strong>Processing</strong><span>How those materials were prepared, coded, or analysed.</span></a></li>
+          <li><span class="here"><strong>Findings</strong><span>The results and participant profiles from the available evidence.</span></span></li>
+          <li><a href="#/docs"><strong>Reference</strong><span>Documentation and supporting research materials.</span></a></li>
+        </ul>
+      </section>
     </div>`;
   }
   function pageFindingWorksheets() {
