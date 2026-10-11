@@ -1562,160 +1562,109 @@
   }
 
   const HF_FRAMES = "https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames";
-  const frameView = { s: "", ss: "", previewPage: 0, listPage: 0, sel: "" };
+  const CODAP_SCREEN = new Set(["TREE", "GRAPH", "TABLE", "MIXED", "CODAP"]);
+  const frameView = { s: "", ss: "" };
+  const isCodapScreen = (f) => CODAP_SCREEN.has(f.sc);
+  const codapPreviews = (s, ss) => F.filter((f) => f.s === s && (!ss || f.ss === ss) && f.th && isCodapScreen(f));
+  const sessionHasFrames = (s, ss) => !!(C.sessions[s] && C.sessions[s][ss] && C.sessions[s][ss].manifest);
 
-  function framesForView() {
-    return F.filter((f) => (!frameView.s || f.s === frameView.s) && (!frameView.ss || f.ss === frameView.ss));
+  function firstSessionWithFrames(s) {
+    const hit = SESS.find((ss) => sessionHasFrames(s, ss.id));
+    return hit ? hit.id : "";
   }
   function pageRecordings(q) {
     frameView.s = (q && q.s) || "";
     frameView.ss = (q && q.ss) || "";
-    frameView.sel = (q && q.f) || "";
-    frameView.previewPage = 0;
-    frameView.listPage = 0;
+    if (frameView.s && !frameView.ss) frameView.ss = firstSessionWithFrames(frameView.s);
     const sessionsWithFrames = allSessions.filter((r) => r.manifest).length;
-    const previewN = F.filter((f) => f.th).length;
-    const absent = [];
-    STUDENTS.forEach((s) => SESS.forEach((ss) => { if (!C.sessions[s][ss.id].manifest) absent.push(s + " · " + SESS_NAME[ss.id]); }));
-    const who = STUDENTS.map((s) => `<button type="button" class="chip" data-who="${h(s)}">${h(s)}</button>`).join("");
-    const sess = `<button type="button" class="chip" data-ss="">Both sessions</button>` + SESS.map((ss) => `<button type="button" class="chip" data-ss="${h(ss.id)}">${h(SESS_NAME[ss.id])}</button>`).join("");
+    const storedPreviews = F.filter((f) => f.th).length;
+    const shownPreviews = F.filter((f) => f.th && isCodapScreen(f)).length;
+    const who = STUDENTS.map((s) => {
+      const n = codapPreviews(s).length;
+      return `<button type="button" class="person-card" data-who="${h(s)}" aria-pressed="false"><span class="person-name">${h(s)}</span><span class="person-n">${n ? num(n) + " CODAP previews" : "No previews"}</span></button>`;
+    }).join("");
     return `<div class="page wide">${exploreShell("recordings", `
       ${crumbs([["Collected data", "#/collected"], ["Screen recording frames"]])}
       <h1>Screen recording frames</h1>
-      <p class="lead">These frames were extracted from screen recordings of the CODAP Arbor sessions. This page shares the frame images stored for the archive, and the metadata that goes with them. The original videos are not offered for download.</p>
+      <p class="lead">Still images from students working in CODAP Arbor. The original videos are not available for download.</p>
+      <div class="stat-row">
+        <div class="stat-card"><div class="v">${num(F.length)}</div><div class="l">Extracted frames</div></div>
+        <div class="stat-card"><div class="v">${num(codedFrameCount)}</div><div class="l">Frames with a behaviour label</div></div>
+        <div class="stat-card"><div class="v">${num(sessionsWithFrames)}</div><div class="l">Sessions with frames</div></div>
+      </div>
+      <details class="tech"><summary>About the pictures on this page</summary><div class="tech-body">
+        <p>${num(storedPreviews)} preview images are stored on this site, ${num(C.thumbs_per_session)} per session, spaced through the recording. ${num(shownPreviews)} of them are the CODAP screen: a table, graph, tree, or the CODAP window. Menus and other screens are not shown. The full set of frame images is in the dataset below.</p>
+      </div></details>
 
-      <section class="section-block" id="frame-overview"><h2>Dataset overview</h2>
-        <div class="metric-row">
-          <div class="metric"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} have a behaviour label</div></div>
-          <div class="metric"><div class="v">${num(sessionsWithFrames)}</div><div class="l">Sessions with frames</div><div class="s">${SESS.length} class sessions</div></div>
-          <div class="metric"><div class="v">${num(previewN)}</div><div class="l">Previews on this site</div><div class="s">${num(C.thumbs_per_session)} per session, spaced apart</div></div>
-          <div class="metric"><div class="v">JPEG</div><div class="l">Preview format</div><div class="s">Cropped and softened</div></div>
-        </div>
-        <p>Each frame record has a pseudonym, a session, an elapsed time in that recording, a frame identifier, and a behaviour label when one was coded. ${h(SESS_NAME.codap_21apr)} is ${h(SESS_DATE.codap_21apr)}. ${h(SESS_NAME.codap_28apr)} is ${h(SESS_DATE.codap_28apr)}. ${absent.length ? `No frames were extracted for ${absent.map(h).join("; ")}.` : ""}</p>
-        <p>The previews on this website are not every extracted frame. They are ${num(C.thumbs_per_session)} images per session, taken at intervals through the recording. The other frames are listed with their metadata. Their images are in the public dataset below.</p>
-      </section>
-
-      <section class="section-block" id="frame-explore"><h2>Explore frames</h2>
-        <p>Choose a participant, then a session if you want only one. The labels on each frame are the codes stored with that frame. They are not a summary of the participant.</p>
-        <p class="who-label">Participant</p>
-        <div class="who-row" id="whoRow">${who}</div>
-        <p class="who-label">Session</p>
-        <div class="who-row" id="sessRow">${sess}</div>
+      <section class="section-block" id="frame-explore">
+        <h2>Choose a participant</h2>
+        <div class="person-grid" id="whoRow">${who}</div>
         <div id="frameOut"></div>
       </section>
 
-      <section class="section-block" id="frame-dataset"><h2>Complete dataset</h2>
+      <section class="section-block" id="frame-dataset">
         <div class="dataset-card frame-dataset">
-          <div class="ds-type">Hugging Face · CC BY 4.0</div>
-          <div class="ds-title">DecisionTrees-AICFT-Frames</div>
-          <p class="ds-desc">The public dataset contains the extracted frame images, <code>metadata.csv</code>, and <code>codap_log_anonymized.csv</code>. It does not contain the original videos. Worksheets are not in this dataset.</p>
-          <p class="ds-meta">${num(F.length)} images listed in the dataset repository.</p>
-          <a class="btn frame-dataset-btn" href="${HF_FRAMES}" target="_blank" rel="noopener">Open the complete frame dataset on Hugging Face</a>
+          <div class="ds-type">Complete dataset · CC BY 4.0</div>
+          <div class="ds-title">All extracted frames on Hugging Face</div>
+          <p class="ds-desc">The public dataset holds the frame images, <code>metadata.csv</code>, and <code>codap_log_anonymized.csv</code>. It does not include the original videos.</p>
+          <a class="btn btn-primary frame-dataset-btn" href="${HF_FRAMES}" target="_blank" rel="noopener">Open the complete frame dataset</a>
+          <a class="frame-method" href="#/methods/recordings">How these frames were chosen and labelled</a>
         </div>
-        <p><a class="btn" href="#/methods/recordings">How frames were selected and coded</a></p>
       </section>
       `)}</div>`;
-  }
-  function frameMeta(f) {
-    const flags = (f.ev || []).map((k) => EVIDENCE[k] || k);
-    return `<div class="frame-meta">
-      <p><b>${h(f.s)}</b> · ${h(SESS_NAME[f.ss])} · <span class="mono">${clock(f.t)}</span></p>
-      <dl class="kv">
-        <dt>Frame identifier</dt><dd><code>${h(f.id)}</code></dd>
-        <dt>Elapsed time</dt><dd>${num(f.t, 1)} seconds</dd>
-        <dt>Behaviour label</dt><dd>${f.b ? h(behLabel(f.b)) + " (" + h(f.b) + ")" : "No label stored"}</dd>
-        ${flags.length ? `<dt>Flags stored with the frame</dt><dd>${flags.map(h).join("; ")}</dd>` : ""}
-      </dl>
-    </div>`;
   }
   function renderFrameBrowse() {
     const out = document.getElementById("frameOut");
     if (!out) return;
-    document.querySelectorAll("#whoRow .chip").forEach((b) => b.classList.toggle("on", b.dataset.who === frameView.s));
-    document.querySelectorAll("#sessRow .chip").forEach((b) => b.classList.toggle("on", (b.dataset.ss || "") === frameView.ss));
+    document.querySelectorAll("#whoRow .person-card").forEach((b) => {
+      const on = b.dataset.who === frameView.s;
+      b.classList.toggle("on", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
     if (!frameView.s) {
-      out.innerHTML = `<p>Choose a participant to see that person’s frames. Images load after a participant is selected.</p>`;
+      out.innerHTML = `<p class="frame-prompt">Select a participant to see frames from the CODAP screen.</p>`;
       return;
     }
-    const rows = framesForView();
-    const previews = rows.filter((f) => f.th);
-    const perP = 12;
-    const previewPages = Math.max(1, Math.ceil(previews.length / perP) || 1);
-    if (frameView.sel) {
-      const at = previews.findIndex((f) => f.id === frameView.sel);
-      if (at >= 0) frameView.previewPage = Math.floor(at / perP);
+    if (!frameView.ss) frameView.ss = firstSessionWithFrames(frameView.s);
+    const tabs = SESS.map((ss) => {
+      const has = sessionHasFrames(frameView.s, ss.id);
+      const n = codapPreviews(frameView.s, ss.id).length;
+      const sub = has ? (n ? num(n) + " pictures" : "No CODAP pictures") : "No frames in this collection";
+      return `<button type="button" role="tab" class="sess-tab" data-ss="${h(ss.id)}" aria-selected="${frameView.ss === ss.id ? "true" : "false"}"><span>${h(SESS_NAME[ss.id])}</span><span class="when">${h(SESS_DATE[ss.id])} · ${h(sub)}</span></button>`;
+    }).join("");
+    const has = sessionHasFrames(frameView.s, frameView.ss);
+    const other = SESS.find((ss) => ss.id !== frameView.ss && sessionHasFrames(frameView.s, ss.id));
+    let body;
+    if (!has) {
+      body = `<div class="empty-session"><p>No frame images are available for this session in the current collection.${other ? " You can explore this participant’s frames from another available session." : ""}</p>${other ? `<button type="button" class="btn btn-primary" id="openOther" data-ss="${h(other.id)}">Open ${h(SESS_NAME[other.id])}</button>` : ""}</div>`;
+    } else {
+      const pics = codapPreviews(frameView.s, frameView.ss);
+      body = pics.length
+        ? `<div class="thumbs frame-grid">${pics.map((f) => {
+            const capText = `${f.s} · ${SESS_NAME[f.ss]} · ${clock(f.t)} · ${f.b ? behLabel(f.b) : "No label"} · ${f.id}`;
+            return `<figure><button type="button" class="thumb" data-zoom="thumbs/${h(f.th)}" data-cap="${h(capText)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt="${h(capText)}"></button><figcaption><span class="mono">${clock(f.t)}</span><br>${h(f.b ? behLabel(f.b) : "No label")}</figcaption></figure>`;
+          }).join("")}</div>`
+        : `<div class="empty-session"><p>This session has extracted frames, but none of the pictures stored on this site are the CODAP screen.</p></div>`;
     }
-    frameView.previewPage = Math.min(frameView.previewPage, previewPages - 1);
-    const slice = previews.slice(frameView.previewPage * perP, frameView.previewPage * perP + perP);
-    const grid = slice.length
-      ? `<div class="thumbs">${slice.map((f) => `<figure><button type="button" class="thumb" data-fid="${h(f.s + "|" + f.ss + "|" + f.id)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt="Frame ${h(f.id)} at ${clock(f.t)}"></button><figcaption><span class="mono">${clock(f.t)}</span> · <code>${h(f.id)}</code><br>${h(f.b ? behLabel(f.b) : "No label")}</figcaption></figure>`).join("")}</div>`
-      : `<p>No preview image is stored on this site for this selection.</p>`;
-    const sel = frameView.sel && rows.find((f) => f.id === frameView.sel);
-    const perL = 25;
-    const listPages = Math.max(1, Math.ceil(rows.length / perL) || 1);
-    frameView.listPage = Math.min(frameView.listPage, listPages - 1);
-    const list = rows.slice(frameView.listPage * perL, frameView.listPage * perL + perL);
-    const tableHtml = table(
-      [{ t: "Time" }, { t: "Frame identifier" }, { t: "Session" }, { t: "Behaviour label" }, { t: "Preview on this site" }],
-      list.map((f) => ({ cells: [`<span class="mono">${clock(f.t)}</span>`, `<code>${h(f.id)}</code>`, h(SESS_NAME[f.ss]), h(f.b ? behLabel(f.b) : "No label"), f.th ? "Yes" : "No"] }))
-    );
-    out.innerHTML = `
-      <h3>Previews for ${h(frameView.s)}${frameView.ss ? " · " + h(SESS_NAME[frameView.ss]) : ""}</h3>
-      <p>${num(previews.length)} preview image${previews.length === 1 ? "" : "s"} on this site, out of ${num(rows.length)} listed frames. Twelve images are shown at a time.</p>
-      ${grid}
-      <div class="pager"><button class="btn" type="button" id="pPrev" ${frameView.previewPage ? "" : "disabled"}>Previous previews</button><span>Page ${previews.length ? frameView.previewPage + 1 : 0} of ${previews.length ? previewPages : 0}</span><button class="btn" type="button" id="pNext" ${frameView.previewPage < previewPages - 1 && previews.length ? "" : "disabled"}>Next previews</button></div>
-      ${sel ? frameMeta(sel) : `<p class="small">Select a preview to read its identifier, time, and stored label.</p>`}
-      <h3>Every listed frame in this selection</h3>
-      <p>This table is the manifest. It does not load an image for every row. ${num(rows.length)} frames. Twenty-five rows are shown at a time.</p>
-      ${tableHtml}
-      <div class="pager"><button class="btn" type="button" id="lPrev" ${frameView.listPage ? "" : "disabled"}>Previous rows</button><span>Page ${rows.length ? frameView.listPage + 1 : 0} of ${rows.length ? listPages : 0}</span><button class="btn" type="button" id="lNext" ${frameView.listPage < listPages - 1 && rows.length ? "" : "disabled"}>Next rows</button></div>
-      <p><button class="btn" type="button" id="frameCsv">Download this frame list (CSV)</button></p>`;
-    const prev = document.getElementById("pPrev"), next = document.getElementById("pNext");
-    if (prev) prev.onclick = () => { frameView.previewPage--; frameView.sel = ""; renderFrameBrowse(); };
-    if (next) next.onclick = () => { frameView.previewPage++; frameView.sel = ""; renderFrameBrowse(); };
-    const lprev = document.getElementById("lPrev"), lnext = document.getElementById("lNext");
-    if (lprev) lprev.onclick = () => { frameView.listPage--; renderFrameBrowse(); };
-    if (lnext) lnext.onclick = () => { frameView.listPage++; renderFrameBrowse(); };
-    out.querySelectorAll("button.thumb[data-fid]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        frameView.sel = btn.getAttribute("data-fid").split("|")[2];
-        renderFrameBrowse();
-      });
+    out.innerHTML = `<h2 class="sess-heading">Choose a session</h2><div class="sess-tabs" role="tablist">${tabs}</div>${body}`;
+    out.querySelectorAll(".sess-tab").forEach((b) => {
+      b.addEventListener("click", () => { frameView.ss = b.dataset.ss; syncFrameQuery(); });
     });
-    const csvBtn = document.getElementById("frameCsv");
-    if (csvBtn) csvBtn.onclick = () => {
-      const head = ["student", "session", "time_s", "frame_id", "behavior", "preview_on_site"];
-      const esc = (v) => { v = v == null ? "" : String(v); return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v; };
-      const csv = [head.join(",")].concat(rows.map((f) => [f.s, f.ss, f.t, f.id, f.b || "", f.th ? "yes" : "no"].map(esc).join(","))).join("\n");
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
-      a.download = `frames_${frameView.s}${frameView.ss ? "_" + frameView.ss : ""}.csv`;
-      document.body.appendChild(a); a.click(); a.remove();
-    };
+    const alt = document.getElementById("openOther");
+    if (alt) alt.addEventListener("click", () => { frameView.ss = alt.dataset.ss; syncFrameQuery(); });
+  }
+  function syncFrameQuery() {
+    const qs = [["s", frameView.s], ["ss", frameView.ss]].filter((x) => x[1]).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join("&");
+    const next = "#/explore/recordings" + (qs ? "?" + qs : "");
+    if (location.hash !== next && window.history && window.history.replaceState) window.history.replaceState(null, "", next);
+    renderFrameBrowse();
   }
   function bindFrameBrowse() {
-    const sync = () => {
-      const qs = [["s", frameView.s], ["ss", frameView.ss]].filter((x) => x[1]).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join("&");
-      const next = "#/explore/recordings" + (qs ? "?" + qs : "");
-      if (location.hash !== next && window.history && window.history.replaceState) window.history.replaceState(null, "", next);
-      renderFrameBrowse();
-    };
-    document.querySelectorAll("#whoRow .chip").forEach((b) => {
+    document.querySelectorAll("#whoRow .person-card").forEach((b) => {
       b.addEventListener("click", () => {
         frameView.s = b.dataset.who;
-        frameView.previewPage = 0;
-        frameView.listPage = 0;
-        frameView.sel = "";
-        sync();
-      });
-    });
-    document.querySelectorAll("#sessRow .chip").forEach((b) => {
-      b.addEventListener("click", () => {
-        frameView.ss = b.dataset.ss || "";
-        frameView.previewPage = 0;
-        frameView.listPage = 0;
-        frameView.sel = "";
-        sync();
+        frameView.ss = firstSessionWithFrames(frameView.s);
+        syncFrameQuery();
       });
     });
     renderFrameBrowse();
