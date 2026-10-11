@@ -1,0 +1,60 @@
+{
+  "stage": "scoring",
+  "student_id": "Isabel",
+  "worksheet": "WS12",
+  "blocked": false,
+  "total_score": 3.0,
+  "max_score": 8.0,
+  "review_required": true,
+  "items": [
+    {
+      "item": "WS12_R1",
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": false,
+      "note": "feature='Enerji' threshold='≤250'"
+    },
+    {
+      "item": "WS12_R2",
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": false,
+      "note": "ops: '≤' / '>'"
+    },
+    {
+      "item": "WS12_R3",
+      "score": 0.5,
+      "confidence": 0.9,
+      "review": false,
+      "note": "partial: label present"
+    },
+    {
+      "item": "WS12_R4",
+      "score": 0.5,
+      "confidence": 0.9,
+      "review": true,
+      "note": "right feature + threshold present but leaf counts missing"
+    },
+    {
+      "item": "WS12_R5",
+      "score": 0.0,
+      "confidence": 0.7,
+      "review": true,
+      "note": "right subtree counts incomplete — sum check skipped | node counts incomplete — total check skipped"
+    },
+    {
+      "item": "WS12_R6",
+      "score": 0.0,
+      "confidence": 0.9,
+      "review": true,
+      "note": "train_errors blank or missing"
+    },
+    {
+      "item": "WS12_R7",
+      "score": 0.0,
+      "confidence": 1.0,
+      "review": false,
+      "note": "test_errors blank or missing"
+    }
+  ]
+}

@@ -51,6 +51,7 @@ WORKSHEETS = [
     {"code": "WS7", "key": "WS7", "ocr": "Worksheet7", "raw": "31_mart_2026_çalışma_kâğıdı_7_raw.json"},
     {"code": "WS10", "key": "WS10", "ocr": "Worksheet10", "raw": None},
     {"code": "WS11", "key": "WS11", "ocr": None, "raw": None, "stage_ocr": True},
+    {"code": "WS12", "key": "WS12", "ocr": None, "raw": None, "stage_ocr": True},
     {"code": "WS13", "key": "WS13", "ocr": None, "raw": None, "stage_ocr": True},
     {"code": "WS14", "key": "WS14", "ocr": "Worksheet_Xeno", "raw": None},
     {"code": "WS15", "key": "WS15", "ocr": "Worksheet_Titanic", "raw": None},
@@ -1032,6 +1033,104 @@ def privacy_scan(blob: str):
         sys.exit(f"Privacy check failed: {full_hits} real name(s) found in output")
 
 
+def build_worksheet_docs() -> dict:
+    """Documentation the worksheet explorer needs, read from schemas, mappings, and overrides.
+
+    Does not rewrite scores or source files. Answer-key PDFs are copied into the
+    site download folder when the source file is newer or missing there.
+    """
+    import hashlib
+    import shutil
+
+    def digest(path: Path) -> str:
+        hsh = hashlib.sha256()
+        with open(path, "rb") as fh:
+            for chunk in iter(lambda: fh.read(1 << 20), b""):
+                hsh.update(chunk)
+        return hsh.hexdigest()
+
+    ak_dir = OUT / "downloads" / "answer_keys"
+    ak_dir.mkdir(parents=True, exist_ok=True)
+    field_keep = (
+        "field_id", "printed_blank", "location_hint", "question_tr", "scoring_mode",
+        "scored", "scoring_item_id", "type", "note", "response_kind",
+    )
+    docs: dict = {"worksheets": {}, "overrides": []}
+    for ws in WORKSHEETS:
+        code = ws["code"]
+        entry: dict = {"code": code}
+        sch_path = ROOT / "worksheets" / ws["key"] / "extraction_schema.json"
+        if sch_path.exists():
+            sch = load_json(sch_path)
+            entry["schema"] = rel(sch_path)
+            entry["schema_note"] = sch.get("note")
+            entry["curriculum_status"] = sch.get("curriculum_status")
+            entry["pipeline_stage"] = sch.get("pipeline_stage")
+            entry["interpretation_prohibited"] = sch.get("interpretation_prohibited")
+            entry["fields"] = [
+                {k: fld[k] for k in field_keep if k in fld}
+                for fld in (sch.get("fields") or [])
+            ]
+        map_path = ROOT / "mappings" / f"{ws['key']}_AICFT_mapping.json"
+        if map_path.exists():
+            mp = load_json(map_path)
+            items = {}
+            for iid, arr in (mp.get("items") or {}).items():
+                if not isinstance(arr, list):
+                    continue
+                items[iid] = [
+                    {
+                        "lo": x.get("lo"),
+                        "expected_level": x.get("expected_level"),
+                        "rationale": x.get("rationale"),
+                        "role": x.get("role"),
+                    }
+                    for x in arr if isinstance(x, dict)
+                ]
+            entry["mapping"] = {
+                "source": rel(map_path),
+                "framework": mp.get("framework"),
+                "note": mp.get("note"),
+                "items": items,
+            }
+        ak = ROOT / "answer_key_worksheets" / f"Worksheet {code[2:]}.pdf"
+        if ak.exists():
+            dst = ak_dir / ak.name
+            if not dst.exists() or digest(ak) != digest(dst):
+                shutil.copyfile(ak, dst)
+            entry["answer_key_url"] = f"downloads/answer_keys/{ak.name}"
+            entry["answer_key"] = rel(ak)
+        pdf = OUT / "downloads" / "worksheets" / f"{code}.pdf"
+        if pdf.exists():
+            entry["worksheet_pdf"] = f"downloads/worksheets/{code}.pdf"
+        docs["worksheets"][code] = entry
+        for student in STUDENTS:
+            sp = ROOT / "students" / student / ws["key"] / "scoring.json"
+            if not sp.exists():
+                continue
+            scored = load_json(sp)
+            for it in scored.get("items") or []:
+                if not it.get("researcher_override"):
+                    continue
+                docs["overrides"].append({
+                    "student": student,
+                    "worksheet": code,
+                    "item": it.get("item"),
+                    "score": it.get("score"),
+                    "rationale": it.get("override_rationale"),
+                    "source": rel(sp),
+                })
+    return docs
+
+
+def write_worksheet_docs() -> dict:
+    docs = build_worksheet_docs()
+    blob = json.dumps(docs, ensure_ascii=False, separators=(",", ":"), default=str)
+    privacy_scan(blob)
+    (DATA_OUT / "worksheet_docs.js").write_text("window.WORKSHEET_DOCS=" + blob + ";\n", encoding="utf-8")
+    return docs
+
+
 def main():
     DATA_OUT.mkdir(parents=True, exist_ok=True)
     report["generated_at"] = datetime.now().isoformat(timespec="seconds")
@@ -1083,6 +1182,7 @@ def main():
         sys.exit("Privacy check failed: a student name appears in a worksheet PDF")
     (DATA_OUT / "core.js").write_text("window.CORE=" + core_js + ";\n", encoding="utf-8")
     (DATA_OUT / "frames.js").write_text("window.FRAMES=" + frames_js + ";\n", encoding="utf-8")
+    write_worksheet_docs()
 
     # Downloadable data frames.
     def write_csv(name, header, rows):
@@ -1148,4 +1248,14 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if "--docs-only" in sys.argv:
+        DATA_OUT.mkdir(parents=True, exist_ok=True)
+        docs = write_worksheet_docs()
+        print(json.dumps({
+            "worksheets": len(docs["worksheets"]),
+            "overrides": len(docs["overrides"]),
+            "with_mapping": sum(1 for w in docs["worksheets"].values() if w.get("mapping")),
+            "with_answer_key": sum(1 for w in docs["worksheets"].values() if w.get("answer_key_url")),
+        }, indent=2))
+    else:
+        main()

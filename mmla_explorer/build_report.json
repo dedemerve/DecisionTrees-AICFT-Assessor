@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T18:52:27",
+  "generated_at": "2026-10-11T09:43:32",
   "missing": [
     {
       "what": "OCR file WS1 for Amy",
@@ -46,6 +46,10 @@
       "path": "ocr_output/Melinda/Melinda_Worksheet10.json"
     },
     {
+      "what": "stage extraction WS12 for Melinda",
+      "path": "students/Melinda/WS12/extraction.json"
+    },
+    {
       "what": "OCR file WS6 for Serena",
       "path": "ocr_output/Serena/Serena_Worksheet6.json"
     },
@@ -56,6 +60,10 @@
     {
       "what": "OCR file WS10 for Serena",
       "path": "ocr_output/Serena/Serena_Worksheet10.json"
+    },
+    {
+      "what": "stage extraction WS12 for Serena",
+      "path": "students/Serena/WS12/extraction.json"
     },
     {
       "what": "Final project notebook for Marco",
@@ -95,6 +103,18 @@
       "check": "no student real names in worksheet PDFs",
       "passed": true,
       "hit_count": 0
+    },
+    {
+      "check": "no full real names or real log IDs in output",
+      "names_checked": 21,
+      "passed": true,
+      "hit_count": 0
+    },
+    {
+      "check": "single name tokens found (review: may be ordinary words)",
+      "tokens_checked": 35,
+      "tokens_found": 0,
+      "occurrences": 0
     }
   ],
   "counts": {
@@ -102,8 +122,8 @@
     "frames": 5825,
     "frames_with_behavior": 5824,
     "thumbnails": 352,
-    "worksheet_ocr_files": 151,
-    "worksheet_response_rows": 3821,
+    "worksheet_ocr_files": 164,
+    "worksheet_response_rows": 4120,
     "log_student_days": 37
   }
 }

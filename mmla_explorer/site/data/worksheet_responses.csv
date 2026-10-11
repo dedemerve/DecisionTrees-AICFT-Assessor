@@ -92,6 +92,29 @@ Amy,WS11,DTI_30,DTI_30,Yanlış hasta ve yanlış sağlıklıyı. Tamamın doğr
 Amy,WS11,DTI_31,DTI_31,Yanlış hasta ve yanlış sağlıklının fazla olduğu durumlarda.,,,students/Amy/WS11/extraction.json
 Amy,WS11,DTI_32,DTI_32,0/30,,,students/Amy/WS11/extraction.json
 Amy,WS11,DTI_33,DTI_33,Yanlış tespit edilen yok.,,,students/Amy/WS11/extraction.json
+Amy,WS12,WS12_root_feature,WS12_root_feature,Enerji,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤229,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>229,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_left_child_rec,WS12_left_child_rec,6,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_left_child_notrec,WS12_left_child_notrec,0,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_right_child_label,WS12_right_child_label,Yaş,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_right_child_rec,WS12_right_child_rec,1,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_right_child_notrec,WS12_right_child_notrec,7,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,<2,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,≥2,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,1,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,0,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,0,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,7,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_train_errors,WS12_train_errors,0,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_test_errors,WS12_test_errors,0,,,students/Amy/WS12/extraction.json
 Amy,WS13,DT_A_Q1,DT_A_Q1,Doymuş yağ oranı ürünün tavsiye edilip edilmediğinde önemli bir detaydır.,True,,students/Amy/WS13/extraction.json
 Amy,WS13,DT_A_Q2,DT_A_Q2,Yaş ve enerji tavsiye edilme durumunu etkiliyor.,,review,students/Amy/WS13/extraction.json
 Amy,WS13,DT_A_Q3,DT_A_Q3,Yaş oranı tavsiye edilebilirlikte gözle görülür bir fark oluşturdu.,True,,students/Amy/WS13/extraction.json
@@ -358,6 +381,29 @@ Bruno,WS11,DTI_30,DTI_30,Bana yanlış karar sayısının oranını veriyor.,,,s
 Bruno,WS11,DTI_31,DTI_31,Yanlış karar oranını bulmak için.,,,students/Bruno/WS11/extraction.json
 Bruno,WS11,DTI_32,DTI_32,0+0/26 = 0,,,students/Bruno/WS11/extraction.json
 Bruno,WS11,DTI_33,DTI_33,Hatalı olanların oranı 0'mış. Demek ki hata yokmuş.,,,students/Bruno/WS11/extraction.json
+Bruno,WS12,WS12_root_feature,WS12_root_feature,Doymuş Yağ,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤0.1,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>0.1,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_left_child_rec,WS12_left_child_rec,5,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_left_child_notrec,WS12_left_child_notrec,0,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_right_child_label,WS12_right_child_label,Enerji,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_right_child_rec,WS12_right_child_rec,27,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_right_child_notrec,WS12_right_child_notrec,4,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,<245,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,≥245,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,20,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,7,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_train_errors,WS12_train_errors,,,,students/Bruno/WS12/extraction.json
+Bruno,WS12,WS12_test_errors,WS12_test_errors,,,,students/Bruno/WS12/extraction.json
 Bruno,WS13,DT_A_Q1,DT_A_Q1,"Enerji miktarı, Protein miktarı, Yağ miktarı, Karbonhidrat miktarı, Tuz miktarı",True,,students/Bruno/WS13/extraction.json
 Bruno,WS13,DT_A_Q2,DT_A_Q2,Enerji,,review,students/Bruno/WS13/extraction.json
 Bruno,WS13,DT_A_Q3,DT_A_Q3,Enerji miktarı çünkü hata miktarı daha az.,,review,students/Bruno/WS13/extraction.json
@@ -625,6 +671,29 @@ Helena,WS11,DTI_30,DTI_30,Özgüllüğü daha iyi tanımlıyor.,,,students/Helen
 Helena,WS11,DTI_31,DTI_31,Sağlıklı bireyleri tespit ederken.,,,students/Helena/WS11/extraction.json
 Helena,WS11,DTI_32,DTI_32,(FP+FN)/N = (0+0)/20 = [circled: 0],,,students/Helena/WS11/extraction.json
 Helena,WS11,DTI_33,DTI_33,[corrected: struck-through text] Hasta çıkmadı.,,,students/Helena/WS11/extraction.json
+Helena,WS12,WS12_root_feature,WS12_root_feature,Enerji,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤250,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>250,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_left_child_rec,WS12_left_child_rec,6,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_left_child_notrec,WS12_left_child_notrec,0,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_right_child_label,WS12_right_child_label,Yağ,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_right_child_rec,WS12_right_child_rec,1,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_right_child_notrec,WS12_right_child_notrec,,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,≤4,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,>4,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,1,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,0,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,0,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,7,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_train_errors,WS12_train_errors,0,,,students/Helena/WS12/extraction.json
+Helena,WS12,WS12_test_errors,WS12_test_errors,0,,,students/Helena/WS12/extraction.json
 Helena,WS13,DT_A_Q1,DT_A_Q1,Yağ değişkenine bakarak tahmin edebiliriz.,True,,students/Helena/WS13/extraction.json
 Helena,WS13,DT_A_Q2,DT_A_Q2,"Yağ, şeker yiyeceğin tavsiye edilme durumunu etkiliyor çünkü proteinde istatiksel verileri değişti.",,review,students/Helena/WS13/extraction.json
 Helena,WS13,DT_A_Q3,DT_A_Q3,Yağ. Çünkü daha iyi saptadı. (Daha az hata),True,,students/Helena/WS13/extraction.json
@@ -899,6 +968,29 @@ Iris,WS11,DTI_30,DTI_30,doğruluğu,,,students/Iris/WS11/extraction.json
 Iris,WS11,DTI_31,DTI_31,Kesin sonuç istendiğinde,,,students/Iris/WS11/extraction.json
 Iris,WS11,DTI_32,DTI_32,(bos),,,students/Iris/WS11/extraction.json
 Iris,WS11,DTI_33,DTI_33,(bos),,,students/Iris/WS11/extraction.json
+Iris,WS12,WS12_root_feature,WS12_root_feature,Yağ,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤5,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>5,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_left_child_rec,WS12_left_child_rec,1,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_left_child_notrec,WS12_left_child_notrec,,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_right_child_label,WS12_right_child_label,Enerji,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_right_child_rec,WS12_right_child_rec,,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_right_child_notrec,WS12_right_child_notrec,,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,<246,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,≥246,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_train_errors,WS12_train_errors,0,,,students/Iris/WS12/extraction.json
+Iris,WS12,WS12_test_errors,WS12_test_errors,0,,,students/Iris/WS12/extraction.json
 Iris,WS13,DT_A_Q1,DT_A_Q1,"Enerji, yağ, karbonhidrat, şeker, protein, tuz",True,,students/Iris/WS13/extraction.json
 Iris,WS13,DT_A_Q2,DT_A_Q2,"Tuz, enerji, yağ",,review,students/Iris/WS13/extraction.json
 Iris,WS13,DT_A_Q3,DT_A_Q3,Saptayamadım. Anlamlı bir fark gösteren özellik birden fazla var.,,review,students/Iris/WS13/extraction.json
@@ -1178,6 +1270,29 @@ Irma,WS11,DTI_30,DTI_30,Yanlışları yakalamak için,,,students/Irma/WS11/extra
 Irma,WS11,DTI_31,DTI_31,Testimizin başarılı olup olmadığını test etmek için,,,students/Irma/WS11/extraction.json
 Irma,WS11,DTI_32,DTI_32,(FP + FN) / N | 0+0 / 30 = 0,,,students/Irma/WS11/extraction.json
 Irma,WS11,DTI_33,DTI_33,MCR = 1-0 = 1 Testimiz başarılı,,,students/Irma/WS11/extraction.json
+Irma,WS12,WS12_root_feature,WS12_root_feature,Doymuş Yağ,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤0.1,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>0.1,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_left_child_rec,WS12_left_child_rec,5,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_left_child_notrec,WS12_left_child_notrec,0,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_right_child_label,WS12_right_child_label,Enerji,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_right_child_rec,WS12_right_child_rec,27,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_right_child_notrec,WS12_right_child_notrec,4,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,<245,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,≥245,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,20,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,7,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_train_errors,WS12_train_errors,,,,students/Irma/WS12/extraction.json
+Irma,WS12,WS12_test_errors,WS12_test_errors,,,,students/Irma/WS12/extraction.json
 Irma,WS13,DT_A_Q1,DT_A_Q1,Yağ oranına göre tavsiye edilip edilmediğine bakabiliriz. Eğer yağ oranı fazlaysa tavsiye edilmediğini söyleyebiliriz.,True,,students/Irma/WS13/extraction.json
 Irma,WS13,DT_A_Q2,DT_A_Q2,Enerji ve yağ oranı genellikle sağlıklı olarak adlandırılır.,,review,students/Irma/WS13/extraction.json
 Irma,WS13,DT_A_Q3,DT_A_Q3,Şeker oranı olabilir. Şeker oranı yüksek olunca tavsiye edilemez oranı daha artar.,True,,students/Irma/WS13/extraction.json
@@ -1452,6 +1567,29 @@ Isabel,WS11,DTI_30,DTI_30,Gerçekten sağlıklı ve hasta insanları ayırır.,,
 Isabel,WS11,DTI_31,DTI_31,Gerçek hasta ve sağlıklı insan sayısını bulmak için.,,,students/Isabel/WS11/extraction.json
 Isabel,WS11,DTI_32,DTI_32,(FP+FN) / N = (0+0) / 20 = 0,,,students/Isabel/WS11/extraction.json
 Isabel,WS11,DTI_33,DTI_33,Hata çıkmadı.,,,students/Isabel/WS11/extraction.json
+Isabel,WS12,WS12_root_feature,WS12_root_feature,Enerji,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤250,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>250,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_left_child_rec,WS12_left_child_rec,,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_left_child_notrec,WS12_left_child_notrec,,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_right_child_label,WS12_right_child_label,Yaş,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_right_child_rec,WS12_right_child_rec,,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_right_child_notrec,WS12_right_child_notrec,,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,<3,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,≥3,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_train_errors,WS12_train_errors,,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_test_errors,WS12_test_errors,,,,students/Isabel/WS12/extraction.json
 Isabel,WS13,DT_A_Q1,DT_A_Q1,"Enerji, yağ, karbonhidrat, tuz, doymuş yağ tahmin edebilir.",True,,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_A_Q2,DT_A_Q2,"Enerji, yağ, karbonhidrat tavsiye edilme durumunu etkileyebilir.",,review,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_A_Q3,DT_A_Q3,Enerji anlamlı farklılık gösteren bir özellik olabilir. Çünkü genelde kalorisi yüksek olan yiyecekler tavsiye edilemez çıktı.,True,,students/Isabel/WS13/extraction.json
@@ -1644,6 +1782,29 @@ Marco,WS11,DTI_30,DTI_30,TP durumunun tüm durumlara oranını buluyor.,,,studen
 Marco,WS11,DTI_31,DTI_31,Sadece TP olması ihtimalinin tüm durumuna tercih edildiği durumlarda kullanılmalı.,,,students/Marco/WS11/extraction.json
 Marco,WS11,DTI_32,DTI_32,0/33 = 0,,,students/Marco/WS11/extraction.json
 Marco,WS11,DTI_33,DTI_33,Yanlış karar.,,,students/Marco/WS11/extraction.json
+Marco,WS12,WS12_root_feature,WS12_root_feature,Enerji,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤240,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>240,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_left_child_rec,WS12_left_child_rec,,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_left_child_notrec,WS12_left_child_notrec,,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_right_child_label,WS12_right_child_label,Yağ,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_right_child_rec,WS12_right_child_rec,,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_right_child_notrec,WS12_right_child_notrec,,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,<2.5,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,≥2.5,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_train_errors,WS12_train_errors,0,,,students/Marco/WS12/extraction.json
+Marco,WS12,WS12_test_errors,WS12_test_errors,0,,,students/Marco/WS12/extraction.json
 Marco,WS13,DT_A_Q1,DT_A_Q1,Sağlığa etkisini baz alarak tahmin edilebilir,False,review,students/Marco/WS13/extraction.json
 Marco,WS13,DT_A_Q2,DT_A_Q2,"Enerji, karbonhidrat, şeker",,review,students/Marco/WS13/extraction.json
 Marco,WS13,DT_A_Q3,DT_A_Q3,Saptayamadım. Çünkü karmaşık veriler vardı.,,review,students/Marco/WS13/extraction.json
@@ -1918,6 +2079,29 @@ Marcus,WS11,DTI_30,DTI_30,(bos),,,students/Marcus/WS11/extraction.json
 Marcus,WS11,DTI_31,DTI_31,(bos),,,students/Marcus/WS11/extraction.json
 Marcus,WS11,DTI_32,DTI_32,(bos),,,students/Marcus/WS11/extraction.json
 Marcus,WS11,DTI_33,DTI_33,(bos),,,students/Marcus/WS11/extraction.json
+Marcus,WS12,WS12_root_feature,WS12_root_feature,Enerji,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤240,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>240,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_left_child_rec,WS12_left_child_rec,,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_left_child_notrec,WS12_left_child_notrec,,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_right_child_label,WS12_right_child_label,Yağ,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_right_child_rec,WS12_right_child_rec,,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_right_child_notrec,WS12_right_child_notrec,,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,<2.5,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,≥2.5,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_train_errors,WS12_train_errors,0,,,students/Marcus/WS12/extraction.json
+Marcus,WS12,WS12_test_errors,WS12_test_errors,0,,,students/Marcus/WS12/extraction.json
 Marcus,WS13,DT_A_Q1,DT_A_Q1,Bence yağın fazla olması zararlı olduğunu gösterir çünkü böyle bir genel algı var.,True,,students/Marcus/WS13/extraction.json
 Marcus,WS13,DT_A_Q2,DT_A_Q2,Yağ ve protein etkiliyor bence.,,review,students/Marcus/WS13/extraction.json
 Marcus,WS13,DT_A_Q3,DT_A_Q3,Karbonhidrat olabilir. Karbonhidrat yüksek olanlar genelde tavsiye edilemez oluyor.,True,,students/Marcus/WS13/extraction.json
@@ -2404,6 +2588,29 @@ Nadia,WS11,DTI_30,DTI_30,Sadece kesinliği gösteriyor,,,students/Nadia/WS11/ext
 Nadia,WS11,DTI_31,DTI_31,[struck-through: ...olduğu durumlarda] her durumda,,,students/Nadia/WS11/extraction.json
 Nadia,WS11,DTI_32,DTI_32,0 / 16,,,students/Nadia/WS11/extraction.json
 Nadia,WS11,DTI_33,DTI_33,"Net gösteriyor, model iyi durumda",,,students/Nadia/WS11/extraction.json
+Nadia,WS12,WS12_root_feature,WS12_root_feature,Yağ,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤5,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>5,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_left_child_rec,WS12_left_child_rec,1,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_left_child_notrec,WS12_left_child_notrec,,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_right_child_label,WS12_right_child_label,Enerji,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_right_child_rec,WS12_right_child_rec,,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_right_child_notrec,WS12_right_child_notrec,,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,<246,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,≥246,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_train_errors,WS12_train_errors,0,,,students/Nadia/WS12/extraction.json
+Nadia,WS12,WS12_test_errors,WS12_test_errors,0,,,students/Nadia/WS12/extraction.json
 Nadia,WS13,DT_A_Q1,DT_A_Q1,"Enerji, Yağ, Şeker, Protein, Tuz, Karbonhidrat.",True,,students/Nadia/WS13/extraction.json
 Nadia,WS13,DT_A_Q2,DT_A_Q2,"Tuz, Yağ",,review,students/Nadia/WS13/extraction.json
 Nadia,WS13,DT_A_Q3,DT_A_Q3,Evet bence var. Çünkü 20'nin altındaki değerler için TP değeri çok daha fazla.,True,,students/Nadia/WS13/extraction.json
@@ -2890,6 +3097,29 @@ Shana,WS11,DTI_30,DTI_30,Hastaları ve doğru olanların oranını verdiğini ol
 Shana,WS11,DTI_31,DTI_31,Doğru olmasını tahmin etmek istediğinde,,,students/Shana/WS11/extraction.json
 Shana,WS11,DTI_32,DTI_32,0 + 0 / 10 = 0    1 - 0 = 1,,,students/Shana/WS11/extraction.json
 Shana,WS11,DTI_33,DTI_33,Hata oranı çok düşük hata yok. Bu da bunu gösterir,,,students/Shana/WS11/extraction.json
+Shana,WS12,WS12_root_feature,WS12_root_feature,Enerji,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤250,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>250,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_left_child_rec,WS12_left_child_rec,6,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_left_child_notrec,WS12_left_child_notrec,0,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_right_child_label,WS12_right_child_label,Yağ,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_right_child_rec,WS12_right_child_rec,1,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_right_child_notrec,WS12_right_child_notrec,,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,≤4,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,>4,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,1,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,0,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,0,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,7,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_train_errors,WS12_train_errors,0,,,students/Shana/WS12/extraction.json
+Shana,WS12,WS12_test_errors,WS12_test_errors,0,,,students/Shana/WS12/extraction.json
 Shana,WS13,DT_A_Q1,DT_A_Q1,Bence yağ ve şeker belirleyici olur.,True,,students/Shana/WS13/extraction.json
 Shana,WS13,DT_A_Q2,DT_A_Q2,"Yağ, şeker, doymuş yağ, tuz, vs. belirleyici oluyor.",,review,students/Shana/WS13/extraction.json
 Shana,WS13,DT_A_Q3,DT_A_Q3,Yağ bence en belirleyici olan faktör. Şeker de yağ gibi belirleyici bir faktör.,,review,students/Shana/WS13/extraction.json
@@ -3165,6 +3395,29 @@ Sheila,WS11,DTI_30,DTI_30,Çünkü bu ölçü daha iyi teşhis ediyor,,,students
 Sheila,WS11,DTI_31,DTI_31,Hem yanlış pozitifler hem yanlış negatifler önemliyse ör: Hastalık tespiti gibi durumlarda tercih edilir,,,students/Sheila/WS11/extraction.json
 Sheila,WS11,DTI_32,DTI_32,(bos),,,students/Sheila/WS11/extraction.json
 Sheila,WS11,DTI_33,DTI_33,(bos),,,students/Sheila/WS11/extraction.json
+Sheila,WS12,WS12_root_feature,WS12_root_feature,Enerji,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤229,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>229,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_left_child_rec,WS12_left_child_rec,6,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_left_child_notrec,WS12_left_child_notrec,0,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_right_child_label,WS12_right_child_label,Yaş,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_right_child_rec,WS12_right_child_rec,1,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_right_child_notrec,WS12_right_child_notrec,7,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,<2,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,≥2,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,1,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,0,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,0,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,7,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_train_errors,WS12_train_errors,0,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_test_errors,WS12_test_errors,0,,,students/Sheila/WS12/extraction.json
 Sheila,WS13,DT_A_Q1,DT_A_Q1,Yağ değişkenine göre bakılarak tahmin edilebilir diye düşünüyorum.,True,,students/Sheila/WS13/extraction.json
 Sheila,WS13,DT_A_Q2,DT_A_Q2,Şeker tavsiye edilme durumunu etkiliyor olabilir.,,review,students/Sheila/WS13/extraction.json
 Sheila,WS13,DT_A_Q3,DT_A_Q3,"Evet saptadım, 10 üzerinde şeker varsa genelde tavsiye edilemez.",True,,students/Sheila/WS13/extraction.json
@@ -3435,6 +3688,29 @@ Ulysses,WS11,DTI_30,DTI_30,Hastaların sağlıklılara oranını verir. Hangisin
 Ulysses,WS11,DTI_31,DTI_31,Karşılaştırma yaparken tercih edilebilir.,,,students/Ulysses/WS11/extraction.json
 Ulysses,WS11,DTI_32,DTI_32,0+0 / 32 = 0,,,students/Ulysses/WS11/extraction.json
 Ulysses,WS11,DTI_33,DTI_33,yanlış tespit ettiğimiz biri yok,,,students/Ulysses/WS11/extraction.json
+Ulysses,WS12,WS12_root_feature,WS12_root_feature,Enerji,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤250,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>250,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_left_child_rec,WS12_left_child_rec,,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_left_child_notrec,WS12_left_child_notrec,,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_right_child_label,WS12_right_child_label,Yaş,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_right_child_rec,WS12_right_child_rec,,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_right_child_notrec,WS12_right_child_notrec,,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,<3,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,≥3,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_train_errors,WS12_train_errors,,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_test_errors,WS12_test_errors,,,,students/Ulysses/WS12/extraction.json
 Ulysses,WS13,DT_A_Q1,DT_A_Q1,"Paketli gıda olup olmadığı, doğal olup olmadığı, alerjinin olup olmadığı",True,,students/Ulysses/WS13/extraction.json
 Ulysses,WS13,DT_A_Q2,DT_A_Q2,Tuz değişkenini eklediğinde büyük oranda tuzsuz gıdalar sağlıklı olarak sınır. Protein değişkenini eklediğinde çok belirgin bir ayırt etme sonucu gözlemleyemedim.,True,,students/Ulysses/WS13/extraction.json
 Ulysses,WS13,DT_A_Q3,DT_A_Q3,Tavsiye edilen ve tavsiye edilmeyen yiyecekler arasında anlamlı bir fark gösteren bir özellik saptayamadım.,,review,students/Ulysses/WS13/extraction.json
@@ -3709,6 +3985,29 @@ Zara,WS11,DTI_30,DTI_30,TN/(TN+FP) . (TP+FP)/TP = 12/12+0 . 13+0/13 = 1,,,studen
 Zara,WS11,DTI_31,DTI_31,Ekstra hata payının aza inmesi için kullanılabilir,,,students/Zara/WS11/extraction.json
 Zara,WS11,DTI_32,DTI_32,(0) / 25 = 0,,,students/Zara/WS11/extraction.json
 Zara,WS11,DTI_33,DTI_33,Hata oranı yok.,,,students/Zara/WS11/extraction.json
+Zara,WS12,WS12_root_feature,WS12_root_feature,Enerji,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_root_left_threshold,WS12_root_left_threshold,≤250,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>250,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_left_child_rec,WS12_left_child_rec,6,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_left_child_notrec,WS12_left_child_notrec,0,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_right_child_label,WS12_right_child_label,Doymuş Yağ,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_right_child_rec,WS12_right_child_rec,1,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_right_child_notrec,WS12_right_child_notrec,7,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_depth1_lr_threshold,WS12_depth1_lr_threshold,N/A,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_depth1_rl_threshold,WS12_depth1_rl_threshold,<0.6,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_depth1_rr_threshold,WS12_depth1_rr_threshold,≥0.6,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_leaf_ll_rec,WS12_leaf_ll_rec,N/A,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_leaf_ll_notrec,WS12_leaf_ll_notrec,N/A,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_leaf_lr_rec,WS12_leaf_lr_rec,N/A,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_leaf_lr_notrec,WS12_leaf_lr_notrec,N/A,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_leaf_rl_rec,WS12_leaf_rl_rec,1,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_leaf_rl_notrec,WS12_leaf_rl_notrec,0,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,0,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,7,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_train_errors,WS12_train_errors,0,,,students/Zara/WS12/extraction.json
+Zara,WS12,WS12_test_errors,WS12_test_errors,1,,,students/Zara/WS12/extraction.json
 Zara,WS13,DT_A_Q1,DT_A_Q1,"Şeker, tuz, yağ, enerji bu gibi değişkenlere bakarak tahmin edebiliriz.",True,,students/Zara/WS13/extraction.json
 Zara,WS13,DT_A_Q2,DT_A_Q2,Enerji ve şeker,,review,students/Zara/WS13/extraction.json
 Zara,WS13,DT_A_Q3,DT_A_Q3,Enerjide bir fark gözlemledim.,,review,students/Zara/WS13/extraction.json
