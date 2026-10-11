@@ -371,8 +371,8 @@
           <h1><span class="hero-line">Documenting How Pre-Service Teachers</span> <span class="hero-line">Learn Decision Trees</span></h1>
           <p class="hero-lead">A research archive of worksheets, screen recordings, platform logs, and notebooks from a decision-tree unit with ${STUDENTS.length} pre-service teachers, shown only by pseudonym.</p>
           <div class="hero-actions">
-            <a class="btn-primary" href="#/explore/worksheets">Explore learning activities</a>
-            <a class="btn-secondary" href="#/docs">Browse research datasets</a>
+            <a class="btn-primary" href="#/explore/worksheets">Explore collected data</a>
+            <a class="btn-secondary" href="#/methods">How it was processed</a>
           </div>
         </div>
         <figure class="hero-visual">
@@ -401,23 +401,23 @@
       </div>
       <div class="portal">
         <section class="portal-card">
-          <p class="kicker">Explore</p>
-          <h2>Learning activities</h2>
-          <p>Paper worksheets from naming table parts through building and reading trees, plus the CODAP Arbor tasks. Each entry links to student responses and the blank PDF.</p>
-          <div class="portal-links"><a href="#/explore/worksheets">Open the worksheet catalogue</a><a href="#/explore/students">Browse by student</a></div>
+          <p class="kicker">Collected Data</p>
+          <h2>Learning activities &amp; raw evidence</h2>
+          <p>Paper worksheets from naming table parts through building and reading trees, plus CODAP Arbor sessions, screen recordings, platform logs, and final notebooks.</p>
+          <div class="portal-links"><a href="#/explore/worksheets">Worksheet catalogue</a><a href="#/explore/students">Browse by student</a><a href="#/explore/recordings">Screen recordings</a><a href="#/explore/frames">Frame explorer</a></div>
         </section>
         <div class="portal-side">
           <section class="portal-card">
-            <p class="kicker">Data</p>
-            <h2>Research data</h2>
-            <p>Screen-recording frames are published separately from the CODAP interaction logs. ${num(uniqueVideoList.length)} recordings and ${notebooksPresent} final notebooks sit alongside them.</p>
-            <div class="portal-links"><a href="#/docs">Datasets and downloads</a><a href="#/explore/frames">Frame explorer</a></div>
+            <p class="kicker">Data Processing &amp; Analysis</p>
+            <h2>From evidence to scored data</h2>
+            <p>A five-stage pipeline reads handwriting, labels frames, and applies rules. ${num(schemaFields)} response fields defined across ${C.worksheets.length} worksheets.</p>
+            <div class="portal-links"><a href="#/methods">Processing workflow</a><a href="#/explore/notebooks">Python notebooks</a></div>
           </section>
           <section class="portal-card">
-            <p class="kicker">Reference</p>
-            <h2>Methods</h2>
-            <p>How answers were read, frames were selected, and codes were checked.</p>
-            <div class="portal-links"><a href="#/methods">How the system works</a><a href="#/docs/limitations">Data notes</a></div>
+            <p class="kicker">Reference &amp; Documentation</p>
+            <h2>Datasets, notes &amp; glossary</h2>
+            <p>Download the research datasets, read the data notes, look up terminology, and trace values to source files.</p>
+            <div class="portal-links"><a href="#/docs">Data and downloads</a><a href="#/docs/limitations">Data notes</a><a href="#/docs/glossary">Glossary</a></div>
           </section>
         </div>
       </div>
@@ -627,7 +627,7 @@
           </div>
         </div>
         <p>Written answers, screens, software events, and notebooks are different evidence. None is direct proof of what a student was thinking. Where a stage-score file disagrees with the extracted answers, the site shows the answers. Further limitations are in the <a href="#/docs/limitations">data notes</a>.</p>
-        <p class="explore-next"><a href="#/explore/worksheets">Worksheets</a><a href="#/explore/recordings">Screen recordings</a><a href="#/explore/frames">Frames</a><a href="#/docs">Research data</a></p>
+        <p class="explore-next"><a href="#/explore/worksheets">Worksheets</a><a href="#/explore/recordings">Screen recordings</a><a href="#/explore/frames">Frames</a><a href="#/docs">Data and downloads</a><a href="#/findings">Research findings</a></p>
       </section>
     </div>`;
   }
@@ -697,7 +697,15 @@
 
   // ------------------------------------------------------------------ 03 Explore
   function exploreShell(active, body) {
-    return `<p class="kicker">The data</p>${body}`;
+    const SECTION_KICKER = {
+      students: "Collected Data",
+      worksheets: "Collected Data",
+      recordings: "Collected Data",
+      frames: "Collected Data",
+      logs: "Collected Data",
+      notebooks: "Data Processing & Analysis",
+    };
+    return `<p class="kicker">${h(SECTION_KICKER[active] || "Collected Data")}</p>${body}`;
   }
   function availableSummary(s) {
     const ws = C.worksheets.filter((w) => C.ws[s][w.code].ocr).length;
@@ -961,7 +969,7 @@
     }).join("");
     return `<div class="page wide">${exploreShell("worksheets", `
       <h1>Worksheets</h1>
-      <p class="lead">${C.worksheets.length} paper worksheets from the unit. Search by title or topic, or filter by purpose. Each card links to student responses and the blank PDF.</p>
+      <p class="lead">${C.worksheets.length} paper worksheets from the unit. The worksheet is the primary browsing unit: each card opens a detail view with the blank PDF, answer key, all student responses, and data provenance. Search by title or topic, or filter by purpose.</p>
       <div class="ws-search-bar">
         <input type="search" id="wsSearch" placeholder="Search worksheets…" aria-label="Search worksheets">
         <span class="ws-count" id="wsCount">${C.worksheets.length} worksheets</span>
@@ -1004,7 +1012,7 @@
       answerKey = `<h2 id="answer-key">Answer key</h2><p><a href="${h(w.answer_key_url)}" download>Download answer key PDF</a></p>`;
     }
 
-    // Student results matrix
+    // Student results matrix + item-level comparison
     let matrix = "";
     if (cols.length) {
       const alias = ITEM_ALIAS[code] || {};
@@ -1022,7 +1030,40 @@
           return `<td class="cell"${tipAttr(`<b>${h(s)} · ${h(label)}</b><br>${k.correct === true ? "Correct" : k.correct === false ? "Not correct" : "No verdict"}${vals.length ? "<br>Answer: " + vals.map(h).join(" · ") : ""}`)}>${mark(k.correct)}</td>`;
         }).join("")}<td class="num">${correct}/${total}</td></tr>`;
       }).join("");
-      matrix = `<h2 id="responses">Student responses</h2><p>Each column is one check. The score is items marked correct out of checks recorded for that student. A dot means that check was not recorded. Hover a cell for the answer. Click a row to open that student.</p><div class="table-wrap"><table><tr><th>Student</th>${cols.map((c) => `<th class="vert" title="${h(questionLabel(code, c))}">${h(rubricItemLabel(code, c.replace(/^item_checks\./, ""), 28) || checkLabel(c))}</th>`).join("")}<th class="num">Items correct</th></tr>${body}</table></div>`;
+      const matrixView = `<div class="table-wrap"><table><tr><th>Student</th>${cols.map((c) => `<th class="vert" title="${h(questionLabel(code, c))}">${h(rubricItemLabel(code, c.replace(/^item_checks\./, ""), 28) || checkLabel(c))}</th>`).join("")}<th class="num">Items correct</th></tr>${body}</table></div>`;
+
+      // Item comparison view: for each item show all students' responses
+      const itemRows = cols.map((c) => {
+        const item = c.replace(/^item_checks\./, "");
+        const label = questionLabel(code, c);
+        const studentData = have.map((s) => {
+          const o = C.ws[s][code].ocr;
+          const chk = o.checks.find((x) => x.check === c);
+          const vals = o.responses.filter((x) => (alias[x.item] || x.item) === item || x.item === c).map((x) => x.value);
+          return { s, chk, vals };
+        });
+        const correctCount = studentData.filter((d) => d.chk && d.chk.correct === true).length;
+        const rows = studentData.map(({ s, chk, vals }) => {
+          const valStr = vals.length ? vals.map((v) => `<span class="resp-val">${h(v)}</span>`).join(" ") : `<span class="na">not recorded</span>`;
+          return `<tr><td><a href="#/explore/student/${h(s)}/worksheets">${h(s)}</a></td><td>${valStr}</td><td>${chk ? mark(chk.correct) : '<span class="na">·</span>'}</td></tr>`;
+        }).join("");
+        return `<details class="item-compare"><summary><span class="item-compare-label">${h(label)}</span><span class="item-compare-score">${correctCount}/${have.length} correct</span></summary><div class="table-wrap"><table><thead><tr><th>Student</th><th>Response</th><th>Result</th></tr></thead><tbody>${rows}</tbody></table></div></details>`;
+      });
+
+      matrix = `<h2 id="responses">Student responses</h2>
+        <p>Switch between views: <strong>Overview matrix</strong> shows all students × all items at a glance; <strong>Item comparison</strong> shows each item expanded with the full response text.</p>
+        <div class="resp-tabs" role="tablist">
+          <button role="tab" class="chip on" id="rtab-matrix" aria-selected="true" aria-controls="rpanel-matrix">Overview matrix</button>
+          <button role="tab" class="chip" id="rtab-items" aria-selected="false" aria-controls="rpanel-items">Item comparison</button>
+        </div>
+        <div id="rpanel-matrix" role="tabpanel" aria-labelledby="rtab-matrix">
+          <p class="small">Each column is one check. A dot means that check was not recorded. Hover a cell for the answer. Click a row to open that student.</p>
+          ${matrixView}
+        </div>
+        <div id="rpanel-items" role="tabpanel" aria-labelledby="rtab-items" hidden>
+          <p class="small">Each item is a collapsible section. Open it to see every student's response text and score side by side. Missing responses are shown explicitly.</p>
+          <div class="item-compare-list">${itemRows.join("")}</div>
+        </div>`;
     }
 
     // Processing workflow section
@@ -1033,23 +1074,39 @@
         : `<p>This worksheet uses a <b>rubric-based pipeline</b>. The language model reads the handwriting and compares each answer against the researcher's rubric. Python aggregates the per-item scores. Partial credit (0.5) is possible where the rubric defines it.</p>`}
       <p>${methodLink("worksheets", "Full description of the worksheet processing pipeline")}</p>`;
 
+    const dl = (C.downloads && C.downloads.worksheets || []).find((d) => d.code === code);
+    const pdfSection = dl ? `<h2 id="worksheet-pdf">Worksheet PDF</h2><p>Blank edition as handed to the students.</p><p><a href="${h(dl.file)}" download>Download ${h(code)} PDF (${bytes(dl.bytes)})</a></p>` : "";
+    const provenanceItems = [];
+    if (w.schema) provenanceItems.push(["Extraction schema", `<code>${h(w.schema)}</code>`]);
+    if (w.rubric) provenanceItems.push(["Rubric file", `<code>${h(w.rubric)}</code>`]);
+    if (w.answer_key) provenanceItems.push(["Answer key source", `<code>${h(w.answer_key)}</code>`]);
+    provenanceItems.push(["Extraction method", h(w.pipeline === "deterministic" ? "Deterministic Python rules" : "LLM rubric scoring")]);
+    provenanceItems.push(["Response fields defined", num(w.fields_in_schema)]);
+    if (!have.length) provenanceItems.push(["Missing data", "No student answers were extracted for this worksheet."]);
+
     return `<div class="page wide">${exploreShell("worksheets", `
       <p class="small"><a href="#/explore/worksheets">← All worksheets</a></p>
       <h1>${h(code)} · ${h(wsTitle(w))}</h1>
       <p class="lead">${h(info.topic || "")}</p>
       <nav class="jump" aria-label="On this page">
         <a href="#about">About</a>
+        ${pdfSection ? `<a href="#worksheet-pdf">Worksheet PDF</a>` : ""}
         ${answerKey ? `<a href="#answer-key">Answer key</a>` : ""}
         ${matrix ? `<a href="#responses">Student responses</a>` : ""}
         <a href="#processing">Processing</a>
+        <a href="#provenance">Data provenance</a>
       </nav>
       <h2 id="about">About this worksheet</h2>
       ${kv([["Used in class", h(info.date || "No scanned student file")], ["How answers were checked", `${h(howChecked(w))}`], ["Students with extracted answers", `${have.length} of ${STUDENTS.length}`]])}
       <p>${methodLink("worksheets", "How worksheet processing works")}</p>
       ${!have.length ? `<div class="warn">No student answers were extracted for this worksheet. <a href="#/docs/limitations">See data quality →</a></div>` : ""}
+      ${pdfSection}
       ${answerKey}
       ${matrix}
       ${workflow}
+      <h2 id="provenance">Data provenance</h2>
+      <p class="small">Extraction method, source files, and any known limitations for this worksheet.</p>
+      ${kv(provenanceItems)}
       ${tech("Technical details", kv([["Internal key", `<code>${h(w.key)}</code>`], ["Response fields defined", num(w.fields_in_schema)]]) + src(w.schema) + src(w.rubric) + src(w.answer_key))}`)}</div>`;
   }
   function pageRecordings() {
@@ -1190,6 +1247,22 @@
       });
     });
   }
+  function bindWsDetail() {
+    const tabs = document.querySelectorAll(".resp-tabs [role=tab]");
+    if (!tabs.length) return;
+    tabs.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const panelId = btn.getAttribute("aria-controls");
+        tabs.forEach((b) => {
+          const on = b === btn;
+          b.classList.toggle("on", on);
+          b.setAttribute("aria-selected", on ? "true" : "false");
+          const panel = document.getElementById(b.getAttribute("aria-controls"));
+          if (panel) panel.hidden = !on;
+        });
+      });
+    });
+  }
   function bindFrames() {
     const upd = () => {
       fState.s = document.getElementById("fS").value; fState.ss = document.getElementById("fSS").value;
@@ -1275,7 +1348,7 @@
   // ------------------------------------------------------------------ 04 Documentation
   const docShell = (active, body) => {
     const back = active ? `<p class="back"><a href="#/docs">← Data and downloads</a></p>` : "";
-    return `${back}<p class="kicker">Reference</p>${body}`;
+    return `${back}<p class="kicker">Reference &amp; Documentation</p>${body}`;
   };
 
   function pageDownloads() {
@@ -1292,19 +1365,32 @@
         <a href="#guide">Where to go</a>
         <a href="#datasets">Datasets</a>
         <a href="#worksheets">Worksheets</a>
-        <a href="#food">Food cards</a>
+        ${(C.downloads && C.downloads.cards) ? `<a href="#food">Food data cards</a>` : ""}
         <a href="#tables">Analysis tables</a>
       </nav>
 
       <h2 id="guide">Where to go</h2>
+      <p class="small">The archive is organised into four areas. Choose the one that matches your purpose.</p>
+      <h3 class="guide-group-label">Collected Data</h3>
       <ul class="guide">
-        <li><a href="#/">Overview</a><span>What the archive contains, and the counts behind it.</span></li>
-        <li><a href="#/methods">How the system works</a><span>How answers were read, frames were selected, and codes were checked.</span></li>
-        <li><a href="#/explore/worksheets">Worksheets</a><span>Purpose, student responses, and the blank PDFs.</span></li>
+        <li><a href="#/explore/worksheets">Worksheets</a><span>Purpose, student responses, item scores, and the blank PDFs.</span></li>
+        <li><a href="#/explore/students">Student profiles</a><span>All worksheets, recordings, logs, and notebooks for one student.</span></li>
         <li><a href="#/explore/recordings">Screen recordings</a><span>One row per student and session, with behaviour over time.</span></li>
         <li><a href="#/explore/frames">Frame explorer</a><span>Manifest-listed frames and their behaviour codes.</span></li>
         <li><a href="#/explore/logs">Platform logs</a><span>CODAP Arbor actions. These logs are not a Hugging Face dataset.</span></li>
+      </ul>
+      <h3 class="guide-group-label">Data Processing &amp; Analysis</h3>
+      <ul class="guide">
+        <li><a href="#/methods">Processing workflow</a><span>How answers were read, frames were selected, and codes were checked.</span></li>
         <li><a href="#/explore/notebooks">Python notebooks</a><span>Final projects on the lizard data.</span></li>
+      </ul>
+      <h3 class="guide-group-label">Findings &amp; Research Insights</h3>
+      <ul class="guide">
+        <li><a href="#/findings">Research findings</a><span>Verified findings from the archive. This section is not yet populated.</span></li>
+      </ul>
+      <h3 class="guide-group-label">Reference &amp; Documentation</h3>
+      <ul class="guide">
+        <li><a href="#/">Archive overview</a><span>What the archive contains, and the counts behind it.</span></li>
         <li><a href="#/docs/limitations">Data notes</a><span>Where a file is missing, duplicated, or differs from the written method.</span></li>
         <li><a href="#/docs/glossary">Glossary</a><span>Terms used on this site, including Turkish words in student answers.</span></li>
         <li><a href="#/docs/technical">Technical documentation</a><span>Folder paths, rebuild commands, and the coverage table.</span></li>
@@ -1517,6 +1603,26 @@
         STUDENTS.map((s) => ({ cells: [h(s)].concat(C.worksheets.map((w) => C.ws[s][w.code].ocr ? mark(true) : '<span class="na">·</span>')).concat(SESS.map((ss) => C.sessions[s][ss.id].manifest ? mark(true) : '<span class="na">·</span>')).concat([C.notebooks[s] && C.notebooks[s].file ? mark(true) : '<span class="na">·</span>']) })))}`)}</div>`;
   }
 
+  // ------------------------------------------------------------------ 05 Findings
+  function pageFindings() {
+    return `<div class="page">${`<p class="kicker">Findings &amp; Research Insights</p>`}
+      <h1>Research Findings</h1>
+      <p class="lead">Verified findings supported by completed analyses will appear here.</p>
+      <div class="warn">
+        <p><b>This section is not yet populated.</b> The archive currently holds collected data (worksheets, recordings, logs, and notebooks) and the processing pipeline that transforms it into structured evidence. Analytical findings require a completed analysis pass that has not yet been documented in this archive.</p>
+        <p>The evidence collected is browsable in the <a href="#/explore/worksheets">worksheet catalogue</a>, the <a href="#/explore/frames">frame explorer</a>, and the <a href="#/explore/logs">platform logs</a>. The methods used to process this evidence are described in the <a href="#/methods">processing workflow</a>. When verified findings are available, they will be added here with links to the analyses that support them.</p>
+      </div>
+      <h2>Available evidence</h2>
+      <ul class="guide">
+        <li><a href="#/explore/worksheets">Worksheets</a><span>Extracted student responses with item-level scores for ${C.worksheets.length} worksheets.</span></li>
+        <li><a href="#/explore/recordings">Screen recordings</a><span>Behaviour-coded frames from CODAP Arbor sessions.</span></li>
+        <li><a href="#/explore/frames">Frame explorer</a><span>${num(F.length)} frames, ${num(codedFrameCount)} coded for behaviour.</span></li>
+        <li><a href="#/explore/logs">Platform logs</a><span>${num(logEvents)} CODAP Arbor events across ${STUDENTS.length} participants.</span></li>
+        <li><a href="#/explore/notebooks">Python notebooks</a><span>Final project notebooks on the lizard data.</span></li>
+      </ul>
+    </div>`;
+  }
+
   // ------------------------------------------------------------------ router
   function parse() {
     const raw = location.hash.replace(/^#\/?/, "");
@@ -1526,8 +1632,8 @@
     (query || "").split("&").filter(Boolean).forEach((kvp) => { const [k, v] = kvp.split("="); q[k] = decodeURIComponent(v || ""); });
     return { parts, q, query };
   }
-  // Links from the first version of the site.
-  const LEGACY = { how: "methods", students: "explore/students", worksheets: "explore/worksheets", recordings: "explore/recordings", frames: "explore/frames", logs: "explore/logs", notebooks: "explore/notebooks", data: "docs", notes: "docs/limitations", glossary: "docs/glossary", student: "explore/student", worksheet: "explore/worksheet" };
+  // Links from earlier versions of the site.
+  const LEGACY = { how: "methods", students: "explore/students", worksheets: "explore/worksheets", recordings: "explore/recordings", frames: "explore/frames", logs: "explore/logs", notebooks: "explore/notebooks", data: "docs", notes: "docs/limitations", glossary: "docs/glossary", student: "explore/student", worksheet: "explore/worksheet", "explore/worksheet": "explore/worksheet" };
   function route() {
     const { parts, q, query } = parse();
     if (LEGACY[parts[0]]) {
@@ -1539,11 +1645,12 @@
     let html, after = null;
     if (top === "") html = pageOverview();
     else if (top === "methods") { html = pageMethods(); after = () => { const a = parts[1] && document.getElementById("m-" + parts[1]); if (a) a.scrollIntoView(); bindMethods(); }; }
+    else if (top === "findings") html = pageFindings();
     else if (top === "explore") {
       const sub = parts[1] || "students";
       if (sub === "student") html = pageStudent(parts[2], parts[3]);
       else if (sub === "worksheets") { html = pageWorksheets(); after = bindWsSearch; }
-      else if (sub === "worksheet") html = pageWorksheet(parts[2]);
+      else if (sub === "worksheet") { html = pageWorksheet(parts[2]); after = bindWsDetail; }
       else if (sub === "recordings") html = pageRecordings();
       else if (sub === "frames") { html = pageFrames(q); after = bindFrames; }
       else if (sub === "logs") html = pageLogs();
@@ -1557,8 +1664,21 @@
     tip.style.display = "none";
     const navKey = top === "explore" ? ({ student: "students", worksheet: "worksheets" }[parts[1]] || parts[1] || "students")
       : top === "docs" ? (parts[1] || "docs") : top;
+    // Top-link active: "Collected Data" covers all explore pages; "Processing" covers methods+notebooks; "Reference" covers docs/*
+    const COLLECTED_DATA_KEYS = new Set(["students", "worksheets", "recordings", "frames", "logs"]);
+    const PROCESS_KEYS = new Set(["methods", "notebooks"]);
     document.querySelectorAll(".nav-link, .top-link").forEach((a) => {
-      const on = a.dataset.r === navKey || (a.classList.contains("top-link") && a.dataset.r === "docs" && top === "docs");
+      let on = false;
+      if (a.classList.contains("top-link")) {
+        const r = a.dataset.r;
+        if (r === "") on = (top === "");
+        else if (r === "worksheets") on = top === "explore" && COLLECTED_DATA_KEYS.has(navKey);
+        else if (r === "methods") on = PROCESS_KEYS.has(navKey) || top === "methods";
+        else if (r === "docs") on = top === "docs";
+        else on = a.dataset.r === navKey;
+      } else {
+        on = a.dataset.r === navKey;
+      }
       a.classList.toggle("active", on);
     });
     document.querySelectorAll(".nav-group").forEach((g) => { if (g.querySelector(".nav-link.active")) g.open = true; });
