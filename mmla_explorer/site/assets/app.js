@@ -589,7 +589,7 @@
 
       <section class="method-block" id="m-notebooks">
         <h2>Python notebooks</h2>
-        <p>For the final project, students analysed lizard data in Google Colab. ${notebooksPresent} notebook files are in the archive.${reportOnly.length ? ` ${reportOnly.map(h).join(" and ")} submitted a report instead, so cell order and errors cannot be read for ${reportOnly.length === 1 ? "that file" : "those files"}.` : ""}</p>
+        <p>For the final project, students analysed lizard data in Google Colab. ${notebooksPresent} notebook files are in the archive.${reportOnly.length ? ` ${reportOnly.map(h).join(" and ")} submitted a report instead, so cell order and errors cannot be read for ${reportOnly.length === 1 ? "that file" : "those files"}.` : ""} This inspection is not the weekly Colab collection. Those files are listed under <a href="#/explore/notebooks">Python notebooks</a> and were not scored here.</p>
         <div class="nb-stages">
           <div class="nb-stage"><div class="nb-num">Inspected</div><div class="nb-name">Research questions</div><div class="nb-items">Whether research questions were written out for each target variable.</div></div>
           <div class="nb-stage"><div class="nb-num">Inspected</div><div class="nb-name">Tree models built</div><div class="nb-items">Count of decision trees, target variables, features used, and depths tried.</div></div>
@@ -882,7 +882,8 @@
     const n = C.notebooks[s] || {};
     if (!n.file && !n.extraction) return `<p class="empty">No final project file for this student.</p>`;
     const f = n.file, e = n.extraction;
-    let out = "";
+    const weekly = ((window.NOTEBOOKS || {}).students || []).find((row) => row.pseudonym === s);
+    let out = weekly ? `<p>The weekly Colab notebook for ${h(s)} is a different file, selected from ${h(weekly.stage)}. <a href="${h(weekly.file)}" download>Download it</a> from the <a href="#/explore/notebooks">notebook collection</a>.</p>` : "";
     if (e && e.data_source_note && !f) out += `<div class="warn">No notebook was submitted. The details below were taken from a submitted report.</div>`;
     out += kv([
       e && ["Target variables", e.targets.map((t) => `<code>${h(t)}</code>`).join(" ")],
@@ -1108,7 +1109,7 @@
         <a class="cat-card" href="#/explore/worksheets"><div class="arch-ico" aria-hidden="true">WS</div><h3>Worksheets</h3><p>${C.worksheets.length} instructional worksheets. Open one for its blank file, answer key, and the scanned student submissions.</p></a>
         <a class="cat-card" href="#/explore/recordings"><div class="arch-ico" aria-hidden="true">FR</div><h3>Screen recording frames</h3><p>${num(F.length)} frames extracted from the CODAP sessions. Previews on this site are a spaced subset. Original videos are not published.</p></a>
         <a class="cat-card" href="#/explore/logs"><div class="arch-ico" aria-hidden="true">LG</div><h3>Platform logs</h3><p>${num(logEvents)} time-stamped CODAP Arbor actions. Logs are not matched to individual frames.</p></a>
-        <a class="cat-card" href="#/explore/notebooks"><div class="arch-ico" aria-hidden="true">NB</div><h3>Python notebooks</h3><p>${num(notebooksPresent)} final-project notebook files were inspected. Raw notebook files are not published on this site.</p></a>
+        <a class="cat-card" href="#/explore/notebooks"><div class="arch-ico" aria-hidden="true">NB</div><h3>Python notebooks</h3><p>Weekly Colab notebooks for learning to build a decision tree. One pseudonymised file per student, from the latest week available.</p></a>
         <a class="cat-card" href="#/explore/students"><div class="arch-ico" aria-hidden="true">ST</div><h3>Student profiles</h3><p>${STUDENTS.length} pseudonyms. Each profile gathers that person’s worksheets, recordings, logs, and notebook record.</p></a>
       </div>
       <p class="small span-line">A worksheet response is not joined to a screen frame or a log event anywhere in the files this site reads.</p>
@@ -1873,34 +1874,49 @@
       ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}`;
   }
   function pageNotebooks() {
-    const withFile = STUDENTS.filter((s) => C.notebooks[s] && C.notebooks[s].file);
-    const reportOnly = STUDENTS.filter((s) => C.notebooks[s] && !C.notebooks[s].file && C.notebooks[s].extraction);
-    const reportNote = reportOnly.length
-      ? ` ${reportOnly.map(h).join(" and ")} submitted a report instead of a notebook.`
-      : "";
+    const pack = window.NOTEBOOKS || { teacher: null, students: [], dependency: "" };
+    const students = (pack.students || []).slice().sort((a, b) => a.pseudonym.localeCompare(b.pseudonym));
+    const present = new Set(students.map((s) => s.pseudonym));
+    const absent = STUDENTS.filter((s) => !present.has(s));
+    const cards = students.map((s) => `<article class="nb-card" data-who="${h(s.pseudonym)}">
+        <h3>${h(s.pseudonym)}</h3>
+        <p>Selected from ${h(s.stage)}</p>
+        ${s.same_as_teacher_example ? `<p class="file-meta">This file is the same as the teacher instructions notebook.</p>` : ""}
+        <a class="btn btn-secondary" href="${h(s.file)}" download>Download notebook</a>
+      </article>`).join("");
     return `<div class="page">${exploreShell("notebooks", `
       ${crumbs([["Collected data", "#/collected"], ["Python notebooks"]])}
-      <h1>Python notebooks</h1>
-      <p class="lead">The final project asked students to construct decision trees in Google Colab. This page lists the materials. Inspection counts and rubric points are on <a href="#/findings">Findings</a>.</p>
-      <div class="material-grid">
-        <section class="material-card">
-          <h2>Learning notebook</h2>
-          <p>A separate activity-template notebook is not stored in the project folder, so there is no file to download. The inspection schema records these steps: data exploration, written research questions, a train/test split, decision-tree experiments, a comparison across target variables, and a written reflection.</p>
-          <p class="file-meta">Format: not a separate file</p>
-        </section>
-        <section class="material-card">
-          <h2>Dataset</h2>
-          <p>The notebooks refer to lizard data. That dataset is not stored as its own file in the project folder, so it is not offered as a download.</p>
-          <p class="file-meta">Format: not a separate file</p>
-        </section>
-        <section class="material-card">
-          <h2>Student-submitted notebooks</h2>
-          <p>${num(withFile.length)} notebook files are in the archive, one for each pseudonym that submitted a notebook.${reportNote} They are not offered for download. A privacy check found a real name in one notebook, so the set stays unpublished.</p>
-          <p class="file-meta">Format: Jupyter notebook (<code>.ipynb</code>), held in the archive</p>
-          <p><a href="#/explore/students">Open a student profile</a> for that person's notebook record.</p>
-        </section>
-      </div>
-      <p class="small">How the notebooks were inspected is on the <a href="#/methods/notebooks">processing</a> page. The cohort table of models, errors, and rubric points is on <a href="#/findings">Findings</a>. Those points are pipeline scores, not a reviewed grade.</p>`)}</div>`;
+      <h1>Python notebooks: learning to build decision trees</h1>
+      <p class="lead">These notebooks document how non-major students developed Python skills for building decision trees through a sequence of guided activities. Each student's most recent available notebook is included, with names replaced by pseudonyms.</p>
+      <h2>Learning sequence</h2>
+      <ol class="nb-seq">
+        <li><span class="n">1</span><h3>5 May</h3><p>Students start using Python and its libraries.</p></li>
+        <li><span class="n">2</span><h3>12 May</h3><p>The notebook turns to a one-level decision tree.</p></li>
+        <li><span class="n">3</span><h3>2 June</h3><p>The latest continuation of that same notebook.</p></li>
+      </ol>
+      <p class="small">The stages build on one another. A later file replaces the earlier one for that student. It is not combined with the earlier weeks.</p>
+      <h2>Teacher instructions</h2>
+      <p>The instruction notebook sets out the steps students were guided through: writing to the screen, using a library, getting to know the data, splitting training and test data, building a decision tree, and reading a one-level tree.</p>
+      ${pack.teacher ? `<p><a class="btn btn-secondary" href="${h(pack.teacher)}" download>Download the instruction notebook</a></p>` : ""}
+      <h2>Student notebooks</h2>
+      <p>${num(students.length)} pseudonymised notebooks. The label is the week of the file that was kept. Not every student has a file from every week.${absent.length ? ` ${absent.map(h).join(", ")} ${absent.length === 1 ? "has" : "have"} no notebook in this collection.` : ""}</p>
+      <label class="nb-find">Find a student <input id="nbFind" type="search" placeholder="Pseudonym"></label>
+      <div class="nb-grid">${cards}</div>
+      ${tech("Technical details", `<div class="log-tech">
+        <p class="log-note">Each public file is a Jupyter notebook (<code>.ipynb</code>). The kept file is the 2 June notebook when one exists, otherwise 12 May, otherwise 5 May. Names in filenames, text, and saved text outputs were replaced with the project's pseudonyms. A given name shared by two students is written as Classmate. Colab account names, user ids, and provenance metadata were removed. The instructor's given name in the welcome example was replaced with Instructor.</p>
+        <p class="log-note">The notebooks read <code>${h(pack.dependency || "/content/Food_Dataset_Turkish.csv")}</code> from Colab. That table is not in this archive, and it has not been replaced with a different dataset. Screen recordings stored beside some submissions are not included.</p>
+        <p class="log-note">A separate set of final-project notebooks is still unpublished. Their inspection counts and rubric points stay on <a href="#/findings">Findings</a>. Those points are pipeline scores, not a reviewed grade.</p>
+      </div>`)}`)}</div>`;
+  }
+  function bindNotebookSearch() {
+    const q = document.getElementById("nbFind");
+    if (!q) return;
+    q.addEventListener("input", () => {
+      const s = q.value.trim().toLowerCase();
+      document.querySelectorAll(".nb-card").forEach((el) => {
+        el.hidden = !!(s && !el.dataset.who.toLowerCase().includes(s));
+      });
+    });
   }
   function notebookFindingsSection() {
     const rows = STUDENTS.map((s) => {
@@ -1912,7 +1928,7 @@
     return `<h2 id="notebook-inspection">Notebook inspection</h2>
       <p>These counts come from the notebook inspection. They describe the files. They are not a reviewed conclusion about what students learned, and they are not a grade.</p>
       ${table([{ t: "Student" }, { t: "Target variables" }, { t: "Models", num: 1 }, { t: "Errors in outputs" }, { t: "Revisiting earlier code", num: 1 }, { t: "Rubric points", num: 1 }], rows)}
-      <p class="small">“Revisiting earlier code” counts places where the run counter went backwards. The notebook files themselves stay on the <a href="#/explore/notebooks">Python notebooks</a> page, and they are not published.</p>`;
+      <p class="small">“Revisiting earlier code” counts places where the run counter went backwards. This table describes the separate final-project notebooks. Those files are not published. The weekly Colab notebooks are a different collection on the <a href="#/explore/notebooks">Python notebooks</a> page.</p>`;
   }
 
   // ------------------------------------------------------------------ 04 Documentation
@@ -1948,7 +1964,7 @@
         <li><a href="#/explore/students">Student profiles</a><span>All worksheets, recordings, logs, and notebooks for one student.</span></li>
         <li><a href="#/explore/recordings">Screen recording frames</a><span>Frames extracted from the sessions, with previews on this site and the full image set on Hugging Face. Original videos are not published.</span></li>
         <li><a href="#/explore/logs">Platform logs</a><span>Ten example records. The complete log is a separate dataset on Hugging Face.</span></li>
-        <li><a href="#/explore/notebooks">Python notebooks</a><span>Final-project notebook files. Raw notebooks are not published. Inspection counts are under Findings.</span></li>
+        <li><a href="#/explore/notebooks">Python notebooks</a><span>Weekly Colab notebooks, one pseudonymised file per student. Final-project inspection counts stay under Findings.</span></li>
       </ul>
       <h3 class="guide-group-label">Data Processing &amp; Analysis</h3>
       <ul class="guide">
@@ -2181,7 +2197,7 @@
       <h1>Research Findings</h1>
       <p class="lead">Reviewed conclusions about what students learned are not in this archive yet.</p>
       <div class="warn">
-        <p>Nothing on this page is a reviewed finding about learning. The platform-log summaries and the notebook inspection table are counts computed from the files. The sessions and the dataset link stay on the <a href="#/explore/logs">platform logs</a> page. The notebook files stay on the <a href="#/explore/notebooks">Python notebooks</a> page.</p>
+        <p>Nothing on this page is a reviewed finding about learning. The platform-log summaries and the notebook inspection table are counts computed from the files. The sessions and the dataset link stay on the <a href="#/explore/logs">platform logs</a> page. The inspection table below is the unpublished final-project set. The weekly Colab notebooks are a separate collection on the <a href="#/explore/notebooks">Python notebooks</a> page.</p>
       </div>
       ${logFindingsSection()}
       ${notebookFindingsSection()}
@@ -2190,7 +2206,7 @@
         <li><a href="#/explore/worksheets">Worksheets</a><span>Extracted student responses with item-level scores for ${C.worksheets.length} worksheets.</span></li>
         <li><a href="#/explore/recordings">Screen recording frames</a><span>${num(F.length)} extracted frames. Original videos are not published on this site.</span></li>
         <li><a href="#/explore/logs">Platform logs</a><span>Example records and the public log file. The counts are in the summaries above.</span></li>
-        <li><a href="#/explore/notebooks">Python notebooks</a><span>The materials. Inspection counts are in the table above.</span></li>
+        <li><a href="#/explore/notebooks">Python notebooks</a><span>The weekly Colab notebooks. The table above is the separate final-project inspection.</span></li>
       </ul>
     </div>`;
   }
@@ -2228,7 +2244,7 @@
       else if (sub === "recordings") { html = pageRecordings(q); after = bindFrameBrowse; }
       else if (sub === "frames") { location.replace("#/explore/recordings" + (query ? "?" + query : "")); return; }
       else if (sub === "logs") html = pageLogs();
-      else if (sub === "notebooks") html = pageNotebooks();
+      else if (sub === "notebooks") { html = pageNotebooks(); after = bindNotebookSearch; }
       else html = pageStudents();
     } else if (top === "docs") {
       const sub = parts[1] || "";
