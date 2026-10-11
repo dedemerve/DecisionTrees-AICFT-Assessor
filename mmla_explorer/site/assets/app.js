@@ -792,6 +792,8 @@
     const cd = r.coding;
     sessionIssues(r).forEach((m) => { out += `<div class="warn">${h(m)} <a href="#/docs/limitations">Why this matters →</a></div>`; });
     out += kv([["Length of the source recording", dur(lengthOf(r))], ["Frames listed", num(r.manifest.frames)], ["Frames with a behaviour label", cd ? num(cd.frames_coded) : "No"]]);
+    if (window.StudentProfiles) out += window.StudentProfiles.sessionChart(s, ss.id);
+    out += strip(s, ss.id, r);
     out += `<p><a class="btn" href="#/explore/recordings?s=${encodeURIComponent(s)}&ss=${encodeURIComponent(ss.id)}">View the frames from this session</a></p>`;
     // technical
     const m = r.manifest, sp = r.speech, ep = (C.episodes[s] || {})[ss.id];
@@ -826,7 +828,7 @@
       const e = emits[p.i];
       return `<circle cx="${x(p.i)}" cy="${y(p.a)}" r="4.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"${tipAttr(`<b>Attempt ${p.i + 1}</b>, ${num(minutesBetween(start, e.t), 0)} min after starting<br>Accuracy ${num(e.accuracy * 100, 1)}%<br>Tree depth ${h(e.depth)}`)}><title>Attempt ${p.i + 1}: ${num(e.accuracy * 100, 1)}%</title></circle>`;
     }).join("");
-    return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px;display:block;background:var(--surface);border:1px solid var(--rule)" role="img" aria-label="Accuracy of each model attempt">${grid}<path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2"/>${dots}<text x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle" font-size="10.5" fill="var(--muted)">attempt 1 to ${emits.length} →</text></svg>`;
+    return `<svg class="profile-chart" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Accuracy of each model attempt">${grid}<path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2"/>${dots}<text x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle" font-size="10.5" fill="var(--muted)">attempt 1 to ${emits.length} →</text></svg>`;
   }
   function logBlock(s) {
     const days = logDays[s] || {};
@@ -835,7 +837,7 @@
     return preface + Object.entries(LOG_DAYS).map(([d, meta]) => {
       const v = days[d];
       let out = `<section class="session"><h3>${h(meta.name)} <span class="small">${h(meta.date)}</span></h3>`;
-      if (!v) return out + `<p class="empty">No actions recorded in this session.</p></section>`;
+      if (!v) return out + `<p class="empty">No class-session log is stored.</p></section>`;
       const start = v.first_event.slice(11);
       const vt = meta.ss && C.sessions[s][meta.ss].votat;
       out += kv([
@@ -846,6 +848,7 @@
         ["Threshold changes", num(v.modelling_actions.change_split_values)],
         vt && ["Changed one thing at a time", `${num(vt.votat_rate * 100, 0)}% of ${vt.intervals} steps between attempts`],
       ]);
+      if (meta.ss && !vt) out += `<p class="small">No one-thing-at-a-time rate is stored for this session.</p>`;
       if (v.emits.length) out += `<h4>Accuracy of each attempt</h4>` + accuracyChart(v.emits, start);
       out += `<h4>What the student did</h4>` + table([{ t: "Action" }, { t: "Times", num: 1 }], MODEL_ACTIONS.filter((a) => v.modelling_actions[a]).map((a) => ({ cells: [h(ACTION[a]), num(v.modelling_actions[a])] })));
       let t = `<h4>All recorded actions</h4>` + table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(v.actions).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })));
@@ -866,21 +869,24 @@
     const weekly = ((window.NOTEBOOKS || {}).students || []).find((row) => row.pseudonym === s);
     const weeklySession = { "5 May": "Colab Session 1", "12 May": "Colab Session 2", "2 June": "Colab Session 3" }[weekly && weekly.stage] || "";
     const finalNb = ((window.NOTEBOOKS || {}).final || []).find((row) => row.pseudonym === s);
-    let out = "";
-    if (finalNb) out += `<p><a href="${h(finalNb.file)}" download>Download the final notebook</a>. The counts below describe that file.</p>`;
-    if (weekly) out += `<p>The guided Colab notebook for ${h(s)} is a different file, from ${h(weeklySession)}. <a href="${h(weekly.file)}" download>Download it</a>.</p>`;
-    if (!f && e) out += `<p><b>Written report.</b> Notebook cell counts are not available. The details below were taken from the submitted report.</p>`;
+    let out = window.StudentProfiles ? window.StudentProfiles.notebookTable(s) : "";
+    if (finalNb) out += `<p><a href="${h(finalNb.file)}" download>Download the final notebook</a></p>`;
+    else if (!f && s === "Marco") out += `<p><a href="downloads/notebooks/final/Marco.pdf" download>Download the written report</a></p>`;
+    if (weekly) out += `<p class="small">The guided Colab notebook is a different file${weeklySession ? `, from ${h(weeklySession)}` : ""}. <a href="${h(weekly.file)}" download>Download it</a>.</p>`;
+    if (!f && e && !window.StudentProfiles) out += `<p><b>Written report.</b> Notebook cell counts are not available.</p>`;
     out += kv([
-      e && ["Target variables", e.targets.map((t) => `<code>${h(t)}</code>`).join(" ")],
-      e && ["Research questions written out", `${e.questions_written} of ${e.targets.length}`],
-      e && ["Decision tree models", num(e.models)],
       f && ["Errors in the outputs", f.cells_with_error_output ? `Yes, in ${f.cells_with_error_output} cell${f.cells_with_error_output > 1 ? "s" : ""}` : "None"],
       f && ["Revisiting earlier code", f.order_reversals ? `${f.order_reversals} time${f.order_reversals > 1 ? "s" : ""}` : "Never"],
     ]);
-    if (f) out += `<h4>Analysis steps found</h4><ul class="checks">${Object.entries(f.uses).map(([k, v]) => `<li class="${v ? "on" : "off"}">${v ? "✓" : "✗"} ${h(NB_USES[k] || k)}</li>`).join("")}</ul>`;
     if (e && e.experiments.length) out += `<h4>Trees built</h4>` + table([{ t: "Target" }, { t: "Features used" }, { t: "Depths tried" }, { t: "Tree drawn" }], e.experiments.map((x) => ({ cells: [`<code>${h(x.target)}</code>`, `<span class="small">${h((x.features || []).join(", "))}</span>`, x.depth_min == null ? "–" : `${x.depth_min} to ${x.depth_max}`, yesno(x.checks.tree_visualized)] })));
-    if (n.scoring) out += `<h4>Rubric points</h4>` + table([{ t: "Section" }, { t: "Points", num: 1 }, { t: "Possible", num: 1 }], Object.entries(n.scoring.sections).map(([k, v]) => ({ cells: [h(k), num(v.awarded, 1), num(v.possible, 1)] })));
+    if (n.scoring) out += `<h4>Stored rubric points</h4><p class="small">Pipeline points. Not a reviewed grade.</p>` + table([{ t: "Section" }, { t: "Points", num: 1 }, { t: "Possible", num: 1 }], Object.entries(n.scoring.sections).map(([k, v]) => ({ cells: [h(k), num(v.awarded, 1), num(v.possible, 1)] })));
     let t = "";
+    if (e) t += kv([
+      ["Target variables", e.targets.map((t) => `<code>${h(t)}</code>`).join(" ")],
+      ["Research questions written out", `${e.questions_written} of ${e.targets.length}`],
+      ["Stored model count", num(e.models)],
+    ]);
+    if (f) t += `<h4>Analysis steps found</h4><ul class="checks">${Object.entries(f.uses).map(([k, v]) => `<li class="${v ? "on" : "off"}">${v ? "✓" : "✗"} ${h(NB_USES[k] || k)}</li>`).join("")}</ul>`;
     if (f) {
       const ec = f.execution_counts, max = Math.max(1, ...ec.filter((x) => x != null)), W = Math.max(240, ec.length * 22), H = 120;
       t += kv([["Cells", `${num(f.cells)} (${num(f.code_cells)} code, ${num(f.markdown_cells)} text)`], ["Code cells run", `${num(f.executed_code_cells)} of ${num(f.code_cells)}`], ["Empty code cells", num(f.empty_code_cells)], ["Highest run counter", num(f.max_execution_count)], ["Cells with a picture output", num(f.cells_with_image_output)]]);

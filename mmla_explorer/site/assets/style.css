@@ -1248,7 +1248,7 @@ table.find-table tr[hidden] { display: none !important; }
 .find-dim > h2 { margin: 0 0 6px; font-size: 1.25rem; }
 .find-dim > p { margin: 0 0 10px; }
 .find-subfold { margin: 8px 0 4px; box-shadow: none; }
-.find-board { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px; }
+.find-board { display: block; margin: 0 0 12px; }
 .find-panel { border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); padding: 14px 16px 10px; }
 .find-panel h3 { margin: 0 0 8px; font-size: 1rem; }
 .find-panel-wide { margin: 0 0 12px; }
@@ -1298,13 +1298,52 @@ table.find-table tr[hidden] { display: none !important; }
 }
 
 /* -- student profiles -- */
-.profile-page .profile-banner,
+.profile-page p,
 .profile-page .profile-intro,
-.profile-page .profile-banner p,
-.profile-page .profile-summary p,
-.profile-page .profile-pattern p {
+.profile-page .lead {
   max-width: none;
 }
+.profile-facts { margin: 0 0 6px; font-weight: 600; color: var(--ink); }
+.profile-notes { margin: 0 0 14px; }
+.profile-notes summary { cursor: pointer; font-weight: 600; }
+.profile-notes summary:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.cov-chart { display: grid; gap: 8px; margin: 0 0 8px; }
+.cov-row {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr) auto;
+  gap: 10px 12px;
+  align-items: center;
+}
+.cov-name { font-size: 13px; color: var(--ink-2); }
+.cov-track {
+  display: flex;
+  height: 14px;
+  min-width: 0;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.cov-track span { display: block; height: 100%; }
+.cov-cap { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cov-stack { height: 18px; margin: 0 0 10px; }
+.beh-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  border-radius: 2px;
+  vertical-align: -1px;
+}
+.profile-chart {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 0 0 12px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+.profile-req td:nth-child(2) { white-space: nowrap; }
 .profile-banner {
   background: var(--surface);
   border: 1px solid var(--rule);
@@ -1400,6 +1439,8 @@ table.find-table tr[hidden] { display: none !important; }
 .profile-fold > summary::after { content: "Show"; }
 .profile-fold[open] > summary::after { content: "Hide"; }
 @media (max-width: 800px) {
+  .cov-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .cov-track { grid-column: 1 / -1; }
   .profile-patterns { grid-template-columns: 1fr; }
   .profile-tabs { flex-wrap: wrap; }
   .profile-tabs a { flex: 1 1 45%; }

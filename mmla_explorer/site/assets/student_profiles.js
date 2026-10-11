@@ -38,19 +38,6 @@
     if (a.length === 2) return a[0] + " and " + a[1];
     return a.slice(0, -1).join(", ") + ", and " + a[a.length - 1];
   }
-  function mean(values) {
-    if (!values.length) return null;
-    return sum(values) / values.length;
-  }
-  function pill(label, text, kind) {
-    return `<li><span>${h(label)}</span> <b class="src-pill src-${kind}">${h(text)}</b></li>`;
-  }
-  function kindOf(n, total) {
-    if (!n) return "none";
-    if (n === total) return "full";
-    return "part";
-  }
-
   function analyze(core, frames, evidence) {
     const students = core.students || [];
     const sheets = core.worksheets || [];
@@ -73,11 +60,15 @@
         const listed = frameList.filter((f) => f.s === id && f.ss === meta.session);
         if (!rec.manifest && !listed.length) return null;
         const coded = listed.filter((f) => f.b);
+        const behaviors = {};
+        coded.forEach((f) => { behaviors[f.b] = (behaviors[f.b] || 0) + 1; });
         return {
           id: meta.session,
           name: meta.name,
+          short: meta.session === "codap_21apr" ? "Session 1" : "Session 2",
           listed: rec.manifest ? rec.manifest.frames : listed.length,
           coded: coded.length,
+          behaviors: behaviors,
           duplicateOf: rec.same_video_file_as || [],
           coverage: typeof rec.frame_coverage === "number" ? rec.frame_coverage : null,
         };
@@ -98,6 +89,7 @@
         const votat = sessions[meta.session] && sessions[meta.session].votat;
         return {
           name: meta.name,
+          short: meta.session === "codap_21apr" ? "Session 1" : "Session 2",
           session: meta.session,
           events: row.events || 0,
           emits: row.emit_count || 0,
@@ -149,6 +141,7 @@
         logEvents: sum(logSessions.map((row) => row.events)),
         extraLogEvents: extra ? extra.events || 0 : null,
         pythonKind: pythonKind,
+        checks: checks || null,
         synthetic: !!(ev && ev.inspection && ev.inspection.synthetic),
         depthTables: checks && typeof checks.depth_tables === "number" ? checks.depth_tables : null,
         depthRecords: checks && typeof checks.depth_records === "number" ? checks.depth_records : null,
@@ -162,314 +155,294 @@
     return {
       people: people,
       expectedWorksheets: codes.length,
+      codes: codes,
       previewCap: PREVIEW_CAP,
       thumbsPerSession: core.thumbs_per_session,
       hfFrames: HF_FRAMES,
     };
   }
 
-  function worksheetSentence(model) {
-    const full = model.people.filter((p) => p.missing.length === 0);
-    const partial = model.people.filter((p) => p.missing.length > 0);
+  const BEHAV_COLOR = {
+    EXPLORE_DATA: "var(--b1)",
+    SELECT_TARGET: "var(--b2)",
+    BUILD_TREE: "var(--b3)",
+    TUNE_THRESHOLD: "var(--b4)",
+    EVALUATE_MODEL: "var(--b5)",
+    COMPARE_MODELS: "var(--b6)",
+    INTERPRET_RESULTS: "var(--b7)",
+    IDLE_THINKING: "var(--b-idle)",
+    OFF_TASK: "var(--b-off)",
+  };
+
+  function person(model, id) {
+    return model.people.find((row) => row.id === id) || null;
+  }
+  function modelFor(core, frames, evidence) {
+    const data = core || root.CORE;
+    if (!data) return null;
+    return analyze(data, frames || root.FRAMES || [], evidence || root.NOTEBOOK_EVIDENCE);
+  }
+  function sessionPhrase(rows) {
+    if (!rows.length) return "Not stored";
+    if (rows.length === CLASS_DAYS.length) return "Both sessions";
+    return rows.map((row) => row.short || row.name).join(", ");
+  }
+  function submissionPhrase(row) {
+    if (row.pythonKind === "report") return "Written report";
+    if (row.pythonKind === "notebook") return "Notebook";
+    return "Not stored";
+  }
+  function plural(n, word) {
+    return num(n) + " " + word + (n === 1 ? "" : "s");
+  }
+
+  function coverageChart(model) {
+    const n = model.people.length;
+    const fullWs = model.people.filter((p) => p.missing.length === 0).length;
+    const bothFrames = model.people.filter((p) => p.frameSessions.length === CLASS_DAYS.length).length;
+    const oneFrame = model.people.filter((p) => p.frameSessions.length === 1).length;
+    const bothLogs = model.people.filter((p) => p.logSessions.length === CLASS_DAYS.length).length;
+    const oneLog = model.people.filter((p) => p.logSessions.length === 1).length;
+    const notebooks = model.people.filter((p) => p.pythonKind === "notebook").length;
+    const reports = model.people.filter((p) => p.pythonKind === "report").length;
+    const rows = [
+      ["Worksheets", [
+        { n: fullWs, label: "all " + model.expectedWorksheets + " files", color: "var(--blue)" },
+        { n: n - fullWs, label: "a partial set", color: "var(--muted)" },
+      ]],
+      ["Frames", [
+        { n: bothFrames, label: "both sessions", color: "var(--blue)" },
+        { n: oneFrame, label: "one session", color: "var(--muted)" },
+      ]],
+      ["Platform logs", [
+        { n: bothLogs, label: "both sessions", color: "var(--blue)" },
+        { n: oneLog, label: "one session", color: "var(--muted)" },
+      ]],
+      ["Final submission", [
+        { n: notebooks, label: notebooks === 1 ? "notebook" : "notebooks", color: "var(--blue)" },
+        { n: reports, label: reports === 1 ? "written report" : "written reports", color: "var(--muted)" },
+      ]],
+    ];
+    const body = rows.map(([label, parts]) => {
+      const segs = parts.filter((part) => part.n > 0).map((part) => {
+        const width = n ? (100 * part.n / n) : 0;
+        return `<span style="width:${width.toFixed(2)}%;background:${part.color}" title="${h(num(part.n) + " " + part.label)}"></span>`;
+      }).join("");
+      const caption = parts.filter((part) => part.n > 0).map((part) => num(part.n) + " " + part.label).join(" · ");
+      return `<div class="cov-row"><div class="cov-name">${h(label)}</div><div class="cov-track" role="img" aria-label="${h(label + ": " + caption)}">${segs}</div><div class="cov-cap">${h(caption)}</div></div>`;
+    }).join("");
+    return `<div class="cov-chart">${body}</div><p class="small">The caption beside each bar states the count. A stored file is not a score.</p>`;
+  }
+
+  function worksheetBars(model) {
+    const n = model.people.length;
+    const counts = model.codes.map((code) => ({
+      code: code,
+      n: model.people.filter((p) => p.extracted.includes(code)).length,
+    }));
+    const widest = Math.max(n, 1);
+    const rows = counts.map((row) => {
+      const width = (100 * row.n / widest).toFixed(2);
+      return `<div class="cov-row"><div class="cov-name">${h(row.code)}</div><div class="cov-track" role="img" aria-label="${h(row.code + ": " + row.n + " / " + n)}"><span style="width:${width}%;background:var(--blue)"></span></div><div class="cov-cap">${num(row.n)} / ${num(n)}</div></div>`;
+    }).join("");
     const groups = new Map();
-    partial.forEach((p) => {
+    model.people.filter((p) => p.missing.length).forEach((p) => {
       const key = p.missing.join(", ");
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(p.id);
     });
-    const bits = [`${num(full.length)} of ${num(model.people.length)} participants have an extracted response for all ${num(model.expectedWorksheets)} worksheets.`];
+    const notes = [];
     groups.forEach((names, key) => {
-      bits.push(`${nameList(names)} ${names.length === 1 ? "has" : "have"} no extraction for ${key}.`);
+      notes.push(nameList(names) + (names.length === 1 ? " has" : " have") + " no extraction for " + key);
     });
-    return bits.join(" ");
-  }
-
-  function scorePattern(core) {
-    if (!root.WorksheetFindings || !core) return null;
-    const all = root.WorksheetFindings.analyze(
-      core,
-      root.SCORE_EXTRA || { notes: {}, status: {} },
-      root.WORKSHEET_DOCS || { worksheets: {}, overrides: [] }
-    );
-    const rows = Object.keys(all).map((code) => {
-      const item = all[code];
-      if (!item || !item.sameMax || !item.people) return null;
-      const cohort = item.people.filter((p) => p.inCohort);
-      if (!cohort.length || item.mean == null) return null;
-      return { code: code, mean: item.mean, max: item.sameMax, n: cohort.length, share: item.mean / item.sameMax };
-    }).filter(Boolean);
-    if (rows.length < 2) return null;
-    rows.sort((a, b) => b.share - a.share || a.code.localeCompare(b.code));
-    return { high: rows[0], low: rows[rows.length - 1], nSheets: rows.length };
-  }
-
-  function sessionPhrase(person, key) {
-    const rows = person[key];
-    if (!rows.length) return "Not stored";
-    if (rows.length === CLASS_DAYS.length) return "Both sessions";
-    return rows.map((row) => row.name).join(", ");
-  }
-
-  function patterns(model, core) {
-    const n = model.people.length;
-    const bothFrames = model.people.filter((p) => p.frameSessions.length === CLASS_DAYS.length);
-    const oneFrame = model.people.filter((p) => p.frameSessions.length === 1);
-    const bothLogs = model.people.filter((p) => p.logSessions.length === CLASS_DAYS.length);
-    const notebooks = model.people.filter((p) => p.pythonKind === "notebook");
-    const reports = model.people.filter((p) => p.pythonKind === "report");
-    const logRows = model.people.flatMap((p) => p.logSessions);
-    const withRate = logRows.filter((row) => row.votat);
-    const rateMissing = [];
-    model.people.forEach((p) => p.logSessions.forEach((row) => {
-      if (row.votat) return;
-      rateMissing.push(`${p.id}, ${row.name}${row.emits < 2 ? " (fewer than two model submissions)" : ""}`);
-    }));
-    const thresholds = model.people.map((p) => p.threshold);
-    const scores = scorePattern(core);
-    const cards = [];
-
-    cards.push({
-      title: "Worksheet extraction",
-      text: worksheetSentence(model),
-      detail: `The denominator is the ${num(model.expectedWorksheets)} worksheets stored for this archive. “Extracted” means an extraction file with responses. It is not a score, and it is not a count of correct answers. WS11 is extracted for the participants who have that file, and the worksheet findings page does not use it as scored evidence.`,
-      href: "#/findings/worksheets",
-      link: "Worksheet findings",
-    });
-
-    if (scores) {
-      const line = (row) => `${row.code}, mean ${num(row.mean, 1)} of ${num(row.max)} (${num(row.n)} participants)`;
-      cards.push({
-        title: "Stored worksheet totals",
-        text: `Among ${num(scores.nSheets)} worksheets with a published cohort total and one shared maximum, the highest mean is ${line(scores.high)}. The lowest mean is ${line(scores.low)}.`,
-        detail: "Each mean is the mean of the stored pipeline totals for participants included in that worksheet’s findings cohort. Dividing by the worksheet maximum only compares a worksheet with itself. Worksheets do not share one scale, and a total is not a reviewed grade.",
-        href: "#/findings/worksheets",
-        link: "Worksheet findings",
-      });
-    }
-
-    cards.push({
-      title: "Frame evidence",
-      text: `${num(model.people.filter((p) => p.frameSessions.length).length)} of ${num(n)} participants have extracted frames for at least one CODAP session. ${num(bothFrames.length)} have both sessions.${oneFrame.length ? " " + nameList(oneFrame.map((p) => p.id)) + (oneFrame.length === 1 ? " has " : " have ") + "one session." : ""}`,
-      detail: "A session counts when the archive stores a frame manifest or listed frames for that CODAP session. The count is not minutes of recording. Original videos are not published. Collected Data shows up to " + num(PREVIEW_CAP) + " CODAP-screen examples from a session.",
-      href: "#/findings/recordings",
-      link: "Screen recording findings",
-      also: { href: HF_FRAMES, label: "Complete frame dataset" },
-    });
-
-    cards.push({
-      title: "Class-session logs",
-      text: `${num(model.people.filter((p) => p.logSessions.length).length)} of ${num(n)} participants have a platform log for at least one of the two CODAP class sessions. ${num(bothLogs.length)} have both. Recorded threshold changes on those sessions range from ${num(Math.min.apply(null, thresholds))} to ${num(Math.max.apply(null, thresholds))}.`,
-      detail: "The two class sessions are CODAP session 1 and CODAP session 2. A threshold change is the log action change_split_values. A larger count is not evidence of difficulty, haste, or a planned strategy. A 7 April 2026 log is stored as well and is not included in these counts.",
-      href: "#/findings/logs",
-      link: "Platform log findings",
-    });
-
-    if (withRate.length || rateMissing.length) {
-      const rates = withRate.map((row) => row.votat.rate);
-      const range = rates.length ? ` Where it is stored, it ranges from ${num(Math.min.apply(null, rates) * 100, 0)}% to ${num(Math.max.apply(null, rates) * 100, 0)}%.` : "";
-      cards.push({
-        title: "One thing at a time",
-        text: `A stored rate is available for ${num(withRate.length)} class-session logs.${range}${rateMissing.length ? " No rate is stored for " + rateMissing.join("; ") + "." : ""}`,
-        detail: "Between two consecutive model submissions, an interval counts as one thing at a time when the log records only predictor changes or only threshold changes, not both and not neither. The rate is that count divided by the number of intervals. It is stored with the session. This page does not recompute it, and it does not treat the rate as a planned strategy.",
-        href: "#/findings/logs",
-        link: "Platform log findings",
-      });
-    }
-
-    cards.push({
-      title: "Final Python submission",
-      text: `${num(notebooks.length)} of ${num(n)} final files are notebooks.${reports.length ? " " + nameList(reports.map((p) => p.id)) + (reports.length === 1 ? " submitted a written report." : " submitted written reports.") : ""}`,
-      detail: "A notebook and a written report are different submission types. Notebook cell counts do not apply to a written report. Pipeline rubric points are not a reviewed grade.",
-      href: "#/findings/notebooks",
-      link: "Python notebook findings",
-    });
-
-    return cards;
-  }
-
-  function matrix(model) {
-    const head = ["Participant", "Worksheets", "Frames", "Platform logs", "Python submission"];
-    const body = model.people.map((p) => {
-      const wsKind = kindOf(p.extracted.length, p.expected);
-      const frameKind = kindOf(p.frameSessions.length, CLASS_DAYS.length);
-      const logKind = kindOf(p.logSessions.length, CLASS_DAYS.length);
-      const pyText = p.pythonKind === "report" ? "Written report" : p.pythonKind === "notebook" ? "Notebook" : "Not stored";
-      const pyKind = p.pythonKind === "report" ? "report" : p.pythonKind === "notebook" ? "full" : "none";
-      const cells = [
-        `<a href="#/explore/student/${h(p.id)}">${h(p.id)}</a>`,
-        `<a href="#/explore/student/${h(p.id)}/worksheets"><b class="src-pill src-${wsKind}">${num(p.extracted.length)} of ${num(p.expected)}</b></a>`,
-        `<a href="#/explore/student/${h(p.id)}/recordings"><b class="src-pill src-${frameKind}">${h(sessionPhrase(p, "frameSessions"))}</b></a>`,
-        `<a href="#/explore/student/${h(p.id)}/logs"><b class="src-pill src-${logKind}">${h(sessionPhrase(p, "logSessions"))}</b></a>`,
-        `<a href="#/explore/student/${h(p.id)}/notebook"><b class="src-pill src-${pyKind}">${h(pyText)}</b></a>`,
-      ];
-      return `<tr>${cells.map((cell, i) => `<td data-label="${h(head[i])}">${cell}</td>`).join("")}</tr>`;
-    }).join("");
-    return `<div class="table-wrap"><table class="find-table profile-matrix"><thead><tr>${head.map((label) => `<th>${h(label)}</th>`).join("")}</tr></thead><tbody>${body}</tbody></table></div>
-      <ul class="profile-legend">
-        <li><b class="src-pill src-full">Full</b> Every expected record in that column is stored.</li>
-        <li><b class="src-pill src-part">Partial</b> Some of the expected records are stored.</li>
-        <li><b class="src-pill src-report">Written report</b> A final submission that is not a notebook. Notebook-only measures do not apply.</li>
-        <li><b class="src-pill src-none">Not stored</b> No record of that source.</li>
-      </ul>
-      <p class="small">Worksheet cells count extraction files, not correct answers. Frame cells count the two CODAP sessions. Log cells count those same two sessions. A 7 April log is stored for the cohort and is not one of those sessions.</p>`;
-  }
-
-  function cards(model) {
-    return model.people.map((p) => {
-      const py = p.pythonKind === "report" ? "Written report" : p.pythonKind === "notebook" ? "Notebook" : "Not stored";
-      const pyKind = p.pythonKind === "report" ? "report" : kindOf(p.pythonKind === "notebook" ? 1 : 0, 1);
-      return `<a class="student-card" href="#/explore/student/${h(p.id)}">
-        <div class="student-card-name">${h(p.id)}</div>
-        <p class="student-card-sources">${num(p.categories)} of 4 source categories</p>
-        <ul class="src-pills">
-          ${pill("Worksheets", `${num(p.extracted.length)} of ${num(p.expected)}`, kindOf(p.extracted.length, p.expected))}
-          ${pill("Frames", sessionPhrase(p, "frameSessions"), kindOf(p.frameSessions.length, CLASS_DAYS.length))}
-          ${pill("Platform logs", sessionPhrase(p, "logSessions"), kindOf(p.logSessions.length, CLASS_DAYS.length))}
-          ${pill("Python", py, pyKind)}
-        </ul>
-        <div class="student-card-cta">Open profile</div>
-      </a>`;
-    }).join("");
-  }
-
-  function summaryCards(model) {
-    const n = model.people.length;
-    const fullWs = model.people.filter((p) => p.missing.length === 0).length;
-    const anyFrames = model.people.filter((p) => p.frameSessions.length).length;
-    const bothFrames = model.people.filter((p) => p.frameSessions.length === CLASS_DAYS.length).length;
-    const anyLogs = model.people.filter((p) => p.logSessions.length).length;
-    const notebooks = model.people.filter((p) => p.pythonKind === "notebook").length;
-    const reports = model.people.filter((p) => p.pythonKind === "report").length;
-    const items = [
-      [num(n), "Participants", "Pseudonyms in this archive."],
-      [`${num(fullWs)} of ${num(n)}`, "Full worksheet extraction", `An extraction file for all ${num(model.expectedWorksheets)} worksheets. ${num(n - fullWs)} have a partial set.`],
-      [`${num(anyFrames)} of ${num(n)}`, "Frame evidence", `At least one CODAP session with extracted frames. ${num(bothFrames)} have both sessions.`],
-      [`${num(anyLogs)} of ${num(n)}`, "Class-session log", "A platform log for at least one of the two CODAP class sessions."],
-      [`${num(notebooks + reports)} of ${num(n)}`, "Final submission", `${num(notebooks)} notebook${notebooks === 1 ? "" : "s"} and ${num(reports)} written report${reports === 1 ? "" : "s"}.`],
-    ];
-    return `<div class="stat-row find-headline profile-stats">${items.map(([value, label, note]) => `<div class="stat-card"><div class="v">${value}</div><div class="l">${h(label)}</div><p class="small">${h(note)}</p></div>`).join("")}</div>`;
+    const note = notes.length ? notes.join(". ") + "." : "";
+    return `<div class="cov-chart">${rows}</div><p class="small">Each bar counts extraction files, out of ${num(n)}. A file is not a correct answer. ${h(note)}</p>`;
   }
 
   function page(core, frames, evidence) {
     const data = core || root.CORE;
-    if (!data) return `<p class="empty">Participant data did not load.</p>`;
-    const model = analyze(data, frames || root.FRAMES || [], evidence || root.NOTEBOOK_EVIDENCE || { rows: [] });
-    const patternCards = patterns(model, data).map((card) => `<article class="profile-pattern">
-        <h3>${h(card.title)}</h3>
-        <p>${h(card.text)}</p>
-        <details><summary>How this was counted</summary><p>${h(card.detail)}</p></details>
-        <p class="small"><a href="${h(card.href)}">${h(card.link)}</a>${card.also ? ` · <a href="${h(card.also.href)}" target="_blank" rel="noopener">${h(card.also.label)}</a>` : ""}</p>
-      </article>`).join("");
-    return `<div class="page wide find-page profile-page">
+    if (!data) return `<div class="page wide profile-page"><p class="empty">No data loaded.</p></div>`;
+    const model = analyze(data, frames || root.FRAMES || [], evidence || root.NOTEBOOK_EVIDENCE);
+    const n = model.people.length;
+    const head = model.people.map((p) => `<tr>
+      <td data-label="Participant"><a href="#/explore/student/${encodeURIComponent(p.id)}">${h(p.id)}</a></td>
+      <td data-label="Worksheets">${num(p.extracted.length)}/${num(p.expected)}</td>
+      <td data-label="Frames">${h(sessionPhrase(p.frameSessions))}</td>
+      <td data-label="Platform logs">${h(sessionPhrase(p.logSessions))}</td>
+      <td data-label="Final submission">${h(submissionPhrase(p))}</td>
+    </tr>`).join("");
+    const cards = model.people.map((p) => `<a class="student-card" href="#/explore/student/${encodeURIComponent(p.id)}">
+      <b class="student-card-name">${h(p.id)}</b>
+      <dl class="student-card-meta">
+        <div><dt>Worksheets</dt><dd>${num(p.extracted.length)}/${num(p.expected)}</dd></div>
+        <div><dt>Frames</dt><dd>${h(sessionPhrase(p.frameSessions))}</dd></div>
+        <div><dt>Platform logs</dt><dd>${h(sessionPhrase(p.logSessions))}</dd></div>
+        <div><dt>Python</dt><dd>${h(submissionPhrase(p))}</dd></div>
+      </dl>
+      <span class="student-card-cta">Open profile</span>
+    </a>`).join("");
+    return `<div class="page wide profile-page">
       <p class="kicker">Findings</p>
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="#/findings">Findings</a><span aria-hidden="true">/</span><span aria-current="page">Student profiles</span></nav>
+      <p class="crumbs"><a href="#/">Overview</a><span>/</span><a href="#/findings">Findings</a><span>/</span>Student profiles</p>
       <h1>Student profiles</h1>
-      <div class="profile-banner">
-        <p>Profiles for ${num(model.people.length)} pseudonymised participants. Each profile brings together worksheet extractions, screen-recording frames, CODAP platform logs, and the final Python submission. The grid shows which of those sources are stored. A stored file is not evidence of learning, and a missing file is not evidence that an activity did not happen.</p>
-      </div>
-      ${summaryCards(model)}
-      <h2>Patterns across participants</h2>
-      <div class="profile-patterns">${patternCards}</div>
+      <p class="profile-intro">Explore the completeness of the archived evidence and the patterns observed across ${num(n)} pseudonymised participants. Each profile brings together worksheet responses, extracted screen frames, CODAP platform logs, and the final Python submission.</p>
+      <p>Observed records describe the available evidence, not a participant's ability, understanding, or intent.</p>
+      <h2>Cohort overview</h2>
+      ${coverageChart(model)}
+      <h3>Worksheet files</h3>
+      ${worksheetBars(model)}
       <h2>What is stored for each participant</h2>
-      ${matrix(model)}
+      <div class="table-wrap"><table class="find-table profile-store">
+        <thead><tr><th>Participant</th><th>Worksheets</th><th>Frames</th><th>Platform logs</th><th>Final submission</th></tr></thead>
+        <tbody>${head}</tbody>
+      </table></div>
+      <p class="small">Worksheet cells count extraction files, not correct answers. Frame and log cells count the two CODAP class sessions. A 7 April log is stored separately and is not one of those sessions. A missing record does not prove that an activity did not occur.</p>
       <h2>Open a profile</h2>
-      <div class="student-roster">${cards(model)}</div>
+      <div class="student-roster">${cards}</div>
     </div>`;
-  }
-
-  function fold(title, text, detail) {
-    return `<details class="find-fold profile-fold">
-      <summary>${h(title)}</summary>
-      <div class="find-fold-body"><p>${h(text)}</p>${detail ? `<p class="small">${h(detail)}</p>` : ""}</div>
-    </details>`;
   }
 
   function summary(id, core, frames, evidence) {
-    const data = core || root.CORE;
-    if (!data) return "";
-    const model = analyze(data, frames || root.FRAMES || [], evidence || root.NOTEBOOK_EVIDENCE || { rows: [] });
-    const person = model.people.find((p) => p.id === id);
-    if (!person) return "";
-    const wsDetail = person.missing.length
-      ? `No extraction file: ${person.missing.join(", ")}.`
-      : `An extraction file is stored for all ${num(person.expected)} worksheets.`;
-    const scoreGap = person.scoreWithoutExtraction.length
-      ? ` A scoring file without an extraction is stored for ${person.scoreWithoutExtraction.join(", ")}. That file is not counted as an extracted response.`
+    const model = modelFor(core, frames, evidence);
+    const row = model && person(model, id);
+    if (!row) return "";
+    const facts = "Worksheets " + num(row.extracted.length) + "/" + num(row.expected)
+      + " · Frames " + sessionPhrase(row.frameSessions)
+      + " · Logs " + sessionPhrase(row.logSessions)
+      + " · " + submissionPhrase(row);
+    const notes = [];
+    if (row.missing.length) notes.push("No worksheet extraction for " + row.missing.join(", ") + ".");
+    if (row.scoreWithoutExtraction.length) {
+      notes.push("A scoring file without an extraction is stored for " + row.scoreWithoutExtraction.join(", ") + ". It is not counted as an extracted response.");
+    }
+    const absent = CLASS_DAYS.filter((meta) => !row.frameSessions.some((session) => session.id === meta.session));
+    if (absent.length && absent.length < CLASS_DAYS.length) {
+      notes.push("No extracted frames for " + absent.map((meta) => meta.name).join(" and ") + ".");
+    }
+    row.frameSessions.forEach((session) => {
+      if (session.duplicateOf.length) notes.push(session.name + " uses the same source file as the other session.");
+    });
+    if (row.pythonKind === "report") notes.push("Written report. Notebook cell counts are not applicable.");
+    if (row.synthetic) notes.push("The notebook inspection records a substitute data table.");
+    const note = notes.length
+      ? `<details class="profile-notes"><summary>Evidence notes</summary><ul>${notes.map((item) => `<li>${h(item)}</li>`).join("")}</ul></details>`
       : "";
-    const logLines = person.logSessions.map((row) => {
-      const rate = row.votat
-        ? `${num(row.votat.rate * 100, 0)}% of ${num(row.votat.intervals)} intervals between model submissions`
-        : (row.emits < 2 ? "one-thing-at-a-time rate is not defined (fewer than two model submissions)" : "one-thing-at-a-time rate is not stored");
-      return `${row.name}: ${num(row.events)} actions, ${num(row.emits)} model submissions, ${num(row.threshold)} threshold changes, ${num(row.predictors)} predictor placements. ${rate}.`;
-    });
-    const frameLines = person.frameSessions.map((row) => {
-      const bits = [`${row.name}: ${num(row.listed)} listed frames, ${num(row.coded)} with a behaviour label`];
-      if (row.duplicateOf.length) bits.push("the source file matches another session");
-      return bits.join("; ") + ".";
-    });
-    const labelBits = Object.keys(person.frameCounts).map((code) => `${BEHAV[code] || code} ${num(person.frameCounts[code])}`);
-    let pythonText = "No final submission is stored.";
-    if (person.pythonKind === "report") {
-      pythonText = "Written report. Notebook cell counts, run order, and error outputs are not applicable. The Notebook tab reads the submitted report.";
-    } else if (person.pythonKind === "notebook") {
-      const bits = ["Final homework notebook, separate from the teacher notebook and the weekly Colab sessions."];
-      if (person.depthRecords) bits.push(`Depth-search table stored for ${num(person.depthTables)} of ${num(person.depthRecords)} targets.`);
-      if (person.drawings != null) bits.push(`Tree drawing stored for ${num(person.drawings)} target${person.drawings === 1 ? "" : "s"}.`);
-      if (person.reflectionOf) bits.push(`Written reflection text stored for ${num(person.reflectionFound)} of ${num(person.reflectionOf)} prompts.`);
-      if (person.synthetic) bits.push("The inspection records a substitute data table.");
-      pythonText = bits.join(" ");
-    }
-    const limits = [];
-    if (person.missing.length) limits.push(`Worksheet extraction is not stored for ${person.missing.join(", ")}.`);
-    if (person.frameSessions.length < CLASS_DAYS.length) {
-      const absent = CLASS_DAYS.filter((meta) => !person.frameSessions.some((row) => row.id === meta.session)).map((meta) => meta.name);
-      limits.push(`No extracted frames for ${absent.join(" and ")}.`);
-    }
-    if (person.logSessions.length < CLASS_DAYS.length) {
-      const absent = CLASS_DAYS.filter((meta) => !person.logSessions.some((row) => row.session === meta.session)).map((meta) => meta.name);
-      limits.push(`No class-session log for ${absent.join(" and ")}.`);
-    }
-    person.frameSessions.forEach((row) => {
-      if (row.duplicateOf.length) limits.push(`${row.name} uses the same source file as another session, so the two sessions cannot be compared as different days.`);
-    });
-    if (person.pythonKind === "report") limits.push("Notebook structure cannot be measured for a written report.");
-    if (person.synthetic) limits.push("The notebook inspection records that the original lizard table was not the file used.");
-    limits.push("Worksheet responses, frames, and log events are not joined to one another.");
-
-    const top = person.topCode
-      ? `Most frequent coded label: ${person.topLabel}, ${num(person.topN)} of ${num(person.codedFrames)} coded frames.`
-      : "No behaviour label is stored on the listed frames.";
-    const buildN = person.frameCounts.BUILD_TREE || 0;
-    const evalN = person.frameCounts.EVALUATE_MODEL || 0;
-    const tuneN = person.frameCounts.TUNE_THRESHOLD || 0;
-
-    return `<section class="profile-summary" aria-label="Participant evidence summary">
-      <h2>Participant evidence summary</h2>
-      <p class="profile-intro">Counts below are taken from the stored files. They describe records, not a participant type.</p>
-      ${fold("Worksheet records", `${num(person.extracted.length)} of ${num(person.expected)} worksheets have an extracted response. Item results stay in the Worksheets tab. This summary does not add them into one score.`, wsDetail + scoreGap)}
-      ${fold("Platform log actions", person.logSessions.length ? `${num(person.threshold)} recorded threshold changes and ${num(person.emits)} model submissions across ${num(person.logSessions.length)} of 2 class sessions. ${num(person.predictors)} predictor placements are stored on those sessions.` : "No log is stored for the two CODAP class sessions.", logLines.join(" ") + (person.extraLogEvents != null ? ` A log from 7 April 2026 is also stored (${num(person.extraLogEvents)} actions) and is not included in the class-session counts.` : ""))}
-      ${fold("Coded frames", person.codedFrames ? `${top} Build tree ${num(buildN)}. Tune threshold ${num(tuneN)}. Evaluate model ${num(evalN)}. A label names the coded frame. It is not a measure of understanding.` : "No coded frames are stored.", frameLines.join(" "))}
-      ${fold("Final Python submission", pythonText, person.pythonKind === "notebook" ? "Stored inspection status is not a mark that the step was done correctly. Pipeline rubric points on the Notebook tab are not a reviewed grade." : "")}
-      ${fold("Evidence limitations", limits.join(" "), "")}
-    </section>`;
+    return `<p class="profile-facts">${h(facts)}</p><p class="small">Counts describe stored records, not learning.</p>${note}`;
   }
 
   function framesNote() {
-    const thumbs = root.CORE && root.CORE.thumbs_per_session;
-    const stored = thumbs == null ? "Preview images are stored per session." : `${num(thumbs)} preview images are stored per session.`;
-    return `<div class="profile-banner">
-      <p>Original screen-recording videos are not published and are not intended for public release. Collected Data shows up to ${num(PREVIEW_CAP)} CODAP-screen examples from a session. ${stored} The complete extracted frame dataset is published on <a href="${HF_FRAMES}" target="_blank" rel="noopener">Hugging Face</a>.</p>
-    </div>`;
+    const data = root.CORE;
+    const thumbs = data && data.thumbs_per_session;
+    return `<p class="small">Original screen recordings are not published. The archive shows up to ${num(PREVIEW_CAP)} CODAP-screen examples for a session. ${thumbs ? num(thumbs) + " preview images are stored for each session." : ""} The complete extracted-frame set is on <a href="${h(HF_FRAMES)}">Hugging Face</a>. Listed frames are not minutes of attention. Percentages use labelled frames as the denominator. “Idle / thinking” means no visible interaction was coded. It does not show that thinking was observed.</p>`;
+  }
+
+  function sessionChart(id, sessionId, core, frames, evidence) {
+    const model = modelFor(core, frames, evidence);
+    const row = model && person(model, id);
+    if (!row) return "";
+    const session = row.frameSessions.find((item) => item.id === sessionId);
+    if (!session) return `<p class="empty">No extracted frames are stored for this session.</p>`;
+    if (!session.coded) return `<p class="small">${num(session.listed)} frames are listed. None has a behaviour label.</p>`;
+    const keys = Object.keys(BEHAV).filter((code) => session.behaviors[code]);
+    Object.keys(session.behaviors).forEach((code) => { if (!keys.includes(code)) keys.push(code); });
+    const parts = keys.map((code) => ({
+      code: code,
+      label: BEHAV[code] || code,
+      n: session.behaviors[code],
+      color: BEHAV_COLOR[code] || "var(--ink-2)",
+    }));
+    const bar = parts.map((part) => {
+      const width = (100 * part.n / session.coded).toFixed(2);
+      return `<span style="width:${width}%;background:${part.color}" title="${h(part.label + " " + part.n)}"></span>`;
+    }).join("");
+    const body = parts.map((part) => `<tr>
+      <td data-label="Label"><i class="beh-swatch" style="background:${part.color}"></i>${h(part.label)}</td>
+      <td class="num" data-label="Frames">${num(part.n)}</td>
+      <td class="num" data-label="Share">${num(100 * part.n / session.coded, 1)}%</td>
+    </tr>`).join("");
+    return `<p class="small">${num(session.listed)} listed frames. ${num(session.coded)} have a behaviour label. The bar and the timeline below follow those labels.</p>
+      <div class="cov-track cov-stack" role="img" aria-label="Behaviour labels for ${h(session.name)}">${bar}</div>
+      <div class="table-wrap"><table class="find-table">
+        <thead><tr><th>Label</th><th class="num">Frames</th><th class="num">Share</th></tr></thead>
+        <tbody>${body}</tbody>
+      </table></div>`;
   }
 
   function logPreface(id, core, frames, evidence) {
-    const data = core || root.CORE;
-    if (!data) return "";
-    const model = analyze(data, frames || root.FRAMES || [], evidence || root.NOTEBOOK_EVIDENCE || { rows: [] });
-    const person = model.people.find((p) => p.id === id);
-    if (!person) return "";
-    const extra = person.extraLogEvents == null ? "" : ` A separate log from 7 April 2026 stores ${num(person.extraLogEvents)} actions. It is not one of the two class sessions below.`;
-    return `<p>Class-session logs on file: ${num(person.logSessions.length)} of 2. Recorded actions ${num(person.logEvents)}. Threshold changes ${num(person.threshold)}. Model submissions ${num(person.emits)}. A threshold change is the action <code>change_split_values</code>. A larger count is not evidence of difficulty or of a planned strategy.${extra}</p>`;
+    const model = modelFor(core, frames, evidence);
+    const row = model && person(model, id);
+    if (!row) return "";
+    const stored = row.logSessions;
+    if (!stored.length) return `<p class="small">No class-session log is stored. A larger action count is not evidence of difficulty or of a planned strategy.</p>`;
+    const names = stored.map((item) => item.name).join(" and ");
+    const extra = row.extraLogEvents != null
+      ? ` A log from 7 April is also stored (${num(row.extraLogEvents)} events). It is not one of the two class sessions, and it is not included in the counts below.`
+      : "";
+    return `<p class="small">Class-session logs: ${h(names)}. Recorded threshold changes: ${num(row.threshold)}. Model submissions: ${num(row.emits)}. Predictor changes: ${num(row.predictors)}. A larger count is not evidence of difficulty or of a planned strategy.${h(extra)}</p>`;
+  }
+
+  function checkStatus(value) {
+    if (value === "found" || value === true) return "Found";
+    if (value === "not_found" || value === false) return "Not found";
+    return "Cannot determine";
+  }
+
+  function notebookTable(id, core, frames, evidence) {
+    const model = modelFor(core, frames, evidence);
+    const row = model && person(model, id);
+    if (!row) return "";
+    if (row.pythonKind === "none") return `<p class="empty">No final submission is stored.</p>`;
+    const lead = row.pythonKind === "report"
+      ? `<p><b>Written report.</b> Notebook cell counts, run order, and error outputs are not applicable. The rows below come from the submitted report.</p>`
+      : `<p>These rows describe evidence stored in the final homework file. They are not a reviewed grade.</p>`;
+    const synthetic = row.synthetic ? `<p class="small">The inspection records a substitute data table. Rates below are taken from that table.</p>` : "";
+    const checks = row.checks;
+    if (!checks) return lead + synthetic + `<p class="small">No inspection record is stored.</p>`;
+    const inspect = (checks.value_counts === "found" || checks.describe === "found")
+      ? "Found"
+      : (checks.value_counts === "not_found" && checks.describe === "not_found" ? "Not found" : "Cannot determine");
+    const inspectBits = [];
+    if (checks.value_counts === "found") inspectBits.push("Class counts are stored");
+    if (checks.describe === "found") inspectBits.push("A numeric summary is stored");
+    const split = typeof checks.test_size === "number" ? "Found" : "Cannot determine";
+    const splitDetail = typeof checks.test_size === "number"
+      ? "Test fraction " + checks.test_size + " is recorded."
+      : "No test fraction is stored.";
+    const fit = checks.depth_records > 0 ? "Found" : (checks.depth_records === 0 ? "Not found" : "Cannot determine");
+    const fitDetail = checks.depth_records > 0 ? plural(checks.depth_records, "target") + " with a stored tree record." : "";
+    const depth = checks.depth_tables > 0 ? "Found" : (checks.depth_records > 0 ? "Not found" : "Cannot determine");
+    const depthDetail = checks.depth_tables > 0
+      ? "Depth-search table stored for " + num(checks.depth_tables) + " of " + num(checks.depth_records) + "."
+      : (checks.depth_records > 0 ? "No depth-search table is stored." : "");
+    const evaluated = (checks.test_mcr_n > 0 || checks.both_curves > 0)
+      ? "Found"
+      : (checks.depth_records > 0 ? "Not found" : "Cannot determine");
+    const evalBits = [];
+    if (checks.test_mcr_n > 0) evalBits.push("A test error is stored for " + plural(checks.test_mcr_n, "target"));
+    if (checks.both_curves > 0) evalBits.push("Training and test curves are stored for " + num(checks.both_curves));
+    const drawn = checks.drawings > 0 ? "Found" : (checks.depth_records > 0 ? "Not found" : "Cannot determine");
+    const drawDetail = checks.drawings > 0 ? "A tree drawing is stored for " + plural(checks.drawings, "target") + "." : "";
+    const ref = checks.reflection || {};
+    const refKeys = ["settings", "data", "performance", "limits"];
+    const known = refKeys.every((key) => ref[key] === "found" || ref[key] === "not_found");
+    const refFound = refKeys.filter((key) => ref[key] === "found").length;
+    const refStatus = !known ? "Cannot determine" : (refFound ? "Found" : "Not found");
+    const refDetail = known ? "Written text stored for " + num(refFound) + " of 4 prompts." : "";
+    const lines = [
+      ["Load the dataset", checkStatus(checks.loaded), ""],
+      ["Inspect the table", inspect, inspectBits.join(". ")],
+      ["Separate training and test data", split, splitDetail],
+      ["Fit a decision tree", fit, fitDetail],
+      ["Explore tree depth", depth, depthDetail],
+      ["Evaluate performance", evaluated, evalBits.join(". ")],
+      ["Visualise the tree", drawn, drawDetail],
+      ["Written reflection", refStatus, refDetail],
+    ];
+    const body = lines.map((line) => `<tr><td data-label="Assignment requirement">${h(line[0])}</td><td data-label="Evidence status">${h(line[1])}</td><td data-label="Details">${h(line[2])}</td></tr>`).join("");
+    return `${lead}${synthetic}<div class="table-wrap"><table class="find-table profile-req">
+      <thead><tr><th>Assignment requirement</th><th>Evidence status</th><th>Details</th></tr></thead>
+      <tbody>${body}</tbody>
+    </table></div><p class="small">Notebook checks describe evidence present in the submitted file.</p>`;
   }
 
   root.StudentProfiles = {
@@ -477,6 +450,8 @@
     page: page,
     summary: summary,
     framesNote: framesNote,
+    sessionChart: sessionChart,
+    notebookTable: notebookTable,
     logPreface: logPreface,
     HF_FRAMES: HF_FRAMES,
   };
