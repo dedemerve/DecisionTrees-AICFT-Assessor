@@ -984,9 +984,11 @@ button.thumb.big { margin-bottom: 4px; }
 .student-card-name {
   font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.015em; line-height: 1.2;
 }
-.student-card-data {
-  font-size: 12.5px; color: var(--muted); line-height: 1.45; margin-top: 8px;
-}
+.student-card:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.student-card-meta { margin: 10px 0 0; display: grid; gap: 4px; }
+.student-card-meta div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: baseline; }
+.student-card-meta dt { margin: 0; font-size: 12px; font-weight: 500; color: var(--muted); }
+.student-card-meta dd { margin: 0; font-size: 12.5px; color: var(--ink-2); text-align: right; white-space: nowrap; }
 .student-card-cta {
   margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--rule);
   font-size: 13px; font-weight: 600; color: var(--blue);

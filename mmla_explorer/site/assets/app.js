@@ -410,7 +410,7 @@
         </figure>
       </div>
       <div class="metric-row">
-        <a class="metric" href="#/explore/students"><div class="v">${STUDENTS.length}</div><div class="l">Participants</div><div class="s">Pseudonyms only</div></a>
+        <a class="metric" href="#/findings/participants"><div class="v">${STUDENTS.length}</div><div class="l">Participants</div><div class="s">Pseudonyms only</div></a>
         <a class="metric" href="#/explore/worksheets"><div class="v">${C.worksheets.length}</div><div class="l">Worksheets</div><div class="s">${num(schemaFields)} response fields</div></a>
         <a class="metric" href="#/explore/recordings"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} with a behaviour label</div></a>
         <a class="metric" href="#/explore/logs"><div class="v">${num(logEvents)}</div><div class="l">Log events</div><div class="s">CODAP Arbor, 3 class days</div></a>
@@ -708,26 +708,50 @@
   function exploreShell(active, body) {
     return `<p class="kicker">Collected data</p>${body}`;
   }
+  function participantInventory(s) {
+    const n = C.notebooks[s] || {};
+    let python = "No Python file in the archive";
+    if (n.file) python = "Notebook";
+    else if (s === "Marco" && n.extraction) python = "PDF report";
+    else if (n.extraction) python = "Written report";
+    return {
+      ws: C.worksheets.filter((w) => C.ws[s][w.code].ocr).length,
+      wsTotal: C.worksheets.length,
+      rec: SESS.filter((ss) => C.sessions[s][ss.id].manifest).length,
+      recTotal: SESS.length,
+      lg: Object.keys(logDays[s] || {}).length,
+      python,
+    };
+  }
   function availableSummary(s) {
-    const ws = C.worksheets.filter((w) => C.ws[s][w.code].ocr).length;
-    const rec = SESS.filter((ss) => C.sessions[s][ss.id].manifest).length;
-    const lg = Object.keys(logDays[s] || {}).length;
-    const nb = C.notebooks[s] && C.notebooks[s].file ? "notebook" : C.notebooks[s] && C.notebooks[s].extraction ? "report instead of notebook" : "no notebook";
-    return `${ws} of ${C.worksheets.length} worksheets · ${rec} of ${SESS.length} screen recordings · ${lg} log session${lg === 1 ? "" : "s"} · ${nb}`;
+    const inv = participantInventory(s);
+    const logs = inv.lg === 0 ? "no platform log" : `${inv.lg} log session${inv.lg === 1 ? "" : "s"}`;
+    return `${inv.ws} of ${inv.wsTotal} worksheets · ${inv.rec} of ${inv.recTotal} screen recordings · ${logs} · ${inv.python}`;
   }
 
   function pageStudents() {
-    return `<div class="page wide">${exploreShell("students", `
-      ${crumbs([["Collected data", "#/collected"], ["Student profiles"]])}
-      <h1>Students</h1>
-      <p class="lead">Fifteen participants, each shown by a pseudonym. Open a student to see their worksheets, recordings, logs and notebook.</p>
-      <div class="student-roster">
-        ${STUDENTS.map((s) => `<a class="student-card" href="#/explore/student/${h(s)}">
+    const card = (s) => {
+      const inv = participantInventory(s);
+      const logs = inv.lg === 1 ? "1 session" : `${inv.lg} sessions`;
+      return `<a class="student-card" href="#/explore/student/${h(s)}">
           <div class="student-card-name">${h(s)}</div>
-          <div class="student-card-data">${h(availableSummary(s))}</div>
-          <div class="student-card-cta">Explore →</div>
-        </a>`).join("")}
-      </div>`)}</div>`;
+          <dl class="student-card-meta">
+            <div><dt>Worksheets</dt><dd>${inv.ws} of ${inv.wsTotal}</dd></div>
+            <div><dt>Screen recordings</dt><dd>${inv.rec} of ${inv.recTotal}</dd></div>
+            <div><dt>Platform logs</dt><dd>${logs}</dd></div>
+            <div><dt>Python work</dt><dd>${h(inv.python)}</dd></div>
+          </dl>
+          <div class="student-card-cta">Open record</div>
+        </a>`;
+    };
+    return `<div class="page wide">
+      <p class="kicker">Findings</p>
+      ${crumbs([["Findings", "#/findings"], ["Participant overview"]])}
+      <h1>Participant overview</h1>
+      <p class="lead">Explore the participant-level overview of the archived materials. Each participant is represented by a pseudonym, with a summary of the available worksheets, screen recordings, platform logs, and Python work.</p>
+      <p>These lines describe which files are in the archive. They are not measures of learning, performance, or engagement.</p>
+      <div class="student-roster">${STUDENTS.map(card).join("")}</div>
+    </div>`;
   }
 
   // ---- student: worksheets
@@ -915,7 +939,7 @@
   }
 
   function pageStudent(s, tab) {
-    if (!STUDENTS.includes(s)) return `<div class="page">${exploreShell("students", `<h1>Not found</h1><p>No student with the pseudonym “${h(s)}”.</p>`)}</div>`;
+    if (!STUDENTS.includes(s)) return `<div class="page"><p class="kicker">Findings</p><h1>Not found</h1><p>No participant with the pseudonym “${h(s)}”.</p><p><a href="#/findings/participants">Participant overview</a></p></div>`;
     tab = tab || "worksheets";
     const tabs = [["worksheets", "Worksheets"], ["recordings", "Frames"], ["logs", "Platform logs"], ["notebook", "Notebook"]];
     const i = STUDENTS.indexOf(s);
@@ -926,13 +950,13 @@
     if (tab === "notebook") body = notebookBlock(s);
     const prev = i > 0 ? `<a href="#/explore/student/${h(STUDENTS[i - 1])}/${tab}">← ${h(STUDENTS[i - 1])}</a>` : "";
     const next = i < STUDENTS.length - 1 ? `<a href="#/explore/student/${h(STUDENTS[i + 1])}/${tab}">${h(STUDENTS[i + 1])} →</a>` : "";
-    return `<div class="page">${exploreShell("students", `
-      ${crumbs([["Collected data", "#/collected"], ["Student profiles", "#/explore/students"], [s]])}
+    return `<div class="page"><p class="kicker">Findings</p>
+      ${crumbs([["Findings", "#/findings"], ["Participant overview", "#/findings/participants"], [s]])}
       <h1>${h(s)}</h1>
       <p class="small">Pseudonym · ${h(availableSummary(s))}</p>
       <nav class="tabs sub">${tabs.map(([k, l]) => `<a href="#/explore/student/${h(s)}/${k}" class="${k === tab ? "active" : ""}">${l}</a>`).join("")}</nav>
       ${body}
-      <p class="small pn">${prev}${prev && next ? " · " : ""}${next}</p>`)}</div>`;
+      <p class="small pn">${prev}${prev && next ? " · " : ""}${next}</p></div>`;
   }
 
   // ---- cohort views
@@ -1099,7 +1123,7 @@
     return `<p class="small">Automated check ${verdict}.${flag} This is the pipeline check, not a researcher-reviewed decision.</p>`;
   }
   function studentHead(student) {
-    return `<header><h3><a href="#/explore/student/${h(student)}">${h(student)}</a></h3><a class="small" href="#/explore/student/${h(student)}/worksheets">Student profile</a></header>`;
+    return `<header><h3><a href="#/explore/student/${h(student)}">${h(student)}</a></h3><a class="small" href="#/explore/student/${h(student)}/worksheets">Participant record</a></header>`;
   }
 
   function pageCollected() {
@@ -1113,7 +1137,6 @@
         <a class="cat-card" href="#/explore/recordings"><div class="arch-ico" aria-hidden="true">FR</div><h3>Screen recording frames</h3><p>${num(F.length)} frames extracted from the CODAP sessions. Previews on this site are a spaced subset. Original videos are not published.</p></a>
         <a class="cat-card" href="#/explore/logs"><div class="arch-ico" aria-hidden="true">LG</div><h3>Platform logs</h3><p>${num(logEvents)} time-stamped CODAP Arbor actions. Logs are not matched to individual frames.</p></a>
         <a class="cat-card" href="#/explore/notebooks"><div class="arch-ico" aria-hidden="true">NB</div><h3>Python notebooks</h3><p>The guided Colab notebook, the final homework, and the anonymised student files.</p></a>
-        <a class="cat-card" href="#/explore/students"><div class="arch-ico" aria-hidden="true">ST</div><h3>Student profiles</h3><p>${STUDENTS.length} pseudonyms. Each profile gathers that person’s worksheets, recordings, logs, and notebook record.</p></a>
       </div>
       <p class="small span-line">A worksheet response is not joined to a screen frame or a log event anywhere in the files this site reads.</p>
     </div>`;
@@ -1382,7 +1405,7 @@
       ])}
       ${code === "WS11" && WS11_IS_WS14 ? `<p>The extraction files under WS11 repeat WS14 for every student. Field counts above describe that repeated text, not a WS11 survey.</p>` : ""}
       ${clashes.length ? `<div class="warn">Model-written page summaries name a different pseudonym from the file for: ${clashes.map(h).join("; ")}. Those summaries are not treated as verified attributions, and they are not quoted here.</div>` : ""}
-      <p>There is no verified join from a worksheet item to a screen recording or a CODAP log event. A pseudonym does link to that student’s <a href="#/explore/students">profile</a>.</p>
+      <p>There is no verified join from a worksheet item to a screen recording or a CODAP log event. A pseudonym does link to that participant’s <a href="#/findings/participants">overview</a>.</p>
       <p>${methodLink("worksheets", "Extraction and scoring methods")} <a href="#/docs/limitations">Data notes</a></p>
       ${tech("Source paths", [w.schema, w.rubric, w.answer_key || doc.answer_key, doc.schema].filter(Boolean).map(src).join(""))}</section>`;
   }
@@ -1636,7 +1659,7 @@
       <section class="section-block" id="overview"><h2>Worksheet overview</h2>
         <p>${h(info.topic || "No purpose statement is stored for this worksheet.")}</p>
         ${loBrief(code)}
-        <p class="small">Extracted answers and item scores are not listed on this page. <a href="#/methods/worksheets">How worksheets were checked \u2192</a></p>
+        <p class="small span-line">Extracted answers and item scores are not listed on this page. <a href="#/methods/worksheets">How worksheets were checked \u2192</a></p>
       </section>
       ${foodCardSection(code)}
       ${ws15DatasetSection(code)}
@@ -1645,7 +1668,7 @@
         ${fileList(files.materials, "No blank worksheet or answer key could be matched to this worksheet.")}
       </section>
       <section class="section-block" id="completed"><h2>Completed student worksheets</h2>
-        <p class="small">${completed.length ? `${num(completed.length)} file${completed.length === 1 ? "" : "s"}. ` : ""}The original scans are shown as they were stored. Different students were not merged into a new PDF, and no dates are shown.</p>
+        <p class="small span-line">${completed.length ? `${num(completed.length)} file${completed.length === 1 ? "" : "s"}. ` : ""}The original scans are shown as they were stored. Different students were not merged into a new PDF, and no dates are shown.</p>
         ${fileList(files.completed, "No completed student PDF is on record for this worksheet.")}
       </section>
       `)}</div>`;
@@ -2006,7 +2029,6 @@
       <h3 class="guide-group-label">Collected Data</h3>
       <ul class="guide">
         <li><a href="#/explore/worksheets">Worksheets</a><span>Purpose, student responses, item scores, and the blank PDFs.</span></li>
-        <li><a href="#/explore/students">Student profiles</a><span>All worksheets, recordings, logs, and notebooks for one student.</span></li>
         <li><a href="#/explore/recordings">Screen recording frames</a><span>Frames extracted from the sessions, with previews on this site and the full image set on Hugging Face. Original videos are not published.</span></li>
         <li><a href="#/explore/logs">Platform logs</a><span>Ten example records. The complete log is a separate dataset on Hugging Face.</span></li>
         <li><a href="#/explore/notebooks">Python notebooks</a><span>The guided Colab notebook and the final homework files. Inspection counts stay under Findings.</span></li>
@@ -2017,7 +2039,8 @@
       </ul>
       <h3 class="guide-group-label">Findings &amp; Research Insights</h3>
       <ul class="guide">
-        <li><a href="#/findings">Research findings</a><span>Verified findings from the archive. This section is not yet populated.</span></li>
+        <li><a href="#/findings">Research findings</a><span>Platform-log summaries and the notebook inspection table. Reviewed conclusions about learning are not in this archive yet.</span></li>
+        <li><a href="#/findings/participants">Participant overview</a><span>Which worksheets, recordings, logs, and Python files are on record for each pseudonym. These counts are not learning outcomes.</span></li>
       </ul>
       <h3 class="guide-group-label">Reference &amp; Documentation</h3>
       <ul class="guide">
@@ -2241,6 +2264,7 @@
     return `<div class="page wide">${`<p class="kicker">Findings &amp; Research Insights</p>`}
       <h1>Research Findings</h1>
       <p class="lead">Reviewed conclusions about what students learned are not in this archive yet.</p>
+      <p><a href="#/findings/participants">Participant overview</a> lists the worksheets, screen recordings, platform logs, and Python files on record for each pseudonym. Those counts describe the archive. They are not learning outcomes.</p>
       <div class="warn">
         <p>Nothing on this page is a reviewed finding about learning. The platform-log summaries and the notebook inspection table are counts computed from the files. The sessions and the dataset link stay on the <a href="#/explore/logs">platform logs</a> page. The notebooks themselves stay on the <a href="#/explore/notebooks">Python notebooks</a> page.</p>
       </div>
@@ -2266,7 +2290,7 @@
     return { parts, q, query };
   }
   // Links from earlier versions of the site.
-  const LEGACY = { how: "methods", students: "explore/students", worksheets: "explore/worksheets", recordings: "explore/recordings", frames: "explore/frames", logs: "explore/logs", notebooks: "explore/notebooks", data: "docs", notes: "docs/limitations", glossary: "docs/glossary", student: "explore/student", worksheet: "explore/worksheet", "explore/worksheet": "explore/worksheet" };
+  const LEGACY = { how: "methods", students: "findings/participants", worksheets: "explore/worksheets", recordings: "explore/recordings", frames: "explore/frames", logs: "explore/logs", notebooks: "explore/notebooks", data: "docs", notes: "docs/limitations", glossary: "docs/glossary", student: "explore/student", worksheet: "explore/worksheet", "explore/worksheet": "explore/worksheet" };
   function route() {
     const { parts, q, query } = parse();
     if (LEGACY[parts[0]]) {
@@ -2278,11 +2302,11 @@
     let html, after = null;
     if (top === "") html = pageOverview();
     else if (top === "collected") html = pageCollected();
-    else if (top === "findings") html = pageFindings();
+    else if (top === "findings") html = parts[1] === "participants" ? pageStudents() : pageFindings();
     else if (top === "methods") { html = pageMethods(); after = () => { const a = parts[1] && document.getElementById("m-" + parts[1]); if (a && a.scrollIntoView) a.scrollIntoView(); bindMethods(); }; }
-    else if (top === "findings") html = pageFindings();
     else if (top === "explore") {
-      const sub = parts[1] || "students";
+      const sub = parts[1] || "";
+      if (sub === "students" || sub === "") { location.replace("#/findings/participants" + (query ? "?" + query : "")); return; }
       if (sub === "student") html = pageStudent(parts[2], parts[3]);
       else if (sub === "worksheets") { html = pageWorksheets(); after = bindWsSearch; }
       else if (sub === "worksheet") { html = pageWorksheet(parts[2], q); after = bindRespFilter; }
@@ -2290,17 +2314,17 @@
       else if (sub === "frames") { location.replace("#/explore/recordings" + (query ? "?" + query : "")); return; }
       else if (sub === "logs") html = pageLogs();
       else if (sub === "notebooks") { html = pageNotebooks(); after = bindNotebookSearch; }
-      else html = pageStudents();
+      else html = `<div class="page"><h1>Page not found</h1><p><a href="#/">Go to the overview</a></p></div>`;
     } else if (top === "docs") {
       const sub = parts[1] || "";
       html = sub === "limitations" ? pageLimitations() : sub === "glossary" ? pageGlossary() : sub === "technical" ? pageTechnical() : pageDownloads();
     } else html = `<div class="page"><h1>Page not found</h1><p><a href="#/">Go to the overview</a></p></div>`;
     app.innerHTML = html;
     tip.style.display = "none";
-    const navKey = top === "explore" ? ({ student: "students", worksheet: "worksheets" }[parts[1]] || parts[1] || "students")
+    const navKey = top === "explore" ? ({ student: "participants", worksheet: "worksheets" }[parts[1]] || parts[1] || "")
+      : top === "findings" ? (parts[1] === "participants" ? "participants" : "findings")
       : top === "docs" ? (parts[1] || "docs") : top;
-    // Top-link active: "Collected Data" covers all explore pages; "Processing" covers methods+notebooks; "Reference" covers docs/*
-    const COLLECTED_DATA_KEYS = new Set(["collected", "students", "worksheets", "recordings", "frames", "logs", "notebooks"]);
+    const COLLECTED_DATA_KEYS = new Set(["collected", "worksheets", "recordings", "frames", "logs", "notebooks"]);
     document.querySelectorAll(".nav-link, .top-link").forEach((a) => {
       let on = false;
       const r = a.dataset.r;
@@ -2308,7 +2332,7 @@
         if (r === "") on = top === "";
         else if (r === "collected") on = top === "collected" || (top === "explore" && COLLECTED_DATA_KEYS.has(navKey));
         else if (r === "methods") on = top === "methods";
-        else if (r === "findings") on = top === "findings";
+        else if (r === "findings") on = top === "findings" || navKey === "participants";
         else if (r === "docs") on = top === "docs";
         else on = r === navKey;
       } else if (r === "collected") on = top === "collected";
