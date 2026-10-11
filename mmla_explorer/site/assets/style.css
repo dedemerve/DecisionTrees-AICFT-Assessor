@@ -1194,6 +1194,14 @@ details.item-compare > div { padding: 0 14px 14px; }
   word-break: break-word;
 }
 
+.find-board { width: 100%; min-width: 0; }
+.find-tools { width: 100%; min-width: 0; }
+.find-board input.find-query {
+  display: block; width: 100%; box-sizing: border-box; min-width: 0;
+  margin: 0 0 12px;
+}
+.find-board .ws-filters { width: 100%; max-width: 100%; }
+.find-board .find-ws-grid { width: 100%; }
 .find-ws-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 .find-ws {
   display: flex; flex-direction: column; gap: 6px;
@@ -1218,6 +1226,11 @@ table.find-table tr[hidden] { display: none !important; }
 @media (min-width: 860px) {
   .find-ws-grid { grid-template-columns: 1fr 1fr; }
 }
+.run-ribbon { display: flex; height: 18px; gap: 1px; margin: 8px 0 4px; border-radius: 4px; overflow: hidden; background: var(--surface-2); }
+.run-ribbon > div { height: 100%; min-width: 2px; }
+.beh-line { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-weight: 600; color: var(--ink); }
+.beh-line i { width: 28px; height: 4px; border-radius: 2px; flex: 0 0 auto; }
+.rec-note { margin: 8px 0 0; }
 @media (max-width: 800px) {
   .stat-row.cols-4 { grid-template-columns: 1fr 1fr; }
   .find-facts { grid-template-columns: 1fr; }

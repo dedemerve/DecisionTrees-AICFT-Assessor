@@ -671,8 +671,6 @@
           <dl class="find-facts">
             <dt>Assessment</dt><dd>${h(m.method.label)}</dd>
             <dt>Extraction files</dt><dd>${h(withFile)} of ${h(m.nStudents)}</dd>
-            <dt>In the score summary</dt><dd>${m.duplicateOf ? "Not summarised" : h(m.cohort.length) + " of " + h(m.nStudents)}</dd>
-            <dt>Item results</dt><dd>${m.duplicateOf ? "Not used as WS11 answers" : m.items.length ? (m.aligned ? "Joined to extracted fields" : "Scores and fields listed separately") : "No published item scores"}</dd>
           </dl>
           ${limit ? `<p class="small">${h(limit)}</p>` : ""}
         </a>`;
@@ -685,14 +683,15 @@
       <p class="kicker">Findings</p>
       <h1>Worksheet findings</h1>
       <p class="lead">Results read from the extracted responses and the published scoring files. A stored score is a pipeline result. It is not a reviewed conclusion about learning.</p>
-      <div class="ws-search-bar">
-        <label class="sr-only" for="findSearch">Search worksheets</label>
-        <input type="search" id="findSearch" placeholder="Search by code, title, or method" autocomplete="off">
-        <span class="ws-count" id="findCount">${Object.keys(pack.all).length} worksheets</span>
+      <div class="find-board">
+        <div class="find-tools">
+          <label class="sr-only" for="findSearch">Search worksheets</label>
+          <input type="search" id="findSearch" class="find-query" placeholder="Search by code, title, or method" autocomplete="off">
+          <div class="ws-filters" role="group" aria-label="Filter by worksheet purpose">${chips}</div>
+        </div>
+        <div id="findGroups">${body}</div>
+        <p class="empty" id="findEmpty" hidden>No worksheets match.</p>
       </div>
-      <div class="ws-filters" role="group" aria-label="Filter by worksheet purpose">${chips}</div>
-      <div id="findGroups">${body}</div>
-      <p class="empty" id="findEmpty" hidden>No worksheets match.</p>
       <h2>Collected materials</h2>
       <p>Blank worksheets, answer keys, and scanned submissions stay with the collected data. <a href="#/explore/worksheets">Open the worksheet files</a>.</p>
     </div>`;
@@ -834,8 +833,6 @@
         document.querySelectorAll(".ws-group").forEach((g) => {
           g.hidden = !Array.from(g.querySelectorAll(".find-ws")).some((c) => !c.hidden);
         });
-        const count = document.getElementById("findCount");
-        if (count) count.textContent = (q || group) ? visible + " of " + cards.length + " worksheets" : cards.length + " worksheets";
         const empty = document.getElementById("findEmpty");
         if (empty) empty.hidden = visible !== 0;
       };

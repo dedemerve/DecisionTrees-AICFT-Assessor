@@ -559,7 +559,7 @@
           <div class="flow-arr" aria-hidden="true">→</div>
           <div class="flow-node flow-node--output">Coded<br>evidence</div>
         </div>
-        <p>The extracted frames, including the previews stored on this site, are listed under <a href="#/explore/recordings">Screen recording frames</a>. That page is the data. The definitions of the nine behaviour codes are below. Counts and comparisons of those codes are not reported as findings.</p>
+        <p>The extracted frames, including the previews stored on this site, are listed under <a href="#/explore/recordings">Screen recording frames</a>. That page is the data. The definitions of the nine behaviour codes are below. Counts of those codes, with the listed frames as the denominator, are on the <a href="#/findings/recordings">screen recording findings</a> page. A count is the number of coded frames. It is not time spent, and it is not a measure of understanding.</p>
         <p>The pipeline keeps a frame when the screen changes enough, when someone is speaking, or when nothing has been captured for a while, and drops near-duplicates. Where a recording has usable speech, that speech is transcribed. Recordings without usable speech are marked.</p>
         <p>Each kept frame receives one label from a nine-code codebook developed after earlier human coding. The labels describe visible activity: working with data or the tree, judging the model, or idle and off-task states. When two labels could fit, building a tree takes precedence.</p>
         <p>A frame shows one moment of visible activity. It does not show what the student was thinking. ${num(linkedFrames)} frames are matched to researcher observation steps by time order — automatically and without per-frame verification. Episode categories in the session tables are not the nine behaviour labels.</p>
@@ -2284,7 +2284,7 @@
   function pageFindings() {
     const cards = [
       ["Worksheet findings", "Extracted responses, item scores, and worksheet summaries. A stored score is a pipeline result, not a reviewed conclusion about learning.", "#/findings/worksheets", "Explore worksheet findings"],
-      ["Screen recording findings", "What the behaviour labels mean. Counts of those labels are not reported as results.", "#/findings/recordings", "Explore screen recording findings"],
+      ["Screen recording findings", "Coded behaviour on each participant’s session frames. A label names what is visible. It does not name what the participant understood.", "#/findings/recordings", "Explore screen recording findings"],
       ["Platform log findings", "Recorded actions in CODAP Arbor, including model attempts. A log does not show what a participant understood.", "#/findings/logs", "Explore platform log findings"],
       ["Python notebook findings", "What the inspection found in the final homework files. Pipeline rubric points are not a reviewed grade.", "#/findings/notebooks", "Explore Python notebook findings"],
     ];
@@ -2310,21 +2310,9 @@
     if (window.WorksheetFindings) return window.WorksheetFindings.index();
     return `<div class="page"><h1>Worksheet findings</h1><p>The findings script did not load.</p></div>`;
   }
-  function pageFindingRecordings() {
-    const linked = F.filter((f) => f.gx).length;
-    return `<div class="page wide">${findingsCrumb("Screen recording findings")}
-      <h1>Screen recording findings</h1>
-      <p class="lead">Each kept frame can carry one behaviour label. The label names what is visible at that moment. It does not name what the participant understood.</p>
-      <h2>Key findings</h2>
-      <p>The manifests list ${num(F.length)} frames. ${num(codedFrameCount)} of them have a behaviour label. A count of how often each label appears is not reported as a finding. Some recordings are the same video file, and the pictures shown on the website are a spaced subset, not a summary of a participant.</p>
-      <h2>What the labels mean</h2>
-      <p>Nine codes describe visible activity. When two labels could fit, building a tree takes precedence.</p>
-      <dl class="terms compact-terms">${BEHAV.map((b) => `<dt>${h(b[1])}</dt><dd>${h(b[2])}.</dd>`).join("")}</dl>
-      <h2>Interpretation</h2>
-      <p>A coded frame is one moment of visible activity. It is not evidence of learning. Episode categories in the session tables are a different scheme. They are not these nine labels. Original videos are not published.</p>
-      ${tech("Technical details", `<p class="log-note">${num(linked)} frames are matched to researcher observation steps by time order, automatically and without a check of each frame. The rules for keeping or dropping a frame are on the processing page. ${methodLink("recordings", "How frames were selected and coded")}</p>`)}
-      ${relatedCollected([["#/explore/recordings", "Screen recording frames", "The extracted frames. Previews on this site are a subset."]])}
-    </div>`;
+  function pageFindingRecordings(q) {
+    if (window.RecordingFindings) return window.RecordingFindings.page(q || {});
+    return `<div class="page"><h1>Screen recording findings</h1><p>The findings script did not load.</p></div>`;
   }
   function pageFindingLogs() {
     return `<div class="page wide">${findingsCrumb("Platform log findings")}
@@ -2374,7 +2362,10 @@
           : pageFindingWorksheets();
         after = () => { if (window.WorksheetFindings) window.WorksheetFindings.bind(); };
       }
-      else if (sub === "recordings" || sub === "frames") html = pageFindingRecordings();
+      else if (sub === "recordings" || sub === "frames") {
+        html = pageFindingRecordings(q);
+        after = () => { if (window.RecordingFindings) window.RecordingFindings.bind(); };
+      }
       else if (sub === "logs") html = pageFindingLogs();
       else if (sub === "notebooks") html = pageFindingNotebooks();
       else html = pageFindings();

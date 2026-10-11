@@ -46,6 +46,11 @@ codes.forEach((code) => {
   check(indexHtml.indexOf('href="#/explore/worksheet/' + code + '"') === -1, code + " catalogue does not open collected data");
 });
 check(indexHtml.indexOf('href="#/explore/worksheets"') !== -1, "collected worksheets link stays on the landing page");
+check(indexHtml.indexOf("In the score summary") === -1, "catalogue omits the score-summary row");
+check(indexHtml.indexOf("Item results") === -1, "catalogue omits the item-results row");
+check(indexHtml.indexOf("findCount") === -1 && indexHtml.indexOf("worksheets</span>") === -1, "catalogue omits the worksheet count");
+check(indexHtml.indexOf("find-board") !== -1 && indexHtml.indexOf("find-query") !== -1, "search sits in the worksheet board");
+check(indexHtml.indexOf(">Assessment<") !== -1 && indexHtml.indexOf(">Extraction files<") !== -1, "assessment and extraction stay on the cards");
 
 codes.forEach((code) => {
   const model = all[code];
