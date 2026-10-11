@@ -1879,13 +1879,13 @@
   }
   function pageNotebooks() {
     const pack = window.NOTEBOOKS || { teacher: null, students: [], final: [] };
-    const sessionName = { "5 May": "Colab Session 1", "12 May": "Colab Session 2", "2 June": "Colab Session 3" };
     const guided = (pack.students || []).slice().sort((a, b) => a.pseudonym.localeCompare(b.pseudonym));
     const finals = (pack.final || []).slice().sort((a, b) => a.pseudonym.localeCompare(b.pseudonym));
     const guidedMissing = STUDENTS.filter((s) => !guided.some((row) => row.pseudonym === s));
     const finalMissing = STUDENTS.filter((s) => !finals.some((row) => row.pseudonym === s));
-    const guidedRows = guided.map((s) => `<li><span>${h(s.pseudonym)}</span><span>${h(sessionName[s.stage] || s.stage)}</span><a href="${h(s.file)}" download>Download</a></li>`).join("");
-    const finalRows = finals.map((s) => `<li><span>${h(s.pseudonym)}</span><a href="${h(s.file)}" download>Download notebook</a></li>`).join("");
+    const row = (name, href, label) => `<li><span class="nb-who">${h(name)}</span><a class="nb-dl" href="${h(href)}" download>${h(label)}</a></li>`;
+    const guidedRows = guided.map((s) => row(s.pseudonym, s.file, "Download")).join("");
+    const finalRows = finals.map((s) => row(s.pseudonym, s.file, "Download")).join("");
     return `<div class="page wide nb-page">${exploreShell("notebooks", `
       ${crumbs([["Collected data", "#/collected"], ["Python notebooks"]])}
       <h1>Python notebooks: learning to build decision trees</h1>
@@ -1900,35 +1900,39 @@
       <h2>Teacher instructions</h2>
       <p>This guided notebook introduces non-major students to Python and builds toward training and evaluating a decision tree, step by step.</p>
       ${pack.teacher ? `<p><a class="btn" href="${h(pack.teacher)}" download>Download the instruction notebook</a></p>` : ""}
-      <h2>Final homework: applying decision trees in Python</h2>
-      <p>After the guided sessions, students apply the same process to a lizard dataset. The folder of submissions does not contain a separate blank instruction file. The steps below are the sequence those notebooks are organized around.</p>
-      <ol class="nb-steps">
-        <li>Load the libraries and <code>lizard_data.csv</code>, then inspect the table.</li>
-        <li>Turn text columns into numbers, and keep the chosen target out of the features.</li>
-        <li>Split the rows into training and test sets.</li>
-        <li>Try several tree depths and compare misclassification.</li>
-        <li>Draw a tree and interpret it.</li>
-        <li>Repeat for three targets: habitat, species, and sex.</li>
-        <li>Write a short reflection on the models.</li>
-      </ol>
-      <p>The lizard table is not stored in this archive, and it has not been replaced with another dataset. Inspection counts for these notebooks are on <a href="#/findings">Findings</a>. They are file counts, not a grade.</p>
+      <h2>Final homework: guided application</h2>
+      <p>The final homework asks students to use the guided Colab work on a new table, the lizard data. Read the instruction document first. The working code it refers to is the teacher notebook above.</p>
+      <ul class="nb-resources">
+        <li>
+          <div><strong>1. Homework instructions</strong><span>The step-by-step assignment, from getting to know the table through a written reflection. Word document.</span></div>
+          <a class="nb-dl" href="downloads/notebooks/homework/final_homework_instructions.docx" download>Download</a>
+        </li>
+        <li>
+          <div><strong>2. Lizard dataset</strong><span>320 rows and 7 columns: species, sex, body length, total length, mass, leg length, and habitat. CSV file.</span></div>
+          <a class="nb-dl" href="downloads/notebooks/homework/lizard_data.csv" download>Download</a>
+        </li>
+      </ul>
       <h3>Student submissions</h3>
-      <p>Each file is that student's final notebook, with names replaced by pseudonyms. These are not copies of the teacher notebook.</p>
-      ${finalMissing.length ? `<p class="nb-note">${finalMissing.map(h).join(", ")} ${finalMissing.length === 1 ? "has" : "have"} no notebook file in this folder.</p>` : ""}
+      <p>Each file is that student's final notebook. Names are replaced by pseudonyms. These notebooks are not copies of the teacher notebook.</p>
+      ${finalMissing.includes("Marco") ? `<p class="nb-muted">Marco: no notebook file was found. A PDF report is recorded for this submission, but the file could not be opened from storage, so it is not linked here.</p>` : ""}${finalMissing.filter((s) => s !== "Marco").length ? `<p class="nb-muted">${finalMissing.filter((s) => s !== "Marco").map(h).join(", ")}: no notebook file was found in the final-homework folder.</p>` : ""}
       <ul class="nb-files">${finalRows}</ul>
       <details class="nb-more">
         <summary>Guided session notebooks</summary>
-        <p>These are the weekly Colab files. They follow the teacher notebook, so one student's file is much like another's. Each person is represented by the latest file available. Earlier files stay in the source archive and are not merged into the later one.</p>
-        ${guidedMissing.length ? `<p class="nb-note">${guidedMissing.map(h).join(", ")} ${guidedMissing.length === 1 ? "has" : "have"} no notebook in the three guided sessions.</p>` : ""}
-        <ul class="nb-files nb-files-3">${guidedRows}</ul>
+        <div class="nb-more-body">
+          <p>The student notebooks follow the teacher's guided activities. Each student is represented by their most recent available notebook; earlier submissions are preserved separately.</p>
+          ${guidedMissing.length ? `<p class="nb-muted">${guidedMissing.map(h).join(", ")}: no notebook was found in the three guided-session folders.</p>` : ""}
+          <ul class="nb-files">${guidedRows}</ul>
+        </div>
       </details>
       ${tech("Technical details", `<div class="log-tech">
-        <h3>The guided notebook</h3>
-        <p class="log-note">A <strong>feature</strong> is a measurement the model may use. The <strong>target</strong> is the label the model is asked to predict. <strong>Training rows</strong> are used to fit the tree. <strong>Test rows</strong> are held back so the score is not only a memory of the rows used to fit it.</p>
-        <p class="log-note">The instruction notebook runs in Google Colab. <code>pandas</code> reads the food table. <code>matplotlib</code> draws charts. scikit-learn provides <code>DecisionTreeClassifier</code>, which grows a tree of yes-or-no questions. <code>max_depth</code> limits how many questions the tree may ask. The target column in the food table is <code>Öneri</code>, the recommendation label. The product name is left out of the features. The notebook then compares misclassification on training rows and test rows. A deeper tree can follow the training rows more closely and then do worse on rows it has not seen. No best depth is stated here.</p>
-        <h3>The final homework</h3>
-        <p class="log-note">The final notebooks use <code>lizard_data.csv</code>. Text columns are turned into 0/1 columns so the tree can read them. The three targets students are asked to predict, in separate trees, are habitat (<code>YasamAlani</code>), species (<code>Tur</code>), and sex (<code>Cinsiyet</code>). A target is not also used as a feature in the tree that predicts it. The split in the notebooks is 80% training and 20% test. Depths are compared with the misclassification rate, which is 1 minus accuracy: the share of rows the tree labels incorrectly. The written section asks about the learning process, the data, model performance, and the limits of a decision tree.</p>
-        <p class="log-note">Public copies use pseudonyms. In the guided instruction notebook, the name in the welcome example was replaced with Instructor. Colab account names and user ids were removed. Student code and written answers were not rewritten. Neither data table is in this archive.</p>
+        <h3>Guided learning sequence</h3>
+        <p class="log-note">The teacher notebook, used in Google Colab, starts with <code>print()</code>, variables, and lists. It then loads the food table, separates measurements from the recommendation label, fits a decision tree, and compares trees of different depths. A <strong>feature</strong> is a column the tree may use. The <strong>target</strong> is the label it is asked to predict. <strong>Training rows</strong> are used to grow the tree. <strong>Test rows</strong> are held back, so the score is not only a memory of the rows used to fit it.</p>
+        <h3>Python tools and libraries</h3>
+        <p class="log-note"><code>pandas</code> reads a table and selects columns. <code>matplotlib</code> draws charts and the tree. scikit-learn supplies <code>DecisionTreeClassifier</code>, which grows a tree of yes-or-no questions, and the tools that score it. <code>max_depth</code> limits how many questions the tree may ask.</p>
+        <h3>Decision-tree workflow</h3>
+        <p class="log-note">In the food notebook the target column is <code>Öneri</code>. The product name is left out of the features. The homework uses <code>lizard_data.csv</code> instead. Text columns are turned into 0 and 1 columns with <code>get_dummies</code>, because the tree compares numbers, not words. The instruction splits 80% of the rows for training and 20% for testing, and keeps each category in proportion (<code>stratify</code>). <strong>Misclassification rate</strong> is 1 minus accuracy: the share of rows the tree labels incorrectly. Students compare that rate on training rows and test rows as the tree gets deeper. A deeper tree can follow the training rows more closely and then do worse on rows it has not seen. The instruction does not name a best depth.</p>
+        <h3>Final homework</h3>
+        <p class="log-note">The written assignment asks students to inspect the lizard table, write at least three questions of their own, and build a separate tree for each question. A question should point at one column as the target. Worked examples in the document use habitat, and they also name species and sex as columns a question can use. Students then choose a depth, draw the tree, and answer in their own words about the three class settings (data cards, CODAP, and Python), the data, the model's errors, and where a decision tree is not enough. The supplied table is named <code>lizard_data.csv</code>. One code sample in the document types that name with a hyphen. Public notebook copies use pseudonyms. Student code and written answers were not rewritten. The food table is not in this archive.</p>
       </div>`)}
     `)}</div>`;
   }
