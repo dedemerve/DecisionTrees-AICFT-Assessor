@@ -1647,6 +1647,7 @@
   }
 
   const HF_FRAMES = "https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames";
+  const HF_LOGS = "https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-CODAP-Arbor-LogFile";
   const CODAP_SCREEN = new Set(["TREE", "GRAPH", "TABLE", "MIXED", "CODAP"]);
   const frameView = { s: "", ss: "" };
   const isCodapScreen = (f) => CODAP_SCREEN.has(f.sc);
@@ -1771,71 +1772,68 @@
   }
 
 
-  const LOG_EXAMPLES = {
-    "2026-04-21": [
-      ["08:46:34", "Nadia", "Added a predictor", "drop_attribute", "Column 1"],
-      ["08:54:41", "Irma", "Changed a split threshold", "change_split_values", "Tuz (g)"],
-    ],
-    "2026-04-28": [
-      ["08:10:07", "Bruno", "Chose the target variable", "set_dependent_variable", "Column 1"],
-      ["08:15:01", "Nadia", "Added a predictor", "drop_attribute", "Yağ (g)"],
-    ],
-  };
-  function logExampleTable(day) {
-    const rows = (LOG_EXAMPLES[day] || []).map(([time, who, label, code, detail]) => ({
-      cells: [`<span class="mono">${h(time)}</span>`, h(who), `${h(label)} <span class="small">(<code>${h(code)}</code>)</span>`, h(detail)],
-    }));
-    return table([{ t: "Time (UTC)" }, { t: "Participant" }, { t: "Action" }, { t: "Detail" }], rows);
-  }
   function pageLogs() {
     const L = C.logs;
+    const excluded = sum(Object.values(L.rows_excluded_unmatched_by_day || {}));
+    const statedPublicRows = 11367;
     const dayTable = table(
       [{ t: "Date in created_at" }, { t: "Rows in the source file", num: 1 }],
       Object.entries(L.rows_by_day).map(([d, n]) => ({ cells: [h(d), num(n)] }))
     );
     const otherFiles = L.other_files_row_counts
-      ? table([{ t: "File counted, not loaded as a second source" }, { t: "Rows", num: 1 }], Object.entries(L.other_files_row_counts).map(([name, n]) => ({ cells: [`<code>${h(name)}</code>`, num(n)] })))
+      ? table([{ t: "Earlier file, not loaded" }, { t: "Rows", num: 1 }], Object.entries(L.other_files_row_counts).map(([name, n]) => ({ cells: [`<code>${h(name)}</code>`, num(n)] })))
       : "";
-    const cards = Object.entries(LOG_DAYS).map(([d, meta]) => `<article class="log-session-card">
-        <h2>${h(meta.name)}</h2>
-        <p class="log-session-date">${h(meta.date)}</p>
-        <p class="ws15-role">Each row is one action in CODAP Arbor, stored with a time and a pseudonym.</p>
-        ${logExampleTable(d)}
-        <p class="log-ex">Two example rows from this date. This is not the complete session.</p>
-      </article>`).join("");
+    const cards = [
+      ["CODAP Session 1", LOG_DAYS["2026-04-21"].date],
+      ["CODAP Session 2", LOG_DAYS["2026-04-28"].date],
+    ].map(([name, date]) => `<article class="log-session-card"><h2>${h(name)}</h2><p class="log-session-date">${h(date)}</p></article>`).join("");
+    const publicMatch = statedPublicRows === L.rows_total - excluded
+      ? ` That figure matches the source-file row count minus the ${num(excluded)} rows removed because the identifier did not match a pseudonym.`
+      : "";
     return `<div class="page wide">${exploreShell("logs", `
       ${crumbs([["Collected data", "#/collected"], ["CODAP platform logs"]])}
       <h1>CODAP platform logs</h1>
-      <p class="lead">Platform logs record actions made while participants work in CODAP Arbor. The rows below are examples. The complete log is on Hugging Face.</p>
+      <p class="lead">Platform logs record actions made while participants work in CODAP Arbor. They help researchers study how participants interact with the activity.</p>
+      <h2>Session overview</h2>
+      <p>These logs cover the two CODAP sessions. They come from one source file, separated by the date on each row.</p>
       <div class="log-session-grid">${cards}</div>
-      <p>Both sessions come from one source file. Records are separated by the date stored on each row.</p>
+      <h2>Complete dataset</h2>
       <section class="section-block" id="log-dataset">
-        <div class="dataset-card frame-dataset">
-          <div class="ds-type">Complete dataset · CC BY 4.0</div>
-          <div class="ds-title">Platform log on Hugging Face</div>
-          <p class="ds-desc">The public file is <code>codap_log_anonymized.csv</code>, inside the frame dataset. That dataset also holds the frame images and <code>metadata.csv</code>. It does not include the original videos.</p>
-          <a class="btn btn-primary frame-dataset-btn" href="${HF_FRAMES}" target="_blank" rel="noopener">Explore the complete platform-log dataset on Hugging Face</a>
+        <div class="dataset-card log-dataset">
+          <div class="ds-type">CC BY 4.0</div>
+          <div class="ds-title">CODAP Arbor Platform Logs</div>
+          <p class="ds-desc">Access the complete platform-log dataset, including the original records used for the two sessions.</p>
+          <a class="btn btn-primary frame-dataset-btn" href="${HF_LOGS}" target="_blank" rel="noopener">Explore the dataset on Hugging Face</a>
         </div>
       </section>
-      <p><a href="#/findings">Participant counts from this log are under Findings.</a></p>
-      ${tech("Technical details: source file and session separation", `
+      ${tech("Technical details", `
         ${kv([
           ["Source file", `<code>${h(L.source)}</code>`],
+          ["Format", "CSV"],
           ["Rows in that file", num(L.rows_total)],
-          ["Date field", "<code>created_at</code>. The first 10 characters are the date used to separate sessions."],
-          ["CODAP session 1", "Rows dated 2026-04-21."],
-          ["CODAP session 2", "Rows dated 2026-04-28."],
-          ["Rows mapped to a pseudonym", num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))],
-          ["Rows removed because they did not match a pseudonym", num(sum(Object.values(L.rows_excluded_unmatched_by_day)))],
+          ["Date field", "<code>created_at</code>. The first 10 characters are the date. Session 1 is 2026-04-21. Session 2 is 2026-04-28."],
+          ["Rows whose identifier was changed to a pseudonym", num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))],
+          ["Rows removed, identifier not a pseudonym", num(excluded)],
         ])}
-        <p>The 28 April file is the only file the site reads. It already contains the 7 April and 21 April rows, so those earlier files are not added again. The file also contains a few 25 April rows. Rows that did not match a pseudonym were removed.</p>
+        <p>7 April means the date 7 April 2026, not a count of seven rows. The source file includes rows with that date. Those rows are not CODAP session 1 or session 2. The file also includes a few rows dated 25 April 2026.</p>
+        <p>The 21 April file is a prefix of this source file: the same rows, in the same order. The 7 April file uses the same event ids as the 7 April rows in this source file. Neither file is loaded again.</p>
         <h3>Rows by date</h3>
         ${dayTable}
         ${otherFiles}
-        <h3>Columns in the log</h3>
-        <p><code>id</code>, <code>created_at</code>, <code>student_id</code>, <code>action</code>, <code>timestamp_ms</code>, <code>parameters</code>, <code>raw_data</code>.</p>
+        <h3>Columns</h3>
+        ${table([{ t: "Column" }, { t: "Meaning" }], [
+          { cells: ["<code>id</code>", "Event identifier."] },
+          { cells: ["<code>created_at</code>", "When the row was stored. The date in this field separates the sessions. This column is in the source file. The public dataset card does not list it."] },
+          { cells: ["<code>student_id</code>", "Participant identifier. On this site it is a pseudonym."] },
+          { cells: ["<code>action</code>", "The action code."] },
+          { cells: ["<code>timestamp_ms</code>", "Elapsed milliseconds in that participant's session."] },
+          { cells: ["<code>parameters</code>", "Details for that action, stored as text."] },
+          { cells: ["<code>raw_data</code>", "Present in the source file and empty on every row. The public dataset card does not list it."] },
+        ])}
         <h3>Action codes</h3>
         ${table([{ t: "Event code" }, { t: "What it records" }], Object.entries(ACTION).map(([k, label]) => ({ cells: [`<code>${h(k)}</code>`, h(label)] })))}
+        <h3>Public dataset</h3>
+        <p>This Hugging Face dataset is separate from the screen-recording frames. Its dataset card lists one file, <code>codap_log_anonymized.csv</code>, with ${num(statedPublicRows)} rows and the columns <code>id</code>, <code>student_id</code>, <code>action</code>, <code>timestamp_ms</code>, and <code>parameters</code>. It does not include the frame images or <code>metadata.csv</code>.${publicMatch}</p>
       `)}`)}</div>`;
   }
   function logFindingsSection() {
@@ -1920,7 +1918,7 @@
         <li><a href="#/explore/worksheets">Worksheets</a><span>Purpose, student responses, item scores, and the blank PDFs.</span></li>
         <li><a href="#/explore/students">Student profiles</a><span>All worksheets, recordings, logs, and notebooks for one student.</span></li>
         <li><a href="#/explore/recordings">Screen recording frames</a><span>Frames extracted from the sessions, with previews on this site and the full image set on Hugging Face. Original videos are not published.</span></li>
-        <li><a href="#/explore/logs">Platform logs</a><span>Session summaries. The anonymised event log is in the Hugging Face frame dataset.</span></li>
+        <li><a href="#/explore/logs">Platform logs</a><span>The two CODAP sessions. The complete log is a separate dataset on Hugging Face.</span></li>
         <li><a href="#/explore/notebooks">Python notebooks</a><span>Inspection of the final lizard-data notebooks. Raw notebook files are not published.</span></li>
       </ul>
       <h3 class="guide-group-label">Data Processing &amp; Analysis</h3>
@@ -1940,7 +1938,7 @@
       </ul>
 
       <h2 id="datasets">Research datasets</h2>
-      <p>One public dataset was verified: <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">DecisionTrees-AICFT-Frames</a> (CC BY 4.0). It contains frame images and <code>codap_log_anonymized.csv</code>. Worksheets and notebook files are not in that dataset.</p>
+      <p>Two public datasets were verified. <a href="${HF_FRAMES}" target="_blank" rel="noopener">DecisionTrees-AICFT-Frames</a> (CC BY 4.0) contains the frame images, <code>metadata.csv</code>, and a copy of <code>codap_log_anonymized.csv</code>. <a href="${HF_LOGS}" target="_blank" rel="noopener">DecisionTrees-AICFT-CODAP-Arbor-LogFile</a> (CC BY 4.0) is the platform-log dataset. That dataset does not include the frame images. Worksheets and notebook files are not in either dataset.</p>
       <div class="dataset-grid">
         <div class="dataset-card">
           <div class="ds-type">Screen-recording frames</div>
@@ -1956,9 +1954,10 @@
         <div class="dataset-card">
           <div class="ds-type">Platform interaction logs</div>
           <div class="ds-title">CODAP Arbor interaction logs</div>
-          <div class="ds-desc">Session summaries are on this site. The anonymised event-level log is the file <code>codap_log_anonymized.csv</code> inside the frames dataset on Hugging Face, not a separate dataset.</div>
+          <div class="ds-desc">The two sessions are on this site. The complete event log is <code>codap_log_anonymized.csv</code> in the CODAP Arbor platform-log dataset.</div>
           <div class="ds-meta">${num(logEvents)} events · ${STUDENTS.length} participants · 3 log days</div>
           <div class="ds-links">
+            <a href="${HF_LOGS}" target="_blank" rel="noopener">View on Hugging Face</a>
             <a href="#/explore/logs">Browse log data</a>
             <a href="data/log_sessions.csv" download>log_sessions.csv</a>
           </div>
@@ -2153,14 +2152,14 @@
       <h1>Research Findings</h1>
       <p class="lead">Reviewed conclusions about what students learned are not in this archive yet.</p>
       <div class="warn">
-        <p>Nothing on this page is a reviewed finding about learning. The platform-log summaries below are counts computed from the log file. Example rows and the download stay on the <a href="#/explore/logs">platform logs</a> page.</p>
+        <p>Nothing on this page is a reviewed finding about learning. The platform-log summaries below are counts computed from the log file. The sessions and the dataset link stay on the <a href="#/explore/logs">platform logs</a> page.</p>
       </div>
       ${logFindingsSection()}
       <h2>Collected data</h2>
       <ul class="guide">
         <li><a href="#/explore/worksheets">Worksheets</a><span>Extracted student responses with item-level scores for ${C.worksheets.length} worksheets.</span></li>
         <li><a href="#/explore/recordings">Screen recording frames</a><span>${num(F.length)} extracted frames. Original videos are not published on this site.</span></li>
-        <li><a href="#/explore/logs">Platform logs</a><span>Example records and the public log file. The counts are in the summaries above.</span></li>
+        <li><a href="#/explore/logs">Platform logs</a><span>The two sessions and the public log file. The counts are in the summaries above.</span></li>
         <li><a href="#/explore/notebooks">Python notebooks</a><span>Final project notebooks on the lizard data.</span></li>
       </ul>
     </div>`;
