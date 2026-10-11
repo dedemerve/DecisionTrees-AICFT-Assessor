@@ -1787,10 +1787,10 @@
   function pageLogs() {
     const L = C.logs;
     const excluded = sum(Object.values(L.rows_excluded_unmatched_by_day || {}));
-    const statedPublicRows = 11367;
+    const statedPublicRows = 9561;
     const dayTable = table(
-      [{ t: "Date in created_at" }, { t: "Rows", num: 1 }],
-      Object.entries(L.rows_by_day).map(([d, n]) => ({ cells: [h(d), num(n)] })),
+      [{ t: "Session" }, { t: "Date in created_at" }, { t: "Rows", num: 1 }],
+      Object.entries(L.rows_by_day).map(([d, n]) => ({ cells: [h((LOG_DAYS[d] && LOG_DAYS[d].name) || "Not one of the two sessions"), h(d), num(n)] })),
       { cls: "log-dict" }
     );
     const otherFiles = L.other_files_row_counts
@@ -1802,9 +1802,6 @@
         <td data-label="Action code"><code>${h(code)}</code></td>
         <td data-label="Detail">${h(detail)}</td>
       </tr>`).join("");
-    const publicMatch = statedPublicRows === L.rows_total - excluded
-      ? ` That figure matches the source-file row count minus the ${num(excluded)} rows removed because the identifier did not match a pseudonym.`
-      : "";
     return `<div class="page wide">${exploreShell("logs", `
       ${crumbs([["Collected data", "#/collected"], ["CODAP platform logs"]])}
       <h1>CODAP platform logs</h1>
@@ -1821,7 +1818,7 @@
         <div class="dataset-card log-dataset">
           <div class="ds-type">CC BY 4.0</div>
           <div class="ds-title">Complete CODAP Arbor Platform Logs</div>
-          <p class="ds-desc">Explore the complete dataset, including the records used in the research.</p>
+          <p class="ds-desc">Explore the complete dataset for CODAP session 1 and CODAP session 2.</p>
           <a class="btn btn-primary frame-dataset-btn" href="${HF_LOGS}" target="_blank" rel="noopener">Explore the dataset on Hugging Face</a>
         </div>
       </section>
@@ -1831,14 +1828,14 @@
           ["Source file", `<code class="log-path">${h(L.source)}</code>`],
           ["Format", "CSV"],
           ["Original row count", num(L.rows_total)],
-          ["Date field", "<code>created_at</code>. The first 10 characters are the calendar date. Session 1 is 2026-04-21. Session 2 is 2026-04-28."],
+          ["Date field", "<code>created_at</code>. The first 10 characters are the calendar date. CODAP session 1 is 2026-04-21. CODAP session 2 is 2026-04-28."],
           ["Rows with identifiers changed to pseudonyms", num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))],
           ["Rows excluded because the identifier did not match a pseudonym", num(excluded)],
         ])}
-        <p class="log-note">The public dataset card states ${num(statedPublicRows)} rows in <code>codap_log_anonymized.csv</code>.${publicMatch} Its listed columns are <code>id</code>, <code>student_id</code>, <code>action</code>, <code>timestamp_ms</code>, and <code>parameters</code>. It does not include the frame images or <code>metadata.csv</code>.</p>
-        <h3>Records by date</h3>
-        <p class="log-note-label">Date interpretation</p>
-        <p class="log-note">Dates refer to calendar dates in <code>created_at</code>, not row counts. Records dated 7 April 2026 and 25 April 2026 are present in the source file but do not belong to either of the two CODAP sessions presented in this archive.</p>
+        <p class="log-note">The public file names the two sessions instead of showing the date. CODAP session 1 has ${num(5302)} rows. CODAP session 2 has ${num(4259)} rows. Together that is ${num(statedPublicRows)} rows in <code>codap_log_anonymized.csv</code>. Records dated 7 April 2026 are not in that file. Its columns are <code>id</code>, <code>student_id</code>, <code>session</code>, <code>action</code>, <code>timestamp_ms</code>, and <code>parameters</code>. It does not include <code>created_at</code>, <code>raw_data</code>, the frame images, or <code>metadata.csv</code>.</p>
+        <h3>Records by session</h3>
+        <p class="log-note-label">How the session name is assigned</p>
+        <p class="log-note">CODAP session 1 and CODAP session 2 are names for the two sessions. The name comes from the calendar date in <code>created_at</code>, not from a count of rows. Records dated 7 April 2026 are in the source file this site reads. They are not one of these sessions, and they are not in the public dataset. A few rows dated 25 April 2026 are also in that source file and are not one of the two sessions.</p>
         ${dayTable}
         ${otherFiles}
         <p class="log-note-label">Relationship to earlier files</p>
@@ -1846,7 +1843,8 @@
         <h3>Data fields</h3>
         ${table([{ t: "Column" }, { t: "Meaning" }], [
           { cells: ["<code>id</code>", "Event identifier."] },
-          { cells: [`<code>created_at</code> <span class="src-only">Source only</span>`, "When the row was stored. The date in this field separates the sessions. Not listed on the public dataset card."] },
+          { cells: [`<code>created_at</code> <span class="src-only">Source only</span>`, "When the row was stored. The date in this field decides the session name. Not listed in the public file."] },
+          { cells: ["<code>session</code>", "CODAP session 1 or CODAP session 2. This column is in the public file. It is not a column of the source file this site reads."] },
           { cells: ["<code>student_id</code>", "Participant identifier. On this site it is a pseudonym."] },
           { cells: ["<code>action</code>", "The action code."] },
           { cells: ["<code>timestamp_ms</code>", "Elapsed milliseconds in that participant's session."] },
@@ -1887,7 +1885,7 @@
       <p>${methodLink("logs", "What these measures mean")}</p>
       <h3>Actions in the log</h3>
       ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}
-      <p class="small">The 7 April rows in the same source file are not one of these two sessions. Date counts are in the technical note on the <a href="#/explore/logs">platform logs</a> page.</p>`;
+      <p class="small">The 7 April rows in the same source file are not CODAP session 1 or CODAP session 2, and they are not in the public dataset. Session names are explained on the <a href="#/explore/logs">platform logs</a> page.</p>`;
   }
   function pageNotebooks() {
     const rows = STUDENTS.map((s) => {

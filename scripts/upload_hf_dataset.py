@@ -126,13 +126,15 @@ def build_dataset() -> int:
         w.writerows(rows)
     print("metadata.csv written")
 
-    log_src = (ROOT / "data_sources_2026" / "All Documents" /
-               "28 Nisan 2026 CODAP Arbor Food Log File (anonymized).csv")
-    if log_src.exists():
-        shutil.copy2(log_src, STAGE / "codap_log_anonymized.csv")
-        print("Log CSV copied")
+    # Public log: CODAP session 1 and CODAP session 2 only. Do not copy the full
+    # source file; it also contains 7 April rows.
+    published_log = ROOT / "hf_dataset_stage" / "codap_log" / "codap_log_anonymized.csv"
+    if published_log.exists():
+        shutil.copy2(published_log, STAGE / "codap_log_anonymized.csv")
+        print("Published two-session log copied")
     else:
-        print(f"Log CSV not found at: {log_src}")
+        print(f"Published log not found at: {published_log}")
+        print("Run scripts/publish_codap_log.py before uploading the frames dataset.")
 
     write_card(len(rows))
     print(f"Dataset staged at: {STAGE}")
@@ -197,7 +199,7 @@ Behaviour-coded screen-recording frames from a 2026 Turkish pre-service teacher 
 |---|---|
 | `images/` | JPG frames, named `<student>_<session>_<frame_id>.jpg` |
 | `metadata.csv` | One row per frame with all labels and metadata |
-| `codap_log_anonymized.csv` | Raw CODAP Arbor event log (anonymized) |
+| `codap_log_anonymized.csv` | CODAP session 1 and CODAP session 2 only. 7 April rows are not included. |
 
 ## Columns in metadata.csv
 
