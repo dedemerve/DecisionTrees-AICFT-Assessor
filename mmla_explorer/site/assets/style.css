@@ -1241,6 +1241,8 @@ table.find-table tr[hidden] { display: none !important; }
 .find-page .find-headline .l { margin-top: 8px; font-size: 0.95rem; font-weight: 600; color: var(--ink); }
 .find-page .find-headline .small { margin: 6px 0 0; max-width: none; line-height: 1.4; }
 .find-people td:first-child { font-weight: 600; }
+.find-targets { display: inline-block; max-width: 16rem; white-space: normal; }
+.find-sub { display: block; margin-top: 3px; font-weight: 400; color: var(--muted); font-size: 0.82rem; line-height: 1.35; }
 .find-scorebar { display: block; width: 72px; height: 5px; margin-top: 5px; margin-left: auto; background: var(--rule); border-radius: 99px; overflow: hidden; }
 .find-scorebar > span { display: block; height: 100%; background: var(--blue); border-radius: 99px; }
 .find-fold { border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); margin: 16px 0; }

@@ -1994,25 +1994,6 @@
   }
   function bindNotebookSearch() {}
 
-  function notebookFindingsSection() {
-    const rows = STUDENTS.map((s) => {
-      const n = C.notebooks[s] || {}, f = n.file, e = n.extraction;
-      const tot = n.scoring ? sum(Object.values(n.scoring.sections).map((x) => x.awarded)) : null;
-      const pos = n.scoring ? sum(Object.values(n.scoring.sections).map((x) => x.possible)) : null;
-      return { href: `#/explore/student/${s}/notebook`, cells: [`<a href="#/explore/student/${h(s)}/notebook">${h(s)}</a>`, e ? e.targets.map((t) => `<code>${h(t)}</code>`).join(" ") : "–", e ? num(e.models) : "–", f ? (f.cells_with_error_output ? "Yes" : "None") : "–", f ? num(f.order_reversals) : "–", tot == null ? "–" : `${num(tot, 1)} / ${num(pos, 1)}`] };
-    });
-    const reports = STUDENTS.filter((s) => C.notebooks[s] && !C.notebooks[s].file && C.notebooks[s].extraction);
-    return `<h2 id="notebook-inspection">Key findings</h2>
-      <p>This inspection reads the final homework files. It is not the weekly Colab collection, and it is not a grade. ${num(notebooksPresent)} participants have a notebook file.${reports.length ? ` ${reports.map(h).join(" and ")} submitted a written report, so cell order and error outputs cannot be read from a notebook.` : ""}</p>
-      <h2>Results</h2>
-      <p>Target variables, model counts, error outputs, and run-order changes come from the inspection of each file. Rubric points are the pipeline total stored for that file.</p>
-      ${table([{ t: "Participant" }, { t: "Target variables" }, { t: "Models", num: 1 }, { t: "Errors in outputs" }, { t: "Revisiting earlier code", num: 1 }, { t: "Rubric points", num: 1 }], rows)}
-      <h2>Interpretation</h2>
-      <p>The teacher notebook is the guided instruction for Colab Sessions 1, 2, and 3. The files in this table are the students' final homework. The inspection describes what is in those files. A missing step was not found in the file. It does not show that the participant never considered it.</p>
-      <p>Rubric points are produced by the scoring pipeline. The site data does not record a separate manual review of these totals, so they are not presented as a reviewed grade.</p>
-      ${tech("Technical details", `<p class="log-note">“Revisiting earlier code” counts places where the notebook run counter went backwards. The teacher instruction notebook and the weekly student notebooks are a different collection. They are listed under Python notebooks and were not scored in this table.</p>
-        <p class="log-note">In the study design, LO3.3.3 names posing one's own questions and LO3.3.2 names changing tool settings such as tree depth. Those codes are learning goals. This inspection does not assign them.</p>`)}`;
-  }
 
   // ------------------------------------------------------------------ 04 Documentation
   const docShell = (active, body) => {
@@ -2323,11 +2304,13 @@
     </div>`;
   }
   function pageFindingNotebooks() {
-    return `<div class="page wide">${findingsCrumb("Python notebook findings")}
+    const body = window.NotebookFindings
+      ? window.NotebookFindings.page()
+      : `<p class="lead">The findings script did not load.</p>`;
+    return `<div class="page wide find-page">${findingsCrumb("Python notebook findings")}
       <h1>Python notebook findings</h1>
-      <p class="lead">The inspection below reads the final homework files. The teacher instruction notebook and the weekly Colab files are separate, and they stay with the collected notebooks.</p>
-      ${notebookFindingsSection()}
-      ${relatedCollected([["#/explore/notebooks", "Python notebooks", "The guided notebook, the homework instructions, the lizard dataset, and the student files."]])}
+      ${body}
+      ${relatedCollected([["#/explore/notebooks", "Python notebooks", "The guided notebook, the final homework instructions, the lizard dataset, and the student submissions."]])}
     </div>`;
   }
 
