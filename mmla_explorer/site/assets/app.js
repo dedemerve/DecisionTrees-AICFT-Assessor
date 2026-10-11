@@ -1568,6 +1568,26 @@
       return `<li class="file-item"><a href="${h(encodeURI(item.href))}" download="${h(item.download || "")}">${h(item.title)}</a><span class="file-meta">PDF · ${bytes(item.bytes)}</span>${who}</li>`;
     }).join("")}</ul>`;
   }
+  function ws15DatasetSection(code) {
+    if (code !== "WS15") return "";
+    const item = (name, bytes, rows, note) => `<li class="file-item"><a href="downloads/ws15/${h(name)}" download="${h(name)}"><code>${h(name)}</code></a><span class="file-meta">CSV, UTF-8 · ${num(bytes)} bytes · ${num(rows)} rows. ${h(note)}</span></li>`;
+    return `<section class="section-block" id="ws15-data"><h2>WS15 dataset collection</h2>
+      <p>These datasets were specifically prepared for Worksheet 15. Each file supports the activities associated with this worksheet. Please use the provided datasets rather than a generic Titanic dataset, as the files have been prepared for this learning activity.</p>
+      <h3>Training and test samples</h3>
+      <p>The worksheet loads these four files in order. Sample 1 is the first pair, and sample 2 is the second pair. All four use the columns survived, pclass, sex, age, fare, embarked, and sex_bin. In these files, sex_bin is 1 when sex is female and 0 when sex is male.</p>
+      <ul class="file-list">
+        ${item("titanic_egitim_veri_seti1.csv", 21749, 812, "Training sample 1, for the section Eğitim Veri Seti 1.")}
+        ${item("titanic_test_veri_seti1.csv", 6294, 231, "Test sample 1, for the section Test Veri Seti 1.")}
+        ${item("titanic_egitim_veri_seti2.csv", 22375, 834, "Training sample 2, for the section Eğitim Veri Seti 2.")}
+        ${item("titanic_test_veri_seti2.csv", 5668, 209, "Test sample 2, for the section Test Veri Seti 2.")}
+      </ul>
+      <h3>Full passenger file</h3>
+      <p>The last activity, Veri Setini Rastgele Bölme, loads this file and splits it at random into a training group and a test group. It has more columns than the four samples: survived, pclass, name, sex, age, sibsp, parch, ticket, fare, cabin, embarked, boat, body, and homedest.</p>
+      <ul class="file-list">
+        ${item("titanic_veri_seti.csv", 106423, 1326, "Full file for the random-split activity.")}
+      </ul>
+    </section>`;
+  }
   function pageWorksheet(code) {
     const w = C.worksheets.find((x) => x.code === code);
     if (!w) {
@@ -1586,6 +1606,7 @@
         <p class="small">Extracted answers and item scores are not listed on this page. <a href="#/methods/worksheets">How worksheets were checked \u2192</a></p>
       </section>
       ${foodCardSection(code)}
+      ${ws15DatasetSection(code)}
       <section class="section-block" id="materials"><h2>Worksheet materials</h2>
         <p class="small">Each distinct blank worksheet or answer key is listed once.</p>
         ${fileList(files.materials, "No blank worksheet or answer key could be matched to this worksheet.")}
