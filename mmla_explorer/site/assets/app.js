@@ -53,6 +53,7 @@
     WS7: { date: "31 March 2026", topic: "Read the paths A, B and C of a tree and write them as if-then rules." },
     WS10: { date: "31 March 2026", topic: "Test thresholds between neighbouring energy values and find the one with the fewest errors." },
     WS11: { date: null, topic: "Feedback on the lesson series (survey items and open questions)." },
+    WS12: { date: "31 March 2026", title: "Decision tree documentation (training & test data)", topic: "Document a two-level decision tree by recording the root variable, thresholds, node counts at each branch, and the number of misclassified items in training and test sets. Unplugged group activity." },
     WS13: { date: "21–28 April 2026", title: "Decision trees for classification activity", topic: "Choosing variables, reading a tree, TP/FP, sensitivity, misclassification rate and overfitting." },
     WS14: { date: "7 April 2026", title: "Diagnosis game with trees (Xeno)", topic: "Diagnose an alien disease with a tree in CODAP Arbor. Each student receives a randomly generated case set." },
     WS15: { date: "7 April 2026", title: "Titanic data in CODAP Arbor", topic: "Build a tree on a Titanic training sample, then check it on a test sample." },
@@ -62,11 +63,15 @@
     deterministic: "Python rules compare each value with the 11 food cards. The language model only reads the handwriting.",
     llm_rubric: "Each answer is compared with the researcher's rubric and answer key. Python adds up the item scores.",
   };
-  const howChecked = (w) => w.code === "WS14" ? "Numbers are checked against rules that always hold for this data (the four counts add up, and false positives and false negatives are zero). Open answers use the rubric."
+  const howChecked = (w) => {
+    const policy = w.rubric_data && w.rubric_data.scoring_policy;
+    if (policy && policy.basis === "internal_consistency") return "Scores check whether the recorded tree is internally consistent. The rubric says there is no single correct tree.";
+    return w.code === "WS14" ? "Numbers are checked against rules that always hold for this data (the four counts add up, and false positives and false negatives are zero). Open answers use the rubric."
     : w.code === "WS15" ? "Numbers are compared with the Titanic reference values, within 0.02. Open answers use the rubric."
       : w.code === "WS10" ? "Python rules check the energy-threshold table. The language model only reads the handwriting. This is not the Titanic worksheet."
-        : w.code === "WS11" ? "No extracted student answers are in the archive, so this survey is not treated as scored evidence."
+        : w.code === "WS11" ? "No extracted student answers are aligned to this survey, so it is not treated as scored evidence."
           : HOW_CHECKED[w.pipeline];
+  };
 
   // Readable labels for worksheet fields.
   const TOKEN = {
@@ -92,6 +97,16 @@
     response_raw: "answer", agrees_with_pia: "agrees with Pia",
     left_left_leaf: "left-left leaf", left_right_leaf: "left-right leaf", right_left_leaf: "right-left leaf", right_right_leaf: "right-right leaf",
     left_left_left_leaf: "left-left-left leaf", left_left_right_leaf: "left-left-right leaf",
+    WS12_root_feature: "Root variable", WS12_root_left_threshold: "Left threshold", WS12_root_right_threshold: "Right threshold",
+    WS12_left_child_label: "Left child", WS12_left_child_rec: "Left · recommended", WS12_left_child_notrec: "Left · not recommended",
+    WS12_right_child_label: "Right child", WS12_right_child_rec: "Right · recommended", WS12_right_child_notrec: "Right · not recommended",
+    WS12_depth1_ll_threshold: "Left-left threshold", WS12_depth1_lr_threshold: "Left-right threshold",
+    WS12_depth1_rl_threshold: "Right-left threshold", WS12_depth1_rr_threshold: "Right-right threshold",
+    WS12_leaf_ll_rec: "Leaf LL · rec", WS12_leaf_ll_notrec: "Leaf LL · not rec",
+    WS12_leaf_lr_rec: "Leaf LR · rec", WS12_leaf_lr_notrec: "Leaf LR · not rec",
+    WS12_leaf_rl_rec: "Leaf RL · rec", WS12_leaf_rl_notrec: "Leaf RL · not rec",
+    WS12_leaf_rr_rec: "Leaf RR · rec", WS12_leaf_rr_notrec: "Leaf RR · not rec",
+    WS12_train_errors: "Training errors", WS12_test_errors: "Test errors",
   };
   const itemLabel = (id) => {
     let m;
@@ -371,8 +386,8 @@
           <h1><span class="hero-line">Documenting How Pre-Service Teachers</span> <span class="hero-line">Learn Decision Trees</span></h1>
           <p class="hero-lead">A research archive of worksheets, screen recordings, platform logs, and notebooks from a decision-tree unit with ${STUDENTS.length} pre-service teachers, shown only by pseudonym.</p>
           <div class="hero-actions">
-            <a class="btn-primary" href="#/explore/worksheets">Explore learning activities</a>
-            <a class="btn-secondary" href="#/docs">Browse research datasets</a>
+            <a class="btn-primary" href="#/collected">Collected data</a>
+            <a class="btn-secondary" href="#/methods">Processing and analysis</a>
           </div>
         </div>
         <figure class="hero-visual">
@@ -399,28 +414,14 @@
         <a class="metric" href="#/explore/frames"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} coded for behaviour</div></a>
         <a class="metric" href="#/explore/logs"><div class="v">${num(logEvents)}</div><div class="l">Log events</div><div class="s">CODAP Arbor, 3 class days</div></a>
       </div>
-      <div class="portal">
-        <section class="portal-card">
-          <p class="kicker">Explore</p>
-          <h2>Learning activities</h2>
-          <p>Paper worksheets from naming table parts through building and reading trees, plus the CODAP Arbor tasks. Each entry links to student responses and the blank PDF.</p>
-          <div class="portal-links"><a href="#/explore/worksheets">Open the worksheet catalogue</a><a href="#/explore/students">Browse by student</a></div>
-        </section>
-        <div class="portal-side">
-          <section class="portal-card">
-            <p class="kicker">Data</p>
-            <h2>Research data</h2>
-            <p>Screen-recording frames are published separately from the CODAP interaction logs. ${num(uniqueVideoList.length)} recordings and ${notebooksPresent} final notebooks sit alongside them.</p>
-            <div class="portal-links"><a href="#/docs">Datasets and downloads</a><a href="#/explore/frames">Frame explorer</a></div>
-          </section>
-          <section class="portal-card">
-            <p class="kicker">Reference</p>
-            <h2>Methods</h2>
-            <p>How answers were read, frames were selected, and codes were checked.</p>
-            <div class="portal-links"><a href="#/methods">How the system works</a><a href="#/docs/limitations">Data notes</a></div>
-          </section>
-        </div>
-      </div>
+      <h2>How the archive is organised</h2>
+      <p>Each part of the site has a different job. The counts above describe what was collected. They are not results about learning.</p>
+      <ul class="ia-list">
+        <li><a href="#/collected">Collected data</a><p>Worksheets and student responses, student profiles, screen recordings, frames, and CODAP platform logs. This is the evidence, under pseudonyms.</p></li>
+        <li><a href="#/methods">Data processing and analysis</a><p>How answers were read, how checks and scores were produced, quality notes, and the Python notebooks.</p></li>
+        <li><a href="#/findings">Findings and research insights</a><p>Researcher-reviewed results. No findings report is published in this archive.</p></li>
+        <li><a href="#/docs">Reference and documentation</a><p>Data notes, glossary, downloads, and technical documentation.</p></li>
+      </ul>
       <p class="small">Screen previews are cropped and softened so that on-screen text cannot be read. Listed frames are the rows in each session manifest; a frame is coded only when it has a behaviour label.</p>
     </div>`;
   }
@@ -486,6 +487,8 @@
     ).join("");
 
     return `<div class="page methods">
+      ${crumbs([["Data processing and analysis", "#/methods"], ["Processing workflow"]])}
+      <p class="kicker">Data processing and analysis</p>
       <h1>From Student Activity to Research Evidence</h1>
       <p class="lead">Written work, screen recordings, platform logs, and notebooks each show a different part of how the students learned decision trees.</p>
       <nav class="section-nav" aria-label="On this page">
@@ -539,6 +542,7 @@
           { cells: ["WS14", "Model reads the answers", "Rubric for open answers. Python checks that the four counts sum to N and that false positives and false negatives are zero."] },
           { cells: ["WS15", "Model reads the answers", "Rubric for open answers. Python compares numbers with the Titanic reference, within 0.02."] },
           { cells: ["WS11", noExtracted.includes("WS11") ? "Not extracted" : "Model reads the answers", "A checker exists for some closed survey items. This worksheet is not treated as a validated response set" + (noExtracted.includes("WS11") ? " because no student answers were extracted." : ".")] },
+          { cells: ["WS12", "Read from the scanned sheet", "Consistency checks. The rubric says there is no single correct tree."] },
         ]) + `<p class="small">For a rubric item, the scorer loads the entry with that item’s ID. It does not search across documents.</p>` + (rawEx ? `<p class="small">Clean-up example: in ${h(rawEx.s)}’s ${h(rawEx.code)}, the raw reading <code>${h(rawEx.d.raw)}</code> was stored as <code>${h(rawEx.d.normalized)}</code>.</p>` : "") + (checkEx ? `<p class="small">WS10 check example: ${h(checkEx.s)} wrote <code>${h(checkEx.v)}</code> for the chosen threshold. Result: ${result(checkEx.chk.correct)}.</p>` : "") + `<p class="small">WS14 and WS15 were split from an earlier combined worksheet. They are checked separately. The survey worksheet WS11 has a checker for some closed items, but the item identifiers in that checker have drifted from the rubric, so it is not treated as a validated response set.</p>`)}
       </section>
 
@@ -697,7 +701,8 @@
 
   // ------------------------------------------------------------------ 03 Explore
   function exploreShell(active, body) {
-    return `<p class="kicker">The data</p>${body}`;
+    const kick = active === "notebooks" ? "Data processing and analysis" : "Collected data";
+    return `<p class="kicker">${kick}</p>${body}`;
   }
   function availableSummary(s) {
     const ws = C.worksheets.filter((w) => C.ws[s][w.code].ocr).length;
@@ -709,6 +714,7 @@
 
   function pageStudents() {
     return `<div class="page wide">${exploreShell("students", `
+      ${crumbs([["Collected data", "#/collected"], ["Student profiles"]])}
       <h1>Students</h1>
       <p class="lead">Fifteen participants, each shown by a pseudonym. Open a student to see their worksheets, recordings, logs and notebook.</p>
       <div class="student-roster">
@@ -725,7 +731,7 @@
     const r = C.ws[s][w.code], o = r.ocr, st = r.stage || {};
     const info = WS_INFO[w.code] || {};
     const fixed = w.fixed_responses || {};
-    let status = "no answers on file", body = `<p class="small">${h(info.topic || "")} ${h(howChecked(w))} ${methodLink("worksheets", "More")}</p>`;
+    let status = "no answers on file", body = `<p class="small">${h(info.topic || "")} ${h(howChecked(w))} <a href="#/explore/worksheet/${h(w.code)}?view=student&student=${h(s)}&mode=response">Open in the worksheet explorer</a></p>`;
     if (!o) {
       body += `<p class="empty">No extracted answers exist for this worksheet and student.</p>`;
     } else {
@@ -754,6 +760,8 @@
       const rest = o.checks.filter((c) => !used.has(c.check));
       if (rest.length) body += `<h4>Further checks</h4>` + table([{ t: "Check" }, { t: "Result" }], rest.map((c) => ({ cells: [h(questionLabel(w.code, c.check)), `<span${tipAttr(h([c.flag, c.note, Object.entries(c.detail || {}).map(([k, v]) => `${k}: ${v}`).join(", ")].filter(Boolean).join(" · ")))}>${result(c.correct)}</span>`] })));
       body += `<p class="small">Answers are shown in the original Turkish. <a href="#/docs/glossary">Common Turkish words →</a></p>`;
+      const named = namesInText(o.snapshot, s);
+      if (named.length) body += `<div class="warn">The model-written page summary also names ${named.map(h).join(", ")}. It is not a verified attribution.</div>`;
       const notes = [["Page summary written by the model", o.snapshot], ["Reading notes", o.page_notes], ["Check summary", o.system_summary]].filter((n) => n[1] && n[1] !== "(bos)");
       let t = "";
       if (o.raw_diff.length) t += `<h4>Raw reading vs. cleaned value</h4>` + table([{ t: "Field" }, { t: "Raw" }, { t: "Cleaned" }], o.raw_diff.map((d) => ({ cells: [h(fieldLabel(d.path)), `<code>${h(d.raw)}</code>`, `<code>${h(d.normalized)}</code>`] })));
@@ -918,6 +926,7 @@
     const prev = i > 0 ? `<a href="#/explore/student/${h(STUDENTS[i - 1])}/${tab}">← ${h(STUDENTS[i - 1])}</a>` : "";
     const next = i < STUDENTS.length - 1 ? `<a href="#/explore/student/${h(STUDENTS[i + 1])}/${tab}">${h(STUDENTS[i + 1])} →</a>` : "";
     return `<div class="page">${exploreShell("students", `
+      ${crumbs([["Collected data", "#/collected"], ["Student profiles", "#/explore/students"], [s]])}
       <h1>${h(s)}</h1>
       <p class="small">Pseudonym · ${h(availableSummary(s))}</p>
       <nav class="tabs sub">${tabs.map(([k, l]) => `<a href="#/explore/student/${h(s)}/${k}" class="${k === tab ? "active" : ""}">${l}</a>`).join("")}</nav>
@@ -926,132 +935,593 @@
   }
 
   // ---- cohort views
+  const DOCS = window.WORKSHEET_DOCS || { worksheets: {}, overrides: [] };
+  const OVERRIDE = {};
+  (DOCS.overrides || []).forEach((o) => { OVERRIDE[`${o.student}|${o.worksheet}|${o.item}`] = o; });
+
+  function docOf(code) { return (DOCS.worksheets || {})[code] || {}; }
+  function crumbs(parts) {
+    const last = parts.length - 1;
+    return `<nav class="crumbs" aria-label="Breadcrumb">${parts.map((p, i) => {
+      if (i === last) return `<span aria-current="page">${h(p[0])}</span>`;
+      return `<a href="${h(p[1])}">${h(p[0])}</a><span aria-hidden="true">/</span>`;
+    }).join("")}</nav>`;
+  }
+  function namesInText(text, self) {
+    if (!text) return [];
+    return STUDENTS.filter((n) => n !== self && new RegExp(`(?:^|[^A-Za-z])${n}(?:[^A-Za-z]|$)`).test(text));
+  }
+  function sameResponses(a, b) {
+    if (!a || !b || a.responses.length !== b.responses.length) return false;
+    const mb = new Map(b.responses.map((r) => [r.path, r.value]));
+    return a.responses.every((r) => mb.has(r.path) && String(mb.get(r.path)) === String(r.value));
+  }
+  const WS11_IS_WS14 = STUDENTS.every((s) => sameResponses(C.ws[s].WS11 && C.ws[s].WS11.ocr, C.ws[s].WS14 && C.ws[s].WS14.ocr));
+
+  function isEmptyResponse(v) {
+    return v == null || v === "" || v === "(bos)" || v === "(not_extracted)";
+  }
+  function responseState(v) {
+    if (v == null || v === "") return { kind: "missing", text: "No value in the extraction" };
+    if (v === "(bos)") return { kind: "blank", text: "Blank — the extraction records (bos)" };
+    if (v === "(not_extracted)") return { kind: "missing", text: "Not extracted" };
+    return { kind: "text", text: String(v) };
+  }
+  function answerKeyHref(w) {
+    return w.answer_key_url || docOf(w.code).answer_key_url || "";
+  }
+  function scoreItemForGroup(code, groupId) {
+    return (ITEM_ALIAS[code] || {})[groupId] || groupId;
+  }
+  function groupIdOf(code, response) {
+    if ((code === "WS6" || code === "WS7") && response.item === "tree_structure") {
+      const parts = response.path.split(".");
+      return parts.length >= 2 ? `${parts[0]}.${parts[1]}` : response.item;
+    }
+    if (code === "WS7" && response.path.startsWith("rule_matching.")) return response.path;
+    return response.item;
+  }
+  function itemTitle(code, id) {
+    const it = rubricItem(code, id);
+    if (it && it.label) return it.label;
+    return rubricItemLabel(code, id, 80) || fieldLabel(id);
+  }
+  function fieldDisplay(code, path) {
+    const fld = (docOf(code).fields || []).find((f) => f.field_id === path);
+    if (fld && fld.location_hint) return fld.location_hint;
+    return fieldLabel(path);
+  }
+  function groupLabel(code, id) {
+    const it = rubricItem(code, id);
+    if (it && (it.label || it.expected_answer || it.printed_question != null)) return itemTitle(code, id);
+    return fieldDisplay(code, id);
+  }
+  function sortKey(code, id) {
+    const rub = rubricItem(code, id);
+    const family = id.startsWith("tree_structure") ? 0 : id.startsWith("rule_matching") ? 1 : id.startsWith("final_") ? 2 : 0;
+    const printed = rub && rub.printed_question != null ? Number(rub.printed_question) : null;
+    const numMatch = /(\d+)/.exec(id);
+    const n = printed != null && !Number.isNaN(printed) ? printed : (numMatch ? Number(numMatch[1]) : 10000);
+    return family * 100000 + n;
+  }
+  function explorerModel(code) {
+    const seen = new Map();
+    const responseGroups = [];
+    STUDENTS.forEach((s) => {
+      const o = C.ws[s][code] && C.ws[s][code].ocr;
+      if (!o) return;
+      o.responses.forEach((r) => {
+        const id = groupIdOf(code, r);
+        if (!seen.has(id)) {
+          const g = { id, label: groupLabel(code, id), paths: [] };
+          seen.set(id, g);
+          responseGroups.push(g);
+        }
+        const g = seen.get(id);
+        if (!g.paths.some((p) => p.path === r.path)) g.paths.push({ path: r.path, label: fieldDisplay(code, r.path) });
+      });
+    });
+    responseGroups.sort((a, b) => sortKey(code, a.id) - sortKey(code, b.id) || a.id.localeCompare(b.id));
+    const scoreIds = [];
+    STUDENTS.forEach((s) => {
+      const sc = C.ws[s][code] && C.ws[s][code].scoring;
+      if (!sc) return;
+      (sc.items || []).forEach((it) => { if (!scoreIds.includes(it.item)) scoreIds.push(it.item); });
+    });
+    const aligned = scoreIds.length > 0 && responseGroups.length > 0 && responseGroups.every((g) => scoreIds.includes(scoreItemForGroup(code, g.id)));
+    return { responseGroups, scoreIds, aligned };
+  }
+  function wsHref(code, q) {
+    const p = new URLSearchParams();
+    ["view", "mode", "item", "student"].forEach((k) => { if (q[k]) p.set(k, q[k]); });
+    const s = p.toString();
+    return `#/explore/worksheet/${encodeURIComponent(code)}${s ? `?${s}` : ""}`;
+  }
+  function renderFields(student, code, group) {
+    const o = C.ws[student][code].ocr;
+    if (!o) return `<p class="missing-line">No extraction file for this student.</p>`;
+    const rows = group.paths.map((p) => {
+      const hits = o.responses.filter((r) => r.path === p.path);
+      if (!hits.length) return `<dt>${h(p.label)}</dt><dd><p class="missing-line">Not in this extraction.</p></dd>`;
+      return hits.map((r) => {
+        const st = responseState(r.value);
+        const body = st.kind === "text" ? `<p class="response-text">${h(st.text)}</p>` : `<p class="missing-line">${h(st.text)}</p>`;
+        const dup = hits.length > 1 ? ` <span class="badge badge-flag">Duplicate record</span>` : "";
+        return `<dt>${h(p.label)}${dup}</dt><dd>${body}</dd>`;
+      }).join("");
+    }).join("");
+    return `<dl class="field-list">${rows}</dl>`;
+  }
+  function renderScore(student, code, itemId) {
+    const ov = OVERRIDE[`${student}|${code}|${itemId}`];
+    const rec = C.ws[student][code];
+    const sc = rec.scoring;
+    const stage = rec.stage && rec.stage.scoring;
+    if (!sc) {
+      if (stage && stage.all_zero_with_zero_confidence) {
+        return `<p class="missing-line">A scoring file exists and gives every item 0 with confidence 0. Those numbers are not shown as scores.</p>${src(stage.source)}`;
+      }
+      if (stage) return `<p class="missing-line">A scoring file exists but is not in the published score table.</p>${stage.note ? `<p class="small">${h(stage.note)}</p>` : ""}${src(stage.source)}`;
+      return `<p class="missing-line">No scoring file for this student.</p>`;
+    }
+    const it = (sc.items || []).find((i) => i.item === itemId);
+    if (!it) return `<p class="missing-line">This item is not in the published scoring file.</p>`;
+    let badge = `<span class="badge">Automated preliminary score</span>`;
+    let note = `<p class="small">Produced by the scoring pipeline. A researcher decision is not recorded for this item.</p>`;
+    if (it.review) {
+      badge = `<span class="badge badge-flag">Automated score, flagged for review</span>`;
+      note = `<p class="small">The review flag means the pipeline asked for a person to check this item. The file does not record a later human decision.</p>`;
+    }
+    if (ov) {
+      badge = `<span class="badge">Researcher override recorded</span>`;
+      note = `<p class="small">Override rationale, as stored: ${h(ov.rationale || "No rationale text in the file.")}</p>${src(ov.source)}`;
+    }
+    const rubricMax = rubricItem(code, itemId) && rubricItem(code, itemId).max_score;
+    const maxShown = it.max_score != null ? it.max_score : rubricMax;
+    const max = maxShown == null ? "" : ` of ${h(maxShown)}`;
+    const conf = it.confidence == null ? "" : ` <span class="small">confidence ${h(it.confidence)}</span>`;
+    return `<p>${badge} <strong>${h(it.score)}${max}</strong>${conf}</p>${note}`;
+  }
+  function renderTotal(student, code) {
+    const sc = C.ws[student][code].scoring;
+    if (!sc || sc.total_score == null) return "";
+    return `<p class="small">Stored total ${h(sc.total_score)} of ${h(sc.max_score)}. Copied from the scoring file and not recalculated here.</p>${src(sc.source)}`;
+  }
+  function checkLine(student, code, groupId) {
+    const o = C.ws[student][code].ocr;
+    if (!o) return "";
+    const id = scoreItemForGroup(code, groupId);
+    const c = o.checks.find((x) => x.check === `item_checks.${id}` || x.check === id || x.check === `item_checks.${groupId}` || x.check === groupId);
+    if (!c) return "";
+    const verdict = c.correct === true ? "records this as correct" : c.correct === false ? "records this as not correct" : "records no verdict";
+    const flag = c.flag ? ` Flag: ${h(c.flag)}.` : "";
+    return `<p class="small">Automated check ${verdict}.${flag} This is the pipeline check, not a researcher-reviewed decision.</p>`;
+  }
+  function studentHead(student) {
+    return `<header><h3><a href="#/explore/student/${h(student)}">${h(student)}</a></h3><a class="small" href="#/explore/student/${h(student)}/worksheets">Student profile</a></header>`;
+  }
+
+  function pageCollected() {
+    return `<div class="page">${crumbs([["Collected data"]])}
+      <p class="kicker">Collected data</p>
+      <h1>Collected data</h1>
+      <p class="lead">Material gathered from the ${STUDENTS.length} pre-service teachers in the 2026 decision-tree unit. These pages show the evidence. Processing steps, checks, and research claims are in the other sections.</p>
+      <ul class="ia-list">
+        <li><a href="#/explore/worksheets">Worksheets and student responses</a><p>${C.worksheets.length} worksheets. Open one to read responses by item or by student. Names on this site are pseudonyms.</p></li>
+        <li><a href="#/explore/students">Student profiles</a><p>Each pseudonym collects that person’s worksheets, recordings, logs, and notebook, where those files exist.</p></li>
+        <li><a href="#/explore/recordings">Screen recordings</a><p>CODAP Arbor sessions. A row is one student in one session.</p></li>
+        <li><a href="#/explore/frames">Frame explorer</a><p>${num(F.length)} frames listed in the session manifests. Each frame keeps the reason it was selected.</p></li>
+        <li><a href="#/explore/logs">CODAP platform logs</a><p>${num(logEvents)} time-stamped actions. Logs are not matched to individual frames.</p></li>
+      </ul>
+      <p>A worksheet response is not joined to a screen frame or a log event anywhere in the files this site reads. Pseudonyms are the link between a response and a student profile.</p>
+    </div>`;
+  }
+  function pageFindings() {
+    const nOverride = (DOCS.overrides || []).length;
+    return `<div class="page">${crumbs([["Findings and research insights"]])}
+      <p class="kicker">Findings and research insights</p>
+      <h1>Findings and research insights</h1>
+      <p class="lead">This section is for results a researcher has reviewed and reported. No findings report is part of the site data, so this page does not state what students learned.</p>
+      <h2>What is not published here</h2>
+      <ul>
+        <li>No competency levels, learning gains, or conclusions about the decision-tree unit.</li>
+        <li>Counts on the overview describe the collection. They are not outcomes.</li>
+        <li>Worksheet scores elsewhere on the site are pipeline outputs. A review flag means the pipeline asked for a person to look. It does not mean a person accepted the score.</li>
+        <li>${nOverride ? `${nOverride} scoring items store a researcher override and a rationale. All of them are WS5 item WS5_B25. They are recorded adjustments to an automated score, not a finding about learning. <a href="#/explore/worksheet/WS5?view=compare&mode=score&item=WS5_B25">See them on worksheet 5</a>.` : "No researcher-override records were found in the scoring files."}</li>
+      </ul>
+      <h2>Where to read the evidence</h2>
+      <ul class="ia-list">
+        <li><a href="#/explore/worksheets">Collected worksheets</a><p>Responses, answer keys, and stored scores, labelled by how they were produced.</p></li>
+        <li><a href="#/methods">Processing and analysis</a><p>How extraction, checks, and notebook inspection were done.</p></li>
+        <li><a href="#/docs/limitations">Data notes</a><p>Missing files, duplicate recordings, and places where the files disagree with the written method.</p></li>
+      </ul>
+    </div>`;
+  }
+
   const WS_GROUPS = [
     { label: "Conceptual foundations", codes: ["WS1"] },
     { label: "Manual classification", codes: ["WS3", "WS4", "WS5"] },
-    { label: "Building decision trees", codes: ["WS6", "WS7", "WS10"] },
+    { label: "Building decision trees", codes: ["WS6", "WS7", "WS10", "WS12"] },
     { label: "CODAP Arbor sessions", codes: ["WS13", "WS14", "WS15"] },
     { label: "Feedback survey", codes: ["WS11"] },
   ];
+  function pipelineShort(w) {
+    const policy = w.rubric_data && w.rubric_data.scoring_policy;
+    if (policy && policy.basis === "internal_consistency") return "Consistency check";
+    if (w.code === "WS11") return "Not used as scored evidence";
+    if (w.pipeline === "deterministic") return "Rule-based check";
+    return "Rubric scoring";
+  }
+  function catalogueTopic(code) {
+    const info = WS_INFO[code] || {};
+    if (info.topic) return info.topic;
+    const note = docOf(code).schema_note || "";
+    if (!note) return "";
+    const cut = note.split(/\. (?=[A-Z])/)[0];
+    return cut.endsWith(".") ? cut : `${cut}.`;
+  }
+  function extractedLabel(code) {
+    const n = STUDENTS.filter((s) => C.ws[s][code].ocr).length;
+    if (code === "WS11" && WS11_IS_WS14) return `${n} files, identical to WS14`;
+    if (!n) return "No extraction files";
+    const missing = STUDENTS.filter((s) => !C.ws[s][code].ocr);
+    return missing.length ? `${n} of ${STUDENTS.length}; missing ${missing.join(", ")}` : `${n} of ${STUDENTS.length}`;
+  }
   function pageWorksheets() {
-    const wsMap = Object.fromEntries(C.worksheets.map((w) => [w.code, w]));
-    const allCards = C.worksheets.map((w) => {
-      const info = WS_INFO[w.code] || {};
-      const have = STUDENTS.filter((s) => C.ws[s][w.code].ocr).length;
-      const dl = (C.downloads && C.downloads.worksheets || []).find((d) => d.code === w.code);
-      const links = [`<a href="#/explore/worksheet/${h(w.code)}">Student responses</a>`];
-      if (dl) links.push(`<a href="${h(dl.file)}" download>Download PDF</a>`);
-      const group = (WS_GROUPS.find((g) => g.codes.includes(w.code)) || {}).label || "";
-      return `<article class="ws-card" data-code="${h(w.code)}" data-group="${h(group)}" data-title="${h(wsTitle(w)).toLowerCase()} ${h((info.topic || "")).toLowerCase()} ${h(group).toLowerCase()}">
-        <div class="ws-card-code">${h(w.code)}</div>
-        <h3 class="ws-card-title">${h(wsTitle(w))}</h3>
-        ${info.date ? `<div class="ws-card-date">${h(info.date)}</div>` : ""}
-        <p class="ws-card-desc">${h(info.topic || "")}</p>
-        <div class="ws-card-actions">${links.join("")}<span class="small">${have} of ${STUDENTS.length} with answers</span></div>
-      </article>`;
-    });
+    const groups = WS_GROUPS.map((g) => ({ label: g.label, codes: g.codes.filter((c) => C.worksheets.some((w) => w.code === c)) }));
+    const listed = new Set(groups.flatMap((g) => g.codes));
+    const rest = C.worksheets.map((w) => w.code).filter((c) => !listed.has(c));
+    if (rest.length) groups.push({ label: "Other recorded worksheets", codes: rest });
+    const body = groups.map((g) => {
+      const rows = g.codes.map((code) => {
+        const w = C.worksheets.find((x) => x.code === code);
+        if (!w) return "";
+        const info = WS_INFO[code] || {};
+        const doc = docOf(code);
+        const topic = catalogueTopic(code);
+        const pdf = doc.worksheet_pdf ? `<a href="${h(doc.worksheet_pdf)}" download>Blank PDF</a>` : `<span class="na">No blank PDF</span>`;
+        const template = w.rubric_data && w.rubric_data.scoring_policy && w.rubric_data.scoring_policy.no_canonical_tree;
+        const ak = answerKeyHref(w) ? `<a href="${h(answerKeyHref(w))}" download>${template ? "Printed template" : "Answer key"}</a>` : `<span class="na">${template ? "No template PDF" : "No answer key"}</span>`;
+        const blob = `${code} ${wsTitle(w)} ${topic} ${g.label} ${pipelineShort(w)}`.toLowerCase();
+        return `<tr class="ws-card" data-code="${h(code)}" data-group="${h(g.label)}" data-title="${h(blob)}">
+          <td><a href="#/explore/worksheet/${h(code)}">${h(code)}</a><div>${h(wsTitle(w))}</div><div class="small">${h(topic)}</div></td>
+          <td>${info.date ? h(info.date) : '<span class="na">No class date on file</span>'}</td>
+          <td>${h(extractedLabel(code))}</td>
+          <td><span title="${h(howChecked(w))}">${h(pipelineShort(w))}</span></td>
+          <td>${pdf}<br>${ak}</td>
+        </tr>`;
+      }).join("");
+      return `<tbody class="ws-group" data-codes="${h(g.codes.join(","))}"><tr><th colspan="5">${h(g.label)}</th></tr>${rows}</tbody>`;
+    }).join("");
     const chips = `<div class="ws-filters" role="group" aria-label="Filter by worksheet purpose">${["All"].concat(WS_GROUPS.map((g) => g.label)).map((label, i) =>
       `<button type="button" class="chip${i === 0 ? " on" : ""}" data-group="${i === 0 ? "" : h(label)}" aria-pressed="${i === 0 ? "true" : "false"}">${h(label)}</button>`).join("")}</div>`;
-    const groups = WS_GROUPS.map((g) => {
-      const cards = g.codes.map((code) => {
-        const idx = C.worksheets.findIndex((w) => w.code === code);
-        return idx >= 0 ? allCards[idx] : "";
-      }).join("");
-      return `<section class="ws-group" data-codes="${h(g.codes.join(","))}"><h2 class="ws-group-label">${h(g.label)}</h2><div class="ws-group-cards">${cards}</div></section>`;
-    }).join("");
-    return `<div class="page wide">${exploreShell("worksheets", `
+    return `<div class="page wide">${crumbs([["Collected data", "#/collected"], ["Worksheets"]])}
+      ${exploreShell("worksheets", `
       <h1>Worksheets</h1>
-      <p class="lead">${C.worksheets.length} paper worksheets from the unit. Search by title or topic, or filter by purpose. Each card links to student responses and the blank PDF.</p>
+      <p class="lead">The worksheet is the unit of browsing. ${C.worksheets.length} worksheets are in this archive. Search by title or topic, or filter by the purpose used to group them. Open a worksheet to read responses and any stored scores.</p>
       <div class="ws-search-bar">
-        <input type="search" id="wsSearch" placeholder="Search worksheets…" aria-label="Search worksheets">
+        <label class="sr-only" for="wsSearch">Search worksheets</label>
+        <input type="search" id="wsSearch" placeholder="Search by code, title, or topic" autocomplete="off">
         <span class="ws-count" id="wsCount">${C.worksheets.length} worksheets</span>
       </div>
       ${chips}
-      <div id="wsGroups">${groups}</div>
+      <div class="catalogue-wrap" id="wsGroups">
+        <table class="catalogue">
+          <thead><tr><th scope="col">Worksheet</th><th scope="col">In class</th><th scope="col">Extracted responses</th><th scope="col">Check</th><th scope="col">Files</th></tr></thead>
+          ${body}
+        </table>
+      </div>
       <p class="empty" id="wsEmpty" hidden>No worksheets match. Clear the search or choose All.</p>
+      <p class="small">WS_DT_INTRO is not listed. An audit in the repository describes its extraction as the same text as WS13, and this site does not publish it as a separate worksheet. The final lizard project is under <a href="#/explore/notebooks">Python notebooks</a>.</p>
       <p>${methodLink("worksheets")}</p>`)}</div>`;
   }
 
-  function pageWorksheet(code) {
-    const w = C.worksheets.find((x) => x.code === code);
-    if (!w) return pageWorksheets();
-    const info = WS_INFO[code] || {};
-    const have = STUDENTS.filter((s) => C.ws[s][code].ocr);
-    const cols = [];
-    have.forEach((s) => C.ws[s][code].ocr.checks.forEach((c) => { if (!cols.includes(c.check)) cols.push(c.check); }));
-
-    // Answer key + scoring criteria section
-    let answerKey = "";
-    if (w.rubric_data && w.rubric_data.items) {
-      const items = Object.entries(w.rubric_data.items);
-      const akLink = w.answer_key_url
-        ? `<p><a href="${h(w.answer_key_url)}" download>Download answer key PDF</a></p>`
-        : "";
-      answerKey = `<h2 id="answer-key">Answer key and scoring criteria</h2>
-        ${akLink}
-        <p class="small">Expected answers and scoring rules from the researcher's rubric, in worksheet order. The expected text is shown as written in the rubric.</p>
-        ${table([{ t: "Item" }, { t: "Expected answer" }, { t: "Scoring rules" }],
-          items.map(([id, item]) => {
-            const q = rubricItemLabel(code, id, 72) || (item.printed_question != null ? `Question ${item.printed_question}` : id.replace(/^[A-Z0-9]+_/, ""));
-            const expected = item.expected_answer || "";
-            const rules = Object.entries(item.scoring_rules || {}).map(([score, rule]) => {
-              const cond = typeof rule === "string" ? rule : (rule.condition || "");
-              return `<li><b>${h(score)}</b> — ${h(cond)}</li>`;
-            }).join("");
-            return { cells: [`<b>${h(q)}</b>`, h(expected), `<ul class="scoring-rules">${rules}</ul>`] };
-          }))}`;
-    } else if (w.answer_key_url) {
-      answerKey = `<h2 id="answer-key">Answer key</h2><p><a href="${h(w.answer_key_url)}" download>Download answer key PDF</a></p>`;
+  function loSection(code) {
+    const mapping = docOf(code).mapping;
+    if (!mapping) {
+      return `<section class="section-block" id="objectives"><h2>Documented learning objectives</h2><p>No competency mapping file is in <code>mappings/</code> for ${h(code)}. Nothing on this page assigns a learning outcome.</p></section>`;
     }
-
-    // Student results matrix
-    let matrix = "";
-    if (cols.length) {
-      const alias = ITEM_ALIAS[code] || {};
-      const body = have.map((s) => {
-        const o = C.ws[s][code].ocr;
-        const by = Object.fromEntries(o.checks.map((c) => [c.check, c]));
-        const correct = o.checks.filter((c) => c.correct === true).length;
-        const total = o.checks.length;
-        return `<tr class="click" data-href="#/explore/student/${h(s)}/worksheets"><td><a href="#/explore/student/${h(s)}/worksheets">${h(s)}</a></td>${cols.map((c) => {
-          const k = by[c];
-          if (!k) return `<td class="cell na">·</td>`;
-          const item = c.replace(/^item_checks\./, "");
-          const label = rubricItemLabel(code, item, 28) || checkLabel(c);
-          const vals = o.responses.filter((x) => (alias[x.item] || x.item) === item || x.item === c).map((x) => x.value).slice(0, 3);
-          return `<td class="cell"${tipAttr(`<b>${h(s)} · ${h(label)}</b><br>${k.correct === true ? "Correct" : k.correct === false ? "Not correct" : "No verdict"}${vals.length ? "<br>Answer: " + vals.map(h).join(" · ") : ""}`)}>${mark(k.correct)}</td>`;
-        }).join("")}<td class="num">${correct}/${total}</td></tr>`;
+    const by = {};
+    Object.entries(mapping.items || {}).forEach(([id, arr]) => {
+      (arr || []).forEach((x) => {
+        if (!x.lo) return;
+        (by[x.lo] = by[x.lo] || []).push(Object.assign({ id }, x));
+      });
+    });
+    const rows = Object.entries(by).map(([lo, items]) => ({
+      cells: [
+        `<code>${h(lo)}</code>`,
+        h(items.map((x) => x.expected_level).filter((v, i, a) => v && a.indexOf(v) === i).join(", ") || "–"),
+        items.map((x) => `<p><code>${h(x.id)}</code> ${h(x.rationale || "")}</p>`).join(""),
+      ],
+    }));
+    return `<section class="section-block" id="objectives"><h2>Documented learning objectives</h2>
+      <p>From the competency mapping file. These lines say what an item was written to evidence. They are not scores, and they are not findings about what a student achieved.</p>
+      ${mapping.framework ? `<p class="small">${h(mapping.framework)}</p>` : ""}
+      ${table([{ t: "Mapped code" }, { t: "Mapped level in the file" }, { t: "Item note in the mapping" }], rows)}
+      ${src(mapping.source)}</section>`;
+  }
+  function instructionsSection(code) {
+    const doc = docOf(code);
+    const questions = (doc.fields || []).filter((f) => f.question_tr);
+    let q = "";
+    if (questions.length) {
+      q = table([{ t: "Field" }, { t: "Printed question recorded in the schema" }], questions.map((f) => ({
+        cells: [`<code>${h(f.field_id)}</code>`, `<span class="orig">${h(f.question_tr)}</span>`],
+      })));
+    } else {
+      q = `<p>The extraction schema does not store a separate transcription of the student-facing instructions. The wording handed out is the blank PDF, where that file is in the archive.</p>`;
+    }
+    const note = doc.schema_note ? `<h3>Extraction schema note</h3><p>${h(doc.schema_note)}</p>${src(doc.schema)}` : `<p class="missing-line">No extraction schema note is on file for this worksheet.</p>`;
+    return `<section class="section-block" id="instructions"><h2>Purpose and instructions</h2>
+      <p>${h((WS_INFO[code] || {}).topic || "No purpose statement is stored for this worksheet beyond its title.")}</p>
+      ${note}${q}</section>`;
+  }
+  function pdfSection(code) {
+    const doc = docOf(code);
+    const file = doc.worksheet_pdf
+      ? `<p><a href="${h(doc.worksheet_pdf)}" download>Download the blank worksheet PDF</a></p>`
+      : `<p class="missing-line">No blank worksheet PDF is in the site downloads. The build report records it as missing when the source file was not in <code>mmla_explorer/materials/worksheets/</code>.</p>`;
+    return `<section class="section-block" id="source-pdf"><h2>Original worksheet</h2>
+      <p>This is the blank edition, where a file was copied into the site. Scanned student pages are not shown here.</p>
+      ${file}</section>`;
+  }
+  function rubricSection(w) {
+    const href = answerKeyHref(w);
+    const policy = w.rubric_data && w.rubric_data.scoring_policy;
+    const noKey = policy && policy.no_canonical_tree;
+    const link = href
+      ? (noKey
+        ? `<p><a href="${h(href)}" download>Download the printed template PDF</a>. The rubric says scores are not compared with one correct tree.</p>`
+        : `<p><a href="${h(href)}" download>Download the answer-key PDF</a></p>`)
+      : (noKey
+        ? `<p>The rubric records that there is no single correct tree, and no template PDF is on file.</p>`
+        : `<p class="missing-line">No answer-key PDF is on file for this worksheet.</p>`);
+    if (!(w.rubric_data && w.rubric_data.items)) {
+      return `<section class="section-block" id="answer-key"><h2>Answer key and scoring rubric</h2>${link}<p class="missing-line">No rubric file was found for this worksheet, so scoring rules are not shown.</p></section>`;
+    }
+    const items = Object.entries(w.rubric_data.items);
+    const consistency = items.some(([, item]) => item && (item.components || item.label) && !item.scoring_rules);
+    const tableHtml = consistency
+      ? table([{ t: "Item" }, { t: "What the rubric checks" }], items.map(([id, item]) => {
+          const bits = []
+            .concat(item.note ? [item.note] : [])
+            .concat((item.components || []).map((c) => c.idea).filter(Boolean));
+          return { cells: [`<b>${h(item.label || id)}</b><div class="small"><code>${h(id)}</code>${item.max_score == null ? "" : ` · max ${h(item.max_score)}`}</div>`, bits.map((b) => `<p>${h(b)}</p>`).join("") || `<span class="na">No criterion text in the file</span>`] };
+        }))
+      : table([{ t: "Item" }, { t: "Expected answer" }, { t: "Scoring rules" }], items.map(([id, item]) => {
+          const q = rubricItemLabel(w.code, id, 72) || id;
+          const rules = Object.entries(item.scoring_rules || {}).map(([score, rule]) => {
+            const cond = typeof rule === "string" ? rule : (rule && rule.condition) || "";
+            return `<li><b>${h(score)}</b> — ${h(cond)}</li>`;
+          }).join("");
+          return { cells: [`<b>${h(q)}</b><div class="small"><code>${h(id)}</code></div>`, h(item.expected_answer || ""), rules ? `<ul class="scoring-rules">${rules}</ul>` : `<span class="na">No rules in the file</span>`] };
+        }));
+    const intro = w.rubric_data.note ? `<p>${h(w.rubric_data.note)}</p>` : `<p class="small">Expected answers and scoring rules from the rubric file, in the file’s order. Text is shown as written, including Turkish.</p>`;
+    return `<section class="section-block" id="answer-key"><h2>Answer key and scoring rubric</h2>
+      ${link}
+      ${intro}
+      ${tableHtml}
+      ${src(w.rubric)}</section>`;
+  }
+  function summarySection(code, model) {
+    const withOcr = STUDENTS.filter((s) => C.ws[s][code].ocr);
+    const without = STUDENTS.filter((s) => !C.ws[s][code].ocr);
+    let values = 0, blanks = 0;
+    withOcr.forEach((s) => C.ws[s][code].ocr.responses.forEach((r) => { values += 1; if (isEmptyResponse(r.value)) blanks += 1; }));
+    const published = STUDENTS.filter((s) => C.ws[s][code].scoring);
+    const totals = published.map((s) => C.ws[s][code].scoring).filter((sc) => typeof sc.total_score === "number");
+    const maxes = [...new Set(totals.map((sc) => sc.max_score))];
+    let range = "";
+    if (totals.length && maxes.length === 1 && typeof maxes[0] === "number") {
+      const nums = totals.map((sc) => sc.total_score);
+      range = `<p>Stored automated totals for ${totals.length} student${totals.length === 1 ? "" : "s"} range from ${h(Math.min(...nums))} to ${h(Math.max(...nums))} out of ${h(maxes[0])}. Those totals are copied from the scoring files and were not recalculated. They are not a competency measure.</p>`;
+    }
+    const excluded = STUDENTS.filter((s) => !C.ws[s][code].scoring && C.ws[s][code].stage && C.ws[s][code].stage.scoring && C.ws[s][code].stage.scoring.all_zero_with_zero_confidence);
+    const alignNote = model.scoreIds.length && !model.aligned
+      ? `<p>Scoring item identifiers and extracted field identifiers are different for this worksheet, so scores are not placed on individual response fields. Both are shown, in separate views.</p>`
+      : "";
+    const buckets = new Map();
+    withOcr.forEach((s) => {
+      const sig = C.ws[s][code].ocr.responses.map((r) => `${r.path}\u0000${r.value}`).join("\n");
+      if (!buckets.has(sig)) buckets.set(sig, []);
+      buckets.get(sig).push(s);
+    });
+    const dupGroups = [...buckets.values()].filter((g) => g.length > 1);
+    const dupNote = dupGroups.length ? `<p>Identical extracted values: ${dupGroups.map((g) => g.map(h).join(" and ")).join("; ")}.${(C.worksheets.find((x) => x.code === code).rubric_data || {}).scoring_policy && (C.worksheets.find((x) => x.code === code).rubric_data.scoring_policy.group_policy) ? ` The rubric says: ${h(C.worksheets.find((x) => x.code === code).rubric_data.scoring_policy.group_policy)}.` : ""}</p>` : "";
+    return `<section class="section-block" id="summary"><h2>What can be counted</h2>
+      <p>${withOcr.length} of ${STUDENTS.length} students have an extraction file.${without.length ? ` No extraction file: ${without.map(h).join(", ")}.` : ""} Of ${num(values)} extracted values in those files, ${num(blanks)} are blank, empty, or marked not extracted.</p>
+      <p>${published.length ? `Published scoring files: ${published.length}.` : "No published scoring file."}${excluded.length ? ` ${excluded.length} scoring file${excluded.length === 1 ? " is" : "s are"} excluded because every item is 0 with confidence 0 (${excluded.map(h).join(", ")}).` : ""}</p>
+      ${range}${alignNote}${dupNote}
+      ${code === "WS11" && WS11_IS_WS14 ? `<div class="warn">For every student, the WS11 extraction values are identical to that student’s WS14 extraction. They are not counted above as WS11 survey answers. Read them on <a href="#/explore/worksheet/WS14">WS14</a>.</div>` : ""}
+      </section>`;
+  }
+  function provenanceSection(w, model) {
+    const code = w.code;
+    const doc = docOf(code);
+    const clashes = [];
+    STUDENTS.forEach((s) => {
+      const snap = C.ws[s][code].ocr && C.ws[s][code].ocr.snapshot;
+      const others = namesInText(snap, s);
+      if (others.length) clashes.push(`${s} (summary also names ${others.join(", ")})`);
+    });
+    const prohibit = doc.interpretation_prohibited === true
+      ? `<p>The extraction schema sets <code>interpretation_prohibited</code>. The extracted text is not a competency judgement.</p>` : "";
+    return `<section class="section-block" id="provenance"><h2>Data provenance</h2>
+      ${prohibit}
+      ${kv([
+        ["How answers were checked", h(howChecked(w))],
+        ["Pipeline label in the site data", `<code>${h(w.pipeline || "–")}</code>`],
+        ["Response fields in the schema", w.fields_in_schema == null ? "–" : num(w.fields_in_schema)],
+        ["Extracted field groups", num(model.responseGroups.length)],
+        ["Published scoring items", model.scoreIds.length ? num(model.scoreIds.length) : "None"],
+        ["Curriculum status in the schema", h(doc.curriculum_status || "Not recorded")],
+      ])}
+      ${code === "WS11" && WS11_IS_WS14 ? `<p>The extraction files under WS11 repeat WS14 for every student. Field counts above describe that repeated text, not a WS11 survey.</p>` : ""}
+      ${clashes.length ? `<div class="warn">Model-written page summaries name a different pseudonym from the file for: ${clashes.map(h).join("; ")}. Those summaries are not treated as verified attributions, and they are not quoted here.</div>` : ""}
+      <p>There is no verified join from a worksheet item to a screen recording or a CODAP log event. A pseudonym does link to that student’s <a href="#/explore/students">profile</a>.</p>
+      <p>${methodLink("worksheets", "Extraction and scoring methods")} <a href="#/docs/limitations">Data notes</a></p>
+      ${tech("Source paths", [w.schema, w.rubric, w.answer_key || doc.answer_key, doc.schema].filter(Boolean).map(src).join(""))}</section>`;
+  }
+  function ws11ResponseSection() {
+    const doc = docOf("WS11");
+    const fields = doc.fields || [];
+    const rows = fields.map((f) => ({
+      cells: [
+        `<code>${h(f.field_id)}</code>`,
+        f.question_tr ? `<span class="orig">${h(f.question_tr)}</span>` : h(f.location_hint || "No printed question stored"),
+        `<span class="missing-line">No extracted WS11 response</span>`,
+      ],
+    }));
+    return `<section class="section-block" id="responses"><h2>Student responses</h2>
+      <div class="warn">The WS11 extraction files repeat WS14. For all ${STUDENTS.length} students, every extracted path and value matches that student’s WS14 file. The WS11 rubric uses different item identifiers. Those files are not shown again here as survey answers. The WS14 responses are on <a href="#/explore/worksheet/WS14">the WS14 page</a>.</div>
+      <p>Each schema field is listed so the missing WS11 responses stay visible. Published scoring files for WS11 are absent; stage score files that are all zeros with confidence 0 are not shown as scores.</p>
+      ${fields.length ? table([{ t: "Schema field" }, { t: "What the schema records" }, { t: "Extraction" }], rows, { max: 520 }) : `<p class="missing-line">The extraction schema fields could not be loaded.</p>`}
+      </section>`;
+  }
+  function responseExplorer(w, q) {
+    const code = w.code;
+    const model = explorerModel(code);
+    const hasScores = model.scoreIds.length > 0;
+    const view = q.view === "student" ? "student" : "compare";
+    const mode = q.mode === "score" && hasScores ? "score" : "response";
+    const items = mode === "score" && !model.aligned
+      ? model.scoreIds.map((id) => ({ id, label: itemTitle(code, id), paths: [], scoreOnly: true }))
+      : model.responseGroups;
+    let item = q.item && items.some((g) => g.id === q.item) ? q.item : (items[0] && items[0].id);
+    if (q.item && item !== q.item) item = items[0] && items[0].id;
+    const student = STUDENTS.includes(q.student) ? q.student : (STUDENTS.find((s) => C.ws[s][code].ocr) || STUDENTS[0]);
+    const base = { view, mode, item, student: view === "student" ? student : "" };
+    const switcher = `<div class="view-switch">
+      <div class="switch-set" role="group" aria-label="Response arrangement">
+        <a href="${wsHref(code, Object.assign({}, base, { view: "compare", student: "" }))}" ${view === "compare" ? 'aria-current="true"' : ""}>Compare students</a>
+        <a href="${wsHref(code, Object.assign({}, base, { view: "student" }))}" ${view === "student" ? 'aria-current="true"' : ""}>Inspect one student</a>
+      </div>
+      ${hasScores ? `<div class="switch-set" role="group" aria-label="Response or score">
+        <a href="${wsHref(code, Object.assign({}, base, { mode: "response" }))}" ${mode === "response" ? 'aria-current="true"' : ""}>Responses</a>
+        <a href="${wsHref(code, Object.assign({}, base, { mode: "score" }))}" ${mode === "score" ? 'aria-current="true"' : ""}>Scores</a>
+      </div>` : `<span class="small">No published scores for this worksheet.</span>`}
+    </div>`;
+    const tools = `<div class="resp-tools">
+      ${view === "student" ? `<label>Student<select id="respStudent" aria-label="Pseudonym">${STUDENTS.map((s) => `<option value="${h(s)}"${s === student ? " selected" : ""}>${h(s)}${C.ws[s][code].ocr ? "" : " — no extraction"}</option>`).join("")}</select></label>` : `<label>Filter students<input type="search" id="respFilter" placeholder="Pseudonym" autocomplete="off"></label><span class="small" id="respCount"></span>`}
+    </div>`;
+    let detail = "";
+    if (!items.length) {
+      detail = `<p class="empty">No extracted response fields are on file for this worksheet.</p>`;
+    } else if (view === "compare") {
+      const group = items.find((g) => g.id === item) || items[0];
+      const nav = `<nav class="item-nav" aria-label="Worksheet items">${items.map((g) => `<a href="${wsHref(code, { view: "compare", mode, item: g.id })}"${g.id === group.id ? ' aria-current="true"' : ""}>${h(g.label)}</a>`).join("")}</nav>`;
+      const scoreId = group.scoreOnly ? group.id : scoreItemForGroup(code, group.id);
+      const blocks = STUDENTS.map((s) => `<article class="response-block" data-student="${h(s)}">${studentHead(s)}
+          ${group.scoreOnly || mode === "score" ? "" : renderFields(s, code, group)}
+          ${group.scoreOnly || mode === "score" ? "" : checkLine(s, code, group.id)}
+          ${mode === "score" ? renderScore(s, code, scoreId) : ""}
+        </article>`).join("");
+      const align = mode === "score" && !model.aligned ? `<p class="small">These scoring identifiers are not the extracted field identifiers. The score is not attached to a response field.</p>` : "";
+      detail = `<div class="resp-layout">${nav}<div>${align}${blocks}<p class="empty" id="respEmpty" hidden>No students match that pseudonym.</p></div></div>`;
+    } else {
+      const showScore = mode === "score";
+      const blocks = items.map((g) => {
+        const scoreId = g.scoreOnly ? g.id : scoreItemForGroup(code, g.id);
+        return `<article class="response-block" id="item-${h(g.id)}"><h3>${h(g.label)}</h3>
+          ${g.scoreOnly ? "" : renderFields(student, code, g)}
+          ${g.scoreOnly ? "" : checkLine(student, code, g.id)}
+          ${showScore ? renderScore(student, code, scoreId) : ""}
+        </article>`;
       }).join("");
-      matrix = `<h2 id="responses">Student responses</h2><p>Each column is one check. The score is items marked correct out of checks recorded for that student. A dot means that check was not recorded. Hover a cell for the answer. Click a row to open that student.</p><div class="table-wrap"><table><tr><th>Student</th>${cols.map((c) => `<th class="vert" title="${h(questionLabel(code, c))}">${h(rubricItemLabel(code, c.replace(/^item_checks\./, ""), 28) || checkLabel(c))}</th>`).join("")}<th class="num">Items correct</th></tr>${body}</table></div>`;
+      const scoreTable = showScore && !model.aligned ? "" : "";
+      detail = `${renderTotal(student, code)}${!model.aligned && showScore ? `<p class="small">Scores below use the scoring file’s item identifiers. They are not matched onto the extracted fields.</p>` : ""}${blocks}${scoreTable}`;
+      if (showScore && !model.aligned) {
+        const scoreBlocks = model.scoreIds.map((id) => `<article class="response-block"><h3>${h(itemTitle(code, id))}</h3><p class="small"><code>${h(id)}</code></p>${renderScore(student, code, id)}</article>`).join("");
+        const responseBlocks = model.responseGroups.map((g) => `<article class="response-block"><h3>${h(g.label)}</h3>${renderFields(student, code, g)}</article>`).join("");
+        detail = `${renderTotal(student, code)}<h3>Extracted responses</h3>${responseBlocks}<h3>Stored scores</h3><p class="small">These identifiers are not the extracted field identifiers, so the two lists are not joined.</p>${scoreBlocks}`;
+      }
     }
-
-    // Processing workflow section
-    const isDeterministic = w.pipeline === "deterministic";
-    const workflow = `<h2 id="processing">How responses were processed</h2>
-      ${isDeterministic
-        ? `<p>This worksheet uses a <b>deterministic pipeline</b>. The language model reads and extracts the handwritten values. Python then checks each value against a fixed rule derived from the 11 food cards. There is no judgement call: a value either matches or it does not.</p>`
-        : `<p>This worksheet uses a <b>rubric-based pipeline</b>. The language model reads the handwriting and compares each answer against the researcher's rubric. Python aggregates the per-item scores. Partial credit (0.5) is possible where the rubric defines it.</p>`}
-      <p>${methodLink("worksheets", "Full description of the worksheet processing pipeline")}</p>`;
-
-    return `<div class="page wide">${exploreShell("worksheets", `
-      <p class="small"><a href="#/explore/worksheets">← All worksheets</a></p>
+    const knownSomewhere = q.item && (model.responseGroups.some((g) => g.id === q.item) || model.scoreIds.includes(q.item));
+    const unknown = q.item && view === "compare" && !items.some((g) => g.id === q.item) && !knownSomewhere
+      ? `<div class="warn">No item “${h(q.item)}” is in this worksheet. Showing the first item.</div>` : "";
+    const badStudent = q.view === "student" && q.student && !STUDENTS.includes(q.student)
+      ? `<div class="warn">No student with the pseudonym “${h(q.student)}”.</div>` : "";
+    return `<section class="section-block" id="responses"><h2>Student responses</h2>
+      <p>Compare one item across students, or read one student’s items in order. Response text is the extracted value, unchanged. Empty and missing values stay visible. Switch to scores only where a published scoring file exists.</p>
+      ${!model.aligned && hasScores && mode === "response" ? `<p class="small">Scoring identifiers differ from the extracted fields on this worksheet. Use the scores view to read the stored scores beside the responses.</p>` : ""}
+      ${unknown}${badStudent}${switcher}${tools}${detail}</section>`;
+  }
+  function bindRespFilter() {
+    const sel = document.getElementById("respStudent");
+    if (sel) {
+      sel.addEventListener("change", () => {
+        const hash = location.hash.replace(/^#\/?/, "");
+        const [path, query] = hash.split("?");
+        const p = new URLSearchParams(query || "");
+        p.set("view", "student");
+        p.set("student", sel.value);
+        location.hash = `#/${path}?${p.toString()}`;
+      });
+    }
+    const inp = document.getElementById("respFilter");
+    if (!inp) return;
+    const apply = () => {
+      const q = inp.value.trim().toLowerCase();
+      const rows = [...document.querySelectorAll("#responses [data-student]")];
+      let shown = 0;
+      rows.forEach((el) => {
+        const ok = !q || (el.dataset.student || "").toLowerCase().includes(q);
+        el.classList.toggle("ws-hidden", !ok);
+        if (ok) shown += 1;
+      });
+      const c = document.getElementById("respCount");
+      if (c) c.textContent = q ? `${shown} of ${rows.length} students` : `${rows.length} students`;
+      const empty = document.getElementById("respEmpty");
+      if (empty) empty.hidden = shown !== 0;
+    };
+    inp.addEventListener("input", apply);
+  }
+  function pageWorksheet(code, q) {
+    q = q || {};
+    const w = C.worksheets.find((x) => x.code === code);
+    if (!w) {
+      return `<div class="page">${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], ["Not found"]])}
+        <h1>Worksheet not found</h1><p>No worksheet with the code “${h(code)}” is in this archive.</p><p><a href="#/explore/worksheets">Back to the worksheets</a></p></div>`;
+    }
+    const info = WS_INFO[code] || {};
+    const model = explorerModel(code);
+    const doc = docOf(code);
+    const responses = code === "WS11" ? ws11ResponseSection() : responseExplorer(w, q);
+    const jump = `<nav class="jump" aria-label="On this page">
+      <a href="#overview">Overview</a>
+      <a href="#instructions">Instructions</a>
+      <a href="#objectives">Learning objectives</a>
+      <a href="#source-pdf">Worksheet PDF</a>
+      <a href="#answer-key">Answer key</a>
+      <a href="#responses">Responses</a>
+      ${code === "WS11" ? "" : `<a href="#summary">Counts</a>`}
+      <a href="#provenance">Provenance</a>
+    </nav>`;
+    return `<div class="page wide">${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], [code]])}
+      ${exploreShell("worksheets", `
       <h1>${h(code)} · ${h(wsTitle(w))}</h1>
       <p class="lead">${h(info.topic || "")}</p>
-      <nav class="jump" aria-label="On this page">
-        <a href="#about">About</a>
-        ${answerKey ? `<a href="#answer-key">Answer key</a>` : ""}
-        ${matrix ? `<a href="#responses">Student responses</a>` : ""}
-        <a href="#processing">Processing</a>
-      </nav>
-      <h2 id="about">About this worksheet</h2>
-      ${kv([["Used in class", h(info.date || "No scanned student file")], ["How answers were checked", `${h(howChecked(w))}`], ["Students with extracted answers", `${have.length} of ${STUDENTS.length}`]])}
-      <p>${methodLink("worksheets", "How worksheet processing works")}</p>
-      ${!have.length ? `<div class="warn">No student answers were extracted for this worksheet. <a href="#/docs/limitations">See data quality →</a></div>` : ""}
-      ${answerKey}
-      ${matrix}
-      ${workflow}
-      ${tech("Technical details", kv([["Internal key", `<code>${h(w.key)}</code>`], ["Response fields defined", num(w.fields_in_schema)]]) + src(w.schema) + src(w.rubric) + src(w.answer_key))}`)}</div>`;
+      ${jump}
+      <section class="section-block" id="overview"><h2>Overview</h2>
+        ${kv([
+          ["In class", h(info.date || "No class date on the scanned-file names")],
+          ["Check", h(howChecked(w))],
+          ["Students with an extraction file", `${STUDENTS.filter((s) => C.ws[s][code].ocr).length} of ${STUDENTS.length}`],
+          doc.curriculum_status && ["Schema curriculum status", h(doc.curriculum_status)],
+        ])}
+        ${doc.interpretation_prohibited ? `<p class="small">The schema forbids treating the extraction as an interpretation of competency.</p>` : ""}
+      </section>
+      ${instructionsSection(code)}
+      ${loSection(code)}
+      ${pdfSection(code)}
+      ${rubricSection(w)}
+      ${responses}
+      ${code === "WS11" ? "" : summarySection(code, model)}
+      ${provenanceSection(w, model)}
+      `)}</div>`;
   }
+
   function pageRecordings() {
     const rows = [];
     STUDENTS.forEach((s) => SESS.forEach((ss) => {
@@ -1062,6 +1532,7 @@
     const tot = {};
     allSessions.forEach((r) => { if (r.coding) addCounts(tot, r.coding.behaviors); });
     return `<div class="page wide">${exploreShell("recordings", `
+      ${crumbs([["Collected data", "#/collected"], ["Screen recordings"]])}
       <h1>Screen recordings</h1>
       <p class="lead">One row per student and session. The frame count is the manifest list for that session. ${num(codedFrameCount)} of ${num(F.length)} listed frames have a behaviour code. Where an extraction summary reports a different total, the session page says so.</p>
       ${legend(BEHAV.map((b) => b[0]))}
@@ -1080,6 +1551,7 @@
     Object.assign(fState, { s: q.s || "", ss: q.ss || "", b: q.b || "", prev: q.p === "1", page: 0, sel: q.f || null });
     const opt = (vals, cur, label = (x) => x) => `<option value="">All</option>` + vals.map((v) => `<option value="${h(v)}"${v === cur ? " selected" : ""}>${h(label(v))}</option>`).join("");
     return `<div class="page wide">${exploreShell("frames", `
+      ${crumbs([["Collected data", "#/collected"], ["Frame explorer"]])}
       <h1>Frame explorer</h1>
       <p class="lead">${num(F.length)} frames listed in the session manifests. ${num(codedFrameCount)} of them are coded for behaviour. Click a row to see what was observed and why the frame was taken.</p>
       <div class="filters">
@@ -1228,6 +1700,7 @@
     const sessionsWithData = STUDENTS.reduce((t, s) => t + Object.keys(logDays[s] || {}).length, 0);
     const L = C.logs;
     return `<div class="page wide">${exploreShell("logs", `
+      ${crumbs([["Collected data", "#/collected"], ["CODAP platform logs"]])}
       <h1>Platform logs</h1>
       <p class="lead">CODAP Arbor recorded every action. One row per student and session.</p>
       <div class="log-metrics">
@@ -1265,6 +1738,7 @@
       return { href: `#/explore/student/${s}/notebook`, cells: [`<a href="#/explore/student/${h(s)}/notebook">${h(s)}</a>`, e ? e.targets.map((t) => `<code>${h(t)}</code>`).join(" ") : "–", e ? num(e.models) : "–", f ? (f.cells_with_error_output ? "Yes" : "None") : "–", f ? num(f.order_reversals) : "–", tot == null ? "–" : `${num(tot, 1)} / ${num(pos, 1)}`] };
     });
     return `<div class="page wide">${exploreShell("notebooks", `
+      ${crumbs([["Data processing and analysis", "#/methods"], ["Python notebooks"]])}
       <h1>Python notebooks</h1>
       <p class="lead">The final project: decision trees on lizard data in Google Colab.</p>
       ${table([{ t: "Student" }, { t: "Target variables" }, { t: "Models", num: 1 }, { t: "Errors in outputs" }, { t: "Revisiting earlier code", num: 1 }, { t: "Rubric points", num: 1 }], rows)}
@@ -1274,8 +1748,9 @@
 
   // ------------------------------------------------------------------ 04 Documentation
   const docShell = (active, body) => {
-    const back = active ? `<p class="back"><a href="#/docs">← Data and downloads</a></p>` : "";
-    return `${back}<p class="kicker">Reference</p>${body}`;
+    const labels = { limitations: "Data notes", glossary: "Glossary", technical: "Technical documentation" };
+    const trail = active ? [["Reference and documentation", "#/docs"], [labels[active] || "Documentation"]] : [["Reference and documentation"]];
+    return `${crumbs(trail)}<p class="kicker">Reference and documentation</p>${body}`;
   };
 
   function pageDownloads() {
@@ -1298,9 +1773,11 @@
 
       <h2 id="guide">Where to go</h2>
       <ul class="guide">
-        <li><a href="#/">Overview</a><span>What the archive contains, and the counts behind it.</span></li>
-        <li><a href="#/methods">How the system works</a><span>How answers were read, frames were selected, and codes were checked.</span></li>
-        <li><a href="#/explore/worksheets">Worksheets</a><span>Purpose, student responses, and the blank PDFs.</span></li>
+        <li><a href="#/">Overview</a><span>What the archive contains, and how the sections differ.</span></li>
+        <li><a href="#/collected">Collected data</a><span>Worksheets, students, recordings, frames, and platform logs.</span></li>
+        <li><a href="#/methods">Processing and analysis</a><span>How answers were read, frames were selected, and codes were checked.</span></li>
+        <li><a href="#/findings">Findings</a><span>Researcher-reviewed results. None are published in this archive yet.</span></li>
+        <li><a href="#/explore/worksheets">Worksheets</a><span>One page per worksheet, with responses and stored scores.</span></li>
         <li><a href="#/explore/recordings">Screen recordings</a><span>One row per student and session, with behaviour over time.</span></li>
         <li><a href="#/explore/frames">Frame explorer</a><span>Manifest-listed frames and their behaviour codes.</span></li>
         <li><a href="#/explore/logs">Platform logs</a><span>CODAP Arbor actions. These logs are not a Hugging Face dataset.</span></li>
@@ -1387,6 +1864,7 @@
         gone.length && I("Some original videos are no longer in the data folder", `${gone.length} of ${videoFilesListed} listed videos: ${gone.map((r) => `${h(r.student)} (${h(SESS_NAME[r.session])})`).join(", ")}.`, "The frames and their coding remain, but they cannot be re-extracted or checked against the original video.", `Listed in <code>MANIFEST.json</code> of ${h(C.inventory.generated_at.slice(0, 10))}. Some processing folders hold re-encoded copies (<code>*.video.webm</code>) of different size.`),
         low.length && I("Frames cover only part of some videos", `${low.map((r) => `${h(r.student)} (${h(SESS_NAME[r.session])}, ${num(r.frame_coverage * 100)}%)`).join(", ")}.`, "Activity in the later part of these sessions is not represented in the frames.", table([{ t: "Student" }, { t: "Session" }, { t: "Last frame" }, { t: "Length in manifest" }, { t: "Real length" }], low.map((r) => ({ cells: [h(r.student), h(SESS_NAME[r.session]), clock(r.manifest.last_s), r.manifest.profile_duration_seconds ? clock(r.manifest.profile_duration_seconds) : "–", clock(lengthOf(r))] }))) + "<p>The extractor recorded the videos as shorter than they are. WebM files often carry no length in their header.</p>"),
         noOcr.length && I(`No extracted answers for ${noOcr.join(" and ")}`, "No student answers were extracted for these worksheets.", "These worksheets add no evidence to the analysis.", "Stage files in <code>students/</code> record a failed extraction. No scanned student file for WS11 is in <code>All Documents/</code>. A file named “31 Mart 2026 Çalışma Kâğıdı 12.pdf” exists but was not processed."),
+        WS11_IS_WS14 && I("WS11 extraction files repeat WS14", `For all ${STUDENTS.length} students, every path and value in the WS11 extraction is identical to that student’s WS14 extraction. The WS11 rubric uses different item identifiers.`, "The worksheet page does not present those values as WS11 survey answers. They are shown under WS14.", "Compared from the site data built from <code>students/*/WS11/extraction.json</code> and the WS14 OCR files."),
         Object.keys(missingBy).length && I("Some worksheets are missing for some students", Object.entries(missingBy).map(([s, l]) => `${h(s)}: ${l.map(h).join(", ")}`).join("; ") + ".", "These students have fewer worksheet data points than others.", missingWs.map((m) => `<code>${h(m.path)}</code>`).join("<br>")),
         C.notebooks.Marco && !C.notebooks.Marco.file && C.notebooks.Marco.extraction && I("One final project is a report, not a notebook", "Marco submitted a PDF report. The notebook details were taken from it.", "Notebook structure (cells, run order, errors) cannot be measured for this student.", ""),
       ]],
@@ -1538,12 +2016,14 @@
     const top = parts[0] || "";
     let html, after = null;
     if (top === "") html = pageOverview();
+    else if (top === "collected") html = pageCollected();
+    else if (top === "findings") html = pageFindings();
     else if (top === "methods") { html = pageMethods(); after = () => { const a = parts[1] && document.getElementById("m-" + parts[1]); if (a) a.scrollIntoView(); bindMethods(); }; }
     else if (top === "explore") {
       const sub = parts[1] || "students";
       if (sub === "student") html = pageStudent(parts[2], parts[3]);
       else if (sub === "worksheets") { html = pageWorksheets(); after = bindWsSearch; }
-      else if (sub === "worksheet") html = pageWorksheet(parts[2]);
+      else if (sub === "worksheet") { html = pageWorksheet(parts[2], q); after = bindRespFilter; }
       else if (sub === "recordings") html = pageRecordings();
       else if (sub === "frames") { html = pageFrames(q); after = bindFrames; }
       else if (sub === "logs") html = pageLogs();
@@ -1555,12 +2035,19 @@
     } else html = `<div class="page"><h1>Page not found</h1><p><a href="#/">Go to the overview</a></p></div>`;
     app.innerHTML = html;
     tip.style.display = "none";
-    const navKey = top === "explore" ? ({ student: "students", worksheet: "worksheets" }[parts[1]] || parts[1] || "students")
-      : top === "docs" ? (parts[1] || "docs") : top;
-    document.querySelectorAll(".nav-link, .top-link").forEach((a) => {
-      const on = a.dataset.r === navKey || (a.classList.contains("top-link") && a.dataset.r === "docs" && top === "docs");
-      a.classList.toggle("active", on);
-    });
+    let section = "overview";
+    let navKey = "overview";
+    if (top === "collected") { section = "collected"; navKey = "collected"; }
+    else if (top === "findings") { section = "findings"; navKey = "findings"; }
+    else if (top === "methods") { section = "processing"; navKey = parts[1] ? `methods-${parts[1]}` : "methods"; }
+    else if (top === "docs") { section = "reference"; navKey = parts[1] || "docs"; }
+    else if (top === "explore") {
+      const pageKey = ({ student: "students", worksheet: "worksheets" })[parts[1]] || parts[1] || "students";
+      if (pageKey === "notebooks") { section = "processing"; navKey = "notebooks"; }
+      else { section = "collected"; navKey = pageKey; }
+    }
+    document.querySelectorAll(".top-link").forEach((a) => a.classList.toggle("active", a.dataset.section === section));
+    document.querySelectorAll(".nav-link").forEach((a) => a.classList.toggle("active", a.dataset.r === navKey));
     document.querySelectorAll(".nav-group").forEach((g) => { if (g.querySelector(".nav-link.active")) g.open = true; });
     closeNav();
     window.scrollTo(0, 0);
