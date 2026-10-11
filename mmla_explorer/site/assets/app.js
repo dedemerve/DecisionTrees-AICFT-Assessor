@@ -1540,7 +1540,7 @@
     return `<ul class="file-list"><li class="file-item"><a href="${h(href)}" download="${h(href.split("/").pop())}">${h(title)}</a><span class="file-meta">CSV, UTF-8 · ${num(size)} bytes</span></li></ul>`;
   }
   function foodCardSection(code) {
-    if (code === "WS4" || code === "WS5") {
+    if (code === "WS4" || code === "WS5" || code === "WS6") {
       return `<section class="section-block" id="food-cards"><h2>Food card dataset</h2>
         <p>These are the 11 food cards for the task “search for the fat threshold that misclassifies the fewest cards.” The rows are the classroom set used to check worksheets 4 to 7. Names and nutrient values are copied from that source. The label is the Turkish class wording.</p>
         ${foodDownload("downloads/food_cards_11.csv", "11 food cards", 718)}
