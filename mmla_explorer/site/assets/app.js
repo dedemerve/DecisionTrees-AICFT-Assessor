@@ -347,7 +347,7 @@
     const ths = head.map((c) => `<th class="${c.num ? "num" : ""}">${h(c.t)}</th>`).join("");
     const trs = rows.map((r) => `<tr${r.href ? ` class="click" data-href="${h(r.href)}"` : ""}${r.attrs || ""}>${r.cells.map((c, i) =>
       `<td class="${[head[i] && head[i].num ? "num" : "", head[i] && head[i].cls || ""].join(" ")}">${c}</td>`).join("")}</tr>`).join("");
-    return `<div class="table-wrap"${opts.max ? ` style="max-height:${opts.max}px;overflow:auto"` : ""}><table><thead><tr>${ths}</tr></thead><tbody>${trs || `<tr><td colspan="${head.length}" class="na">No rows.</td></tr>`}</tbody></table></div>`;
+    return `<div class="table-wrap"${opts.max ? ` style="max-height:${opts.max}px;overflow:auto"` : ""}><table${opts.cls ? ` class="${h(opts.cls)}"` : ""}><thead><tr>${ths}</tr></thead><tbody>${trs || `<tr><td colspan="${head.length}" class="na">No rows.</td></tr>`}</tbody></table></div>`;
   }
   const kv = (pairs) => `<dl class="kv">${pairs.filter(Boolean).map(([k, v]) => `<dt>${h(k)}</dt><dd>${v}</dd>`).join("")}</dl>`;
   const legend = (keys) => `<div class="legend">${keys.map((k) => `<span><i style="background:${behColor(k)}"></i>${h(behLabel(k))}</span>`).join("")}</div>`;
@@ -1110,7 +1110,7 @@
         <a class="cat-card" href="#/explore/notebooks"><div class="arch-ico" aria-hidden="true">NB</div><h3>Python notebooks</h3><p>${num(notebooksPresent)} final-project notebook files were inspected. Raw notebook files are not published on this site.</p></a>
         <a class="cat-card" href="#/explore/students"><div class="arch-ico" aria-hidden="true">ST</div><h3>Student profiles</h3><p>${STUDENTS.length} pseudonyms. Each profile gathers that person’s worksheets, recordings, logs, and notebook record.</p></a>
       </div>
-      <p class="small">A worksheet response is not joined to a screen frame or a log event anywhere in the files this site reads.</p>
+      <p class="small span-line">A worksheet response is not joined to a screen frame or a log event anywhere in the files this site reads.</p>
     </div>`;
   }
   function pageFindings() {
@@ -1789,11 +1789,12 @@
     const excluded = sum(Object.values(L.rows_excluded_unmatched_by_day || {}));
     const statedPublicRows = 11367;
     const dayTable = table(
-      [{ t: "Date in created_at" }, { t: "Rows in the source file", num: 1 }],
-      Object.entries(L.rows_by_day).map(([d, n]) => ({ cells: [h(d), num(n)] }))
+      [{ t: "Date in created_at" }, { t: "Rows", num: 1 }],
+      Object.entries(L.rows_by_day).map(([d, n]) => ({ cells: [h(d), num(n)] })),
+      { cls: "log-dict" }
     );
     const otherFiles = L.other_files_row_counts
-      ? table([{ t: "Earlier file, not loaded" }, { t: "Rows", num: 1 }], Object.entries(L.other_files_row_counts).map(([name, n]) => ({ cells: [`<code>${h(name)}</code>`, num(n)] })))
+      ? table([{ t: "Earlier file (not loaded)" }, { t: "Rows", num: 1 }], Object.entries(L.other_files_row_counts).map(([name, n]) => ({ cells: [`<code class="log-path">${h(name)}</code>`, num(n)] })), { cls: "log-dict" })
       : "";
     const sampleRows = LOG_SAMPLE.map(([who, code, detail]) => `<tr>
         <td data-label="Participant">${h(who)}</td>
@@ -1824,35 +1825,37 @@
           <a class="btn btn-primary frame-dataset-btn" href="${HF_LOGS}" target="_blank" rel="noopener">Explore the dataset on Hugging Face</a>
         </div>
       </section>
-      ${tech("Technical details", `
+      ${tech("Technical details", `<div class="log-tech">
+        <h3>Source and processing</h3>
         ${kv([
-          ["Source file", `<code>${h(L.source)}</code>`],
+          ["Source file", `<code class="log-path">${h(L.source)}</code>`],
           ["Format", "CSV"],
-          ["Rows in that file", num(L.rows_total)],
-          ["Date field", "<code>created_at</code>. The first 10 characters are the date. Session 1 is 2026-04-21. Session 2 is 2026-04-28."],
-          ["Rows whose identifier was changed to a pseudonym", num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))],
-          ["Rows removed, identifier not a pseudonym", num(excluded)],
+          ["Original row count", num(L.rows_total)],
+          ["Date field", "<code>created_at</code>. The first 10 characters are the calendar date. Session 1 is 2026-04-21. Session 2 is 2026-04-28."],
+          ["Rows with identifiers changed to pseudonyms", num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))],
+          ["Rows excluded because the identifier did not match a pseudonym", num(excluded)],
         ])}
-        <p>7 April means the date 7 April 2026, not a count of seven rows. The source file includes rows with that date. Those rows are not CODAP session 1 or session 2. The file also includes a few rows dated 25 April 2026.</p>
-        <p>The 21 April file is a prefix of this source file: the same rows, in the same order. The 7 April file uses the same event ids as the 7 April rows in this source file. Neither file is loaded again.</p>
-        <h3>Rows by date</h3>
+        <p class="log-note">The public dataset card states ${num(statedPublicRows)} rows in <code>codap_log_anonymized.csv</code>.${publicMatch} Its listed columns are <code>id</code>, <code>student_id</code>, <code>action</code>, <code>timestamp_ms</code>, and <code>parameters</code>. It does not include the frame images or <code>metadata.csv</code>.</p>
+        <h3>Records by date</h3>
+        <p class="log-note-label">Date interpretation</p>
+        <p class="log-note">Dates refer to calendar dates in <code>created_at</code>, not row counts. Records dated 7 April 2026 and 25 April 2026 are present in the source file but do not belong to either of the two CODAP sessions presented in this archive.</p>
         ${dayTable}
         ${otherFiles}
-        <h3>Columns</h3>
+        <p class="log-note-label">Relationship to earlier files</p>
+        <p class="log-note">The 21 April file is a prefix of the current source file, with the same rows in the same order. The 7 April file uses event IDs already present in the current source. Neither earlier file is loaded again.</p>
+        <h3>Data fields</h3>
         ${table([{ t: "Column" }, { t: "Meaning" }], [
           { cells: ["<code>id</code>", "Event identifier."] },
-          { cells: ["<code>created_at</code>", "When the row was stored. The date in this field separates the sessions. This column is in the source file. The public dataset card does not list it."] },
+          { cells: [`<code>created_at</code> <span class="src-only">Source only</span>`, "When the row was stored. The date in this field separates the sessions. Not listed on the public dataset card."] },
           { cells: ["<code>student_id</code>", "Participant identifier. On this site it is a pseudonym."] },
           { cells: ["<code>action</code>", "The action code."] },
           { cells: ["<code>timestamp_ms</code>", "Elapsed milliseconds in that participant's session."] },
           { cells: ["<code>parameters</code>", "Details for that action, stored as text."] },
-          { cells: ["<code>raw_data</code>", "Present in the source file and empty on every row. The public dataset card does not list it."] },
-        ])}
+          { cells: [`<code>raw_data</code> <span class="src-only">Source only</span>`, "Present in the source file and empty on every row. Not listed on the public dataset card."] },
+        ], { cls: "log-dict" })}
         <h3>Action codes</h3>
-        ${table([{ t: "Event code" }, { t: "What it records" }], Object.entries(ACTION).map(([k, label]) => ({ cells: [`<code>${h(k)}</code>`, h(label)] })))}
-        <h3>Public dataset</h3>
-        <p>This Hugging Face dataset is separate from the screen-recording frames. Its dataset card lists one file, <code>codap_log_anonymized.csv</code>, with ${num(statedPublicRows)} rows and the columns <code>id</code>, <code>student_id</code>, <code>action</code>, <code>timestamp_ms</code>, and <code>parameters</code>. It does not include the frame images or <code>metadata.csv</code>.${publicMatch}</p>
-      `)}`)}</div>`;
+        ${table([{ t: "Action code" }, { t: "Meaning" }], Object.entries(ACTION).map(([k, label]) => ({ cells: [`<code>${h(k)}</code>`, h(label)] })), { cls: "log-dict" })}
+      </div>`)}`)}</div>`;
   }
   function logFindingsSection() {
     const rows = [];
