@@ -710,14 +710,10 @@ svg text { font-family: var(--sans); }
 .code-card p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
 
 /* -- log metrics -- */
-.log-session-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0 16px; }
-.log-session-card {
-  display: flex; flex-direction: column; gap: 8px; min-width: 0;
-  background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 16px;
-}
-.log-session-card h2 { margin: 0; font-size: 1.15rem; }
-.log-session-date { margin: 0; font-size: 13px; font-weight: 600; color: var(--blue); }
 .log-dataset { margin-top: 0; }
+.log-sample-wrap { margin-top: 4px; }
+table.log-examples th { white-space: normal; }
+.log-caption { margin: 0 0 8px; font-size: 13px; color: var(--muted); max-width: none; }
 .log-metrics {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px; margin: 14px 0 20px;
@@ -917,7 +913,13 @@ p.why { font-size: 14px; color: var(--ink-2); }
   .hero h1 { font-size: 1.7rem; }
   .metric-row, .flow, .compare { grid-template-columns: 1fr; }
   .log-metrics { grid-template-columns: 1fr; }
-  .log-session-grid { grid-template-columns: 1fr; }
+  .lead, .log-caption { max-width: 100%; }
+  .log-sample-wrap { overflow: visible; }
+  table.log-examples thead { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  table.log-examples, table.log-examples tbody, table.log-examples tr, table.log-examples td { display: block; width: auto; }
+  table.log-examples tr { border: 1px solid var(--rule); border-radius: 12px; margin: 0 0 8px; padding: 8px 12px; background: var(--surface); }
+  table.log-examples td { border: 0; padding: 2px 0; }
+  table.log-examples td::before { content: attr(data-label); display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
   .nb-stages { grid-template-columns: 1fr 1fr; }
   .thumbs, .frame-grid, .thumbs.frame-grid { grid-template-columns: 1fr 1fr; }
   .stat-row { grid-template-columns: 1fr 1fr; }

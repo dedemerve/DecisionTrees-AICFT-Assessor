@@ -1772,6 +1772,18 @@
   }
 
 
+  const LOG_SAMPLE = [
+    ["Ulysses", "dragstart", "Protein (g)"],
+    ["Nadia", "set_dependent_variable", "Column 1"],
+    ["Irma", "change_split_values", "Tuz (g) < 0.92"],
+    ["Marcus", "emit_tree_data", "Column 1 · accuracy 0.522"],
+    ["Zara", "set_focus_node", "Şeker (g)"],
+    ["Shana", "data_context_change", "moveAttribute"],
+    ["Melinda", "drop_attribute", "Yağ (g)"],
+    ["Marco", "swap_focus_split", "Oneri"],
+    ["Bruno", "change_tree_type", "classification"],
+    ["Isabel", "refresh_tree", "data"],
+  ];
   function pageLogs() {
     const L = C.logs;
     const excluded = sum(Object.values(L.rows_excluded_unmatched_by_day || {}));
@@ -1783,26 +1795,30 @@
     const otherFiles = L.other_files_row_counts
       ? table([{ t: "Earlier file, not loaded" }, { t: "Rows", num: 1 }], Object.entries(L.other_files_row_counts).map(([name, n]) => ({ cells: [`<code>${h(name)}</code>`, num(n)] })))
       : "";
-    const cards = [
-      ["CODAP Session 1", LOG_DAYS["2026-04-21"].date],
-      ["CODAP Session 2", LOG_DAYS["2026-04-28"].date],
-    ].map(([name, date]) => `<article class="log-session-card"><h2>${h(name)}</h2><p class="log-session-date">${h(date)}</p></article>`).join("");
+    const sampleRows = LOG_SAMPLE.map(([who, code, detail]) => `<tr>
+        <td data-label="Participant">${h(who)}</td>
+        <td data-label="Action">${h(ACTION[code] || code)}</td>
+        <td data-label="Action code"><code>${h(code)}</code></td>
+        <td data-label="Detail">${h(detail)}</td>
+      </tr>`).join("");
     const publicMatch = statedPublicRows === L.rows_total - excluded
       ? ` That figure matches the source-file row count minus the ${num(excluded)} rows removed because the identifier did not match a pseudonym.`
       : "";
     return `<div class="page wide">${exploreShell("logs", `
       ${crumbs([["Collected data", "#/collected"], ["CODAP platform logs"]])}
       <h1>CODAP platform logs</h1>
-      <p class="lead">Platform logs record actions made while participants work in CODAP Arbor. They help researchers study how participants interact with the activity.</p>
-      <h2>Session overview</h2>
-      <p>These logs cover the two CODAP sessions. They come from one source file, separated by the date on each row.</p>
-      <div class="log-session-grid">${cards}</div>
+      <p class="lead">Platform logs record actions made by participants while working in CODAP Arbor. Each record captures an interaction that can help researchers understand how the activity was carried out.</p>
+      <div class="table-wrap log-sample-wrap"><table class="log-examples">
+        <thead><tr><th>Participant</th><th>Action</th><th>Action code</th><th>Detail</th></tr></thead>
+        <tbody>${sampleRows}</tbody>
+      </table></div>
+      <p class="log-caption">Ten example records from the platform logs. The complete dataset contains the full collection.</p>
       <h2>Complete dataset</h2>
       <section class="section-block" id="log-dataset">
         <div class="dataset-card log-dataset">
           <div class="ds-type">CC BY 4.0</div>
-          <div class="ds-title">CODAP Arbor Platform Logs</div>
-          <p class="ds-desc">Access the complete platform-log dataset, including the original records used for the two sessions.</p>
+          <div class="ds-title">Complete CODAP Arbor Platform Logs</div>
+          <p class="ds-desc">Explore the complete dataset, including the records used in the research.</p>
           <a class="btn btn-primary frame-dataset-btn" href="${HF_LOGS}" target="_blank" rel="noopener">Explore the dataset on Hugging Face</a>
         </div>
       </section>
@@ -1918,7 +1934,7 @@
         <li><a href="#/explore/worksheets">Worksheets</a><span>Purpose, student responses, item scores, and the blank PDFs.</span></li>
         <li><a href="#/explore/students">Student profiles</a><span>All worksheets, recordings, logs, and notebooks for one student.</span></li>
         <li><a href="#/explore/recordings">Screen recording frames</a><span>Frames extracted from the sessions, with previews on this site and the full image set on Hugging Face. Original videos are not published.</span></li>
-        <li><a href="#/explore/logs">Platform logs</a><span>The two CODAP sessions. The complete log is a separate dataset on Hugging Face.</span></li>
+        <li><a href="#/explore/logs">Platform logs</a><span>Ten example records. The complete log is a separate dataset on Hugging Face.</span></li>
         <li><a href="#/explore/notebooks">Python notebooks</a><span>Inspection of the final lizard-data notebooks. Raw notebook files are not published.</span></li>
       </ul>
       <h3 class="guide-group-label">Data Processing &amp; Analysis</h3>
@@ -2159,7 +2175,7 @@
       <ul class="guide">
         <li><a href="#/explore/worksheets">Worksheets</a><span>Extracted student responses with item-level scores for ${C.worksheets.length} worksheets.</span></li>
         <li><a href="#/explore/recordings">Screen recording frames</a><span>${num(F.length)} extracted frames. Original videos are not published on this site.</span></li>
-        <li><a href="#/explore/logs">Platform logs</a><span>The two sessions and the public log file. The counts are in the summaries above.</span></li>
+        <li><a href="#/explore/logs">Platform logs</a><span>Example records and the public log file. The counts are in the summaries above.</span></li>
         <li><a href="#/explore/notebooks">Python notebooks</a><span>Final project notebooks on the lizard data.</span></li>
       </ul>
     </div>`;
