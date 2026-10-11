@@ -234,7 +234,6 @@
   const sessionIssues = (r) => {
     const out = [];
     if (r.same_video_file_as) out.push(`This video is the same file as the ${r.same_video_file_as.map((x) => SESS_NAME[x]).join(" and ")} video. Only one of them can be the real recording of this day.`);
-    if (r.video_bytes && r.video_on_disk === false) out.push("The original video file is no longer in the data folder. The frames taken from it are still available.");
     if (r.frame_coverage != null && r.frame_coverage < 0.8) out.push(`Frames cover only the first ${num(r.frame_coverage * 100)}% of the recording.`);
     return out;
   };
@@ -708,50 +707,9 @@
   function exploreShell(active, body) {
     return `<p class="kicker">Collected data</p>${body}`;
   }
-  function participantInventory(s) {
-    const n = C.notebooks[s] || {};
-    let python = "No Python file in the archive";
-    if (n.file) python = "Notebook";
-    else if (s === "Marco" && n.extraction) python = "PDF report";
-    else if (n.extraction) python = "Written report";
-    return {
-      ws: C.worksheets.filter((w) => C.ws[s][w.code].ocr).length,
-      wsTotal: C.worksheets.length,
-      rec: SESS.filter((ss) => C.sessions[s][ss.id].manifest).length,
-      recTotal: SESS.length,
-      lg: Object.keys(logDays[s] || {}).length,
-      python,
-    };
-  }
-  function availableSummary(s) {
-    const inv = participantInventory(s);
-    const logs = inv.lg === 0 ? "no platform log" : `${inv.lg} log session${inv.lg === 1 ? "" : "s"}`;
-    return `${inv.ws} of ${inv.wsTotal} worksheets · ${inv.rec} of ${inv.recTotal} screen recordings · ${logs} · ${inv.python}`;
-  }
-
   function pageStudents() {
-    const card = (s) => {
-      const inv = participantInventory(s);
-      const logs = inv.lg === 1 ? "1 session" : `${inv.lg} sessions`;
-      return `<a class="student-card" href="#/explore/student/${h(s)}">
-          <div class="student-card-name">${h(s)}</div>
-          <dl class="student-card-meta">
-            <div><dt>Worksheets</dt><dd>${inv.ws} of ${inv.wsTotal}</dd></div>
-            <div><dt>Screen recordings</dt><dd>${inv.rec} of ${inv.recTotal}</dd></div>
-            <div><dt>Platform logs</dt><dd>${logs}</dd></div>
-            <div><dt>Python work</dt><dd>${h(inv.python)}</dd></div>
-          </dl>
-          <div class="student-card-cta">Open record</div>
-        </a>`;
-    };
-    return `<div class="page wide">
-      <p class="kicker">Findings</p>
-      ${crumbs([["Findings", "#/findings"], ["Student profiles"]])}
-      <h1>Student profiles</h1>
-      <p class="lead">Explore the participant-level overview of the archived materials. Each participant is represented by a pseudonym, with a summary of the available worksheets, screen recordings, platform logs, and Python work.</p>
-      <p>These lines describe which files are in the archive. They are not measures of learning, performance, or engagement.</p>
-      <div class="student-roster">${STUDENTS.map(card).join("")}</div>
-    </div>`;
+    if (window.StudentProfiles) return window.StudentProfiles.page();
+    return `<div class="page wide profile-page"><p class="kicker">Findings</p><h1>Student profiles</h1><p>The profile summary did not load.</p></div>`;
   }
 
   // ---- student: worksheets
@@ -834,7 +792,6 @@
     const cd = r.coding;
     sessionIssues(r).forEach((m) => { out += `<div class="warn">${h(m)} <a href="#/docs/limitations">Why this matters →</a></div>`; });
     out += kv([["Length of the source recording", dur(lengthOf(r))], ["Frames listed", num(r.manifest.frames)], ["Frames with a behaviour label", cd ? num(cd.frames_coded) : "No"]]);
-    out += `<p>The original video is not published. The extracted frames for this session are in the frame collection.</p>`;
     out += `<p><a class="btn" href="#/explore/recordings?s=${encodeURIComponent(s)}&ss=${encodeURIComponent(ss.id)}">View the frames from this session</a></p>`;
     // technical
     const m = r.manifest, sp = r.speech, ep = (C.episodes[s] || {})[ss.id];
@@ -874,7 +831,8 @@
   function logBlock(s) {
     const days = logDays[s] || {};
     if (!Object.keys(days).length) return `<p class="empty">No platform log for this student.</p>`;
-    return Object.entries(LOG_DAYS).map(([d, meta]) => {
+    const preface = window.StudentProfiles ? window.StudentProfiles.logPreface(s) : "";
+    return preface + Object.entries(LOG_DAYS).map(([d, meta]) => {
       const v = days[d];
       let out = `<section class="session"><h3>${h(meta.name)} <span class="small">${h(meta.date)}</span></h3>`;
       if (!v) return out + `<p class="empty">No actions recorded in this session.</p></section>`;
@@ -911,7 +869,7 @@
     let out = "";
     if (finalNb) out += `<p><a href="${h(finalNb.file)}" download>Download the final notebook</a>. The counts below describe that file.</p>`;
     if (weekly) out += `<p>The guided Colab notebook for ${h(s)} is a different file, from ${h(weeklySession)}. <a href="${h(weekly.file)}" download>Download it</a>.</p>`;
-    if (e && e.data_source_note && !f) out += `<div class="warn">No notebook was submitted. The details below were taken from a submitted report.</div>`;
+    if (!f && e) out += `<p><b>Written report.</b> Notebook cell counts are not available. The details below were taken from the submitted report.</p>`;
     out += kv([
       e && ["Target variables", e.targets.map((t) => `<code>${h(t)}</code>`).join(" ")],
       e && ["Research questions written out", `${e.questions_written} of ${e.targets.length}`],
@@ -945,16 +903,17 @@
     const i = STUDENTS.indexOf(s);
     let body = "";
     if (tab === "worksheets") body = C.worksheets.map((w) => wsBlock(s, w)).join("");
-    if (tab === "recordings") body = SESS.map((ss) => sessionBlock(s, ss)).join("");
+    if (tab === "recordings") body = (window.StudentProfiles ? window.StudentProfiles.framesNote() : "") + SESS.map((ss) => sessionBlock(s, ss)).join("");
     if (tab === "logs") body = logBlock(s);
     if (tab === "notebook") body = notebookBlock(s);
     const prev = i > 0 ? `<a href="#/explore/student/${h(STUDENTS[i - 1])}/${tab}">← ${h(STUDENTS[i - 1])}</a>` : "";
     const next = i < STUDENTS.length - 1 ? `<a href="#/explore/student/${h(STUDENTS[i + 1])}/${tab}">${h(STUDENTS[i + 1])} →</a>` : "";
-    return `<div class="page"><p class="kicker">Findings</p>
+    const evidence = window.StudentProfiles ? window.StudentProfiles.summary(s) : "";
+    return `<div class="page wide profile-page"><p class="kicker">Findings</p>
       ${crumbs([["Findings", "#/findings"], ["Student profiles", "#/findings/participants"], [s]])}
       <h1>${h(s)}</h1>
-      <p class="small">Pseudonym · ${h(availableSummary(s))}</p>
-      <nav class="tabs sub">${tabs.map(([k, l]) => `<a href="#/explore/student/${h(s)}/${k}" class="${k === tab ? "active" : ""}">${l}</a>`).join("")}</nav>
+      ${evidence}
+      <nav class="tabs profile-tabs" aria-label="Participant sources">${tabs.map(([k, l]) => `<a href="#/explore/student/${h(s)}/${k}" class="${k === tab ? "active" : ""}">${l}</a>`).join("")}</nav>
       ${body}
       <p class="small pn">${prev}${prev && next ? " · " : ""}${next}</p></div>`;
   }
@@ -2121,7 +2080,7 @@
     return [
       ["Missing or duplicated data", [
         Object.keys(dupes).length && I("Some recordings are the same file", `${Object.entries(dupes).map(([s, l]) => `${h(s)} (${l.map(h).join(", ")})`).join("; ")}: the video files for these sessions are identical.`, "Only one of each group can be the real recording of its day. Behaviour results for these sessions may describe a different day, so comparisons across sessions are unreliable for these students.", "Identical SHA-256 fingerprints in <code>data_sources_2026/MANIFEST.json</code>."),
-        gone.length && I("Some original videos are no longer in the data folder", `${gone.length} of ${videoFilesListed} listed videos: ${gone.map((r) => `${h(r.student)} (${h(SESS_NAME[r.session])})`).join(", ")}.`, "The frames and their coding remain, but they cannot be re-extracted or checked against the original video.", `Listed in <code>MANIFEST.json</code> of ${h(C.inventory.generated_at.slice(0, 10))}. Some processing folders hold re-encoded copies (<code>*.video.webm</code>) of different size.`),
+        gone.length && I("Original videos are not published", `Screen-recording videos are not part of this public archive and are not intended for release. The extracted frames are published on Hugging Face. For ${gone.length} of ${videoFilesListed} listed sessions the source video is not in the local data folder: ${gone.map((r) => `${h(r.student)} (${h(SESS_NAME[r.session])})`).join(", ")}.`, "Those frames cannot be re-extracted from a local video copy. The public record is the frame dataset.", `Listed in <code>MANIFEST.json</code> of ${h(C.inventory.generated_at.slice(0, 10))}. Some processing folders hold re-encoded copies (<code>*.video.webm</code>) of different size.`),
         low.length && I("Frames cover only part of some videos", `${low.map((r) => `${h(r.student)} (${h(SESS_NAME[r.session])}, ${num(r.frame_coverage * 100)}%)`).join(", ")}.`, "Activity in the later part of these sessions is not represented in the frames.", table([{ t: "Student" }, { t: "Session" }, { t: "Last frame" }, { t: "Length in manifest" }, { t: "Real length" }], low.map((r) => ({ cells: [h(r.student), h(SESS_NAME[r.session]), clock(r.manifest.last_s), r.manifest.profile_duration_seconds ? clock(r.manifest.profile_duration_seconds) : "–", clock(lengthOf(r))] }))) + "<p>The extractor recorded the videos as shorter than they are. WebM files often carry no length in their header.</p>"),
         noOcr.length && I(`No extracted answers for ${noOcr.join(" and ")}`, "No student answers were extracted for these worksheets.", "These worksheets add no evidence to the analysis.", "Stage files in <code>students/</code> record a failed extraction. No scanned student file for WS11 is in <code>All Documents/</code>. A file named “31 Mart 2026 Çalışma Kâğıdı 12.pdf” exists but was not processed."),
         WS11_IS_WS14 && I("WS11 extraction files repeat WS14", `For all ${STUDENTS.length} students, every path and value in the WS11 extraction is identical to that student’s WS14 extraction. The WS11 rubric uses different item identifiers.`, "The worksheet page does not present those values as WS11 survey answers. They are shown under WS14.", "Compared from the site data built from <code>students/*/WS11/extraction.json</code> and the WS14 OCR files."),
