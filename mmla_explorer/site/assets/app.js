@@ -1785,26 +1785,16 @@
     ["Isabel", "refresh_tree", "data"],
   ];
   function pageLogs() {
-    const L = C.logs;
-    const excludedByDay = L.rows_excluded_unmatched_by_day || {};
-    const excluded = sum(Object.values(excludedByDay));
+    const excludedByDay = C.logs.rows_excluded_unmatched_by_day || {};
     const sessionDates = Object.keys(LOG_DAYS);
-    const sourceCount = (d) => L.rows_by_day[d] || 0;
-    const publicCount = (d) => sourceCount(d) - (excludedByDay[d] || 0);
+    const sessionLabel = { "2026-04-21": "CODAP Session 1", "2026-04-28": "CODAP Session 2" };
+    const publicCount = (d) => (C.logs.rows_by_day[d] || 0) - (excludedByDay[d] || 0);
     const publicRows = sum(sessionDates.map(publicCount));
-    const countTable = (counts) => table(
-      [{ t: "Session" }, { t: "Date in created_at" }, { t: "Rows", num: 1 }],
-      sessionDates.map((d) => ({ cells: [h(LOG_DAYS[d].name), h(d), num(counts(d))] })),
-      { cls: "log-dict log-counts" }
-    );
     const publicSessionTable = table(
-      [{ t: "Session" }, { t: "Rows", num: 1 }],
-      sessionDates.map((d) => ({ cells: [h(LOG_DAYS[d].name), num(publicCount(d))] })),
+      [{ t: "Session" }, { t: "Records", num: 1 }],
+      sessionDates.map((d) => ({ cells: [h(sessionLabel[d]), num(publicCount(d))] })).concat([{ cells: [h("Total"), num(publicRows)] }]),
       { cls: "log-dict log-counts" }
     );
-    const session1Gap = sourceCount("2026-04-21") !== publicCount("2026-04-21")
-      ? `<p class="log-note">CODAP session 1 has ${num(publicCount("2026-04-21"))} rows in the public file and ${num(sourceCount("2026-04-21"))} rows in the source file. The difference is the ${num(excludedByDay["2026-04-21"] || 0)} source rows dated 21 April whose identifier did not match a pseudonym. Those rows are included in the excluded-row count above, and they are not in the public file. The event IDs of the other rows match. CODAP session 2 has ${num(sourceCount("2026-04-28"))} rows in both.</p>`
-      : "";
     const sampleRows = LOG_SAMPLE.map(([who, code, detail]) => `<tr>
         <td data-label="Participant">${h(who)}</td>
         <td data-label="Action">${h(ACTION[code] || code)}</td>
@@ -1832,34 +1822,22 @@
         </div>
       </section>
       ${tech("Technical details", `<div class="log-tech">
-        <h3>Source and processing</h3>
-        ${kv([
-          ["Source file", `<code class="log-path">${h(L.source)}</code>`],
-          ["Format", "CSV"],
-          ["Date field", "<code>created_at</code>. The first 10 characters are the calendar date."],
-          ["Rows with identifiers changed to pseudonyms", num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))],
-          ["Rows excluded because the identifier did not match a pseudonym", num(excluded)],
-        ])}
-        <p class="log-note">The two CODAP sessions are identified using the date in <code>created_at</code>: 21 April 2026 for CODAP session 1 and 28 April 2026 for CODAP session 2.</p>
-        <h3>Records in the source file</h3>
-        ${countTable(sourceCount)}
-        <h3>Public dataset</h3>
-        <p class="log-note">The public file is <code>codap_log_anonymized.csv</code>. It has ${num(publicRows)} rows. Its columns are <code>id</code>, <code>student_id</code>, <code>session</code>, <code>action</code>, <code>timestamp_ms</code>, and <code>parameters</code>. It does not include <code>created_at</code>, <code>raw_data</code>, the frame images, or <code>metadata.csv</code>.</p>
+        <h3>Sessions and dataset overview</h3>
+        <p class="log-note">The public platform-log dataset is organized into two CODAP sessions. Each record belongs to one of these sessions, allowing visitors to explore participants' actions across the two activities.</p>
         ${publicSessionTable}
-        ${session1Gap}
+        <p class="log-note-label">Public dataset</p>
+        <p class="log-note">The public file is <code>codap_log_anonymized.csv</code>. It contains ${num(publicRows)} records organized into CODAP Session 1 and CODAP Session 2. The columns are <code>id</code>, <code>student_id</code>, <code>session</code>, <code>action</code>, <code>timestamp_ms</code>, and <code>parameters</code>. They identify each event, the pseudonymized participant, the session, the recorded action, the elapsed time, and the details stored with that action.</p>
         <h3>Data fields</h3>
         ${table([{ t: "Column" }, { t: "Meaning" }], [
-          { cells: ["<code>id</code>", "Event identifier."] },
-          { cells: [`<code>created_at</code> <span class="field-where">Source only</span>`, "When the row was stored. Its date determines the session name. This column is not included in the public dataset."] },
-          { cells: [`<code>session</code> <span class="field-where">Public dataset only</span>`, "CODAP session 1 or CODAP session 2. This column is added to the public dataset and is not a column in the original source file."] },
-          { cells: ["<code>student_id</code>", "Participant identifier, represented by a pseudonym on the website."] },
-          { cells: ["<code>action</code>", "Action code describing the recorded event."] },
-          { cells: ["<code>timestamp_ms</code>", "Elapsed milliseconds in the participant's session."] },
-          { cells: ["<code>parameters</code>", "Action-specific details stored as text."] },
-          { cells: [`<code>raw_data</code> <span class="field-where">Source only</span>`, "Present in the source file but empty in every row. It is not included in the public dataset."] },
+          { cells: ["<code>id</code>", "Unique identifier for a recorded event."] },
+          { cells: ["<code>student_id</code>", "Pseudonymized participant identifier."] },
+          { cells: ["<code>session</code>", "Identifies CODAP Session 1 or CODAP Session 2."] },
+          { cells: ["<code>action</code>", "Code describing the recorded action."] },
+          { cells: ["<code>timestamp_ms</code>", "Elapsed time in milliseconds within the participant's session."] },
+          { cells: ["<code>parameters</code>", "Additional details associated with the action, stored as text."] },
         ], { cls: "log-dict" })}
         <h3>Action codes</h3>
-        ${table([{ t: "Action code" }, { t: "Meaning" }], Object.entries(ACTION).map(([k, label]) => ({ cells: [`<code>${h(k)}</code>`, h(label)] })), { cls: "log-dict" })}
+        ${table([{ t: "Action code" }, { t: "Meaning" }], Object.entries(ACTION).map(([k, label]) => ({ cells: [`<code>${h(k)}</code>`, h(label)] })), { cls: "log-dict log-codes" })}
       </div>`)}`)}</div>`;
   }
   function logFindingsSection() {

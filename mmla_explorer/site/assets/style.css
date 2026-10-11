@@ -724,7 +724,7 @@ table.log-examples td:nth-child(2) { font-weight: 500; }
 table.log-examples code { font-size: 12.5px; }
 .log-caption { margin: 0 0 8px; font-size: 13px; color: var(--muted); max-width: none; }
 .lead.log-lead { max-width: none; }
-.log-tech { max-width: 760px; }
+.log-tech { max-width: 760px; overflow-wrap: break-word; }
 .log-tech h3 { margin: 22px 0 8px; font-size: 1rem; }
 .log-tech h3:first-child { margin-top: 2px; }
 .log-tech .kv { grid-template-columns: minmax(8.5rem, 16rem) minmax(0, 1fr); align-items: baseline; }
@@ -736,6 +736,10 @@ table.log-examples code { font-size: 12.5px; }
 .log-tech table.log-dict th { text-transform: none; letter-spacing: 0.01em; font-size: 12px; white-space: normal; text-align: left; }
 .log-tech table.log-dict td { white-space: normal; text-align: left; }
 .log-tech table.log-counts { width: 100%; table-layout: fixed; }
+.log-tech table.log-counts tbody tr:last-child { font-weight: 600; }
+.log-tech table.log-codes { width: 100%; table-layout: fixed; }
+.log-tech table.log-codes th:first-child, .log-tech table.log-codes td:first-child { width: 42%; }
+.log-tech table.log-codes code { font-size: 12.5px; }
 .log-tech table.log-dict th.num, .log-tech table.log-dict td.num { text-align: right; }
 .field-where { margin-left: 6px; font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
 .log-metrics {
@@ -941,6 +945,8 @@ p.why { font-size: 14px; color: var(--ink-2); }
   p.span-line { white-space: normal; }
   .log-tech .kv { grid-template-columns: 1fr; gap: 2px 0; }
   .log-tech .kv dt { margin-top: 8px; }
+  .log-tech table.log-codes { table-layout: auto; }
+  .log-tech table.log-codes th:first-child, .log-tech table.log-codes td:first-child { width: auto; }
   .field-where { white-space: normal; }
   .log-sample-wrap { overflow: visible; }
   table.log-examples { table-layout: auto; }
