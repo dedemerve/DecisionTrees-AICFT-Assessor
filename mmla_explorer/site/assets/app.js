@@ -1790,7 +1790,7 @@
     const statedPublicRows = 9561;
     const dayTable = table(
       [{ t: "Session" }, { t: "Date in created_at" }, { t: "Rows", num: 1 }],
-      Object.entries(L.rows_by_day).map(([d, n]) => ({ cells: [h((LOG_DAYS[d] && LOG_DAYS[d].name) || "Not one of the two sessions"), h(d), num(n)] })),
+      Object.entries(L.rows_by_day).filter(([d]) => LOG_DAYS[d]).map(([d, n]) => ({ cells: [h(LOG_DAYS[d].name), h(d), num(n)] })),
       { cls: "log-dict" }
     );
     const otherFiles = L.other_files_row_counts
