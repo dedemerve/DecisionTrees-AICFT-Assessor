@@ -96,6 +96,7 @@ core.students.forEach((student) => {
       const imgCount = html.split("<img").length - 1;
       check(html.indexOf("Preview frames") === -1 && html.indexOf("preview images") === -1 && imgCount <= 2, student + " " + ss.id + " findings omit the preview gallery");
       check(html.indexOf("What stands out") !== -1, student + " " + ss.id + " states what stands out");
+      check(html.indexOf("April") === -1, student + " " + ss.id + " does not show a calendar date");
       if (imgCount) check(html.indexOf("Explore the evidence") !== -1 && html.indexOf('src="thumbs/') !== -1, student + " " + ss.id + " evidence images stay inside the optional section");
       check(html.indexOf("#/explore/recordings?s=" + encodeURIComponent(student)) !== -1, student + " " + ss.id + " links to collected frames");
       const obs = html.indexOf("Observed behaviour");

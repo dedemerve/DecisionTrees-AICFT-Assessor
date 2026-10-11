@@ -386,7 +386,7 @@
           <h1><span class="hero-line">Documenting How Pre-Service Teachers</span> <span class="hero-line">Learn Decision Trees</span></h1>
           <p class="hero-lead">A research archive of worksheets, screen recordings, platform logs, and notebooks from a decision-tree unit with ${STUDENTS.length} pre-service teachers, shown only by pseudonym.</p>
           <div class="hero-actions">
-            <a class="btn-primary" href="#/collected">Explore the data</a>
+            <a class="btn-primary" href="https://github.com/dedemerve/DecisionTrees-AICFT-Assessor" target="_blank" rel="noopener">View the code on GitHub</a>
             <a class="btn-secondary" href="#/methods">How it was processed</a>
           </div>
         </div>

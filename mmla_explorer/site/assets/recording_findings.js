@@ -405,7 +405,7 @@
         <div class="empty-session"><p>No screen recording frames are on record for ${h(student)}, ${h(model.name)}.</p></div>`;
     }
     if (!model.coded) {
-      return `<h3 class="preview-heading">${h(student)} · ${h(model.name)} <span class="small">${h(model.date)}</span></h3>
+      return `<h3 class="preview-heading">${h(student)} · ${h(model.name)}</h3>
         <p>${num(model.listed)} frames are listed for this session. Behaviour coding for these frames is unavailable.</p>
         <p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Explore collected frames for this session</a></p>`;
     }
@@ -414,7 +414,7 @@
       `<div style="flex:${model.primary[code]};background:${colorOf(code)}"${tipAttr(`<b>${h(labelOf(code))}</b><br>${num(model.primary[code])} frames · ${pct(model.primary[code], denom)}`)}></div>`).join("")}</div>`;
     const legend = `<div class="legend">${orderedCodes(model.primary).map((code) => `<span><i style="background:${colorOf(code)}"></i>${h(labelOf(code))}</span>`).join("")}</div>`;
     const collected = `<p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Explore collected frames for this session</a></p>`;
-    return `<h3 class="preview-heading">${h(student)} · ${h(model.name)} <span class="small">${h(model.date)}</span></h3>
+    return `<h3 class="preview-heading">${h(student)} · ${h(model.name)}</h3>
       <p>${num(model.listed)} frames are listed. ${num(model.coded)} have a primary behaviour label. Shares use those ${num(denom)} labelled frames as the denominator.</p>
       <h3>Observed behaviour</h3>
       ${stack}${legend}
@@ -436,7 +436,7 @@
     }
     const buttons = available.map((ss) => {
       const model = pack.byStudent[student][ss.id];
-      const sub = model.coded ? `${ss.date} · ${num(model.coded)} labelled frames` : `${ss.date} · Coding unavailable`;
+      const sub = model.coded ? `${num(model.coded)} labelled frames` : "Coding unavailable";
       return `<button type="button" role="tab" class="sess-tab" data-ss="${h(ss.id)}" aria-selected="${sessionId === ss.id ? "true" : "false"}"><span>${h(ss.name)}</span><span class="when">${h(sub)}</span></button>`;
     }).join("");
     let current = available[0].id;
