@@ -1,0 +1,40 @@
+{
+  "stage": "extraction",
+  "student_id": "Helena",
+  "worksheet": "WS12",
+  "group": "Helena & Shana",
+  "gate_1_extraction": {
+    "status": "partial",
+    "source": "data_sources_2026/All Documents/31 Mart 2026 Çalışma Kâğıdı 12.pdf",
+    "extracted_at": "2026-10-11T09:37:26",
+    "items": {
+      "WS12_root_feature": "Enerji",
+      "WS12_root_left_threshold": "≤250",
+      "WS12_root_right_threshold": ">250",
+      "WS12_left_child_label": "karar verildi",
+      "WS12_left_child_rec": 6,
+      "WS12_left_child_notrec": 0,
+      "WS12_right_child_label": "Yağ",
+      "WS12_right_child_rec": 1,
+      "WS12_right_child_notrec": null,
+      "WS12_depth1_ll_threshold": "N/A",
+      "WS12_depth1_lr_threshold": "N/A",
+      "WS12_depth1_rl_threshold": "≤4",
+      "WS12_depth1_rr_threshold": ">4",
+      "WS12_leaf_ll_rec": "N/A",
+      "WS12_leaf_ll_notrec": "N/A",
+      "WS12_leaf_lr_rec": "N/A",
+      "WS12_leaf_lr_notrec": "N/A",
+      "WS12_leaf_rl_rec": 1,
+      "WS12_leaf_rl_notrec": 0,
+      "WS12_leaf_rr_rec": 0,
+      "WS12_leaf_rr_notrec": 7,
+      "WS12_train_errors": 0,
+      "WS12_test_errors": 0
+    },
+    "needs_review": true,
+    "review_fields": [
+      "WS12_right_child_notrec"
+    ]
+  }
+}

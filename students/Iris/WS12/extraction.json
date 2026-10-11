@@ -1,0 +1,46 @@
+{
+  "stage": "extraction",
+  "student_id": "Iris",
+  "worksheet": "WS12",
+  "group": "Iris & Nadia",
+  "gate_1_extraction": {
+    "status": "partial",
+    "source": "data_sources_2026/All Documents/31 Mart 2026 Çalışma Kâğıdı 12.pdf",
+    "extracted_at": "2026-10-11T09:37:26",
+    "items": {
+      "WS12_root_feature": "Yağ",
+      "WS12_root_left_threshold": "≤5",
+      "WS12_root_right_threshold": ">5",
+      "WS12_left_child_label": "karar verildi",
+      "WS12_left_child_rec": 1,
+      "WS12_left_child_notrec": null,
+      "WS12_right_child_label": "Enerji",
+      "WS12_right_child_rec": null,
+      "WS12_right_child_notrec": null,
+      "WS12_depth1_ll_threshold": "N/A",
+      "WS12_depth1_lr_threshold": "N/A",
+      "WS12_depth1_rl_threshold": "<246",
+      "WS12_depth1_rr_threshold": "≥246",
+      "WS12_leaf_ll_rec": "N/A",
+      "WS12_leaf_ll_notrec": "N/A",
+      "WS12_leaf_lr_rec": "N/A",
+      "WS12_leaf_lr_notrec": "N/A",
+      "WS12_leaf_rl_rec": null,
+      "WS12_leaf_rl_notrec": null,
+      "WS12_leaf_rr_rec": null,
+      "WS12_leaf_rr_notrec": null,
+      "WS12_train_errors": 0,
+      "WS12_test_errors": 0
+    },
+    "needs_review": true,
+    "review_fields": [
+      "WS12_left_child_notrec",
+      "WS12_right_child_rec",
+      "WS12_right_child_notrec",
+      "WS12_leaf_rl_rec",
+      "WS12_leaf_rl_notrec",
+      "WS12_leaf_rr_rec",
+      "WS12_leaf_rr_notrec"
+    ]
+  }
+}

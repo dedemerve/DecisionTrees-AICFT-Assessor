@@ -1,0 +1,94 @@
+{
+  "worksheet": "WS12",
+  "note": "Unplugged two-level decision tree documentation (31 March 2026). Students document the tree they built in WS6 by recording root variable, threshold, intermediate node counts, leaf node counts, and training/test misclassification totals. Evaluation is purely on internal consistency — no canonical answer exists. Both students in a group receive the same score.",
+  "scoring_policy": {
+    "default_mode": "deterministic",
+    "basis": "internal_consistency",
+    "no_canonical_tree": true,
+    "group_policy": "both partners receive identical score from shared sheet"
+  },
+  "dataset_note": "Training set assumed ~8 items (same classroom food cards used in WS6). Test set assumed ~8 items. Total may vary by group.",
+  "items": {
+    "WS12_R1": {
+      "max_score": 1,
+      "label": "Root split valid",
+      "components": [
+        {"id": "feature_named",    "idea": "Root box names a food dataset variable (Enerji, Yağ, Doymuş Yağ, Şeker, Protein, or synonym)", "required": true},
+        {"id": "threshold_given",  "idea": "A numeric threshold value is written on the left branch edge", "required": true}
+      ],
+      "need": 2,
+      "note": "Award 1 if both feature and threshold present; 0 otherwise."
+    },
+    "WS12_R2": {
+      "max_score": 1,
+      "label": "Operator pair valid",
+      "components": [
+        {"id": "complementary_operators", "idea": "Left branch operator and right branch operator are complementary (≤/>, </≥, >/≤, ≥/<)", "required": true}
+      ],
+      "need": 1,
+      "note": "Same threshold value on both sides with complementary operators. If only one side is written, infer complement."
+    },
+    "WS12_R3": {
+      "max_score": 1,
+      "label": "Left subtree complete",
+      "components": [
+        {"id": "left_counts_present", "idea": "Left child box has Tavsiye edilebilir and Tavsiye edilemez counts filled in", "required": true},
+        {"id": "left_decision_given", "idea": "Left child is labelled as a leaf (karar verildi, or pure-class label) or has a valid second variable", "required": false}
+      ],
+      "need": 1,
+      "note": "Partial (0.5): counts present but no decision label. Full (1): both."
+    },
+    "WS12_R4": {
+      "max_score": 1,
+      "label": "Right subtree complete",
+      "components": [
+        {"id": "right_feature_named",  "idea": "Right child box names a second food dataset variable", "required": true},
+        {"id": "right_threshold_given","idea": "Second-level threshold is written", "required": true},
+        {"id": "leaf_counts_present",  "idea": "Both depth-2 leaf boxes have counts", "required": true}
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "note": "Partial (0.5): right feature named but leaf counts missing or second threshold absent."
+    },
+    "WS12_R5": {
+      "max_score": 2,
+      "label": "Node count conservation",
+      "components": [
+        {"id": "right_node_sum",   "idea": "right_rec + right_notrec == depth1_left_rec + depth1_left_notrec + depth1_right_rec + depth1_right_notrec (right internal node counts equal sum of its two leaves)", "required": true},
+        {"id": "total_sum_plausible", "idea": "Total items across all leaves is plausible (positive, non-zero, matches left + right)", "required": true}
+      ],
+      "need": 2,
+      "partial_on": 1,
+      "note": "1pt per component. Full (2): both hold. Partial (1): only one holds. 0: neither."
+    },
+    "WS12_R6": {
+      "max_score": 1,
+      "label": "Training error count consistent",
+      "components": [
+        {"id": "train_error_consistent", "idea": "train_errors equals the sum of minority-class items at each leaf node. For a pure leaf: minority = 0. For a majority-class-tavsiye leaf: minority = notrec. For majority-class-edilemez leaf: minority = rec.", "required": true}
+      ],
+      "need": 1,
+      "note": "Exact match required. If leaf labels are missing, check whether train_errors <= total items and is non-negative."
+    },
+    "WS12_R7": {
+      "max_score": 1,
+      "label": "Test error count recorded",
+      "components": [
+        {"id": "test_error_present",    "idea": "A numeric value (including 0) is written in the test error field", "required": true},
+        {"id": "test_error_plausible",  "idea": "test_errors is a non-negative integer, not larger than a plausible test set size (<=20)", "required": false}
+      ],
+      "need": 1,
+      "note": "We cannot verify the test error value against a canonical answer. Award 1 if the field is filled and the value is plausible."
+    }
+  },
+  "max_total": 8,
+  "acceptable_features": [
+    {"aliases": ["enerji", "energy", "kcal"],                    "field": "energy_kcal"},
+    {"aliases": ["yağ", "yag", "fat"],                           "field": "fat_g"},
+    {"aliases": ["doymuş yağ", "doymus yag", "saturated fat"],   "field": "saturated_fat_g"},
+    {"aliases": ["şeker", "seker", "sugar"],                     "field": "sugar_g"},
+    {"aliases": ["protein"],                                     "field": "protein_g"},
+    {"aliases": ["yaş", "yas", "age"],                           "field": "age"},
+    {"aliases": ["tuz", "sodyum", "sodium", "salt"],             "field": "sodium_mg"}
+  ]
+}
