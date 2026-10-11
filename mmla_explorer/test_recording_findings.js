@@ -72,9 +72,31 @@ core.students.forEach((student) => {
       const ordered = listed.slice().sort((a, b) => a.t - b.t);
       check(model.runs[0].code === (ordered[0].b || ""), student + " " + ss.id + " sequence starts at the first frame");
     }
+    let pairs = 0;
+    const bag = {};
+    for (let i = 0; i < model.runs.length - 1; i++) {
+      const from = model.runs[i].code;
+      const to = model.runs[i + 1].code;
+      if (!from || !to || from === to) continue;
+      pairs += 1;
+      const key = from + ">" + to;
+      bag[key] = (bag[key] || 0) + 1;
+    }
+    check(model.transitions.pairs === pairs, student + " " + ss.id + " transition count");
+    check(model.transitions.rows.reduce((a, r) => a + r.n, 0) === pairs, student + " " + ss.id + " transition rows sum");
+    model.transitions.rows.forEach((r) => check(bag[r.from + ">" + r.to] === r.n, student + " " + ss.id + " transition " + r.from + " to " + r.to));
+    model.examples.forEach((ex) => {
+      const hit = frames.find((f) => f.s === student && f.ss === ss.id && f.id === ex.id);
+      check(hit && hit.b === ex.code && hit.th === ex.th, student + " " + ss.id + " example uses the primary label");
+      check(hit && ["TREE", "GRAPH", "TABLE", "MIXED", "CODAP"].indexOf(hit.sc) !== -1, student + " " + ss.id + " example is a CODAP-screen preview");
+    });
+    check(model.examples.length <= 2, student + " " + ss.id + " has at most two evidence frames");
     if (model.coded) {
       const html = RF.page({ s: student, ss: ss.id });
-      check(html.indexOf("Preview frames") === -1 && html.indexOf("preview images") === -1 && html.indexOf("<img") === -1, student + " " + ss.id + " findings omit the preview gallery");
+      const imgCount = html.split("<img").length - 1;
+      check(html.indexOf("Preview frames") === -1 && html.indexOf("preview images") === -1 && imgCount <= 2, student + " " + ss.id + " findings omit the preview gallery");
+      check(html.indexOf("What stands out") !== -1, student + " " + ss.id + " states what stands out");
+      if (imgCount) check(html.indexOf("Explore the evidence") !== -1 && html.indexOf('src="thumbs/') !== -1, student + " " + ss.id + " evidence images stay inside the optional section");
       check(html.indexOf("#/explore/recordings?s=" + encodeURIComponent(student)) !== -1, student + " " + ss.id + " links to collected frames");
       const obs = html.indexOf("Observed behaviour");
       const order = html.indexOf("Order of coded frames");
@@ -97,7 +119,7 @@ check(pack.byStudent.Irma.codap_21apr.duplicateOf.indexOf("codap_28apr") !== -1,
 const amy = RF.page({ s: "Amy", ss: "codap_21apr" });
 check(amy.indexOf("Explore data") !== -1 && amy.indexOf("var(--b1)") !== -1, "Amy session uses the explore-data colour");
 check(amy.indexOf("140") !== -1 && amy.indexOf("370") !== -1, "Amy session shows the coded-frame denominator");
-check(amy.indexOf("loading=\"lazy\"") === -1 && amy.indexOf("preview images") === -1, "Amy findings omit preview images");
+check(amy.indexOf("preview images") === -1 && amy.split("<img").length - 1 <= 2, "Amy findings do not restore the preview gallery");
 check(amy.indexOf(".webm") === -1 && amy.indexOf(".mp4") === -1, "original videos are not linked");
 check(amy.indexOf("#/explore/recordings?s=Amy") !== -1, "session links to collected frames");
 check(amy.indexOf("Episode table") === -1 && amy.indexOf("Select target") === -1, "Amy's page does not show the episode table or a second label");
@@ -143,8 +165,12 @@ check(brunoHtml.indexOf("Preview frames") === -1, "Bruno session 2 has no previe
 check(brunoHtml.indexOf("157") !== -1 && brunoHtml.indexOf("53") !== -1, "Bruno session 2 still shows the primary counts");
 const brunoObs = brunoHtml.indexOf(">Observed behaviour<");
 const brunoOrder = brunoHtml.indexOf("Order of coded frames");
+const brunoStand = brunoHtml.indexOf("What stands out");
 const brunoFrames = brunoHtml.indexOf("Explore collected frames for this session");
-check(brunoObs !== -1 && brunoOrder > brunoObs && brunoFrames > brunoOrder, "Bruno session 2 puts the timeline before the collected-frames link");
+check(brunoObs !== -1 && brunoOrder > brunoObs && brunoStand > brunoOrder && brunoFrames > brunoStand, "Bruno session 2 puts interpretation after the timeline");
+check(brunoHtml.indexOf("most frequent primary label") !== -1 && brunoHtml.indexOf("Tune threshold") !== -1, "Bruno session 2 names the most frequent label");
+check(brunoHtml.indexOf("learning gain") === -1 && brunoHtml.indexOf("more successful") === -1, "Bruno session 2 does not claim learning or success");
+check(bruno.transitions.pairs > 0 && bruno.transitions.rows[0].n === bruno.transitions.rows.reduce((m, r) => Math.max(m, r.n), 0), "Bruno session 2 transition rows are ordered by count");
 
 const fixtureCore = {
   students: ["Ada"],

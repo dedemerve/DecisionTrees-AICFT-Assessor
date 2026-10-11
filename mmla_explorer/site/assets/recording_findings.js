@@ -80,6 +80,74 @@
     return runs;
   }
 
+  const SCREEN = new Set(["TREE", "GRAPH", "TABLE", "MIXED", "CODAP"]);
+
+  function transitionsOf(runs) {
+    const counts = {};
+    let pairs = 0;
+    for (let i = 0; i < runs.length - 1; i++) {
+      const from = runs[i].code;
+      const to = runs[i + 1].code;
+      if (!from || !to || from === to) continue;
+      pairs += 1;
+      const key = from + "\t" + to;
+      counts[key] = (counts[key] || 0) + 1;
+    }
+    const rows = Object.keys(counts).map((key) => {
+      const parts = key.split("\t");
+      return { from: parts[0], to: parts[1], n: counts[key] };
+    }).sort((a, b) => b.n - a.n || a.from.localeCompare(b.from) || a.to.localeCompare(b.to));
+    return { pairs: pairs, rows: rows };
+  }
+
+  function topCode(counts) {
+    let best = "";
+    let n = 0;
+    Object.keys(counts).forEach((code) => {
+      if (counts[code] > n) { best = code; n = counts[code]; }
+    });
+    return { code: best, n: n };
+  }
+
+  function thirdsOf(frames) {
+    const coded = frames.filter((f) => f.b);
+    if (coded.length < 15) return { parts: null, uneven: false };
+    const t0 = coded[0].t;
+    const t1 = coded[coded.length - 1].t;
+    if (!(typeof t0 === "number" && typeof t1 === "number") || t1 - t0 < 600) return { parts: null, uneven: false };
+    const span = t1 - t0;
+    const parts = [0, 1, 2].map((i) => {
+      const from = t0 + span * i / 3;
+      const to = t0 + span * (i + 1) / 3;
+      const rows = coded.filter((f) => (i < 2 ? f.t >= from && f.t < to : f.t >= from && f.t <= t1));
+      const counts = countOf(rows, "b");
+      const top = topCode(counts);
+      return { from: from, to: i === 2 ? t1 : to, n: rows.length, counts: counts, top: top.code, topN: top.n };
+    });
+    if (parts.some((p) => p.n < 5)) return { parts: null, uneven: true };
+    return { parts: parts, uneven: false };
+  }
+
+  function examplesOf(frames, runs) {
+    const coded = frames.filter((f) => f.b);
+    const counts = countOf(coded, "b");
+    const ranked = orderedCodes(counts).slice().sort((a, b) => counts[b] - counts[a] || a.localeCompare(b));
+    const chosen = [];
+    if (ranked[0]) chosen.push(ranked[0]);
+    if (ranked[1] && coded.length && counts[ranked[1]] / coded.length >= 0.15) chosen.push(ranked[1]);
+    return chosen.slice(0, 2).map((code) => {
+      const runsOfCode = runs.filter((r) => r.code === code).slice().sort((a, b) => b.n - a.n || a.start - b.start);
+      if (!runsOfCode.length) return null;
+      const run = runsOfCode[0];
+      const mid = (Number(run.start) + Number(run.end)) / 2;
+      const inside = frames.filter((f) => f.b === code && f.th && SCREEN.has(f.sc) && f.t >= run.start && f.t <= run.end);
+      if (!inside.length) return null;
+      inside.sort((a, b) => Math.abs(a.t - mid) - Math.abs(b.t - mid) || a.t - b.t);
+      const frame = inside[0];
+      return { code: code, t: frame.t, id: frame.id, th: frame.th, runN: run.n, inRun: true };
+    }).filter(Boolean);
+  }
+
   function analyze(core, frames) {
     const sessions = (core.sessions_meta || []).map((meta) => Object.assign({ id: meta.id }, sessionMeta(meta)));
     const byStudent = {};
@@ -99,6 +167,8 @@
         coded.forEach((f) => { if (f.cf) confidence[f.cf] = (confidence[f.cf] || 0) + 1; });
         const secondary = countOf(listed, "b2");
         const secondaryFrameCount = listed.filter((f) => f.b2).length;
+        const runs = runsOf(listed);
+        const thirds = thirdsOf(coded);
         byStudent[student][ss.id] = {
           id: ss.id,
           name: ss.name,
@@ -114,7 +184,11 @@
           framesCodedFile: rec.coding ? rec.coding.frames_coded : null,
           secondary: secondary,
           secondaryFrameCount: secondaryFrameCount,
-          runs: runsOf(listed),
+          runs: runs,
+          transitions: transitionsOf(runs),
+          thirds: thirds.parts,
+          timeUneven: thirds.uneven,
+          examples: examplesOf(listed, runs),
           duplicateOf: rec.same_video_file_as || [],
           coverage: typeof rec.frame_coverage === "number" ? rec.frame_coverage : null,
           kept: typeof kept === "number" ? kept : null,
@@ -184,8 +258,143 @@
     if (model.fileCounts && !model.countsMatch) {
       items.push("The behaviour totals in the coding file do not match the listed frames. The table uses the listed frames.");
     }
+    if (model.timeUneven) {
+      items.push("The labelled frames are too uneven across the session clock to compare the beginning, middle, and end.");
+    }
     items.push("Labels describe the visible activity in the extracted frames. They do not, by themselves, establish the participant's understanding or learning.");
     return `<ul>${items.map((x) => `<li>${h(x)}</li>`).join("")}</ul>`;
+  }
+
+  function rankedLabels(model) {
+    return orderedCodes(model.primary).slice().sort((a, b) => model.primary[b] - model.primary[a] || a.localeCompare(b));
+  }
+
+  function standsOut(model) {
+    const lines = [];
+    const denom = model.coded;
+    const ranked = rankedLabels(model);
+    if (!ranked.length || !denom) return lines;
+    const first = ranked[0];
+    const second = ranked[1];
+    const firstN = model.primary[first];
+    const secondN = second ? model.primary[second] : 0;
+    const close = second && Math.abs(firstN - secondN) / denom < 0.05;
+    if (close) {
+      lines.push("The two largest shares are close. " + labelOf(first) + " is " + num(firstN) + " of " + num(denom) + " labelled frames (" + pct(firstN, denom) + "), and " + labelOf(second) + " is " + num(secondN) + " of " + num(denom) + " (" + pct(secondN, denom) + ").");
+    } else if (firstN / denom >= 0.5) {
+      lines.push(labelOf(first) + " is the most frequent primary label: " + num(firstN) + " of " + num(denom) + " labelled frames (" + pct(firstN, denom) + ").");
+      if (second) lines.push(labelOf(second) + " is the next largest share, " + num(secondN) + " of " + num(denom) + " (" + pct(secondN, denom) + ").");
+    } else {
+      lines.push("No primary label reaches half of the labelled frames. The largest share is " + labelOf(first) + ", " + num(firstN) + " of " + num(denom) + " (" + pct(firstN, denom) + ")." + (second ? " " + labelOf(second) + " is next, " + num(secondN) + " of " + num(denom) + " (" + pct(secondN, denom) + ")." : ""));
+    }
+    const change = model.transitions && model.transitions.rows[0];
+    if (change && change.n >= 3 && model.transitions.pairs) {
+      lines.push("The primary label changes " + num(model.transitions.pairs) + " times from one uninterrupted segment of listed frames to the next. The most repeated change is " + labelOf(change.from) + " followed by " + labelOf(change.to) + ", " + num(change.n) + " of those " + num(model.transitions.pairs) + " changes.");
+    }
+    const shift = clockShift(model);
+    if (shift) {
+      const early = model.thirds[0];
+      const late = model.thirds[2];
+      const earlyN = early.counts[shift.code] || 0;
+      const lateN = late.counts[shift.code] || 0;
+      lines.push("The session clock, from " + clock(early.from) + " to " + clock(late.to) + ", is split into three equal parts. In the first part, " + labelOf(shift.code) + " is " + num(earlyN) + " of " + num(early.n) + " labelled frames (" + pct(earlyN, early.n) + "). In the last part, it is " + num(lateN) + " of " + num(late.n) + " (" + pct(lateN, late.n) + ").");
+    }
+    return lines;
+  }
+
+  function clockShift(model) {
+    const parts = model.thirds;
+    if (!parts || parts.length !== 3) return null;
+    const codes = {};
+    parts.forEach((part) => Object.keys(part.counts).forEach((code) => { codes[code] = true; }));
+    let best = null;
+    Object.keys(codes).forEach((code) => {
+      const a = (parts[0].counts[code] || 0) / parts[0].n;
+      const b = (parts[2].counts[code] || 0) / parts[2].n;
+      const diff = Math.abs(a - b);
+      if (diff >= 0.2 && (!best || diff > best.diff)) best = { code: code, diff: diff };
+    });
+    return best;
+  }
+
+  function otherSession(pack, student, model) {
+    const other = pack.sessions.find((ss) => ss.id !== model.id && pack.byStudent[student][ss.id].coded >= 20);
+    if (!other || model.coded < 20) return null;
+    return pack.byStudent[student][other.id];
+  }
+
+  function evidenceHtml(pack, student, model) {
+    const blocks = [];
+    const trans = model.transitions;
+    if (trans && trans.pairs) {
+      const repeated = trans.rows.filter((row) => row.n >= 2).slice(0, 4);
+      let body = "<p>A change is counted when one uninterrupted segment is followed by a different primary label. Frames that stay on the same label are one segment. The denominator is the " + num(trans.pairs) + " changes in this session.</p>";
+      if (repeated.length) {
+        body += "<div class=\"table-wrap\"><table><thead><tr><th>From</th><th>To</th><th class=\"num\">Changes</th><th class=\"num\">Share of changes</th></tr></thead><tbody>"
+          + repeated.map((row) => "<tr><td>" + swatch(row.from) + h(labelOf(row.from)) + "</td><td>" + swatch(row.to) + h(labelOf(row.to)) + "</td><td class=\"num\">" + num(row.n) + "</td><td class=\"num\">" + pct(row.n, trans.pairs) + "</td></tr>").join("")
+          + "</tbody></table></div>";
+      } else {
+        body += "<p>No change happens more than once.</p>";
+      }
+      blocks.push("<h4>Changes between segments</h4>" + body);
+    }
+    const shift = clockShift(model);
+    if (shift && model.thirds) {
+      const names = ["First third", "Middle third", "Last third"];
+      const rows = model.thirds.map((part, i) => {
+        const n = part.counts[shift.code] || 0;
+        return "<tr><td>" + names[i] + "</td><td>" + clock(part.from) + "–" + clock(part.to) + "</td><td class=\"num\">" + num(part.n) + "</td><td class=\"num\">" + num(n) + " of " + num(part.n) + " (" + pct(n, part.n) + ")</td></tr>";
+      }).join("");
+      blocks.push("<h4>Across the session clock</h4><p>Each third is an equal share of the clock from the first labelled frame to the last. The count is labelled frames in that interval, not minutes of activity.</p><div class=\"table-wrap\"><table><thead><tr><th>Part</th><th>Clock</th><th class=\"num\">Labelled frames</th><th class=\"num\">" + h(labelOf(shift.code)) + "</th></tr></thead><tbody>" + rows + "</tbody></table></div>");
+    }
+    if (model.examples && model.examples.length) {
+      const figs = model.examples.map((ex) => {
+        const where = "Stored preview nearest the middle of the longest uninterrupted " + labelOf(ex.code) + " run (" + num(ex.runN) + " listed frames).";
+        const alt = student + ", " + model.name + ", " + clock(ex.t) + ", " + labelOf(ex.code);
+        return "<figure><img loading=\"lazy\" src=\"thumbs/" + h(ex.th) + "\" alt=\"" + h(alt) + "\"><figcaption><b>" + h(labelOf(ex.code)) + "</b> · " + clock(ex.t) + "<br>" + h(where) + " It shows that moment, not every frame with this label.</figcaption></figure>";
+      }).join("");
+      blocks.push("<h4>Stored previews</h4><p>Each picture is chosen by a fixed rule: the CODAP-screen preview nearest the middle of the longest run of a frequent label. Menus are not used.</p><div class=\"rec-shots\">" + figs + "</div>");
+    }
+    const other = otherSession(pack, student, model);
+    if (other) {
+      const codes = orderedCodes(Object.assign({}, model.primary, other.primary));
+      const diffs = codes.map((code) => {
+        const here = model.primary[code] || 0;
+        const there = other.primary[code] || 0;
+        return { code: code, here: here, there: there, diff: Math.abs(here / model.coded - there / other.coded) };
+      }).filter((row) => row.diff >= 0.15).sort((a, b) => b.diff - a.diff).slice(0, 3);
+      let body = "<p>" + h(other.name) + " has " + num(other.coded) + " labelled frames. This session has " + num(model.coded) + ". Shares use each session’s own labelled frames. A difference here is a difference in coded activity.</p>";
+      if (diffs.length) {
+        body += "<div class=\"table-wrap\"><table><thead><tr><th>Behaviour</th><th class=\"num\">This session</th><th class=\"num\">" + h(other.name) + "</th></tr></thead><tbody>"
+          + diffs.map((row) => "<tr><td>" + swatch(row.code) + h(labelOf(row.code)) + "</td><td class=\"num\">" + num(row.here) + " of " + num(model.coded) + " (" + pct(row.here, model.coded) + ")</td><td class=\"num\">" + num(row.there) + " of " + num(other.coded) + " (" + pct(row.there, other.coded) + ")</td></tr>").join("")
+          + "</tbody></table></div>";
+      } else {
+        body += "<p>No primary label differs by 15 percentage points or more.</p>";
+      }
+      blocks.push("<h4>Compared with " + h(other.name) + "</h4>" + body);
+    }
+    const cohort = pack.students.filter((s) => pack.byStudent[s][model.id].coded > 0);
+    const focus = rankedLabels(model)[0];
+    if (focus && cohort.length >= 5) {
+      const shares = cohort.map((s) => {
+        const rec = pack.byStudent[s][model.id];
+        return (rec.primary[focus] || 0) / rec.coded;
+      });
+      const mid = median(shares);
+      const mine = (model.primary[focus] || 0) / model.coded;
+      if (Math.abs(mine - mid) >= 0.15) {
+        blocks.push("<h4>This session across participants</h4><p>" + num(cohort.length) + " participants have labelled frames for " + h(model.name) + ". " + h(labelOf(focus)) + " is " + pct(model.primary[focus], model.coded) + " of " + h(student) + "’s " + num(model.coded) + " labelled frames. The median share of " + h(labelOf(focus)) + " in that group is " + num(100 * mid, 1) + "% of each participant’s own labelled frames. A higher share means more frames with that label.</p>");
+      }
+    }
+    if (!blocks.length) return "";
+    return "<details class=\"find-fold\" id=\"recEvidence\"><summary>Explore the evidence</summary><div class=\"find-fold-body\">" + blocks.join("") + "</div></details>";
+  }
+
+  function median(xs) {
+    if (!xs.length) return null;
+    const a = xs.slice().sort((x, y) => x - y);
+    const i = Math.floor(a.length / 2);
+    return a.length % 2 ? a[i] : (a[i - 1] + a[i]) / 2;
   }
 
   function sessionPanel(pack, student, sessionId) {
@@ -212,6 +421,9 @@
       ${countTable(model.primary, denom, "primary")}
       <h3>Order of coded frames</h3>
       ${ribbon(model)}
+      <h3>What stands out?</h3>
+      ${standsOut(model).map((line) => `<p>${h(line)}</p>`).join("")}
+      ${evidenceHtml(pack, student, model)}
       ${collected}
       <h3>Limitations</h3>
       ${limits(model)}`;
