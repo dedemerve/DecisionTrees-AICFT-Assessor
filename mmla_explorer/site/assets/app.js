@@ -407,13 +407,12 @@
             <text x="410" y="186" text-anchor="middle" fill="#586579" font-size="11" font-weight="600">Prediction</text>
             <text x="410" y="210" text-anchor="middle" fill="#172B4D" font-size="15" font-weight="600">Not recommended</text>
           </svg>
-          <figcaption>A new food card starts at the feature. The rule chooses the branch, and the leaf is the prediction. This drawing uses the food-card words. It is not a tree a student built, and it is not a result from the archive.</figcaption>
         </figure>
       </div>
       <div class="metric-row">
         <a class="metric" href="#/explore/students"><div class="v">${STUDENTS.length}</div><div class="l">Participants</div><div class="s">Pseudonyms only</div></a>
         <a class="metric" href="#/explore/worksheets"><div class="v">${C.worksheets.length}</div><div class="l">Worksheets</div><div class="s">${num(schemaFields)} response fields</div></a>
-        <a class="metric" href="#/explore/recordings"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} with a behaviour label</div><p class="metric-privacy">Frame previews are cropped and softened to reduce the readability of on-screen text. The archive lists extracted frames and their available behaviour labels.</p></a>
+        <a class="metric" href="#/explore/recordings"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} with a behaviour label</div></a>
         <a class="metric" href="#/explore/logs"><div class="v">${num(logEvents)}</div><div class="l">Log events</div><div class="s">CODAP Arbor, 3 class days</div></a>
       </div>
       <h2>How the archive is organised</h2>
@@ -424,7 +423,7 @@
         <li><a href="#/findings"><span class="n">3</span><h3>Findings</h3><p>Explore the results, patterns, and interpretations derived from the data.</p></a></li>
         <li><a href="#/docs"><span class="n">4</span><h3>Reference</h3><p>Consult documentation, definitions, and supporting resources.</p></a></li>
       </ol>
-      <p class="small">This is a recommended way to explore the archive. It is not a claim that every research task follows this sequence.</p>
+      <p class="small span-line">This is a recommended way to explore the archive. It is not a claim that every research task follows this sequence.</p>
     </div>`;
   }
 
@@ -1897,24 +1896,34 @@
         <li><span class="n">2</span><h3>Colab Session 2</h3><p class="nb-kicker">Preparing data and building a decision tree</p><p>Students separate features from the recommendation label, split training and test rows, and fit a decision tree.</p></li>
         <li><span class="n">3</span><h3>Colab Session 3</h3><p class="nb-kicker">Exploring tree depth and evaluating performance</p><p>Students compare trees of different depths and look at training and test error, including overfitting.</p></li>
       </ol>
-      <h2>Teacher instructions</h2>
-      <p>This guided notebook introduces non-major students to Python and builds toward training and evaluating a decision tree, step by step.</p>
-      ${pack.teacher ? `<p><a class="btn" href="${h(pack.teacher)}" download>Download the instruction notebook</a></p>` : ""}
-      <h2>Final homework: guided application</h2>
-      <p>The final homework asks students to use the guided Colab work on a new table, the lizard data. Read the instruction document first. The working code it refers to is the teacher notebook above.</p>
-      <ul class="nb-resources">
-        <li>
-          <div><strong>1. Homework instructions</strong><span>The step-by-step assignment, from getting to know the table through a written reflection. Word document.</span></div>
-          <a class="nb-dl" href="downloads/notebooks/homework/final_homework_instructions.docx" download>Download</a>
-        </li>
-        <li>
-          <div><strong>2. Lizard dataset</strong><span>320 rows and 7 columns: species, sex, body length, total length, mass, leg length, and habitat. CSV file.</span></div>
-          <a class="nb-dl" href="downloads/notebooks/homework/lizard_data.csv" download>Download</a>
-        </li>
-      </ul>
-      <h3>Student submissions</h3>
-      <p>Each file is that student's final notebook. Names are replaced by pseudonyms. These notebooks are not copies of the teacher notebook.</p>
-      ${finalMissing.includes("Marco") ? `<p class="nb-muted">Marco: no notebook file was found. A PDF report is recorded for this submission, but the file could not be opened from storage, so it is not linked here.</p>` : ""}${finalMissing.filter((s) => s !== "Marco").length ? `<p class="nb-muted">${finalMissing.filter((s) => s !== "Marco").map(h).join(", ")}: no notebook file was found in the final-homework folder.</p>` : ""}
+      <article class="nb-offer">
+        <div>
+          <h2>Teacher instructions</h2>
+          <p>A guided notebook that introduces Python and builds toward training and evaluating a decision tree.</p>
+        </div>
+        ${pack.teacher ? `<a class="nb-dl" href="${h(pack.teacher)}" download>Download notebook</a>` : ""}
+      </article>
+      <section class="nb-assignment">
+        <h2>Final homework: guided application</h2>
+        <p>The final assignment asks students to apply their Python and decision-tree skills to the lizard dataset. Start with the homework instructions, then use the supplied dataset to complete the activities.</p>
+        <div class="nb-offer nb-offer-primary">
+          <div>
+            <h3>Homework instructions</h3>
+            <p>The step-by-step assignment. It uses the lizard table described below.</p>
+          </div>
+          <a class="nb-dl" href="downloads/notebooks/homework/final_homework_instructions.pdf" download>Download homework instructions (PDF)</a>
+        </div>
+        <div class="nb-offer nb-offer-sub">
+          <div>
+            <h3>Dataset for this assignment</h3>
+            <p>The CSV used in the homework. 320 rows and 7 columns.</p>
+          </div>
+          <a class="nb-dl" href="downloads/notebooks/homework/lizard_data.csv" download>Download lizard dataset (CSV)</a>
+        </div>
+      </section>
+      <h2>Student submissions</h2>
+      <p>These files are the students' own notebooks. Names are replaced by pseudonyms.</p>
+      <p class="nb-muted">Marco submitted a written report instead of a notebook. <a class="nb-dl nb-dl-quiet" href="downloads/notebooks/final/Marco.pdf" download>Download PDF</a></p>
       <ul class="nb-files">${finalRows}</ul>
       <details class="nb-more">
         <summary>Guided session notebooks</summary>

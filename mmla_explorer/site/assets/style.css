@@ -718,7 +718,19 @@ p.span-line { max-width: none; white-space: nowrap; }
 .explore-path p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink-2); max-width: none; }
 .material-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 8px 0 16px; }
 .nb-page { max-width: none; }
+.nb-page .log-tech { max-width: none; }
 .nb-page p, .nb-page .lead, .nb-page .nb-note, .nb-page .log-note { max-width: none; }
+.nb-offer, .nb-assignment {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 12px;
+  padding: 16px 18px; margin: 0 0 16px;
+}
+.nb-offer { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.nb-offer h2, .nb-offer h3, .nb-assignment h2 { margin: 0 0 6px; }
+.nb-offer p, .nb-assignment > p { margin: 0; color: var(--ink-2); }
+.nb-offer-primary { margin-top: 14px; background: var(--pale-2); }
+.nb-offer-sub { margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--rule); background: transparent; border-left: 0; border-right: 0; border-bottom: 0; border-radius: 0; padding-left: 0; padding-right: 0; }
+.nb-dl-quiet { padding: 3px 8px; font-size: 12px; font-weight: 600; color: var(--muted); background: transparent; border-color: transparent; }
+.nb-muted .nb-dl-quiet:hover, .nb-dl-quiet:focus-visible { background: var(--blue); color: #fff; border-color: var(--blue); }
 .nb-seq {
   list-style: none; margin: 8px 0 12px; padding: 0; width: 100%;
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;
@@ -1041,7 +1053,7 @@ p.why { font-size: 14px; color: var(--ink-2); }
   .metric-row, .flow, .compare, .explore-path, .nb-seq, .nb-grid { grid-template-columns: 1fr; }
   .nb-seq li:not(:last-child)::after { display: none; }
   .nb-grid, .nb-files { grid-template-columns: 1fr; }
-  .nb-resources li { align-items: flex-start; flex-direction: column; }
+  .nb-resources li, .nb-offer { align-items: flex-start; flex-direction: column; }
   .log-metrics { grid-template-columns: 1fr; }
   .lead, .log-caption, .lead.log-lead, .page.wide, .log-tech { max-width: 100%; }
   p.span-line { white-space: normal; }
