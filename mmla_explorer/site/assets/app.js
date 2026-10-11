@@ -1196,6 +1196,44 @@
       <p class="small">WS_DT_INTRO is not listed. An audit in the repository describes its extraction as the same text as WS13, and this site does not publish it as a separate worksheet. The final lizard project is under <a href="#/explore/notebooks">Python notebooks</a>.</p>
       <p>${methodLink("worksheets")}</p>`)}</div>`;
   }
+  function bindWsSearch() {
+    const inp = document.getElementById("wsSearch");
+    const countEl = document.getElementById("wsCount");
+    if (!inp) return;
+    let group = "";
+    function filterWs() {
+      const q = inp.value.trim().toLowerCase();
+      const cards = document.querySelectorAll(".ws-card");
+      let visible = 0;
+      cards.forEach((card) => {
+        const textOk = !q || card.dataset.title.includes(q) || card.dataset.code.toLowerCase().includes(q);
+        const groupOk = !group || card.dataset.group === group;
+        const match = textOk && groupOk;
+        card.classList.toggle("ws-hidden", !match);
+        if (match) visible++;
+      });
+      document.querySelectorAll(".ws-group").forEach((g) => {
+        const hasVisible = Array.from(g.querySelectorAll(".ws-card")).some((c) => !c.classList.contains("ws-hidden"));
+        g.classList.toggle("ws-hidden", !hasVisible);
+      });
+      const filtering = q || group;
+      if (countEl) countEl.textContent = filtering ? `${visible} of ${cards.length} worksheets` : `${cards.length} worksheets`;
+      const empty = document.getElementById("wsEmpty");
+      if (empty) empty.hidden = visible !== 0;
+    }
+    inp.addEventListener("input", filterWs);
+    document.querySelectorAll(".ws-filters .chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        group = btn.dataset.group || "";
+        document.querySelectorAll(".ws-filters .chip").forEach((b) => {
+          const on = b === btn;
+          b.classList.toggle("on", on);
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        filterWs();
+      });
+    });
+  }
 
   function loSection(code) {
     const mapping = docOf(code).mapping;
