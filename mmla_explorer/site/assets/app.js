@@ -1771,7 +1771,74 @@
   }
 
 
+  const LOG_EXAMPLES = {
+    "2026-04-21": [
+      ["08:46:34", "Nadia", "Added a predictor", "drop_attribute", "Column 1"],
+      ["08:54:41", "Irma", "Changed a split threshold", "change_split_values", "Tuz (g)"],
+    ],
+    "2026-04-28": [
+      ["08:10:07", "Bruno", "Chose the target variable", "set_dependent_variable", "Column 1"],
+      ["08:15:01", "Nadia", "Added a predictor", "drop_attribute", "Yağ (g)"],
+    ],
+  };
+  function logExampleTable(day) {
+    const rows = (LOG_EXAMPLES[day] || []).map(([time, who, label, code, detail]) => ({
+      cells: [`<span class="mono">${h(time)}</span>`, h(who), `${h(label)} <span class="small">(<code>${h(code)}</code>)</span>`, h(detail)],
+    }));
+    return table([{ t: "Time (UTC)" }, { t: "Participant" }, { t: "Action" }, { t: "Detail" }], rows);
+  }
   function pageLogs() {
+    const L = C.logs;
+    const dayTable = table(
+      [{ t: "Date in created_at" }, { t: "Rows in the source file", num: 1 }],
+      Object.entries(L.rows_by_day).map(([d, n]) => ({ cells: [h(d), num(n)] }))
+    );
+    const otherFiles = L.other_files_row_counts
+      ? table([{ t: "File counted, not loaded as a second source" }, { t: "Rows", num: 1 }], Object.entries(L.other_files_row_counts).map(([name, n]) => ({ cells: [`<code>${h(name)}</code>`, num(n)] })))
+      : "";
+    const cards = Object.entries(LOG_DAYS).map(([d, meta]) => `<article class="log-session-card">
+        <h2>${h(meta.name)}</h2>
+        <p class="log-session-date">${h(meta.date)}</p>
+        <p class="ws15-role">Each row is one action in CODAP Arbor, stored with a time and a pseudonym.</p>
+        ${logExampleTable(d)}
+        <p class="log-ex">Two example rows from this date. This is not the complete session.</p>
+      </article>`).join("");
+    return `<div class="page wide">${exploreShell("logs", `
+      ${crumbs([["Collected data", "#/collected"], ["CODAP platform logs"]])}
+      <h1>CODAP platform logs</h1>
+      <p class="lead">Platform logs record actions made while participants work in CODAP Arbor. The rows below are examples. The complete log is on Hugging Face.</p>
+      <div class="log-session-grid">${cards}</div>
+      <p>Both sessions come from one source file. Records are separated by the date stored on each row.</p>
+      <section class="section-block" id="log-dataset">
+        <div class="dataset-card frame-dataset">
+          <div class="ds-type">Complete dataset · CC BY 4.0</div>
+          <div class="ds-title">Platform log on Hugging Face</div>
+          <p class="ds-desc">The public file is <code>codap_log_anonymized.csv</code>, inside the frame dataset. That dataset also holds the frame images and <code>metadata.csv</code>. It does not include the original videos.</p>
+          <a class="btn btn-primary frame-dataset-btn" href="${HF_FRAMES}" target="_blank" rel="noopener">Explore the complete platform-log dataset on Hugging Face</a>
+        </div>
+      </section>
+      <p><a href="#/findings">Participant counts from this log are under Findings.</a></p>
+      ${tech("Technical details: source file and session separation", `
+        ${kv([
+          ["Source file", `<code>${h(L.source)}</code>`],
+          ["Rows in that file", num(L.rows_total)],
+          ["Date field", "<code>created_at</code>. The first 10 characters are the date used to separate sessions."],
+          ["CODAP session 1", "Rows dated 2026-04-21."],
+          ["CODAP session 2", "Rows dated 2026-04-28."],
+          ["Rows mapped to a pseudonym", num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))],
+          ["Rows removed because they did not match a pseudonym", num(sum(Object.values(L.rows_excluded_unmatched_by_day)))],
+        ])}
+        <p>The 28 April file is the only file the site reads. It already contains the 7 April and 21 April rows, so those earlier files are not added again. The file also contains a few 25 April rows. Rows that did not match a pseudonym were removed.</p>
+        <h3>Rows by date</h3>
+        ${dayTable}
+        ${otherFiles}
+        <h3>Columns in the log</h3>
+        <p><code>id</code>, <code>created_at</code>, <code>student_id</code>, <code>action</code>, <code>timestamp_ms</code>, <code>parameters</code>, <code>raw_data</code>.</p>
+        <h3>Action codes</h3>
+        ${table([{ t: "Event code" }, { t: "What it records" }], Object.entries(ACTION).map(([k, label]) => ({ cells: [`<code>${h(k)}</code>`, h(label)] })))}
+      `)}`)}</div>`;
+  }
+  function logFindingsSection() {
     const rows = [];
     STUDENTS.forEach((s) => Object.entries(LOG_DAYS).forEach(([d, meta]) => {
       const v = logDays[s] && logDays[s][d];
@@ -1788,36 +1855,20 @@
     const maxEmits = Math.max(...STUDENTS.map((s) => Object.values(logDays[s] || {}).reduce((a, v) => a + (v.emit_count || 0), 0)));
     const sessionsWithData = STUDENTS.reduce((t, s) => t + Object.keys(logDays[s] || {}).length, 0);
     const L = C.logs;
-    return `<div class="page wide">${exploreShell("logs", `
-      ${crumbs([["Collected data", "#/collected"], ["CODAP platform logs"]])}
-      <h1>Platform logs</h1>
-      <p class="lead">CODAP Arbor recorded every action. This page is a session summary, not the full event file. An anonymised event log, <code>codap_log_anonymized.csv</code>, is included in the public dataset <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">DecisionTrees-AICFT-Frames</a>. Worksheet files are not part of that dataset.</p>
+    return `<h2 id="log-summaries">Platform log summaries</h2>
+      <p>These counts come from the platform log. They describe the file. They are not a reviewed conclusion about what students learned.</p>
       <div class="log-metrics">
-        <div class="log-metric">
-          <div class="lm-label">Total model attempts</div>
-          <div class="lm-name">${num(totalEmits)}</div>
-          <div class="lm-desc">All students · both sessions</div>
-        </div>
-        <div class="log-metric">
-          <div class="lm-label">Mean last accuracy</div>
-          <div class="lm-name">${avgAcc != null ? num(avgAcc * 100, 1) + "%" : "–"}</div>
-          <div class="lm-desc">Each student's final attempt</div>
-        </div>
-        <div class="log-metric">
-          <div class="lm-label">Most attempts (one student)</div>
-          <div class="lm-name">${num(maxEmits)}</div>
-          <div class="lm-desc">Across both CODAP sessions</div>
-        </div>
-        <div class="log-metric">
-          <div class="lm-label">Sessions with log data</div>
-          <div class="lm-name">${num(sessionsWithData)}</div>
-          <div class="lm-desc">Student × session pairs</div>
-        </div>
+        <div class="log-metric"><div class="lm-label">Total model attempts</div><div class="lm-name">${num(totalEmits)}</div><div class="lm-desc">All students · both sessions</div></div>
+        <div class="log-metric"><div class="lm-label">Mean last accuracy</div><div class="lm-name">${avgAcc != null ? num(avgAcc * 100, 1) + "%" : "–"}</div><div class="lm-desc">Each student's final attempt</div></div>
+        <div class="log-metric"><div class="lm-label">Most attempts (one student)</div><div class="lm-name">${num(maxEmits)}</div><div class="lm-desc">Across both CODAP sessions</div></div>
+        <div class="log-metric"><div class="lm-label">Sessions with log data</div><div class="lm-name">${num(sessionsWithData)}</div><div class="lm-desc">Student × session pairs</div></div>
       </div>
       <dl class="terms compact-terms"><dt>Model attempts</dt><dd>Times the student submitted a tree's results.</dd><dt>Predictors tried</dt><dd>Different variables placed into the tree.</dd><dt>One thing at a time</dt><dd>Share of steps where only one setting changed between attempts.</dd></dl>
       ${table([{ t: "Student" }, { t: "Session" }, { t: "Model attempts", num: 1 }, { t: "Last accuracy", num: 1 }, { t: "Predictors tried", num: 1 }, { t: "One thing at a time", num: 1 }], rows)}
       <p>${methodLink("logs", "What these measures mean")}</p>
-      ${tech("Technical details", kv([["Source", `<code>${h(L.source)}</code>`], ["Rows in the file", num(L.rows_total)], ["Rows mapped to a pseudonym", num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))], ["Instructor rows removed", num(sum(Object.values(L.rows_excluded_unmatched_by_day)))]]) + "<p>The 28 April file already contains the 7 and 21 April rows, so it is used as the single source and split by date.</p>" + table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] }))))}`)}</div>`;
+      <h3>Actions in the log</h3>
+      ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}
+      <p class="small">The 7 April rows in the same source file are not one of these two sessions. Date counts are in the technical note on the <a href="#/explore/logs">platform logs</a> page.</p>`;
   }
   function pageNotebooks() {
     const rows = STUDENTS.map((s) => {
@@ -2098,18 +2149,18 @@
 
   // ------------------------------------------------------------------ 05 Findings
   function pageFindings() {
-    return `<div class="page">${`<p class="kicker">Findings &amp; Research Insights</p>`}
+    return `<div class="page wide">${`<p class="kicker">Findings &amp; Research Insights</p>`}
       <h1>Research Findings</h1>
-      <p class="lead">Verified findings supported by completed analyses will appear here.</p>
+      <p class="lead">Reviewed conclusions about what students learned are not in this archive yet.</p>
       <div class="warn">
-        <p><b>This section is not yet populated.</b> The archive currently holds collected data (worksheets, recordings, logs, and notebooks) and the processing pipeline that transforms it into structured evidence. Analytical findings require a completed analysis pass that has not yet been documented in this archive.</p>
-        <p>The evidence collected is browsable in the <a href="#/explore/worksheets">worksheet catalogue</a>, the <a href="#/explore/recordings">screen recording frames</a>, and the <a href="#/explore/logs">platform logs</a>. The methods used to process this evidence are described in the <a href="#/methods">processing workflow</a>. When verified findings are available, they will be added here with links to the analyses that support them.</p>
+        <p>Nothing on this page is a reviewed finding about learning. The platform-log summaries below are counts computed from the log file. Example rows and the download stay on the <a href="#/explore/logs">platform logs</a> page.</p>
       </div>
-      <h2>Available evidence</h2>
+      ${logFindingsSection()}
+      <h2>Collected data</h2>
       <ul class="guide">
         <li><a href="#/explore/worksheets">Worksheets</a><span>Extracted student responses with item-level scores for ${C.worksheets.length} worksheets.</span></li>
         <li><a href="#/explore/recordings">Screen recording frames</a><span>${num(F.length)} extracted frames. Original videos are not published on this site.</span></li>
-        <li><a href="#/explore/logs">Platform logs</a><span>${num(logEvents)} CODAP Arbor events across ${STUDENTS.length} participants.</span></li>
+        <li><a href="#/explore/logs">Platform logs</a><span>Example records and the public log file. The counts are in the summaries above.</span></li>
         <li><a href="#/explore/notebooks">Python notebooks</a><span>Final project notebooks on the lizard data.</span></li>
       </ul>
     </div>`;

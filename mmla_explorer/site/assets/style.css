@@ -710,6 +710,16 @@ svg text { font-family: var(--sans); }
 .code-card p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
 
 /* -- log metrics -- */
+.log-session-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0 16px; }
+.log-session-card {
+  display: flex; flex-direction: column; gap: 8px; min-width: 0;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 16px;
+}
+.log-session-card h2 { margin: 0; font-size: 1.15rem; }
+.log-session-date { margin: 0; font-size: 13px; font-weight: 600; color: var(--blue); }
+.log-session-card .table-wrap { margin: 4px 0; }
+.log-session-card table { font-size: 13px; }
+.log-ex { margin: 0; font-size: 13px; color: var(--muted); max-width: none; }
 .log-metrics {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px; margin: 14px 0 20px;
@@ -909,6 +919,7 @@ p.why { font-size: 14px; color: var(--ink-2); }
   .hero h1 { font-size: 1.7rem; }
   .metric-row, .flow, .compare { grid-template-columns: 1fr; }
   .log-metrics { grid-template-columns: 1fr; }
+  .log-session-grid { grid-template-columns: 1fr; }
   .nb-stages { grid-template-columns: 1fr 1fr; }
   .thumbs, .frame-grid, .thumbs.frame-grid { grid-template-columns: 1fr 1fr; }
   .stat-row { grid-template-columns: 1fr 1fr; }
