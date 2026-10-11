@@ -386,7 +386,7 @@
           <h1><span class="hero-line">Documenting How Pre-Service Teachers</span> <span class="hero-line">Learn Decision Trees</span></h1>
           <p class="hero-lead">A research archive of worksheets, screen recordings, platform logs, and notebooks from a decision-tree unit with ${STUDENTS.length} pre-service teachers, shown only by pseudonym.</p>
           <div class="hero-actions">
-            <a class="btn-primary" href="#/collected">Collected data</a>
+            <a class="btn-primary" href="#/explore/worksheets">Browse worksheets</a>
             <a class="btn-secondary" href="#/methods">Processing and analysis</a>
           </div>
         </div>
@@ -1198,7 +1198,7 @@
     return `<div class="page wide">${crumbs([["Collected data", "#/collected"], ["Worksheets"]])}
       ${exploreShell("worksheets", `
       <h1>Worksheets</h1>
-      <p class="lead">The worksheet is the unit of browsing. ${C.worksheets.length} worksheets are in this archive. Search by title or topic, or filter by the purpose used to group them. Open a worksheet to read responses and any stored scores.</p>
+      <p class="lead">The worksheet is the unit of browsing. ${C.worksheets.length} worksheets are in this archive. Search by title or topic, or filter by the purpose used to group them. Open a worksheet to download available files.</p>
       <div class="ws-search-bar">
         <label class="sr-only" for="wsSearch">Search worksheets</label>
         <input type="search" id="wsSearch" placeholder="Search by code, title, or topic" autocomplete="off">
@@ -1477,48 +1477,43 @@
     };
     inp.addEventListener("input", apply);
   }
-  function pageWorksheet(code, q) {
-    q = q || {};
+  function pageWorksheet(code) {
     const w = C.worksheets.find((x) => x.code === code);
     if (!w) {
-      return `<div class="page">${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], ["Not found"]])}
-        <h1>Worksheet not found</h1><p>No worksheet with the code “${h(code)}” is in this archive.</p><p><a href="#/explore/worksheets">Back to the worksheets</a></p></div>`;
+      return `<div class=”page”>${crumbs([[“Collected data”, “#/collected”], [“Worksheets”, “#/explore/worksheets”], [“Not found”]])}
+        <h1>Worksheet not found</h1><p>No worksheet with the code “${h(code)}” is in this archive.</p><p><a href=”#/explore/worksheets”>Back to the worksheets</a></p></div>`;
     }
     const info = WS_INFO[code] || {};
-    const model = explorerModel(code);
     const doc = docOf(code);
-    const responses = code === "WS11" ? ws11ResponseSection() : responseExplorer(w, q);
-    const jump = `<nav class="jump" aria-label="On this page">
-      <a href="#overview">Overview</a>
-      <a href="#instructions">Instructions</a>
-      <a href="#objectives">Learning objectives</a>
-      <a href="#source-pdf">Worksheet PDF</a>
-      <a href="#answer-key">Answer key</a>
-      <a href="#responses">Responses</a>
-      ${code === "WS11" ? "" : `<a href="#summary">Counts</a>`}
-      <a href="#provenance">Provenance</a>
-    </nav>`;
-    return `<div class="page wide">${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], [code]])}
-      ${exploreShell("worksheets", `
+    const dlEntry = C.downloads.worksheets.find((d) => d.file && d.file.includes(code));
+    const blankHref = dlEntry ? `downloads/worksheets/${h(code)}.pdf` : null;
+    const akHref = answerKeyHref(w);
+    const template = w.rubric_data && w.rubric_data.scoring_policy && w.rubric_data.scoring_policy.no_canonical_tree;
+    const blankBtn = blankHref
+      ? `<a class=”btn-primary” href=”${blankHref}” download>Download blank worksheet (PDF)</a>`
+      : `<span class=”na”>Blank worksheet PDF not available</span>`;
+    const akBtn = akHref
+      ? `<a class=”btn-secondary” href=”${h(akHref)}” download>${template ? “Download printed template (PDF)” : “Download answer key (PDF)”}</a>`
+      : `<span class=”na”>${template ? “Printed template PDF not available” : “Answer key PDF not available”}</span>`;
+    const withOcr = STUDENTS.filter((s) => C.ws[s][code].ocr).length;
+    return `<div class=”page wide”>${crumbs([[“Collected data”, “#/collected”], [“Worksheets”, “#/explore/worksheets”], [code]])}
+      ${exploreShell(“worksheets”, `
       <h1>${h(code)} · ${h(wsTitle(w))}</h1>
-      <p class="lead">${h(info.topic || "")}</p>
-      ${jump}
-      <section class="section-block" id="overview"><h2>Overview</h2>
-        ${kv([
-          ["In class", h(info.date || "No class date on the scanned-file names")],
-          ["Check", h(howChecked(w))],
-          ["Students with an extraction file", `${STUDENTS.filter((s) => C.ws[s][code].ocr).length} of ${STUDENTS.length}`],
-          doc.curriculum_status && ["Schema curriculum status", h(doc.curriculum_status)],
-        ])}
-        ${doc.interpretation_prohibited ? `<p class="small">The schema forbids treating the extraction as an interpretation of competency.</p>` : ""}
+      <p class=”lead”>${h(info.topic || “”)}</p>
+      <section class=”section-block” id=”downloads”><h2>Downloads</h2>
+        <div class=”dl-actions”>${blankBtn} ${akBtn}</div>
+        ${dlEntry ? `<p class=”small”>File size: ${h(dlEntry.bytes ? Math.round(dlEntry.bytes / 1024) + “ KB” : “–“)}</p>` : “”}
       </section>
-      ${instructionsSection(code)}
-      ${loSection(code)}
-      ${pdfSection(code)}
-      ${rubricSection(w)}
-      ${responses}
-      ${code === "WS11" ? "" : summarySection(code, model)}
-      ${provenanceSection(w, model)}
+      <section class=”section-block” id=”overview”><h2>Overview</h2>
+        ${kv([
+          [“In class”, h(info.date || “No class date on the scanned-file names”)],
+          [“Check method”, h(howChecked(w))],
+          [“Extraction files on file”, `${withOcr} of ${STUDENTS.length} students`],
+          doc.curriculum_status && [“Schema curriculum status”, h(doc.curriculum_status)],
+        ])}
+        ${doc.interpretation_prohibited ? `<p class=”small”>The schema forbids treating the extraction as an interpretation of competency.</p>` : “”}
+        <p class=”small”>Response data, item scoring, and automated outputs are part of the research dataset and are not published in this public archive. <a href=”#/methods”>Data processing and analysis →</a></p>
+      </section>
       `)}</div>`;
   }
 
