@@ -1568,24 +1568,52 @@
       return `<li class="file-item"><a href="${h(encodeURI(item.href))}" download="${h(item.download || "")}">${h(item.title)}</a><span class="file-meta">PDF · ${bytes(item.bytes)}</span>${who}</li>`;
     }).join("")}</ul>`;
   }
+  function ws15Card(title, name, rows, role) {
+    return `<article class="ws15-card">
+      <h4>${h(title)}</h4>
+      <code class="ws15-file">${h(name)}</code>
+      <p class="ws15-role">${h(role)}</p>
+      <div class="ws15-foot">
+        <span class="ws15-meta">CSV · ${num(rows)} rows</span>
+        <a class="btn-primary" href="downloads/ws15/${h(name)}" download="${h(name)}" aria-label="Download ${h(name)}">Download</a>
+      </div>
+    </article>`;
+  }
   function ws15DatasetSection(code) {
     if (code !== "WS15") return "";
-    const item = (name, bytes, rows, note) => `<li class="file-item"><a href="downloads/ws15/${h(name)}" download="${h(name)}"><code>${h(name)}</code></a><span class="file-meta">CSV, UTF-8 · ${num(bytes)} bytes · ${num(rows)} rows. ${h(note)}</span></li>`;
     return `<section class="section-block" id="ws15-data"><h2>WS15 dataset collection</h2>
-      <p>These datasets were specifically prepared for Worksheet 15. Each file supports the activities associated with this worksheet. Please use the provided datasets rather than a generic Titanic dataset, as the files have been prepared for this learning activity.</p>
+      <p>These datasets were prepared specifically for Worksheet 15. Use the provided files for the activities rather than a generic Titanic dataset.</p>
       <h3>Training and test samples</h3>
-      <p>The worksheet loads these four files in order. Sample 1 is the first pair, and sample 2 is the second pair. All four use the columns survived, pclass, sex, age, fare, embarked, and sex_bin. In these files, sex_bin is 1 when sex is female and 0 when sex is male.</p>
-      <ul class="file-list">
-        ${item("titanic_egitim_veri_seti1.csv", 21749, 812, "Training sample 1, for the section Eğitim Veri Seti 1.")}
-        ${item("titanic_test_veri_seti1.csv", 6294, 231, "Test sample 1, for the section Test Veri Seti 1.")}
-        ${item("titanic_egitim_veri_seti2.csv", 22375, 834, "Training sample 2, for the section Eğitim Veri Seti 2.")}
-        ${item("titanic_test_veri_seti2.csv", 5668, 209, "Test sample 2, for the section Test Veri Seti 2.")}
-      </ul>
-      <h3>Full passenger file</h3>
-      <p>The last activity, Veri Setini Rastgele Bölme, loads this file and splits it at random into a training group and a test group. It has more columns than the four samples: survived, pclass, name, sex, age, sibsp, parch, ticket, fare, cabin, embarked, boat, body, and homedest.</p>
-      <ul class="file-list">
-        ${item("titanic_veri_seti.csv", 106423, 1326, "Full file for the random-split activity.")}
-      </ul>
+      <p>Four files provide two separate training and test samples for the worksheet activities.</p>
+      <div class="ws15-pair">
+        <p class="ws15-pair-label">Sample 1</p>
+        <div class="ws15-grid">
+          ${ws15Card("Training Sample 1", "titanic_egitim_veri_seti1.csv", 812, "Use this file to build the first decision tree.")}
+          ${ws15Card("Test Sample 1", "titanic_test_veri_seti1.csv", 231, "Use this file to check the first tree.")}
+        </div>
+      </div>
+      <div class="ws15-pair">
+        <p class="ws15-pair-label">Sample 2</p>
+        <div class="ws15-grid">
+          ${ws15Card("Training Sample 2", "titanic_egitim_veri_seti2.csv", 834, "Use this file to build the second decision tree.")}
+          ${ws15Card("Test Sample 2", "titanic_test_veri_seti2.csv", 209, "Use this file to check the second tree.")}
+        </div>
+      </div>
+      <details class="tech"><summary>Columns in these four files</summary><div class="tech-body">
+        <p>The four files share the columns <code>survived</code>, <code>pclass</code>, <code>sex</code>, <code>age</code>, <code>fare</code>, <code>embarked</code>, and <code>sex_bin</code>. In these files, <code>sex_bin</code> is 1 for female passengers and 0 for male passengers.</p>
+      </div></details>
+      <article class="ws15-card ws15-full">
+        <h3>Full Passenger Dataset</h3>
+        <code class="ws15-file">titanic_veri_seti.csv</code>
+        <p class="ws15-role">This file contains the full passenger records used in the final activity, where the data is randomly split into training and test groups.</p>
+        <details class="tech"><summary>Columns in this file</summary><div class="tech-body">
+          <p>This file does not use the same columns as the four samples. Its columns are <code>survived</code>, <code>pclass</code>, <code>name</code>, <code>sex</code>, <code>age</code>, <code>sibsp</code>, <code>parch</code>, <code>ticket</code>, <code>fare</code>, <code>cabin</code>, <code>embarked</code>, <code>boat</code>, <code>body</code>, and <code>homedest</code>.</p>
+        </div></details>
+        <div class="ws15-foot">
+          <span class="ws15-meta">CSV · ${num(1326)} rows</span>
+          <a class="btn-primary" href="downloads/ws15/titanic_veri_seti.csv" download="titanic_veri_seti.csv" aria-label="Download titanic_veri_seti.csv">Download</a>
+        </div>
+      </article>
     </section>`;
   }
   function pageWorksheet(code) {
