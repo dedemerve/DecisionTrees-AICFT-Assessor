@@ -386,8 +386,8 @@
           <h1><span class="hero-line">Documenting How Pre-Service Teachers</span> <span class="hero-line">Learn Decision Trees</span></h1>
           <p class="hero-lead">A research archive of worksheets, screen recordings, platform logs, and notebooks from a decision-tree unit with ${STUDENTS.length} pre-service teachers, shown only by pseudonym.</p>
           <div class="hero-actions">
-            <a class="btn-primary" href="#/explore/worksheets">Browse worksheets</a>
-            <a class="btn-secondary" href="#/methods">Processing and analysis</a>
+            <a class="btn-primary" href="#/collected">Explore the data</a>
+            <a class="btn-secondary" href="#/methods">How it was processed</a>
           </div>
         </div>
         <figure class="hero-visual">
@@ -416,12 +416,13 @@
       </div>
       <h2>How the archive is organised</h2>
       <p>Each part of the site has a different job. The counts above describe what was collected. They are not results about learning.</p>
-      <ul class="ia-list">
-        <li><a href="#/collected">Collected data</a><p>Worksheets and student responses, student profiles, screen recordings, frames, and CODAP platform logs. This is the evidence, under pseudonyms.</p></li>
-        <li><a href="#/methods">Data processing and analysis</a><p>How answers were read, how checks and scores were produced, quality notes, and the Python notebooks.</p></li>
-        <li><a href="#/findings">Findings and research insights</a><p>Researcher-reviewed results. No findings report is published in this archive.</p></li>
-        <li><a href="#/docs">Reference and documentation</a><p>Data notes, glossary, downloads, and technical documentation.</p></li>
-      </ul>
+      <div class="arch-flow" aria-hidden="true"><span>Collected data</span> → <span>Processing</span> → <span>Findings</span> → <span>Reference</span></div>
+      <div class="arch-grid">
+        <a class="arch-card" href="#/collected"><div class="arch-ico" aria-hidden="true">01</div><h3>Collected data</h3><p>Worksheets, screen recordings, frames, platform logs, and notebooks. This is the evidence, under pseudonyms.</p></a>
+        <a class="arch-card" href="#/methods"><div class="arch-ico" aria-hidden="true">02</div><h3>Data processing and analysis</h3><p>How handwriting was read, frames were selected and coded, and checks were applied.</p></a>
+        <a class="arch-card" href="#/findings"><div class="arch-ico" aria-hidden="true">03</div><h3>Findings and research insights</h3><p>Reserved for researcher-reviewed results. No findings report is published in this archive.</p></a>
+        <a class="arch-card" href="#/docs"><div class="arch-ico" aria-hidden="true">04</div><h3>Reference and documentation</h3><p>Data notes, glossary, file definitions, and the verified Hugging Face dataset.</p></a>
+      </div>
       <p class="small">Screen previews are cropped and softened so that on-screen text cannot be read. Listed frames are the rows in each session manifest; a frame is coded only when it has a behaviour label.</p>
     </div>`;
   }
@@ -561,7 +562,10 @@
         <p>The pipeline keeps a frame when the screen changes enough, when someone is speaking, or when nothing has been captured for a while, and drops near-duplicates. Where a recording has usable speech, that speech is transcribed. Recordings without usable speech are marked.</p>
         <p>Each kept frame receives one label from a nine-code codebook developed after earlier human coding. The labels describe visible activity: working with data or the tree, judging the model, or idle and off-task states. When two labels could fit, building a tree takes precedence.</p>
         <p>A frame shows one moment of visible activity. It does not show what the student was thinking. ${num(linkedFrames)} frames are matched to researcher observation steps by time order — automatically and without per-frame verification. Episode categories in the session tables are not the nine behaviour labels.</p>
-        ${tech("Explore the behaviour codebook", table([{ t: "Behaviour" }, { t: "What it names" }], BEHAV.map((b) => ({ cells: [`<span class="sw" style="background:var(${b[3]})"></span>${h(b[1])}`, h(b[2])] }))) + `<p class="small">The session tables contain ${num(tables.ep)} episodes and ${num(tables.codes)} episode-by-code rows. Those categories are not the nine behaviour labels.</p><h4>How a frame was selected</h4>` + kv([
+        <h3>Behaviour codebook</h3>
+        <p>Nine codes, developed after earlier human coding. When two labels could fit, building a tree takes precedence. These descriptions name visible activity. They are not new codes.</p>
+        <div class="code-grid">${BEHAV.map((b) => `<article class="code-card"><h3><span class="sw" style="background:var(${b[3]})"></span> ${h(b[1])}</h3><p><code>${h(b[0])}</code>. ${h(b[2])}.</p></article>`).join("")}</div>
+        ${tech("How a frame was selected", `<p class="small">The session tables contain ${num(tables.ep)} episodes and ${num(tables.codes)} episode-by-code rows. Those categories are not the nine behaviour labels.</p>` + kv([
           ["Share of the screen that must change", pv("motion_threshold_fraction")],
           ["Same threshold in silent recordings", pv("silent_motion_threshold")],
           ["Forced frame after a gap (seconds)", pv("codap_gap_fill_seconds")],
@@ -701,8 +705,7 @@
 
   // ------------------------------------------------------------------ 03 Explore
   function exploreShell(active, body) {
-    const kick = active === "notebooks" ? "Data processing and analysis" : "Collected data";
-    return `<p class="kicker">${kick}</p>${body}`;
+    return `<p class="kicker">Collected data</p>${body}`;
   }
   function availableSummary(s) {
     const ws = C.worksheets.filter((w) => C.ws[s][w.code].ocr).length;
@@ -1102,18 +1105,20 @@
   }
 
   function pageCollected() {
+    const sessions = allSessions.filter((r) => r.manifest).length;
     return `<div class="page">${crumbs([["Collected data"]])}
       <p class="kicker">Collected data</p>
       <h1>Collected data</h1>
-      <p class="lead">Material gathered from the ${STUDENTS.length} pre-service teachers in the 2026 decision-tree unit. These pages show the evidence. Processing steps, checks, and research claims are in the other sections.</p>
-      <ul class="ia-list">
-        <li><a href="#/explore/worksheets">Worksheets and student responses</a><p>${C.worksheets.length} worksheets. Open one to read responses by item or by student. Names on this site are pseudonyms.</p></li>
-        <li><a href="#/explore/students">Student profiles</a><p>Each pseudonym collects that person’s worksheets, recordings, logs, and notebook, where those files exist.</p></li>
-        <li><a href="#/explore/recordings">Screen recordings</a><p>CODAP Arbor sessions. A row is one student in one session.</p></li>
-        <li><a href="#/explore/frames">Frame explorer</a><p>${num(F.length)} frames listed in the session manifests. Each frame keeps the reason it was selected.</p></li>
-        <li><a href="#/explore/logs">CODAP platform logs</a><p>${num(logEvents)} time-stamped actions. Logs are not matched to individual frames.</p></li>
-      </ul>
-      <p>A worksheet response is not joined to a screen frame or a log event anywhere in the files this site reads. Pseudonyms are the link between a response and a student profile.</p>
+      <p class="lead">Material gathered from the ${STUDENTS.length} pre-service teachers in the decision-tree unit. Choose a category. Processing steps and research claims are in the other sections.</p>
+      <div class="cat-grid">
+        <a class="cat-card" href="#/explore/worksheets"><div class="arch-ico" aria-hidden="true">WS</div><h3>Worksheets</h3><p>${C.worksheets.length} instructional worksheets. Open one for its blank file, answer key, and the scanned student submissions.</p></a>
+        <a class="cat-card" href="#/explore/recordings"><div class="arch-ico" aria-hidden="true">SR</div><h3>Screen recordings</h3><p>${num(sessions)} CODAP Arbor session manifests. A row is one student in one session.</p></a>
+        <a class="cat-card" href="#/explore/frames"><div class="arch-ico" aria-hidden="true">FR</div><h3>Frames</h3><p>${num(F.length)} listed frames, ${num(codedFrameCount)} coded. The browser shows a filterable sample, not every image.</p></a>
+        <a class="cat-card" href="#/explore/logs"><div class="arch-ico" aria-hidden="true">LG</div><h3>Platform logs</h3><p>${num(logEvents)} time-stamped CODAP Arbor actions. Logs are not matched to individual frames.</p></a>
+        <a class="cat-card" href="#/explore/notebooks"><div class="arch-ico" aria-hidden="true">NB</div><h3>Python notebooks</h3><p>${num(notebooksPresent)} final-project notebook files were inspected. Raw notebook files are not published on this site.</p></a>
+        <a class="cat-card" href="#/explore/students"><div class="arch-ico" aria-hidden="true">ST</div><h3>Student profiles</h3><p>${STUDENTS.length} pseudonyms. Each profile gathers that person’s worksheets, recordings, logs, and notebook record.</p></a>
+      </div>
+      <p class="small">A worksheet response is not joined to a screen frame or a log event anywhere in the files this site reads.</p>
     </div>`;
   }
   function pageFindings() {
@@ -1173,44 +1178,28 @@
     const rest = C.worksheets.map((w) => w.code).filter((c) => !listed.has(c));
     if (rest.length) groups.push({ label: "Other recorded worksheets", codes: rest });
     const body = groups.map((g) => {
-      const rows = g.codes.map((code) => {
+      const cards = g.codes.map((code) => {
         const w = C.worksheets.find((x) => x.code === code);
         if (!w) return "";
-        const info = WS_INFO[code] || {};
-        const doc = docOf(code);
         const topic = catalogueTopic(code);
-        const pdf = doc.worksheet_pdf ? `<a href="${h(doc.worksheet_pdf)}" download>Blank PDF</a>` : `<span class="na">No blank PDF</span>`;
-        const template = w.rubric_data && w.rubric_data.scoring_policy && w.rubric_data.scoring_policy.no_canonical_tree;
-        const ak = answerKeyHref(w) ? `<a href="${h(answerKeyHref(w))}" download>${template ? "Printed template" : "Answer key"}</a>` : `<span class="na">${template ? "No template PDF" : "No answer key"}</span>`;
-        const blob = `${code} ${wsTitle(w)} ${topic} ${g.label} ${pipelineShort(w)}`.toLowerCase();
-        return `<tr class="ws-card" data-code="${h(code)}" data-group="${h(g.label)}" data-title="${h(blob)}">
-          <td><a href="#/explore/worksheet/${h(code)}">${h(code)}</a><div>${h(wsTitle(w))}</div><div class="small">${h(topic)}</div></td>
-          <td>${info.date ? h(info.date) : '<span class="na">No class date on file</span>'}</td>
-          <td>${h(extractedLabel(code))}</td>
-          <td><span title="${h(howChecked(w))}">${h(pipelineShort(w))}</span></td>
-          <td>${pdf}<br>${ak}</td>
-        </tr>`;
+        const blob = `${code} ${wsTitle(w)} ${topic} ${g.label}`.toLowerCase();
+        return `<a class="ws-cat ws-card" href="#/explore/worksheet/${h(code)}" data-code="${h(code)}" data-group="${h(g.label)}" data-title="${h(blob)}"><b>${h(code)} · ${h(wsTitle(w))}</b><span>${h(topic)}</span></a>`;
       }).join("");
-      return `<tbody class="ws-group" data-codes="${h(g.codes.join(","))}"><tr><th colspan="5">${h(g.label)}</th></tr>${rows}</tbody>`;
+      return `<section class="ws-group" data-codes="${h(g.codes.join(","))}"><h2>${h(g.label)}</h2><div class="ws-catalogue">${cards}</div></section>`;
     }).join("");
     const chips = `<div class="ws-filters" role="group" aria-label="Filter by worksheet purpose">${["All"].concat(WS_GROUPS.map((g) => g.label)).map((label, i) =>
       `<button type="button" class="chip${i === 0 ? " on" : ""}" data-group="${i === 0 ? "" : h(label)}" aria-pressed="${i === 0 ? "true" : "false"}">${h(label)}</button>`).join("")}</div>`;
     return `<div class="page wide">${crumbs([["Collected data", "#/collected"], ["Worksheets"]])}
       ${exploreShell("worksheets", `
       <h1>Worksheets</h1>
-      <p class="lead">The worksheet is the unit of browsing. ${C.worksheets.length} worksheets are in this archive. Search by title or topic, or filter by the purpose used to group them. Open a worksheet to download available files.</p>
+      <p class="lead">${C.worksheets.length} worksheets. Search by code, title, or topic, then open a worksheet for its files and a short description.</p>
       <div class="ws-search-bar">
         <label class="sr-only" for="wsSearch">Search worksheets</label>
         <input type="search" id="wsSearch" placeholder="Search by code, title, or topic" autocomplete="off">
         <span class="ws-count" id="wsCount">${C.worksheets.length} worksheets</span>
       </div>
       ${chips}
-      <div class="catalogue-wrap" id="wsGroups">
-        <table class="catalogue">
-          <thead><tr><th scope="col">Worksheet</th><th scope="col">In class</th><th scope="col">Extracted responses</th><th scope="col">Check</th><th scope="col">Files</th></tr></thead>
-          ${body}
-        </table>
-      </div>
+      <div id="wsGroups">${body}</div>
       <p class="empty" id="wsEmpty" hidden>No worksheets match. Clear the search or choose All.</p>
       <p class="small">WS_DT_INTRO is not listed. An audit in the repository describes its extraction as the same text as WS13, and this site does not publish it as a separate worksheet. The final lizard project is under <a href="#/explore/notebooks">Python notebooks</a>.</p>
       <p>${methodLink("worksheets")}</p>`)}</div>`;
@@ -1477,6 +1466,14 @@
     };
     inp.addEventListener("input", apply);
   }
+  function loBrief(code) {
+    const mapping = docOf(code).mapping;
+    if (!mapping || !mapping.items) return `<p class="small">No competency mapping file is on record for this worksheet.</p>`;
+    const los = [];
+    Object.values(mapping.items).forEach((arr) => (arr || []).forEach((x) => { if (x.lo && !los.includes(x.lo)) los.push(x.lo); }));
+    if (!los.length) return "";
+    return `<p class="small">Documented learning-objective codes: ${los.map((l) => `<code>${h(l)}</code>`).join(", ")}. These name what an item was written to evidence. They are not scores.</p>`;
+  }
   function uniqueFiles(items) {
     const seen = new Set();
     return (items || []).filter((item) => {
@@ -1513,7 +1510,8 @@
       <p class="lead">${h(info.topic || "")}</p>
       <section class="section-block" id="overview"><h2>Worksheet overview</h2>
         <p>${h(info.topic || "No purpose statement is stored for this worksheet.")}</p>
-        <p class="small">Extracted answers and item scores are not listed on this page. <a href="#/methods">Data processing and analysis \u2192</a></p>
+        ${loBrief(code)}
+        <p class="small">Extracted answers and item scores are not listed on this page. <a href="#/methods/worksheets">How worksheets were checked \u2192</a></p>
       </section>
       <section class="section-block" id="materials"><h2>Worksheet materials</h2>
         <p class="small">Each distinct blank worksheet or answer key is listed once.</p>
@@ -1557,7 +1555,7 @@
     return `<div class="page wide">${exploreShell("frames", `
       ${crumbs([["Collected data", "#/collected"], ["Frame explorer"]])}
       <h1>Frame explorer</h1>
-      <p class="lead">${num(F.length)} frames listed in the session manifests. ${num(codedFrameCount)} of them are coded for behaviour. Click a row to see what was observed and why the frame was taken.</p>
+      <p class="lead">${num(F.length)} frames are listed in the session manifests. ${num(codedFrameCount)} are coded for behaviour. This page filters that list. It does not display every frame image. Previews exist for ${C.thumbs_per_session} evenly spaced frames per session. The full coded-frame collection, including images, is the public dataset <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">DecisionTrees-AICFT-Frames</a>.</p>
       <div class="filters">
         <label>Student<select id="fS">${opt(STUDENTS, fState.s)}</select></label>
         <label>Session<select id="fSS">${opt(SESS.map((x) => x.id), fState.ss, (x) => SESS_NAME[x])}</select></label>
@@ -1722,7 +1720,7 @@
     return `<div class="page wide">${exploreShell("logs", `
       ${crumbs([["Collected data", "#/collected"], ["CODAP platform logs"]])}
       <h1>Platform logs</h1>
-      <p class="lead">CODAP Arbor recorded every action. One row per student and session.</p>
+      <p class="lead">CODAP Arbor recorded every action. This page is a session summary, not the full event file. An anonymised event log, <code>codap_log_anonymized.csv</code>, is included in the public dataset <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">DecisionTrees-AICFT-Frames</a>. Worksheet files are not part of that dataset.</p>
       <div class="log-metrics">
         <div class="log-metric">
           <div class="lm-label">Total model attempts</div>
@@ -1758,9 +1756,11 @@
       return { href: `#/explore/student/${s}/notebook`, cells: [`<a href="#/explore/student/${h(s)}/notebook">${h(s)}</a>`, e ? e.targets.map((t) => `<code>${h(t)}</code>`).join(" ") : "–", e ? num(e.models) : "–", f ? (f.cells_with_error_output ? "Yes" : "None") : "–", f ? num(f.order_reversals) : "–", tot == null ? "–" : `${num(tot, 1)} / ${num(pos, 1)}`] };
     });
     return `<div class="page wide">${exploreShell("notebooks", `
-      ${crumbs([["Data processing and analysis", "#/methods"], ["Python notebooks"]])}
+      ${crumbs([["Collected data", "#/collected"], ["Python notebooks"]])}
       <h1>Python notebooks</h1>
-      <p class="lead">The final project: decision trees on lizard data in Google Colab.</p>
+      <p class="lead">The final project asked students to analyse lizard data in Google Colab. The inspection records whether each notebook contains research questions, decision-tree models, a train/test split, cell outputs, and returns to earlier cells.</p>
+      <p>The assignment steps recorded by the extraction schema are data exploration, written research questions, a train/test split, decision-tree experiments, a comparison across target variables, and a written reflection. Learning-objective codes LO3.3.3 and LO3.3.2 name posing one’s own questions and changing settings such as tree depth. The notebook inspection does not assign those codes, and the rubric points below are pipeline scores, not a reviewed grade.</p>
+      <div class="warn"><p>The original <code>.ipynb</code> files are not offered for download. A privacy check found a real name in one notebook, so the set is held back until that review is finished. The table uses pseudonyms and inspection counts only.</p></div>
       ${table([{ t: "Student" }, { t: "Target variables" }, { t: "Models", num: 1 }, { t: "Errors in outputs" }, { t: "Revisiting earlier code", num: 1 }, { t: "Rubric points", num: 1 }], rows)}
       <p class="small">“Revisiting earlier code” counts places where the student went back and re-ran earlier cells. It describes how the notebook was produced, not what the student intended.</p>
       <p>${methodLink("notebooks")}</p>`)}</div>`;
@@ -1799,12 +1799,12 @@
         <li><a href="#/explore/students">Student profiles</a><span>All worksheets, recordings, logs, and notebooks for one student.</span></li>
         <li><a href="#/explore/recordings">Screen recordings</a><span>One row per student and session, with behaviour over time.</span></li>
         <li><a href="#/explore/frames">Frame explorer</a><span>Manifest-listed frames and their behaviour codes.</span></li>
-        <li><a href="#/explore/logs">Platform logs</a><span>CODAP Arbor actions. These logs are not a Hugging Face dataset.</span></li>
+        <li><a href="#/explore/logs">Platform logs</a><span>Session summaries. The anonymised event log is in the Hugging Face frame dataset.</span></li>
+        <li><a href="#/explore/notebooks">Python notebooks</a><span>Inspection of the final lizard-data notebooks. Raw notebook files are not published.</span></li>
       </ul>
       <h3 class="guide-group-label">Data Processing &amp; Analysis</h3>
       <ul class="guide">
         <li><a href="#/methods">Processing workflow</a><span>How answers were read, frames were selected, and codes were checked.</span></li>
-        <li><a href="#/explore/notebooks">Python notebooks</a><span>Final projects on the lizard data.</span></li>
       </ul>
       <h3 class="guide-group-label">Findings &amp; Research Insights</h3>
       <ul class="guide">
@@ -1819,7 +1819,7 @@
       </ul>
 
       <h2 id="datasets">Research datasets</h2>
-      <p>The frame dataset is published on Hugging Face under a CC BY 4.0 licence. The interaction logs stay in this archive.</p>
+      <p>One public dataset was verified: <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">DecisionTrees-AICFT-Frames</a> (CC BY 4.0). It contains frame images and <code>codap_log_anonymized.csv</code>. Worksheets and notebook files are not in that dataset.</p>
       <div class="dataset-grid">
         <div class="dataset-card">
           <div class="ds-type">Screen-recording frames</div>
@@ -1835,7 +1835,7 @@
         <div class="dataset-card">
           <div class="ds-type">Platform interaction logs</div>
           <div class="ds-title">CODAP Arbor interaction logs</div>
-          <div class="ds-desc">Time-stamped platform actions, including model submissions with accuracy, depth, and confusion-matrix counts. Not published as a Hugging Face dataset.</div>
+          <div class="ds-desc">Session summaries are on this site. The anonymised event-level log is the file <code>codap_log_anonymized.csv</code> inside the frames dataset on Hugging Face, not a separate dataset.</div>
           <div class="ds-meta">${num(logEvents)} events · ${STUDENTS.length} participants · 3 log days</div>
           <div class="ds-links">
             <a href="#/explore/logs">Browse log data</a>
@@ -2069,7 +2069,7 @@
     if (top === "") html = pageOverview();
     else if (top === "collected") html = pageCollected();
     else if (top === "findings") html = pageFindings();
-    else if (top === "methods") { html = pageMethods(); after = () => { const a = parts[1] && document.getElementById("m-" + parts[1]); if (a) a.scrollIntoView(); bindMethods(); }; }
+    else if (top === "methods") { html = pageMethods(); after = () => { const a = parts[1] && document.getElementById("m-" + parts[1]); if (a && a.scrollIntoView) a.scrollIntoView(); bindMethods(); }; }
     else if (top === "findings") html = pageFindings();
     else if (top === "explore") {
       const sub = parts[1] || "students";
@@ -2090,21 +2090,24 @@
     const navKey = top === "explore" ? ({ student: "students", worksheet: "worksheets" }[parts[1]] || parts[1] || "students")
       : top === "docs" ? (parts[1] || "docs") : top;
     // Top-link active: "Collected Data" covers all explore pages; "Processing" covers methods+notebooks; "Reference" covers docs/*
-    const COLLECTED_DATA_KEYS = new Set(["students", "worksheets", "recordings", "frames", "logs"]);
-    const PROCESS_KEYS = new Set(["methods", "notebooks"]);
+    const COLLECTED_DATA_KEYS = new Set(["collected", "students", "worksheets", "recordings", "frames", "logs", "notebooks"]);
     document.querySelectorAll(".nav-link, .top-link").forEach((a) => {
       let on = false;
+      const r = a.dataset.r;
       if (a.classList.contains("top-link")) {
-        const r = a.dataset.r;
-        if (r === "") on = (top === "");
-        else if (r === "worksheets") on = top === "explore" && COLLECTED_DATA_KEYS.has(navKey);
-        else if (r === "methods") on = PROCESS_KEYS.has(navKey) || top === "methods";
+        if (r === "") on = top === "";
+        else if (r === "collected") on = top === "collected" || (top === "explore" && COLLECTED_DATA_KEYS.has(navKey));
+        else if (r === "methods") on = top === "methods";
+        else if (r === "findings") on = top === "findings";
         else if (r === "docs") on = top === "docs";
-        else on = a.dataset.r === navKey;
-      } else {
-        on = a.dataset.r === navKey;
-      }
+        else on = r === navKey;
+      } else if (r === "collected") on = top === "collected";
+      else if (r === "methods") on = top === "methods";
+      else if (r === "docs") on = top === "docs" && !parts[1];
+      else on = a.dataset.r === navKey || (top === "docs" && r === (parts[1] || "docs"));
       a.classList.toggle("active", on);
+      if (on && a.classList.contains("top-link")) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
     });
     document.querySelectorAll(".nav-group").forEach((g) => { if (g.querySelector(".nav-link.active")) g.open = true; });
     closeNav();
