@@ -1834,6 +1834,8 @@
         <p class="log-note-label">How the session name is assigned</p>
         <p class="log-note">CODAP session 1 and CODAP session 2 are names for the two sessions. The name comes from the calendar date in <code>created_at</code>, not from a count of rows. Records dated 7 April 2026 are in the source file this site reads. They are not one of these sessions, and they are not in the public dataset. A few rows dated 25 April 2026 are also in that source file and are not one of the two sessions.</p>
         ${dayTable}
+        <p class="log-note-label">Relationship to earlier files</p>
+        <p class="log-note">This site reads one source file. CODAP session 1 is the 21 April portion of that file. The earlier 21 April file is a prefix of it, with the same rows in the same order. The 7 April file is not loaded again. Its event IDs are already in the current source, and those rows are not CODAP session 1 or CODAP session 2.</p>
         <h3>Data fields</h3>
         ${table([{ t: "Column" }, { t: "Meaning" }], [
           { cells: ["<code>id</code>", "Event identifier."] },
