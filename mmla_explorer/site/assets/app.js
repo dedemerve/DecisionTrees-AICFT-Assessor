@@ -1879,25 +1879,33 @@
       const vt = meta.ss && C.sessions[s][meta.ss].votat;
       rows.push({ href: `#/explore/student/${s}/logs`, cells: [`<a href="#/explore/student/${h(s)}/logs">${h(s)}</a>`, h(meta.name), num(v.emit_count), v.last_emit_accuracy == null ? "–" : num(v.last_emit_accuracy * 100, 1) + "%", num(v.unique_attributes_dropped.length), vt ? num(vt.votat_rate * 100, 0) + "%" : "–"] });
     }));
-    const totalEmits = STUDENTS.reduce((t, s) => t + Object.values(logDays[s] || {}).reduce((a, v) => a + (v.emit_count || 0), 0), 0);
-    const accuracies = STUDENTS.flatMap((s) => Object.values(logDays[s] || {}).map((v) => v.last_emit_accuracy).filter((v) => v != null));
+    const present = rows.filter((r) => !String(r.cells[2]).includes("no data"));
+    const totalEmits = STUDENTS.reduce((t, s) => t + Object.entries(LOG_DAYS).reduce((a, [d]) => a + (((logDays[s] || {})[d] || {}).emit_count || 0), 0), 0);
+    const accuracies = STUDENTS.flatMap((s) => Object.keys(LOG_DAYS).map((d) => (logDays[s] || {})[d]).map((v) => v && v.last_emit_accuracy).filter((v) => typeof v === "number"));
     const avgAcc = accuracies.length ? accuracies.reduce((a, b) => a + b, 0) / accuracies.length : null;
-    const maxEmits = Math.max(...STUDENTS.map((s) => Object.values(logDays[s] || {}).reduce((a, v) => a + (v.emit_count || 0), 0)));
-    const sessionsWithData = STUDENTS.reduce((t, s) => t + Object.keys(logDays[s] || {}).length, 0);
+    const byStudent = STUDENTS.map((s) => Object.entries(LOG_DAYS).reduce((a, [d]) => a + (((logDays[s] || {})[d] || {}).emit_count || 0), 0));
+    const maxEmits = byStudent.length ? Math.max(...byStudent) : 0;
+    const sessionsWithData = STUDENTS.reduce((t, s) => t + Object.keys(LOG_DAYS).filter((d) => (logDays[s] || {})[d]).length, 0);
     const L = C.logs;
-    return `<h2 id="log-summaries">Platform log summaries</h2>
-      <p>These counts come from the platform log. They describe the file. They are not a reviewed conclusion about what students learned.</p>
+    return `<h2 id="log-summaries">Key findings</h2>
+      <p>These counts cover CODAP session 1 and CODAP session 2 only. A log records actions in CODAP Arbor. It does not show what a participant understood.</p>
       <div class="log-metrics">
-        <div class="log-metric"><div class="lm-label">Total model attempts</div><div class="lm-name">${num(totalEmits)}</div><div class="lm-desc">All students · both sessions</div></div>
-        <div class="log-metric"><div class="lm-label">Mean last accuracy</div><div class="lm-name">${avgAcc != null ? num(avgAcc * 100, 1) + "%" : "–"}</div><div class="lm-desc">Each student's final attempt</div></div>
-        <div class="log-metric"><div class="lm-label">Most attempts (one student)</div><div class="lm-name">${num(maxEmits)}</div><div class="lm-desc">Across both CODAP sessions</div></div>
-        <div class="log-metric"><div class="lm-label">Sessions with log data</div><div class="lm-name">${num(sessionsWithData)}</div><div class="lm-desc">Student × session pairs</div></div>
+        <div class="log-metric"><div class="lm-label">Total model attempts</div><div class="lm-name">${num(totalEmits)}</div><div class="lm-desc">Both class sessions</div></div>
+        <div class="log-metric"><div class="lm-label">Mean last accuracy</div><div class="lm-name">${avgAcc != null ? num(avgAcc * 100, 1) + "%" : "–"}</div><div class="lm-desc">Mean of each session's last recorded accuracy</div></div>
+        <div class="log-metric"><div class="lm-label">Most attempts</div><div class="lm-name">${num(maxEmits)}</div><div class="lm-desc">One participant, both class sessions</div></div>
+        <div class="log-metric"><div class="lm-label">Sessions with a log</div><div class="lm-name">${num(sessionsWithData)}</div><div class="lm-desc">Participant × class session</div></div>
       </div>
-      <dl class="terms compact-terms"><dt>Model attempts</dt><dd>Times the student submitted a tree's results.</dd><dt>Predictors tried</dt><dd>Different variables placed into the tree.</dd><dt>One thing at a time</dt><dd>Share of steps where only one setting changed between attempts.</dd></dl>
-      ${table([{ t: "Student" }, { t: "Session" }, { t: "Model attempts", num: 1 }, { t: "Last accuracy", num: 1 }, { t: "Predictors tried", num: 1 }, { t: "One thing at a time", num: 1 }], rows)}
+      <dl class="terms compact-terms"><dt>Model attempts</dt><dd>Times the participant submitted a tree's results.</dd><dt>Predictors tried</dt><dd>Different variables placed into the tree.</dd><dt>One thing at a time</dt><dd>Share of steps where only one setting changed between attempts. This describes the log. It does not prove a planned experiment.</dd></dl>
+      <h2>Results</h2>
+      <p>${num(present.length)} of ${num(rows.length)} participant–session pairs have a log for these two class days. “No data” means that pair has no stored log.</p>
+      ${table([{ t: "Participant" }, { t: "Session" }, { t: "Model attempts", num: 1 }, { t: "Last accuracy", num: 1 }, { t: "Predictors tried", num: 1 }, { t: "One thing at a time", num: 1 }], rows)}
+      <h2>Interpretation</h2>
+      <p>The table describes recorded interaction with CODAP Arbor. Last accuracy is the accuracy stored on the last model submission in that session. It is not a test score, and it is not evidence that the participant understood the tree.</p>
       <p>${methodLink("logs", "What these measures mean")}</p>
-      <h3>Actions in the log</h3>
-      ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}`;
+      ${tech("Technical details", `<p class="log-note">The site data also stores a 7 April 2026 log for some participants. That day is not one of the two published class sessions, so those rows are left out of the counts and the table above.</p>
+        <h3>Actions stored with the log file</h3>
+        <p class="log-note">These totals come from every matched row used to build the site log, including the 7 April rows. They are not limited to the two class sessions.</p>
+        ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}`)}`;
   }
   function pageNotebooks() {
     const pack = window.NOTEBOOKS || { teacher: null, students: [], final: [] };
@@ -1993,10 +2001,17 @@
       const pos = n.scoring ? sum(Object.values(n.scoring.sections).map((x) => x.possible)) : null;
       return { href: `#/explore/student/${s}/notebook`, cells: [`<a href="#/explore/student/${h(s)}/notebook">${h(s)}</a>`, e ? e.targets.map((t) => `<code>${h(t)}</code>`).join(" ") : "–", e ? num(e.models) : "–", f ? (f.cells_with_error_output ? "Yes" : "None") : "–", f ? num(f.order_reversals) : "–", tot == null ? "–" : `${num(tot, 1)} / ${num(pos, 1)}`] };
     });
-    return `<h2 id="notebook-inspection">Notebook inspection</h2>
-      <p>These counts come from the notebook inspection. They describe the files. They are not a reviewed conclusion about what students learned, and they are not a grade.</p>
-      ${table([{ t: "Student" }, { t: "Target variables" }, { t: "Models", num: 1 }, { t: "Errors in outputs" }, { t: "Revisiting earlier code", num: 1 }, { t: "Rubric points", num: 1 }], rows)}
-      <p class="small">“Revisiting earlier code” counts places where the run counter went backwards. This table describes the final homework notebooks. The files are on the <a href="#/explore/notebooks">Python notebooks</a> page. The points are pipeline scores, not a reviewed grade.</p>`;
+    const reports = STUDENTS.filter((s) => C.notebooks[s] && !C.notebooks[s].file && C.notebooks[s].extraction);
+    return `<h2 id="notebook-inspection">Key findings</h2>
+      <p>This inspection reads the final homework files. It is not the weekly Colab collection, and it is not a grade. ${num(notebooksPresent)} participants have a notebook file.${reports.length ? ` ${reports.map(h).join(" and ")} submitted a written report, so cell order and error outputs cannot be read from a notebook.` : ""}</p>
+      <h2>Results</h2>
+      <p>Target variables, model counts, error outputs, and run-order changes come from the inspection of each file. Rubric points are the pipeline total stored for that file.</p>
+      ${table([{ t: "Participant" }, { t: "Target variables" }, { t: "Models", num: 1 }, { t: "Errors in outputs" }, { t: "Revisiting earlier code", num: 1 }, { t: "Rubric points", num: 1 }], rows)}
+      <h2>Interpretation</h2>
+      <p>The teacher notebook is the guided instruction for Colab Sessions 1, 2, and 3. The files in this table are the students' final homework. The inspection describes what is in those files. A missing step was not found in the file. It does not show that the participant never considered it.</p>
+      <p>Rubric points are produced by the scoring pipeline. The site data does not record a separate manual review of these totals, so they are not presented as a reviewed grade.</p>
+      ${tech("Technical details", `<p class="log-note">“Revisiting earlier code” counts places where the notebook run counter went backwards. The teacher instruction notebook and the weekly student notebooks are a different collection. They are listed under Python notebooks and were not scored in this table.</p>
+        <p class="log-note">In the study design, LO3.3.3 names posing one's own questions and LO3.3.2 names changing tool settings such as tree depth. Those codes are learning goals. This inspection does not assign them.</p>`)}`;
   }
 
   // ------------------------------------------------------------------ 04 Documentation
@@ -2039,7 +2054,7 @@
       </ul>
       <h3 class="guide-group-label">Findings &amp; Research Insights</h3>
       <ul class="guide">
-        <li><a href="#/findings">Research findings</a><span>Platform-log summaries and the notebook inspection table. Reviewed conclusions about learning are not in this archive yet.</span></li>
+        <li><a href="#/findings">Findings</a><span>Four source categories: worksheets, screen recordings, platform logs, and Python notebooks.</span></li>
         <li><a href="#/findings/participants">Participant overview</a><span>Which worksheets, recordings, logs, and Python files are on record for each pseudonym. These counts are not learning outcomes.</span></li>
       </ul>
       <h3 class="guide-group-label">Reference &amp; Documentation</h3>
@@ -2260,23 +2275,81 @@
   }
 
   // ------------------------------------------------------------------ 05 Findings
+  function findingsCrumb(title) {
+    return `<p class="kicker">Findings &amp; Research Insights</p>${crumbs([["Findings", "#/findings"], [title]])}`;
+  }
+  function relatedCollected(items) {
+    return `<h2>Related collected data</h2><ul class="guide">${items.map(([href, label, note]) => `<li><a href="${href}">${label}</a><span>${note}</span></li>`).join("")}</ul>`;
+  }
   function pageFindings() {
-    return `<div class="page wide">${`<p class="kicker">Findings &amp; Research Insights</p>`}
-      <h1>Research Findings</h1>
-      <p class="lead">Reviewed conclusions about what students learned are not in this archive yet.</p>
-      <p><a href="#/findings/participants">Participant overview</a> lists the worksheets, screen recordings, platform logs, and Python files on record for each pseudonym. Those counts describe the archive. They are not learning outcomes.</p>
-      <div class="warn">
-        <p>Nothing on this page is a reviewed finding about learning. The platform-log summaries and the notebook inspection table are counts computed from the files. The sessions and the dataset link stay on the <a href="#/explore/logs">platform logs</a> page. The notebooks themselves stay on the <a href="#/explore/notebooks">Python notebooks</a> page.</p>
+    const cards = [
+      ["WS", "Worksheet findings", "How extracted answers were checked. A stored score is a pipeline result, not a reviewed conclusion about learning.", "#/findings/worksheets", "Explore worksheet findings"],
+      ["FR", "Screen recording findings", "What the behaviour labels mean. Counts of those labels are not reported as results.", "#/findings/recordings", "Explore screen recording findings"],
+      ["LG", "Platform log findings", "Recorded actions in CODAP Arbor, including model attempts. A log does not show what a participant understood.", "#/findings/logs", "Explore platform log findings"],
+      ["NB", "Python notebook findings", "What the inspection found in the final homework files. Pipeline rubric points are not a reviewed grade.", "#/findings/notebooks", "Explore Python notebook findings"],
+    ];
+    return `<div class="page wide">
+      <p class="kicker">Findings &amp; Research Insights</p>
+      ${crumbs([["Findings & research insights"]])}
+      <h1>Findings &amp; Research Insights</h1>
+      <p class="lead">Explore the findings derived from the worksheets, screen-recording frames, platform logs, and Python notebooks collected during the learning activities.</p>
+      <div class="find-grid">
+        ${cards.map(([ico, title, text, href, action]) => `<a href="${href}"><div class="arch-ico" aria-hidden="true">${ico}</div><h2>${title}</h2><p>${text}</p><span class="find-go">${action}</span></a>`).join("")}
       </div>
+      <p><a href="#/findings/participants">Participant overview</a> lists which files are on record for each pseudonym. Those counts describe the archive. They are not findings.</p>
+    </div>`;
+  }
+  function pageFindingWorksheets() {
+    const nOverride = (DOCS.overrides || []).length;
+    const rows = C.worksheets.map((w) => ({
+      href: `#/explore/worksheet/${w.code}`,
+      cells: [`<a href="#/explore/worksheet/${h(w.code)}">${h(w.code)}</a>`, h(pipelineShort(w)), h(extractedLabel(w.code))],
+    }));
+    return `<div class="page wide">${findingsCrumb("Worksheet findings")}
+      <h1>Worksheet findings</h1>
+      <p class="lead">Extracted answers can be checked against a rubric or a fixed rule. The result is a pipeline record. It is not a reviewed grade.</p>
+      <h2>Key findings</h2>
+      <p>${nOverride ? `${num(nOverride)} scoring items store a researcher override.` : "No researcher-override records are in the site data."} A review flag means the pipeline asked for a person to look. It does not mean a person accepted the score.</p>
+      ${WS11_IS_WS14 ? `<p>For every participant, the WS11 extraction is identical to that participant's WS14 extraction. Those values are not treated as WS11 survey answers.</p>` : ""}
+      <h2>Results</h2>
+      <p>The check column says how a score would be produced. The last column says whether an extraction file is on record. A file being present is not a score.</p>
+      ${table([{ t: "Worksheet" }, { t: "Check" }, { t: "Extracted answers on file" }], rows)}
+      <h2>Interpretation</h2>
+      <p>A rubric score compares an extracted answer with criteria written in the rubric. A rule-based check compares a value with a fixed rule, such as a count from the food cards. Neither comparison establishes what the participant understood. Item-level scores stay on each worksheet's participant pages. They are not repeated here as a class result.</p>
+      ${tech("Technical details", `<p class="log-note">Rubric worksheets in this set are scored by comparing each item with the rubric entry that has the same item ID. Rule-based worksheets use Python checks after the handwriting is read. WS12 uses consistency checks. Its rubric says there is no single correct tree. ${methodLink("worksheets", "How worksheets were checked")}</p>`)}
+      ${relatedCollected([["#/explore/worksheets", "Worksheets", "Blank files, answer keys, and the scanned submissions."]])}
+    </div>`;
+  }
+  function pageFindingRecordings() {
+    const linked = F.filter((f) => f.gx).length;
+    return `<div class="page wide">${findingsCrumb("Screen recording findings")}
+      <h1>Screen recording findings</h1>
+      <p class="lead">Each kept frame can carry one behaviour label. The label names what is visible at that moment. It does not name what the participant understood.</p>
+      <h2>Key findings</h2>
+      <p>The manifests list ${num(F.length)} frames. ${num(codedFrameCount)} of them have a behaviour label. A count of how often each label appears is not reported as a finding. Some recordings are the same video file, and the pictures shown on the website are a spaced subset, not a summary of a participant.</p>
+      <h2>What the labels mean</h2>
+      <p>Nine codes describe visible activity. When two labels could fit, building a tree takes precedence.</p>
+      <dl class="terms compact-terms">${BEHAV.map((b) => `<dt>${h(b[1])}</dt><dd>${h(b[2])}.</dd>`).join("")}</dl>
+      <h2>Interpretation</h2>
+      <p>A coded frame is one moment of visible activity. It is not evidence of learning. Episode categories in the session tables are a different scheme. They are not these nine labels. Original videos are not published.</p>
+      ${tech("Technical details", `<p class="log-note">${num(linked)} frames are matched to researcher observation steps by time order, automatically and without a check of each frame. The rules for keeping or dropping a frame are on the processing page. ${methodLink("recordings", "How frames were selected and coded")}</p>`)}
+      ${relatedCollected([["#/explore/recordings", "Screen recording frames", "The extracted frames. Previews on this site are a subset."]])}
+    </div>`;
+  }
+  function pageFindingLogs() {
+    return `<div class="page wide">${findingsCrumb("Platform log findings")}
+      <h1>Platform log findings</h1>
+      <p class="lead">CODAP Arbor writes a time-stamped line when it records an action. These summaries describe those lines for the two class sessions.</p>
       ${logFindingsSection()}
+      ${relatedCollected([["#/explore/logs", "Platform logs", "Example records and the public log file. The full log stays with the collected data."]])}
+    </div>`;
+  }
+  function pageFindingNotebooks() {
+    return `<div class="page wide">${findingsCrumb("Python notebook findings")}
+      <h1>Python notebook findings</h1>
+      <p class="lead">The inspection below reads the final homework files. The teacher instruction notebook and the weekly Colab files are separate, and they stay with the collected notebooks.</p>
       ${notebookFindingsSection()}
-      <h2>Collected data</h2>
-      <ul class="guide">
-        <li><a href="#/explore/worksheets">Worksheets</a><span>Extracted student responses with item-level scores for ${C.worksheets.length} worksheets.</span></li>
-        <li><a href="#/explore/recordings">Screen recording frames</a><span>${num(F.length)} extracted frames. Original videos are not published on this site.</span></li>
-        <li><a href="#/explore/logs">Platform logs</a><span>Example records and the public log file. The counts are in the summaries above.</span></li>
-        <li><a href="#/explore/notebooks">Python notebooks</a><span>The guided notebook and the final homework files. The table above is the inspection of those final notebooks.</span></li>
-      </ul>
+      ${relatedCollected([["#/explore/notebooks", "Python notebooks", "The guided notebook, the homework instructions, the lizard dataset, and the student files."]])}
     </div>`;
   }
 
@@ -2302,7 +2375,15 @@
     let html, after = null;
     if (top === "") html = pageOverview();
     else if (top === "collected") html = pageCollected();
-    else if (top === "findings") html = parts[1] === "participants" ? pageStudents() : pageFindings();
+    else if (top === "findings") {
+      const sub = parts[1] || "";
+      if (sub === "participants") html = pageStudents();
+      else if (sub === "worksheets") html = pageFindingWorksheets();
+      else if (sub === "recordings" || sub === "frames") html = pageFindingRecordings();
+      else if (sub === "logs") html = pageFindingLogs();
+      else if (sub === "notebooks") html = pageFindingNotebooks();
+      else html = pageFindings();
+    }
     else if (top === "methods") { html = pageMethods(); after = () => { const a = parts[1] && document.getElementById("m-" + parts[1]); if (a && a.scrollIntoView) a.scrollIntoView(); bindMethods(); }; }
     else if (top === "explore") {
       const sub = parts[1] || "";
@@ -2322,7 +2403,7 @@
     app.innerHTML = html;
     tip.style.display = "none";
     const navKey = top === "explore" ? ({ student: "participants", worksheet: "worksheets" }[parts[1]] || parts[1] || "")
-      : top === "findings" ? (parts[1] === "participants" ? "participants" : "findings")
+      : top === "findings" ? ({ worksheets: "findings-worksheets", recordings: "findings-recordings", frames: "findings-recordings", logs: "findings-logs", notebooks: "findings-notebooks", participants: "participants" }[parts[1]] || "findings")
       : top === "docs" ? (parts[1] || "docs") : top;
     const COLLECTED_DATA_KEYS = new Set(["collected", "worksheets", "recordings", "frames", "logs", "notebooks"]);
     document.querySelectorAll(".nav-link, .top-link").forEach((a) => {
