@@ -472,7 +472,7 @@
         output: "JSON files in students/ folders; per-session and per-student aggregate measures; the processed CSV tables (frames.csv, log_sessions.csv, worksheet_responses.csv) that power this site." },
       { id: "review", num: 5, title: "Review", summary: "Inspect uncertain cases",
         what: "Uncertain items need a researcher. A correction is logged only when the underlying record supports the change. The archive labels everything as automated and does not record a separate decision for each answer or frame.",
-        sources: ["Items flagged at low confidence or with a contradiction note", "Audit trail files documenting researcher-confirmed corrections", "Data notes page listing known gaps and limitations"],
+        sources: ["Items flagged at low confidence or with a contradiction note", "Audit trail files documenting researcher-confirmed corrections", "Data quality and limitations page listing known gaps and limitations"],
         output: "Researcher-confirmed corrections with logged rationale; uncertainty flags preserved in output files; documented limitations accessible from the data notes page." },
     ];
 
@@ -633,7 +633,7 @@
           </div>
         </div>
         <p>Written answers, screens, software events, and notebooks are different evidence. None is direct proof of what a student was thinking. Where a stage-score file disagrees with the extracted answers, the site shows the answers. Further limitations are in the <a href="#/docs/limitations">data notes</a>.</p>
-        <p class="explore-next"><a href="#/explore/worksheets">Worksheets</a><a href="#/explore/recordings">Screen recording frames</a><a href="#/docs">Data and downloads</a><a href="#/findings">Research findings</a></p>
+        <p class="explore-next"><a href="#/explore/worksheets">Worksheets</a><a href="#/explore/recordings">Screen recording frames</a><a href="#/collected">Collected data</a><a href="#/findings">Research findings</a></p>
       </section>
     </div>`;
   }
@@ -1121,7 +1121,7 @@
       <ul class="ia-list">
         <li><a href="#/explore/worksheets">Collected worksheets</a><p>Responses, answer keys, and stored scores, labelled by how they were produced.</p></li>
         <li><a href="#/methods">Processing and analysis</a><p>How extraction, checks, and notebook inspection were done.</p></li>
-        <li><a href="#/docs/limitations">Data notes</a><p>Missing files, duplicate recordings, and places where the files disagree with the written method.</p></li>
+        <li><a href="#/docs/limitations">Data quality and limitations</a><p>Missing files, duplicate recordings, and places where the files disagree with the written method.</p></li>
       </ul>
     </div>`;
   }
@@ -1960,7 +1960,7 @@
 
   // ------------------------------------------------------------------ 04 Documentation
   const docShell = (active, body) => {
-    const labels = { limitations: "Data notes", glossary: "Glossary", technical: "Technical documentation" };
+    const labels = { limitations: "Data quality and limitations", glossary: "Glossary", technical: "Technical documentation" };
     const trail = active ? [["Reference and documentation", "#/docs"], [labels[active] || "Documentation"]] : [["Reference and documentation"]];
     return `${crumbs(trail)}<p class="kicker">Reference and documentation</p>${body}`;
   };
@@ -2112,7 +2112,7 @@
   }
   function pageLimitations() {
     return `<div class="page">${docShell("limitations", `
-      <h1>Data notes</h1>
+      <h1>Data quality and limitations</h1>
       <p class="lead">Where the data are incomplete, duplicated, or differ from the written method, and what that means for the results. Each point is computed from the files. File-level details are in the <a href="#/docs/technical">technical documentation</a>.</p>
       <nav class="jump" aria-label="On this page">${limitationItems().map(([g], i) => `<a href="#note-${i}">${h(g)}</a>`).join("")}</nav>
       ${limitationItems().map(([g, items], i) => `<h2 id="note-${i}">${h(g)}</h2>${items.map((it) => `<section class="lim"><h3>${it.title}</h3><p>${it.what}</p><p class="why"><b>Why it matters.</b> ${it.why}</p>${it.detail ? tech("Details", `<div>${it.detail}</div>`) : ""}</section>`).join("")}`).join("")}`)}</div>`;
@@ -2220,7 +2220,44 @@
     return `<div class="page wide">${docShell("technical", `
       <h1>Technical documentation</h1>
       <p class="lead">For researchers who want to trace values back to the project files.</p>
-      <h2>Rebuilding the site</h2>
+      <nav class="jump" aria-label="On this page">
+        <a href="#criteria">Decision rules and metrics</a>
+        <a href="#validation">Validation and interpretation</a>
+        <a href="#rebuild">Reproducibility</a>
+        <a href="#inventory">Raw data inventory</a>
+        <a href="#coverage">Source coverage</a>
+      </nav>
+      <h2 id="criteria">Decision rules and metrics by data source</h2>
+      <p>These criteria document what the pipeline actually checks. A model-performance metric is not the same as the accuracy of an extraction or coding procedure; the archive does not assign one universal accuracy score across all four evidence sources.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Source</th><th>Operational rule or measure</th><th>Interpretation and limits</th></tr></thead>
+          <tbody>
+            <tr><td><b>Worksheets: WS1, WS3, WS4</b></td><td>Open responses are scored against the researcher-written item rubric. Python aggregates item scores.</td><td>The rubric defines the score; this is not a measured handwriting-recognition accuracy rate. Raw readings and recorded normalisations are retained where available.</td></tr>
+            <tr><td><b>Worksheets: WS5, WS6, WS7</b></td><td>Python applies deterministic rules derived from the 11 food-card reference values. WS7 is checked against the decision tree recorded on WS6.</td><td>These are rule-based checks against a defined reference, not an LLM confidence score.</td></tr>
+            <tr><td><b>Worksheet: WS10</b></td><td>Python checks the energy-threshold table and the selected threshold against the task-specific rule.</td><td>This is separate from the Titanic task in WS15. No general extraction-accuracy percentage is inferred from a correct threshold answer.</td></tr>
+            <tr><td><b>Worksheet: WS12</b></td><td>Consistency checks examine whether the documented tree and its counts agree internally.</td><td>The rubric explicitly allows more than one valid tree; the pipeline must not treat a single tree as the only correct answer.</td></tr>
+            <tr><td><b>Worksheet: WS13</b></td><td>Open responses are rubric-scored. Log-derived measures are attached only when that participant's log is available.</td><td>Worksheet scores and log measures are different evidence types and should not be treated as interchangeable.</td></tr>
+            <tr><td><b>Worksheet: WS14</b></td><td>Open responses use the rubric. Numeric checks test that TP + TN + FP + FN equals the number of cases and that FP = 0 and FN = 0 for the task's reference solution.</td><td>These are task-specific invariants, not universal requirements for every decision-tree model.</td></tr>
+            <tr><td><b>Worksheet: WS15</b></td><td>Open responses use the rubric. Numeric values are compared with Titanic reference values using an absolute tolerance of 0.02.</td><td>The tolerance is a comparison rule for these numeric items, not a claim that the whole worksheet is 98% accurate.</td></tr>
+            <tr><td><b>Worksheet: WS11</b></td><td>A checker exists for some closed survey items, but the item identifiers have drifted from the rubric and student answers are not available as a validated extracted response set.</td><td>WS11 is not treated as validated scored evidence.</td></tr>
+            <tr><td><b>Screen-recording frames</b></td><td>Frames are selected by the recorded pipeline triggers and manifest parameters, then labelled using the nine-category behaviour codebook. The record includes context, confidence and observation flags where available.</td><td>Confidence is a recorded confidence field, not empirical classification accuracy. No overall frame-label accuracy should be reported without a separately adjudicated reference set.</td></tr>
+            <tr><td><b>CODAP platform logs</b></td><td>Measures include action/event counts, model-attempt count, time to first attempt, last-attempt accuracy, accuracy variability across attempts, predictor exploration and VOTAT rate. Recorded TP/TN/FP/FN support confusion-matrix measures where available.</td><td>Accuracy and sensitivity describe the submitted tree's performance, not the accuracy of log parsing. VOTAT is a behavioural proxy; it does not prove intentional experimental design. The 2026 logs contain no delete actions, so deletion-based recovery cannot be calculated.</td></tr>
+            <tr><td><b>Python notebooks</b></td><td>Inspection records whether research questions are stated, counts trees/targets/features/depths, checks for a train/test split, records cell execution and error outputs, and counts revisits to earlier cells.</td><td>These are file-inspection measures, not a single notebook accuracy score or a reviewed grade. A step not found in a file is not proof that the student never considered it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 id="validation">Validation, metrics and interpretation</h2>
+      <ul class="guide">
+        <li><b>Accuracy</b><span>Correct predictions divided by all evaluated cases. In this archive, logged accuracy is a property of a submitted decision tree when the platform records it.</span></li>
+        <li><b>Misclassification rate</b><span>Incorrect predictions divided by evaluated cases; when computed on the same cases, it equals 1 − accuracy.</span></li>
+        <li><b>Sensitivity</b><span>TP / (TP + FN). Calculate only when the relevant counts are available and TP + FN is greater than zero.</span></li>
+        <li><b>Confusion counts</b><span>TP, TN, FP and FN are retained as counts. Task-specific checks such as FP = FN = 0 apply only where the worksheet's reference solution requires them.</span></li>
+        <li><b>VOTAT rate</b><span>The proportion of between-submission steps in which only the predictor or only the threshold changed. It describes recorded actions and should not be interpreted as direct evidence of a learner's intention.</span></li>
+        <li><b>Extraction and coding quality</b><span>Rubric agreement, deterministic rule checks, codebook confidence and model-performance metrics answer different questions. Do not collapse them into one accuracy percentage.</span></li>
+      </ul>
+      <p class="small">When a source has no defensible gold standard or explicit validation calculation, the documentation reports the rule used and the available quality flags rather than inventing an accuracy, sensitivity or misclassification rate.</p>
+      <h2 id="rebuild">Reproducibility</h2>
       <p><code>python3 mmla_explorer/build_site_data.py</code> reads the project files and writes the site data. <code>python3 mmla_explorer/test_site_data.py</code> re-reads the sources and compares them with the site. Last build: ${h(C.built_at.replace("T", " "))}.</p>
       <h2>Raw data folders</h2>
       <p>From <code>${h(inv.source)}</code> (${h(inv.generated_at.slice(0, 10))}): ${num(inv.file_count)} files, ${bytes(inv.total_bytes)}. The Python-session screen recordings are left out.</p>
@@ -2352,7 +2389,7 @@
       else html = `<div class="page"><h1>Page not found</h1><p><a href="#/">Go to the overview</a></p></div>`;
     } else if (top === "docs") {
       const sub = parts[1] || "";
-      html = sub === "limitations" ? pageLimitations() : sub === "glossary" ? pageGlossary() : sub === "technical" ? pageTechnical() : pageDownloads();
+      html = sub === "limitations" ? pageLimitations() : sub === "glossary" ? pageGlossary() : pageTechnical();
     } else html = `<div class="page"><h1>Page not found</h1><p><a href="#/">Go to the overview</a></p></div>`;
     app.innerHTML = html;
     tip.style.display = "none";
