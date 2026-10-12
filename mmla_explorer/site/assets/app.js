@@ -418,7 +418,7 @@
         <li><a href="#/collected"><span class="n">1</span><h3>Collected Data</h3><p>Explore the worksheets, screen-recording frames, platform logs, and other research materials.</p></a></li>
         <li><a href="#/methods"><span class="n">2</span><h3>Processing</h3><p>Learn how the collected materials were prepared, coded, and analysed.</p></a></li>
         <li><a href="#/findings"><span class="n">3</span><h3>Findings</h3><p>Explore the results, patterns, and interpretations derived from the data.</p></a></li>
-        <li><a href="#/docs"><span class="n">4</span><h3>Reference</h3><p>Consult documentation, definitions, and supporting resources.</p></a></li>
+        <li><a href="#/docs/technical"><span class="n">4</span><h3>Reference</h3><p>Consult documentation, definitions, and supporting resources.</p></a></li>
       </ol>
       <p class="small span-line">This is a recommended way to explore the archive. It is not a claim that every research task follows this sequence.</p>
     </div>`;
@@ -472,7 +472,7 @@
         output: "JSON files in students/ folders; per-session and per-student aggregate measures; the processed CSV tables (frames.csv, log_sessions.csv, worksheet_responses.csv) that power this site." },
       { id: "review", num: 5, title: "Review", summary: "Inspect uncertain cases",
         what: "Uncertain items need a researcher. A correction is logged only when the underlying record supports the change. The archive labels everything as automated and does not record a separate decision for each answer or frame.",
-        sources: ["Items flagged at low confidence or with a contradiction note", "Audit trail files documenting researcher-confirmed corrections", "Data notes page listing known gaps and limitations"],
+        sources: ["Items flagged at low confidence or with a contradiction note", "Audit trail files documenting researcher-confirmed corrections", "Data Quality and Limitations page listing known gaps and limitations"],
         output: "Researcher-confirmed corrections with logged rationale; uncertainty flags preserved in output files; documented limitations accessible from the data notes page." },
     ];
 
@@ -632,8 +632,8 @@
             </ul>
           </div>
         </div>
-        <p>Written answers, screens, software events, and notebooks are different evidence. None is direct proof of what a student was thinking. Where a stage-score file disagrees with the extracted answers, the site shows the answers. Further limitations are in the <a href="#/docs/limitations">data notes</a>.</p>
-        <p class="explore-next"><a href="#/explore/worksheets">Worksheets</a><a href="#/explore/recordings">Screen recording frames</a><a href="#/docs">Data and downloads</a><a href="#/findings">Research findings</a></p>
+        <p>Written answers, screens, software events, and notebooks are different evidence. None is direct proof of what a student was thinking. Where a stage-score file disagrees with the extracted answers, the site shows the answers. Further limitations are in <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
+        <p class="explore-next"><a href="#/explore/worksheets">Worksheets</a><a href="#/explore/recordings">Screen recording frames</a><a href="#/docs/technical">Technical documentation</a><a href="#/findings">Research findings</a></p>
       </section>
     </div>`;
   }
@@ -1096,10 +1096,10 @@
       <h1>Collected data</h1>
       <p class="lead">Material gathered from the ${STUDENTS.length} pre-service teachers in the decision-tree unit. Choose a category. Processing steps and research claims are in the other sections.</p>
       <div class="cat-grid">
-        <a class="cat-card" href="#/explore/worksheets"><div class="arch-ico" aria-hidden="true">WS</div><h3>Worksheets</h3><p>${C.worksheets.length} instructional worksheets. Open one for its blank file, answer key, and the scanned student submissions.</p></a>
-        <a class="cat-card" href="#/explore/recordings"><div class="arch-ico" aria-hidden="true">FR</div><h3>Screen recording frames</h3><p>${num(F.length)} frames extracted from the CODAP sessions. Previews on this site are a spaced subset. Original videos are not published.</p></a>
-        <a class="cat-card" href="#/explore/logs"><div class="arch-ico" aria-hidden="true">LG</div><h3>Platform logs</h3><p>${num(logEvents)} time-stamped CODAP Arbor actions. Logs are not matched to individual frames.</p></a>
-        <a class="cat-card" href="#/explore/notebooks"><div class="arch-ico" aria-hidden="true">NB</div><h3>Python notebooks</h3><p>The guided Colab notebook, the final homework, and the anonymised student files.</p></a>
+        <a class="cat-card" href="#/explore/worksheets"><h3>Worksheets</h3><p>${C.worksheets.length} instructional worksheets. Open one for its blank file, answer key, and the scanned student submissions.</p></a>
+        <a class="cat-card" href="#/explore/recordings"><h3>Screen recording frames</h3><p>${num(F.length)} frames extracted from the CODAP sessions. Previews on this site are a spaced subset. Original videos are not published.</p></a>
+        <a class="cat-card" href="#/explore/logs"><h3>Platform logs</h3><p>${num(logEvents)} time-stamped CODAP Arbor actions. Logs are not matched to individual frames.</p></a>
+        <a class="cat-card" href="#/explore/notebooks"><h3>Python notebooks</h3><p>The guided Colab notebook, the final homework, and the anonymised student files.</p></a>
       </div>
       <p class="small span-line">A worksheet response is not joined to a screen frame or a log event anywhere in the files this site reads.</p>
     </div>`;
@@ -1121,7 +1121,7 @@
       <ul class="ia-list">
         <li><a href="#/explore/worksheets">Collected worksheets</a><p>Responses, answer keys, and stored scores, labelled by how they were produced.</p></li>
         <li><a href="#/methods">Processing and analysis</a><p>How extraction, checks, and notebook inspection were done.</p></li>
-        <li><a href="#/docs/limitations">Data notes</a><p>Missing files, duplicate recordings, and places where the files disagree with the written method.</p></li>
+        <li><a href="#/docs/limitations">Data Quality and Limitations</a><p>Missing files, duplicate recordings, and places where the files disagree with the written method.</p></li>
       </ul>
     </div>`;
   }
@@ -1369,7 +1369,7 @@
       ${code === "WS11" && WS11_IS_WS14 ? `<p>The extraction files under WS11 repeat WS14 for every student. Field counts above describe that repeated text, not a WS11 survey.</p>` : ""}
       ${clashes.length ? `<div class="warn">Model-written page summaries name a different pseudonym from the file for: ${clashes.map(h).join("; ")}. Those summaries are not treated as verified attributions, and they are not quoted here.</div>` : ""}
       <p>There is no verified join from a worksheet item to a screen recording or a CODAP log event. A pseudonym does link to that participant’s <a href="#/findings/participants">student profile</a>.</p>
-      <p>${methodLink("worksheets", "Extraction and scoring methods")} <a href="#/docs/limitations">Data notes</a></p>
+      <p>${methodLink("worksheets", "Extraction and scoring methods")} <a href="#/docs/limitations">Data Quality and Limitations</a></p>
       ${tech("Source paths", [w.schema, w.rubric, w.answer_key || doc.answer_key, doc.schema].filter(Boolean).map(src).join(""))}</section>`;
   }
   function ws11ResponseSection() {
@@ -1686,9 +1686,7 @@
         <div class="stat-card"><div class="v">${num(F.length)}</div><div class="l">Extracted frames</div></div>
         <div class="stat-card"><div class="v">${num(sessionsWithFrames)}</div><div class="l">Sessions with frames</div></div>
       </div>
-      <details class="tech"><summary>About the pictures on this page</summary><div class="tech-body">
-        <p>Each session view shows up to 12 examples from the CODAP screen, spaced through that session. ${num(storedPreviews)} preview images are stored on this site, ${num(C.thumbs_per_session)} per session. ${num(shownPreviews)} of those are a table, graph, tree, or the CODAP window. Menus and other screens are not shown. The full set of frame images is in the dataset below.</p>
-      </div></details>
+      <p class="frame-note">Each session view shows up to 12 examples from the CODAP screen, spaced through that session. ${num(storedPreviews)} preview images are stored on this site, ${num(C.thumbs_per_session)} per session. ${num(shownPreviews)} of those are a table, graph, tree, or the CODAP window. Menus and other screens are not shown. The full set of frame images is in the dataset below.</p>
 
       <section class="section-block" id="frame-explore">
         <h2>Choose a participant</h2>
@@ -1960,108 +1958,20 @@
 
   // ------------------------------------------------------------------ 04 Documentation
   const docShell = (active, body) => {
-    const labels = { limitations: "Data notes", glossary: "Glossary", technical: "Technical documentation" };
-    const trail = active ? [["Reference and documentation", "#/docs"], [labels[active] || "Documentation"]] : [["Reference and documentation"]];
+    const labels = { limitations: "Data Quality and Limitations", glossary: "Glossary", technical: "Technical documentation" };
+    const trail = active ? [["Reference and documentation", "#/docs/technical"], [labels[active] || "Documentation"]] : [["Reference and documentation"]];
     return `${crumbs(trail)}<p class="kicker">Reference and documentation</p>${body}`;
   };
 
-  function pageDownloads() {
+  function siteTableDictionaries() {
     const DICT = {
       "frames.csv": [`One selected screen frame (${num(F.length)} rows)`, [["student", "Pseudonym"], ["session", "codap_21apr or codap_28apr"], ["frame_id", "Frame name within the session"], ["time_s", "Seconds from the start of the recording"], ["trigger", "Why the frame was selected"], ["pixel_change_pct", "Share of the screen that changed"], ["speaker_role", "Who was speaking at that moment, if known"], ["primary_behavior", "Observed behaviour (one of nine codes)"], ["secondary_behavior", "A second behaviour, if any"], ["screen_context", "Tree, graph, table, mixed or menu"], ["deepen_phase", "Setup, building, tuning, evaluating or idle"], ["confidence", "The coder's own confidence"]]],
       "worksheet_responses.csv": [`One extracted worksheet value (${num(responseRows)} rows)`, [["student", "Pseudonym"], ["worksheet", "WS1 to WS15"], ["item", "Question or blank ID"], ["field_path", "Exact position of the value in the extraction file"], ["extracted_value", "What the student wrote, as read and cleaned"], ["item_check_correct", "Result of the check: True, False or empty"], ["item_check_flag", "Short code describing an error, if any"], ["source_file", "Extraction file the value came from"]]],
       "log_sessions.csv": ["One student in one CODAP session", [["student", "Pseudonym"], ["date", "Session date"], ["events", "All recorded actions"], ["span_minutes", "Minutes from first to last action"], ["emit_count", "Model attempts"], ["minutes_to_first_emit", "Minutes to the first attempt"], ["last_emit_accuracy", "Accuracy of the last attempt (0 to 1)"], ["accuracy_sd", "Standard deviation of accuracy across attempts"], ["predictor_drops", "Predictor placements"], ["unique_attributes", "Different predictors tried"], ["emit_tree_data … data_context_change", "Counts of the six modelling actions"]]],
       "episodes.csv": ["One episode of a session (from the video pipeline's Parquet tables)", [["student", "Pseudonym"], ["session", "Session ID"], ["episode_id", "Episode within the session"], ["category", "Episode category"], ["start_ms / end_ms / duration_ms", "Timing in milliseconds"], ["steps", "Observation steps in the episode"], ["assistance", "Independent or assisted"]]],
     };
-    return `<div class="page">${docShell("", `
-      <h1>Data and downloads</h1>
-      <p class="lead">Files from the 2026 decision tree unit, and where to read how they were made. Screen-recording frames and CODAP logs are separate collections.</p>
-      <nav class="jump" aria-label="On this page">
-        <a href="#guide">Where to go</a>
-        <a href="#datasets">Datasets</a>
-        <a href="#worksheets">Worksheets</a>
-        ${(C.downloads && C.downloads.cards) ? `<a href="#food">Food data cards</a>` : ""}
-        <a href="#tables">Analysis tables</a>
-      </nav>
-
-      <h2 id="guide">Where to go</h2>
-      <p class="small">The archive is organised into four areas. Choose the one that matches your purpose.</p>
-      <h3 class="guide-group-label">Collected Data</h3>
-      <ul class="guide">
-        <li><a href="#/explore/worksheets">Worksheets</a><span>Purpose, student responses, item scores, and the blank PDFs.</span></li>
-        <li><a href="#/explore/recordings">Screen recording frames</a><span>Frames extracted from the sessions, with previews on this site and the full image set on Hugging Face. Original videos are not published.</span></li>
-        <li><a href="#/explore/logs">Platform logs</a><span>Ten example records. The complete log is a separate dataset on Hugging Face.</span></li>
-        <li><a href="#/explore/notebooks">Python notebooks</a><span>The guided Colab notebook and the final homework files. Inspection counts stay under Findings.</span></li>
-      </ul>
-      <h3 class="guide-group-label">Data Processing &amp; Analysis</h3>
-      <ul class="guide">
-        <li><a href="#/methods">Processing workflow</a><span>How answers were read, frames were selected, and codes were checked.</span></li>
-      </ul>
-      <h3 class="guide-group-label">Findings &amp; Research Insights</h3>
-      <ul class="guide">
-        <li><a href="#/findings">Findings</a><span>Four source categories: worksheets, screen recordings, platform logs, and Python notebooks.</span></li>
-        <li><a href="#/findings/participants">Student profiles</a><span>Which worksheets, recordings, logs, and Python files are on record for each pseudonym. These counts are not learning outcomes.</span></li>
-      </ul>
-      <h3 class="guide-group-label">Reference &amp; Documentation</h3>
-      <ul class="guide">
-        <li><a href="#/">Archive overview</a><span>What the archive contains, and the counts behind it.</span></li>
-        <li><a href="#/docs/limitations">Data notes</a><span>Where a file is missing, duplicated, or differs from the written method.</span></li>
-        <li><a href="#/docs/glossary">Glossary</a><span>Terms used on this site, including Turkish words in student answers.</span></li>
-        <li><a href="#/docs/technical">Technical documentation</a><span>Folder paths, rebuild commands, and the coverage table.</span></li>
-      </ul>
-
-      <h2 id="datasets">Research datasets</h2>
-      <p>Two public datasets were verified. <a href="${HF_FRAMES}" target="_blank" rel="noopener">DecisionTrees-AICFT-Frames</a> (CC BY 4.0) contains the frame images, <code>metadata.csv</code>, and a copy of <code>codap_log_anonymized.csv</code>. <a href="${HF_LOGS}" target="_blank" rel="noopener">DecisionTrees-AICFT-CODAP-Arbor-LogFile</a> (CC BY 4.0) is the platform-log dataset. That dataset does not include the frame images. Worksheets and notebook files are not in either dataset.</p>
-      <div class="dataset-grid">
-        <div class="dataset-card">
-          <div class="ds-type">Screen-recording frames</div>
-          <div class="ds-title">DecisionTrees-AICFT-Frames</div>
-          <div class="ds-desc">${num(F.length)} frames listed from two CODAP Arbor sessions, of which ${num(codedFrameCount)} are coded for behaviour. Each coded frame includes a behaviour code, screen context, confidence, and observation flags.</div>
-          <div class="ds-meta">${num(F.length)} listed · ${STUDENTS.length} participants · 2 sessions · CC BY 4.0</div>
-          <div class="ds-links">
-            <a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames" target="_blank" rel="noopener">View on Hugging Face</a>
-            <a href="#/explore/recordings">Browse frames</a>
-            <a href="data/frames.csv" download>frames.csv</a>
-          </div>
-        </div>
-        <div class="dataset-card">
-          <div class="ds-type">Platform interaction logs</div>
-          <div class="ds-title">CODAP Arbor interaction logs</div>
-          <div class="ds-desc">The two sessions are on this site. The complete event log is <code>codap_log_anonymized.csv</code> in the CODAP Arbor platform-log dataset.</div>
-          <div class="ds-meta">${num(logEvents)} events · ${STUDENTS.length} participants · 3 log days</div>
-          <div class="ds-links">
-            <a href="${HF_LOGS}" target="_blank" rel="noopener">View on Hugging Face</a>
-            <a href="#/explore/logs">Browse log data</a>
-            <a href="data/log_sessions.csv" download>log_sessions.csv</a>
-          </div>
-        </div>
-      </div>
-
-      ${materials()}
-      <h2 id="tables">Analysis tables</h2>
-      <p>The tables behind this site. Column definitions stay closed until you open them.</p>
-      ${Object.entries(DICT).map(([f, [desc, cols]]) => `<section class="dl"><h3><a href="data/${f}" download>${f}</a></h3><p>${h(desc)}</p>${tech("Data dictionary", table([{ t: "Column" }, { t: "Meaning" }], cols.map(([c, m]) => ({ cells: [`<code>${h(c)}</code>`, h(m)] }))))}</section>`).join("")}
-      <h2 id="access">Access</h2>
-      <p>All tables use pseudonyms only. They still contain student work, so sharing beyond the research team should follow the project's data protection rules (<code>DATA_PROTECTION.md</code> in the repository). The original Parquet tables stay in the repository and are described in the <a href="#/docs/technical">technical documentation</a>.</p>`)}</div>`;
+    return Object.entries(DICT).map(([f, [desc, cols]]) => `<section class="dl"><h3><a href="data/${f}" download>${f}</a></h3><p>${h(desc)}</p>${tech("Data dictionary", table([{ t: "Column" }, { t: "Meaning" }], cols.map(([c, m]) => ({ cells: [`<code>${h(c)}</code>`, h(m)] }))))}</section>`).join("");
   }
-  function materials() {
-    const D = C.downloads || {};
-    const cards = D.cards;
-    const LABEL = { recommended: "Recommended", not_recommended: "Not recommended" };
-    let out = `<h2 id="worksheets">Worksheet PDFs</h2><p>Blank editions, as handed to the students. Descriptions and extracted responses are in the <a href="#/explore/worksheets">worksheet catalogue</a>.</p>` +
-      table([{ t: "Worksheet" }, { t: "Topic" }, { t: "File", num: 1 }], D.worksheets.map((d) => {
-        const w = C.worksheets.find((x) => x.code === d.code);
-        return { cells: [`<a href="${h(d.file)}" download><b>${h(d.code)} · ${h(wsTitle(w))}</b></a>`, `<span class="small">${h((WS_INFO[d.code] || {}).topic || "")}</span>`, `<a href="${h(d.file)}" download>PDF, ${bytes(d.bytes)}</a>`] };
-      }));
-    if (cards) {
-      const nutr = [["energy_kcal", "Energy (kcal)"], ["fat_g", "Fat (g)"], ["saturated_fat_g", "Saturated fat (g)"], ["carbohydrates_g", "Carbohydrates (g)"], ["sugar_g", "Sugar (g)"], ["protein_g", "Protein (g)"], ["salt_g", "Salt (g)"]];
-      out += `<h2 id="food">Food data cards</h2><p>The ${cards.rows.length} food cards used in worksheets 4 to 7. The Python checks for WS5, WS6 and WS7 compute the correct answers from this table. <a href="${h(cards.file)}" download>Download CSV</a> Worksheets 4 and 5 also offer this set with Turkish column names. Worksheet 12 uses those 11 cards plus Somun Ekmek and Vegan Salam; that 13-card file is on the worksheet 12 page.</p>` +
-        table([{ t: "Food" }, { t: "Turkish name" }, { t: "Label" }].concat(nutr.map(([, l]) => ({ t: l, num: 1 }))),
-          cards.rows.map((r) => ({ cells: [h(r.name_en), `<span class="orig">${h(r.name_tr)}</span>`, h(LABEL[r.label] || r.label)].concat(nutr.map(([k]) => h(r[k]))) })));
-    }
-    out += `<h2 id="class-data">Class datasets</h2><p>The class datasets (food data, Xeno, Titanic and the lizard data) are not stored as separate files in the project folder. The food data exists only inside the students' saved CODAP documents, and those copies differ because students filtered or edited cases. They are therefore not offered here as a single download.</p>`;
-    return out;
-  }
-
   function limitationItems() {
     const dupes = {};
     allSessions.filter((r) => r.same_video_file_as).forEach((r) => { (dupes[r.student] = dupes[r.student] || []).push(SESS_NAME[r.session]); });
@@ -2112,9 +2022,9 @@
   }
   function pageLimitations() {
     return `<div class="page">${docShell("limitations", `
-      <h1>Data notes</h1>
+      <h1>Data Quality and Limitations</h1>
       <p class="lead">Where the data are incomplete, duplicated, or differ from the written method, and what that means for the results. Each point is computed from the files. File-level details are in the <a href="#/docs/technical">technical documentation</a>.</p>
-      <nav class="jump" aria-label="On this page">${limitationItems().map(([g], i) => `<a href="#note-${i}">${h(g)}</a>`).join("")}</nav>
+      <nav class="jump" aria-label="On this page">${limitationItems().map(([g], i) => `<a href="#/docs/limitations/note-${i}">${h(g)}</a>`).join("")}</nav>
       ${limitationItems().map(([g, items], i) => `<h2 id="note-${i}">${h(g)}</h2>${items.map((it) => `<section class="lim"><h3>${it.title}</h3><p>${it.what}</p><p class="why"><b>Why it matters.</b> ${it.why}</p>${it.detail ? tech("Details", `<div>${it.detail}</div>`) : ""}</section>`).join("")}`).join("")}`)}</div>`;
   }
   function pageGlossary() {
@@ -2219,22 +2129,38 @@
     inv.total_bytes = sum(inv.folders.map((f) => f.bytes));
     return `<div class="page wide">${docShell("technical", `
       <h1>Technical documentation</h1>
-      <p class="lead">For researchers who want to trace values back to the project files.</p>
-      <h2>Rebuilding the site</h2>
+      <p class="lead">For researchers who want to trace values back to the project files. How each source was read is in <a href="#/methods">Processing</a>. Where the records are incomplete is in <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
+      <nav class="jump" aria-label="On this page">
+        <a href="#/docs/technical/rebuild">Rebuilding the site</a>
+        <a href="#/docs/technical/folders">Raw data folders</a>
+        <a href="#/docs/technical/tables">Analysis tables</a>
+        <a href="#/docs/technical/class-data">Class datasets</a>
+        <a href="#/docs/technical/coverage">Coverage by student</a>
+        <a href="#/docs/technical/access">Access</a>
+      </nav>
+      <h2 id="rebuild">Rebuilding the site</h2>
       <p><code>python3 mmla_explorer/build_site_data.py</code> reads the project files and writes the site data. <code>python3 mmla_explorer/test_site_data.py</code> re-reads the sources and compares them with the site. Last build: ${h(C.built_at.replace("T", " "))}.</p>
-      <h2>Raw data folders</h2>
+      <h2 id="folders">Raw data folders</h2>
       <p>From <code>${h(inv.source)}</code> (${h(inv.generated_at.slice(0, 10))}): ${num(inv.file_count)} files, ${bytes(inv.total_bytes)}. The Python-session screen recordings are left out.</p>
       ${table([{ t: "Folder" }, { t: "Files", num: 1 }, { t: "Size", num: 1 }, { t: "Types" }], inv.folders.map((f) => ({ cells: [`<code>${h(f.folder)}</code>`, num(f.files), bytes(f.bytes), h(Object.entries(f.ext).map(([e, n]) => `${e} ${n}`).join(", "))] })))}
-      <h2>Analysis tables per session</h2>
+      <h2 id="tables">Analysis tables</h2>
+      <h3>Session exports</h3>
       ${table([{ t: "Level" }, { t: "File" }, { t: "Contents" }], [
         { cells: ["Session", "<code>*_session_ml_features.parquet</code>", "One row per session with yes/no process features."] },
         { cells: ["Episode", "<code>*_episodes.parquet</code>", "Stretches of related activity with start, end, category and assistance."] },
         { cells: ["Episode × code", "<code>*_episode_process_codes.parquet</code>", "Each episode and process code: observed or not, with evidence counts."] },
       ])}
       <p class="small">Location: <code>training_datasets/2026/&lt;student&gt;/&lt;session&gt;/exports/tabular/</code>.</p>
-      <h2>Coverage by student</h2>
+      <h3>Site tables</h3>
+      <p>The tables behind this site. Column definitions stay closed until you open them.</p>
+      ${siteTableDictionaries()}
+      <h2 id="class-data">Class datasets</h2>
+      <p>The class datasets (food data, Xeno, Titanic and the lizard data) are not stored as separate files in the project folder. The food data exists only inside the students' saved CODAP documents, and those copies differ because students filtered or edited cases. They are therefore not offered here as a single download.</p>
+      <h2 id="coverage">Coverage by student</h2>
       ${coverageTable()}
-      <p class="small">A tick means a file is stored. A Colab tick is the guided notebook for that session date. A later file is not counted as an earlier session. Notebook is the final homework file. Marco’s final submission is a written report, so that cell is empty.</p>`)}</div>`;
+      <p class="small">A tick means a file is stored. A Colab tick is the guided notebook for that session date. A later file is not counted as an earlier session. Notebook is the final homework file. Marco’s final submission is a written report, so that cell is empty.</p>
+      <h2 id="access">Access</h2>
+      <p>All tables use pseudonyms only. They still contain student work, so sharing beyond the research team should follow the project's data protection rules (<code>DATA_PROTECTION.md</code> in the repository). The original Parquet tables stay in the repository and are described in the <a href="#/docs/technical">technical documentation</a>.</p>`)}</div>`;
   }
 
   // ------------------------------------------------------------------ 05 Findings
@@ -2306,7 +2232,15 @@
     return { parts, q, query };
   }
   // Links from earlier versions of the site.
-  const LEGACY = { how: "methods", students: "findings/participants", worksheets: "explore/worksheets", recordings: "explore/recordings", frames: "explore/frames", logs: "explore/logs", notebooks: "explore/notebooks", data: "docs", notes: "docs/limitations", glossary: "docs/glossary", student: "explore/student", worksheet: "explore/worksheet", "explore/worksheet": "explore/worksheet" };
+  const LEGACY = { how: "methods", students: "findings/participants", worksheets: "explore/worksheets", recordings: "explore/recordings", frames: "explore/frames", logs: "explore/logs", notebooks: "explore/notebooks", data: "docs/technical", notes: "docs/limitations", glossary: "docs/glossary", student: "explore/student", worksheet: "explore/worksheet", "explore/worksheet": "explore/worksheet" };
+  function scrollToId(id) {
+    const anchor = id && document.getElementById(id);
+    if (!anchor || !anchor.scrollIntoView) return;
+    anchor.scrollIntoView();
+    const head = document.querySelector(".masthead");
+    const h = head ? head.getBoundingClientRect().height : 0;
+    if (h) window.scrollBy(0, -(h + 12));
+  }
   function route() {
     const { parts, q, query } = parse();
     if (LEGACY[parts[0]]) {
@@ -2352,7 +2286,19 @@
       else html = `<div class="page"><h1>Page not found</h1><p><a href="#/">Go to the overview</a></p></div>`;
     } else if (top === "docs") {
       const sub = parts[1] || "";
-      html = sub === "limitations" ? pageLimitations() : sub === "glossary" ? pageGlossary() : sub === "technical" ? pageTechnical() : pageDownloads();
+      if (!sub || sub === "downloads" || sub === "data") {
+        location.replace("#/docs/technical" + (query ? "?" + query : ""));
+        return;
+      }
+      if (sub === "limitations") {
+        html = pageLimitations();
+        after = () => scrollToId(parts[2]);
+      }
+      else if (sub === "glossary") html = pageGlossary();
+      else if (sub === "technical") {
+        html = pageTechnical();
+        after = () => scrollToId(parts[2]);
+      } else html = `<div class="page"><h1>Page not found</h1><p><a href="#/docs/limitations">Data Quality and Limitations</a> · <a href="#/docs/glossary">Glossary</a> · <a href="#/docs/technical">Technical documentation</a></p></div>`;
     } else html = `<div class="page"><h1>Page not found</h1><p><a href="#/">Go to the overview</a></p></div>`;
     app.innerHTML = html;
     tip.style.display = "none";
