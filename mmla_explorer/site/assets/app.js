@@ -508,6 +508,23 @@
     });
     const resolutionText = Object.entries(resolutions).map(([k, n]) => `${h(k)} (${num(n)} manifests)`).join(", ");
     const dupeNames = recorded.filter((r) => r.same_video_file_as).map(slotName);
+    const slotOf = (student, session) => allSessions.find((r) => r.student === student && r.session === session);
+    const sessionFileNote = () => {
+      const bits = [];
+      const irma1 = slotOf("Irma", "codap_21apr");
+      const irma2 = slotOf("Irma", "codap_28apr");
+      if (irma1 && irma2 && irma1.video_sha256 && irma2.video_sha256 && irma1.video_sha256 !== irma2.video_sha256) {
+        bits.push(irma1.coding
+          ? "Irma’s two CODAP recordings are different files."
+          : "Irma’s two CODAP recordings are different files. Session 1 frames have no behaviour labels yet, so they are not included in behaviour shares.");
+      }
+      const zara1 = slotOf("Zara", "codap_21apr");
+      const zara2 = slotOf("Zara", "codap_28apr");
+      if (zara1 && zara1.manifest && zara2 && !zara2.manifest) {
+        bits.push("Zara’s stored CODAP recording is session 1. No session 2 recording or frame manifest is published, and frames taken from the session 1 video are not shown as a second session.");
+      }
+      return bits.length ? bits.join(" ") + " " : "";
+    };
     const linkMethods = {};
     F.forEach((row) => {
       const method = row.gx && row.gx.method;
@@ -618,7 +635,7 @@
           <div class="flow-arr" aria-hidden="true">→</div>
           <div class="flow-node flow-node--output">Stored<br>labels</div>
         </div>
-        <p>Three stages are stored: speech processing where a transcript exists, frame selection, and a behaviour label on the kept frames. A fourth stage, matching each log event to a frame, is described in the study method. The frame files do not contain that join. ${dupeNames.length ? `Some videos are the same file: ${dupeNames.join("; ")}. Only one file in each pair can be the recording of its day.` : ""} Frames and counts are listed under <a href="#/explore/recordings">Screen recording frames</a>. Counts of the nine labels, with labelled frames as the denominator, are on the <a href="#/findings/recordings">screen recording findings</a> page.</p>
+        <p>Three stages are stored: speech processing where a transcript exists, frame selection, and a behaviour label on the kept frames. A fourth stage, matching each log event to a frame, is described in the study method. The frame files do not contain that join. ${dupeNames.length ? `Some videos are the same file: ${dupeNames.join("; ")}. Only one file in each pair can be the recording of its day. ` : ""}${sessionFileNote()} Frames and counts are listed under <a href="#/explore/recordings">Screen recording frames</a>. Counts of the nine labels, with labelled frames as the denominator, are on the <a href="#/findings/recordings">screen recording findings</a> page.</p>
 
         <h3>Speech</h3>
         <p>${num(speechStatus("ok").length)} of the ${num(recorded.length)} recordings store a usable transcript. ${fusionSessions.length ? `${num(fusionSessions.length)} of those store speaker grouping as <code>${h(pipeField(fusionSessions[0], "diarization") || "not stored")}</code> and speech-to-text as <code>existing_transcript_fusion</code>: the words were joined to a transcript already on file. Whisper was not run on every recording.` : ""} ${lexical.length ? `${num(lexical.length)} files label speakers with <code>hybrid_matrix_duration_and_lexical</code>, a duration and word-pattern heuristic. The archive does not store a speaker-identification accuracy for that heuristic.` : ""}</p>
@@ -709,7 +726,7 @@
             <div class="evidence-col-head">Limitations and uncertainty</div>
             <ul>
               <li>WS11: no extracted student answers; not scored evidence</li>
-              <li>Some recordings are the same video file; behaviour results may describe a different day</li>
+              <li>Irma’s session 1 frames have no behaviour labels. Zara has no session 2 recording</li>
               <li>Frame coverage below 80% in some sessions</li>
               <li>Log–video alignment not recorded at the individual-frame level</li>
               <li>Episode categories are not the nine frame behaviour codes</li>
@@ -1728,6 +1745,11 @@
   const isCodapScreen = (f) => CODAP_SCREEN.has(f.sc);
   const PREVIEW_CAP = 12;
   const codapPreviews = (s, ss) => F.filter((f) => f.s === s && (!ss || f.ss === ss) && f.th && isCodapScreen(f));
+  const sessionPreviews = (s, ss) => {
+    const coded = codapPreviews(s, ss);
+    if (coded.length) return coded;
+    return F.filter((f) => f.s === s && (!ss || f.ss === ss) && f.th);
+  };
   function previewSample(pics) {
     if (pics.length <= PREVIEW_CAP) return pics;
     const used = new Set();
@@ -1749,7 +1771,7 @@
   const sessionHasFrames = (s, ss) => !!(C.sessions[s] && C.sessions[s][ss] && C.sessions[s][ss].manifest);
 
   function firstSessionWithFrames(s) {
-    const withPictures = SESS.find((ss) => codapPreviews(s, ss.id).length);
+    const withPictures = SESS.find((ss) => sessionPreviews(s, ss.id).length);
     if (withPictures) return withPictures.id;
     const hit = SESS.find((ss) => sessionHasFrames(s, ss.id));
     return hit ? hit.id : (SESS[0] ? SESS[0].id : "");
@@ -1770,7 +1792,7 @@
         <div class="stat-card"><div class="v">${num(F.length)}</div><div class="l">Extracted frames</div></div>
         <div class="stat-card"><div class="v">${num(sessionsWithFrames)}</div><div class="l">Sessions with frames</div></div>
       </div>
-      <p class="frame-note">Each session view shows up to 12 examples from the CODAP screen, spaced through that session. ${num(storedPreviews)} preview images are stored on this site, ${num(C.thumbs_per_session)} per session. ${num(shownPreviews)} of those are a table, graph, tree, or the CODAP window. Menus and other screens are not shown. The full set of frame images is in the dataset below.</p>
+      <p class="frame-note">Each session view shows up to 12 examples from the CODAP screen, spaced through that session. ${num(storedPreviews)} preview images are stored on this site, ${num(C.thumbs_per_session)} per session. ${num(shownPreviews)} of those are a table, graph, tree, or the CODAP window. Menus and other screens are not shown. A session whose frames have no stored screen type shows its previews without a behaviour label. The full set of frame images is in the dataset below.</p>
 
       <section class="section-block" id="frame-explore">
         <h2>Choose a participant</h2>
@@ -1805,21 +1827,24 @@
     }
     if (!frameView.ss) frameView.ss = firstSessionWithFrames(frameView.s);
     const tabs = SESS.map((ss) => {
-      const ready = codapPreviews(frameView.s, ss.id).length > 0;
-      const sub = ready ? SESS_DATE[ss.id] : `${SESS_DATE[ss.id]} · No previews`;
+      const ready = sessionPreviews(frameView.s, ss.id).length > 0;
+      const sub = !sessionHasFrames(frameView.s, ss.id) ? `${SESS_DATE[ss.id]} · No recording` : (ready ? SESS_DATE[ss.id] : `${SESS_DATE[ss.id]} · No previews`);
       return `<button type="button" role="tab" class="sess-tab" data-ss="${h(ss.id)}" aria-selected="${frameView.ss === ss.id ? "true" : "false"}"><span>${h(SESS_NAME[ss.id])}</span><span class="when">${h(sub)}</span></button>`;
     }).join("");
-    const picsAll = codapPreviews(frameView.s, frameView.ss);
+    const picsAll = sessionPreviews(frameView.s, frameView.ss);
     const pics = previewSample(picsAll);
-    const other = SESS.find((ss) => ss.id !== frameView.ss && codapPreviews(frameView.s, ss.id).length);
+    const other = SESS.find((ss) => ss.id !== frameView.ss && sessionPreviews(frameView.s, ss.id).length);
     const heading = `<h3 class="preview-heading">${h(frameView.s)} · ${h(SESS_NAME[frameView.ss])}</h3>`;
     const note = picsAll.length > PREVIEW_CAP ? `<p class="preview-note">12 examples from this session.</p>` : "";
+    const emptyCopy = sessionHasFrames(frameView.s, frameView.ss)
+      ? `No previews are available for ${h(frameView.s)}, ${h(SESS_NAME[frameView.ss])}.`
+      : `No recording is stored for ${h(frameView.s)}, ${h(SESS_NAME[frameView.ss])}.`;
     const body = pics.length
       ? `${heading}${note}<div class="thumbs frame-grid">${pics.map((f) => {
           const capText = `${f.s} · ${SESS_NAME[f.ss]} · ${clock(f.t)} · ${f.b ? behLabel(f.b) : "No label"} · ${f.id}`;
           return `<figure><button type="button" class="thumb" data-zoom="thumbs/${h(f.th)}" data-cap="${h(capText)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt="${h(capText)}"></button><figcaption><span class="mono">${clock(f.t)}</span><br>${h(f.b ? behLabel(f.b) : "No label")}</figcaption></figure>`;
         }).join("")}</div>`
-      : `${heading}<div class="empty-session"><p>No previews are available for ${h(frameView.s)}, ${h(SESS_NAME[frameView.ss])}.</p>${other ? `<button type="button" class="btn btn-primary" id="openOther" data-ss="${h(other.id)}">Open ${h(SESS_NAME[other.id])}</button>` : ""}</div>`;
+      : `${heading}<div class="empty-session"><p>${emptyCopy}</p>${other ? `<button type="button" class="btn btn-primary" id="openOther" data-ss="${h(other.id)}">Open ${h(SESS_NAME[other.id])}</button>` : ""}</div>`;
     out.innerHTML = `<h2 class="sess-heading">Choose a session</h2><div class="sess-tabs" role="tablist">${tabs}</div>${body}`;
     out.querySelectorAll(".sess-tab").forEach((b) => {
       b.addEventListener("click", () => { frameView.ss = b.dataset.ss; syncFrameQuery(); });
@@ -2078,6 +2103,7 @@
     return [
       ["Missing or duplicated data", [
         Object.keys(dupes).length && I("Some recordings are the same file", `${Object.entries(dupes).map(([s, l]) => `${h(s)} (${l.map(h).join(", ")})`).join("; ")}: the video files for these sessions are identical.`, "Only one of each group can be the real recording of its day. Behaviour results for these sessions may describe a different day, so comparisons across sessions are unreliable for these students.", "Identical SHA-256 fingerprints in <code>data_sources_2026/MANIFEST.json</code>."),
+        I("Irma and Zara recordings", "Irma’s two CODAP videos are different files. The session 1 frames were extracted from the 21 April file and have no behaviour labels, so they are not included in behaviour shares. Zara’s stored CODAP video is the 21 April file. No session 2 video or frame manifest is published. Frames that had been extracted from that 21 April file under the session 2 name are not shown as a second session.", "Session comparisons use only the recording that belongs to that day. Missing behaviour labels are omitted, not treated as a zero share.", "Video fingerprints in <code>data_sources_2026/MANIFEST.json</code>. Irma session 1 manifest: <code>codap_arbor_21april_audio/Irma/Irma_video_extraction_manifest.json</code>."),
         gone.length && I("Original videos are not published", `Screen-recording videos are not part of this public archive and are not intended for release. The extracted frames are published on Hugging Face. For ${gone.length} of ${videoFilesListed} listed sessions the source video is not in the local data folder: ${gone.map((r) => `${h(r.student)} (${h(SESS_NAME[r.session])})`).join(", ")}.`, "Those frames cannot be re-extracted from a local video copy. The public record is the frame dataset.", `Listed in <code>MANIFEST.json</code> of ${h(C.inventory.generated_at.slice(0, 10))}. Some processing folders hold re-encoded copies (<code>*.video.webm</code>) of different size.`),
         low.length && I("Frames cover only part of some videos", `${low.map((r) => `${h(r.student)} (${h(SESS_NAME[r.session])}, ${num(r.frame_coverage * 100)}%)`).join(", ")}.`, "Activity in the later part of these sessions is not represented in the frames.", table([{ t: "Student" }, { t: "Session" }, { t: "Last frame" }, { t: "Length in manifest" }, { t: "Real length" }], low.map((r) => ({ cells: [h(r.student), h(SESS_NAME[r.session]), clock(r.manifest.last_s), r.manifest.profile_duration_seconds ? clock(r.manifest.profile_duration_seconds) : "–", clock(lengthOf(r))] }))) + "<p>The extractor recorded the videos as shorter than they are. WebM files often carry no length in their header.</p>"),
         noOcr.length && I(`No extracted answers for ${noOcr.join(" and ")}`, "No student answers were extracted for these worksheets.", "These worksheets add no evidence to the analysis.", "Stage files in <code>students/</code> record a failed extraction. No scanned student file for WS11 is in <code>All Documents/</code>. A file named “31 Mart 2026 Çalışma Kâğıdı 12.pdf” exists but was not processed."),

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T09:43:32",
+  "generated_at": "2026-10-12T16:21:10",
   "missing": [
     {
       "what": "OCR file WS1 for Amy",
@@ -70,21 +70,20 @@
       "path": null
     },
     {
+      "what": "Worksheet PDF WS12",
+      "path": "mmla_explorer/materials/worksheets/WS12.pdf"
+    },
+    {
       "what": "Worksheet PDF WS15",
       "path": "mmla_explorer/materials/worksheets/WS15.pdf"
     }
   ],
   "notes": [
     "Bruno codap_21apr: video listed in MANIFEST.json but not on disk",
-    "Irma codap_21apr: video file is byte-identical to ['codap_28apr']",
     "Marcus codap_21apr: video listed in MANIFEST.json but not on disk",
     "Nadia codap_21apr: video listed in MANIFEST.json but not on disk",
     "Shana codap_21apr: video listed in MANIFEST.json but not on disk",
-    "Zara codap_21apr: video listed in MANIFEST.json but not on disk",
-    "Zara codap_21apr: video file is byte-identical to ['codap_28apr']",
-    "Irma codap_28apr: video file is byte-identical to ['codap_21apr']",
-    "Serena codap_28apr: video listed in MANIFEST.json but not on disk",
-    "Zara codap_28apr: video file is byte-identical to ['codap_21apr']"
+    "Serena codap_28apr: video listed in MANIFEST.json but not on disk"
   ],
   "checks": [
     {
@@ -115,13 +114,25 @@
       "tokens_checked": 35,
       "tokens_found": 0,
       "occurrences": 0
+    },
+    {
+      "check": "no full real names or real log IDs in output",
+      "names_checked": 21,
+      "passed": true,
+      "hit_count": 0
+    },
+    {
+      "check": "single name tokens found (review: may be ordinary words)",
+      "tokens_checked": 35,
+      "tokens_found": 0,
+      "occurrences": 0
     }
   ],
   "counts": {
     "students": 15,
-    "frames": 5825,
-    "frames_with_behavior": 5824,
-    "thumbnails": 352,
+    "frames": 5584,
+    "frames_with_behavior": 5248,
+    "thumbnails": 336,
     "worksheet_ocr_files": 164,
     "worksheet_response_rows": 4120,
     "log_student_days": 37

@@ -115,7 +115,10 @@ check(pack.byStudent.Amy.codap_21apr.primary.EXPLORE_DATA === 140, "Amy session 
 check(!pack.byStudent.Amy.codap_21apr.primary.SELECT_TARGET, "Select target is not counted as Amy's primary label");
 check(pack.byStudent.Bruno.codap_21apr.secondary.SELECT_TARGET === 7, "Bruno session 1 stores select target as a second label");
 check(pack.byStudent.Amy.codap_28apr.hasRecording === false, "Amy session 2 has no recording");
-check(pack.byStudent.Irma.codap_21apr.duplicateOf.indexOf("codap_28apr") !== -1, "Irma sessions share one video file");
+check(!pack.byStudent.Irma.codap_21apr.duplicateOf.length && !pack.byStudent.Irma.codap_28apr.duplicateOf.length, "Irma sessions are different video files");
+check(pack.byStudent.Irma.codap_21apr.listed === 335 && pack.byStudent.Irma.codap_21apr.coded === 0, "Irma session 1 frames are listed without behaviour labels");
+check(pack.byStudent.Zara.codap_28apr.hasRecording === false, "Zara session 2 is not published as a recording");
+check(pack.byStudent.Zara.codap_21apr.hasRecording === true && !pack.byStudent.Zara.codap_21apr.duplicateOf.length, "Zara session 1 keeps its own recording");
 
 const amy = RF.page({ s: "Amy", ss: "codap_21apr" });
 check(amy.indexOf("Explore data") !== -1 && amy.indexOf("var(--b1)") !== -1, "Amy session uses the explore-data colour");
@@ -134,8 +137,12 @@ const helena = RF.page({ s: "Helena", ss: "codap_21apr" });
 check(helena.indexOf("STRUGGLE") === -1, "Helena's unknown second label is not shown on the findings page");
 
 const irma = RF.page({ s: "Irma", ss: "codap_28apr" });
-check(irma.indexOf("same file") !== -1, "Irma's duplicate video is named");
+check(irma.indexOf("same file") === -1, "Irma session 2 is not described as a duplicate file");
 check(irma.indexOf("no primary label") !== -1, "Irma's unlabelled frame is not folded into a behaviour");
+const irma1 = RF.page({ s: "Irma", ss: "codap_21apr" });
+check(irma1.indexOf("do not have behaviour labels") !== -1, "Irma session 1 states that behaviour labels are absent");
+const zara2 = RF.page({ s: "Zara", ss: "codap_28apr" });
+check(zara2.indexOf("No screen recording frames are on record") !== -1, "Zara session 2 states that frames are not on record");
 
 const sheila = RF.page({ s: "Sheila", ss: "codap_21apr" });
 check(sheila.indexOf("extraction summary") !== -1, "Sheila's two frame counts stay distinct");

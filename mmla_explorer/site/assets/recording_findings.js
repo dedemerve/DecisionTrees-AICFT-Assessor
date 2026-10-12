@@ -406,7 +406,7 @@
     }
     if (!model.coded) {
       return `<h3 class="preview-heading">${h(student)} · ${h(model.name)}</h3>
-        <p>${num(model.listed)} frames are listed for this session. Behaviour coding for these frames is unavailable.</p>
+        <p>${num(model.listed)} frames are listed for this session. They do not have behaviour labels, so they are not included in behaviour shares. Labels from another session are not copied onto them.</p>
         <p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Explore collected frames for this session</a></p>`;
     }
     const denom = model.coded;
