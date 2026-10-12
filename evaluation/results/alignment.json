@@ -1,0 +1,24 @@
+{
+  "question": "Do frame times and log times share a clock that can support a frame-level match?",
+  "frame_clock": "source_timestamp_seconds, seconds from the start of the recording",
+  "log_clocks": [
+    "timestamp_ms, which the alignment module documents as resetting on page reload",
+    "created_at, UTC wall time of the log row"
+  ],
+  "stored_frame_event_join": false,
+  "matching_window_used": null,
+  "matches_emitted": 0,
+  "sessions_with_timestamp_ms_reset": 22,
+  "stored_alignment_method": {
+    "unavailable": 8,
+    "field_absent": 12
+  },
+  "stored_log_csv_used": {
+    "False": 8,
+    "field_absent": 12
+  },
+  "video_start_fallback": "scripts/codap_alignment.py sets the recording start to the first log created_at when ffprobe has no creation_time. That makes the offset depend on the log, so it is not an independent clock.",
+  "sample_video_paths_seen": [],
+  "defensible_frame_match": false,
+  "decision": "Participant-session comparison only. No frame was paired with a log row."
+}

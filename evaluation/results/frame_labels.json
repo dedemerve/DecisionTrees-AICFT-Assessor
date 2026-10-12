@@ -1,0 +1,99 @@
+{
+  "question": "What behaviour labels are stored, and what would an independent coder still have to establish?",
+  "unit": "frame analysis record with a primary_behavior",
+  "listed_frames": 5584,
+  "labelled_frames": 5248,
+  "analysis_files": 20,
+  "sessions_without_analysis_file": 1,
+  "label_counts": {
+    "OFF_TASK": 741,
+    "IDLE_THINKING": 30,
+    "EXPLORE_DATA": 1810,
+    "EVALUATE_MODEL": 416,
+    "BUILD_TREE": 296,
+    "COMPARE_MODELS": 936,
+    "INTERPRET_RESULTS": 1,
+    "TUNE_THRESHOLD": 1018
+  },
+  "majority_label": "EXPLORE_DATA",
+  "majority_count": 1810,
+  "build_plus_tune": 1314,
+  "build_plus_tune_share": 0.2503810975609756,
+  "secondary_behavior_present": 2492,
+  "model_confidence": {
+    "HIGH": 2326,
+    "MEDIUM": 2906,
+    "LOW": 16
+  },
+  "labels_excluding_low_confidence": {
+    "OFF_TASK": 737,
+    "IDLE_THINKING": 30,
+    "EXPLORE_DATA": 1801,
+    "EVALUATE_MODEL": 416,
+    "BUILD_TREE": 295,
+    "COMPARE_MODELS": 935,
+    "INTERPRET_RESULTS": 1,
+    "TUNE_THRESHOLD": 1017
+  },
+  "low_confidence_frames": 16,
+  "frames_storing_log_context": 0,
+  "sessions_log_csv_used": {
+    "False": 8,
+    "field_absent": 12
+  },
+  "sessions_alignment_method": {
+    "unavailable": 8,
+    "field_absent": 12
+  },
+  "record_keys": [
+    "accuracy_interpretation",
+    "accuracy_visible",
+    "aha_moment_candidate",
+    "analysis_confidence",
+    "confusion_matrix_reading",
+    "confusion_matrix_visible",
+    "deepen_phase",
+    "dependent_variable_set",
+    "frame_id",
+    "frame_number",
+    "is_duplicate_candidate",
+    "is_transition_frame",
+    "iterative_refinement",
+    "misconception_detected",
+    "notes",
+    "off_task",
+    "overfitting_awareness",
+    "pixel_change_pct",
+    "primary_behavior",
+    "screen_context",
+    "secondary_behavior",
+    "session_date",
+    "source_trigger",
+    "split_values_visible",
+    "student_id",
+    "systematic_variable_selection",
+    "technical_difficulty",
+    "threshold_reasoning",
+    "timestamp_ms",
+    "train_test_distinction",
+    "tree_has_nodes"
+  ],
+  "unlabelled_or_partial": [
+    {
+      "student": "Irma",
+      "session": "CODAP session 1",
+      "listed": 335,
+      "labelled": 0
+    },
+    {
+      "student": "Irma",
+      "session": "CODAP session 2",
+      "listed": 343,
+      "labelled": 342,
+      "partial": true
+    }
+  ],
+  "image_files_checked_via_manifest_paths": "Manifest image paths were not re-hashed here. The quality audit already compared listed frames with nonempty files.",
+  "independent_coder": false,
+  "note": "analysis_confidence is the model's own rating. The coding prompt tells the model to reconsider when BUILD_TREE plus TUNE_THRESHOLD is under 30 percent and to prefer the more common code when unsure. That instruction is not a measured base rate."
+}

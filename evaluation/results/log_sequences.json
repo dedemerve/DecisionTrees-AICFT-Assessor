@@ -1,0 +1,432 @@
+{
+  "question": "How do recorded actions sit between model submissions, and does that description depend on timestamp_ms?",
+  "unit": "gap between two consecutive emit_tree_data events in one participant session",
+  "inclusion": "CODAP session 1 and session 2 rows that resolve to the 15 pseudonyms",
+  "sessions": 22,
+  "sessions_with_timestamp_ms_reset": 22,
+  "sessions_whose_interval_counts_differ_by_clock": 0,
+  "sessions_whose_interval_sequence_differs": 2,
+  "interval_sequence_difference_sessions": [
+    {
+      "student": "Irma",
+      "session": "CODAP session 2"
+    },
+    {
+      "student": "Nadia",
+      "session": "CODAP session 2"
+    }
+  ],
+  "timestamp_ms_definition": "Events sorted by timestamp_ms. An event is between two emits when its timestamp_ms is strictly inside that numeric range. This is the published VOTAT procedure.",
+  "wall_clock_definition": "Events ordered by created_at. An event is between two emits when it sits between them in that order.",
+  "timestamp_ms_totals": {
+    "only_attribute": 99,
+    "only_threshold": 82,
+    "both_or_neither": 98,
+    "intervals": 279
+  },
+  "wall_clock_totals": {
+    "only_attribute": 99,
+    "only_threshold": 82,
+    "both_or_neither": 98,
+    "intervals": 279
+  },
+  "only_threshold_wall": 82,
+  "only_threshold_wall_with_no_other_config_action": 41,
+  "only_threshold_wall_with_changed_numeric_emit_field": 75,
+  "numeric_emit_fields_that_changed": {
+    "FP": 67,
+    "TN": 67,
+    "accuracy": 71,
+    "ss_model": 75,
+    "FN": 53,
+    "TP": 53,
+    "depth": 2,
+    "node_count": 2
+  },
+  "action_class_counts": {
+    "learner_decision_rows": 3029,
+    "interface_rows": 5093,
+    "other_rows": 1439
+  },
+  "session_rows": [
+    {
+      "student": "Amy",
+      "session": "CODAP session 1",
+      "events": 402,
+      "timestamp_ms_resets": 28,
+      "emits": 11,
+      "ms_intervals": {
+        "only_attribute": 5,
+        "only_threshold": 5
+      },
+      "wall_intervals": {
+        "only_attribute": 5,
+        "only_threshold": 5
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Bruno",
+      "session": "CODAP session 1",
+      "events": 541,
+      "timestamp_ms_resets": 53,
+      "emits": 8,
+      "ms_intervals": {
+        "both_or_neither": 6,
+        "only_attribute": 1
+      },
+      "wall_intervals": {
+        "both_or_neither": 6,
+        "only_attribute": 1
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Bruno",
+      "session": "CODAP session 2",
+      "events": 264,
+      "timestamp_ms_resets": 19,
+      "emits": 2,
+      "ms_intervals": {
+        "both_or_neither": 1
+      },
+      "wall_intervals": {
+        "both_or_neither": 1
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Helena",
+      "session": "CODAP session 1",
+      "events": 516,
+      "timestamp_ms_resets": 36,
+      "emits": 22,
+      "ms_intervals": {
+        "only_attribute": 8,
+        "both_or_neither": 5,
+        "only_threshold": 8
+      },
+      "wall_intervals": {
+        "only_attribute": 8,
+        "both_or_neither": 5,
+        "only_threshold": 8
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Iris",
+      "session": "CODAP session 1",
+      "events": 292,
+      "timestamp_ms_resets": 14,
+      "emits": 13,
+      "ms_intervals": {
+        "both_or_neither": 2,
+        "only_attribute": 9,
+        "only_threshold": 1
+      },
+      "wall_intervals": {
+        "both_or_neither": 2,
+        "only_attribute": 9,
+        "only_threshold": 1
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Irma",
+      "session": "CODAP session 1",
+      "events": 450,
+      "timestamp_ms_resets": 27,
+      "emits": 18,
+      "ms_intervals": {
+        "only_attribute": 5,
+        "both_or_neither": 3,
+        "only_threshold": 9
+      },
+      "wall_intervals": {
+        "only_attribute": 5,
+        "both_or_neither": 3,
+        "only_threshold": 9
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Irma",
+      "session": "CODAP session 2",
+      "events": 502,
+      "timestamp_ms_resets": 45,
+      "emits": 15,
+      "ms_intervals": {
+        "both_or_neither": 10,
+        "only_attribute": 4
+      },
+      "wall_intervals": {
+        "only_attribute": 4,
+        "both_or_neither": 10
+      },
+      "classification_matches": false
+    },
+    {
+      "student": "Isabel",
+      "session": "CODAP session 1",
+      "events": 481,
+      "timestamp_ms_resets": 36,
+      "emits": 12,
+      "ms_intervals": {
+        "both_or_neither": 5,
+        "only_threshold": 6
+      },
+      "wall_intervals": {
+        "both_or_neither": 5,
+        "only_threshold": 6
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Isabel",
+      "session": "CODAP session 2",
+      "events": 405,
+      "timestamp_ms_resets": 32,
+      "emits": 7,
+      "ms_intervals": {
+        "both_or_neither": 4,
+        "only_threshold": 2
+      },
+      "wall_intervals": {
+        "both_or_neither": 4,
+        "only_threshold": 2
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Marco",
+      "session": "CODAP session 1",
+      "events": 535,
+      "timestamp_ms_resets": 94,
+      "emits": 14,
+      "ms_intervals": {
+        "only_attribute": 8,
+        "both_or_neither": 3,
+        "only_threshold": 2
+      },
+      "wall_intervals": {
+        "only_attribute": 8,
+        "both_or_neither": 3,
+        "only_threshold": 2
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Marco",
+      "session": "CODAP session 2",
+      "events": 293,
+      "timestamp_ms_resets": 45,
+      "emits": 11,
+      "ms_intervals": {
+        "only_attribute": 8,
+        "only_threshold": 1,
+        "both_or_neither": 1
+      },
+      "wall_intervals": {
+        "only_attribute": 8,
+        "only_threshold": 1,
+        "both_or_neither": 1
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Marcus",
+      "session": "CODAP session 1",
+      "events": 278,
+      "timestamp_ms_resets": 19,
+      "emits": 10,
+      "ms_intervals": {
+        "only_attribute": 5,
+        "only_threshold": 1,
+        "both_or_neither": 3
+      },
+      "wall_intervals": {
+        "only_attribute": 5,
+        "only_threshold": 1,
+        "both_or_neither": 3
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Melinda",
+      "session": "CODAP session 2",
+      "events": 460,
+      "timestamp_ms_resets": 38,
+      "emits": 27,
+      "ms_intervals": {
+        "only_threshold": 14,
+        "both_or_neither": 10,
+        "only_attribute": 2
+      },
+      "wall_intervals": {
+        "only_threshold": 14,
+        "both_or_neither": 10,
+        "only_attribute": 2
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Nadia",
+      "session": "CODAP session 1",
+      "events": 367,
+      "timestamp_ms_resets": 37,
+      "emits": 18,
+      "ms_intervals": {
+        "both_or_neither": 2,
+        "only_threshold": 4,
+        "only_attribute": 11
+      },
+      "wall_intervals": {
+        "both_or_neither": 2,
+        "only_threshold": 4,
+        "only_attribute": 11
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Nadia",
+      "session": "CODAP session 2",
+      "events": 617,
+      "timestamp_ms_resets": 28,
+      "emits": 12,
+      "ms_intervals": {
+        "both_or_neither": 10,
+        "only_attribute": 1
+      },
+      "wall_intervals": {
+        "both_or_neither": 10,
+        "only_attribute": 1
+      },
+      "classification_matches": false
+    },
+    {
+      "student": "Serena",
+      "session": "CODAP session 2",
+      "events": 1274,
+      "timestamp_ms_resets": 192,
+      "emits": 32,
+      "ms_intervals": {
+        "both_or_neither": 11,
+        "only_threshold": 14,
+        "only_attribute": 6
+      },
+      "wall_intervals": {
+        "both_or_neither": 11,
+        "only_threshold": 14,
+        "only_attribute": 6
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Shana",
+      "session": "CODAP session 1",
+      "events": 364,
+      "timestamp_ms_resets": 36,
+      "emits": 13,
+      "ms_intervals": {
+        "both_or_neither": 4,
+        "only_attribute": 6,
+        "only_threshold": 2
+      },
+      "wall_intervals": {
+        "both_or_neither": 4,
+        "only_attribute": 6,
+        "only_threshold": 2
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Sheila",
+      "session": "CODAP session 1",
+      "events": 398,
+      "timestamp_ms_resets": 28,
+      "emits": 9,
+      "ms_intervals": {
+        "both_or_neither": 4,
+        "only_attribute": 2,
+        "only_threshold": 2
+      },
+      "wall_intervals": {
+        "both_or_neither": 4,
+        "only_attribute": 2,
+        "only_threshold": 2
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Ulysses",
+      "session": "CODAP session 1",
+      "events": 333,
+      "timestamp_ms_resets": 23,
+      "emits": 12,
+      "ms_intervals": {
+        "both_or_neither": 4,
+        "only_attribute": 4,
+        "only_threshold": 3
+      },
+      "wall_intervals": {
+        "both_or_neither": 4,
+        "only_attribute": 4,
+        "only_threshold": 3
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Ulysses",
+      "session": "CODAP session 2",
+      "events": 133,
+      "timestamp_ms_resets": 12,
+      "emits": 5,
+      "ms_intervals": {
+        "both_or_neither": 2,
+        "only_attribute": 2
+      },
+      "wall_intervals": {
+        "both_or_neither": 2,
+        "only_attribute": 2
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Zara",
+      "session": "CODAP session 1",
+      "events": 345,
+      "timestamp_ms_resets": 24,
+      "emits": 18,
+      "ms_intervals": {
+        "only_attribute": 10,
+        "both_or_neither": 3,
+        "only_threshold": 4
+      },
+      "wall_intervals": {
+        "only_attribute": 10,
+        "both_or_neither": 3,
+        "only_threshold": 4
+      },
+      "classification_matches": true
+    },
+    {
+      "student": "Zara",
+      "session": "CODAP session 2",
+      "events": 311,
+      "timestamp_ms_resets": 18,
+      "emits": 12,
+      "ms_intervals": {
+        "only_attribute": 2,
+        "both_or_neither": 5,
+        "only_threshold": 4
+      },
+      "wall_intervals": {
+        "only_attribute": 2,
+        "both_or_neither": 5,
+        "only_threshold": 4
+      },
+      "classification_matches": true
+    }
+  ],
+  "interpretation_limit": "A threshold-only interval records which logged actions occurred. A later emit with a different numeric field shows that the submitted payload changed. It does not show why the learner made the change."
+}

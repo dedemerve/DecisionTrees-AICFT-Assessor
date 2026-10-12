@@ -1,0 +1,964 @@
+{
+  "question": "Do stored rule scores match the stored deterministic checks?",
+  "unit": "item present in both scoring.json and validation.json, for a student worksheet that has an extraction",
+  "reference": "validation.json deterministic_checks.score. This is the same pipeline's rule output, not an independent human score.",
+  "worksheets": [
+    "WS5",
+    "WS6",
+    "WS7",
+    "WS10"
+  ],
+  "compared": 201,
+  "exact_agreement": 189,
+  "exact_agreement_rate": 0.9402985074626866,
+  "mae": 0.05721393034825871,
+  "mismatches": [
+    {
+      "student": "Helena",
+      "worksheet": "WS10",
+      "item": "WS10_B8",
+      "scoring": 1.0,
+      "validation": 0.0
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS5",
+      "item": "WS5_B25",
+      "scoring": 0.0,
+      "validation": 1.0
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS5",
+      "item": "WS5_B25",
+      "scoring": 0.0,
+      "validation": 1.0
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS10",
+      "item": "WS10_B4",
+      "scoring": 1.0,
+      "validation": 0.0
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS10",
+      "item": "WS10_B5",
+      "scoring": 1.0,
+      "validation": 0.0
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS10",
+      "item": "WS10_B6",
+      "scoring": 1.0,
+      "validation": 0.0
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS10",
+      "item": "WS10_B7",
+      "scoring": 1.0,
+      "validation": 0.0
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS5",
+      "item": "WS5_B25",
+      "scoring": 0.0,
+      "validation": 1.0
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS5",
+      "item": "WS5_B25",
+      "scoring": 0.0,
+      "validation": 1.0
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS5",
+      "item": "WS5_B25",
+      "scoring": 0.0,
+      "validation": 1.0
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS5",
+      "item": "WS5_row1",
+      "scoring": 1.0,
+      "validation": 0.5
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS5",
+      "item": "WS5_B25",
+      "scoring": 0.0,
+      "validation": 1.0
+    }
+  ],
+  "students_missing_validation": [
+    {
+      "student": "Melinda",
+      "worksheet": "WS5"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS10"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS5"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS10"
+    }
+  ],
+  "validation_items_without_score": [
+    {
+      "student": "Amy",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Amy",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Amy",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Amy",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Amy",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Amy",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Amy",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Amy",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Amy",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Amy",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Amy",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Bruno",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Bruno",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Bruno",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Bruno",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Bruno",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Bruno",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Bruno",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Bruno",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Bruno",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Bruno",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Bruno",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Helena",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Helena",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Helena",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Helena",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Helena",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Helena",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Helena",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Helena",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Helena",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Helena",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Helena",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Iris",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Irma",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Isabel",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Marco",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Marco",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Marco",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Marco",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Marco",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Marco",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Marco",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Marco",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Marco",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Marco",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Marco",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Marcus",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Melinda",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Nadia",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Serena",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Shana",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Sheila",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Ulysses",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Ulysses",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Ulysses",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Ulysses",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Ulysses",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Ulysses",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Ulysses",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Ulysses",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Ulysses",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Ulysses",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Ulysses",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS6",
+      "item": "WS6_root_labels"
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS6",
+      "item": "WS6_inner_threshold"
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS6",
+      "item": "WS6_inner_labels"
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS6",
+      "item": "WS6_leaves"
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS6",
+      "item": "WS6_tree_structure"
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box1"
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box2"
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS7",
+      "item": "WS7_P1_box3"
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS7",
+      "item": "WS7_B1"
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS7",
+      "item": "WS7_B2"
+    },
+    {
+      "student": "Zara",
+      "worksheet": "WS7",
+      "item": "WS7_B3"
+    }
+  ],
+  "by_worksheet": {
+    "WS5": {
+      "compared": 52,
+      "exact": 45,
+      "mismatch": 7
+    },
+    "WS6": {
+      "compared": 45,
+      "exact": 45
+    },
+    "WS7": {},
+    "WS10": {
+      "compared": 104,
+      "exact": 99,
+      "mismatch": 5
+    }
+  },
+  "human_reference_available": false
+}

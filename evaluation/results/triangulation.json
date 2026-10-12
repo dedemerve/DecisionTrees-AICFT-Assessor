@@ -1,0 +1,304 @@
+{
+  "question": "Where do the four evidence sources cover the same participant, and where do frame labels and log actions describe related activity?",
+  "unit_coverage": "participant",
+  "unit_session": "participant-session with both a frame manifest and a CODAP session log",
+  "participants": 15,
+  "participants_with_a_worksheet_extraction": 15,
+  "paired_sessions": 21,
+  "paired_with_both_threshold_signals": 20,
+  "paired_tune_label_without_threshold_event": 0,
+  "paired_threshold_event_without_tune_label": 0,
+  "paired_with_neither_threshold_signal": 0,
+  "paired_sessions_without_labels": 1,
+  "relation_rule": "Complementary when labelled frames and the log both speak to threshold activity, or when labelled frames do not use TUNE_THRESHOLD while the log still records change_split_values. A session with no behaviour labels is insufficient: missing labels are not a count of zero tuning. Conflicting would require TUNE_THRESHOLD labels and no change_split_values rows. The sources are not time-matched.",
+  "select_target_labels": 0,
+  "target_setting_events": 1328,
+  "accepted_score_changes": 5,
+  "matrix": [
+    {
+      "student": "Amy",
+      "worksheet_extraction": true,
+      "frame_sessions": 1,
+      "log_sessions": 1,
+      "sessions_with_both": 1,
+      "final_submission": "notebook",
+      "final_tasks_found": 9
+    },
+    {
+      "student": "Bruno",
+      "worksheet_extraction": true,
+      "frame_sessions": 2,
+      "log_sessions": 2,
+      "sessions_with_both": 2,
+      "final_submission": "notebook",
+      "final_tasks_found": 10
+    },
+    {
+      "student": "Helena",
+      "worksheet_extraction": true,
+      "frame_sessions": 1,
+      "log_sessions": 1,
+      "sessions_with_both": 1,
+      "final_submission": "notebook",
+      "final_tasks_found": 9
+    },
+    {
+      "student": "Iris",
+      "worksheet_extraction": true,
+      "frame_sessions": 1,
+      "log_sessions": 1,
+      "sessions_with_both": 1,
+      "final_submission": "notebook",
+      "final_tasks_found": 9
+    },
+    {
+      "student": "Irma",
+      "worksheet_extraction": true,
+      "frame_sessions": 2,
+      "log_sessions": 2,
+      "sessions_with_both": 2,
+      "final_submission": "notebook",
+      "final_tasks_found": 9
+    },
+    {
+      "student": "Isabel",
+      "worksheet_extraction": true,
+      "frame_sessions": 2,
+      "log_sessions": 2,
+      "sessions_with_both": 2,
+      "final_submission": "notebook",
+      "final_tasks_found": 9
+    },
+    {
+      "student": "Marco",
+      "worksheet_extraction": true,
+      "frame_sessions": 2,
+      "log_sessions": 2,
+      "sessions_with_both": 2,
+      "final_submission": "report",
+      "final_tasks_found": 6
+    },
+    {
+      "student": "Marcus",
+      "worksheet_extraction": true,
+      "frame_sessions": 1,
+      "log_sessions": 1,
+      "sessions_with_both": 1,
+      "final_submission": "notebook",
+      "final_tasks_found": 10
+    },
+    {
+      "student": "Melinda",
+      "worksheet_extraction": true,
+      "frame_sessions": 1,
+      "log_sessions": 1,
+      "sessions_with_both": 1,
+      "final_submission": "notebook",
+      "final_tasks_found": 9
+    },
+    {
+      "student": "Nadia",
+      "worksheet_extraction": true,
+      "frame_sessions": 2,
+      "log_sessions": 2,
+      "sessions_with_both": 2,
+      "final_submission": "notebook",
+      "final_tasks_found": 9
+    },
+    {
+      "student": "Serena",
+      "worksheet_extraction": true,
+      "frame_sessions": 1,
+      "log_sessions": 1,
+      "sessions_with_both": 1,
+      "final_submission": "notebook",
+      "final_tasks_found": 9
+    },
+    {
+      "student": "Shana",
+      "worksheet_extraction": true,
+      "frame_sessions": 1,
+      "log_sessions": 1,
+      "sessions_with_both": 1,
+      "final_submission": "notebook",
+      "final_tasks_found": 9
+    },
+    {
+      "student": "Sheila",
+      "worksheet_extraction": true,
+      "frame_sessions": 1,
+      "log_sessions": 1,
+      "sessions_with_both": 1,
+      "final_submission": "notebook",
+      "final_tasks_found": 9
+    },
+    {
+      "student": "Ulysses",
+      "worksheet_extraction": true,
+      "frame_sessions": 2,
+      "log_sessions": 2,
+      "sessions_with_both": 2,
+      "final_submission": "notebook",
+      "final_tasks_found": 7
+    },
+    {
+      "student": "Zara",
+      "worksheet_extraction": true,
+      "frame_sessions": 1,
+      "log_sessions": 2,
+      "sessions_with_both": 1,
+      "final_submission": "notebook",
+      "final_tasks_found": 10
+    }
+  ],
+  "paired_rows": [
+    {
+      "student": "Amy",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 9,
+      "change_split_values": 11,
+      "relation": "complementary"
+    },
+    {
+      "student": "Bruno",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 5,
+      "change_split_values": 8,
+      "relation": "complementary"
+    },
+    {
+      "student": "Bruno",
+      "session": "CODAP session 2",
+      "tune_threshold_frames": 157,
+      "change_split_values": 5,
+      "relation": "complementary"
+    },
+    {
+      "student": "Helena",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 17,
+      "change_split_values": 20,
+      "relation": "complementary"
+    },
+    {
+      "student": "Iris",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 4,
+      "change_split_values": 77,
+      "relation": "complementary"
+    },
+    {
+      "student": "Irma",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 0,
+      "change_split_values": 17,
+      "relation": "insufficient"
+    },
+    {
+      "student": "Irma",
+      "session": "CODAP session 2",
+      "tune_threshold_frames": 199,
+      "change_split_values": 10,
+      "relation": "complementary"
+    },
+    {
+      "student": "Isabel",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 15,
+      "change_split_values": 22,
+      "relation": "complementary"
+    },
+    {
+      "student": "Isabel",
+      "session": "CODAP session 2",
+      "tune_threshold_frames": 136,
+      "change_split_values": 12,
+      "relation": "complementary"
+    },
+    {
+      "student": "Marco",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 3,
+      "change_split_values": 6,
+      "relation": "complementary"
+    },
+    {
+      "student": "Marco",
+      "session": "CODAP session 2",
+      "tune_threshold_frames": 11,
+      "change_split_values": 3,
+      "relation": "complementary"
+    },
+    {
+      "student": "Marcus",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 11,
+      "change_split_values": 4,
+      "relation": "complementary"
+    },
+    {
+      "student": "Melinda",
+      "session": "CODAP session 2",
+      "tune_threshold_frames": 106,
+      "change_split_values": 29,
+      "relation": "complementary"
+    },
+    {
+      "student": "Nadia",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 12,
+      "change_split_values": 12,
+      "relation": "complementary"
+    },
+    {
+      "student": "Nadia",
+      "session": "CODAP session 2",
+      "tune_threshold_frames": 131,
+      "change_split_values": 273,
+      "relation": "complementary"
+    },
+    {
+      "student": "Serena",
+      "session": "CODAP session 2",
+      "tune_threshold_frames": 81,
+      "change_split_values": 27,
+      "relation": "complementary"
+    },
+    {
+      "student": "Shana",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 10,
+      "change_split_values": 5,
+      "relation": "complementary"
+    },
+    {
+      "student": "Sheila",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 30,
+      "change_split_values": 42,
+      "relation": "complementary"
+    },
+    {
+      "student": "Ulysses",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 15,
+      "change_split_values": 35,
+      "relation": "complementary"
+    },
+    {
+      "student": "Ulysses",
+      "session": "CODAP session 2",
+      "tune_threshold_frames": 56,
+      "change_split_values": 1,
+      "relation": "complementary"
+    },
+    {
+      "student": "Zara",
+      "session": "CODAP session 1",
+      "tune_threshold_frames": 10,
+      "change_split_values": 19,
+      "relation": "complementary"
+    }
+  ],
+  "chain": "A count of frames or log rows is an observable record. Calling both 'threshold activity' is an analytical indicator. It is not evidence that the same moment was observed twice, and it is not a claim about intention."
+}

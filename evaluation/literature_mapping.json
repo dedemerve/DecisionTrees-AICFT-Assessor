@@ -1,0 +1,73 @@
+{
+  "note": "These sources motivate the evaluation design. They are not findings from this cohort.",
+  "sources": [
+    {
+      "id": "lewis2020",
+      "citation": "Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems 33.",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "recommendation": "RAG combines a retriever over an external corpus with a generator conditioned on the retrieved passages.",
+      "use_in_this_project": "The definition was used to classify the pipeline. Rubrics are pasted into prompts and pages are supplied directly, so retrieval metrics were not calculated.",
+      "not_implemented": "No dense index, no ranked passages, and no citation-grounded generation."
+    },
+    {
+      "id": "gao2023",
+      "citation": "Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J., Bi, Y., Dai, Y., Sun, J., Wang, M., & Wang, H. (2023). Retrieval-augmented generation for large language models: A survey. arXiv:2312.10997.",
+      "url": "https://arxiv.org/abs/2312.10997",
+      "recommendation": "Evaluate retrieval and generation separately, then the combined system.",
+      "use_in_this_project": "The separation was kept. Because retrieval is absent, only the generation-side tasks that actually exist were examined: extraction, rubric scoring, and frame coding.",
+      "not_implemented": "The survey's retrieval benchmarks do not apply."
+    },
+    {
+      "id": "es2024",
+      "citation": "Es, S., James, J., Espinosa Anke, L., & Schockaert, S. (2024). RAGAs: Automated evaluation of retrieval augmented generation. Proceedings of the 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations, 150–158.",
+      "url": "https://aclanthology.org/2024.eacl-demo.16/",
+      "doi": "10.18653/v1/2024.eacl-demo.16",
+      "recommendation": "Faithfulness, answer relevance, and context relevance are different qualities. An automatic judge is not itself the reference.",
+      "use_in_this_project": "No RAGAs score was produced. The paper is cited to explain why an LLM judge was not treated as ground truth for rubric scores or frame labels.",
+      "not_implemented": "No human-compared sample of faithfulness judgements."
+    },
+    {
+      "id": "saadfalcon2024",
+      "citation": "Saad-Falcon, J., Khattab, O., Potts, C., & Zaharia, M. (2024). ARES: An automated evaluation framework for retrieval-augmented generation systems. Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, 338–354.",
+      "url": "https://aclanthology.org/2024.naacl-long.20/",
+      "doi": "10.18653/v1/2024.naacl-long.20",
+      "recommendation": "Automated RAG judges still need a human annotation set if their error is to be bounded.",
+      "use_in_this_project": "Used as a reason not to invent a RAG score. The human work still required here is a second coding of frames and an independent rescore of rubric items.",
+      "not_implemented": "Prediction-powered inference was not run."
+    },
+    {
+      "id": "dimitri2018",
+      "citation": "Di Mitri, D., Schneider, J., Specht, M., & Drachsler, H. (2018). From signals to knowledge: A conceptual model for multimodal learning analytics. Journal of Computer Assisted Learning, 34(4), 338–349.",
+      "url": "https://doi.org/10.1111/jcal.12288",
+      "doi": "10.1111/jcal.12288",
+      "recommendation": "Sensors record observable events. Cognitions and intentions are latent and need a separate interpretive step.",
+      "use_in_this_project": "Log rows and frame labels are reported as observable records. Threshold-then-different-accuracy is reported as a temporal association, not as an intention.",
+      "not_implemented": "No validated indicator of confusion, confidence, or strategy was added."
+    },
+    {
+      "id": "sharma2020",
+      "citation": "Sharma, K., & Giannakos, M. (2020). Multimodal data capabilities for learning: What can multimodal data tell us about learning? British Journal of Educational Technology, 51(5), 1450–1484.",
+      "url": "https://doi.org/10.1111/bjet.12993",
+      "doi": "10.1111/bjet.12993",
+      "recommendation": "Multimodal claims should state the learning question, the modalities, and what each modality can and cannot show.",
+      "use_in_this_project": "Worksheets, frames, logs, and final files were described separately before the session-level comparison. Co-occurrence was classified as complementary rather than as confirmation of the same event.",
+      "not_implemented": "No cross-modal fusion model was trained."
+    },
+    {
+      "id": "ferguson2017",
+      "citation": "Ferguson, R., & Clow, D. (2017). Where is the evidence? A call to action for learning analytics. Proceedings of the Seventh International Learning Analytics & Knowledge Conference, 56–65.",
+      "url": "https://doi.org/10.1145/3027385.3027396",
+      "doi": "10.1145/3027385.3027396",
+      "recommendation": "Do not treat a logged activity or a research pipeline as evidence that learning improved.",
+      "use_in_this_project": "The evaluation stops at record quality, score-file consistency, and coverage. It does not estimate a learning gain.",
+      "not_implemented": "No outcome measure of teaching or learning improvement."
+    },
+    {
+      "id": "cohen1960",
+      "citation": "Cohen, J. (1960). A coefficient of agreement for nominal scales. Educational and Psychological Measurement, 20(1), 37–46.",
+      "recommendation": "For two coders and nominal labels, report raw agreement and a chance-corrected coefficient.",
+      "use_in_this_project": "Named as the appropriate future statistic for a second coding of the behaviour labels.",
+      "not_implemented": "No second coder, so kappa was not calculated."
+    }
+  ]
+}

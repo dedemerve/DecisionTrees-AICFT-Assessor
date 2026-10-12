@@ -1222,6 +1222,7 @@
       <ul class="ia-list">
         <li><a href="#/explore/worksheets">Collected worksheets</a><p>Responses, answer keys, and stored scores, labelled by how they were produced.</p></li>
         <li><a href="#/methods">Processing and analysis</a><p>How extraction, checks, and notebook inspection were done.</p></li>
+        <li><a href="#/docs/evaluation">Evaluation and validation</a><p>What was measured, what the files agree on, and which checks still need a person.</p></li>
         <li><a href="#/docs/limitations">Data Quality and Limitations</a><p>How each source was checked, what the item scores and log counts show, and what a single cohort cannot support.</p></li>
       </ul>
     </div>`;
@@ -2067,7 +2068,7 @@
 
   // ------------------------------------------------------------------ 04 Documentation
   const docShell = (active, body) => {
-    const labels = { limitations: "Data Quality and Limitations", glossary: "Glossary", technical: "Technical documentation" };
+    const labels = { limitations: "Data Quality and Limitations", evaluation: "Evaluation and validation", glossary: "Glossary", technical: "Technical documentation" };
     const trail = active ? [["Reference and documentation", "#/docs/technical"], [labels[active] || "Documentation"]] : [["Reference and documentation"]];
     return `${crumbs(trail)}<p class="kicker">Reference and documentation</p>${body}`;
   };
@@ -2187,7 +2188,7 @@
       <p class="small"><a href="#/methods/notebooks">How notebooks were inspected</a></p>
 
       <h2 id="vq-cross">Across sources</h2>
-      <p>A pseudonym links a participant’s worksheet, frames, log, and final file. A session name links frames and the log for CODAP session 1 or CODAP session 2. ${tri ? `${num(tri.sessions_with_both)} of the ${num(tri.frame_sessions)} sessions with frames also have a log. ${num(tri.log_sessions)} sessions have a log, so ${num(tri.log_sessions - tri.sessions_with_both)} log session has no frame manifest.` : ""} The files do not store a frame-by-frame time join, so a frame is not treated as the same moment as a log row.</p>
+      <p>A pseudonym links a participant’s worksheet, frames, log, and final file. A session name links frames and the log for CODAP session 1 or CODAP session 2. ${tri ? `${num(tri.sessions_with_both)} of the ${num(tri.frame_sessions)} sessions with frames also have a log. ${num(tri.log_sessions)} sessions have a log, so ${num(tri.log_sessions - tri.sessions_with_both)} log session has no frame manifest.` : ""} The files do not store a frame-by-frame time join, so a frame is not treated as the same moment as a log row. The checks that were run, and the ones that still need a second person, are on <a href="#/docs/evaluation">Evaluation and validation</a>.</p>
       <p>No frame is labelled “select target”. The two CODAP sessions record ${num(ind.set_dependent_variable || 0)} target-setting events. Those are different instruments: one is a behaviour label on a sampled image, and the other is a software event. The counts are not expected to match. Placing them side by side does not show that one caused the other, and it does not show a learning gain.</p>
 
       <h2 id="vq-limits">Study limitations</h2>
@@ -2254,7 +2255,7 @@
     ];
     const computational = [
       ["Language model", "A computational system that can read, describe, and interpret written or visual content. In this project a language model read handwritten worksheet responses and described screen frames, always working within researcher-defined instructions and output formats."],
-      ["Retrieval-augmented generation (RAG)", "A method in which relevant reference material—such as a rubric entry or codebook rule—is retrieved and supplied to a language model alongside the task. This provides specific guidance rather than relying on the model’s general training alone. Retrieval does not guarantee a correct answer; the researcher reviewed all outputs."],
+      ["Retrieval-augmented generation (RAG)", "A method that first retrieves passages from a corpus and then asks a language model to generate from those passages. This archive does not do that. Rubrics and examples are written into the prompt, and the page or frame is supplied directly. No retrieval metric was calculated."],
       ["Rubric", "A set of predefined criteria used to evaluate student responses, specifying what counts as a full, partial, or missing answer. In this project rubrics were used alongside the language model to score worksheet responses that require interpretation."],
       ["Codebook", "A document that defines the behaviour categories that can be assigned to a screen-recording frame, together with the criteria for choosing one category over another. The codebook was developed from human-coded recordings before being used to guide the language model."],
     ];
@@ -2264,7 +2265,7 @@
     const techTerms = [
       ["OCR / HTR", "Optical character recognition (OCR) reads printed text from images; handwriting text recognition (HTR) reads handwritten text. Both were used to extract student answers from scanned worksheets."],
       ["Diarization", "Separating an audio recording into segments by speaker. Used here to distinguish teacher and student speech in screen recordings."],
-      ["VOTAT", "“Vary one thing at a time”: changing only the predictor or only the threshold between two model submissions. A high VOTAT rate suggests systematic exploration."],
+      ["VOTAT", "“Vary one thing at a time”: between two model submissions, the log shows either an attribute placement or a threshold change, and not both. The count describes the recorded sequence. It does not establish that the learner intended to experiment systematically."],
       ["Emit", "Submit a tree’s results in CODAP Arbor. Each submission records the tree’s accuracy, depth, target, and TP / TN / FP / FN counts."],
       ["Log–video alignment", "Matching platform log events to screen-recording frames by timestamp. In the 2026 data this alignment is not recorded at the individual-frame level."],
       ["SHA-256", "A hash function that produces a fixed-length fingerprint for a file. Two files with the same SHA-256 value have identical contents."],
@@ -2491,6 +2492,10 @@
         after = () => scrollToId(parts[2]);
       }
       else if (sub === "glossary") html = pageGlossary();
+      else if (sub === "evaluation") {
+        html = `<div class="page">${docShell("evaluation", window.EvaluationPage ? window.EvaluationPage.body() : "<h1>Evaluation and validation</h1><p>The evaluation page did not load.</p>")}</div>`;
+        after = () => scrollToId(parts[2]);
+      }
       else if (sub === "technical") {
         html = pageTechnical();
         after = () => scrollToId(parts[2]);

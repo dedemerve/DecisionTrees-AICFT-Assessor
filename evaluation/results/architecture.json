@@ -1,0 +1,80 @@
+{
+  "classification": "not_rag",
+  "reason": "Generation is conditioned on a supplied page image, a pasted rubric, few-shot examples, or a supplied frame. Nothing queries a retrieval index and returns ranked passages for the generator to cite.",
+  "flow": [
+    "Source worksheets, recordings, CODAP logs, and final notebooks",
+    "Vision transcription and deterministic normalisation",
+    "Rule checks or few-shot rubric scoring",
+    "Researcher review flags and accepted score changes",
+    "Frame selection and vision behaviour labels",
+    "Log sequence summaries at session level",
+    "Notebook file inspection",
+    "Public archive tables"
+  ],
+  "components": [
+    {
+      "name": "Worksheet vision extraction",
+      "location": "ocr_pipeline.py",
+      "llm": true,
+      "retrieval": false,
+      "deterministic": false,
+      "reference": "Researcher transcription check"
+    },
+    {
+      "name": "Mechanical normalisation",
+      "location": "ws_extraction_normalize.py",
+      "llm": false,
+      "retrieval": false,
+      "deterministic": true,
+      "reference": "Character-level rewrite rules"
+    },
+    {
+      "name": "Rule validation and scoring",
+      "location": "ws5_validation.py, ws6_validation.py, ws7_validation.py, ws10_validation.py",
+      "llm": false,
+      "retrieval": false,
+      "deterministic": true,
+      "reference": "Food-card table and fixed answers"
+    },
+    {
+      "name": "Rubric scoring",
+      "location": "worksheet_assessor.py",
+      "llm": true,
+      "retrieval": false,
+      "deterministic": false,
+      "reference": "Rubric text and few-shot examples embedded in the prompt"
+    },
+    {
+      "name": "Accepted score changes",
+      "location": "students/*/WS5/scoring.json researcher_override",
+      "llm": false,
+      "retrieval": false,
+      "deterministic": true,
+      "reference": "Stored rationale"
+    },
+    {
+      "name": "Frame behaviour coding",
+      "location": "scripts/codap_session_analyzer.py and prompts/MMLA_CODAP_video_system_prompt.md",
+      "llm": true,
+      "retrieval": false,
+      "deterministic": false,
+      "reference": "Codebook in the prompt. Researcher inspected the images. No second coder."
+    },
+    {
+      "name": "CODAP log summary",
+      "location": "scripts/compute_b15_from_logs.py and mmla_explorer/audit_data_quality.py",
+      "llm": false,
+      "retrieval": false,
+      "deterministic": true,
+      "reference": "Action names in the log"
+    },
+    {
+      "name": "Final notebook inspection",
+      "location": "scripts/extract_notebook_evidence.py",
+      "llm": false,
+      "retrieval": false,
+      "deterministic": true,
+      "reference": "Traces in the submitted file"
+    }
+  ]
+}
