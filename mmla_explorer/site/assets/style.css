@@ -1035,6 +1035,24 @@ section.lim {
 }
 section.lim h3 { margin: 0 0 8px; font-size: 1rem; }
 p.why { font-size: 14px; color: var(--ink-2); }
+.vq-status { display: inline-block; font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: var(--pale); color: var(--navy); white-space: nowrap; }
+.vq-status.partial { background: var(--warn-bg); color: var(--warn-ink); }
+.vq-status.none { background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--rule); }
+table.vq th, table.vq td { white-space: normal; }
+@media (max-width: 800px) {
+  table.vq-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  table.vq-stack, table.vq-stack tbody, table.vq-stack tr, table.vq-stack td { display: block; width: auto; }
+  table.vq-stack tr { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  table.vq-stack td { border-bottom: 0; padding: 2px 0; }
+  table.vq-stack td::before { content: attr(data-label); display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+}
+details.vq { border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); margin: 10px 0; padding: 0 16px 8px; }
+details.vq > summary { cursor: pointer; font-weight: 600; padding: 14px 28px 14px 0; list-style: none; position: relative; }
+details.vq > summary::-webkit-details-marker { display: none; }
+details.vq > summary::after { content: "+"; font-family: var(--mono); color: var(--muted); position: absolute; right: 0; top: 14px; }
+details.vq[open] > summary::after { content: "−"; }
+details.vq h3 { font-size: 1rem; margin: 4px 0 6px; }
+details.vq p, .vq-block p { max-width: 68ch; }
 
 /* -- improved dataset cards -- */
 .dataset-card { border: 1px solid var(--rule); }

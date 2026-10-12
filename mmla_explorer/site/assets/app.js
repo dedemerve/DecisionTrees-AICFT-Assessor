@@ -345,7 +345,7 @@
   function table(head, rows, opts = {}) {
     const ths = head.map((c) => `<th class="${c.num ? "num" : ""}">${h(c.t)}</th>`).join("");
     const trs = rows.map((r) => `<tr${r.href ? ` class="click" data-href="${h(r.href)}"` : ""}${r.attrs || ""}>${r.cells.map((c, i) =>
-      `<td class="${[head[i] && head[i].num ? "num" : "", head[i] && head[i].cls || ""].join(" ")}">${c}</td>`).join("")}</tr>`).join("");
+      `<td class="${[head[i] && head[i].num ? "num" : "", head[i] && head[i].cls || ""].join(" ")}"${opts.labels ? ` data-label="${h(head[i].t)}"` : ""}>${c}</td>`).join("")}</tr>`).join("");
     return `<div class="table-wrap"${opts.max ? ` style="max-height:${opts.max}px;overflow:auto"` : ""}><table${opts.cls ? ` class="${h(opts.cls)}"` : ""}><thead><tr>${ths}</tr></thead><tbody>${trs || `<tr><td colspan="${head.length}" class="na">No rows.</td></tr>`}</tbody></table></div>`;
   }
   const kv = (pairs) => `<dl class="kv">${pairs.filter(Boolean).map(([k, v]) => `<dt>${h(k)}</dt><dd>${v}</dd>`).join("")}</dl>`;
@@ -1222,7 +1222,7 @@
       <ul class="ia-list">
         <li><a href="#/explore/worksheets">Collected worksheets</a><p>Responses, answer keys, and stored scores, labelled by how they were produced.</p></li>
         <li><a href="#/methods">Processing and analysis</a><p>How extraction, checks, and notebook inspection were done.</p></li>
-        <li><a href="#/docs/limitations">Data Quality and Limitations</a><p>How names, screen previews, and automated labels are handled, and how the site was checked against the source files.</p></li>
+        <li><a href="#/docs/limitations">Data Quality and Limitations</a><p>Which checks exist for each source, which metrics have not been calculated, and what the multi-week gaps limit.</p></li>
       </ul>
     </div>`;
   }
@@ -2081,24 +2081,199 @@
     };
     return Object.entries(DICT).map(([f, [desc, cols]]) => `<section class="dl"><h3><a href="data/${f}" download>${f}</a></h3><p>${h(desc)}</p>${tech("Data dictionary", table([{ t: "Column" }, { t: "Meaning" }], cols.map(([c, m]) => ({ cells: [`<code>${h(c)}</code>`, h(m)] }))))}</section>`).join("");
   }
-  function limitationItems() {
-    const L = C.logs;
-    const I = (title, what, why, detail) => ({ title, what, why, detail });
-    return [
-      ["Privacy and validation", [
-        I("Pseudonyms only", `Log entries typed under a real name were mapped to the pseudonym with the project's official mapping (${num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))} rows). Instructor entries were removed (${num(sum(Object.values(L.rows_excluded_unmatched_by_day)))} rows).`, "No real name appears on the site. The build stops if one does.", "Mapping: <code>scripts/anonymize_student_data.py</code>."),
-        I("Screen images are cropped and softened", "The browser tab in the recordings shows students' real names. Previews drop the browser bar and taskbar and are softened until no text can be read.", "Previews show the layout of the screen, not its content.", "Speech transcripts are not shown."),
-        I("Automated results vs. researcher checks", "The files used here do not record the researcher's decision for each frame or answer. Everything is labelled as automated. Frames matched to the researcher's written observations are marked, with a note that the match itself is automatic.", "Treat behaviour codes and checks as machine output that was reviewed in bulk, not as item-by-item human ratings.", ""),
-        I("How this site was checked", "A separate test script re-reads the original files and compares samples of every table with the site: worksheet values, checks, frames, codes, log counts, notebook structure and the duplicate claims.", "Values on the site match their source files.", "<code>mmla_explorer/test_site_data.py</code>"),
-      ]],
-    ].map(([g, items]) => [g, items.filter(Boolean)]);
-  }
   function pageLimitations() {
+    const L = C.logs;
+    const st = (kind, label) => `<span class="vq-status ${kind}">${h(label)}</span>`;
+    const partial = st("partial", "Partially checked");
+    const notYet = st("none", "Not yet evaluated");
+    const na = st("none", "Not applicable");
+    const fold = (id, title, body) => `<details class="vq" id="${id}"><summary>${title}</summary>${body}</details>`;
+    const ocrN = (code) => STUDENTS.filter((s) => C.ws[s][code].ocr).length;
+    const fullWs = C.worksheets.filter((w) => ocrN(w.code) === STUDENTS.length).map((w) => w.code);
+    const missingWs = [];
+    STUDENTS.forEach((s) => {
+      const miss = C.worksheets.filter((w) => !C.ws[s][w.code].ocr).map((w) => w.code);
+      if (miss.length) missingWs.push(`${h(s)}: ${miss.join(", ")}`);
+    });
+    const zero = [];
+    STUDENTS.forEach((s) => C.worksheets.forEach((w) => {
+      const r = C.ws[s][w.code];
+      const scoring = r.stage && r.stage.scoring;
+      if (r.ocr && scoring && scoring.all_zero_with_zero_confidence) zero.push(`${s} ${w.code}`);
+    }));
+    const zeroAllWs11 = zero.length > 0 && zero.every((x) => x.endsWith(" WS11"));
+    const labelled = F.filter((f) => f.b).length;
+    const irma1Unlabelled = F.filter((f) => f.s === "Irma" && f.ss === "codap_21apr" && !f.b).length;
+    const beh = {};
+    F.forEach((f) => { const k = f.b || "unlabelled"; beh[k] = (beh[k] || 0) + 1; });
+    const cf = {};
+    F.forEach((f) => { const k = f.cf || "empty"; cf[k] = (cf[k] || 0) + 1; });
+    const behLine = Object.entries(beh).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${h(k)} ${num(n)}`).join(", ");
+    const cfLine = Object.entries(cf).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${h(k)} ${num(n)}`).join(", ");
+    let slotN = 0;
+    let manifestN = 0;
+    let bothRec = 0;
+    const noRec = [];
+    const modes = {};
+    const speech = {};
+    STUDENTS.forEach((s) => {
+      let n = 0;
+      SESS.forEach((ss) => {
+        slotN += 1;
+        const rec = C.sessions[s][ss.id];
+        if (rec.manifest) {
+          manifestN += 1;
+          n += 1;
+          const mode = rec.manifest.extraction_mode || "not recorded";
+          modes[mode] = (modes[mode] || 0) + 1;
+          const sp = (rec.speech && (rec.speech.status || rec.speech.speech_status)) || "not recorded";
+          speech[sp] = (speech[sp] || 0) + 1;
+        } else noRec.push(`${h(s)} (${h(SESS_NAME[ss.id])})`);
+      });
+      if (n === SESS.length) bothRec += 1;
+    });
+    const modeLine = Object.entries(modes).map(([k, n]) => `${h(k)} ${num(n)}`).join(", ");
+    const speechLine = Object.entries(speech).map(([k, n]) => `${h(k)} ${num(n)}`).join(", ");
+    const noLog = [];
+    STUDENTS.forEach((s) => {
+      const days = L.per_student[s] || {};
+      if (!days["2026-04-21"]) noLog.push(`${h(s)} (21 April)`);
+      if (!days["2026-04-28"]) noLog.push(`${h(s)} (28 April)`);
+    });
+    const keptEvents = sum(Object.values(L.per_student).flatMap((d) => Object.values(d).map((v) => v.events)));
+    const excludedN = sum(Object.values(L.rows_excluded_unmatched_by_day));
+    const remapN = sum(L.rows_remapped_to_pseudonym.map((x) => x.rows));
+    const actionN = Object.keys(L.action_types).length;
+    const nbFiles = STUDENTS.filter((s) => C.notebooks[s] && C.notebooks[s].file).length;
+    const reports = STUDENTS.filter((s) => C.notebooks[s] && !C.notebooks[s].file && C.notebooks[s].extraction);
+    const overrides = DOCS.overrides || [];
+    const ws5b25 = overrides.filter((o) => o.worksheet === "WS5" && o.item === "WS5_B25").length;
+    const zaraLog28 = !!((L.per_student.Zara || {})["2026-04-28"]);
+    const zaraRec28 = !!(C.sessions.Zara && C.sessions.Zara.codap_28apr && C.sessions.Zara.codap_28apr.manifest);
+    const jumps = [
+      ["vq-glance", "Validation at a glance"],
+      ["vq-sources", "Data-source validation"],
+      ["vq-cross", "Cross-source validity"],
+      ["vq-limits", "Study limitations"],
+      ["vq-hf", "Hugging Face datasets"],
+      ["vq-metrics", "How to read a metric"],
+      ["vq-evidence", "Technical evidence"],
+    ];
     return `<div class="page">${docShell("limitations", `
       <h1>Data Quality and Limitations</h1>
-      <p class="lead">How names, screen previews, and automated labels are handled, and how this site was checked against the source files. File-level details are in the <a href="#/docs/technical">technical documentation</a>.</p>
-      <nav class="jump" aria-label="On this page">${limitationItems().map(([g], i) => `<a href="#/docs/limitations/note-${i}">${h(g)}</a>`).join("")}</nav>
-      ${limitationItems().map(([g, items], i) => `<h2 id="note-${i}">${h(g)}</h2>${items.map((it) => `<section class="lim"><h3>${it.title}</h3><p>${it.what}</p><p class="why"><b>Why it matters.</b> ${it.why}</p>${it.detail ? tech("Details", `<div>${it.detail}</div>`) : ""}</section>`).join("")}`).join("")}`)}</div>`;
+      <p class="lead">The archive holds four different kinds of evidence. A check that files are present, or that the website repeats a source file, does not show that handwriting was read correctly, that a behaviour label is right, or that a score measures learning.</p>
+      <nav class="jump" aria-label="On this page">${jumps.map(([id, label]) => `<a href="#/docs/limitations/${id}">${h(label)}</a>`).join("")}</nav>
+
+      <h2 id="vq-glance">Validation at a glance</h2>
+      <p>Each status describes a check that was actually run on the files behind this site. Coverage is a count of records. It is not accuracy.</p>
+      ${table([{ t: "Source" }, { t: "What was checked" }, { t: "Status" }], [
+        { cells: ["Worksheets", "Whether an extraction file exists, and whether WS11 repeats WS14. Not agreement with a verified transcription.", partial] },
+        { cells: ["Screen-recording frames", "Whether a frame manifest exists, and how many listed frames have a behaviour label. Not label accuracy.", partial] },
+        { cells: ["CODAP platform logs", "Whether events parse, map to a pseudonym, and add up to the published day totals. Not a model of intent.", partial] },
+        { cells: ["Final Python submissions", "Whether a notebook or a report is stored, and whether cell counts can be read from the file. Notebooks were not run again.", partial] },
+      ], { cls: "vq" })}
+
+      <h2 id="vq-sources">Data-source validation</h2>
+      <p>Open a source to see the pipeline, the check that exists, the numbers that were counted, and what is still missing. Exact match, character error rate, word error rate, precision, recall, F1, mean absolute error, root mean square error, and kappa have not been calculated for this cohort.</p>
+      ${fold("vq-worksheets", "Worksheet extraction and scoring", `
+        <h3>Processing pipeline</h3>
+        <p>A scan is divided into known answer areas. A language model reads the handwriting. Python then checks some answers against a rubric or a fixed rule. The worksheets do not share one method. WS1, WS3, and WS4 are rubric scores added by Python. WS5, WS6, and WS7 use rules from the 11 food cards. WS10 uses the energy-threshold table. WS12 checks whether a tree is consistent with itself and does not set one correct tree. WS13 adds log measures only when that student’s log exists. WS14 checks confusion-matrix counts. WS15 compares numbers with the Titanic reference within 0.02. The <a href="#/methods/worksheets">worksheet processing</a> page states each rule.</p>
+        <h3>Validation procedure</h3>
+        <p>The available check is coverage plus internal consistency. An extraction file is present or absent. A rule can mark a value consistent with a reference table or with the student’s own other answers. That is not a comparison with an independently transcribed original.</p>
+        <h3>Metrics and verified results</h3>
+        <p>Extraction files are stored for all ${num(STUDENTS.length)} participants on ${fullWs.join(", ")}. The other worksheets are stored for ${num(ocrN("WS1"))} of ${num(STUDENTS.length)}: ${missingWs.join("; ")}. ${WS11_IS_WS14 ? `WS11 is among the complete files, but for all ${num(STUDENTS.length)} participants every extracted path and value matches that student’s WS14 file. Those values are not an independent survey.` : ""}</p>
+        <p>${zeroAllWs11 ? `For ${num(zero.length)} participants the WS11 stage-score file gives every item 0 points with confidence 0 while an extraction file exists. The site does not use those zeros as the displayed answers.` : ""} ${overrides.length ? `${num(overrides.length)} stored researcher overrides are on WS5 item WS5_B25${ws5b25 === overrides.length ? " (all of them)" : ""}. They are adjustments to an automated score, not an agreement study.` : ""}</p>
+        <h3>Remaining uncertainty</h3>
+        <p>${notYet} No verified transcription set is stored, so exact-match accuracy, character error rate, and word error rate are not established. A model confidence value is not accuracy. A consistency check is not proof that the educational answer is the one the rubric intended, except where the rule itself is the criterion. Missing a file is not the same as writing a wrong answer.</p>
+      `)}
+      ${fold("vq-frames", "Screen-recording frames and behaviour labels", `
+        <h3>Processing pipeline</h3>
+        <p>Selecting a frame and labelling it are separate steps. Frames are kept when motion, a speech anchor, or a 90-second gap rule fires, after duplicate and non-task screens are dropped. A behaviour code is then stored for some of those frames. The <a href="#/methods/recordings">screen-recordings method</a> states the thresholds. Motion selection is not a random sample and not a continuous record of the session.</p>
+        <h3>Validation procedure</h3>
+        <p>Frame-extraction integrity is whether the manifest, the file list, and the timestamps agree. Behaviour-annotation quality would require labels compared with an independent coding. The stored confidence field is the coder’s own rating.</p>
+        <h3>Metrics and verified results</h3>
+        <p>${num(manifestN)} of ${num(slotN)} CODAP session slots have a frame manifest. ${num(bothRec)} participants have both sessions. Slots without a manifest: ${noRec.join("; ")}. Among the ${num(manifestN)} manifests, extraction mode is ${modeLine}. Speech status is ${speechLine}.</p>
+        <p>${num(F.length)} frames are listed and ${num(labelled)} have a behaviour label. ${num(F.length - labelled)} do not. ${num(irma1Unlabelled)} of those unlabelled frames are Irma’s CODAP session 1. Counts: ${behLine}. SELECT_TARGET is ${num(beh.SELECT_TARGET || 0)}. The log contains ${num(L.action_types.set_dependent_variable || 0)} <code>set_dependent_variable</code> events. A zero frame count does not show that students never chose a target. Confidence values on the labelled frames: ${cfLine}. These ratings are not a measured probability that the label is correct.</p>
+        <h3>Remaining uncertainty</h3>
+        <p>${notYet} No 2026 confusion matrix, per-class precision, recall, F1, or kappa is stored. A complete frame list does not show that the sample represents the whole session. A timestamp does not attach a frame to one log event. The published Hugging Face card describes the labels as a single researcher’s coding and reports a different frame count. That disagreement is under Hugging Face datasets below.</p>
+      `)}
+      ${fold("vq-logs", "CODAP platform logs", `
+        <h3>Processing pipeline</h3>
+        <p>Each row is one software action. Names are mapped to the 15 pseudonyms. Rows that do not match a participant are removed. Python counts actions, model attempts, and the one-change-at-a-time rate from those rows. The log is an event record, not a prediction of achievement.</p>
+        <h3>Validation procedure</h3>
+        <p>The appropriate checks are whether rows parse, whether identifiers follow the pseudonym map, whether timestamps are present, whether action codes are in the known set, and whether published counts can be added back to the source file. Classification accuracy, sensitivity, and root mean square error do not apply: there is no predicted score and no reference score.</p>
+        <h3>Metrics and verified results</h3>
+        <p>The combined log tables contain ${num(L.rows_total)} rows. ${num(excludedN)} rows were removed because they did not match a participant (${Object.entries(L.rows_excluded_unmatched_by_day).map(([d, n]) => `${h(d)} ${num(n)}`).join(", ")}). ${num(keptEvents)} events remain, across ${num(actionN)} action names. ${num(remapN)} rows were rewritten onto a pseudonym. Delete actions are ${L.delete_events_present ? "present" : "absent"}, so recovery by deleting a tree cannot be measured. No log rows are stored for ${noLog.join("; ")}. ${zaraLog28 && !zaraRec28 ? "Zara has 28 April log rows and no session 2 frame manifest. A missing recording is not a missing log." : ""}</p>
+        <p>A separate file dated 7 April holds ${num(L.rows_by_day["2026-04-07"] || 0)} Titanic-session rows. It is not one of the two food-dataset screen-recording days. The public Hugging Face log, described below, keeps only the two CODAP sessions.</p>
+        <h3>Remaining uncertainty</h3>
+        <p>${na} Event counts do not show why a student changed a threshold, or whether the strategy was efficient. Many threshold changes are not, by themselves, evidence of difficulty. A day with no rows is a missing record, not a measured absence from class.</p>
+      `)}
+      ${fold("vq-notebooks", "Final Python submissions", `
+        <h3>Processing pipeline</h3>
+        <p>This section uses the final homework only. The teacher notebook and the weekly guided Colab files are a different collection. Python reads cells, outputs, and execution counters from each <code>.ipynb</code> file. The files are not executed again. ${reports.length ? `${reports.map(h).join(", ")} submitted a written report, so cell order, run counts, and error outputs cannot be read for that submission. The report is still a final submission.` : "Every final file is a notebook."}</p>
+        <h3>Validation procedure</h3>
+        <p>Two questions must stay apart. One is whether the submission contains the assignment’s steps. The other is how well a student’s own decision tree predicted its target. The second question uses accuracy or error only when that notebook actually reports a train and a test result. Those student-model numbers are not a score of the archive.</p>
+        <h3>Metrics and verified results</h3>
+        <p>${num(nbFiles)} of ${num(STUDENTS.length)} final files are notebooks. The inspection records whether a depth table, train and test curves, a tree drawing, and reflection text were found. “Found” means the text or output is in the file. It does not mean the step is correct, and it does not mean the notebook would run again from the start. Stored rubric points are the pipeline’s totals. They are not an adjudicated grade.</p>
+        <h3>Remaining uncertainty</h3>
+        <p>${notYet} Item-level agreement with an independent rubric marking has not been calculated. Mean absolute error and root mean square error have not been calculated for those points. A saved output is not a fresh run.</p>
+      `)}
+
+      <h2 id="vq-cross">Cross-source validity</h2>
+      <p>The four sources share a pseudonym. The two CODAP days also share a session name. That is enough to put a participant’s worksheet, log, frames, and final file side by side. It is not enough to say that one frame is the same moment as one log action. The frame files do not store that join.</p>
+      <p>These comparisons have not been run as results. They are possible next analyses, and only at participant or session level:</p>
+      <ul>
+        <li>Whether a threshold written on a worksheet appears among that participant’s threshold-change events.</li>
+        <li>Whether a session’s behaviour-label mix agrees, in direction, with that session’s action mix.</li>
+        <li>Whether a final notebook’s train and test comparison agrees with what that participant wrote about overfitting.</li>
+        <li>Whether the same participant’s two CODAP sessions differ, for the ${num(bothRec)} participants who have frames on both days.</li>
+      </ul>
+      <p>A count that moves together across sources would still be co-occurrence, not a cause. SELECT_TARGET on ${num(beh.SELECT_TARGET || 0)} frames beside ${num(L.action_types.set_dependent_variable || 0)} target-setting events is already a warning: the two sources do not measure the same act in the same way.</p>
+
+      <h2 id="vq-limits">Study limitations</h2>
+      <p>The work spans more than one week: paper worksheets, a 21 April CODAP session, a 28 April CODAP session, and a final Python submission. The stored files are not complete for every participant at every stage. ${num(bothRec)} of ${num(STUDENTS.length)} participants have frame manifests for both CODAP sessions. Worksheet gaps and log gaps are listed in the sections above. The archive does not include an attendance roll, so a missing file is reported as a missing record. It is not coded here as a confirmed absence, and it is not a score.</p>
+      <p>An unbalanced set limits within-participant comparisons over time. Participants with more complete files may differ from those with fewer files. A change from one week to the next can be a change in who is in the file, not a learning gain. Any analysis that needs repeated observations has to say which participants remain and what that sample size is. Fifteen pseudonymised participants in one cohort do not support a claim about pre-service teachers in general.</p>
+      <p>Separate from participation, the measures themselves are limited. Frames are selected moments, not the whole recording. Behaviour labels do not have an independent agreement statistic. Worksheet scores mix model reading and rule checks. Logs do not contain delete actions. One final submission is a report rather than a notebook. None of these is repaired by a complete file count.</p>
+
+      <h2 id="vq-hf">Hugging Face datasets</h2>
+      <p>The site links two datasets. Their cards were read on 12 October 2026. Neither card declares a train, validation, or test split. Both use the licence CC BY 4.0. A dataset can be usable for description and still be the wrong benchmark for a supervised model.</p>
+      <h3>Frames</h3>
+      <p><a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames">DecisionTrees-AICFT-Frames</a> is the image and metadata release. The card states 5,825 behaviour-coded frames, selected by motion, speech, and gap rules, with nine behaviour codes. It states that one researcher assigned the codes, that no inter-rater statistic is available, and that <code>coder_confidence</code> is certainty rather than correctness. It also states that frames are sampled moments, not every second of the recording, and that the log is not aligned frame by frame.</p>
+      <p>This website currently lists ${num(F.length)} frames, of which ${num(labelled)} have a behaviour label. The coding files store <code>analysis_confidence</code>, which the processing page describes as the model’s own rating. The card’s “single researcher” account and the website’s model-rating account are not the same claim. Neither account is a measured accuracy. The image files on Hugging Face were not re-counted for this page, so the 5,825 figure is the card’s figure, not a new count. Previews on this site are cropped and softened. The card says the released images are the extracted frames, up to 1920 pixels wide.</p>
+      <p>${partial} Suitable for exploratory description of sampled screen moments, with the card’s own cautions. ${notYet} Not established as a training or benchmark set: there is no independent label check and no declared split. The card also says ethics approval and consent for open sharing are not published beside the data. Researchers who need those documents should contact the author before reuse.</p>
+      <h3>Platform log</h3>
+      <p><a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-CODAP-Arbor-LogFile">DecisionTrees-AICFT-CODAP-Arbor-LogFile</a> is the event table only. The card states 5,302 rows for CODAP session 1 and 4,259 rows for CODAP session 2 (9,561 in total), and states that 7 April rows are excluded. On this site the 21 April table has ${num(L.rows_by_day["2026-04-21"] || 0)} rows before the ${num(L.rows_excluded_unmatched_by_day["2026-04-21"] || 0)} unmatched rows are removed, which leaves ${num((L.rows_by_day["2026-04-21"] || 0) - (L.rows_excluded_unmatched_by_day["2026-04-21"] || 0))}. The 28 April count is ${num(L.rows_by_day["2026-04-28"] || 0)}. Those two figures match the card. The CSV on Hugging Face was not downloaded again for this page.</p>
+      <p>${partial} Suitable for counts of recorded actions under the published action names. ${na} Not a dataset for predicting a test score. A parsed action is not evidence of a student’s intention.</p>
+
+      <h2 id="vq-metrics">How to read a metric</h2>
+      <p>The table says which measure would answer which question. A row is not a result. The status says whether this archive has that result.</p>
+      ${table([
+        { t: "Question" },
+        { t: "Measure that would answer it" },
+        { t: "What it would show" },
+        { t: "What it would not show" },
+        { t: "In this archive" },
+      ], [
+        { cells: ["Was the handwriting read as written?", "Exact match, or character or word error rate, against a verified transcription", "Agreement with that transcription", "That the answer is educationally correct", notYet] },
+        { cells: ["Does the score match an independent marking?", "Item agreement, or a classification or error metric on the score scale", "Agreement with that marking", "That the rubric itself is the right construct", notYet] },
+        { cells: ["Were the frame files written as the manifest says?", "File counts, order, timestamps, non-empty images", "Integrity of the extract", "That the labels are right, or that the sample is the whole session", partial] },
+        { cells: ["Is a behaviour label correct?", "Per-class precision, recall, F1, or a confusion matrix against independent labels", "Agreement with those labels", "What the student understood", notYet] },
+        { cells: ["Were log rows counted faithfully?", "Coverage, identifier checks, timestamp checks, totals that add up", "Integrity of the event table", "Intention or strategy", partial] },
+        { cells: ["Was a notebook scored as the rubric says?", "Agreement with an independent rubric marking", "Accuracy of that assessment", "General programming skill", notYet] },
+        { cells: ["How well did a student’s own tree predict?", "Accuracy or error on a held-out set, when the notebook reports both", "Performance under that split", "Performance beyond that notebook’s design", na] },
+      ], { cls: "vq vq-stack", labels: true })}
+
+      <h2 id="vq-evidence">Technical evidence</h2>
+      <p>Names on the log were mapped with <code>scripts/anonymize_student_data.py</code> (${num(remapN)} rows). ${num(excludedN)} unmatched rows were removed. The build is written to stop if a real name remains in the site files. Previews on this website drop the browser bar and are softened. Speech transcripts are not shown. Those steps protect privacy. They do not measure extraction quality.</p>
+      <p><code>mmla_explorer/test_site_data.py</code> is written to re-read source files and compare samples of worksheet values, frame rows, log counts, and notebook cell counts with the site. In the run on 12 October 2026 the script stopped with <code>KeyError: WS12_right_child_label</code> before it could finish. A completed “the site matches the files” result is therefore not available from that run. The field is present in <code>worksheet_responses.csv</code>. The failure is recorded here rather than treated as a passed check.</p>
+      <ul>
+        <li><a href="#/methods/worksheets">Worksheet processing</a> and the rubric files under <code>rubrics/</code></li>
+        <li><a href="#/methods/recordings">Screen-recording processing</a> and <code>scripts/dynamic_video_analytics.py</code></li>
+        <li><a href="#/methods/logs">Log processing</a> and <code>scripts/compute_b15_from_logs.py</code></li>
+        <li><a href="#/methods/notebooks">Notebook inspection</a></li>
+        <li><a href="#/docs/technical">Technical documentation</a> for file paths and column dictionaries</li>
+      </ul>
+    `)}</div>`;
   }
   function pageGlossary() {
     const treeFundamentals = [
@@ -2202,7 +2377,7 @@
     inv.total_bytes = sum(inv.folders.map((f) => f.bytes));
     return `<div class="page wide">${docShell("technical", `
       <h1>Technical documentation</h1>
-      <p class="lead">For researchers who want to trace values back to the project files. How each source was read is in <a href="#/methods">Processing</a>. How names and previews are handled is in <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
+      <p class="lead">For researchers who want to trace values back to the project files. How each source was read is in <a href="#/methods">Processing</a>. Which checks were actually run, and which were not, is in <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
       <nav class="jump" aria-label="On this page">
         <a href="#/docs/technical/rebuild">Rebuilding the site</a>
         <a href="#/docs/technical/folders">Raw data folders</a>
