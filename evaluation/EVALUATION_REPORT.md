@@ -132,7 +132,7 @@ No cross-source pattern in these files supports a claim about a learner’s inte
 | RAG faithfulness or answer relevance | Not applicable | No retrieved context and no reference answers for a RAG task |
 | Rubric score versus an independent human | Requires human validation | Transcription was checked. Rubric application was not independently rescored |
 | Cohen’s kappa for behaviour labels | Requires human validation | The images were inspected. A second coder has not coded a subset |
-| Frame-level alignment | Completed as a negative result | The clocks do not support a match. Zero pairs were emitted |
+| Frame-level alignment | Not established | The diagnostic ran and emitted zero pairs. That is not a completed alignment: the clocks do not support a match |
 | Learning gain or strategy | Not calculated | Event counts and co-occurrence do not identify intention |
 
 The machine-readable matrix is `evaluation/results/evaluation_matrix.json`.

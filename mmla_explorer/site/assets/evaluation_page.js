@@ -12,11 +12,16 @@
     return n.toLocaleString("en-GB");
   };
   const frac = (a, b) => `${num(a)} of ${num(b)}`;
+  const share = (count, total) => (total ? `${(100 * count / total).toFixed(1)}%` : "–");
 
-  function table(heads, rows) {
-    const th = heads.map((name) => `<th>${h(name)}</th>`).join("");
-    const body = rows.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`).join("");
-    return `<div class="table-wrap"><table class="vq"><thead><tr>${th}</tr></thead><tbody>${body}</tbody></table></div>`;
+  function table(cols, rows) {
+    const th = cols.map((col) => `<th${col.num ? ' class="num"' : ""}>${h(col.t)}</th>`).join("");
+    const body = rows.map((row) => `<tr>${row.map((cell, i) => `<td${cols[i].num ? ' class="num"' : ""} data-label="${h(cols[i].t)}">${cell}</td>`).join("")}</tr>`).join("");
+    return `<div class="table-wrap"><table class="vq vq-stack"><thead><tr>${th}</tr></thead><tbody>${body}</tbody></table></div>`;
+  }
+
+  function status(kind, label, detail) {
+    return `<span class="eval-status ${kind}">${h(label)}</span>${detail ? `<span class="eval-did">${h(detail)}</span>` : ""}`;
   }
 
   function body() {
@@ -29,74 +34,115 @@
     const tri = E.triangulation;
     const credit = E.review_by_credit || {};
     const labelled = frames.labelled_frames;
-    const bothSessions = (tri.matrix || []).filter((row) => row.frame_sessions === 2).length;
-    const labelRows = Object.entries(frames.label_counts || {})
-      .sort((a, b) => b[1] - a[1])
-      .map(([label, count]) => [h(label), num(count), labelled ? `${(100 * count / labelled).toFixed(1)}%` : "–"]);
-    const taskRows = Object.entries(nb.task_found || {}).map(([task, count]) => [
-      h(task), `${num(count)} / ${num(nb.task_denominator)}`,
-    ]);
-    const overrideRows = (E.overrides || []).map((row) => [
-      h(row.student), h(row.final_score), row.review_flag_still_set ? "Still set" : "Not set", h(row.rationale),
-    ]);
-    const mismatchRows = (rules.mismatches || []).map((row) => [
-      h(row.student), h(row.worksheet), h(row.item), h(row.scoring), h(row.validation),
-    ]);
-    const statusRows = (E.matrix || []).map((row) => [
-      h(row.component), h(row.status), h(row.result),
-    ]);
-    const b25Gap = (rules.mismatches || []).filter((row) => row.item === "WS5_B25" && row.scoring === 0 && row.validation === 1).length;
-    const seq = (logs.interval_sequence_difference_sessions || [])
-      .map((row) => `${row.student}, ${row.session}`).join("; ");
+    const counts = frames.label_counts || {};
+    const principal = ["EXPLORE_DATA", "TUNE_THRESHOLD", "COMPARE_MODELS", "OFF_TASK"].filter((key) => counts[key]);
+    const principalSum = principal.reduce((sum, key) => sum + counts[key], 0);
+    const other = labelled - principalSum;
+    const otherNames = Object.keys(counts).filter((key) => !principal.includes(key) && counts[key]);
+    const mae = Number(rules.mae);
+    const creditRows = [
+      ["Full credit, stored score of 1 or higher", (credit.full_credit || {}).items, (credit.full_credit || {}).review_flag],
+      ["Partial credit, above 0 and below 1", (credit.partial || {}).items, (credit.partial || {}).review_flag],
+      ["No credit, stored 0", (credit.no_credit || {}).items, (credit.no_credit || {}).review_flag],
+    ];
+    const b25Gaps = (rules.mismatches || []).filter((row) => row.item === "WS5_B25" && row.scoring === 0 && row.validation === 1);
+    const numeric = logs.numeric_emit_fields_that_changed || {};
+    const seq = logs.interval_sequence_difference_sessions || [];
+    const wall = logs.wall_clock_totals || {};
+    const labelRows = principal.map((key) => [h(key), num(counts[key]), share(counts[key], labelled)])
+      .concat([["Other stored labels", num(other), share(other, labelled)]]);
+    const overview = [
+      [status("done", "Completed", "Active code paths were inspected."), "No retrieval index. Rubrics and examples are written into the prompt.", "RAG metrics do not apply. Unused scripts were not treated as the current system."],
+      [status("done", "Completed", "Researcher comparison with the original pages."), "The researcher reports that every extracted response matched the handwriting.", "This is transcription fidelity, not a grade. No item-level comparison file is stored."],
+      [status("part", "Partially evaluated", "Stored scores compared with the pipeline validation file."), `${frac(rules.exact_agreement, rules.compared)} items agree exactly. MAE is ${mae.toFixed(3)}.`, "The reference is the same pipeline, not an independent human grade."],
+      [status("human", "Requires independent validation", "No second-rater file."), "Not calculated.", "The transcription check does not validate the rubric score."],
+      [status("part", "Partially evaluated", "Counts of labels on sampled frames. The researcher inspected the images."), `${num(labelled)} labelled frames. The largest label is ${h(frames.majority_label)} (${num(frames.majority_count)}).`, "No second coder, so kappa was not calculated. Model confidence is not accuracy."],
+      [status("done", "Completed", "Intervals between model submissions were counted."), "A threshold change is often followed by a different numeric model state.", "The association is temporal. It is not an intention, a cause, or a learning gain."],
+      [status("none", "Not established", "A match was attempted. No shared clock was available."), "0 frame-to-log matches.", "Session-level comparison remains possible where both files exist."],
+      [status("part", "Partially evaluated", "Saved files were read and not rerun."), `${num(nb.notebooks)} notebooks and ${num(nb.reports.length)} written report. A stored test misclassification rate is present for ${frac(nb.models_with_stored_test_mcr, nb.models)} described models.`, "Those rates are the student’s model results, not a score for this archive."],
+      [status("part", "Partially evaluated", "Sources were compared by participant and session."), `${num(tri.paired_with_both_threshold_signals)} labelled sessions with both sources contain a threshold label and a threshold-change event.`, "Co-occurrence is not a matched moment and not a causal claim."],
+    ];
+    const components = [
+      "System architecture",
+      "Worksheet transcription",
+      "Rule-based scoring",
+      "Rubric scoring",
+      "Frame behaviour labels",
+      "CODAP event sequences",
+      "Frame–log alignment",
+      "Final submissions",
+      "Multimodal coverage",
+    ];
     return `
       <h1>Evaluation and validation</h1>
-      <p class="lead">The archive records what was extracted, scored, labelled, and logged. Those records can be checked against each other. They do not yet show that an automated score or a behaviour label is independently correct.</p>
+      <p class="lead">These are the checks that were calculated, what they support, and what still needs an independent judgement. How the sources were collected and what the researcher verified are on <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
       <nav class="jump" aria-label="On this page">
+        <a href="#/docs/evaluation/overview">Overview</a>
         <a href="#/docs/evaluation/architecture">Architecture</a>
         <a href="#/docs/evaluation/scores">Scores</a>
         <a href="#/docs/evaluation/frames">Frames</a>
         <a href="#/docs/evaluation/logs">Logs</a>
-        <a href="#/docs/evaluation/sources">Across sources</a>
-        <a href="#/docs/evaluation/matrix">What was calculated</a>
+        <a href="#/docs/evaluation/alignment">Alignment</a>
+        <a href="#/docs/evaluation/submissions">Final submissions</a>
       </nav>
 
-      <h2 id="architecture">What kind of system this is</h2>
-      <p>A language model reads worksheet pages and screen frames. Rubrics and examples are written into the prompt. Rule worksheets are then scored in Python. Nothing searches a document index and hands the retrieved passages to the model.</p>
-      <p>That is why retrieval metrics such as precision at k, mean reciprocal rank, and nDCG were not calculated. There is no retrieval stage and no judged set of relevant passages. Faithfulness metrics from RAG evaluation frameworks were not applied for the same reason.</p>
-      <p>The researcher compared each extracted worksheet response with the original handwriting and reports that the reading matched in every case. That check is about transcription. It is separate from whether the answer is conceptually right, whether the rubric was applied correctly, and whether a behaviour label would be given by a second coder.</p>
+      <h2 id="architecture">Architecture</h2>
+      <p>The model sees the worksheet page or the frame, together with a rubric or examples written into the prompt. Nothing retrieves passages from a document index. Precision at k, mean reciprocal rank, nDCG, and RAG faithfulness measures were not calculated: there is no retrieval stage and no set of judged passages.</p>
+
+      <h2 id="overview">Overview</h2>
+      ${table(
+        [{ t: "Component" }, { t: "Evaluation" }, { t: "Main result" }, { t: "Remaining limitation" }],
+        components.map((name, i) => [h(name), overview[i][0], h(overview[i][1]), h(overview[i][2])])
+      )}
 
       <h2 id="scores">Worksheet scores</h2>
-      <p>The score summary contains ${num(E.scored_items)} items. The denominator is a published extraction that is not worksheet 11, not a blocked file, and not a file whose scores all have confidence zero. ${num(E.review_flags_all_files)} review flags exist if blocked and unused files are included. Those extra flags are not score results.</p>
-      <p>Five scores were changed, all on worksheet 5, item B25. Each change stores a rationale. The score that was replaced is not stored, so the size of the change cannot be measured. On each of those five rows the review flag is still set. The flag remains a request marker. The accepted change is the override and its rationale.</p>
-      ${table(["Student", "Final score", "Review flag", "Rationale"], overrideRows)}
-      <p>In the score summary, a review flag without an override is present on ${frac(E.review_without_override, E.scored_items)} items. The flag sits on ${frac((credit.partial || {}).review_flag, (credit.partial || {}).items)} partial-credit items, ${frac((credit.no_credit || {}).review_flag, (credit.no_credit || {}).items)} no-credit items, and ${frac((credit.full_credit || {}).review_flag, (credit.full_credit || {}).items)} full-credit items. For several rubric worksheets the pipeline sets the flag when credit is partial or zero. A flag is therefore not, by itself, a human decision waiting to be accepted.</p>
-      <p>For the four rule worksheets, the stored score and the stored deterministic check agree on ${frac(rules.exact_agreement, rules.compared)} items. Mean absolute error on those ${num(rules.compared)} pairs is ${Number(rules.mae).toFixed(3)}. The reference is the validation file from the same pipeline, not a second rater. ${num(rules.mismatch_count)} items disagree.</p>
-      ${table(["Student", "Worksheet", "Item", "Stored score", "Validation score"], mismatchRows)}
-      <p>${num(b25Gap)} of the disagreements are worksheet 5, item B25, where the check awards full credit and the score file stores zero, with no accepted change. The five accepted B25 changes are not in this list: their final scores match the validation file. The remaining rows in the table also differ across the two files. For Isabel’s worksheet 10 item B4, the extraction stores “3”, the check calls the item blank, and the score file stores full credit. The files do not agree, and this evaluation does not choose one of them.</p>
-      <p>Rubric scores were not compared with an independent human score. Mean absolute error, exact agreement, and weighted kappa against a human rater were not calculated.</p>
+      <p>The score summary contains ${num(E.scored_items)} items: a published extraction that is not worksheet 11, not a blocked file, and not a file whose scores all have confidence zero. Five accepted changes are stored, all on worksheet 5, item B25. Each has a rationale. The score that was replaced is not stored, so the size of each change cannot be reconstructed. The review flag is still set on all five. A flag is a pipeline marker. The accepted change is the override and its rationale. <a href="#/explore/worksheet/WS5?view=compare&amp;mode=score&amp;item=WS5_B25">The five changes on worksheet 5</a>.</p>
+      ${table(
+        [{ t: "Stored credit in the score summary" }, { t: "Items", num: 1 }, { t: "Review flag", num: 1 }],
+        creditRows.map((row) => [h(row[0]), num(row[1]), num(row[2])])
+      )}
+      <p>The three credit rows sum to ${num(E.scored_items)} items and ${num(E.review_flags)} review flags. ${frac(E.review_without_override, E.review_flags)} flags have no accepted change. The other ${num((E.overrides || []).length)} are the accepted changes, and those rows stay flagged. If blocked and unused files are included, the flag count is ${num(E.review_flags_all_files)}. Those extra flags are outside the ${num(E.scored_items)} items. On several rubric worksheets the pipeline sets the flag when credit is partial or zero, so a flag is not, by itself, a decision waiting to be accepted.</p>
+      <p>For the four rule worksheets, the stored score and the deterministic check in the validation file agree on ${frac(rules.exact_agreement, rules.compared)} items. Mean absolute error on those ${num(rules.compared)} pairs is ${mae.toFixed(3)}. The reference is that validation file, not a second rater. ${num(rules.mismatch_count)} items disagree, of which ${num(b25Gaps.length)} are worksheet 5, item B25, with a stored score of 0 and a validation score of 1. None of those is an accepted change. Rubric scores were not compared with an independent human score, so exact agreement and weighted kappa against a human rater were not calculated.</p>
+      <details class="vq">
+        <summary>Score record</summary>
+        <p>Unrounded mean absolute error is ${mae}. It is the sum of absolute gaps divided by ${num(rules.compared)} paired items. Items without a validation score are excluded, not coded as zero.</p>
+        ${table(
+          [{ t: "Student" }, { t: "Final score", num: 1 }, { t: "Review flag" }, { t: "Rationale" }],
+          (E.overrides || []).map((row) => [h(row.student), h(row.final_score), row.review_flag_still_set ? "Still set" : "Not set", h(row.rationale)])
+        )}
+        <p>The accepted B25 changes match the validation file, so they are not in the disagreement table. This evaluation does not choose between files that still disagree.</p>
+        ${table(
+          [{ t: "Student" }, { t: "Worksheet" }, { t: "Item" }, { t: "Stored score", num: 1 }, { t: "Validation score", num: 1 }],
+          (rules.mismatches || []).map((row) => [h(row.student), h(row.worksheet), h(row.item), h(row.scoring), h(row.validation)])
+        )}
+      </details>
 
       <h2 id="frames">Screen-recording frames</h2>
-      <p>The researcher has inspected the frame images. That inspection is complete as a visual check. It is not an inter-rater statistic. No second coder is in the archive, so Cohen’s kappa was not calculated. The model’s own confidence is not accuracy: ${num(frames.model_confidence.HIGH)} high, ${num(frames.model_confidence.MEDIUM)} medium, and ${num(frames.model_confidence.LOW)} low, out of ${num(labelled)} labelled frames.</p>
-      ${table(["Behaviour label", "Frames", "Share of labelled frames"], labelRows)}
-      <p>SELECT_TARGET does not appear. The coding instructions reserve that label for a frame that shows the target being placed, and they tell the model to prefer more common labels when it is unsure. The log, separately, records ${num(tri.target_setting_events)} target-setting events. The two instruments are not counting the same thing, and the zero label count is not evidence that no target was set.</p>
-      <p>Eight session files record that the log was not used and that video alignment was unavailable. Twelve session files do not store those fields. No frame record stores a log window. Dropping the ${num(frames.low_confidence_frames)} low-confidence frames does not change which label is most common.</p>
+      <p>The counts below are shares of ${num(labelled)} sampled, labelled frames. They are not shares of recording time. The researcher inspected the images. No second coder is in the archive, so Cohen’s kappa was not calculated. The model’s own confidence is not accuracy: ${num(frames.model_confidence.HIGH)} high, ${num(frames.model_confidence.MEDIUM)} medium, and ${num(frames.model_confidence.LOW)} low.</p>
+      ${table(
+        [{ t: "Behaviour label" }, { t: "Frames", num: 1 }, { t: "Share of labelled frames", num: 1 }],
+        labelRows
+      )}
+      <p>Other stored labels are ${otherNames.map(h).join(", ") || "none"}. SELECT_TARGET is not among the stored labels (${num(tri.select_target_labels)} frames). The log, separately, records ${num(tri.target_setting_events)} target-setting events. The two instruments do not count the same thing, and the zero label count is not evidence that no target was set. The full label list is on <a href="#/findings/recordings">screen recording findings</a>.</p>
 
       <h2 id="logs">Platform logs</h2>
-      <p>In the two CODAP sessions, ${num(logs.action_class_counts.interface_rows)} rows are interface events, ${num(logs.action_class_counts.learner_decision_rows)} are decision actions such as placing an attribute, changing a threshold, or submitting a tree, and ${num(logs.action_class_counts.other_rows)} are other recorded actions. An interface event shows that the software logged it. It does not show a learning strategy.</p>
-      <p>Between submissions, the published count uses <code>timestamp_ms</code>. That clock decreases along wall-clock order in all ${num(logs.sessions)} sessions, which is the reset the alignment code already documents. Reordering the same events by <code>created_at</code> leaves the category totals unchanged: ${num(logs.wall_clock_totals.only_attribute)} only-attribute intervals, ${num(logs.wall_clock_totals.only_threshold)} only-threshold intervals, and ${num(logs.wall_clock_totals.both_or_neither)} both-or-neither intervals, out of ${num(logs.wall_clock_totals.intervals)}. The order of those categories differs for ${h(seq || "no session")}.</p>
-      <p>Of the ${num(logs.only_threshold_wall)} wall-clock intervals that contain a threshold change and no attribute placement, ${num(logs.only_threshold_wall_with_no_other_config_action)} also contain no other configuration action such as a target change or a tree refresh. ${num(logs.only_threshold_wall_with_changed_numeric_emit_field)} are followed by a submitted payload whose numeric fields differ. Accuracy differs in ${num((logs.numeric_emit_fields_that_changed || {}).accuracy)} of those intervals. Depth differs in ${num((logs.numeric_emit_fields_that_changed || {}).depth)}. The next submission often carries a different accuracy after a threshold change. That is a temporal association in the log. It does not show why the learner made the change.</p>
+      <p>Between model submissions, ${num(logs.only_threshold_wall)} intervals in wall-clock order contain a threshold change and no attribute placement. Of those, ${num(logs.only_threshold_wall_with_no_other_config_action)} also contain no other configuration action, and ${num(logs.only_threshold_wall_with_changed_numeric_emit_field)} are followed by a submission whose numeric fields differ. Accuracy differs in ${num(numeric.accuracy)} of the ${num(logs.only_threshold_wall)} intervals. Depth differs in ${num(numeric.depth)}. This is a temporal association in the log. It does not show why the learner made the change.</p>
+      <details class="vq">
+        <summary>Timestamp order</summary>
+        <p><code>timestamp_ms</code> decreases along wall-clock order in ${frac(logs.sessions_with_timestamp_ms_reset, logs.sessions)} sessions. Category totals are the same under both clocks: ${num(wall.only_attribute)} only-attribute intervals, ${num(wall.only_threshold)} only-threshold intervals, and ${num(wall.both_or_neither)} both-or-neither intervals, out of ${num(wall.intervals)}. The order of those categories differs in ${num(logs.sessions_whose_interval_sequence_differs)} sessions${seq.length ? `: ${seq.map((row) => `${h(row.student)}, ${h(row.session)}`).join("; ")}` : ""}.</p>
+      </details>
 
-      <h2 id="sources">Across sources</h2>
-      <p>Frame time is seconds from the start of the recording. Log <code>timestamp_ms</code> is not that clock. The fallback that estimates the recording start from the first log row would make the offset depend on the log. No frame was matched to a log row.</p>
-      <p>${num(tri.paired_sessions)} sessions have both a frame manifest and a log. ${num(bothSessions)} of 15 participants have frame manifests for both CODAP sessions. ${num(tri.paired_with_both_threshold_signals)} labelled sessions contain both at least one TUNE_THRESHOLD frame and at least one threshold-change event. The counts are not expected to match, because a frame is a sampled image and a log row is a software event. ${num(tri.paired_sessions_without_labels)} session, Irma’s first CODAP session, has frames and a log but no behaviour labels. Its 17 threshold-change events are not read as a disagreement with a label.</p>
-      <p>Final submissions: ${num(nb.notebooks)} notebooks. ${nb.reports.length ? `${nb.reports.map(h).join(", ")} submitted a written report.` : ""} A train/test split is recorded in ${frac(nb.split_recorded, nb.submissions)} files. A stored test misclassification rate is present for ${frac(nb.models_with_stored_test_mcr, nb.models)} described models. Those rates were not recomputed. A missing trace is missing evidence, not a score of zero.</p>
-      ${table(["Trace in the final file", "Submissions"], taskRows)}
-      <p>The inspection record marks Ulysses as using synthetic data. This evaluation did not run the notebook again, so that flag is reported as stored, not as a new measurement. A written question is recorded in ${num(nb.task_found.question)} of ${num(nb.task_denominator)} files. The other files do not contain that trace in the inspection.</p>
+      <h2 id="alignment">Frame–log alignment</h2>
+      <p>No frame was matched to a log row. Frame time is seconds from the start of the recording. Log <code>timestamp_ms</code> is not that clock, and it resets. The fallback that estimates the recording start from the first log row would make the offset depend on the log, so it was not used as a shared clock. Participant and session comparisons remain possible where both sources exist: ${num(tri.paired_sessions)} sessions have both a frame manifest and a log. ${num(tri.paired_with_both_threshold_signals)} labelled sessions contain both at least one TUNE_THRESHOLD frame and at least one threshold-change event. ${num(tri.paired_tune_label_without_threshold_event)} have the label without the event, and ${num(tri.paired_threshold_event_without_tune_label)} have the event without the label. ${num(tri.paired_sessions_without_labels)} paired session has frames and a log but no behaviour labels, so its log events are not read as a disagreement.</p>
 
-      <h2 id="matrix">What was calculated</h2>
-      <p>Completed means the calculation ran on the files named in <code>evaluation/results/</code>. A result can be complete and still be the wrong kind of evidence for a claim about learning.</p>
-      ${table(["Component", "Status", "Result"], statusRows)}
-      <p class="small">Rebuild with <code>python3 evaluation/run_evaluation.py</code>. The full argument, literature mapping, and limitations are in <code>evaluation/EVALUATION_REPORT.md</code>. <a href="#/docs/limitations">Data Quality and Limitations</a></p>
+      <h2 id="submissions">Final submissions</h2>
+      <p>${num(nb.notebooks)} notebooks and ${num(nb.reports.length)} written report were inspected and not rerun. A train/test split is recorded in ${frac(nb.split_recorded, nb.submissions)} files. A stored test misclassification rate is present for ${frac(nb.models_with_stored_test_mcr, nb.models)} described models. That rate belongs to the student’s model. It is not a performance score for this archive, and it was not recomputed. Which traces each file contains is on <a href="#/docs/limitations/vq-notebooks">Data Quality and Limitations</a>.</p>
+      <details class="vq">
+        <summary>Stored inspection flags</summary>
+        <p>${(nb.synthetic_flags || []).length ? `The inspection record marks ${nb.synthetic_flags.map(h).join(", ")} as using synthetic data. This evaluation did not run the notebook again, so the flag is reported as stored.` : "No stored synthetic-data flag was read."} A written question is recorded in ${num(nb.task_found.question)} of ${num(nb.task_denominator)} files.</p>
+      </details>
+
+      <p class="small">Rebuild with <code>python3 evaluation/run_evaluation.py</code>. In the calculation record, a finished script is not the same thing as a validated claim. Frame–log alignment is recorded there as not established. <a href="#/docs/limitations">Data Quality and Limitations</a></p>
     `;
   }
 

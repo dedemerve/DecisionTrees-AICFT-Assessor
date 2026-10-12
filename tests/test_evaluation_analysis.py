@@ -20,6 +20,7 @@ ALLOWED = {
     "Partially completed",
     "Requires human validation",
     "Not applicable",
+    "Not established",
 }
 
 
@@ -93,6 +94,8 @@ def test_published_matrix_uses_only_allowed_statuses():
     assert {row["analysis_status"] for row in matrix} <= ALLOWED
     retrieval = next(row for row in matrix if row["component"] == "Retrieval")
     assert retrieval["analysis_status"] == "Not applicable"
+    alignment_row = next(row for row in matrix if row["component"] == "Frame-log alignment")
+    assert alignment_row["analysis_status"] == "Not established"
     site = (ROOT / "mmla_explorer" / "site" / "data" / "evaluation.js").read_text(encoding="utf-8")
     assert site.startswith("window.EVALUATION = ")
     payload = json.loads(site.split("=", 1)[1].rstrip().rstrip(";"))

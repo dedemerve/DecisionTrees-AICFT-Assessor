@@ -2084,7 +2084,6 @@
   }
   function pageLimitations() {
     const Q = window.QUALITY_AUDIT;
-    const L = C.logs;
     const flow = (steps) => `<div class="method-flow vq-flow">${steps.map((step, i) => `${i ? `<div class="flow-arr" aria-hidden="true">→</div>` : ""}<div class="flow-node${i === 0 ? " flow-node--accent" : ""}${i === steps.length - 1 ? " flow-node--output" : ""}">${h(step[0])}<span class="flow-node-sub">${h(step[1])}</span></div>`).join("")}</div>`;
     const jumps = [
       ["vq-sources", "Four sources"],
@@ -2097,19 +2096,18 @@
       ["vq-limits", "Study limitations"],
       ["vq-hf", "Published datasets"],
     ];
-    const wsRows = (Q && Q.worksheets.by_worksheet || []).filter((w) => w.family !== "not_used").map((w) => ({
-      cells: [
-        h(w.worksheet),
-        h({ rubric: "Rubric", rule: "Rule", mixed: "Rubric and rule", consistency: "Consistency" }[w.family] || w.family),
-        `${num(w.students_in_score_summary)} of ${num(Q.cohort_n)}`,
-        num(w.full_credit),
-        num(w.partial),
-        num(w.no_credit),
-      ],
-    }));
-    const fam = (id) => (Q && Q.worksheets.by_family || []).find((row) => row.family === id) || {};
-    const ind = (Q && Q.logs.indicator_totals) || {};
-    const seq = (Q && Q.logs.sequence_totals) || {};
+    const sourceCards = [
+      ["Worksheets", "Handwritten answers on the instructional worksheets.", "Each extracted response against the original page.", "A matching reading is not a grade."],
+      ["Screen-recording frames", "Selected moments from the two CODAP sessions.", "The researcher inspected the extracted images.", "Inspection is not an independent label check."],
+      ["CODAP platform logs", "Named actions the software recorded.", "Rows were mapped to pseudonyms and the totals reconciled.", "A logged action is not an intention."],
+      ["Final Python submissions", "The file handed in at the end of the unit.", "Saved cells, text, and output were read.", "The files were not run again."],
+    ];
+    const verifyRows = [
+      ["Worksheets", "Every extracted response was compared with the handwritten page. The researcher reports that the reading matched in every case.", "The transcription matches the page. The check does not grade the answer, and it does not confirm a later score."],
+      ["Screen-recording frames", "The researcher inspected the extracted images.", "The images were reviewed. That review does not independently validate the behaviour label. No second coder is stored, so no agreement statistic is available. The completed inspection still stands."],
+      ["CODAP platform logs", "Rows were mapped to pseudonyms, and the kept rows were reconciled with the day totals.", "The file records software events. It does not record what the learner intended."],
+      ["Final submissions", "Saved cells, text, and output were read.", "The inspection records what the file contains. It is not a fresh run of the submitted notebook."],
+    ];
     const fr = Q && Q.frames;
     const nb = Q && Q.notebooks;
     const tri = Q && Q.triangulation;
@@ -2117,104 +2115,134 @@
     const drop = (d) => (Q && Q.logs.excluded_unmatched_by_day[d]) || 0;
     const session1 = day("2026-04-21") - drop("2026-04-21");
     const session2 = day("2026-04-28") - drop("2026-04-28");
+    const practice = Q ? Q.logs.kept_rows - session1 - session2 : 0;
+    const familyOrder = ["rubric", "rule", "mixed", "consistency"];
+    const familyName = { rubric: "Rubric", rule: "Rule", mixed: "Rubric and rule", consistency: "Consistency" };
+    const familyMeans = {
+      rubric: "A rubric applied by the model.",
+      rule: "A fixed rule applied after the reading.",
+      mixed: "Rubric items and rule checks in one worksheet. Not one combined mark.",
+      consistency: "Whether the written tree agrees with itself. There is no single correct tree.",
+    };
+    const familyRows = familyOrder.map((id) => {
+      const row = (Q && Q.worksheets.by_family || []).find((item) => item.family === id) || {};
+      return { cells: [h(familyName[id]), h((row.worksheets || []).join(", ")), num(row.scored_items || 0), h(familyMeans[id])] };
+    });
+    const scoredItems = familyRows.length && Q ? familyOrder.reduce((sum, id) => sum + (((Q.worksheets.by_family || []).find((item) => item.family === id) || {}).scored_items || 0), 0) : 0;
+    const coverageGroups = [];
+    (Q && Q.worksheets.by_worksheet || []).filter((w) => w.family !== "not_used").forEach((w) => {
+      const last = coverageGroups[coverageGroups.length - 1];
+      if (last && last.n === w.students_in_score_summary) last.codes.push(w.worksheet);
+      else coverageGroups.push({ n: w.students_in_score_summary, codes: [w.worksheet] });
+    });
+    const earlyCodes = ["WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS12"];
+    const missingSets = earlyCodes.map((code) => STUDENTS.filter((s) => !(C.ws[s] && C.ws[s][code] && C.ws[s][code].ocr)).join("|"));
+    const sameGap = missingSets.length > 0 && missingSets.every((row) => row === missingSets[0]);
     const taskLabel = {
       load: "Data table loaded", explore: "Table summary", notes: "Notes on the table", target: "Target recorded",
       question: "Written question", split: "Train/test split", fitted: "Tree fitted", depth_table: "Depth-search table",
       drawing: "Tree drawing", reflection: "Written reflection",
     };
-    const taskRows = nb ? Object.entries(nb.task_found).map(([id, n]) => ({ cells: [h(taskLabel[id] || id), `${num(n)} of ${num(nb.submissions)}`] })) : [];
-    const summaryGap = fr ? fr.integrity.summary_count_mismatches.map((row) => `${h(row.student)} lists ${num(row.listed)} frames (the summary says ${num(row.summary)})`).join("; ") : "";
-    const missingBits = [];
-    C.worksheets.forEach((w) => {
-      const who = STUDENTS.filter((s) => !C.ws[s][w.code].ocr);
-      if (who.length && w.code !== "WS11") missingBits.push(`${h(w.code)}: ${who.map(h).join(", ")}`);
-    });
-    return `<div class="page">${docShell("limitations", `
+    const taskOrder = ["load", "explore", "notes", "target", "question", "split", "fitted", "depth_table", "drawing", "reflection"];
+    const taskRows = nb ? taskOrder.filter((id) => id in nb.task_found).map((id) => ({ cells: [h(taskLabel[id] || id), `${num(nb.task_found[id])} of ${num(nb.submissions)}`] })) : [];
+    const cardHtml = sourceCards.map(([title, what, checked, limit]) => `<article class="src-card"><h3>${h(title)}</h3><p class="src-what">${h(what)}</p><dl><div><dt>Checked</dt><dd>${h(checked)}</dd></div><div><dt>Limit</dt><dd>${h(limit)}</dd></div></dl></article>`).join("");
+    const limits = [
+      ["One cohort", "Fifteen pseudonymised participants. The cohort cannot stand for pre-service teachers in general."],
+      ["Incomplete coverage", "Files are not present for every participant at every stage. A missing file is not a confirmed absence and not a score of zero."],
+      ["Sampled frames", "Frames are selected moments, not a continuous record of the recording."],
+      ["No second coder", "No agreement statistic is available for the behaviour labels. The researcher’s image inspection remains the completed visual check."],
+      ["Notebooks were not rerun", "Saved output was read as stored. It was not produced again by running the files."],
+      ["No causal claim", "An association across sources does not establish a cause or a learning gain."],
+    ];
+    return `<div class="page ref-page">${docShell("limitations", `
       <h1>Data Quality and Limitations</h1>
-      <p class="lead">Each source was collected, processed, and checked. Some checks are the researcher’s own reading. Some are rules in code. A check of the reading is not a mark for the answer, and a missing statistical coefficient is not the same thing as an unchecked archive.</p>
+      <p class="lead">Four sources were collected and checked. A check establishes what that source can support. It does not, by itself, validate a score, a behaviour label, or a learning gain. Calculated comparisons are on <a href="#/docs/evaluation">Evaluation and validation</a>.</p>
       <nav class="jump" aria-label="On this page">${jumps.map(([id, label]) => `<a href="#/docs/limitations/${id}">${h(label)}</a>`).join("")}</nav>
 
       <h2 id="vq-sources">Four sources</h2>
-      <div class="cat-grid">
-        <a class="cat-card" href="#/docs/limitations/vq-worksheets"><h3>Worksheets</h3><p>Handwritten answers. The researcher checked each extracted response against the original page. Rubric and rule scores are a separate step.</p></a>
-        <a class="cat-card" href="#/docs/limitations/vq-frames"><h3>Screen-recording frames</h3><p>Selected moments from the two CODAP sessions. The researcher inspected the images. Behaviour labels follow the codebook and do not have a second coder.</p></a>
-        <a class="cat-card" href="#/docs/limitations/vq-logs"><h3>CODAP platform logs</h3><p>Named actions the software recorded. Rows were mapped to pseudonyms and the totals were reconciled. A logged action is not an intention.</p></a>
-        <a class="cat-card" href="#/docs/limitations/vq-notebooks"><h3>Final Python submissions</h3><p>What each final file contains. Fourteen are notebooks. One is a written report. Saved output was not run again.</p></a>
-      </div>
+      <div class="src-grid">${cardHtml}</div>
 
       <h2 id="vq-review">Researcher verification</h2>
-      <div class="two">
-        <section class="lim">
-          <h3>Worksheet reading</h3>
-          <p>The researcher compared every extracted worksheet response with the handwritten original, record by record, and reports that the reading matched in every case.</p>
-          <p>That result is about the transcription. It is not a claim that every answer is conceptually right, and it is not a claim that every rubric score is an independent grade.</p>
-        </section>
-        <section class="lim">
-          <h3>Frame images</h3>
-          <p>The researcher inspected the extracted screen-recording frames. That inspection is separate from the behaviour label stored on a frame.</p>
-          <p>There is no second coder and no agreement coefficient for this cohort. The model’s own confidence rating is not a measure of whether the label is right.</p>
-        </section>
-      </div>
-      <p>Five worksheet scores were changed after the reading, all on worksheet 5, item B25. Each change has a stored rationale. A scoring file can also flag an item for a person to look at. A flag is a request. It is not, by itself, a record that the score was accepted. <a href="#/explore/worksheet/WS5?view=compare&amp;mode=score&amp;item=WS5_B25">The five score changes</a> are on worksheet 5.</p>
+      ${table([{ t: "Source" }, { t: "What was checked" }, { t: "What the check establishes" }], verifyRows.map((row) => ({ cells: row.map(h) })), { cls: "vq vq-stack", labels: true })}
 
       <h2 id="vq-worksheets">Worksheets</h2>
       ${flow([["Collect", "Scanned pages"], ["Read", "Handwriting in known areas"], ["Check the reading", "Researcher, against the page"], ["Score", "Rubric or rule"]])}
-      <p>The table counts stored item scores for participants whose reading is on this site. Full credit means the stored score is 1 or higher under that worksheet’s own check. Partial credit is a score between 0 and 1. No credit is a stored 0. A missing file is left out of the count. It is not entered as 0.</p>
-      ${Q ? table([{ t: "Worksheet" }, { t: "Check" }, { t: "Participants" }, { t: "Full credit" }, { t: "Partial" }, { t: "No credit" }], wsRows, { cls: "vq vq-stack", labels: true }) : `<p>The score summary is not loaded.</p>`}
-      <p>Rule checks (worksheets 5, 6, 7, and 10) and rubric scores (worksheets 1, 3, 4, and 13) answer different questions, so their full-credit counts are not one combined mark. Worksheet 12 checks whether a tree agrees with itself. It does not name one correct tree. Worksheets 14 and 15 mix rubric items with rule checks.</p>
-      <p>${WS11_IS_WS14 ? "The values shown for worksheet 11 match the values shown for worksheet 14 for every participant. Worksheet 11 is not a separate survey on this site, and its zero-confidence score file is not used." : ""} For six participants the later stage file for worksheet 14 does not repeat that reading. The page follows the OCR file, which is the reading shown here.</p>
-      ${missingBits.length ? `<p>No published reading is stored for ${missingBits.join("; ")}.</p>` : ""}
+      ${Q ? table([{ t: "Worksheets" }, { t: "Published readings", num: 1 }], coverageGroups.map((group) => ({ cells: [h(group.codes.join(", ")), `${num(group.n)} of ${num(Q.cohort_n)}`] })), { cls: "vq vq-stack", labels: true }) : ""}
+      <p>${sameGap ? "The same participants are missing from each worksheet that is not stored for the full cohort." : "Where a worksheet is not stored for the full cohort, the missing readings are not the same participants on every worksheet."} Worksheet 11 repeats worksheet 14 and is not used as a separate survey. A missing file is left out. It is not entered as zero. Names are in the <a href="#/docs/technical/coverage">coverage table</a>.</p>
+      <p>The score summary contains ${num(scoredItems)} items. The four checks below are different procedures. Their results are not added into one performance score. Full, partial, and no credit for each item are on <a href="#/findings/worksheets">worksheet findings</a>.</p>
+      ${Q ? table([{ t: "Check" }, { t: "Worksheets" }, { t: "Scored items", num: 1 }, { t: "What the stored score is" }], familyRows, { cls: "vq vq-stack", labels: true }) : `<p>The score summary is not loaded.</p>`}
+      <p>${WS11_IS_WS14 ? "The values shown for worksheet 11 match worksheet 14 for every participant, and the zero-confidence score file for worksheet 11 is not used. " : ""}For six participants, a later stage file for worksheet 14 does not repeat the published reading. This site follows the OCR file.</p>
       <p class="small"><a href="#/methods/worksheets">How worksheet checks are defined</a></p>
 
       <h2 id="vq-frames">Screen-recording frames</h2>
       ${flow([["Record", "CODAP session 1 and 2"], ["Select", "Motion, speech, or a gap"], ["Inspect", "Researcher looks at the images"], ["Label", "One behaviour from the codebook"]])}
-      ${fr ? `<p>${num(fr.integrity.files_present_nonempty)} of ${num(fr.integrity.frames_listed)} listed frame files are present and non-empty. None of the listed identifiers is repeated. ${num(fr.integrity.manifests)} of ${num(fr.integrity.possible_slots)} session slots have a manifest, and ${num(fr.integrity.participants_with_both_sessions)} participants have both sessions.</p>
-      <p>Every stored selection label belongs to the extractor’s documented set, and the stored motion thresholds match the setting for that session’s mode. The pixel comparison was not run again. ${summaryGap ? `The summary count is higher than the listed frames for ${summaryGap}. The listed files themselves are present.` : ""}</p>
-      <p>${num(fr.labels.labelled_frames)} frames have a behaviour label. Irma’s CODAP session 1 has ${num(fr.labels.unlabelled_sessions[0] ? fr.labels.unlabelled_sessions[0].frames : 0)} frames and no behaviour label. One frame in Irma’s CODAP session 2 also has no label. No independent 2026 annotation file is in the active archive, so precision, recall, and kappa were not calculated.</p>` : ""}
-      <p class="small"><a href="#/methods/recordings">How frames are selected and labelled</a></p>
+      ${fr ? table([
+        { t: "Record" },
+        { t: "Count", num: 1 },
+      ], [
+        { cells: ["Listed frame files, all present and non-empty", num(fr.integrity.frames_listed)] },
+        { cells: ["Files with a behaviour label", num(fr.labels.labelled_frames)] },
+        { cells: ["Session manifests", `${num(fr.integrity.manifests)} of ${num(fr.integrity.possible_slots)}`] },
+        { cells: ["Participants with both sessions", `${num(fr.integrity.participants_with_both_sessions)} of ${num(Q.cohort_n)}`] },
+        { cells: ["Independent annotation file in the active archive", fr.labels.independent_reference_in_active_archive ? "Present" : "None"] },
+      ], { cls: "vq vq-stack", labels: true }) : ""}
+      <p class="small"><a href="#/methods/recordings">How frames are selected and labelled</a> · Label counts are on <a href="#/findings/recordings">screen recording findings</a> and <a href="#/docs/evaluation">Evaluation and validation</a>.</p>
+      ${fr ? `<details class="vq"><summary>Manifest notes</summary>
+        <p>No listed frame identifier is repeated. ${num(fr.integrity.files_present_nonempty)} listed files are present and non-empty. The pixel comparison was not run again.</p>
+        ${fr.integrity.summary_count_mismatches.length ? `<p>On ${num(fr.integrity.summary_count_mismatches.length)} manifests the stored summary count is higher than the listed files. This site uses the listed files. ${fr.integrity.summary_count_mismatches.map((row) => `${h(row.student)}, ${h(row.session)}: summary ${num(row.summary)}, listed ${num(row.listed)}`).join(". ")}.</p>` : ""}
+        ${(fr.labels.unlabelled_sessions || []).length ? `<p>${fr.labels.unlabelled_sessions.map((row) => `${h(row.student)}, ${h(row.session)}: ${num(row.frames)} frames and no behaviour label`).join(". ")}.</p>` : ""}
+        ${(fr.labels.partial_unlabelled || []).length ? `<p>${fr.labels.partial_unlabelled.map((row) => `${h(row.student)}, ${h(row.session)}: ${num(row.unlabelled)} of ${num(row.listed)} frames unlabelled`).join(". ")}.</p>` : ""}
+      </details>` : ""}
 
       <h2 id="vq-logs">CODAP platform logs</h2>
       ${flow([["Capture", "A named software action"], ["Map", "Names become pseudonyms"], ["Reconcile", "Rows add up to the day totals"], ["Describe", "Counts, not intentions"]])}
-      ${Q ? `<p>The log file has ${num(Q.logs.source_rows)} rows. ${num(Q.logs.excluded_unmatched)} rows do not resolve to a participant and are removed. ${num(Q.logs.kept_rows)} remain. CODAP session 1 contributes ${num(session1)} rows and CODAP session 2 contributes ${num(session2)}.</p>
-      <p>In those two sessions the resolved rows record ${num(ind.set_dependent_variable)} target settings, ${num(ind.drop_attribute)} attributes placed, ${num(ind.change_split_values)} threshold changes, and ${num(ind.emit_tree_data)} model submissions. The whole file, including the earlier practice day, records ${num(Q.logs.resolved_action_counts.set_dependent_variable)} target settings. The log does not contain a delete action.</p>
-      <p>Where a participant submitted a model at least twice, ${num(seq.intervals)} intervals fall between submissions. ${num(seq.only_attribute)} of those intervals change only the attribute, ${num(seq.only_threshold)} change only the threshold, and ${num(seq.both_or_neither)} change both or neither. That is a description of the recorded sequence.</p>` : ""}
+      ${Q ? table([{ t: "Record" }, { t: "Rows", num: 1 }], [
+        { cells: ["Rows in the source file", num(Q.logs.source_rows)] },
+        { cells: ["Removed: no participant", num(Q.logs.excluded_unmatched)] },
+        { cells: ["Rows kept", num(Q.logs.kept_rows)] },
+        { cells: ["CODAP session 1", num(session1)] },
+        { cells: ["CODAP session 2", num(session2)] },
+        { cells: ["Earlier practice day, kept with the file", num(practice)] },
+      ], { cls: "vq vq-stack", labels: true }) : ""}
+      <p>A kept row is a software event. It does not record what the learner intended. Session 1, session 2, and the practice day sum to the kept rows. Event sequences are on <a href="#/docs/evaluation">Evaluation and validation</a>.</p>
       <p class="small"><a href="#/methods/logs">How log measures are defined</a></p>
 
       <h2 id="vq-notebooks">Final submissions</h2>
       ${flow([["Collect", "The final file"], ["Read", "Cells, text, and saved output"], ["Record", "What the file contains"], ["Leave", "Not run again"]])}
-      ${nb ? `<p>${num(nb.notebooks)} submissions are notebooks. ${nb.reports.map(h).join(", ")} submitted a written report, so notebook cell counts do not apply. ${num(nb.models_with_stored_test_mcr)} of ${num(nb.models_described)} described models have a test misclassification rate saved in the file. That rate is the student’s own model. It is not a score for this archive.</p>
-      ${table([{ t: "Evidence in the file" }, { t: "Submissions" }], taskRows, { cls: "vq vq-stack", labels: true })}
-      ${nb.files_with_error_output.length ? `<p>${nb.files_with_error_output.map((row) => `${h(row.student)} has a saved ${h((row.error_types || []).join(", ") || "error")} output`).join(". ")}.</p>` : ""}` : ""}
+      ${nb ? `<p>${num(nb.submissions)} final files were inspected: ${num(nb.notebooks)} notebooks and ${num(nb.reports.length)} written report. Saved output was not run again. The table is the record of which traces the inspection found. A missing trace is missing evidence, not a score of zero.</p>
+      ${table([{ t: "Trace in the file" }, { t: "Submissions", num: 1 }], taskRows, { cls: "vq vq-stack", labels: true })}
+      <details class="vq"><summary>File-specific notes</summary>
+        <p>${nb.reports.map(h).join(", ")} submitted the written report, so notebook cell counts do not apply to that file. The traces above were still read where the inspection recorded them.</p>
+        ${nb.files_with_error_output.length ? `<p>Saved error output is present in ${num(nb.files_with_error_output.length)} of ${num(nb.submissions)} files: ${nb.files_with_error_output.map((row) => `${h(row.student)} (${h((row.error_types || []).join(", ") || "error")})`).join("; ")}.</p>` : ""}
+      </details>` : ""}
       <p class="small"><a href="#/methods/notebooks">How notebooks were inspected</a></p>
 
       <h2 id="vq-cross">Across sources</h2>
-      <p>A pseudonym links a participant’s worksheet, frames, log, and final file. A session name links frames and the log for CODAP session 1 or CODAP session 2. ${tri ? `${num(tri.sessions_with_both)} of the ${num(tri.frame_sessions)} sessions with frames also have a log. ${num(tri.log_sessions)} sessions have a log, so ${num(tri.log_sessions - tri.sessions_with_both)} log session has no frame manifest.` : ""} The files do not store a frame-by-frame time join, so a frame is not treated as the same moment as a log row. The checks that were run, and the ones that still need a second person, are on <a href="#/docs/evaluation">Evaluation and validation</a>.</p>
-      <p>No frame is labelled “select target”. The two CODAP sessions record ${num(ind.set_dependent_variable || 0)} target-setting events. Those are different instruments: one is a behaviour label on a sampled image, and the other is a software event. The counts are not expected to match. Placing them side by side does not show that one caused the other, and it does not show a learning gain.</p>
+      <p>A pseudonym links one participant’s worksheet, frames, log, and final file. A session name links frames and the log for CODAP session 1 or CODAP session 2. ${tri ? `${num(tri.sessions_with_both)} of ${num(tri.frame_sessions)} sessions with frames also have a log. ${num(tri.log_sessions)} sessions have a log, so ${num(tri.log_sessions - tri.sessions_with_both)} log session has no frame manifest.` : ""} No frame-by-frame time join is stored, so a frame is not treated as the same moment as a log row.</p>
 
       <h2 id="vq-limits">Study limitations</h2>
-      <ul>
-        <li>The work spans worksheets, CODAP session 1, CODAP session 2, and a final submission. The files are not complete for every participant at every stage.</li>
-        <li>A missing file is a missing record. The archive has no attendance roll, so a gap is not coded as a confirmed absence and it is not a score.</li>
-        <li>Fifteen pseudonymised participants in one cohort cannot stand for pre-service teachers in general. A change from one week to the next can be a change in who has a file.</li>
-        <li>Frames are selected moments, not every second of the recording. ${num(fr ? fr.integrity.participants_with_both_sessions : 0)} participants have frame manifests for both sessions.</li>
-        <li>One final submission is a written report rather than a notebook.</li>
-        <li>An association across sources is not, by itself, a cause or a learning gain.</li>
-      </ul>
+      <div class="limit-grid">${limits.map(([title, text]) => `<p class="limit-card"><strong>${h(title)}</strong>${h(text)}</p>`).join("")}</div>
 
       <h2 id="vq-hf">Published datasets</h2>
-      <div class="two">
-        <section class="lim">
-          <h3>Frames</h3>
-          <p><a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames">DecisionTrees-AICFT-Frames</a> is the image and metadata release, under CC BY 4.0. The card does not declare a train, validation, or test split.</p>
-          <p><b>Recommended use.</b> Description of sampled screen moments, with the card’s own account of how frames were chosen.</p>
-          <p><b>Use with caution.</b> The card states 5,825 behaviour-coded frames. This site lists ${num(fr ? fr.integrity.frames_listed : F.length)} frames from the current manifests, of which ${num(fr ? fr.labels.labelled_frames : 0)} have a label. The image folder was not counted again, so the two figures are different releases. The card’s coder confidence and this site’s model confidence are not the same field, and neither is measured accuracy.</p>
-        </section>
-        <section class="lim">
-          <h3>Platform log</h3>
-          <p><a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-CODAP-Arbor-LogFile">DecisionTrees-AICFT-CODAP-Arbor-LogFile</a> is the event table, under CC BY 4.0. It is not a dataset for predicting a test score.</p>
-          <p><b>Recommended use.</b> Counts of recorded actions under the published action names.</p>
-          <p><b>Use with caution.</b> The card’s session totals match this archive: ${num(session1)} rows for CODAP session 1 and ${num(session2)} rows for CODAP session 2. A parsed action shows that the software recorded the event. It does not show what the participant meant to do.</p>
-        </section>
+      <div class="dataset-grid">
+        <article class="dataset-card">
+          <h3 class="ds-title"><a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames">DecisionTrees-AICFT-Frames</a></h3>
+          <dl class="ds-facts">
+            <dt>Contains</dt><dd>Sampled screen images and metadata. The card declares no train, validation, or test split.</dd>
+            <dt>Licence</dt><dd>CC BY 4.0</dd>
+            <dt>Recommended use</dt><dd>Description of sampled screen moments, using the card’s own account of how frames were chosen.</dd>
+            <dt>Caution</dt><dd>The card states 5,825 behaviour-coded frames. This site lists ${num(fr ? fr.integrity.frames_listed : F.length)} frames from the current manifests, of which ${num(fr ? fr.labels.labelled_frames : 0)} have a label. The image folder was not counted again, so the figures are different releases. Neither the card’s coder confidence nor this site’s model confidence is measured accuracy.</dd>
+          </dl>
+        </article>
+        <article class="dataset-card">
+          <h3 class="ds-title"><a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-CODAP-Arbor-LogFile">DecisionTrees-AICFT-CODAP-Arbor-LogFile</a></h3>
+          <dl class="ds-facts">
+            <dt>Contains</dt><dd>The CODAP Arbor event table.</dd>
+            <dt>Licence</dt><dd>CC BY 4.0</dd>
+            <dt>Recommended use</dt><dd>Counts of recorded actions under the published action names.</dd>
+            <dt>Caution</dt><dd>The card’s session totals match this archive: ${num(session1)} rows for CODAP session 1 and ${num(session2)} rows for CODAP session 2. A parsed action shows that the software recorded the event. It is not a dataset for predicting a test score, and it does not show what the participant meant to do.</dd>
+          </dl>
+        </article>
       </div>
 
       <details class="vq">
@@ -2493,7 +2521,7 @@
       }
       else if (sub === "glossary") html = pageGlossary();
       else if (sub === "evaluation") {
-        html = `<div class="page">${docShell("evaluation", window.EvaluationPage ? window.EvaluationPage.body() : "<h1>Evaluation and validation</h1><p>The evaluation page did not load.</p>")}</div>`;
+        html = `<div class="page ref-page">${docShell("evaluation", window.EvaluationPage ? window.EvaluationPage.body() : "<h1>Evaluation and validation</h1><p>The evaluation page did not load.</p>")}</div>`;
         after = () => scrollToId(parts[2]);
       }
       else if (sub === "technical") {

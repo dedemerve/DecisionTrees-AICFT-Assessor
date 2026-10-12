@@ -1057,7 +1057,66 @@ details.vq > summary::-webkit-details-marker { display: none; }
 details.vq > summary::after { content: "+"; font-family: var(--mono); color: var(--muted); position: absolute; right: 0; top: 14px; }
 details.vq[open] > summary::after { content: "−"; }
 details.vq h3 { font-size: 1rem; margin: 4px 0 6px; }
-details.vq p, .vq-block p { max-width: 68ch; }
+details.vq p, .vq-block p { max-width: none; }
+
+/* Reference pages: one column for prose, tables, and cards */
+.page.ref-page { max-width: 960px; }
+.ref-page p, .ref-page .lead { max-width: none; }
+.ref-page .lead { margin-bottom: 14px; }
+.ref-page h2 { margin-top: 28px; }
+.ref-page .method-flow { align-items: stretch; margin: 8px 0 14px; }
+.ref-page .flow-node {
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 4.75rem; padding: 10px 12px;
+}
+.ref-page .flow-arr { align-self: center; }
+.src-grid, .limit-grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px; margin: 4px 0 8px; align-items: stretch;
+}
+.limit-grid { grid-template-columns: 1fr 1fr; }
+.src-card, .limit-card {
+  display: flex; flex-direction: column; min-width: 0; height: 100%;
+  margin: 0; background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 12px; padding: 14px 14px 12px;
+}
+.src-card h3, .limit-card strong {
+  margin: 0 0 6px; font-size: 1rem; font-weight: 600; color: var(--ink); line-height: 1.3;
+}
+.src-card .src-what { margin: 0 0 10px; font-size: 14px; color: var(--ink-2); }
+.src-card dl { margin: auto 0 0; display: grid; gap: 8px; }
+.src-card dt {
+  margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--muted);
+}
+.src-card dd { margin: 2px 0 0; font-size: 13.5px; color: var(--ink-2); }
+.limit-card { font-size: 14.5px; color: var(--ink-2); }
+.ref-page .dataset-grid { align-items: stretch; }
+.ref-page .dataset-card { height: 100%; display: flex; flex-direction: column; margin: 0; }
+.ref-page .ds-facts {
+  display: grid; grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 8px 12px; margin: 4px 0 0; font-size: 13.5px;
+}
+.ref-page .ds-facts dt {
+  margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--muted);
+}
+.ref-page .ds-facts dd { margin: 0; color: var(--ink-2); }
+.ref-page table.vq { width: 100%; }
+.ref-page table.vq th, .ref-page table.vq td { vertical-align: top; }
+.ref-page table.vq td.num, .ref-page table.vq th.num {
+  text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; width: 7.5rem;
+}
+.eval-status {
+  display: inline-block; font-size: 12px; font-weight: 600; line-height: 1.35;
+  padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+}
+.eval-did { display: block; margin-top: 6px; }
+.eval-status.done { background: var(--pale); color: var(--navy); }
+.eval-status.part, .eval-status.human { background: var(--warn-bg); color: var(--warn-ink); }
+.eval-status.na, .eval-status.none {
+  background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--rule);
+}
 
 /* -- improved dataset cards -- */
 .dataset-card { border: 1px solid var(--rule); }
@@ -1090,6 +1149,7 @@ details.vq p, .vq-block p { max-width: 68ch; }
   .top-nav { display: none; }
   .student-roster { grid-template-columns: 1fr 1fr; }
   .hero, .portal, .metric-row, .dataset-grid, .two, .three, .arch-grid, .cat-grid, .ws-catalogue, .code-grid { grid-template-columns: 1fr; }
+  .src-grid { grid-template-columns: 1fr 1fr; }
   .explore-path, .nb-grid, .nb-cohort, .find-grid { grid-template-columns: 1fr 1fr; }
   .hero { gap: 28px; align-items: start; }
   .hero-visual { max-width: 520px; }
@@ -1142,6 +1202,9 @@ details.vq p, .vq-block p { max-width: 68ch; }
   .ws15-foot { align-items: flex-start; flex-wrap: wrap; }
   details.ws > .body { padding-left: 0; }
   .hbar { grid-template-columns: 110px 1fr 40px; }
+  .src-grid, .limit-grid { grid-template-columns: 1fr; }
+  .ref-page .ds-facts { grid-template-columns: 1fr; gap: 2px; }
+  .ref-page .ds-facts dd { margin-bottom: 8px; }
   .finder { flex-direction: column; align-items: stretch; }
   .finder input { min-width: 0; width: 100%; }
   ul.checks { columns: 1; }
