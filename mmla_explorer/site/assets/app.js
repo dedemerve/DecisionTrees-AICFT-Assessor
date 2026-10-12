@@ -543,7 +543,7 @@
         output: `Extracted response values for every worksheet item; one behaviour label per coded frame; per-session log measures; notebook inspection records.` },
       { id: "check", num: 3, title: "Check", summary: "Compare with rubric, rule, or codebook",
         what: "What happens after extraction depends on the question type. Open answers are scored against a researcher-written rubric. Numeric or rule-based answers are checked by Python against a fixed criterion derived from the data. The two paths are not interchangeable, and the distinction is recorded in each worksheet’s pipeline field.",
-        sources: ["Researcher-written rubric PDFs (criteria for open answers, partial credit where defined)", "11 food card reference values (deterministic checks for WS4–WS7)", "Titanic reference values (WS15 numeric comparisons, within 0.02)", "Behaviour codebook (nine codes, developed from earlier human coding, applied per frame)"],
+        sources: ["Researcher-written rubric PDFs (criteria for open answers, partial credit where defined)", "11 food card reference values (deterministic checks for WS5, WS6, and WS7)", "Titanic reference values (WS15 numeric comparisons, within 0.02)", "Behaviour codebook (nine codes, developed from earlier human coding, applied per frame)"],
         output: "Per-item check results with pass, fail, or no-verdict flags. Rubric scores include the rationale the model used. Behaviour codes include a confidence rating and any observation flags set." },
       { id: "analyse", num: 4, title: "Analyse", summary: "Organise records, keep source links",
         what: `Checked material is organised into structured JSON files. Each result stays tied to the file and rule that produced it. Aggregates are built from item-level records. ${num(schemaFields)} response fields are defined across ${C.worksheets.length} worksheets.`,
@@ -612,14 +612,14 @@
         </div>
         <p>These records show what was written and how it compares with a rubric or rule. They do not show what a student was thinking.${missingAnswers}</p>
         ${tech("Which worksheets use which method?", table([{ t: "Worksheets" }, { t: "Reading" }, { t: "Check" }], [
-          { cells: ["WS1, WS3, WS4", "Model reads handwriting", "Model scores each item against the rubric. Python sums the scores."] },
-          { cells: ["WS5, WS6, WS7", "Model reads handwriting", "Python rules from the 11 food cards. WS7 is checked against the tree that student drew on WS6."] },
-          { cells: ["WS10", "Model reads handwriting", "Python rules for the energy-threshold table. Not the Titanic worksheet (WS15)."] },
-          { cells: ["WS13", "Model reads the answers", "Rubric scoring. Log measures are attached only when that student’s log exists."] },
-          { cells: ["WS14", "Model reads the answers", "Rubric for open answers. Python checks that the four counts sum to N and that false positives and false negatives are zero."] },
-          { cells: ["WS15", "Model reads the answers", "Rubric for open answers. Python compares numbers with the Titanic reference, within 0.02."] },
-          { cells: ["WS11", noExtracted.includes("WS11") ? "Not extracted" : "Model reads the answers", "A checker exists for some closed survey items. This worksheet is not treated as a validated response set" + (noExtracted.includes("WS11") ? " because no student answers were extracted." : ".")] },
-          { cells: ["WS12", "Read from the scanned sheet", "Consistency checks. The rubric says there is no single correct tree."] },
+          { cells: ["WS1, WS3, WS4", "The model reads the handwriting.", "Each item is scored against the rubric. Python adds the item scores."] },
+          { cells: ["WS5, WS6, WS7", "The model reads the handwriting.", "Python applies rules from the 11 food cards. WS7 is checked against the tree drawn on WS6."] },
+          { cells: ["WS10", "The model reads the handwriting.", "Python applies rules for the energy-threshold table. This is not the Titanic worksheet (WS15)."] },
+          { cells: ["WS11", noExtracted.includes("WS11") ? "Not extracted" : "The model reads the written answers.", "A checker exists for some closed survey items. This worksheet is not treated as a validated response set" + (noExtracted.includes("WS11") ? " because no student answers were extracted." : ".") ] },
+          { cells: ["WS12", "Responses are read from the scanned sheet.", "Python checks that the written tree is consistent with itself. The rubric does not set one correct tree."] },
+          { cells: ["WS13", "The model reads the written answers.", "Answers are scored with the rubric. Log measures are added only when that student’s log exists."] },
+          { cells: ["WS14", "The model reads the written answers.", "Open answers are scored with the rubric. Python checks the confusion-matrix counts: false positives and false negatives are zero, and the remaining counts account for every case."] },
+          { cells: ["WS15", "The model reads the written answers.", "Open answers are scored with the rubric. Python compares numerical answers with the Titanic reference, within 0.02."] },
         ]) + `<p class="small">For a rubric item, the scorer loads the entry with that item’s ID. It does not search across documents.</p>` + (rawEx ? `<p class="small">Clean-up example: in ${h(rawEx.s)}’s ${h(rawEx.code)}, the raw reading <code>${h(rawEx.d.raw)}</code> was stored as <code>${h(rawEx.d.normalized)}</code>.</p>` : "") + (checkEx ? `<p class="small">WS10 check example: ${h(checkEx.s)} wrote <code>${h(checkEx.v)}</code> for the chosen threshold. Result: ${result(checkEx.chk.correct)}.</p>` : "") + `<p class="small">WS14 and WS15 were split from an earlier combined worksheet. They are checked separately. The survey worksheet WS11 has a checker for some closed items, but the item identifiers in that checker have drifted from the rubric, so it is not treated as a validated response set.</p>`)}
       </section>
 
@@ -707,7 +707,7 @@
             <ul>
               <li>Rubric item scores and pass/fail flags generated per item</li>
               <li>Deterministic Python rules from food card and Titanic reference data</li>
-              <li>WS14 confusion-matrix consistency (four counts sum to N; FP and FN zero)</li>
+              <li>WS14 confusion-matrix consistency (false positives and false negatives are zero; the remaining counts account for every case)</li>
               <li>SHA-256 fingerprints for all source files</li>
               <li>Build-time test script that compares site values with source files</li>
             </ul>
@@ -1222,7 +1222,7 @@
       <ul class="ia-list">
         <li><a href="#/explore/worksheets">Collected worksheets</a><p>Responses, answer keys, and stored scores, labelled by how they were produced.</p></li>
         <li><a href="#/methods">Processing and analysis</a><p>How extraction, checks, and notebook inspection were done.</p></li>
-        <li><a href="#/docs/limitations">Data Quality and Limitations</a><p>Missing files, duplicate recordings, and places where the files disagree with the written method.</p></li>
+        <li><a href="#/docs/limitations">Data Quality and Limitations</a><p>How names, screen previews, and automated labels are handled, and how the site was checked against the source files.</p></li>
       </ul>
     </div>`;
   }
@@ -2082,46 +2082,9 @@
     return Object.entries(DICT).map(([f, [desc, cols]]) => `<section class="dl"><h3><a href="data/${f}" download>${f}</a></h3><p>${h(desc)}</p>${tech("Data dictionary", table([{ t: "Column" }, { t: "Meaning" }], cols.map(([c, m]) => ({ cells: [`<code>${h(c)}</code>`, h(m)] }))))}</section>`).join("");
   }
   function limitationItems() {
-    const dupes = {};
-    allSessions.filter((r) => r.same_video_file_as).forEach((r) => { (dupes[r.student] = dupes[r.student] || []).push(SESS_NAME[r.session]); });
-    const gone = allSessions.filter((r) => r.video_bytes && r.video_on_disk === false);
-    const low = allSessions.filter((r) => r.frame_coverage != null && r.frame_coverage < 0.8);
-    const noOcr = C.worksheets.filter((w) => STUDENTS.every((s) => !C.ws[s][w.code].ocr)).map((w) => w.code);
-    const thr = {};
-    allSessions.forEach((r) => { const v = r.manifest && r.manifest.parameters.motion_threshold_fraction; if (v != null) thr[v] = (thr[v] || 0) + 1; });
-    const zero = [];
-    STUDENTS.forEach((s) => C.worksheets.forEach((w) => { const r = C.ws[s][w.code]; if (r.ocr && r.stage && r.stage.scoring && r.stage.scoring.all_zero_with_zero_confidence) zero.push(`${s} ${w.code}`); }));
-    const epNoVideo = [];
-    STUDENTS.forEach((s) => SESS.forEach((ss) => { if ((C.episodes[s] || {})[ss.id] && !C.sessions[s][ss.id].manifest) epNoVideo.push(`${s} (${SESS_NAME[ss.id]})`); }));
-    const badLen = allSessions.filter((r) => r.video_measured_seconds && r.recording && Math.abs(r.video_measured_seconds - r.recording.duration_seconds) > 60);
-    const missingWs = C.build.missing.filter((m) => /^OCR file/.test(m.what));
-    const missingBy = {};
-    missingWs.forEach((m) => { const mm = /^OCR file (\S+) for (\S+)$/.exec(m.what); if (mm) (missingBy[mm[2]] = missingBy[mm[2]] || []).push(mm[1]); });
-    const tl = C.training_log_meta;
     const L = C.logs;
     const I = (title, what, why, detail) => ({ title, what, why, detail });
     return [
-      ["Missing or duplicated data", [
-        Object.keys(dupes).length && I("Some recordings are the same file", `${Object.entries(dupes).map(([s, l]) => `${h(s)} (${l.map(h).join(", ")})`).join("; ")}: the video files for these sessions are identical.`, "Only one of each group can be the real recording of its day. Behaviour results for these sessions may describe a different day, so comparisons across sessions are unreliable for these students.", "Identical SHA-256 fingerprints in <code>data_sources_2026/MANIFEST.json</code>."),
-        I("Irma and Zara recordings", "Irma’s two CODAP videos are different files. The session 1 frames were extracted from the 21 April file and have no behaviour labels, so they are not included in behaviour shares. Zara’s stored CODAP video is the 21 April file. No session 2 video or frame manifest is published. Frames that had been extracted from that 21 April file under the session 2 name are not shown as a second session.", "Session comparisons use only the recording that belongs to that day. Missing behaviour labels are omitted, not treated as a zero share.", "Video fingerprints in <code>data_sources_2026/MANIFEST.json</code>. Irma session 1 manifest: <code>codap_arbor_21april_audio/Irma/Irma_video_extraction_manifest.json</code>."),
-        gone.length && I("Original videos are not published", `Screen-recording videos are not part of this public archive and are not intended for release. The extracted frames are published on Hugging Face. For ${gone.length} of ${videoFilesListed} listed sessions the source video is not in the local data folder: ${gone.map((r) => `${h(r.student)} (${h(SESS_NAME[r.session])})`).join(", ")}.`, "Those frames cannot be re-extracted from a local video copy. The public record is the frame dataset.", `Listed in <code>MANIFEST.json</code> of ${h(C.inventory.generated_at.slice(0, 10))}. Some processing folders hold re-encoded copies (<code>*.video.webm</code>) of different size.`),
-        low.length && I("Frames cover only part of some videos", `${low.map((r) => `${h(r.student)} (${h(SESS_NAME[r.session])}, ${num(r.frame_coverage * 100)}%)`).join(", ")}.`, "Activity in the later part of these sessions is not represented in the frames.", table([{ t: "Student" }, { t: "Session" }, { t: "Last frame" }, { t: "Length in manifest" }, { t: "Real length" }], low.map((r) => ({ cells: [h(r.student), h(SESS_NAME[r.session]), clock(r.manifest.last_s), r.manifest.profile_duration_seconds ? clock(r.manifest.profile_duration_seconds) : "–", clock(lengthOf(r))] }))) + "<p>The extractor recorded the videos as shorter than they are. WebM files often carry no length in their header.</p>"),
-        noOcr.length && I(`No extracted answers for ${noOcr.join(" and ")}`, "No student answers were extracted for these worksheets.", "These worksheets add no evidence to the analysis.", "Stage files in <code>students/</code> record a failed extraction. No scanned student file for WS11 is in <code>All Documents/</code>. A file named “31 Mart 2026 Çalışma Kâğıdı 12.pdf” exists but was not processed."),
-        WS11_IS_WS14 && I("WS11 extraction files repeat WS14", `For all ${STUDENTS.length} students, every path and value in the WS11 extraction is identical to that student’s WS14 extraction. The WS11 rubric uses different item identifiers.`, "The worksheet page does not present those values as WS11 survey answers. They are shown under WS14.", "Compared from the site data built from <code>students/*/WS11/extraction.json</code> and the WS14 OCR files."),
-        Object.keys(missingBy).length && I("Some worksheets are missing for some students", Object.entries(missingBy).map(([s, l]) => `${h(s)}: ${l.map(h).join(", ")}`).join("; ") + ".", "These students have fewer worksheet data points than others.", missingWs.map((m) => `<code>${h(m.path)}</code>`).join("<br>")),
-        C.notebooks.Marco && !C.notebooks.Marco.file && C.notebooks.Marco.extraction && I("One final project is a report, not a notebook", "Marco submitted a PDF report. The notebook details were taken from it.", "Notebook structure (cells, run order, errors) cannot be measured for this student.", ""),
-      ]],
-      ["Method and data differences", [
-        I("Motion threshold is not the code default", `The extractor default is 0.005. The CODAP manifests store <code>motion_threshold_fraction</code> ${Object.entries(thr).map(([v, n]) => `${h(v)} (${n} sessions)`).join(", ")}, and the speech-enabled runs use that stored value rather than the default.`, "A higher threshold selects fewer frames. The recordings section states the stored values.", "0.005 remains the unused default in <code>scripts/dynamic_video_analytics.py</code>."),
-        I("Video and log are not linked frame by frame", "The 2026 frame-coding files record the alignment as unavailable or do not record it.", "The site cannot show which log action belongs to which frame. Logs are shown separately.", `Training-bundle metadata (${tl.files} files) also says no event log was available, which is out of date: the log CSV files exist.`),
-        I("No written visual evidence per frame", "The study write-up names <code>visual_evidence</code> and <code>confidence_status</code>. The frame files contain yes/no observation flags and <code>analysis_confidence</code> instead. That confidence field is the model’s own rating, not a measured accuracy.", "The evidence shown on this site is the coder's flags, not a written description.", ""),
-        I("Fewer response fields than stated", `The method text mentions 270 response fields. The worksheet schemas define ${num(schemaFields)}.`, "Reported totals should match the schemas.", C.worksheets.map((w) => `${h(w.code)} ${w.fields_in_schema}`).join(", ")),
-        zero.length && I("Stage scores that do not match the answers", `For ${zero.length} student-worksheet pairs the stage score file gives every item 0 points with confidence 0, while the answers exist.`, "Totals taken from these files would understate these students. The site shows the answers and their checks instead.", zero.map(h).join(", ")),
-        badLen.length && I("A recording length in the audio list is wrong", badLen.map((r) => `${h(r.student)} (${h(SESS_NAME[r.session])}): listed as ${num(r.recording.duration_seconds, 1)} s, the video is ${dur(r.video_measured_seconds)}`).join("; ") + ".", "The site uses the length measured from the video.", ""),
-        I("Episode tables use their own categories", "The episode tables use categories such as EXPLORE and MISCONCEPTION, not the nine frame behaviours.", "Episode results and frame results cannot be compared one to one.", epNoVideo.length ? `They also exist for sessions without a recording: ${epNoVideo.map(h).join(", ")}.` : ""),
-        !L.delete_events_present && I("Recovery from errors cannot be measured", "The method describes deleting a tree and rebuilding it. The 2026 logs contain no delete actions.", "This behaviour is absent from the log-based measures.", ""),
-        I("Evidence length rule", "The method text says the evidence quote has at least 10 characters. In the code this minimum applies to the model's reason, not the quote.", "The method description should be corrected.", "<code>worksheet_assessor.py</code>, field <code>llm_rationale</code>."),
-      ]],
       ["Privacy and validation", [
         I("Pseudonyms only", `Log entries typed under a real name were mapped to the pseudonym with the project's official mapping (${num(sum(L.rows_remapped_to_pseudonym.map((x) => x.rows)))} rows). Instructor entries were removed (${num(sum(Object.values(L.rows_excluded_unmatched_by_day)))} rows).`, "No real name appears on the site. The build stops if one does.", "Mapping: <code>scripts/anonymize_student_data.py</code>."),
         I("Screen images are cropped and softened", "The browser tab in the recordings shows students' real names. Previews drop the browser bar and taskbar and are softened until no text can be read.", "Previews show the layout of the screen, not its content.", "Speech transcripts are not shown."),
@@ -2133,7 +2096,7 @@
   function pageLimitations() {
     return `<div class="page">${docShell("limitations", `
       <h1>Data Quality and Limitations</h1>
-      <p class="lead">Where the data are incomplete, duplicated, or differ from the written method, and what that means for the results. Each point is computed from the files. File-level details are in the <a href="#/docs/technical">technical documentation</a>.</p>
+      <p class="lead">How names, screen previews, and automated labels are handled, and how this site was checked against the source files. File-level details are in the <a href="#/docs/technical">technical documentation</a>.</p>
       <nav class="jump" aria-label="On this page">${limitationItems().map(([g], i) => `<a href="#/docs/limitations/note-${i}">${h(g)}</a>`).join("")}</nav>
       ${limitationItems().map(([g, items], i) => `<h2 id="note-${i}">${h(g)}</h2>${items.map((it) => `<section class="lim"><h3>${it.title}</h3><p>${it.what}</p><p class="why"><b>Why it matters.</b> ${it.why}</p>${it.detail ? tech("Details", `<div>${it.detail}</div>`) : ""}</section>`).join("")}`).join("")}`)}</div>`;
   }
@@ -2239,7 +2202,7 @@
     inv.total_bytes = sum(inv.folders.map((f) => f.bytes));
     return `<div class="page wide">${docShell("technical", `
       <h1>Technical documentation</h1>
-      <p class="lead">For researchers who want to trace values back to the project files. How each source was read is in <a href="#/methods">Processing</a>. Where the records are incomplete is in <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
+      <p class="lead">For researchers who want to trace values back to the project files. How each source was read is in <a href="#/methods">Processing</a>. How names and previews are handled is in <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
       <nav class="jump" aria-label="On this page">
         <a href="#/docs/technical/rebuild">Rebuilding the site</a>
         <a href="#/docs/technical/folders">Raw data folders</a>
