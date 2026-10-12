@@ -47,12 +47,20 @@ STUDENTS = C["students"]
 # 1. Participants: only the 15 pseudonyms, no template student.
 check(len(STUDENTS) == 15 and "Sample_Student" not in STUDENTS, "student list")
 
+def extracted_node(src):
+    """OCR files store values under extraction. Later worksheets store them under gate_1_extraction.items."""
+    if isinstance(src, dict) and "extraction" in src:
+        return src["extraction"]
+    if isinstance(src, dict) and isinstance(src.get("gate_1_extraction"), dict):
+        return src["gate_1_extraction"].get("items") or {}
+    return src
+
+
 # 2. Worksheet values: random sample compared with the source JSON.
 rows = list(csv.DictReader(open(SITE / "data" / "worksheet_responses.csv", encoding="utf-8")))
 for r in random.sample(rows, 60):
     src = json.load(open(ROOT / r["source_file"], encoding="utf-8"))
-    node = src.get("extraction", src)
-    ok = True
+    node = extracted_node(src)
     for part in re.findall(r"[^.\[\]]+|\[[^\]]+\]", r["field_path"]):
         if part.startswith("["):
             key = part[1:-1]
@@ -66,6 +74,27 @@ for r in random.sample(rows, 60):
     expect = "" if node is None else str(node)
     check(expect == r["extracted_value"], f"worksheet value {r['student']} {r['worksheet']} {r['field_path']}: {expect!r} != {r['extracted_value']!r}")
 
+def stage_score_correct(scoring_path: Path, item_id: str):
+    """Mirror read_stage_as_ocr: full credit is correct, zero is not, partial is unset."""
+    if not scoring_path.is_file():
+        return "MISSING_FILE"
+    sd = json.loads(scoring_path.read_text(encoding="utf-8"))
+    if sd.get("blocked"):
+        return None
+    for it in sd.get("items") or []:
+        if it.get("item") != item_id:
+            continue
+        score = it.get("score")
+        if score is None:
+            return None
+        if score >= 1.0:
+            return True
+        if score == 0.0:
+            return False
+        return None
+    return "ABSENT"
+
+
 # 3. Item checks shown on the site match the source validation block.
 for s in random.sample(STUDENTS, 8):
     for code, rec in C["ws"][s].items():
@@ -74,10 +103,17 @@ for s in random.sample(STUDENTS, 8):
             continue
         src = json.load(open(ROOT / o["source"], encoding="utf-8"))
         ic = (src.get("validation") or {}).get("item_checks") or {}
+        use_scoring = not ic and "gate_1_extraction" in src
+        scoring_path = (ROOT / o["source"]).with_name("scoring.json")
         for c in o["checks"]:
-            if c["check"].startswith("item_checks."):
-                k = c["check"].split(".", 1)[1]
-                check(ic.get(k, {}).get("is_correct") == c["correct"], f"item check {s} {code} {k}")
+            if not c["check"].startswith("item_checks."):
+                continue
+            k = c["check"].split(".", 1)[1]
+            if use_scoring:
+                expect = stage_score_correct(scoring_path, k)
+            else:
+                expect = ic.get(k, {}).get("is_correct")
+            check(expect == c["correct"], f"item check {s} {code} {k}")
 
 # 4. Frames: counts per session equal manifest frame counts; random rows match manifest + coding.
 by_sess = Counter((f["s"], f["ss"]) for f in F)

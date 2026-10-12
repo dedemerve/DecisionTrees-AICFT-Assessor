@@ -365,7 +365,7 @@
       <p class="kicker">Findings</p>
       <p class="crumbs"><a href="#/">Overview</a><span>/</span><a href="#/findings">Findings</a><span>/</span>Student profiles</p>
       <h1>Student profiles</h1>
-      <p class="profile-intro">Worksheet responses, extracted screen frames, CODAP platform logs, and final Python assignments for ${num(model.people.length)} pseudonymised participants.</p>
+      <p class="profile-intro">Worksheet responses, extracted screen frames, CODAP platform logs, and final Python assignments for ${num(model.people.length)} pseudonymised participants. The worksheet text is the reading the researcher checked against the handwriting. Scores beside that text are rubric or rule results.</p>
       <p>These findings describe the available records. They are not measures of ability or intention.</p>
       <h2>Cohort findings</h2>
       <section class="insight">

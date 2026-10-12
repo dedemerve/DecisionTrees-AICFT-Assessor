@@ -1046,6 +1046,11 @@ table.vq th, table.vq td { white-space: normal; }
   table.vq-stack td { border-bottom: 0; padding: 2px 0; }
   table.vq-stack td::before { content: attr(data-label); display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
 }
+@media (max-width: 800px) {
+  .vq-flow { flex-direction: column; align-items: stretch; }
+  .vq-flow .flow-arr { transform: rotate(90deg); flex-basis: 24px; font-size: 22px; }
+  .vq-flow .flow-node { min-width: 0; }
+}
 details.vq { border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); margin: 10px 0; padding: 0 16px 8px; }
 details.vq > summary { cursor: pointer; font-weight: 600; padding: 14px 28px 14px 0; list-style: none; position: relative; }
 details.vq > summary::-webkit-details-marker { display: none; }
