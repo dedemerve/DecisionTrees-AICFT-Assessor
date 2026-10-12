@@ -2259,7 +2259,7 @@
       <p class="small">When a source has no defensible gold standard or explicit validation calculation, the documentation reports the rule used and the available quality flags rather than inventing an accuracy, sensitivity or misclassification rate.</p>
       <h2 id="rebuild">Reproducibility</h2>
       <p><code>python3 mmla_explorer/build_site_data.py</code> reads the project files and writes the site data. <code>python3 mmla_explorer/test_site_data.py</code> re-reads the sources and compares them with the site. Last build: ${h(C.built_at.replace("T", " "))}.</p>
-      <h2>Raw data folders</h2>
+      <h2 id="inventory">Raw data folders</h2>
       <p>From <code>${h(inv.source)}</code> (${h(inv.generated_at.slice(0, 10))}): ${num(inv.file_count)} files, ${bytes(inv.total_bytes)}. The Python-session screen recordings are left out.</p>
       ${table([{ t: "Folder" }, { t: "Files", num: 1 }, { t: "Size", num: 1 }, { t: "Types" }], inv.folders.map((f) => ({ cells: [`<code>${h(f.folder)}</code>`, num(f.files), bytes(f.bytes), h(Object.entries(f.ext).map(([e, n]) => `${e} ${n}`).join(", "))] })))}
       <h2>Analysis tables per session</h2>
@@ -2269,7 +2269,7 @@
         { cells: ["Episode × code", "<code>*_episode_process_codes.parquet</code>", "Each episode and process code: observed or not, with evidence counts."] },
       ])}
       <p class="small">Location: <code>training_datasets/2026/&lt;student&gt;/&lt;session&gt;/exports/tabular/</code>.</p>
-      <h2>Coverage by student</h2>
+      <h2 id="coverage">Coverage by student</h2>
       ${coverageTable()}
       <p class="small">A tick means a file is stored. A Colab tick is the guided notebook for that session date. A later file is not counted as an earlier session. Notebook is the final homework file. Marco’s final submission is a written report, so that cell is empty.</p>`)}</div>`;
   }
@@ -2393,7 +2393,7 @@
     } else html = `<div class="page"><h1>Page not found</h1><p><a href="#/">Go to the overview</a></p></div>`;
     app.innerHTML = html;
     tip.style.display = "none";
-    const navKey = top === "explore" ? ({ student: "participants", worksheet: "worksheets" }[parts[1]] || parts[1] || "")
+    const navKey = top === "docs" ? (parts[1] === "glossary" ? "glossary" : parts[1] === "limitations" ? "limitations" : "technical") : top === "explore" ? ({ student: "participants", worksheet: "worksheets" }[parts[1]] || parts[1] || "")
       : top === "findings" ? ({ worksheets: "findings-worksheets", recordings: "findings-recordings", frames: "findings-recordings", logs: "findings-logs", notebooks: "findings-notebooks", participants: "participants" }[parts[1]] || "findings")
       : top === "docs" ? (parts[1] || "docs") : top;
     const COLLECTED_DATA_KEYS = new Set(["collected", "worksheets", "recordings", "frames", "logs", "notebooks"]);
