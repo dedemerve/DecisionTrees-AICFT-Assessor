@@ -381,8 +381,7 @@
     return `<div class="page wide home">
       <div class="hero">
         <div class="hero-copy">
-          <p class="kicker">Pre-service teacher education · 2026</p>
-          <h1><span class="hero-line">Documenting How Pre-Service Teachers</span> <span class="hero-line">Learn Decision Trees</span></h1>
+          <h1><span class="hero-line">Documenting the Process of Learning</span> <span class="hero-line">Decision Tree Modeling</span></h1>
           <p class="hero-lead">A research archive of worksheets, screen recordings, platform logs, and notebooks from a decision-tree unit with ${STUDENTS.length} pre-service teachers, shown only by pseudonym.</p>
           <div class="hero-actions">
             <a class="btn-primary" href="https://github.com/dedemerve/DecisionTrees-AICFT-Assessor" target="_blank" rel="noopener">View the code on GitHub</a>
@@ -390,8 +389,7 @@
           </div>
         </div>
         <figure class="hero-visual">
-          <p class="hero-diagram-label">Illustration</p>
-          <svg viewBox="0 0 560 248" role="img" aria-label="Illustration of a decision tree. Fat is the feature. A rule sends the food card down one branch. The leaf is the prediction: recommended or not recommended.">
+          <svg viewBox="0 0 560 248" role="img" aria-label="A decision tree. Fat is the feature. A rule sends the food card down one branch. The leaf is the prediction: recommended or not recommended.">
             <path d="M280 78 V118 H150 V162 M280 118 H410 V162" fill="none" stroke="#2458A6" stroke-width="1.5"/>
             <rect x="168" y="8" width="224" height="70" fill="#172B4D"/>
             <text x="280" y="30" text-anchor="middle" fill="#8FB4E8" font-size="11" font-weight="600">Feature</text>
@@ -756,7 +754,7 @@
       if (o.other_validation.length) t += `<h4>Other validation values</h4>` + table([{ t: "Field" }, { t: "Value" }], o.other_validation.map((v) => ({ cells: [h(fieldLabel(v.path)), h(v.value)] })));
       if (st.scoring) t += `<h4>Stage score file</h4>` + kv([["Total", `${num(st.scoring.total, 2)} of ${num(st.scoring.max, 2)}`], st.scoring.all_zero_with_zero_confidence && ["Note", "All items 0 with confidence 0. This file does not match the answers above."]]) + src(st.scoring.source);
       t += `<h4>Source</h4>` + src(o.source) + (o.raw_source ? src(o.raw_source) : "");
-      body += tech("Technical details", t);
+      body += tech("Technical details for majors", t);
     }
     return `<details class="ws" id="ws-${h(w.code)}"><summary><span class="code">${h(w.code)}</span><span class="t">${h(wsTitle(w))}</span><span class="st">${h(status)}</span></summary><div class="body">${body}</div></details>`;
   }
@@ -807,7 +805,7 @@
     if (sp) t += `<h4>Speech</h4>` + kv([["Status", h(sp.status)], sp.role_counts && ["Speech segments by role", Object.entries(sp.role_counts).map(([k, v]) => `${h(k)} ${num(v)}`).join(", ")]]);
     if (ep && ep.episodes) t += `<h4>Episodes</h4>` + table([{ t: "Episode" }, { t: "Category" }, { t: "From" }, { t: "To" }, { t: "Assistance" }], ep.episodes.map((e) => ({ cells: [h(e.id), h(e.category), clock(e.start_ms / 1000), clock(e.end_ms / 1000), h(e.assistance)] })));
     t += `<h4>Files</h4>` + kv([["Video", r.video_bytes ? `${bytes(r.video_bytes)}, ${lengthSrc(r)}` : "–"]]) + src(r.video_path) + src(m.source) + (cd ? src(cd.source) : "") + (sp ? src(sp.source) : "") + (ep ? src(ep.episodes_source) : "");
-    out += tech("Technical details", t);
+    out += tech("Technical details for majors", t);
     return out + `</section>`;
   }
 
@@ -899,7 +897,7 @@
     }
     if (e) t += (e.data_source_note ? `<p class="orig">${h(e.data_source_note)}</p>` : "") + src(e.source);
     if (n.scoring) t += kv([["Scored by", `<code>${h(n.scoring.scored_by)}</code>`], ["Rubric version", `<code>${h(n.scoring.rubric_version)}</code>`]]) + src(n.scoring.source);
-    return out + tech("Technical details", t) + `<p>${methodLink("notebooks")}</p>`;
+    return out + tech("Technical details for majors", t) + `<p>${methodLink("notebooks")}</p>`;
   }
 
   function pageStudent(s, tab) {
@@ -1814,7 +1812,7 @@
           <a class="btn btn-primary frame-dataset-btn" href="${HF_LOGS}" target="_blank" rel="noopener">Explore the dataset on Hugging Face</a>
         </div>
       </section>
-      ${tech("Technical details", `<div class="log-tech">
+      ${tech("Technical details for majors", `<div class="log-tech">
         <h3>Sessions and dataset overview</h3>
         <p class="log-note">The public platform-log dataset is organized into two CODAP sessions. Each record belongs to one of these sessions, allowing visitors to explore participants' actions across the two activities.</p>
         ${publicSessionTable}
@@ -1867,7 +1865,7 @@
       <h2>Interpretation</h2>
       <p>The table describes recorded interaction with CODAP Arbor. Last accuracy is the accuracy stored on the last model submission in that session. It is not a test score, and it is not evidence that the participant understood the tree.</p>
       <p>${methodLink("logs", "What these measures mean")}</p>
-      ${tech("Technical details", `<p class="log-note">The site data also stores a 7 April 2026 log for some participants. That day is not one of the two published class sessions, so those rows are left out of the counts and the table above.</p>
+      ${tech("Technical details for majors", `<p class="log-note">The site data also stores a 7 April 2026 log for some participants. That day is not one of the two published class sessions, so those rows are left out of the counts and the table above.</p>
         <h3>Actions stored with the log file</h3>
         <p class="log-note">These totals come from every matched row used to build the site log, including the 7 April rows. They are not limited to the two class sessions.</p>
         ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}`)}`;
@@ -1945,7 +1943,7 @@
           <ul class="nb-files">${guidedRows}</ul>
         </div>
       </details>
-      ${tech("Technical details", `<div class="log-tech">
+      ${tech("Technical details for majors", `<div class="log-tech">
         <h3>Guided learning sequence</h3>
         <p class="log-note">The teacher notebook, used in Google Colab, starts with <code>print()</code>, variables, and lists. It then loads the food table, separates measurements from the recommendation label, fits a decision tree, and compares trees of different depths. A <strong>feature</strong> is a column the tree may use. The <strong>target</strong> is the label it is asked to predict. <strong>Training rows</strong> are used to grow the tree. <strong>Test rows</strong> are held back, so the score is not only a memory of the rows used to fit it.</p>
         <h3>Python tools and libraries</h3>
@@ -2194,6 +2192,25 @@
       ${table([{ t: "Turkish" }, { t: "English" }], tr.map(([a, b]) => ({ cells: [`<span class="orig">${h(a)}</span>`, h(b)] })))}
       ${tech("Technical terms", mkTable(techTerms))}`)}</div>`;
   }
+  function coverageTable() {
+    const stages = [["5 May", "Colab 1"], ["12 May", "Colab 2"], ["2 June", "Colab 3"]];
+    const guided = {};
+    ((window.NOTEBOOKS || {}).students || []).forEach((row) => { guided[row.pseudonym] = row.stage; });
+    const tick = (on) => on ? '<span class="yes" title="Stored">✓</span>' : '<span class="na">·</span>';
+    const head = [{ t: "Student" }]
+      .concat(C.worksheets.map((w) => ({ t: w.code })))
+      .concat(SESS.map((s) => ({ t: SESS_NAME[s.id] })))
+      .concat(stages.map((pair) => ({ t: pair[1] })))
+      .concat([{ t: "Notebook" }]);
+    const rows = STUDENTS.map((s) => ({
+      cells: [h(s)]
+        .concat(C.worksheets.map((w) => tick(!!(C.ws[s][w.code] && C.ws[s][w.code].ocr))))
+        .concat(SESS.map((ss) => tick(!!(C.sessions[s][ss.id] && C.sessions[s][ss.id].manifest))))
+        .concat(stages.map((pair) => tick(guided[s] === pair[0])))
+        .concat([tick(!!(C.notebooks[s] && C.notebooks[s].file))]),
+    }));
+    return table(head, rows, { cls: "coverage" });
+  }
   function pageTechnical() {
     const inv = Object.assign({}, C.inventory);
     // The Python-session screen recordings are not part of this archive.
@@ -2216,8 +2233,8 @@
       ])}
       <p class="small">Location: <code>training_datasets/2026/&lt;student&gt;/&lt;session&gt;/exports/tabular/</code>.</p>
       <h2>Coverage by student</h2>
-      ${table([{ t: "Student" }].concat(C.worksheets.map((w) => ({ t: w.code }))).concat(SESS.map((s) => ({ t: SESS_NAME[s.id] }))).concat([{ t: "Notebook" }]),
-        STUDENTS.map((s) => ({ cells: [h(s)].concat(C.worksheets.map((w) => C.ws[s][w.code].ocr ? mark(true) : '<span class="na">·</span>')).concat(SESS.map((ss) => C.sessions[s][ss.id].manifest ? mark(true) : '<span class="na">·</span>')).concat([C.notebooks[s] && C.notebooks[s].file ? mark(true) : '<span class="na">·</span>']) })))}`)}</div>`;
+      ${coverageTable()}
+      <p class="small">A tick means a file is stored. A Colab tick is the guided notebook for that session date. A later file is not counted as an earlier session. Notebook is the final homework file. Marco’s final submission is a written report, so that cell is empty.</p>`)}</div>`;
   }
 
   // ------------------------------------------------------------------ 05 Findings

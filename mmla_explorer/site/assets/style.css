@@ -307,14 +307,6 @@ main:has(.home) { max-width: 1160px; }
     padding: 18px 18px 14px;
   }
 }
-.hero-diagram-label {
-  margin: 0 0 8px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #2458a6;
-}
 .hero-visual svg { width: 100%; height: auto; display: block; }
 .hero-visual svg text { font-family: var(--sans); }
 .hero-visual figcaption {
@@ -384,6 +376,28 @@ a.metric:hover .v { color: var(--blue); }
 
 /* ---------- tables ---------- */
 .table-wrap { overflow-x: auto; margin: 10px 0 18px; }
+table.coverage { width: max-content; min-width: 100%; }
+table.coverage th, table.coverage td { white-space: nowrap; vertical-align: middle; }
+table.coverage th:not(:first-child) {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: left;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 11px;
+  padding: 8px 2px 6px;
+  height: 10.5rem;
+}
+table.coverage td { text-align: center; padding: 3px 7px; }
+table.coverage td:first-child, table.coverage th:first-child {
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  left: 0;
+  background: var(--surface);
+  z-index: 1;
+}
+table.coverage th:first-child { vertical-align: bottom; z-index: 2; padding-bottom: 8px; }
 table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
 th, td { text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
 th { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
