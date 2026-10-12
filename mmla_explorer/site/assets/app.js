@@ -444,6 +444,14 @@
     const params = {};
     allSessions.forEach((r) => { if (r.manifest) Object.entries(r.manifest.parameters).forEach(([k, v]) => { if (v == null) return; params[k] = params[k] || {}; params[k][String(v)] = (params[k][String(v)] || 0) + 1; }); });
     const pv = (k) => Object.entries(params[k] || {}).map(([v, n]) => `${h(v)} <span class="small">(${n} sessions)</span>`).join(", ") || "–";
+    const pvOne = (k) => {
+      const entries = Object.entries(params[k] || {});
+      if (entries.length !== 1) return pv(k);
+      const n = Number(entries[0][0]);
+      if (!Number.isFinite(n)) return h(entries[0][0]);
+      const shown = Number.isInteger(n) ? num(n) : String(n);
+      return h(shown);
+    };
     const tables = { ep: 0, codes: 0 };
     STUDENTS.forEach((s) => Object.values(C.episodes[s] || {}).forEach((e) => { tables.ep += (e.episodes || []).length; tables.codes += e.code_rows || 0; }));
     const linkedFrames = F.filter((f) => f.gx).length;
@@ -452,6 +460,60 @@
     const missingAnswers = noExtracted.length
       ? ` ${noExtracted.map(h).join(" and ")} ${noExtracted.length === 1 ? "has" : "have"} no extracted student answers, so ${noExtracted.length === 1 ? "it is" : "they are"} not scored evidence.`
       : "";
+    const recorded = allSessions.filter((r) => r.manifest);
+    const unrecorded = allSessions.filter((r) => !r.manifest);
+    const slotName = (r) => `${h(r.student)} (${h(SESS_NAME[r.session])})`;
+    const modeCount = (mode) => recorded.filter((r) => r.manifest.extraction_mode === mode);
+    const speechOn = modeCount("full_multimodal");
+    const motionOnly = modeCount("motion_only_fallback");
+    const speechStatus = (status) => recorded.filter((r) => r.speech && r.speech.status === status);
+    const pipeField = (r, key) => {
+      const pipeline = r.speech && r.speech.pipeline;
+      return pipeline && typeof pipeline === "object" ? (pipeline[key] || "") : "";
+    };
+    const asrOf = (r) => pipeField(r, "asr");
+    const fusionSessions = speechStatus("ok").filter((r) => asrOf(r) === "existing_transcript_fusion");
+    const smallAsr = recorded.filter((r) => asrOf(r) === "small");
+    const lexical = recorded.filter((r) => r.speech && r.speech.method === "hybrid_matrix_duration_and_lexical");
+    const postProcessed = recorded.filter((r) => r.coding && r.coding.post_processing);
+    const logCsvUsed = recorded.filter((r) => r.coding && r.coding.log_csv_used);
+    const votatMissing = recorded.filter((r) => !r.votat);
+    const tally = (key) => {
+      const out = {};
+      F.forEach((row) => { if (row[key]) out[row[key]] = (out[row[key]] || 0) + 1; });
+      return Object.entries(out).sort((a, b) => b[1] - a[1]);
+    };
+    const screenCounts = tally("sc");
+    const phaseCounts = tally("ph");
+    const behN = (code) => F.filter((row) => row.b === code).length;
+    const actions = C.logs.action_types || {};
+    const actionNames = Object.keys(actions).sort();
+    const epCats = {};
+    const decisions = {};
+    let epFiles = 0;
+    let epWithoutRecording = 0;
+    let featureFlagsTrue = 0;
+    STUDENTS.forEach((s) => Object.entries(C.episodes[s] || {}).forEach(([sid, e]) => {
+      epFiles += 1;
+      if (!(C.sessions[s][sid] && C.sessions[s][sid].manifest)) epWithoutRecording += 1;
+      (e.episodes || []).forEach((ep) => { if (ep.category) epCats[ep.category] = (epCats[ep.category] || 0) + 1; });
+      Object.entries(e.code_decisions || {}).forEach(([k, n]) => { decisions[k] = (decisions[k] || 0) + n; });
+      featureFlagsTrue += (e.features_true || []).length;
+    }));
+    const resolutions = {};
+    recorded.forEach((r) => {
+      const res = r.manifest.native_resolution;
+      const key = Array.isArray(res) ? res.join("×") : "not stored";
+      resolutions[key] = (resolutions[key] || 0) + 1;
+    });
+    const resolutionText = Object.entries(resolutions).map(([k, n]) => `${h(k)} (${num(n)} manifests)`).join(", ");
+    const dupeNames = recorded.filter((r) => r.same_video_file_as).map(slotName);
+    const linkMethods = {};
+    F.forEach((row) => {
+      const method = row.gx && row.gx.method;
+      if (method) linkMethods[method] = (linkMethods[method] || 0) + 1;
+    });
+    const linkMethodText = Object.entries(linkMethods).map(([k, n]) => `<code>${h(k)}</code> (${num(n)})`).join(", ") || "none stored";
 
     const STAGE_PANELS = [
       { id: "collect", num: 1, title: "Collect", summary: "Gather all sources",
@@ -546,28 +608,50 @@
 
       <section class="method-block" id="m-recordings">
         <h2>Screen recordings</h2>
-        <p>Students recorded their screens during CODAP Arbor sessions. The manifests list ${num(F.length)} frames, of which ${num(codedFrameCount)} have a behaviour label.</p>
-        <div class="method-flow" aria-label="Recording processing pipeline" role="img">
+        <p>Students’ CODAP Arbor screens were recorded under pseudonyms. This archive has a frame manifest for ${num(recorded.length)} of ${num(allSessions.length)} session slots. ${num(unrecorded.length)} slots have no manifest: ${unrecorded.map(slotName).join(", ")}. The inventory of source files lists these recordings as <code>.webm</code>. Every stored manifest gives the picture size as ${resolutionText}. The recorder program is not in this repository, so its codec settings, and whether each file is an uninterrupted session, are not verified here.</p>
+        <div class="method-flow" aria-label="Implemented recording pipeline. Speech processing, frame selection, and behaviour coding are stored. A frame-level join to the log is not." role="img">
           <div class="flow-node flow-node--accent">Screen<br>recording</div>
           <div class="flow-arr" aria-hidden="true">→</div>
-          <div class="flow-node">Frame<br>selection</div>
+          <div class="flow-node">Speech and<br>frame selection</div>
           <div class="flow-arr" aria-hidden="true">→</div>
           <div class="flow-node">Behaviour<br>coding</div>
           <div class="flow-arr" aria-hidden="true">→</div>
-          <div class="flow-node flow-node--output">Coded<br>evidence</div>
+          <div class="flow-node flow-node--output">Stored<br>labels</div>
         </div>
-        <p>The extracted frames, including the previews stored on this site, are listed under <a href="#/explore/recordings">Screen recording frames</a>. That page is the data. The definitions of the nine behaviour codes are below. Counts of those codes, with the listed frames as the denominator, are on the <a href="#/findings/recordings">screen recording findings</a> page. A count is the number of coded frames. It is not time spent, and it is not a measure of understanding.</p>
-        <p>The pipeline keeps a frame when the screen changes enough, when someone is speaking, or when nothing has been captured for a while, and drops near-duplicates. Where a recording has usable speech, that speech is transcribed. Recordings without usable speech are marked.</p>
-        <p>Each kept frame receives one label from a nine-code codebook developed after earlier human coding. The labels describe visible activity: working with data or the tree, judging the model, or idle and off-task states. When two labels could fit, building a tree takes precedence.</p>
-        <p>A frame shows one moment of visible activity. It does not show what the student was thinking. ${num(linkedFrames)} frames are matched to researcher observation steps by time order — automatically and without per-frame verification. Episode categories in the session tables are not the nine behaviour labels.</p>
-        <h3>Behaviour codebook</h3>
-        <p>Nine codes, developed after earlier human coding. When two labels could fit, building a tree takes precedence. These descriptions name visible activity. They are not new codes.</p>
+        <p>Three stages are stored: speech processing where a transcript exists, frame selection, and a behaviour label on the kept frames. A fourth stage, matching each log event to a frame, is described in the study method. The frame files do not contain that join. ${dupeNames.length ? `Some videos are the same file: ${dupeNames.join("; ")}. Only one file in each pair can be the recording of its day.` : ""} Frames and counts are listed under <a href="#/explore/recordings">Screen recording frames</a>. Counts of the nine labels, with labelled frames as the denominator, are on the <a href="#/findings/recordings">screen recording findings</a> page.</p>
+
+        <h3>Speech</h3>
+        <p>${num(speechStatus("ok").length)} of the ${num(recorded.length)} recordings store a usable transcript. ${fusionSessions.length ? `${num(fusionSessions.length)} of those store speaker grouping as <code>${h(pipeField(fusionSessions[0], "diarization") || "not stored")}</code> and speech-to-text as <code>existing_transcript_fusion</code>: the words were joined to a transcript already on file. Whisper was not run on every recording.` : ""} ${lexical.length ? `${num(lexical.length)} files label speakers with <code>hybrid_matrix_duration_and_lexical</code>, a duration and word-pattern heuristic. The archive does not store a speaker-identification accuracy for that heuristic.` : ""}</p>
+        <p>${num(speechStatus("no_speech").length)} recordings are marked <code>no_speech</code>. ${smallAsr.length ? `${smallAsr.map(slotName).join(", ")} ${smallAsr.length === 1 ? "is" : "are"} marked as a speech-enabled run, with speech-to-text field <code>small</code>, speech status <code>no_speech</code>, and ${smallAsr.map((r) => num((r.manifest.summary || {}).speech_anchor_count || 0)).join(", ")} speech anchor${smallAsr.length === 1 && ((smallAsr[0].manifest.summary || {}).speech_anchor_count || 0) === 1 ? "" : "s"}.` : ""} The frame-analysis files do not contain <code>argumentation_score</code>.</p>
+
+        <h3>How a frame was kept</h3>
+        <p>Motion is the share of pixels that still differ after each frame is turned to grayscale, narrowed to 960 pixels wide when the recording is wider, blurred with a 5×5 Gaussian kernel, and compared with the previous frame by Otsu’s threshold. It is not a raw pixel-difference ratio. The code default is 0.005. Every manifest stores <code>motion_threshold_fraction</code> ${pvOne("motion_threshold_fraction")} and <code>silent_motion_threshold</code> ${pvOne("silent_motion_threshold")}. The extractor uses ${pvOne("motion_threshold_fraction")} on the ${num(speechOn.length)} speech-enabled sessions and ${pvOne("silent_motion_threshold")} on the ${num(motionOnly.length)} <code>motion_only_fallback</code> sessions.</p>
+        <p>If no frame has been kept for ${pvOne("codap_gap_fill_seconds")} seconds, one is saved anyway. The trigger is <code>codap_static_gap_fill</code> on a speech-enabled run and <code>silent_screen_gap_fill</code> on a motion-only run. A speech anchor more than ${pvOne("speech_gap_bypass_seconds")} seconds after the previous kept frame bypasses the duplicate filter. That bypass is not its own trigger. Every manifest also stores a cooldown of ${pvOne("cooldown_ms")} milliseconds and perceptual-hash duplicate removal at threshold ${pvOne("phash_threshold")}. The frame files do not record a check that each log action appears in a picture, or a later re-extraction when a picture was missing.${logCsvUsed.length ? "" : " No coding file records that a log CSV was used while the frames were labelled."}</p>
+
+        <h3>Behaviour labels</h3>
+        <p>${num(F.length)} frames are listed and ${num(codedFrameCount)} have a behaviour label. The nine codes below were developed from earlier human coding and then given to the model as a closed list. They name visible activity. They are not a measure of what the student understood, and a count of frames is not time spent. The coding prompt tells the model to prefer building a tree when two labels could fit. The stored counts do not follow that expectation: building a tree is on ${num(behN("BUILD_TREE"))} frames and comparing models is on ${num(behN("COMPARE_MODELS"))}. ${postProcessed.length ? `${num(postProcessed.length)} coding files record a later rule-based change to the label, including a rule that replaces EVALUATE_MODEL with COMPARE_MODELS when an iterative-refinement flag is set. The stored label is not always the model’s first output.` : ""}</p>
         <div class="code-grid">${BEHAV.map((b) => `<article class="code-card"><h3><span class="sw" style="background:var(${b[3]})"></span> ${h(b[1])}</h3><p><code>${h(b[0])}</code>. ${h(b[2])}.</p></article>`).join("")}</div>
-        ${tech("How a frame was selected", `<p class="small">The session tables contain ${num(tables.ep)} episodes and ${num(tables.codes)} episode-by-code rows. Those categories are not the nine behaviour labels.</p>` + kv([
-          ["Share of the screen that must change", pv("motion_threshold_fraction")],
-          ["Same threshold in silent recordings", pv("silent_motion_threshold")],
-          ["Forced frame after a gap (seconds)", pv("codap_gap_fill_seconds")],
-          ["Forced frame after a speech gap (seconds)", pv("speech_gap_bypass_seconds")],
+        <p><code>SELECT_TARGET</code> is stored on ${num(behN("SELECT_TARGET"))} frames. The log contains ${num(actions.set_dependent_variable || 0)} <code>set_dependent_variable</code> events. A zero frame count does not show that students never chose a target. The prompt tells the model not to use <code>SELECT_TARGET</code> for an empty prediction box.</p>
+        <p>The prompt allows the screen contexts TREE, GRAPH, TABLE, MIXED, and MENU. The stored frames use ${screenCounts.map(([k, n]) => `<code>${h(k)}</code> (${num(n)})`).join(", ")}. ${["GRAPH", "TABLE"].filter((k) => !screenCounts.some(([name]) => name === k)).length ? `${["GRAPH", "TABLE"].filter((k) => !screenCounts.some(([name]) => name === k)).map((k) => `<code>${h(k)}</code>`).join(" and ")} ${["GRAPH", "TABLE"].filter((k) => !screenCounts.some(([name]) => name === k)).length === 1 ? "does" : "do"} not appear.` : ""} <code>deepen_phase</code> is a label the model wrote beside the behaviour. It is not a validated stage of learning. Stored phases: ${phaseCounts.map(([k, n]) => `${h(k)} ${num(n)}`).join(", ")}.</p>
+        <p><code>analysis_confidence</code> is the model’s own rating of that label. It is not classification accuracy. This archive does not contain a 2026 frame-by-frame human sign-off, a gold-standard accuracy, or a kappa coefficient. The codebook’s origin in earlier human coding is not a reliability result for this cohort.</p>
+
+        <h3>Logs are separate</h3>
+        <p>${num(linkedFrames)} frames link to a researcher observation step. The stored link methods are ${linkMethodText}. The heuristic places researcher steps in order across the frames. The files do not record a person checking each link. Those links are not log events. The frame files do not contain <code>synchronized_log_event</code>, a T1 or T2 evidence tier, or a nearest-frame match to a log event.</p>
+        <p>The 2026 log contains ${num(actionNames.length)} action names: ${actionNames.map((name) => `<code>${h(name)}</code>`).join(", ")}. <code>change_dataset</code> is not one of them, so these logs do not record a dataset switch under that name. Between two consecutive <code>emit_tree_data</code> events, an interval counts as one-thing-at-a-time when the events between them include <code>drop_attribute</code> or <code>change_split_values</code>, but not both. The rate is the number of those intervals divided by the number of intervals, rounded to three decimals. Fewer than two emits makes the script return 0.0, and this site does not show that return value when no rate file is stored. ${votatMissing.length ? `No rate file is stored for ${votatMissing.map(slotName).join(" and ")}.` : "A rate file is stored for every session that has a manifest."} The rate describes the log. It does not prove a planned experiment.</p>
+        <p>${C.logs.delete_events_present ? "Delete actions are present in the 2026 log." : "The 2026 log has no delete action, so recovery by deleting a tree and then choosing a different predictor cannot be calculated."} ${actions.refresh_tree ? `<code>refresh_tree</code> occurs ${num(actions.refresh_tree)} times. That action is not the missing deletion sequence.` : ""} The absence of a logged deletion does not show that a student never recovered outside the log.</p>
+
+        <h3>Exported session tables</h3>
+        <p>The pipeline also wrote three tables per session folder: session features, episodes, and episode process codes. ${num(epFiles)} CODAP session folders have those tables, including ${num(epWithoutRecording)} folders with no recording. The ${num(tables.ep)} episodes use ${Object.entries(epCats).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${h(k)} (${num(n)})`).join(", ")}. Those categories are not the nine frame labels. Of the process-code rows, ${Object.entries(decisions).map(([k, n]) => `${num(n)} are <code>${h(k)}</code>`).join(", ") || "none are stored"}. ${featureFlagsTrue ? "" : "No session-feature flag whose name ends in <code>_present</code> is stored as true. "}These tables are not validated screen-recording results, and a row marked not observed is not evidence that the behaviour was seen.</p>
+        <p>A frame is one visible moment. It is not elapsed time, and it is not a log event. ${dupeNames.length ? "Duplicate video files make session comparisons unreliable for those students. " : ""}Missing recordings are omitted rather than treated as empty sessions. Further limits are on <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
+        ${tech("Technical details for majors", `<p class="small">Thresholds below are the values stored on the manifests, not the 0.005 default in <code>scripts/dynamic_video_analytics.py</code>. Motion uses <code>motion_change_fraction</code>: Otsu’s threshold on a blurred grayscale preview.</p>` + kv([
+          ["Speech-enabled sessions", `${num(speechOn.length)} at 0.012`],
+          ["Motion-only sessions", `${num(motionOnly.length)} at 0.008`],
+          ["motion_threshold_fraction stored", pv("motion_threshold_fraction")],
+          ["silent_motion_threshold stored", pv("silent_motion_threshold")],
+          ["Gap fill (seconds)", pv("codap_gap_fill_seconds")],
+          ["Speech-anchor duplicate bypass (seconds)", pv("speech_gap_bypass_seconds")],
+          ["Cooldown (milliseconds)", pv("cooldown_ms")],
+          ["Perceptual-hash threshold", pv("phash_threshold")],
         ]) + hbars(trigTotals, (k) => (TRIGGERS[k] || k).replace(/\.$/, ""), (k, v) => `<code>${h(k)}</code><br>${num(v)} frames`))}
       </section>
 
@@ -2002,9 +2086,9 @@
         C.notebooks.Marco && !C.notebooks.Marco.file && C.notebooks.Marco.extraction && I("One final project is a report, not a notebook", "Marco submitted a PDF report. The notebook details were taken from it.", "Notebook structure (cells, run order, errors) cannot be measured for this student.", ""),
       ]],
       ["Method and data differences", [
-        I("Motion threshold differs from the written method", `The method text gives 0.005. The CODAP extraction files record ${Object.entries(thr).map(([v, n]) => `${h(v)} (${n} sessions)`).join(", ")}.`, "A higher threshold selects fewer frames. The method description should state the value actually used.", "0.005 is the code default in <code>scripts/dynamic_video_analytics.py</code>."),
+        I("Motion threshold is not the code default", `The extractor default is 0.005. The CODAP manifests store <code>motion_threshold_fraction</code> ${Object.entries(thr).map(([v, n]) => `${h(v)} (${n} sessions)`).join(", ")}, and the speech-enabled runs use that stored value rather than the default.`, "A higher threshold selects fewer frames. The recordings section states the stored values.", "0.005 remains the unused default in <code>scripts/dynamic_video_analytics.py</code>."),
         I("Video and log are not linked frame by frame", "The 2026 frame-coding files record the alignment as unavailable or do not record it.", "The site cannot show which log action belongs to which frame. Logs are shown separately.", `Training-bundle metadata (${tl.files} files) also says no event log was available, which is out of date: the log CSV files exist.`),
-        I("No written visual evidence per frame", "The method text names <code>visual_evidence</code> and <code>confidence_status</code>. The files contain yes/no observation flags and <code>analysis_confidence</code> instead.", "The evidence shown on this site is the coder's flags, not a written description.", ""),
+        I("No written visual evidence per frame", "The study write-up names <code>visual_evidence</code> and <code>confidence_status</code>. The frame files contain yes/no observation flags and <code>analysis_confidence</code> instead. That confidence field is the model’s own rating, not a measured accuracy.", "The evidence shown on this site is the coder's flags, not a written description.", ""),
         I("Fewer response fields than stated", `The method text mentions 270 response fields. The worksheet schemas define ${num(schemaFields)}.`, "Reported totals should match the schemas.", C.worksheets.map((w) => `${h(w.code)} ${w.fields_in_schema}`).join(", ")),
         zero.length && I("Stage scores that do not match the answers", `For ${zero.length} student-worksheet pairs the stage score file gives every item 0 points with confidence 0, while the answers exist.`, "Totals taken from these files would understate these students. The site shows the answers and their checks instead.", zero.map(h).join(", ")),
         badLen.length && I("A recording length in the audio list is wrong", badLen.map((r) => `${h(r.student)} (${h(SESS_NAME[r.session])}): listed as ${num(r.recording.duration_seconds, 1)} s, the video is ${dur(r.video_measured_seconds)}`).join("; ") + ".", "The site uses the length measured from the video.", ""),
