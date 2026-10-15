@@ -2328,20 +2328,15 @@
       ${tech("Technical terms", mkTable(techTerms))}`)}</div>`;
   }
   function coverageTable() {
-    const stages = [["5 May", "Colab 1"], ["12 May", "Colab 2"], ["2 June", "Colab 3"]];
-    const guided = {};
-    ((window.NOTEBOOKS || {}).students || []).forEach((row) => { guided[row.pseudonym] = row.stage; });
     const tick = (on) => on ? '<span class="yes" title="Stored">✓</span>' : '<span class="na">·</span>';
     const head = [{ t: "Student" }]
       .concat(C.worksheets.map((w) => ({ t: w.code })))
       .concat(SESS.map((s) => ({ t: SESS_NAME[s.id] })))
-      .concat(stages.map((pair) => ({ t: pair[1] })))
       .concat([{ t: "Notebook" }]);
     const rows = STUDENTS.map((s) => ({
       cells: [h(s)]
         .concat(C.worksheets.map((w) => tick(!!(C.ws[s][w.code] && C.ws[s][w.code].ocr))))
         .concat(SESS.map((ss) => tick(!!(C.sessions[s][ss.id] && C.sessions[s][ss.id].manifest))))
-        .concat(stages.map((pair) => tick(guided[s] === pair[0])))
         .concat([tick(!!(C.notebooks[s] && C.notebooks[s].file))]),
     }));
     return table(head, rows, { cls: "coverage" });
@@ -2383,7 +2378,7 @@
       <p>The class datasets (food data, Xeno, Titanic and the lizard data) are not stored as separate files in the project folder. The food data exists only inside the students' saved CODAP documents, and those copies differ because students filtered or edited cases. They are therefore not offered here as a single download.</p>
       <h2 id="coverage">Coverage by student</h2>
       ${coverageTable()}
-      <p class="small">A tick means a file is stored. A Colab tick is the guided notebook for that session date. A later file is not counted as an earlier session. Notebook is the final homework file. Marco’s final submission is a written report, so that cell is empty.</p>
+      <p class="small">A tick means a file is stored. Notebook is the final homework file. Marco’s final submission is a written report, so that cell is empty.</p>
       <h2 id="access">Access</h2>
       <p>All tables use pseudonyms only. They still contain student work, so sharing beyond the research team should follow the project's data protection rules (<code>DATA_PROTECTION.md</code> in the repository). The original Parquet tables stay in the repository and are described in the <a href="#/docs/technical">technical documentation</a>.</p>`)}</div>`;
   }
