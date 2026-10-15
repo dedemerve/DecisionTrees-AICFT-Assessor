@@ -51,7 +51,6 @@ WORKSHEETS = [
     {"code": "WS6", "key": "WS6", "ocr": "Worksheet6", "raw": "31_mart_2026_çalışma_kâğıdı_6_raw.json"},
     {"code": "WS7", "key": "WS7", "ocr": "Worksheet7", "raw": "31_mart_2026_çalışma_kâğıdı_7_raw.json"},
     {"code": "WS10", "key": "WS10", "ocr": "Worksheet10", "raw": None},
-    {"code": "WS11", "key": "WS11", "ocr": None, "raw": None, "stage_ocr": True},
     {"code": "WS12", "key": "WS12", "ocr": None, "raw": None, "stage_ocr": True},
     {"code": "WS13", "key": "WS13", "ocr": None, "raw": None, "stage_ocr": True},
     {"code": "WS14", "key": "WS14", "ocr": "Worksheet_Xeno", "raw": None},

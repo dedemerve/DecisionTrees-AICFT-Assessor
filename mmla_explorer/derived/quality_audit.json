@@ -9,7 +9,7 @@
   "worksheets": {
     "question": "For each worksheet's own check, how many stored item scores are full credit, partial, or no credit?",
     "unit": "scored item in a student worksheet file that has an extraction",
-    "inclusion": "15 pseudonyms. Sample_Student excluded. WS11 excluded from score counts because its extraction repeats WS14 and its score file is unused. A scoring file without an extraction is not counted as a response.",
+    "inclusion": "15 pseudonyms. Sample_Student excluded. A scoring file without an extraction is not counted as a response.",
     "researcher_verification": {
       "task": "Record-by-record comparison of extracted worksheet responses with the original handwriting.",
       "scope": "Extraction fidelity only. Not conceptual correctness, not rubric accuracy, and not every later automated score.",
@@ -47,11 +47,6 @@
           "rationale": "Threshold value in grid (protein <= 2.0) but worst trial (5 errors). Rubric 0.5: non-minimum grid threshold."
         }
       ]
-    },
-    "ws11_vs_ws14_stage_files": {
-      "compared": 15,
-      "equal": 9,
-      "note": "This compares students/WS11/extraction.json with students/WS14/extraction.json. The website's WS14 page uses the OCR file, not that stage file. The website's own WS11 and WS14 response tables match for every participant."
     },
     "by_worksheet": [
       {
@@ -149,20 +144,6 @@
         "no_credit": 7,
         "unavailable": 0,
         "scored_items": 104,
-        "blank_or_illegible_fields": null,
-        "blank_coverage_files": 0
-      },
-      {
-        "worksheet": "WS11",
-        "family": "not_used",
-        "students_with_extraction": 15,
-        "students_missing_extraction": 0,
-        "students_in_score_summary": 0,
-        "full_credit": 0,
-        "partial": 0,
-        "no_credit": 0,
-        "unavailable": 0,
-        "scored_items": 0,
         "blank_or_illegible_fields": null,
         "blank_coverage_files": 0
       },

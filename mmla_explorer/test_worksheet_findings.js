@@ -29,7 +29,7 @@ const extra = context.SCORE_EXTRA || { notes: {}, status: {} };
 const docs = context.WORKSHEET_DOCS || { worksheets: {}, overrides: [] };
 const WF = context.WorksheetFindings;
 const all = WF.analyze(core, extra, docs);
-const codes = ["WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS11", "WS12", "WS13", "WS14", "WS15"];
+const codes = ["WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS12", "WS13", "WS14", "WS15"];
 let failed = 0;
 function check(cond, msg) {
   if (!cond) {
@@ -57,16 +57,9 @@ codes.forEach((code) => {
   const html = WF.page(code, {});
   check(html.indexOf("<h1>" + code) !== -1, code + " page heading");
   check(html.indexOf("#/findings/worksheets") !== -1, code + " returns to findings");
-  if (code !== "WS11") {
-    check(html.indexOf('href="#/explore/worksheet/' + code + '"') !== -1, code + " links to collected files without replacing the page");
-    check(html.indexOf('id="participants"') !== -1, code + " participant section");
-    check(html.indexOf('id="items"') !== -1, code + " item section");
-  } else {
-    check(model.cohort.length === 0, "WS11 has no score summary");
-    check(model.duplicateOf === "WS14", "WS11 duplicates WS14");
-    check(html.indexOf("not used as scored evidence") !== -1, "WS11 states it is not scored evidence");
-    check(html.indexOf("No credit") === -1, "WS11 does not present credit counts");
-  }
+  check(html.indexOf('href="#/explore/worksheet/' + code + '"') !== -1, code + " links to collected files without replacing the page");
+  check(html.indexOf('id="participants"') !== -1, code + " participant section");
+  check(html.indexOf('id="items"') !== -1, code + " item section");
   model.items.forEach((it) => {
     check(it.full + it.partial + it.none + it.scored === it.denom, code + " " + it.id + " credit parts sum to the denominator");
   });

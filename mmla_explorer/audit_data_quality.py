@@ -20,7 +20,7 @@ STUDENTS = [
     "Melinda", "Nadia", "Serena", "Shana", "Sheila", "Ulysses", "Zara",
 ]
 WORKSHEETS = [
-    "WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS11", "WS12", "WS13", "WS14", "WS15",
+    "WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS12", "WS13", "WS14", "WS15",
 ]
 # Check family follows the worksheet's own scoring design. It is not a shared construct.
 FAMILY = {
@@ -31,7 +31,6 @@ FAMILY = {
     "WS6": "rule",
     "WS7": "rule",
     "WS10": "rule",
-    "WS11": "not_used",
     "WS12": "consistency",
     "WS13": "rubric",
     "WS14": "mixed",
@@ -53,7 +52,6 @@ FAMILY_NOTE = {
     "rule": "Item scores come from a fixed rule. Full credit means the stored rule score is 1 or higher.",
     "mixed": "The worksheet uses both rubric items and rule checks. Full credit is the stored score, not one shared construct.",
     "consistency": "Full credit means the written tree is consistent with itself. There is no single correct tree.",
-    "not_used": "WS11 extractions repeat WS14. The zero-confidence WS11 score files are not used as results.",
 }
 SESSIONS = [
     ("codap_21apr", "CODAP session 1", "2026-04-21", "codap_arbor_21april_audio"),
@@ -125,8 +123,6 @@ def worksheet_audit():
     docs = json.loads(raw.split("=", 1)[1].rstrip().rstrip(";"))
     overrides = docs.get("overrides") or []
     rows = []
-    ws11_match = 0
-    ws11_compared = 0
     for student in STUDENTS:
         for code in WORKSHEETS:
             ext_path = ROOT / "students" / student / code / "extraction.json"
@@ -145,15 +141,7 @@ def worksheet_audit():
                 "items": Counter(),
                 "blank_or_illegible": None,
             }
-            if code == "WS11" and has_ext:
-                other = ROOT / "students" / student / "WS14" / "extraction.json"
-                if other.is_file():
-                    ws11_compared += 1
-                    a = flatten_items(load_json(ext_path).get("gate_1_extraction") or load_json(ext_path))
-                    b = flatten_items(load_json(other).get("gate_1_extraction") or load_json(other))
-                    if a == b:
-                        ws11_match += 1
-            if not published or code == "WS11":
+            if not published:
                 rows.append(rec)
                 continue
             if not has_score:
@@ -216,7 +204,7 @@ def worksheet_audit():
     return {
         "question": "For each worksheet's own check, how many stored item scores are full credit, partial, or no credit?",
         "unit": "scored item in a student worksheet file that has an extraction",
-        "inclusion": "15 pseudonyms. Sample_Student excluded. WS11 excluded from score counts because its extraction repeats WS14 and its score file is unused. A scoring file without an extraction is not counted as a response.",
+        "inclusion": "15 pseudonyms. Sample_Student excluded. A scoring file without an extraction is not counted as a response.",
         "researcher_verification": {
             "task": "Record-by-record comparison of extracted worksheet responses with the original handwriting.",
             "scope": "Extraction fidelity only. Not conceptual correctness, not rubric accuracy, and not every later automated score.",
@@ -227,8 +215,6 @@ def worksheet_audit():
                 for o in overrides
             ],
         },
-        "ws11_vs_ws14_stage_files": {"compared": ws11_compared, "equal": ws11_match,
-            "note": "This compares students/WS11/extraction.json with students/WS14/extraction.json. The website's WS14 page uses the OCR file, not that stage file. The website's own WS11 and WS14 response tables match for every participant."},
         "by_worksheet": by_ws,
         "by_family": by_family,
     }
@@ -611,7 +597,6 @@ def main():
     # Compact payload for the page. Omit long rationale text duplicates by keeping overrides.
     SITE_JS.write_text("window.QUALITY_AUDIT = " + json.dumps(audit, separators=(",", ":")) + ";\n", encoding="utf-8")
     print("wrote", OUT_DIR / "quality_audit.json")
-    print("ws11", worksheets["ws11_vs_ws14_stage_files"])
     print("frames", frames["integrity"])
     print("unknown triggers", frames["selection_algorithm"]["triggers_outside_documented_set"])
     print("param mismatches", len(frames["selection_algorithm"]["parameter_mismatches"]))
