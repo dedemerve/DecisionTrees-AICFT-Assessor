@@ -40,7 +40,7 @@
   const STUDENTS = C.students;
   const SESS = C.sessions_meta;
   // Short session names used throughout. The date is shown once, in the session detail.
-  const SESS_NAME = { codap_21apr: "CODAP session 1", codap_28apr: "CODAP session 2" };
+  const SESS_NAME = { codap_21apr: "CODAP 1", codap_28apr: "CODAP 2" };
   const SESS_DATE = { codap_21apr: "21 April 2026", codap_28apr: "28 April 2026" };
 
   // Titles come from the answer-key PDFs; dates from the file names of the scanned student PDFs.
