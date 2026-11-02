@@ -1624,8 +1624,9 @@
     ["Vegan Salam", "345", "33", "23", "5.8", "1.6", "5.7", "1.6", "Tavsiye edilemez"]
   ];
   function foodTable(rows) {
-    const head = `<tr>${FOOD_HEADERS.map((c) => `<th>${h(c)}</th>`).join("")}</tr>`;
-    const body = rows.map((r) => `<tr>${r.map((c) => `<td>${h(c)}</td>`).join("")}</tr>`).join("");
+    const NUM = new Set([1, 2, 3, 4, 5, 6, 7]); // numeric cols: all except name (0) and label (8)
+    const head = `<tr>${FOOD_HEADERS.map((c, i) => `<th${NUM.has(i) ? ' class="num"' : ""}>${h(c)}</th>`).join("")}</tr>`;
+    const body = rows.map((r) => `<tr>${r.map((c, i) => `<td${NUM.has(i) ? ' class="num"' : ""}>${h(c)}</td>`).join("")}</tr>`).join("");
     return `<div class="table-wrap"><table class="food-table"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
   }
   function foodDownload(href, title, size) {
