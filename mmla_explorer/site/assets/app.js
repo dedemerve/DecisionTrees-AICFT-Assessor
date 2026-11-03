@@ -1662,6 +1662,7 @@
       .then((r) => r.ok ? r.json() : Promise.reject(r.status))
       .then(({ headers, rows }) => {
         if (!rows.length) { el.innerHTML = `<p class="small muted">No labeling data for this worksheet.</p>`; return; }
+        rows = rows.slice().sort((a, b) => (a[0] || "").localeCompare(b[0] || "", "tr"));
         const skipCols = new Set();
         headers.forEach((h, i) => { if (!h || h === "Cohort") skipCols.add(i); });
         const visHeaders = headers.map((h, i) => skipCols.has(i) ? null : h).filter(Boolean);

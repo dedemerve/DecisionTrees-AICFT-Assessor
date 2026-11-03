@@ -1,6 +1,5 @@
 {
   "headers": [
-    "Cohort",
     "Student Name",
     "Blank 1 Alternative Threshold Placement",
     "Blank 2 Misclassification Identification",
@@ -12,62 +11,6 @@
   ],
   "rows": [
     [
-      "2026",
-      "Sheila",
-      "3,5 | 3.5 | A thick vertical line is drawn between avokado and patates kızartması cards, with '(3,5)' written above in the margin near kraker/avokado boundary.",
-      "none_detected | []",
-      "Hata 2'ye düşer",
-      "True | Evet hata oranı yüksek",
-      "161 | 161.0",
-      "",
-      ""
-    ],
-    [
-      "2026",
-      "Marco",
-      "—",
-      "—",
-      "—",
-      "—",
-      "—",
-      "",
-      ""
-    ],
-    [
-      "2026",
-      "Iris",
-      "arrow pointing between avokado and patates kızartması | 13.5 | A vertical line is drawn between the avokado (13g) card and the patates kızartması (14g) card, with an arrow pointing to this line.",
-      "text | [] | kraker, yulaf, avokado, jelibon | ['kraker', 'yulaf', 'avokado', 'jelibon']",
-      "(no separate written explanation beyond the arrow/line placement)",
-      "True | Evet, haklı | ahududu ve avokado arası",
-      "200 | 200.0",
-      "",
-      ""
-    ],
-    [
-      "2026",
-      "Marcus",
-      "13,5 | 13.5 | Avokado (13g) ile patates kızartması (14g) arasına dikey bir çizgi çizilmiş ve yanına '13,5' yazılmış.",
-      "circle | ['jelibon', 'kraker', 'yulaf', 'avokado'] | ['jelibon', 'kraker', 'yulaf', 'avokado']",
-      "4 den 2 hataya düşürüldü",
-      "(Evet daha az hata payı olan yerler var.)",
-      "160-223 | 180 | 180.0",
-      "",
-      ""
-    ],
-    [
-      "2026",
-      "Isabel",
-      "avokado ile patates kızartması arasında çizilen kalın dalgalı çizgi | 13.5 | Patates kızartması ve avokado kartları arasına kalın, dalgalı bir yatay/dikey çizgi çizilmiş; eşik değer 13,5 olarak belirtilmiş.",
-      "visual_circle | ['jelibon', 'kraker', 'yulaf', 'avokado'] | ['jelibon', 'kraker', 'yulaf', 'avokado']",
-      "Daha az yağ içeriği için daha iyi bir eşik değerdir. | Evet, çünkü çok fazla yağ oranı otomatiktir.",
-      "True | Evet, çünkü çok fazla yağ oranı otomatiktir. (elma ve ahududu reçeli için eşit değer olduğu ima ediliyor)",
-      "191,5 | 191.5",
-      "",
-      ""
-    ],
-    [
-      "2026",
       "Amy",
       "—",
       "—",
@@ -78,40 +21,6 @@
       ""
     ],
     [
-      "2026",
-      "Serena",
-      "yer avokado ve patates kızartması arası | 13.5 | Avokado ile patates kızartması kartları arasına çizgi çizilmiş.",
-      "both | ['jelibon', 'kraker', 'yulaf', 'avokado'] | 2 yanlış kart çıkıyor | ['jelibon', 'kraker', 'yulaf', 'avokado']",
-      "(bos)",
-      "(bos)",
-      "200 | 200.0",
-      "",
-      ""
-    ],
-    [
-      "2026",
-      "Irma",
-      "not specified numerically | A thick vertical line/arrow is drawn between the avokado card and the patates kızartması card, consistent with placing the threshold around 13-14g fat.",
-      "both | ['jelibon', 'kraker', 'yulaf', 'avokado'] | jelibon, kraker, yulaf, avokado | ['jelibon', 'kraker', 'yulaf', 'avokado']",
-      "yağ eşik miktarını artırabiliriz",
-      "True | Evet, Pia haklı.",
-      "Evet, daha iyi yer bulunabilir",
-      "",
-      ""
-    ],
-    [
-      "2026",
-      "Kate",
-      "—",
-      "—",
-      "—",
-      "—",
-      "—",
-      "",
-      ""
-    ],
-    [
-      "2026",
       "Bruno",
       "13,5 | 13.5 | Avokado (13g) ile patates kızartması (14g) arasına kalın dikey bir çizgi çekilmiş, yanına '13,5' yazılmış.",
       "circle | ['jelibon', 'kraker', 'yulaf', 'avokado'] | ['jelibon', 'kraker', 'yulaf', 'avokado']",
@@ -122,40 +31,6 @@
       ""
     ],
     [
-      "2026",
-      "Zara",
-      "Yulaf ile Avokado arasında | Yulaf ve Avokado kartları arasına yerleştirilmiş bir eşik değeri notu yazılmış, dikey çizgi net görünmüyor.",
-      "both | ['jelibon', 'kraker', 'yulaf', 'avokado'] | ['jelibon', 'kraker', 'yulaf', 'avokado']",
-      "Yulaf ile avokado arasında",
-      "True | Evet hata sayısı fazla",
-      "200 | 200.0",
-      "",
-      ""
-    ],
-    [
-      "2026",
-      "Shana",
-      "not numeric, drawn as thick arrow/line between yulaf-kraker and avokado cards | A bold horizontal arrow is drawn under the cards spanning from jelibon to avokado, seemingly marking a dividing line in that region rather than a clean vertical split between avocado and fries.",
-      "circle | ['ahududu reçeli', 'elma', 'jelibon', 'sütlü çikolata'] | ['ahududu reçeli', 'elma', 'jelibon', 'sütlü çikolata']",
-      "(bos)",
-      "(bos)",
-      "avokado ve ahududu reçeli / avokado ve patates kızartması kullanmayı / 200kcal | 200.0",
-      "",
-      ""
-    ],
-    [
-      "2026",
-      "Melinda",
-      "arrow drawn between avokado and patates kızartması cards | 13.5 | A vertical line/arrow is drawn on the card row between the avokado (13g fat) card and the patates kızartması (14g fat) card, indicating the threshold falls between these two values.",
-      "text | [] | jelibon, kraker, yulaf, avokado | ['jelibon', 'kraker', 'yulaf', 'avokado']",
-      "avokado - patates kızartması",
-      "True | evet, 4'üncü avokado ve patates kızartmasının arasına koyduğunda 2 hata oluyor.",
-      "185 | 185.0",
-      "",
-      ""
-    ],
-    [
-      "2026",
       "Helena",
       "(çizgi ile işaretlenmemiş, sayısal değer yazılmamış) | In the sorted deck, there is no vertical line or mark indicating the threshold position between the avocado (13.0 g) and french fries (14.0 g) cards.",
       "circle | ['jelibon', 'kraker', 'yulaf', 'avokado'] | ['jelibon', 'kraker', 'yulaf', 'avokado']",
@@ -166,7 +41,76 @@
       ""
     ],
     [
-      "2026",
+      "Iris",
+      "arrow pointing between avokado and patates kızartması | 13.5 | A vertical line is drawn between the avokado (13g) card and the patates kızartması (14g) card, with an arrow pointing to this line.",
+      "text | [] | kraker, yulaf, avokado, jelibon | ['kraker', 'yulaf', 'avokado', 'jelibon']",
+      "(no separate written explanation beyond the arrow/line placement)",
+      "True | Evet, haklı | ahududu ve avokado arası",
+      "200 | 200.0",
+      "",
+      ""
+    ],
+    [
+      "Irma",
+      "not specified numerically | A thick vertical line/arrow is drawn between the avokado card and the patates kızartması card, consistent with placing the threshold around 13-14g fat.",
+      "both | ['jelibon', 'kraker', 'yulaf', 'avokado'] | jelibon, kraker, yulaf, avokado | ['jelibon', 'kraker', 'yulaf', 'avokado']",
+      "yağ eşik miktarını artırabiliriz",
+      "True | Evet, Pia haklı.",
+      "Evet, daha iyi yer bulunabilir",
+      "",
+      ""
+    ],
+    [
+      "Isabel",
+      "avokado ile patates kızartması arasında çizilen kalın dalgalı çizgi | 13.5 | Patates kızartması ve avokado kartları arasına kalın, dalgalı bir yatay/dikey çizgi çizilmiş; eşik değer 13,5 olarak belirtilmiş.",
+      "visual_circle | ['jelibon', 'kraker', 'yulaf', 'avokado'] | ['jelibon', 'kraker', 'yulaf', 'avokado']",
+      "Daha az yağ içeriği için daha iyi bir eşik değerdir. | Evet, çünkü çok fazla yağ oranı otomatiktir.",
+      "True | Evet, çünkü çok fazla yağ oranı otomatiktir. (elma ve ahududu reçeli için eşit değer olduğu ima ediliyor)",
+      "191,5 | 191.5",
+      "",
+      ""
+    ],
+    [
+      "Kate",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—",
+      "",
+      ""
+    ],
+    [
+      "Marco",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—",
+      "",
+      ""
+    ],
+    [
+      "Marcus",
+      "13,5 | 13.5 | Avokado (13g) ile patates kızartması (14g) arasına dikey bir çizgi çizilmiş ve yanına '13,5' yazılmış.",
+      "circle | ['jelibon', 'kraker', 'yulaf', 'avokado'] | ['jelibon', 'kraker', 'yulaf', 'avokado']",
+      "4 den 2 hataya düşürüldü",
+      "(Evet daha az hata payı olan yerler var.)",
+      "160-223 | 180 | 180.0",
+      "",
+      ""
+    ],
+    [
+      "Melinda",
+      "arrow drawn between avokado and patates kızartması cards | 13.5 | A vertical line/arrow is drawn on the card row between the avokado (13g fat) card and the patates kızartması (14g fat) card, indicating the threshold falls between these two values.",
+      "text | [] | jelibon, kraker, yulaf, avokado | ['jelibon', 'kraker', 'yulaf', 'avokado']",
+      "avokado - patates kızartması",
+      "True | evet, 4'üncü avokado ve patates kızartmasının arasına koyduğunda 2 hata oluyor.",
+      "185 | 185.0",
+      "",
+      ""
+    ],
+    [
       "Nadia",
       "No visible vertical threshold line or explicit numeric fat threshold marked between avocado and fries on this page.",
       "circle | ['jelibon', 'yulaf', 'kraker', 'avokado'] | Avokado - Patates kızartması 2. hata | ['jelibon', 'yulaf', 'kraker', 'avokado', 'patates kızartması']",
@@ -177,13 +121,52 @@
       ""
     ],
     [
-      "2026",
+      "Serena",
+      "yer avokado ve patates kızartması arası | 13.5 | Avokado ile patates kızartması kartları arasına çizgi çizilmiş.",
+      "both | ['jelibon', 'kraker', 'yulaf', 'avokado'] | 2 yanlış kart çıkıyor | ['jelibon', 'kraker', 'yulaf', 'avokado']",
+      "(bos)",
+      "(bos)",
+      "200 | 200.0",
+      "",
+      ""
+    ],
+    [
+      "Shana",
+      "not numeric, drawn as thick arrow/line between yulaf-kraker and avokado cards | A bold horizontal arrow is drawn under the cards spanning from jelibon to avokado, seemingly marking a dividing line in that region rather than a clean vertical split between avocado and fries.",
+      "circle | ['ahududu reçeli', 'elma', 'jelibon', 'sütlü çikolata'] | ['ahududu reçeli', 'elma', 'jelibon', 'sütlü çikolata']",
+      "(bos)",
+      "(bos)",
+      "avokado ve ahududu reçeli / avokado ve patates kızartması kullanmayı / 200kcal | 200.0",
+      "",
+      ""
+    ],
+    [
+      "Sheila",
+      "3,5 | 3.5 | A thick vertical line is drawn between avokado and patates kızartması cards, with '(3,5)' written above in the margin near kraker/avokado boundary.",
+      "none_detected | []",
+      "Hata 2'ye düşer",
+      "True | Evet hata oranı yüksek",
+      "161 | 161.0",
+      "",
+      ""
+    ],
+    [
       "Ulysses",
       "patates ile avokado arası | Patates kızartması ile avokado kartları arasına kalın bir dikey çizgi çizilmiş.",
       "circle | ['kraker', 'avokado', 'patates kızartması'] | ['kraker', 'avokado', 'patates kızartması']",
       "patates ile avokado arası",
       "True | haklı",
       "170 kcal | 170.0",
+      "",
+      ""
+    ],
+    [
+      "Zara",
+      "Yulaf ile Avokado arasında | Yulaf ve Avokado kartları arasına yerleştirilmiş bir eşik değeri notu yazılmış, dikey çizgi net görünmüyor.",
+      "both | ['jelibon', 'kraker', 'yulaf', 'avokado'] | ['jelibon', 'kraker', 'yulaf', 'avokado']",
+      "Yulaf ile avokado arasında",
+      "True | Evet hata sayısı fazla",
+      "200 | 200.0",
       "",
       ""
     ]
