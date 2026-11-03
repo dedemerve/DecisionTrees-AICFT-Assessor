@@ -31,11 +31,31 @@
     WS15: { title: "Titanic data in CODAP Arbor", topic: "Build a tree on a Titanic training sample, then check it on a test sample." },
   };
   const ALIAS = { WS10: { WS10_B8: "optimal_threshold" } };
-  // Researcher overrides: correct if any accept token appears in the student's answer (case-insensitive).
+  // Researcher overrides for display correctness.
+  // acceptTokens: at least one token must appear (case-insensitive, OR logic).
+  // acceptPattern: regex that must match (applied after acceptTokens when both set → AND).
+  // requireToken: a literal string that must also be present (AND with the above).
   const ITEM_OVERRIDES = {
     WS1_B4: {
       expected: "Özelliğin / Karakteristiğin / Değişkenin",
       acceptTokens: ["özellik", "karakteristik", "değişken"],
+    },
+    // WS3: comparison justification items — accept any answer that shows a numeric
+    // comparison with the threshold 8 (e.g. "23,0 ≥ 8,0", "0,2 ≤ 8", "> 8,0 g").
+    WS3_B2: {
+      expected: "23 > 8  (patlamış mısır yağı 23 g > eşik 8 g)",
+      acceptPattern: "[≥≤><]",
+      requireToken: "8",
+    },
+    WS3_B4: {
+      expected: "0,2 < 8  (elma yağı 0,2 g < eşik 8 g)",
+      acceptPattern: "[≥≤><]",
+      requireToken: "8",
+    },
+    WS3_B6: {
+      expected: "14 > 8  (patates kızartması yağı 14 g > eşik 8 g)",
+      acceptPattern: "[≥≤><]",
+      requireToken: "8",
     },
   };
   const SCORE_DERIVED = new Set(["WS11", "WS12", "WS13"]);
@@ -807,12 +827,18 @@
   function resolveCheck(ck, response, itemId) {
     const ov = ITEM_OVERRIDES[itemId];
     if (!ov) return ck;
-    // Build a synthetic check using the override criterion regardless of pipeline verdict
-    const lower = (response || "").toLowerCase();
-    const accepted = ov.acceptTokens.some((t) => lower.indexOf(t) !== -1);
-    const wasBlank = !response || response === "(blank)";
-    const correct = wasBlank ? false : accepted ? true : ck ? ck.correct : null;
-    const note = ov.expected + (ck && ck.note ? " — " + ck.note : "");
+    const r = response || "";
+    const wasBlank = !r || r === "(blank)";
+    let accepted = false;
+    if (!wasBlank) {
+      let ok = true;
+      if (ov.acceptTokens) ok = ok && ov.acceptTokens.some((t) => r.toLowerCase().indexOf(t) !== -1);
+      if (ov.acceptPattern) ok = ok && new RegExp(ov.acceptPattern).test(r);
+      if (ov.requireToken) ok = ok && r.indexOf(ov.requireToken) !== -1;
+      accepted = ok;
+    }
+    const correct = wasBlank ? false : accepted ? true : (ck ? ck.correct : null);
+    const note = ov.expected + (ck && ck.note && !accepted ? " — " + ck.note : "");
     return { correct: correct, note: note, flag: ck ? ck.flag : null, _override: true };
   }
 
