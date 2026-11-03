@@ -792,29 +792,31 @@
     return null;
   }
 
+  function getItemCheck(ocr, itemId) {
+    if (!ocr || !ocr.checks) return null;
+    return ocr.checks.find((x) => x.check === "item_checks." + itemId) || null;
+  }
+
   function answerGrid(model, core) {
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
     const students = model.cohort;
-    const colHeaders = `<th class="gc-item-head">Item</th><th class="gc-exp-head">Expected answer</th>` +
+    const colHeaders = `<th class="gc-item-head">Item</th><th class="gc-exp-head">Expected</th>` +
       students.map((p) => `<th class="gc-head">${h(p.id)}</th>`).join("");
     const bodyRows = model.items.map((it) => {
       const rub = w ? rubricItems(w)[it.id] : null;
       const expected = rub ? criterionText(rub) : "";
       const cells = students.map((p) => {
-        const rec = core.ws[p.id][model.code];
-        const sc = rec && rec.scoring;
-        const it2 = sc ? (sc.items || []).find((x) => x.item === it.id) : null;
+        const rec = core.ws[p.id] && core.ws[p.id][model.code];
         const response = getResponse(rec, model.code, it.id);
         const display = response ? h(clip(response, 40)) : `<span class="na">–</span>`;
-        const full = response || "";
-        if (!it2 || typeof it2.score !== "number") {
-          return `<td class="gc-cell gc-na" title="${h(full)}">${display}</td>`;
+        const ck = rec ? getItemCheck(rec.ocr, it.id) : null;
+        if (!ck) {
+          return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
         }
-        const max = itemMax(w, it2);
-        const kind = creditOf(it2.score, max);
-        const cls = kind === "full" ? "gc-full" : kind === "partial" ? "gc-partial" : "gc-none";
-        return `<td class="gc-cell ${cls}" title="${h(full)}">${display}</td>`;
+        const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
+        const tip = ck.note ? ck.note : (response || "");
+        return `<td class="gc-cell ${cls}" title="${h(tip)}">${display}</td>`;
       }).join("");
       return `<tr>
         <td class="gc-item"><b>${h(it.title)}</b></td>
@@ -822,9 +824,9 @@
         ${cells}
       </tr>`;
     }).join("");
-    const legend = `<span class="gc-legend gc-full">Doğru</span> <span class="gc-legend gc-partial">Kısmi</span> <span class="gc-legend gc-none">Yanlış</span>`;
-    return `<h3>Öğrenci yanıtları ve beklenen yanıtlar</h3>
-<p class="small">${legend} &nbsp;·&nbsp; Her hücre öğrencinin yazdığı yanıtı gösterir. Uzun yanıtların tamamı için üzerine gelin. Renkler pipeline puanına göre belirlenir; araştırmacı kararı değildir.</p>
+    const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
+    return `<h3>Answer grid</h3>
+<p class="small">${legend} &nbsp;·&nbsp; Each cell shows the student's written answer. Hover a cell for the full text or a note from the answer-key check. Colors come from the boolean check in the extraction file, not the LLM rubric score.</p>
 <div class="table-wrap"><table class="find-table answer-grid"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
   }
 
@@ -832,77 +834,98 @@
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
     const blocks = model.cohort.map((p) => {
-      const rec = core.ws[p.id][model.code];
-      const sc = rec && rec.scoring;
-      let nCorrect = 0, nTotal = 0;
+      const rec = core.ws[p.id] && core.ws[p.id][model.code];
+      let nCorrect = 0, nChecked = 0;
       const itemRows = model.items.map((it) => {
-        const it2 = sc ? (sc.items || []).find((x) => x.item === it.id) : null;
-        const response = getResponse(rec, model.code, it.id) || "–";
         const rub = w ? rubricItems(w)[it.id] : null;
         const expected = rub ? criterionText(rub) : "–";
-        if (!it2 || typeof it2.score !== "number") {
-          return { cells: [`<b>${h(it.title)}</b>`, h(clip(expected, 60)), h(clip(response, 60)), `<span class="na">–</span>`] };
+        const response = getResponse(rec, model.code, it.id);
+        const ck = rec ? getItemCheck(rec.ocr, it.id) : null;
+        let verdictCell, rowCls;
+        if (!ck) {
+          verdictCell = `<span class="na">–</span>`;
+          rowCls = "";
+        } else if (ck.correct === true) {
+          nChecked += 1; nCorrect += 1;
+          verdictCell = `<span class="verdict-pass">✓ Correct</span>`;
+          rowCls = "row-pass";
+        } else if (ck.correct === false) {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-fail">✗ Wrong</span>${ck.note ? `<div class="verdict-note">${h(clip(ck.note, 100))}</div>` : ""}`;
+          rowCls = "row-fail";
+        } else {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-partial">~ Partial</span>${ck.note ? `<div class="verdict-note">${h(clip(ck.note, 100))}</div>` : ""}`;
+          rowCls = "row-partial";
         }
-        const max = itemMax(w, it2);
-        const kind = creditOf(it2.score, max);
-        nTotal += 1;
-        if (kind === "full") nCorrect += 1;
-        const cls = kind === "full" ? "rb-pass" : kind === "partial" ? "rb-half" : "rb-fail";
-        const label = kind === "full" ? "Doğru" : kind === "partial" ? "Kısmi" : "Yanlış";
-        return { cells: [`<b>${h(it.title)}</b>`, h(clip(expected, 60)), `<span class="gc-cell ${kind === "full" ? "gc-full" : kind === "partial" ? "gc-partial" : "gc-none"}" style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:13px">${h(clip(response, 60))}</span>`, `<span class="res-badge ${cls}">${label}</span>`] };
+        const writtenCell = response
+          ? `<span class="written-answer">${h(clip(response, 60))}</span>`
+          : `<span class="na">(blank)</span>`;
+        return {
+          cells: [`<b>${h(it.title)}</b>`, h(clip(expected, 60)), writtenCell, verdictCell],
+          attrs: rowCls ? ` class="${rowCls}"` : "",
+        };
       });
-      const pctVal = nTotal ? share(nCorrect, nTotal) : "–";
-      const summary = `<div class="sr-student-head"><b>${h(p.id)}</b> <span class="sr-pct">${nCorrect} / ${nTotal} doğru &nbsp;(${pctVal})</span></div>`;
+      const pct = nChecked ? share(nCorrect, nChecked) : "–";
+      const summary = `<div class="sr-student-head"><b>${h(p.id)}</b> <span class="sr-pct">${nCorrect} / ${nChecked} correct (${pct})</span></div>`;
       return summary + table(
-        [{ t: "Boşluk" }, { t: "Beklenen yanıt" }, { t: "Öğrencinin yanıtı" }, { t: "Sonuç" }],
+        [{ t: "Item" }, { t: "Expected answer" }, { t: "Written answer" }, { t: "Result" }],
         itemRows
       );
     }).join("<hr class=\"sr-divider\">");
-    return `<h3>Öğrenci başına sonuçlar</h3>
-<p class="small">Doğru = tam puan. Kısmi = sıfır ile tam puan arasında. Yanlış = sıfır puan. Puansız boşluklar sayıma dahil edilmez.</p>
+    return `<h3>Student results</h3>
+<p class="small">Verdict uses the answer-key check from the extraction file, not the LLM rubric score. Notes explain why an answer was marked wrong or partial.</p>
 <div class="student-results">${blocks}</div>`;
   }
 
   function classDiagnostic(model, core) {
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
-    const scored = model.items.filter((it) => it.denom > 0);
-    if (!scored.length) return "";
     const bits = [];
-    const avgFull = scored.reduce((a, it) => a + it.full / it.denom, 0) / scored.length;
-    bits.push(`<p>Across ${scored.length} scored item${scored.length === 1 ? "" : "s"} and ${model.cohort.length} included participant${model.cohort.length === 1 ? "" : "s"}, the average full-credit rate per item is ${(avgFull * 100).toFixed(0)}%.</p>`);
-    const gapItems = scored.filter((it) => it.full / it.denom < 0.5);
+    const itemStats = model.items.map((it) => {
+      let pass = 0, fail = 0, partial = 0, total = 0;
+      const notCorrect = [];
+      model.cohort.forEach((p) => {
+        const rec = core.ws[p.id] && core.ws[p.id][model.code];
+        const ck = rec ? getItemCheck(rec.ocr, it.id) : null;
+        if (!ck) return;
+        total += 1;
+        if (ck.correct === true) pass += 1;
+        else if (ck.correct === false) { fail += 1; notCorrect.push(p.id); }
+        else { partial += 1; notCorrect.push(p.id); }
+      });
+      return { it, pass, fail, partial, total, notCorrect };
+    }).filter((x) => x.total > 0);
+    if (!itemStats.length) {
+      return `<p>No answer-key checks are available for this worksheet. The class analysis requires <code>item_checks.*</code> entries in the extraction data.</p>`;
+    }
+    const avgPass = itemStats.reduce((a, x) => a + x.pass / x.total, 0) / itemStats.length;
+    bits.push(`<p>Across ${itemStats.length} item${itemStats.length === 1 ? "" : "s"} with answer-key checks and ${model.cohort.length} included student${model.cohort.length === 1 ? "" : "s"}, the average correct rate per item is <b>${(avgPass * 100).toFixed(0)}%</b>.</p>`);
+    const gapItems = itemStats.filter((x) => x.pass / x.total < 0.5);
     if (gapItems.length) {
-      bits.push(`<h3>Gap items <span class="small">(full-credit rate below 50%)</span></h3>`);
-      const gapRows = gapItems.map((it) => {
+      bits.push(`<h3>Gap items <span class="small">(correct rate below 50%)</span></h3>`);
+      const gapRows = gapItems.map(({ it, pass, total, notCorrect }) => {
         const rub = w ? rubricItems(w)[it.id] : null;
         const expected = rub ? criterionText(rub) : "";
-        const wrong = model.cohort.filter((p) => {
-          const sc = core.ws[p.id][model.code] && core.ws[p.id][model.code].scoring;
-          const it2 = sc ? (sc.items || []).find((x) => x.item === it.id) : null;
-          if (!it2 || typeof it2.score !== "number") return false;
-          const max = itemMax(w, it2);
-          return creditOf(it2.score, max) !== "full";
-        });
         return {
           cells: [
             `<b>${h(it.title)}</b>${expected ? `<div class="small">${h(clip(expected, 160))}</div>` : ""}`,
-            `<b>${share(it.full, it.denom)}</b>`,
-            wrong.map((p) => h(p.id)).join(", ") || "–",
+            `<b>${share(pass, total)}</b>`,
+            notCorrect.map((s) => h(s)).join(", ") || "–",
           ],
         };
       });
       bits.push(table(
-        [{ t: "Item and what it asks" }, { t: "Full-credit rate", num: 1 }, { t: "Students without full credit" }],
+        [{ t: "Item and expected answer" }, { t: "Correct rate", num: 1 }, { t: "Students not correct" }],
         gapRows
       ));
     } else {
-      bits.push(`<p>All scored items have a full-credit rate of 50% or higher.</p>`);
+      bits.push(`<p>All items have a correct rate of 50% or higher.</p>`);
     }
-    const mastered = scored.filter((it) => it.full === it.denom);
-    if (mastered.length) bits.push(`<p><b>Mastered by all included participants:</b> ${nameList(mastered.map((it) => it.title))}.</p>`);
-    const allFailed = scored.filter((it) => it.full === 0 && it.none === it.denom);
-    if (allFailed.length) bits.push(`<p><b>No full credit from any included participant:</b> ${nameList(allFailed.map((it) => it.title))}.</p>`);
+    const masteredAll = itemStats.filter((x) => x.pass === x.total);
+    if (masteredAll.length) bits.push(`<p><b>Correct for all students:</b> ${masteredAll.map((x) => h(x.it.title)).join(", ")}.</p>`);
+    const noneCorrect = itemStats.filter((x) => x.pass === 0);
+    if (noneCorrect.length) bits.push(`<p><b>No student answered correctly:</b> ${noneCorrect.map((x) => h(x.it.title)).join(", ")}.</p>`);
     return bits.join("");
   }
 

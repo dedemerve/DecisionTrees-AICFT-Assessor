@@ -1654,33 +1654,38 @@ table.answer-grid .gc-head { writing-mode: vertical-rl; text-orientation: mixed;
 table.answer-grid td.gc-item { white-space: normal; min-width: 110px; max-width: 200px; font-size: 13px; }
 table.answer-grid td.gc-expected { font-size: 13px; color: var(--ink-2); white-space: normal; min-width: 140px; max-width: 240px; }
 table.answer-grid .gc-cell { font-size: 13px; padding: 6px 10px; border-radius: 4px; white-space: normal; max-width: 160px; word-break: break-word; vertical-align: top; }
-.gc-full    { background: #d4f0e4; color: #1a5c3a; }
-.gc-partial { background: #fff0cc; color: #7a5500; }
-.gc-none    { background: #fde0e0; color: #8b1a1a; }
+/* Answer-key check colors — rgba works in both light and dark themes */
+.gc-correct { background: rgba(22,163,74,0.14); color: #15803d; border-left: 3px solid #16a34a; }
+.gc-wrong   { background: rgba(220,38,38,0.12); color: #b91c1c; border-left: 3px solid #dc2626; }
+.gc-partial { background: rgba(202,138,4,0.14); color: #92400e; border-left: 3px solid #ca8a04; }
 .gc-na      { background: transparent; color: var(--muted); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .gc-correct { color: #4ade80; }
+  :root:not([data-theme="light"]) .gc-wrong   { color: #f87171; }
+  :root:not([data-theme="light"]) .gc-partial { color: #fbbf24; }
+}
+:root[data-theme="dark"] .gc-correct { color: #4ade80; }
+:root[data-theme="dark"] .gc-wrong   { color: #f87171; }
+:root[data-theme="dark"] .gc-partial { color: #fbbf24; }
 .gc-legend  { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+/* Verdict labels in student results table */
+.verdict-pass    { font-weight: 700; color: #15803d; }
+.verdict-fail    { font-weight: 700; color: #b91c1c; }
+.verdict-partial { font-weight: 700; color: #92400e; }
+.verdict-note    { font-size: 12px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+.written-answer  { font-style: italic; }
 @media (prefers-color-scheme: dark) {
-  .gc-full    { background: #1a4030; color: #8dccb8; }
-  .gc-partial { background: #3d2e00; color: #e0b040; }
-  .gc-none    { background: #3d1a1a; color: #e08080; }
+  :root:not([data-theme="light"]) .verdict-pass    { color: #4ade80; }
+  :root:not([data-theme="light"]) .verdict-fail    { color: #f87171; }
+  :root:not([data-theme="light"]) .verdict-partial { color: #fbbf24; }
 }
-:root[data-theme="dark"] .gc-full    { background: #1a4030; color: #8dccb8; }
-:root[data-theme="dark"] .gc-partial { background: #3d2e00; color: #e0b040; }
-:root[data-theme="dark"] .gc-none    { background: #3d1a1a; color: #e08080; }
-
-/* Result badges */
-.res-badge { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: 12px; font-weight: 600; line-height: 1.6; white-space: nowrap; }
-.rb-pass { background: #d4f0e4; color: #1a5c3a; }
-.rb-half { background: #fff0cc; color: #7a5500; }
-.rb-fail { background: #fde0e0; color: #8b1a1a; }
-@media (prefers-color-scheme: dark) {
-  .rb-pass { background: #1a4030; color: #8dccb8; }
-  .rb-half { background: #3d2e00; color: #e0b040; }
-  .rb-fail { background: #3d1a1a; color: #e08080; }
-}
-:root[data-theme="dark"] .rb-pass { background: #1a4030; color: #8dccb8; }
-:root[data-theme="dark"] .rb-half { background: #3d2e00; color: #e0b040; }
-:root[data-theme="dark"] .rb-fail { background: #3d1a1a; color: #e08080; }
+:root[data-theme="dark"] .verdict-pass    { color: #4ade80; }
+:root[data-theme="dark"] .verdict-fail    { color: #f87171; }
+:root[data-theme="dark"] .verdict-partial { color: #fbbf24; }
+/* Row tints in student results table */
+tr.row-pass    { background: rgba(22,163,74,0.06); }
+tr.row-fail    { background: rgba(220,38,38,0.06); }
+tr.row-partial { background: rgba(202,138,4,0.07); }
 
 /* Student results blocks */
 .student-results { display: flex; flex-direction: column; gap: 0; }
