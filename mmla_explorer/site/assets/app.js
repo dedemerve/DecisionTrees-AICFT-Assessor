@@ -1650,6 +1650,37 @@
     }
     return "";
   }
+  const LABELING_CODE_MAP = {
+    "WS1": "WS1", "WS3": "WS3", "WS4": "WS4", "WS5": "WS5",
+    "WS6": "WS6", "WS7": "WS7", "WS10": "WS10", "WS-DT-CODAP": "WS-DT-CODAP",
+  };
+  function loadLabelingTable(code) {
+    const jsonCode = code === "WS DT - CODAP" ? "WS-DT-CODAP" : (LABELING_CODE_MAP[code] || code);
+    const el = document.getElementById(`labeling-table-${code}`);
+    if (!el) return;
+    fetch(`data/labeling/${jsonCode}.json`)
+      .then((r) => r.ok ? r.json() : Promise.reject(r.status))
+      .then(({ headers, rows }) => {
+        if (!rows.length) { el.innerHTML = `<p class="small muted">No labeling data for this worksheet.</p>`; return; }
+        const skipCols = new Set();
+        headers.forEach((h, i) => { if (!h || h === "Cohort") skipCols.add(i); });
+        const visHeaders = headers.map((h, i) => skipCols.has(i) ? null : h).filter(Boolean);
+        const visIndices = headers.map((_, i) => i).filter((i) => !skipCols.has(i));
+        const specialCols = new Set(["Overall", "Notes"]);
+        const thRow = `<tr>${visHeaders.map((hd) => `<th${specialCols.has(hd) ? ' class="labeling-special"' : ""}>${h(hd)}</th>`).join("")}</tr>`;
+        const tbRows = rows.map((row) => {
+          const cells = visIndices.map((i) => {
+            const val = row[i] || "";
+            const hd = headers[i] || "";
+            const isEmpty = !val || val === "—";
+            return `<td${specialCols.has(hd) ? ' class="labeling-special"' : ""}${isEmpty ? ' class="labeling-empty"' : ""}>${isEmpty ? `<span class="na">—</span>` : h(val)}</td>`;
+          }).join("");
+          return `<tr>${cells}</tr>`;
+        }).join("");
+        el.innerHTML = `<div class="table-wrap labeling-scroll"><table class="labeling-table"><thead>${thRow}</thead><tbody>${tbRows}</tbody></table></div>`;
+      })
+      .catch(() => { el.innerHTML = `<p class="small muted">No labeling data on file for this worksheet.</p>`; });
+  }
   function fileList(items, empty) {
     const unique = uniqueFiles(items);
     if (!unique.length) return `<p class="missing-line">${empty}</p>`;
@@ -1740,15 +1771,9 @@
         ${fileList(files.completed, "No completed student PDF is on record for this worksheet.")}
       </section>
       <section class="section-block" id="ai-labeling"><h2>AI competency labeling</h2>
-        <p>The table below records the response extracted by the RAG pipeline for each student on this worksheet, along with researcher competency labels mapped to the UNESCO AI-CFT framework. Each row is one student; each column is one response field (blank) from the worksheet schema.</p>
-        <ul class="file-list">
-          <li class="file-item">
-            <span class="file-actions"><a href="downloads/AI_CFT_Labeling.xlsx" target="_blank" rel="noopener">View</a><a href="downloads/AI_CFT_Labeling.xlsx" download="AI_CFT_Labeling.xlsx">Download</a></span>
-            <span class="file-name">AI_CFT_Labeling.xlsx</span>
-            <span class="file-meta">Excel · 46 KB</span>
-          </li>
-        </ul>
-        <p class="small">The file contains one sheet per worksheet. The sheet for this worksheet (${h(code)}) shows every extracted response field alongside the researcher's competency label and notes. Empty cells mean the student left that field blank or the field was not extracted by the pipeline.</p>
+        <p>Extracted responses from the RAG pipeline and researcher competency labels (UNESCO AI-CFT framework) for each student on this worksheet. Each row is one student; each column is one response field.</p>
+        <div id="labeling-table-${h(code)}" class="labeling-wrap"><p class="small muted">Loading…</p></div>
+        <p class="small"><a href="downloads/AI_CFT_Labeling.xlsx" download="AI_CFT_Labeling.xlsx">Download full labeling workbook (all worksheets, Excel)</a></p>
       </section>
       `)}</div>`;
   }
@@ -2512,7 +2537,11 @@
       if (sub === "students" || sub === "") { location.replace("#/findings/participants" + (query ? "?" + query : "")); return; }
       if (sub === "student") html = pageStudent(parts[2], parts[3]);
       else if (sub === "worksheets") { html = pageWorksheets(); after = bindWsSearch; }
-      else if (sub === "worksheet") { html = pageWorksheet(parts[2], q); after = bindRespFilter; }
+      else if (sub === "worksheet") {
+        const wsCode = parts[2];
+        html = pageWorksheet(wsCode, q);
+        after = () => { bindRespFilter(); loadLabelingTable(wsCode); };
+      }
       else if (sub === "recordings") { html = pageRecordings(q); after = bindFrameBrowse; }
       else if (sub === "frames") { location.replace("#/explore/recordings" + (query ? "?" + query : "")); return; }
       else if (sub === "logs") html = pageLogs();
