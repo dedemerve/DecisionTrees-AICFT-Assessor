@@ -1233,7 +1233,6 @@
     { label: "Manual classification", codes: ["WS3", "WS4", "WS5"] },
     { label: "Building decision trees", codes: ["WS6", "WS7", "WS10", "WS12"] },
     { label: "CODAP Arbor sessions", codes: ["WS13", "WS14", "WS15"] },
-    { label: "Feedback survey", codes: ["WS11"] },
   ];
   function pipelineShort(w) {
     const policy = w.rubric_data && w.rubric_data.scoring_policy;
@@ -1689,7 +1688,7 @@
           const grouped = {};
           column_info.forEach((c) => { (grouped[c.level] = grouped[c.level] || []).push(c); });
           const order = ["Acquire", "Deepen", "Create"];
-          const inner = order.filter((l) => grouped[l]).map((level) => `<div class="lci-group ${LEVEL_CLASS[level] || ""}"><div class="lci-level">${h(level)}</div><div class="lci-items">${grouped[level].map((c) => `<div class="lci-item"><span class="lci-blank">${h(c.blank)}</span><span class="lci-task">${h(c.task)}</span></div>`).join("")}</div></div>`).join("");
+          const inner = order.filter((l) => grouped[l]).map((level) => `<div class="lci-group ${LEVEL_CLASS[level] || ""}"><div class="lci-level">${h(level)}</div><div class="lci-items">${grouped[level].map((c) => `<div class="lci-item"><div class="lci-item-head"><span class="lci-blank">${h(c.blank)}</span><span class="lci-task">${h(c.task)}</span></div>${c.desc ? `<span class="lci-desc">${h(c.desc)}</span>` : ""}</div>`).join("")}</div></div>`).join("");
           colInfoHtml = `<details class="labeling-col-info-wrap"><summary class="lci-summary">Column descriptions</summary><div class="labeling-col-info">${inner}</div></details>`;
         }
         el.innerHTML = colInfoHtml + `<div class="table-wrap labeling-scroll"><table class="labeling-table"><thead>${thRow}</thead><tbody>${tbRows}</tbody></table></div>`;

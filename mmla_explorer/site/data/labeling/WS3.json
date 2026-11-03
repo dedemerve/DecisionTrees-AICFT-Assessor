@@ -181,42 +181,50 @@
     {
       "blank": "Blank 1",
       "task": "Instance Classification (Popcorn)",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Applying the established decision rule to predict and assign a target class label to a specific data object (e.g., \"tavsiye edilemez\")."
     },
     {
       "blank": "Blank 2",
       "task": "Rule Verification (Popcorn)",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Justifying the classification outcome by mathematically comparing the object's feature value to the threshold (e.g., \"23.0 > 8.0\")."
     },
     {
       "blank": "Blank 3",
       "task": "Instance Classification (Apple)",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Applying the established decision rule to predict and assign a target class label to a specific data object (e.g., \"tavsiye edilebilir\")."
     },
     {
       "blank": "Blank 4",
       "task": "Rule Verification (Apple)",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Justifying the classification outcome by mathematically comparing the object's feature value to the threshold (e.g., \"8.0 > 0.2\")."
     },
     {
       "blank": "Blank 5",
       "task": "Instance Classification (French Fries)",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Applying the established decision rule to predict and assign a target class label to a specific data object (e.g., \"tavsiye edilemez\")."
     },
     {
       "blank": "Blank 6",
       "task": "Rule Verification (French Fries)",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Justifying the classification outcome by mathematically comparing the object's feature value to the threshold (e.g., \"14.0 > 8.0\")."
     },
     {
       "blank": "Blank 7",
       "task": "Left Branching Condition",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Establishing the mathematical boundary expression (≤) for a split node based on the data distribution of the feature (e.g.,</ ≤ 71 kcal)."
     },
     {
       "blank": "Blank 8",
       "task": "Right Branching Condition",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Establishing the corresponding inverse mathematical expression (>) for a split node to partition the remaining instances in the dataset (e.g., ≥/> 71 kcal)."
     }
   ]
 }

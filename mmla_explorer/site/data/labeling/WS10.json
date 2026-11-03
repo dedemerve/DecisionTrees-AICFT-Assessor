@@ -85,12 +85,14 @@
     {
       "blank": "Blank 1",
       "task": "Iterative Error Calculation",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Systematically computing the total number of misclassified instances for each candidate threshold (the computed midpoints between adjacent sorted values). For example, calculating 4 errors when testing the threshold of 28, then iterating to calculate 3 errors for the threshold of 69, and so forth."
     },
     {
       "blank": "Blank 2",
       "task": "Misclassification Count – Threshold 69",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Comparing the error rates across all the tested boundaries to identify and select the one that yields the absolute best performance. For example, selecting 408 as the final optimal threshold because it results in the lowest misclassification count (only 1 error)."
     }
   ]
 }

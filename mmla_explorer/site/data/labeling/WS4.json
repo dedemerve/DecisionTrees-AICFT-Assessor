@@ -133,27 +133,32 @@
     {
       "blank": "Blank 1",
       "task": "Alternative Threshold Placement",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Proposing a new candidate threshold position physically along an ordered numeric feature sequence to test for better group separation."
     },
     {
       "blank": "Blank 2",
       "task": "Misclassification Identification",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Isolating and identifying specific data instances that violate the active classification decision rule (e.g., listing Gummy Bears, Crispbread, Oats, Avocado)."
     },
     {
       "blank": "Blank 3",
       "task": "Threshold Optimization Strategy",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Evaluating and comparing the Misclassification Rate (MCR) of two distinct split boundaries to justify why one threshold yields a superior model performance (e.g., reducing error counts from 4 to 2)."
     },
     {
       "blank": "Blank 4",
       "task": "Tie-Value Constraint Analysis",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Recognizing constraints in continuous feature splitting when multiple adjacent data points share identical feature values (e.g., noting that Apple and Raspberry Jam share the same fat values)."
     },
     {
       "blank": "Blank 5",
       "task": "Optimal Parameter Selection",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Finding the mathematical midpoint or boundary interval between sorted instances of a new independent variable to minimize overall classification error (e.g., identifying the threshold between 160 kcal and 223 kcal)."
     }
   ]
 }

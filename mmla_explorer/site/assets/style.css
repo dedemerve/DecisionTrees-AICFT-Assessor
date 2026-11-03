@@ -469,14 +469,16 @@ details[open] > .lci-summary::before { transform: rotate(90deg); }
 .lcol-create  .lci-level { color: #c48a00; }
 .lci-items { display: flex; flex-direction: column; gap: 4px; }
 .lci-item {
-  display: flex; align-items: baseline; gap: 6px;
-  font-size: 12px; line-height: 1.35;
+  display: flex; flex-direction: column; gap: 2px;
+  font-size: 12px; line-height: 1.35; padding-bottom: 4px;
 }
+.lci-item-head { display: flex; align-items: baseline; gap: 6px; }
 .lci-blank {
   font-family: var(--mono); font-size: 11px; color: var(--muted);
   white-space: nowrap; flex-shrink: 0;
 }
-.lci-task { color: var(--ink-2); }
+.lci-task { color: var(--ink-2); font-weight: 500; }
+.lci-desc { color: var(--ink-3); font-size: 11px; line-height: 1.4; padding-left: 2px; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .lcol-acquire { border-left-color: #8eb6e4; }
   :root:not([data-theme="light"]) .lcol-acquire .lci-level { color: #8eb6e4; }

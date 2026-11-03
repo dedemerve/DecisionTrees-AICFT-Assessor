@@ -133,27 +133,32 @@
     {
       "blank": "Blank 1-2",
       "task": "Left Threshold Label",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Defining the mathematical split conditions for the root node to partition the initial data (e.g., writing < 180 kcal and >= 180 kcal for the Energy feature)."
     },
     {
       "blank": "Blank 3-4",
       "task": "Right Threshold Label",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Defining the mathematical split conditions for an internal decision node deeper in the tree's hierarchy (e.g., writing < 7.7 g and >= 7.7 g for the Protein feature)."
     },
     {
       "blank": "Blank 5",
       "task": "Protein Left Branch",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Tracing a multi-step logical path through the tree and connecting it to a natural language \"AND\" condition (e.g., matching the path where Energy >= 180 and Protein < 7.7 to the outcome \"Rather not recommendable\")."
     },
     {
       "blank": "Blank 6",
       "task": "Protein Right Branch",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Tracing a direct, single-step decision path and matching it to its corresponding natural language statement (e.g., identifying that Energy < 180 leads directly to \"Rather recommendable\")."
     },
     {
       "blank": "Blank 7",
       "task": "Rule-Path Match (B)",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Tracing the alternative multi-step logical path and correlating it with the correct natural language formulation (e.g., matching the path where Energy >= 180 and Protein >= 7.7 to the outcome \"Rather recommendable\")."
     }
   ]
 }

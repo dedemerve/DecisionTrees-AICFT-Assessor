@@ -261,67 +261,80 @@
     {
       "blank": "Blank 1",
       "task": "Feature Selection",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Selecting a single independent variable to evaluate iteratively (e.g., writing \"Protein\" in all three boxes to test different split points)."
     },
     {
       "blank": "Blank 2-3",
       "task": "Threshold Formulation",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Defining the mathematical splitting criteria by testing varying numeric boundaries (e.g., setting ≤5 and >5 for the first tree, then iterating with ≤8 and >8 for the second tree)."
     },
     {
       "blank": "Blank 4-5-6-7",
       "task": "Subset Distribution (Node Purity)",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Tallying the data instances that fall into each resulting leaf node based on the applied threshold, separated by target class (e.g., counting how many \"Recommendable\" vs. \"Not Recommendable\" items ended up in the left branch)."
     },
     {
       "blank": "Blank 8",
       "task": "Error Calculation",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Computing the model's overall performance metric by summing the misclassified instances (the minority class) across both leaf nodes (e.g., calculating a total of 3 misclassified items for that specific tree)."
     },
     {
       "blank": "Blank 9",
       "task": "Feature Selection",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Selecting a single independent variable to evaluate iteratively (e.g., writing \"Protein\" in all three boxes to test different split points)."
     },
     {
       "blank": "Blank 10-11",
       "task": "Threshold Formulation",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Defining the mathematical splitting criteria by testing varying numeric boundaries (e.g., setting ≤5 and >5 for the first tree, then iterating with ≤8 and >8 for the second tree)."
     },
     {
       "blank": "Blank 12-13-14-15",
       "task": "Subset Distribution (Node Purity)",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Tallying the data instances that fall into each resulting leaf node based on the applied threshold, separated by target class (e.g., counting how many \"Recommendable\" vs. \"Not Recommendable\" items ended up in the left branch)."
     },
     {
       "blank": "Blank 16",
       "task": "Error Calculation",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Computing the model's overall performance metric by summing the misclassified instances (the minority class) across both leaf nodes (e.g., calculating a total of 3 misclassified items for that specific tree)."
     },
     {
       "blank": "Blank 17",
       "task": "Feature Selection",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Selecting a single independent variable to evaluate iteratively (e.g., writing \"Protein\" in all three boxes to test different split points)."
     },
     {
       "blank": "Blank 18-19",
       "task": "Threshold Formulation",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Defining the mathematical splitting criteria by testing varying numeric boundaries (e.g., setting ≤5 and >5 for the first tree, then iterating with ≤8 and >8 for the second tree)."
     },
     {
       "blank": "Blank 20-21-22-23",
       "task": "Subset Distribution (Node Purity)",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Tallying the data instances that fall into each resulting leaf node based on the applied threshold, separated by target class (e.g., counting how many \"Recommendable\" vs. \"Not Recommendable\" items ended up in the left branch)."
     },
     {
       "blank": "Blank 24",
       "task": "Error Calculation",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Computing the model's overall performance metric by summing the misclassified instances (the minority class) across both leaf nodes (e.g., calculating a total of 3 misclassified items for that specific tree)."
     },
     {
       "blank": "Blank 25",
       "task": "Optimal Parameter Selection",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Comparing the calculated error rates from the three trials to deduce and finalize the most effective decision boundary (e.g., concluding that the threshold of 8 is the best choice because it yielded the lowest misclassification count)."
     }
   ]
 }

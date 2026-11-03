@@ -437,122 +437,146 @@
     {
       "blank": "Blank A1",
       "task": "Intuitive Hypothesis Generation",
-      "level": "Acquire"
+      "level": "Acquire",
+      "desc": "Predicting which features influence the target variable based purely on prior domain knowledge or general intuition, without statistical analysis."
     },
     {
       "blank": "Blank A2",
       "task": "Exploratory Data Analysis (EDA)",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Formulating data-driven hypotheses by visually exploring feature distributions and their correlation to the target classes."
     },
     {
       "blank": "Blank A3",
       "task": "Feature Significance Identification",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Observing and explicitly identifying variables that exhibit a meaningful variance or separation between the target classes."
     },
     {
       "blank": "Blank A4",
       "task": "Root Node Justification",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Selecting the most distinguishing primary feature to initiate the predictive model and providing a logical rationale for this choice."
     },
     {
       "blank": "Blank B1",
       "task": "Iterative Baseline Testing",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Systematically constructing single-level decision trees (stumps) using different individual features and recording their baseline performance metrics via the system (emit function)."
     },
     {
       "blank": "Blank B2",
       "task": "Iterative Baseline Testing",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Systematically constructing single-level decision trees (stumps) using different individual features and recording their baseline performance metrics via the system (emit function)."
     },
     {
       "blank": "Blank B3",
       "task": "Iterative Baseline Testing",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Systematically constructing single-level decision trees (stumps) using different individual features and recording their baseline performance metrics via the system (emit function)."
     },
     {
       "blank": "Blank B4",
       "task": "Feature Performance Comparison",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Evaluating and comparing the classification efficacy of the isolated features to deduce the optimal root variable."
     },
     {
       "blank": "Blank C1",
       "task": "Parameter Tuning (Iterative Testing)",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Iteratively adjusting the numeric threshold of the selected root feature to observe changes in the model's predictive output."
     },
     {
       "blank": "Blank C2",
       "task": "Parameter Sensitivity Analysis",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Explaining the causal relationship between shifting mathematical boundaries and overall model accuracy/error rates."
     },
     {
       "blank": "Blank C3",
       "task": "Optimal Boundary Justification",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Identifying the precise threshold that yields maximum class separation and articulating the methodological process used to pinpoint it."
     },
     {
       "blank": "Blank D1",
       "task": "Tree Depth Expansion",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Adding a secondary feature layer to the model (Depth = 2) to capture more complex data patterns, followed by re-evaluating performance."
     },
     {
       "blank": "Blank D2",
       "task": "Incremental Performance Evaluation",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Analyzing whether the additional depth successfully reduced misclassifications or improved node purity compared to the single-level stump."
     },
     {
       "blank": "Blank D3",
       "task": "Feature Interaction Assessment",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Identifying which specific pair (combination) of variables worked synergistically to produce the best classification outcome."
     },
     {
       "blank": "Blank D4",
       "task": "Model Selection Rationale",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Formulating the definitive criteria used to declare one specific tree structure as the ultimate \"best\" model."
     },
     {
       "blank": "Blank E",
       "task": "Metric Calculation",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Computing specific evaluation metrics, including Sensitivity (True Positive Rate) and Misclassification Rate (MCR), for the finalized model."
     },
     {
       "blank": "Blank E1",
       "task": "Contextual Metric Prioritization",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Critically evaluating trade-offs between different metrics (e.g., Sensitivity vs. Error Rate) and deciding which is more critical given the real-world context (e.g., health risks in food recommendation)."
     },
     {
       "blank": "Blank E2",
       "task": "Confusion Matrix Analysis",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Differentiating between error types by diagnosing whether the model produced more False Positives (Type I) or False Negatives (Type II)."
     },
     {
       "blank": "Blank E3",
       "task": "Algorithmic Stopping Criteria Reflection",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Theorizing on the programmatic heuristics algorithms use to determine when a model is \"good enough\" to stop splitting."
     },
     {
       "blank": "Blank E4",
       "task": "Model Fallibility Awareness",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Critically assessing the limitations of predictive modeling and acknowledging the unlikelihood of perfect generalization (zero error) in real-world data scenarios."
     },
     {
       "blank": "Blank F1",
       "task": "Out-of-Sample Testing",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Applying the trained decision tree rules to a completely unseen \"Test Data\" set to measure its true predictive capability."
     },
     {
       "blank": "Blank F2",
       "task": "Generalization vs. Overfitting Analysis",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Comparing training set performance against test set performance and diagnosing the underlying causes for any performance drops."
     },
     {
       "blank": "Blank G1",
       "task": "Algorithmic Conceptualization",
-      "level": "Deepen"
+      "level": "Deepen",
+      "desc": "Synthesizing the technical process to define what the machine learning model actually \"learned\" (i.e., extracting mathematical rules rather than human understanding)."
     },
     {
       "blank": "Blank G2",
       "task": "Metacognitive Reflection",
-      "level": "Create"
+      "level": "Create",
+      "desc": "Introspectively evaluating one's own learning process, skill acquisition, and conceptual growth regarding data modeling."
     }
   ]
 }
