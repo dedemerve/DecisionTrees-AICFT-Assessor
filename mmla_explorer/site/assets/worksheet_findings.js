@@ -31,6 +31,13 @@
     WS15: { title: "Titanic data in CODAP Arbor", topic: "Build a tree on a Titanic training sample, then check it on a test sample." },
   };
   const ALIAS = { WS10: { WS10_B8: "optimal_threshold" } };
+  // Researcher overrides: correct if any accept token appears in the student's answer (case-insensitive).
+  const ITEM_OVERRIDES = {
+    WS1_B4: {
+      expected: "Özelliğin / Karakteristiğin / Değişkenin",
+      acceptTokens: ["özellik", "karakteristik", "değişken"],
+    },
+  };
   const SCORE_DERIVED = new Set(["WS11", "WS12", "WS13"]);
 
   const h = (v) => String(v == null ? "" : v)
@@ -797,37 +804,58 @@
     return ocr.checks.find((x) => x.check === "item_checks." + itemId) || null;
   }
 
+  function resolveCheck(ck, response, itemId) {
+    const ov = ITEM_OVERRIDES[itemId];
+    if (!ov) return ck;
+    // Build a synthetic check using the override criterion regardless of pipeline verdict
+    const lower = (response || "").toLowerCase();
+    const accepted = ov.acceptTokens.some((t) => lower.indexOf(t) !== -1);
+    const wasBlank = !response || response === "(blank)";
+    const correct = wasBlank ? false : accepted ? true : ck ? ck.correct : null;
+    const note = ov.expected + (ck && ck.note ? " — " + ck.note : "");
+    return { correct: correct, note: note, flag: ck ? ck.flag : null, _override: true };
+  }
+
+  function expectedFor(w, itemId) {
+    const ov = ITEM_OVERRIDES[itemId];
+    if (ov) return ov.expected;
+    const rub = w ? rubricItems(w)[itemId] : null;
+    return rub ? criterionText(rub) : "";
+  }
+
   function answerGrid(model, core) {
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
     const students = model.cohort;
-    const colHeaders = `<th class="gc-item-head">Item</th><th class="gc-exp-head">Expected</th>` +
-      students.map((p) => `<th class="gc-head">${h(p.id)}</th>`).join("");
-    const bodyRows = model.items.map((it) => {
-      const rub = w ? rubricItems(w)[it.id] : null;
-      const expected = rub ? criterionText(rub) : "";
-      const cells = students.map((p) => {
-        const rec = core.ws[p.id] && core.ws[p.id][model.code];
+    const items = model.items;
+    // Column headers: item titles (rotated), with expected answer as subtitle
+    const colHeaders = `<th class="gc-student-head">Student</th>` +
+      items.map((it) => {
+        const exp = expectedFor(w, it.id);
+        return `<th class="gc-head" title="${h(exp)}">${h(it.title)}<div class="gc-exp-sub">${h(clip(exp, 30))}</div></th>`;
+      }).join("");
+    // Rows: one per student
+    const bodyRows = students.map((p) => {
+      const rec = core.ws[p.id] && core.ws[p.id][model.code];
+      let nPass = 0, nChecked = 0;
+      const cells = items.map((it) => {
         const response = getResponse(rec, model.code, it.id);
-        const display = response ? h(clip(response, 40)) : `<span class="na">–</span>`;
-        const ck = rec ? getItemCheck(rec.ocr, it.id) : null;
-        if (!ck) {
-          return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
-        }
+        const display = response ? h(clip(response, 35)) : `<span class="na">–</span>`;
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id) : null, response, it.id);
+        if (!ck) return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
+        nChecked += 1;
+        if (ck.correct === true) nPass += 1;
         const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
-        const tip = ck.note ? ck.note : (response || "");
+        const tip = ck.note || (response || "");
         return `<td class="gc-cell ${cls}" title="${h(tip)}">${display}</td>`;
       }).join("");
-      return `<tr>
-        <td class="gc-item"><b>${h(it.title)}</b></td>
-        <td class="gc-expected">${h(clip(expected, 60)) || `<span class="na">–</span>`}</td>
-        ${cells}
-      </tr>`;
+      const pctBadge = nChecked ? `<span class="gc-pct-badge ${nPass / nChecked >= 0.7 ? "gc-pct-good" : nPass / nChecked >= 0.4 ? "gc-pct-mid" : "gc-pct-low"}">${share(nPass, nChecked)}</span>` : "";
+      return `<tr><th class="gc-student-name">${h(p.id)} ${pctBadge}</th>${cells}</tr>`;
     }).join("");
     const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
     return `<h3>Answer grid</h3>
-<p class="small">${legend} &nbsp;·&nbsp; Each cell shows the student's written answer. Hover a cell for the full text or a note from the answer-key check. Colors come from the boolean check in the extraction file, not the LLM rubric score.</p>
-<div class="table-wrap"><table class="find-table answer-grid"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+<p class="small">${legend} &nbsp;·&nbsp; Rows = students, columns = items. Each cell shows the student's written answer. Hover for the full text or check note. Colors use the answer-key comparison, not the LLM rubric score.</p>
+<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
   }
 
   function studentResultsTable(model, core) {
@@ -837,10 +865,9 @@
       const rec = core.ws[p.id] && core.ws[p.id][model.code];
       let nCorrect = 0, nChecked = 0;
       const itemRows = model.items.map((it) => {
-        const rub = w ? rubricItems(w)[it.id] : null;
-        const expected = rub ? criterionText(rub) : "–";
+        const expected = expectedFor(w, it.id) || "–";
         const response = getResponse(rec, model.code, it.id);
-        const ck = rec ? getItemCheck(rec.ocr, it.id) : null;
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id) : null, response, it.id);
         let verdictCell, rowCls;
         if (!ck) {
           verdictCell = `<span class="na">–</span>`;
@@ -851,30 +878,32 @@
           rowCls = "row-pass";
         } else if (ck.correct === false) {
           nChecked += 1;
-          verdictCell = `<span class="verdict-fail">✗ Wrong</span>${ck.note ? `<div class="verdict-note">${h(clip(ck.note, 100))}</div>` : ""}`;
+          verdictCell = `<span class="verdict-fail">✗ Wrong</span>${ck.note ? `<div class="verdict-note">${h(clip(ck.note, 120))}</div>` : ""}`;
           rowCls = "row-fail";
         } else {
           nChecked += 1;
-          verdictCell = `<span class="verdict-partial">~ Partial</span>${ck.note ? `<div class="verdict-note">${h(clip(ck.note, 100))}</div>` : ""}`;
+          verdictCell = `<span class="verdict-partial">~ Partial</span>${ck.note ? `<div class="verdict-note">${h(clip(ck.note, 120))}</div>` : ""}`;
           rowCls = "row-partial";
         }
         const writtenCell = response
-          ? `<span class="written-answer">${h(clip(response, 60))}</span>`
+          ? `<span class="written-answer">${h(clip(response, 80))}</span>`
           : `<span class="na">(blank)</span>`;
         return {
-          cells: [`<b>${h(it.title)}</b>`, h(clip(expected, 60)), writtenCell, verdictCell],
+          cells: [`<b>${h(it.title)}</b>`, h(clip(expected, 80)), writtenCell, verdictCell],
           attrs: rowCls ? ` class="${rowCls}"` : "",
         };
       });
       const pct = nChecked ? share(nCorrect, nChecked) : "–";
-      const summary = `<div class="sr-student-head"><b>${h(p.id)}</b> <span class="sr-pct">${nCorrect} / ${nChecked} correct (${pct})</span></div>`;
-      return summary + table(
+      const passIcon = nChecked && nCorrect === nChecked ? "✓" : nCorrect === 0 ? "✗" : "◑";
+      const summaryLine = `${nCorrect} / ${nChecked} correct (${pct})`;
+      const tableHtml = table(
         [{ t: "Item" }, { t: "Expected answer" }, { t: "Written answer" }, { t: "Result" }],
         itemRows
       );
-    }).join("<hr class=\"sr-divider\">");
+      return `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(p.id)}</span><span class="sr-badge ${nChecked && nCorrect / nChecked >= 0.7 ? "sr-good" : nChecked && nCorrect / nChecked >= 0.4 ? "sr-mid" : "sr-low"}">${summaryLine}</span></summary><div class="sr-body">${tableHtml}</div></details>`;
+    }).join("");
     return `<h3>Student results</h3>
-<p class="small">Verdict uses the answer-key check from the extraction file, not the LLM rubric score. Notes explain why an answer was marked wrong or partial.</p>
+<p class="small">Click a student to expand their answers. Verdict uses the answer-key check from the extraction file. Notes explain why an answer was marked wrong or partial.</p>
 <div class="student-results">${blocks}</div>`;
   }
 
@@ -885,47 +914,53 @@
     const itemStats = model.items.map((it) => {
       let pass = 0, fail = 0, partial = 0, total = 0;
       const notCorrect = [];
+      const perStudent = {};
       model.cohort.forEach((p) => {
         const rec = core.ws[p.id] && core.ws[p.id][model.code];
-        const ck = rec ? getItemCheck(rec.ocr, it.id) : null;
-        if (!ck) return;
+        const response = getResponse(rec, model.code, it.id);
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id) : null, response, it.id);
+        if (!ck) { perStudent[p.id] = null; return; }
         total += 1;
-        if (ck.correct === true) pass += 1;
-        else if (ck.correct === false) { fail += 1; notCorrect.push(p.id); }
-        else { partial += 1; notCorrect.push(p.id); }
+        if (ck.correct === true) { pass += 1; perStudent[p.id] = "pass"; }
+        else if (ck.correct === false) { fail += 1; notCorrect.push(p.id); perStudent[p.id] = "fail"; }
+        else { partial += 1; notCorrect.push(p.id); perStudent[p.id] = "partial"; }
       });
-      return { it, pass, fail, partial, total, notCorrect };
+      return { it, pass, fail, partial, total, notCorrect, perStudent };
     }).filter((x) => x.total > 0);
     if (!itemStats.length) {
-      return `<p>No answer-key checks are available for this worksheet. The class analysis requires <code>item_checks.*</code> entries in the extraction data.</p>`;
+      return `<p>No answer-key checks are available for this worksheet. Class analysis requires <code>item_checks.*</code> entries in the extraction data.</p>`;
     }
     const avgPass = itemStats.reduce((a, x) => a + x.pass / x.total, 0) / itemStats.length;
-    bits.push(`<p>Across ${itemStats.length} item${itemStats.length === 1 ? "" : "s"} with answer-key checks and ${model.cohort.length} included student${model.cohort.length === 1 ? "" : "s"}, the average correct rate per item is <b>${(avgPass * 100).toFixed(0)}%</b>.</p>`);
-    const gapItems = itemStats.filter((x) => x.pass / x.total < 0.5);
-    if (gapItems.length) {
-      bits.push(`<h3>Gap items <span class="small">(correct rate below 50%)</span></h3>`);
-      const gapRows = gapItems.map(({ it, pass, total, notCorrect }) => {
-        const rub = w ? rubricItems(w)[it.id] : null;
-        const expected = rub ? criterionText(rub) : "";
-        return {
-          cells: [
-            `<b>${h(it.title)}</b>${expected ? `<div class="small">${h(clip(expected, 160))}</div>` : ""}`,
-            `<b>${share(pass, total)}</b>`,
-            notCorrect.map((s) => h(s)).join(", ") || "–",
-          ],
-        };
-      });
-      bits.push(table(
-        [{ t: "Item and expected answer" }, { t: "Correct rate", num: 1 }, { t: "Students not correct" }],
-        gapRows
-      ));
-    } else {
-      bits.push(`<p>All items have a correct rate of 50% or higher.</p>`);
-    }
-    const masteredAll = itemStats.filter((x) => x.pass === x.total);
-    if (masteredAll.length) bits.push(`<p><b>Correct for all students:</b> ${masteredAll.map((x) => h(x.it.title)).join(", ")}.</p>`);
-    const noneCorrect = itemStats.filter((x) => x.pass === 0);
-    if (noneCorrect.length) bits.push(`<p><b>No student answered correctly:</b> ${noneCorrect.map((x) => h(x.it.title)).join(", ")}.</p>`);
+    const nGap = itemStats.filter((x) => x.pass / x.total < 0.5).length;
+    const nMastered = itemStats.filter((x) => x.pass === x.total).length;
+
+    // Summary cards
+    bits.push(`<div class="diag-summary"><div class="diag-card"><div class="diag-val">${(avgPass * 100).toFixed(0)}%</div><div class="diag-lbl">Average correct rate</div></div><div class="diag-card"><div class="diag-val diag-val-gap">${nGap}</div><div class="diag-lbl">Gap item${nGap !== 1 ? "s" : ""} &lt; 50%</div></div><div class="diag-card"><div class="diag-val diag-val-ok">${nMastered}</div><div class="diag-lbl">Item${nMastered !== 1 ? "s" : ""} mastered by all</div></div></div>`);
+
+    // Full item table — all items with bar
+    bits.push(`<h3>Item-by-item results</h3><p class="small">Each row is one item. The bar shows how many of the ${model.cohort.length} students answered it correctly.</p>`);
+    const allRows = itemStats.map(({ it, pass, fail, partial, total, notCorrect }) => {
+      const expected = expectedFor(w, it.id);
+      const pct = Math.round(100 * pass / total);
+      const isGap = pass / total < 0.5;
+      const isMastered = pass === total;
+      const barColor = isMastered ? "#16a34a" : isGap ? "#dc2626" : "#2878c8";
+      const bar = `<div class="diag-bar-wrap"><div class="diag-bar" style="width:${pct}%;background:${barColor}"></div><span class="diag-bar-pct">${share(pass, total)}</span></div>`;
+      const failNames = notCorrect.length ? notCorrect.map((s) => h(s)).join(", ") : "";
+      const badge = isMastered ? `<span class="diag-badge diag-mastered">All correct</span>` : isGap ? `<span class="diag-badge diag-gap">Gap item</span>` : "";
+      return {
+        cells: [
+          `<b>${h(it.title)}</b>${badge}${expected ? `<div class="small diag-expected">${h(clip(expected, 120))}</div>` : ""}`,
+          bar,
+          `${pass} / ${total}`,
+          failNames ? `<span class="diag-fail-names">${failNames}</span>` : `<span class="verdict-pass">All correct</span>`,
+        ],
+      };
+    });
+    bits.push(table(
+      [{ t: "Item and expected answer" }, { t: "Correct rate" }, { t: "Count", num: 1 }, { t: "Not correct" }],
+      allRows
+    ));
     return bits.join("");
   }
 
