@@ -1660,7 +1660,7 @@
     if (!el) return;
     fetch(`data/labeling/${jsonCode}.json`)
       .then((r) => r.ok ? r.json() : Promise.reject(r.status))
-      .then(({ headers, rows }) => {
+      .then(({ headers, rows, column_info }) => {
         if (!rows.length) { el.innerHTML = `<p class="small muted">No labeling data for this worksheet.</p>`; return; }
         rows = rows.slice().sort((a, b) => {
           const ia = STUDENTS.indexOf(a[0]); const ib = STUDENTS.indexOf(b[0]);
@@ -1683,7 +1683,15 @@
           }).join("");
           return `<tr>${cells}</tr>`;
         }).join("");
-        el.innerHTML = `<div class="table-wrap labeling-scroll"><table class="labeling-table"><thead>${thRow}</thead><tbody>${tbRows}</tbody></table></div>`;
+        const LEVEL_CLASS = { Acquire: "lcol-acquire", Deepen: "lcol-deepen", Create: "lcol-create" };
+        let colInfoHtml = "";
+        if (column_info && column_info.length) {
+          const grouped = {};
+          column_info.forEach((c) => { (grouped[c.level] = grouped[c.level] || []).push(c); });
+          const order = ["Acquire", "Deepen", "Create"];
+          colInfoHtml = `<div class="labeling-col-info">${order.filter((l) => grouped[l]).map((level) => `<div class="lci-group ${LEVEL_CLASS[level] || ""}"><div class="lci-level">${h(level)}</div><div class="lci-items">${grouped[level].map((c) => `<div class="lci-item"><span class="lci-blank">${h(c.blank)}</span><span class="lci-task">${h(c.task)}</span></div>`).join("")}</div></div>`).join("")}</div>`;
+        }
+        el.innerHTML = colInfoHtml + `<div class="table-wrap labeling-scroll"><table class="labeling-table"><thead>${thRow}</thead><tbody>${tbRows}</tbody></table></div>`;
       })
       .catch(() => { el.innerHTML = `<p class="small muted">No labeling data on file for this worksheet.</p>`; });
   }
