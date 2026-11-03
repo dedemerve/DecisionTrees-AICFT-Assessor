@@ -803,8 +803,8 @@
   }
 
   // ------------------------------------------------------------------ 03 Explore
-  function exploreShell(active, body) {
-    return `<p class="kicker">Collected data</p>${body}`;
+  function exploreShell(active, body, hideKicker) {
+    return hideKicker ? body : `<p class="kicker">Collected data</p>${body}`;
   }
   function pageStudents() {
     if (window.StudentProfiles) return window.StudentProfiles.page();
@@ -1033,7 +1033,7 @@
     const last = parts.length - 1;
     return `<nav class="crumbs" aria-label="Breadcrumb">${parts.map((p, i) => {
       if (i === last) return `<span aria-current="page">${h(p[0])}</span>`;
-      return `<a href="${h(p[1])}">${h(p[0])}</a><span aria-hidden="true">/</span>`;
+      return `<a href="${h(p[1])}">${h(p[0])}</a><span aria-hidden="true">›</span>`;
     }).join("")}</nav>`;
   }
   function namesInText(text, self) {
@@ -1753,9 +1753,12 @@
     const info = WS_INFO[code] || {};
     const files = (window.WS_FILES && window.WS_FILES[code]) || { materials: [], completed: [] };
     const completed = uniqueFiles(files.completed);
-    return `<div class="page wide">${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], [code]])}
-      ${exploreShell("worksheets", `
-      <h1>${h(code)} · ${h(wsTitle(w))}</h1>
+    return `<div class="page wide">
+      <div class="page-header">
+        ${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], [code]])}
+        <p class="kicker">Collected data · Worksheets</p>
+        <h1>${h(code)} · ${h(wsTitle(w))}</h1>
+      </div>
       <section class="section-block" id="overview"><h2>Worksheet overview</h2>
         <p>${h(info.topic || "No purpose statement is stored for this worksheet.")}</p>
         ${loBrief(code)}
@@ -1782,7 +1785,7 @@
           </li>
         </ul>
       </section>
-      `)}</div>`;
+      </div>`;
   }
 
   const HF_FRAMES = "https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames";
@@ -2543,7 +2546,13 @@
       const sub = parts[1] || "";
       if (sub === "students" || sub === "") { location.replace("#/findings/participants" + (query ? "?" + query : "")); return; }
       if (sub === "student") html = pageStudent(parts[2], parts[3]);
-      else if (sub === "worksheets") { html = pageWorksheets(); after = bindWsSearch; }
+      else if (sub === "worksheets") {
+        if (parts[2]) {
+          const wsCode = parts[2];
+          html = pageWorksheet(wsCode, q);
+          after = () => { bindRespFilter(); loadLabelingTable(wsCode); };
+        } else { html = pageWorksheets(); after = bindWsSearch; }
+      }
       else if (sub === "worksheet") {
         const wsCode = parts[2];
         html = pageWorksheet(wsCode, q);
