@@ -1662,7 +1662,12 @@
       .then((r) => r.ok ? r.json() : Promise.reject(r.status))
       .then(({ headers, rows }) => {
         if (!rows.length) { el.innerHTML = `<p class="small muted">No labeling data for this worksheet.</p>`; return; }
-        rows = rows.slice().sort((a, b) => (a[0] || "").localeCompare(b[0] || "", "tr"));
+        rows = rows.slice().sort((a, b) => {
+          const ia = STUDENTS.indexOf(a[0]); const ib = STUDENTS.indexOf(b[0]);
+          if (ia === -1 && ib === -1) return (a[0] || "").localeCompare(b[0] || "", "tr");
+          if (ia === -1) return 1; if (ib === -1) return -1;
+          return ia - ib;
+        });
         const skipCols = new Set();
         headers.forEach((h, i) => { if (!h || h === "Cohort") skipCols.add(i); });
         const visHeaders = headers.map((h, i) => skipCols.has(i) ? null : h).filter(Boolean);
