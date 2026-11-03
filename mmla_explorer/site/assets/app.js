@@ -1659,7 +1659,9 @@
       const who = groups.length
         ? `<details class="file-who"><summary>${num(people)} pseudonym${people === 1 ? "" : "s"} in this file</summary><p>${groups.map((g) => g.map(h).join(" and ")).join(", ")}</p></details>`
         : "";
-      return `<li class="file-item"><a href="${h(encodeURI(item.href))}" download="${h(item.download || "")}">${h(item.title)}</a><span class="file-meta">PDF · ${bytes(item.bytes)}</span>${who}</li>`;
+      const enc = h(encodeURI(item.href));
+      const dl = h(item.download || "");
+      return `<li class="file-item"><span class="file-actions"><a href="${enc}" target="_blank" rel="noopener">View</a><a href="${enc}" download="${dl}">Download</a></span><span class="file-name">${h(item.title)}</span><span class="file-meta">PDF · ${bytes(item.bytes)}</span>${who}</li>`;
     }).join("")}</ul>`;
   }
   function ws15Card(title, name, rows, role) {
@@ -1736,6 +1738,17 @@
       <section class="section-block" id="completed"><h2>Completed student worksheets</h2>
         <p class="small span-line">${completed.length ? `${num(completed.length)} file${completed.length === 1 ? "" : "s"}. ` : ""}The original scans are shown as they were stored. Different students were not merged into a new PDF, and no dates are shown.</p>
         ${fileList(files.completed, "No completed student PDF is on record for this worksheet.")}
+      </section>
+      <section class="section-block" id="ai-labeling"><h2>AI competency labeling</h2>
+        <p>The table below records the response extracted by the RAG pipeline for each student on this worksheet, along with researcher competency labels mapped to the UNESCO AI-CFT framework. Each row is one student; each column is one response field (blank) from the worksheet schema.</p>
+        <ul class="file-list">
+          <li class="file-item">
+            <span class="file-actions"><a href="downloads/AI_CFT_Labeling.xlsx" target="_blank" rel="noopener">View</a><a href="downloads/AI_CFT_Labeling.xlsx" download="AI_CFT_Labeling.xlsx">Download</a></span>
+            <span class="file-name">AI_CFT_Labeling.xlsx</span>
+            <span class="file-meta">Excel · 46 KB</span>
+          </li>
+        </ul>
+        <p class="small">The file contains one sheet per worksheet. The sheet for this worksheet (${h(code)}) shows every extracted response field alongside the researcher's competency label and notes. Empty cells mean the student left that field blank or the field was not extracted by the pipeline.</p>
       </section>
       `)}</div>`;
   }
