@@ -1645,6 +1645,39 @@ table.find-table tr[hidden] { display: none !important; }
 .profile-matrix a:hover { text-decoration: underline; }
 .profile-fold > summary::after { content: "Show"; }
 .profile-fold[open] > summary::after { content: "Hide"; }
+
+/* Answer grid */
+table.answer-grid { border-collapse: collapse; min-width: max-content; }
+table.answer-grid th, table.answer-grid td { white-space: nowrap; }
+table.answer-grid td.gc-item { white-space: normal; min-width: 160px; max-width: 260px; }
+table.answer-grid .gc-head { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); padding: 6px 4px; font-size: 12px; font-weight: 600; max-height: 80px; }
+table.answer-grid .gc-cell { text-align: center; width: 36px; padding: 6px 4px; font-size: 14px; border-radius: 4px; cursor: default; }
+.gc-full  { background: #d4f0e4; color: #1a5c3a; }
+.gc-partial { background: #fff0cc; color: #7a5500; }
+.gc-none  { background: #fde0e0; color: #8b1a1a; }
+.gc-na    { background: transparent; color: var(--muted); }
+@media (prefers-color-scheme: dark) {
+  .gc-full  { background: #1a4030; color: #8dccb8; }
+  .gc-partial { background: #3d2e00; color: #e0b040; }
+  .gc-none  { background: #3d1a1a; color: #e08080; }
+}
+:root[data-theme="dark"] .gc-full  { background: #1a4030; color: #8dccb8; }
+:root[data-theme="dark"] .gc-partial { background: #3d2e00; color: #e0b040; }
+:root[data-theme="dark"] .gc-none  { background: #3d1a1a; color: #e08080; }
+
+/* Result badges */
+.res-badge { display: inline-block; padding: 1px 7px; border-radius: 99px; font-size: 12px; line-height: 1.6; white-space: nowrap; }
+.rb-pass { background: #d4f0e4; color: #1a5c3a; }
+.rb-half { background: #fff0cc; color: #7a5500; }
+.rb-fail { background: #fde0e0; color: #8b1a1a; }
+@media (prefers-color-scheme: dark) {
+  .rb-pass { background: #1a4030; color: #8dccb8; }
+  .rb-half { background: #3d2e00; color: #e0b040; }
+  .rb-fail { background: #3d1a1a; color: #e08080; }
+}
+:root[data-theme="dark"] .rb-pass { background: #1a4030; color: #8dccb8; }
+:root[data-theme="dark"] .rb-half { background: #3d2e00; color: #e0b040; }
+:root[data-theme="dark"] .rb-fail { background: #3d1a1a; color: #e08080; }
 @media (max-width: 800px) {
   .theme-grid { grid-template-columns: 1fr; }
   .cov-row { grid-template-columns: minmax(0, 1fr) auto; }
