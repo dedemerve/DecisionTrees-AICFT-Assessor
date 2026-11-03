@@ -1650,7 +1650,7 @@ table.find-table tr[hidden] { display: none !important; }
 table.answer-grid { border-collapse: collapse; min-width: max-content; }
 table.answer-grid th.gc-item-head { min-width: 120px; }
 table.answer-grid th.gc-exp-head  { min-width: 160px; }
-table.answer-grid .gc-head { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); padding: 6px 4px; font-size: 12px; font-weight: 600; min-width: 90px; max-height: 96px; vertical-align: bottom; }
+table.answer-grid .gc-head { padding: 6px 8px; font-size: 12px; font-weight: 600; min-width: 80px; vertical-align: bottom; white-space: normal; word-break: break-word; text-align: center; }
 table.answer-grid td.gc-item { white-space: normal; min-width: 110px; max-width: 200px; font-size: 13px; }
 table.answer-grid td.gc-expected { font-size: 13px; color: var(--ink-2); white-space: normal; min-width: 140px; max-width: 240px; }
 table.answer-grid .gc-cell { font-size: 13px; padding: 6px 10px; border-radius: 4px; white-space: normal; max-width: 160px; word-break: break-word; vertical-align: top; }
@@ -1690,7 +1690,7 @@ tr.row-partial { background: rgba(202,138,4,0.07); }
 /* Transposed grid: student rows */
 table.answer-grid.transposed th.gc-student-head { text-align: left; font-weight: 600; font-size: 13px; min-width: 90px; padding: 6px 10px; white-space: nowrap; }
 table.answer-grid.transposed th.gc-student-name { font-weight: 600; font-size: 13px; text-align: left; padding: 6px 10px; white-space: nowrap; background: var(--surface-2); }
-table.answer-grid.transposed .gc-head { font-size: 11px; min-width: 80px; }
+table.answer-grid.transposed .gc-head { font-size: 11px; min-width: 80px; writing-mode: initial; transform: none; }
 .gc-exp-sub { font-weight: 400; font-size: 10px; color: var(--muted); white-space: normal; word-break: break-word; max-width: 80px; }
 .gc-pct-badge { display: inline-block; margin-left: 6px; font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 99px; vertical-align: middle; }
 .gc-pct-good { background: rgba(22,163,74,0.14); color: #15803d; }
@@ -1732,21 +1732,21 @@ details.sr-accordion[open] > summary.sr-summary::before { transform: rotate(90de
 .diag-summary { display: flex; gap: 16px; flex-wrap: wrap; margin: 12px 0 20px; }
 .diag-card { background: var(--surface-2); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 20px; min-width: 120px; text-align: center; }
 .diag-val { font-size: 28px; font-weight: 700; color: var(--ink); }
-.diag-val-gap { color: #b91c1c; }
+.diag-val-gap { color: #b45309; }
 .diag-val-ok  { color: #15803d; }
 .diag-lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .diag-val-gap { color: #f87171; }
+  :root:not([data-theme="light"]) .diag-val-gap { color: #fbbf24; }
   :root:not([data-theme="light"]) .diag-val-ok  { color: #4ade80; }
 }
-:root[data-theme="dark"] .diag-val-gap { color: #f87171; }
+:root[data-theme="dark"] .diag-val-gap { color: #fbbf24; }
 :root[data-theme="dark"] .diag-val-ok  { color: #4ade80; }
 .diag-bar-wrap { display: flex; align-items: center; gap: 8px; min-width: 120px; }
 .diag-bar { height: 10px; border-radius: 99px; min-width: 2px; flex-shrink: 0; }
 .diag-bar-pct { font-size: 13px; font-weight: 600; white-space: nowrap; }
 .diag-expected { color: var(--muted); margin-top: 2px; }
 .diag-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
-.diag-gap     { background: rgba(220,38,38,0.12); color: #b91c1c; }
+.diag-gap     { background: rgba(180,83,9,0.10); color: #b45309; }
 .diag-mastered { background: rgba(22,163,74,0.14); color: #15803d; }
 .diag-fail-names { font-size: 12px; color: var(--muted); }
 @media (max-width: 800px) {

@@ -30,7 +30,10 @@
     WS14: { title: "Diagnosis game with trees (Xeno)", topic: "Diagnose an alien disease with a tree in CODAP Arbor. Each student receives a randomly generated case set." },
     WS15: { title: "Titanic data in CODAP Arbor", topic: "Build a tree on a Titanic training sample, then check it on a test sample." },
   };
-  const ALIAS = { WS10: { WS10_B8: "optimal_threshold" } };
+  const ALIAS = {
+    WS5: { WS5_row1: "trials[1]", WS5_row2: "trials[2]", WS5_row3: "trials[3]" },
+    WS10: { WS10_B8: "optimal_threshold" },
+  };
   // Researcher overrides for display correctness.
   // acceptTokens: at least one token must appear (case-insensitive, OR logic).
   // acceptPattern: regex that must match (applied after acceptTokens when both set → AND).
@@ -179,12 +182,12 @@
     if (item && item.label) return item.label;
     if (item && item.printed_question != null) {
       const q = String(item.printed_question);
-      return /^\d+$/.test(q) ? "Item " + q : q;
+      return /^\d+$/.test(q) ? "Madde " + q : q;
     }
     const row = /_row(\d+)$/i.exec(id);
     if (row) return "Row " + row[1];
     const blank = /(?:^|_)B(\d+)$/i.exec(id);
-    if (blank) return "Item " + blank[1];
+    if (blank) return "Madde " + blank[1];
     const tree = /^DT_([A-G])_(.+)$/.exec(id);
     if (tree) {
       const q = /^Q(\d+)$/.exec(tree[2]);
@@ -819,8 +822,15 @@
     return null;
   }
 
-  function getItemCheck(ocr, itemId) {
+  // Maps scoring item IDs to check IDs for worksheets that use non-standard check naming.
+  const CHECK_MAP = {
+    WS5: { WS5_row1: "trials[1]", WS5_row2: "trials[2]", WS5_row3: "trials[3]" },
+  };
+
+  function getItemCheck(ocr, itemId, wsCode) {
     if (!ocr || !ocr.checks) return null;
+    const alias = wsCode && CHECK_MAP[wsCode] && CHECK_MAP[wsCode][itemId];
+    if (alias) return ocr.checks.find((x) => x.check === alias) || null;
     return ocr.checks.find((x) => x.check === "item_checks." + itemId) || null;
   }
 
@@ -867,7 +877,7 @@
       const cells = items.map((it) => {
         const response = getResponse(rec, model.code, it.id);
         const display = response ? h(clip(response, 35)) : `<span class="na">–</span>`;
-        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id) : null, response, it.id);
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id);
         if (!ck) return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
         nChecked += 1;
         if (ck.correct === true) nPass += 1;
@@ -875,8 +885,7 @@
         const tip = ck.note || (response || "");
         return `<td class="gc-cell ${cls}" title="${h(tip)}">${display}</td>`;
       }).join("");
-      const pctBadge = nChecked ? `<span class="gc-pct-badge ${nPass / nChecked >= 0.7 ? "gc-pct-good" : nPass / nChecked >= 0.4 ? "gc-pct-mid" : "gc-pct-low"}">${share(nPass, nChecked)}</span>` : "";
-      return `<tr><th class="gc-student-name">${h(p.id)} ${pctBadge}</th>${cells}</tr>`;
+      return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
     }).join("");
     const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
     return `<h3>Answer grid</h3>
@@ -893,7 +902,7 @@
       const itemRows = model.items.map((it) => {
         const expected = expectedFor(w, it.id) || "–";
         const response = getResponse(rec, model.code, it.id);
-        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id) : null, response, it.id);
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id);
         let verdictCell, rowCls;
         if (!ck) {
           verdictCell = `<span class="na">–</span>`;
@@ -944,7 +953,7 @@
       model.cohort.forEach((p) => {
         const rec = core.ws[p.id] && core.ws[p.id][model.code];
         const response = getResponse(rec, model.code, it.id);
-        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id) : null, response, it.id);
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id);
         if (!ck) { perStudent[p.id] = null; return; }
         total += 1;
         if (ck.correct === true) { pass += 1; perStudent[p.id] = "pass"; }
@@ -970,7 +979,7 @@
       const pct = Math.round(100 * pass / total);
       const isGap = pass / total < 0.5;
       const isMastered = pass === total;
-      const barColor = isMastered ? "#16a34a" : isGap ? "#dc2626" : "#2878c8";
+      const barColor = isMastered ? "#16a34a" : isGap ? "#c08000" : "#2878c8";
       const bar = `<div class="diag-bar-wrap"><div class="diag-bar" style="width:${pct}%;background:${barColor}"></div><span class="diag-bar-pct">${share(pass, total)}</span></div>`;
       const failNames = notCorrect.length ? notCorrect.map((s) => h(s)).join(", ") : "";
       const badge = isMastered ? `<span class="diag-badge diag-mastered">All correct</span>` : isGap ? `<span class="diag-badge diag-gap">Gap item</span>` : "";
