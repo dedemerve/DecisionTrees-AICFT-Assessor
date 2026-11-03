@@ -1652,10 +1652,10 @@
   }
   const LABELING_CODE_MAP = {
     "WS1": "WS1", "WS3": "WS3", "WS4": "WS4", "WS5": "WS5",
-    "WS6": "WS6", "WS7": "WS7", "WS10": "WS10", "WS-DT-CODAP": "WS-DT-CODAP",
+    "WS6": "WS6", "WS7": "WS7", "WS10": "WS10", "WS-DT-CODAP": "WS12",
   };
   function loadLabelingTable(code) {
-    const jsonCode = code === "WS DT - CODAP" ? "WS-DT-CODAP" : (LABELING_CODE_MAP[code] || code);
+    const jsonCode = code === "WS DT - CODAP" ? "WS12" : (LABELING_CODE_MAP[code] || code);
     const el = document.getElementById(`labeling-table-${code}`);
     if (!el) return;
     fetch(`data/labeling/${jsonCode}.json`)
@@ -1775,7 +1775,7 @@
         <div id="labeling-table-${h(code)}" class="labeling-wrap"><p class="small muted">Loading…</p></div>
         <ul class="file-list" style="margin-top:16px">
           <li class="file-item">
-            <span class="file-actions"><a href="downloads/labeling/${h(code === "WS DT - CODAP" ? "WS-DT-CODAP" : code)}.xlsx" download="${h((code === "WS DT - CODAP" ? "WS-DT-CODAP" : code) + ".xlsx")}">Download</a></span>
+            <span class="file-actions"><a href="downloads/labeling/${h(code === "WS DT - CODAP" ? "WS12" : code)}.xlsx" download="${h((code === "WS DT - CODAP" ? "WS12" : code) + ".xlsx")}">Download</a></span>
             <span class="file-name">${h(code)} labeling sheet</span>
             <span class="file-meta">Excel · this worksheet only</span>
           </li>
