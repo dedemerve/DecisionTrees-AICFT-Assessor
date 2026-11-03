@@ -783,11 +783,21 @@
     return "On " + n + (n === 1 ? " item" : " items") + ", most included participants received partial or full credit, while a separate yes-or-no check failed more often than it passed. That check is not the rubric score.";
   }
 
+  function getResponse(rec, code, itemId) {
+    if (!rec || !rec.ocr) return null;
+    const vals = responsesFor(rec.ocr, code, itemId);
+    const tv = vals.filter((r) => valueKind(r.value) === "text");
+    if (tv.length) return tv.map((r) => String(r.value)).join("; ");
+    if (vals.some((r) => valueKind(r.value) === "blank")) return "(blank)";
+    return null;
+  }
+
   function answerGrid(model, core) {
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
     const students = model.cohort;
-    const colHeaders = students.map((p) => `<th class="gc-head">${h(p.id)}</th>`).join("");
+    const colHeaders = `<th class="gc-item-head">Item</th><th class="gc-exp-head">Expected answer</th>` +
+      students.map((p) => `<th class="gc-head">${h(p.id)}</th>`).join("");
     const bodyRows = model.items.map((it) => {
       const rub = w ? rubricItems(w)[it.id] : null;
       const expected = rub ? criterionText(rub) : "";
@@ -795,64 +805,62 @@
         const rec = core.ws[p.id][model.code];
         const sc = rec && rec.scoring;
         const it2 = sc ? (sc.items || []).find((x) => x.item === it.id) : null;
-        if (!it2 || typeof it2.score !== "number") return `<td class="gc-cell gc-na" title="Not scored">–</td>`;
+        const response = getResponse(rec, model.code, it.id);
+        const display = response ? h(clip(response, 40)) : `<span class="na">–</span>`;
+        const full = response || "";
+        if (!it2 || typeof it2.score !== "number") {
+          return `<td class="gc-cell gc-na" title="${h(full)}">${display}</td>`;
+        }
         const max = itemMax(w, it2);
         const kind = creditOf(it2.score, max);
-        let response = "";
-        if (rec.ocr && model.aligned) {
-          const vals = responsesFor(rec.ocr, model.code, it.id);
-          const tv = vals.filter((r) => valueKind(r.value) === "text");
-          if (tv.length) response = tv.map((r) => String(r.value)).join("; ");
-        }
-        const symbol = kind === "full" ? "✓" : kind === "partial" ? "½" : "✗";
         const cls = kind === "full" ? "gc-full" : kind === "partial" ? "gc-partial" : "gc-none";
-        const tip = response ? h(response) : (kind === "none" ? "No credit" : kind === "partial" ? "Partial credit" : "Full credit");
-        return `<td class="gc-cell ${cls}" title="${tip}">${symbol}</td>`;
+        return `<td class="gc-cell ${cls}" title="${h(full)}">${display}</td>`;
       }).join("");
-      return `<tr><td class="gc-item"><b>${h(it.title)}</b>${expected ? `<div class="small">${h(clip(expected, 90))}</div>` : ""}</td>${cells}</tr>`;
+      return `<tr>
+        <td class="gc-item"><b>${h(it.title)}</b></td>
+        <td class="gc-expected">${h(clip(expected, 60)) || `<span class="na">–</span>`}</td>
+        ${cells}
+      </tr>`;
     }).join("");
-    return `<h3>Answer grid</h3>
-<p class="small">Each cell: ✓ full credit, ½ partial, ✗ no credit, – not scored. Hover a cell to see the extracted response where available. These are pipeline scores, not reviewed verdicts.</p>
-<div class="table-wrap"><table class="find-table answer-grid"><thead><tr><th>Item</th>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+    const legend = `<span class="gc-legend gc-full">Doğru</span> <span class="gc-legend gc-partial">Kısmi</span> <span class="gc-legend gc-none">Yanlış</span>`;
+    return `<h3>Öğrenci yanıtları ve beklenen yanıtlar</h3>
+<p class="small">${legend} &nbsp;·&nbsp; Her hücre öğrencinin yazdığı yanıtı gösterir. Uzun yanıtların tamamı için üzerine gelin. Renkler pipeline puanına göre belirlenir; araştırmacı kararı değildir.</p>
+<div class="table-wrap"><table class="find-table answer-grid"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
   }
 
   function studentResultsTable(model, core) {
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
-    const rows = model.cohort.map((p) => {
+    const blocks = model.cohort.map((p) => {
       const rec = core.ws[p.id][model.code];
       const sc = rec && rec.scoring;
-      const correct = [], partial = [], incorrect = [];
-      model.items.forEach((it) => {
+      let nCorrect = 0, nTotal = 0;
+      const itemRows = model.items.map((it) => {
         const it2 = sc ? (sc.items || []).find((x) => x.item === it.id) : null;
-        if (!it2 || typeof it2.score !== "number") return;
+        const response = getResponse(rec, model.code, it.id) || "–";
+        const rub = w ? rubricItems(w)[it.id] : null;
+        const expected = rub ? criterionText(rub) : "–";
+        if (!it2 || typeof it2.score !== "number") {
+          return { cells: [`<b>${h(it.title)}</b>`, h(clip(expected, 60)), h(clip(response, 60)), `<span class="na">–</span>`] };
+        }
         const max = itemMax(w, it2);
         const kind = creditOf(it2.score, max);
-        if (kind === "full") correct.push(it.title);
-        else if (kind === "partial") partial.push(it.title);
-        else incorrect.push(it.title);
+        nTotal += 1;
+        if (kind === "full") nCorrect += 1;
+        const cls = kind === "full" ? "rb-pass" : kind === "partial" ? "rb-half" : "rb-fail";
+        const label = kind === "full" ? "Doğru" : kind === "partial" ? "Kısmi" : "Yanlış";
+        return { cells: [`<b>${h(it.title)}</b>`, h(clip(expected, 60)), `<span class="gc-cell ${kind === "full" ? "gc-full" : kind === "partial" ? "gc-partial" : "gc-none"}" style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:13px">${h(clip(response, 60))}</span>`, `<span class="res-badge ${cls}">${label}</span>`] };
       });
-      const total = correct.length + partial.length + incorrect.length;
-      const pctVal = total ? share(correct.length, total) : "–";
-      const fmt = (arr, cls) => arr.length ? arr.map((t) => `<span class="res-badge ${cls}">${h(t)}</span>`).join(" ") : `<span class="na">–</span>`;
-      return {
-        attrs: ` data-student="${h(p.id)}"`,
-        cells: [
-          `<b>${h(p.id)}</b>`,
-          correct.length + " / " + total,
-          `<span class="find-pct">${pctVal}</span>`,
-          fmt(correct, "rb-pass"),
-          fmt(partial, "rb-half"),
-          fmt(incorrect, "rb-fail"),
-        ],
-      };
-    });
-    return `<h3>Per-student results</h3>
-<p class="small">Correct = full credit. Partial = above zero and below the item maximum. Incorrect = stored score of zero. Items missing from the scoring file are excluded from the count.</p>` +
-      table(
-        [{ t: "Student" }, { t: "Correct / Scored", num: 1 }, { t: "% Correct" }, { t: "Correct items" }, { t: "Partial credit" }, { t: "Incorrect items" }],
-        rows
+      const pctVal = nTotal ? share(nCorrect, nTotal) : "–";
+      const summary = `<div class="sr-student-head"><b>${h(p.id)}</b> <span class="sr-pct">${nCorrect} / ${nTotal} doğru &nbsp;(${pctVal})</span></div>`;
+      return summary + table(
+        [{ t: "Boşluk" }, { t: "Beklenen yanıt" }, { t: "Öğrencinin yanıtı" }, { t: "Sonuç" }],
+        itemRows
       );
+    }).join("<hr class=\"sr-divider\">");
+    return `<h3>Öğrenci başına sonuçlar</h3>
+<p class="small">Doğru = tam puan. Kısmi = sıfır ile tam puan arasında. Yanlış = sıfır puan. Puansız boşluklar sayıma dahil edilmez.</p>
+<div class="student-results">${blocks}</div>`;
   }
 
   function classDiagnostic(model, core) {
