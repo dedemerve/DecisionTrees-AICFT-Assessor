@@ -1773,7 +1773,13 @@
       <section class="section-block" id="ai-labeling"><h2>AI competency labeling</h2>
         <p>Extracted responses from the RAG pipeline and researcher competency labels (UNESCO AI-CFT framework) for each student on this worksheet. Each row is one student; each column is one response field.</p>
         <div id="labeling-table-${h(code)}" class="labeling-wrap"><p class="small muted">Loading…</p></div>
-        <p class="small"><a href="downloads/AI_CFT_Labeling.xlsx" download="AI_CFT_Labeling.xlsx">Download full labeling workbook (all worksheets, Excel)</a></p>
+        <ul class="file-list" style="margin-top:16px">
+          <li class="file-item">
+            <span class="file-actions"><a href="downloads/labeling/${h(code === "WS DT - CODAP" ? "WS-DT-CODAP" : code)}.xlsx" download="${h((code === "WS DT - CODAP" ? "WS-DT-CODAP" : code) + ".xlsx")}">Download</a></span>
+            <span class="file-name">${h(code)} labeling sheet</span>
+            <span class="file-meta">Excel · this worksheet only</span>
+          </li>
+        </ul>
       </section>
       `)}</div>`;
   }
