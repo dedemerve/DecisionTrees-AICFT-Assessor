@@ -438,9 +438,18 @@ th { font-weight: 600; font-size: 11px; letter-spacing: 0.05em; text-transform: 
 .section-block p, .section-block .lead { max-width: none; }
 
 /* Labeling column-info strip */
+.labeling-col-info-wrap { margin: 0 0 14px; }
+.lci-summary {
+  cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+  font-size: .8125rem; font-weight: 600; color: var(--ink-2);
+  user-select: none; list-style: none; padding: 4px 0;
+}
+.lci-summary::-webkit-details-marker { display: none; }
+.lci-summary::before { content: "▶"; font-size: .65rem; transition: transform .15s; }
+details[open] > .lci-summary::before { transform: rotate(90deg); }
 .labeling-col-info {
   display: flex; flex-wrap: wrap; gap: 10px;
-  margin: 0 0 14px;
+  margin: 10px 0 0;
 }
 .lci-group {
   flex: 1 1 auto; min-width: 0;

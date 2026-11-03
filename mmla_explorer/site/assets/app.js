@@ -1689,7 +1689,8 @@
           const grouped = {};
           column_info.forEach((c) => { (grouped[c.level] = grouped[c.level] || []).push(c); });
           const order = ["Acquire", "Deepen", "Create"];
-          colInfoHtml = `<div class="labeling-col-info">${order.filter((l) => grouped[l]).map((level) => `<div class="lci-group ${LEVEL_CLASS[level] || ""}"><div class="lci-level">${h(level)}</div><div class="lci-items">${grouped[level].map((c) => `<div class="lci-item"><span class="lci-blank">${h(c.blank)}</span><span class="lci-task">${h(c.task)}</span></div>`).join("")}</div></div>`).join("")}</div>`;
+          const inner = order.filter((l) => grouped[l]).map((level) => `<div class="lci-group ${LEVEL_CLASS[level] || ""}"><div class="lci-level">${h(level)}</div><div class="lci-items">${grouped[level].map((c) => `<div class="lci-item"><span class="lci-blank">${h(c.blank)}</span><span class="lci-task">${h(c.task)}</span></div>`).join("")}</div></div>`).join("");
+          colInfoHtml = `<details class="labeling-col-info-wrap"><summary class="lci-summary">Column descriptions</summary><div class="labeling-col-info">${inner}</div></details>`;
         }
         el.innerHTML = colInfoHtml + `<div class="table-wrap labeling-scroll"><table class="labeling-table"><thead>${thRow}</thead><tbody>${tbRows}</tbody></table></div>`;
       })
