@@ -31,7 +31,7 @@
     WS15: { title: "Titanic data in CODAP Arbor", topic: "Build a tree on a Titanic training sample, then check it on a test sample." },
   };
   const ALIAS = {
-    WS5: { WS5_row1: "trials[1]", WS5_row2: "trials[2]", WS5_row3: "trials[3]" },
+    WS5: { WS5_row1: "trials[1]", WS5_row2: "trials[2]", WS5_row3: "trials[3]", WS5_B25: "final_decision_raw" },
     WS6: {
       WS6_root_feature:   "tree_structure.depth_0.parsed_feature",
       WS6_root_threshold: "tree_structure.depth_0.left_threshold_value",
@@ -829,7 +829,7 @@
 
   // Maps scoring item IDs to check IDs for worksheets that use non-standard check naming.
   const CHECK_MAP = {
-    WS5: { WS5_row1: "trials[1]", WS5_row2: "trials[2]", WS5_row3: "trials[3]" },
+    WS5: { WS5_row1: "trials[1]", WS5_row2: "trials[2]", WS5_row3: "trials[3]", WS5_B25: "b25_minimum_errors" },
   };
 
   function getItemCheck(ocr, itemId, wsCode) {
@@ -1151,6 +1151,18 @@
       <section class="section-block" id="class-analysis">
         <h2>Class analysis</h2>
         ${classDiagnostic(model, pack.core)}
+      </section>
+      <section class="section-block" id="ai-labeling">
+        <h2>AI competency labeling</h2>
+        <p>Extracted responses from the RAG pipeline and researcher competency labels (UNESCO AI-CFT framework) for each student on this worksheet. Each row is one student; each column is one response field.</p>
+        <ul class="file-list" style="margin-bottom:16px">
+          <li class="file-item">
+            <span class="file-actions"><a href="downloads/labeling/${h(model.code === "WS DT - CODAP" ? "WS12" : model.code)}.xlsx" download="${h((model.code === "WS DT - CODAP" ? "WS12" : model.code) + ".xlsx")}">Download</a></span>
+            <span class="file-name">${h(model.code)} labeling sheet</span>
+            <span class="file-meta">Excel · this worksheet only</span>
+          </li>
+        </ul>
+        <div id="labeling-table-${h(model.code)}" class="labeling-wrap"><p class="small muted">Loading…</p></div>
       </section>
       <p><a href="#/findings/worksheets">All worksheet findings</a></p>
     </div>`;
