@@ -885,6 +885,106 @@
   // WS6: blank-level columns matching the Collected Data view.
   // paths: response paths whose values are joined with " | "
   // scoringItem: rubric item whose score drives the verdict (null = no verdict)
+  const WS5_BLANK_COLS = [
+    { label: "Trial 1\nFeature",       n: 1, fmt: "feature",      scoringItem: "WS5_row1" },
+    { label: "Trial 1\nThreshold",     n: 1, fmt: "threshold",    scoringItem: "WS5_row1" },
+    { label: "Trial 1\nDistribution",  n: 1, fmt: "distribution", scoringItem: "WS5_row1" },
+    { label: "Trial 1\nErrors",        n: 1, fmt: "errors",       scoringItem: "WS5_row1" },
+    { label: "Trial 2\nFeature",       n: 2, fmt: "feature",      scoringItem: "WS5_row2" },
+    { label: "Trial 2\nThreshold",     n: 2, fmt: "threshold",    scoringItem: "WS5_row2" },
+    { label: "Trial 2\nDistribution",  n: 2, fmt: "distribution", scoringItem: "WS5_row2" },
+    { label: "Trial 2\nErrors",        n: 2, fmt: "errors",       scoringItem: "WS5_row2" },
+    { label: "Trial 3\nFeature",       n: 3, fmt: "feature",      scoringItem: "WS5_row3" },
+    { label: "Trial 3\nThreshold",     n: 3, fmt: "threshold",    scoringItem: "WS5_row3" },
+    { label: "Trial 3\nDistribution",  n: 3, fmt: "distribution", scoringItem: "WS5_row3" },
+    { label: "Trial 3\nErrors",        n: 3, fmt: "errors",       scoringItem: "WS5_row3" },
+    { label: "Item 25\nFinal Decision",n: 0, fmt: "b25",          scoringItem: "WS5_B25"  },
+  ];
+
+  function getWS5CellValue(ocr, col) {
+    if (!ocr || !ocr.responses) return null;
+    const get = (path) => {
+      const hit = ocr.responses.find((r) => r.path === path);
+      return (hit && valueKind(hit.value) === "text") ? String(hit.value) : null;
+    };
+    const n = col.n;
+    if (col.fmt === "feature")      return get(`trials[${n}].parsed_feature`);
+    if (col.fmt === "threshold") {
+      const left  = [get(`trials[${n}].left_operator`),  get(`trials[${n}].left_threshold`)].filter(Boolean).join(" ");
+      const right = [get(`trials[${n}].right_operator`), get(`trials[${n}].right_threshold`)].filter(Boolean).join(" ");
+      return [left, right].filter(Boolean).join(" | ") || null;
+    }
+    if (col.fmt === "distribution") {
+      const lr = get(`trials[${n}].left_leaf_recommended`);
+      const ln = get(`trials[${n}].left_leaf_not_recommended`);
+      const rr = get(`trials[${n}].right_leaf_recommended`);
+      const rn = get(`trials[${n}].right_leaf_not_recommended`);
+      const left  = (lr != null && ln != null) ? `Sol: ${lr}R/${ln}NR`  : null;
+      const right = (rr != null && rn != null) ? `Sağ: ${rr}R/${rn}NR` : null;
+      return [left, right].filter(Boolean).join(" | ") || null;
+    }
+    if (col.fmt === "errors")       return get(`trials[${n}].student_error_count`);
+    if (col.fmt === "b25")          return get("final_decision_raw");
+    return null;
+  }
+
+  function answerGridWS5(model, core) {
+    if (!model.cohort.length) return "";
+    const cols = WS5_BLANK_COLS;
+    const colHeaders = `<th class="gc-student-head">Student</th>` +
+      cols.map((col) => `<th class="gc-head">${h(col.label.replace("\n", " · "))}</th>`).join("");
+    const bodyRows = model.cohort.map((p) => {
+      const rec = core.ws[p.id] && core.ws[p.id]["WS5"];
+      const cells = cols.map((col) => {
+        const response = getWS5CellValue(rec && rec.ocr, col);
+        const display = response ? h(response) : `<span class="na">–</span>`;
+        const ck = col.scoringItem ? checkFromScore(rec && rec.scoring, col.scoringItem) : null;
+        const extra = col.fmt === "b25" ? " gc-b25" : "";
+        if (!ck) return `<td class="gc-cell gc-na${extra}">${display}</td>`;
+        const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
+        return `<td class="gc-cell ${cls}${extra}" title="${h(ck.note || "")}">${display}</td>`;
+      }).join("");
+      return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
+    }).join("");
+    const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
+    return `<h3>Answer grid</h3>
+<p class="small">${legend} &nbsp;·&nbsp; Columns match the Collected Data blank structure. Verdict uses the scoring record.</p>
+<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+  }
+
+  function studentResultsWS5(model, core) {
+    if (!model.cohort.length) return "";
+    const cols = WS5_BLANK_COLS;
+    const blocks = model.cohort.map((p) => {
+      const rec = core.ws[p.id] && core.ws[p.id]["WS5"];
+      let nCorrect = 0, nChecked = 0;
+      const itemRows = cols.map((col) => {
+        const response = getWS5CellValue(rec && rec.ocr, col) || "–";
+        const ck = col.scoringItem ? checkFromScore(rec && rec.scoring, col.scoringItem) : null;
+        let verdictCell, rowCls;
+        if (!ck) {
+          verdictCell = `<span class="na">–</span>`; rowCls = "";
+        } else if (ck.correct === true) {
+          nChecked += 1; nCorrect += 1;
+          verdictCell = `<span class="verdict-pass">✓ Correct</span>`; rowCls = "row-pass";
+        } else if (ck.correct === false) {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-fail">✗ Wrong</span>`; rowCls = "row-fail";
+        } else {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-partial">~ Partial</span>`; rowCls = "row-partial";
+        }
+        return { cells: [`<b>${h(col.label.replace("\n", " · "))}</b>`, `<span class="written-answer">${h(response)}</span>`, verdictCell], attrs: rowCls ? ` class="${rowCls}"` : "" };
+      });
+      const pct = nChecked ? share(nCorrect, nChecked) : "–";
+      const tableHtml = table([{ t: "Blank" }, { t: "Written answer" }, { t: "Result" }], itemRows);
+      return `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(p.id)}</span><span class="sr-badge ${nChecked && nCorrect / nChecked >= 0.7 ? "sr-good" : nChecked && nCorrect / nChecked >= 0.4 ? "sr-mid" : "sr-low"}">${nCorrect} / ${nChecked} correct (${pct})</span></summary><div class="sr-body">${tableHtml}</div></details>`;
+    }).join("");
+    return `<h3>Student results</h3>
+<p class="small">Click a student to expand their answers. Verdict uses the answer-key check from the extraction file. Notes explain why an answer was marked wrong or partial.</p>
+<div class="student-results">${blocks}</div>`;
+  }
+
   const WS6_BLANK_COLS = [
     { label: "Blank 1\nRoot Feature",        paths: ["tree_structure.depth_0.parsed_feature"],                                                                                                                      scoringItem: "WS6_root_feature" },
     { label: "Blank 2-3\nRoot Split Cond.",  paths: ["tree_structure.depth_0.left_operator","tree_structure.depth_0.left_threshold_value","tree_structure.depth_0.right_operator","tree_structure.depth_0.right_threshold_value"], scoringItem: "WS6_root_threshold" },
@@ -968,6 +1068,7 @@
   }
 
   function answerGrid(model, core) {
+    if (model.code === "WS5") return answerGridWS5(model, core);
     if (model.code === "WS6") return answerGridWS6(model, core);
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
@@ -1009,6 +1110,7 @@
   }
 
   function studentResultsTable(model, core) {
+    if (model.code === "WS5") return studentResultsWS5(model, core);
     if (model.code === "WS6") return studentResultsWS6(model, core);
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
