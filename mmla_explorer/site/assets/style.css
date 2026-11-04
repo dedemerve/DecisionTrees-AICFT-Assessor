@@ -1745,10 +1745,11 @@ details.sr-accordion[open] > summary.sr-summary::before { transform: rotate(90de
 }
 :root[data-theme="dark"] .diag-val-gap { color: #fbbf24; }
 :root[data-theme="dark"] .diag-val-ok  { color: #4ade80; }
-.diag-bar-wrap { display: flex; align-items: center; gap: 8px; min-width: 120px; }
-.diag-bar { height: 10px; border-radius: 99px; min-width: 2px; flex-shrink: 0; }
-.diag-bar-pct { font-size: 13px; font-weight: 600; white-space: nowrap; }
+.diag-bar-wrap { display: flex; align-items: center; gap: 8px; width: 160px; min-width: 160px; }
+.diag-bar { height: 10px; border-radius: 99px; min-width: 2px; flex: 1; }
+.diag-bar-pct { font-size: 13px; font-weight: 600; white-space: nowrap; min-width: 46px; text-align: right; }
 .diag-expected { color: var(--muted); margin-top: 2px; }
+.find-table td.num, .find-table th.num { white-space: nowrap; min-width: 70px; }
 .diag-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
 .diag-gap     { background: rgba(180,83,9,0.10); color: #b45309; }
 .diag-mastered { background: rgba(22,163,74,0.14); color: #15803d; }

@@ -1091,7 +1091,7 @@
     bits.push(`<div class="diag-summary"><div class="diag-card"><div class="diag-val">${(avgPass * 100).toFixed(0)}%</div><div class="diag-lbl">Average correct rate</div></div><div class="diag-card"><div class="diag-val diag-val-gap">${nGap}</div><div class="diag-lbl">Gap item${nGap !== 1 ? "s" : ""} &lt; 50%</div></div><div class="diag-card"><div class="diag-val diag-val-ok">${nMastered}</div><div class="diag-lbl">Item${nMastered !== 1 ? "s" : ""} mastered by all</div></div></div>`);
 
     // Full item table — all items with bar
-    bits.push(`<h3>Item-by-item results</h3><p class="small">Each row is one item. The bar shows how many of the ${model.cohort.length} students answered it correctly.</p>`);
+    bits.push(`<h3>Item-by-item results</h3><p class="small">Each row is one item. The bar and percentage show the correct rate across all ${model.cohort.length} students.</p>`);
     const allRows = itemStats.map(({ it, pass, fail, partial, total, notCorrect }) => {
       const expected = expectedFor(w, it.id);
       const pct = Math.round(100 * pass / total);
@@ -1111,7 +1111,7 @@
       };
     });
     bits.push(table(
-      [{ t: "Item and expected answer" }, { t: "Correct rate" }, { t: "Count", num: 1 }, { t: "Not correct" }],
+      [{ t: "Item / Expected answer" }, { t: "Correct rate" }, { t: "Correct / Total", num: 1 }, { t: "Students who missed" }],
       allRows
     ));
     return bits.join("");
