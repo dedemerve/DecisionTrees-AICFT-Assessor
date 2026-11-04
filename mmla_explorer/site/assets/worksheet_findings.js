@@ -983,7 +983,7 @@
         const display = response ? h(response) : `<span class="na">–</span>`;
         const ck = col.fmt === "b25"
           ? getWS5B25Check(rec && rec.ocr)
-          : (col.scoringItem ? (getItemCheck(rec && rec.ocr, col.scoringItem, "WS5") || checkFromScore(rec && rec.scoring, col.scoringItem)) : null);
+          : (col.scoringItem ? (checkFromScore(rec && rec.scoring, col.scoringItem) || getItemCheck(rec && rec.ocr, col.scoringItem, "WS5")) : null);
         const extra = col.fmt === "b25" ? " gc-b25" : "";
         if (!ck) return `<td class="gc-cell gc-na${extra}">${display}</td>`;
         const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
@@ -1007,7 +1007,7 @@
         const response = getWS5CellValue(rec && rec.ocr, col) || "–";
         const ck = col.fmt === "b25"
           ? getWS5B25Check(rec && rec.ocr)
-          : (col.scoringItem ? (getItemCheck(rec && rec.ocr, col.scoringItem, "WS5") || checkFromScore(rec && rec.scoring, col.scoringItem)) : null);
+          : (col.scoringItem ? (checkFromScore(rec && rec.scoring, col.scoringItem) || getItemCheck(rec && rec.ocr, col.scoringItem, "WS5")) : null);
         let verdictCell, rowCls;
         if (!ck) {
           verdictCell = `<span class="na">–</span>`; rowCls = "";
