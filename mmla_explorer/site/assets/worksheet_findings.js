@@ -32,6 +32,11 @@
   };
   const ALIAS = {
     WS5: { WS5_row1: "trials[1]", WS5_row2: "trials[2]", WS5_row3: "trials[3]" },
+    WS6: {
+      WS6_root_feature:   "tree_structure.depth_0.parsed_feature",
+      WS6_root_threshold: "tree_structure.depth_0.left_threshold_value",
+      WS6_inner_feature:  "tree_structure.depth_1.left_child.parsed_feature",
+    },
     WS10: { WS10_B8: "optimal_threshold" },
   };
   // Researcher overrides for display correctness.
@@ -867,6 +872,16 @@
     return rub ? criterionText(rub) : "";
   }
 
+  // Returns only the short expected_answer value (for the Key badge).
+  // Falls back to null so callers can decide whether to show the badge.
+  function shortExpectedFor(w, itemId) {
+    const ov = ITEM_OVERRIDES[itemId];
+    if (ov) return ov.expected;
+    const rub = w ? rubricItems(w)[itemId] : null;
+    if (!rub) return null;
+    return rub.expected_answer ? String(rub.expected_answer) : null;
+  }
+
   function answerGrid(model, core) {
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
@@ -876,7 +891,8 @@
     const colHeaders = `<th class="gc-student-head">Student</th>` +
       items.map((it) => {
         const exp = expectedFor(w, it.id);
-        return `<th class="gc-head" title="${h(exp)}">${h(it.title)}${exp ? `<div class="gc-exp-key">Key: ${h(clip(exp, 50))}</div>` : ""}</th>`;
+        const shortExp = shortExpectedFor(w, it.id);
+        return `<th class="gc-head" title="${h(exp)}">${h(it.title)}${shortExp ? `<div class="gc-exp-key">Key: ${h(clip(shortExp, 50))}</div>` : ""}</th>`;
       }).join("");
     // Rows: one per student
     const bodyRows = students.map((p) => {
