@@ -908,7 +908,15 @@
     if (!ocrCk) return ck;
     const det = ocrCk.detail || {};
     if (det.is_operator_logic_correct === false && det.is_error_count_correct === true) {
-      return { correct: null, note: (ck.note || "") + " Kısmi: eşik değeri doğru, operatör çifti simetrik (<=/>= veya </>).", _adjusted: true };
+      const n = det.trial_id;
+      if (n && ocr && ocr.responses) {
+        const getv = (p) => { const h = ocr.responses.find((r) => r.path === p); return h ? String(h.value || "").trim() : ""; };
+        const lOp = getv(`trials[${n}].left_operator`);
+        const rOp = getv(`trials[${n}].right_operator`);
+        const isSymmetric = (lOp === "<" && rOp === ">") || (lOp === "<=" && rOp === ">=");
+        if (!isSymmetric) return ck;
+        return { correct: null, note: (ck.note || "") + ` Kısmi: eşik doğru, operatör simetrik (${lOp} | ${rOp}).`, _adjusted: true };
+      }
     }
     return ck;
   }
