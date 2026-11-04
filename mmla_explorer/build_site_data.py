@@ -438,6 +438,8 @@ def _item_max(item_id: str) -> float | None:
         return None
     d = load_json(rub)
     item = (d.get("items") or {}).get(item_id, {})
+    if isinstance(item.get("max_score"), (int, float)):
+        return float(item["max_score"])
     rules = item.get("scoring_rules") or {}
     if not rules:
         return None

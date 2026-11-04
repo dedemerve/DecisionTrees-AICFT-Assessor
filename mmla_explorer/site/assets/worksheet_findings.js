@@ -38,6 +38,15 @@
       WS6_inner_feature:  "tree_structure.depth_1.left_child.parsed_feature",
     },
     WS10: { WS10_B8: "optimal_threshold" },
+    WS12: {
+      WS12_R1: "WS12_root_feature",
+      WS12_R2: "WS12_root_left_threshold",
+      WS12_R3: "WS12_left_child_label",
+      WS12_R4: "WS12_right_child_label",
+      WS12_R5: "WS12_left_child_rec",
+      WS12_R6: "WS12_train_errors",
+      WS12_R7: "WS12_test_errors",
+    },
   };
   // Researcher overrides for display correctness.
   // acceptTokens: at least one token must appear (case-insensitive, OR logic).
