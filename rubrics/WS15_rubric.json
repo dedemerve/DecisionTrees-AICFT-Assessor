@@ -1040,13 +1040,18 @@
       "trap_explanation": "Soru VS2 yorumunu VS1 bağlamıyla yaptırmak ister. VS2 test duyarlılığı VS1 test duyarlılığından (~0,53) yüksektir (~0,72). Ancak VS2 eğitim duyarlılığı çok düşüktür (~0,28). Doğru yanıt: VS2 test, VS2 eğitime göre daha iyi; fakat VS1'e kıyasla yorum bağlama göre değişir.",
       "components": [
         {
-          "id": "correct_comparison",
-          "idea": "VS2 test duyarlılığının VS2 eğitim duyarlılığından yüksek olduğunu fark eder (0,72 > 0,28)",
+          "id": "correct_concept",
+          "idea": "Underfitting / eksik öğrenme kavramını belirtir VEYA VS2 eğitim duyarlılığının çok düşük olduğunu (model kötü öğrendi / yetersiz öğrenme) ifade eder",
           "required": true
         },
         {
+          "id": "correct_comparison",
+          "idea": "VS2 test duyarlılığının VS2 eğitim duyarlılığından yüksek olduğunu sayısal olarak gösterir (0,72 > 0,28)",
+          "required": false
+        },
+        {
           "id": "context_awareness",
-          "idea": "VS1 ile VS2'nin farklı veri setleri olduğunu; doğrudan karşılaştırmanın yanıltıcı olabileceğini belirtir",
+          "idea": "VS1 ile VS2nin farklı veri setleri olduğunu ve doğrudan karşılaştırmanın yanıltıcı olduğunu belirtir",
           "required": false
         }
       ],
@@ -1054,7 +1059,8 @@
       "example_answer": "Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde duyarlılık %28,1 gibi çok düşük bir değerdedir. Sabit cinsiyet kuralı, eğitim seti 2'nin örüntüsünü yakalayamamıştır, yani model gerçek hastaların/hayatta kalanların çoğunu kaçırmıştır. Bu, aşırı öğrenmenin değil, eksik öğrenmenin (underfitting) göstergesidir.",
       "reference_answer": "Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde duyarlılık %28,1 gibi çok düşük bir değerdedir. Sabit cinsiyet kuralı, eğitim seti 2'nin örüntüsünü yakalayamamıştır, yani model gerçek hastaların/hayatta kalanların çoğunu kaçırmıştır. Bu, aşırı öğrenmenin değil, eksik öğrenmenin (underfitting) göstergesidir.",
       "trap_question": true,
-      "note": "TUZAK SORU: soru kökü VS1 (overfitting) senaryosundan kopyalanmıştır; VS2 gerçeği tersidir. Çelişkiyi fark edip underfitting olarak yorumlayan tam puan."
+      "note": "TUZAK SORU: soru kökü VS1 (overfitting) senaryosundan kopyalanmıştır; VS2 gerçeği tersidir. Çelişkiyi fark edip underfitting olarak yorumlayan tam puan.",
+      "scoring_note": "Sayısal karşılaştırma olmasa da underfitting / eksik öğrenme kavramı doğru bağlamda kullanılmışsa tam puan. Sadece genel performans ifadesi (kötü / düştü) yetmez; kavram veya mekanizma açıklanmalı."
     },
     "DTI_44": {
       "printed_question": 44,
@@ -1068,13 +1074,18 @@
       "trap_explanation": "VS2 test MCR (~0,21) VS2 eğitim MCR'dan (~0,60) düşük; yani test seti eğitime göre 'daha iyi' görünüyor. Bu underfitting ile tutarlı değil gibi görünse de VS2'nin aşırı basit modelinin farklı dağılımlarda şansla iyi sonuç verdiği bir durumdur.",
       "components": [
         {
-          "id": "correct_direction",
-          "idea": "VS2 test MCR'ın VS2 eğitim MCR'dan düşük olduğunu fark eder",
+          "id": "correct_concept",
+          "idea": "Underfitting / eksik öğrenme kavramını belirtir VEYA VS2 eğitim MCR'ının çok yüksek olduğunu (model eğitim verisini bile öğrenemedi) ifade eder",
           "required": true
         },
         {
+          "id": "correct_direction",
+          "idea": "VS2 test MCR'ın VS2 eğitim MCR'dan düşük olduğunu sayısal olarak gösterir (0,21 < 0,60)",
+          "required": false
+        },
+        {
           "id": "interpretation",
-          "idea": "bu durumun underfitting ile çelişkili göründüğünü ama veri seti farklılığından kaynaklandığını yorumlar",
+          "idea": "Bu durumun underfitting ile çelişkili göründüğünü ama veri seti farklılığından kaynaklandığını yorumlar",
           "required": false
         }
       ],
@@ -1082,7 +1093,8 @@
       "example_answer": "Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde MCR %60,4 gibi çok yüksektir, yani model eğitim verisinde bile tahminlerin çoğunu yanlış yapmıştır. Bu yüksek eğitim hatası, modelin veriyi öğrenemediğini (eksik öğrenme / underfitting) gösterir.",
       "reference_answer": "Not: Bu veri setinde durum, sorudaki varsayımın tersidir. Eğitim setinde MCR %60,4 gibi çok yüksektir, yani model eğitim verisinde bile tahminlerin çoğunu yanlış yapmıştır. Bu yüksek eğitim hatası, modelin veriyi öğrenemediğini (eksik öğrenme / underfitting) gösterir.",
       "trap_question": true,
-      "note": "TUZAK SORU: soru kökü VS1 (overfitting) senaryosundan kopyalanmıştır; VS2 gerçeği tersidir. Çelişkiyi fark edip underfitting olarak yorumlayan tam puan."
+      "note": "TUZAK SORU: soru kökü VS1 (overfitting) senaryosundan kopyalanmıştır; VS2 gerçeği tersidir. Çelişkiyi fark edip underfitting olarak yorumlayan tam puan.",
+      "scoring_note": "Sayısal karşılaştırma olmasa da underfitting / eksik öğrenme kavramı doğru bağlamda kullanılmışsa tam puan. Overfitting tanımı yapan (eğitimde iyi, testte kötü) sıfır alır. Sadece genel performans ifadesi yetmez."
     },
     "DTI_45": {
       "printed_question": 45,

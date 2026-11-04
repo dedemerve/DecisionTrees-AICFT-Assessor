@@ -2,7 +2,7 @@
   "stage": "scoring",
   "student_id": "Zara",
   "worksheet": "WS15",
-  "total_score": 17.0,
+  "total_score": 17.5,
   "max_score": 47.0,
   "note": "LLM-scored via worksheet_assessor.assess_worksheet (model=claude-sonnet-5-5); 36 item(s) flagged for review.",
   "scored_at": "2026-10-10T07:43:21.493940+00:00",
@@ -269,9 +269,10 @@
     },
     {
       "item": "DTI_43",
-      "score": 0.5,
-      "confidence": 0.6,
-      "review": true
+      "score": 1.0,
+      "confidence": 0.9,
+      "review": false,
+      "note": "underfitting kavramı doğru bağlamda kullanılmış; sayısal karşılaştırma olmasa da tam puan (policy güncellendi 2026-11-04)"
     },
     {
       "item": "DTI_44",
@@ -297,5 +298,7 @@
       "confidence": 0.6,
       "review": true
     }
-  ]
+  ],
+  "rescored_at": "2026-11-04T21:41:15.063823",
+  "rescore_note": "DTI_43 / DTI_44 tuzak soru policy güncellemesi: underfitting kavramı sayısalsız da tam puan (2026-11-04)"
 }
