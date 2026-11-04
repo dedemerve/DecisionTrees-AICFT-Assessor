@@ -1088,10 +1088,10 @@
     { label: "Blank 1\nRoot Feature",        paths: ["tree_structure.depth_0.parsed_feature"],                                                                                                                      scoringItem: "WS6_root_feature" },
     { label: "Blank 2-3\nRoot Split Cond.",  paths: ["tree_structure.depth_0.left_operator","tree_structure.depth_0.left_threshold_value","tree_structure.depth_0.right_operator","tree_structure.depth_0.right_threshold_value"], scoringItem: "WS6_root_threshold" },
     { label: "Blank 4\nInternal Node (L)",   paths: ["tree_structure.depth_1.left_child.parsed_feature"],                                                                                                           scoringItem: "WS6_inner_feature" },
-    { label: "Blank 5-6\nSub-Branch (L)",    paths: ["tree_structure.depth_1.left_child.left_threshold_value","tree_structure.depth_1.left_child.right_threshold_value"],                                           scoringItem: null },
+    { label: "Blank 5-6\nSub-Branch (L)",    paths: ["tree_structure.depth_1.left_child.left_threshold_value","tree_structure.depth_1.left_child.right_threshold_value"],                                           scoringItem: null, checkThresholdPair: true },
     { label: "Blank 7-8\nTerminal (L)",      paths: ["tree_structure.depth_2.leaf_nodes.left_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.left_right_leaf.leaf_label"],                                 scoringItem: "WS6_tree_validity" },
     { label: "Blank 9\nInternal Node (R)",   paths: ["tree_structure.depth_1.right_child.parsed_feature"],                                                                                                          scoringItem: "WS6_inner_feature" },
-    { label: "Blank 10-11\nSub-Branch (R)",  paths: ["tree_structure.depth_1.right_child.left_threshold_value","tree_structure.depth_1.right_child.right_threshold_value"],                                         scoringItem: null },
+    { label: "Blank 10-11\nSub-Branch (R)",  paths: ["tree_structure.depth_1.right_child.left_threshold_value","tree_structure.depth_1.right_child.right_threshold_value"],                                         scoringItem: null, checkThresholdPair: true },
     { label: "Blank 12-13\nTerminal (R)",    paths: ["tree_structure.depth_2.leaf_nodes.right_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.right_right_leaf.leaf_label"],                               scoringItem: "WS6_tree_validity" },
   ];
 
@@ -1099,9 +1099,20 @@
     if (!ocr || !ocr.responses) return null;
     const vals = paths.map((p) => {
       const hit = ocr.responses.find((r) => r.path === p);
-      return hit && valueKind(hit.value) === "text" ? String(hit.value) : null;
+      return hit && hit.value != null ? String(hit.value) : null;
     }).filter(Boolean);
     return vals.length ? vals.join(" | ") : null;
+  }
+
+  function checkThresholdPairCk(ocr, paths) {
+    if (!ocr || !ocr.responses) return null;
+    const rawVals = paths.map((p) => {
+      const hit = ocr.responses.find((r) => r.path === p);
+      return hit != null ? hit.value : undefined;
+    });
+    if (rawVals.some((v) => v === undefined || v === null)) return null;
+    const equal = rawVals[0] == rawVals[1];
+    return { correct: equal ? true : false, note: equal ? "Eşik değerleri eşit." : `Eşik değerleri farklı: ${rawVals[0]} ≠ ${rawVals[1]}.` };
   }
 
   function answerGridWS6(model, core) {
@@ -1115,8 +1126,13 @@
       const cells = cols.map((col) => {
         const response = getPathValues(rec && rec.ocr, col.paths);
         const display = response ? h(clip(response, 40)) : `<span class="na">–</span>`;
-        if (!col.scoringItem) return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
-        const ck = checkFromScore(rec && rec.scoring, col.scoringItem);
+        let ck = null;
+        if (col.checkThresholdPair) {
+          ck = response ? checkThresholdPairCk(rec && rec.ocr, col.paths) : null;
+        } else if (col.scoringItem) {
+          ck = checkFromScore(rec && rec.scoring, col.scoringItem);
+          if (ck && !response) ck = null; // blank response → no check
+        }
         if (!ck) return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
         nChecked += 1;
         if (ck.correct === true) nPass += 1;
@@ -1138,8 +1154,15 @@
       const rec = core.ws[p.id] && core.ws[p.id]["WS6"];
       let nCorrect = 0, nChecked = 0;
       const itemRows = cols.map((col) => {
-        const response = getPathValues(rec && rec.ocr, col.paths) || "–";
-        const ck = col.scoringItem ? checkFromScore(rec && rec.scoring, col.scoringItem) : null;
+        const rawResponse = getPathValues(rec && rec.ocr, col.paths);
+        const response = rawResponse || "–";
+        let ck = null;
+        if (col.checkThresholdPair) {
+          ck = rawResponse ? checkThresholdPairCk(rec && rec.ocr, col.paths) : null;
+        } else if (col.scoringItem) {
+          const scored = checkFromScore(rec && rec.scoring, col.scoringItem);
+          ck = (scored && rawResponse) ? scored : null; // blank response → no check
+        }
         let verdictCell, rowCls;
         if (!ck) {
           verdictCell = `<span class="na">–</span>`; rowCls = "";
