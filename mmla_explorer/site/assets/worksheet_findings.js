@@ -902,6 +902,17 @@
     { label: "Item 25\nFinal Decision",n: 0, fmt: "b25",          scoringItem: "WS5_B25"  },
   ];
 
+  function adjustWS5TrialCheck(ck, ocr, scoringItem) {
+    if (!ck || ck.correct !== true) return ck;
+    const ocrCk = getItemCheck(ocr, scoringItem, "WS5");
+    if (!ocrCk) return ck;
+    const det = ocrCk.detail || {};
+    if (det.is_operator_logic_correct === false && det.is_error_count_correct === true) {
+      return { correct: null, note: (ck.note || "") + " Kısmi: eşik değeri doğru, operatör çifti simetrik (<=/>= veya </>).", _adjusted: true };
+    }
+    return ck;
+  }
+
   function extractB25Feature(raw, trialFeatures) {
     if (!raw) return null;
     const lower = raw.toLowerCase();
@@ -983,7 +994,10 @@
         const display = response ? h(response) : `<span class="na">–</span>`;
         const ck = col.fmt === "b25"
           ? getWS5B25Check(rec && rec.ocr)
-          : (col.scoringItem ? (checkFromScore(rec && rec.scoring, col.scoringItem) || getItemCheck(rec && rec.ocr, col.scoringItem, "WS5")) : null);
+          : (col.scoringItem ? adjustWS5TrialCheck(
+              checkFromScore(rec && rec.scoring, col.scoringItem) || getItemCheck(rec && rec.ocr, col.scoringItem, "WS5"),
+              rec && rec.ocr, col.scoringItem
+            ) : null);
         const extra = col.fmt === "b25" ? " gc-b25" : "";
         if (!ck) return `<td class="gc-cell gc-na${extra}">${display}</td>`;
         const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
@@ -1007,7 +1021,10 @@
         const response = getWS5CellValue(rec && rec.ocr, col) || "–";
         const ck = col.fmt === "b25"
           ? getWS5B25Check(rec && rec.ocr)
-          : (col.scoringItem ? (checkFromScore(rec && rec.scoring, col.scoringItem) || getItemCheck(rec && rec.ocr, col.scoringItem, "WS5")) : null);
+          : (col.scoringItem ? adjustWS5TrialCheck(
+              checkFromScore(rec && rec.scoring, col.scoringItem) || getItemCheck(rec && rec.ocr, col.scoringItem, "WS5"),
+              rec && rec.ocr, col.scoringItem
+            ) : null);
         let verdictCell, rowCls;
         if (!ck) {
           verdictCell = `<span class="na">–</span>`; rowCls = "";
