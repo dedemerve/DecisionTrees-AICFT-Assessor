@@ -1175,7 +1175,7 @@
       items.map((it) => {
         const exp = expectedFor(w, it.id);
         const shortExp = shortExpectedFor(w, it.id);
-        return `<th class="gc-head" title="${h(exp)}">${h(it.title)}${shortExp ? `<div class="gc-exp-key">Key: ${h(clip(shortExp, 50))}</div>` : ""}</th>`;
+        return `<th class="gc-head" title="${h(exp)}">${h(it.title)}</th>`;
       }).join("");
     // Rows: one per student
     const bodyRows = students.map((p) => {
