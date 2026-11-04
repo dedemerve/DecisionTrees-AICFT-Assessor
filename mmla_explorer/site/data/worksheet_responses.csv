@@ -51,7 +51,7 @@ Amy,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>229,,,students/Amy
 Amy,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Amy/WS12/extraction.json
 Amy,WS12,WS12_left_child_rec,WS12_left_child_rec,6,,,students/Amy/WS12/extraction.json
 Amy,WS12,WS12_left_child_notrec,WS12_left_child_notrec,0,,,students/Amy/WS12/extraction.json
-Amy,WS12,WS12_right_child_label,WS12_right_child_label,Yaş,,,students/Amy/WS12/extraction.json
+Amy,WS12,WS12_right_child_label,WS12_right_child_label,Yağ,,,students/Amy/WS12/extraction.json
 Amy,WS12,WS12_right_child_rec,WS12_right_child_rec,1,,,students/Amy/WS12/extraction.json
 Amy,WS12,WS12_right_child_notrec,WS12_right_child_notrec,7,,,students/Amy/WS12/extraction.json
 Amy,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Amy/WS12/extraction.json
@@ -82,7 +82,7 @@ Amy,WS13,DT_C_Q3,DT_C_Q3,"Tek tek eşik değerini değiştirdim, EMIT'den tıkla
 Amy,WS13,DT_D_Q1,DT_D_Q1,Doymuş yağ ekledim.,,review,students/Amy/WS13/extraction.json
 Amy,WS13,DT_D_Q2,DT_D_Q2,Sınıflandırmayı kötüleştirdi. %35'den %40'a çıktı MCR değeri.,True,,students/Amy/WS13/extraction.json
 Amy,WS13,DT_D_Q3,DT_D_Q3,Karbonhidratı ekledim doymuş yağ yerine ve eşik değerimi değiştirdim. MCR oranım %23'e düştü. [corrected: Karbonhidrat → Karbonhidratı],True,,students/Amy/WS13/extraction.json
-Amy,WS13,DT_D_Q4,DT_D_Q4,MCR değerinin düşük çıkmasına göre.,,review,students/Amy/WS13/extraction.json
+Amy,WS13,DT_D_Q4,DT_D_Q4,MCR değerinin düşük çıkmasına göre.,True,review,students/Amy/WS13/extraction.json
 Amy,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Amy/WS13/extraction.json
 Amy,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Amy/WS13/extraction.json
 Amy,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,,students/Amy/WS13/extraction.json
@@ -333,12 +333,12 @@ Bruno,WS13,DT_E_MCR,DT_E_MCR,"0,182",False,review,students/Bruno/WS13/extraction
 Bruno,WS13,DT_E_Q1,DT_E_Q1,MCR çünkü ne kadar düşük olursa hata oranım o kadar az.,True,,students/Bruno/WS13/extraction.json
 Bruno,WS13,DT_E_Q2,DT_E_Q2,Tavsiye edilen olarak işaretlendi ama aslında tavsiye edilmemeli.,,review,students/Bruno/WS13/extraction.json
 Bruno,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Bruno/WS13/extraction.json
-Bruno,WS13,DT_E_Q4,DT_E_Q4,Olabilir ama çok fazla dallanma yapmamız gerekebilir.,False,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_E_Q4,DT_E_Q4,Olabilir ama çok fazla dallanma yapmamız gerekebilir.,True,review,students/Bruno/WS13/extraction.json
 Bruno,WS13,DT_F_Q1,DT_F_Q1,"Hata oranım arttı. MCR değerim 0,455'e yükselirken sens değerim 0,667'ye düştü.",False,review,students/Bruno/WS13/extraction.json
 Bruno,WS13,DT_F_Q2,DT_F_Q2,"Test verisindeki performansım düştü. MCR değerim yükseldi, sens değerim düştü.",,review,students/Bruno/WS13/extraction.json
 Bruno,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Bruno/WS13/extraction.json
 Bruno,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Bruno/WS13/extraction.json
-Bruno,WS13,DT_G_Q1,DT_G_Q1,"Yiyeceklerin tavsiye edilip edilemeyeceğini, ayırmayı öğrendi.",,review,students/Bruno/WS13/extraction.json
+Bruno,WS13,DT_G_Q1,DT_G_Q1,"Yiyeceklerin tavsiye edilip edilemeyeceğini, ayırmayı öğrendi.",True,review,students/Bruno/WS13/extraction.json
 Bruno,WS13,DT_G_Q2,DT_G_Q2,"Karar ağacı oluşturma, dallandırma, eşik değer bulma gibi özellikleri öğrendim.",True,,students/Bruno/WS13/extraction.json
 Bruno,WS14,DTI_01,DTI_01,"26 tane vaka içermektedir. %46,2'si hasta durumunda. Çoğunluk kısmi hasta değilmiş.",True,,ocr_output/Bruno/Bruno_Worksheet_Xeno.json
 Bruno,WS14,DTI_02,DTI_02,Mavi saçlı kutuda 14 vaka var. 0 tanesi hasta durumundadır. Çoğunluk sağlıklı.,True,,ocr_output/Bruno/Bruno_Worksheet_Xeno.json
@@ -562,9 +562,9 @@ Helena,WS13,DT_C_Q1,DT_C_Q1,"Şeker. 80, 30, 25, 10 gibi değerler denedim. 10 e
 Helena,WS13,DT_C_Q2,DT_C_Q2,Hata payı ve hassaslığı dolayısıyla değişime sonucu etkiliyor.,,review,students/Helena/WS13/extraction.json
 Helena,WS13,DT_C_Q3,DT_C_Q3,10 eşik değeri daha iyi ayırdı. Şeker değişkeni için farklı farklı eşik değerleri deneyerek ulaştım.,True,,students/Helena/WS13/extraction.json
 Helena,WS13,DT_D_Q1,DT_D_Q1,Şeker değişkenine ek olarak enerji değişkenini ekledim.,,review,students/Helena/WS13/extraction.json
-Helena,WS13,DT_D_Q2,DT_D_Q2,"Evet. MCR değeri 0,2 oldu. Sens ise 0,8.",,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_D_Q2,DT_D_Q2,"Evet. MCR değeri 0,2 oldu. Sens ise 0,8.",True,review,students/Helena/WS13/extraction.json
 Helena,WS13,DT_D_Q3,DT_D_Q3,"İki seviyeli şeker ve enerji kombinasyonu iyi sonuç verdi. Sens değeri aynı, MCR ise ilk duruma göre 0,3'ten 0,2'ye düştü.",True,,students/Helena/WS13/extraction.json
-Helena,WS13,DT_D_Q4,DT_D_Q4,"MCR değerim 0,3'ten 0,2'ye düştü.",,review,students/Helena/WS13/extraction.json
+Helena,WS13,DT_D_Q4,DT_D_Q4,"MCR değerim 0,3'ten 0,2'ye düştü.",True,review,students/Helena/WS13/extraction.json
 Helena,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Helena/WS13/extraction.json
 Helena,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Helena/WS13/extraction.json
 Helena,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,,students/Helena/WS13/extraction.json
@@ -807,7 +807,7 @@ Iris,WS13,DT_B_Q2,DT_B_Q2,"Tuz değişkenine göre MCR 0,432 oldu",False,review,
 Iris,WS13,DT_B_Q3,DT_B_Q3,"Şeker değişkenine göre MCR 0,341, his 0,864 oldu.",,review,students/Iris/WS13/extraction.json
 Iris,WS13,DT_B_Q4,DT_B_Q4,Enerji değişkeni en iyi sonucu verdi. MCR'ye bakarak karar verdim.,True,,students/Iris/WS13/extraction.json
 Iris,WS13,DT_C_Q1,DT_C_Q1,(bos),False,review,students/Iris/WS13/extraction.json
-Iris,WS13,DT_C_Q2,DT_C_Q2,Karar ağacı daha iyi performans gösterdi.,False,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_C_Q2,DT_C_Q2,Karar ağacı daha iyi performans gösterdi.,,review,students/Iris/WS13/extraction.json
 Iris,WS13,DT_C_Q3,DT_C_Q3,<200 en iyi şekilde ayırıyor. MCR değeri azalıyor.,True,,students/Iris/WS13/extraction.json
 Iris,WS13,DT_D_Q1,DT_D_Q1,(bos),False,review,students/Iris/WS13/extraction.json
 Iris,WS13,DT_D_Q2,DT_D_Q2,"Hayır. MCR değeri arttı, yağ değişkeni etkiledi.",True,,students/Iris/WS13/extraction.json
@@ -821,8 +821,8 @@ Iris,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,864",False,review,students/Iris/W
 Iris,WS13,DT_E_MCR,DT_E_MCR,"0,341",,review,students/Iris/WS13/extraction.json
 Iris,WS13,DT_E_Q1,DT_E_Q1,"Sensitivity, yüksek çıktı.",,review,students/Iris/WS13/extraction.json
 Iris,WS13,DT_E_Q2,DT_E_Q2,Pozitif yaptı.,,review,students/Iris/WS13/extraction.json
-Iris,WS13,DT_E_Q3,DT_E_Q3,"MCR düşük, sensitivity yüksek çıkarsa",,review,students/Iris/WS13/extraction.json
-Iris,WS13,DT_E_Q4,DT_E_Q4,Hayır.,,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_Q3,DT_E_Q3,"MCR düşük, sensitivity yüksek çıkarsa",True,review,students/Iris/WS13/extraction.json
+Iris,WS13,DT_E_Q4,DT_E_Q4,Hayır.,False,review,students/Iris/WS13/extraction.json
 Iris,WS13,DT_F_Q1,DT_F_Q1,(bos),False,review,students/Iris/WS13/extraction.json
 Iris,WS13,DT_F_Q2,DT_F_Q2,(bos),False,review,students/Iris/WS13/extraction.json
 Iris,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Iris/WS13/extraction.json
@@ -1063,7 +1063,7 @@ Irma,WS13,DT_C_Q1,DT_C_Q1,Enerjiyi çağırdım. Eşik değeri 600 olunca en iyi
 Irma,WS13,DT_C_Q2,DT_C_Q2,Karar ağacında daha sağlıklı bir şekilde karar vermemi sağlar.,False,review,students/Irma/WS13/extraction.json
 Irma,WS13,DT_C_Q3,DT_C_Q3,Enerji için denedim ve en iyi [corrected: 600 de bu → eşik değerimi] 600 seçince daha iyi bir karar ağacı oluşturdum.,True,,students/Irma/WS13/extraction.json
 Irma,WS13,DT_D_Q1,DT_D_Q1,Yağ değişkenini ekledim,,review,students/Irma/WS13/extraction.json
-Irma,WS13,DT_D_Q2,DT_D_Q2,Benim sınıflandırmamı az daha kötüleştirdi. Çünkü his değerim azaldı.,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_D_Q2,DT_D_Q2,Benim sınıflandırmamı az daha kötüleştirdi. Çünkü his değerim azaldı.,True,review,students/Irma/WS13/extraction.json
 Irma,WS13,DT_D_Q3,DT_D_Q3,İlk değişken enerji sonraki yağ,,review,students/Irma/WS13/extraction.json
 Irma,WS13,DT_D_Q4,DT_D_Q4,Mcr ve his değerlerine bakarak karar verdim,True,,students/Irma/WS13/extraction.json
 Irma,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Irma/WS13/extraction.json
@@ -1080,7 +1080,7 @@ Irma,WS13,DT_F_Q1,DT_F_Q1,Sens oranım 1 çıktı yani test veri setim iyi bir k
 Irma,WS13,DT_F_Q2,DT_F_Q2,His ve mcr oranına göre karşılaştırdım. His oranı daha yüksek olan test verisidir.,,review,students/Irma/WS13/extraction.json
 Irma,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Irma/WS13/extraction.json
 Irma,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,,students/Irma/WS13/extraction.json
-Irma,WS13,DT_G_Q1,DT_G_Q1,Tavsiye edilebilir ve tavsiye edilemez olan yiyecekleri daha iyi karar vermeyi öğrendi.,,review,students/Irma/WS13/extraction.json
+Irma,WS13,DT_G_Q1,DT_G_Q1,Tavsiye edilebilir ve tavsiye edilemez olan yiyecekleri daha iyi karar vermeyi öğrendi.,True,review,students/Irma/WS13/extraction.json
 Irma,WS13,DT_G_Q2,DT_G_Q2,Kararı netleştirmek için olabildiğince eşik değeri iyi tutmayı. Gerektiği yerde dallandırma yaparak karar ağacını mükemmel olarak sınıflandırmayı.,True,,students/Irma/WS13/extraction.json
 Irma,WS14,DTI_01,DTI_01,10 vaka var. Ve bu vakaların %50 si hastadır. Veri setimde yarıya yarı bir oran vardır.,True,,ocr_output/Irma/Irma_Worksheet_Xeno.json
 Irma,WS14,DTI_02,DTI_02,Mavi renkli saça 2 vaka bulunmakta ve bunların ikiside [corrected: hastadır → sağlıklıdır]. Gruptaki hastalık oranı 0/2 | /10,True,,ocr_output/Irma/Irma_Worksheet_Xeno.json
@@ -1282,7 +1282,7 @@ Isabel,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>250,,,students/
 Isabel,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Isabel/WS12/extraction.json
 Isabel,WS12,WS12_left_child_rec,WS12_left_child_rec,,,,students/Isabel/WS12/extraction.json
 Isabel,WS12,WS12_left_child_notrec,WS12_left_child_notrec,,,,students/Isabel/WS12/extraction.json
-Isabel,WS12,WS12_right_child_label,WS12_right_child_label,Yaş,,,students/Isabel/WS12/extraction.json
+Isabel,WS12,WS12_right_child_label,WS12_right_child_label,Yağ,,,students/Isabel/WS12/extraction.json
 Isabel,WS12,WS12_right_child_rec,WS12_right_child_rec,,,,students/Isabel/WS12/extraction.json
 Isabel,WS12,WS12_right_child_notrec,WS12_right_child_notrec,,,,students/Isabel/WS12/extraction.json
 Isabel,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Isabel/WS12/extraction.json
@@ -1311,7 +1311,7 @@ Isabel,WS13,DT_C_Q1,DT_C_Q1,"Eşik değerini 200 seçtim MCR=0,225 / 320 MCR=0,3
 Isabel,WS13,DT_C_Q2,DT_C_Q2,Eşik değeri değiştirmek hata oranını onunla değiştiriyor.,,review,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_C_Q3,DT_C_Q3,386 eşik değeri en iyi şekilde ayırdı. Doğru olanların en iyi hatalıların en az olacak şekilde seçmeye çalıştım.,True,,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_D_Q1,DT_D_Q1,Yağ değişkenini seçtim,False,review,students/Isabel/WS13/extraction.json
-Isabel,WS13,DT_D_Q2,DT_D_Q2,İyileştirmedi. Hata oranı çok az düştü ancak duyarlılık çok özeldi.,,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_D_Q2,DT_D_Q2,İyileştirmedi. Hata oranı çok az düştü ancak duyarlılık çok özeldi.,True,review,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_D_Q3,DT_D_Q3,Yağ değerlerine göre daha iyi,,review,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_D_Q4,DT_D_Q4,MCR oranının daha az olmasına baktım.,True,,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Isabel/WS13/extraction.json
@@ -1322,7 +1322,7 @@ Isabel,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,636",True,,students/Isabel/WS13
 Isabel,WS13,DT_E_MCR,DT_E_MCR,"0,225",,review,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_E_Q1,DT_E_Q1,"Bence MCR daha önemli çünkü doğruların ne kadarını doğru tahmin ettiği değil, ne kadar hata yaptığı daha somut bir sonuç verir.",True,,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_E_Q2,DT_E_Q2,Daha çok yanlış negatif (FN) yaptı,,review,students/Isabel/WS13/extraction.json
-Isabel,WS13,DT_E_Q3,DT_E_Q3,Ne kadar az hata veriyorsa o kadar iyidir.,,review,students/Isabel/WS13/extraction.json
+Isabel,WS13,DT_E_Q3,DT_E_Q3,Ne kadar az hata veriyorsa o kadar iyidir.,False,review,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_E_Q4,DT_E_Q4,"Hayır, ancak çok az veri varsa hata yapmayabilir. Ama çok veri varsa hata yapma olasılığı yüksek.",True,,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_F_Q1,DT_F_Q1,"MCR=1, Duyarlılık=0",False,review,students/Isabel/WS13/extraction.json
 Isabel,WS13,DT_F_Q2,DT_F_Q2,Test verisinde hiç iyi performans gösteremedi,,review,students/Isabel/WS13/extraction.json
@@ -1467,7 +1467,7 @@ Marco,WS12,WS12_train_errors,WS12_train_errors,0,,,students/Marco/WS12/extractio
 Marco,WS12,WS12_test_errors,WS12_test_errors,0,,,students/Marco/WS12/extraction.json
 Marco,WS13,DT_A_Q1,DT_A_Q1,Sağlığa etkisini baz alarak tahmin edilebilir,False,review,students/Marco/WS13/extraction.json
 Marco,WS13,DT_A_Q2,DT_A_Q2,"Enerji, karbonhidrat, şeker",,review,students/Marco/WS13/extraction.json
-Marco,WS13,DT_A_Q3,DT_A_Q3,Saptayamadım. Çünkü karmaşık veriler vardı.,,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_A_Q3,DT_A_Q3,Saptayamadım. Çünkü karmaşık veriler vardı.,False,review,students/Marco/WS13/extraction.json
 Marco,WS13,DT_A_Q4,DT_A_Q4,Yağ değişkenini seçerdim. Çünkü ayırt edilmesi daha kolay olur.,,review,students/Marco/WS13/extraction.json
 Marco,WS13,DT_B_Q1,DT_B_Q1,Doymuş Yağ: <10 / ≥10 | Değişkenden memnunum. Sensitive yüksek geldi. Yüksek olduğu için daha kolay anlaşılabilir.,False,review,students/Marco/WS13/extraction.json
 Marco,WS13,DT_B_Q2,DT_B_Q2,Protein: <7 / ≥7 | Değişkenden memnun değilim. Eşik değer uygun değil.,False,review,students/Marco/WS13/extraction.json
@@ -1478,7 +1478,7 @@ Marco,WS13,DT_C_Q2,DT_C_Q2,"MCR iyi düzeyde, sensitiviteyi",,review,students/Ma
 Marco,WS13,DT_C_Q3,DT_C_Q3,(bos),False,review,students/Marco/WS13/extraction.json
 Marco,WS13,DT_D_Q1,DT_D_Q1,"Yağ, Doymuş Yağ",,review,students/Marco/WS13/extraction.json
 Marco,WS13,DT_D_Q2,DT_D_Q2,"MCR yönünden kötüleştirdi, sensitive yönünden iyileştirdi.",,review,students/Marco/WS13/extraction.json
-Marco,WS13,DT_D_Q3,DT_D_Q3,Doymuş Yağ,,review,students/Marco/WS13/extraction.json
+Marco,WS13,DT_D_Q3,DT_D_Q3,Doymuş Yağ,False,review,students/Marco/WS13/extraction.json
 Marco,WS13,DT_D_Q4,DT_D_Q4,"MCR iyi, erişilecek, sensitiviteyi arttırdığı zaman.",True,,students/Marco/WS13/extraction.json
 Marco,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Marco/WS13/extraction.json
 Marco,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Marco/WS13/extraction.json
@@ -1722,8 +1722,8 @@ Marcus,WS13,DT_B_Q2,DT_B_Q2,Enerji'yi seçtim. MCR'si doymuş yağ kadar iyi olm
 Marcus,WS13,DT_B_Q3,DT_B_Q3,Karbonhidrat seçtim ortalama bir sonuç verdi kötü değil ama çok iyi de değil.,False,review,students/Marcus/WS13/extraction.json
 Marcus,WS13,DT_B_Q4,DT_B_Q4,Doymuş yağ oldu benim için çünkü MCR oranı en iyi olan doymuş yağ. Sens değeri de fena değil bence en iyi doymuş yağ oldu.,True,,students/Marcus/WS13/extraction.json
 Marcus,WS13,DT_C_Q1,DT_C_Q1,"Çok da iyiye gitmedi. MCR yükseldi, Sens de yükseldi.",,review,students/Marcus/WS13/extraction.json
-Marcus,WS13,DT_C_Q2,DT_C_Q2,Daha iyiye gidiyor.,,review,students/Marcus/WS13/extraction.json
-Marcus,WS13,DT_C_Q3,DT_C_Q3,Bence enerjiyi düzenleyince çok daha iyi oldu.,,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_C_Q2,DT_C_Q2,Daha iyiye gidiyor.,False,review,students/Marcus/WS13/extraction.json
+Marcus,WS13,DT_C_Q3,DT_C_Q3,Bence enerjiyi düzenleyince çok daha iyi oldu.,False,review,students/Marcus/WS13/extraction.json
 Marcus,WS13,DT_D_Q1,DT_D_Q1,Tamam,False,review,students/Marcus/WS13/extraction.json
 Marcus,WS13,DT_D_Q2,DT_D_Q2,İyileştirdi. Karbonhidrat ve enerji.,,review,students/Marcus/WS13/extraction.json
 Marcus,WS13,DT_D_Q3,DT_D_Q3,"Karbonhidrat, enerji",,review,students/Marcus/WS13/extraction.json
@@ -1908,7 +1908,7 @@ Melinda,WS13,DT_B_Q2,DT_B_Q2,Enerji seçtim. Eşik değer 250 aldım. MCR 0.244 
 Melinda,WS13,DT_B_Q3,DT_B_Q3,Karbonhidrat seçtim. Eşik değer 24.3 seçtim. MCR 0.356 sens. 0.722,,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_B_Q4,DT_B_Q4,En iyi sonuç doymuş yağ.,,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_C_Q1,DT_C_Q1,En iyi doymuş yağ.,False,review,students/Melinda/WS13/extraction.json
-Melinda,WS13,DT_C_Q2,DT_C_Q2,Veri setinin daha doğru sonuç vermesini sağlar.,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_C_Q2,DT_C_Q2,Veri setinin daha doğru sonuç vermesini sağlar.,False,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_C_Q3,DT_C_Q3,Doymuş yağ ayırıyor.,False,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_D_Q1,DT_D_Q1,(bos),False,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_D_Q2,DT_D_Q2,İyileştirdi. MCR değeri düştü.,,review,students/Melinda/WS13/extraction.json
@@ -1923,12 +1923,12 @@ Melinda,WS13,DT_E_MCR,DT_E_MCR,0.1,,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_E_Q1,DT_E_Q1,MCR daha önemli gözüküyor. Ne kadar az hatamız olursa test verisi o kadar iyi çalışıyor demektir.,True,,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_E_Q2,DT_E_Q2,Daha çok yanlış negatif yaptı. TP=7 FP=0 TN=2 FN=1,,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_E_Q3,DT_E_Q3,(bos),False,review,students/Melinda/WS13/extraction.json
-Melinda,WS13,DT_E_Q4,DT_E_Q4,Düşünmüyorum.,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_E_Q4,DT_E_Q4,Düşünmüyorum.,False,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_F_Q1,DT_F_Q1,Enerji (şeker) tuz karbonhidrat,False,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_F_Q2,DT_F_Q2,Test verisindeki doğruluk oranı daha yüksek çıktı.,,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_G_overfitting,DT_G_overfitting,(bos),False,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_G_DT_definition,DT_G_DT_definition,(bos),False,review,students/Melinda/WS13/extraction.json
-Melinda,WS13,DT_G_Q1,DT_G_Q1,Birden fazla veriyi kullanarak en doğru sonuca yaklaşabildik.,,review,students/Melinda/WS13/extraction.json
+Melinda,WS13,DT_G_Q1,DT_G_Q1,Birden fazla veriyi kullanarak en doğru sonuca yaklaşabildik.,False,review,students/Melinda/WS13/extraction.json
 Melinda,WS13,DT_G_Q2,DT_G_Q2,%100 doğru sonuca ulaşamıyoruz ancak değerleri kullanarak en doğru sonuca yaklaşabiliyoruz.,,review,students/Melinda/WS13/extraction.json
 Melinda,WS14,DTI_01,DTI_01,"30, 20 sağlıklı, %33 hasta, 10 hasta",True,,ocr_output/Melinda/Melinda_Worksheet_Xeno.json
 Melinda,WS14,DTI_02,DTI_02,"20 vaka, 0 hasta, %100 sağlıklı",True,,ocr_output/Melinda/Melinda_Worksheet_Xeno.json
@@ -2149,7 +2149,7 @@ Nadia,WS12,WS12_train_errors,WS12_train_errors,0,,,students/Nadia/WS12/extractio
 Nadia,WS12,WS12_test_errors,WS12_test_errors,0,,,students/Nadia/WS12/extraction.json
 Nadia,WS13,DT_A_Q1,DT_A_Q1,"Enerji, Yağ, Şeker, Protein, Tuz, Karbonhidrat.",True,,students/Nadia/WS13/extraction.json
 Nadia,WS13,DT_A_Q2,DT_A_Q2,"Tuz, Yağ",,review,students/Nadia/WS13/extraction.json
-Nadia,WS13,DT_A_Q3,DT_A_Q3,Evet bence var. Çünkü 20'nin altındaki değerler için TP değeri çok daha fazla.,True,,students/Nadia/WS13/extraction.json
+Nadia,WS13,DT_A_Q3,DT_A_Q3,Evet bence var. Çünkü 20'nin altındaki değerler için TP değeri çok daha fazla.,,review,students/Nadia/WS13/extraction.json
 Nadia,WS13,DT_A_Q4,DT_A_Q4,Yağ değişkeni. Sebebi yine TP değerinin yüksek olması,True,,students/Nadia/WS13/extraction.json
 Nadia,WS13,DT_B_Q1,DT_B_Q1,"Enerji değişkenini seçtim ve eşik değerini 290 yaptım ve MCR 0,244 oldu. O yüzden daha iyi old. düşünüyorum.",,review,students/Nadia/WS13/extraction.json
 Nadia,WS13,DT_B_Q2,DT_B_Q2,"Yağ değişkeni ve eşik değeri 3 yaptım. MCR 0,267 oldu.",,review,students/Nadia/WS13/extraction.json
@@ -2345,7 +2345,7 @@ Serena,WS13,DT_C_Q1,DT_C_Q1,(bos),False,review,students/Serena/WS13/extraction.j
 Serena,WS13,DT_C_Q2,DT_C_Q2,Olumsuz etkiliyor en iyi eşik değer 250,,review,students/Serena/WS13/extraction.json
 Serena,WS13,DT_C_Q3,DT_C_Q3,Enerji için 250,,review,students/Serena/WS13/extraction.json
 Serena,WS13,DT_D_Q1,DT_D_Q1,(bos),False,review,students/Serena/WS13/extraction.json
-Serena,WS13,DT_D_Q2,DT_D_Q2,Evet iyileştirdi MCR'yi düşürdü,,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_D_Q2,DT_D_Q2,Evet iyileştirdi MCR'yi düşürdü,True,review,students/Serena/WS13/extraction.json
 Serena,WS13,DT_D_Q3,DT_D_Q3,Enerji ve yağ en iyi sonucu verdi,,review,students/Serena/WS13/extraction.json
 Serena,WS13,DT_D_Q4,DT_D_Q4,MCR en düşük değere ulaştı,True,,students/Serena/WS13/extraction.json
 Serena,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Serena/WS13/extraction.json
@@ -2356,7 +2356,7 @@ Serena,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,4",True,,students/Serena/WS13/e
 Serena,WS13,DT_E_MCR,DT_E_MCR,"0,273",,review,students/Serena/WS13/extraction.json
 Serena,WS13,DT_E_Q1,DT_E_Q1,Önceki yaptığım ile bu değer aynı çıktı,False,review,students/Serena/WS13/extraction.json
 Serena,WS13,DT_E_Q2,DT_E_Q2,Aynı şekilde bulmuştum öncesinde o yüzden model düzgün çalışıyor,False,review,students/Serena/WS13/extraction.json
-Serena,WS13,DT_E_Q3,DT_E_Q3,MCR'nin en az olduğu durumda sens'in en fazla olduğu durum en iyi durum,,review,students/Serena/WS13/extraction.json
+Serena,WS13,DT_E_Q3,DT_E_Q3,MCR'nin en az olduğu durumda sens'in en fazla olduğu durum en iyi durum,True,review,students/Serena/WS13/extraction.json
 Serena,WS13,DT_E_Q4,DT_E_Q4,Her durumda olacağını düşünmüyorum,,review,students/Serena/WS13/extraction.json
 Serena,WS13,DT_F_Q1,DT_F_Q1,"Enerji, şeker, tuz",False,review,students/Serena/WS13/extraction.json
 Serena,WS13,DT_F_Q2,DT_F_Q2,Test verisindeki doğruluk oranı değişiyor,,review,students/Serena/WS13/extraction.json
@@ -2813,7 +2813,7 @@ Sheila,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>229,,,students/
 Sheila,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Sheila/WS12/extraction.json
 Sheila,WS12,WS12_left_child_rec,WS12_left_child_rec,6,,,students/Sheila/WS12/extraction.json
 Sheila,WS12,WS12_left_child_notrec,WS12_left_child_notrec,0,,,students/Sheila/WS12/extraction.json
-Sheila,WS12,WS12_right_child_label,WS12_right_child_label,Yaş,,,students/Sheila/WS12/extraction.json
+Sheila,WS12,WS12_right_child_label,WS12_right_child_label,Yağ,,,students/Sheila/WS12/extraction.json
 Sheila,WS12,WS12_right_child_rec,WS12_right_child_rec,1,,,students/Sheila/WS12/extraction.json
 Sheila,WS12,WS12_right_child_notrec,WS12_right_child_notrec,7,,,students/Sheila/WS12/extraction.json
 Sheila,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Sheila/WS12/extraction.json
@@ -2839,12 +2839,12 @@ Sheila,WS13,DT_B_Q2,DT_B_Q2,"Şeker seçtim, eşik değer 10 oldu. MCR: 0,375  S
 Sheila,WS13,DT_B_Q3,DT_B_Q3,"Enerji olarak seçtim, eşik değer 200 seçtim. MCR: 0,115  Sens: 0,765 oldu.",,review,students/Sheila/WS13/extraction.json
 Sheila,WS13,DT_B_Q4,DT_B_Q4,"Enerji daha iyi sonuç verdi, FP ve FN daha düşük.",True,,students/Sheila/WS13/extraction.json
 Sheila,WS13,DT_C_Q1,DT_C_Q1,Yaptım [arrow] Enerji olarak belirledim.,False,review,students/Sheila/WS13/extraction.json
-Sheila,WS13,DT_C_Q2,DT_C_Q2,Karar ağacında doğru seçim yapmamızı sağlar.,,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_C_Q2,DT_C_Q2,Karar ağacında doğru seçim yapmamızı sağlar.,False,review,students/Sheila/WS13/extraction.json
 Sheila,WS13,DT_C_Q3,DT_C_Q3,"Enerji için eşik değeri 200 olarak belirledim, en iyi şekilde ayırdığını düşündüm.",,review,students/Sheila/WS13/extraction.json
 Sheila,WS13,DT_D_Q1,DT_D_Q1,"Enerjiyi seçip (200), sonra yağı (5) olarak soğdum.",,review,students/Sheila/WS13/extraction.json
-Sheila,WS13,DT_D_Q2,DT_D_Q2,"İyileştirmedi. MCR iyi yükselti, sensi düşürdü.",,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_D_Q2,DT_D_Q2,"İyileştirmedi. MCR iyi yükselti, sensi düşürdü.",True,review,students/Sheila/WS13/extraction.json
 Sheila,WS13,DT_D_Q3,DT_D_Q3,"Yağ enerjinle (enerji ve yağ kombinasyonu) iyi sonuç verdi, diğerlerinden daha iyi.",,review,students/Sheila/WS13/extraction.json
-Sheila,WS13,DT_D_Q4,DT_D_Q4,MCR ve sens'e göre karar verdim.,,review,students/Sheila/WS13/extraction.json
+Sheila,WS13,DT_D_Q4,DT_D_Q4,MCR ve sens'e göre karar verdim.,True,review,students/Sheila/WS13/extraction.json
 Sheila,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Sheila/WS13/extraction.json
 Sheila,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Sheila/WS13/extraction.json
 Sheila,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,,students/Sheila/WS13/extraction.json
@@ -3057,7 +3057,7 @@ Ulysses,WS12,WS12_root_right_threshold,WS12_root_right_threshold,>250,,,students
 Ulysses,WS12,WS12_left_child_label,WS12_left_child_label,karar verildi,,,students/Ulysses/WS12/extraction.json
 Ulysses,WS12,WS12_left_child_rec,WS12_left_child_rec,,,,students/Ulysses/WS12/extraction.json
 Ulysses,WS12,WS12_left_child_notrec,WS12_left_child_notrec,,,,students/Ulysses/WS12/extraction.json
-Ulysses,WS12,WS12_right_child_label,WS12_right_child_label,Yaş,,,students/Ulysses/WS12/extraction.json
+Ulysses,WS12,WS12_right_child_label,WS12_right_child_label,Yağ,,,students/Ulysses/WS12/extraction.json
 Ulysses,WS12,WS12_right_child_rec,WS12_right_child_rec,,,,students/Ulysses/WS12/extraction.json
 Ulysses,WS12,WS12_right_child_notrec,WS12_right_child_notrec,,,,students/Ulysses/WS12/extraction.json
 Ulysses,WS12,WS12_depth1_ll_threshold,WS12_depth1_ll_threshold,N/A,,,students/Ulysses/WS12/extraction.json
@@ -3074,7 +3074,7 @@ Ulysses,WS12,WS12_leaf_rr_rec,WS12_leaf_rr_rec,,,,students/Ulysses/WS12/extracti
 Ulysses,WS12,WS12_leaf_rr_notrec,WS12_leaf_rr_notrec,,,,students/Ulysses/WS12/extraction.json
 Ulysses,WS12,WS12_train_errors,WS12_train_errors,,,,students/Ulysses/WS12/extraction.json
 Ulysses,WS12,WS12_test_errors,WS12_test_errors,,,,students/Ulysses/WS12/extraction.json
-Ulysses,WS13,DT_A_Q1,DT_A_Q1,"Paketli gıda olup olmadığı, doğal olup olmadığı, alerjinin olup olmadığı",True,,students/Ulysses/WS13/extraction.json
+Ulysses,WS13,DT_A_Q1,DT_A_Q1,"Paketli gıda olup olmadığı, doğal olup olmadığı, alerjinin olup olmadığı",False,review,students/Ulysses/WS13/extraction.json
 Ulysses,WS13,DT_A_Q2,DT_A_Q2,Tuz değişkenini eklediğinde büyük oranda tuzsuz gıdalar sağlıklı olarak sınır. Protein değişkenini eklediğinde çok belirgin bir ayırt etme sonucu gözlemleyemedim.,True,,students/Ulysses/WS13/extraction.json
 Ulysses,WS13,DT_A_Q3,DT_A_Q3,Tavsiye edilen ve tavsiye edilmeyen yiyecekler arasında anlamlı bir fark gösteren bir özellik saptayamadım.,,review,students/Ulysses/WS13/extraction.json
 Ulysses,WS13,DT_A_Q4,DT_A_Q4,Yağ → çünkü sağlıksız,,review,students/Ulysses/WS13/extraction.json
@@ -3334,9 +3334,9 @@ Zara,WS13,DT_C_Q1,DT_C_Q1,(bos),False,review,students/Zara/WS13/extraction.json
 Zara,WS13,DT_C_Q2,DT_C_Q2,Şeker için değişmedi,,review,students/Zara/WS13/extraction.json
 Zara,WS13,DT_C_Q3,DT_C_Q3,"İlkinde 27, ikincisinde 25 eşik değeri kullandım. İki değerde de aynı çıktı.",True,,students/Zara/WS13/extraction.json
 Zara,WS13,DT_D_Q1,DT_D_Q1,(bos),False,review,students/Zara/WS13/extraction.json
-Zara,WS13,DT_D_Q2,DT_D_Q2,Enerji değişkeni. Hata oranını azalttı ama sens değeri düştü.,,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_D_Q2,DT_D_Q2,Enerji değişkeni. Hata oranını azalttı ama sens değeri düştü.,True,review,students/Zara/WS13/extraction.json
 Zara,WS13,DT_D_Q3,DT_D_Q3,Şeker ve Tuz değişkeni iyi sonuç verdi,,review,students/Zara/WS13/extraction.json
-Zara,WS13,DT_D_Q4,DT_D_Q4,"MCR değeri = 0,238, Sens değeri = 0,842",,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_D_Q4,DT_D_Q4,"MCR değeri = 0,238, Sens değeri = 0,842",True,review,students/Zara/WS13/extraction.json
 Zara,WS13,DT_E_TP,DT_E_TP,(bos),False,review,students/Zara/WS13/extraction.json
 Zara,WS13,DT_E_FP,DT_E_FP,(bos),False,review,students/Zara/WS13/extraction.json
 Zara,WS13,DT_E_sensitivity_formula,DT_E_sensitivity_formula,(bos),False,,students/Zara/WS13/extraction.json
@@ -3345,7 +3345,7 @@ Zara,WS13,DT_E_sensitivity,DT_E_sensitivity,"0,842",True,,students/Zara/WS13/ext
 Zara,WS13,DT_E_MCR,DT_E_MCR,"0,238",,review,students/Zara/WS13/extraction.json
 Zara,WS13,DT_E_Q1,DT_E_Q1,Hata oranı (MCR) daha önemli gibi. Çünkü ne kadar az hata yaparsak modelimiz o kadar iyi olmuş olur.,True,,students/Zara/WS13/extraction.json
 Zara,WS13,DT_E_Q2,DT_E_Q2,"FP=7, FN=3. FP değeri FN değerinden daha fazla",,review,students/Zara/WS13/extraction.json
-Zara,WS13,DT_E_Q3,DT_E_Q3,"TP, TN, FP, FN değerlerine göre karar verir. Ben olsam hata oranına göre karar verirdim.",,review,students/Zara/WS13/extraction.json
+Zara,WS13,DT_E_Q3,DT_E_Q3,"TP, TN, FP, FN değerlerine göre karar verir. Ben olsam hata oranına göre karar verirdim.",True,review,students/Zara/WS13/extraction.json
 Zara,WS13,DT_E_Q4,DT_E_Q4,Yani daha iyiye gitmesi için yönlendirerek mükemmele yakın olabilir.,False,review,students/Zara/WS13/extraction.json
 Zara,WS13,DT_F_Q1,DT_F_Q1,(bos),False,review,students/Zara/WS13/extraction.json
 Zara,WS13,DT_F_Q2,DT_F_Q2,Evet eğitim seti kötü ama test verisi daha iyi ona göre,,review,students/Zara/WS13/extraction.json
