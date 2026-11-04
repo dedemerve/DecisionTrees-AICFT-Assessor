@@ -33,28 +33,50 @@
       "ok": false,
       "credit": "not_attempted",
       "score": 0.0,
-      "reason": "ws6_missing_or_unparseable",
-      "review": true,
-      "blocked_dependency": "WS6"
+      "reason": "blank"
     },
     "WS7_B2": {
       "ok": false,
       "credit": "not_attempted",
       "score": 0.0,
-      "reason": "ws6_missing_or_unparseable",
-      "review": true,
-      "blocked_dependency": "WS6"
+      "reason": "blank"
     },
     "WS7_B3": {
-      "ok": false,
-      "credit": "not_attempted",
+      "ok": true,
+      "credit": "not_applicable",
       "score": 0.0,
-      "reason": "ws6_missing_or_unparseable",
-      "review": true,
-      "blocked_dependency": "WS6"
+      "reason": "path_not_in_tree"
     }
   },
   "blocked": false,
-  "blocked_reason": "WS6 extraction required for B1–B3 rule checks.",
+  "blocked_reason": null,
+  "ws6_path_specs": [
+    {
+      "path_index": 1,
+      "leaf_field": "WS6_B5",
+      "conditions": [
+        {
+          "feature": "Enerji",
+          "feature_key": "energy_kcal",
+          "operator": "<",
+          "value": 161.0
+        }
+      ],
+      "recommended": null
+    },
+    {
+      "path_index": 2,
+      "leaf_field": "WS6_B13",
+      "conditions": [
+        {
+          "feature": "Enerji",
+          "feature_key": "energy_kcal",
+          "operator": ">=",
+          "value": 161.0
+        }
+      ],
+      "recommended": false
+    }
+  ],
   "sample_tree_reference": "data/ws7_sample_tree.json"
 }

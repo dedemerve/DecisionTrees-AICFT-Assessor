@@ -248,6 +248,8 @@ def score_ws7_deterministic(
         "WS7_4": (7.7, {">=", "≥", "gte", "ge"}),
     }
     _WS7_LETTER_EXPECTED = {"WS7_5": "B", "WS7_6": "A", "WS7_7": "C"}
+    # Extraction uses WS7_P1_box* keys; rubric uses WS7_5..7.
+    _P1_ALIAS = {"WS7_5": "WS7_P1_box1", "WS7_6": "WS7_P1_box2", "WS7_7": "WS7_P1_box3"}
 
     from rubric_deterministic import extract_numbers, normalize_token
 
@@ -262,7 +264,7 @@ def score_ws7_deterministic(
         score = float(det["score"])
         review = bool(det.get("review")) or det.get("credit") == "partial"
 
-        check = checks.get(item_id) or {}
+        check = checks.get(item_id) or checks.get(_P1_ALIAS.get(item_id, "")) or {}
         if check and score <= 0 and check.get("credit") in {"full", "partial"}:
             score = score_from_credit(check, max_score)
 
@@ -278,9 +280,10 @@ def score_ws7_deterministic(
                 if has_num and has_op:
                     score = max_score
 
-        # Fallback: score path-letter items directly from response when checks are empty
-        if score <= 0 and not check and item_id in _WS7_LETTER_EXPECTED:
-            resp = (responses.get(item_id) or "").strip().upper()
+        # Fallback: score path-letter items using alias key when rubric key is not in extraction
+        if score <= 0 and item_id in _WS7_LETTER_EXPECTED:
+            alias = _P1_ALIAS.get(item_id)
+            resp = (responses.get(item_id) or responses.get(alias, "")).strip().upper()
             if resp == _WS7_LETTER_EXPECTED[item_id]:
                 score = max_score
 

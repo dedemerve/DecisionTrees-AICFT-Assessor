@@ -8,6 +8,7 @@ branch operators, leaf labels, and tree structure. MCR=0 with a two-level tree i
 
 from __future__ import annotations
 
+import ast
 import re
 from typing import Any
 
@@ -114,8 +115,111 @@ def _operator_pair_consistent(true_op: str, false_label: str | None) -> bool:
     return operators_are_complementary(true_op, false_op)
 
 
+def _parse_safe(raw: str | None) -> dict[str, Any]:
+    """Parse a stringified Python dict stored in extraction items."""
+    if not raw or not str(raw).strip().startswith("{"):
+        return {}
+    try:
+        return ast.literal_eval(str(raw))
+    except Exception:
+        return {}
+
+
+def _make_threshold(feature_name: str | None, operator: str | None, value: str | float | None) -> dict[str, Any] | None:
+    """Build a threshold dict from structured extraction fields."""
+    if not feature_name or not operator or value is None:
+        return None
+    feature = resolve_feature(str(feature_name))
+    if not feature:
+        return None
+    op = str(operator).replace("≤", "<=").replace("≥", ">=")
+    try:
+        val = float(str(value).replace(",", "."))
+    except (ValueError, TypeError):
+        return None
+    return {
+        "raw": f"{op} {val}",
+        "feature": feature,
+        "feature_name": str(feature_name).strip(),
+        "operator": op,
+        "value": val,
+        "operator_inclusive": op in INCLUSIVE_OPS,
+        "operator_strict": op in STRICT_OPS,
+    }
+
+
+def _build_ws6_tree_structured(responses: dict[str, str]) -> dict[str, Any]:
+    """Build tree model from WS6_depth_* structured extraction keys."""
+    root_feature_name = responses.get("WS6_depth_0_parsed_feature")
+    root_op = responses.get("WS6_depth_0_left_operator")
+    root_val = responses.get("WS6_depth_0_left_threshold_value")
+    root_threshold = _make_threshold(root_feature_name, root_op, root_val)
+
+    left_child = _parse_safe(responses.get("WS6_depth_1_left_child"))
+    right_child = _parse_safe(responses.get("WS6_depth_1_right_child"))
+    depth2 = _parse_safe(responses.get("WS6_depth_2_leaf_nodes"))
+
+    inner_feature_name = left_child.get("parsed_feature") if left_child else None
+    inner_op = left_child.get("left_operator") if left_child else None
+    inner_val = left_child.get("left_threshold_value") if left_child else None
+    inner_threshold = _make_threshold(inner_feature_name, inner_op, inner_val)
+
+    has_inner = (
+        bool(left_child)
+        and not left_child.get("is_direct_leaf")
+        and inner_threshold is not None
+    )
+
+    # Map leaf labels to the B-slot names enumerate_ws6_path_specs expects.
+    b10_label = None
+    b11_label = None
+    b13_label = None
+
+    if has_inner:
+        ll = depth2.get("left_left_leaf") or {}
+        lr = depth2.get("left_right_leaf") or {}
+        b10_label = ll.get("leaf_label")
+        b11_label = lr.get("leaf_label")
+    else:
+        # Simple tree: left child IS the leaf.
+        ll = _parse_safe(responses.get("WS6_depth_1_left_child"))
+        b10_label = ll.get("leaf_label")
+
+    # Root-no path leaf: right_child when it's a direct leaf.
+    if right_child.get("is_direct_leaf"):
+        b13_label = right_child.get("leaf_label")
+    else:
+        rl = depth2.get("right_left_leaf") or {}
+        if not rl.get("not_applicable"):
+            b13_label = rl.get("leaf_label")
+
+    leaves = {
+        "B5": b10_label if not has_inner else None,
+        "B10": b10_label if has_inner else None,
+        "B11": b11_label,
+        "B12": None,
+        "B13": b13_label,
+    }
+
+    return {
+        "root_feature": root_feature_name,
+        "root_threshold": root_threshold,
+        "root_yes_label": None,
+        "root_no_label": None,
+        "inner_feature": inner_feature_name,
+        "inner_threshold": inner_threshold,
+        "inner_yes_label": None,
+        "inner_no_label": None,
+        "has_inner": has_inner,
+        "leaves": leaves,
+    }
+
+
 def build_ws6_tree(responses: dict[str, str]) -> dict[str, Any]:
-    """Parse OCR fields into a two-level tree model."""
+    """Parse OCR fields into a two-level tree model (supports both old and new extraction formats)."""
+    if "WS6_depth_0_parsed_feature" in responses:
+        return _build_ws6_tree_structured(responses)
+
     root_feature = responses.get("WS6_B1")
     root_threshold = parse_threshold_field(responses.get("WS6_B2"), root_feature)
     inner_feature = responses.get("WS6_B6")

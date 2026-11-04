@@ -215,7 +215,8 @@ def score_ws7_item(
             responses, rubric, ws6_responses=ws6_responses,
         )["deterministic_checks"]
 
-    check = checks.get(item_id) or {}
+    _p1_alias = {"WS7_5": "WS7_P1_box1", "WS7_6": "WS7_P1_box2", "WS7_7": "WS7_P1_box3"}
+    check = checks.get(item_id) or checks.get(_p1_alias.get(item_id, "")) or {}
     max_score = float(rubric.get("items", {}).get(item_id, {}).get("max_score", 1))
     score = score_from_credit(check, max_score)
     return {
