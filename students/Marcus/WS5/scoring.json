@@ -3,7 +3,7 @@
   "student_id": "Marcus",
   "worksheet": "WS5",
   "blocked": false,
-  "total_score": 3.0,
+  "total_score": 4.0,
   "max_score": 4.0,
   "items": [
     {
@@ -26,9 +26,11 @@
     },
     {
       "item": "WS5_B25",
-      "score": 0.0,
+      "score": 1.0,
       "confidence": 0.85,
-      "review": false
+      "review": true,
+      "researcher_override": true,
+      "override_rationale": "validation.json ok=True (score=1.0) but scoring.json was not updated after validation run. Pipeline sync bug."
     }
   ]
 }

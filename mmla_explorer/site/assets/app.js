@@ -1787,17 +1787,6 @@
         <p class="small span-line">${completed.length ? `${num(completed.length)} file${completed.length === 1 ? "" : "s"}. ` : ""}The original scans are shown as they were stored. Different students were not merged into a new PDF, and no dates are shown.</p>
         ${fileList(files.completed, "No completed student PDF is on record for this worksheet.")}
       </section>
-      <section class="section-block" id="ai-labeling"><h2>AI competency labeling</h2>
-        <p>Extracted responses from the RAG pipeline and researcher competency labels (UNESCO AI-CFT framework) for each student on this worksheet. Each row is one student; each column is one response field.</p>
-        <ul class="file-list" style="margin-bottom:16px">
-          <li class="file-item">
-            <span class="file-actions"><a href="downloads/labeling/${h(code === "WS DT - CODAP" ? "WS12" : code)}.xlsx" download="${h((code === "WS DT - CODAP" ? "WS12" : code) + ".xlsx")}">Download</a></span>
-            <span class="file-name">${h(code)} labeling sheet</span>
-            <span class="file-meta">Excel · this worksheet only</span>
-          </li>
-        </ul>
-        <div id="labeling-table-${h(code)}" class="labeling-wrap"><p class="small muted">Loading…</p></div>
-      </section>
       </div>`;
   }
 
@@ -2541,7 +2530,7 @@
         html = parts[2] && window.WorksheetFindings
           ? window.WorksheetFindings.page(parts[2], q)
           : pageFindingWorksheets();
-        after = () => { if (window.WorksheetFindings) window.WorksheetFindings.bind(); };
+        after = () => { if (window.WorksheetFindings) window.WorksheetFindings.bind(); if (parts[2]) loadLabelingTable(parts[2]); };
       }
       else if (sub === "recordings" || sub === "frames") {
         html = pageFindingRecordings(q);
@@ -2563,13 +2552,13 @@
         if (parts[2]) {
           const wsCode = parts[2];
           html = pageWorksheet(wsCode, q);
-          after = () => { bindRespFilter(); loadLabelingTable(wsCode); };
+          after = () => { bindRespFilter(); };
         } else { html = pageWorksheets(); after = bindWsSearch; }
       }
       else if (sub === "worksheet") {
         const wsCode = parts[2];
         html = pageWorksheet(wsCode, q);
-        after = () => { bindRespFilter(); loadLabelingTable(wsCode); };
+        after = () => { bindRespFilter(); };
       }
       else if (sub === "recordings") { html = pageRecordings(q); after = bindFrameBrowse; }
       else if (sub === "frames") { location.replace("#/explore/recordings" + (query ? "?" + query : "")); return; }
