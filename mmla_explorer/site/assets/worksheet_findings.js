@@ -182,12 +182,12 @@
     if (item && item.label) return item.label;
     if (item && item.printed_question != null) {
       const q = String(item.printed_question);
-      return /^\d+$/.test(q) ? "Madde " + q : q;
+      return /^\d+$/.test(q) ? "Item " + q : q;
     }
     const row = /_row(\d+)$/i.exec(id);
     if (row) return "Row " + row[1];
     const blank = /(?:^|_)B(\d+)$/i.exec(id);
-    if (blank) return "Madde " + blank[1];
+    if (blank) return "Item " + blank[1];
     const tree = /^DT_([A-G])_(.+)$/.exec(id);
     if (tree) {
       const q = /^Q(\d+)$/.exec(tree[2]);
@@ -868,7 +868,7 @@
     const colHeaders = `<th class="gc-student-head">Student</th>` +
       items.map((it) => {
         const exp = expectedFor(w, it.id);
-        return `<th class="gc-head" title="${h(exp)}">${h(it.title)}<div class="gc-exp-sub">${h(clip(exp, 30))}</div></th>`;
+        return `<th class="gc-head" title="${h(exp)}">${h(it.title)}${exp ? `<div class="gc-exp-key">Key: ${h(clip(exp, 50))}</div>` : ""}</th>`;
       }).join("");
     // Rows: one per student
     const bodyRows = students.map((p) => {
