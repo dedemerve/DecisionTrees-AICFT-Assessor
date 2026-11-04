@@ -45,7 +45,7 @@
   // requireToken: a literal string that must also be present (AND with the above).
   const ITEM_OVERRIDES = {
     WS1_B4: {
-      expected: "Özelliğin / Karakteristiğin / Değişkenin",
+      expected: "Özellik / Karakteristik / Değişken",
       acceptTokens: ["özellik", "karakteristik", "değişken"],
     },
     // WS3: comparison justification items — accept any answer that shows a numeric
@@ -998,10 +998,14 @@
       }).join("");
       return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
     }).join("");
+    const keyRow = `<tr class="gc-key-row"><th class="gc-student-name gc-key-label">KEY</th>${items.map((it) => {
+      const exp = expectedFor(w, it.id);
+      return `<td class="gc-cell gc-key-cell">${exp ? h(clip(exp, 50)) : `<span class="na">–</span>`}</td>`;
+    }).join("")}</tr>`;
     const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
     return `<h3>Answer grid</h3>
 <p class="small">${legend} &nbsp;·&nbsp; Rows = students, columns = items. Each cell shows the student's written answer. Hover for the full text or check note. Colors use the answer-key comparison, not the LLM rubric score.</p>
-<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${keyRow}${bodyRows}</tbody></table></div>`;
   }
 
   function studentResultsTable(model, core) {
