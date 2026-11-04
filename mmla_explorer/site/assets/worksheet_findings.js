@@ -757,12 +757,15 @@
     }];
     if (!n || model.mean == null) return out;
     if (model.sameMax != null) {
-      const ofMax = "Out of " + num(model.sameMax) + ".";
-      const averageNote = model.method.id === "consistency" ? ofMax + " Agreement within the recorded tree, not one correct answer." : ofMax;
+      const max = model.sameMax;
+      const pct = (v) => Math.round(100 * v / max) + "%";
+      const raw = (v) => num(v) + " / " + num(max);
+      const isConsistency = model.method.id === "consistency";
+      const consistencyNote = " Agreement within the recorded tree, not one correct answer.";
       out.push(
-        { v: num(model.mean), l: "Average score", d: averageNote },
-        { v: num(model.median), l: "Median score", d: ofMax },
-        { v: num(model.min) + "–" + num(model.maxTotal), l: "Score range", d: ofMax }
+        { v: pct(model.mean),   l: "Average score", d: raw(model.mean)   + (isConsistency ? consistencyNote : "") },
+        { v: pct(model.median), l: "Median score",  d: raw(model.median) },
+        { v: pct(model.min) + "–" + pct(model.maxTotal), l: "Score range", d: raw(model.min) + " – " + raw(model.maxTotal) }
       );
     } else {
       out.push({ v: num(model.mean), l: "Average score", d: "The files do not share one maximum, so this is not shown as a percentage." });
