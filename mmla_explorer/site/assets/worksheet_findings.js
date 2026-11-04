@@ -842,9 +842,10 @@
   function checkFromScore(scoring, itemId) {
     if (!scoring) return null;
     const it = (scoring.items || []).find((x) => x.item === itemId);
-    if (!it || typeof it.score !== "number" || it.max_score == null) return null;
-    const frac = it.max_score > 0 ? it.score / it.max_score : 0;
-    return { correct: frac >= 1 ? true : frac > 0 ? null : false, note: "Score: " + it.score + "/" + it.max_score, _fromScore: true };
+    if (!it || typeof it.score !== "number") return null;
+    const max = it.max_score != null ? it.max_score : 1;
+    const frac = max > 0 ? it.score / max : 0;
+    return { correct: frac >= 1 ? true : frac > 0 ? null : false, note: "Score: " + it.score + "/" + max, _fromScore: true };
   }
 
   function resolveCheck(ck, response, itemId) {
@@ -938,7 +939,9 @@
       const cells = cols.map((col) => {
         const response = getWS5CellValue(rec && rec.ocr, col);
         const display = response ? h(response) : `<span class="na">–</span>`;
-        const ck = col.scoringItem ? checkFromScore(rec && rec.scoring, col.scoringItem) : null;
+        const ck = col.scoringItem
+          ? (getItemCheck(rec && rec.ocr, col.scoringItem, "WS5") || checkFromScore(rec && rec.scoring, col.scoringItem))
+          : null;
         const extra = col.fmt === "b25" ? " gc-b25" : "";
         if (!ck) return `<td class="gc-cell gc-na${extra}">${display}</td>`;
         const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
@@ -960,7 +963,9 @@
       let nCorrect = 0, nChecked = 0;
       const itemRows = cols.map((col) => {
         const response = getWS5CellValue(rec && rec.ocr, col) || "–";
-        const ck = col.scoringItem ? checkFromScore(rec && rec.scoring, col.scoringItem) : null;
+        const ck = col.scoringItem
+          ? (getItemCheck(rec && rec.ocr, col.scoringItem, "WS5") || checkFromScore(rec && rec.scoring, col.scoringItem))
+          : null;
         let verdictCell, rowCls;
         if (!ck) {
           verdictCell = `<span class="na">–</span>`; rowCls = "";
