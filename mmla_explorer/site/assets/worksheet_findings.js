@@ -1014,9 +1014,9 @@
       return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
     }).join("");
     const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
-    return `<details class="answer-grid-toggle" open><summary><h3 class="inline-h3">Answer grid</h3><span class="small grid-toggle-hint">${legend}</span></summary>
+    return `<h3>Answer grid <span class="small grid-toggle-hint">${legend}</span></h3>
 <p class="small">Columns match the Collected Data blank structure. Verdict uses the scoring record.</p>
-<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div></details>`;
+<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
   }
 
   function studentResultsWS5(model, core) {
@@ -1052,9 +1052,9 @@
       const tableHtml = table([{ t: "Blank" }, { t: "Written answer" }, { t: "Result" }], itemRows);
       return `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(p.id)}</span><span class="sr-badge ${nChecked && nCorrect / nChecked >= 0.7 ? "sr-good" : nChecked && nCorrect / nChecked >= 0.4 ? "sr-mid" : "sr-low"}">${nCorrect} / ${nChecked} correct (${pct})</span></summary><div class="sr-body">${tableHtml}</div></details>`;
     }).join("");
-    return `<h3>Student results</h3>
+    return `<details class="answer-grid-toggle"><summary><h3 class="inline-h3">Student results</h3></summary>
 <p class="small">Click a student to expand their answers. Verdict uses the answer-key check from the extraction file. Notes explain why an answer was marked wrong or partial.</p>
-<div class="student-results">${blocks}</div>`;
+<div class="student-results">${blocks}</div></details>`;
   }
 
   const WS6_BLANK_COLS = [
@@ -1099,9 +1099,9 @@
       return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
     }).join("");
     const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
-    return `<details class="answer-grid-toggle" open><summary><h3 class="inline-h3">Answer grid</h3><span class="small grid-toggle-hint">${legend}</span></summary>
+    return `<h3>Answer grid <span class="small grid-toggle-hint">${legend}</span></h3>
 <p class="small">Columns match the Collected Data blank structure. Verdict uses the scoring record for items that have one.</p>
-<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div></details>`;
+<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
   }
 
   function studentResultsWS6(model, core) {
@@ -1134,9 +1134,9 @@
       const tableHtml = table([{ t: "Blank" }, { t: "Written answer" }, { t: "Result" }], itemRows);
       return `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(p.id)}</span><span class="sr-badge ${nChecked && nCorrect / nChecked >= 0.7 ? "sr-good" : nChecked && nCorrect / nChecked >= 0.4 ? "sr-mid" : "sr-low"}">${summaryLine}</span></summary><div class="sr-body">${tableHtml}</div></details>`;
     }).join("");
-    return `<h3>Student results</h3>
+    return `<details class="answer-grid-toggle"><summary><h3 class="inline-h3">Student results</h3></summary>
 <p class="small">Click a student to expand. Verdict applies only to blanks that have a scoring item in the rubric.</p>
-<div class="student-results">${blocks}</div>`;
+<div class="student-results">${blocks}</div></details>`;
   }
 
   function answerGrid(model, core) {
@@ -1176,9 +1176,9 @@
       return `<td class="gc-cell gc-key-cell">${exp ? h(clip(exp, 50)) : `<span class="na">–</span>`}</td>`;
     }).join("")}</tr>`;
     const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
-    return `<details class="answer-grid-toggle" open><summary><h3 class="inline-h3">Answer grid</h3><span class="small grid-toggle-hint">${legend}</span></summary>
+    return `<h3>Answer grid <span class="small grid-toggle-hint">${legend}</span></h3>
 <p class="small">Rows = students, columns = items. Each cell shows the student's written answer. Hover for the full text or check note. Colors use the answer-key comparison, not the LLM rubric score.</p>
-<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${keyRow}${bodyRows}</tbody></table></div></details>`;
+<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${keyRow}${bodyRows}</tbody></table></div>`;
   }
 
   function studentResultsTable(model, core) {
@@ -1228,9 +1228,9 @@
       );
       return `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(p.id)}</span><span class="sr-badge ${nChecked && nCorrect / nChecked >= 0.7 ? "sr-good" : nChecked && nCorrect / nChecked >= 0.4 ? "sr-mid" : "sr-low"}">${summaryLine}</span></summary><div class="sr-body">${tableHtml}</div></details>`;
     }).join("");
-    return `<h3>Student results</h3>
+    return `<details class="answer-grid-toggle"><summary><h3 class="inline-h3">Student results</h3></summary>
 <p class="small">Click a student to expand their answers. Verdict uses the answer-key check from the extraction file. Notes explain why an answer was marked wrong or partial.</p>
-<div class="student-results">${blocks}</div>`;
+<div class="student-results">${blocks}</div></details>`;
   }
 
   function classDiagnostic(model, core) {
