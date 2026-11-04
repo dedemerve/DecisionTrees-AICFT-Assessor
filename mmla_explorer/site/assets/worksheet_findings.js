@@ -834,6 +834,14 @@
     return ocr.checks.find((x) => x.check === "item_checks." + itemId) || null;
   }
 
+  function checkFromScore(scoring, itemId) {
+    if (!scoring) return null;
+    const it = (scoring.items || []).find((x) => x.item === itemId);
+    if (!it || typeof it.score !== "number" || it.max_score == null) return null;
+    const frac = it.max_score > 0 ? it.score / it.max_score : 0;
+    return { correct: frac >= 1 ? true : frac > 0 ? null : false, note: "Score: " + it.score + "/" + it.max_score, _fromScore: true };
+  }
+
   function resolveCheck(ck, response, itemId) {
     const ov = ITEM_OVERRIDES[itemId];
     if (!ov) return ck;
@@ -877,7 +885,8 @@
       const cells = items.map((it) => {
         const response = getResponse(rec, model.code, it.id);
         const display = response ? h(clip(response, 35)) : `<span class="na">–</span>`;
-        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id);
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id)
+          || (rec ? checkFromScore(rec.scoring, it.id) : null);
         if (!ck) return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
         nChecked += 1;
         if (ck.correct === true) nPass += 1;
@@ -902,7 +911,8 @@
       const itemRows = model.items.map((it) => {
         const expected = expectedFor(w, it.id) || "–";
         const response = getResponse(rec, model.code, it.id);
-        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id);
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id)
+          || (rec ? checkFromScore(rec.scoring, it.id) : null);
         let verdictCell, rowCls;
         if (!ck) {
           verdictCell = `<span class="na">–</span>`;
@@ -953,7 +963,8 @@
       model.cohort.forEach((p) => {
         const rec = core.ws[p.id] && core.ws[p.id][model.code];
         const response = getResponse(rec, model.code, it.id);
-        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id);
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id)
+          || (rec ? checkFromScore(rec.scoring, it.id) : null);
         if (!ck) { perStudent[p.id] = null; return; }
         total += 1;
         if (ck.correct === true) { pass += 1; perStudent[p.id] = "pass"; }
