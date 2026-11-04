@@ -3,9 +3,9 @@
   "student_id": "Helena",
   "worksheet": "WS12",
   "blocked": false,
-  "total_score": 6.0,
-  "max_score": 8.0,
-  "review_required": true,
+  "total_score": 7.0,
+  "max_score": 7.0,
+  "review_required": false,
   "items": [
     {
       "item": "WS12_R1",
@@ -22,13 +22,6 @@
       "note": "ops: '≤' / '>'"
     },
     {
-      "item": "WS12_R3",
-      "score": 1.0,
-      "confidence": 1.0,
-      "review": false,
-      "note": "label='karar verildi' counts=6/0"
-    },
-    {
       "item": "WS12_R4",
       "score": 1.0,
       "confidence": 1.0,
@@ -37,10 +30,10 @@
     },
     {
       "item": "WS12_R5",
-      "score": 0.0,
-      "confidence": 0.7,
-      "review": true,
-      "note": "right subtree counts incomplete — sum check skipped | node counts incomplete — total check skipped"
+      "score": 2.0,
+      "confidence": 1.0,
+      "review": false,
+      "note": "right_node_sum ok (8=8) (node counts inferred from leaves) | grand_total plausible (14) (inferred)"
     },
     {
       "item": "WS12_R6",

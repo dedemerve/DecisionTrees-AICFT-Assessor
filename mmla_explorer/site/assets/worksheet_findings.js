@@ -181,7 +181,7 @@
     const full = rules["1.0"] || rules["1"] || rules[1] || rules["2.0"] || rules["2"];
     if (typeof full === "string") return full;
     if (full && full.condition) return String(full.condition);
-    return item.target_logic || item.note || item.prompt || "";
+    return item.target_logic || item.example_answer || item.note || item.prompt || "";
   }
   function ruleTextForScore(item, score) {
     if (!item || score == null || !item.scoring_rules) return "";
@@ -314,8 +314,9 @@
         blocked: blocked && blocked.blocked ? blocked.blocked_reason || "blocked" : "",
         blockedNote: blocked && !blocked.blocked ? blocked.blocked_reason || "" : "",
         inCohort: inCohort,
-        total: published ? rec.scoring.total_score : null,
-        max: published ? rec.scoring.max_score : null,
+        total: published ? (rec.scoring.total != null ? rec.scoring.total : rec.scoring.total_score) : null,
+        max: published ? (rec.scoring.max != null ? rec.scoring.max : rec.scoring.max_score) : null,
+        percent: published ? (rec.scoring.percent != null ? rec.scoring.percent : null) : null,
         source: published ? rec.scoring.source : (rec.stage && rec.stage.scoring && rec.stage.scoring.source) || (ocr && ocr.source) || "",
         ocrSource: ocr ? ocr.source : "",
         full: published ? tallies.full : null,
@@ -546,15 +547,14 @@
 
   function personCells(model, p) {
     const included = p.inCohort && p.scoring === "published" && typeof p.total === "number";
-    const score = included
-      ? num(p.total) + (typeof p.max === "number" ? " of " + num(p.max) : "")
-      : "–";
-    let percent = "–";
+    let pctVal = null;
     if (included && typeof p.max === "number" && p.max > 0) {
-      const width = Math.max(0, Math.min(100, 100 * p.total / p.max));
-      percent = `<span class="find-pct">${h(share(p.total, p.max))}</span><span class="find-scorebar" aria-hidden="true"><span style="width:${width}%"></span></span>`;
+      pctVal = p.percent != null ? p.percent : Math.round(1000 * p.total / p.max) / 10;
     }
-    const cells = [`<b>${h(p.id)}</b>`, score, percent];
+    const score = pctVal != null
+      ? `<span class="find-pct">${h(pctVal.toFixed(1))}%</span><span class="find-scorebar" aria-hidden="true"><span style="width:${Math.max(0, Math.min(100, pctVal))}%"></span></span>`
+      : "–";
+    const cells = [`<b>${h(p.id)}</b>`, score];
     if (model.hasCredit) {
       cells.push(included ? num(p.full) : "–", included ? num(p.partial) : "–", included ? num(p.none) : "–");
     }
@@ -696,8 +696,11 @@
       }).join("");
     }
     const publishedTotal = p.scoring === "published" && typeof p.total === "number";
+    const pctDisplay = publishedTotal && typeof p.max === "number" && p.max > 0
+      ? (p.percent != null ? p.percent : Math.round(1000 * p.total / p.max) / 10).toFixed(1) + "%"
+      : null;
     const total = publishedTotal
-      ? `<p>Stored total ${h(p.total)}${typeof p.max === "number" ? " of " + h(p.max) : ""}${p.inCohort && typeof p.max === "number" && p.max > 0 ? " (" + h(share(p.total, p.max)) + ")" : ""}${p.inCohort ? "." : ". Not included in the credit summary."}</p>`
+      ? `<p>Score: ${pctDisplay != null ? h(pctDisplay) : h(p.total) + (typeof p.max === "number" ? " of " + h(p.max) : "")}${p.inCohort ? "." : " Not included in the credit summary."}</p>`
       : "";
     const held = p.scoring === "published" && !p.inCohort
       ? `<p class="small">These item scores are in the scoring file. They are left out of the credit counts because there is no usable extraction.</p>` : "";
@@ -791,8 +794,9 @@
     });
     const rows = Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || a[0] - b[0]);
     if (!rows.length) return "";
-    if (rows.length === 1) return "Every included participant has a stored score of " + num(rows[0][0]) + " of " + num(model.sameMax) + ".";
-    return rows[0][1] + " of " + model.cohort.length + " included participants have a stored score of " + num(rows[0][0]) + " of " + num(model.sameMax) + ". The scores run from " + num(model.min) + " to " + num(model.maxTotal) + ".";
+    const pct = (v) => Math.round(100 * v / model.sameMax) + "%";
+    if (rows.length === 1) return "Every included participant scored " + pct(rows[0][0]) + ".";
+    return rows[0][1] + " of " + model.cohort.length + " included participants scored " + pct(rows[0][0]) + ". Scores range from " + pct(model.min) + " to " + pct(model.maxTotal) + ".";
   }
 
   function nameList(ids) {

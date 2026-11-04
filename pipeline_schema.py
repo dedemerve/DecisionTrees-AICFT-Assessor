@@ -532,6 +532,21 @@ def rubric_to_assessor_criteria(
     partial: list[str] = []
     zero: list[str] = ["Blank or not attempted"]
 
+    if item.get("credit_levels"):
+        cl = item["credit_levels"]
+        if cl.get("full"):
+            full.append(cl["full"])
+        if cl.get("partial"):
+            partial.append(cl["partial"])
+        if cl.get("zero"):
+            zero.append(cl["zero"])
+        return {
+            "prompt_description": f"Item {item_id} ({evaluation}). " + " ".join(parts),
+            "full_credit_criteria": full,
+            "partial_credit_criteria": partial,
+            "zero_credit_criteria": zero,
+        }
+
     if evaluation in ("true_false",):
         full.append(f"Answer matches correct: {item.get('correct_answer')}")
         zero.append(f"Answer is {('Doğru' if item.get('correct_answer') == 'Yanlış' else 'Yanlış')}")

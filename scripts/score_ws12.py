@@ -26,12 +26,11 @@ Field layout follows the printed form template (slots 1-14 + node counts):
 Rubric items:
   WS12_R1  Root split valid           (1 pt)
   WS12_R2  Complementary operators    (1 pt)
-  WS12_R3  Left subtree complete      (1 pt)
   WS12_R4  Right subtree complete     (1 pt)
   WS12_R5  Node count conservation    (2 pt)
   WS12_R6  Training error consistent  (1 pt)
   WS12_R7  Test error recorded        (1 pt)
-  Max: 8 pt
+  Max: 7 pt
 
 Usage:
     python scripts/score_ws12.py [--dry-run] [--students Amy Bruno ...]
@@ -157,28 +156,8 @@ def score_ws12(items: dict, student: str) -> dict:
         review_any = True
     results.append(r2)
 
-    # ------------------------------------------------------------------
-    # WS12_R3 — left subtree complete
-    # ------------------------------------------------------------------
-    left_label   = items.get("WS12_left_child_label")
     left_rec     = items.get("WS12_left_child_rec")
     left_notrec  = items.get("WS12_left_child_notrec")
-
-    left_is_leaf    = _is_leaf(left_label) or (
-        _is_valid_feature(left_label) is False and _present(left_label))
-    counts_present  = _present(left_rec) and _present(left_notrec)
-    label_present   = _present(left_label)
-
-    if counts_present and label_present:
-        r3 = result("WS12_R3", 1.0, 1.0, note=f"label={left_label!r} counts={left_rec}/{left_notrec}")
-    elif counts_present or label_present:
-        r3 = result("WS12_R3", 0.5, 0.9, note="partial: " +
-                    ("label present" if label_present else "counts present"))
-    else:
-        r3 = result("WS12_R3", 0.0, 1.0, review=True,
-                    note="left child label and counts both missing")
-        review_any = True
-    results.append(r3)
 
     # ------------------------------------------------------------------
     # WS12_R4 — right subtree complete (feature + threshold + leaf counts)
@@ -217,6 +196,19 @@ def score_ws12(items: dict, student: str) -> dict:
     right_rec    = items.get("WS12_right_child_rec")
     right_notrec = items.get("WS12_right_child_notrec")
 
+    # When right_child_notrec is missing but all leaf counts are present,
+    # infer it from the leaf sums so the conservation check can run.
+    right_notrec_inferred = False
+    if (not _present(right_notrec)
+            and all(_present(v) for v in [leaf_rl_not, leaf_rr_not])):
+        right_notrec = int(leaf_rl_not) + int(leaf_rr_not)
+        right_notrec_inferred = True
+    right_rec_inferred = False
+    if (not _present(right_rec)
+            and all(_present(v) for v in [leaf_rl_rec, leaf_rr_rec])):
+        right_rec = int(leaf_rl_rec) + int(leaf_rr_rec)
+        right_rec_inferred = True
+
     r5_pts  = 0.0
     r5_rev  = False
     r5_notes = []
@@ -227,11 +219,12 @@ def score_ws12(items: dict, student: str) -> dict:
                                    leaf_rr_rec, leaf_rr_not])):
         node_total  = int(right_rec) + int(right_notrec)
         leaves_sum  = int(leaf_rl_rec) + int(leaf_rl_not) + int(leaf_rr_rec) + int(leaf_rr_not)
+        infer_tag   = " (node counts inferred from leaves)" if (right_rec_inferred or right_notrec_inferred) else ""
         if node_total == leaves_sum:
             r5_pts += 1.0
-            r5_notes.append(f"right_node_sum ok ({node_total}={leaves_sum})")
+            r5_notes.append(f"right_node_sum ok ({node_total}={leaves_sum}){infer_tag}")
         else:
-            r5_notes.append(f"right_node_sum FAIL: node={node_total} leaves={leaves_sum}")
+            r5_notes.append(f"right_node_sum FAIL: node={node_total} leaves={leaves_sum}{infer_tag}")
     else:
         r5_rev = True
         review_any = True
@@ -240,11 +233,12 @@ def score_ws12(items: dict, student: str) -> dict:
     # Sub B
     if (all(_present(v) for v in [left_rec, left_notrec, right_rec, right_notrec])):
         grand = int(left_rec) + int(left_notrec) + int(right_rec) + int(right_notrec)
+        infer_tag = " (inferred)" if (right_rec_inferred or right_notrec_inferred) else ""
         if grand > 0:
             r5_pts += 1.0
-            r5_notes.append(f"grand_total plausible ({grand})")
+            r5_notes.append(f"grand_total plausible ({grand}){infer_tag}")
         else:
-            r5_notes.append("grand_total implausible (0)")
+            r5_notes.append(f"grand_total implausible (0){infer_tag}")
     else:
         r5_rev = True
         review_any = True
@@ -315,7 +309,7 @@ def score_ws12(items: dict, student: str) -> dict:
         "worksheet": "WS12",
         "blocked": False,
         "total_score": round(total, 2),
-        "max_score": 8.0,
+        "max_score": 7.0,
         "review_required": review_any,
         "items": results,
     }

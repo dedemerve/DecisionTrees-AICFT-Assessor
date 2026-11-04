@@ -234,6 +234,11 @@
         "FN"
       ],
       "note": "Pre-service teacher recalls best tree from EMIT, varies the threshold, and records the optimized output. Full credit if consistent and threshold differs from B_Q1 threshold (shows exploration).",
+      "credit_levels": {
+        "full": "Variable and threshold stated; at least four EMIT fields (TP/FP/TN/FN) or derived metrics (sensitivity/MCR) recorded with consistent values; threshold differs from the B_Q1 threshold showing exploration.",
+        "partial": "Threshold variation attempted — at least one alternative threshold value tried or mentioned, or at least one metric (MCR, sensitivity, accuracy) recorded — without full EMIT counts.",
+        "zero": "Blank, or response does not mention varying the threshold at all."
+      },
       "example_answer": "Değişken: şeker | Eşik: 12 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13",
       "example_note": "Illustrative only — optimized threshold is pre-service teacher-specific.",
       "tree_level": "single"
@@ -291,6 +296,11 @@
         "FN"
       ],
       "note": "Pre-service teacher adds a second variable to best tree to create 2-level tree. Full credit if two distinct variables shown and counts sum correctly — not against a fixed canonical tree.",
+      "credit_levels": {
+        "full": "Two distinct variables and thresholds stated for two tree levels; at least four EMIT fields (TP/FP/TN/FN) or derived metrics (sensitivity/MCR) recorded with consistent values.",
+        "partial": "Two distinct variables named for two tree levels (even without EMIT counts), or one variable with EMIT output showing the second level was used.",
+        "zero": "Blank, or only one variable/level mentioned with no second variable."
+      },
       "example_answer": "Düzey 1: şeker ≤ 12 | Düzey 2: yağ ≤ 8 | TP: 9 | FP: 1 | TN: 5 | FN: 1 | Duyarlılık: 0.90 | MCR: 0.13",
       "example_note": "Illustrative only — parallel to unplugged WS6 çift seviyeli tree.",
       "tree_level": "two"
@@ -353,69 +363,27 @@
     },
     "DT_E_TP": {
       "max_score": 1,
-      "evaluation": "two_component",
-      "components": [
-        {
-          "id": "predicted_positive",
-          "idea": "model predicted positive (model pozitif tahmin etti)",
-          "required": true
-        },
-        {
-          "id": "actually_positive",
-          "idea": "actual outcome is also positive (gerçekte de pozitif)",
-          "required": true
-        }
-      ],
-      "need": 2,
-      "partial_on": 1,
-      "note": "Conceptual recall moved from legacy WS1 glossary — Section E confusion-matrix literacy.",
-      "example_answer": "Doğru pozitif (TP): modelin pozitif tahmin ettiği ve gerçekte de pozitif olan örnekler."
+      "evaluation": "numeric_value",
+      "check": "numeric_present",
+      "note": "Student records TP count from EMIT output. Full credit if a numeric value is present; zero if blank. Consistency with FP+TN+FN is secondary (checked by scorer holistically).",
+      "example_answer": "8"
     },
     "DT_E_FP": {
       "max_score": 1,
-      "evaluation": "two_component",
-      "components": [
-        {
-          "id": "predicted_positive",
-          "idea": "model predicted positive (model pozitif tahmin etti)",
-          "required": true
-        },
-        {
-          "id": "actually_negative",
-          "idea": "actual outcome is negative (gerçekte negatif)",
-          "required": true
-        }
-      ],
-      "need": 2,
-      "partial_on": 1,
-      "note": "Conceptual recall moved from legacy WS1 glossary — Section E confusion-matrix literacy.",
-      "example_answer": "Yanlış pozitif (FP): modelin pozitif tahmin ettiği ama gerçekte negatif olan örnekler."
+      "evaluation": "numeric_value",
+      "check": "numeric_present",
+      "note": "Student records FP count from EMIT output. Full credit if a numeric value is present; zero if blank.",
+      "example_answer": "2"
     },
     "DT_E_sensitivity_formula": {
-      "max_score": 1,
-      "check": "formula",
-      "answer": "TP/(TP+FN)",
-      "accepted_forms": [
-        "TP/(TP+FN)",
-        "TP / (TP + FN)",
-        "doğru_pozitif/(doğru_pozitif+yanlış_negatif)"
-      ],
-      "note": "Formula recall (text). Numeric value is scored separately in DT_E_sensitivity.",
-      "example_answer": "Duyarlılık = TP / (TP + FN)"
+      "max_score": 0,
+      "evaluation": "not_in_worksheet",
+      "note": "This item does not appear in the WS13 PDF. Retained for extraction compatibility only. max_score=0 so it never contributes to the total."
     },
     "DT_E_MCR_formula": {
-      "max_score": 1,
-      "check": "formula",
-      "answer": "(FP+FN)/N",
-      "accepted_forms": [
-        "(FP+FN)/N",
-        "(FP+FN)/total",
-        "(FP+FN)/n",
-        "(FP+FN)/toplam",
-        "(FP+FN)/toplam_örnek"
-      ],
-      "note": "Formula recall (text). Numeric value is scored separately in DT_E_MCR.",
-      "example_answer": "MCR = (FP + FN) / toplam örnek sayısı"
+      "max_score": 0,
+      "evaluation": "not_in_worksheet",
+      "note": "This item does not appear in the WS13 PDF. Retained for extraction compatibility only. max_score=0 so it never contributes to the total."
     },
     "DT_E_sensitivity": {
       "max_score": 1,
@@ -546,44 +514,14 @@
       "example_answer": "Test verisinde MCR 0.13'ten 0.38'e yükseldi. Bu fark muhtemelen aşırı öğrenmeden kaynaklanıyor; model eğitim verisine çok uyum sağladı ve yeni verilere genelleyemedi."
     },
     "DT_G_overfitting": {
-      "max_score": 1,
-      "evaluation": "two_component",
-      "components": [
-        {
-          "id": "fits_training",
-          "idea": "performs well on training data (eğitim verisinde iyi)",
-          "required": true
-        },
-        {
-          "id": "fails_generalize",
-          "idea": "fails to generalize to new unseen data (yeni veride kötü / genelleyemiyor)",
-          "required": true
-        }
-      ],
-      "need": 2,
-      "partial_on": 1,
-      "note": "Conceptual recall moved from legacy WS1 glossary — links to Section F train/test reflection.",
-      "example_answer": "Aşırı öğrenme: modelin eğitim verisine çok uyum sağlayıp yeni verilere genelleyememesi."
+      "max_score": 0,
+      "evaluation": "not_in_worksheet",
+      "note": "This item does not appear in the WS13 PDF. Retained for extraction compatibility only. max_score=0 so it never contributes to the total."
     },
     "DT_G_DT_definition": {
-      "max_score": 1,
-      "evaluation": "two_component",
-      "components": [
-        {
-          "id": "learns_from_data",
-          "idea": "learns rules or patterns from data (veriden kural/örüntü öğrenir)",
-          "required": true
-        },
-        {
-          "id": "tree_structure",
-          "idea": "tree structure with branches and leaf nodes (dal, yaprak, düğüm, ağaç yapısı)",
-          "required": true
-        }
-      ],
-      "need": 2,
-      "partial_on": 1,
-      "note": "Conceptual recall moved from legacy WS1 glossary — complements DT_G_Q1 reflection.",
-      "example_answer": "Karar ağacı: veriden kural öğrenen, dal ve yaprak düğümlerden oluşan model."
+      "max_score": 0,
+      "evaluation": "not_in_worksheet",
+      "note": "This item does not appear in the WS13 PDF. Retained for extraction compatibility only. max_score=0 so it never contributes to the total."
     },
     "DT_G_Q1": {
       "max_score": 1,

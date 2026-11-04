@@ -204,12 +204,14 @@ def score_student(
             "flag": item.flag,
         })
 
+    percent = round(100 * total / max_total, 1) if max_total > 0 else 0.0
     scoring = {
         "stage": "scoring",
         "student_id": student_id,
         "worksheet": WORKSHEET,
         "total_score": round(total, 2),
         "max_score": round(max_total, 2),
+        "percent_score": percent,
         "items": items_out,
         "scored_at": datetime.now(timezone.utc).isoformat(),
         "scoring_model": model,

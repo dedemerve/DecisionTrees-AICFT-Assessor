@@ -334,6 +334,10 @@ def read_stage_artifacts(student: str, ws: dict) -> dict:
         conf0 = bool(items) and all((i.get("score") in (0, 0.0)) and (i.get("confidence") in (0, 0.0)) for i in items)
         out["scoring"] = {
             "source": rel(sp), "total": d.get("total_score"), "max": d.get("max_score"),
+            "percent": d.get("percent_score") if d.get("percent_score") is not None else (
+                round(100 * d["total_score"] / d["max_score"], 1)
+                if d.get("total_score") is not None and d.get("max_score") else None
+            ),
             "n_items": len(items), "n_review": sum(1 for i in items if i.get("review")),
             "all_zero_with_zero_confidence": conf0,
             "note": d.get("note") or d.get("revalidation_note"),
