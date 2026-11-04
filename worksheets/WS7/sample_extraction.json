@@ -1,7 +1,7 @@
 {
   "student_id": "Sample_Student",
   "worksheet": "WS7",
-  "ws_snapshot": "Öğrenci kök düğümde Enerji için < 180 ve ≥ 180 eşiklerini doğru yazmış. Protein iç düğümünde < 7,7 ve ≥ 7,7 eşiklerini doğru yerleştirmiş. Yaprak sayıları eksiksiz doldurulmuş; alttaki A, B, C kural eşleştirme kutularına doğru harfleri yazmış.",
+  "ws_snapshot": "Öğrenci kök düğümde Enerji için < 180 ve ≥ 180 eşiklerini doğru yazmış. Protein iç düğümünde < 11,0 ve ≥ 11,0 eşiklerini doğru yerleştirmiş. Yaprak sayıları eksiksiz doldurulmuş; alttaki A, B, C kural eşleştirme kutularına doğru harfleri yazmış.",
   "page_notes": "(bos)",
   "extraction": {
     "tree_structure": {
@@ -22,9 +22,9 @@
           "node_recommended_count": 4,
           "node_not_recommended_count": 3,
           "left_operator": "<",
-          "left_threshold_value": 7.7,
+          "left_threshold_value": 11.0,
           "right_operator": "≥",
-          "right_threshold_value": 7.7
+          "right_threshold_value": 11.0
         }
       },
       "depth_2": {
@@ -63,7 +63,7 @@
         "error_flag": null
       }
     },
-    "system_analytical_summary": "Öğrenci tersine mühendislik görevini eksiksiz tamamlamıştır. Enerji eşiği olarak beklenen 180 kcal değerini doğru operatörlerle (< ve ≥) yazmış, Protein eşiği olarak 7,7 g değerini yine doğru operatörlerle yerleştirmiştir. Kural eşleştirme kutularına da doğru harfleri (A, B, C) yazmıştır."
+    "system_analytical_summary": "Öğrenci tersine mühendislik görevini eksiksiz tamamlamıştır. Enerji eşiği olarak beklenen 180 kcal değerini doğru operatörlerle (< ve ≥) yazmış, Protein eşiği olarak 11,0 g değerini yine doğru operatörlerle yerleştirmiştir. Kural eşleştirme kutularına da doğru harfleri (A, B, C) yazmıştır."
   },
   "operator_reading_notes": {
     "critical_distinctions": [
