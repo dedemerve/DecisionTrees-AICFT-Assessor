@@ -3,7 +3,7 @@
   "student_id": "Serena",
   "worksheet": "WS5",
   "blocked": false,
-  "total_score": 0.0,
+  "total_score": 1.0,
   "max_score": 4.0,
   "items": [
     {
@@ -26,9 +26,11 @@
     },
     {
       "item": "WS5_B25",
-      "score": 0.0,
-      "confidence": 0.85,
-      "review": false
+      "score": 1.0,
+      "confidence": 1.0,
+      "review": true,
+      "researcher_override": true,
+      "override_rationale": "Student wrote 'Enerji ve Şeker' — error counts not extracted (arithmetic_inconsistent), but both named features are valid min-error candidates based on teacher review."
     }
   ]
 }
