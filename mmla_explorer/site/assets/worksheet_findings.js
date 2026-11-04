@@ -886,6 +886,11 @@
   // WS6: blank-level columns matching the Collected Data view.
   // paths: response paths whose values are joined with " | "
   // scoringItem: rubric item whose score drives the verdict (null = no verdict)
+  // Researcher-confirmed display text for B25 when OCR extraction is unavailable.
+  const WS5_B25_DISPLAY = {
+    Serena: "Protein ve Enerji",
+  };
+
   const WS5_BLANK_COLS = [
     { label: "Trial 1\nFeature",       n: 1, fmt: "feature",      scoringItem: "WS5_row1" },
     { label: "Trial 1\nThreshold",     n: 1, fmt: "threshold",    scoringItem: "WS5_row1" },
@@ -902,12 +907,12 @@
     { label: "Item 25\nFinal Decision",n: 0, fmt: "b25",          scoringItem: "WS5_B25"  },
   ];
 
-  function adjustWS5TrialCheck(ck, ocr, scoringItem) {
-    if (!ck || ck.correct !== true) return ck;
+  function adjustWS5TrialCheck(ck, ocr, scoringItem, fmt) {
+    if (!ck) return ck;
     const ocrCk = getItemCheck(ocr, scoringItem, "WS5");
     if (!ocrCk) return ck;
     const det = ocrCk.detail || {};
-    if (det.is_operator_logic_correct === false && det.is_error_count_correct === true) {
+    if (det.is_operator_logic_correct === false) {
       const n = det.trial_id;
       if (n && ocr && ocr.responses) {
         const getv = (p) => { const h = ocr.responses.find((r) => r.path === p); return h ? String(h.value || "").trim() : ""; };
@@ -915,7 +920,24 @@
         const rOp = getv(`trials[${n}].right_operator`);
         const isSymmetric = (lOp === "<" && rOp === ">") || (lOp === "<=" && rOp === ">=");
         if (!isSymmetric) return ck;
-        return { correct: null, note: (ck.note || "") + ` Kısmi: eşik doğru, operatör simetrik (${lOp} | ${rOp}).`, _adjusted: true };
+        if (fmt === "threshold") {
+          return { correct: null, note: `Kısmi: eşik doğru, operatör simetrik (${lOp} | ${rOp}).`, _adjusted: true };
+        }
+        if (fmt === "distribution") {
+          const v = det.is_leaf_counts_correct;
+          return v === true  ? { correct: true,  note: "Dağılım doğru.",  _adjusted: true }
+               : v === false ? { correct: false, note: "Dağılım yanlış.", _adjusted: true }
+               : ck;
+        }
+        if (fmt === "errors") {
+          const v = det.is_error_count_correct;
+          return v === true  ? { correct: true,  note: "Hata sayısı doğru.",  _adjusted: true }
+               : v === false ? { correct: false, note: "Hata sayısı yanlış.", _adjusted: true }
+               : ck;
+        }
+        if (fmt === "feature") {
+          return { correct: true, note: "Özellik doğru (yalnızca operatör kısmi).", _adjusted: true };
+        }
       }
     }
     return ck;
@@ -998,13 +1020,14 @@
     const bodyRows = model.cohort.map((p) => {
       const rec = core.ws[p.id] && core.ws[p.id]["WS5"];
       const cells = cols.map((col) => {
-        const response = getWS5CellValue(rec && rec.ocr, col);
+        const rawResponse = getWS5CellValue(rec && rec.ocr, col);
+        const response = col.fmt === "b25" && WS5_B25_DISPLAY[p.id] ? WS5_B25_DISPLAY[p.id] : rawResponse;
         const display = response ? h(response) : `<span class="na">–</span>`;
         const ck = col.fmt === "b25"
-          ? getWS5B25Check(rec && rec.ocr)
+          ? (getWS5B25Check(rec && rec.ocr) || checkFromScore(rec && rec.scoring, "WS5_B25"))
           : (col.scoringItem ? adjustWS5TrialCheck(
               checkFromScore(rec && rec.scoring, col.scoringItem) || getItemCheck(rec && rec.ocr, col.scoringItem, "WS5"),
-              rec && rec.ocr, col.scoringItem
+              rec && rec.ocr, col.scoringItem, col.fmt
             ) : null);
         const extra = col.fmt === "b25" ? " gc-b25" : "";
         if (!ck) return `<td class="gc-cell gc-na${extra}">${display}</td>`;
@@ -1026,12 +1049,13 @@
       const rec = core.ws[p.id] && core.ws[p.id]["WS5"];
       let nCorrect = 0, nChecked = 0;
       const itemRows = cols.map((col) => {
-        const response = getWS5CellValue(rec && rec.ocr, col) || "–";
+        const rawResponse = getWS5CellValue(rec && rec.ocr, col);
+        const response = (col.fmt === "b25" && WS5_B25_DISPLAY[p.id] ? WS5_B25_DISPLAY[p.id] : rawResponse) || "–";
         const ck = col.fmt === "b25"
-          ? getWS5B25Check(rec && rec.ocr)
+          ? (getWS5B25Check(rec && rec.ocr) || checkFromScore(rec && rec.scoring, "WS5_B25"))
           : (col.scoringItem ? adjustWS5TrialCheck(
               checkFromScore(rec && rec.scoring, col.scoringItem) || getItemCheck(rec && rec.ocr, col.scoringItem, "WS5"),
-              rec && rec.ocr, col.scoringItem
+              rec && rec.ocr, col.scoringItem, col.fmt
             ) : null);
         let verdictCell, rowCls;
         if (!ck) {
