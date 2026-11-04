@@ -902,6 +902,45 @@
     { label: "Item 25\nFinal Decision",n: 0, fmt: "b25",          scoringItem: "WS5_B25"  },
   ];
 
+  function extractB25Feature(raw, trialFeatures) {
+    if (!raw) return null;
+    const lower = raw.toLowerCase();
+    for (const f of trialFeatures) {
+      if (f && lower.includes(f.toLowerCase())) return f;
+    }
+    const m = raw.match(/^(.+?)\s+değişken/i);
+    return m ? m[1].trim() : (raw.trim().split(/\s+/)[0] || null);
+  }
+
+  function getWS5B25Check(ocr) {
+    if (!ocr || !ocr.responses) return null;
+    const get = (path) => {
+      const hit = ocr.responses.find((r) => r.path === path);
+      return (hit && valueKind(hit.value) === "text") ? String(hit.value) : null;
+    };
+    const trials = [1, 2, 3].map((n) => ({
+      feature: get(`trials[${n}].parsed_feature`),
+      errors: get(`trials[${n}].student_error_count`),
+    })).filter((t) => t.feature != null && t.errors != null);
+    if (!trials.length) return null;
+    const minErrors = Math.min(...trials.map((t) => Number(t.errors)));
+    const bestFeatures = trials.filter((t) => Number(t.errors) === minErrors).map((t) => t.feature);
+    const raw = get("final_decision_raw");
+    if (!raw) return null;
+    const chosen = extractB25Feature(raw, trials.map((t) => t.feature));
+    if (!chosen) return null;
+    const correct = bestFeatures.some((f) =>
+      f.toLowerCase() === chosen.toLowerCase() ||
+      f.toLowerCase().includes(chosen.toLowerCase()) ||
+      chosen.toLowerCase().includes(f.toLowerCase())
+    );
+    return {
+      correct,
+      note: "Min-hata: " + bestFeatures.join(", ") + " (" + minErrors + " hata). Öğrenci: " + chosen,
+      _fromB25: true,
+    };
+  }
+
   function getWS5CellValue(ocr, col) {
     if (!ocr || !ocr.responses) return null;
     const get = (path) => {
@@ -925,7 +964,10 @@
       return [left, right].filter(Boolean).join(" | ") || null;
     }
     if (col.fmt === "errors")       return get(`trials[${n}].student_error_count`);
-    if (col.fmt === "b25")          return get("final_decision_raw");
+    if (col.fmt === "b25") {
+      const raw = get("final_decision_raw");
+      return extractB25Feature(raw, [1,2,3].map((i) => get(`trials[${i}].parsed_feature`)).filter(Boolean));
+    }
     return null;
   }
 
@@ -939,9 +981,9 @@
       const cells = cols.map((col) => {
         const response = getWS5CellValue(rec && rec.ocr, col);
         const display = response ? h(response) : `<span class="na">–</span>`;
-        const ck = col.scoringItem
-          ? (getItemCheck(rec && rec.ocr, col.scoringItem, "WS5") || checkFromScore(rec && rec.scoring, col.scoringItem))
-          : null;
+        const ck = col.fmt === "b25"
+          ? getWS5B25Check(rec && rec.ocr)
+          : (col.scoringItem ? (getItemCheck(rec && rec.ocr, col.scoringItem, "WS5") || checkFromScore(rec && rec.scoring, col.scoringItem)) : null);
         const extra = col.fmt === "b25" ? " gc-b25" : "";
         if (!ck) return `<td class="gc-cell gc-na${extra}">${display}</td>`;
         const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
@@ -963,9 +1005,9 @@
       let nCorrect = 0, nChecked = 0;
       const itemRows = cols.map((col) => {
         const response = getWS5CellValue(rec && rec.ocr, col) || "–";
-        const ck = col.scoringItem
-          ? (getItemCheck(rec && rec.ocr, col.scoringItem, "WS5") || checkFromScore(rec && rec.scoring, col.scoringItem))
-          : null;
+        const ck = col.fmt === "b25"
+          ? getWS5B25Check(rec && rec.ocr)
+          : (col.scoringItem ? (getItemCheck(rec && rec.ocr, col.scoringItem, "WS5") || checkFromScore(rec && rec.scoring, col.scoringItem)) : null);
         let verdictCell, rowCls;
         if (!ck) {
           verdictCell = `<span class="na">–</span>`; rowCls = "";
