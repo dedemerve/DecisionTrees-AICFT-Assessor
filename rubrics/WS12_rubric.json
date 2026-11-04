@@ -36,7 +36,7 @@
         {"id": "left_decision_given", "idea": "Left child is labelled as a leaf (karar verildi, or pure-class label) or has a valid second variable", "required": false}
       ],
       "need": 1,
-      "note": "Partial (0.5): counts present but no decision label. Full (1): both."
+      "note": "Partial (0.5): exactly one component present — decision label given but counts missing, OR both counts present but no decision label. Full (1): both decision label and both counts present."
     },
     "WS12_R4": {
       "max_score": 1,
