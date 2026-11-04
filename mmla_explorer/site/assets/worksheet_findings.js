@@ -1014,7 +1014,7 @@
       return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
     }).join("");
     const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
-    return `<details class="answer-grid-toggle"><summary><h3 class="inline-h3">Answer grid</h3><span class="small grid-toggle-hint">${legend}</span></summary>
+    return `<details class="answer-grid-toggle" open><summary><h3 class="inline-h3">Answer grid</h3><span class="small grid-toggle-hint">${legend}</span></summary>
 <p class="small">Columns match the Collected Data blank structure. Verdict uses the scoring record.</p>
 <div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div></details>`;
   }
@@ -1099,7 +1099,7 @@
       return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
     }).join("");
     const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
-    return `<details class="answer-grid-toggle"><summary><h3 class="inline-h3">Answer grid</h3><span class="small grid-toggle-hint">${legend}</span></summary>
+    return `<details class="answer-grid-toggle" open><summary><h3 class="inline-h3">Answer grid</h3><span class="small grid-toggle-hint">${legend}</span></summary>
 <p class="small">Columns match the Collected Data blank structure. Verdict uses the scoring record for items that have one.</p>
 <div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div></details>`;
   }
@@ -1176,7 +1176,7 @@
       return `<td class="gc-cell gc-key-cell">${exp ? h(clip(exp, 50)) : `<span class="na">–</span>`}</td>`;
     }).join("")}</tr>`;
     const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
-    return `<details class="answer-grid-toggle"><summary><h3 class="inline-h3">Answer grid</h3><span class="small grid-toggle-hint">${legend}</span></summary>
+    return `<details class="answer-grid-toggle" open><summary><h3 class="inline-h3">Answer grid</h3><span class="small grid-toggle-hint">${legend}</span></summary>
 <p class="small">Rows = students, columns = items. Each cell shows the student's written answer. Hover for the full text or check note. Colors use the answer-key comparison, not the LLM rubric score.</p>
 <div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${keyRow}${bodyRows}</tbody></table></div></details>`;
   }
