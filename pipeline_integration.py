@@ -244,8 +244,8 @@ def score_ws7_deterministic(
     _WS7_THRESHOLD_EXPECTED = {
         "WS7_1": (180.0, {"<", "lt"}),
         "WS7_2": (180.0, {">=", "≥", "gte", "ge"}),
-        "WS7_3": (7.7, {"<", "lt"}),
-        "WS7_4": (7.7, {">=", "≥", "gte", "ge"}),
+        "WS7_3": (11.0, {"<", "lt", "<=", "le", "≤"}),
+        "WS7_4": (11.0, {">=", "≥", "gte", "ge", ">", "gt"}),
     }
     _WS7_LETTER_EXPECTED = {"WS7_5": "B", "WS7_6": "A", "WS7_7": "C"}
     # Extraction uses WS7_P1_box* keys; rubric uses WS7_5..7.

@@ -24,20 +24,20 @@
     "WS7_3": {
       "printed_question": 3,
       "region": "Threshold_3",
-      "expected_answer": "< 7,7 g",
+      "expected_answer": "< 11,0 g",
       "scoring_rules": {
         "1.0": {
-          "condition": "Öğrenci '< 7,7' veya '< 7.7' (gram/g ifadesi opsiyonel) yazmışsa."
+          "condition": "Öğrenci '< 11' veya '≤ 11' veya benzeri bir ifade yazmışsa (gram/g opsiyonel)."
         }
       }
     },
     "WS7_4": {
       "printed_question": 4,
       "region": "Threshold_4",
-      "expected_answer": "≥ 7,7 g",
+      "expected_answer": "≥ 11,0 g",
       "scoring_rules": {
         "1.0": {
-          "condition": "Öğrenci '≥ 7,7' veya '>= 7.7' ifadesini yazmışsa."
+          "condition": "Öğrenci '≥ 11' veya '> 11' veya '>= 11' ifadesini yazmışsa."
         }
       }
     },
