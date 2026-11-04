@@ -49,7 +49,7 @@ WORKSHEETS = [
     {"code": "WS4", "key": "WS4", "ocr": "Worksheet4", "raw": None},
     {"code": "WS5", "key": "WS5", "ocr": "Worksheet5", "raw": "24_mart_2026_çalışma_kâğıdı_5_raw.json"},
     {"code": "WS6", "key": "WS6", "ocr": "Worksheet6", "raw": "31_mart_2026_çalışma_kâğıdı_6_raw.json"},
-    {"code": "WS7", "key": "WS7", "ocr": "Worksheet7", "raw": "31_mart_2026_çalışma_kâğıdı_7_raw.json"},
+    {"code": "WS7", "key": "WS7", "ocr": "Worksheet7", "raw": "31_mart_2026_çalışma_kâğıdı_7_raw.json", "stage_ocr": True},
     {"code": "WS10", "key": "WS10", "ocr": "Worksheet10", "raw": None},
     {"code": "WS12", "key": "WS12", "ocr": None, "raw": None, "stage_ocr": True},
     {"code": "WS13", "key": "WS13", "ocr": None, "raw": None, "stage_ocr": True},
@@ -391,7 +391,7 @@ def build_worksheets() -> tuple[list, dict]:
             "answer_key": rel(ak) if ak.exists() else None,
             "answer_key_url": ak_web,
             "printed_title": title,
-            "pipeline": "deterministic" if ws["code"] in ("WS5", "WS6", "WS7") else "llm_rubric",
+            "pipeline": "deterministic" if ws["code"] in ("WS5", "WS6") else "llm_rubric",
         })
     per_student = {}
     for s in STUDENTS:
