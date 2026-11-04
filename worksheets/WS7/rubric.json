@@ -4,40 +4,40 @@
     "WS7_1": {
       "printed_question": 1,
       "region": "Threshold_1",
-      "expected_answer": "< 180 kcal",
+      "expected_answer": "< 180 kcal (or any value in valid range)",
       "scoring_rules": {
         "1.0": {
-          "condition": "Öğrenci '< 180' veya benzeri bir matematiksel ifade yazmışsa (kcal opsiyonel)."
+          "condition": "'< T' için T ∈ (160, 223]; '≤ T' için T ∈ [160, 223). Avokado (160 kcal) sol dala, ahududu reçeli (223 kcal) sağ dala düşmelidir."
         }
       }
     },
     "WS7_2": {
       "printed_question": 2,
       "region": "Threshold_2",
-      "expected_answer": "≥ 180 kcal",
+      "expected_answer": "≥ 180 kcal (or complement of WS7_1)",
       "scoring_rules": {
         "1.0": {
-          "condition": "Öğrenci '≥ 180' veya '>= 180' veya 'büyük eşit' ifadesini yazmışsa."
+          "condition": "WS7_1 ile tamamlayıcı sağ dal koşulu. '> T' için T ∈ [160, 223); '>= T' için T ∈ (160, 223]."
         }
       }
     },
     "WS7_3": {
       "printed_question": 3,
       "region": "Threshold_3",
-      "expected_answer": "< 11,0 g",
+      "expected_answer": "< 11,0 g (or any value in valid range)",
       "scoring_rules": {
         "1.0": {
-          "condition": "Öğrenci '< 11' veya '≤ 11' veya benzeri bir ifade yazmışsa (gram/g opsiyonel)."
+          "condition": "'< T' için T ∈ (10.7, 12.0]; '≤ T' için T ∈ [10.7, 12.0). Patlamış mısır (10.7 g) NR yaprakta, kraker (12.0 g) R yaprakta kalmalıdır."
         }
       }
     },
     "WS7_4": {
       "printed_question": 4,
       "region": "Threshold_4",
-      "expected_answer": "≥ 11,0 g",
+      "expected_answer": "≥ 11,0 g (or complement of WS7_3)",
       "scoring_rules": {
         "1.0": {
-          "condition": "Öğrenci '≥ 11' veya '> 11' veya '>= 11' ifadesini yazmışsa."
+          "condition": "WS7_3 ile tamamlayıcı sağ dal koşulu. '> T' için T ∈ [10.7, 12.0); '>= T' için T ∈ (10.7, 12.0]."
         }
       }
     },
