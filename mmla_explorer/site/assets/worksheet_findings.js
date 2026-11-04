@@ -882,7 +882,93 @@
     return rub.expected_answer ? String(rub.expected_answer) : null;
   }
 
+  // WS6: blank-level columns matching the Collected Data view.
+  // paths: response paths whose values are joined with " | "
+  // scoringItem: rubric item whose score drives the verdict (null = no verdict)
+  const WS6_BLANK_COLS = [
+    { label: "Blank 1\nRoot Feature",        paths: ["tree_structure.depth_0.parsed_feature"],                                                                                                                      scoringItem: "WS6_root_feature" },
+    { label: "Blank 2-3\nRoot Split Cond.",  paths: ["tree_structure.depth_0.left_operator","tree_structure.depth_0.left_threshold_value","tree_structure.depth_0.right_operator","tree_structure.depth_0.right_threshold_value"], scoringItem: "WS6_root_threshold" },
+    { label: "Blank 4\nInternal Node (L)",   paths: ["tree_structure.depth_1.left_child.parsed_feature"],                                                                                                           scoringItem: "WS6_inner_feature" },
+    { label: "Blank 5-6\nSub-Branch (L)",    paths: ["tree_structure.depth_1.left_child.left_threshold_value","tree_structure.depth_1.left_child.right_threshold_value"],                                           scoringItem: null },
+    { label: "Blank 7-8\nTerminal (L)",      paths: ["tree_structure.depth_2.leaf_nodes.left_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.left_right_leaf.leaf_label"],                                 scoringItem: "WS6_tree_validity" },
+    { label: "Blank 9\nInternal Node (R)",   paths: ["tree_structure.depth_1.right_child.parsed_feature"],                                                                                                          scoringItem: "WS6_inner_feature" },
+    { label: "Blank 10-11\nSub-Branch (R)",  paths: ["tree_structure.depth_1.right_child.left_threshold_value","tree_structure.depth_1.right_child.right_threshold_value"],                                         scoringItem: null },
+    { label: "Blank 12-13\nTerminal (R)",    paths: ["tree_structure.depth_2.leaf_nodes.right_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.right_right_leaf.leaf_label"],                               scoringItem: "WS6_tree_validity" },
+  ];
+
+  function getPathValues(ocr, paths) {
+    if (!ocr || !ocr.responses) return null;
+    const vals = paths.map((p) => {
+      const hit = ocr.responses.find((r) => r.path === p);
+      return hit && valueKind(hit.value) === "text" ? String(hit.value) : null;
+    }).filter(Boolean);
+    return vals.length ? vals.join(" | ") : null;
+  }
+
+  function answerGridWS6(model, core) {
+    if (!model.cohort.length) return "";
+    const cols = WS6_BLANK_COLS;
+    const colHeaders = `<th class="gc-student-head">Student</th>` +
+      cols.map((col) => `<th class="gc-head">${h(col.label.replace("\n", " · "))}</th>`).join("");
+    const bodyRows = model.cohort.map((p) => {
+      const rec = core.ws[p.id] && core.ws[p.id]["WS6"];
+      let nPass = 0, nChecked = 0;
+      const cells = cols.map((col) => {
+        const response = getPathValues(rec && rec.ocr, col.paths);
+        const display = response ? h(clip(response, 40)) : `<span class="na">–</span>`;
+        if (!col.scoringItem) return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
+        const ck = checkFromScore(rec && rec.scoring, col.scoringItem);
+        if (!ck) return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
+        nChecked += 1;
+        if (ck.correct === true) nPass += 1;
+        const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
+        return `<td class="gc-cell ${cls}" title="${h(ck.note || response || "")}">${display}</td>`;
+      }).join("");
+      return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
+    }).join("");
+    const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
+    return `<h3>Answer grid</h3>
+<p class="small">${legend} &nbsp;·&nbsp; Columns match the Collected Data blank structure. Verdict uses the scoring record for items that have one.</p>
+<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+  }
+
+  function studentResultsWS6(model, core) {
+    if (!model.cohort.length) return "";
+    const cols = WS6_BLANK_COLS;
+    const blocks = model.cohort.map((p) => {
+      const rec = core.ws[p.id] && core.ws[p.id]["WS6"];
+      let nCorrect = 0, nChecked = 0;
+      const itemRows = cols.map((col) => {
+        const response = getPathValues(rec && rec.ocr, col.paths) || "–";
+        const ck = col.scoringItem ? checkFromScore(rec && rec.scoring, col.scoringItem) : null;
+        let verdictCell, rowCls;
+        if (!ck) {
+          verdictCell = `<span class="na">–</span>`; rowCls = "";
+        } else if (ck.correct === true) {
+          nChecked += 1; nCorrect += 1;
+          verdictCell = `<span class="verdict-pass">✓ Correct</span>`; rowCls = "row-pass";
+        } else if (ck.correct === false) {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-fail">✗ Wrong</span>`; rowCls = "row-fail";
+        } else {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-partial">~ Partial</span>`; rowCls = "row-partial";
+        }
+        const written = `<span class="written-answer">${h(clip(response, 80))}</span>`;
+        return { cells: [`<b>${h(col.label.replace("\n", " · "))}</b>`, written, verdictCell], attrs: rowCls ? ` class="${rowCls}"` : "" };
+      });
+      const pct = nChecked ? share(nCorrect, nChecked) : "–";
+      const summaryLine = `${nCorrect} / ${nChecked} scored correct (${pct})`;
+      const tableHtml = table([{ t: "Blank" }, { t: "Written answer" }, { t: "Result" }], itemRows);
+      return `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(p.id)}</span><span class="sr-badge ${nChecked && nCorrect / nChecked >= 0.7 ? "sr-good" : nChecked && nCorrect / nChecked >= 0.4 ? "sr-mid" : "sr-low"}">${summaryLine}</span></summary><div class="sr-body">${tableHtml}</div></details>`;
+    }).join("");
+    return `<h3>Student results</h3>
+<p class="small">Click a student to expand. Verdict applies only to blanks that have a scoring item in the rubric.</p>
+<div class="student-results">${blocks}</div>`;
+  }
+
   function answerGrid(model, core) {
+    if (model.code === "WS6") return answerGridWS6(model, core);
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
     const students = model.cohort;
@@ -919,6 +1005,7 @@
   }
 
   function studentResultsTable(model, core) {
+    if (model.code === "WS6") return studentResultsWS6(model, core);
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
     const blocks = model.cohort.map((p) => {
