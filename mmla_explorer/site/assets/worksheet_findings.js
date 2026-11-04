@@ -873,7 +873,7 @@
       if (ov.requireToken) ok = ok && r.indexOf(ov.requireToken) !== -1;
       accepted = ok;
     }
-    const correct = wasBlank ? false : accepted ? true : (ck ? ck.correct : null);
+    const correct = wasBlank ? null : accepted ? true : (ck ? ck.correct : null);
     const note = ov.expected + (ck && ck.note && !accepted ? " — " + ck.note : "");
     return { correct: correct, note: note, flag: ck ? ck.flag : null, _override: true };
   }
@@ -1217,10 +1217,11 @@
       let nPass = 0, nChecked = 0;
       const cells = items.map((it) => {
         const response = getResponse(rec, model.code, it.id);
-        const display = response ? h(clip(response, 35)) : `<span class="na">–</span>`;
+        const isBlank = !response || response === "(blank)";
+        const display = isBlank ? `<span class="na">–</span>` : h(clip(response, 35));
         const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id)
           || (rec ? checkFromScore(rec.scoring, it.id) : null);
-        if (!ck) return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
+        if (!ck || isBlank) return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
         nChecked += 1;
         if (ck.correct === true) nPass += 1;
         const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
@@ -1250,10 +1251,11 @@
       const itemRows = model.items.map((it) => {
         const expected = expectedFor(w, it.id) || "–";
         const response = getResponse(rec, model.code, it.id);
+        const isBlank = !response || response === "(blank)";
         const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id)
           || (rec ? checkFromScore(rec.scoring, it.id) : null);
         let verdictCell, rowCls;
-        if (!ck) {
+        if (!ck || isBlank) {
           verdictCell = `<span class="na">–</span>`;
           rowCls = "";
         } else if (ck.correct === true) {
@@ -1269,9 +1271,9 @@
           verdictCell = `<span class="verdict-partial">~ Partial</span>${ck.note ? `<div class="verdict-note">${h(clip(ck.note, 120))}</div>` : ""}`;
           rowCls = "row-partial";
         }
-        const writtenCell = response
-          ? `<span class="written-answer">${h(clip(response, 80))}</span>`
-          : `<span class="na">(blank)</span>`;
+        const writtenCell = isBlank
+          ? `<span class="na">–</span>`
+          : `<span class="written-answer">${h(clip(response, 80))}</span>`;
         return {
           cells: [`<b>${h(it.title)}</b>`, h(clip(expected, 80)), writtenCell, verdictCell],
           attrs: rowCls ? ` class="${rowCls}"` : "",
