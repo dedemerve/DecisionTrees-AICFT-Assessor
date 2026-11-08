@@ -691,6 +691,7 @@
       <section class="method-block" id="m-logs">
         <h2>Platform logs</h2>
         <p>CODAP Arbor writes a time-stamped line each time the software records an action. The two class sessions hold ${num(logEventsClass)} events. This is the published log. The archive also keeps a Titanic activity log (${num(logEventsTitanic)} events). It is not part of the published log or the measures. Python rules turn the lines into measures. No language model reads these files.</p>
+        <p><strong>Log collection server.</strong> A lightweight Python server received the log lines from CODAP Arbor during each class session and wrote them to a CSV file. The server code is published at <a href="https://github.com/dedemerve/CODAP-Arbor-log-server" target="_blank" rel="noopener">github.com/dedemerve/CODAP-Arbor-log-server</a>.</p>
         <h3>How log measures are computed</h3>
         <p>Each class session is read on its own. Rows are kept only when their <code>created_at</code> date is that session’s date. Events are ordered by <code>created_at</code>, because <code>timestamp_ms</code> is not always increasing within a session.</p>
         <div class="log-metrics">
