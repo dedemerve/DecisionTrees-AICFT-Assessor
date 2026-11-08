@@ -1482,6 +1482,8 @@ table.find-table tr[hidden] { display: none !important; }
 .find-fold > summary::after { content: "Show"; float: right; font-size: 13px; font-weight: 500; color: var(--blue); }
 .find-fold[open] > summary::after { content: "Hide"; }
 .find-fold-body { padding: 0 16px 8px; }
+.find-fold .fold-hint { font-weight: 400; font-size: 13px; color: var(--muted); }
+.sess-date { font-weight: 400; color: var(--muted); }
 @media (max-width: 800px) {
   .stat-row.cols-4 { grid-template-columns: 1fr 1fr; }
   .find-page .stat-row.find-headline { grid-template-columns: 1fr 1fr; }

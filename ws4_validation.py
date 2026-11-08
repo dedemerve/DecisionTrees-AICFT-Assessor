@@ -130,6 +130,10 @@ def _check_b3(item: dict[str, Any]) -> dict[str, Any]:
         return {"is_correct": False, "error_flag": "missing_error_reduction_rationale"}
     if _contains_any(text, B3_STRONG):
         return {"is_correct": True, "error_flag": None}
+    # Rubric policy: naming the correct boundary (avocado/fries) earns full credit.
+    t = _norm(text)
+    if any(w in t for w in ("avokado", "avocado")) and any(w in t for w in ("patates", "french fries")):
+        return {"is_correct": True, "error_flag": None}
     if _contains_any(text, B3_WEAK):
         return {"is_correct": None, "error_flag": "weak_error_reduction_rationale"}
     return {"is_correct": False, "error_flag": "missing_error_reduction_rationale"}

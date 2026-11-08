@@ -30,12 +30,14 @@
   const num = (v, d = 0) => (v == null || Number.isNaN(Number(v))) ? "–" :
     Number(v).toLocaleString("en-GB", { maximumFractionDigits: d, minimumFractionDigits: 0 });
   const pct = (a, b) => b ? num(100 * a / b, 1) + "%" : "–";
-  const clock = (s) => {
+  // Pass long=true to force h:mm:ss so times on one page share a format.
+  const clock = (s, long) => {
     if (s == null || Number.isNaN(Number(s))) return "–";
     s = Math.round(Number(s));
     const hh = Math.floor(s / 3600), mm = Math.floor((s % 3600) / 60), ss = s % 60;
-    return (hh ? hh + ":" + String(mm).padStart(2, "0") : mm) + ":" + String(ss).padStart(2, "0");
+    return (hh || long ? hh + ":" + String(mm).padStart(2, "0") : mm) + ":" + String(ss).padStart(2, "0");
   };
+  const isLong = (model) => model.runs.length > 0 && Number(model.runs[model.runs.length - 1].end) >= 3600;
   const tipAttr = (html) => ` data-tip="${h(html)}"`;
   const labelOf = (code) => BEH[code] ? BEH[code].label : String(code || "").replace(/_/g, " ");
   const colorOf = (code) => BEH[code] ? BEH[code].color : "var(--rule-strong)";
@@ -228,15 +230,16 @@
   function ribbon(model) {
     if (!model.runs.length) return "";
     const total = model.runs.reduce((a, r) => a + r.n, 0);
+    const long = isLong(model);
     const bars = model.runs.map((run) => {
       const name = run.code ? labelOf(run.code) : "No label";
-      const text = `<b>${h(name)}</b><br>${num(run.n)} listed frame${run.n === 1 ? "" : "s"} · ${clock(run.start)}–${clock(run.end)}`;
+      const text = `<b>${h(name)}</b><br>${num(run.n)} listed frame${run.n === 1 ? "" : "s"} · ${clock(run.start, long)}–${clock(run.end, long)}`;
       return `<div style="flex:${run.n};background:${run.code ? colorOf(run.code) : "var(--rule-strong)"}"${tipAttr(text)}></div>`;
     }).join("");
     const first = model.runs[0].start;
     const last = model.runs[model.runs.length - 1].end;
     return `<div class="run-ribbon" role="img" aria-label="Order of listed frames by primary behaviour">${bars}</div>
-      <div class="axis"><span>First frame at ${clock(first)}</span><span>Last frame at ${clock(last)}</span></div>
+      <div class="axis"><span>First frame at ${clock(first, long)}</span><span>Last frame at ${clock(last, long)}</span></div>
       <p class="small">The timeline shows the order of the ${num(total)} listed frames by primary behaviour label. Segment width is the number of consecutive frames, not elapsed time. Times are measured from the start of the recording.</p>`;
   }
 
@@ -310,7 +313,7 @@
       const late = model.thirds[2];
       const earlyN = early.counts[shift.code] || 0;
       const lateN = late.counts[shift.code] || 0;
-      lines.push("The session clock, from " + clock(early.from) + " to " + clock(late.to) + " (recording time), is split into three equal parts. In the first part, " + labelOf(shift.code) + " is " + num(earlyN) + " of " + num(early.n) + " labelled frames (" + pct(earlyN, early.n) + "). In the last part, it is " + num(lateN) + " of " + num(late.n) + " (" + pct(lateN, late.n) + ").");
+      lines.push("The session clock, from " + clock(early.from, isLong(model)) + " to " + clock(late.to, isLong(model)) + " (recording time), is split into three equal parts. In the first part, " + labelOf(shift.code) + " is " + num(earlyN) + " of " + num(early.n) + " labelled frames (" + pct(earlyN, early.n) + "). In the last part, it is " + num(lateN) + " of " + num(late.n) + " (" + pct(lateN, late.n) + ").");
     }
     return lines;
   }
@@ -358,7 +361,7 @@
       const names = ["First third", "Middle third", "Last third"];
       const rows = model.thirds.map((part, i) => {
         const n = part.counts[shift.code] || 0;
-        return "<tr><td>" + names[i] + "</td><td>" + clock(part.from) + "–" + clock(part.to) + "</td><td class=\"num\">" + num(part.n) + "</td><td class=\"num\">" + num(n) + " of " + num(part.n) + " (" + pct(n, part.n) + ")</td></tr>";
+        return "<tr><td>" + names[i] + "</td><td>" + clock(part.from, isLong(model)) + "–" + clock(part.to, isLong(model)) + "</td><td class=\"num\">" + num(part.n) + "</td><td class=\"num\">" + num(n) + " of " + num(part.n) + " (" + pct(n, part.n) + ")</td></tr>";
       }).join("");
       blocks.push("<h4>Across the session clock</h4><p>Each third is an equal share of the clock from the first labelled frame to the last. The count is labelled frames in that interval, not minutes of activity.</p><div class=\"table-wrap\"><table><thead><tr><th>Part</th><th>Clock</th><th class=\"num\">Labelled frames</th><th class=\"num\">" + h(labelOf(shift.code)) + "</th></tr></thead><tbody>" + rows + "</tbody></table></div>");
       hints.push("time shifts");
@@ -366,8 +369,8 @@
     if (model.examples && model.examples.length) {
       const figs = model.examples.map((ex) => {
         const where = "Stored preview nearest the middle of the longest uninterrupted " + labelOf(ex.code) + " run (" + num(ex.runN) + " listed frames).";
-        const alt = student + ", " + model.name + ", " + clock(ex.t) + ", " + labelOf(ex.code);
-        return "<figure><img loading=\"lazy\" src=\"thumbs/" + h(ex.th) + "\" alt=\"" + h(alt) + "\"><figcaption><b>" + h(labelOf(ex.code)) + "</b> · " + clock(ex.t) + "<br>" + h(where) + " It shows that moment, not every frame with this label.</figcaption></figure>";
+        const alt = student + ", " + model.name + ", " + clock(ex.t, isLong(model)) + ", " + labelOf(ex.code);
+        return "<figure><img loading=\"lazy\" src=\"thumbs/" + h(ex.th) + "\" alt=\"" + h(alt) + "\"><figcaption><b>" + h(labelOf(ex.code)) + "</b> · " + clock(ex.t, isLong(model)) + "<br>" + h(where) + " It shows that moment, not every frame with this label.</figcaption></figure>";
       }).join("");
       blocks.push("<h4>Stored previews</h4><p>Each picture is chosen by a fixed rule: the CODAP-screen preview nearest the middle of the longest run of a frequent label. Menus are not used.</p><div class=\"rec-shots\">" + figs + "</div>");
       hints.push("stored previews");
