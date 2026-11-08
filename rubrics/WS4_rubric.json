@@ -63,8 +63,8 @@
       "target_logic": "Öğrenci, makine öğrenmesindeki hata minimizasyonu kavramını fark etmeli; yeni eşik değerin daha az yiyeceği yanlış sınıflandırdığını ifade etmelidir.",
       "scoring_rules": {
         "1.0": {
-          "condition": "Hata sayısının azaldığına, daha az yanlış sınıflandırma yapıldığına veya önceki 4 hatanın 2'ye düştüğüne vurgu yapılmışsa.",
-          "examples": ["Daha az yanlış var", "Önce 4 yanlış vardı şimdi 2 yanlış var", "Hata sayısı azaldı", "Sadece 2 kart yanlış yerde"]
+          "condition": "Hata sayısının azaldığına, daha az yanlış sınıflandırma yapıldığına veya önceki 4 hatanın 2'ye düştüğüne vurgu yapılmışsa. AYRICA: Öğrenci çizgi çizmek yerine doğru eşik konumunu sözel olarak ifade etmişse (ör: 'avokado - patates kızartması', 'avokado ile patates kızartması arası', 'patates ile avokado arası') bu da tam puan olarak kabul edilir — doğru sınırı bilmek anlayışı kanıtlar.",
+          "examples": ["Daha az yanlış var", "Önce 4 yanlış vardı şimdi 2 yanlış var", "Hata sayısı azaldı", "Sadece 2 kart yanlış yerde", "avokado - patates kızartması", "patates ile avokado arası"]
         },
         "0.5": {
           "condition": "Daha iyi olduğu söylenmiş ama nedensellik (sayı veya hata kavramı) zayıf kurulmuşsa.",
