@@ -236,8 +236,8 @@
     const first = model.runs[0].start;
     const last = model.runs[model.runs.length - 1].end;
     return `<div class="run-ribbon" role="img" aria-label="Order of listed frames by primary behaviour">${bars}</div>
-      <div class="axis"><span>First frame ${clock(first)}</span><span>Last frame ${clock(last)}</span></div>
-      <p class="small">The timeline shows the order of listed frames by primary behaviour label. Segment width reflects the number of consecutive frames in each segment, not necessarily elapsed time. These ${num(total)} listed frames are the width.</p>`;
+      <div class="axis"><span>First frame at ${clock(first)}</span><span>Last frame at ${clock(last)}</span></div>
+      <p class="small">The timeline shows the order of the ${num(total)} listed frames by primary behaviour label. Segment width is the number of consecutive frames, not elapsed time. Times are measured from the start of the recording.</p>`;
   }
 
   function limits(model) {
@@ -254,6 +254,19 @@
     }
     if (model.uncoded) {
       items.push(`${num(model.uncoded)} listed frame${model.uncoded === 1 ? " has" : "s have"} no primary label. ${model.uncoded === 1 ? "It is" : "They are"} left out of the behaviour shares.`);
+    }
+    if (model.secondaryFrameCount) {
+      items.push(`${num(model.secondaryFrameCount)} frame${model.secondaryFrameCount === 1 ? " has" : "s have"} a second behaviour label. Second labels are not included in the shares or the timeline above.`);
+    }
+    const confKeys = Object.keys(model.confidence);
+    if (confKeys.length) {
+      const parts = ["HIGH", "MEDIUM", "LOW"].filter((k) => model.confidence[k])
+        .concat(confKeys.filter((k) => ["HIGH", "MEDIUM", "LOW"].indexOf(k) === -1))
+        .map((k) => `${num(model.confidence[k])} ${k.toLowerCase()}`);
+      items.push(`Coding confidence for the ${num(model.coded)} labelled frames: ${parts.join(", ")}.`);
+    }
+    if (model.episodes.length) {
+      items.push(`${num(model.episodes.length)} episode${model.episodes.length === 1 ? " is" : "s are"} recorded for this session under a separate episode coding scheme. They are not shown on this page.`);
     }
     if (model.fileCounts && !model.countsMatch) {
       items.push("The behaviour totals in the coding file do not match the listed frames. The table uses the listed frames.");
@@ -297,7 +310,7 @@
       const late = model.thirds[2];
       const earlyN = early.counts[shift.code] || 0;
       const lateN = late.counts[shift.code] || 0;
-      lines.push("The session clock, from " + clock(early.from) + " to " + clock(late.to) + ", is split into three equal parts. In the first part, " + labelOf(shift.code) + " is " + num(earlyN) + " of " + num(early.n) + " labelled frames (" + pct(earlyN, early.n) + "). In the last part, it is " + num(lateN) + " of " + num(late.n) + " (" + pct(lateN, late.n) + ").");
+      lines.push("The session clock, from " + clock(early.from) + " to " + clock(late.to) + " (recording time), is split into three equal parts. In the first part, " + labelOf(shift.code) + " is " + num(earlyN) + " of " + num(early.n) + " labelled frames (" + pct(earlyN, early.n) + "). In the last part, it is " + num(lateN) + " of " + num(late.n) + " (" + pct(lateN, late.n) + ").");
     }
     return lines;
   }
@@ -325,6 +338,7 @@
 
   function evidenceHtml(pack, student, model) {
     const blocks = [];
+    const hints = [];
     const trans = model.transitions;
     if (trans && trans.pairs) {
       const repeated = trans.rows.filter((row) => row.n >= 2).slice(0, 4);
@@ -337,6 +351,7 @@
         body += "<p>No change happens more than once.</p>";
       }
       blocks.push("<h4>Changes between segments</h4>" + body);
+      hints.push("segment changes");
     }
     const shift = clockShift(model);
     if (shift && model.thirds) {
@@ -346,6 +361,7 @@
         return "<tr><td>" + names[i] + "</td><td>" + clock(part.from) + "–" + clock(part.to) + "</td><td class=\"num\">" + num(part.n) + "</td><td class=\"num\">" + num(n) + " of " + num(part.n) + " (" + pct(n, part.n) + ")</td></tr>";
       }).join("");
       blocks.push("<h4>Across the session clock</h4><p>Each third is an equal share of the clock from the first labelled frame to the last. The count is labelled frames in that interval, not minutes of activity.</p><div class=\"table-wrap\"><table><thead><tr><th>Part</th><th>Clock</th><th class=\"num\">Labelled frames</th><th class=\"num\">" + h(labelOf(shift.code)) + "</th></tr></thead><tbody>" + rows + "</tbody></table></div>");
+      hints.push("time shifts");
     }
     if (model.examples && model.examples.length) {
       const figs = model.examples.map((ex) => {
@@ -354,6 +370,7 @@
         return "<figure><img loading=\"lazy\" src=\"thumbs/" + h(ex.th) + "\" alt=\"" + h(alt) + "\"><figcaption><b>" + h(labelOf(ex.code)) + "</b> · " + clock(ex.t) + "<br>" + h(where) + " It shows that moment, not every frame with this label.</figcaption></figure>";
       }).join("");
       blocks.push("<h4>Stored previews</h4><p>Each picture is chosen by a fixed rule: the CODAP-screen preview nearest the middle of the longest run of a frequent label. Menus are not used.</p><div class=\"rec-shots\">" + figs + "</div>");
+      hints.push("stored previews");
     }
     const other = otherSession(pack, student, model);
     if (other) {
@@ -372,6 +389,7 @@
         body += "<p>No primary label differs by 15 percentage points or more.</p>";
       }
       blocks.push("<h4>Compared with " + h(other.name) + "</h4>" + body);
+      hints.push("other session");
     }
     const cohort = pack.students.filter((s) => pack.byStudent[s][model.id].coded > 0);
     const focus = rankedLabels(model)[0];
@@ -384,10 +402,11 @@
       const mine = (model.primary[focus] || 0) / model.coded;
       if (Math.abs(mine - mid) >= 0.15) {
         blocks.push("<h4>This session across participants</h4><p>" + num(cohort.length) + " participants have labelled frames for " + h(model.name) + ". " + h(labelOf(focus)) + " is " + pct(model.primary[focus], model.coded) + " of " + h(student) + "’s " + num(model.coded) + " labelled frames. The median share of " + h(labelOf(focus)) + " in that group is " + num(100 * mid, 1) + "% of each participant’s own labelled frames. A higher share means more frames with that label.</p>");
+        hints.push("other participants");
       }
     }
     if (!blocks.length) return "";
-    return "<details class=\"find-fold\" id=\"recEvidence\"><summary>Explore the evidence</summary><div class=\"find-fold-body\">" + blocks.join("") + "</div></details>";
+    return "<details class=\"find-fold\" id=\"recEvidence\"><summary>Explore the evidence <span class=\"fold-hint\">(" + h(hints.join(", ")) + ")</span></summary><div class=\"find-fold-body\">" + blocks.join("") + "</div></details>";
   }
 
   function median(xs) {
@@ -400,12 +419,13 @@
   function sessionPanel(pack, student, sessionId) {
     const model = pack.byStudent[student] && pack.byStudent[student][sessionId];
     if (!model) return `<p class="empty">That session is not in this archive.</p>`;
+    const heading = `<h3 class="preview-heading">${h(student)} · ${h(model.name)}${model.date ? ` · <span class="sess-date">${h(model.date)}</span>` : ""}</h3>`;
     if (!model.hasRecording) {
-      return `<h3 class="preview-heading">${h(student)} · ${h(model.name)}</h3>
+      return `${heading}
         <div class="empty-session"><p>No screen recording frames are on record for ${h(student)}, ${h(model.name)}.</p></div>`;
     }
     if (!model.coded) {
-      return `<h3 class="preview-heading">${h(student)} · ${h(model.name)}</h3>
+      return `${heading}
         <p>${num(model.listed)} frames are listed for this session. They do not have behaviour labels, so they are not included in behaviour shares. Labels from another session are not copied onto them.</p>
         <p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Explore collected frames for this session</a></p>`;
     }
@@ -414,7 +434,10 @@
       `<div style="flex:${model.primary[code]};background:${colorOf(code)}"${tipAttr(`<b>${h(labelOf(code))}</b><br>${num(model.primary[code])} frames · ${pct(model.primary[code], denom)}`)}></div>`).join("")}</div>`;
     const legend = `<div class="legend">${orderedCodes(model.primary).map((code) => `<span><i style="background:${colorOf(code)}"></i>${h(labelOf(code))}</span>`).join("")}</div>`;
     const collected = `<p><a href="#/explore/recordings?s=${encodeURIComponent(student)}&amp;ss=${encodeURIComponent(model.id)}">Explore collected frames for this session</a></p>`;
-    return `<h3 class="preview-heading">${h(student)} · ${h(model.name)}</h3>
+    const so = standsOut(model);
+    const soHtml = so.length ? so.map((line) => `<p>${h(line)}</p>`).join("")
+      : `<p class="empty">No single pattern stands out for this session.</p>`;
+    return `${heading}
       <p>${num(model.listed)} frames are listed. ${num(model.coded)} have a primary behaviour label. Shares use those ${num(denom)} labelled frames as the denominator.</p>
       <h3>Observed behaviour</h3>
       ${stack}${legend}
@@ -422,7 +445,7 @@
       <h3>Order of coded frames</h3>
       ${ribbon(model)}
       <h3>What stands out?</h3>
-      ${standsOut(model).map((line) => `<p>${h(line)}</p>`).join("")}
+      ${soHtml}
       ${evidenceHtml(pack, student, model)}
       ${collected}
       <h3>Limitations</h3>
