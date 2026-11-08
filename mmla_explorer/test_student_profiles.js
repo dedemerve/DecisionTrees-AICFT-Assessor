@@ -82,7 +82,7 @@ check(!/rushing|guessing|indecisive|high performer|mastered|careless|trial-and-e
 check(!html.includes("–%"), "a missing rate is not shown as a blank percent");
 check(marcoHtml.includes("Written report"), "Marco summary uses Written report");
 check(marcoHtml.includes("not applicable"), "Marco notebook measures are not applicable");
-check(SP.summary("Bruno").includes("Threshold changes 13") && SP.summary("Bruno").includes("Model submissions 10"), "Bruno class-session counts");
+check(SP.summary("Bruno").includes("Threshold edit events 13") && SP.summary("Bruno").includes("Model submissions 10"), "Bruno class-session counts");
 check(!SP.summary("Bruno").includes("<summary>Worksheet records"), "profile summary has no accordion stack");
 check(amyHtml.includes("WS1, WS3, WS4, WS5"), "Amy summary names missing worksheets");
 check(frames.includes("not published"), "frames note says videos are not published");
@@ -90,7 +90,7 @@ check(frames.includes("up to 12"), "preview cap is 12 examples");
 check(frames.includes("16 preview images"), "16 stored previews per session");
 check(frames.includes(SP.HF_FRAMES), "Hugging Face frame dataset link");
 check(!frames.includes("no longer in the data folder"), "frames note does not say videos were lost");
-check(SP.logPreface("Helena").includes("not one of the two class sessions"), "7 April log is kept separate");
+check(SP.logPreface("Helena").includes("not part of the two food-dataset class sessions"), "7 April log is kept separate");
 check(SP.logPreface("Helena").includes("not evidence of difficulty"), "action counts are not read as difficulty");
 const brunoChart = SP.sessionChart("Bruno", "codap_21apr");
 check(brunoChart.includes("behaviour label") && brunoChart.includes("Share"), "frame chart uses labelled frames");

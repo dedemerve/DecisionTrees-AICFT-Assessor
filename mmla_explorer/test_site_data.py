@@ -159,6 +159,24 @@ for s in STUDENTS:
             src = json.load(open(ROOT / v["source"]))
             check(src["votat_rate"] == v["votat_rate"], f"votat {s} {ss}")
 
+# 7b. Log measures per class session: VOTAT reads only that day, predictors exclude the target.
+for s, days in C["logs"]["per_student"].items():
+    for d in ("2026-04-21", "2026-04-28"):
+        v = days.get(d)
+        if not v:
+            continue
+        vt = v.get("votat")
+        if vt:
+            check(vt["total_emits"] == v["emit_count"], f"votat emits match log {s} {d}")
+            check(vt["intervals"] == max(v["emit_count"] - 1, 0), f"votat intervals {s} {d}")
+        else:
+            check(v["emit_count"] < 2, f"votat missing although 2+ emits {s} {d}")
+        bad = set(v["predictors_tried"]) & (set(v["targets"]) | {"Column 1", "Oneri", "Ürün Adı"})
+        check(not bad, f"predictors include target or label {s} {d}: {bad}")
+        if v["last_emit_accuracy"] is not None:
+            check(v["last_emit_n"], f"last accuracy has rows {s} {d}")
+check(C["logs"]["events_class_days"] == 9561, "class-session events match the public CSV (9,561)")
+
 # 8. Notebooks: structure recomputed.
 for s in STUDENTS:
     n = (C["notebooks"].get(s) or {}).get("file")
@@ -188,7 +206,7 @@ norm = lambda x: unicodedata.normalize("NFC", x).casefold()
 names = [norm(k) for k in mod.PSEUDONYM_MAP]
 surnames = {n.split()[-1] for n in names}
 blob = ""
-for p in list((SITE / "data").glob("*")) + [SITE / "index.html", SITE / "assets" / "app.js"]:
+for p in [q for q in (SITE / "data").glob("*") if q.is_file()] + [SITE / "index.html", SITE / "assets" / "app.js"]:
     blob += norm(p.read_text(encoding="utf-8"))
 for n in names:
     check(re.search(r"(?<![\w])" + re.escape(n) + r"(?![\w])", blob) is None, "a full real name appears in the site")

@@ -86,7 +86,7 @@
         const row = logs[meta.day];
         if (!row) return null;
         const actions = row.modelling_actions || {};
-        const votat = sessions[meta.session] && sessions[meta.session].votat;
+        const votat = row.votat || (sessions[meta.session] && sessions[meta.session].votat);
         return {
           name: meta.name,
           short: meta.session === "codap_21apr" ? "Session 1" : "Session 2",
@@ -332,7 +332,7 @@
       <td class="num" data-label="Session 2">${num(p.logSessions[1].threshold)}</td>
     </tr>`).join("");
     const shiftText = both.length
-      ? `<p>Among ${num(both.length)} participants with a log for both class sessions, ${num(lower.length)} record fewer threshold changes in session 2 than in session 1. ${higher.length ? h(higher.map((p) => p.id + " records " + num(p.logSessions[0].threshold) + " in session 1 and " + num(p.logSessions[1].threshold) + " in session 2").join("; ")) + "." : ""} A larger count is not evidence of difficulty or of a planned strategy.</p>`
+      ? `<p>Among ${num(both.length)} participants with a log for both class sessions, ${num(lower.length)} record fewer threshold edit events in session 2 than in session 1. ${higher.length ? h(higher.map((p) => p.id + " records " + num(p.logSessions[0].threshold) + " in session 1 and " + num(p.logSessions[1].threshold) + " in session 2").join("; ")) + "." : ""} A larger count is not evidence of difficulty or of a planned strategy.</p>`
         + `<div class="table-wrap"><table class="find-table"><thead><tr><th>Participant</th><th class="num">Session 1</th><th class="num">Session 2</th></tr></thead><tbody>${shiftRows}</tbody></table></div>`
       : "";
 
@@ -343,19 +343,19 @@
         <td data-label="Participant"><a href="#/explore/student/${encodeURIComponent(p.id)}">${h(p.id)}</a></td>
         <td data-label="CODAP worksheets">${h(codap)}</td>
         <td data-label="Model submissions">${p.logSessions.length ? num(p.emits) : "Not stored"}</td>
-        <td data-label="Threshold changes">${p.logSessions.length ? num(p.threshold) : "Not stored"}</td>
+        <td data-label="Threshold edit events">${p.logSessions.length ? num(p.threshold) : "Not stored"}</td>
         <td data-label="Leading frame label">${h(framePhrase(p))}</td>
         <td data-label="Depth-search table">${h(depthPhrase(p))}</td>
       </tr>`;
     }).join("");
     const cards = model.people.map((p) => {
       const share = codapShare(sheets, p.id);
-      const codap = share.mean == null ? "Not stored" : pct(share.mean) + " of each maximum";
+      const codap = share.mean == null ? "Not stored" : pct(share.mean) + " of the maximum (mean)";
       return `<a class="student-card" href="#/explore/student/${encodeURIComponent(p.id)}">
         <b class="student-card-name">${h(p.id)}</b>
         <dl class="student-card-meta">
           <div><dt>CODAP worksheets</dt><dd>${h(codap)}</dd></div>
-          <div><dt>Threshold changes</dt><dd>${p.logSessions.length ? num(p.threshold) : "Not stored"}</dd></div>
+          <div><dt>Threshold edit events</dt><dd>${p.logSessions.length ? num(p.threshold) : "Not stored"}</dd></div>
         </dl>
         <span class="student-card-cta">Open profile</span>
       </a>`;
@@ -385,9 +385,9 @@
         <p class="small">“Idle / thinking” means no visible interaction was coded. It does not show that thinking was observed.</p>
       </section>
       <section class="insight">
-        <h3>Threshold changes in the two class sessions</h3>
+        <h3>Threshold edit events in the two class sessions</h3>
         ${shiftText}
-        <p class="small">A threshold change is the stored action change_split_values. Model submissions are stored emit counts. The 7 April log is not one of these sessions.</p>
+        <p class="small">A threshold edit event is the stored action change_split_values. The log stores the same old and new value in every such row, so it shows that the split editor was used, not that a threshold changed. Model submissions are stored emit counts. The 7 April Titanic log is not one of these sessions.</p>
       </section>
       <h2>What the four sources can be compared on</h2>
       <div class="theme-grid">
@@ -397,7 +397,7 @@
         </section>
         <section class="insight">
           <h3>Modelling in the class logs</h3>
-          <p>The log records model submissions, threshold changes, and predictors placed in the tree. It does not record why those actions were taken.</p>
+          <p>The log records model submissions, threshold edit events, and predictors placed in the tree. It does not record why those actions were taken.</p>
         </section>
         <section class="insight">
           <h3>Frame labels</h3>
@@ -410,14 +410,14 @@
       </div>
       <section class="insight">
         <h3>Cross-source limits</h3>
-        <p>The same pseudonym identifies a participant across the four sources. There is no verified join from a worksheet item to a frame or to a log event, so this page does not report an association between worksheet scores and threshold changes, or between frames and logged actions.</p>
+        <p>The same pseudonym identifies a participant across the four sources. There is no verified join from a worksheet item to a frame or to a log event, so this page does not report an association between worksheet scores and threshold edit events, or between frames and logged actions.</p>
       </section>
       <h2>Participant comparison</h2>
       <div class="table-wrap"><table class="find-table profile-store">
-        <thead><tr><th>Participant</th><th>CODAP worksheets</th><th>Model submissions</th><th>Threshold changes</th><th>Leading frame label</th><th>Depth-search table</th></tr></thead>
+        <thead><tr><th>Participant</th><th>CODAP worksheets</th><th>Model submissions</th><th>Threshold edit events</th><th>Leading frame label</th><th>Depth-search table</th></tr></thead>
         <tbody>${head}</tbody>
       </table></div>
-      <p class="small">CODAP worksheets are the mean of each participant’s stored score divided by that worksheet’s maximum, for WS13, WS14, and WS15. Those three include all ${num(model.people.length)} participants. Threshold changes and model submissions cover the class sessions that have a log. A missing log is not shown as zero.</p>
+      <p class="small">CODAP worksheets are the mean of each participant’s stored score divided by that worksheet’s maximum, for WS13, WS14, and WS15. Those three include all ${num(model.people.length)} participants. Threshold edit events and model submissions cover the class sessions that have a log. A missing log is not shown as zero.</p>
       <h2>Open a profile</h2>
       <div class="student-roster">${cards}</div>
       <details class="profile-notes">
@@ -446,8 +446,8 @@
     const sheets = sheetModels();
     const share = codapShare(sheets, row.id);
     const bits = [];
-    if (share.mean != null) bits.push("CODAP worksheets " + pct(share.mean) + " of each maximum (" + num(share.n) + ")");
-    if (row.logSessions.length) bits.push("Threshold changes " + num(row.threshold) + " · Model submissions " + num(row.emits));
+    if (share.mean != null) bits.push("CODAP worksheets: mean score " + pct(share.mean) + " of the maximum, across " + num(share.n) + " of WS13, WS14 and WS15");
+    if (row.logSessions.length) bits.push("Threshold edit events " + num(row.threshold) + " · Model submissions " + num(row.emits));
     else bits.push("No class-session log stored");
     bits.push(submissionPhrase(row));
     const notes = [];
@@ -517,12 +517,12 @@
     if (!stored.length) return `<p class="small">No class-session log is stored. A larger action count is not evidence of difficulty or of a planned strategy.</p>`;
     const names = stored.map((item) => item.name).join(" and ");
     const extra = row.extraLogEvents != null
-      ? ` A log from 7 April is also stored (${num(row.extraLogEvents)} events). It is not one of the two class sessions, and it is not included in the counts below.`
+      ? ` A 7 April Titanic log is also stored (${num(row.extraLogEvents)} events). It is not part of the two food-dataset class sessions, and it is not included in the counts below.`
       : "";
     const split = stored.length === 2
-      ? ` ${stored[0].short} records ${num(stored[0].threshold)} threshold changes and ${num(stored[0].emits)} model submissions. ${stored[1].short} records ${num(stored[1].threshold)} threshold changes and ${num(stored[1].emits)} model submissions.`
+      ? ` ${stored[0].short} records ${num(stored[0].threshold)} threshold edit events and ${num(stored[0].emits)} model submissions. ${stored[1].short} records ${num(stored[1].threshold)} threshold edit events and ${num(stored[1].emits)} model submissions.`
       : "";
-    return `<p class="small">Class-session logs: ${h(names)}. Recorded threshold changes: ${num(row.threshold)}. Model submissions: ${num(row.emits)}. Predictor changes: ${num(row.predictors)}. A larger count is not evidence of difficulty or of a planned strategy.${h(split)}${h(extra)}</p>`;
+    return `<p class="small">Class-session logs: ${h(names)}. Threshold edit events: ${num(row.threshold)}. Model submissions: ${num(row.emits)}. Predictor placements: ${num(row.predictors)}. A larger count is not evidence of difficulty or of a planned strategy.${h(split)}${h(extra)}</p>`;
   }
 
   function checkStatus(value) {

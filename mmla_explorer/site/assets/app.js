@@ -200,7 +200,7 @@
   };
   const ACTION = {
     emit_tree_data: "Submitted model results", drop_attribute: "Added a predictor to the tree",
-    change_split_values: "Changed a split threshold", change_tree_type: "Changed the tree type",
+    change_split_values: "Threshold edit event (split editor used)", change_tree_type: "Changed the tree type",
     change_dataset: "Switched between training and test data", data_context_change: "Changed or selected data",
     set_dependent_variable: "Chose the target variable", set_focus_node: "Selected a node in the tree",
     refresh_tree: "Refreshed the tree", swap_focus_split: "Swapped a split", session_start: "Opened the session",
@@ -227,6 +227,19 @@
   const videoFilesListed = allSessions.filter((r) => r.video_bytes).length;
   const logDays = C.logs.per_student;
   const logEvents = sum(Object.values(logDays).flatMap((d) => Object.values(d).map((x) => x.events)));
+  // Published log: the two food-dataset class sessions only (matches the public CSV).
+  const logEventsClass = C.logs.events_class_days != null ? C.logs.events_class_days : logEvents;
+  const logActionsClass = C.logs.action_types_class_days || C.logs.action_types || {};
+  const logEventsTitanic = sum(Object.values(logDays).map((d) => (d["2026-04-07"] || {}).events || 0));
+  const votatOf = (s, d) => (((logDays[s] || {})[d]) || {}).votat || null;
+  // English glosses for the Turkish column names in the food dataset.
+  const VAR_EN = {
+    "Tuz (g)": "salt", "Şeker (g)": "sugar", "Yağ (g)": "fat", "Doymuş Yağ (g)": "saturated fat",
+    "Enerji (kcal)": "energy", "Karbonhidrat (g)": "carbohydrate", "Ürün Adı": "product name",
+    "Oneri": "recommendation label", "Column 1": "recommendation label, unnamed copy",
+  };
+  const varName = (a) => VAR_EN[a] ? `${a} (${VAR_EN[a]})` : String(a);
+  const SMALL_N = 10;
   const notebooksPresent = STUDENTS.filter((s) => C.notebooks[s] && C.notebooks[s].file).length;
   const schemaFields = sum(C.worksheets.map((w) => w.fields_in_schema));
   const responseRows = sum(STUDENTS.map((s) => sum(Object.values(C.ws[s]).map((r) => r.ocr ? r.ocr.responses.length : 0))));
@@ -410,7 +423,7 @@
         <a class="metric" href="#/findings/participants"><div class="v">${STUDENTS.length}</div><div class="l">Participants</div><div class="s">Pseudonyms only</div></a>
         <a class="metric" href="#/explore/worksheets"><div class="v">${C.worksheets.length}</div><div class="l">Worksheets</div><div class="s">${num(schemaFields)} response fields</div></a>
         <a class="metric" href="#/explore/recordings"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} with a behaviour label</div></a>
-        <a class="metric" href="#/explore/logs"><div class="v">${num(logEvents)}</div><div class="l">Log events</div><div class="s">CODAP Arbor, 3 class days</div></a>
+        <a class="metric" href="#/explore/logs"><div class="v">${num(logEventsClass)}</div><div class="l">Log events</div><div class="s">CODAP Arbor, 2 class sessions (21 and 28 April 2026)</div></a>
       </div>
       <h2>How the archive is organised</h2>
       <p class="span-line">Collected data describe what was gathered; Findings present what the analyses reveal.</p>
@@ -477,7 +490,11 @@
     const lexical = recorded.filter((r) => r.speech && r.speech.method === "hybrid_matrix_duration_and_lexical");
     const postProcessed = recorded.filter((r) => r.coding && r.coding.post_processing);
     const logCsvUsed = recorded.filter((r) => r.coding && r.coding.log_csv_used);
-    const votatMissing = recorded.filter((r) => !r.votat);
+    const votatMissing = [];
+    STUDENTS.forEach((s) => Object.entries(LOG_DAYS).forEach(([d, meta]) => {
+      const v = (logDays[s] || {})[d];
+      if (v && !v.votat) votatMissing.push(`${s} (${meta.name})`);
+    }));
     const tally = (key) => {
       const out = {};
       F.forEach((row) => { if (row[key]) out[row[key]] = (out[row[key]] || 0) + 1; });
@@ -486,7 +503,7 @@
     const screenCounts = tally("sc");
     const phaseCounts = tally("ph");
     const behN = (code) => F.filter((row) => row.b === code).length;
-    const actions = C.logs.action_types || {};
+    const actions = logActionsClass;
     const actionNames = Object.keys(actions).sort();
     const epCats = {};
     const decisions = {};
@@ -648,19 +665,18 @@
         <h3>Behaviour labels</h3>
         <p>${num(F.length)} frames are listed and ${num(codedFrameCount)} have a behaviour label. The nine codes below were developed from earlier human coding and then given to the model as a closed list. They name visible activity. They are not a measure of what the student understood, and a count of frames is not time spent. The coding prompt tells the model to prefer building a tree when two labels could fit. The stored counts do not follow that expectation: building a tree is on ${num(behN("BUILD_TREE"))} frames and comparing models is on ${num(behN("COMPARE_MODELS"))}. ${postProcessed.length ? `${num(postProcessed.length)} coding files record a later rule-based change to the label, including a rule that replaces EVALUATE_MODEL with COMPARE_MODELS when an iterative-refinement flag is set. The stored label is not always the model’s first output.` : ""}</p>
         <div class="code-grid">${BEHAV.map((b) => `<article class="code-card"><h3><span class="sw" style="background:var(${b[3]})"></span> ${h(b[1])}</h3><p><code>${h(b[0])}</code>. ${h(b[2])}.</p></article>`).join("")}</div>
-        <p><code>SELECT_TARGET</code> is stored on ${num(behN("SELECT_TARGET"))} frames. The log contains ${num(actions.set_dependent_variable || 0)} <code>set_dependent_variable</code> events. A zero frame count does not show that students never chose a target. The prompt tells the model not to use <code>SELECT_TARGET</code> for an empty prediction box.</p>
+        <p><code>SELECT_TARGET</code> is stored on ${num(behN("SELECT_TARGET"))} frames. The log of the two class sessions contains ${num(actions.set_dependent_variable || 0)} <code>set_dependent_variable</code> events. A zero frame count does not show that students never chose a target. The prompt tells the model not to use <code>SELECT_TARGET</code> for an empty prediction box.</p>
         <p>The prompt allows the screen contexts TREE, GRAPH, TABLE, MIXED, and MENU. The stored frames use ${screenCounts.map(([k, n]) => `<code>${h(k)}</code> (${num(n)})`).join(", ")}. ${["GRAPH", "TABLE"].filter((k) => !screenCounts.some(([name]) => name === k)).length ? `${["GRAPH", "TABLE"].filter((k) => !screenCounts.some(([name]) => name === k)).map((k) => `<code>${h(k)}</code>`).join(" and ")} ${["GRAPH", "TABLE"].filter((k) => !screenCounts.some(([name]) => name === k)).length === 1 ? "does" : "do"} not appear.` : ""} <code>deepen_phase</code> is a label the model wrote beside the behaviour. It is not a validated stage of learning. Stored phases: ${phaseCounts.map(([k, n]) => `${h(k)} ${num(n)}`).join(", ")}.</p>
         <p><code>analysis_confidence</code> is the model’s own rating of that label. It is not classification accuracy. This archive does not contain a 2026 frame-by-frame human sign-off, a gold-standard accuracy, or a kappa coefficient. The codebook’s origin in earlier human coding is not a reliability result for this cohort.</p>
 
-        <h3>Logs are separate</h3>
+        <h3>Logs and frames</h3>
         <p>${num(linkedFrames)} frames link to a researcher observation step. The stored link methods are ${linkMethodText}. The heuristic places researcher steps in order across the frames. The files do not record a person checking each link. Those links are not log events. The frame files do not contain <code>synchronized_log_event</code>, a T1 or T2 evidence tier, or a nearest-frame match to a log event.</p>
-        <p>The 2026 log contains ${num(actionNames.length)} action names: ${actionNames.map((name) => `<code>${h(name)}</code>`).join(", ")}. <code>change_dataset</code> is not one of them, so these logs do not record a dataset switch under that name. Between two consecutive <code>emit_tree_data</code> events, an interval counts as one-thing-at-a-time when the events between them include <code>drop_attribute</code> or <code>change_split_values</code>, but not both. The rate is the number of those intervals divided by the number of intervals, rounded to three decimals. Fewer than two emits makes the script return 0.0, and this site does not show that return value when no rate file is stored. ${votatMissing.length ? `No rate file is stored for ${votatMissing.map(slotName).join(" and ")}.` : "A rate file is stored for every session that has a manifest."} The rate describes the log. It does not prove a planned experiment.</p>
-        <p>${C.logs.delete_events_present ? "Delete actions are present in the 2026 log." : "The 2026 log has no delete action, so recovery by deleting a tree and then choosing a different predictor cannot be calculated."} ${actions.refresh_tree ? `<code>refresh_tree</code> occurs ${num(actions.refresh_tree)} times. That action is not the missing deletion sequence.` : ""} The absence of a logged deletion does not show that a student never recovered outside the log.</p>
+        <p>How log measures are computed is explained in the <a href="#/methods/logs">Platform logs</a> section below.</p>
 
         <h3>Exported session tables</h3>
         <p>The pipeline also wrote three tables per session folder: session features, episodes, and episode process codes. ${num(epFiles)} CODAP session folders have those tables, including ${num(epWithoutRecording)} folders with no recording. The ${num(tables.ep)} episodes use ${Object.entries(epCats).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${h(k)} (${num(n)})`).join(", ")}. Those categories are not the nine frame labels. Of the process-code rows, ${Object.entries(decisions).map(([k, n]) => `${num(n)} are <code>${h(k)}</code>`).join(", ") || "none are stored"}. ${featureFlagsTrue ? "" : "No session-feature flag whose name ends in <code>_present</code> is stored as true. "}These tables are not validated screen-recording results, and a row marked not observed is not evidence that the behaviour was seen.</p>
         <p>A frame is one visible moment. It is not elapsed time, and it is not a log event. ${dupeNames.length ? "Duplicate video files make session comparisons unreliable for those students. " : ""}Missing recordings are omitted rather than treated as empty sessions. Further limits are on <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
-        ${tech("Technical details for majors", `<p class="small">Thresholds below are the values stored on the manifests, not the 0.005 default in <code>scripts/dynamic_video_analytics.py</code>. Motion uses <code>motion_change_fraction</code>: Otsu’s threshold on a blurred grayscale preview.</p>` + kv([
+        ${tech("Technical details", `<p class="small">Thresholds below are the values stored on the manifests, not the 0.005 default in <code>scripts/dynamic_video_analytics.py</code>. Motion uses <code>motion_change_fraction</code>: Otsu’s threshold on a blurred grayscale preview.</p>` + kv([
           ["Speech-enabled sessions", `${num(speechOn.length)} at 0.012`],
           ["Motion-only sessions", `${num(motionOnly.length)} at 0.008`],
           ["motion_threshold_fraction stored", pv("motion_threshold_fraction")],
@@ -674,14 +690,21 @@
 
       <section class="method-block" id="m-logs">
         <h2>Platform logs</h2>
-        <p>CODAP Arbor writes a time-stamped line each time the software records an action. ${num(logEvents)} events are in the archive. Python rules turn the lines into measures; no language model reads these files.</p>
+        <p>CODAP Arbor writes a time-stamped line each time the software records an action. The two class sessions (21 and 28 April 2026) hold ${num(logEventsClass)} events. This is the published log. The archive also keeps a 7 April 2026 log from the Titanic activity (${num(logEventsTitanic)} events). It is not part of the published log or the measures. Python rules turn the lines into measures. No language model reads these files.</p>
+        <h3>How log measures are computed</h3>
+        <p>Each class session is read on its own. Rows are kept only when their <code>created_at</code> date is that session’s date. Events are ordered by <code>created_at</code>, because <code>timestamp_ms</code> is not always increasing within a session.</p>
         <div class="log-metrics">
-          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">Model attempts</div><div class="lm-desc">Times the student submitted a tree’s results, with accuracy, depth, and confusion-matrix counts.</div></div>
+          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">Model attempts</div><div class="lm-desc">Times the student submitted a tree’s results (<code>emit_tree_data</code>), with accuracy, depth, and confusion-matrix counts.</div></div>
           <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">Time to first attempt</div><div class="lm-desc">Minutes from the first recorded action to the first tree submission.</div></div>
-          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">Predictors tried</div><div class="lm-desc">Distinct variables placed into the tree across all attempts in the session.</div></div>
-          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">VOTAT rate</div><div class="lm-desc">Share of steps between attempts where only the predictor or only the threshold changed. Describes the log; does not prove planned experimentation.</div></div>
+          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">Predictors tried</div><div class="lm-desc">Distinct variables placed into the tree in the session. The target is left out: any column the student modelled as the target, and the recommendation label columns <code>Oneri</code> and <code>Column 1</code>. The product name <code>Ürün Adı</code> is left out too.</div></div>
+          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">Last accuracy</div><div class="lm-desc">Accuracy on the last submission that scored at least one row. n is the number of rows scored (TP + TN + FP + FN). Students used different copies of the data, so values are not directly comparable.</div></div>
+          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">One kind of edit (VOTAT)</div><div class="lm-desc">Share of steps between two submissions in which only one kind of edit happened: only predictors placed, or only threshold edit events. A step can hold several edits of that kind.</div></div>
         </div>
-        <p>A measure cannot be calculated when the events it needs are missing. ${C.logs.delete_events_present ? "Delete actions are present, so rebuilding after a deletion can be counted." : "The 2026 logs contain no delete actions, so recovery by deleting a tree and rebuilding cannot be calculated."} That absence does not show what a student did outside the recorded events. Logs are not matched to individual screen frames.</p>
+        <p>A step is the stretch between two consecutive <code>emit_tree_data</code> events. It counts as one kind of edit when it holds <code>drop_attribute</code> or <code>change_split_values</code> events, but not both. The rate is the number of those steps divided by all steps, rounded to three decimals. A session with fewer than two submissions has no steps, so no rate is shown. ${votatMissing.length ? `No rate is stored for ${votatMissing.map(h).join(", ")}.` : "A rate is stored for every class session that has a log."} The rate describes the log. It does not prove a planned experiment.</p>
+        <p><strong>Threshold edit events.</strong> Every stored <code>change_split_values</code> row has the same <code>old_value</code> and <code>new_value</code>. The log therefore shows that the split editor was used, but it cannot show whether a threshold actually changed or by how much.</p>
+        <p>The two class sessions contain ${num(actionNames.length)} action names: ${actionNames.map((name) => `<code>${h(name)}</code>`).join(", ")}. <code>change_dataset</code> is not one of them, so these logs do not record a dataset switch under that name.</p>
+        <p>A measure cannot be calculated when the events it needs are missing. ${C.logs.delete_events_present ? "Delete actions are present, so rebuilding after a deletion can be counted." : "The 2026 logs contain no delete actions, so recovery by deleting a tree and rebuilding cannot be calculated."} ${actions.refresh_tree ? `<code>refresh_tree</code> occurs ${num(actions.refresh_tree)} times. That action is not the missing deletion sequence.` : ""} That absence does not show what a student did outside the recorded events. Logs are not matched to individual screen frames.</p>
+        <p><a href="#/explore/logs">Platform log records</a> · <a href="#/findings/logs">Platform log findings</a></p>
       </section>
 
       <section class="method-block" id="m-notebooks">
@@ -855,7 +878,7 @@
       if (o.other_validation.length) t += `<h4>Other validation values</h4>` + table([{ t: "Field" }, { t: "Value" }], o.other_validation.map((v) => ({ cells: [h(fieldLabel(v.path)), h(v.value)] })));
       if (st.scoring) t += `<h4>Stage score file</h4>` + kv([["Total", `${num(st.scoring.total, 2)} of ${num(st.scoring.max, 2)}`], st.scoring.all_zero_with_zero_confidence && ["Note", "All items 0 with confidence 0. This file does not match the answers above."]]) + src(st.scoring.source);
       t += `<h4>Source</h4>` + src(o.source) + (o.raw_source ? src(o.raw_source) : "");
-      body += tech("Technical details for majors", t);
+      body += tech("Technical details", t);
     }
     return `<details class="ws" id="ws-${h(w.code)}"><summary><span class="code">${h(w.code)}</span><span class="t">${h(wsTitle(w))}</span><span class="st">${h(status)}</span></summary><div class="body">${body}</div></details>`;
   }
@@ -906,7 +929,7 @@
     if (sp) t += `<h4>Speech</h4>` + kv([["Status", h(sp.status)], sp.role_counts && ["Speech segments by role", Object.entries(sp.role_counts).map(([k, v]) => `${h(k)} ${num(v)}`).join(", ")]]);
     if (ep && ep.episodes) t += `<h4>Episodes</h4>` + table([{ t: "Episode" }, { t: "Category" }, { t: "From" }, { t: "To" }, { t: "Assistance" }], ep.episodes.map((e) => ({ cells: [h(e.id), h(e.category), clock(e.start_ms / 1000), clock(e.end_ms / 1000), h(e.assistance)] })));
     t += `<h4>Files</h4>` + kv([["Video", r.video_bytes ? `${bytes(r.video_bytes)}, ${lengthSrc(r)}` : "–"]]) + src(r.video_path) + src(m.source) + (cd ? src(cd.source) : "") + (sp ? src(sp.source) : "") + (ep ? src(ep.episodes_source) : "");
-    out += tech("Technical details for majors", t);
+    out += tech("Technical details", t);
     return out + `</section>`;
   }
 
@@ -915,8 +938,14 @@
     const t = (x) => { const [hh, mm, ss] = x.split(":").map(Number); return hh * 3600 + mm * 60 + ss; };
     return (t(b) - t(a)) / 60;
   }
+  function accuracyText(v) {
+    if (v.last_emit_accuracy == null) return "–";
+    const n = v.last_emit_n;
+    const small = n != null && n < SMALL_N ? ` <span class="na">small sample</span>` : "";
+    return `${num(v.last_emit_accuracy * 100, 1)}% <span class="small">(n = ${n == null ? "?" : num(n)}${v.last_emit_dataset ? `, ${h(v.last_emit_dataset)}` : ""})</span>${small}`;
+  }
   function accuracyChart(emits, start) {
-    const pts = emits.map((e, i) => ({ i, a: e.accuracy })).filter((p) => typeof p.a === "number");
+    const pts = emits.map((e, i) => ({ i, a: e.accuracy })).filter((p) => typeof p.a === "number" && emits[p.i].n !== 0);
     if (!pts.length) return "";
     const W = 640, H = 170, L = 38, R = 10, T = 10, B = 26;
     const x = (i) => L + (emits.length === 1 ? (W - L - R) / 2 : (i * (W - L - R)) / (emits.length - 1));
@@ -925,9 +954,9 @@
     const line = pts.map((p, k) => `${k ? "L" : "M"}${x(p.i).toFixed(1)},${y(p.a).toFixed(1)}`).join("");
     const dots = pts.map((p) => {
       const e = emits[p.i];
-      return `<circle cx="${x(p.i)}" cy="${y(p.a)}" r="4.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"${tipAttr(`<b>Attempt ${p.i + 1}</b>, ${num(minutesBetween(start, e.t), 0)} min after starting<br>Accuracy ${num(e.accuracy * 100, 1)}%<br>Tree depth ${h(e.depth)}`)}><title>Attempt ${p.i + 1}: ${num(e.accuracy * 100, 1)}%</title></circle>`;
+      return `<circle cx="${x(p.i)}" cy="${y(p.a)}" r="4.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"${tipAttr(`<b>Attempt ${p.i + 1}</b>, ${num(minutesBetween(start, e.t), 0)} min after starting<br>Accuracy ${num(e.accuracy * 100, 1)}%, n = ${e.n == null ? "?" : num(e.n)} rows${e.n != null && e.n < SMALL_N ? " (small sample)" : ""}<br>Tree depth ${h(e.depth)}<br>Data copy ${h(e.dataset || "–")}`)}><title>Attempt ${p.i + 1}: ${num(e.accuracy * 100, 1)}%, n = ${e.n == null ? "?" : num(e.n)}</title></circle>`;
     }).join("");
-    return `<svg class="profile-chart" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Accuracy of each model attempt">${grid}<path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2"/>${dots}<text x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle" font-size="10.5" fill="var(--muted)">attempt 1 to ${emits.length} →</text></svg>`;
+    return `<svg class="profile-chart" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Accuracy of each model attempt">${grid}<path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2"/>${dots}<text x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle" font-size="10.5" fill="var(--muted)">attempt 1 to ${emits.length} →</text></svg>${pts.length < emits.length ? `<p class="small">${num(emits.length - pts.length)} submission${emits.length - pts.length === 1 ? "" : "s"} scored no rows and ${emits.length - pts.length === 1 ? "is" : "are"} not plotted.</p>` : ""}`;
   }
   function logBlock(s) {
     const days = logDays[s] || {};
@@ -938,23 +967,25 @@
       let out = `<section class="session"><h3>${h(meta.name)} <span class="small">${h(meta.date)}</span></h3>`;
       if (!v) return out + `<p class="empty">No class-session log is stored.</p></section>`;
       const start = v.first_event.slice(11);
-      const vt = meta.ss && C.sessions[s][meta.ss].votat;
+      const vt = v.votat;
+      const preds = v.predictors_tried || [];
       out += kv([
         ["Model attempts", num(v.emit_count)],
         ["First attempt", v.minutes_to_first_emit == null ? "–" : `${num(v.minutes_to_first_emit, 0)} min after starting`],
-        ["Accuracy of last attempt", v.last_emit_accuracy == null ? "–" : num(v.last_emit_accuracy * 100, 1) + "%"],
-        ["Predictors tried", v.unique_attributes_dropped.length ? v.unique_attributes_dropped.map(h).join(", ") : "–"],
-        ["Threshold changes", num(v.modelling_actions.change_split_values)],
-        vt && ["Changed one thing at a time", `${num(vt.votat_rate * 100, 0)}% of ${vt.intervals} steps between attempts`],
+        ["Accuracy of last attempt", accuracyText(v)],
+        ["Target", (v.targets || []).length ? v.targets.map((t) => h(varName(t))).join(", ") : "–"],
+        ["Predictors tried", preds.length ? preds.map((a) => h(varName(a))).join(", ") : "–"],
+        ["Threshold edit events", num(v.modelling_actions.change_split_values)],
+        vt && ["One kind of edit (VOTAT)", `${num(vt.votat_rate * 100, 0)}% of ${vt.intervals} steps between submissions`],
       ]);
-      if (meta.ss && !vt) out += `<p class="small">No one-thing-at-a-time rate is stored for this session.</p>`;
+      if (!vt) out += `<p class="small">No one-kind-of-edit rate: ${v.emit_count < 2 ? "fewer than two submissions, so there are no steps between them." : "no rate is stored for this session."}</p>`;
       if (v.emits.length) out += `<h4>Accuracy of each attempt</h4>` + accuracyChart(v.emits, start);
       out += `<h4>What the student did</h4>` + table([{ t: "Action" }, { t: "Times", num: 1 }], MODEL_ACTIONS.filter((a) => v.modelling_actions[a]).map((a) => ({ cells: [h(ACTION[a]), num(v.modelling_actions[a])] })));
       let t = `<h4>All recorded actions</h4>` + table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(v.actions).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })));
-      t += kv([["Total actions", num(v.events)], ["Session span", `${num(v.span_minutes, 0)} min (UTC ${h(start)} to ${h(v.last_event.slice(11))})`], ["Accuracy spread (SD)", v.accuracy_sd == null ? "–" : num(v.accuracy_sd, 3)], ["Predictor placements", num(v.predictor_drops)]]);
-      if (v.emits.length) t += `<h4>Attempts</h4>` + table([{ t: "#", num: 1 }, { t: "Minutes in", num: 1 }, { t: "Target" }, { t: "Depth", num: 1 }, { t: "Accuracy", num: 1 }, { t: "TP", num: 1 }, { t: "TN", num: 1 }, { t: "FP", num: 1 }, { t: "FN", num: 1 }],
-        v.emits.map((e, i) => ({ cells: [i + 1, num(minutesBetween(start, e.t), 1), h(e.target), h(e.depth), e.accuracy == null ? "–" : num(e.accuracy * 100, 1) + "%", h(e.TP), h(e.TN), h(e.FP), h(e.FN)] })));
-      if (vt && vt.interval_rows.length) t += `<h4>Steps between attempts (VOTAT)</h4>` + table([{ t: "Step", num: 1 }, { t: "Predictor changes", num: 1 }, { t: "Threshold changes", num: 1 }, { t: "One thing at a time" }], vt.interval_rows.map((x, i) => ({ cells: [i + 1, num(x.predictor_changes), num(x.threshold_changes), yesno(x.is_votat)] }))) + src(vt.source);
+      t += kv([["Total actions", num(v.events)], ["Session span", `${num(v.span_minutes, 0)} min (UTC ${h(start)} to ${h(v.last_event.slice(11))})`], ["Accuracy spread (SD)", v.accuracy_sd == null ? "–" : num(v.accuracy_sd, 3)], ["Predictor placements", num(v.predictor_drops)], ["All variables placed", v.unique_attributes_dropped.length ? v.unique_attributes_dropped.map((a) => h(varName(a))).join(", ") : "–"]]);
+      if (v.emits.length) t += `<h4>Attempts</h4>` + table([{ t: "#", num: 1 }, { t: "Minutes in", num: 1 }, { t: "Data copy" }, { t: "Target" }, { t: "Depth", num: 1 }, { t: "Accuracy", num: 1 }, { t: "n", num: 1 }, { t: "TP", num: 1 }, { t: "TN", num: 1 }, { t: "FP", num: 1 }, { t: "FN", num: 1 }],
+        v.emits.map((e, i) => ({ cells: [i + 1, num(minutesBetween(start, e.t), 1), h(e.dataset || "–"), h(e.target), h(e.depth), e.accuracy == null || !e.n ? "–" : num(e.accuracy * 100, 1) + "%", e.n == null ? "–" : num(e.n), h(e.TP), h(e.TN), h(e.FP), h(e.FN)] })));
+      if (vt && vt.interval_rows.length) t += `<h4>Steps between submissions (VOTAT)</h4>` + table([{ t: "Step", num: 1 }, { t: "Predictors placed", num: 1 }, { t: "Threshold edit events", num: 1 }, { t: "One kind of edit" }], vt.interval_rows.map((x, i) => ({ cells: [i + 1, num(x.predictor_changes), num(x.threshold_changes), yesno(x.is_votat)] }))) + src(vt.source);
       t += src(C.logs.source);
       return out + tech("Technical event details", t) + `</section>`;
     }).join("") + `<p>${methodLink("logs", "What these measures mean")}</p>`;
@@ -998,7 +1029,7 @@
     }
     if (e) t += (e.data_source_note ? `<p class="orig">${h(e.data_source_note)}</p>` : "") + src(e.source);
     if (n.scoring) t += kv([["Scored by", `<code>${h(n.scoring.scored_by)}</code>`], ["Rubric version", `<code>${h(n.scoring.rubric_version)}</code>`]]) + src(n.scoring.source);
-    return out + tech("Technical details for majors", t) + `<p>${methodLink("notebooks")}</p>`;
+    return out + tech("Technical details", t) + `<p>${methodLink("notebooks")}</p>`;
   }
 
   function pageStudent(s, tab) {
@@ -1199,7 +1230,7 @@
       <div class="cat-grid">
         <a class="cat-card" href="#/explore/worksheets"><h3>Worksheets</h3><p>${C.worksheets.length} instructional worksheets. Open one for its blank file, answer key, and the scanned student submissions.</p></a>
         <a class="cat-card" href="#/explore/recordings"><h3>Screen recording frames</h3><p>${num(F.length)} frames extracted from the CODAP sessions. Previews on this site are a spaced subset. Original videos are not published.</p></a>
-        <a class="cat-card" href="#/explore/logs"><h3>Platform logs</h3><p>${num(logEvents)} time-stamped CODAP Arbor actions. Logs are not matched to individual frames.</p></a>
+        <a class="cat-card" href="#/explore/logs"><h3>Platform logs</h3><p>${num(logEventsClass)} time-stamped CODAP Arbor actions from 2 class sessions (21 and 28 April 2026). A separate 7 April Titanic log is described on the page. Logs are not matched to individual frames.</p></a>
         <a class="cat-card" href="#/explore/notebooks"><h3>Python notebooks</h3><p>The guided Colab notebook, the final homework, and the anonymised student files.</p></a>
       </div>
       <p class="small span-line">A worksheet response is not joined to a screen frame or a log event anywhere in the files this site reads.</p>
@@ -1934,18 +1965,20 @@
   }
 
 
+  // Hand-picked rows from codap_log_anonymized.csv, one per action type: [participant, session, id, timestamp_ms, action, detail].
   const LOG_SAMPLE = [
-    ["Ulysses", "dragstart", "Protein (g)"],
-    ["Nadia", "set_dependent_variable", "Column 1"],
-    ["Irma", "change_split_values", "Tuz (g) < 0.92"],
-    ["Marcus", "emit_tree_data", "Column 1 · accuracy 0.522"],
-    ["Zara", "set_focus_node", "Şeker (g)"],
-    ["Shana", "data_context_change", "moveAttribute"],
-    ["Melinda", "drop_attribute", "Yağ (g)"],
-    ["Marco", "swap_focus_split", "Oneri"],
-    ["Bruno", "change_tree_type", "classification"],
-    ["Isabel", "refresh_tree", "data"],
+    ["Ulysses", 1, 2847, 886220, "dragstart", "Protein (g)"],
+    ["Nadia", 1, 3754, 2148693, "set_dependent_variable", "Column 1 (recommendation label, unnamed copy)"],
+    ["Irma", 1, 4188, 2706238, "change_split_values", "Tuz (g) (salt) < 0.92. Old and new value are both stored as 0.92."],
+    ["Marcus", 1, 4264, 1285661, "emit_tree_data", "Target Column 1, depth 2, accuracy 52.2% on 46 rows"],
+    ["Zara", 1, 4387, 3009032, "set_focus_node", "Şeker (g) (sugar)"],
+    ["Shana", 1, 4472, 3173223, "data_context_change", "Moved a column in the data table (moveAttribute)"],
+    ["Melinda", 2, 7933, 575295, "drop_attribute", "Yağ (g) (fat)"],
+    ["Marco", 2, 7974, 452229, "swap_focus_split", "Oneri (recommendation label)"],
+    ["Bruno", 2, 9135, 1264732, "change_tree_type", "Set to classification"],
+    ["Isabel", 1, 6854, 4352373, "refresh_tree", "Refresh with type “data”"],
   ];
+  const mmss = (ms) => { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
   function pageLogs() {
     const excludedByDay = C.logs.rows_excluded_unmatched_by_day || {};
     const sessionDates = Object.keys(LOG_DAYS);
@@ -1957,23 +1990,34 @@
       sessionDates.map((d) => ({ cells: [h(sessionLabel[d]), num(publicCount(d))] })).concat([{ cells: [h("Total"), num(publicRows)] }]),
       { cls: "log-dict log-counts" }
     );
-    const sampleRows = LOG_SAMPLE.map(([who, code, detail]) => `<tr>
+    const sampleRows = LOG_SAMPLE.map(([who, ses, , ms, code, detail]) => `<tr>
         <td data-label="Participant">${h(who)}</td>
+        <td data-label="Session">${num(ses)}</td>
+        <td data-label="Time (mm:ss)">${mmss(ms)}</td>
         <td data-label="Action">${h(ACTION[code] || code)}</td>
         <td data-label="Action code"><code>${h(code)}</code></td>
         <td data-label="Detail">${h(detail)}</td>
       </tr>`).join("");
+    const pairs = sum(STUDENTS.map((s) => sessionDates.filter((d) => (logDays[s] || {})[d]).length));
+    const people = STUDENTS.filter((s) => sessionDates.some((d) => (logDays[s] || {})[d])).length;
     return `<div class="page wide">${exploreShell("logs", `
       ${crumbs([["Collected data", "#/collected"], ["CODAP platform logs"]])}
       <h1>CODAP platform logs</h1>
       <p class="lead log-lead">Platform logs record participants’ actions in CODAP Arbor, helping researchers understand how they interact with the decision-tree activity.</p>
+      <dl class="terms compact-terms log-summary">
+        <dt>Sessions</dt><dd>CODAP session 1 (21 April 2026): ${num(publicCount("2026-04-21"))} records. CODAP session 2 (28 April 2026): ${num(publicCount("2026-04-28"))} records. Total ${num(publicRows)}.</dd>
+        <dt>Participants</dt><dd>${num(people)} participants, ${num(pairs)} participant–session pairs with a log.</dd>
+        <dt>Activity data</dt><dd>A Turkish food dataset. The target is the recommendation label, stored as <code>Oneri</code> or, in some students’ tables, as an unnamed column CODAP calls <code>Column 1</code>. Its values are “Recommendable” and “Not recommendable”.</dd>
+        <dt>Not included</dt><dd>A 7 April 2026 log from the Titanic activity (${num(logEventsTitanic)} events) is kept in the archive but is not part of this dataset.</dd>
+      </dl>
       <h2 class="log-sample-title">Example log records</h2>
-      <p class="log-caption">Selected records from the complete dataset.</p>
+      <p class="log-caption">Hand-picked examples, one per action type, from the public file. Column names in the food data are Turkish. An English gloss is given in brackets.</p>
       <div class="table-wrap log-sample-wrap"><table class="log-examples">
-        <colgroup><col class="log-c-who"><col class="log-c-action"><col class="log-c-code"><col class="log-c-detail"></colgroup>
-        <thead><tr><th>Participant</th><th>Action</th><th>Action code</th><th>Detail</th></tr></thead>
+        <thead><tr><th>Participant</th><th>Session</th><th>Time (mm:ss)</th><th>Action</th><th>Action code</th><th>Detail</th></tr></thead>
         <tbody>${sampleRows}</tbody>
       </table></div>
+      <p class="small">Time is <code>timestamp_ms</code> shown as minutes and seconds within the participant’s session. A threshold edit event (<code>change_split_values</code>) shows that the split editor was used. The log stores the same old and new value in every such row, so it cannot show whether the threshold changed.</p>
+      <p><a href="#/findings/logs">Platform log findings</a> · <a href="#/methods/logs">How log measures are computed</a></p>
       <h2>Complete dataset</h2>
       <section class="section-block" id="log-dataset">
         <div class="dataset-card log-dataset">
@@ -1983,7 +2027,7 @@
           <a class="btn btn-primary frame-dataset-btn" href="${HF_LOGS}" target="_blank" rel="noopener">Explore the dataset on Hugging Face</a>
         </div>
       </section>
-      ${tech("Technical details for majors", `<div class="log-tech">
+      ${tech("Technical details", `<div class="log-tech">
         <h3>Sessions and dataset overview</h3>
         <p class="log-note">The public platform-log dataset is organized into two CODAP sessions. Each record belongs to one of these sessions, allowing visitors to explore participants' actions across the two activities.</p>
         ${publicSessionTable}
@@ -1995,11 +2039,11 @@
           { cells: ["<code>student_id</code>", "Pseudonymized participant identifier."] },
           { cells: ["<code>session</code>", "Identifies CODAP Session 1 or CODAP Session 2."] },
           { cells: ["<code>action</code>", "Code describing the recorded action."] },
-          { cells: ["<code>timestamp_ms</code>", "Elapsed time in milliseconds within the participant's session."] },
+          { cells: ["<code>timestamp_ms</code>", "Elapsed time in milliseconds within the participant's session. It is not always increasing: within a participant’s session it drops between 920 of 9,541 consecutive rows in id order. Neither id nor timestamp_ms gives a strict time order."] },
           { cells: ["<code>parameters</code>", "Additional details associated with the action, stored as text."] },
         ], { cls: "log-dict" })}
         <h3>Action codes</h3>
-        ${table([{ t: "Action code" }, { t: "Meaning" }], Object.entries(ACTION).map(([k, label]) => ({ cells: [`<code>${h(k)}</code>`, h(label)] })), { cls: "log-dict log-codes" })}
+        ${table([{ t: "Action code" }, { t: "Meaning" }, { t: "Records", num: 1 }], Object.entries(ACTION).filter(([k]) => logActionsClass[k]).sort((a, b) => logActionsClass[b[0]] - logActionsClass[a[0]]).map(([k, label]) => ({ cells: [`<code>${h(k)}</code>`, h(label), num(logActionsClass[k])] })), { cls: "log-dict log-codes" })}
       </div>`)}`)}</div>`;
   }
   function logFindingsSection() {
@@ -2007,38 +2051,44 @@
     STUDENTS.forEach((s) => Object.entries(LOG_DAYS).forEach(([d, meta]) => {
       const v = logDays[s] && logDays[s][d];
       if (!v) {
-        rows.push({ cells: [h(s), h(meta.name), '<span class="na">no data</span>', '<span class="na">·</span>', '<span class="na">·</span>', '<span class="na">·</span>'] });
+        rows.push({ cells: [h(s), h(meta.name), '<span class="na">no log</span>', "", "", ""] });
         return;
       }
-      const vt = meta.ss && C.sessions[s][meta.ss].votat;
-      rows.push({ href: `#/explore/student/${s}/logs`, cells: [`<a href="#/explore/student/${h(s)}/logs">${h(s)}</a>`, h(meta.name), num(v.emit_count), v.last_emit_accuracy == null ? "–" : num(v.last_emit_accuracy * 100, 1) + "%", num(v.unique_attributes_dropped.length), vt ? num(vt.votat_rate * 100, 0) + "%" : "–"] });
+      const vt = v.votat;
+      const acc = v.last_emit_accuracy == null ? "–" : `${num(v.last_emit_accuracy * 100, 1)}% <span class="small">(n = ${v.last_emit_n == null ? "?" : num(v.last_emit_n)})</span>${v.last_emit_n != null && v.last_emit_n < SMALL_N ? " *" : ""}`;
+      rows.push({ href: `#/explore/student/${s}/logs`, cells: [`<a href="#/explore/student/${h(s)}/logs">${h(s)}</a>`, h(meta.name), num(v.emit_count), acc, num((v.predictors_tried || []).length), vt ? num(vt.votat_rate * 100, 0) + "%" : "–"] });
     }));
-    const present = rows.filter((r) => !String(r.cells[2]).includes("no data"));
+    const present = rows.filter((r) => !String(r.cells[2]).includes("no log"));
     const totalEmits = STUDENTS.reduce((t, s) => t + Object.entries(LOG_DAYS).reduce((a, [d]) => a + (((logDays[s] || {})[d] || {}).emit_count || 0), 0), 0);
-    const accuracies = STUDENTS.flatMap((s) => Object.keys(LOG_DAYS).map((d) => (logDays[s] || {})[d]).map((v) => v && v.last_emit_accuracy).filter((v) => typeof v === "number"));
-    const avgAcc = accuracies.length ? accuracies.reduce((a, b) => a + b, 0) / accuracies.length : null;
-    const byStudent = STUDENTS.map((s) => Object.entries(LOG_DAYS).reduce((a, [d]) => a + (((logDays[s] || {})[d] || {}).emit_count || 0), 0));
-    const maxEmits = byStudent.length ? Math.max(...byStudent) : 0;
+    const lastRows = STUDENTS.flatMap((s) => Object.keys(LOG_DAYS).map((d) => (logDays[s] || {})[d])).filter((v) => v && typeof v.last_emit_accuracy === "number");
+    const accSorted = lastRows.map((v) => v.last_emit_accuracy).sort((a, b) => a - b);
+    const medAcc = accSorted.length ? (accSorted.length % 2 ? accSorted[(accSorted.length - 1) / 2] : (accSorted[accSorted.length / 2 - 1] + accSorted[accSorted.length / 2]) / 2) : null;
+    const ns = lastRows.map((v) => v.last_emit_n).filter((n) => typeof n === "number");
+    let top = null;
+    STUDENTS.forEach((s) => Object.entries(LOG_DAYS).forEach(([d, meta]) => {
+      const v = (logDays[s] || {})[d];
+      if (v && (!top || v.emit_count > top.n)) top = { s, name: meta.name, n: v.emit_count };
+    }));
     const sessionsWithData = STUDENTS.reduce((t, s) => t + Object.keys(LOG_DAYS).filter((d) => (logDays[s] || {})[d]).length, 0);
     const L = C.logs;
     return `<h2 id="log-summaries">Key findings</h2>
       <p>These counts cover CODAP session 1 and CODAP session 2 only. A log records actions in CODAP Arbor. It does not show what a participant understood.</p>
       <div class="log-metrics">
         <div class="log-metric"><div class="lm-label">Total model attempts</div><div class="lm-name">${num(totalEmits)}</div><div class="lm-desc">Both class sessions</div></div>
-        <div class="log-metric"><div class="lm-label">Mean last accuracy</div><div class="lm-name">${avgAcc != null ? num(avgAcc * 100, 1) + "%" : "–"}</div><div class="lm-desc">Mean of each session's last recorded accuracy</div></div>
-        <div class="log-metric"><div class="lm-label">Most attempts</div><div class="lm-name">${num(maxEmits)}</div><div class="lm-desc">One participant, both class sessions</div></div>
+        <div class="log-metric"><div class="lm-label">Median last accuracy</div><div class="lm-name">${medAcc != null ? num(medAcc * 100, 1) + "%" : "–"}</div><div class="lm-desc">${num(lastRows.length)} sessions. Rows scored per last attempt: ${ns.length ? `${num(Math.min(...ns))} to ${num(Math.max(...ns))}` : "–"}. Not comparable across data copies.</div></div>
+        <div class="log-metric"><div class="lm-label">Most attempts in one session</div><div class="lm-name">${top ? num(top.n) : "–"}</div><div class="lm-desc">${top ? `${h(top.s)}, ${h(top.name)}` : ""}</div></div>
         <div class="log-metric"><div class="lm-label">Sessions with a log</div><div class="lm-name">${num(sessionsWithData)}</div><div class="lm-desc">Participant × class session</div></div>
       </div>
-      <dl class="terms compact-terms"><dt>Model attempts</dt><dd>Times the participant submitted a tree's results.</dd><dt>Predictors tried</dt><dd>Different variables placed into the tree.</dd><dt>One thing at a time</dt><dd>Share of steps where only one setting changed between attempts. This describes the log. It does not prove a planned experiment.</dd></dl>
+      <dl class="terms compact-terms"><dt>Model attempts</dt><dd>Times the participant submitted a tree's results.</dd><dt>Last accuracy</dt><dd>Accuracy on the last submission that scored at least one row. n is the number of rows scored. * marks n below ${SMALL_N}.</dd><dt>Predictors tried</dt><dd>Different variables placed into the tree, not counting the target, the recommendation label, or the product name.</dd><dt>One kind of edit (VOTAT)</dt><dd>Share of steps between two submissions with only one kind of edit: only predictors placed, or only threshold edit events. A step can hold several edits of that kind. This describes the log. It does not prove a planned experiment.</dd></dl>
       <h2>Results</h2>
-      <p>${num(present.length)} of ${num(rows.length)} participant–session pairs have a log for these two class days. “No data” means that pair has no stored log.</p>
-      ${table([{ t: "Participant" }, { t: "Session" }, { t: "Model attempts", num: 1 }, { t: "Last accuracy", num: 1 }, { t: "Predictors tried", num: 1 }, { t: "One thing at a time", num: 1 }], rows)}
+      <p>${num(present.length)} of ${num(rows.length)} participant–session pairs have a log for these two class sessions. “No log” means that pair has no stored log. “–” means the log exists but the value cannot be computed, for example fewer than two submissions.</p>
+      ${table([{ t: "Participant" }, { t: "Session" }, { t: "Model attempts", num: 1 }, { t: "Last accuracy", num: 1 }, { t: "Predictors tried", num: 1 }, { t: "One kind of edit", num: 1 }], rows)}
       <h2>Interpretation</h2>
-      <p>The table describes recorded interaction with CODAP Arbor. Last accuracy is the accuracy stored on the last model submission in that session. It is not a test score, and it is not evidence that the participant understood the tree.</p>
+      <p>The table describes recorded interaction with CODAP Arbor. Last accuracy is the accuracy stored on the last model submission in that session. Students worked on different copies of the data, and some last submissions scored few rows. It is not a test score, and it is not evidence that the participant understood the tree.</p>
       <p>${methodLink("logs", "What these measures mean")}</p>
-      ${tech("Technical details for majors", `<p class="log-note">The site data also stores a 7 April 2026 log for some participants. That day is not one of the two published class sessions, so those rows are left out of the counts and the table above.</p>
+      ${tech("Technical details", `<p class="log-note">The archive also stores a 7 April 2026 log from the Titanic activity. It is not part of the published food-dataset sessions, so those rows are left out of the counts and the table above.</p>
         <h3>Actions stored with the log file</h3>
-        <p class="log-note">These totals come from every matched row used to build the site log, including the 7 April rows. They are not limited to the two class sessions.</p>
+        <p class="log-note">These totals come from every matched row used to build the site log, including the 7 April Titanic rows. They are not limited to the two class sessions.</p>
         ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}`)}`;
   }
   function pageNotebooks() {
@@ -2114,7 +2164,7 @@
           <ul class="nb-files">${guidedRows}</ul>
         </div>
       </details>
-      ${tech("Technical details for majors", `<div class="log-tech">
+      ${tech("Technical details", `<div class="log-tech">
         <h3>Guided learning sequence</h3>
         <p class="log-note">The teacher notebook, used in Google Colab, starts with <code>print()</code>, variables, and lists. It then loads the food table, separates measurements from the recommendation label, fits a decision tree, and compares trees of different depths. A <strong>feature</strong> is a column the tree may use. The <strong>target</strong> is the label it is asked to predict. <strong>Training rows</strong> are used to grow the tree. <strong>Test rows</strong> are held back, so the score is not only a memory of the rows used to fit it.</p>
         <h3>Python tools and libraries</h3>

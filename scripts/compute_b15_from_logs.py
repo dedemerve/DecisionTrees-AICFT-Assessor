@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -25,9 +26,17 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DATA_ROOT = REPO_ROOT / "data_sources_2026"
 
+# Each export file is cumulative: the 21 April file also holds 7 April rows,
+# and the 28 April file holds 7, 21, 25 and 28 April rows. Rows are therefore
+# filtered by the calendar date in created_at.
 LOG_FILES = {
     "21apr": DATA_ROOT / "All Documents" / "21 Nisan 2026 CODAP Arbor Food Log File (anonymized).csv",
     "28apr": DATA_ROOT / "All Documents" / "28 Nisan 2026 CODAP Arbor Food Log File (anonymized).csv",
+}
+
+SESSION_DATES = {
+    "21apr": "2026-04-21",
+    "28apr": "2026-04-28",
 }
 
 SESSION_DIRS = {
@@ -36,15 +45,42 @@ SESSION_DIRS = {
 }
 
 
+def _id_resolver():
+    """Use the site build's resolver so log IDs typed as real names map to the
+    same pseudonyms everywhere. Unresolved IDs (for example instructors) are dropped."""
+    sys.path.insert(0, str(REPO_ROOT / "mmla_explorer"))
+    import build_site_data as site  # noqa: E402
+
+    pmap = site.load_pseudonym_map()
+    return lambda raw: site.resolve_log_id(raw, pmap)
+
+
 def load_log(session_key: str) -> list[dict]:
+    """Rows for one class session only, with student_id resolved to a pseudonym."""
     path = LOG_FILES.get(session_key)
     if path is None or not path.is_file():
         return []
+    day = SESSION_DATES[session_key]
+    resolve = _id_resolver()
     rows = []
     with path.open(encoding="utf-8-sig") as f:
         for row in csv.DictReader(f):
-            rows.append(row)
+            if (row.get("created_at") or "")[:10] != day:
+                continue
+            sid = resolve(row.get("student_id"))
+            if sid is None:
+                continue
+            rows.append(dict(row, student_id=sid))
     return rows
+
+
+def _order_key(ev: dict):
+    """Order events by wall-clock time. timestamp_ms is not monotonic within a
+    session, so it is only a fallback when created_at is missing."""
+    created = ev.get("created_at")
+    if created:
+        return (created, int(ev.get("id") or 0))
+    return ("", int(ev.get("timestamp_ms") or 0))
 
 
 def parse_params(raw: str) -> dict:
@@ -68,14 +104,14 @@ def compute_votat(events: list[dict]) -> dict:
         b15_level          — "Deepen" if 3+ consecutive VOTAT, "Acquire" if 2+
     """
     emit_events: list[dict] = []
-    all_events = sorted(events, key=lambda e: int(e.get("timestamp_ms") or 0))
+    all_events = sorted(events, key=_order_key)
 
-    for ev in all_events:
+    for pos, ev in enumerate(all_events):
         action = ev.get("action", "")
         ts = int(ev.get("timestamp_ms") or 0)
         params = parse_params(ev.get("parameters", "{}"))
         if action == "emit_tree_data":
-            emit_events.append({"ts": ts, "params": params})
+            emit_events.append({"ts": ts, "pos": pos, "params": params})
 
     if len(emit_events) < 2:
         return {
@@ -86,11 +122,8 @@ def compute_votat(events: list[dict]) -> dict:
     intervals = []
     for a, b in zip(emit_events[:-1], emit_events[1:]):
         ts_a, ts_b = a["ts"], b["ts"]
-        # Collect events between the two emits
-        between = [
-            ev for ev in all_events
-            if ts_a < int(ev.get("timestamp_ms") or 0) < ts_b
-        ]
+        # Collect events between the two emits (by position in time order)
+        between = all_events[a["pos"] + 1:b["pos"]]
         pred_changes = sum(1 for ev in between if ev.get("action") == "drop_attribute")
         thresh_changes = sum(1 for ev in between if ev.get("action") == "change_split_values")
 
@@ -150,8 +183,10 @@ def run(session_key: str) -> None:
         result = compute_votat(events)
         result["student_id"] = student
         result["session_key"] = session_key
+        result["session_date"] = SESSION_DATES[session_key]
         result["computed_at"] = datetime.now(timezone.utc).isoformat()
         result["source"] = "2026_codap_event_log"
+        result["filter"] = "created_at date == session_date; ordered by created_at"
 
         out_dir = session_dir / student
         if not out_dir.is_dir():

@@ -803,6 +803,14 @@ def resolve_log_id(raw: str, pmap: dict) -> str | None:
     return None
 
 
+LOG_CLASS_DAYS = ("2026-04-21", "2026-04-28")
+# "Column 1" and "Oneri" hold the recommendation label (categorical splits use
+# "Recommendable" / "Tavsiye edilebilir"). "Ürün Adı" is the product name.
+# None of them is a predictor, even when dragged into the tree.
+LOG_LABEL_COLUMNS = {"Column 1", "Oneri"}
+LOG_ID_COLUMNS = {"Ürün Adı"}
+
+
 def build_logs() -> dict:
     src = DS / "All Documents" / "28 Nisan 2026 CODAP Arbor Food Log File (anonymized).csv"
     rows = list(csv.DictReader(open(src, encoding="utf-8")))
@@ -862,8 +870,25 @@ def build_logs() -> dict:
                     drops.append(json.loads(r["parameters"]).get("attribute"))
                 except json.JSONDecodeError:
                     pass
+        for e in emits:
+            cm = [e[k] for k in ("TP", "TN", "FP", "FN")]
+            e["n"] = sum(cm) if all(isinstance(x, (int, float)) for x in cm) else None
+        targets = sorted({e["target"] for e in emits if e["target"]})
+        not_predictors = set(targets) | LOG_LABEL_COLUMNS | LOG_ID_COLUMNS
         t0 = ts(rs[0])
-        accs = [e["accuracy"] for e in emits if isinstance(e["accuracy"], (int, float))]
+        # An emit whose confusion counts are all zero has no rows to score; its stored 0 is not an accuracy.
+        scored = [e for e in emits if isinstance(e["accuracy"], (int, float)) and e["n"]]
+        accs = [e["accuracy"] for e in scored]
+        votat = None
+        vkey = {"2026-04-21": ("codap_arbor_21april_audio", "21apr"), "2026-04-28": ("codap_arbor_28april_audio", "28apr")}.get(day)
+        if vkey:
+            vp = DS / vkey[0] / sid / f"{sid}_{vkey[1]}_b15_log.json"
+            if vp.exists():
+                vj = load_json(vp)
+                votat = {"source": rel(vp), "votat_rate": vj.get("votat_rate"), "total_emits": vj.get("total_emits"),
+                         "intervals": len(vj.get("votat_intervals") or []),
+                         "max_consecutive_votat": vj.get("max_consecutive_votat"),
+                         "interval_rows": vj.get("votat_intervals") or []}
         out["per_student"].setdefault(sid, {})[day] = {
             "events": len(rs),
             "first_event": rs[0]["created_at"][:19],
@@ -874,13 +899,22 @@ def build_logs() -> dict:
             "emit_count": len(emits),
             "minutes_to_first_emit": round((emits[0]["t"] - t0).total_seconds() / 60, 1) if emits else None,
             "last_emit_accuracy": accs[-1] if accs else None,
+            "last_emit_n": scored[-1]["n"] if scored else None,
+            "last_emit_dataset": scored[-1]["dataset"] if scored else None,
+            "emits_without_rows": sum(1 for e in emits if not e["n"]),
             "accuracy_sd": round(statistics.pstdev(accs), 4) if len(accs) >= 2 else None,
             "predictor_drops": len(drops),
             "unique_attributes_dropped": sorted({a for a in drops if a}),
+            "targets": targets,
+            "predictors_tried": sorted({a for a in drops if a and a not in not_predictors}),
+            "votat": votat,
             "emits": [{k: (v.strftime("%H:%M:%S") if k == "t" else v) for k, v in e.items()} for e in emits],
         }
     out["delete_events_present"] = any("delete" in a.lower() for a in Counter(r["action"] for r in rows))
     out["action_types"] = dict(Counter(r["action"] for k, rs in per.items() for r in rs))
+    out["class_days"] = list(LOG_CLASS_DAYS)
+    out["action_types_class_days"] = dict(Counter(r["action"] for (sid, day), rs in per.items() if day in LOG_CLASS_DAYS for r in rs))
+    out["events_class_days"] = sum(len(rs) for (sid, day), rs in per.items() if day in LOG_CLASS_DAYS)
     return out
 
 
@@ -1251,10 +1285,12 @@ def main():
     for s, days in logs["per_student"].items():
         for day, v in days.items():
             log_rows.append([s, day, v["events"], v["span_minutes"], v["emit_count"], v["minutes_to_first_emit"],
-                             v["last_emit_accuracy"], v["accuracy_sd"], v["predictor_drops"],
-                             len(v["unique_attributes_dropped"])] + [v["modelling_actions"][a] for a in MODELLING_ACTIONS])
+                             v["last_emit_accuracy"], v["last_emit_n"], v["accuracy_sd"], v["predictor_drops"],
+                             len(v["predictors_tried"]), (v["votat"] or {}).get("votat_rate")]
+                            + [v["modelling_actions"][a] for a in MODELLING_ACTIONS])
     write_csv("log_sessions.csv", ["student", "date", "events", "span_minutes", "emit_count", "minutes_to_first_emit",
-                                   "last_emit_accuracy", "accuracy_sd", "predictor_drops", "unique_attributes"]
+                                   "last_emit_accuracy", "last_emit_n", "accuracy_sd", "predictor_drops",
+                                   "predictors_tried", "votat_rate"]
               + MODELLING_ACTIONS, log_rows)
 
     # Stamp asset links so browsers load the fresh build.
