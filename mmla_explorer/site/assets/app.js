@@ -423,7 +423,7 @@
         <a class="metric" href="#/findings/participants"><div class="v">${STUDENTS.length}</div><div class="l">Participants</div><div class="s">Pseudonyms only</div></a>
         <a class="metric" href="#/explore/worksheets"><div class="v">${C.worksheets.length}</div><div class="l">Worksheets</div><div class="s">${num(schemaFields)} response fields</div></a>
         <a class="metric" href="#/explore/recordings"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} with a behaviour label</div></a>
-        <a class="metric" href="#/explore/logs"><div class="v">${num(logEventsClass)}</div><div class="l">Log events</div><div class="s">CODAP Arbor, 2 class sessions (21 and 28 April 2026)</div></a>
+        <a class="metric" href="#/explore/logs"><div class="v">${num(logEventsClass)}</div><div class="l">Log events</div><div class="s">CODAP Arbor, 2 class sessions</div></a>
       </div>
       <h2>How the archive is organised</h2>
       <p class="span-line">Collected data describe what was gathered; Findings present what the analyses reveal.</p>
@@ -690,7 +690,7 @@
 
       <section class="method-block" id="m-logs">
         <h2>Platform logs</h2>
-        <p>CODAP Arbor writes a time-stamped line each time the software records an action. The two class sessions (21 and 28 April 2026) hold ${num(logEventsClass)} events. This is the published log. The archive also keeps a 7 April 2026 log from the Titanic activity (${num(logEventsTitanic)} events). It is not part of the published log or the measures. Python rules turn the lines into measures. No language model reads these files.</p>
+        <p>CODAP Arbor writes a time-stamped line each time the software records an action. The two class sessions hold ${num(logEventsClass)} events. This is the published log. The archive also keeps a Titanic activity log (${num(logEventsTitanic)} events). It is not part of the published log or the measures. Python rules turn the lines into measures. No language model reads these files.</p>
         <h3>How log measures are computed</h3>
         <p>Each class session is read on its own. Rows are kept only when their <code>created_at</code> date is that session’s date. Events are ordered by <code>created_at</code>, because <code>timestamp_ms</code> is not always increasing within a session.</p>
         <div class="log-metrics">
@@ -909,7 +909,7 @@
   }
   function sessionBlock(s, ss) {
     const r = C.sessions[s][ss.id];
-    let out = `<section class="session"><h3>${h(SESS_NAME[ss.id])} <span class="small">${h(SESS_DATE[ss.id])}</span></h3>`;
+    let out = `<section class="session"><h3>${h(SESS_NAME[ss.id])}</h3>`;
     if (!r.manifest) return out + `<p class="empty">No screen recording from this session.</p></section>`;
     const cd = r.coding;
     sessionIssues(r).forEach((m) => { out += `<div class="warn">${h(m)} <a href="#/docs/limitations">Why this matters →</a></div>`; });
@@ -964,7 +964,7 @@
     const preface = window.StudentProfiles ? window.StudentProfiles.logPreface(s) : "";
     return preface + Object.entries(LOG_DAYS).map(([d, meta]) => {
       const v = days[d];
-      let out = `<section class="session"><h3>${h(meta.name)} <span class="small">${h(meta.date)}</span></h3>`;
+      let out = `<section class="session"><h3>${h(meta.name)}</h3>`;
       if (!v) return out + `<p class="empty">No class-session log is stored.</p></section>`;
       const start = v.first_event.slice(11);
       const vt = v.votat;
@@ -1230,7 +1230,7 @@
       <div class="cat-grid">
         <a class="cat-card" href="#/explore/worksheets"><h3>Worksheets</h3><p>${C.worksheets.length} instructional worksheets. Open one for its blank file, answer key, and the scanned student submissions.</p></a>
         <a class="cat-card" href="#/explore/recordings"><h3>Screen recording frames</h3><p>${num(F.length)} frames extracted from the CODAP sessions. Previews on this site are a spaced subset. Original videos are not published.</p></a>
-        <a class="cat-card" href="#/explore/logs"><h3>Platform logs</h3><p>${num(logEventsClass)} time-stamped CODAP Arbor actions from 2 class sessions (21 and 28 April 2026). A separate 7 April Titanic log is described on the page. Logs are not matched to individual frames.</p></a>
+        <a class="cat-card" href="#/explore/logs"><h3>Platform logs</h3><p>${num(logEventsClass)} time-stamped CODAP Arbor actions from 2 class sessions. A separate Titanic activity log is described on the page. Logs are not matched to individual frames.</p></a>
         <a class="cat-card" href="#/explore/notebooks"><h3>Python notebooks</h3><p>The guided Colab notebook, the final homework, and the anonymised student files.</p></a>
       </div>
       <p class="small span-line">A worksheet response is not joined to a screen frame or a log event anywhere in the files this site reads.</p>
@@ -1923,8 +1923,8 @@
     if (!frameView.ss) frameView.ss = firstSessionWithFrames(frameView.s);
     const tabs = SESS.map((ss) => {
       const ready = sessionPreviews(frameView.s, ss.id).length > 0;
-      const sub = !sessionHasFrames(frameView.s, ss.id) ? `${SESS_DATE[ss.id]} · No recording` : (ready ? SESS_DATE[ss.id] : `${SESS_DATE[ss.id]} · No previews`);
-      return `<button type="button" role="tab" class="sess-tab" data-ss="${h(ss.id)}" aria-selected="${frameView.ss === ss.id ? "true" : "false"}"><span>${h(SESS_NAME[ss.id])}</span><span class="when">${h(sub)}</span></button>`;
+      const sub = !sessionHasFrames(frameView.s, ss.id) ? `No recording` : (ready ? "" : `No previews`);
+      return `<button type="button" role="tab" class="sess-tab" data-ss="${h(ss.id)}" aria-selected="${frameView.ss === ss.id ? "true" : "false"}"><span>${h(SESS_NAME[ss.id])}</span>${sub ? `<span class="when">${h(sub)}</span>` : ""}</button>`;
     }).join("");
     const picsAll = sessionPreviews(frameView.s, frameView.ss);
     const pics = previewSample(picsAll);
@@ -2005,10 +2005,10 @@
       <h1>CODAP platform logs</h1>
       <p class="lead log-lead">Platform logs record participants’ actions in CODAP Arbor, helping researchers understand how they interact with the decision-tree activity.</p>
       <dl class="terms compact-terms log-summary">
-        <dt>Sessions</dt><dd>CODAP session 1 (21 April 2026): ${num(publicCount("2026-04-21"))} records. CODAP session 2 (28 April 2026): ${num(publicCount("2026-04-28"))} records. Total ${num(publicRows)}.</dd>
+        <dt>Sessions</dt><dd>CODAP session 1: ${num(publicCount("2026-04-21"))} records. CODAP session 2: ${num(publicCount("2026-04-28"))} records. Total ${num(publicRows)}.</dd>
         <dt>Participants</dt><dd>${num(people)} participants, ${num(pairs)} participant–session pairs with a log.</dd>
         <dt>Activity data</dt><dd>A Turkish food dataset. The target is the recommendation label, stored as <code>Oneri</code> or, in some students’ tables, as an unnamed column CODAP calls <code>Column 1</code>. Its values are “Recommendable” and “Not recommendable”.</dd>
-        <dt>Not included</dt><dd>A 7 April 2026 log from the Titanic activity (${num(logEventsTitanic)} events) is kept in the archive but is not part of this dataset.</dd>
+        <dt>Not included</dt><dd>A Titanic activity log (${num(logEventsTitanic)} events) is kept in the archive but is not part of this dataset.</dd>
       </dl>
       <h2 class="log-sample-title">Example log records</h2>
       <p class="log-caption">Hand-picked examples, one per action type, from the public file. Column names in the food data are Turkish. An English gloss is given in brackets.</p>
@@ -2086,9 +2086,9 @@
       <h2>Interpretation</h2>
       <p>The table describes recorded interaction with CODAP Arbor. Last accuracy is the accuracy stored on the last model submission in that session. Students worked on different copies of the data, and some last submissions scored few rows. It is not a test score, and it is not evidence that the participant understood the tree.</p>
       <p>${methodLink("logs", "What these measures mean")}</p>
-      ${tech("Technical details", `<p class="log-note">The archive also stores a 7 April 2026 log from the Titanic activity. It is not part of the published food-dataset sessions, so those rows are left out of the counts and the table above.</p>
+      ${tech("Technical details", `<p class="log-note">The archive also stores a Titanic activity log. It is not part of the published food-dataset sessions, so those rows are left out of the counts and the table above.</p>
         <h3>Actions stored with the log file</h3>
-        <p class="log-note">These totals come from every matched row used to build the site log, including the 7 April Titanic rows. They are not limited to the two class sessions.</p>
+        <p class="log-note">These totals come from every matched row used to build the site log, including the Titanic activity rows. They are not limited to the two class sessions.</p>
         ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}`)}`;
   }
   function pageNotebooks() {

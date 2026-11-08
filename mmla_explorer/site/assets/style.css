@@ -269,8 +269,8 @@ h1 { font-size: 1.85rem; line-height: 1.2; font-weight: 600; letter-spacing: -0.
 h2 { font-size: 1.25rem; line-height: 1.3; font-weight: 600; margin: 32px 0 10px; }
 h3 { font-size: 1.05rem; font-weight: 600; margin: 24px 0 8px; }
 h4 { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); margin: 20px 0 8px; font-weight: 600; }
-p { margin: 0 0 14px; max-width: 68ch; }
-.lead { font-size: 1.05rem; line-height: 1.55; color: var(--ink-2); max-width: 62ch; margin-bottom: 18px; }
+p { margin: 0 0 14px; max-width: none; }
+.lead { font-size: 1.05rem; line-height: 1.55; color: var(--ink-2); max-width: none; margin-bottom: 18px; }
 .small, .meta { font-size: 12.5px; color: var(--muted); }
 code, .mono { font-family: var(--mono); font-size: 0.86em; }
 .src { font-family: var(--mono); font-size: 11px; color: var(--muted); word-break: break-all; }
@@ -522,7 +522,7 @@ tr.click:hover td { background: var(--pale-2); }
 .dot.half { background: repeating-linear-gradient(45deg, var(--green) 0 2px, transparent 2px 4px); border-color: var(--green); }
 .dot.dup { background: repeating-linear-gradient(135deg, var(--warn-ink) 0 2px, transparent 2px 4px); border-color: var(--warn-ink); }
 
-.callout { border-left: 3px solid var(--blue); padding: 4px 0 4px 16px; margin: 18px 0; max-width: 68ch; }
+.callout { border-left: 3px solid var(--blue); padding: 4px 0 4px 16px; margin: 18px 0; max-width: none; }
 .callout p:last-child { margin-bottom: 0; }
 .warn { background: var(--warn-bg); color: var(--warn-ink); font-size: 13.5px; padding: 10px 14px; margin: 12px 0; border-radius: 8px; }
 ul.scoring-rules { margin: 0; padding-left: 1.2em; font-size: 13px; list-style: none; }
@@ -1783,3 +1783,12 @@ details.sr-accordion[open] > summary.sr-summary::before { transform: rotate(90de
   .profile-page details.ws > summary::after { grid-column: 2; grid-row: 1; justify-self: end; }
   .profile-tabs a { flex: 1 1 100%; }
 }
+
+/* Text spans the same width as the tables and cards on every page. */
+main p,
+main .lead,
+main dl.terms,
+main .callout,
+main .guide li,
+main .log-tech { max-width: none; }
+main .hero-lead { max-width: 46ch; }

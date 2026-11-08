@@ -387,7 +387,7 @@
       <section class="insight">
         <h3>Threshold edit events in the two class sessions</h3>
         ${shiftText}
-        <p class="small">A threshold edit event is the stored action change_split_values. The log stores the same old and new value in every such row, so it shows that the split editor was used, not that a threshold changed. Model submissions are stored emit counts. The 7 April Titanic log is not one of these sessions.</p>
+        <p class="small">A threshold edit event is the stored action change_split_values. The log stores the same old and new value in every such row, so it shows that the split editor was used, not that a threshold changed. Model submissions are stored emit counts. The Titanic activity log is not one of these sessions.</p>
       </section>
       <h2>What the four sources can be compared on</h2>
       <div class="theme-grid">
@@ -517,7 +517,7 @@
     if (!stored.length) return `<p class="small">No class-session log is stored. A larger action count is not evidence of difficulty or of a planned strategy.</p>`;
     const names = stored.map((item) => item.name).join(" and ");
     const extra = row.extraLogEvents != null
-      ? ` A 7 April Titanic log is also stored (${num(row.extraLogEvents)} events). It is not part of the two food-dataset class sessions, and it is not included in the counts below.`
+      ? ` A Titanic activity log is also stored (${num(row.extraLogEvents)} events). It is not part of the two food-dataset class sessions, and it is not included in the counts below.`
       : "";
     const split = stored.length === 2
       ? ` ${stored[0].short} records ${num(stored[0].threshold)} threshold edit events and ${num(stored[0].emits)} model submissions. ${stored[1].short} records ${num(stored[1].threshold)} threshold edit events and ${num(stored[1].emits)} model submissions.`

@@ -422,7 +422,7 @@
   function sessionPanel(pack, student, sessionId) {
     const model = pack.byStudent[student] && pack.byStudent[student][sessionId];
     if (!model) return `<p class="empty">That session is not in this archive.</p>`;
-    const heading = `<h3 class="preview-heading">${h(student)} · ${h(model.name)}${model.date ? ` · <span class="sess-date">${h(model.date)}</span>` : ""}</h3>`;
+    const heading = `<h3 class="preview-heading">${h(student)} · ${h(model.name)}</h3>`;
     if (!model.hasRecording) {
       return `${heading}
         <div class="empty-session"><p>No screen recording frames are on record for ${h(student)}, ${h(model.name)}.</p></div>`;
