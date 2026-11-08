@@ -429,6 +429,12 @@
           <li>Notebook checks describe evidence in the submitted file. They do not re-run the notebook.</li>
         </ul>
       </details>
+      <section class="insight">
+        <h3>Evidence-bounded research profiles</h3>
+        <p>Full evidence-bounded profiles for all 15 participants are available as a single Markdown document. Each profile follows the structure: evidence available, worksheets (with page, profile, stage file, and cohort comparisons), screen recordings (frame label tables), platform logs (Titanic excluded), final Python submission (notebook trace and pipeline rubric points), a cross-source descriptive note, missing data and caveats (flags F1–F13), and a ledger map.</p>
+        <p><a class="btn-primary" href="downloads/evidence_profiles_2026.md" download="evidence_profiles_2026.md">Download research profiles (Markdown, 141 KB)</a></p>
+        <p class="small">Pipeline rubric points are labelled "rubric 1.0-draft, not a reviewed grade". No AI-CFT level is assigned. No causal or learning-gain claims appear. Logs record actions, not understanding.</p>
+      </section>
     </div>`;
   }
 
