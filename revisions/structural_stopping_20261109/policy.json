@@ -1,0 +1,149 @@
+{
+  "version": "20261109-stopping-v1",
+  "human_reference_filename": "Code book 12092026-3.xlsx",
+  "human_reference_sha256": "38bdd3c58787342c83ca6139dbc8fa587283c5449cae85956278ac634f7016a5",
+  "sheet": "Copy of Worksheet Analiz",
+  "authorization": "User confirmed: | entries read as blank are accepted as valid stopping, and visibly marked separately.",
+  "meaning": "| = accepted correct stopping action / structurally not applicable, not a substantive answered-item correct label.",
+  "decision_origin": "researcher_confirmed_applicability; informed by human reference, not a blind new machine prediction",
+  "scope": "Only the two documented root stopping decisions below and their unused descendants. Other null/unknown values are not reclassified.",
+  "cases": [
+    {
+      "worksheet": "WS6",
+      "students": [
+        "Zara"
+      ],
+      "root_cell": "inner_left",
+      "root_prior_status": "incorrect",
+      "root_blank_evidence": "Published extracted response (bos)",
+      "node": "left",
+      "cells": {
+        "inner_left": [
+          4
+        ],
+        "threshold_left": [
+          5,
+          6
+        ],
+        "terminal_left": [
+          7,
+          8
+        ]
+      },
+      "source_rows": {
+        "4": 54,
+        "5": 55,
+        "6": 56,
+        "7": 57,
+        "8": 58
+      },
+      "human_cells": {
+        "Zara": {
+          "4": "Z54",
+          "5": "Z55",
+          "6": "Z56",
+          "7": "Z57",
+          "8": "Z58"
+        }
+      }
+    },
+    {
+      "worksheet": "WS12",
+      "students": [
+        "Marcus",
+        "Marco"
+      ],
+      "root_cell": "WS12_P04",
+      "root_prior_status": "blank",
+      "root_blank_evidence": "Published status blank, response_state blank",
+      "node": "left",
+      "cells": {
+        "WS12_P04": [
+          4
+        ],
+        "WS12_P06": [
+          6
+        ],
+        "WS12_P07": [
+          7
+        ],
+        "WS12_P10": [
+          10
+        ],
+        "WS12_P11": [
+          11
+        ]
+      },
+      "source_rows": {
+        "4": 82,
+        "6": 84,
+        "7": 85,
+        "10": 88,
+        "11": 89
+      },
+      "human_cells": {
+        "Marcus": {
+          "4": "R82",
+          "6": "R84",
+          "7": "R85",
+          "10": "R88",
+          "11": "R89"
+        },
+        "Marco": {
+          "4": "S82",
+          "6": "S84",
+          "7": "S85",
+          "10": "S88",
+          "11": "S89"
+        }
+      }
+    }
+  ],
+  "ws6_display_overrides": {
+    "Zara": {
+      "inner_left": {
+        "status": "structural_na",
+        "accepted_as_correct_action": true,
+        "decision_origin": "researcher_confirmed_applicability; informed by human reference, not a blind new machine prediction",
+        "printed_items": [
+          4
+        ],
+        "excel_cells": [
+          "Z54"
+        ],
+        "is_root_exception": true,
+        "reason": "| Accepted correct stopping action after researcher applicability review. Human reference informed this exception; raw response and prior judgment retained. Unused descendants require no answer."
+      },
+      "threshold_left": {
+        "status": "structural_na",
+        "accepted_as_correct_action": true,
+        "decision_origin": "researcher_confirmed_applicability; informed by human reference, not a blind new machine prediction",
+        "printed_items": [
+          5,
+          6
+        ],
+        "excel_cells": [
+          "Z55",
+          "Z56"
+        ],
+        "is_root_exception": false,
+        "reason": "| Accepted correct stopping action after researcher applicability review. Human reference informed this exception; raw response and prior judgment retained. Unused descendants require no answer."
+      },
+      "terminal_left": {
+        "status": "structural_na",
+        "accepted_as_correct_action": true,
+        "decision_origin": "researcher_confirmed_applicability; informed by human reference, not a blind new machine prediction",
+        "printed_items": [
+          7,
+          8
+        ],
+        "excel_cells": [
+          "Z57",
+          "Z58"
+        ],
+        "is_root_exception": false,
+        "reason": "| Accepted correct stopping action after researcher applicability review. Human reference informed this exception; raw response and prior judgment retained. Unused descendants require no answer."
+      }
+    }
+  }
+}

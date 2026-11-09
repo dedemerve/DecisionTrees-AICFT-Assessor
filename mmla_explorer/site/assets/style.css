@@ -1801,3 +1801,7 @@ main .hero-lead { max-width: 46ch; }
   .ws12-review table.answer-grid.transposed .gc-cell { max-width: none; }
   .ws12-review .sr-summary { flex-wrap: wrap; }
 }
+
+/* Accepted stopping is a separate action status, never an ordinary scored answer. */
+.gc-stop { color: var(--good); background: var(--surface-2); border-left: 3px solid var(--good); }
+.row-stop { background: var(--surface-2); }

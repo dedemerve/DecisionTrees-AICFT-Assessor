@@ -1098,14 +1098,14 @@
   }
 
   const WS6_BLANK_COLS = [
-    { label: "Blank 1\nRoot Feature",        paths: ["tree_structure.depth_0.parsed_feature"],                                                                                                                      scoringItem: "WS6_root_feature" },
-    { label: "Blank 2-3\nRoot Split Cond.",  paths: ["tree_structure.depth_0.left_operator","tree_structure.depth_0.left_threshold_value","tree_structure.depth_0.right_operator","tree_structure.depth_0.right_threshold_value"], scoringItem: "WS6_root_threshold" },
-    { label: "Blank 4\nInternal Node (L)",   paths: ["tree_structure.depth_1.left_child.parsed_feature"],                                                                                                           scoringItem: "WS6_inner_feature" },
-    { label: "Blank 5-6\nSub-Branch (L)",    paths: ["tree_structure.depth_1.left_child.left_threshold_value","tree_structure.depth_1.left_child.right_threshold_value"],                                           scoringItem: null, checkThresholdPair: true },
-    { label: "Blank 7-8\nTerminal (L)",      paths: ["tree_structure.depth_2.leaf_nodes.left_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.left_right_leaf.leaf_label"],                                 scoringItem: "WS6_tree_validity" },
-    { label: "Blank 9\nInternal Node (R)",   paths: ["tree_structure.depth_1.right_child.parsed_feature"],                                                                                                          scoringItem: "WS6_inner_feature" },
-    { label: "Blank 10-11\nSub-Branch (R)",  paths: ["tree_structure.depth_1.right_child.left_threshold_value","tree_structure.depth_1.right_child.right_threshold_value"],                                         scoringItem: null, checkThresholdPair: true },
-    { label: "Blank 12-13\nTerminal (R)",    paths: ["tree_structure.depth_2.leaf_nodes.right_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.right_right_leaf.leaf_label"],                               scoringItem: "WS6_tree_validity" },
+    { cellId: "root_feature", label: "Blank 1\nRoot Feature",        paths: ["tree_structure.depth_0.parsed_feature"],                                                                                                                      scoringItem: "WS6_root_feature" },
+    { cellId: "root_split", label: "Blank 2-3\nRoot Split Cond.",  paths: ["tree_structure.depth_0.left_operator","tree_structure.depth_0.left_threshold_value","tree_structure.depth_0.right_operator","tree_structure.depth_0.right_threshold_value"], scoringItem: "WS6_root_threshold" },
+    { cellId: "inner_left", label: "Blank 4\nInternal Node (L)",   paths: ["tree_structure.depth_1.left_child.parsed_feature"],                                                                                                           scoringItem: "WS6_inner_feature" },
+    { cellId: "threshold_left", label: "Blank 5-6\nSub-Branch (L)",    paths: ["tree_structure.depth_1.left_child.left_threshold_value","tree_structure.depth_1.left_child.right_threshold_value"],                                           scoringItem: null, checkThresholdPair: true },
+    { cellId: "terminal_left", label: "Blank 7-8\nTerminal (L)",      paths: ["tree_structure.depth_2.leaf_nodes.left_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.left_right_leaf.leaf_label"],                                 scoringItem: "WS6_tree_validity" },
+    { cellId: "inner_right", label: "Blank 9\nInternal Node (R)",   paths: ["tree_structure.depth_1.right_child.parsed_feature"],                                                                                                          scoringItem: "WS6_inner_feature" },
+    { cellId: "threshold_right", label: "Blank 10-11\nSub-Branch (R)",  paths: ["tree_structure.depth_1.right_child.left_threshold_value","tree_structure.depth_1.right_child.right_threshold_value"],                                         scoringItem: null, checkThresholdPair: true },
+    { cellId: "terminal_right", label: "Blank 12-13\nTerminal (R)",    paths: ["tree_structure.depth_2.leaf_nodes.right_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.right_right_leaf.leaf_label"],                               scoringItem: "WS6_tree_validity" },
   ];
 
   function getPathValues(ocr, paths) {
@@ -1128,6 +1128,12 @@
     return { correct: equal ? true : false, note: equal ? "Eşik değerleri eşit." : `Eşik değerleri farklı: ${rawVals[0]} ≠ ${rawVals[1]}.` };
   }
 
+  function ws6StoppingCheck(student, col) {
+    const policy = root.STRUCTURAL_STOPPING;
+    return policy && policy.ws6_display_overrides && policy.ws6_display_overrides[student]
+      && policy.ws6_display_overrides[student][col.cellId];
+  }
+
   function answerGridWS6(model, core) {
     if (!model.cohort.length) return "";
     const cols = WS6_BLANK_COLS;
@@ -1137,6 +1143,8 @@
       const rec = core.ws[p.id] && core.ws[p.id]["WS6"];
       let nPass = 0, nChecked = 0;
       const cells = cols.map((col) => {
+        const stopping = ws6StoppingCheck(p.id, col);
+        if (stopping) return `<td class="gc-cell gc-stop" data-verdict="structural_na" data-decision-origin="researcher_confirmed_applicability" title="${h(stopping.reason)}"><span class="gc-legend gc-stop">| · Valid stop</span></td>`;
         const response = getPathValues(rec && rec.ocr, col.paths);
         const display = response ? h(clip(response, 40)) : `<span class="na">–</span>`;
         let ck = null;
@@ -1154,9 +1162,9 @@
       }).join("");
       return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
     }).join("");
-    const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
+    const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span> <span class="gc-legend gc-stop">| · Valid stop</span>`;
     return `<h3>Answer grid <span class="small grid-toggle-hint">${legend}</span></h3>
-<p class="small">Columns match the Collected Data blank structure. Verdict uses the scoring record for items that have one.</p>
+<p class="small">Columns match the Collected Data blank structure. Verdict uses the scoring record except documented applicability corrections. | is accepted correct stopping, not an unanswered item; no extra graded points are added. <a href="downloads/stopping_review/policy.json">Stopping review and prior statuses</a>.</p>
 <div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
   }
 
@@ -1165,7 +1173,7 @@
     const cols = WS6_BLANK_COLS;
     const blocks = model.cohort.map((p) => {
       const rec = core.ws[p.id] && core.ws[p.id]["WS6"];
-      let nCorrect = 0, nChecked = 0;
+      let nCorrect = 0, nChecked = 0, nStops = 0;
       const itemRows = cols.map((col) => {
         const rawResponse = getPathValues(rec && rec.ocr, col.paths);
         const response = rawResponse || "–";
@@ -1177,7 +1185,11 @@
           ck = (scored && rawResponse) ? scored : null; // blank response → no check
         }
         let verdictCell, rowCls;
-        if (!ck) {
+        const stopping = ws6StoppingCheck(p.id, col);
+        if (stopping) {
+          nStops += 1;
+          verdictCell = `<span class="gc-legend gc-stop">| · Valid stop</span><div class="small">${h(stopping.reason)}</div>`; rowCls = "row-stop";
+        } else if (!ck) {
           verdictCell = `<span class="na">–</span>`; rowCls = "";
         } else if (ck.correct === true) {
           nChecked += 1; nCorrect += 1;
@@ -1193,7 +1205,7 @@
         return { cells: [`<b>${h(col.label.replace("\n", " · "))}</b>`, written, verdictCell], attrs: rowCls ? ` class="${rowCls}"` : "" };
       });
       const pct = nChecked ? share(nCorrect, nChecked) : "–";
-      const summaryLine = `${nCorrect} / ${nChecked} scored correct (${pct})`;
+      const summaryLine = `${nCorrect} / ${nChecked} scored correct (${pct})${nStops ? " · " + nStops + " accepted stops (separate)" : ""}`;
       const tableHtml = table([{ t: "Blank" }, { t: "Written answer" }, { t: "Result" }], itemRows);
       return `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(p.id)}</span><span class="sr-badge ${nChecked && nCorrect / nChecked >= 0.7 ? "sr-good" : nChecked && nCorrect / nChecked >= 0.4 ? "sr-mid" : "sr-low"}">${summaryLine}</span></summary><div class="sr-body">${tableHtml}</div></details>`;
     }).join("");

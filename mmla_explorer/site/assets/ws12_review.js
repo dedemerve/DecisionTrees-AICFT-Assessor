@@ -3,10 +3,10 @@
   "use strict";
   const data = root.WS12_REVIEW;
   if (!data || !root.CORE) return;
-  const labels = { correct: "Correct", incorrect: "Wrong", partial: "Partial", blank: "Blank", structural_na: "Not applicable", unknown: "Unverified" };
-  const classes = { correct: "gc-correct", incorrect: "gc-wrong", partial: "gc-partial", blank: "ws12-blank", structural_na: "gc-na", unknown: "gc-na" };
+  const labels = { correct: "Correct", incorrect: "Wrong", partial: "Partial", blank: "Blank", structural_na: "| · Valid stop", unknown: "Unverified" };
+  const classes = { correct: "gc-correct", incorrect: "gc-wrong", partial: "gc-partial", blank: "ws12-blank", structural_na: "gc-stop", unknown: "gc-na" };
   const h = (v) => String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-  const source = "downloads/ws12_review/scoring.json";
+  const source = root.STRUCTURAL_STOPPING ? "downloads/stopping_review/ws12_scoring.json" : "downloads/ws12_review/scoring.json";
   const meta = root.CORE.worksheets.find((w) => w.code === "WS12");
   if (meta) {
     meta.rubric_data = data.rubric;
@@ -60,10 +60,10 @@
     return `<div class="page wide find-page ws12-review"><p><a href="#/findings/worksheets">Worksheet findings</a> / WS12</p><p class="kicker">2026 · Revised ${h(data.version)}</p><h1>WS12 · Decision tree documentation</h1>
       <p class="lead">Printed-item assessment from manually reviewed scans. Decisions, class counts and unused branches are checked separately.</p>
       <p><strong>13 students · 7 shared submissions · 15 printed items.</strong> Complete worksheet totals are withheld while applicable items remain unverified. “Correct” here means local internal consistency under the revised rubric, not verified optimality or agreement with the human coder.</p>
-      <section class="section-block" id="answer-grid"><h2>Answer grid</h2><p>${legend}</p><p class="small">Not applicable means unused descendants of a confirmed pure stopped node. It earns no extra correct points and is excluded from the denominator. Unverified is distinct from blank and wrong. Hover for the reason or expand a shared submission below.</p>${grid}</section>
+      <section class="section-block" id="answer-grid"><h2>Answer grid</h2><p>${legend}</p><p class="small">| means an accepted correct stopping action: no extension is required. This is distinct from an answered item receiving full credit. Unused fields earn no extra graded points. Researcher-confirmed exceptions and their prior statuses are documented below. Unverified is distinct from blank and wrong. Hover for the reason or expand a shared submission below.</p>${grid}</section>
       <section class="section-block" id="participants"><h2>Student results · shared submissions</h2>${details}<p>No submitted WS12:${h(data.absent.join(", "))}.</p></section>
-      <section class="section-block" id="items"><h2>Coverage by participant record</h2><p>The195 cells below represent 13 students ×15 items. Paired students share the same scan; these are not195 independent observations.</p><table class="find-table"><thead><tr><th scope="col">Status</th><th scope="col">Participant–item records</th></tr></thead><tbody>${stats}</tbody></table></section>
-      <section class="section-block" id="method"><h2>Revised rubric and provenance</h2><ul>${data.limitations.map((s) => `<li>${h(s)}</li>`).join("")}</ul><p>Slots10–13 are terminal decisions;14/15 are training/test errors. Numeric counts and the predicted class remain separate. Ambiguous operators receive no inferred complement. Human codes are not inputs to these checks. Historical composite scoring files are retained and superseded in this site view.</p><p><a href="downloads/ws12_review/rubric.json">Revised rubric</a> · <a href="downloads/ws12_review/observations.json">Reviewed observations</a> · <a href="${source}">Revised results and reasons</a> · <a href="#/explore/worksheet/WS12">Collected worksheet files</a></p></section></div>`;
+      <section class="section-block" id="items"><h2>Coverage by participant record</h2><p>The 195 cells below represent 13 students × 15 items. Paired students share the same scan; these are not 195 independent observations.</p><table class="find-table"><thead><tr><th scope="col">Status</th><th scope="col">Participant–item records</th></tr></thead><tbody>${stats}</tbody></table></section>
+      <section class="section-block" id="method"><h2>Revised rubric and provenance</h2><ul>${data.limitations.map((s) => `<li>${h(s)}</li>`).join("")}</ul><p>Slots 10–13 are terminal decisions; 14/15 are training/test errors. Numeric counts and the predicted class remain separate. Ambiguous operators receive no inferred complement. Base consistency checks do not use human labels. Specific stopping exceptions were accepted using human applicability codes, are identified in each item note, and are not blind machine predictions. Historical composite scoring files are retained and superseded in this site view.</p><p><a href="downloads/ws12_review/rubric.json">Base rubric</a> · <a href="downloads/stopping_review/policy.json">Accepted stopping policy and provenance</a> · <a href="downloads/ws12_review/observations.json">Reviewed observations</a> · <a href="${source}">Revised results and reasons</a> · <a href="#/explore/worksheet/WS12">Collected worksheet files</a></p></section></div>`;
   }
   root.WS12Review = { render: render, data: data };
 })(typeof window !== "undefined" ? window : globalThis);

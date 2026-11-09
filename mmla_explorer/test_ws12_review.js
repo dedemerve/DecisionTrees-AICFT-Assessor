@@ -8,7 +8,7 @@ const before={};ctx.CORE.students.forEach(s=>Object.keys(ctx.CORE.ws[s]).filter(
 load('data/ws12_review.js');load('assets/ws12_review.js');load('assets/worksheet_findings.js');
 const html=ctx.WorksheetFindings.page('WS12');
 assert(html.includes('Revised 20261109-v2'));
-assert(html.includes('Not applicable') && html.includes('Unverified') && html.includes('Blank'));
+assert(html.includes('| · Valid stop') && html.includes('Unverified') && html.includes('Blank'));
 assert(html.includes('Test-error values are recorded but cannot be verified'));
 assert(!html.includes('100%') && !html.includes('ROOT SPLIT VALID'));
 assert(html.includes('Item 15') && html.includes('Item 10'));
