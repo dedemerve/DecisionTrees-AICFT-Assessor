@@ -7,7 +7,7 @@
     "tree_structure": {
       "depth_0": {
         "parsed_feature": "Şeker",
-        "left_operator": "≥",
+        "left_operator": "≤",
         "left_threshold_value": 28.0,
         "right_operator": ">",
         "right_threshold_value": 28.0
@@ -17,7 +17,7 @@
           "parsed_feature": "Yağ",
           "node_recommended_count": 6,
           "node_not_recommended_count": 2,
-          "left_operator": "≥",
+          "left_operator": "≤",
           "left_threshold_value": 13.5,
           "right_operator": ">",
           "right_threshold_value": 13.5
@@ -54,28 +54,22 @@
   "validation": {
     "tree_logic": {
       "depth_0": {
-        "is_operator_logic_correct": false
+        "is_operator_logic_correct": true
       },
       "depth_1": {
-        "is_left_child_counts_correct": false,
-        "is_right_child_counts_correct": false,
-        "is_left_operator_logic_correct": false,
+        "is_left_child_counts_correct": true,
+        "is_right_child_counts_correct": true,
+        "is_left_operator_logic_correct": true,
         "is_right_operator_logic_correct": null
       },
       "depth_2": {
-        "is_left_left_logical": false,
+        "is_left_left_logical": true,
         "is_left_right_logical": true,
         "is_right_left_logical": null,
         "is_right_right_logical": null
       },
-      "error_flags": [
-        "depth_0 non_complementary_operators (left=≥, right=>, expected_right=<)",
-        "depth_1 left_child count mismatch (student rec=6/not=2, system rec=0/not=3)",
-        "depth_1 right_child count mismatch (student rec=0/not=3, system rec=6/not=2)",
-        "depth_1 left_child non_complementary_operators (left=≥, right=>, expected_right=<)",
-        "depth_2 left_left_leaf count mismatch (student rec=6/not=0)"
-      ]
+      "error_flags": []
     },
-    "system_analytical_summary": "Asimetrik ağaç: sağ dal depth_1'de doğrudan yaprağa iniyor — o dal zaten saf olduğundan daha fazla bölme yapmaya gerek yok. Bu eksiklik değil, geçerli bir tasarım tercihidir. Bu ağaç 7 kartta hatalı sınıflandırma yapıyor; MCR = 0.64. sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 3 sayım hatası tespit edildi. 2 tamamlayıcı olmayan operatör çifti var."
+    "system_analytical_summary": "Asimetrik ağaç: sağ dal depth_1'de doğrudan yaprağa iniyor — o dal zaten saf olduğundan daha fazla bölme yapmaya gerek yok. Bu eksiklik değil, geçerli bir tasarım tercihidir. Bu ağaç 11 kartın tamamını doğru sınıflandırıyor; MCR = 0.00. sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. Sayım ve operatör çiftleri sistemle tam uyumlu."
   }
 }

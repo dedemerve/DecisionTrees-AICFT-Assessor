@@ -9,7 +9,7 @@
         "parsed_feature": "Enerji",
         "left_operator": "≤",
         "left_threshold_value": 160.0,
-        "right_operator": "<",
+        "right_operator": ">",
         "right_threshold_value": 160.0
       },
       "depth_1": {
@@ -24,13 +24,13 @@
         },
         "right_child": {
           "is_direct_leaf": false,
-          "parsed_feature": null,
+          "parsed_feature": "Protein",
           "node_recommended_count": null,
           "node_not_recommended_count": null,
-          "left_operator": null,
-          "left_threshold_value": null,
-          "right_operator": null,
-          "right_threshold_value": null
+          "left_operator": ">",
+          "left_threshold_value": 11.0,
+          "right_operator": "<",
+          "right_threshold_value": 11.0
         }
       },
       "depth_2": {
@@ -62,13 +62,13 @@
   "validation": {
     "tree_logic": {
       "depth_0": {
-        "is_operator_logic_correct": false
+        "is_operator_logic_correct": true
       },
       "depth_1": {
         "is_left_child_counts_correct": null,
         "is_right_child_counts_correct": null,
         "is_left_operator_logic_correct": null,
-        "is_right_operator_logic_correct": null
+        "is_right_operator_logic_correct": false
       },
       "depth_2": {
         "is_left_left_logical": null,
@@ -77,10 +77,9 @@
         "is_right_right_logical": null
       },
       "error_flags": [
-        "depth_0 non_complementary_operators (left=≤, right=<, expected_right=>)",
-        "depth_1 right_child incomplete (student right branch blank)"
+        "depth_1 right_child non_complementary_operators (left=>, right=<, expected_right=<=)"
       ]
     },
-    "system_analytical_summary": "Sağ dal tamamen boş bırakılmış — öğrenci bu dalı tamamlamamış. Sistem 11 kartın 4 tanesini sınıflandıramamış (yaprak etiketi eksik). Sınıflandırılabilenler arasında 2 hata var; MCR = 0.29. sol-sol, sol-sağ, sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 1 tamamlayıcı olmayan operatör çifti var."
+    "system_analytical_summary": "Sistem 11 kartın 4 tanesini sınıflandıramamış (yaprak etiketi eksik). Sınıflandırılabilenler arasında 0 hata var; MCR = 0.00. sol-sol, sol-sağ, sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 1 tamamlayıcı olmayan operatör çifti var."
   }
 }

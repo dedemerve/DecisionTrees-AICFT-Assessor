@@ -9,7 +9,7 @@
         "parsed_feature": "Enerji",
         "left_operator": "<",
         "left_threshold_value": 200.0,
-        "right_operator": "≤",
+        "right_operator": ">",
         "right_threshold_value": 200.0
       },
       "depth_1": {
@@ -76,7 +76,7 @@
         "is_right_right_logical": false
       },
       "error_flags": [
-        "depth_0 non_complementary_operators (left=<, right=≤, expected_right=>=)",
+        "depth_0 non_complementary_operators (left=<, right=>, expected_right=>=)",
         "depth_1 left_child count mismatch (student rec=4/not=None, system rec=4/not=0)",
         "depth_2 right_left_leaf count mismatch (student rec=2/not=None)",
         "depth_2 right_right_leaf count mismatch (student rec=None/not=4)"

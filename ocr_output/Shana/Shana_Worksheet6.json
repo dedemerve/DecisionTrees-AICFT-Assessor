@@ -9,7 +9,7 @@
         "parsed_feature": "Yağ",
         "left_operator": "≤",
         "left_threshold_value": 13.5,
-        "right_operator": "<",
+        "right_operator": ">",
         "right_threshold_value": 13.5
       },
       "depth_1": {
@@ -61,7 +61,7 @@
   "validation": {
     "tree_logic": {
       "depth_0": {
-        "is_operator_logic_correct": false
+        "is_operator_logic_correct": true
       },
       "depth_1": {
         "is_left_child_counts_correct": true,
@@ -76,13 +76,12 @@
         "is_right_right_logical": true
       },
       "error_flags": [
-        "depth_0 non_complementary_operators (left=≤, right=<, expected_right=>)",
         "depth_1 left_child non_complementary_operators (left=<, right=>, expected_right=>=)",
         "depth_1 right_child non_complementary_operators (left=<, right=>, expected_right=>=)",
         "depth_2 left_left_leaf count mismatch (student rec=0/not=2)",
         "depth_2 left_right_leaf count mismatch (student rec=0/not=0)"
       ]
     },
-    "system_analytical_summary": "Sistem 11 kartın tamamını sınıflandıramamış (yaprak etiketleri yazılmamış) — MCR hesaplanamıyor. sol-sağ, sağ-sol yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 2 sayım hatası tespit edildi. 3 tamamlayıcı olmayan operatör çifti var."
+    "system_analytical_summary": "Sistem 11 kartın tamamını sınıflandıramamış (yaprak etiketleri yazılmamış) — MCR hesaplanamıyor. sol-sağ, sağ-sol yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 2 sayım hatası tespit edildi. 2 tamamlayıcı olmayan operatör çifti var."
   }
 }

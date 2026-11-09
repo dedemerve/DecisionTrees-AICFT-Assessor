@@ -1,132 +1,164 @@
 {
   "headers": [
     "Student Name",
-    "Blank 1-2 / Left Threshold Label",
-    "Blank 3-4 / Right Threshold Label",
-    "Blank 5 / Protein Left Branch",
-    "Blank 6 / Protein Right Branch",
-    "Blank 7 / Rule-Path Match (B)"
+    "Blank 1 / Energy Left Threshold",
+    "Blank 2 / Energy Right Threshold",
+    "Blank 3 / Protein Left Threshold",
+    "Blank 4 / Protein Right Threshold",
+    "Blank 5 / Rule-Path Match (B)",
+    "Blank 6 / Rule-Path Match (A)",
+    "Blank 7 / Rule-Path Match (C)"
   ],
   "rows": [
     [
       "Amy",
-      "(boş bırakılmış)",
-      "(boş bırakılmış)",
-      "Protein | 10.7",
-      "Protein | 10.7",
-      "(boş bırakılmış)"
+      "(blank)",
+      "(blank)",
+      "≤ 10,7",
+      "> 10,7",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Bruno",
-      "< 190.0",
-      "> 190.0",
-      "11.0",
-      "11.0",
-      "(boş bırakılmış)"
+      "< 190,0",
+      "> 190,0",
+      "≤ 11,0",
+      "> 11,0",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Helena",
-      "≤ 200.0",
-      "> 200.0",
-      "Protein | 11.0",
-      "Protein | 11.0",
-      "(boş bırakılmış)"
+      "≤ 200,0",
+      "> 200,0",
+      "≤ 11,0",
+      "> 11,0",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Iris",
-      "< 180.0",
-      "> 180.0",
-      "Protein | 11.0",
-      "Protein | 11.0",
-      "(boş bırakılmış)"
+      "≤ 180,0",
+      "> 180,0",
+      "≤ 11,0",
+      "> 11,0",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Irma",
-      "≤ 180.0",
-      "≥ 180.0",
-      "Protein | 11.1",
-      "Protein | 11.0",
-      "(boş bırakılmış)"
+      "≤ 180,0",
+      "> 180,0",
+      "≤ 11,1",
+      "≥ 11,0",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Isabel",
-      "≤ 170.5",
-      "> 170.5",
-      "Protein | 11.0",
-      "Protein",
-      "(boş bırakılmış)"
+      "≤ 180",
+      "> 180",
+      "≥ 11,0",
+      "<",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Marco",
-      "(boş bırakılmış)",
-      "(boş bırakılmış)",
-      "Doymuş Yağ | 1",
-      "Doymuş Yağ | 1",
-      "(boş bırakılmış)"
+      "≤ 220",
+      "> 220",
+      "≤ 1",
+      "> 1",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Marcus",
-      "< 280.0",
-      "≤ 280.0",
-      "Protein | 11.0",
-      "Protein | 11.0",
-      "(boş bırakılmış)"
+      "< 220",
+      "≥ 220",
+      "< 11,0",
+      "≥ 11",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Melinda",
-      "—",
-      "—",
-      "—",
-      "—",
-      "—"
+      "(not_extracted)",
+      "(not_extracted)",
+      "(not_extracted)",
+      "(not_extracted)",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Nadia",
-      "≤ 180.0",
-      "> 180.0",
-      "Protein | 11.0",
-      "Protein | 11.0",
-      "(boş bırakılmış)"
+      "≤ 180,0",
+      "> 180,0",
+      "≤ 11,0",
+      "> 11,0",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Serena",
-      "—",
-      "—",
-      "—",
-      "—",
-      "—"
+      "(not_extracted)",
+      "(not_extracted)",
+      "(not_extracted)",
+      "(not_extracted)",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Shana",
-      "< 200.0",
-      "≥ 200.0",
-      "Protein | 11.0",
-      "Protein | 11.0",
-      "(boş bırakılmış)"
+      "≤ 200,0",
+      "> 200,0",
+      "≤ 11,0",
+      "> 11,0",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Sheila",
-      "< 180.0",
-      "≤ 7.7",
-      "—",
-      "—",
-      "—"
+      "< 180,0",
+      "≥ 180,0",
+      "≤ 11,0",
+      "> 11,0",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Ulysses",
-      "≤ 160.0",
-      "> 160.0",
-      "Protein | 7.0",
-      "Protein | 7.0",
-      "(boş bırakılmış)"
+      "≤ 160,0",
+      "> 160,0",
+      "≤ 7,0",
+      "> 7,0",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ],
     [
       "Zara",
-      "< 200.0",
-      "> 200.0",
-      "Protein | 11.0",
-      "Protein | 11.0",
-      "(boş bırakılmış)"
+      "< 200,0",
+      "> 200",
+      "< 11,0",
+      "≥ 11",
+      "(blank)",
+      "(blank)",
+      "(blank)"
     ]
   ],
   "column_info": [

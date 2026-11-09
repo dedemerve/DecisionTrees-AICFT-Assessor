@@ -9,7 +9,7 @@
         "parsed_feature": "Doymuş Yağ",
         "left_operator": "≤",
         "left_threshold_value": 1.0,
-        "right_operator": "<",
+        "right_operator": ">",
         "right_threshold_value": 1.0
       },
       "depth_1": {
@@ -47,7 +47,7 @@
   "validation": {
     "tree_logic": {
       "depth_0": {
-        "is_operator_logic_correct": false
+        "is_operator_logic_correct": true
       },
       "depth_1": {
         "is_left_child_counts_correct": true,
@@ -61,10 +61,8 @@
         "is_right_left_logical": null,
         "is_right_right_logical": null
       },
-      "error_flags": [
-        "depth_0 non_complementary_operators (left=≤, right=<, expected_right=>)"
-      ]
+      "error_flags": []
     },
-    "system_analytical_summary": "Asimetrik ağaç: sol dal depth_1'de doğrudan yaprağa iniyor — o dal zaten saf olduğundan daha fazla bölme yapmaya gerek yok. Bu eksiklik değil, geçerli bir tasarım tercihidir. Sistem 11 kartın tamamını sınıflandıramamış (yaprak etiketleri yazılmamış) — MCR hesaplanamıyor. sol-sol, sol-sağ, sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 1 tamamlayıcı olmayan operatör çifti var."
+    "system_analytical_summary": "Asimetrik ağaç: sol dal depth_1'de doğrudan yaprağa iniyor — o dal zaten saf olduğundan daha fazla bölme yapmaya gerek yok. Bu eksiklik değil, geçerli bir tasarım tercihidir. Sistem 11 kartın tamamını sınıflandıramamış (yaprak etiketleri yazılmamış) — MCR hesaplanamıyor. sol-sol, sol-sağ, sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. Sayım ve operatör çiftleri sistemle tam uyumlu."
   }
 }

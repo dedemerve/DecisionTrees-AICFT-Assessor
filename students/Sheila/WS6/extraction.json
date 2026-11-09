@@ -21,7 +21,7 @@
         "parsed_feature": "Enerji",
         "left_operator": "≤",
         "left_threshold_value": 160.0,
-        "right_operator": "<",
+        "right_operator": ">",
         "right_threshold_value": 160.0
       },
       "depth_1": {
@@ -36,13 +36,13 @@
         },
         "right_child": {
           "is_direct_leaf": false,
-          "parsed_feature": null,
+          "parsed_feature": "Protein",
           "node_recommended_count": null,
           "node_not_recommended_count": null,
-          "left_operator": null,
-          "left_threshold_value": null,
-          "right_operator": null,
-          "right_threshold_value": null
+          "left_operator": ">",
+          "left_threshold_value": 11.0,
+          "right_operator": "<",
+          "right_threshold_value": 11.0
         }
       },
       "depth_2": {

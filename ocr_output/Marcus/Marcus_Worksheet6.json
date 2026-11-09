@@ -9,7 +9,7 @@
         "parsed_feature": "Enerji",
         "left_operator": "<",
         "left_threshold_value": 220.0,
-        "right_operator": "≤",
+        "right_operator": "≥",
         "right_threshold_value": 220.0
       },
       "depth_1": {
@@ -28,7 +28,7 @@
           "node_not_recommended_count": null,
           "left_operator": "≤",
           "left_threshold_value": 13.0,
-          "right_operator": "<",
+          "right_operator": ">",
           "right_threshold_value": 13
         }
       },
@@ -61,13 +61,13 @@
   "validation": {
     "tree_logic": {
       "depth_0": {
-        "is_operator_logic_correct": false
+        "is_operator_logic_correct": true
       },
       "depth_1": {
         "is_left_child_counts_correct": null,
         "is_right_child_counts_correct": null,
         "is_left_operator_logic_correct": null,
-        "is_right_operator_logic_correct": false
+        "is_right_operator_logic_correct": true
       },
       "depth_2": {
         "is_left_left_logical": null,
@@ -76,11 +76,9 @@
         "is_right_right_logical": null
       },
       "error_flags": [
-        "depth_0 non_complementary_operators (left=<, right=≤, expected_right=>=)",
-        "depth_1 left_child incomplete (student left branch blank)",
-        "depth_1 right_child non_complementary_operators (left=≤, right=<, expected_right=>)"
+        "depth_1 left_child incomplete (student left branch blank)"
       ]
     },
-    "system_analytical_summary": "Sol dal tamamen boş bırakılmış — öğrenci bu dalı tamamlamamış. Sistem 11 kartın tamamını sınıflandıramamış (yaprak etiketleri yazılmamış) — MCR hesaplanamıyor. sol-sol, sol-sağ, sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor. 2 tamamlayıcı olmayan operatör çifti var."
+    "system_analytical_summary": "Sol dal tamamen boş bırakılmış — öğrenci bu dalı tamamlamamış. Sistem 11 kartın tamamını sınıflandıramamış (yaprak etiketleri yazılmamış) — MCR hesaplanamıyor. sol-sol, sol-sağ, sağ-sol, sağ-sağ yaprak(lar)ı boş — hiçbir kart bu yola düşmüyor."
   }
 }

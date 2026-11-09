@@ -22,13 +22,9 @@
         "operator_strict": true,
         "expected_complement": ">="
       },
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
-      "operator_issue": "complementary_operator_mismatch",
-      "reason": "false_branch_operator_must_complement_true",
-      "false_operator": "<=",
-      "expected_complement": ">="
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS6_root_labels": {
       "ok": false,
@@ -50,23 +46,14 @@
         "operator_strict": false,
         "expected_complement": ">"
       },
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
-      "operator_issue": "complementary_operator_mismatch",
-      "reason": "false_branch_operator_must_complement_true",
-      "false_operator": "<",
-      "expected_complement": ">"
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS6_inner_labels": {
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
-      "reason": "false_branch_operator_must_complement_true",
-      "operator_issue": "complementary_operator_mismatch",
-      "true_operator": "<=",
-      "false_operator": "<",
-      "expected_complement": ">"
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS6_leaves": {
       "ok": false,

@@ -904,7 +904,7 @@
   // scoringItem: rubric item whose score drives the verdict (null = no verdict)
   // Researcher-confirmed display text for B25 when OCR extraction is unavailable.
   const WS5_B25_DISPLAY = {
-    Serena: "Protein ve Enerji",
+    Serena: "Enerji ve Şeker",
   };
 
   const WS5_BLANK_COLS = [
@@ -962,9 +962,8 @@
   function extractB25Feature(raw, trialFeatures) {
     if (!raw) return null;
     const lower = raw.toLowerCase();
-    for (const f of trialFeatures) {
-      if (f && lower.includes(f.toLowerCase())) return f;
-    }
+    const selected = trialFeatures.filter((f) => f && lower.includes(f.toLowerCase()));
+    if (selected.length) return selected.join(" ve ");
     const m = raw.match(/^(.+?)\s+değişken/i);
     return m ? m[1].trim() : (raw.trim().split(/\s+/)[0] || null);
   }
@@ -1099,12 +1098,12 @@
 
   const WS6_BLANK_COLS = [
     { cellId: "root_feature", label: "Blank 1\nRoot Feature",        paths: ["tree_structure.depth_0.parsed_feature"],                                                                                                                      scoringItem: "WS6_root_feature" },
-    { cellId: "root_split", label: "Blank 2-3\nRoot Split Cond.",  paths: ["tree_structure.depth_0.left_operator","tree_structure.depth_0.left_threshold_value","tree_structure.depth_0.right_operator","tree_structure.depth_0.right_threshold_value"], scoringItem: "WS6_root_threshold" },
+    { cellId: "root_split", label: "Blank 2-3\nRoot Split Cond.",  paths: ["tree_structure.depth_0.left_operator","tree_structure.depth_0.left_threshold_value","tree_structure.depth_0.right_operator","tree_structure.depth_0.right_threshold_value"], scoringItem: "WS6_root_threshold", checkThresholdPair: true },
     { cellId: "inner_left", label: "Blank 4\nInternal Node (L)",   paths: ["tree_structure.depth_1.left_child.parsed_feature"],                                                                                                           scoringItem: "WS6_inner_feature" },
-    { cellId: "threshold_left", label: "Blank 5-6\nSub-Branch (L)",    paths: ["tree_structure.depth_1.left_child.left_threshold_value","tree_structure.depth_1.left_child.right_threshold_value"],                                           scoringItem: null, checkThresholdPair: true },
+    { cellId: "threshold_left", label: "Blank 5-6\nSub-Branch (L)",    paths: ["tree_structure.depth_1.left_child.left_operator","tree_structure.depth_1.left_child.left_threshold_value","tree_structure.depth_1.left_child.right_operator","tree_structure.depth_1.left_child.right_threshold_value"],                                           scoringItem: null, checkThresholdPair: true },
     { cellId: "terminal_left", label: "Blank 7-8\nTerminal (L)",      paths: ["tree_structure.depth_2.leaf_nodes.left_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.left_right_leaf.leaf_label"],                                 scoringItem: "WS6_tree_validity" },
     { cellId: "inner_right", label: "Blank 9\nInternal Node (R)",   paths: ["tree_structure.depth_1.right_child.parsed_feature"],                                                                                                          scoringItem: "WS6_inner_feature" },
-    { cellId: "threshold_right", label: "Blank 10-11\nSub-Branch (R)",  paths: ["tree_structure.depth_1.right_child.left_threshold_value","tree_structure.depth_1.right_child.right_threshold_value"],                                         scoringItem: null, checkThresholdPair: true },
+    { cellId: "threshold_right", label: "Blank 10-11\nSub-Branch (R)",  paths: ["tree_structure.depth_1.right_child.left_operator","tree_structure.depth_1.right_child.left_threshold_value","tree_structure.depth_1.right_child.right_operator","tree_structure.depth_1.right_child.right_threshold_value"],                                         scoringItem: null, checkThresholdPair: true },
     { cellId: "terminal_right", label: "Blank 12-13\nTerminal (R)",    paths: ["tree_structure.depth_2.leaf_nodes.right_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.right_right_leaf.leaf_label"],                               scoringItem: "WS6_tree_validity" },
   ];
 
@@ -1114,6 +1113,10 @@
       const hit = ocr.responses.find((r) => r.path === p);
       return hit && hit.value != null ? String(hit.value) : null;
     }).filter(Boolean);
+    if (paths.length === 4 && paths[0].endsWith("left_operator")) {
+      const get = (path) => { const r = ocr.responses.find((x) => x.path === path); return r && r.value != null ? String(r.value) : ""; };
+      return [[get(paths[0]), get(paths[1])].filter(Boolean).join(" "), [get(paths[2]), get(paths[3])].filter(Boolean).join(" ")].filter(Boolean).join(" | ") || null;
+    }
     return vals.length ? vals.join(" | ") : null;
   }
 
@@ -1124,8 +1127,11 @@
       return hit != null ? hit.value : undefined;
     });
     if (rawVals.some((v) => v === undefined || v === null)) return null;
-    const equal = rawVals[0] == rawVals[1];
-    return { correct: equal ? true : false, note: equal ? "Eşik değerleri eşit." : `Eşik değerleri farklı: ${rawVals[0]} ≠ ${rawVals[1]}.` };
+    const normalize = (op) => String(op).replace("≤", "<=").replace("≥", ">=");
+    const complement = { "<": ">=", "<=": ">", ">": "<=", ">=": "<" };
+    const equal = Number(rawVals[1]) === Number(rawVals[3]);
+    const paired = complement[normalize(rawVals[0])] === normalize(rawVals[2]);
+    return { correct: equal && paired, note: equal && paired ? "Aynı eşik ve tamamlayıcı operatörler." : "Eşikler aynı ve operatörler tamamlayıcı olmalıdır." };
   }
 
   function ws6StoppingCheck(student, col) {

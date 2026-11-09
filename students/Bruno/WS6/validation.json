@@ -16,29 +16,20 @@
     },
     "WS6_root_threshold": {
       "parsed": {
-        "operator": ">=",
+        "operator": "<=",
         "value": 28.0,
         "operator_inclusive": true,
         "operator_strict": false,
-        "expected_complement": "<"
+        "expected_complement": ">"
       },
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
-      "operator_issue": "complementary_operator_mismatch",
-      "reason": "false_branch_operator_must_complement_true",
-      "false_operator": ">",
-      "expected_complement": "<"
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS6_root_labels": {
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
-      "reason": "false_branch_operator_must_complement_true",
-      "operator_issue": "complementary_operator_mismatch",
-      "true_operator": ">=",
-      "false_operator": ">",
-      "expected_complement": "<"
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS6_inner_feature": {
       "ok": true,
@@ -48,29 +39,20 @@
     },
     "WS6_inner_threshold": {
       "parsed": {
-        "operator": ">=",
+        "operator": "<=",
         "value": 13.5,
         "operator_inclusive": true,
         "operator_strict": false,
-        "expected_complement": "<"
+        "expected_complement": ">"
       },
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
-      "operator_issue": "complementary_operator_mismatch",
-      "reason": "false_branch_operator_must_complement_true",
-      "false_operator": ">",
-      "expected_complement": "<"
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS6_inner_labels": {
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
-      "reason": "false_branch_operator_must_complement_true",
-      "operator_issue": "complementary_operator_mismatch",
-      "true_operator": ">=",
-      "false_operator": ">",
-      "expected_complement": "<"
+      "ok": true,
+      "credit": "full",
+      "score": 1.0
     },
     "WS6_leaves": {
       "ok": true,
@@ -78,52 +60,51 @@
       "score": 1.0,
       "labeled_leaves": 3,
       "required_leaves": 3,
-      "mcr": 0.6364,
-      "errors": 7,
+      "mcr": 0.0,
+      "errors": 0,
       "path_errors": 0,
       "note": "MCR=0 with two-level tree is valid; extra depth is not penalized."
     },
     "WS6_tree_structure": {
-      "ok": false,
-      "credit": "partial",
-      "score": 0.5,
+      "ok": true,
+      "credit": "full",
+      "score": 1.0,
       "components": {
         "depth": true,
         "features": true,
         "leaves_labeled": true,
-        "operators": false,
-        "operator_complement_gap": true
+        "operators": true
       },
-      "components_met": 3,
-      "mcr": 0.6364,
-      "errors": 7,
+      "components_met": 4,
+      "mcr": 0.0,
+      "errors": 0,
       "two_level_ok": true,
-      "mcr_zero_valid": false,
+      "mcr_zero_valid": true,
       "note": "Complementary operator pairs required: <↔≥, >↔≤, ≤↔>, ≥↔<. MCR=0 with two levels is acceptable."
     },
     "mcr": {
       "dataset_size": 11,
-      "correct": 4,
-      "errors": 7,
-      "mcr": 0.6364,
+      "correct": 11,
+      "errors": 0,
+      "mcr": 0.0,
       "unclassified": 0
     },
     "tree_model": {
       "has_inner": true,
       "root": {
-        "raw": "≥ 28.0",
+        "raw": "≤ 28.0",
         "feature": "sugar_g",
         "feature_name": "Şeker",
-        "operator": ">=",
+        "operator": "<=",
         "value": 28.0,
         "operator_inclusive": true,
         "operator_strict": false
       },
       "inner": {
-        "raw": "≥ 13.5",
+        "raw": "≤ 13.5",
         "feature": "fat_g",
         "feature_name": "Yağ",
-        "operator": ">=",
+        "operator": "<=",
         "value": 13.5,
         "operator_inclusive": true,
         "operator_strict": false
@@ -134,9 +115,9 @@
   "blocked_reason": null,
   "mcr": {
     "dataset_size": 11,
-    "correct": 4,
-    "errors": 7,
-    "mcr": 0.6364,
+    "correct": 11,
+    "errors": 0,
+    "mcr": 0.0,
     "unclassified": 0
   }
 }

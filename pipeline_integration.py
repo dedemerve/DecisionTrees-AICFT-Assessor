@@ -228,7 +228,7 @@ def score_ws7_deterministic(
     *,
     validation: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Score WS7 Part 1 path letters + Part 2 WS6-consistent rules."""
+    """Score the seven printed WS7 blanks against its fixed decision rules."""
     from pipeline_schema import load_rubric, scoring_item_ids
     from rubric_deterministic import score_from_credit, score_ws7_item
     from student_bundle import load_extraction_responses
@@ -240,18 +240,16 @@ def score_ws7_deterministic(
     total = 0.0
     max_total = 0.0
 
-    # Threshold expected values for WS7_1..4 (used when checks don't have these IDs)
+    # Fixed conditions stated in the three printed rules on WS7.
     _WS7_THRESHOLD_EXPECTED = {
-        "WS7_1": (180.0, {"<", "lt"}),
-        "WS7_2": (180.0, {">=", "≥", "gte", "ge"}),
-        "WS7_3": (11.0, {"<", "lt", "<=", "le", "≤"}),
-        "WS7_4": (11.0, {">=", "≥", "gte", "ge", ">", "gt"}),
+        "WS7_1": (180.0, "<"),
+        "WS7_2": (180.0, ">="),
+        "WS7_3": (7.7, "<"),
+        "WS7_4": (7.7, ">="),
     }
     _WS7_LETTER_EXPECTED = {"WS7_5": "B", "WS7_6": "A", "WS7_7": "C"}
     # Extraction uses WS7_P1_box* keys; rubric uses WS7_5..7.
     _P1_ALIAS = {"WS7_5": "WS7_P1_box1", "WS7_6": "WS7_P1_box2", "WS7_7": "WS7_P1_box3"}
-
-    from rubric_deterministic import extract_numbers, normalize_token
 
     for item_id in scoring_item_ids("WS7"):
         cfg = rubric["items"][item_id]
@@ -268,17 +266,16 @@ def score_ws7_deterministic(
         if check and score <= 0 and check.get("credit") in {"full", "partial"}:
             score = score_from_credit(check, max_score)
 
-        # Fallback: score threshold items directly from response when checks are empty
-        if score <= 0 and not check and item_id in _WS7_THRESHOLD_EXPECTED:
-            resp = responses.get(item_id, "")
-            if resp and "(not_extracted)" not in resp:
-                expected_val, expected_ops = _WS7_THRESHOLD_EXPECTED[item_id]
-                nums = extract_numbers(resp)
-                resp_lower = resp.lower().replace("≥", ">=").replace("≤", "<=")
-                has_num = any(abs(n - expected_val) < 0.01 for n in nums)
-                has_op = any(op in resp_lower for op in expected_ops)
-                if has_num and has_op:
-                    score = max_score
+        # Parse the complete operator token: '<=' must not match '<'.
+        if item_id in _WS7_THRESHOLD_EXPECTED:
+            import re
+            resp = str(responses.get(item_id, "")).replace("≥", ">=").replace("≤", "<=")
+            expected_val, expected_op = _WS7_THRESHOLD_EXPECTED[item_id]
+            match = re.fullmatch(r"\s*(<=|>=|<|>)\s*(\d+(?:[.,]\d+)?)\s*(?:kcal|g)?\s*", resp)
+            correct = bool(match and match.group(1) == expected_op
+                           and abs(float(match.group(2).replace(",", ".")) - expected_val) < 1e-9)
+            score = max_score if correct else 0.0
+            review = False
 
         # Fallback: score path-letter items using alias key when rubric key is not in extraction
         if score <= 0 and item_id in _WS7_LETTER_EXPECTED:

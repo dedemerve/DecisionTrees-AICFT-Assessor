@@ -27,14 +27,18 @@
       "score": 0.5,
       "operator_issue": "complementary_operator_mismatch",
       "reason": "false_branch_operator_must_complement_true",
-      "false_operator": "<=",
+      "false_operator": ">",
       "expected_complement": ">="
     },
     "WS6_root_labels": {
       "ok": false,
-      "credit": "not_attempted",
-      "score": 0.0,
-      "reason": "blank"
+      "credit": "partial",
+      "score": 0.5,
+      "reason": "false_branch_operator_must_complement_true",
+      "operator_issue": "complementary_operator_mismatch",
+      "true_operator": "<",
+      "false_operator": ">",
+      "expected_complement": ">="
     },
     "WS6_inner_feature": {
       "ok": false,
