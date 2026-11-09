@@ -1792,3 +1792,12 @@ main .callout,
 main .guide li,
 main .log-tech { max-width: none; }
 main .hero-lead { max-width: 46ch; }
+
+/* WS12 review: confirmed empty answer is distinct from wrong/unverified. */
+.ws12-blank { background: var(--surface-2); color: var(--muted); }
+.ws12-review .sr-body { padding: 0 14px 12px; }
+@media (max-width: 800px) {
+  .ws12-review table.answer-grid { min-width: 0; }
+  .ws12-review table.answer-grid.transposed .gc-cell { max-width: none; }
+  .ws12-review .sr-summary { flex-wrap: wrap; }
+}

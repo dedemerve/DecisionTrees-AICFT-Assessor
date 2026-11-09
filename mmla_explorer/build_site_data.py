@@ -275,14 +275,17 @@ def read_stage_as_ocr(student: str, ws: dict) -> dict | None:
                 iid = it.get("item", "")
                 score = it.get("score")
                 review = it.get("review", False)
+                # Rubric items need not be worth one point (e.g. WS12_R5 is /2).
+                # Preserve the legacy /1 convention only when no maximum is on file.
+                max_score = _item_max(iid) or 1.0
                 if score is None:
                     correct = None
-                elif score >= 1.0:
+                elif score >= max_score:
                     correct = True
                 elif score == 0.0:
                     correct = False
                 else:
-                    correct = None   # partial (0.5)
+                    correct = None   # partial credit below the item's maximum
                 flag = "review" if review else None
                 checks.append({
                     "check": f"item_checks.{iid}",
@@ -442,6 +445,10 @@ def _item_max(item_id: str) -> float | None:
         return None
     d = load_json(rub)
     item = (d.get("items") or {}).get(item_id, {})
+    # Historical score IDs retain their historical maxima after a rubric revision.
+    if not item and d.get("supersedes_rubric"):
+        previous = load_json(ROOT / d["supersedes_rubric"])
+        item = (previous.get("items") or {}).get(item_id, {})
     if isinstance(item.get("max_score"), (int, float)):
         return float(item["max_score"])
     rules = item.get("scoring_rules") or {}

@@ -1368,6 +1368,7 @@
   }
 
   function page(code) {
+    if (code === "WS12" && root.WS12Review) return root.WS12Review.render();
     const pack = data();
     if (!pack.core) return `<div class="page"><h1>Worksheet findings</h1><p>Data files are missing.</p></div>`;
     const model = pack.all[code];

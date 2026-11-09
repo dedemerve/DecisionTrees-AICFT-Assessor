@@ -1,168 +1,156 @@
 {
   "worksheet": "WS12",
-  "note": "Unplugged two-level decision tree documentation (31 March 2026). Students document the tree they built in WS6 by recording root variable, threshold, intermediate node counts, leaf node counts, and training/test misclassification totals. Evaluation is purely on internal consistency — no canonical answer exists. Both students in a group receive the same score.",
+  "version": "20261109-v2",
+  "note": "Printed-item internal consistency, based on manually reviewed scans. Not an independent AI benchmark. No unique canonical tree is established. Original scoring files are retained as historical artifacts.",
   "scoring_policy": {
     "default_mode": "deterministic",
     "basis": "internal_consistency",
     "no_canonical_tree": true,
-    "group_policy": "both partners receive identical score from shared sheet"
+    "group_policy": "One physical shared sheet per group; participant rows share evidence.",
+    "not_applicable": "Confirmed stopped pure node: unused descendants are structural_na, excluded from scoring denominators.",
+    "unknown": "Missing extraction, ambiguous writing, missing verification evidence are unknown, never automatically blank or correct.",
+    "decision_evidence": "Accept explicit text or unambiguous class selection in the associated printed class line. Counts alone do not prove the predicted class.",
+    "scope": "Feature validity, complementary threshold pairs and local count/decision consistency. Does not verify optimal thresholds, fidelity to WS6 or actual dataset correctness."
   },
-  "dataset_note": "Training set assumed ~8 items (same classroom food cards used in WS6). Test set assumed ~8 items. Total may vary by group.",
+  "dataset_note": "Training/test card references and revised group-tree provenance are unavailable. Do not assume 8,11,14 or20 cards. Test-error correctness is unknown without independent reference.",
   "items": {
-    "WS12_R1": {
+    "WS12_P01": {
       "max_score": 1,
-      "label": "Root split valid",
-      "components": [
-        {
-          "id": "feature_named",
-          "idea": "Root box names a food dataset variable (Enerji, Yağ, Doymuş Yağ, Şeker, Protein, or synonym)",
-          "required": true
-        },
-        {
-          "id": "threshold_given",
-          "idea": "A numeric threshold value is written on the left branch edge",
-          "required": true
-        }
-      ],
-      "need": 2,
-      "note": "Award 1 if both feature and threshold present; 0 otherwise."
+      "printed_item_id": "1",
+      "field_id": "WS12_root_feature",
+      "ws6_printed_item_id": 1,
+      "label": "Item 1 · Root feature",
+      "note": "Food feature name; not evidence that this is the optimal feature.",
+      "check": "tree_validity"
     },
-    "WS12_R2": {
+    "WS12_P02": {
       "max_score": 1,
-      "label": "Operator pair valid",
-      "components": [
-        {
-          "id": "complementary_operators",
-          "idea": "Left branch operator and right branch operator are complementary (≤/>, </≥, >/≤, ≥/<)",
-          "required": true
-        }
-      ],
-      "need": 1,
-      "note": "Same threshold value on both sides with complementary operators. If only one side is written, infer complement."
+      "printed_item_id": "2",
+      "field_id": "WS12_root_left_threshold",
+      "ws6_printed_item_id": 2,
+      "label": "Item 2 · Root left threshold",
+      "note": "Same numeric cutpoint with complementary operators on the paired branch. Missing or ambiguous partner remains unknown. Constant-left notation and decimal commas accepted.",
+      "check": "tree_validity"
     },
-    "WS12_R4": {
+    "WS12_P03": {
       "max_score": 1,
-      "label": "Right subtree complete",
-      "components": [
-        {
-          "id": "right_feature_named",
-          "idea": "Right child box names a second food dataset variable",
-          "required": true
-        },
-        {
-          "id": "right_threshold_given",
-          "idea": "Second-level threshold is written",
-          "required": true
-        },
-        {
-          "id": "leaf_counts_present",
-          "idea": "Both depth-2 leaf boxes have counts",
-          "required": true
-        }
-      ],
-      "need": 2,
-      "partial_on": 1,
-      "note": "Partial (0.5): right feature named but leaf counts missing or second threshold absent."
+      "printed_item_id": "3",
+      "field_id": "WS12_root_right_threshold",
+      "ws6_printed_item_id": 3,
+      "label": "Item 3 · Root right threshold",
+      "note": "Same numeric cutpoint with complementary operators on the paired branch. Missing or ambiguous partner remains unknown. Constant-left notation and decimal commas accepted.",
+      "check": "tree_validity"
     },
-    "WS12_R5": {
-      "max_score": 2,
-      "label": "Node count conservation",
-      "components": [
-        {
-          "id": "right_node_sum",
-          "idea": "right_rec + right_notrec == depth1_left_rec + depth1_left_notrec + depth1_right_rec + depth1_right_notrec (right internal node counts equal sum of its two leaves)",
-          "required": true
-        },
-        {
-          "id": "total_sum_plausible",
-          "idea": "Total items across all leaves is plausible (positive, non-zero, matches left + right)",
-          "required": true
-        }
-      ],
-      "need": 2,
-      "partial_on": 1,
-      "note": "1pt per component. Full (2): both hold. Partial (1): only one holds. 0: neither."
-    },
-    "WS12_R6": {
+    "WS12_P04": {
       "max_score": 1,
-      "label": "Training error count consistent",
-      "components": [
-        {
-          "id": "train_error_consistent",
-          "idea": "train_errors equals the sum of minority-class items at each leaf node. For a pure leaf: minority = 0. For a majority-class-tavsiye leaf: minority = notrec. For majority-class-edilemez leaf: minority = rec.",
-          "required": true
-        }
-      ],
-      "need": 1,
-      "note": "Exact match required. If leaf labels are missing, check whether train_errors <= total items and is non-negative."
+      "printed_item_id": "4",
+      "field_id": "WS12_left_child_label",
+      "ws6_printed_item_id": 4,
+      "label": "Item 4 · Left node decision / next feature",
+      "note": "Valid next food feature, or explicit terminal decision consistent with independently observed class counts. Pure stopped node without a next feature may be structural_na.",
+      "check": "tree_validity"
     },
-    "WS12_R7": {
+    "WS12_P05": {
       "max_score": 1,
-      "label": "Test error count recorded",
-      "components": [
-        {
-          "id": "test_error_present",
-          "idea": "A numeric value (including 0) is written in the test error field",
-          "required": true
-        },
-        {
-          "id": "test_error_plausible",
-          "idea": "test_errors is a non-negative integer, not larger than a plausible test set size (<=20)",
-          "required": false
-        }
-      ],
-      "need": 1,
-      "note": "We cannot verify the test error value against a canonical answer. Award 1 if the field is filled and the value is plausible."
+      "printed_item_id": "5",
+      "field_id": "WS12_right_child_label",
+      "ws6_printed_item_id": 9,
+      "label": "Item 5 · Right node decision / next feature",
+      "note": "Valid next food feature, or explicit terminal decision consistent with independently observed class counts. Pure stopped node without a next feature may be structural_na.",
+      "check": "tree_validity"
+    },
+    "WS12_P06": {
+      "max_score": 1,
+      "printed_item_id": "6",
+      "field_id": "WS12_depth1_ll_threshold",
+      "ws6_printed_item_id": 5,
+      "label": "Item 6 · Left-left threshold",
+      "note": "Same numeric cutpoint with complementary operators on the paired branch. Missing or ambiguous partner remains unknown. Constant-left notation and decimal commas accepted.",
+      "check": "tree_validity"
+    },
+    "WS12_P07": {
+      "max_score": 1,
+      "printed_item_id": "7",
+      "field_id": "WS12_depth1_lr_threshold",
+      "ws6_printed_item_id": 6,
+      "label": "Item 7 · Left-right threshold",
+      "note": "Same numeric cutpoint with complementary operators on the paired branch. Missing or ambiguous partner remains unknown. Constant-left notation and decimal commas accepted.",
+      "check": "tree_validity"
+    },
+    "WS12_P08": {
+      "max_score": 1,
+      "printed_item_id": "8",
+      "field_id": "WS12_depth1_rl_threshold",
+      "ws6_printed_item_id": 10,
+      "label": "Item 8 · Right-left threshold",
+      "note": "Same numeric cutpoint with complementary operators on the paired branch. Missing or ambiguous partner remains unknown. Constant-left notation and decimal commas accepted.",
+      "check": "tree_validity"
+    },
+    "WS12_P09": {
+      "max_score": 1,
+      "printed_item_id": "9",
+      "field_id": "WS12_depth1_rr_threshold",
+      "ws6_printed_item_id": 11,
+      "label": "Item 9 · Right-right threshold",
+      "note": "Same numeric cutpoint with complementary operators on the paired branch. Missing or ambiguous partner remains unknown. Constant-left notation and decimal commas accepted.",
+      "check": "tree_validity"
+    },
+    "WS12_P10": {
+      "max_score": 1,
+      "printed_item_id": "10",
+      "field_id": "WS12_leaf_ll_decision",
+      "ws6_printed_item_id": 7,
+      "label": "Item 10 · Left-left decision",
+      "note": "Explicit class decision must be consistent with observed leaf counts. Counts without selected class or selected class without counts are unknown. Confirmed unused descendants are structural_na.",
+      "check": "tree_validity"
+    },
+    "WS12_P11": {
+      "max_score": 1,
+      "printed_item_id": "11",
+      "field_id": "WS12_leaf_lr_decision",
+      "ws6_printed_item_id": 8,
+      "label": "Item 11 · Left-right decision",
+      "note": "Explicit class decision must be consistent with observed leaf counts. Counts without selected class or selected class without counts are unknown. Confirmed unused descendants are structural_na.",
+      "check": "tree_validity"
+    },
+    "WS12_P12": {
+      "max_score": 1,
+      "printed_item_id": "12",
+      "field_id": "WS12_leaf_rl_decision",
+      "ws6_printed_item_id": 12,
+      "label": "Item 12 · Right-left decision",
+      "note": "Explicit class decision must be consistent with observed leaf counts. Counts without selected class or selected class without counts are unknown. Confirmed unused descendants are structural_na.",
+      "check": "tree_validity"
+    },
+    "WS12_P13": {
+      "max_score": 1,
+      "printed_item_id": "13",
+      "field_id": "WS12_leaf_rr_decision",
+      "ws6_printed_item_id": 13,
+      "label": "Item 13 · Right-right decision",
+      "note": "Explicit class decision must be consistent with observed leaf counts. Counts without selected class or selected class without counts are unknown. Confirmed unused descendants are structural_na.",
+      "check": "tree_validity"
+    },
+    "WS12_P14": {
+      "max_score": 1,
+      "printed_item_id": "14",
+      "field_id": "WS12_train_errors",
+      "ws6_printed_item_id": null,
+      "label": "Item 14 · Training error count",
+      "note": "Compare written nonnegative integer with errors implied by actual class predictions at all active terminal nodes; incomplete evidence remains unknown.",
+      "check": "tree_validity"
+    },
+    "WS12_P15": {
+      "max_score": 1,
+      "printed_item_id": "15",
+      "field_id": "WS12_test_errors",
+      "ws6_printed_item_id": null,
+      "label": "Item 15 · Test error count",
+      "note": "A written number is recorded, not verified correct, without an independent test reference; confirmed empty field is blank.",
+      "check": "tree_validity"
     }
   },
-  "max_total": 7,
-  "acceptable_features": [
-    {
-      "aliases": [
-        "enerji",
-        "energy",
-        "kcal"
-      ],
-      "field": "energy_kcal"
-    },
-    {
-      "aliases": [
-        "yağ",
-        "yag",
-        "fat"
-      ],
-      "field": "fat_g"
-    },
-    {
-      "aliases": [
-        "doymuş yağ",
-        "doymus yag",
-        "saturated fat"
-      ],
-      "field": "saturated_fat_g"
-    },
-    {
-      "aliases": [
-        "şeker",
-        "seker",
-        "sugar"
-      ],
-      "field": "sugar_g"
-    },
-    {
-      "aliases": [
-        "protein"
-      ],
-      "field": "protein_g"
-    },
-    {
-      "aliases": [
-        "tuz",
-        "sodyum",
-        "sodium",
-        "salt"
-      ],
-      "field": "sodium_mg"
-    }
-  ]
+  "max_total": 15,
+  "total_policy": "Verified subtotal over resolved applicable items only; total_score is null while applicable items remain unknown. Never present verified subtotal as a complete worksheet score.",
+  "supersedes_rubric": "revisions/WS12/20261109-v2/previous_rubric.json"
 }
