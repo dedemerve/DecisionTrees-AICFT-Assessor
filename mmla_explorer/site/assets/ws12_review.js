@@ -45,25 +45,73 @@
     }
   }));
   const statusBadge = (status) => `<span class="gc-legend ${classes[status]}">${h(labels[status])}</span>`;
-  function value(it) {
-    return it.value == null ? (it.status === "structural_na" ? "—" : "Blank response region") : String(it.value);
+  // Same tree roles as WS6, plus the two error-count fields. Every printed item
+  // belongs to exactly one display group; no canonical feature/threshold is used.
+  const columns = [
+    { id: "root_feature", label: "Blank 1 · Root Feature", printed: [1] },
+    { id: "root_split", label: "Blank 2–3 · Root Split Cond.", printed: [2, 3] },
+    { id: "inner_left", label: "Blank 4 · Internal Node (L)", printed: [4] },
+    { id: "threshold_left", label: "Blank 6–7 · Sub-Branch (L)", printed: [6, 7] },
+    { id: "terminal_left", label: "Blank 10–11 · Terminal (L)", printed: [10, 11] },
+    { id: "inner_right", label: "Blank 5 · Internal Node (R)", printed: [5] },
+    { id: "threshold_right", label: "Blank 8–9 · Sub-Branch (R)", printed: [8, 9] },
+    { id: "terminal_right", label: "Blank 12–13 · Terminal (R)", printed: [12, 13] },
+    { id: "train_errors", label: "Blank 14 · Training Errors", printed: [14] },
+    { id: "test_errors", label: "Blank 15 · Test Errors", printed: [15] },
+  ];
+  function combinedStatus(items) {
+    const statuses = items.map((it) => it ? it.status : "unknown");
+    if (statuses.includes("incorrect")) return "incorrect";
+    if (statuses.every((s) => s === "structural_na")) return "structural_na";
+    if (statuses.some((s) => s === "unknown" || s === "structural_na")) return "unknown";
+    if (statuses.every((s) => s === "correct")) return "correct";
+    if (statuses.every((s) => s === "blank")) return "blank";
+    return "partial";
+  }
+  function responseText(it) {
+    if (!it || it.value == null) return !it || it.status === "unknown" ? "?" : "–";
+    // Counts are visible evidence, not a fabricated class label or answer key.
+    if (typeof it.value === "string" && it.value.startsWith("Counts: ") && it.count_evidence) {
+      return `${it.count_evidence[0]} R / ${it.count_evidence[1]} NR`;
+    }
+    return String(it.value);
+  }
+  function displayItems(group) {
+    const byId = new Map(group.items.map((it) => [Number(it.printed_item_id), it]));
+    return columns.map((col) => {
+      const items = col.printed.map((n) => byId.get(n));
+      return { id: col.id, label: col.label, printed: col.printed, items: items,
+        status: combinedStatus(items), response: items.map(responseText).join(" | "),
+        note: items.map((it, i) => `Item ${col.printed[i]} (${it ? labels[it.status] : "Unverified"}): ${it ? it.note : "No item record."}`).join("\n") };
+    });
   }
   function render() {
-    const groups = data.groups;
+    const groupByStudent = new Map();
+    data.groups.forEach((g) => g.students.forEach((s) => groupByStudent.set(s, g)));
+    const students = root.CORE.students.filter((s) => groupByStudent.has(s));
     const statusCounts = {};
-    groups.forEach((g) => g.items.forEach((it) => { statusCounts[it.status] = (statusCounts[it.status] || 0) + g.students.length; }));
-    const legend = Object.keys(labels).map(statusBadge).join(" ");
-    const columns = Object.values(data.rubric.items);
-    const grid = `<div class="table-wrap"><table class="find-table answer-grid transposed"><caption>WS12 · 15 printed items · 13 participant records from 7 shared scans</caption><thead><tr><th scope="col">Student / PDF page</th>${columns.map((it) => `<th scope="col">${h(it.label)}</th>`).join("")}</tr></thead><tbody>${groups.flatMap((g) => g.students.map((s) => `<tr><th scope="row">${h(s)}<div class="small">Page ${g.page}</div></th>${g.items.map((it) => `<td class="gc-cell ${classes[it.status]}" data-label="${h(columns[Number(it.printed_item_id)-1].label)}" title="${h(it.note)}">${statusBadge(it.status)}<div>${h(value(it))}</div></td>`).join("")}</tr>`)).join("")}</tbody></table></div>`;
-    const details = groups.map((g) => `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(g.students.join(" & "))} · page ${g.page}</span><span>${g.status_counts.correct || 0} consistent · ${g.status_counts.structural_na || 0} not applicable · ${g.status_counts.unknown || 0} unverified</span></summary><div class="sr-body"><p>${h(g.note)}</p><p><a href="${h(data.source_pdf)}#page=${g.page}" target="_blank" rel="noopener">Open shared scan · page ${g.page}</a></p><div class="table-wrap"><table class="find-table"><thead><tr><th scope="col">Printed item</th><th scope="col">Observed response</th><th scope="col">Result</th><th scope="col">Reason</th></tr></thead><tbody>${g.items.map((it) => `<tr><th scope="row">${h(columns[Number(it.printed_item_id)-1].label)}</th><td data-label="Observed response">${h(value(it))}</td><td data-label="Result">${statusBadge(it.status)}</td><td data-label="Reason">${h(it.note)}</td></tr>`).join("")}</tbody></table></div><p class="small">Count checks: ${g.count_diagnostics.map((d) => h(d.node + ": " + d.status + ". " + d.note)).join(" ")}</p></div></details>`).join("");
-    const stats = Object.keys(labels).map((status) => `<tr><th scope="row">${statusBadge(status)}</th><td data-label="Participant–item records">${statusCounts[status] || 0}</td></tr>`).join("");
+    const displayByStudent = new Map(students.map((s) => [s, displayItems(groupByStudent.get(s))]));
+    displayByStudent.forEach((items) => items.forEach((it) => { statusCounts[it.status] = (statusCounts[it.status] || 0) + 1; }));
+    const legend = ["correct", "partial", "incorrect", "blank", "structural_na", "unknown"].map(statusBadge).join(" ");
+    const cellValue = (it) => it.status === "structural_na" ? statusBadge(it.status) : h(it.response);
+    const grid = `<div class="table-wrap"><table class="find-table answer-grid transposed ws12-grid"><caption class="sr-only">WS12: 13 students; 10 displayed groups covering 15 printed items. Colors show each student's own recorded tree checks.</caption><thead><tr><th class="gc-student-head" scope="col">Student</th>${columns.map((col) => `<th class="gc-head" scope="col">${h(col.label)}</th>`).join("")}</tr></thead><tbody>${students.map((student) => `<tr><th class="gc-student-name" scope="row">${h(student)}</th>${displayByStudent.get(student).map((it) => `<td class="gc-cell ${classes[it.status]}" data-cell-id="${h(it.id)}" data-printed-items="${it.printed.join(",")}" data-verdict="${h(it.status)}" data-label="${h(it.label)}" aria-label="${h(it.label + ": " + labels[it.status] + ". " + it.response)}" title="${h(labels[it.status] + ". " + it.note)}">${cellValue(it)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    const details = students.map((student) => {
+      const group = groupByStudent.get(student), items = displayByStudent.get(student);
+      const correct = items.filter((it) => it.status === "correct").length;
+      const checked = items.filter((it) => ["correct", "incorrect", "partial", "blank"].includes(it.status)).length;
+      const unknown = items.filter((it) => it.status === "unknown").length;
+      const stops = items.filter((it) => it.status === "structural_na").length;
+      const shared = group.students.filter((s) => s !== student);
+      const summary = `${correct} / ${checked} checked correct${unknown ? " · " + unknown + " unverified" : ""}${stops ? " · " + stops + " valid stops (separate)" : ""}`;
+      return `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(student)}</span><span class="ws12-result-summary">${h(summary)}</span></summary><div class="sr-body"><p class="small">${shared.length ? "Shared sheet with " + h(shared.join(", ")) + ". " : ""}<a href="${h(data.source_pdf)}#page=${group.page}" target="_blank" rel="noopener">Open scan · page ${group.page}</a>. Unverified groups are outside the checked denominator.</p><div class="table-wrap"><table class="find-table"><thead><tr><th scope="col">Blank</th><th scope="col">Written answer</th><th scope="col">Result</th></tr></thead><tbody>${items.map((it) => `<tr><th scope="row">${h(it.label)}</th><td data-label="Written answer"><span class="written-answer">${h(it.response)}</span></td><td data-label="Result">${statusBadge(it.status)}<details class="ws12-item-note"><summary>Check details</summary><p class="small">${h(it.note).replace(/\n/g, "<br>")}</p></details></td></tr>`).join("")}</tbody></table></div></div></details>`;
+    }).join("");
+    const stats = Object.keys(labels).map((status) => `<tr><th scope="row">${statusBadge(status)}</th><td data-label="Displayed student–group cells">${statusCounts[status] || 0}</td></tr>`).join("");
     return `<div class="page wide find-page ws12-review"><p><a href="#/findings/worksheets">Worksheet findings</a> / WS12</p><p class="kicker">2026 · Revised ${h(data.version)}</p><h1>WS12 · Decision tree documentation</h1>
-      <p class="lead">Printed-item assessment from manually reviewed scans. Decisions, class counts and unused branches are checked separately.</p>
-      <p><strong>13 students · 7 shared submissions · 15 printed items.</strong> Complete worksheet totals are withheld while applicable items remain unverified. “Correct” here means local internal consistency under the revised rubric, not verified optimality or agreement with the human coder.</p>
-      <section class="section-block" id="answer-grid"><h2>Answer grid</h2><p>${legend}</p><p class="small">| means an accepted correct stopping action: no extension is required. This is distinct from an answered item receiving full credit. Unused fields earn no extra graded points. Researcher-confirmed exceptions and their prior statuses are documented below. Unverified is distinct from blank and wrong. Hover for the reason or expand a shared submission below.</p>${grid}</section>
-      <section class="section-block" id="participants"><h2>Student results · shared submissions</h2>${details}<p>No submitted WS12:${h(data.absent.join(", "))}.</p></section>
-      <section class="section-block" id="items"><h2>Coverage by participant record</h2><p>The 195 cells below represent 13 students × 15 items. Paired students share the same scan; these are not 195 independent observations.</p><table class="find-table"><thead><tr><th scope="col">Status</th><th scope="col">Participant–item records</th></tr></thead><tbody>${stats}</tbody></table></section>
-      <section class="section-block" id="method"><h2>Revised rubric and provenance</h2><ul>${data.limitations.map((s) => `<li>${h(s)}</li>`).join("")}</ul><p>Slots 10–13 are terminal decisions; 14/15 are training/test errors. Numeric counts and the predicted class remain separate. Ambiguous operators receive no inferred complement. Base consistency checks do not use human labels. Specific stopping exceptions were accepted using human applicability codes, are identified in each item note, and are not blind machine predictions. Historical composite scoring files are retained and superseded in this site view.</p><p><a href="downloads/ws12_review/rubric.json">Base rubric</a> · <a href="downloads/stopping_review/policy.json">Accepted stopping policy and provenance</a> · <a href="downloads/ws12_review/observations.json">Reviewed observations</a> · <a href="${source}">Revised results and reasons</a> · <a href="#/explore/worksheet/WS12">Collected worksheet files</a></p></section></div>`;
+      <p class="lead">Each student's recorded tree is checked for internal consistency. Features, thresholds and decisions can differ between students; there is no shared answer key.</p>
+      <section class="section-block" id="answer-grid"><h3>Answer grid <span class="small grid-toggle-hint">${legend}</span></h3><p class="small">Columns follow the same tree structure as WS6. Colors combine the listed printed-item checks; hover for the reason. | marks an accepted correct stopping action, separately from graded answers. R / NR are recorded recommended / not-recommended counts, not an inferred class decision. – marks a blank field; ? marks an unverified field.</p>${grid}</section>
+      <section id="participants"><details class="answer-grid-toggle"><summary><h3 class="inline-h3">Student results</h3></summary><p class="small">Click a student to expand their own answers and checks. Paired students share a scan.</p><div class="student-results">${details}</div></details></section>
+      <details class="find-fold" id="items"><summary>Coverage and grouping</summary><div class="find-fold-body"><p>13 students share 7 scans. The 10 displayed groups cover all 15 printed items once. Grouping changes the displayed observation unit; the underlying printed-item judgments are preserved. A wrong component makes a group wrong; unresolved or mixed-applicability components prevent a full-correct group. Unused descendants are not extra correct answers. No submitted WS12: ${h(data.absent.join(", "))}.</p><table class="find-table"><thead><tr><th scope="col">Status</th><th scope="col">Displayed student–group cells</th></tr></thead><tbody>${stats}</tbody></table></div></details>
+      <details class="find-fold" id="method"><summary>Method and sources</summary><div class="find-fold-body"><ul>${data.limitations.map((s) => `<li>${h(s)}</li>`).join("")}</ul><p>Only the current student's own fields are combined. Original printed-item judgments, reasons and provenance remain available. Base checks do not use human labels; specific stopping exceptions were accepted using human applicability codes and are not blind machine predictions. Historical composite scores are superseded in this view. Test-error values are recorded but cannot be verified without test cards.</p><p><a href="downloads/ws12_review/rubric.json">Base rubric</a> · <a href="downloads/stopping_review/policy.json">Accepted stopping policy and provenance</a> · <a href="downloads/ws12_review/observations.json">Reviewed observations</a> · <a href="${source}">Printed-item results and reasons</a> · <a href="#/explore/worksheet/WS12">Collected worksheet files</a></p></div></details></div>`;
   }
-  root.WS12Review = { render: render, data: data };
+  root.WS12Review = { render: render, data: data, columns: columns, displayItems: displayItems, combinedStatus: combinedStatus };
 })(typeof window !== "undefined" ? window : globalThis);

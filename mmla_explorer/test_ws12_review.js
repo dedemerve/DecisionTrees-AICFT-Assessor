@@ -12,7 +12,7 @@ assert(html.includes('| · Valid stop') && html.includes('Unverified') && html.i
 assert(html.includes('Test-error values are recorded but cannot be verified'));
 assert(!html.includes('100%') && !html.includes('ROOT SPLIT VALID'));
 assert(html.includes('Item 15') && html.includes('Item 10'));
-assert.equal((html.match(/<th scope="col">Item /g)||[]).length,15);
+assert.equal((html.match(/<th class="gc-head" scope="col">/g)||[]).length,10);
 assert.equal(ctx.WS12_REVIEW.groups.length,7);
 ctx.WS12_REVIEW.groups.forEach(g=>g.students.forEach(s=>{
  assert.equal(ctx.CORE.ws[s].WS12.scoring,null,'No historical total is presented as current');
@@ -27,4 +27,4 @@ assert(index.indexOf('assets/ws12_review.js')<index.indexOf('assets/worksheet_fi
 assert(index.indexOf('assets/ws12_review.js')<index.indexOf('assets/app.js'));
 const classes={};ctx.WS12_REVIEW.groups.forEach(g=>g.items.forEach(r=>classes[r.status]=(classes[r.status]||0)+g.students.length));
 assert.equal(Object.values(classes).reduce((a,b)=>a+b,0),195);
-console.log('PASS WS12 renderer,15 printed columns, status separation, no historical total leakage, non-WS12 records unchanged, script order.',classes);
+console.log('PASS WS12 renderer,10 grouped columns covering15 printed items, status separation, no historical total leakage, non-WS12 records unchanged, script order.',classes);

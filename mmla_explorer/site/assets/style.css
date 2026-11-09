@@ -1805,3 +1805,13 @@ main .hero-lead { max-width: 46ch; }
 /* Accepted stopping is a separate action status, never an ordinary scored answer. */
 .gc-stop { color: var(--good); background: var(--surface-2); border-left: 3px solid var(--good); }
 .row-stop { background: var(--surface-2); }
+
+/* WS12 uses the same compact response grid and student disclosures as WS6. */
+.ws12-grid .gc-head { max-width: 220px; }
+.ws12-review .ws12-grid .gc-cell { max-width: 220px; min-width: 90px; }
+.ws12-result-summary { font-size: 12px; color: var(--muted); }
+.ws12-item-note { margin-top: 4px; }
+.ws12-item-note > summary { cursor: pointer; font-size: 12px; color: var(--muted); }
+@media (max-width: 800px) {
+  .ws12-review .ws12-grid .gc-cell { max-width: none; }
+}
