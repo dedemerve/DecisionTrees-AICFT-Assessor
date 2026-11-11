@@ -124,6 +124,7 @@
   function rubricItemLabel(code, id, max) {
     const it = rubricItem(code, id);
     if (!it) return null;
+    if (it.label) return it.label;
     const exp = String(it.expected_answer || "").replace(/\s+/g, " ").trim();
     const n = it.printed_question;
     if (exp && exp.length <= max) return (n != null ? n + ". " : "") + exp;
@@ -867,7 +868,7 @@
         const pathLabel = fieldLabel(x.path);
         const blank = itemLabel(id);
         const rub = rubricItemLabel(w.code, id, 64);
-        const label = rub && blank && (pathLabel === blank || pathLabel.startsWith(blank + " · ")) ? pathLabel.replace(blank, rub) : pathLabel;
+        const label = rub && blank && (pathLabel === blank || pathLabel.startsWith(blank + " · ")) ? pathLabel.replace(blank, rub) : (rub && !blank ? rub : pathLabel);
         const cells = [h(label), v];
         if (hasExpected) cells.push(fixed[id] !== undefined ? `<span class="mono">${h(fixed[id])}</span>` : "");
         cells.push(c ? `<span${c.flag ? tipAttr(h(c.flag)) : ""}>${result(c.correct)}</span>` : "");

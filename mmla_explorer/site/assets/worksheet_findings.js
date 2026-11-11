@@ -202,6 +202,8 @@
     if (row) return "Row " + row[1];
     const blank = /(?:^|_)B(\d+)$/i.exec(id);
     if (blank) return "Item " + blank[1];
+    const ws13map = {DT_A_Q1:"A1",DT_A_Q2:"A2",DT_A_Q3:"A3",DT_A_Q4:"A4",DT_B_Q1:"B1",DT_B_Q2:"B2",DT_B_Q3:"B3",DT_B_Q4:"B4",DT_C_Q1:"C1",DT_C_Q2:"C2",DT_C_Q3:"C3",DT_D_Q1:"D1",DT_D_Q2:"D2",DT_D_Q3:"D3",DT_D_Q4:"D4",DT_E_TP:"EA",DT_E_FP:"EB",DT_E_Q1:"E1",DT_E_Q2:"E2",DT_E_Q3:"E3",DT_E_Q4:"E4",DT_F_Q1:"F1",DT_F_Q2:"F2",DT_G_Q1:"G1",DT_G_Q2:"G2"};
+    if (ws13map[id]) return ws13map[id];
     const tree = /^DT_([A-G])_(.+)$/.exec(id);
     if (tree) {
       const q = /^Q(\d+)$/.exec(tree[2]);
@@ -214,6 +216,7 @@
   }
   function sortKey(w, id) {
     const item = rubricItems(w)[id];
+    if (item && item.label) return item.label;
     if (item && item.printed_question != null && !Number.isNaN(Number(item.printed_question))) return Number(item.printed_question);
     const m = /(\d+)/.exec(id);
     return m ? Number(m[1]) : 10000;
@@ -336,7 +339,16 @@
       if (!sc) return;
       (sc.items || []).forEach((it) => { if (scoreIds.indexOf(it.item) === -1) scoreIds.push(it.item); });
     });
-    scoreIds.sort((a, b) => sortKey(w || { rubric_data: null }, a) - sortKey(w || { rubric_data: null }, b) || a.localeCompare(b));
+    scoreIds.sort((a, b) => {
+      const ka = sortKey(w || { rubric_data: null }, a);
+      const kb = sortKey(w || { rubric_data: null }, b);
+      const aStr = typeof ka === "string";
+      const bStr = typeof kb === "string";
+      if (aStr && bStr) return String(ka).localeCompare(String(kb)) || a.localeCompare(b);
+      if (aStr) return -1;
+      if (bStr) return 1;
+      return ka - kb || a.localeCompare(b);
+    });
     const aligned = !duplicateOf && scoreIds.length > 0 && scoreIds.every((id) => students.some((s) => responsesFor(core.ws[s][code] && core.ws[s][code].ocr, code, id).length));
 
     const itemRows = duplicateOf ? [] : scoreIds.map((id) => {
@@ -1226,7 +1238,11 @@
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
     const students = model.cohort;
-    const items = model.items;
+    const items = model.items.filter(it => {
+      if (it.max != null && it.max === 0) return false;
+      if (SCORE_DERIVED.has(model.code)) return rubricItems(w)[it.id] && rubricItems(w)[it.id].label != null;
+      return true;
+    });
     // Column headers: item titles (rotated), with expected answer as subtitle
     const colHeaders = `<th class="gc-student-head">Student</th>` +
       items.map((it) => {
@@ -1267,10 +1283,15 @@
     if (model.code === "WS6") return studentResultsWS6(model, core);
     if (!model.items.length || !model.cohort.length) return "";
     const w = sheetOf(core, model.code);
+    const scoredItems = model.items.filter(it => {
+      if (it.max != null && it.max === 0) return false;
+      if (SCORE_DERIVED.has(model.code)) return rubricItems(w)[it.id] && rubricItems(w)[it.id].label != null;
+      return true;
+    });
     const blocks = model.cohort.map((p) => {
       const rec = core.ws[p.id] && core.ws[p.id][model.code];
       let nCorrect = 0, nChecked = 0;
-      const itemRows = model.items.map((it) => {
+      const itemRows = scoredItems.map((it) => {
         const expected = expectedFor(w, it.id) || "–";
         const response = getResponse(rec, model.code, it.id);
         const isBlank = !response || response === "(blank)";

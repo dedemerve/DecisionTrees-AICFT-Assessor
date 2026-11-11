@@ -126,6 +126,7 @@
   },
   "items": {
     "DT_A_Q1": {
+      "label": "A1",
       "max_score": 1,
       "evaluation": "prior_belief",
       "components": [
@@ -145,6 +146,7 @@
       "example_answer": "Şeker ve yağ miktarının bir gıdanın tavsiye edilip edilmeyeceğini tahmin edebileceğini düşünüyorum. Yüksek şekerli gıdaların genellikle sağlıklı sayılmadığını biliyorum."
     },
     "DT_A_Q2": {
+      "label": "A2",
       "max_score": 1,
       "evaluation": "data_exploration",
       "components": [
@@ -164,6 +166,7 @@
       "example_answer": "CODAP'ta grafik oluşturduğumda şeker miktarının iki grubu belirgin biçimde ayırdığını gördüm. Tavsiye edilen gıdalarda şeker değeri düşükken, edilmeyenlerde yüksekti."
     },
     "DT_A_Q3": {
+      "label": "A3",
       "max_score": 1,
       "evaluation": "feature_observation",
       "components": [
@@ -183,6 +186,7 @@
       "example_answer": "Evet, şeker miktarı anlamlı bir fark gösterdi. Tavsiye edilen gıdalarda şeker değeri genellikle 10g'ın altında kalırken, tavsiye edilmeyenlerde bu değer daha yüksekti."
     },
     "DT_A_Q4": {
+      "label": "A4",
       "max_score": 1,
       "evaluation": "feature_selection_with_justification",
       "components": [
@@ -202,6 +206,7 @@
       "example_answer": "İlk olarak şeker miktarını kullanırdım. CODAP'taki grafiklerde şekerin iki grubu en belirgin şekilde ayırdığını gözlemledim."
     },
     "DT_B_Q1": {
+      "label": "B1",
       "max_score": 1,
       "evaluation": "emit_output",
       "check": "emit_consistency",
@@ -224,6 +229,7 @@
       "tree_level": "single"
     },
     "DT_B_Q2": {
+      "label": "B2",
       "max_score": 1,
       "evaluation": "emit_output",
       "check": "emit_consistency",
@@ -245,6 +251,7 @@
       "tree_level": "single"
     },
     "DT_B_Q3": {
+      "label": "B3",
       "max_score": 1,
       "evaluation": "emit_output",
       "check": "emit_consistency",
@@ -266,6 +273,7 @@
       "tree_level": "single"
     },
     "DT_B_Q4": {
+      "label": "B4",
       "max_score": 1,
       "evaluation": "comparative_selection",
       "components": [
@@ -285,6 +293,7 @@
       "example_answer": "Şeker miktarı en iyi sonucu verdi çünkü bu değişkende MCR en düşük elde edildi. Duyarlılık da diğer ağaçlara göre daha yüksekti."
     },
     "DT_C_Q1": {
+      "label": "C1",
       "max_score": 1,
       "evaluation": "emit_output",
       "check": "emit_consistency",
@@ -307,6 +316,7 @@
       "tree_level": "single"
     },
     "DT_C_Q2": {
+      "label": "C2",
       "max_score": 1,
       "evaluation": "threshold_effect",
       "components": [
@@ -326,6 +336,7 @@
       "example_answer": "Eşiği yükseltince daha fazla gıda tavsiye edilir grubuna girdi; bu FP'yi artırıp MCR'yi yükseltti. Eşiği düşürünce ise FN arttı."
     },
     "DT_C_Q3": {
+      "label": "C3",
       "max_score": 1,
       "evaluation": "threshold_selection",
       "components": [
@@ -345,6 +356,7 @@
       "example_answer": "Şeker için 12g eşiği en iyi sonucu verdi. Farklı değerleri deneyerek MCR'nin bu eşikte 0.13 ile en düşük olduğunu buldum."
     },
     "DT_D_Q1": {
+      "label": "D1",
       "max_score": 1,
       "evaluation": "emit_output",
       "check": "emit_consistency",
@@ -369,6 +381,7 @@
       "tree_level": "two"
     },
     "DT_D_Q2": {
+      "label": "D2",
       "max_score": 1,
       "evaluation": "improvement_analysis",
       "components": [
@@ -388,6 +401,7 @@
       "example_answer": "Evet, ikinci değişken olarak yağı eklemek sınıflandırmayı iyileştirdi. Yanlış pozitif sayısı 2'den 1'e düştü ve MCR 0.25'ten 0.13'e geriledi."
     },
     "DT_D_Q3": {
+      "label": "D3",
       "max_score": 1,
       "evaluation": "combination_selection",
       "components": [
@@ -407,6 +421,7 @@
       "example_answer": "Şeker ve yağ kombinasyonu en iyi sonucu verdi. Bu ağaçta MCR 0.13 ile en düşük değere ulaştı."
     },
     "DT_D_Q4": {
+      "label": "D4",
       "max_score": 1,
       "evaluation": "decision_criterion",
       "components": [
@@ -425,6 +440,7 @@
       "example_answer": "Farklı kombinasyonların MCR değerlerini EMIT çıktısıyla karşılaştırdım. MCR artık düşmediğinde en iyi ağaca ulaştığıma karar verdim."
     },
     "DT_E_TP": {
+      "label": "EA",
       "max_score": 1,
       "evaluation": "numeric_value",
       "check": "numeric_present",
@@ -432,6 +448,7 @@
       "example_answer": "8"
     },
     "DT_E_FP": {
+      "label": "EB",
       "max_score": 1,
       "evaluation": "numeric_value",
       "check": "numeric_present",
@@ -465,6 +482,7 @@
       "example_answer": "0.13"
     },
     "DT_E_Q1": {
+      "label": "E1",
       "max_score": 1,
       "evaluation": "metric_justification",
       "components": [
@@ -484,6 +502,7 @@
       "example_answer": "Duyarlılık daha önemli; tavsiye edilmesi gereken bir gıdayı kaçırmak, gereksiz yere tavsiye etmekten daha riskli olabilir."
     },
     "DT_E_Q2": {
+      "label": "E2",
       "max_score": 1,
       "evaluation": "error_analysis",
       "components": [
@@ -503,6 +522,7 @@
       "example_answer": "Modelim daha fazla yanlış negatif yaptı; tavsiye edilmesi gereken bazı gıdaları tavsiye edilemez olarak sınıflandırdı."
     },
     "DT_E_Q3": {
+      "label": "E3",
       "max_score": 1,
       "evaluation": "stopping_criterion",
       "components": [
@@ -521,6 +541,7 @@
       "example_answer": "Bir yazılım, MCR gibi bir hata eşiği belirler. Model bu eşiğin altında kaldığında veya ek karmaşıklık hatayı azaltmadığında ağacın yeterince iyi olduğuna karar verilir."
     },
     "DT_E_Q4": {
+      "label": "E4",
       "max_score": 1,
       "evaluation": "conceptual_limitation",
       "scoring_mode": "interpretive",
@@ -542,6 +563,7 @@
       "example_answer": "Hayır, karar ağaçları her zaman mükemmel sınıflandırma yapamaz. Farklı sınıflara ait örnekler aynı özellik değerlerine sahip olabilir; bu durumda hata kaçınılmazdır."
     },
     "DT_F_Q1": {
+      "label": "F1",
       "max_score": 1,
       "evaluation": "emit_output",
       "check": "emit_consistency",
@@ -558,6 +580,7 @@
       "example_note": "Illustrative only — test-set counts are pre-service teacher-specific."
     },
     "DT_F_Q2": {
+      "label": "F2",
       "max_score": 1,
       "evaluation": "train_test_comparison",
       "components": [
@@ -587,6 +610,7 @@
       "note": "This item does not appear in the WS13 PDF. Retained for extraction compatibility only. max_score=0 so it never contributes to the total."
     },
     "DT_G_Q1": {
+      "label": "G1",
       "max_score": 1,
       "evaluation": "reflection_model",
       "components": [
@@ -600,6 +624,7 @@
       "example_answer": "Karar ağacı modeli, eğitim verisindeki şeker ve yağ değerlerine bakarak 'şeker ≤ 12 ise tavsiye edilebilir' gibi kurallar öğrendi."
     },
     "DT_G_Q2": {
+      "label": "G2",
       "max_score": 1,
       "evaluation": "reflection_student",
       "components": [
