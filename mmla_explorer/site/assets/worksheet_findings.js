@@ -515,7 +515,7 @@
   }
   function crumbs(parts) {
     const last = parts.length - 1;
-    return `<nav class="crumbs" aria-label="Breadcrumb">${parts.map((p, i) => i === last ? `<span aria-current="page">${h(p[0])}</span>` : `<a href="${h(p[1])}">${h(p[0])}</a><span aria-hidden="true">/</span>`).join("")}</nav>`;
+    return `<nav class="crumbs" aria-label="Breadcrumb">${parts.map((p, i) => i === last ? `<span aria-current="page">${h(p[0])}</span>` : `<a href="${h(p[1])}">${h(p[0])}</a><span aria-hidden="true">›</span>`).join("")}</nav>`;
   }
   function statusText(p) {
     if (p.scoring === "published" && p.inCohort) return "Published score, included in the summary";
