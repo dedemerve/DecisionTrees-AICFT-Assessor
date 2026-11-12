@@ -1329,8 +1329,16 @@ WS13 interpretive scoring (applies to this item):
 - There is NO single correct answer. Pre-service teachers choose their own variables, thresholds, and conclusions from CODAP.
 - Score ONLY on whether rubric components are met (data reference, justification, metric use, reflection).
 - NEVER penalize because the pre-service teacher's answer differs from the illustrative example (different feature names, thresholds, or metric values are expected).
-- Partial credit when one of two components is present or reasoning is thin but on-topic.
-- EMIT/numeric items are exceptions: check internal consistency of the pre-service teacher's own recorded numbers only.
+
+FULL CREDIT BIAS: Default toward full credit for WS13 interpretive items.
+- For 2-component items: if 1 component is clearly stated in any form (even brief), award FULL credit. Award partial only when no component is identifiable. Award zero only for blank or off-topic responses.
+- Brief, direct responses are common and valid. Do not downgrade for brevity.
+
+EMIT RECORDING ITEMS (B1, B2, B3):
+- Full credit = named variable + any single numeric output (MCR rate, accuracy %, sensitivity, error rate, error count). Threshold value is NOT required.
+- Partial = variable named but zero numeric output (pure prose description only).
+
+BLANK DETECTION: Empty response, "(blank)", "(bos)", only dashes or placeholder text, or "(okunamiyor)" → not_attempted. Never assign zero or partial to a truly blank response.
 """
 
 
@@ -1620,6 +1628,28 @@ def assess_worksheet(
             f"assess_worksheet: no rubric items found for worksheet_id={worksheet_id!r}. "
             f"Check that responses keys match scoring items for {worksheet!r}."
         )
+
+    # Xeno numeric consistency override for WS14 (TP + TN = N, since FP=FN=0 by design)
+    if worksheet == "WS14":
+        def _xeno_int(s: str) -> Optional[int]:
+            try:
+                return int(str(s).strip())
+            except (ValueError, TypeError, AttributeError):
+                return None
+
+        tp_val = _xeno_int(responses.get("DTI_10", ""))
+        tn_val = _xeno_int(responses.get("DTI_12", ""))
+        n_val = _xeno_int(responses.get("DTI_18", ""))
+
+        if tp_val is not None and tn_val is not None and n_val is not None and tp_val + tn_val == n_val:
+            override_ids = {"DTI_10", "DTI_12", "DTI_18"}
+            item_scores = [
+                s.model_copy(update={
+                    "credit": "full",
+                    "flag": f"xeno_consistency:TP{tp_val}+TN{tn_val}=N{n_val}",
+                }) if s.item_id in override_ids else s
+                for s in item_scores
+            ]
 
     # Overall worksheet credit
     credits = [s.credit for s in item_scores]

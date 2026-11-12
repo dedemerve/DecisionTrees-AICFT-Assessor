@@ -226,7 +226,12 @@
       "note": "Pre-service teacher builds first single-level tree in CODAP with one variable and records EMIT output. Full credit if counts sum correctly and derived metrics are consistent — not against fixed canonical TP/FP/TN/FN.",
       "example_answer": "Değişken: şeker | Eşik: 10 | TP: 8 | FP: 2 | TN: 4 | FN: 2 | Duyarlılık: 0.80 | MCR: 0.25",
       "example_note": "Illustrative only — any valid feature/threshold with consistent EMIT counts is full credit.",
-      "tree_level": "single"
+      "tree_level": "single",
+      "credit_levels": {
+        "full": "Student records any EMIT output with a named variable and at least one numeric output (MCR rate, accuracy/doğruluk %, sensitivity/duyarlılık, error rate, error count, TP/FP/TN/FN). Threshold value is NOT required. Arithmetic consistency is NOT required — the student is transcribing what CODAP showed them. Variable + any single number = full credit.",
+        "partial": "Student mentions the variable but provides only a prose description with no numeric output at all.",
+        "zero": "Blank response or only a free-text comment with no variable and no numbers."
+      }
     },
     "DT_B_Q2": {
       "label": "B2",
@@ -248,7 +253,12 @@
       "note": "Pre-service teacher builds second single-level tree with a different variable.",
       "example_answer": "Değişken: yağ | Eşik: 8 | TP: 6 | FP: 4 | TN: 2 | FN: 4 | Duyarlılık: 0.60 | MCR: 0.50",
       "example_note": "Illustrative only.",
-      "tree_level": "single"
+      "tree_level": "single",
+      "credit_levels": {
+        "full": "Student records any EMIT output with a named variable and at least one numeric output (MCR rate, accuracy/doğruluk %, sensitivity/duyarlılık, error rate, error count, TP/FP/TN/FN). Threshold value is NOT required. Arithmetic consistency is NOT required. Variable + any single number = full credit.",
+        "partial": "Student mentions the variable but provides only a prose description with no numeric output at all.",
+        "zero": "Blank response or only a free-text comment with no variable and no numbers."
+      }
     },
     "DT_B_Q3": {
       "label": "B3",
@@ -270,7 +280,12 @@
       "note": "Pre-service teacher builds third single-level tree with a third variable.",
       "example_answer": "Değişken: enerji | Eşik: 300 | TP: 5 | FP: 3 | TN: 3 | FN: 5 | Duyarlılık: 0.50 | MCR: 0.50",
       "example_note": "Illustrative only.",
-      "tree_level": "single"
+      "tree_level": "single",
+      "credit_levels": {
+        "full": "Student records any EMIT output with a named variable and at least one numeric output (MCR rate, accuracy/doğruluk %, sensitivity/duyarlılık, error rate, error count, TP/FP/TN/FN). Threshold value is NOT required. Arithmetic consistency is NOT required. Variable + any single number = full credit.",
+        "partial": "Student mentions the variable but provides only a prose description with no numeric output at all.",
+        "zero": "Blank response or only a free-text comment with no variable and no numbers."
+      }
     },
     "DT_B_Q4": {
       "label": "B4",
@@ -445,7 +460,12 @@
       "evaluation": "numeric_value",
       "check": "numeric_present",
       "note": "Student records TP count from EMIT output. Full credit if a numeric value is present; zero if blank. Consistency with FP+TN+FN is secondary (checked by scorer holistically).",
-      "example_answer": "8"
+      "example_answer": "8",
+      "credit_levels": {
+        "full": "Any numeric value present — the student's TP/FP count from their own CODAP EMIT output. Any positive integer or zero earns full credit.",
+        "partial": null,
+        "zero": "Blank or non-numeric response (sentinel values like (bos), (okunamiyor))."
+      }
     },
     "DT_E_FP": {
       "label": "EB",
@@ -453,7 +473,12 @@
       "evaluation": "numeric_value",
       "check": "numeric_present",
       "note": "Student records FP count from EMIT output. Full credit if a numeric value is present; zero if blank.",
-      "example_answer": "2"
+      "example_answer": "2",
+      "credit_levels": {
+        "full": "Any numeric value present — the student's TP/FP count from their own CODAP EMIT output. Any positive integer or zero earns full credit.",
+        "partial": null,
+        "zero": "Blank or non-numeric response (sentinel values like (bos), (okunamiyor))."
+      }
     },
     "DT_E_sensitivity_formula": {
       "max_score": 0,
@@ -577,7 +602,12 @@
       ],
       "note": "Pre-service teacher applies best tree to the test dataset and records EMIT output. Full credit if counts sum to test dataset size (N=8) and metrics are arithmetically consistent.",
       "example_answer": "Test verisi EMIT: TP: 4 | FP: 2 | TN: 1 | FN: 1 | Duyarlılık: 0.80 | MCR: 0.38",
-      "example_note": "Illustrative only — test-set counts are pre-service teacher-specific."
+      "example_note": "Illustrative only — test-set counts are pre-service teacher-specific.",
+      "credit_levels": {
+        "full": "Pre-service teacher records EMIT output for the test dataset. Full credit if the four counts (TP/FP/TN/FN) sum to N=8 and sensitivity and MCR are arithmetically consistent with the counts. Values are pre-service-teacher-specific.",
+        "partial": "EMIT output partially recorded — counts present but metrics missing or one count off, or only partial fields recorded.",
+        "zero": "Blank or only a free-text comment with no numeric EMIT values."
+      }
     },
     "DT_F_Q2": {
       "label": "F2",
