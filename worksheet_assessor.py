@@ -1341,9 +1341,30 @@ EMIT RECORDING ITEMS (B1, B2, B3):
 BLANK DETECTION: Empty response, "(blank)", "(bos)", only dashes or placeholder text, or "(okunamiyor)" → not_attempted. Never assign zero or partial to a truly blank response.
 """
 
+WS14_XENO_INTERPRETIVE_SUPPLEMENT = """
+WS14 Xeno simulation scoring (applies to this item):
+- Each pre-service teacher runs their OWN Xeno simulation in CODAP. Numbers (counts, percentages) differ per student by design. NEVER penalize a student for numbers that differ from the reference answer.
+- Score ONLY on whether the student correctly reads and interprets THEIR OWN simulation output.
+
+FULL CREDIT BIAS: Default toward full credit for WS14 items.
+- For items with multiple components (count + rate, variable + criterion, observation + interpretation): if the student clearly addresses ANY ONE component correctly from their own data, award FULL credit. Award partial only when no component is clearly addressed. Award zero only for blank or completely off-topic responses.
+- Brief, direct responses are common and valid. Do not downgrade for brevity.
+- If the student's numbers are internally consistent with a Xeno simulation (even if different from the reference), treat them as correct.
+
+XENO INVARIANTS (true for all students regardless of their simulation run):
+- Pink-haired creatures are ALWAYS 100% sick (all sick, no healthy).
+- Blue-haired creatures are ALWAYS 0% sick (all healthy, no sick).
+- Hair color is therefore a perfect separator with FP=FN=0.
+- For test predictions on new cases: the tree should achieve 100% accuracy because hair color is a perfect predictor.
+
+BLANK DETECTION: Empty response, "(blank)", "(bos)", only dashes or placeholder text → not_attempted. Never assign zero or partial to a truly blank response.
+"""
+
 
 def _system_prompt_for_item(item_id: str, worksheet_id: str | None) -> str:
     ws = normalize_worksheet_id(worksheet_id) if worksheet_id else None
+    if ws == "WS14":
+        return SYSTEM_PROMPT + WS14_XENO_INTERPRETIVE_SUPPLEMENT
     if ws != "WS13":
         return SYSTEM_PROMPT
     rubric = load_rubric(ws)

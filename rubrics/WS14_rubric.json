@@ -61,6 +61,11 @@
         "0.5": "Yapı büyük ölçüde doğru ama bir bileşen eksik/tutarsız.",
         "0.0": "Değişmez yapı yanlış yansıtılmış veya boş."
       },
+      "credit_levels": {
+        "full": "States the total count OR the sick percentage (or both) from their own simulation. Any consistent number = full credit. Brief answers like '10 vaka, %60 hasta' or just '6 hasta' are valid.",
+        "partial": null,
+        "zero": "Blank or states an impossible value."
+      },
       "example_answer": "Kök düğüm 10 vaka içerir, bunların 6'sı (%60) sick (hasta) durumundadır. Bu, veri setinde hasta ve sağlıklı yaratıkların yakın sayıda olduğunu, hafif çoğunlukla hasta bulunduğunu gösterir.",
       "reference_answer": "Kök düğüm 10 vaka içerir, bunların 6'sı (%60) sick (hasta) durumundadır. Bu, veri setinde hasta ve sağlıklı yaratıkların yakın sayıda olduğunu, hafif çoğunlukla hasta bulunduğunu gösterir."
     },
@@ -83,6 +88,11 @@
         "0.5": "Yapı büyük ölçüde doğru ama bir bileşen eksik/tutarsız.",
         "0.0": "Değişmez yapı yanlış yansıtılmış veya boş."
       },
+      "credit_levels": {
+        "full": "States the blue-hair count OR the 0% sick rate (or both). Any consistent number = full credit. Brief answers like 'mavi 4, hiç hasta yok' or just '%0' are valid.",
+        "partial": null,
+        "zero": "Blank or states blue-haired creatures are sick."
+      },
       "example_answer": "Mavi saçlı kutuda 4 vaka vardır, bunların 0'ı (%0) hastadır. Yani mavi saçlıların tamamı sağlıklıdır.",
       "reference_answer": "Mavi saçlı kutuda 4 vaka vardır, bunların 0'ı (%0) hastadır. Yani mavi saçlıların tamamı sağlıklıdır."
     },
@@ -103,6 +113,11 @@
         "1.0": "Pembe kutuda hasta oranı %100 olarak belirtilmiş ve saç rengi–hastalık ilişkisi güçlü/tam olarak yorumlanmışsa.",
         "0.5": "Yapı büyük ölçüde doğru ama bir bileşen eksik/tutarsız.",
         "0.0": "Değişmez yapı yanlış yansıtılmış veya boş."
+      },
+      "credit_levels": {
+        "full": "States pink-hair count OR 100% sick rate OR both. Any consistent number = full credit. Brief answer like 'pembe 6, hepsi hasta' or just '%100' is valid.",
+        "partial": null,
+        "zero": "Blank or states a non-100% sick rate for pink hair."
       },
       "example_answer": "Pembe saçlı kutuda 6 vaka vardır, bunların 6'sı (%100) hastadır. Pembe saçlıların tamamı hasta olduğundan saç rengi (pembe) ile hastalık arasında güçlü/tam bir ilişki vardır.",
       "reference_answer": "Pembe saçlı kutuda 6 vaka vardır, bunların 6'sı (%100) hastadır. Pembe saçlıların tamamı hasta olduğundan saç rengi (pembe) ile hastalık arasında güçlü/tam bir ilişki vardır."
@@ -135,7 +150,12 @@
       "partial_on": 1,
       "partial_score": 0.5,
       "example_answer": "Pembe saçlı kutu pozitif (hasta), mavi saçlı kutu ise negatif (sağlıklı) olarak etiketlenmiştir. Ölçüt, her kutudaki hasta oranının büyüklüğüdür (çoğunluk kuralı): pembe kutu %100 hasta, mavi kutu %0 hasta. Ayrım tam olduğu için alternatif bir etiketleme mantıklı olmazdı.",
-      "reference_answer": "Pembe saçlı kutu pozitif (hasta), mavi saçlı kutu ise negatif (sağlıklı) olarak etiketlenmiştir. Ölçüt, her kutudaki hasta oranının büyüklüğüdür (çoğunluk kuralı): pembe kutu %100 hasta, mavi kutu %0 hasta. Ayrım tam olduğu için alternatif bir etiketleme mantıklı olmazdı."
+      "reference_answer": "Pembe saçlı kutu pozitif (hasta), mavi saçlı kutu ise negatif (sağlıklı) olarak etiketlenmiştir. Ölçüt, her kutudaki hasta oranının büyüklüğüdür (çoğunluk kuralı): pembe kutu %100 hasta, mavi kutu %0 hasta. Ayrım tam olduğu için alternatif bir etiketleme mantıklı olmazdı.",
+      "credit_levels": {
+        "full": "Names the decision tree variable (feature) used at the split OR the criterion/labeling rule (e.g. hair color, 100% sick rate, majority vote). ONE component clearly stated = full credit. The student's own simulation data may differ from the reference — accept any consistent answer.",
+        "partial": null,
+        "zero": "Blank or names neither a variable nor any classification criterion."
+      }
     },
     "DTI_05": {
       "printed_question": 5,
@@ -155,7 +175,12 @@
         "0.0": "Değişmez yapı yanlış yansıtılmış veya boş."
       },
       "example_answer": "Pembe saçlı kutuda 6 vaka vardır ve 6'sı da (%100) hastadır. Bu sonuç, pembe saç rengi ile hasta olma arasında tam (kusursuz) bir ilişki olduğunu düşündürür.",
-      "reference_answer": "Pembe saçlı kutuda 6 vaka vardır ve 6'sı da (%100) hastadır. Bu sonuç, pembe saç rengi ile hasta olma arasında tam (kusursuz) bir ilişki olduğunu düşündürür."
+      "reference_answer": "Pembe saçlı kutuda 6 vaka vardır ve 6'sı da (%100) hastadır. Bu sonuç, pembe saç rengi ile hasta olma arasında tam (kusursuz) bir ilişki olduğunu düşündürür.",
+      "credit_levels": {
+        "full": "States that pink-haired creatures are sick, mentions 100% sick rate, OR provides a count consistent with all-pink-sick. Any reference to pink=sick (in any form) = full credit. The student's own count may differ from the reference — accept any consistent count.",
+        "partial": null,
+        "zero": "Blank or states a non-sick outcome for pink hair."
+      }
     },
     "DTI_06": {
       "printed_question": 6,
@@ -179,6 +204,11 @@
       "need": 2,
       "partial_on": 1,
       "partial_score": 0.5,
+      "credit_levels": {
+        "full": "States that hair color IS a good/perfect separator OR explains why (groups don't overlap, 0%/100% sick rates). ONE of these is enough for full credit.",
+        "partial": null,
+        "zero": "Blank or states hair color is NOT a good separator."
+      },
       "example_answer": "Evet, saç rengi bu veri setinde mükemmel bir ayırıcıdır. Mavi saçlı 4 yaratığın tamamı sağlıklı (%0 hasta), pembe saçlı 6 yaratığın tamamı hastadır (%100 hasta). İki grup arasında hiç örtüşme yoktur, saç rengi tek başına Xhealth'i hatasız tahmin eder. Doğruluk, duyarlılık ve özgüllüğün %100 çıkması bunu sayısal olarak da doğrular.",
       "reference_answer": "Evet, saç rengi bu veri setinde mükemmel bir ayırıcıdır. Mavi saçlı 4 yaratığın tamamı sağlıklı (%0 hasta), pembe saçlı 6 yaratığın tamamı hastadır (%100 hasta). İki grup arasında hiç örtüşme yoktur, saç rengi tek başına Xhealth'i hatasız tahmin eder. Doğruluk, duyarlılık ve özgüllüğün %100 çıkması bunu sayısal olarak da doğrular."
     },
@@ -203,7 +233,12 @@
       ],
       "need": 1,
       "example_answer": "Bu veri setinde saç rengi mükemmel bir ayırıcıdır (pembe→hasta, mavi→sağlıklı). Bu nedenle yalnızca saç rengine bakarak yeni bir vakayı %100 doğru tahmin etmemiz beklenir.",
-      "reference_answer": "Bu veri setinde saç rengi mükemmel bir ayırıcıdır (pembe→hasta, mavi→sağlıklı). Bu nedenle yalnızca saç rengine bakarak yeni bir vakayı %100 doğru tahmin etmemiz beklenir."
+      "reference_answer": "Bu veri setinde saç rengi mükemmel bir ayırıcıdır (pembe→hasta, mavi→sağlıklı). Bu nedenle yalnızca saç rengine bakarak yeni bir vakayı %100 doğru tahmin etmemiz beklenir.",
+      "credit_levels": {
+        "full": "States high or 100% probability of correct prediction. Accepts any form: '100%', '1.0', 'kesin', 'yüksek', 'tam', 'mükemmel', or linking hair color to perfect prediction. Only one component (high_prob) is required — reason is optional.",
+        "partial": null,
+        "zero": "Blank response or states low/uncertain probability."
+      }
     },
     "DTI_08": {
       "printed_question": 8,
@@ -227,6 +262,11 @@
       "need": 2,
       "partial_on": 1,
       "partial_score": 0.5,
+      "credit_levels": {
+        "full": "Names FN (or FP with consistent reasoning) as more dangerous AND gives any medical reason. ONE rationale phrase is enough — elaborate explanation not required.",
+        "partial": null,
+        "zero": "Blank or states neither FP nor FN is more dangerous with no reasoning."
+      },
       "note": "FP'yi seçip tutarlı gerekçelendiren yanıtlar da bağlama göre 0.5–1.0 alabilir; tıbbi bağlamda beklenen FN'dir.",
       "example_answer": "FN (Yanlış Negatif) daha tehlikelidir. Çünkü gerçekte hasta olan bir birey sağlıklı sanılır, tedavi edilmez, hastalık ilerleyebilir ve yayılabilir, ölüm riski artar. FP'de ise sağlıklı birine gereksiz ek test/tedavi uygulanır ama hayati risk çok daha düşüktür.",
       "reference_answer": "FN (Yanlış Negatif) daha tehlikelidir. Çünkü gerçekte hasta olan bir birey sağlıklı sanılır, tedavi edilmez, hastalık ilerleyebilir ve yayılabilir, ölüm riski artar. FP'de ise sağlıklı birine gereksiz ek test/tedavi uygulanır ama hayati risk çok daha düşüktür."
@@ -253,7 +293,12 @@
       "need": 1,
       "note": "FP=FN=0 ve yüksek doğruluk beklenir. Öğrencinin gözlemi kendi verisiyle tutarlıysa tam puan.",
       "example_answer": "Saç rengi mükemmel ayırıcı olduğu için ağaç 10 yeni vakanın tamamını doğru teşhis eder, hata (FP/FN) görülmez, doğruluk %100 olur. (Üretilen örneğe göre TP ve TN'nin dağılımı değişebilir ama FP=FN=0 beklenir.)",
-      "reference_answer": "Saç rengi mükemmel ayırıcı olduğu için ağaç 10 yeni vakanın tamamını doğru teşhis eder, hata (FP/FN) görülmez, doğruluk %100 olur. (Üretilen örneğe göre TP ve TN'nin dağılımı değişebilir ama FP=FN=0 beklenir.)"
+      "reference_answer": "Saç rengi mükemmel ayırıcı olduğu için ağaç 10 yeni vakanın tamamını doğru teşhis eder, hata (FP/FN) görülmez, doğruluk %100 olur. (Üretilen örneğe göre TP ve TN'nin dağılımı değişebilir ama FP=FN=0 beklenir.)",
+      "credit_levels": {
+        "full": "States that the tree performed well or perfectly on the 10 new cases. Accepts '100%', 'hepsini doğru', 'kusursuz', 'hata yok', or any reference to FP=FN=0 outcome.",
+        "partial": null,
+        "zero": "Blank response or states poor performance."
+      }
     },
     "DTI_10": {
       "printed_question": 10,
@@ -272,7 +317,12 @@
         "0.0": "Değişmez yapı yanlış veya boş."
       },
       "example_answer": "6",
-      "reference_answer": "6"
+      "reference_answer": "6",
+      "credit_levels": {
+        "full": "Any positive integer consistent with the student's own simulation. TP + TN must equal N (since FP=FN=0 by design). The example values (TP=6, TN=4, N=10) are illustrative only — each student runs their own simulation with different total creatures.",
+        "partial": null,
+        "zero": "Blank or non-numeric response."
+      }
     },
     "DTI_11": {
       "printed_question": 11,
@@ -309,7 +359,12 @@
         "0.0": "Değişmez yapı yanlış veya boş."
       },
       "example_answer": "4",
-      "reference_answer": "4"
+      "reference_answer": "4",
+      "credit_levels": {
+        "full": "Any positive integer consistent with the student's own simulation. TP + TN must equal N (since FP=FN=0 by design). The example values (TP=6, TN=4, N=10) are illustrative only — each student runs their own simulation with different total creatures.",
+        "partial": null,
+        "zero": "Blank or non-numeric response."
+      }
     },
     "DTI_13": {
       "printed_question": 13,
@@ -418,7 +473,12 @@
         "0.0": "Değişmez yapı yanlış veya boş."
       },
       "example_answer": "10",
-      "reference_answer": "10"
+      "reference_answer": "10",
+      "credit_levels": {
+        "full": "Any positive integer consistent with the student's own simulation. TP + TN must equal N (since FP=FN=0 by design). The example values (TP=6, TN=4, N=10) are illustrative only — each student runs their own simulation with different total creatures.",
+        "partial": null,
+        "zero": "Blank or non-numeric response."
+      }
     },
     "DTI_19": {
       "printed_question": 19,
@@ -436,7 +496,12 @@
       ],
       "need": 1,
       "example_answer": "Toplam vaka sayısı (6 hasta + 4 sağlıklı).",
-      "reference_answer": "Toplam vaka sayısı (6 hasta + 4 sağlıklı)."
+      "reference_answer": "Toplam vaka sayısı (6 hasta + 4 sağlıklı).",
+      "credit_levels": {
+        "full": "Identifies N as the total number of cases or creatures tested. Accepts 'toplam vaka', 'toplam yaratık', 'tüm örnek', any numeric statement like '10 vaka', 'TP+TN', or 'total cases'. Very short answers like '10' or 'toplam' also qualify if N is contextually clear.",
+        "partial": null,
+        "zero": "Blank response."
+      }
     },
     "DTI_20": {
       "printed_question": 20,
@@ -473,7 +538,12 @@
       ],
       "need": 1,
       "example_answer": "Tüm tahminler doğru, model kusursuz çalıştı.",
-      "reference_answer": "Tüm tahminler doğru, model kusursuz çalıştı."
+      "reference_answer": "Tüm tahminler doğru, model kusursuz çalıştı.",
+      "credit_levels": {
+        "full": "States that all predictions were correct or model is perfect. Accepts '100%', '1.0', 'tüm doğru', 'kusursuz', 'hata yok', or any equivalent. Very brief correct answers qualify.",
+        "partial": null,
+        "zero": "Blank response or states incorrect accuracy."
+      }
     },
     "DTI_22": {
       "printed_question": 22,
@@ -510,7 +580,12 @@
       ],
       "need": 1,
       "example_answer": "Gerçekten hasta olanların tamamı doğru yakalandı.",
-      "reference_answer": "Gerçekten hasta olanların tamamı doğru yakalandı."
+      "reference_answer": "Gerçekten hasta olanların tamamı doğru yakalandı.",
+      "credit_levels": {
+        "full": "Interprets sensitivity result for the Xeno simulation (always 1.0/100% since FP=FN=0). Full credit for: (1) any statement that all sick were caught ('tüm hastalar yakalandı', 'gerçekten hasta olanların tamamı'), OR (2) any statement that the value is perfect/100%/1.0 ('mükemmel', 'tam', '1.0', '%100'). Very brief answers like '100%' or '1' qualify.",
+        "partial": null,
+        "zero": "Blank response."
+      }
     },
     "DTI_24": {
       "printed_question": 24,
@@ -547,7 +622,12 @@
       ],
       "need": 1,
       "example_answer": "Gerçekten sağlıklı olanların tamamı doğru sınıflandırıldı.",
-      "reference_answer": "Gerçekten sağlıklı olanların tamamı doğru sınıflandırıldı."
+      "reference_answer": "Gerçekten sağlıklı olanların tamamı doğru sınıflandırıldı.",
+      "credit_levels": {
+        "full": "Interprets specificity result for the Xeno simulation (always 1.0/100% since FP=FN=0). Full credit for: (1) any statement that all healthy were correctly classified ('tüm sağlıklılar doğru', 'gerçekten sağlıklı olanların tamamı'), OR (2) any statement that the value is perfect/100%/1.0. Very brief answers like '100%' or '1' qualify.",
+        "partial": null,
+        "zero": "Blank response."
+      }
     },
     "DTI_26": {
       "printed_question": 26,
@@ -584,7 +664,12 @@
       ],
       "need": 1,
       "example_answer": "'Hasta' denen vakaların tamamı gerçekten hasta.",
-      "reference_answer": "'Hasta' denen vakaların tamamı gerçekten hasta."
+      "reference_answer": "'Hasta' denen vakaların tamamı gerçekten hasta.",
+      "credit_levels": {
+        "full": "Interprets precision result for the Xeno simulation (always 1.0/100% since FP=FN=0). Full credit for: (1) any statement that all predicted-sick were truly sick ('hasta denilenlerin tamamı gerçekten hasta'), OR (2) any statement that the value is perfect/100%/1.0. Very brief answers like '100%' or '1' qualify.",
+        "partial": null,
+        "zero": "Blank response."
+      }
     },
     "DTI_28": {
       "printed_question": 28,
@@ -610,7 +695,12 @@
       "partial_score": 0.5,
       "note": "Tek doğru metrik yoktur; seçim gerekçeyle tutarlıysa kabul. Bulaşıcı hastalık bağlamında duyarlılık en güçlü gerekçedir.",
       "example_answer": "Duyarlılık (Sensitivity / Recall). Çünkü gerçekten hasta olan bir yaratığı kaçırmamak (FN'yi en aza indirmek) hayati önemdedir, hastalığın yayılmasını önlemek için tüm hastaları yakalamak önceliklidir.",
-      "reference_answer": "Duyarlılık (Sensitivity / Recall). Çünkü gerçekten hasta olan bir yaratığı kaçırmamak (FN'yi en aza indirmek) hayati önemdedir, hastalığın yayılmasını önlemek için tüm hastaları yakalamak önceliklidir."
+      "reference_answer": "Duyarlılık (Sensitivity / Recall). Çünkü gerçekten hasta olan bir yaratığı kaçırmamak (FN'yi en aza indirmek) hayati önemdedir, hastalığın yayılmasını önlemek için tüm hastaları yakalamak önceliklidir.",
+      "credit_levels": {
+        "full": "Names any metric AND provides any supporting rationale. Sensitivity is expected but any metric (accuracy, specificity, precision, MCR) with a connected reason earns full credit. Single-metric-only answers with no reason earn partial. Zero only if blank.",
+        "partial": "Names a metric but provides no rationale, or provides rationale without naming a specific metric.",
+        "zero": "Blank response."
+      }
     },
     "DTI_29": {
       "printed_question": 29,
@@ -702,7 +792,12 @@
       ],
       "need": 1,
       "example_answer": "Hiç yanlış sınıflandırma yok, hata oranı %0. (MCR = 1 - Doğruluk = 1 - 1 = 0)",
-      "reference_answer": "Hiç yanlış sınıflandırma yok, hata oranı %0. (MCR = 1 - Doğruluk = 1 - 1 = 0)"
+      "reference_answer": "Hiç yanlış sınıflandırma yok, hata oranı %0. (MCR = 1 - Doğruluk = 1 - 1 = 0)",
+      "credit_levels": {
+        "full": "States that MCR is zero / no misclassifications. Accepts '%0', '0', 'hiç hata yok', 'yanlış sınıflandırma yok', 'kusursuz', '0%', or any equivalent. Very brief correct answers qualify.",
+        "partial": null,
+        "zero": "Blank response or states a non-zero MCR."
+      }
     }
   },
   "item_count": 33,
