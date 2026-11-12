@@ -87,7 +87,16 @@ def stage_score_correct(scoring_path: Path, item_id: str):
         score = it.get("score")
         if score is None:
             return None
-        if score >= 1.0:
+        rubric_file = ROOT / "rubrics" / f"{scoring_path.parent.name}_rubric.json"
+        rubric = json.loads(rubric_file.read_text(encoding="utf-8")) if rubric_file.is_file() else {}
+        config = (rubric.get("items") or {}).get(item_id, {})
+        maximum = config.get("max_score")
+        if not isinstance(maximum, (int, float)):
+            levels = [float(k) for k in (config.get("scoring_rules") or {})]
+            maximum = max(levels) if levels else 1.0
+        if maximum == 0:
+            return None  # not-in-worksheet sentinel; no credit awarded, comparison not meaningful
+        if score >= maximum:
             return True
         if score == 0.0:
             return False
@@ -113,6 +122,8 @@ for s in random.sample(STUDENTS, 8):
                 expect = stage_score_correct(scoring_path, k)
             else:
                 expect = ic.get(k, {}).get("is_correct")
+            if expect is None:
+                continue  # partial credit or not-in-worksheet sentinel; skip comparison
             check(expect == c["correct"], f"item check {s} {code} {k}")
 
 # 4. Frames: counts per session equal manifest frame counts; random rows match manifest + coding.
