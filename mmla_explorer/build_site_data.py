@@ -855,7 +855,10 @@ def build_logs() -> dict:
         "per_student": {},
     }
     def ts(r):
-        return datetime.fromisoformat(r["created_at"].replace("+00", "+00:00"))
+        s = r["created_at"].replace("+00:00", "").replace("+00", "")
+        # Pad or truncate fractional seconds to exactly 6 digits (Python 3.9 limit)
+        s = re.sub(r'\.(\d+)', lambda m: '.' + m.group(1)[:6].ljust(6, '0'), s)
+        return datetime.fromisoformat(s)
     for (sid, day), rs in sorted(per.items()):
         rs.sort(key=ts)
         acts = Counter(r["action"] for r in rs)
