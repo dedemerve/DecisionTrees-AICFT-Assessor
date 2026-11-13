@@ -27,3 +27,18 @@ jobs:
         run: python -m pytest test_worksheet_bundles.py -q
       - name: Test evidence units (Phase 2 M2)
         run: python -m pytest test_evidence_units.py test_evidence_unit_metadata.py -q
+      - name: Test site data (Python)
+        run: python mmla_explorer/test_site_data.py && python mmla_explorer/test_stage_credit_colors.py
+      - name: Validate site build outputs
+        run: python mmla_explorer/validate_build.py
+
+  site-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run JS tests
+        working-directory: mmla_explorer
+        run: node run_tests.js

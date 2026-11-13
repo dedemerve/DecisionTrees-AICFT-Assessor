@@ -1,0 +1,16 @@
+{
+  "name": "decision-tree-learning-archive",
+  "version": "1.0.0",
+  "description": "MMLA Data Explorer for the 2026 decision tree learning unit",
+  "private": true,
+  "scripts": {
+    "test": "node run_tests.js",
+    "test:py": "python3 test_site_data.py && python3 test_stage_credit_colors.py",
+    "test:all": "npm test && npm run test:py",
+    "build": "python3 build_site_data.py",
+    "validate": "python3 validate_build.py"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
