@@ -719,6 +719,72 @@
     return `<article class="find-person" data-person="${h(person)}"${person === selected ? "" : " hidden"}><h3>${h(person)}</h3><p class="small">${h(extractText(p))}. ${h(statusText(p))}.</p>${held}${total}${model.aligned ? "" : (model.items.length && rec.ocr ? `<p class="small">Scores and extracted fields use different identifiers, so they are listed separately.</p>` : "")}${scores}${fields}<p class="small"><a href="#/explore/student/${h(person)}">Student profile</a></p></article>`;
   }
 
+  function agreementSection() {
+    const ag = root.AGREEMENT_SUMMARY;
+    if (!ag) return "";
+    const fmt1 = (v) => v == null ? "—" : v.toFixed(1);
+    const fmt3 = (v) => v == null ? "—" : v.toFixed(3);
+    const fmtPct = (v) => v == null ? "—" : v.toFixed(1) + "%";
+
+    const classRows = ag.classes.map((c) => ({
+      cells: [h(c.label), fmt3(c.precision), fmt3(c.recall), fmt3(c.f1), String(c.support)],
+    }));
+    classRows.push({
+      attrs: ' class="total-row"',
+      cells: ["<strong>Macro average</strong>", "—", "—", `<strong>${fmt3(ag.macro_f1)}</strong>`, `<strong>${ag.n}</strong>`],
+    });
+    const classTable = table(
+      [{ t: "Class" }, { t: "Precision", num: true }, { t: "Recall", num: true }, { t: "F1", num: true }, { t: "Support", num: true }],
+      classRows
+    );
+
+    const wsRows = ag.by_worksheet.map((w) => {
+      const noteMarker = w.note === "rebuilt_key" ? "†" : w.note === "alignment_policy" ? "‡" : "";
+      return {
+        cells: [
+          `<a href="#/findings/worksheets/${h(w.code)}">${h(w.code)}</a>${noteMarker}`,
+          String(w.n),
+          fmtPct(w.agreement),
+          fmt3(w.kappa),
+          fmt3(w.f1_correct),
+          w.f1_wrong != null ? fmt3(w.f1_wrong) : "—",
+          w.f1_blank != null ? fmt3(w.f1_blank) : "—",
+          fmt3(w.macro_f1),
+        ],
+      };
+    });
+    const wsTable = table(
+      [{ t: "WS" }, { t: "n", num: true }, { t: "Agreement", num: true }, { t: "κ", num: true },
+       { t: "F1 correct", num: true }, { t: "F1 wrong", num: true }, { t: "F1 blank", num: true }, { t: "Macro F1", num: true }],
+      wsRows
+    );
+
+    const exclRows = ag.exclusions.map((e) => ({ cells: [h(e.reason), String(e.n)] }));
+    const exclTable = table([{ t: "Exclusion reason" }, { t: "n", num: true }], exclRows);
+
+    return `
+      <h2>Human–system scoring agreement</h2>
+      <p class="small">Human expert annotations compared against published system scoring decisions across all worksheets. Units with system partial or unknown decisions, human partial credit, or absent worksheet labels were excluded before analysis.</p>
+      <div class="stat-row cols-4">
+        <div class="stat-card"><div class="v">${ag.n.toLocaleString()}</div><div class="l">Scoring units compared</div><p class="small">Retained from ${ag.total_rows.toLocaleString()} total rows (${ag.excluded} excluded)</p></div>
+        <div class="stat-card"><div class="v">${fmtPct(ag.percent_agreement)}</div><div class="l">Percent agreement</div><p class="small">95% CI: ${fmtPct(ag.percent_agreement_ci[0])}–${fmtPct(ag.percent_agreement_ci[1])}</p></div>
+        <div class="stat-card"><div class="v">${fmt3(ag.kappa)}</div><div class="l">Cohen's κ (unweighted)</div><p class="small">95% CI: ${fmt3(ag.kappa_ci[0])}–${fmt3(ag.kappa_ci[1])}</p></div>
+        <div class="stat-card"><div class="v">${fmt3(ag.macro_f1)}</div><div class="l">Macro F1</div><p class="small">Unweighted mean across correct, wrong, blank</p></div>
+      </div>
+      <h3>Class-level metrics</h3>
+      ${classTable}
+      <h3>Per-worksheet agreement</h3>
+      ${wsTable}
+      <p class="small">† Human labels for WS13–WS15 were reconstructed from rubric rules (original answer key unavailable).</p>
+      <p class="small">‡ WS15 agreement reflects an alignment policy: system = blank items recoded as human = blank to remove CODAP formula-content noise.</p>
+      <details>
+        <summary class="small">Exclusion breakdown (${ag.excluded} units excluded from ${ag.total_rows.toLocaleString()} total rows)</summary>
+        ${exclTable}
+      </details>
+      <p class="small">CIs from ${ag.bootstrap_reps.toLocaleString()} student-level cluster bootstrap resamples (seed ${ag.bootstrap_seed}).</p>
+    `;
+  }
+
   function index() {
     const pack = data();
     if (!pack.core) return `<div class="page"><h1>Worksheet findings</h1><p>Data files are missing.</p></div>`;
@@ -762,6 +828,7 @@
       </div>
       <h2>Collected materials</h2>
       <p>Blank worksheets, answer keys, and scanned submissions stay with the collected data. <a href="#/explore/worksheets">Open the worksheet files</a>.</p>
+      ${agreementSection()}
     </div>`;
   }
 
