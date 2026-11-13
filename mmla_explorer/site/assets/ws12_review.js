@@ -3,8 +3,8 @@
   "use strict";
   const data = root.WS12_REVIEW;
   if (!data || !root.CORE) return;
-  const labels = { correct: "Correct", incorrect: "Wrong", partial: "Partial", blank: "Blank", structural_na: "| · Valid stop", unknown: "Unverified" };
-  const classes = { correct: "gc-correct", incorrect: "gc-wrong", partial: "gc-partial", blank: "ws12-blank", structural_na: "gc-stop", unknown: "gc-na" };
+  const labels = { correct: "Correct", incorrect: "Wrong", partial: "Partial", blank: "Blank", structural_na: "Blank", unknown: "Unverified" };
+  const classes = { correct: "gc-correct", incorrect: "gc-wrong", partial: "gc-partial", blank: "ws12-blank", structural_na: "ws12-blank", unknown: "gc-na" };
   const h = (v) => String(v == null ? "" : v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   const clip = (v, length) => v.length > length ? v.slice(0, length - 1) + "…" : v;
   const checkedStatuses = ["correct", "incorrect", "partial", "blank"];
@@ -94,8 +94,8 @@
     const statusCounts = {};
     const displayByStudent = new Map(students.map((s) => [s, displayItems(groupByStudent.get(s))]));
     displayByStudent.forEach((items) => items.forEach((it) => { statusCounts[it.status] = (statusCounts[it.status] || 0) + 1; }));
-    const legend = ["correct", "partial", "incorrect", "blank", "structural_na", "unknown"].map(statusBadge).join(" ");
-    const cellValue = (it) => it.status === "structural_na" ? statusBadge(it.status) : h(clip(it.response, 40));
+    const legend = ["correct", "partial", "incorrect", "blank", "unknown"].map(statusBadge).join(" ");
+    const cellValue = (it) => h(clip(it.response || "–", 40));
     const grid = `<div class="table-wrap"><table class="find-table answer-grid transposed ws12-grid"><caption class="sr-only">WS12: 13 students; 10 displayed groups covering 15 printed items. Colors show each student's own recorded tree checks.</caption><thead><tr><th class="gc-student-head" scope="col">Student</th>${columns.map((col) => `<th class="gc-head" scope="col">${h(col.label)}</th>`).join("")}</tr></thead><tbody>${students.map((student) => `<tr><th class="gc-student-name" scope="row">${h(student)}</th>${displayByStudent.get(student).map((it) => `<td class="gc-cell ${classes[it.status]}" data-cell-id="${h(it.id)}" data-printed-items="${it.printed.join(",")}" data-verdict="${h(it.status)}" data-label="${h(it.label)}" aria-label="${h(it.label + ": " + labels[it.status] + ". " + it.response)}" title="${h(labels[it.status] + ". " + it.note)}">${cellValue(it)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
     const details = students.map((student) => {
       const group = groupByStudent.get(student), items = displayByStudent.get(student);
@@ -112,7 +112,6 @@
     const headline = [
       { value: `${students.length} of ${root.CORE.students.length}`, label: "Participants included", detail: "A reviewed worksheet is available." },
       { value: `${checkedCount} / ${students.length * columns.length}`, label: "Checked response groups", detail: "Correct, wrong, partial or confirmed blank." },
-      { value: statusCounts.structural_na || 0, label: "Valid stops", detail: "Separate from graded answers." },
       { value: statusCounts.unknown || 0, label: "Unverified groups", detail: "Outside the checked denominator." },
     ].map((card) => `<div class="stat-card"><div class="v">${h(card.value)}</div><div class="l">${h(card.label)}</div><p class="small">${h(card.detail)}</p></div>`).join("");
     const analysisRows = columns.map((col, index) => {
@@ -126,11 +125,11 @@
       const bar = rate == null ? '<span class="na">–</span>' : `<div class="diag-bar-wrap"><div class="diag-bar" style="background:linear-gradient(to right,var(--accent) ${rate.toFixed(1)}%,var(--surface-2) ${rate.toFixed(1)}%)"></div><span class="diag-bar-pct">${rate.toFixed(1)}%</span></div>`;
       return `<tr><th scope="row">${h(col.label)}</th><td data-label="Correct rate">${bar}</td><td data-label="Correct / Checked">${correct} / ${checked.length}</td><td data-label="Students who missed">${missed.length ? h(missed.join(", ")) : checked.length ? "All checked correct" : "–"}</td><td data-label="Outside denominator">${unknown} unverified · ${stops} valid stops</td></tr>`;
     }).join("");
-    const stats = Object.keys(labels).map((status) => `<tr><th scope="row">${statusBadge(status)}</th><td data-label="Displayed student–group cells">${statusCounts[status] || 0}</td></tr>`).join("");
+    const stats = ["correct", "partial", "incorrect", "blank", "unknown"].map((status) => `<tr><th scope="row">${statusBadge(status)}</th><td data-label="Displayed student–group cells">${statusCounts[status] || 0}</td></tr>`).join("");
     return `<div class="page wide find-page ws12-review"><p class="crumbs"><a href="#/findings">Findings</a> / <a href="#/findings/worksheets">Worksheet findings</a> / WS12</p><p class="kicker">Worksheet findings</p><h1>WS12 · Document a two-level tree</h1>
       <p class="lead">Each student's recorded tree is checked for internal consistency. Features, thresholds and decisions can differ between students; there is no shared answer key.</p>
       <div class="stat-row cols-4 find-headline">${headline}</div>
-      <section class="section-block" id="answer-grid"><h2>Answer grid and student results</h2><h3>Answer grid <span class="small grid-toggle-hint">${legend}</span></h3><p class="small">Columns follow the same tree structure as WS6. Colors combine the listed printed-item checks; hover for the reason. | marks an accepted correct stopping action, separately from graded answers. R / NR are recorded recommended / not-recommended counts, not an inferred class decision. – marks a blank field; ? marks an unverified field.</p>${grid}</section>
+      <section class="section-block" id="answer-grid"><h2>Answer grid and student results</h2><h3>Answer grid <span class="small grid-toggle-hint">${legend}</span></h3><p class="small">Columns follow the same tree structure as WS6. Colors combine the listed printed-item checks; hover for the reason. R / NR are recorded recommended / not-recommended counts, not an inferred class decision. – marks a blank field; ? marks an unverified field.</p>${grid}</section>
       <section id="participants"><details class="answer-grid-toggle"><summary><h3 class="inline-h3">Student results</h3></summary><p class="small">Click a student to expand their own answers and checks. Paired students share a scan.</p><div class="student-results">${details}</div></details></section>
       <section class="section-block" id="class-analysis"><h2>Class analysis</h2><h3>Item-by-item results</h3><p class="small">Each row is one displayed response group. Correct rates use only checked groups, including confirmed blanks. Unverified groups and valid stops are excluded and shown separately. Shared sheets and paired checks are not independent observations. These rates are not complete worksheet scores.</p><div class="table-wrap"><table class="find-table"><thead><tr><th scope="col">Blank / Tree role</th><th scope="col">Correct rate</th><th scope="col">Correct / Checked</th><th scope="col">Students who missed</th><th scope="col">Outside denominator</th></tr></thead><tbody>${analysisRows}</tbody></table></div></section>
       <details class="find-fold" id="items"><summary>Coverage and grouping</summary><div class="find-fold-body"><p>13 students share 7 scans. The 10 displayed groups cover all 15 printed items once. Grouping changes the displayed observation unit; the underlying printed-item judgments are preserved. A wrong component makes a group wrong; unresolved or mixed-applicability components prevent a full-correct group. Unused descendants are not extra correct answers. No submitted WS12: ${h(data.absent.join(", "))}.</p><table class="find-table"><thead><tr><th scope="col">Status</th><th scope="col">Displayed student–group cells</th></tr></thead><tbody>${stats}</tbody></table></div></details>
