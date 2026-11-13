@@ -199,9 +199,19 @@ def extract_ws10(raw: dict) -> dict:
         val = cell.get("error_count_parsed") if isinstance(cell, dict) else cell
         items[item_id] = str(val) if val is not None else "(not_extracted)"
 
+    # 2025 page extraction stores the same item IDs at the root of the raw JSON.
+    # Preserve that shape as a fallback for archived cohort pages.
+    if not items and any(key.startswith("WS10_B") for key in raw):
+        items.update({
+            f"WS10_B{i}": str(raw.get(f"WS10_B{i}", "(not_extracted)"))
+            for i in range(1, 8)
+        })
+
     # WS10_B8 = optimal threshold value
     opt = ext.get("optimal_threshold", {})
     opt_val = opt.get("value_parsed") if isinstance(opt, dict) else opt
+    if opt_val is None and "WS10_B8" in raw:
+        opt_val = raw["WS10_B8"]
     items["WS10_B8"] = str(opt_val) if opt_val is not None else "(not_extracted)"
 
     return items or {"WS10_B1": "(not_extracted)"}
