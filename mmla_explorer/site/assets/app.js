@@ -2598,6 +2598,7 @@
     let html, after = null;
     if (top === "") html = pageOverview();
     else if (top === "collected") html = pageCollected();
+    else if (top === "review") { html = window.FrameReview.page(); after = () => window.FrameReview.bind(); }
     else if (top === "findings") {
       const sub = parts[1] || "";
       if (sub === "participants" || sub === "student-profiles") html = pageStudents();

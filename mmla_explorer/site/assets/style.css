@@ -1815,3 +1815,10 @@ main .hero-lead { max-width: 46ch; }
 @media (max-width: 800px) {
   .ws12-review .ws12-grid .gc-cell { max-width: none; }
 }
+/* Collaborative frame review */
+.frame-review-grid{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.4fr);gap:24px;margin-top:24px}
+#reviewRecordList{max-height:900px;overflow:auto}
+.frame-review-record{display:block;width:100%;text-align:left;padding:10px;margin-bottom:6px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer}
+#reviewRecordDetail img{display:block;width:100%;height:auto;border:1px solid var(--rule);margin:12px 0}
+#reviewRecordDetail p{white-space:pre-wrap}
+@media(max-width:800px){.frame-review-grid{grid-template-columns:1fr}#reviewRecordList{max-height:350px}}
