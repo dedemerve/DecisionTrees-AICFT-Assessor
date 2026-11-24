@@ -19,6 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Stamp asset URLs with git SHA
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          sed -i "s/?v=[A-Za-z0-9_-]*/?v=${SHORT_SHA}/g" mmla_explorer/site/index.html
+          echo "Stamped index.html with version ${SHORT_SHA}"
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
