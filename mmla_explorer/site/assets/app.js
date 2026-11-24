@@ -2599,6 +2599,7 @@
     if (top === "") html = pageOverview();
     else if (top === "collected") html = pageCollected();
     else if (top === "review") { html = window.FrameReview.page(); after = () => window.FrameReview.bind(); }
+    else if (top === "colab-review") { html = window.ColabReview ? window.ColabReview.page() : "<p>Colab review not loaded.</p>"; after = () => { if (window.ColabReview) window.ColabReview.bind(); }; }
     else if (top === "findings") {
       const sub = parts[1] || "";
       if (sub === "participants" || sub === "student-profiles") html = pageStudents();

@@ -1825,3 +1825,38 @@ main .hero-lead { max-width: 46ch; }
 #reviewRecordDetail img{display:block;width:100%;height:auto;border:1px solid var(--rule);margin:12px 0}
 #reviewRecordDetail p{white-space:pre-wrap}
 @media(max-width:800px){.frame-review-grid{grid-template-columns:1fr}#reviewRecordList{max-height:350px}}
+
+/* Colab review interface */
+.cr-toolbar { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin:16px 0; }
+.cr-toolbar label { display:flex; align-items:center; gap:6px; font-size:14px; }
+.cr-toolbar select { font-size:14px; padding:5px 8px; border:1px solid var(--rule); border-radius:6px; background:var(--surface); }
+.cr-danger { color:var(--bad); border-color:var(--bad); }
+.cr-stats { display:flex; gap:24px; padding:12px 16px; background:var(--pale-2); border:1px solid var(--rule); border-radius:8px; margin-bottom:16px; font-size:14px; flex-wrap:wrap; }
+.cr-stat strong { color:var(--navy); }
+.cr-layout { display:grid; grid-template-columns:300px minmax(0,1fr); gap:20px; min-height:600px; }
+.cr-list { overflow-y:auto; max-height:800px; border:1px solid var(--rule); border-radius:8px; }
+.cr-item { display:grid; grid-template-columns:80px 50px 1fr 1fr; align-items:center; gap:6px; width:100%; text-align:left; padding:9px 10px; border:0; border-bottom:1px solid var(--rule); background:var(--surface); cursor:pointer; font-size:13px; color:var(--ink); }
+.cr-item:hover { background:var(--pale-2); }
+.cr-item--active { background:var(--pale) !important; font-weight:600; }
+.cr-item--agree { border-left:3px solid var(--green); }
+.cr-item--disagree { border-left:3px solid var(--bad); }
+.cr-item-student { font-weight:600; }
+.cr-item-crit { color:var(--muted); font-size:12px; }
+.cr-item-score { font-size:12px; font-variant-numeric:tabular-nums; }
+.cr-machine { color:var(--blue); }
+.cr-human { color:var(--green); }
+.cr-empty { color:var(--muted); padding:16px; font-size:14px; }
+.cr-detail { padding:0 4px; }
+.cr-detail-header h2 { margin:0 0 4px; font-size:18px; }
+.cr-label { font-size:14px; color:var(--muted); margin:0 0 16px; }
+.cr-mode { display:inline-block; padding:2px 7px; background:var(--pale); border-radius:5px; font-size:11px; font-weight:600; text-transform:uppercase; }
+.cr-section { margin-bottom:20px; }
+.cr-section h3 { font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:0 0 8px; }
+.cr-student-text { background:var(--paper); border:1px solid var(--rule); border-radius:8px; padding:12px 14px; font-size:14px; line-height:1.6; white-space:pre-wrap; max-height:200px; overflow-y:auto; }
+.cr-justification { background:var(--pale-2); border-left:3px solid var(--blue); padding:10px 14px; font-size:14px; line-height:1.6; border-radius:0 6px 6px 0; }
+.cr-flag { color:var(--warn-ink); background:var(--warn-bg); padding:6px 10px; border-radius:6px; font-size:13px; margin-top:8px; }
+.cr-radios { display:flex; gap:8px; flex-wrap:wrap; }
+.cr-radio { display:flex; align-items:center; gap:5px; padding:8px 14px; border:1px solid var(--rule); border-radius:8px; cursor:pointer; font-size:15px; font-weight:600; }
+.cr-radio:has(input:checked) { background:var(--navy); color:#fff; border-color:var(--navy); }
+.cr-nav { display:flex; gap:10px; margin-top:20px; }
+@media(max-width:800px){ .cr-layout{grid-template-columns:1fr} .cr-list{max-height:300px} }
