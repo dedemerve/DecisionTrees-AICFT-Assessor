@@ -1861,6 +1861,11 @@ main .hero-lead { max-width: 46ch; }
 .cr-nav { display:flex; gap:10px; margin-top:20px; }
 .cr-question-section { background:var(--pale-2); border:1px solid var(--rule); border-radius:8px; padding:12px 14px; }
 .cr-question-text { font-size:14px; line-height:1.55; color:var(--ink); }
+.cr-rubric-table { width:100%; border-collapse:collapse; font-size:13px; }
+.cr-rubric-table tr { border-bottom:1px solid var(--rule); }
+.cr-rubric-table tr:last-child { border-bottom:0; }
+.cr-rub-score { width:32px; font-weight:700; color:var(--navy); padding:5px 8px 5px 0; vertical-align:top; white-space:nowrap; }
+.cr-rub-text { padding:5px 0; line-height:1.5; color:var(--ink); }
 .cr-auto-check { font-size:13px; margin-top:8px; padding:6px 10px; border-radius:6px; }
 .cr-auto-pass { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
 .cr-auto-fail { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
