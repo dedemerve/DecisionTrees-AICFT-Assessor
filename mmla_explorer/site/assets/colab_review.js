@@ -3,6 +3,9 @@
   'use strict';
 
   var STORAGE_KEY = 'colabReview_v1';
+  var CRIT_IDX_KEY = 'colabReview_critIdx_v1';
+
+  var CRIT_ORDER = ['S1.3','S1.4','S2.2','S3.1','S3.2','S3.3','S6.1','S6.2','S6.3','S6.4','S7.2','S7.3'];
 
   /* ---- persistence ---- */
   function load() {
@@ -11,6 +14,13 @@
   }
   function save(ratings) {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(ratings)); } catch (e) {}
+  }
+  function loadCritIdx() {
+    try { return parseInt(sessionStorage.getItem(CRIT_IDX_KEY) || '0', 10) || 0; }
+    catch (e) { return 0; }
+  }
+  function saveCritIdx(idx) {
+    try { sessionStorage.setItem(CRIT_IDX_KEY, String(idx)); } catch (e) {}
   }
 
   /* ---- criterion labels (Turkish) ---- */
@@ -21,14 +31,13 @@
     'S3.1': 'Bölme parametreleri: stratify + test_size (2p)',
     'S3.2': 'Stratify kaldırmanın kavramsal etkisi (2p)',
     'S3.3': 'Rastgelelik ve yeniden üretilebilirlik (1p)',
-    'S6.1': 'Yansıma S6.1: En önemli öğrenme (3p)',
-    'S6.2': 'Yansıma S6.2: Doğruluk yetersizliğinin nedeni (3p)',
-    'S6.3': 'Yansıma S6.3: Derinlik hiperparametresi (2p)',
-    'S6.4': 'Yansıma S6.4: Farklı sonuç tahmini (3p)',
-    'S7.2': 'Çapraz karşılaştırma: örüntü akıl yürütme (3p)',
-    'S7.3': 'Çapraz karşılaştırma: Fasıl tartışması (2p)'
+    'S6.1': 'Yansıma S6.1: En önemli öğrenme (5p)',
+    'S6.2': 'Yansıma S6.2: Veri anlayışı (5p)',
+    'S6.3': 'Yansıma S6.3: Model performansı (5p)',
+    'S6.4': 'Yansıma S6.4: Sınırlamalar ve alternatifler (5p)',
+    'S7.2': 'Çapraz karşılaştırma: örüntü akıl yürütme (4p)',
+    'S7.3': 'Çapraz karşılaştırma: Fasıl tartışması (4p)'
   };
-  var TR_MODE = { 'llm': 'LLM', 'hybrid': 'Karma', 'auto': 'Otomatik' };
 
   /* ---- question prompts shown to students (Turkish) ---- */
   var TR_QUESTIONS = {
@@ -38,7 +47,7 @@
     'S3.1': 'train_test_split fonksiyonunda test_size, stratify ve random_state parametrelerini nasıl ayarladın? (Beklenen: test_size=0.2, stratify=y, random_state=42)',
     'S3.2': 'Eğer stratify parametresini kaldırırsan ne olur? Sınıf dağılımı üzerindeki etkisini açıkla.',
     'S3.3': 'random_state parametresini değiştirirsen sonuçlar nasıl değişir? Bu parametrenin rolü nedir?',
-    'S6.1': 'Soru 1 — Bu ödevde veri kartları, CODAP ve Python olmak üç farklı ortamda çalıştın. Her birinde ne öğrendiğini ve hangi hataları fark ettiğini açıkla.',
+    'S6.1': 'Soru 1 — Bu ödevde veri kartları, CODAP ve Python olmak üzere üç farklı ortamda çalıştın. Her birinde ne öğrendiğini ve hangi hataları fark ettiğini açıkla.',
     'S6.2': 'Soru 2 — Karar ağacının kök düğümünde hangi özellik yer aldı? Bu seni şaşırttı mı? Hangi habitat sınıfı en zor sınıflandırıldı ve neden?',
     'S6.3': 'Soru 3 — Modelinin yanlış sınıflandırma oranı (MCR) neydi? En iyi ve en kötü tahmin edilen sınıf hangisiydi? İdeal bir MCR eşiği ne olmalıdır?',
     'S6.4': 'Soru 4 — Modelindeki sistematik hata örüntüsünü açıkla. Modeli iyileştirmek için ne yapardın? Karar ağacına alternatif hangi modeli kullanırdın ve neden?',
@@ -134,67 +143,49 @@
       .replace(/"/g, '&quot;');
   }
 
-  var SHUFFLE_KEY = 'colabReview_shuffle_v1';
-
-  function shuffledItems() {
-    var all = (root.COLAB_REVIEW_ITEMS || []);
+  /* ---- per-criterion shuffled items ---- */
+  function shuffledForCrit(crit) {
+    var all = (root.COLAB_REVIEW_ITEMS || []).filter(function (x) { return x.criterion === crit; });
     if (!all.length) return all;
+    var key = 'colabReview_shuffle_' + crit + '_v1';
     try {
-      var stored = JSON.parse(sessionStorage.getItem(SHUFFLE_KEY) || 'null');
+      var stored = JSON.parse(sessionStorage.getItem(key) || 'null');
       if (stored && stored.length === all.length) {
         return stored.map(function (id) { return all.find(function (x) { return x.id === id; }); }).filter(Boolean);
       }
     } catch (e) {}
-    // Fisher-Yates shuffle
     var ids = all.map(function (x) { return x.id; });
     for (var i = ids.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
       var tmp = ids[i]; ids[i] = ids[j]; ids[j] = tmp;
     }
-    try { sessionStorage.setItem(SHUFFLE_KEY, JSON.stringify(ids)); } catch (e) {}
+    try { sessionStorage.setItem(key, JSON.stringify(ids)); } catch (e) {}
     return ids.map(function (id) { return all.find(function (x) { return x.id === id; }); }).filter(Boolean);
   }
 
-  function items() {
-    return shuffledItems();
-  }
+  function allItems() { return root.COLAB_REVIEW_ITEMS || []; }
 
   /* ---- stats ---- */
   function kappa(ratings) {
-    var all = items();
+    var all = allItems();
     var rated = all.filter(function (it) { return ratings[it.id] != null; });
     if (rated.length < 2) return null;
     var n = rated.length;
-    var sum_agree = 0, sum_chance = 0;
-    // Build 2D confusion: treat each item as a 0..max scale
-    // Use simple Cohen's kappa (linear, not weighted) over discretised agreement
-    // Weighted kappa (linear weights) across the full integer range
-    var total_max = rated.reduce(function (s, it) { return s + it.max; }, 0);
-    var sum_w_agree = 0, sum_w_chance = 0;
-    // distribution over scores for each rater
-    var score_range = {};
-    rated.forEach(function (it) {
-      for (var v = 0; v <= it.max; v++) {
-        score_range[v] = (score_range[v] || 0);
-      }
-    });
     var human_dist = {}, machine_dist = {};
     rated.forEach(function (it) {
-      var h_score = ratings[it.id];
-      var m_score = it.machine_score;
-      human_dist[h_score] = (human_dist[h_score] || 0) + 1;
-      machine_dist[m_score] = (machine_dist[m_score] || 0) + 1;
+      var hs = ratings[it.id];
+      var ms = it.machine_score;
+      human_dist[hs] = (human_dist[hs] || 0) + 1;
+      machine_dist[ms] = (machine_dist[ms] || 0) + 1;
     });
-    // Compute weighted kappa (linear weights)
-    var max_possible = Math.max.apply(null, rated.map(function(it){return it.max;}));
+    var max_possible = Math.max.apply(null, rated.map(function (it) { return it.max; }));
     var Po = 0, Pe = 0;
     for (var i = 0; i <= max_possible; i++) {
       for (var j = 0; j <= max_possible; j++) {
         var w = 1 - Math.abs(i - j) / max_possible;
         var pi = (human_dist[i] || 0) / n;
         var pj = (machine_dist[j] || 0) / n;
-        // observed: count pairs where human=i and machine=j
-        var obs = rated.filter(function(it){ return ratings[it.id] === i && it.machine_score === j; }).length / n;
+        var obs = rated.filter(function (it) { return ratings[it.id] === i && it.machine_score === j; }).length / n;
         Po += w * obs;
         Pe += w * pi * pj;
       }
@@ -204,51 +195,29 @@
   }
 
   function stats(ratings) {
-    var all = items();
+    var all = allItems();
     var total = all.length;
     var done = all.filter(function (it) { return ratings[it.id] != null; }).length;
     var k = kappa(ratings);
-    var agreements = all.filter(function (it) {
-      return ratings[it.id] != null && ratings[it.id] === it.machine_score;
-    }).length;
-    return { total: total, done: done, agreements: agreements, kappa: k };
+    return { total: total, done: done, kappa: k };
   }
 
   /* ---- page ---- */
   function page() {
-    var all = items();
-    if (!all.length) {
+    if (!allItems().length) {
       return '<div class="page"><p>Review data not loaded.</p></div>';
     }
-    var students = [];
-    var seen = {};
-    all.forEach(function (it) {
-      if (!seen[it.student]) { seen[it.student] = true; students.push(it.student); }
-    });
-    var studentOpts = students.map(function (s) {
-      return '<option value="' + h(s) + '">' + h(s) + '</option>';
-    }).join('');
-    var critOpts = [];
-    var seenC = {};
-    all.forEach(function (it) {
-      if (!seenC[it.criterion]) {
-        seenC[it.criterion] = true;
-        critOpts.push('<option value="' + h(it.criterion) + '">' + h(it.criterion) + ' — ' + h(TR_LABELS[it.criterion] || it.label) + '</option>');
-      }
-    });
     return [
       '<div class="page wide colab-review-page">',
       '<p class="eyebrow">İnsan değerlendirmesi</p>',
       '<h1>Colab puanlama incelemesi</h1>',
-      '<p>Her maddeyi bağımsız olarak değerlendirin. Puanlarınız bu tarayıcıda saklanır. Bitirince Cohen κ analizi için Export butonuyla indirin.</p>',
+      '<p>Her soru için tüm öğrencileri değerlendirin, sonra bir sonraki soruya geçin. Puanlarınız bu tarayıcıda saklanır.</p>',
       '<div class="cr-toolbar">',
-      '  <label>Öğrenciye göre <select id="crStudent"><option value="">Tüm öğrenciler</option>' + studentOpts + '</select></label>',
-      '  <label>Ölçüte göre <select id="crCrit"><option value="">Tüm ölçütler</option>' + critOpts.join('') + '</select></label>',
-      '  <label><input type="checkbox" id="crUnrated"> Sadece değerlendirilmeyenler</label>',
       '  <button type="button" id="crExport" class="btn-secondary">JSON İndir</button>',
       '  <button type="button" id="crReset" class="btn-secondary cr-danger">Sıfırla</button>',
       '</div>',
       '<div id="crStats" class="cr-stats"></div>',
+      '<div id="crCritHeader" class="cr-crit-header"></div>',
       '<div class="cr-layout">',
       '  <div id="crList" class="cr-list"></div>',
       '  <div id="crDetail" class="cr-detail"></div>',
@@ -263,51 +232,77 @@
     if (!container) return;
 
     var ratings = load();
+    var critIdx = loadCritIdx();
     var currentId = null;
-    var filterStudent = '';
-    var filterCrit = '';
-    var filterUnrated = false;
 
     var listEl = document.getElementById('crList');
     var detailEl = document.getElementById('crDetail');
     var statsEl = document.getElementById('crStats');
+    var critHdrEl = document.getElementById('crCritHeader');
 
-    function filtered() {
-      return items().filter(function (it) {
-        if (filterStudent && it.student !== filterStudent) return false;
-        if (filterCrit && it.criterion !== filterCrit) return false;
-        if (filterUnrated && ratings[it.id] != null) return false;
-        return true;
-      });
+    function currentCrit() { return CRIT_ORDER[critIdx] || CRIT_ORDER[0]; }
+
+    function critItems() { return shuffledForCrit(currentCrit()); }
+
+    function allRatedForCrit() {
+      return critItems().every(function (it) { return ratings[it.id] != null; });
     }
 
     function drawStats() {
       var s = stats(ratings);
       var pct = s.total ? Math.round(100 * s.done / s.total) : 0;
       var kStr = s.kappa != null ? s.kappa.toFixed(3) : 'n/a';
-      var agrStr = s.done ? Math.round(100 * s.agreements / s.done) + '%' : 'n/a';
       statsEl.innerHTML =
-        '<span class="cr-stat"><strong>' + s.done + ' / ' + s.total + '</strong> değerlendirildi (' + pct + '%)</span>' +
-        '<span class="cr-stat"><strong>' + agrStr + '</strong> tam uyum</span>' +
+        '<span class="cr-stat"><strong>' + s.done + ' / ' + s.total + '</strong> toplam değerlendirildi (' + pct + '%)</span>' +
         '<span class="cr-stat">Ağırlıklı κ <strong>' + kStr + '</strong></span>';
     }
 
+    function drawCritHeader() {
+      var crit = currentCrit();
+      var total = CRIT_ORDER.length;
+      var done = critItems().filter(function (it) { return ratings[it.id] != null; }).length;
+      var all = critItems().length;
+      var html = '<div class="cr-crit-banner">' +
+        '<span class="cr-crit-step">Soru ' + (critIdx + 1) + ' / ' + total + '</span>' +
+        '<span class="cr-crit-code">' + h(crit) + '</span>' +
+        '<span class="cr-crit-label">' + h(TR_LABELS[crit] || crit) + '</span>' +
+        '<span class="cr-crit-progress">' + done + ' / ' + all + ' yanıt değerlendirildi</span>';
+      if (allRatedForCrit() && critIdx < CRIT_ORDER.length - 1) {
+        html += '<button type="button" id="crNextCrit" class="btn-primary cr-next-crit">Sonraki soru →</button>';
+      } else if (allRatedForCrit() && critIdx === CRIT_ORDER.length - 1) {
+        html += '<span class="cr-crit-done">Tüm sorular tamamlandı!</span>';
+      }
+      html += '</div>';
+      critHdrEl.innerHTML = html;
+      var nextBtn = document.getElementById('crNextCrit');
+      if (nextBtn) {
+        nextBtn.onclick = function () {
+          critIdx = Math.min(critIdx + 1, CRIT_ORDER.length - 1);
+          saveCritIdx(critIdx);
+          currentId = null;
+          drawCritHeader();
+          drawList();
+          drawDetail();
+        };
+      }
+    }
+
     function drawList() {
-      var items = filtered();
+      var its = critItems();
       listEl.replaceChildren();
-      items.forEach(function (it) {
+      its.forEach(function (it) {
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'cr-item' + (currentId === it.id ? ' cr-item--active' : '') +
-          (ratings[it.id] != null ? (ratings[it.id] === it.machine_score ? ' cr-item--agree' : ' cr-item--disagree') : '');
+          (ratings[it.id] != null ? ' cr-item--rated' : '');
         var ratingStr = ratings[it.id] != null ? ratings[it.id] + '/' + it.max : '?/' + it.max;
-        btn.innerHTML = '<span class="cr-item-crit">' + h(it.criterion) + '</span>' +
-          '<span class="cr-item-score cr-human">H:' + ratingStr + '</span>';
+        btn.innerHTML = '<span class="cr-item-num">' + (its.indexOf(it) + 1) + '</span>' +
+          '<span class="cr-item-score cr-human">' + ratingStr + '</span>';
         btn.onclick = function () { currentId = it.id; drawList(); drawDetail(); };
         listEl.append(btn);
       });
-      if (!items.length) {
-        listEl.innerHTML = '<p class="cr-empty">Filtreye uyan madde yok.</p>';
+      if (!its.length) {
+        listEl.innerHTML = '<p class="cr-empty">Bu kriter için madde yok.</p>';
       }
     }
 
@@ -317,20 +312,12 @@
         detailEl.innerHTML = '<p class="cr-empty">Listeden bir madde seçin.</p>';
         return;
       }
-      var it = items().find(function (x) { return x.id === currentId; });
+      var it = critItems().find(function (x) { return x.id === currentId; });
       if (!it) return;
 
       var currentRating = ratings[it.id];
-      var list = filtered();
+      var list = critItems();
       var idx = list.findIndex(function (x) { return x.id === currentId; });
-
-      // Header
-      var hdr = document.createElement('div');
-      hdr.className = 'cr-detail-header';
-      hdr.innerHTML =
-        '<h2>' + h(it.criterion) + '</h2>' +
-        '<p class="cr-label">' + h(TR_LABELS[it.criterion] || it.label) + ' <span class="cr-mode">' + h(TR_MODE[it.mode] || it.mode) + '</span></p>';
-      detailEl.append(hdr);
 
       // Question prompt
       var qText = TR_QUESTIONS[it.criterion];
@@ -344,15 +331,8 @@
       // Student text
       var textSection = document.createElement('div');
       textSection.className = 'cr-section';
-      var autoCheckHtml = '';
-      if (it.auto_check) {
-        var icon = it.auto_check.condition_met ? '✓' : '✗';
-        var cls = it.auto_check.condition_met ? 'cr-auto-pass' : 'cr-auto-fail';
-        autoCheckHtml = '<p class="cr-auto-check ' + cls + '"><strong>Otomatik kontrol ' + icon + '</strong> ' + h(it.auto_check.detail) + '</p>';
-      }
       textSection.innerHTML = '<h3>Öğrencinin yanıtı</h3>' +
-        '<div class="cr-student-text">' + (it.student_text ? h(it.student_text) : '<em>Metin çıkarılamadı</em>') + '</div>' +
-        autoCheckHtml;
+        '<div class="cr-student-text">' + (it.student_text ? h(it.student_text) : '<em>Metin çıkarılamadı</em>') + '</div>';
       detailEl.append(textSection);
 
       // Rubric section
@@ -366,16 +346,6 @@
         rubricSection.innerHTML = '<h3>Puanlama kriterleri</h3><table class="cr-rubric-table"><tbody>' + rubricRows + '</tbody></table>';
         detailEl.append(rubricSection);
       }
-
-      // Machine justification (no score number shown — blind rating)
-      var machineSection = document.createElement('div');
-      machineSection.className = 'cr-section';
-      machineSection.innerHTML = '<h3>Sistem gerekçesi</h3>' +
-        '<div class="cr-justification">' + h(it.justification) + '</div>';
-      if (it.flag) {
-        machineSection.innerHTML += '<p class="cr-flag">Not: ' + h(it.flag) + '</p>';
-      }
-      detailEl.append(machineSection);
 
       // Human rating
       var ratingSection = document.createElement('div');
@@ -398,7 +368,8 @@
         if (idx > 0) { currentId = list[idx - 1].id; drawList(); drawDetail(); }
       };
       var nextBtn = document.createElement('button');
-      nextBtn.type = 'button'; nextBtn.className = 'btn-primary'; nextBtn.textContent = idx < list.length - 1 ? 'Sonraki' : 'Bitti';
+      nextBtn.type = 'button'; nextBtn.className = 'btn-primary';
+      nextBtn.textContent = idx < list.length - 1 ? 'Sonraki' : 'Bitti';
       nextBtn.onclick = function () {
         if (idx < list.length - 1) { currentId = list[idx + 1].id; drawList(); drawDetail(); }
       };
@@ -411,29 +382,21 @@
           ratings[it.id] = parseInt(this.value, 10);
           save(ratings);
           drawStats();
+          drawCritHeader();
           drawList();
-          // Auto-advance after rating
           if (idx < list.length - 1) {
             currentId = list[idx + 1].id;
             drawList();
+            drawDetail();
+          } else {
             drawDetail();
           }
         };
       });
     }
 
-    // Toolbar events
-    document.getElementById('crStudent').onchange = function () {
-      filterStudent = this.value; currentId = null; drawList(); drawDetail();
-    };
-    document.getElementById('crCrit').onchange = function () {
-      filterCrit = this.value; currentId = null; drawList(); drawDetail();
-    };
-    document.getElementById('crUnrated').onchange = function () {
-      filterUnrated = this.checked; currentId = null; drawList(); drawDetail();
-    };
     document.getElementById('crExport').onclick = function () {
-      var all = items();
+      var all = allItems();
       var output = all.map(function (it) {
         return {
           id: it.id, student: it.student, criterion: it.criterion,
@@ -447,15 +410,19 @@
       a.download = 'colab_human_ratings.json';
       a.click();
     };
+
     document.getElementById('crReset').onclick = function () {
       if (!confirm('Tüm puanlarınız silinecek. Geri alınamaz. Devam edilsin mi?')) return;
       ratings = {};
       save(ratings);
+      critIdx = 0;
+      saveCritIdx(0);
       currentId = null;
-      drawStats(); drawList(); drawDetail();
+      drawStats(); drawCritHeader(); drawList(); drawDetail();
     };
 
     drawStats();
+    drawCritHeader();
     drawList();
     drawDetail();
   }
