@@ -37,8 +37,29 @@
       .replace(/"/g, '&quot;');
   }
 
+  var SHUFFLE_KEY = 'colabReview_shuffle_v1';
+
+  function shuffledItems() {
+    var all = (root.COLAB_REVIEW_ITEMS || []);
+    if (!all.length) return all;
+    try {
+      var stored = JSON.parse(sessionStorage.getItem(SHUFFLE_KEY) || 'null');
+      if (stored && stored.length === all.length) {
+        return stored.map(function (id) { return all.find(function (x) { return x.id === id; }); }).filter(Boolean);
+      }
+    } catch (e) {}
+    // Fisher-Yates shuffle
+    var ids = all.map(function (x) { return x.id; });
+    for (var i = ids.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = ids[i]; ids[i] = ids[j]; ids[j] = tmp;
+    }
+    try { sessionStorage.setItem(SHUFFLE_KEY, JSON.stringify(ids)); } catch (e) {}
+    return ids.map(function (id) { return all.find(function (x) { return x.id === id; }); }).filter(Boolean);
+  }
+
   function items() {
-    return (root.COLAB_REVIEW_ITEMS || []);
+    return shuffledItems();
   }
 
   /* ---- stats ---- */
@@ -183,8 +204,7 @@
         btn.className = 'cr-item' + (currentId === it.id ? ' cr-item--active' : '') +
           (ratings[it.id] != null ? (ratings[it.id] === it.machine_score ? ' cr-item--agree' : ' cr-item--disagree') : '');
         var ratingStr = ratings[it.id] != null ? ratings[it.id] + '/' + it.max : '?/' + it.max;
-        btn.innerHTML = '<span class="cr-item-student">' + h(it.student) + '</span>' +
-          '<span class="cr-item-crit">' + h(it.criterion) + '</span>' +
+        btn.innerHTML = '<span class="cr-item-crit">' + h(it.criterion) + '</span>' +
           '<span class="cr-item-score cr-machine">M:' + it.machine_score + '/' + it.max + '</span>' +
           '<span class="cr-item-score cr-human">H:' + ratingStr + '</span>';
         btn.onclick = function () { currentId = it.id; drawList(); drawDetail(); };
@@ -212,7 +232,7 @@
       var hdr = document.createElement('div');
       hdr.className = 'cr-detail-header';
       hdr.innerHTML =
-        '<h2>' + h(it.student) + ' — ' + h(it.criterion) + '</h2>' +
+        '<h2>' + h(it.criterion) + '</h2>' +
         '<p class="cr-label">' + h(TR_LABELS[it.criterion] || it.label) + ' <span class="cr-mode">' + h(TR_MODE[it.mode] || it.mode) + '</span></p>';
       detailEl.append(hdr);
 
