@@ -30,7 +30,7 @@
     'S2.2': 'Araştırma sorusu kalitesi (2p)',
     'S3.1': 'Bölme parametreleri: stratify + test_size (2p)',
     'S3.2': 'Stratify kaldırmanın kavramsal etkisi (2p)',
-    'S3.3': 'Rastgelelik ve yeniden üretilebilirlik (1p)',
+    'S3.3': 'Rastgelelik ve yeniden üretilebilirlik (2p)',
     'S6.1': 'Yansıma S6.1: En önemli öğrenme (5p)',
     'S6.2': 'Yansıma S6.2: Veri anlayışı (5p)',
     'S6.3': 'Yansıma S6.3: Model performansı (5p)',
@@ -85,8 +85,9 @@
       { score: 0, text: 'Yanıt yok veya yanlış yön.' }
     ],
     'S3.3': [
-      { score: 1, text: 'random_state\'in karıştırma tohumunu kontrol ettiğini, değiştirmenin farklı bir train/test bölmesi ürettiğini ama modelin her çalıştırmada tekrarlanabilir kaldığını açıklar.' },
-      { score: 0, text: 'Yanıt yok veya yanlış.' }
+      { score: 2, text: 'random_state\'in karıştırma tohumunu (seed) kontrol ettiğini açıklar VE tekrarlanabilirlik kavramını belirtir — aynı değerle kodu her çalıştırdığında aynı bölünme elde edilir.' },
+      { score: 1, text: 'Sonuçların/bölmenin değişeceğini söyler ve random_state\'in bölmeyi kontrol ettiğini belirtir; ama tekrarlanabilirlik (reproducibility) kavramı eksik.' },
+      { score: 0, text: 'Yanıt yok veya yalnızca "sonuçlar değişir" düzeyinde.' }
     ],
     'S6.1': [
       { score: 5, text: 'Üç ortamın (veri kartları, CODAP, Python) her biri için ayrı ve özlü gözlemler yapar; hata tespitini de ele alır.' },
