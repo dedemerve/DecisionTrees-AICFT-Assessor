@@ -1,0 +1,269 @@
+{
+  "rubric_id": "final_lizard_behavior_v1",
+  "session_type": "ipynb_static",
+  "aicft_level": "Create",
+  "version": "1.0",
+  "created": "2026-11-24",
+  "supersedes": "colab_decision_tree_v1 (archived in trash/) — that rubric was designed for the in-class scaffolded session and cannot distinguish adaptation from copy-paste.",
+  "description": "Behavior rubric for the FINAL_LIZARD take-home assignment (.ipynb static file, no video/audio). Focuses on adaptation signals: behaviors that require the student to have understood and re-applied the pipeline to a new dataset with new targets. Evidence is derived from extraction_schema v2 fields (data_source, step3_split_global, dt_experiments, step6_written_reflection). All rules operate on a static .ipynb — no transcript required.",
+  "input_sources": [
+    "ipynb_cell_source: Cell source text from .ipynb JSON",
+    "ipynb_cell_output: Text/image outputs from executed cells",
+    "extraction_json: Fields extracted by run_final_lizard_extraction.py (extraction_schema v2)"
+  ],
+  "scoring_rules": "A behavior is triggered only when the specified extraction field condition or cell-source pattern is fully met. When the extraction field is null or the pattern is absent, the behavior is Not Triggered. Low-discrimination behaviors (marked low_disc=true) fire for copy-paste as well as adapted work and must NOT be used as sole discriminators.",
+  "behaviors": [
+    {
+      "id": "B1",
+      "name": "Library import",
+      "lo": "LO3.2",
+      "low_disc": true,
+      "adaptation_signal": false,
+      "discrimination_note": "Pre-written in the class notebook. Fires for copy-paste. Treat as a base pass only; do not count toward adaptation score.",
+      "evidence_rule": "At least one import statement present in cell source (from sklearn, import pandas, etc.) AND (extraction.execution.code_cells_with_output > 0 OR any dt_experiment has code_evidence.model_fitted == true). The fallback to model_fitted handles cases where extraction.execution.code_cells_with_output is null due to extraction incompleteness — if the student has fitted models, the notebook was clearly executed. Does NOT require student-authored imports."
+    },
+    {
+      "id": "B2",
+      "name": "Correct dataset loaded",
+      "lo": "LO3.2",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "discrimination_note": "Revised from v1. Requires the lizard dataset specifically — not the food dataset from the class notebook. Fails for students who copied the food-dataset pipeline without changing the filename.",
+      "evidence_rule": "extraction.data_source.real_csv_loaded == true AND extraction.data_source.row_count_in_output == 320. Additionally: the pd.read_csv() call in cell source must reference a filename containing 'lizard' or 'kertenkele' (case-insensitive). A call referencing 'Food_Dataset_Turkish.csv' or any other filename fails this behavior. extraction.data_source.synthetic_data_used must be false."
+    },
+    {
+      "id": "B3",
+      "name": "Data exploration",
+      "lo": "LO3.1",
+      "low_disc": true,
+      "adaptation_signal": false,
+      "discrimination_note": "Method calls are pre-written in class notebook. Low discrimination alone, but the written answers (q_habitat_most_frequent, q_habitat_least_frequent) are dataset-specific and elevate discrimination when non-null.",
+      "evidence_rule": "extraction.step1_data_exploration.value_counts_called == true AND extraction.step1_data_exploration.describe_called == true AND at least one of [q_habitat_most_frequent, q_habitat_least_frequent] is non-null. Output cells must be non-empty."
+    },
+    {
+      "id": "B4",
+      "name": "Missing/noisy data handling",
+      "lo": "LO3.2",
+      "low_disc": false,
+      "adaptation_signal": false,
+      "discrimination_note": "Not required by either the class notebook or the final assignment. Fires only for students who went beyond the assignment. Do not penalize absence; treat as bonus evidence if present.",
+      "evidence_rule": "Cell source contains .dropna(), .fillna(), .isnull(), or .replace() AND the cell has non-empty output with no error. This behavior is optional for FINAL_LIZARD and does not affect triggered/not-triggered counts for required behaviors."
+    },
+    {
+      "id": "B5",
+      "name": "Feature/target split — multiple targets",
+      "lo": "LO3.2",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "discrimination_note": "Revised from v1. The class notebook defines one X/y pair. The assignment requires three different target variables. Students who copy-paste produce only one y assignment. Three distinct y assignments are required.",
+      "evidence_rule": "extraction.metadata.total_models_created >= 3 AND extraction.formulated_research_questions contains entries for all three required targets (YasamAlani, Tur, Cinsiyet). Additionally: cell sources must contain at least THREE distinct y = df[...] or y = df[hedef] assignments referencing different column values. A single y definition reused across a loop does NOT satisfy this if the loop is not present. At least one dt_experiment must have code_evidence.used_get_dummies == true — its absence flags a likely copy-paste of the food pipeline where encoding was unnecessary."
+    },
+    {
+      "id": "B6",
+      "name": "Stratified train-test split",
+      "lo": "LO3.2",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "discrimination_note": "Revised from v1. The class notebook does not use stratify=y. The assignment explicitly requires it and asks students to explain its effect. Its absence is a strong copy-paste signal.",
+      "evidence_rule": "extraction.step3_split_global.stratify_used == true AND extraction.step3_split_global.test_size == 0.2 AND extraction.step3_split_global.random_state is non-null. Additionally: extraction.step3_split_global.q_stratify_removal_effect must be non-null (student answered the written question about removing stratify). A cell that calls train_test_split without stratify=y does NOT trigger this behavior even if other parameters are correct."
+    },
+    {
+      "id": "B7_lo32",
+      "name": "Hyperparameter selection (LO3.2)",
+      "lo": "LO3.2",
+      "low_disc": true,
+      "adaptation_signal": false,
+      "discrimination_note": "In the class notebook, max_depth=1 and benim_secimim are both scaffolded. For FINAL_LIZARD, the student must supply the depth per tree from their own optimization. Low discrimination unless the depth chosen matches the student's own MCR table minimum (checked in B10 and S5.x.2 of scoring_schema).",
+      "evidence_rule": "At least one DecisionTreeClassifier(...) call in cell source with an explicit max_depth= value that is not the template default of 1 OR a max_depth derived from a variable set by a loop result. Parameterless DecisionTreeClassifier() calls do not trigger this behavior."
+    },
+    {
+      "id": "B7_lo33",
+      "name": "Hyperparameter optimization (LO3.3)",
+      "lo": "LO3.3",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "discrimination_note": "The class notebook's for loop is fully pre-written. For FINAL_LIZARD, the student must have run this loop on the lizard dataset. Confirm by checking that the MCR table in extraction contains lizard-range values (not food-dataset values).",
+      "evidence_rule": "extraction.dt_experiments: at least one experiment has depth_search.mcr_table with >= 5 rows with non-null train_mcr and test_mcr values. NOTE: students who print only selected depths (e.g. every other row) produce 5-row tables rather than 10 — 5 is the validated minimum from real student data. The mcr values must be plausible for the lizard dataset (test_mcr between 0.0 and 0.6 for all rows — food-dataset MCR patterns outside this range fail). The for loop in cell source must contain a DecisionTreeClassifier(max_depth=depth_var).fit(...) pattern where depth_var is the loop variable (not a hardcoded integer)."
+    },
+    {
+      "id": "B8",
+      "name": "Depth-1 tree",
+      "lo": "LO3.2",
+      "low_disc": true,
+      "adaptation_signal": false,
+      "discrimination_note": "Pre-written in class notebook. For FINAL_LIZARD this appears inside the depth loop, not as a standalone model. Fires as a by-product of B7_lo33.",
+      "evidence_rule": "extraction.dt_experiments: any experiment's depth_search.mcr_table contains a row for depth == 1 with non-null values. OR a standalone DecisionTreeClassifier(max_depth=1) call in cell source with output."
+    },
+    {
+      "id": "B9",
+      "name": "Multi-level tree",
+      "lo": "LO3.2",
+      "low_disc": false,
+      "adaptation_signal": false,
+      "discrimination_note": "For FINAL_LIZARD the final model per tree must use a student-chosen optimal depth > 1 in most cases. Fires when the final model uses depth >= 2.",
+      "evidence_rule": "extraction.dt_experiments: at least one experiment has step5_final_tree.chosen_optimal_depth >= 2 AND step5_final_tree.chosen_optimal_depth is non-null. A depth-2+ entry confirms the student selected a non-trivial tree."
+    },
+    {
+      "id": "B10",
+      "name": "Optimal depth identification",
+      "lo": "LO3.3",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "discrimination_note": "For FINAL_LIZARD the student must produce a MCR table AND a plot AND answer the written questions about which depth to choose. All three must be present. The class notebook for-loop is pre-written, but the written reasoning is student-authored and dataset-specific.",
+      "evidence_rule": "extraction.dt_experiments: at least one experiment has depth_search.mcr_table with >= 5 rows (non-null train_mcr and test_mcr for each row) AND at least one of [step4_markdown_analysis.preferred_depth_from_table, step4_markdown_analysis.preferred_depth_from_graph] is non-null (students who write one combined answer covering both sources satisfy this OR condition). Additionally: code_evidence.mcr_plot_generated == true for that experiment. The preferred depth must be <= 10 and >= 1. If BOTH preferred_depth_from_table and preferred_depth_from_graph are null, the behavior is Not Triggered — the student ran the loop but did not answer the written question."
+    },
+    {
+      "id": "B11",
+      "name": "Model fitting",
+      "lo": "LO3.2",
+      "low_disc": true,
+      "adaptation_signal": false,
+      "discrimination_note": "Pre-written in class notebook. Fires for any student who ran the cells. Confirm execution via cell outputs rather than source text alone.",
+      "evidence_rule": "extraction.dt_experiments: at least one experiment has code_evidence.model_fitted == true. This confirms the .fit() call executed without error on the lizard dataset."
+    },
+    {
+      "id": "B12",
+      "name": "Prediction / inference",
+      "lo": "LO3.2",
+      "low_disc": true,
+      "adaptation_signal": false,
+      "discrimination_note": "Pre-written in class notebook. Fires for any student who ran the cells.",
+      "evidence_rule": "extraction.dt_experiments: at least one experiment has code_evidence.model_built == true AND step5_final_tree.test_mcr_achieved is non-null. The test_mcr_achieved field confirms predict() was called and a metric was computed from the result."
+    },
+    {
+      "id": "B13",
+      "name": "Metric computation",
+      "lo": "LO3.3",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "discrimination_note": "For FINAL_LIZARD, MCR values must be plausible for the lizard dataset. A student who copied the food pipeline without re-running it will have food-dataset values. Cross-check test_mcr_achieved against row_count_in_output = 320.",
+      "evidence_rule": "extraction.dt_experiments: at least one experiment has step5_final_tree.test_mcr_achieved as a float between 0.0 and 0.60 AND depth_search.mcr_table is non-null. The test_mcr value must be plausible (not exactly matching known food-dataset MCR values). Additionally: extraction.data_source.synthetic_data_used must be false for this behavior to be meaningful."
+    },
+    {
+      "id": "B14",
+      "name": "Output interpretation",
+      "lo": "LO3.1",
+      "low_disc": false,
+      "adaptation_signal": false,
+      "transcript_dependent": true,
+      "discrimination_note": "Transcript-dependent rule retained unchanged from v1. For static .ipynb without video, use B21 (written reflection quality) as the notebook-observable proxy. B14 fires only when transcript is available.",
+      "evidence_rule": "TRANSCRIPT REQUIRED. Output cells must show metric values AND the transcript must contain a specific numeric reference to those values (e.g. student says 'yüzde 18 hata çıktı'). Generic verbal comments ('fena değil') do not trigger. When transcript is unavailable, mark as Not Applicable and defer to B21."
+    },
+    {
+      "id": "B15_lo31",
+      "name": "Error management (LO3.1)",
+      "lo": "LO3.1",
+      "low_disc": false,
+      "adaptation_signal": false,
+      "transcript_dependent": true,
+      "evidence_rule": "TRANSCRIPT REQUIRED. A traceback must be visible in a cell output AND the transcript must contain a direct reference to the error (not just 'bir şeyler yanlış gitti'). When transcript is unavailable, mark as Not Applicable."
+    },
+    {
+      "id": "B15_lo33",
+      "name": "Error management (LO3.3)",
+      "lo": "LO3.3",
+      "transcript_dependent": false,
+      "low_disc": false,
+      "adaptation_signal": false,
+      "evidence_rule": "extraction.execution.cells_with_errors > 0 AND extraction.execution.error_types does not contain only 'KeyboardInterrupt' (infrastructure interrupts are excluded per extraction schema). A later cell in the notebook must contain corrected code that executed successfully (non-empty output, no error) targeting the same operation that failed. The error -> correction -> success chain must be visible in cell source and output sequence."
+    },
+    {
+      "id": "B16",
+      "name": "Tree visualization",
+      "lo": "LO3.2",
+      "low_disc": true,
+      "adaptation_signal": false,
+      "discrimination_note": "Pre-written in class notebook. For FINAL_LIZARD, confirms execution but does not discriminate adaptation.",
+      "evidence_rule": "extraction.dt_experiments: at least one experiment has code_evidence.tree_visualized == true. This confirms plot_tree() produced a non-empty image output."
+    },
+    {
+      "id": "B17_lo31",
+      "name": "Overfitting check (LO3.1)",
+      "lo": "LO3.1",
+      "low_disc": false,
+      "adaptation_signal": false,
+      "transcript_dependent": true,
+      "evidence_rule": "TRANSCRIPT REQUIRED. Both train and test MCR values must be visible in cell output AND the transcript must contain a direct comparison between the two values (student explicitly notes the gap). When transcript is unavailable, mark as Not Applicable and defer to B10 and S4.x.3 in the scoring schema."
+    },
+    {
+      "id": "B17_lo33",
+      "name": "Overfitting check (LO3.3)",
+      "lo": "LO3.3",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "transcript_dependent": false,
+      "evidence_rule": "extraction.dt_experiments: at least one experiment has depth_search.mcr_table with both train_mcr and test_mcr columns populated for all rows AND step4_markdown_analysis.overfitting_named_or_described is non-null. The mcr_table must show train_mcr monotonically non-increasing (confirmed by automated check in scoring_schema S4.x.2) and test_mcr with a minimum below depth 10. Transcript not required."
+    },
+    {
+      "id": "B18",
+      "name": "Categorical encoding with get_dummies",
+      "lo": "LO3.2",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "new_in_v1": true,
+      "discrimination_note": "Entirely absent from the class notebook (food dataset had no categorical features requiring encoding). Any student who has this adapted the pipeline. Absence is a strong copy-paste signal.",
+      "evidence_rule": "At least one dt_experiment in dt_experiments has code_evidence.used_get_dummies == true. Additionally (explanatory, not pipeline-evaluated): the pd.get_dummies() call in cell source must be applied to a DataFrame or column containing a known categorical feature from lizard_data.csv (column name contains 'Tur', 'Cinsiyet', 'YasamAlani', or similar) OR the result is assigned to X or used directly in train_test_split. Using raw string columns as features without encoding — confirmed by X containing object-dtype columns in output — fails this behavior."
+    },
+    {
+      "id": "B19",
+      "name": "Multiple trees with distinct target variables",
+      "lo": "LO3.3",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "new_in_v1": true,
+      "discrimination_note": "The class notebook builds one tree. Building three trees with three different targets is the core discriminating task of the assignment. Partial credit (1 or 2 trees) is distinguishable via total_models_created.",
+      "evidence_rule": "extraction.metadata.total_models_created == 3 AND the dt_experiments array contains items whose target_variable values collectively cover all three required targets ['YasamAlani', 'Tur', 'Cinsiyet'] (checked by iterating target_variable across all dt_experiments entries — no scoring-stage global_flags field is used here). Each experiment in dt_experiments must have code_evidence.model_fitted == true. Building the same target three times does NOT satisfy this behavior — target_variable values across the three experiments must all differ."
+    },
+    {
+      "id": "B20",
+      "name": "Stratified split with written justification",
+      "lo": "LO3.2",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "new_in_v1": true,
+      "discrimination_note": "Extends B6. B6 checks the code parameter; B20 checks the written understanding. A student can pass B6 (code present) and fail B20 (explanation missing or trivial). These two behaviors are intentionally separate.",
+      "evidence_rule": "extraction.step3_split_global.stratify_used == true AND extraction.step3_split_global.q_stratify_removal_effect is non-null AND the q_stratify_removal_effect text is longer than 15 characters AND is not a restatement of the question itself. Additionally: extraction.step3_split_global.q_random_state_change_effect is non-null. Both written answers must be present for this behavior to trigger. A student who set stratify=y but left the written answer blank passes B6 but NOT B20."
+    },
+    {
+      "id": "B21",
+      "name": "Written reflection quality",
+      "lo": "LO3.1",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "new_in_v1": true,
+      "discrimination_note": "Notebook-observable proxy for B14 and B17_lo31. The class notebook had discussion prompts but no structured written reflection. This behavior captures whether the student engaged with the Step 6 questions in substance. It is the primary LO3.1 signal for static .ipynb without transcript.",
+      "evidence_rule": "extraction.step6_written_reflection: at least TWO of [q1_learning_journey.raw_text, q2_data_understanding.raw_text, q3_model_performance.raw_text, q4_dt_limitations.raw_text] must be non-null AND longer than 50 characters. Additionally: at least one of these .raw_text fields must contain a numeric reference to the student's own results — accepted forms: (a) a float matching any test_mcr_achieved value within 0.02, OR (b) an integer or percentage string matching MCR * 100 within 2 percentage points (e.g. '31', '%31', 'yüzde 31' are acceptable for MCR=0.3125), OR (c) any pattern of the form '%\\d+' or 'yüzde \\d+' or '\\d+\\.\\d+' adjacent to 'hata' or 'MCR' or 'doğruluk'. NOTE: requiring exact float match fails students who write in natural language percentages — this OR condition accepts all common formats confirmed in real student data. A notebook where all four .raw_text fields are null or contain only the question text fails this behavior."
+    },
+    {
+      "id": "B22",
+      "name": "Root node identification and justification",
+      "lo": "LO3.1",
+      "low_disc": false,
+      "adaptation_signal": true,
+      "new_in_v1": true,
+      "discrimination_note": "The assignment asks students to identify the root feature of each tree and explain why the model chose it. This requires reading the plot_tree output — dataset-specific, not transferable from the food session.",
+      "evidence_rule": "extraction.dt_experiments: at least one experiment has step5_final_tree.root_node_feature as a non-null string AND step5_final_tree.q_root_node_reasoning is non-null AND len(q_root_node_reasoning) > 10 AND the reasoning does not consist solely of circular phrasing ('çünkü model seçti', 'model öyle seçti', 'because the model chose it' or equivalent). The reasoning must reference the feature name or a biological/morphological property. NOTE: root_node_feature_computed match is NOT required — the extraction pipeline does not reliably populate this field (confirmed by cross-validation: 13 of 15 experiments have root_node_feature_computed == null). A null root_node_feature or null q_root_node_reasoning fails this behavior even if the tree was drawn correctly."
+    }
+  ],
+  "lo_summary_rules": {
+    "LO3.1": "B3 OR B14 OR B15_lo31 OR B17_lo31 OR B21 OR B22 triggered",
+    "LO3.2": "B1 OR B2 OR B4 OR B5 OR B6 OR B7_lo32 OR B8 OR B9 OR B11 OR B12 OR B16 OR B18 OR B20 triggered",
+    "LO3.3": "B7_lo33 OR B10 OR B13 OR B15_lo33 OR B17_lo33 OR B19 triggered"
+  },
+  "adaptation_score": {
+    "description": "Count of triggered behaviors where adaptation_signal == true. This is the primary discriminating metric for FINAL_LIZARD. A student who copy-pasted the class notebook with minimal changes should score 0–1. A student who understood and adapted the pipeline should score 5–8.",
+    "max_possible": 12,
+    "behaviors_counted": ["B2", "B5", "B6", "B7_lo33", "B10", "B13", "B17_lo33", "B18", "B19", "B20", "B21", "B22"],
+    "note": "B13 and B17_lo33 are both listed but B17_lo33 subsumes part of B13. Count each independently — they address different aspects (metric value vs. trend interpretation)."
+  },
+  "copy_paste_flags": {
+    "description": "If ALL of the following conditions are met simultaneously, flag the submission for manual review as likely copy-paste of the food dataset pipeline.",
+    "conditions": [
+      "B2 NOT triggered (data_source.row_count_in_output != 320 OR lizard filename absent)",
+      "B18 NOT triggered (get_dummies absent)",
+      "B6 NOT triggered (stratify absent)",
+      "B19 NOT triggered (total_models_created < 3 OR targets not all three required ones)",
+      "B21 NOT triggered (written reflection empty or trivial)"
+    ]
+  }
+}
