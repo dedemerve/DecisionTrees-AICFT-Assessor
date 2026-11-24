@@ -7,6 +7,13 @@
 
   var CRIT_ORDER = ['S1.3','S1.4','S2.2','S3.1','S3.2','S3.3','S6.1','S6.2','S6.3','S6.4','S7.2','S7.3'];
 
+  var Q_CODE = {
+    'S1.3':'Q1','S1.4':'Q2','S2.2':'Q3',
+    'S3.1':'Q4','S3.2':'Q5','S3.3':'Q6',
+    'S6.1':'Q7','S6.2':'Q8','S6.3':'Q9','S6.4':'Q10',
+    'S7.2':'Q11','S7.3':'Q12'
+  };
+
   /* ---- persistence ---- */
   function load() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
@@ -279,7 +286,7 @@
         var cnt = shuffledForCrit(c).filter(function (it) { return ratings[it.id] != null; }).length;
         var ttl = shuffledForCrit(c).length;
         var cls = 'cr-crumb' + (i === critIdx ? ' cr-crumb--active' : '') + (cnt === ttl && ttl > 0 ? ' cr-crumb--done' : '');
-        return '<button type="button" class="' + cls + '" data-ci="' + i + '">' + h(c) + '</button>';
+        return '<button type="button" class="' + cls + '" data-ci="' + i + '">' + h(Q_CODE[c] || c) + '</button>';
       }).join('');
       navHtml += '<div class="cr-crumbs">' + crumbHtml + '</div>';
       navHtml += '<button type="button" id="crNextCrit" class="btn-secondary cr-crit-nav-btn"' + (critIdx === CRIT_ORDER.length - 1 ? ' disabled' : '') + '>Sonraki →</button>';
@@ -288,7 +295,8 @@
       // Info row
       var infoHtml = '<div class="cr-crit-info">' +
         '<span class="cr-crit-step">Soru ' + (critIdx + 1) + ' / ' + total + '</span>' +
-        '<span class="cr-crit-code">' + h(crit) + '</span>' +
+        '<span class="cr-crit-code">' + h(Q_CODE[crit] || crit) + '</span>' +
+        '<span class="cr-crit-aicft">' + h(crit) + '</span>' +
         '<span class="cr-crit-label">' + h(TR_LABELS[crit] || crit) + '</span>' +
         '<span class="cr-crit-progress' + (allDone ? ' cr-crit-done' : '') + '">' + done + ' / ' + all + ' değerlendirildi</span>' +
         '</div>';
