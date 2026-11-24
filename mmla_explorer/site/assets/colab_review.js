@@ -16,11 +16,11 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(ratings)); } catch (e) {}
   }
   function loadCritIdx() {
-    try { return parseInt(sessionStorage.getItem(CRIT_IDX_KEY) || '0', 10) || 0; }
+    try { return parseInt(localStorage.getItem(CRIT_IDX_KEY) || '0', 10) || 0; }
     catch (e) { return 0; }
   }
   function saveCritIdx(idx) {
-    try { sessionStorage.setItem(CRIT_IDX_KEY, String(idx)); } catch (e) {}
+    try { localStorage.setItem(CRIT_IDX_KEY, String(idx)); } catch (e) {}
   }
 
   /* ---- criterion labels (Turkish) ---- */
