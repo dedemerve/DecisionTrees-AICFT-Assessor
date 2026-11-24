@@ -331,8 +331,15 @@
       // Student text
       var textSection = document.createElement('div');
       textSection.className = 'cr-section';
+      var autoCheckHtml = '';
+      if (it.auto_check) {
+        var icon = it.auto_check.condition_met ? '✓' : '✗';
+        var cls = it.auto_check.condition_met ? 'cr-auto-pass' : 'cr-auto-fail';
+        autoCheckHtml = '<p class="cr-auto-check ' + cls + '"><strong>Python kodu otomatik kontrol ' + icon + '</strong> ' + h(it.auto_check.detail) + '</p>';
+      }
       textSection.innerHTML = '<h3>Öğrencinin yanıtı</h3>' +
-        '<div class="cr-student-text">' + (it.student_text ? h(it.student_text) : '<em>Metin çıkarılamadı</em>') + '</div>';
+        '<div class="cr-student-text">' + (it.student_text ? h(it.student_text) : '<em>Metin çıkarılamadı</em>') + '</div>' +
+        autoCheckHtml;
       detailEl.append(textSection);
 
       // Rubric section
