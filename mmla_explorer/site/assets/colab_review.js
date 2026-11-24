@@ -256,34 +256,50 @@
         '<span class="cr-stat"><strong>' + s.done + ' / ' + s.total + '</strong> toplam değerlendirildi (' + pct + '%)</span>';
     }
 
+    function goToCrit(idx) {
+      critIdx = Math.max(0, Math.min(idx, CRIT_ORDER.length - 1));
+      saveCritIdx(critIdx);
+      currentId = null;
+      drawCritHeader();
+      drawList();
+      drawDetail();
+    }
+
     function drawCritHeader() {
       var crit = currentCrit();
       var total = CRIT_ORDER.length;
       var done = critItems().filter(function (it) { return ratings[it.id] != null; }).length;
       var all = critItems().length;
-      var html = '<div class="cr-crit-banner">' +
+      var allDone = done === all;
+
+      // Nav row
+      var navHtml = '<div class="cr-crit-nav">';
+      navHtml += '<button type="button" id="crPrevCrit" class="btn-secondary cr-crit-nav-btn"' + (critIdx === 0 ? ' disabled' : '') + '>← Önceki</button>';
+      var crumbHtml = CRIT_ORDER.map(function (c, i) {
+        var cnt = shuffledForCrit(c).filter(function (it) { return ratings[it.id] != null; }).length;
+        var ttl = shuffledForCrit(c).length;
+        var cls = 'cr-crumb' + (i === critIdx ? ' cr-crumb--active' : '') + (cnt === ttl && ttl > 0 ? ' cr-crumb--done' : '');
+        return '<button type="button" class="' + cls + '" data-ci="' + i + '">' + h(c) + '</button>';
+      }).join('');
+      navHtml += '<div class="cr-crumbs">' + crumbHtml + '</div>';
+      navHtml += '<button type="button" id="crNextCrit" class="btn-secondary cr-crit-nav-btn"' + (critIdx === CRIT_ORDER.length - 1 ? ' disabled' : '') + '>Sonraki →</button>';
+      navHtml += '</div>';
+
+      // Info row
+      var infoHtml = '<div class="cr-crit-info">' +
         '<span class="cr-crit-step">Soru ' + (critIdx + 1) + ' / ' + total + '</span>' +
         '<span class="cr-crit-code">' + h(crit) + '</span>' +
         '<span class="cr-crit-label">' + h(TR_LABELS[crit] || crit) + '</span>' +
-        '<span class="cr-crit-progress">' + done + ' / ' + all + ' yanıt değerlendirildi</span>';
-      if (allRatedForCrit() && critIdx < CRIT_ORDER.length - 1) {
-        html += '<button type="button" id="crNextCrit" class="btn-primary cr-next-crit">Sonraki soru →</button>';
-      } else if (allRatedForCrit() && critIdx === CRIT_ORDER.length - 1) {
-        html += '<span class="cr-crit-done">Tüm sorular tamamlandı!</span>';
-      }
-      html += '</div>';
-      critHdrEl.innerHTML = html;
-      var nextBtn = document.getElementById('crNextCrit');
-      if (nextBtn) {
-        nextBtn.onclick = function () {
-          critIdx = Math.min(critIdx + 1, CRIT_ORDER.length - 1);
-          saveCritIdx(critIdx);
-          currentId = null;
-          drawCritHeader();
-          drawList();
-          drawDetail();
-        };
-      }
+        '<span class="cr-crit-progress' + (allDone ? ' cr-crit-done' : '') + '">' + done + ' / ' + all + ' değerlendirildi</span>' +
+        '</div>';
+
+      critHdrEl.innerHTML = navHtml + infoHtml;
+
+      document.getElementById('crPrevCrit').onclick = function () { goToCrit(critIdx - 1); };
+      document.getElementById('crNextCrit').onclick = function () { goToCrit(critIdx + 1); };
+      critHdrEl.querySelectorAll('.cr-crumb').forEach(function (btn) {
+        btn.onclick = function () { goToCrit(parseInt(this.dataset.ci, 10)); };
+      });
     }
 
     function drawList() {
