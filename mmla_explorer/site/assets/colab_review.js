@@ -32,18 +32,18 @@
 
   /* ---- criterion labels (Turkish) ---- */
   var TR_LABELS = {
-    'S1.3': 'VKA: Habitat dengesizliğinin etkisi (3p)',
-    'S1.4': 'VKA: Türlere göre vücut kütlesi karşılaştırması (3p)',
-    'S2.2': 'Araştırma sorusu kalitesi (2p)',
-    'S3.1': 'Bölme parametreleri: stratify + test_size (2p)',
-    'S3.2': 'Stratify kaldırmanın kavramsal etkisi (2p)',
-    'S3.3': 'Rastgelelik ve yeniden üretilebilirlik (2p)',
-    'S6.1': 'Yansıma S6.1: En önemli öğrenme (5p)',
-    'S6.2': 'Yansıma S6.2: Veri anlayışı (5p)',
-    'S6.3': 'Yansıma S6.3: Model performansı (5p)',
-    'S6.4': 'Yansıma S6.4: Sınırlamalar ve alternatifler (5p)',
-    'S7.2': 'Çapraz karşılaştırma: örüntü akıl yürütme (4p)',
-    'S7.3': 'Çapraz karşılaştırma: Fasıl tartışması (4p)'
+    'S1.3': 'Habitat dengesizliğinin VKA\'ya etkisi (3p)',
+    'S1.4': 'Türlere göre vücut kütlesi karşılaştırması (3p)',
+    'S2.2': 'Araştırma sorusu oluşturma (2p)',
+    'S3.1': 'stratify + test_size parametreleri (2p)',
+    'S3.2': 'stratify kaldırmanın kavramsal etkisi (2p)',
+    'S3.3': 'random_state davranışı (2p)',
+    'S6.1': 'Üç ortamda öğrenme (5p)',
+    'S6.2': 'Kök düğüm seçimi gerekçesi (5p)',
+    'S6.3': 'Model performansı değerlendirmesi (5p)',
+    'S6.4': 'Karar ağacı sınırlamaları (5p)',
+    'S7.2': 'Tahmin hedefleri arası derinlik karşılaştırması (4p)',
+    'S7.3': 'Tahmin hedefleri arası kök düğüm karşılaştırması (4p)'
   };
 
   /* ---- question prompts shown to students (Turkish) ---- */
