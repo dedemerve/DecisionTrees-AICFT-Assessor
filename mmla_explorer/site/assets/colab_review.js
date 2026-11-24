@@ -13,6 +13,23 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(ratings)); } catch (e) {}
   }
 
+  /* ---- criterion labels (Turkish) ---- */
+  var TR_LABELS = {
+    'S1.3': 'VKA: Habitat dengesizliğinin etkisi (3p)',
+    'S1.4': 'VKA: Türlere göre vücut kütlesi karşılaştırması (3p)',
+    'S2.2': 'Araştırma sorusu kalitesi (2p)',
+    'S3.1': 'Bölme parametreleri: stratify + test_size (2p)',
+    'S3.2': 'Stratify kaldırmanın kavramsal etkisi (2p)',
+    'S3.3': 'Rastgelelik ve yeniden üretilebilirlik (1p)',
+    'S6.1': 'Yansıma S6.1: En önemli öğrenme (3p)',
+    'S6.2': 'Yansıma S6.2: Doğruluk yetersizliğinin nedeni (3p)',
+    'S6.3': 'Yansıma S6.3: Derinlik hiperparametresi (2p)',
+    'S6.4': 'Yansıma S6.4: Farklı sonuç tahmini (3p)',
+    'S7.2': 'Çapraz karşılaştırma: örüntü akıl yürütme (3p)',
+    'S7.3': 'Çapraz karşılaştırma: Fasıl tartışması (2p)'
+  };
+  var TR_MODE = { 'llm': 'LLM', 'hybrid': 'Karma', 'auto': 'Otomatik' };
+
   /* ---- helpers ---- */
   function h(s) {
     return String(s == null ? '' : s)
@@ -98,20 +115,20 @@
     all.forEach(function (it) {
       if (!seenC[it.criterion]) {
         seenC[it.criterion] = true;
-        critOpts.push('<option value="' + h(it.criterion) + '">' + h(it.criterion) + ' — ' + h(it.label) + '</option>');
+        critOpts.push('<option value="' + h(it.criterion) + '">' + h(it.criterion) + ' — ' + h(TR_LABELS[it.criterion] || it.label) + '</option>');
       }
     });
     return [
       '<div class="page wide colab-review-page">',
-      '<p class="eyebrow">Human validation</p>',
-      '<h1>Colab scoring review</h1>',
-      '<p>Rate each item independently. Your scores are saved in this browser. When finished, use the Export button to download your ratings for Cohen\'s κ analysis.</p>',
+      '<p class="eyebrow">İnsan değerlendirmesi</p>',
+      '<h1>Colab puanlama incelemesi</h1>',
+      '<p>Her maddeyi bağımsız olarak değerlendirin. Puanlarınız bu tarayıcıda saklanır. Bitirince Cohen κ analizi için Export butonuyla indirin.</p>',
       '<div class="cr-toolbar">',
-      '  <label>Filter by student <select id="crStudent"><option value="">All students</option>' + studentOpts + '</select></label>',
-      '  <label>Filter by criterion <select id="crCrit"><option value="">All criteria</option>' + critOpts.join('') + '</select></label>',
-      '  <label><input type="checkbox" id="crUnrated"> Unrated only</label>',
-      '  <button type="button" id="crExport" class="btn-secondary">Export JSON</button>',
-      '  <button type="button" id="crReset" class="btn-secondary cr-danger">Reset all</button>',
+      '  <label>Öğrenciye göre <select id="crStudent"><option value="">Tüm öğrenciler</option>' + studentOpts + '</select></label>',
+      '  <label>Ölçüte göre <select id="crCrit"><option value="">Tüm ölçütler</option>' + critOpts.join('') + '</select></label>',
+      '  <label><input type="checkbox" id="crUnrated"> Sadece değerlendirilmeyenler</label>',
+      '  <button type="button" id="crExport" class="btn-secondary">JSON İndir</button>',
+      '  <button type="button" id="crReset" class="btn-secondary cr-danger">Sıfırla</button>',
       '</div>',
       '<div id="crStats" class="cr-stats"></div>',
       '<div class="cr-layout">',
@@ -152,9 +169,9 @@
       var kStr = s.kappa != null ? s.kappa.toFixed(3) : 'n/a';
       var agrStr = s.done ? Math.round(100 * s.agreements / s.done) + '%' : 'n/a';
       statsEl.innerHTML =
-        '<span class="cr-stat"><strong>' + s.done + ' / ' + s.total + '</strong> rated (' + pct + '%)</span>' +
-        '<span class="cr-stat"><strong>' + agrStr + '</strong> exact agreement</span>' +
-        '<span class="cr-stat">Weighted κ <strong>' + kStr + '</strong></span>';
+        '<span class="cr-stat"><strong>' + s.done + ' / ' + s.total + '</strong> değerlendirildi (' + pct + '%)</span>' +
+        '<span class="cr-stat"><strong>' + agrStr + '</strong> tam uyum</span>' +
+        '<span class="cr-stat">Ağırlıklı κ <strong>' + kStr + '</strong></span>';
     }
 
     function drawList() {
@@ -174,14 +191,14 @@
         listEl.append(btn);
       });
       if (!items.length) {
-        listEl.innerHTML = '<p class="cr-empty">No items match the current filter.</p>';
+        listEl.innerHTML = '<p class="cr-empty">Filtreye uyan madde yok.</p>';
       }
     }
 
     function drawDetail() {
       detailEl.replaceChildren();
       if (!currentId) {
-        detailEl.innerHTML = '<p class="cr-empty">Select an item from the list.</p>';
+        detailEl.innerHTML = '<p class="cr-empty">Listeden bir madde seçin.</p>';
         return;
       }
       var it = items().find(function (x) { return x.id === currentId; });
@@ -196,23 +213,23 @@
       hdr.className = 'cr-detail-header';
       hdr.innerHTML =
         '<h2>' + h(it.student) + ' — ' + h(it.criterion) + '</h2>' +
-        '<p class="cr-label">' + h(it.label) + ' <span class="cr-mode">' + h(it.mode) + '</span></p>';
+        '<p class="cr-label">' + h(TR_LABELS[it.criterion] || it.label) + ' <span class="cr-mode">' + h(TR_MODE[it.mode] || it.mode) + '</span></p>';
       detailEl.append(hdr);
 
       // Student text
       var textSection = document.createElement('div');
       textSection.className = 'cr-section';
-      textSection.innerHTML = '<h3>Student response</h3>' +
-        '<div class="cr-student-text">' + (it.student_text ? h(it.student_text) : '<em>No text extracted</em>') + '</div>';
+      textSection.innerHTML = '<h3>Öğrencinin yanıtı</h3>' +
+        '<div class="cr-student-text">' + (it.student_text ? h(it.student_text) : '<em>Metin çıkarılamadı</em>') + '</div>';
       detailEl.append(textSection);
 
       // Machine justification
       var machineSection = document.createElement('div');
       machineSection.className = 'cr-section';
-      machineSection.innerHTML = '<h3>Pipeline score: <strong>' + it.machine_score + ' / ' + it.max + '</strong></h3>' +
+      machineSection.innerHTML = '<h3>Sistem puanı: <strong>' + it.machine_score + ' / ' + it.max + '</strong></h3>' +
         '<div class="cr-justification">' + h(it.justification) + '</div>';
       if (it.flag) {
-        machineSection.innerHTML += '<p class="cr-flag">Flag: ' + h(it.flag) + '</p>';
+        machineSection.innerHTML += '<p class="cr-flag">Not: ' + h(it.flag) + '</p>';
       }
       detailEl.append(machineSection);
 
@@ -224,20 +241,20 @@
         var checked = currentRating === v ? ' checked' : '';
         radioHtml += '<label class="cr-radio"><input type="radio" name="crRating" value="' + v + '"' + checked + '> ' + v + '</label>';
       }
-      ratingSection.innerHTML = '<h3>Your rating</h3><div class="cr-radios">' + radioHtml + '</div>';
+      ratingSection.innerHTML = '<h3>Değerlendirmeniz</h3><div class="cr-radios">' + radioHtml + '</div>';
       detailEl.append(ratingSection);
 
       // Nav buttons
       var nav = document.createElement('div');
       nav.className = 'cr-nav';
       var prevBtn = document.createElement('button');
-      prevBtn.type = 'button'; prevBtn.className = 'btn-secondary'; prevBtn.textContent = 'Previous';
+      prevBtn.type = 'button'; prevBtn.className = 'btn-secondary'; prevBtn.textContent = 'Önceki';
       prevBtn.disabled = idx <= 0;
       prevBtn.onclick = function () {
         if (idx > 0) { currentId = list[idx - 1].id; drawList(); drawDetail(); }
       };
       var nextBtn = document.createElement('button');
-      nextBtn.type = 'button'; nextBtn.className = 'btn-primary'; nextBtn.textContent = idx < list.length - 1 ? 'Next' : 'Done';
+      nextBtn.type = 'button'; nextBtn.className = 'btn-primary'; nextBtn.textContent = idx < list.length - 1 ? 'Sonraki' : 'Bitti';
       nextBtn.onclick = function () {
         if (idx < list.length - 1) { currentId = list[idx + 1].id; drawList(); drawDetail(); }
       };
@@ -287,7 +304,7 @@
       a.click();
     };
     document.getElementById('crReset').onclick = function () {
-      if (!confirm('Reset all your ratings? This cannot be undone.')) return;
+      if (!confirm('Tüm puanlarınız silinecek. Geri alınamaz. Devam edilsin mi?')) return;
       ratings = {};
       save(ratings);
       currentId = null;
