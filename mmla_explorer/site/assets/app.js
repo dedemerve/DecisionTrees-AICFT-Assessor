@@ -159,6 +159,7 @@
 
   const BEHAV = [
     ["EXPLORE_DATA", "Explore data", "Looking at data tables or graphs", "--b1"],
+    ["PREPARE_DATA", "Prepare data", "Reviewing or preparing the data before analysis", "--b0"],
     ["SELECT_TARGET", "Select target", "Choosing the target (dependent) variable", "--b2"],
     ["BUILD_TREE", "Build tree", "Building the decision tree", "--b3"],
     ["TUNE_THRESHOLD", "Tune threshold", "Adjusting a split threshold", "--b4"],

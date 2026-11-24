@@ -3,7 +3,7 @@
  'use strict';
 
  const BEHAVIOR_LABELS = {
-  EXPLORE_DATA:'Explore Data', SELECT_TARGET:'Select Target', BUILD_TREE:'Build Tree',
+  EXPLORE_DATA:'Explore Data', PREPARE_DATA:'Prepare Data', SELECT_TARGET:'Select Target', BUILD_TREE:'Build Tree',
   TUNE_THRESHOLD:'Tune Threshold', EVALUATE_MODEL:'Evaluate Model', COMPARE_MODELS:'Compare Models',
   INTERPRET_RESULTS:'Interpret Results', IDLE_THINKING:'Idle / Thinking', OFF_TASK:'Off Task',
   INSUFFICIENT_EVIDENCE:'Abstain – Insufficient Evidence', UNOBSERVABLE:'Abstain – Unobservable',
