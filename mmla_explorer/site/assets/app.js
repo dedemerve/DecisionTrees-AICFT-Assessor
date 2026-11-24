@@ -383,7 +383,7 @@
   function behaviorTable(counts) {
     const total = sum(Object.values(counts));
     return table([{ t: "Observed behaviour" }, { t: "Meaning" }, { t: "Frames", num: 1 }, { t: "Share", num: 1 }],
-      behKeys(counts).map((k) => ({ cells: [`<span class="sw" style="background:${behColor(k)}"></span>${h(behLabel(k))}`, h(BEH[k] ? BEH[k].desc : "Not in the nine-code list"), num(counts[k]), pct(counts[k], total, 1)] })));
+      behKeys(counts).map((k) => ({ cells: [`<span class="sw" style="background:${behColor(k)}"></span>${h(behLabel(k))}`, h(BEH[k] ? BEH[k].desc : "Not in the ten-behaviour-code list"), num(counts[k]), pct(counts[k], total, 1)] })));
   }
   const addCounts = (a, b) => { Object.entries(b || {}).forEach(([k, v]) => { a[k] = (a[k] || 0) + v; }); return a; };
   const evidenceText = (f) => f.ev && f.ev.length ? f.ev.map((k) => EVIDENCE[k] || k).join(" · ") : f.b ? "No flags set" : (TRIGGERS[f.tr] || "");
@@ -670,7 +670,7 @@
           <div class="flow-arr" aria-hidden="true">→</div>
           <div class="flow-node flow-node--output">Stored<br>labels</div>
         </div>
-        <p>Three stages are stored: speech processing where a transcript exists, frame selection, and a behaviour label on the kept frames. ${dupeNames.length ? `Some videos are the same file: ${dupeNames.join("; ")}. ` : ""}${sessionFileNote()} Frames and counts are listed under <a href="#/explore/recordings">Screen recording frames</a>. Counts of the nine labels are on the <a href="#/findings/recordings">screen recording findings</a> page.</p>
+        <p>Three stages are stored: speech processing where a transcript exists, frame selection, and a behaviour label on the kept frames. ${dupeNames.length ? `Some videos are the same file: ${dupeNames.join("; ")}. ` : ""}${sessionFileNote()} Frames and counts are listed under <a href="#/explore/recordings">Screen recording frames</a>. Counts of the ten behaviour codes and three abstain codes are on the <a href="#/findings/recordings">screen recording findings</a> page.</p>
 
         <h3>Behaviour labels</h3>
         <div class="code-grid">${BEHAV.map((b) => `<article class="code-card"><h3><span class="sw" style="background:var(${b[3]})"></span> ${h(b[1])}</h3><p><code>${h(b[0])}</code>. ${h(b[2])}.</p></article>`).join("")}</div>
@@ -693,7 +693,7 @@
           ["Perceptual-hash threshold", pv("phash_threshold")],
         ]) + hbars(trigTotals, (k) => (TRIGGERS[k] || k).replace(/\.$/, ""), (k, v) => `<code>${h(k)}</code><br>${num(v)} frames`))}
 
-        ${tech("Exported session tables", `<p class="small">The pipeline also wrote three tables per session folder: session features, episodes, and episode process codes. ${num(epFiles)} CODAP session folders have those tables, including ${num(epWithoutRecording)} folders with no recording. The ${num(tables.ep)} episodes use ${Object.entries(epCats).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${h(k)} (${num(n)})`).join(", ")}. Those categories are not the nine frame labels. Of the process-code rows, ${Object.entries(decisions).map(([k, n]) => `${num(n)} are <code>${h(k)}</code>`).join(", ") || "none are stored"}. ${featureFlagsTrue ? "" : "No session-feature flag whose name ends in <code>_present</code> is stored as true. "}These tables are not validated screen-recording results.</p>`)}
+        ${tech("Exported session tables", `<p class="small">The pipeline also wrote three tables per session folder: session features, episodes, and episode process codes. ${num(epFiles)} CODAP session folders have those tables, including ${num(epWithoutRecording)} folders with no recording. The ${num(tables.ep)} episodes use ${Object.entries(epCats).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${h(k)} (${num(n)})`).join(", ")}. Those categories are not the ten behaviour codes. Of the process-code rows, ${Object.entries(decisions).map(([k, n]) => `${num(n)} are <code>${h(k)}</code>`).join(", ") || "none are stored"}. ${featureFlagsTrue ? "" : "No session-feature flag whose name ends in <code>_present</code> is stored as true. "}These tables are not validated screen-recording results.</p>`)}
 
         <p>A frame is one visible moment. It is not elapsed time, and it is not a log event. Missing recordings are omitted rather than treated as empty sessions. Further limits are on <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
         <p>How log measures are computed is explained in the <a href="#/methods/logs">Platform logs</a> section below.</p>
@@ -765,7 +765,7 @@
               <li>Irma’s session 1 frames have no behaviour labels. Zara has no session 2 recording</li>
               <li>Frame coverage below 80% in some sessions</li>
               <li>Log–video alignment not recorded at the individual-frame level</li>
-              <li>Episode categories are not the nine frame behaviour codes</li>
+              <li>Episode categories are not the ten behaviour codes and three abstain codes</li>
             </ul>
           </div>
         </div>

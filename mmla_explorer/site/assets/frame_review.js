@@ -84,7 +84,7 @@
     list.append(b);
    });
    const sel = filtered.find(f=>f.id===selected);
-   if(sel) drawDetail(sel); else { detail.replaceChildren(); const p=document.createElement('p'); p.className='small'; p.textContent='Listeden bir frame seçin.'; detail.append(p); }
+   if(sel) drawDetail(sel); else { detail.replaceChildren(); const p=document.createElement('p'); p.className='small'; p.textContent='Select a frame from the list.'; detail.append(p); }
   }
 
   function drawDetail(f){
