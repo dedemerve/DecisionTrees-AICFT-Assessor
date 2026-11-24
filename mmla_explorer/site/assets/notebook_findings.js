@@ -336,39 +336,31 @@
     const students = results.students || [];
     const max = results.max_adaptation || 12;
     const sorted = students.slice().sort((a, b) => b.adaptation - a.adaptation);
-    const flagHtml = '<span class="adpt-flag">Review<\/span>';
-    const dist = {};
-    students.forEach((s) => { dist[s.adaptation] = (dist[s.adaptation] || 0) + 1; });
     const lo31ok = students.filter((s) => s.lo31).length;
     const lo33ok = students.filter((s) => s.lo33).length;
-    const flagged = students.filter((s) => s.copy_paste_flag).length;
     const rows = sorted.map((s) => {
       const bar = Math.round((s.adaptation / max) * 100);
-      const lo = [s.lo31 ? "LO3.1" : null, s.lo32 ? "LO3.2" : null, s.lo33 ? "LO3.3" : null].filter(Boolean).join(" ");
       return `<tr>
         <td>${h(s.name)}</td>
         <td class="num">${num(s.adaptation)} / ${num(max)}</td>
         <td><div class="adpt-bar-wrap"><div class="adpt-bar" style="width:${bar}%"></div></div></td>
-        <td class="num">${h(lo)}</td>
-        <td class="num">${s.copy_paste_flag ? flagHtml : ""}</td>
       </tr>`;
     }).join("");
     return `<section class="find-dim">
       <p class="find-kicker">AI-CFT Adaptation Rubric</p>
       <h2>Pipeline adaptation scores</h2>
-      <p>Each score counts how many of the 12 adaptation-signal behaviors the student triggered — behaviors that require genuine pipeline adaptation, not copy-paste. The rubric is <a href="downloads/FINAL_LIZARD_behavior_rubric.json" download>available to download</a>. LO3.1 = data preparation, LO3.2 = model construction, LO3.3 = evaluation and reflection.</p>
-      <div class="stat-row cols-3 find-headline">
+      <p>Each score counts how many of the 12 adaptation-signal behaviors the student triggered. The rubric is <a href="downloads/FINAL_LIZARD_behavior_rubric.json" download>available to download</a>.</p>
+      <div class="stat-row cols-2 find-headline">
         ${card(`${num(lo31ok)} of ${num(students.length)}`, "LO3.1 triggered", "Data preparation behaviours present.")}
         ${card(`${num(lo33ok)} of ${num(students.length)}`, "LO3.3 triggered", "Evaluation and reflection behaviours present.")}
-        ${card(`${num(flagged)} of ${num(students.length)}`, "Copy-paste flag raised", "Five simultaneous adaptation-signal failures — warrants manual review.")}
       </div>
       <div class="table-wrap"><table class="find-table find-people">
         <thead><tr>
-          <th>Participant</th><th class="num">Adaptation score</th><th></th><th class="num">LOs triggered</th><th class="num">Flag</th>
+          <th>Participant</th><th class="num">Adaptation score</th><th></th>
         </tr></thead>
         <tbody>${rows}</tbody>
       </table></div>
-      <p class="small">Score is the count of adaptation-signal behaviors (max ${num(max)}). All 15 participants trigger LO3.2. A copy-paste flag means five or more adaptation-signal behaviors were absent simultaneously and manual review is recommended.</p>
+      <p class="small">Score is the count of adaptation-signal behaviors (max ${num(max)}). All 15 participants trigger LO3.2.</p>
     </section>`;
   }
 
