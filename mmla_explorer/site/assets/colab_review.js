@@ -215,7 +215,6 @@
       '<p>Her soru için tüm öğrencileri değerlendirin, sonra bir sonraki soruya geçin. Puanlarınız bu tarayıcıda saklanır.</p>',
       '<div class="cr-toolbar">',
       '  <button type="button" id="crExport" class="btn-secondary">JSON İndir</button>',
-      '  <button type="button" id="crReset" class="btn-secondary cr-danger">Sıfırla</button>',
       '</div>',
       '<div id="crStats" class="cr-stats"></div>',
       '<div id="crCritHeader" class="cr-crit-header"></div>',
@@ -432,16 +431,6 @@
       a.href = URL.createObjectURL(blob);
       a.download = 'colab_human_ratings.json';
       a.click();
-    };
-
-    document.getElementById('crReset').onclick = function () {
-      if (!confirm('Tüm puanlarınız silinecek. Geri alınamaz. Devam edilsin mi?')) return;
-      ratings = {};
-      save(ratings);
-      critIdx = 0;
-      saveCritIdx(0);
-      currentId = null;
-      drawStats(); drawCritHeader(); drawList(); drawDetail();
     };
 
     drawStats();
