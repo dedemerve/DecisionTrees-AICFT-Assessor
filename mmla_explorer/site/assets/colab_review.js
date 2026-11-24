@@ -253,8 +253,7 @@
       var pct = s.total ? Math.round(100 * s.done / s.total) : 0;
       var kStr = s.kappa != null ? s.kappa.toFixed(3) : 'n/a';
       statsEl.innerHTML =
-        '<span class="cr-stat"><strong>' + s.done + ' / ' + s.total + '</strong> toplam değerlendirildi (' + pct + '%)</span>' +
-        '<span class="cr-stat">Ağırlıklı κ <strong>' + kStr + '</strong></span>';
+        '<span class="cr-stat"><strong>' + s.done + ' / ' + s.total + '</strong> toplam değerlendirildi (' + pct + '%)</span>';
     }
 
     function drawCritHeader() {
@@ -294,7 +293,7 @@
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'cr-item' + (currentId === it.id ? ' cr-item--active' : '') +
-          (ratings[it.id] != null ? ' cr-item--rated' : '');
+          (ratings[it.id] != null ? ' cr-item--done' : '');
         var ratingStr = ratings[it.id] != null ? ratings[it.id] + '/' + it.max : '?/' + it.max;
         btn.innerHTML = '<span class="cr-item-num">' + (its.indexOf(it) + 1) + '</span>' +
           '<span class="cr-item-score cr-human">' + ratingStr + '</span>';
