@@ -9,10 +9,10 @@
   let records=[],selected='',frame='',loading=false;
   const key=r=>r.reviewId+'|'+r.authorTag;
   function draw(){
-   list.replaceChildren();for(const r of records){const b=document.createElement('button');b.className='frame-review-record';b.type='button';b.textContent=r.reviewId+' · '+r.author+' · '+(r.record.label||'Taslak');b.onclick=()=>{selected=key(r);draw();};list.append(b);}
+   list.replaceChildren();for(const r of records){const b=document.createElement('button');b.className='frame-review-record';b.type='button';b.textContent=r.reviewId+' · '+(r.record.label||'Taslak');b.onclick=()=>{selected=key(r);draw();};list.append(b);}
    const r=records.find(r=>key(r)===selected)||records[0];detail.replaceChildren();
    if(!r){const p=document.createElement('p');p.textContent='Bu örnek için henüz ortak kayıt yok.';detail.append(p);return;}
-   selected=key(r);const h=document.createElement('h2');h.textContent=r.reviewId+' · '+r.author;detail.append(h);
+   selected=key(r);const h=document.createElement('h2');h.textContent=r.reviewId;detail.append(h);
    if(r.image){const img=document.createElement('img');img.src=r.image;img.alt=r.reviewId+' ekran görüntüsü';img.loading='lazy';detail.append(img);}
    for(const [title,value] of [['Davranış',r.record.label||'Henüz seçilmedi'],['Gözlenen eylem',r.record.action||'—'],['Kanıt / gerekçe',r.record.evidence||'—'],['Not',r.record.note||'—'],['Durum',r.record.submitted?'Tamamlandı':'Taslak · yazım sürüyor'],['Son kayıt',new Date(r.savedAt).toLocaleString('tr-TR',{timeZone:'Europe/Istanbul'})]]){const p=document.createElement('p'),b=document.createElement('strong');b.textContent=title+': ';p.append(b,document.createTextNode(value));detail.append(p);}
    const a=document.createElement('a');a.href=service+'/join.html?returnTo='+encodeURIComponent('/review.html#'+r.reviewId);a.target='_blank';a.rel='noopener';a.textContent='Bu frame için kendi kararını ekle';detail.append(a);
