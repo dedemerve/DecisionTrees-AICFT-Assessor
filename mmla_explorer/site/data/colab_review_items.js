@@ -8,7 +8,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 3,
-    "justification": "Student names 'yanlılık (bias)', identifies Yer as majority class predicted better, Ağaç as minority class harder to learn, and explicitly mentions 'duyarlılık (sensitivity)'. All three dimensions present with correct causal direction. 3/3.",
+    "justification": "Öğrenci adları 'yanlılık (bias)', Yer'in çoğunluk sınıfı olarak daha iyi tahmin edildiğini, Ağaç'ın azınlık sınıfı olarak öğrenilmesinin daha zor olduğunu belirtir ve açıkça 'duyarlılık (sensitivity)' den bahseder. Üç boyutun tümü doğru nedensel yönü ile sunulmuştur. 3/3.",
     "student_text": "Modelde yanlılığa (bias) yol açar. Karar ağacı, verisi çok olan \"Yer\" sınıfını tahmin etmeye eğilim gösterirken; verisi az olan \"Ağaç\" sınıfını öğrenmekte zorlanır ve bu sınıf için doğru tahmin oranı (duyarlılık) düşük kalır.",
     "flag": null
   },
@@ -21,7 +21,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 3,
-    "justification": "Student correctly orders Sceloporus as large/heavy and Uta as smallest/lightest. Provides anatomical-evolutionary reasoning: 'evrimsel vücut büyüklükleri' and 'gövde uzunluğu arttıkça kütle artar'. All three dimensions (correct ordering, biological reason, species-level interpretation) present. 3/3.",
+    "justification": "Öğrenci Sceloporus'u büyük/ağır, Uta'yı en küçük/en hafif olarak doğru sıralar. Anatomik-evrimsel mantık sunar: 'evrimsel vücut büyüklükleri' ve 'gövde uzunluğu arttıkça kütle artar'. Üç boyutun tümü (doğru sıralama, biyolojik neden, tür seviyesi yorumlama) mevcuttur. 3/3.",
     "student_text": "Evet, üç tür için farklıdır. Nedeni: Türlerin anatomik (fiziksel) yapıları ve gövde uzunlukları birbirinden farklıdır. Gövde uzunluğu arttıkça kütle de artar. Örneğin Sceloporus iri ve ağır bir türken, Uta en küçük ve en hafif türdür.",
     "flag": null
   },
@@ -34,7 +34,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "All formulated_question fields null. Cannot evaluate quality. 0/2.",
+    "justification": "Tüm formulated_question alanları boş. Kalite değerlendirilemez. 0/2.",
     "student_text": "(no research questions written)",
     "flag": null
   },
@@ -47,7 +47,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 1,
-    "justification": "step3_split_global records the first train_test_split call: test_size=0.3, stratify_used=false, random_state=42. By the automated rule (stratify=false → 0/2), this would score 0. However, parameters_varied_across_models=true: the main depth-search experiment for Tur used test_size=0.2 with stratify (evidenced by printed sizes 256/64 in that cell). Student applied correct parameters where it mattered most. Hybrid score: 1/2 partial credit.",
+    "justification": "step3_split_global ilk train_test_split çağrısını kaydeder: test_size=0.3, stratify_used=false, random_state=42. Otomatik kurala göre (stratify=false → 0/2), bu 0 puan alırdı. Ancak parameters_varied_across_models=true: Tur için ana depth-search deneyi test_size=0.2 ile stratify kullanır (o hücrede yazdırılan 256/64 boyutlarıyla kanıtlanır). Öğrenci doğru parametreleri en önemli yerde uygulamıştır. Hibrit puan: 1/2 kısmi kredi.",
     "student_text": "test_size=0.3, stratify=False, random_state=42",
     "flag": null
   },
@@ -60,7 +60,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "Student explains: stratify removed → class distribution imbalance in split, rare species may go to test set in insufficient numbers, model can't be properly tested on minority classes. Correct mechanism (proportional representation) with specific consequence (Ağaç/nadir tür az test setine gider). 2/2.",
+    "justification": "Öğrenci açıklar: stratify kaldırıldı → split'te sınıf dağılımı dengesizliği, nadir türler test setine yetersiz sayıda gidebilir, model azınlık sınıflarında düzgün test edilemez. Doğru mekanizma (orantılı temsil) spesifik sonuçla (Ağaç/nadir tür az test setine gider). 2/2.",
     "student_text": "Sınıf dağılımındaki denge bozulabilir. Parametre varken eğitim ve test setlerine her kertenkele türünden eşit oranda (%80'e %20) paylaştırılır. Kaldırıldığında ise tamamen rastgele bir bölünme olacağı için bazı nadir türler test setine çok az gidebilir veya hiç gitmeyebilir; bu da modelin o sınıfı doğru test edilmesini zorlaştırır.",
     "flag": null
   },
@@ -73,7 +73,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "Student correctly explains random_state as a seed for the shuffling mechanism. Changing it produces a different split but the model remains reproducible within each run. Mechanism and implication both correct. 1/1.",
+    "justification": "Öğrenci random_state'i karıştırma mekanizması için seed olarak doğru açıklar. Değiştirmek farklı bir split üretir ancak model her çalışmada tekrarlanabilir kalır. Mekanizma ve çıkarım her ikisi de doğru. 1/1.",
     "student_text": "Evet, veri setindeki kertenkelelerin eğitim ve test setlerine dağılımı (satır eşleşmeleri) değişir, dolayısıyla elde edilen başarı sonuçları da küçük miktarda farklılık gösterir.\n\nNedeni: random_state veriyi karıştırıp bölen mekanizmanın başlangıç noktasıdır (tohum değeridir). Sayıyı değiştirmek farklı bir rastgele karıştırma düzeni oluşturur; ancak kod her yeniden çalıştırıldığında kendi içinde hep aynı (sabit) bölünmeyi üretmeye devam eder.",
     "flag": null
   },
@@ -86,7 +86,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "All three environments named (data_cards, codap, python) with distinct, substantive observations for each. Error detection explicitly discussed ('Python'ın kırmızı renkli, spesifik hata mesajları beni doğrudan uyardı'). Identifies CODAP as deepest understanding environment with a process-level reason, not just preference. 196 words, fully elaborated. 5/5.",
+    "justification": "Üç ortamın tümü adlandırılmış (data_cards, codap, python) her biri için farklı, esaslı gözlemlerle. Hata tespiti açıkça tartışılmış ('Python'ın kırmızı renkli, spesifik hata mesajları beni doğrudan uyardı'). CODAP'ı tercih değil, işlem seviyesi nedeniyle en derin anlayış ortamı olarak tanımlar. 196 kelime, tamamen detaylandırılmış. 5/5.",
     "student_text": "Her ortamın katkısı: Data kartları karar ağacının mantığını elle hissettirdi; CODAP veriyi görselleştirerek gruplamayı öğretti; Python ise büyük verilerde otomasyon ve matematiksel optimizasyonu (Gini) kavramamı sağladı.\n\n\"Modelim ne yapıyor\" sorusunu en iyi anladığım ortam: CODAP. Çünkü verilerin her bölünmede grafik üzerinde nasıl ayrıştığını ve saflaştığını anlık olarak gözlerimle görebildim.\n\nEn kolay gelen ortam: CODAP. Görsel ve sürükle-bırak yapısı sayesinde kavramsal olarak anlamayı kolaylaştırdı, sadece alışkanlık değil süreci somutlaştırdığı için kolay geldi.\n\nEn çok zorlanılan ortam: Python. Kod yazmanın getirdiği sözdizimi (syntax) kuralları ve hata mesajları nedeniyle zorlandım. Zorluk karar ağacı kavramından değil, aracın teknik dilinden kaynaklanıyordu.\n\nHatanın en kolay fark edildiği ortam: Python. Kod satırlarında hata olduğunda Python'ın kırmızı renkli, spesifik hata mesajları (ValueError vb.) beni doğrudan uyardı ve hatanın nerede olduğunu gösterdi.\n\nBirinde yapılıp diğerinde yapılamayan şey: Python'da saniyeler içinde 10 farklı derinliği otomatik deneyip grafiğini çizebilirken (döngülerle), bunu data kartlarında veya CODAP'ta elle yapmak imkansızdı.\n\nBirinin diğerinin yerini tutamayacağı durum: Data kartlarının yeri tutulamaz; çünkü algoritmanın temelindeki \"adım adım karar verme\" mantığını tamamen fiziksel ve somut bir şekilde kavramanın en iyi yolu odur.",
     "flag": null
   },
@@ -99,7 +99,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Biological explanation of root feature: 'evrimsel olarak geliştirdiği vücut büyüklükleri ve ağırlıkları... en radikal ve baskın fiziksel özellik' ✓. Expectation addressed: expected ToplamUzunluk, notes it partly aligns with model finding ✓. Habitat misclassification discussed: Ağaç/Kaya hardest, biological reason given (young lizards, temporary habitat shifts causing physical measurement overlap) ✓. All three dimensions present with genuine biological depth. 5/5.",
+    "justification": "Kök özelliğinin biyolojik açıklaması: 'evrimsel olarak geliştirdiği vücut büyüklükleri ve ağırlıkları... en radikal ve baskın fiziksel özellik' ✓. Beklenti ele alındı: ToplamUzunluk beklendi, kısmen uyumlu olduğunu not eder ✓. Habitat yanlış sınıflandırması tartışılmış: Ağaç/Kaya en zor, biyolojik neden verilmiş (genç kertenkeler, fiziksel ölçüm örtüşmesine neden olan geçici habitat kaymları) ✓. Üç boyutun tümü gerçek biyolojik derinlikle sunulmuştur. 5/5.",
     "student_text": "Kök düğüm seçimi ve biyolojik mantığı: Kök düğümde seçilen değişken (örneğin GovdeUzunlugu veya Kutle) biyolojik olarak çok mantıklıdır. Çünkü farklı türlerin evrimsel olarak geliştirdiği vücut büyüklükleri ve ağırlıkları, onları ayırt etmedeki en radikal ve baskın fiziksel özelliktir.\n\nYaşam alanına göre fiziksel farklar: Evet, beklerdim. Ağaçta yaşayanların tırmanma için bacak boyu/vücut oranı farklı olmalıdır. Modelimiz de kurduğu dallarla (örneğin bacak ve gövde uzunluğu sınırlarıyla) bu farkı büyük oranda yakaladı.\n\nYanlış sınıflandırılan bireyler ve biyolojik açıklaması: Yanlış sınıflandırmalar çoğunlukla Ağaç veya Kaya alanlarındaki bireylerde oldu. Biyolojik açıklaması: Bazı kertenkelelerin genç (boyutça küçük) olması veya avlanma/kamuflaj amacıyla geçici olarak yer değiştirmesi, fiziksel ölçümlerinin diğer sınıflarla karışmasına yol açar.\n\nİlk tahmin ve modelin bulgusu: İlk başta ToplamUzunluk değişkeninin en belirleyici olacağını tahmin etmiştim; modelin gövde uzunluğu/kütle bulgusuyla büyük oranda örtüştü çünkü ikisi de genel kalıpsal büyüklüğü gösterir.",
     "flag": null
   },
@@ -112,7 +112,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "MCR value stated (0.2031, matching Tur test_mcr_achieved ✓). Best/worst class identified with class-imbalance reason ✓. Numeric threshold proposed ('0.05 ile 0.15 arası') ✓. Cross-target comparison attempted but qualitative only — Cinsiyet and YasamAlani were not fully analyzed, so the comparison is a prediction ('daha yüksek hata oranına sahip olurdu') rather than actual values. Three of four dimensions fully met; cross-target dimension is inference-based. 4/5.",
+    "justification": "MCR değeri belirtilmiş (0.2031, Tur test_mcr_achieved ile eşleşiyor ✓). En iyi/en kötü sınıf sınıf dengesizliği nedeniyle belirtilmiş ✓. Sayısal eşik önerilmiş ('0.05 ile 0.15 arası') ✓. Hedefler arası karşılaştırma denendi fakat niteliksel yalnızca — Cinsiyet ve YasamAlani tam analiz edilmedi, bu yüzden karşılaştırma tahmin ('daha yüksek hata oranına sahip olurdu') gerçek değerler yerine. Dört boyuttan üçü tam karşılanmış; hedefler arası boyut çıkarım temelli. 4/5.",
     "student_text": "En iyi ve en kötü tahmin edilen sınıflar: Verisi en çok olan Yer sınıfı (veya Sceloporus/Uta türü) en iyi tahmin edildi; verisi çok az ve dengesiz olan Ağaç sınıfı en kötü tahmin edildi. Nedeni, verideki sınıf dengesizliğidir.\n\nMCR tatmini ve ideal değer: Elde ettiğim MCR (Hata Oranı) değeri genel olarak tatmin edici (örn: %10-20 arası hata). İyi bir model için MCR değerinin 0.05 ile 0.15 arasında (yani %85-95 doğruluk) olmasını bekleriz.\n\nHedef değişken değişseydi MCR değişir miydi? Evet, kesinlikle değişirdi. Çünkü Tür tahmini yapmak fiziksel özelliklerle doğrudan ilişkili ve kolayken; Cinsiyet veya Yaşam Alanı verideki ayırt edici ipuçları daha zayıf olduğu için daha yüksek hata oranına (MCR) sahip olurdu.\n\nBaşarısız durumların veri hakkında söyledikleri: Verideki bazı kertenkelelerin birbirine çok benzediğini, yani sadece fiziksel ölçümlere bakarak yaşam alanı veya tür ayrımının %100 kusursuz yapılamayacağını, sınıflar arasında doğal bir örtüşme (gürültü) olduğunu söyler.",
     "flag": null
   },
@@ -125,7 +125,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Systematic error pattern identified (boundary cases, class imbalance — not random) ✓. Data-level improvement suggested (more minority-class samples, additional features like color/region) ✓. Alternative model named with reason (Random Forest and Lojistik Regresyon; 'daha esnek ve olasılıksal sınırlar') ✓. Lay explanation includes overfitting limitation ('veriyi kolayca ezberlemeye meyilli olması') ✓. All four dimensions. 5/5.",
+    "justification": "Sistematik hata deseni tanımlanmış (sınır durumları, sınıf dengesizliği — rastgele değil) ✓. Veri seviyesi iyileştirme önerilmiş (daha fazla azınlık sınıfı örnekleri, renk/bölge gibi ek özellikler) ✓. Alternatif model adlandırılmış nedeniyle (Random Forest ve Lojistik Regresyon; 'daha esnek ve olasılıksal sınırlar') ✓. Sıradan açıklama overfitting limitasyonu içerir ('veriyi kolayca ezberlemeye meyilli olması') ✓. Dört boyutun tümü. 5/5.",
     "student_text": "Hata örüntüsü: Hatalar rastgele değildir; genellikle sınır değerlerdeki (birbirine boyut olarak çok yakın olan) veya veri sayısı çok az olan nadir sınıflara ait kertenkelelerde yoğunlaşan belirli bir örüntüye sahiptir.\n\nDaha iyi sonuç için ne yapılabilir? Teknik olarak budama yapılabilir. Veri açısından ise sınıf dengesi sağlanabilir (nadir sınıflardan daha çok örnek toplanabilir) ve kertenkelelerin rengi, coğrafi bölgesi gibi yeni ayırt edici özellikler (sütunlar) veriye eklenebilir.\n\nFarklı model kullanımı: Sonuç değişirdi. Örneğin Rastgele Orman (Random Forest) veya Lojistik Regresyon gibi modeller kullansaydık, tek bir ağacın keskin ve köşeli sınırları yerine daha esnek ve olasılıksal sınırlar çizileceği için test başarısı daha yüksek olabilirdi.\n\nArkadaşıma açıklama: \"Karar Ağacı, veriye sorular sorarak onu dallara ayıran ve tahminde bulunan akış şeması benzeri bir modeldir. Karmaşık kuralları anlaşılır kılmaya yarar. Ancak veriyi kolayca ezberlemeye (overfitting) meyilli olması ve verideki dengesizliklerden çok çabuk etkilenmesi yönüyle yetersiz kalır.\"",
     "flag": null
   },
@@ -138,7 +138,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 3,
-    "justification": "optimal_depths_compared=true. comparison_reasoning notes depths differ and provides a partial reason: 'fiziksel ölçümler Tür tahmini yapmayı çok kolaylaştırıp az derinlikte (örn: 3) çözebilirken, Cinsiyet veya Yaşam Alanı... daha farklı derinlik seviyesi gerektirir.' Mentions depth 3 for Tur specifically. However, Cinsiyet and YasamAlani actual depths are not available (no MCR search was run for them), so the comparison is one-directional. Rule: '3 pts: notes depths differ with a partial reason.' 3/4.",
+    "justification": "optimal_depths_compared=true. comparison_reasoning derinliklerin farklı olduğunu not eder ve kısmi neden sunar: 'fiziksel ölçümler Tür tahmini yapmayı çok kolaylaştırıp az derinlikte (örn: 3) çözebilirken, Cinsiyet veya Yaşam Alanı... daha farklı derinlik seviyesi gerektirir.' Tür için özellikle derinlik 3'ü bahseder. Ancak Cinsiyet ve YasamAlani gerçek derinlikleri mevcut değildir (bunlar için MCR araması yapılmamıştır), bu yüzden karşılaştırma tek yönlüdür. Kural: '3 puan: derinliklerin farklı olduğunu kısmi neden ile not eder.' 3/4.",
     "student_text": "Hayır, her hedef değişken (Tür, Cinsiyet, Yaşam Alanı) için optimum derinlik farklı çıktı. Nedeni: Her sorunun (hedef değişkenin) zorluk derecesi ve verideki diğer özelliklerle olan ilişkisi farklıdır. Örneğin, fiziksel ölçümler Tür tahmini yapmayı çok kolaylaştırıp az derinlikte (örn: 3) çözebilirken, Cinsiyet veya Yaşam Alanı gibi ayırt etmesi daha karmaşık olan hedefler daha farklı kurallar dizisi ve derinlik seviyesi gerektirir.",
     "flag": null
   },
@@ -151,7 +151,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 3,
-    "justification": "root_nodes_compared=true. comparison_reasoning: 'hedef değişken değiştiğinde kök düğüm değişti... Tür tahmini yaparken en ayırt edici özellik gövde boyutu iken, Cinsiyet veya Yaşam Alanı tahmini yaparken... tamamen farklı bir özelliğe dönüşür.' Notes that root nodes change with statistical reasoning (information gain, different discriminative features). Specific root node values for Cinsiyet/YasamAlani not available. Rule: '3 pts: notes root node changes with partial reasoning.' 3/4.",
+    "justification": "root_nodes_compared=true. comparison_reasoning: 'hedef değişken değiştiğinde kök düğüm değişti... Tür tahmini yaparken en ayırt edici özellik gövde boyutu iken, Cinsiyet veya Yaşam Alanı tahmini yaparken... tamamen farklı bir özelliğe dönüşür.' Kök düğümlerin istatistiksel mantıkla değiştiğini not eder (information gain, farklı ayırt edici özellikler). Cinsiyet/YasamAlani için spesifik kök düğüm değerleri mevcut değildir. Kural: '3 puan: kök düğüm değişikliklerini kısmi mantıkla not eder.' 3/4.",
     "student_text": "Hayır, her hedef değişken (Tür, Cinsiyet, Yaşam Alanı) için optimum derinlik farklı çıktı. Nedeni: Her sorunun (hedef değişkenin) zorluk derecesi ve verideki diğer özelliklerle olan ilişkisi farklıdır. Örneğin, fiziksel ölçümler Tür tahmini yapmayı çok kolaylaştırıp az derinlikte (örn: 3) çözebilirken, Cinsiyet veya Yaşam Alanı gibi ayırt etmesi daha karmaşık olan hedefler daha farklı kurallar dizisi ve derinlik seviyesi gerektirir.",
     "flag": null
   },
@@ -164,7 +164,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 1,
-    "justification": "'MCR oranını düşürmek için veri sayısı fazla olan sınıfı daha iyi öğrenmeye çalışırız.' This is a vague, generic statement about learning the majority class better to reduce MCR — it does not explicitly connect to the minority class (Ağaç) suffering higher error, nor does it name any model-level mechanism (bias, class weighting, sensitivity). Direction is implied but underdeveloped. 1/3.",
+    "justification": "'MCR oranını düşürmek için veri sayısı fazla olan sınıfı daha iyi öğrenmeye çalışırız.' Bu, çoğunluk sınıfını daha iyi öğrenmeye çalışmak hakkında muğlak, genel bir ifade — azınlık sınıfı (Ağaç) için daha yüksek hata kayıtsız bırakmaz ve herhangi bir model seviyesi mekanizmi (bias, class weighting, sensitivity) isimlendirilmez. Yön ima edilmiş fakat yetersiz geliştirilmiş. 1/3.",
     "student_text": "MCR oranını düşürmek için veri sayısı fazla olan sınıfı daha iyi öğrenmeye çalışırız.",
     "flag": null
   },
@@ -177,7 +177,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 1,
-    "justification": "States overall mass average (12.5) and claims each species' mass average differs due to different habitats/characteristics, but does not order species (no mention of Sceloporus as largest or Uta as smallest) and the reasoning is vague/generic ('yaşam alanları, özellikleri birbirinden farklılık göstermektedir'). 1/3.",
+    "justification": "Genel kütle ortalaması belirtir (12.5) ve her türün kütle ortalaması farklı habitat/özellikler nedeniyle farklı olduğunu iddia eder, fakat türleri sıralamaz (Sceloporus'un en büyük veya Uta'nın en küçük olduğundan bahsetme) ve mantık muğlak/jenerik ('yaşam alanları, özellikleri birbirinden farklılık göstermektedir'). 1/3.",
     "student_text": "Ağırlık ortalaması 12.5 dir. Bnece her türün ağırlık ortalaması farklıdır çünkü\ntürlerin yaşam alanları ,özellikleri birbirinden farklılık göstermektedir.",
     "flag": null
   },
@@ -190,7 +190,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "All three questions are phrased as clear predictive/classification questions ('Bu kertenkelenin yaşam alanı ne olabilir?', 'türü ne olabilir?', 'cinsiyeti ne olabilir?'), each mentioning the target variable and framed as a prediction goal. 2/2.",
+    "justification": "Üç sorunun tümü net tahmin/sınıflandırma sorusu olarak ifade edilmiş ('Bu kertenkelenin yaşam alanı ne olabilir?', 'türü ne olabilir?', 'cinsiyeti ne olabilir?'), her biri hedef değişkeni bahsetmiş ve tahmin hedefi olarak çerçevelenmiş. 2/2.",
     "student_text": "Bu kertenkelenin yaşam alanı ne olabilir? | Bu kertenkelenin türü ne olabilir? | Bu kertenkelenin cinsiyeti ne olabilir?",
     "flag": null
   },
@@ -203,7 +203,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 2,
-    "justification": "test_size=0.2, stratify_used=True, random_state=42 — all correct. 2/2.",
+    "justification": "test_size=0.2, stratify_used=True, random_state=42 — tümü doğru. 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
     "flag": null
   },
@@ -216,7 +216,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "Explains that removing stratify would cause unequal distribution of habitats in test data, specifically noting that tree-dwelling lizards (minority class) could all end up in the test set, disrupting balance and affecting the tree's construction. Specific, correct mechanism referencing the minority class. 2/2.",
+    "justification": "stratify kaldırılmasının habitat dağılımı dengesizliğine neden olacağını açıklar, özellikle ağaç yaşayan kertenkeler (azınlık sınıfı) test setine hepsi gidebileceğini not eder, dengeyi bozar ve ağacın oluşturulmasını etkiler. Azınlık sınıfına referans vererek spesifik, doğru mekanizma. 2/2.",
     "student_text": "stratify=y parametresini kaldırdığım zaman bana yaşam alanları orantılı bir şeklide dağıtmıyor. Buda mesela ağaçda yaşayan kertenkelelerin hepsinin test verisine gitmesine neden olabilir. yaptığım örnekte çok fark olmasada karar ağacımı hazırlarken öenmli değişikliklere sebep olabilir.",
     "flag": null
   },
@@ -229,7 +229,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "Explains random_state controls how data is split each time (same split for same seed), that different values (7 vs 42) change MCR results, and that using a fixed value is required for consistency — correctly captures seed/reproducibility mechanism. 1/1.",
+    "justification": "random_state'in her verinin nasıl bölündüğünü kontrol ettiğini (aynı seed için aynı split), farklı değerlerin (7 vs 42) MCR sonuçlarını değiştirdiğini ve tutarlılık için sabit değer kullanmanın gerekli olduğunu açıklar — seed/tekrarlanabilirlik mekanizmasını doğru yakalar. 1/1.",
     "student_text": "random state değerini 7 ve 42 aldığımda mcr değerlerimde değişiklikler meydana geliyor bunun nedeni ise random state veriyi her seferinde aynı yerden bölmemizi sağlar bunu başka sayıda alabiliriz ama her zaman aynı sayıyı kullanmamız gerekir bu sabit bir değişkendir.",
     "flag": null
   },
@@ -242,7 +242,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "Discusses all three environments (data cards, CODAP, Python) with distinct substantive observations for each: data cards for concrete grouping logic, CODAP for graphical relationship-viewing and model-building experience, Python for math-driven rigorous modeling. Addresses error detection clearly (Python shows line/error type). Deepest-understanding claim (CODAP, seeing data change on graph) is reasonably substantive. Slightly repetitive/one-dimensional across sub-questions but solid overall. 4/5.",
+    "justification": "Üç ortamın tümünü tartışır (data cards, CODAP, Python) her biri için farklı esaslı gözlemlerle: data cards somut gruplama mantığı için, CODAP grafik ilişki-görüntüleme ve model-inşa deneyimi için, Python matematik-odaklı katı modelleme için. Hata tespiti açıkça ele alınmış (Python satır/hata türü gösterir). En derin anlayış iddiası (CODAP, grafikte veri değişimini görme) makul düzeyde esaslıdır. Alt sorular arasında biraz tekrarlayıcı/tek boyutlu fakat genel olarak sağlam. 4/5.",
     "student_text": "Her ortam size farklı bir şey kattı mı? Her bir ortamın neler kattığını yazın.\n\n- Evet her ortam düşünme becerime farklı bir boyut kalktı. Data kartları karar ağaçlarının arkasındaki mantığı, verileri fiziksel olarak gruplamayı ve bölünme kriterlerini somut olarak anlamamı sağladı. CODAP ise büyük veri setlerinde değişkenler arasındaki ilişkileri  görmemi ve model kurma deneyimi edinmemi sağladı.Python ise işin içine matematik sokarak, büyük ölçekli verilerde insan hatasından arınmış, tamamen istatistiksel ve bilimsel modeller kurma gücü kattı.\n\nHangi ortamda \"modelim ne yapıyor\" sorusunu daha iyi anladınız? Nedeninizi açıklayın.\n\n- CODAP ortamında daha iyi anladım. Çünkü yaptığım her hamlede verinin grafik üzerinde nasıl değiştiğini inceleyebildik\n\nHangi ortam size daha kolay geldi? Bu kolaylık gerçekten anladığınızı mı, yoksa sadece alıştığınızı mı gösteriyor? Nedeninizi açıklayın.\n\n- Kullanım kolaylığı açısından CODAP ortamı en kolayıydı çünkü kod yazma baskısı veya kod hatası alma korkusu olmadan sadece veriye odaklanabiliyordum ama bu kolaylık konuyu tamamen anladığımı değil, aracın arayüzüne hızlıca alıştığımı gösteriyordu.\n\nHangi ortamda en çok zorlandınız ve bu zorluk neden kaynaklanıyordu? Aracın kendisi mi, yoksa karar ağacı kavramının o ortamda daha mı görünmez olması mıydı? Nedeninizi açıklayın.\n\n- En çok Python ortamında zorlandım. Bu zorluk karar ağacı kavramının görünmez olmasından değil, tamamen aracın kendisinden kaynaklanıyordu. Çünkü kodlama,  kütüphane entegrasyonları, ağaç çizimi için yazdığım kodlar bunlar karmaşık ve alışılması zordu.\n\nYaptığınız bir hatayı hangi ortamda daha kolay fark ettiniz? Sizi uyaran şey aracın kendisi miydi, yoksa başka bir şey mi?\n\n- Python ortamında fark ettim. Çünkü Python bir hata yapıldığında kodun hangi satırda durduğunu ve hatanın ne olduğunu söylüyordu.\n\nBir ortamda rahatlıkla yapabildiğiniz ama bir diğerinde hiç yapamadığınız bir şey oldu mu?\n\n- Python'daki for döngüsü olabilir.\n\nÜç ortamdan birinin diğerinin yerini tutamayacağı bir durum var mı? Nedeninizi açıklayın.\n\n- Bence data kartları çünkü somut nesnelerle öğrenmek çok daha kolay ve eğlenceliydi.",
     "flag": null
   },
@@ -255,7 +255,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Addresses root feature surprise (expected a physical measurement, but Tur made biological sense), gives a plausible biological explanation for the root choice and for physical differences between tree/ground dwellers (leg length/mass for climbing), discusses misclassified habitats (Yer and Kaya, biologically similar habitats), and connects to prior expectation (predicted mass, model chose habitat, now sees it makes sense). All dimensions covered substantively. 5/5.",
+    "justification": "Kök özelliği şaşkınlığı ele alır (fiziksel ölçüm bekledi, fakat Tur mantıklıydı), kök seçimi ve ağaç/zemin yaşayanlar arasında fiziksel farklar için inandırıcı biyolojik açıklama sunar (tırmanış için bacak uzunluğu/kütle), yanlış sınıflandırılan habitatları tartışır (Yer ve Kaya, biyolojik olarak benzer habitatlar) ve önceki beklentiye bağlantı kurar (kütleyi tahmin etti, model habitatı seçti, şimdi mantıklı olduğunu görüyor). Tüm boyutlar esaslı şekilde kapsanmıştır. 5/5.",
     "student_text": "Modelinizin kök düğümde seçtiği değişken sizi şaşırttı mı? Biyolojik açıdan bu seçim mantıklı mı?\n\n- Yasam alanı tahmininde modelin kök düğüm olarak tür değişkenini seçmesi başlangıçta şaşırttı çünkü ben ilk olarak fiziksel bir ölçüm bekliyordum. Ancak biyolojik açıdan düşününce bu seçim kesinlikle çok mantıklıymış.\n\n\nAğaçta yaşayan bir kertenkelenin yerde yaşayandan fiziksel olarak farklı olmasını bekler miydiniz? Modeliniz bu farkı yakalayabildi mi?\n\n- Beklerdim çünkü ağaçta yaşayan kertenkelelerin dallara tutunabilmesi ve tırmanış yapabilmek için bacak boylarının ve kütlelerinin yerde yaşayanlara göre daha farklı olması gerekir. Ağacda da zaten dalların birinde bacak uzunluğuna göre ağaç yaşam alanı sınıfına yerleştiriyor.\n\nModelinizin yanlış sınıflandırdığı bireyler hangi yaşam alanına aitti? Bunun biyolojik bir açıklaması olabilir mi?\n\n- Genellikle yer ve kaya türlerinde çünkü yaşam alanları birbirine benzer olduğundan dolayı biyolojik olarak da biribirine benziyorlar.\n\nVeriyi ilk gördüğünüzde kendiniz hangi değişkenin en belirleyici olacağını tahmin etmiştiniz? Modelinizin bulgusuyla örtüştü mü?\n\n- Kütle diye tahmin etmiştim ama modelim yaşam alanı seçti uyuşmadı ama sonradan düşününce yaşam alanı daha mantıklıymış.",
     "flag": null
   },
@@ -268,7 +268,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "No explicit MCR value stated numerically (mcr_value_stated=null) despite discussing MCR conceptually. Best/worst class stated (Kaya ve Ağaç best, Yer worst) with a reason (class imbalance/morphological similarity) — though this contradicts the YasamAlani mcr_table's actual worst class pattern somewhat, it is at least a stated reasoning. No numeric threshold proposed (ideal_mcr_threshold_stated=null). Cross-target comparison is attempted and reasonably specific (Tur has lower MCR due to sharper physical boundaries). Missing MCR value and threshold — 3/5 per rubric (MCR stated and best/worst class but no cross-target/threshold would be 3, but cross-target is present here without threshold/value, so treat as 3/5 for partial coverage of three of four dimensions minus the missing numeric MCR).",
+    "justification": "MCR değeri sayısal olarak açıkça belirtilmemiş (mcr_value_stated=null) ancak MCR kavramsal olarak tartışılmıştır. En iyi/en kötü sınıf belirtilmiştir (Kaya ve Ağaç en iyi, Yer en kötü) ve bir neden verilmiştir (sınıf dengesizliği/morfolojik benzerlik) — bu YasamAlani mcr_table'ının gerçek en kötü sınıf örüntüsüyle biraz çelişse de, en azından belirtilen bir sebep vardır. Sayısal eşik önerilmemiştir (ideal_mcr_threshold_stated=null). Hedefler arası karşılaştırma yapılmış ve oldukça spesifiktir (Tur daha keskin fiziksel sınırlar nedeniyle daha düşük MCR'ye sahiptir). MCR değeri ve eşik eksiktir — rubrike göre 3/5 (MCR belirtilmiş ve en iyi/en kötü sınıf ancak hedefler arası karşılaştırma/eşik olmaysa 3 olurdu, fakat bu durumda eşik/değer olmaksızın hedefler arası karşılaştırma mevcut olduğundan dört boyuttan üçünün kısmi kapsamı için 3/5 olarak ele alın).",
     "student_text": "Hangi sınıf en iyi, hangisi en kötü tahmin edildi? Bunun bir açıklaması var mı?\n\n- En iyi tahmin edilen sınıf Kaya ve Ağaç olurken, en kötü tahmin edilen  sınıf Yer sınıfı olmuştur. Bunun açıklaması sınıf dengesizliği ve morfolojik benzerlik olabilir.\n\nMCR değeriniz sizi tatmin etti mi? \"İyi\" bir model için bu değerin ne olması gerektiğini düşünüyorsunuz?\n\n- Bulduğum değer güzzel ama daha hatasız ve daha iyi sonuç elde edebilecek bir karar ağacı yapmak istiyorsam bunu daha da düşürmem gereklidir.\n\nAynı veriyle farklı bir hedef değişken seçseydiniz (Tur ya da Cinsiyet) MCR değeri değişir miydi? Değiştiyse neden?\n\n- Evet değişti ve kodlarımızda da bunu gördük. Örneğin hedef değişkeni Tur yaptığımızda test MCR değeri çok daha düşük çıktı çünkü kertenkelelerin tür özellikleri veride çok daha keskin sınırlara sahipti.\n\nModelin başarısız olduğu durumlar size veri hakkında ne söylüyor?\n\n- Modelin başarısız olduğu durumlar bize, kertenkeleleri sadece fiziksel ölçümlerine bakarak yaşam alanlarına ayırmanın yetersiz kalabileceğini söylüyor.",
     "flag": null
   },
@@ -281,7 +281,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "Identifies a systematic (non-random) error pattern ('belirli bir matematiksel örüntüye sahiptir'), suggests data improvement (adding biological features like diet or climate), and provides a clear lay explanation of decision trees including the overfitting limitation. However, no alternative model is named ('Karar ağacından başka modele bakmam' — explicitly declines to consider one). Three of four dimensions present. 3/5.",
+    "justification": "Sistematik (rastgele olmayan) hata örüntüsünü tanımlamıştır ('belirli bir matematiksel örüntüye sahiptir'), veri iyileştirmesi önerir (diyet veya iklim gibi biyolojik özellikler ekleme), ve decision tree'nin sınırını içeren açık bir halk açıklaması sağlar. Ancak alternatif bir model adlandırılmamıştır ('Karar ağacından başka modele bakmam' — açıkça bir modeli incelemeyi reddetmiştir). Dört boyuttan üçü mevcuttur. 3/5.",
     "student_text": "Modelinizin hata yaptığı durumlar rastgele mi görünüyor, yoksa belirli bir örüntü var mı?\n\n-Hatalar rastgele değildir belirli bir matematiksel örüntüye sahiptir.\n\nBu modelin daha iyi sonuç verebilmesi için neler yapılabilir? Yalnızca teknik değil, verinin kendisiyle ilgili ne değişebilir?\n\n-Veri setine biyolojik özellikler eklenebilir mesela beslenme türü veya yaşadıkları bölgenin iklimigibi sadece fiziksel özelliklerden çıkarak daha geniş bir açıdan bakabiliriz.\n\nKarar ağacı yerine farklı bir model kullansaydınız sonuç değişir miydi? Neden?\n\n- Karar ağacından başka modele bakmam.\n\nBu deneyimden sonra bir arkadaşınıza \"karar ağacı nedir, ne işe yarar, nerede yetersiz kalır?\" diye sorsalar ne söylerdiniz?\n\n-Karar ağacı verileri anlamlandırmaya, gruplandırmaya, en önemli değişkenleri keşfetmeye ve anlaşılır kurallar üretmeye yarar. Ancak veriyi öğrenmek yerine ezberlemeye geçerse yani overfitting yapmaya başlarsa işe yaramaz.",
     "flag": null
   },
@@ -294,7 +294,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 3,
-    "justification": "Explains that optimal depths differ across targets because the relationship between features and target differs — species is easier/sharper to predict physically, while gender and habitat require more complex rules. Provides a data-driven reasoning direction but does not cite specific MCR values or depth numbers for multiple targets explicitly within this reasoning text (though mcr_values_compared exists elsewhere in extraction). Partial reasoning without direct numeric citation in the comparison_reasoning text itself. 3/4.",
+    "justification": "Optimal derinliklerin hedefler arasında farklı olmasının nedenini açıklar çünkü özellikler ile hedef arasındaki ilişki farklıdır — tür fiziksel olarak tahmin etmek daha kolay/keskindir, oysa cinsiyet ve habitat daha karmaşık kurallar gerektirir. Veri odaklı bir sebep yönü sağlar fakat karşılaştırma_sebebi metninde birden fazla hedef için spesifik MCR değerleri veya derinlik numaralarını açıkça alıntılamaz (mcr_values_compared başka yerde mevcutsa da). Doğrudan sayısal alıntı olmaksızın kısmi sebep belirleme. 3/4.",
     "student_text": "Hayır, her hedef değişken için optimum derinlik seviyeleri farklılık göstermiştir.Çünkü kertenkelelerin özellikleriyle sorduğumuz sorular arasındaki ilişki farklıdır. Örneğin, kertenkelenin Türünü tahmin etmek fiziksel ölçümlerle çok daha kolay ve netken, Cinsiyetini veya yaşam alanını bulmak daha karmaşık kurallar gerektirir. Bu yüzden her sorunun en başarılı olduğu derinlik seviyesi verinin kendi doğasına göre değişir.(diğer karar ağaçlarına baktıktan sonra cevapladım)",
     "flag": null
   },
@@ -307,7 +307,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 2,
-    "justification": "root_nodes_compared=True is asserted in step5 responses ('kök düğümler tamamen değişmiştir... her ağaç en bilgi verici ve en ayırt edici özelliği kullanmıştır') but the cross_target_comparison.comparison_reasoning field itself focuses on depth differences rather than root node differences specifically, and does not provide a biological/statistical interpretation tied to which specific features became root nodes for each target. Notes change happens, algorithmic reason given generally, but lacks specific per-target interpretation. 2/4.",
+    "justification": "root_nodes_compared=True adım5 yanıtlarında iddialanmıştır ('kök düğümler tamamen değişmiştir... her ağaç en bilgi verici ve en ayırt edici özelliği kullanmıştır') fakat cross_target_comparison.comparison_reasoning alanı kendisi derinlik farklarına odaklanır ve kök düğüm farklarına özgül olarak değildir ve hangi spesifik özelliklerin her hedef için kök düğüm haline geldiğine bağlı biyolojik/istatistiksel yorumlama sağlamaz. Değişikliğin olduğunu ve algoritmik sebebi genel olarak verilmiş olduğunu belirtir, fakat hedef başına spesifik yorumlama eksiktir. 2/4.",
     "student_text": "Hayır, her hedef değişken için optimum derinlik seviyeleri farklılık göstermiştir.Çünkü kertenkelelerin özellikleriyle sorduğumuz sorular arasındaki ilişki farklıdır. Örneğin, kertenkelenin Türünü tahmin etmek fiziksel ölçümlerle çok daha kolay ve netken, Cinsiyetini veya yaşam alanını bulmak daha karmaşık kurallar gerektirir. Bu yüzden her sorunun en başarılı olduğu derinlik seviyesi verinin kendi doğasına göre değişir.(diğer karar ağaçlarına baktıktan sonra cevapladım)",
     "flag": null
   },
@@ -320,7 +320,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 3,
-    "justification": "Clearly explains mechanism: model 'memorizes' majority class patterns and learns them well, while minority class cannot be generalized and is learned poorly ('kolay yolu seçmesine ve tembellik yapmasına neden olur'). Correct direction with model-level reasoning about bias toward majority class. 3/3.",
+    "justification": "Mekanizmayı açıkça açıklar: model çoğunluk sınıfı örüntülerini 'ezberleme' ve onları iyi öğrenme, oysa azınlık sınıfı genelleştirilemediği için kötü öğrenilme ('kolay yolu seçmesine ve tembellik yapmasına neden olur'). Çoğunluk sınıfına doğru önyargı konusundaki model düzeyi sebebi ile doğru yön. 3/3.",
     "student_text": "Veri kümesindeki sınıf dengesizliği, modelin adeta 'kolay yolu seçmesine' ve tembellik yapmasına neden olur. Model, veri sayısı çok olan çoğunluk sınıfına ait örüntüleri ezberleyip onu çok iyi öğrenirken; veri sayısı az olan azınlık sınıfını yeterince genelleyemez ve genelde çok kötü öğrenir.",
     "flag": null
   },
@@ -333,7 +333,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 1,
-    "justification": "States that mass differs across the three species and attributes it to habitat adaptation, but does not identify Sceloporus as largest/heaviest or Uta as smallest/lightest, and the reasoning direction (habitat causing mass differences) is generic rather than a specific biological/morphological explanation tied to species ordering. 1/3.",
+    "justification": "Kütle üç tür arasında farklılaştığını belirtir ve bunu habitat uyarlamasına atfeder, fakat Sceloporus'un en büyük/en ağır veya Uta'yı en küçük/en hafif olarak tanımlamaz ve sebep yönü (habitat kütle farklarına neden olur) tür sıralamasına bağlı özgül biyolojik/morfolojik açıklama yerine genel bir açıklamadır. 1/3.",
     "student_text": "Veri setindeki tüm kertenkelelerin ortalama ağırlığı (kütlesi) 10.5 gramdır.Bu değer üç farklı kertenkele türü (Anolis, Sceloporus, Uta) için belirgin şekilde farklıdır.Çünkü farklı kertenkele türleri, hayatta kalabilmek için farklı yaşam alanlarına uyum sağlamıştır.",
     "flag": null
   },
@@ -346,7 +346,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "All formulated_question fields null; cannot evaluate quality. 0/2.",
+    "justification": "Tüm formulated_question alanları null; kalite değerlendirilemiyor. 0/2.",
     "student_text": "(no research questions written)",
     "flag": null
   },
@@ -372,7 +372,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "Explicitly explains that without stratify, the split becomes chance-based and could result in too many 'Yer' lizards in training with almost no 'Ağaç' lizards in test, leading to the model being unable to learn some classes and producing misleading results. Directly addresses minority-class representation and evaluation harm. 2/2.",
+    "justification": "Açıkça açıklar ki stratify olmaksızın bölünme şansa dayalı hale gelir ve eğitimde çok fazla 'Yer' kertenkelesi sonuclanabilir ve testte neredeyse 'Ağaç' kertenkelesi olmayabilir, model bazı sınıfları öğrenemeye ve yanıltıcı sonuçlar üretmeye neden olur. Doğrudan azınlık sınıfı temsili ve değerlendirme zararını ele alır. 2/2.",
     "student_text": "stratify=y parametresini kullanmak, modelin hem eğitim hem de test aşamasında kertenkele yaşam alanlarını adil ve dengeli bir oranda görmesini sağlıyor. Eğer bu parametreyi yazmasaydım, tamamen şansa bağlı olarak eğitim kümesine çok fazla 'Yer' kertenkelesi doluşabilir, test kümesinde ise neredeyse hiç 'Ağaç' kertenkelesi kalmayabilirdi. Bu durum da modelin bazı sınıfları hiç öğrenememesine, dolayısıyla performansının düşmesine ve yanıltıcı sonuçlar üretmesine yol açardı.",
     "flag": null
   },
@@ -385,7 +385,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "Explains random_state controls the shuffling 'code'/seed, changing which samples go to train/test, causing small differences in tree branching and accuracy, but notes overall performance impact stays limited given a large representative dataset. Captures reproducibility/seed concept well. 1/1.",
+    "justification": "random_state'in shuffling 'kodunu'/tohumunu kontrol etmesini açıklar, hangi örneklerin eğitim/teste gideceğini değiştirir, ağaç dallanmada ve doğrulukta küçük farklılıklara neden olur, fakat geniş bir temsili veri seti verildiğinde genel performans etkisinin sınırlı kaldığını belirtir. Yeniden üretilebilirlik/tohum kavramını iyi yakalar. 1/1.",
     "student_text": "random_state parametresini 42 yerine 7 yaptığımızda, kodun arkasındaki karıştırma şifresi değiştiği için eğitim ve test kümelerine dağıtılan kertenkele örnekleri tamamen değişmiştir. Model her seferinde farklı kertenkele kombinasyonları üzerinde eğitildiği için, karar ağacının kurduğu dallanmalar ve buna bağlı olarak elde ettiğimiz doğruluk sonuçları da küçük farklılıklar göstermiştir. Ancak elinizdeki veri seti yeterince büyük ve temsili olduğunda, bu tür başlangıç sayısı değişimlerinin modelin genel performansı üzerindeki etkisi genellikle sınırlı kalır.",
     "flag": null
   },
@@ -398,7 +398,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "Reflection is thorough and addresses all sub-questions, error detection is discussed (noticing the Cinsiyet tree branched less than others, being easier to spot mistakes). However, the response does not explicitly discuss the three distinct environments (data_cards, CODAP, Python) as separate environments — it instead compares across the three target variables (Cinsiyet vs YasamAlani vs Tur) within the Python environment only. This misses the intended comparison across data_cards/CODAP/Python. Substantial and reflective but off the intended framing. 3/5.",
+    "justification": "Yansıma kapsamlı ve tüm alt-soruları ele alır, hata tespiti tartışılır (Cinsiyet ağacının diğerlerinden daha az dallandığını fark etme, hataları tespit etmek daha kolay). Ancak yanıt Python ortamında bile olsa üç farklı ortamı (data_cards, CODAP, Python) ayrı ortamlar olarak açıkça tartışmaz — bunun yerine üç hedef değişken arasında (Cinsiyet vs YasamAlani vs Tur) Python ortamında karşılaştırma yapar. Bu data_cards/CODAP/Python arasındaki amaçlanan karşılaştırmayı kaçırır. Kayda değer ve yansıtıcı fakat amaçlanan çerçeveden uzak. 3/5.",
     "student_text": "Her ortam size farklı bir şey kattı mı? Her bir ortamın neler kattığını yazın.\nCevap: Karar ağacının temel mantığını, verileri elle bölerek ve somutlaştırarak kavramamı sağladı.\n\nHangi ortamda \"modelim ne yapıyor\" sorusunu daha iyi anladınız? Nedeninizi açıklayın.\nCevap: Hedef değişkeni cinsiyete göre seçtiğimde daha iyi anladım. Çünkü karar ağacı diğer iki değişkenime göre daha iyi sınıflandırdı.\n\nHangi ortam size daha kolay geldi? Bu kolaylık gerçekten anladığınızı mı, yoksa sadece alıştığınızı mı gösteriyor? Nedeninizi açıklayın.\nCevap: Cinsiyet değişkenine göre sınıflandırma daha kolay geldi. Karar ağacımı daha kolay oluşturdum çünkü.\n\nHangi ortamda en çok zorlandınız ve bu zorluk neden kaynaklanıyordu? Aracın kendisi mi, yoksa karar ağacı kavramının o ortamda daha mı görünmez olması mıydı? Nedeninizi açıklayın.\nCevap: Yaşam alanı. Çünkü karar ağacını oluştururken zorlandım.\n\nYaptığınız bir hatayı hangi ortamda daha kolay fark ettiniz? Sizi uyaran şey aracın kendisi miydi, yoksa başka bir şey mi?\nCevap: Cinsiyete göre sınıflandırırken daha kolay fark ettim. Çünkü karar ağacı diğer iki hedef değişkene göre daha az dallanarak oluştu.\n\nBir ortamda rahatlıkla yapabildiğiniz ama bir diğerinde hiç yapamadığınız bir şey oldu mu?\nCevap: Hayır olmadı. Her karar ağacını oluşturuken gerekli kodları girerek karar ağaçlarımı oluşturdum.\n\nÜç ortamdan birinin diğerinin yerini tutamayacağı bir durum var mı? Nedeninizi açıklayın.\nCevap: Yaşam alanı diyebilirim. Çünkü çok fazla dallanarak detaylı bir sınıflandırma yaptı.",
     "flag": null
   },
@@ -411,7 +411,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Excellent biological explanation: root feature (Cinsiyet) explained via sexual dimorphism in lizards, expectation/surprise explicitly addressed ('ilk bakışta şaşırtıcı gelebilir ancak... mantıklıdır'), habitat physical differences (BacakUzunlugu, GovdeUzunlugu) confirmed for tree vs ground, and misclassified habitat discussed with plausible biological reasoning (morphological overlap between species that can inhabit multiple habitats). All three dimensions strongly present. 5/5.",
+    "justification": "Mükemmel biyolojik açıklama: kök özelliği (Cinsiyet) kertenkelerde cinsel dimorfizm aracılığıyla açıklanmıştır, beklenti/şaşkınlık açıkça ele alınmıştır ('ilk bakışta şaşırtıcı gelebilir ancak... mantıklıdır'), habitat fiziksel farklılıkları (BacakUzunlugu, GovdeUzunlugu) ağaç ve yer için doğrulanmıştır ve yanlış sınıflandırılan habitat mantıklı biyolojik sebeple tartışılmıştır (birden fazla habitata sahip olabilecek türler arasında morfolojik çakışma). Üç boyut da güçlü bir şekilde mevcuttur. 5/5.",
     "student_text": "Modelinizin kök düğümde seçtiği değişken sizi şaşırttı mı? Biyolojik açıdan bu seçim mantıklı mı?\nCevap: Kök düğümde cinsiyet değişkeninin seçilmesi ilk bakışta şaşırtıcı gelebilir ancak kertenkelelerde eşeyli dimorfizm (cinsiyete bağlı fiziksel/boyutsal farklar) çok belirgin olduğu için biyolojik olarak son derece mantıklıdır. Model, yaşam alanını ayırt etmeden önce karmaşıklığı azaltmak adına veriyi en hızlı şekilde cinsiyete göre iki ana gruba bölmüştür.\n\nAğaçta yaşayan bir kertenkelenin yerde yaşayandan fiziksel olarak farklı olmasını bekler miydiniz? Modeliniz bu farkı yakalayabildi mi?\nCevap: Evet, ağaçta yaşayan kertenkelelerin tırmanma becerileri için daha farklı bacak veya gövde uzunluklarına sahip olması beklenir. Modelimiz de bu farkı yakalamış; sol taraftaki dallanmalarda BacakUzunlugu <= 27.9 ve GovdeUzunlugu gibi fiziksel kriterleri kullanarak \"Yer\" ile \"Ağaç\" sınıflarını başarıyla birbirinden ayırmıştır.\n\nModelinizin yanlış sınıflandırdığı bireyler hangi yaşam alanına aitti? Bunun biyolojik bir açıklaması olabilir mi?\nCevap: Modelin en çok hata yaptığı ve saf olmayan (Gini değeri yüksek) yapraklar genellikle \"Yer\" sınıfına ait olan, ancak içinde \"Ağaç\" ve \"Kaya\" bireylerini de barındıran karma düğümlerdir. Biyolojik olarak bazı kertenkele türleri hem yerde hem ağaç gövdelerinde/kayalıklarda avlanabildiği için fiziksel özellikleri birbirine çok benzeyebilir ve bu durum modelin net bir ayrım yapmasını zorlaştırır.\n\nVeriyi ilk gördüğünüzde kendiniz hangi değişkenin en belirleyici olacağını tahmin etmiştiniz? Modelinizin bulgusuyla örtüştü mü?\nCevap: Yaşam alanı tahmini için ilk başta bacak uzunluğu veya gövde boyutu gibi doğrudan fiziksel özelliklerin en belirleyici olacağını tahmin etmiştim. Model ise en tepeye cinsiyeti yerleştirse de hemen alt basamaklarda BacakUzunlugu, ToplamUzunluk ve GovdeUzunlugu değişkenlerini yoğun bir şekilde kullanarak bu tahminimi büyük oranda doğrulamış oldu.",
     "flag": null
   },
@@ -424,7 +424,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "Best/worst predicted class identified with data-driven reasoning (Sceloporus/Erkek vs Yer/Dişi, tied to Gini purity and feature overlap). Ideal MCR threshold proposed (10-20%). Cross-target comparison attempted, explaining that MCR would differ due to differing discriminative power of features across targets. However, mcr_value_stated is null — no specific numeric MCR value is explicitly cited in the structured field (though the raw text references Gini values, not an MCR percentage). Missing the explicit MCR value criterion. 3/5.",
+    "justification": "En iyi/en kötü tahmin edilen sınıf veri odaklı sebeple tanımlanmıştır (Sceloporus/Erkek vs Yer/Dişi, Gini saflığına ve özellik çakışmasına bağlı). İdeal MCR eşiği önerilmiştir (10-20%). Hedefler arası karşılaştırma yapılmıştır, MCR'nin hedefler arasında özellik ayırt edici gücünün farklılaşması nedeniyle farklılaşacağını açıklamıştır. Ancak mcr_value_stated null — spesifik sayısal MCR değeri yapılandırılmış alanda açıkça alıntılanmamıştır (ham metin Gini değerlerine atıfta bulunsa da, MCR yüzdesine değil). Açık MCR değeri kriteri eksik. 3/5.",
     "student_text": "Hangi sınıf en iyi, hangisi en kötü tahmin edildi? Bunun bir açıklaması var mı?\nCevap: En iyi tahmin edilen: \"Tur: max_depth=3\" ağacında Gini değeri 0.0 olan 59 örnekli yaprağıyla Sceloporus (veya Cinsiyet ağacındaki Erkek sınıfı); en kötü tahmin edilen ise Gini değerleri yüksek kalan ve diğer sınıflarla çok karışan Yer (veya Dişi) sınıfıdır. Bazı sınıfların ayırt edici fiziksel özellikleri (örneğin Sceloporus türünün kütlesi veya erkeklerin bacak boyu) çok keskin sınırlara sahipken, diğer sınıfların özellikleri birbiriyle büyük oranda örtüşmektedir.\n\nMCR değeriniz sizi tatmin etti mi? \"İyi\" bir model için bu değerin ne olması gerektiğini düşünüyorsunuz?\nCevap: Yapraklardaki karışıklığa (saf olmayan düğümlere) bakılırsa MCR değeri tamamen tatmin edici değildir; \"iyi\" bir model için bu oran kabul edilebilir hata payına ve veri setinin karmaşıklığına göre değişmekle birlikte genellikle %10 ila %20'nin altında (başarı oranı %80+ olacak şekilde) olmalıdır.\n\nAynı veriyle farklı bir hedef değişken seçseydiniz (Tur ya da Cinsiyet) MCR değeri değişir miydi? Değiştiyse neden?\nCevap: Evet, MCR değeri kesinlikle değişirdi; çünkü \"Tur\" veya \"Cinsiyet\" ağaçlarında görüldüğü gibi, verideki fiziksel özelliklerin hedef değişkenleri (tür, cinsiyet veya yaşam alanı) birbirinden ayırma/açıklama gücü ve sınıfların kendi içindeki homojenliği birbirinden tamamen farklıdır.\n\nModelin başarısız olduğu durumlar size veri hakkında ne söylüyor?\nCevap: Modelin başarısız olduğu (sınıfları birbirine karıştırdığı) durumlar, kertenkelelerin fiziksel ölçümlerinin tek başına yaşam alanını veya türü ayırt etmekte %100 yeterli olmadığını ve veride birbirine morfolojik olarak çok benzeyen \"örtüşen\" bireylerin bulunduğunu söylüyor.",
     "flag": null
   },
@@ -437,7 +437,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Identifies a systematic (non-random) error pattern tied to specific thresholds (Kutle<=15.09, BacakUzunlugu<=27.9). Proposes both technical (max_depth optimization) and data-level improvements (geographic location, climate, genetic/subspecies info). Names alternative models with reasoning (Random Forest, Gradient Boosting — better captures non-linear/overlapping boundaries). Provides a clear lay explanation of decision trees including their limitation when classes overlap physically. All four dimensions present. 5/5.",
+    "justification": "Sistematik (rastgele olmayan) hata örüntüsünü spesifik eşiklere bağlı tanımlamıştır (Kutle<=15.09, BacakUzunlugu<=27.9). Teknik (max_depth optimizasyonu) ve veri düzeyi iyileştirmeler önerir (coğrafi konum, iklim, genetik/alttür bilgisi). Alternatif modelleri sebeplerle adlandırır (Random Forest, Gradient Boosting — doğrusal olmayan/çakışan sınırları daha iyi yakalar). decision tree'nin sınıflar fiziksel olarak çakıştığında sınırlamasını içeren açık halk açıklaması sağlar. Dört boyut tamamı mevcuttur. 5/5.",
     "student_text": "Modelinizin hata yaptığı durumlar rastgele mi görünüyor, yoksa belirli bir örüntü var mı?\nCevap: Hatalar rastgele değildir; modellerin belirli fiziksel eşiklerde (örneğin Kutle <= 15.09 veya BacakUzunlugu <= 27.9) benzer özellikler gösteren farklı sınıfları birbirine karıştırması şeklinde belirgin bir örüntü vardır.\n\nBu modelin daha iyi sonuç verebilmesi için neler yapılabilir? Yalnızca teknik değil, verinin kendisiyle ilgili ne değişebilir?\nCevap: Teknik olarak ağaç derinliği (max_depth) optimize edilebilir; veri açısından ise kertenkelelerin sadece morfolojik ölçümleri yetersiz kaldığı için veriye coğrafi konum, iklim veya doğrudan genetik/tür alt bilgileri gibi yeni ayırt edici değişkenler eklenebilir.\n\nKarar ağacı yerine farklı bir model kullansaydınız sonuç değişir miydi? Neden?\nCevap: Evet değişirdi; çünkü Rastgele Orman (Random Forest) veya Gradient Boosting gibi daha karmaşık modeller verideki doğrusal olmayan karmaşık ilişkileri ve örtüşen sınırları tek bir karar ağacına göre çok daha iyi yakalayabilir.\n\nBu deneyimden sonra bir arkadaşınıza \"karar ağacı nedir, ne işe yarar, nerede yetersiz kalır?\" diye sorsalar ne söylerdiniz?\nCevap: Karar ağacı, veriyi özelliklerine göre yukarıdan aşağıya doğru sorular sorarak bölen görsel bir sınıflandırma aracıdır; veriyi hızlıca kurallara ayırmaya yarar ancak sınıfların fiziksel özellikleri birbirine çok benzediğinde ve net çizgilerle ayrılamadığında yetersiz kalır.",
     "flag": null
   },
@@ -450,7 +450,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 2,
-    "justification": "States that different targets need different amounts of branching/depth ('Bazı hedefler az sayıda dallanmayla çözülürken bazıları için daha fazla derinlik gerekir') — correct direction but generic, without citing specific MCR values or depth numbers for comparison across targets. 2/4.",
+    "justification": "Farklı hedeflerin farklı miktarda dallanma/derinlik gereksinim duyması gerektiğini belirtir ('Bazı hedefler az sayıda dallanmayla çözülürken bazıları için daha fazla derinlik gerekir') — doğru yön fakat hedefler arasında karşılaştırma için spesifik MCR değerleri veya derinlik numaraları alıntılanmaksızın jenerik. 2/4.",
     "student_text": "Farklı çıktı.Çünkü Her hedef değişkenin verideki durumu farklıdır.Bazı hedefler az sayıda dallanmayla çözülürken bazıları için daha fazla derinlik gerekir. Her hedefin diğer değişkenlerle ilişkisi farklıdır.Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir.Dolayısıyla hedef değiştiğinde kök düğüm de değişir.",
     "flag": null
   },
@@ -463,7 +463,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 2,
-    "justification": "Correctly notes that root node changes across targets because the best-splitting variable differs per target ('Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir. Dolayısıyla hedef değiştiğinde kök düğüm de değişir'). This is an algorithmic explanation but lacks a biological/statistical interpretation specific to why (e.g., which physical trait discriminates species vs. gender vs. habitat). 2/4.",
+    "justification": "Doğru bir şekilde belirtir ki kök düğüm hedefler arasında değişir çünkü en iyi bölünen değişken hedef başına farklıdır ('Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir. Dolayısıyla hedef değiştiğinde kök düğüm de değişir'). Bu bir algoritma açıklamasıdır fakat neden spesifik bir biyolojik/istatistiksel yorumlama eksiktir (örneğin, hangi fiziksel özellik tür vs. cinsiyet vs. habitat'ı ayırt eder). 2/4.",
     "student_text": "Farklı çıktı.Çünkü Her hedef değişkenin verideki durumu farklıdır.Bazı hedefler az sayıda dallanmayla çözülürken bazıları için daha fazla derinlik gerekir. Her hedefin diğer değişkenlerle ilişkisi farklıdır.Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir.Dolayısıyla hedef değiştiğinde kök düğüm de değişir.",
     "flag": null
   },
@@ -476,7 +476,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 2,
-    "justification": "Correctly states the model will learn the Yer class better and learn the Ağaç class less well — correct direction and basic mechanism (learning asymmetry from imbalance). However, explanation is brief, does not mention bias/sensitivity/class weight mechanisms in depth. 2/3.",
+    "justification": "Doğru bir şekilde belirtir ki model Yer sınıfını daha iyi öğrenecek ve Ağaç sınıfını daha az iyi öğrenecek — doğru yön ve temel mekanizm (dengesizlikten öğrenme asimetrisi). Ancak açıklama kısa, bias/sensitivite/sınıf ağırlık mekanizmalarını derinlemesine tartışmaz. 2/3.",
     "student_text": "Sınıf dağılımı dengeli değil.\n Bu yüzden modelin Yer sınıfını daha iyi öğrenebilir ve ağaç sınıfını daha az öğrenebilir.",
     "flag": null
   },
@@ -489,7 +489,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 1,
-    "justification": "States mass differs across the three species and attributes it to differing body lengths (a plausible morphological link), but does not identify Sceloporus as largest/Uta as smallest or provide any specific ordering. Reasoning is vague/generic. 1/3.",
+    "justification": "Kütle üç tür arasında farklılaştığını belirtir ve bunu farklı gövde uzunluklarına atfeder (mantıklı bir morfolojik bağlantı), fakat Sceloporus'u en büyük/Uta'yı en küçük olarak tanımlamaz veya herhangi bir spesifik sıralaması sağlamaz. Sebep belirsiz/jenerik. 1/3.",
     "student_text": "Kertenkelelerin ortalama ağırlığı yaklaşık 12.1 gramdır.Üç tür için de birbirinden farklıdır çünkü gövde uzunlukları farklıdır.",
     "flag": null
   },
@@ -502,7 +502,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "All formulated_question fields are null; cannot evaluate quality. 0/2.",
+    "justification": "Tüm formulated_question alanları null; kalite değerlendirilemiyor. 0/2.",
     "student_text": "(no research questions written)",
     "flag": null
   },
@@ -515,7 +515,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 2,
-    "justification": "test_size=0.2 ✓, stratify_used=True ✓, random_state=42 ✓. All parameters correct. 2/2.",
+    "justification": "test_size=0.2 ✓, stratify_used=True ✓, random_state=42 ✓. Tüm parametreler doğru. 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
     "flag": null
   },
@@ -528,7 +528,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "q_stratify_removal_effect is null. 0/2.",
+    "justification": "q_stratify_removal_effect boş. 0/2.",
     "student_text": "",
     "flag": null
   },
@@ -541,7 +541,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "'Doğruluk ve MCR değerleri de değişebilir.' — Correctly identifies that changing random_state changes the resulting accuracy/MCR (i.e. the specific split), consistent with the expected mechanism. 1/1.",
+    "justification": "'Doğruluk ve MCR değerleri de değişebilir.' — random_state değiştirildiğinde ortaya çıkan accuracy/MCR değerlerinin (yani belirli split'in) değiştiğini doğru şekilde tanımlar, beklenen mekanizme uygun. 1/1.",
     "student_text": "Doğruluk ve MCR değerleri de değişebilir.",
     "flag": null
   },
@@ -554,7 +554,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "Discusses CODAP and Python in depth with distinct, substantive observations (CODAP for intuitive visual understanding of branching logic; Python for numeric/graph-based analysis of overfitting and parameter optimization). Explicitly addresses error detection (error messages, overfitting curve as a warning signal). Notes where understanding was deepest (CODAP initially easier, Python more powerful for analysis) and how the two complement each other. Missing explicit discussion of the third environment (data cards), though text focuses heavily on CODAP and Python. 4/5.",
+    "justification": "CODAP ve Python'u derinlemesine tartışır ve belirgin, özlü gözlemler sunar (CODAP'ı branching mantığının sezgisel görsel anlaşılması için; Python'u overfitting ve parametre optimizasyonunun sayısal/grafik analizi için). Hata tespitini açıkça ele alır (hata mesajları, overfitting eğrisi uyarı sinyali olarak). Anlayışın en derin olduğu yerleri (CODAP başlangıçta daha kolay, Python analiz için daha güçlü) ve ikisinin birbirini nasıl tamamladığını belirtir. Üçüncü ortamın (veri kartları) açık tartışması eksik, ancak metin CODAP ve Python'a yoğun şekilde odaklanır. 4/5.",
     "student_text": "Evet, CODAP veriyi sürükleyip bırakarak ağaç yapısını görselleştirmemi sağladı ve modelin çalışma mantığını sezgisel olarak anlamamı kolaylaştırdı. Python ise parametrelere (derinlik, hata oranı vb.) doğrudan müdahale ederek, \"overfitting\" gibi kavramları sayısal veriler ve grafikler üzerinden derinlemesine analiz etme imkânı sundu.\n\nCODAP’ta model, değişkenler arasındaki en ayırt edici ilişkileri görsel bir şema üzerinde düğümlere ayırıyor. Python’da ise karar ağacının derinliğini (max_depth) optimize ederek, eğitim ve test verisi üzerindeki hata oranlarını (MCR) hesaplıyor; böylece modelin ezber yapmadan en doğru tahminlemeyi yaptığı noktayı buluyor.\n\nCODAP başlangıçta daha kolay geldi; karmaşık algoritmaları basitleştirerek mantığı görmemi sağladı. Ancak veri analizi ve parametre optimizasyonu aşamasında Python daha verimliydi, çünkü sayısal veriler ve grafikler üzerinden modelin başarısını ölçmek analiz sürecini çok daha şeffaf kıldı.\n\nPython ortamında daha fazla zorlandım. Bu zorluk, arayüzün karmaşıklığından değil, \"karar ağacı\" mantığının kod satırları arasında daha soyut kalmasından kaynaklanıyordu. CODAP'ta görsel olarak sürükleyip bıraktığım dallanmaları Python'da kodun arkasındaki matematiksel derinlik (depth) parametresiyle yönetmek, kavramın görselleşmesini biraz daha zorlaştırdı.\n\nHataları Python ortamında daha kolay fark ettim. Kod çalışırken çıkan hata mesajları (error messages) ve özellikle grafiklerdeki \"overfitting\" eğrisi (eğitim ve test hatasının makas gibi açılması) beni hatam konusunda doğrudan uyardı. Beni uyaran şey, aracın sunduğu sayısal geri bildirimler ve hata grafikleriydi.\n\nEvet.Hataları Python ortamında daha kolay fark ettim. Kod çalışırken çıkan hata mesajları (error messages) ve özellikle grafiklerdeki \"overfitting\" eğrisi (eğitim ve test hatasının makas gibi açılması) beni hatam konusunda doğrudan uyardı.\n\nEvet, birbirlerini tamamlıyorlar. CODAP, karar ağacı algoritmasının \"neden-sonuç\" ilişkisini görsel olarak kavramada (kavramsal öğrenme) vazgeçilmezdir; hiçbir kod ortamı bu kadar sezgisel olamaz. Python ise bir veri bilimci gibi modelin performansını rakamlarla kanıtlama ve farklı parametreleri optimize etme aşamasında (analitik öğrenme) tek başına yer tutulamayacak kadar kritiktir. İkisi birleşince hem mantığı hem de matematiği tam anlamıyla çözebiliyoruz.",
     "flag": null
   },
@@ -567,7 +567,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "Addresses surprise/expectation (not surprised leg-length/mass makes biological sense; but also notes actual root feature Tur_Sceloporus did NOT match her prior expectation of kütle — an interesting nuance showing engagement). Provides biological reasoning (tree-dwellers need to grip, ground-dwellers need to run fast, tied to leg length). Discusses misclassified habitat (mixed habitat species like rock/tree overlap) with plausible biological reason. Root feature discussion is slightly inconsistent (prior answer mentions leg length as root reasoning but actual root is Tur_Sceloporus) but this discrepancy is itself acknowledged in the last paragraph. Strong overall, minor deduction for surface-level connection to actual root output. 4/5.",
+    "justification": "Şaşkınlık/beklenti ele alır (bacak uzunluğu/kütle biyolojik olarak makul olmasına şaşırmadı; fakat gerçek kök özelliği Tur_Sceloporus'un onun önceki kütle beklentisiyle eşleşmediğini belirtir — katılım gösteren ilginç bir nüans). Biyolojik açıklama sağlar (ağaç sakinleri tutuş için, zemin sakinleri hızlı koşu için bacak uzunluğuna ihtiyaç duyar). Sınıflandırılamayan habitat tartışması (kaya/ağaç gibi karışık habitat türleri üst üste gelir) makul biyolojik nedeni belirtir. Kök özelliği tartışması biraz tutarsız (önceki cevap bacak uzunluğunu kök nedenlemesi olarak belirtir ama gerçek kök Tur_Sceloporus'tur) fakat bu tutarsızlık kendisi son paragrafta tanınır. Genel olarak güçlü, gerçek kök çıktısıyla bağlantı hafif eksikliği için küçük kesinti. 4/5.",
     "student_text": "Hayır, şaşırtmadı. Bacak uzunluğu veya kütle gibi özelliklerin seçilmesi biyolojik olarak çok mantıklı; çünkü kertenkelelerin nerede yaşayacağı doğrudan hareket yeteneklerine bağlı.\n\nKesinlikle farklılar. Ağaçtakilerin tutunması, yerdekilerin ise hızlı koşması gerekiyor. Model, bacak uzunluğu verisini kullanarak bu farkı doğru bir şekilde ayırt edebildi.\n\nYanlışlar genelde yaşam alanları karışık olan (hem kaya hem ağaçta görünen) türlerde çıktı. Biyolojik olarak bu türlerin fiziksel özellikleri birbirine çok yakın olduğu için modelin karıştırması gayet normal.\n\nVeriyi gördüğümde kütle değişkeninin en belirleyici olacağını düşünmüştüm. Model ise Tur_Sceloporus değişkenini kök düğüm olarak seçti. Bu nedenle tahminim modelin bulgusuyla tam olarak örtüşmedi.",
     "flag": null
   },
@@ -580,7 +580,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "States MCR=0.3125, which matches test_mcr_achieved for YasamAlani (0.3125) exactly. Identifies best predicted class (Yer) and worst (Ağaç) with data-property reasoning (fewer samples, morphological similarity to Kaya/Yer). Proposes a threshold direction ('MCR should be close to 0') though not a specific numeric threshold value. Cross-target comparison attempted, but reasoning is generic ('tür ayrımı daha belirgin... cinsiyet ayrımı daha karmaşık') without citing specific MCR values from Tur/Cinsiyet. 4/5 — three of four dimensions strong, threshold and cross-target comparison are present but not fully quantitative.",
+    "justification": "MCR=0.3125 belirtir, YasamAlani için test_mcr_achieved (0.3125) ile tamamen eşleşir. En iyi tahmin edilen sınıfı (Yer) ve en kötüsünü (Ağaç) veri-özellik açıklamasıyla tanımlar (daha az örnek, Kaya/Yer ile morfolojik benzerlik). Eşik yönü önerir ('MCR 0'a yakın olmalı') ancak belirli sayısal eşik değeri vermez. Hedef arası karşılaştırma denenir, fakat açıklama genel ('tür ayrımı daha belirgin... cinsiyet ayrımı daha karmaşık') Tur/Cinsiyet'ten belirli MCR değerleri alıntılanmaz. 4/5 — dört boyuttan üçü güçlü, eşik ve hedef arası karşılaştırma mevcut ama tam nicel değil.",
     "student_text": "Model en iyi \"Yer\" sınıfını tahmin etmiştir. En yüksek hata ise \"Ağaç\" sınıfında görülmektedir. Bunun temel sebebi, veri setinde \"Ağaç\" sınıfına ait örnek sayısının diğerlerine göre daha az olması ve bu kertenkelelerin fiziksel özelliklerinin (kütle/uzunluk gibi) \"Kaya\" veya \"Yer\" sınıflarıyla yüksek benzerlik göstermesidir.\n\n0.3125 değeri, modelin verideki temel örüntülerin çoğunu yakaladığını gösterdiği için beni genel olarak tatmin etmiştir. \"İyi\" bir modelde MCR değerinin 0'a olabildiğince yakın olması beklenir; çünkü hata oranının sıfıra yaklaşması, modelin görülmemiş veriler üzerinde bile neredeyse hatasız tahmin yapabildiğini kanıtlar\n\nEvet, kesinlikle değişirdi. Her hedef değişkenin (Tür, Cinsiyet, Yaşam Alanı) mevcut fiziksel özelliklerle (toplam uzunluk, bacak uzunluğu vb.) olan ilişkisi farklıdır. Örneğin, tür ayrımı daha belirgin fiziksel karakteristiklere dayanırken, cinsiyet ayrımı daha karmaşık veya değişken olabilir. Bu yüzden hedef değişken değiştikçe modelin tahmin zorluğu ve dolayısıyla MCR değeri de farklılaşmaktadır.\n\nModelin başarısız olduğu durumlar, bazı yaşam alanlarının fiziksel özelliklerinin birbirine benzediğini göstermektedir. Bu nedenle model bazı bireyleri doğru sınıflandırmakta zorlanmıştır.",
     "flag": null
   },
@@ -593,7 +593,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "Identifies a systematic (non-random) error pattern tied to morphologically similar lizards. Suggests data improvement (more features, more data). Discusses that a different model architecture would change decision boundaries and MCR, but does NOT name a specific alternative model (e.g. random forest, kNN) — alternative_model_named is null. Provides a clear, accurate lay explanation of decision trees including the overfitting limitation. 4/5 — three of four dimensions fully met, alternative model naming missing.",
+    "justification": "Morfolojik olarak benzer sülünlere bağlı sistematik (rastgele olmayan) hata deseni tanımlar. Veri iyileştirme önerir (daha fazla özellik, daha fazla veri). Farklı model mimarisinin karar sınırlarını ve MCR'yi değiştireceğini tartışır, ama belirli alternatif model (örneğin random forest, kNN) adı vermez — alternative_model_named boş. decision tree'nin açık, doğru laikçe açıklaması ve overfitting sınırlaması sunar. 4/5 — dört boyuttan üçü tam olarak karşılanır, alternatif model adlandırması eksik.",
     "student_text": "Modelin yaptığı hatalar rastgele görünmüyor. Hatalar daha çok fiziksel özellikleri birbirine benzeyen kertenkelelerde ortaya çıkmıştır.\n\nModelin daha iyi sonuç vermesi için daha fazla fiziksel özellik eklenebilir. Veri sayısı arttırılabilir.\n\nEvet, sonuç kesinlikle değişirdi. Farklı makine öğrenmesi modelleri, verideki örüntüleri tanımlamak için farklı matematiksel yaklaşımlar kullanırlar. Karar ağaçları, veriyi hiyerarşik kurallara göre bölerek \"kutu benzeri\" doğrusal ayrıklar oluştururken; diğer modeller veriyi farklı geometrik düzlemlerde veya olasılıksal uzaylarda değerlendirebilir. Dolayısıyla, modelin mimarisi değiştiğinde karar sınırları da değişecek, bu da modelin doğruluk ve hata (MCR) oranlarına doğrudan yansıyacaktır.\n\nKarar ağacı, verileri belirli kurallara ve özelliklere göre dallara ayırarak sınıflandıran veya tahminleme yapan bir makine öğrenmesi yöntemidir.\n​Ne işe yarar: Verideki karmaşık ilişkileri bir akış şeması gibi görselleştirip anlaşılır kılar; bu da karar verme süreçlerini kolaylaştırır.\n​Nerede yetersiz kalır: Derinliği (max_depth) iyi ayarlanmazsa veriyi ezberleme (overfitting) eğilimi gösterir. Ayrıca, verideki gürültülere karşı hassastır ve çok karmaşık, doğrusal olmayan ilişkilerde daha gelişmiş modellere göre daha düşük tahmin gücüne sahip olabilir.\"",
     "flag": null
   },
@@ -606,7 +606,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 1,
-    "justification": "optimal_depths_compared=False and comparison_reasoning discusses MCR/difficulty differences generally ('tahmin zorluğu ve dolayısıyla MCR değeri de farklılaşmaktadır') but does not discuss optimal depth differences specifically, nor cite specific depth numbers across targets. Comparison present but depth-specific reasoning absent. 1/4.",
+    "justification": "optimal_depths_compared=False ve comparison_reasoning genel olarak MCR/zorluk farklılıklarını tartışır ('tahmin zorluğu ve dolayısıyla MCR değeri de farklılaşmaktadır') ancak optimal derinlik farklılıklarını spesifik olarak tartışmaz veya hedefler arasında belirli derinlik numaralarını alıntılamaz. Karşılaştırma mevcut ama derinlik spesifik açıklama eksik. 1/4.",
     "student_text": "Evet, kesinlikle değişirdi. Her hedef değişkenin (Tür, Cinsiyet, Yaşam Alanı) mevcut fiziksel özelliklerle (toplam uzunluk, bacak uzunluğu vb.) olan ilişkisi farklıdır. Örneğin, tür ayrımı daha belirgin fiziksel karakteristiklere dayanırken, cinsiyet ayrımı daha karmaşık veya değişken olabilir. Bu yüzden hedef değişken değiştikçe modelin tahmin zorluğu ve dolayısıyla MCR değeri de farklılaşmaktadır.",
     "flag": null
   },
@@ -619,7 +619,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 2,
-    "justification": "root_nodes_compared=True; q_root_changed_across_targets text notes 'türleri ayırmada kütle en güçlü parametreyken, yaşam alanı için tür bazlı bir ayrım daha anlamlı hale gelir' — correctly notes root nodes differ by target with a partial data-driven interpretation (kütle for species, tür for habitat), but lacks a deeper biological/statistical framing connecting all three targets. 2/4.",
+    "justification": "root_nodes_compared=True; q_root_changed_across_targets metni 'türleri ayırmada kütle en güçlü parametreyken, yaşam alanı için tür bazlı bir ayrım daha anlamlı hale gelir' belirtir — kök düğümlerin hedefler arasında farklılaştığını kısmi veri-güdümlü açıklamayla doğru belirtir (türler için kütle, habitat için tür), fakat tüm üç hedefi bağlayan daha derin biyolojik/istatistiksel çerçeve eksik. 2/4.",
     "student_text": "Evet, kesinlikle değişirdi. Her hedef değişkenin (Tür, Cinsiyet, Yaşam Alanı) mevcut fiziksel özelliklerle (toplam uzunluk, bacak uzunluğu vb.) olan ilişkisi farklıdır. Örneğin, tür ayrımı daha belirgin fiziksel karakteristiklere dayanırken, cinsiyet ayrımı daha karmaşık veya değişken olabilir. Bu yüzden hedef değişken değiştikçe modelin tahmin zorluğu ve dolayısıyla MCR değeri de farklılaşmaktadır.",
     "flag": null
   },
@@ -632,7 +632,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 3,
-    "justification": "Explains that majority class 'Yer' will be over-learned and minority 'Agac' will be missed/misclassified, and explicitly names the mechanism of misleadingly high overall accuracy hiding poor minority-class performance. Clear model-level reasoning with class-specific detail. 3/3.",
+    "justification": "Çoğunluk sınıfı 'Yer'in aşırı-öğrenileceğini ve azınlık 'Agac'ın kaçırılacağını/sınıflandırılamayacağını açıklar ve açıkça yanıltıcı şekilde yüksek genel doğruluğun azınlık sınıf performansını gizleme mekanizmasını belirtir. Sınıf-spesifik detay ile açık model-seviye açıklaması. 3/3.",
     "student_text": "Sınıf dengesizliği (Class Imbalance), karar ağacı modelimizi şu şekillerde olumsuz etkileyebilir:Çoğunluğa Eğilim (Ezberleme): Karar ağacı modelimiz, veride en çok bulunan \"Yer\" sınıfını öğrenmeye daha çok meyilli olacaktır. Çünkü rastgele \"Yer\" tahmini yapsa bile %52 başarı (130 / 250) yakalayacağını fark eder.Azınlık Sınıfını Kaçırma: En az veriye sahip olan \"Agac\" sınıfına ait kertenkeleleri modelimiz tanımakta zorlanabilir ve onları da yanlışlıkla \"Yer\" veya \"Kaya\" olarak tahmin edebilir.Yanıltıcı Doğruluk (Accuracy): Model genel doğruluk testinde başarılı görünse bile, aslında ağaçta yaşayan kertenkeleleri neredeyse hiç doğru tahmin edemiyor olabilir.",
     "flag": null
   },
@@ -645,7 +645,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 2,
-    "justification": "Correctly orders species by mass: Sceloporus (heaviest, 19.34g), Anolis (middle, 9.79g), Uta (lightest, 7.20g). Ordering is fully correct and numerically supported, but no biological/morphological reasoning is given for WHY the species differ in mass — it is a purely descriptive numeric report. 2/3.",
+    "justification": "Türleri kütleye göre doğru sıralar: Sceloporus (en ağır, 19.34g), Anolis (orta, 9.79g), Uta (en hafif, 7.20g). Sıralama tam doğru ve sayısal olarak desteklenir, fakat türlerin kütlede NEDEN farklılaştığına ilişkin biyolojik/morfolojik açıklama verilmez — tamamen tanımlayıcı sayısal rapordur. 2/3.",
     "student_text": "Tüm kertenkelelerin genel ortalama kütlesi 12.98 gramdır.  Türlere Göre Ortalama Kütle Dağılımı:Üç farklı kertenkele türünün ortalama ağırlıkları birbirlerinden büyük ölçüde farklıdır:  Sceloporus: Ortalama 19.34 gram (En ağır tür)   Anolis: Ortalama 9.79 gram (Orta ağırlıkta)   Uta: Ortalama 7.20 gram (En hafif tür)",
     "flag": null
   },
@@ -658,7 +658,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "All formulated_question fields are null; cannot evaluate quality. 0/2.",
+    "justification": "Tüm formulated_question alanları boş; kalite değerlendirilemez. 0/2.",
     "student_text": "(no research questions written)",
     "flag": null
   },
@@ -671,7 +671,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 2,
-    "justification": "test_size=0.2, stratify_used=True, random_state=42 — all correct and consistent across split/models (parameters_varied_across_models=False). 2/2.",
+    "justification": "test_size=0.2, stratify_used=True, random_state=42 — tümü doğru ve split/modeller arasında tutarlı (parameters_varied_across_models=False). 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
     "flag": null
   },
@@ -684,7 +684,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "Explains that removing stratify allows fully random splitting, giving a concrete example that the minority 'Agac' class (35 individuals) could end up almost entirely in the train set with none in test, disrupting class-balance evaluation. Directly ties to minority class and consequence for evaluation. 2/2.",
+    "justification": "stratify kaldırılmasının tamamen rastgele splitting'e izin verdiğini, azınlık 'Agac' sınıfının (35 birey) eğitim setine neredeyse tamamen giriş yapıp teste hiç girmemesinin somut örneğini vererek açıklar, sınıf-denge değerlendirmesini bozar. Azınlık sınıfı ve sonucuna doğrudan bağlantı kurar. 2/2.",
     "student_text": "Deney Sonucu:\nstratify=y parametresi etkinken, kertenkele verimizdeki yaşam alanlarının (Yer %52, Kaya %34, Ağaç %14) oranları hem eğitim setinde hem de test setinde birebir aynı kalır.\n\nBu parametreyi kaldırdığımızda ise bölme işlemi tamamen rastgele yapılır. Örneğin, zaten çok az olan (35 adet) \"Agac\" kertenkelelerinin neredeyse tamamı tesadüfen eğitim setine gidebilir ve test setinde hiç \"Agac\" kertenkelesi kalmayabilir.\n\nNedeni ve Açıklama:\nstratify=y kuralı bir \"adil dağıtım\" sigortasıdır. Veriyi bölerken hedef sınıfın (y) dağılım oranını korur.\n\nBu parametreyi kaldırırsak, özellikle \"Agac\" gibi azınlıkta olan sınıflar test setinde çok az temsil edilir veya hiç kalmaz. Bu durum modelin ağaçta yaşayan kertenkeleleri test ederken başarısız olmasına (veya testi ölçemememize) yol açar.",
     "flag": null
   },
@@ -697,7 +697,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "Explains random_state as a seed controlling which samples go to train/test, notes that changing it (42→7) changes results slightly (tree structure, MCR) but that setting a fixed seed makes results reproducible. Correctly captures reproducibility + shuffling mechanism. 1/1.",
+    "justification": "random_state'i bir tohum olarak tanımlar ve train/test'e gidecek örnekleri denetler, belirtilen değişikliğin (42→7) sonuçlarda hafif değişiklik (ağaç yapısı, MCR) yaptığını fakat sabit bir tohum ayarının sonuçları tekrarlanabilir kılmasını belirtir. İyileştirilebilirlik + karıştırma mekanizmasını doğru yakalar. 1/1.",
     "student_text": "Deney Sonucu:\nEvet, sonuçlar kesinlikle değişir. random_state değerini 42'den 7'ye çevirdiğimizde; eğitim setine seçilen kertenkeleler ile test setine düşen kertenkeleler tamamen değişir. Doğal olarak, kurulan karar ağacının ilk soruları, başarı oranları (MCR) ve ağacın yapısı da biraz farklılaşacaktır.\n\nNedeni ve Açıklama:\nBilgisayarlar veriyi rastgele bölerken bir başlangıç noktasına (seed) ihtiyaç duyar. random_state parametresi bu rastgeleliğin şifresidir.\n\nEğer random_state=42 yazarsak, kodu dünyanın öbür ucundaki başka bir bilgisayarda da çalıştırsak aynı kertenkeleler eğitim setine ayrılır (sonuçlar tekrarlanabilir olur).\n\nSayıyı 7 yaptığımızda bilgisayara \"rastgele karıştırırken 7 numaralı senaryoyu kullan\" demiş oluruz. Bu bir hata değildir; sadece farklı bir rastgele bölünme ürettiği için modelin doğruluğunu ve ağacın şeklini hafifçe değiştirir.",
     "flag": null
   },
@@ -710,7 +710,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "All three environments (data cards, CODAP, Python) discussed with distinct, substantive observations for each: data cards as physical/concrete representation, CODAP for intuitive visual understanding of splits, Python for exact mathematical computation and automation. Error detection thoroughly addressed — explicitly contrasts Python's immediate traceback errors vs. CODAP/data cards' silent logical errors only visible at the end. Detailed, specific, well-reasoned throughout. 5/5.",
+    "justification": "Üç ortamın tamamı (veri kartları, CODAP, Python) tartışılır ve her birine özgü, özlü gözlemler sunulur: veri kartları fiziksel/somut temsil olarak, CODAP sezgisel görsel split anlayışı için, Python kesin matematiksel hesaplama ve otomasyon için. Hata tespiti kapsamlı şekilde ele alınır — Python'un anlık traceback hataları vs. CODAP/veri kartlarının sessiz mantıksal hataları (sadece sonunda görünür) açıkça karşılaştırır. Ayrıntılı, spesifik, iyi gerekçelendirilmiş. 5/5.",
     "student_text": "Evet, her ortam veri analizi sürecine farklı bir perspektiften bakmamı sağladı. Data kartları, verinin somut ve fiziksel birer nesne olduğunu, her kartın aslında gerçek bir canlıyı (kertenkeleyi) temsil ettiğini anlamamı sağladı. CODAP, verileri sürükle-bırak yöntemiyle görselleştirerek değişkenler arasındaki ilişkileri ve kümeleri göz kararıyla (sezgisel olarak) keşfetme kolaylığı kattı. Python ise bu süreçlerin arkasındaki kesin matematiksel hesaplamaları, büyük veri kümelerinin kodlarla nasıl otomatik olarak manipüle edildiğini ve nesnel modellerin nasıl kurulduğunu gösterdi.\n\nHangi ortamda \"modelim ne yapıyor\" sorusunu daha iyi anladınız? Nedeninizi açıklayın.\n\nCevap: CODAP ortamında daha iyi anladım. Çünkü CODAP'ta verileri grafik üzerinde kendim bölerken, yaptığım her hamlenin veriyi nasıl ikiye ayırdığını, hangi kertenkelelerin hangi grupta kaldığını eş zamanlı olarak görsel bir şema üzerinde görebiliyordum. Python'da süreç algoritmik olarak çok hızlı gerçekleşirken, CODAP'ta modelin adımlarını bizzat elle inşa etmek mantığı kavramamı kolaylaştırdı.\n\nHangi ortam size daha kolay geldi? Bu kolaylık gerçekten anladığınızı mı, yoksa sadece alıştığınızı mı gösteriyor? Nedeninizi açıklayın.\n\nCevap: Görsel arayüzünden dolayı CODAP daha kolay geldi. Bu kolaylık karar ağacı mantığını tamamen anladığımdan ziyade arayüze ve sürükle-bırak mantığına hızlıca alıştığımı gösteriyor. Çünkü CODAP karmaşık matematiksel hesaplamaları (safsızlık değerleri vb.) arka plana iterek süreci basitleştiriyor; dolayısıyla gerçek algoritma mantığını tam olarak kavramadan da orada bir ağaç yapısı kurmak mümkün olabiliyor.\n\nHangi ortamda en çok zorlandınız ve bu zorluk neden kaynaklanıyordu? Aracın kendisi mi, yoksa karar ağacı kavramının o ortamda daha mı görünmez olması mıydı? Nedeninizi açıklayın.\n\nCevap: En çok Python ortamında zorlandım. Bu zorluk karar ağacı kavramının görünmez olmasından değil, aracın kendisinden (sözdizimi/syntax kurallarından) kaynaklanıyordu. Bir parantezin unutulması, küçük-büyük harf hatası veya satır hizalamasındaki (IndentationError) en ufak bir kayma bile kodun çalışmasını engelleyebiliyordu. Kavramsal olarak ağacın ne yaptığını bilsem de bunu bilgisayara anlatma dilinde (kod düzeyinde) pratik eksikliğim olduğu için zorlandım.\n\nYaptığınız bir hatayı hangi ortamda daha kolay fark ettiniz? Sizi uyaran şey aracın kendisi miydi, yoksa başka bir şey mi?\n\nCevap: Python ortamında daha kolay fark ettim. Çünkü Python hata yaptığımda kodu çalıştırmayı durduruyor ve kırmızı renkli belirgin bir hata mesajı (Traceback) veriyordu. Hatanın hangi satırda ve ne tür bir uyumsuzluktan kaynaklandığını doğrudan aracın kendisi bana söylüyordu. CODAP veya data kartlarında ise mantıksal bir hata yapsam bile araç beni doğrudan durdurmuyor, hatayı ancak süreç sonunda yanlış sonuçlar aldığımda kendim fark edebiliyordum.\n\nBir ortamda rahatlıkla yapabildiğiniz ama bir diğerinde hiç yapamadığınız bir şey oldu mu?\n\nCevap: Evet, Python'da tek bir döngü yazarak saniyeler içinde 1'den 10'a kadar olan tüm ağaç derinliklerini deneyip hata oranlarını (MCR) hesaplayabildim ve overfitting grafiğini çizdirdim. Bu kadar büyük bir hesaplama operasyonunu data kartlarıyla fiziksel olarak yapmak ya da CODAP'ta tek tek elle denemek neredeyse imkansızdır.\n\nÜç ortamdan birinin diğerinin yerini tutamayacağı bir durum var mı? Nedeninizi açıklayın.\n\nCevap: Evet, Python'un yeri diğer ortamlar tarafından tutulamaz. Veri seti binlerce veya milyonlarca satırdan oluştuğunda ne kartları elinizle sayabilirsiniz ne de CODAP grafiğinde milyarlarca noktayı sürükleyebilirsiniz. Büyük veride otomasyon, tekrarlanabilirlik ve kesin matematiksel optimizasyon (Gini safsızlığı hesabı gibi) gerekliyse Python alternatifsizdir.",
     "flag": null
   },
@@ -723,7 +723,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Provides biological reasoning for root feature (leg length/mass tied to climbing/locomotion needs across habitats). Addresses expectation directly ('Hayır, şaşırtmadı' — not surprised, biologically logical) and also addresses expected physical differences between tree/ground dwellers being captured by the model. Discusses misclassified habitats (Ağaç/Kaya confusion) with a plausible biological reason (shared climbing/escape behavior, juvenile size overlap). All three dimensions fully covered. 5/5.",
+    "justification": "Kök özelliği için biyolojik açıklama sağlar (bacak uzunluğu/kütle habitatlar arasında tırmanış/hareket ihtiyacıyla bağlantılı). Beklenti doğrudan ele alır ('Hayır, şaşırtmadı' — şaşırmadı, biyolojik olarak mantıklı) ve ağaç/zemin sakinleri arasında beklenen fiziksel farklılıkların model tarafından yakalandığını ele alır. Sınıflandırılamayan habitatları (Ağaç/Kaya karışıklığı) makul biyolojik nedeniyle tartışır (paylaşılan tırmanış/kaçış davranışı, juvenil boyut üst üste gelişi). Üç boyutun tamamı tam olarak kapsanmış. 5/5.",
     "student_text": "Hayır, şaşırtmadı. Kök düğümde genellikle BacakUzunlugu (veya kertenkelenin iriliğini belirleyen Kutle) seçildi. Biyolojik açıdan bu seçim son derece mantıklıdır; çünkü ağaçta, yerde ya da kayada yaşayan kertenkelelerin tırmanma, koşma ve dengede kalma ihtiyaçları tamamen bacak boyları ve vücut ağırlıklarıyla doğrudan ilişkilidir. Doğal seçilim, yaşam alanına göre bu morfolojik özellikleri şekillendirmiştir.\n\nAğaçta yaşayan bir kertenkelenin yerde yaşayandan fiziksel olarak farklı olmasını bekler miydiniz? Modeliniz bu farkı yakalayabildi mi?\n\nCevap: Evet, beklerdim. Ağaçta yaşayan bir kertenkelenin dallara daha iyi tutunabilmesi için bacak boyu/vücut oranı ve ağırlık dengesinin, düz zeminde hızlı koşması gereken yer kertenkelelerinden farklı olması gerekir. Kurduğumuz karar ağacı modeli, bacak uzunluğu ve kütle gibi sayısal eşikler koyarak (örneğin bacak uzunluğu şu değerden küçükse Ağaç kertenkelesidir diyerek) bu morfolojik farkı başarıyla yakalayabildi.\n\nModelinizin yanlış sınıflandırdığı bireyler hangi yaşam alanına aitti? Bunun biyolojik bir açıklaması olabilir mi?\n\nCevap: Model genellikle Ağaç ve Kaya kertenkelelerini birbirine karıştırma veya onları Yer olarak tahmin etme eğilimi gösterdi. Bunun biyolojik açıklaması; bazı kertenkele türlerinin avlanırken veya kaçarken hem ağaç gövdelerini hem de kaya yüzeylerini ortak olarak kullanabilmesidir. Ayrıca, genç kertenkelelerin fiziksel ölçümleri (boyut ve kütle) henüz erginleşmedikleri için başka bir yaşam alanındaki daha küçük bir türe benzeyebilir ve modeli yanıltabilir.\n\nVeriyi ilk gördüğünüzde kendiniz hangi değişkenin en belirleyici olacağını tahmin etmiştiniz? Modelinizin bulgusuyla örtüştü mü?\n\nCevap: İlk gördüğümde kertenkelenin iriliğinin (yani GovdeUzunlugu veya Kutle) en belirleyici şey olacağını tahmin etmiştim. Modelin bulgularıyla kısmen örtüştü; çünkü model kütleyi önemli bir kriter olarak aldı fakat yaşam alanını keskin olarak ayırmak adına en tepeye BacakUzunlugu değişkenini yerleştirerek bacak morfolojisinin ağırlıktan daha spesifik bir ayırt edici olduğunu bana gösterdi.",
     "flag": null
   },
@@ -736,7 +736,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "MCR value stated as ~15% (0.15), reasonably close to the actual test_mcr_achieved of 0.3594 for YasamAlani — however this does NOT match within 0.01 (actual is 0.36, stated is 0.15), a significant mismatch. Best predicted class (Yer) and worst (Kaya/Ağaç) identified with data-property reasoning (class imbalance: 84 Yer vs 32-34 each of Kaya/Agac). Ideal threshold proposed (5-10%). Cross-target comparison attempted (reasoning about Tur vs Cinsiyet MCR differences). Three of four dimensions fully met, but the stated MCR value does not match the actual achieved MCR, which undermines that dimension. 4/5.",
+    "justification": "MCR değeri ~%15 (0.15) olarak belirtilir, gerçek test_mcr_achieved olan 0.3594 (YasamAlani için) 0.01'e yakın — ancak bu UYUŞMAZ (gerçek 0.36, belirtilen 0.15), önemli uyuşmazlık. En iyi tahmin edilen sınıf (Yer) ve en kötüsü (Kaya/Ağaç) veri-özellik açıklamasıyla tanımlanır (sınıf dengesizliği: 84 Yer vs 32-34'er Kaya/Agac). İdeal eşik önerilir (%5-10). Hedef arası karşılaştırma denenir (Tur vs Cinsiyet MCR farklılıkları hakkında düşünme). Dört boyuttan üçü tam olarak karşılanır, fakat belirtilen MCR değeri gerçek başarılı MCR ile eşleşmez, bu boyutu zayıflatır. 4/5.",
     "student_text": "En iyi tahmin edilen sınıf Yer kertenkeleleri oldu. En kötü (veya en düşük duyarlılıkla) tahmin edilenler ise Kaya veya Ağaç sınıfları oldu.\n\nAçıklama: Bunun temel sebebi veri setindeki ciddi sınıf dengesizliğidir. Veri setinde 84 tane \"Yer\" kertenkelesi varken sadece 32-34 adet Kaya ve Ağaç kertenkelesi bulunmaktadır. Model, eğitim esnasında ezici çoğunluğa sahip olan \"Yer\" sınıfına dair çok fazla örnek gördüğü için onu mükemmel öğrendi, azınlık sınıfları ise yeterince öğrenemedi.\n\nMCR değeriniz sizi tatmin etti mi? \"İyi\" bir model için bu değerin ne olması gerektiğini düşünüyorsunuz?\n\nCevap: Optimum derinlikte elde ettiğimiz test MCR (Yanlış Sınıflandırma Oranı) değeri (örneğin %15-%20 arası bir hata) bu büyüklükteki küçük bir veri seti için tatmin edicidir. \"İyi\" bir model için bu değerin sıfıra yakın olması istenir ancak gerçekçi senaryolarda %5 ila %10 arasındaki bir MCR değeri modelin hem iyi öğrendiğini hem de ezberlemediğini (iyi genelleyebildiğini) gösteren başarılı bir skordur.\n\nAynı veriyle farklı bir hedef değişken seçseydiniz (Tur ya da Cinsiyet) MCR değeri değişir miydi? Değiştiyse neden?\n\nCevap: Evet, kesinlikle değişirdi. Örneğin kertenkelelerin Tür özelliklerini tahmin etmek morfolojik olarak çok daha belirgin sınırlar içerdiği için MCR (hata) oranı muhtemelen daha düşük çıkacaktır. Ancak Cinsiyet tahmini yapmak fiziksel ölçülerle çok daha zor ve iç içe geçmiş olabileceği için model daha fazla zorlanacak ve MCR (hata) oranı yükselecektir. Hedef değişkenin verideki ayırt edilebilirliği performansı doğrudan etkiler.\n\nModelin başarısız olduğu durumlar size veri hakkında ne söylüyor?\n\nCevap: Modelin hata yaptığı durumlar, elimizdeki fiziksel özelliklerin (gövde, bacak, kütle) kertenkelelerin yaşam alanlarını %100 kusursuzlukla ayırmak için biyolojik olarak tek başına yeterli olmadığını söylüyor. Kertenkelelerin davranışsal alışkanlıkları, coğrafi konumları veya renk adaptasyonları gibi veri setinde yer almayan başka gizli değişkenlerin de olduğunu işaret ediyor.",
     "flag": null
   },
@@ -749,7 +749,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Identifies a systematic error pattern (not random) — minority classes pulled toward the dominant 'Yer' class. Proposes both model-level (class weighting) and data-level improvements (more samples for Kaya/Ağaç, new features like foot structure/skin color/capture height). Names a specific alternative model (Logistic Regression or SVM) with reasoning about decision boundary flexibility. Provides a clear lay explanation of decision trees including the overfitting limitation and class imbalance limitation. All four dimensions met. 5/5.",
+    "justification": "Sistematik hata deseni tanımlar (rastgele değil) — azınlık sınıfları baskın 'Yer' sınıfına doğru çekilir. Model-seviye (sınıf ağırlıklandırması) ve veri-seviye (Kaya/Ağaç için daha fazla örnek, ayak yapısı/deri rengi/yakalama yüksekliği gibi yeni özellikler) iyileştirmeler önerir. Belirli alternatif model (Logistic Regression veya SVM) karar sınırı esnekliği hakkında açıklama ile adlandırır. decision tree'nin açık laikçe açıklaması overfitting sınırlaması ve sınıf dengesizlik sınırlaması içerir. Dört boyutun tamamı karşılanır. 5/5.",
     "student_text": "Rastgele görünmüyor, belirli bir örüntü var. Model özellikle azınlıkta olan sınıfları (Kaya ve Ağaç), veri setinde ezici çoğunlukta olan baskın sınıfa (Yer) doğru tahmin etme örüntüsü gösteriyor. Yani hata, sınır değerlerdeki kertenkeleleri hep baskın sınıfa doğru kaydırma eğilimindedir.\n\nBu modelin daha iyi sonuç verebilmesi için neler yapılabilir? Yalnızca teknik değil, verinin kendisiyle ilgili ne değişebilir?\n\nCevap: Teknik olarak, azınlık sınıfların ağırlığı artırılabilir veya veri setini bölerken uyguladığımız stratejiler geliştirilebilir. Verinin kendisiyle ilgili olarak ise: Kaya ve Ağaç kertenkelelerine ait daha fazla örnek toplanarak sınıf dengesi sağlanabilir. Ayrıca fiziksel ölçümlerin yanına kertenkelelerin \"ayak taban yapısı (yapışkanlık düzeyi)\", \"deri rengi/kamuflaj bilgisi\" veya \"yakalandığı yükseklik\" gibi yaşam alanını doğrudan ele veren yeni nitelikler (özellikler) eklenebilir.\n\nKarar Ağacı yerine farklı bir model kullansaydınız sonuç değişir miydi? Neden?\n\nCevap: Evet, sonuç değişebilirdi. Karar ağaçları veriyi her seferinde eksenlere dik keskin doğrularla böler. Eğer kertenkelelerin özellikleri (örneğin kütle ve bacak boyu) arasında doğrusal veya dairesel, iç içe geçmiş karmaşık ilişkiler varsa, Lojistik Regresyon veya Destek Vektör Makineleri (SVM) gibi modeller veriyi daha esnek sınırlarla ayırarak hata oranını (MCR) daha da düşürebilirdi.\n\nBu deneyimden sonra bir arkadaşınıza \"karar ağacı nedir, ne işe yarar, nerede yetersiz kalır?\" diye sorsalar ne söylerdiniz?\n\nCevap: > * Nedir? Veriye ardışık olarak \"Evet/Hayır\" soruları sorarak tıpkı bir akış şeması gibi çalışan, anlaşılması çok kolay bir sınıflandırma modelidir.\n\nNe işe yarar? Verilerin içindeki en önemli kuralları bulmaya, hangi değişkenin hedefi en çok etkilediğini (kök düğüm) görsel ve şeffaf bir şekilde ortaya çıkarmaya yarar.\n\nNerede yetersiz kalır? Veriyi çok fazla derinleştirdiğimizde kolayca ezber yapmaya (overfitting) meyillidir. Ayrıca veri setindeki sınıflar arasında sayıca büyük bir dengesizlik varsa, baskın olan tarafa torpil geçerek azınlık durumundaki verileri tahmin etmekte yetersiz kalır.",
     "flag": null
   },
@@ -762,7 +762,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 2,
-    "justification": "Correctly explains that optimal depths differ across targets and gives a partial reason (Tur is more physically distinct and resolvable at shallow depth like 2-3; Cinsiyet is more complex/intertwined requiring different depth). However, no specific MCR values or depth numbers are cited for Cinsiyet or Tur (only YasamAlani's MCR is in mcr_values_compared, and the reasoning text uses hedged/hypothetical numbers like 'örneğin 2 veya 3 derinlikte' rather than actual computed values since Tur/Cinsiyet were not fully run through depth search). 2/4.",
+    "justification": "Optimal derinliklerin hedefler arasında farklılaştığını doğru açıklar ve kısmi neden sunar (Tur fiziksel olarak belirgin ve 2-3 gibi sı derinlikte çözülebilir; Cinsiyet daha karmaşık/iç içe geçmiş farklı derinlik gerektirir). Ancak Cinsiyet veya Tur için belirli MCR değerleri veya derinlik numaraları alıntılanmaz (sadece YasamAlani'nin MCR mcr_values_compared'tedir ve açıklama metni 'örneğin 2 veya 3 derinlikte' gibi belirsiz/varsayımsal numaralar kullanır çünkü Tur/Cinsiyet tam olarak derinlik araması ile çalıştırılmamıştır). 2/4.",
     "student_text": "Hayır, kurulan her farklı karar ağacında (Yaşam Alanı, Cinsiyet, Tür veya Bacak Tipi tahminleri için) optimum derinlik değerleri aynı çıkmaz, hedef değişkene göre farklılaşır.\n\nNeden Farklılaştı: Çünkü her bir hedef değişkenin (örneğin kertenkelelerin cinsiyeti ile yaşam alanı) veri setindeki ayırt edilebilirliği ve matematiksel karmaşıklığı birbirinden farklıdır. Kertenkelelerin türü fiziksel ölçümlerle (kütle ve gövde uzunluğu gibi) çok daha keskin kurallarla ve erken bir derinlikte (örneğin 2 veya 3 derinlikte) hatasız çözülebilirken; cinsiyet tahmini (erkek/dişi farkları) çok daha karmaşık, iç içe geçmiş sınırlar içerebilir ve daha farklı bir derinlikte optimum noktaya ulaşabilir. Hedef değişken değiştikçe verinin içindeki kalıplar ve o kalıpları çözmek için gereken ağaç karmaşıklığı da değişir.",
     "flag": null
   },
@@ -775,7 +775,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 3,
-    "justification": "In step5_final_tree.q_root_changed_across_targets, explicitly notes the root node would change between YasamAlani (leg length) and Tur (body length or mass), providing a biological interpretation (the trait determining habitat differs from the trait determining species/body size). This is a meaningful, specific biological reasoning tied to root node differences, though it stops short of full cross-target root confirmation since Tur/Cinsiyet trees weren't fully built with depth search. 3/4.",
+    "justification": "step5_final_tree.q_root_changed_across_targets'ta, kök düğümün YasamAlani (bacak uzunluğu) ve Tur (vücut uzunluğu veya kütle) arasında değişeceğini açıkça belirtir, biyolojik yorumlama sağlar (habitatı belirleyen özellik tür/vücut boyutunu belirleyen özellikten farklıdır). Bu anlamlı, belirgin biyolojik açıklama kök düğüm farklılıklarına bağlıdır, ancak Tur/Cinsiyet ağaçları derinlik araması ile tam olarak oluşturulmadığından tam hedef arası kök doğrulamasına kadar gitmez. 3/4.",
     "student_text": "Hayır, kurulan her farklı karar ağacında (Yaşam Alanı, Cinsiyet, Tür veya Bacak Tipi tahminleri için) optimum derinlik değerleri aynı çıkmaz, hedef değişkene göre farklılaşır.\n\nNeden Farklılaştı: Çünkü her bir hedef değişkenin (örneğin kertenkelelerin cinsiyeti ile yaşam alanı) veri setindeki ayırt edilebilirliği ve matematiksel karmaşıklığı birbirinden farklıdır. Kertenkelelerin türü fiziksel ölçümlerle (kütle ve gövde uzunluğu gibi) çok daha keskin kurallarla ve erken bir derinlikte (örneğin 2 veya 3 derinlikte) hatasız çözülebilirken; cinsiyet tahmini (erkek/dişi farkları) çok daha karmaşık, iç içe geçmiş sınırlar içerebilir ve daha farklı bir derinlikte optimum noktaya ulaşabilir. Hedef değişken değiştikçe verinin içindeki kalıplar ve o kalıpları çözmek için gereken ağaç karmaşıklığı da değişir.",
     "flag": null
   },
@@ -788,7 +788,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 2,
-    "justification": "Student states majority class is better learned and minority class has higher error. Correct direction and mechanism, but explanation is a single brief sentence — no reference to Agac specifically or to class-level prediction rates. 2/3.",
+    "justification": "Öğrenci çoğunluk sınıfının daha iyi öğrenildiğini ve azınlık sınıfının daha yüksek hataya sahip olduğunu belirtir. Doğru yön ve mekanizm, ancak açıklama tek bir kısa cümle — Agac'a özel bir referans yok veya sınıf düzeyinde tahmin oranlarına hiç değinilmemiş. 2/3.",
     "student_text": "Model çoğunluk sınıfını iyi öğrenirken azınlık sınıfı genelde kötü öğrenir.",
     "flag": null
   },
@@ -801,7 +801,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 1,
-    "justification": "Student confirms mass differs by species but attributes it to habitat rather than species-level morphology ('farklı yaşam alanlarında yaşamaktadır'). No ordering of Sceloporus/Uta given. Biological reasoning is causally inverted. 1/3.",
+    "justification": "Öğrenci kütlenin türlere göre farklı olduğunu doğrular ancak bunu habitat yerine türe özgü morfolojiye atfeder ('farklı yaşam alanlarında yaşamaktadır'). Sceloporus/Uta sıralaması verilmemiş. Biyolojik akıl yürütme nedensel olarak ters. 1/3.",
     "student_text": "Evet, bu değer üç farklı kertenkele türü için şekilde farklıdır.Çünkü farklı kertenkele türleri,farklı yaşam alanlarında yaşamaktadır.",
     "flag": null
   },
@@ -814,7 +814,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "All formulated_question fields null. Cannot evaluate quality. 0/2.",
+    "justification": "Tüm formulated_question alanları boş. Kalite değerlendirilemiyor. 0/2.",
     "student_text": "(no research questions written)",
     "flag": null
   },
@@ -827,7 +827,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 1,
-    "justification": "'Bu model parametrenin adil ve dengeli şekilde eğitilmesini sağladı.' — Correct direction (fairness/balance) but no mention of class distribution, minority class Agac, or test-set representation. 1/2.",
+    "justification": "'Bu model parametrenin adil ve dengeli şekilde eğitilmesini sağladı.' — Doğru yön (adillik/denge) ancak sınıf dağılımı, azınlık sınıfı Agac veya test seti temsili hakkında hiç söz yok. 1/2.",
     "student_text": "Bu model parametrenin adil ve dengeli şekilde eğitilmesini sağladı.",
     "flag": null
   },
@@ -840,7 +840,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "'Sayıyı değiştirdiğimizde model farklı verilerle eğitilmiş oldu.' — Correctly captures that changing random_state changes which samples are in train/test. Minimal but sufficient. 1/1.",
+    "justification": "'Sayıyı değiştirdiğimizde model farklı verilerle eğitilmiş oldu.' — random_state değiştirildiğinde hangi örneklerin train/test içinde olduğunu değiştirdiğini doğru yakalar. Minimal ama yeterli. 1/1.",
     "student_text": "Sayıyı değiştirdiğimizde model farklı verilerle eğitilmiş oldu.",
     "flag": null
   },
@@ -853,7 +853,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "All 3 environments mentioned (data kartları, CODAP, Python/COLAP). Each has a brief distinct observation. Error detection addressed (Colab shows errors before next step). However, observations are generic one-liners; deepest-understanding rationale is 'concrete data' without elaborating what was understood. 3/5.",
+    "justification": "Üç ortamın tamamı belirtildi (data kartları, CODAP, Python/COLAP). Her birinin kısa ve belirgin bir gözlemi var. Hata algılaması ele alındı (Colab bir sonraki adımdan önce hataları gösterir). Ancak gözlemler genel tek satırlıklar; en derinlemesine anlama mantığı 'concrete data' olmakla birlikte ne anlaşıldığı açıklanmamış. 3/5.",
     "student_text": "Evet farklı şeyler kattı.Veriyi 3 farklı şekişlde incelemiş olduk.data kartları ne yaptığımızı en iyi ve somut şekilde görmemi sağladı.CODAP ise verileri daha iyi karşılaştırmamı sağladı.COLAP ise veriler arasındaki ayrımı daha net görmeme katkı sağladı.\n\nData kartlarında daha iyi anladım.Çünkü somut olarak verileri görmem anlamamı kolaylaştırdı.\n\nData kartları daha kolay geldi.Bu kolaylık somut verilerle gerçekten anladığımı gösteriyor.\n\nEn çok COLAP ile zorlandım.Çünkü kod yazmak ve kodları anlamak benim için zordu.\n\nColap'ta daha kolay farkettim.Çünkü program sayesinde hatalarımı diğer adımı geçmeden farkedebildim.\n\nHayır.\n\nCOLAP daha detaylı bir şekilde veriyi incelemizi sağlıyor.Yani COLAP diğerlerinin yerini tutamaz.",
     "flag": null
   },
@@ -866,7 +866,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "Root surprise addressed (not surprised, biologically logical). Tree-lizard morphology discussed (bacak, gövde, kütle for climbing). Misclassification explained via transition-zone overlap — correct mechanism. Prior prediction (kütle) confirmed by model. Loses 1 pt: root feature discussion does not name which feature was the root or connect to actual tree output. 4/5.",
+    "justification": "Kök şaşkınlığı ele alındı (şaşırmadı, biyolojik olarak mantıklı). Ağaç-kertenkelenin morfolojisi tartışılmış (bacak, gövde, kütle tırmanma için). Yanlış sınıflandırma geçiş-bölgesi çakışması ile açıklanmış — doğru mekanizm. Önceki tahmin (kütle) model tarafından doğrulanmış. 1 puan kaybeder: kök özelliği tartışması hangi özelliğin kök olduğunu adlandırmaz veya gerçek ağaç çıktısına bağlanmaz. 4/5.",
     "student_text": "Hayır,şaşırtmadı.Bence de biyolojik olarak mantıklı.\n\nEvet, beklerdim. Biyolojik olarak ağaçta yaşayan kertenkelelerin tırmanabilmek ve tutunabilmek için daha uzun bacaklara, farklı gövde yapısına ve daha hafif bir kütleye sahip olması gerekir. modeliniz bu farkı yakalayabilmiştir.\nKarar ağaçlarına bakıldığında; modeli dallara ayıran en önemli kriterlerin Kutle, BacakUzunlugu ve GovdeUzunlugu gibi fiziksel ölçümler olması, modelin bu biyolojik farkları ayırt edici birer kural olarak tespit ettiğini kanıtlar\n\nEn çok yanlış sınıflandırılan bireyler, hem ağaçta hem yerde/kayada yaşayabilen ortak geçiş alanlarındaki kertenkelelerdir.Farklı yaşam alanlarında olsalar da benzer hareket biçimlerine sahip kertenkelelerin fiziksel özellikleri (bacak ve gövde uzunlukları) morfolojik olarak birbirine çok yaklaşır ve çakışır. Model, bu benzer ölçümler nedeniyle onları birbirine karıştırır.\n\nVeriyi ilk gördüğümde, kertenkelelerin yaşam alanlarını veya türlerini ayırt etmede Kutle değişkeninin en belirleyici özellik olacağını tahmin etmiştim.\nEvet, büyük oranda örtüştü. Karar ağaçları incelendiğinde, modelin veriyi bölmek için en tepeye koyduğu kök düğümlerde Kutleyi seçmiş olması bunu gösteriyor.",
     "flag": null
   },
@@ -879,7 +879,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "MCR 0.3281 stated and correctly identified as the chosen-depth value. Best class (Sceloporus) and worst class (Anolis/Uta morphological overlap) explained with data reasoning. Threshold 0.10–0.15 stated. Cross-target comparison is minimal ('değişebilirdi'). 4/5.",
+    "justification": "MCR 0.3281 belirtildi ve seçilen derinlik değeri olarak doğru tanımlandı. En iyi sınıf (Sceloporus) ve en kötü sınıf (Anolis/Uta morfolojik çakışması) veri akıl yürütmesiyle açıklandı. Eşik 0.10–0.15 belirtildi. Çapraz hedef karşılaştırması minimal ('değişebilirdi'). 4/5.",
     "student_text": "MCR değeri 0.3281 dir.0.3281 değeri, modelin genelleme performansının en iyi olduğu noktayı temsil etmektedir. Derinlik daha fazla artırıldığında model overfitting yapmaya başlayacağından test hatası artmakta, daha düşük derinliklerde ise verideki önemli örüntüler yeterince öğrenilememektedir.\n\nEn İyi (Sceloporus): Kütlesi iri olan kertenkelelerdir. Fiziksel özellikleri çok belirgin ve ayırt edici olduğu için model onları neredeyse hatasız tahmin etmiştir.\nEn Kötü (Anolis / Uta): Kütlesi küçük olan kertenkelelerdir. Bu iki sınıfın boy, kilo ve bacak ölçüleri morfolojik olarak birbirine çok benzediği ve iç içe geçtiği için model bunları ayırt etmekte zorlanmıştır.\n\nHayır, etmedi. Yaklaşık %32'lik hata oranı (MCR), her 3 tahminden 1'inin yanlış olduğunu gösterir ve bu yüksek bir orandır.\nİyi Bir Model İçin bu değerin 0.10 - 0.15 MCR olmasını isterdim.\n\nDeğişebilirdi.Çünkü her değişkenin veriyle ilişkişsi farklıdır.\n\nModelin başarısız olduğu durumlar, verilerin bazı ölçümlerinin birbirine çok benzediğini ve ortak değerlerde çakıştığını söyler.",
     "flag": null
   },
@@ -892,7 +892,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "Systematic error pattern identified (Anolis/Uta boundary, not random). Data improvement proposed (renk, coğrafi konum, genetik). Alternative model 'farklı bir model' mentioned but not named — no specific algorithm (e.g. random forest). DT explanation for a friend is clear and accurate including overfitting limitation. 4/5.",
+    "justification": "Sistematik hata deseni tanımlandı (Anolis/Uta sınırı, rastgele değil). Veri iyileştirmesi önerildi (renk, coğrafi konum, genetik). Alternatif model 'farklı bir model' olarak belirtildi fakat adlandırılmadı — belirli bir algoritma yok (ör. random forest). DT açıklaması bir arkadaş için net ve doğru, aşırı öğrenme sınırlaması dahil. 4/5.",
     "student_text": "Belirli bir örüntü var.Hatalar, fiziksel özellikleri (kütle, boy vb.) birbirine çok benzeyen ve ölçümleri çakışan küçük kertenkele gruplarında (Anolis ve Uta arasında) yoğunlaşıyor. Model, verilerin iç içe geçtiği bu sınır bölgelerinde ayırt etme yeteneğini kaybederek sürekli aynı kural noktalarında hata yapıyor.\n\nSadece fiziksel ölçümlerle sınırlı kalınmayıp veriye kertenkelelerin coğrafi konumu, rengi, genetik bilgileri veya davranışsal özellikleri gibi yeni ayırt edici değişkenler eklenebilir.\nModelin birbirine karıştırdığı küçük kertenkele gruplarından (Anolis/Uta) daha fazla örnek toplanarak veri kümesi dengelenebilir.\n\nEvet değişirdi ve büyük olasılıkla daha başarılı bir sonuç elde edilirdi; çünkü tek bir karar ağacı veriyi sadece eksenlere dik çizgilerle bölebildiği için iç içe geçmiş kertenkele özelliklerini ayırmakta yetersiz kalır ve kolayca ezberlemeye (overfitting) meyleder.\n\nKarar ağacı, veriye sırayla \"evet/hayır\" gibi basit sorular sorarak ilerleyen akış şeması benzeri bir sınıflandırma modelidir. Karmaşık verileri özetlemeye yarasa da verilerin birbirine çok benzediği ve sınırların iç içe geçtiği durumlarda esnek kararlar veremez; ayrıca veriyi doğrudan ezberlemeye (overfitting) çok meyilli olduğundan karmaşık veri setlerinde tahmin başarısı hızla düşer.",
     "flag": null
   },
@@ -905,7 +905,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 2,
-    "justification": "'Her hedef değişkenin verideki durumu farklıdır. Bazı hedefler az sayıda dallanmayla çözülürken...' Correct direction — different targets need different depths. No specific MCR values or depth numbers cited. General statement only. 2/4.",
+    "justification": "'Her hedef değişkenin verideki durumu farklıdır. Bazı hedefler az sayıda dallanmayla çözülürken...' Doğru yön — farklı hedefler farklı derinlikler gerektirir. Belirli MCR değerleri veya derinlik numaraları atıf yapılmadı. Genel ifade sadece. 2/4.",
     "student_text": "Farklı çıktı.Çünkü Her hedef değişkenin verideki durumu farklıdır.Bazı hedefler  az sayıda dallanmayla çözülürken bazıları için daha fazla derinlik gerekir. / Her hedefin diğer değişkenlerle ilişkisi farklıdır.Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir.Dolayısıyla hedef değiştiğinde kök düğümde değişir.",
     "flag": null
   },
@@ -918,7 +918,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 2,
-    "justification": "'Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir. Dolayısıyla hedef değiştiğinde kök düğümde değişir.' Correctly notes root changes with target, gives algorithmic reason (best-split selection). No biological interpretation (e.g. mass/length distinguishes species but not gender). 2/4.",
+    "justification": "'Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir. Dolayısıyla hedef değiştiğinde kök düğümde değişir.' Kökün hedefle değiştiğini doğru belirtir, algoritmik neden verir (en iyi ayrım seçimi). Biyolojik yorum yok (ör. kütle/uzunluk türleri ayırır ama cinsiyeti değil). 2/4.",
     "student_text": "Farklı çıktı.Çünkü Her hedef değişkenin verideki durumu farklıdır.Bazı hedefler  az sayıda dallanmayla çözülürken bazıları için daha fazla derinlik gerekir. / Her hedefin diğer değişkenlerle ilişkisi farklıdır.Kök düğüm seçilirken veriyi en iyi şekilde bölen değişken seçilir.Dolayısıyla hedef değiştiğinde kök düğümde değişir.",
     "flag": null
   },
@@ -931,7 +931,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 0,
-    "justification": "q_imbalance_effect_reasoning is null. No response provided.",
+    "justification": "q_imbalance_effect_reasoning boş. Yanıt sağlanmadı.",
     "student_text": "",
     "flag": null
   },
@@ -944,7 +944,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 0,
-    "justification": "q_mass_by_species_reasoning is null. No response provided.",
+    "justification": "q_mass_by_species_reasoning boş. Yanıt sağlanmadı.",
     "student_text": "",
     "flag": null
   },
@@ -957,7 +957,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "No formulated questions present to evaluate for quality.",
+    "justification": "Değerlendirilecek formule edilmiş soru yok.",
     "student_text": "(no research questions written)",
     "flag": null
   },
@@ -970,7 +970,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 0,
-    "justification": "test_size=0.2 is correct, but stratify_used is null (not true) and random_state is null. Automated check fails. No hybrid partial credit applies since parameters_varied_across_models is false and stratify was not confirmed used.",
+    "justification": "test_size=0.2 doğru, ancak stratify_used boş (true değil) ve random_state boş. Otomatik kontrol başarısız. stratify_used doğrulanmadığı ve parameters_varied_across_models yanlış olduğu için hibrit kısmi kredi uygulanmaz.",
     "student_text": "test_size=0.2, stratify=None, random_state=None",
     "flag": null
   },
@@ -983,7 +983,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "q_stratify_removal_effect is null.",
+    "justification": "q_stratify_removal_effect boş.",
     "student_text": "",
     "flag": null
   },
@@ -996,7 +996,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 0,
-    "justification": "q_random_state_change_effect is null.",
+    "justification": "q_random_state_change_effect boş.",
     "student_text": "",
     "flag": null
   },
@@ -1009,7 +1009,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 0,
-    "justification": "raw_text is null, environments_mentioned is empty, error_detection_discussed is null. No response provided.",
+    "justification": "raw_text boş, environments_mentioned boş, error_detection_discussed boş. Yanıt sağlanmadı.",
     "student_text": null,
     "flag": null
   },
@@ -1022,7 +1022,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "Biological reasoning present: explains Sceloporus is easily distinguished by physical measurements ('fiziksel eşitsizliklerle diğerlerinden çok net ayrılabilmektedir') and Anolis/Uta are confused due to biological similarity in size. This covers misclassification discussion with a plausible biological reason (though phrased around 'tür' overlap rather than 'habitat' specifically, misclassified_habitat_discussed=false per extraction). root_feature_surprise_addressed is false — no discussion of expectation/surprise regarding root feature. Biological reasoning present and shallow-to-moderate depth on one dimension (misclassification), missing surprise dimension. Scored as roughly one-and-a-half of three dimensions covered with solid biological grounding.",
+    "justification": "Biyolojik akıl yürütme var: Sceloporus'un fiziksel ölçümlerle kolayca ayırt edilebileceğini ('fiziksel eşitsizliklerle diğerlerinden çok net ayrılabilmektedir') ve Anolis/Uta'nın boyut açısından biyolojik benzerlik nedeniyle karıştırıldığını açıklar. Bu, yanlış sınıflandırma tartışmasını makul bir biyolojik nedenle kapsar ('habitat' özel olarak değil 'tür' çakışması çerçevesinde ifade edilse de, misclassified_habitat_discussed=false). root_feature_surprise_addressed yanlış — kök özelliği hakkında beklenti/şaşkınlık tartışması yok. Biyolojik akıl yürütme var ve bir boyut (yanlış sınıflandırma) üzerinde sığ-ila-orta derinlik, şaşkınlık boyutu eksik. Üç boyutun kabaca bir buçuğu sağlam biyolojik temelendirmeyle kapsanmış.",
     "student_text": "Duyarlılık grafiği, modelin Sceloporus türünü (mor çizgi) her derinlikte en yüksek tespit oranına (yaklaşık %85) sahip olduğunu göstermektedir. Çünkü bu tür, fiziksel eşitsizliklerle diğerlerinden çok net ayrılabilmektedir. Ancak Anolis ve Uta türleri birbirlerine biyolojik ölçü olarak benzedikleri için model bu iki türü tespit etmekte (yeşil ve kırmızı çizgiler) zorlanmaktadır.",
     "flag": null
   },
@@ -1035,7 +1035,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 2,
-    "justification": "raw_text is null but structured fields are populated: mcr_value_stated=0.2969 matches test_mcr_achieved=0.2969 exactly (within 0.01). best_predicted_class='Sceloporus' and worst_predicted_class='Anolis' are stated. However, no reasoning tied to data properties is present in a raw_text passage (raw_text null), ideal_mcr_threshold_stated is null, and cross_target_mcr_comparison_attempted is false. MCR stated and best/worst class identified, but reasoning/threshold/cross-target comparison largely absent.",
+    "justification": "raw_text boş ama yapılandırılmış alanlar dolu: mcr_value_stated=0.2969, test_mcr_achieved=0.2969 ile tam eşleşiyor (0.01 içinde). best_predicted_class='Sceloporus' ve worst_predicted_class='Anolis' belirtilmiş. Ancak veri özellikleriyle bağlantılı akıl yürütme raw_text pasajında yok (raw_text boş), ideal_mcr_threshold_stated boş, ve cross_target_mcr_comparison_attempted yanlış. MCR belirtildi ve en iyi/en kötü sınıf tanımlandı, ama akıl yürütme/eşik/çapraz hedef karşılaştırması büyük ölçüde eksik.",
     "student_text": null,
     "flag": null
   },
@@ -1048,7 +1048,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 1,
-    "justification": "raw_text present but discusses the pedagogical value of the project (teaching inequalities, statistical literacy) rather than model limitations directly. error_pattern_described=false, alternative_model_named=null, data_improvement_suggested=false, dt_explanation_for_friend=null. No systematic error pattern, no alternative model, no improvement suggestion, no clear lay explanation of decision trees for a friend. Only a generic reflective paragraph with no substantive coverage of the required dimensions.",
+    "justification": "ham_text mevcut ancak projenin pedagojik değerini (eşitsizlikleri öğretme, istatistiksel okuryazarlık) tartışıyor, model sınırlamalarını doğrudan değil. error_pattern_described=false, alternative_model_named=null, data_improvement_suggested=false, dt_explanation_for_friend=null. Sistematik hata deseni yok, alternatif model yok, iyileştirme önerisi yok, arkadaş için açık decision tree açıklaması yok. Yalnızca genel yansıtıcı bir paragraf, gerekli boyutların hiçbiri kapsamlı değil.",
     "student_text": "Bilgisayar destekli matematik öğretimi kapsamında bu proje, öğrencilere \"Büyüktür (>), Küçüktür (<)\" eşitsizliklerinin biyolojik sınıflandırmada nasıl çalıştığını somut olarak göstermektedir. Ayrıca Sensitivity ve MCR grafiklerinin analiz edilmesi, öğrencilere istatistik okuryazarlığı kazandırarak bir algoritmanın ne zaman hata yaptığını veya veriyi ne zaman ezberlediğini grafikler üzerinden okuma becerisi sağlamaktadır.",
     "flag": null
   },
@@ -1061,7 +1061,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 0,
-    "justification": "optimal_depths_compared=false, comparison_reasoning=null. Only one target was attempted, no cross-target comparison possible.",
+    "justification": "optimal_depths_compared=false, comparison_reasoning=null. Yalnızca bir hedef denendi, hedefler arası karşılaştırma yapılamadı.",
     "student_text": "",
     "flag": null
   },
@@ -1074,7 +1074,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 0,
-    "justification": "root_nodes_compared=false, comparison_reasoning=null. No cross-target root node comparison present.",
+    "justification": "root_nodes_compared=false, comparison_reasoning=null. Hedefler arası root node karşılaştırması mevcut değil.",
     "student_text": "",
     "flag": null
   },
@@ -1087,7 +1087,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 1,
-    "justification": "'MCR oranını düşürmek için veri sayısı fazla olan sınıfı daha iyi öğrenmeye çalışırız.' This is a vague, generic statement — it does not name the specific majority/minority classes (Yer/Agac), does not explain the mechanism of why this happens (bias, sensitivity to frequent patterns), and doesn't discuss consequence for the minority class specifically. 1/3.",
+    "justification": "'MCR oranını düşürmek için veri sayısı fazla olan sınıfı daha iyi öğrenmeye çalışırız.' Bu belirsiz, genel bir ifadedir — belirli çoğunluk/azınlık sınıflarını (Yer/Agac) adlandırmaz, bunun neden olduğu mekanizmayı (bias, sık desenlere duyarlılık) açıklamaz ve azınlık sınıfı için sonuçları tartışmaz. 1/3.",
     "student_text": "MCR oranını düşürmek için veri sayısı fazla olan sınıfı daha iyi öğrenmeye çalışırız.",
     "flag": null
   },
@@ -1100,7 +1100,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 1,
-    "justification": "States mass average (12.5) and asserts each species has different average mass because habitats/features differ, but gives no ordering of species (no mention of Sceloporus as largest or Uta as smallest) and reasoning is vague/generic. 1/3.",
+    "justification": "Ortalama kütle (12.5) belirtir ve her türün habitat/özellikleri farklı olduğu için farklı ortalama kütleye sahip olduğunu iddia eder, ancak türlerin sıralaması verilmez (Sceloporus'un en büyük veya Uta'nın en küçük olduğundan bahsedilmez) ve akıl yürütme belirsiz/geneldir. 1/3.",
     "student_text": "Ağırlık ortalaması 12.5 dir. Bence her türün ağırlık ortalaması farklıdır çünkü\ntürlerin yaşam alanları ,özellikleri birbirinden farklılık göstermektedir.",
     "flag": null
   },
@@ -1113,7 +1113,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "All three questions are clearly phrased as predictive/testable questions ('Bu kertenkelenin yaşam alanı ne olabilir?', etc.), each explicitly naming the target and framing a prediction goal. 2/2.",
+    "justification": "Üç soru da öngörücü/test edilebilir sorular olarak açıkça ifade edilmiştir ('Bu kertenkelenin yaşam alanı ne olabilir?', vb.), her biri açıkça hedefi adlandırır ve bir tahmin hedefi çerçevelenir. 2/2.",
     "student_text": "Bu kertenkelenin yaşam alanı ne olabilir? | Bu kertenkelenin türü ne olabilir? | Bu kertenkelenin cinsiyeti ne olabilir?",
     "flag": null
   },
@@ -1126,7 +1126,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 2,
-    "justification": "test_size=0.2 ✓, stratify=True ✓, random_state=42 ✓. All correct.",
+    "justification": "test_size=0.2 ✓, stratify=True ✓, random_state=42 ✓. Tümü doğru.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
     "flag": null
   },
@@ -1139,7 +1139,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "Explains removing stratify=y disrupts proportional distribution, specifically noting tree-dwelling lizards (Agac, the minority class) could all end up in the test set, and that this could cause important changes when preparing the decision tree. Correctly connects to minority-class representation and evaluation consequence. 2/2.",
+    "justification": "stratify=y'nin kaldırılmasının orantılı dağılımı bozduğunu açıklar, özellikle ağaç yaşayan kertenkelerin (Agac, azınlık sınıfı) test seti içinde hepsi olabileceğini belirtir ve bunun decision tree hazırlarken önemli değişikliklere neden olabileceğini söyler. Azınlık sınıfı temsili ve değerlendirme sonucuna doğru şekilde bağlanır. 2/2.",
     "student_text": "stratify=y parametresini kaldırdığım zaman bana yaşam alanları orantılı bir şeklide dağıtmıyor. Buda mesela ağaçda yaşayan kertenkelelerin hepsinin test verisine gitmesine neden olabilir. yaptığım örnekte çok fark olmasada karar ağacımı hazırlarken önemli değişikliklere sebep olabilir.",
     "flag": null
   },
@@ -1152,7 +1152,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "Explains random_state controls how data is split each time (same split for same seed, different split for different seed), and that it must be fixed for reproducibility. Correctly captures the seed/reproducibility mechanism. 1/1.",
+    "justification": "random_state'in verilerin her seferinde nasıl bölündüğünü kontrol ettiğini (aynı seed için aynı bölünme, farklı seed için farklı bölünme) ve tekrarlanabilirlik için sabitlenmesi gerektiğini açıklar. Seed/tekrarlanabilirlik mekanizmasını doğru yakalar. 1/1.",
     "student_text": "random state değerini 7 ve 42 aldığımda mcr değerlerimde değişiklikler meydana geliyor bunun nedeni ise random state veriyi her seferinde aynı yerden bölmemizi sağlar bunu başka sayıda alabiliriz ama her zaman aynı sayıyı kullanmamız gerekir bu sabit bir değişkendir.",
     "flag": null
   },
@@ -1165,7 +1165,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "All three environments (data_cards, CODAP, Python) discussed with distinct, substantive observations: data cards for concrete grouping/splitting logic, CODAP for visualizing variable relationships and ease of use, Python for statistical rigor but coding difficulty. Error detection explicitly addressed (Python shows line/error location). Deepest understanding (CODAP, due to graphical feedback) and biggest struggle (Python, due to library/coding complexity) both clearly stated. Slightly loses a point because some reflections (e.g. 'for loop' comment) are terse and underdeveloped. 4/5.",
+    "justification": "Üç ortam (data_cards, CODAP, Python) belirgin, uygun gözlemlerle tartışılır: data cards somut gruplama/bölme mantığı için, CODAP değişken ilişkilerini görselleştirmek ve kullanım kolaylığı için, Python istatistiksel titizlik ancak kodlama zorluğu için. Hata tespiti açıkça ele alınır (Python satır/hata konumu gösterir). En derin anlama (CODAP, grafik geri bildirimi nedeniyle) ve en büyük zorluk (Python, kütüphane/kodlama karmaşıklığı nedeniyle) açıkça belirtilir. Bazı yansıtmalar (örn. 'for loop' yorumu) kısa ve yetersiz geliştirilmiş olduğu için bir puan kaybeder. 4/5.",
     "student_text": "Evet her ortam düşünme becerime farklı bir boyut kalktı. Data kartları karar ağaçlarının arkasındaki mantığı, verileri fiziksel olarak gruplamayı ve bölünme kriterlerini somut olarak anlamamı sağladı. CODAP ise büyük veri setlerinde değişkenler arasındaki ilişkileri  görmemi ve model kurma deneyimi edinmemi sağladı.Python ise işin içine matematik sokarak, büyük ölçekli verilerde insan hatasından arınmış, tamamen istatistiksel ve bilimsel modeller kurma gücü kattı.\n\nCODAP ortamında daha iyi anladım. Çünkü yaptığım her hamlede verinin grafik üzerinde nasıl değiştiğini inceleyebildik\n\nKullanım kolaylığı açısından CODAP ortamı en kolayıydı çünkü kod yazma baskısı veya kod hatası alma korkusu olmadan sadece veriye odaklanabiliyordum ama bu kolaylık konuyu tamamen anladığımı değil, aracın arayüzüne hızlıca alıştığımı gösteriyordu.\n\nEn çok Python ortamında zorlandım. Bu zorluk karar ağacı kavramının görünmez olmasından değil, tamamen aracın kendisinden kaynaklanıyordu. Çünkü kodlama,  kütüphane entegrasyonları, ağaç çizimi için yazdığım kodlar bunlar karmaşık ve alışılması zordu.\n\nPython ortamında fark ettim. Çünkü Python bir hata yapıldığında kodun hangi satırda durduğunu ve hatanın ne olduğunu söylüyordu.\n\nPython'daki for döngüsü olabilir.\n\nBence data kartları çünkü somut nesnelerle öğrenmek çok daha kolay ve eğlenceliydi.",
     "flag": null
   },
@@ -1178,7 +1178,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Addresses surprise (expected a physical measurement but got species as root), gives biological reasoning (leg length/mass relevant for climbing in tree-dwelling lizards), discusses misclassified habitat (Yer and Kaya confused due to similar habitats/biological similarity), and connects prior prediction (mass) to what model actually found. All three dimensions fully present. 5/5.",
+    "justification": "Şaşkınlığı ele alır (fiziksel ölçüm bekledim ama türü root olarak buldum), biyolojik akıl yürütme verir (ağaç yaşayan kertenkelerde tırmanış için bacak uzunluğu/kütlesi ilgilidir), yanlış sınıflandırılan habitat tartışır (Yer ve Kaya benzer habitatlar/biyolojik benzerlik nedeniyle karıştırılır) ve önceki tahmin (kütlesi) modelin gerçekte ne bulduğuyla bağlantı kurar. Üç boyut da tamamen mevcuttur. 5/5.",
     "student_text": "Yasam alanı tahmininde modelin kök düğüm olarak tür değişkenini seçmesi başlangıçta şaşırttı çünkü ben ilk olarak fiziksel bir ölçüm bekliyordum. Ancak biyolojik açıdan düşününce bu seçim kesinlikle çok mantıklıymış.\n\nBeklerdim çünkü ağaçta yaşayan kertenkelelerin dallara tutunabilmesi ve tırmanış yapabilmek için bacak boylarının ve kütlelerinin yerde yaşayanlara göre daha farklı olması gerekir. Ağacda da zaten dalların birinde bacak uzunluğuna göre ağaç yaşam alanı sınıfına yerleştiriyor.\n\nGenellikle yer ve kaya türlerinde çünkü yaşam alanları birbirine benzer olduğundan dolayı biyolojik olarak da biribirine benziyorlar.\n\nKütle diye tahmin etmiştim ama modelim yaşam alanı seçti uyuşmadı ama sonradan düşününce yaşam alanı daha mantıklıymış.",
     "flag": null
   },
@@ -1191,7 +1191,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "Identifies best (Kaya, Ağaç) and worst (Yer) predicted classes with a reason (class imbalance and morphological similarity). Cross-target comparison attempted (Tur has lower MCR because species boundaries are sharper in the data). However, mcr_value_stated is null — no explicit numeric MCR value is given in the text (only implied 'düşürmem gereklidir'), and no numeric threshold for an 'ideal' MCR is proposed. Missing MCR value and threshold — two of four dimensions absent. 3/5.",
+    "justification": "En iyi (Kaya, Ağaç) ve en kötü (Yer) tahmin edilen sınıfları bir nedenle tanımlar (sınıf dengesizliği ve morfolojik benzerlik). Hedefler arası karşılaştırma denenir (Tur, türler arası sınırlar veride daha keskin olduğu için düşük MCR'ye sahiptir). Ancak mcr_value_stated null — metinde açık sayısal MCR değeri verilmez (yalnızca ima edilen 'düşürmem gereklidir') ve 'ideal' MCR için sayısal eşik önerilmez. Eksik MCR değeri ve eşik — dört boyutun ikisi yok. 3/5.",
     "student_text": "En iyi tahmin edilen sınıf Kaya ve Ağaç olurken, en kötü tahmin edilen  sınıf Yer sınıfı olmuştur. Bunun açıklaması sınıf dengesizliği ve morfolojik benzerlik olabilir.\n\nBulduğum değer güzzel ama daha hatasız ve daha iyi sonuç elde edebilecek bir karar ağacı yapmak istiyorsam bunu daha da düşürmem gereklidir.\n\nEvet değişti ve kodlarımızda da bunu gördük. Örneğin hedef değişkeni Tur yaptığımızda test MCR değeri çok daha düşük çıktı çünkü kertenkelelerin tür özellikleri veride çok daha keskin sınırlara sahipti.\n\nModelin başarısız olduğu durumlar bize, kertenkeleleri sadece fiziksel ölçümlerine bakarak yaşam alanlarına ayırmanın yetersiz kalabileceğini söylüyor.",
     "flag": null
   },
@@ -1204,7 +1204,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "Identifies systematic (non-random) error pattern ('belirli bir matematiksel örüntüye sahiptir'), suggests data improvement (add biological features like diet, climate), and provides a lay explanation of decision trees including the overfitting limitation. However, alternative_model_named is null — student says only 'Karar ağacından başka modele bakmam' without naming a specific alternative model or reason. Three of four dimensions present (error pattern, data improvement, lay explanation); missing named alternative. 3/5.",
+    "justification": "Sistematik (rastgele olmayan) hata deseni tanımlar ('belirli bir matematiksel örüntüye sahiptir'), veri iyileştirmesi önerir (diyet, iklim gibi biyolojik özellikler ekle) ve decision trees için aşırı uyum sınırlaması da dahil olmak üzere katman açıklaması verir. Ancak alternative_model_named null — öğrenci yalnızca 'Karar ağacından başka modele bakmam' der, belirli alternatif bir model veya neden adlandırmaz. Üç boyut mevcuttur (hata deseni, veri iyileştirmesi, katman açıklaması); adlandırılmış alternatif eksik. 3/5.",
     "student_text": "-Hatalar rastgele değildir belirli bir matematiksel örüntüye sahiptir.\n\n-Veri setine biyolojik özellikler eklenebilir mesela beslenme türü veya yaşadıkları bölgenin iklimi gibi sadece fiziksel özelliklerden çıkarak daha geniş bir açıdan bakabiliriz.\n\n- Karar ağacından başka modele bakmam.\n\n-Karar ağacı verileri anlamlandırmaya, gruplandırmaya, en önemli değişkenleri keşfetmeye ve anlaşılır kurallar üretmeye yarar. Ancak veriyi öğrenmek yerine ezberlemeye geçerse yani overfitting yapmaya başlarsa işe yaramaz.",
     "flag": null
   },
@@ -1217,7 +1217,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 3,
-    "justification": "Explains that optimal depths differ across targets because the relationship between features and each target differs — Tur is easier to predict from physical measurements (clearer/sharper boundaries), while Cinsiyet and YasamAlani require more complex rules. This is a partial data-driven reason but does not cite specific MCR values or specific depth numbers per target. 3/4.",
+    "justification": "Optimal derinliklerin hedefler arasında farklı olduğunu açıklar çünkü özellikler ile her hedef arasındaki ilişki farklıdır — Tur fiziksel ölçümlerden tahmin edilmesi daha kolaydır (daha net/keskin sınırlar), Cinsiyet ve YasamAlani ise daha karmaşık kurallar gerektirir. Bu kısmi veri odaklı bir neden ancak hedef başına spesifik MCR değerleri veya spesifik derinlik numaralarını alıntılamaz. 3/4.",
     "student_text": "Hayır, her hedef değişken için optimum derinlik seviyeleri farklılık göstermiştir.Çünkü kertenkelelerin özellikleriyle sorduğumuz sorular arasındaki ilişki farklıdır. Örneğin, kertenkelenin Türünü tahmin etmek fiziksel ölçümlerle çok daha kolay ve netken, Cinsiyetini veya yaşam alanını bulmak daha karmaşık kurallar gerektirir. Bu yüzden her sorunun en başarılı olduğu derinlik seviyesi verinin kendi doğasına göre değişir.(diğer karar ağaçlarına baktıktan sonra cevapladım)",
     "flag": null
   },
@@ -1230,7 +1230,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 3,
-    "justification": "States root nodes changed completely across targets because each tree used the most informative/discriminative feature for its target ('her ağaç en bilgi verici ve en ayırt edici özelliği kullanmıştır'). This is a data-driven/statistical explanation but stops short of a deeper biological interpretation tying specific features (e.g., Tur_Sceloporus for habitat) to biological mechanism across multiple targets. 3/4.",
+    "justification": "Root nodların hedefler arasında tamamen değiştiğini açıklar çünkü her ağaç hedefi için en bilgilendirici/ayırt edici özelliği kullanmıştır ('her ağaç en bilgi verici ve en ayırt edici özelliği kullanmıştır'). Bu veri odaklı/istatistiksel bir açıklamadır ancak belirli özellikleri (örn., Tur_Sceloporus habitat için) biyolojik mekanizmaya hedefler arasında bağlayan daha derin biyolojik yoruma varmaz. 3/4.",
     "student_text": "Hayır, her hedef değişken için optimum derinlik seviyeleri farklılık göstermiştir.Çünkü kertenkelelerin özellikleriyle sorduğumuz sorular arasındaki ilişki farklıdır. Örneğin, kertenkelenin Türünü tahmin etmek fiziksel ölçümlerle çok daha kolay ve netken, Cinsiyetini veya yaşam alanını bulmak daha karmaşık kurallar gerektirir. Bu yüzden her sorunun en başarılı olduğu derinlik seviyesi verinin kendi doğasına göre değişir.(diğer karar ağaçlarına baktıktan sonra cevapladım)",
     "flag": null
   },
@@ -1243,7 +1243,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 2,
-    "justification": "Correctly states the model will learn the Yer class better and Ağaç less well due to class imbalance — correct direction with brief explanation, but lacks deeper model-level mechanism (e.g. bias, decision boundary favoring majority). 2/3.",
+    "justification": "Model Yer sınıfını daha iyi ve Ağaç'ı daha az iyi öğreneceğini sınıf dengesizliği nedeniyle doğru şekilde belirtir — doğru yön kısa açıklama ile, ancak daha derin model düzeyi mekanizması (örn. bias, çoğunluğu tercih eden karar sınırı) eksik. 2/3.",
     "student_text": "Sınıf dağılımı dengeli değildir.\n Bu durum modelin Yer sınıfını daha iyi öğrenmesine ve ağaç sınıfını daha az öğrenmesine neden olabilir.",
     "flag": null
   },
@@ -1256,7 +1256,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 3,
-    "justification": "States mass differs across the three species and gives a morphological reason (body length and mass vary), consistent with correct biological reasoning. While it doesn't explicitly name Sceloporus as largest/Uta as smallest, it correctly attributes species-level variation to morphological differences. Full credit for correct ordering-consistent framing plus biological reasoning is generous but text does affirm species differ due to size features. 3/3.",
+    "justification": "Kütlenin üç tür arasında farklı olduğunu ve buna morfolojik bir neden (vücut uzunluğu ve kütlesi değişir) verir, doğru biyolojik akıl yürütme ile tutarlıdır. Sceloporus'u en büyük/Uta'yı en küçük olarak açıkça adlandırmasa da, türler morfolojik farklar nedeniyle farklılaştığını doğru şekilde ileri sürer. Doğru sıralamayla tutarlı çerçeveleme artı biyolojik akıl yürütme için tam kredi cömerttir ancak metin türlerin boyut özellikleri nedeniyle farklılaştığını onaylar. 3/3.",
     "student_text": "Kedilerin ortalama ağırlığı yaklaşık 12.50 gramdır. Evet, üç tür için de birbirinden farklıdır çünkü gövde uzunlukları ve kütleleri birbirinden farklıdır.",
     "flag": null
   },
@@ -1269,7 +1269,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "All formulated_question fields null. Cannot evaluate quality. 0/2.",
+    "justification": "Tüm formulated_question alanları null. Kalite değerlendirilemiyor. 0/2.",
     "student_text": "(no research questions written)",
     "flag": null
   },
@@ -1282,7 +1282,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 2,
-    "justification": "test_size=0.2, stratify_used=true, random_state=42 — all correct. 2/2.",
+    "justification": "test_size=0.2, stratify_used=true, random_state=42 — tümü doğru. 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
     "flag": null
   },
@@ -1295,7 +1295,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "Explains that removing stratify=y disrupts class proportions and that some classes may be underrepresented in train/test sets — correctly identifies the mechanism and consequence. 2/2.",
+    "justification": "stratify=y'nin kaldırılmasının sınıf oranlarını bozduğunu ve bazı sınıfların train/test setlerinde az temsil edilebileceğini açıklar — mekanizmayı ve sonucu doğru tanımlar. 2/2.",
     "student_text": "stratify=y kaldırılırsa sınıf oranları korunmaz.\n Bazı sınıflar eğitim veya test kümesinde az temsil edilebilir.",
     "flag": null
   },
@@ -1308,7 +1308,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "Correctly explains that changing random_state changes which observations fall into train/test, thus changing accuracy/MCR values — captures the seed mechanism. 1/1.",
+    "justification": "random_state değiştirmenin train/test setinde hangi gözlemlerin yer alacağını değiştirdiğini ve böylece accuracy/MCR değerlerini değiştirdiğini doğru şekilde açıklıyor — seed mekanizmasını yakalar. 1/1.",
     "student_text": "random_state değeri değişirse eğitim ve test kümelerine düşen gözlemler değişir.\n Bu nedenle doğruluk ve MCR değerleri de değişebilir.",
     "flag": null
   },
@@ -1321,7 +1321,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "All three environments (data cards, CODAP, Python) discussed with distinct, substantive observations: data cards for logic, CODAP for visual tree formation, Python for coding/analyzing performance across depths. Error detection explicitly addressed (Python error messages helped identify mistakes). Deepest understanding attributed to CODAP with reasoning (visual tracking of splits). One dimension (data cards) is slightly less developed than the other two. 4/5.",
+    "justification": "Üç ortamın tamamı (data cards, CODAP, Python) tartışılmış, her biri için belirgin ve özlü gözlemler sunulmuş: data cards mantık için, CODAP görsel ağaç oluşturması için, Python kodlama/derinliğe göre performans analizi için. Hata tespiti açıkça ele alınmış (Python hata mesajları hataları tanımlamada yardımcı oldu). En derin anlayış CODAP'a atfedilmiş ve gerekçelendirilmiş (bölünmelerin görsel izlenmesi). Bir boyut (data cards) diğer ikisinden biraz daha az gelişmiş. 4/5.",
     "student_text": "Evet, kullanılan her araç hem akademik hem de uygulamalı öğrenme sürecime farklı açılardan katkı sağlamıştır. Data kartları karar ağacının mantığını anlamama yardımcı oldu. CODAP, ağacın görsel olarak nasıl oluştuğunu daha iyi görmemi sağladı. Python ise modeli kodlayarak performansını ölçmeyi, farklı derinlikleri karşılaştırmayı ve sonuçları analiz etmeyi öğretti.\n\n Modelin ne yaptığını en iyi CODAP ortamında anladım. Çünkü karar ağacının nasıl oluştuğunu ve her bölünmenin nasıl yapıldığını görsel olarak takip etmek daha kolaydı. Bu sayede modelin karar verme sürecini daha iyi kavradım.\n\n Bana en kolay gelen ortam CODAP oldu. Görsel olduğu için karar ağacını takip etmek daha kolaydı. Bu kolaylığın hem konuyu anlamamdan hem de CODAP'a alışmış olmamdan kaynaklandığını düşünüyorum.\n\n En çok Python ortamında zorlandım. Bunun nedeni karar ağacı mantığından çok kod yazma ve hata düzeltme süreciydi. Kod doğru çalıştığında modeli anlamak kolaylaştı, ancak başlangıçta teknik kısımlar daha fazla zorladı.\n\n Yaptığım hataları en kolay Python ortamında fark ettim. Çünkü hata mesajları yanlış yaptığım kısmı gösteriyordu. Böylece hatayı bulup düzeltmem daha kolay oldu.\n\n Evet. Python ortamında farklı derinlikleri deneyip modelin başarısını grafiklerle karşılaştırabildim. Bunu data kartlarıyla veya CODAP'ta aynı ayrıntıda yapmak mümkün değildi.\n\n Evet. Üç ortamın da farklı avantajları vardı. Data kartları mantığı anlamamı, CODAP görselleştirmeyi, Python ise modeli analiz etmeyi sağladı. Bu nedenle hiçbirinin tek başına diğerinin yerini tamamen tutamayacağını düşünüyorum.",
     "flag": null
   },
@@ -1334,7 +1334,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Biological explanation of root feature provided (Tur_Sceloporus tied to species-specific habitat preference). Expectation addressed explicitly: student expected Kutle but model chose Tur_Sceloporus, and student states this was not surprising given biological logic — clear engagement with both surprise and expectation dimensions. Misclassified habitats (Ağaç, Kaya) discussed with a plausible biological reason (fewer samples, physical similarity between habitats making them harder to distinguish). All three dimensions fully present. 5/5.",
+    "justification": "Kök özelliğinin biyolojik açıklaması sağlanmış (Tur_Sceloporus türe özgü habitat tercihine bağlı). Beklenti açıkça ele alınmış: öğrenci Kutle'yi bekliyordu fakat model Tur_Sceloporus seçti ve öğrenci bunun biyolojik mantık göz önüne alındığında şaşırtıcı olmadığını ifade etmiş — hem şaşkınlık hem de beklenti boyutlarıyla açık bir ilgi. Yanlış sınıflandırılan habitatlar (Ağaç, Kaya) plausible bir biyolojik nedenle tartışılmış (daha az örnek, habitatlar arasındaki fiziksel benzerlik ayırım zorluğuna neden oluyor). Üç boyutun tamamı mevcut. 5/5.",
     "student_text": "Hayır, şaşırtmadı. Modelin kök düğümde Tur_Sceloporus değişkenini seçmesi biyolojik açıdan mantıklıdır. Çünkü bazı kedi türleri belirli yaşam alanlarında daha sık görülmektedir ve bu değişken yaşam ortamını ayırt etmede önemli bilgi sağlamaktadır.\n\n Evet, beklerdim. Ağaçta yaşayan kedilerin yaşam ortamına uyum sağlamak için fiziksel özelliklerinin farklı olması normaldir. Model de bu farklılıkları büyük ölçüde yakalayarak yaşam ortamını tahmin edebilmiştir.\n\nYanlış sınıflandırılan bireyler daha çok Ağaç ve Kaya yaşam alanlarına aittir. Çünkü bu sınıflardaki birey sayısı Yer sınıfına göre daha azdır.\n\nBiyolojik olarak da bu durum mantıklıdır. Bazı kedilerin fiziksel özellikleri birbirine benzediği için model, özellikle Kaya ve Ağaç yaşam alanlarını ayırmakta zorlanmış olabilir.\n\n Veriyi ilk gördüğümde Kütle değişkeninin en belirleyici olacağını düşünmüştüm. Model ise Tur_Sceloporus değişkenini kök düğüm olarak seçti. Bu nedenle tahminim modelin bulgusuyla tam olarak örtüşmedi.",
     "flag": null
   },
@@ -1347,7 +1347,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "States MCR=0.3125 which matches test_mcr_achieved for YasamAlani exactly. Identifies best predicted class (Yer) and worst (Ağaç) with data-driven reasoning (fewer samples, physical similarity to other habitats). Proposes numeric threshold ('as close to 0 as possible'). Cross-target comparison attempted, referencing that Tur and Cinsiyet MCR values differ from YasamAlani due to differing variable relationships. All four dimensions present. 5/5.",
+    "justification": "MCR=0.3125 ifade edilmiş ve bu YasamAlani için test_mcr_achieved ile tam uyuş gösteriyor. En iyi tahmin edilen sınıf (Yer) ve en kötü (Ağaç) veri odaklı gerekçeyle tanımlanmış (daha az örnek, fiziksel benzerlik diğer habitatlara). Sayısal eşik önerilmiş ('sıfıra mümkün olduğunca yakın'). Hedefler arası karşılaştırma denenmiş, Tur ve Cinsiyet MCR değerlerinin YasamAlani'nden farklı olmasının değişken ilişkilerinin farkından kaynaklandığını referans etmiş. Dört boyutun tamamı mevcut. 5/5.",
     "student_text": "Optimum derinlikte elde ettiğim MCR değeri yaklaşık 0.3125 oldu. Model en iyi Yer sınıfını tahmin etti. En fazla hata ise Ağaç sınıfında görüldü. Bunun nedeni, Ağaç sınıfındaki örnek sayısının daha az olması ve fiziksel özelliklerinin diğer yaşam alanlarıyla benzerlik göstermesidir.\n\n MCR değerim beni genel olarak tatmin etti. 0.3125 değeri modelin çoğu tahmini doğru yaptığını göstermektedir. Bence iyi bir modelde MCR değerinin mümkün olduğunca 0'a yakın olması beklenir. Bu, modelin daha az hata yaptığını gösterir.\n\n Evet, değişirdi. Çünkü her hedef değişkenin tahmin edilme zorluğu farklıdır. Nitekim bu çalışmada Tür ve Cinsiyet için elde edilen MCR değerleri de yaşam ortamından farklı çıkmıştır. Bu durum, değişkenlerin veriyle olan ilişkisinin farklı olmasından kaynaklanmaktadır.\n\n Modelin başarısız olduğu durumlar, bazı yaşam alanlarının fiziksel özelliklerinin birbirine benzediğini göstermektedir. Bu nedenle model bazı bireyleri doğru sınıflandırmakta zorlanmıştır.",
     "flag": null
   },
@@ -1360,7 +1360,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "Systematic error pattern described (errors concentrated among physically similar lizards, not random). Data improvement suggested (more data, more physical features, class balancing). States alternative models could perform differently but does not name a specific model (e.g., random forest, SVM) — alternative_model_named is null. Lay explanation of decision trees provided, including the limitation that it can err with complex/similar data, but does not explicitly name 'overfitting' in the friend explanation itself. Three of four dimensions present (error pattern + improvement + lay explanation), missing named alternative model. 3/5.",
+    "justification": "Sistematik hata deseni tanımlanmış (hatalar rastgele değil, fiziksel olarak benzer kertenkelelerde yoğunlaşmış). Veri iyileştirmesi önerilmiş (daha fazla veri, daha fazla fiziksel özellik, sınıf dengeleme). Alternatif modeller farklı performans gösterebileceğini belirtmiş fakat spesifik bir model (örn. random forest, SVM) adlandırmamış — alternative_model_named boş. decision tree'nin lay açıklaması sağlanmış, karmaşık/benzer verilerle yanlış yapabilme sınırlaması da dahil olmak üzere, fakat arkadaş açıklamasında kendisi 'overfitting' adını açıkça adlandırmamış. Dört boyuttan üçü mevcut (hata deseni + iyileştirme + lay açıklama), adlandırılmış alternatif model eksik. 3/5.",
     "student_text": "Modelin yaptığı hatalar tamamen rastgele görünmüyor. Hatalar daha çok fiziksel özellikleri birbirine benzeyen kedilerde ortaya çıkmıştır.\n\n Modelin daha iyi sonuç vermesi için veri sayısı artırılabilir ve daha fazla fiziksel özellik eklenebilir. Ayrıca sınıflar arasındaki veri dengesinin sağlanması modelin doğruluğunu artırabilir.\n\n Evet, değişebilirdi. Çünkü farklı makine öğrenmesi modelleri veriyi farklı şekillerde öğrenir. Bazı modeller bu veri üzerinde karar ağacına göre daha yüksek doğruluk sağlayabilir.\n\n Karar ağacı, verileri belirli kurallara göre sınıflandıran bir makine öğrenmesi yöntemidir. Verileri anlamayı ve tahmin yapmayı kolaylaştırır. Ancak veri çok karmaşık olduğunda veya benzer özellikler bulunduğunda hata yapabilir.",
     "flag": null
   },
@@ -1373,7 +1373,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 3,
-    "justification": "Explains that habitat and species require fewer rules while gender required more depth/detail, with reasoning tied to the differing structure of each target's data. Does reference the outcome that Cinsiyet needed a deeper tree for best results. However, does not cite specific MCR values or depth numbers within the reasoning text itself (though the mcr_values_compared array is populated). Reasoning is a partial-to-moderate explanation of why depths differ. 3/4.",
+    "justification": "Habitat ve türün daha az kural gerektirdiğini, cinsiyetin ise daha fazla derinlik/detay gerektirdiğini, her hedefin verilerinin farklı yapısıyla bağlantılı gerekçeyle açıklıyor. Cinsiyet'in en iyi sonuçlar için daha derin bir ağaç gerektirdiği sonucunu referans etmiş. Ancak, gerekçe metni içinde spesifik MCR değerleri veya derinlik numaralarını alıntı etmemiş (mcr_values_compared dizisi doldurulmuş olsa da). Gerekçe derinliklerin neden farklı olduğunun kısmi-orta ölçüde açıklaması. 3/4.",
     "student_text": "Bu farklılığın nedeni, her hedef değişkenin veri içindeki yapısının farklı olmasıdır. Yaşam ortamı ve tür değişkenleri daha az sayıda kural ile açıklanabilirken, cinsiyeti doğru tahmin edebilmek için daha fazla ayrıntıya ihtiyaç duyulmuştur. Bu nedenle cinsiyet modeli daha derin bir ağaçla en iyi sonucu vermiştir.",
     "flag": null
   },
@@ -1386,7 +1386,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 2,
-    "justification": "root_nodes_compared=true and step5 responses confirm root changes across targets (Tur_Sceloporus, Kutle, ToplamUzunluk) with the general statement that 'the most important feature for each target differs.' The comparison_reasoning field itself, however, focuses on depth/rule complexity rather than root node biological/statistical interpretation. The root node comparison is noted (via q_root_changed_across_targets in step5) but the dedicated cross-target reasoning does not provide biological interpretation for root differences. 2/4.",
+    "justification": "root_nodes_compared=true ve step5 yanıtları hedefler arasında kök değişimleri onaylıyor (Tur_Sceloporus, Kutle, ToplamUzunluk) 'her hedef için en önemli özellik farklıdır' genel ifadesiyle. Fakat dedicated cross-target gerekçesi derinlik/kural karmaşıklığına odaklanmış ve kök düğüm biyolojik/istatistiksel yorumlamadan yoksun. Kök düğüm karşılaştırması not edilmiş (step5'te q_root_changed_across_targets aracılığıyla) fakat hedefler arası gerekçeler kök farklılıkları için biyolojik yorum sağlamıyor. 2/4.",
     "student_text": "Bu farklılığın nedeni, her hedef değişkenin veri içindeki yapısının farklı olmasıdır. Yaşam ortamı ve tür değişkenleri daha az sayıda kural ile açıklanabilirken, cinsiyeti doğru tahmin edebilmek için daha fazla ayrıntıya ihtiyaç duyulmuştur. Bu nedenle cinsiyet modeli daha derin bir ağaçla en iyi sonucu vermiştir.",
     "flag": null
   },
@@ -1399,7 +1399,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 3,
-    "justification": "Explains that the majority class (Yer) is learned more easily by the model, minority class (Agac) is harder to predict due to fewer examples, and connects this to lower accuracy for underrepresented classes. Correct direction with model-level reasoning (learning ease tied to sample count). 3/3.",
+    "justification": "Çoğunluk sınıfının (Yer) model tarafından daha kolay öğrenildiğini, azınlık sınıfının (Agac) daha az örnek nedeniyle tahmin edilmesinin daha zor olduğunu açıklıyor ve bunu az temsil edilen sınıflar için düşük doğruluğa bağlıyor. Doğru yön, model düzeyinde gerekçe (öğrenme kolaylığı örnek sayısıyla bağlantılı). 3/3.",
     "student_text": "Yer sınıfı çok daha fazla örneğe sahip olduğu için model onu daha kolay öğrenir. Agac sınıfı az örnek ile temsil edildiği için model onu daha zor tahmin edebilir. Bu dengesizlik bazı sınıflarda daha düşük doğruluk anlamına gelebilir.",
     "flag": null
   },
@@ -1412,7 +1412,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 3,
-    "justification": "Correctly identifies Sceloporus as heaviest/largest and Uta as lightest, with a biological/morphological reasoning (physical structure and habitat of each species). Ordering and explanation both present. 3/3.",
+    "justification": "Sceloporus'u en ağır/en büyük, Uta'yı en hafif olarak doğru şekilde tanımlıyor, biyolojik/morfolojik gerekçeyle (her türün fiziksel yapısı ve habitatı). Sıralama ve açıklama her ikisi de mevcut. 3/3.",
     "student_text": "Sceloporus türü diğerlerine göre daha ağır ve büyük. Uta en hafif tür. Bu fark büyük olasılıkla her türün fiziksel yapısından ve yaşam alanından kaynaklanıyor.",
     "flag": null
   },
@@ -1425,7 +1425,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 1,
-    "justification": "All three questions are framed as classification questions ('Bu kertenkelenin ... nedir?'), mentioning the target variable, but they are minimal restatements without additional framing of a predictive/testable goal (e.g., no mention of what features would be used to predict). Vague/formulaic phrasing across all three. 1/2.",
+    "justification": "Üç soru da sınıflandırma sorusu olarak formüle edilmiş ('Bu kertenkelenin ... nedir?'), hedef değişkeninden bahsediyor, fakat tahmin edilebilir/test edilebilir bir hedefin ek çerçevelenmesi olmadan minimal yeniden ifade — (örn. hedefi tahmin etmek için hangi özelliklerin kullanılacağı konusunda bahis yok). Üçünün tamamında muğlak/formülaik ifade. 1/2.",
     "student_text": "Bu kertenkelenin yaşam alanı nedir? | Bu kertenkelenin türü nedir? | Bu kertenkelenin cinsiyeti nedir?",
     "flag": null
   },
@@ -1438,7 +1438,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 2,
-    "justification": "test_size=0.2, stratify_used=True, random_state=42 — all correct.",
+    "justification": "test_size=0.2, stratify_used=True, random_state=42 — hepsi doğru.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
     "flag": null
   },
@@ -1451,7 +1451,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "'stratify olmadan sınıf dağılımı bozulabilir. Egitim setinde bazı sınıflar çok az temsil edilebilir.' — Explains that class distribution balance is disrupted and minority classes may be underrepresented, connecting to evaluation consequences. 2/2.",
+    "justification": "'stratify olmadan sınıf dağılımı bozulabilir. Eğitim setinde bazı sınıflar çok az temsil edilebilir.' — Sınıf dağılımı dengesinin bozulacağını ve azınlık sınıflarının az temsil edileceğini, değerlendirme sonuçlarıyla bağlantılı olarak açıklıyor. 2/2.",
     "student_text": "stratify olmadan sınıf dağılımı bozulabilir. Egitim setinde bazı sınıflar çok az temsil edilebilir.",
     "flag": null
   },
@@ -1464,7 +1464,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "'random_state değiştirince sonuçlar biraz farklı çıkıyor ama model temelinden değişmiyor. Sadece hangi örneklerin test setine düştüğü değişiyor.' — Correctly explains random_state controls the split seed, producing different but structurally consistent results. 1/1.",
+    "justification": "'random_state değiştirince sonuçlar biraz farklı çıkıyor ama model temelinden değişmiyor. Sadece hangi örneklerin test setine düştüğü değişiyor.' — random_state'in bölünme seed'ini kontrol ettiğini, farklı fakat yapısal olarak tutarlı sonuçlar ürettiğini doğru şekilde açıklıyor. 1/1.",
     "student_text": "random_state değiştirince sonuçlar biraz farklı çıkıyor ama model temelinden değişmiyor. Sadece hangi örneklerin test setine düştüğü değişiyor.",
     "flag": null
   },
@@ -1477,7 +1477,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 0,
-    "justification": "raw_text is null. No reflection provided. 0/5.",
+    "justification": "raw_text boş. Yansıtma sağlanmamış. 0/5.",
     "student_text": null,
     "flag": null
   },
@@ -1490,7 +1490,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 0,
-    "justification": "raw_text is null. 0/5.",
+    "justification": "raw_text boş. 0/5.",
     "student_text": null,
     "flag": null
   },
@@ -1503,7 +1503,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 0,
-    "justification": "raw_text is null. 0/5.",
+    "justification": "raw_text boş. 0/5.",
     "student_text": null,
     "flag": null
   },
@@ -1516,7 +1516,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 0,
-    "justification": "raw_text is null. 0/5.",
+    "justification": "raw_text boş. 0/5.",
     "student_text": null,
     "flag": null
   },
@@ -1529,7 +1529,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 0,
-    "justification": "optimal_depths_compared=False, comparison_reasoning is null. No cross-target depth comparison provided. 0/4.",
+    "justification": "optimal_depths_compared=False, comparison_reasoning boş. Hedefler arası derinlik karşılaştırması sağlanmamış. 0/4.",
     "student_text": "",
     "flag": null
   },
@@ -1542,7 +1542,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 0,
-    "justification": "root_nodes_compared=False, comparison_reasoning is null. No root node comparison provided. 0/4.",
+    "justification": "root_nodes_compared=False, comparison_reasoning boş. Kök düğüm karşılaştırması sağlanmamış. 0/4.",
     "student_text": "",
     "flag": null
   },
@@ -1555,7 +1555,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 2,
-    "justification": "Student states the class distribution is imbalanced and that this may cause the model to learn Yer better and Ağaç less well — correct direction and mentions model-level learning asymmetry (not just 'more data is better'). However, no mechanism (bias, sensitivity, class weight) is elaborated beyond the basic statement. 2/3.",
+    "justification": "Öğrenci sınıf dağılımının dengesiz olduğunu ve bunun modelin Yer'i daha iyi ve Ağaç'ı daha kötü öğrenmesine neden olabileceğini ifade ediyor — doğru yön ve model düzeyinde öğrenme asimetrisinden bahsediyor (sadece 'daha fazla veri daha iyidir' değil). Ancak, mekanizma (bias, sensitivity, class weight) basit ifade dışında detaylandırılmamış. 2/3.",
     "student_text": "Sınıf dağılımı dengeli değildir.\n Bu durum modelin Yer sınıfını daha iyi öğrenmesine ve ağaç sınıfını daha az öğrenmesine neden olabilir.",
     "flag": null
   },
@@ -1568,7 +1568,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 2,
-    "justification": "States mass differs across the three species and attributes it to differences in body length and mass (gövde uzunlukları ve kütleleri) — a data/morphological reasoning. However, does not explicitly order Sceloporus as heaviest and Uta as lightest. 2/3.",
+    "justification": "Üç tür arasında kütlenin farklı olduğunu ve bunu gövde uzunluğu ve kütledeki farklılıklara atfediyor (gövde uzunlukları ve kütleleri) — veri/morfolojik akıl yürütme. Ancak Sceloporus'u açıkça en ağır, Uta'yı en hafif olarak sıralamıyor. 2/3.",
     "student_text": "Kertenkelelerin ortalama ağırlığı yaklaşık 12.50 gramdır. Evet, üç tür için de birbirinden farklıdır çünkü gövde uzunlukları ve kütleleri birbirinden farklıdır.",
     "flag": null
   },
@@ -1581,7 +1581,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "All formulated_question fields null. Cannot evaluate quality. 0/2.",
+    "justification": "Tüm formulated_question alanları boş. Kalite değerlendirilemez. 0/2.",
     "student_text": "(no research questions written)",
     "flag": null
   },
@@ -1594,7 +1594,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 2,
-    "justification": "test_size=0.2 ✓, stratify=True ✓, random_state=42 ✓. Parameters not varied across models (consistent). 2/2.",
+    "justification": "test_size=0.2 ✓, stratify=True ✓, random_state=42 ✓. Parametreler modeller arasında değiştirilmiyor (tutarlı). 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
     "flag": null
   },
@@ -1607,7 +1607,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "Explains that removing stratify=y means class proportions are not preserved, and some classes may be underrepresented in train or test sets — directly addresses class-distribution consequence. 2/2.",
+    "justification": "stratify=y'yi kaldırmanın sınıf oranlarının korunmadığı ve bazı sınıfların train veya test setlerinde az temsil edilebileceği anlamına geldiğini açıklıyor — sınıf dağılımı sonucunu doğrudan ele alıyor. 2/2.",
     "student_text": "stratify=y kaldırılırsa sınıf oranları korunmaz.\n Bazı sınıflar eğitim veya test kümesinde az temsil edilebilir.",
     "flag": null
   },
@@ -1620,7 +1620,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "Explains that changing random_state changes which observations fall into train/test sets, and consequently accuracy/MCR values may change. Correctly captures the seed/reproducibility mechanism. 1/1.",
+    "justification": "random_state'i değiştirmenin train/test setlerine hangi gözlemlerin düştüğünü değiştirdiğini ve sonuç olarak accuracy/MCR değerlerinin değişebileceğini açıklıyor. Seed/reproducibility mekanizmasını doğru şekilde yakalar. 1/1.",
     "student_text": "random_state değeri değişirse eğitim ve test kümelerine düşen gözlemler değişir.\n Bu nedenle doğruluk ve MCR değerleri de değişebilir.",
     "flag": null
   },
@@ -1633,7 +1633,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "All three environments (data cards, CODAP, Python) discussed with distinct, substantive observations: data cards for logic, CODAP for visual understanding of splits, Python for coding/measuring performance/comparing depths. Error detection explicitly addressed (Python error messages helped locate mistakes). Loses 1 pt because some observations, while distinct, remain fairly brief/summary-level rather than deeply elaborated. 4/5.",
+    "justification": "Üç ortamın tümü (data cards, CODAP, Python) tartışılıyor, her biri için farklı, önemli gözlemlerle: data cards'lar mantık için, CODAP'ı bölünmeleri görsel olarak anlamak için, Python'u kodlama/performans ölçme/derinlikleri karşılaştırma için. Hata algılama açıkça ele alınıyor (Python hata mesajları hataları bulmaya yardımcı oldu). 1 puan kaybediyor çünkü bazı gözlemler, farklı olsalar da, oldukça kısa/özet düzeyinde kalıyor, derin bir şekilde açıklanmıyor. 4/5.",
     "student_text": "Evet, her ortam bana farklı katkılar sağladı. Data kartları karar ağacının mantığını anlamama yardımcı oldu. CODAP, ağacın görsel olarak nasıl oluştuğunu daha iyi görmemi sağladı. Python ise modeli kodlayarak performansını ölçmeyi, farklı derinlikleri karşılaştırmayı ve sonuçları analiz etmeyi öğretti.\n\nModelin ne yaptığını en iyi CODAP ortamında anladım. Çünkü karar ağacının nasıl oluştuğunu ve her bölünmenin nasıl yapıldığını görsel olarak takip etmek daha kolaydı. Bu sayede modelin karar verme sürecini daha iyi kavradım.\n\nBana en kolay gelen ortam CODAP oldu. Görsel olduğu için karar ağacını takip etmek daha kolaydı. Bu kolaylığın hem konuyu anlamamdan hem de CODAP'a alışmış olmamdan kaynaklandığını düşünüyorum.\n\nEn çok Python ortamında zorlandım. Bunun nedeni karar ağacı mantığından çok kod yazma ve hata düzeltme süreciydi. Kod doğru çalıştığında modeli anlamak kolaylaştı, ancak başlangıçta teknik kısımlar daha fazla zorladı.\n\nYaptığım hataları en kolay Python ortamında fark ettim. Çünkü hata mesajları yanlış yaptığım kısmı gösteriyordu. Böylece hatayı bulup düzeltmem daha kolay oldu.\n\nEvet. Python ortamında farklı derinlikleri deneyip modelin başarısını grafiklerle karşılaştırabildim. Bunu data kartlarıyla veya CODAP'ta aynı ayrıntıda yapmak mümkün değildi.\n\nEvet. Üç ortamın da farklı avantajları vardı. Data kartları mantığı anlamamı, CODAP görselleştirmeyi, Python ise modeli analiz etmeyi sağladı. Bu nedenle hiçbirinin tek başına diğerinin yerini tamamen tutamayacağını düşünüyorum.",
     "flag": null
   },
@@ -1646,7 +1646,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "Addresses root feature not being surprising, with biological reasoning (species habitat association, physical adaptation to arboreal life). Discusses misclassified habitats (Ağaç and Kaya) with plausible biological reason (fewer samples, physical similarity between habitats). Notes initial expectation (Kütle) did not match actual root (Tur_Sceloporus), directly addressing surprise/expectation. All three dimensions present, but explanations are somewhat brief. 4/5.",
+    "justification": "Kök özelliğinin şaşırtıcı olmadığını biyolojik akıl yürütme ile ele alıyor (tür habitat ilişkisi, ağaçsal yaşama fiziksel uyum). Yanlış sınıflandırılan habitatları (Ağaç ve Kaya) açıklanabilir biyolojik neden ile tartışıyor (daha az örnek, habitatlar arasında fiziksel benzerlik). İlk beklentiyi (Kütle) gerçek kök (Tur_Sceloporus) ile eşleşmediğini belirtir, şaşkınlık/beklentiyi doğrudan ele alır. Üç boyutun tümü mevcuttur, ancak açıklamalar biraz kısa. 4/5.",
     "student_text": "Hayır, şaşırtmadı. Modelin kök düğümde Tur_Sceloporus değişkenini seçmesi biyolojik açıdan mantıklıdır. Çünkü bazı kertenkele türleri belirli yaşam alanlarında daha sık görülmektedir ve bu değişken yaşam alanını ayırt etmede önemli bilgi sağlamaktadır.\n\nEvet, beklerdim. Ağaçta yaşayan kertenkelelerin yaşam alanına uyum sağlamak için fiziksel özelliklerinin farklı olması normaldir. Model de bu farklılıkları büyük ölçüde yakalayarak yaşam alanını tahmin edebilmiştir.\n\nYanlış sınıflandırılan bireyler daha çok Ağaç ve Kaya yaşam alanlarına aittir. Çünkü bu sınıflardaki birey sayısı Yer sınıfına göre daha azdır.\n\nBiyolojik olarak da bu durum mantıklıdır. Bazı kertenkelelerin fiziksel özellikleri birbirine benzediği için model, özellikle Kaya ve Ağaç yaşam alanlarını ayırmakta zorlanmış olabilir.\n\nVeriyi ilk gördüğümde Kütle değişkeninin en belirleyici olacağını düşünmüştüm. Model ise Tur_Sceloporus değişkenini kök düğüm olarak seçti. Bu nedenle tahminim modelin bulgusuyla tam olarak örtüşmedi.",
     "flag": null
   },
@@ -1659,7 +1659,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "States MCR of 0.3125 for YasamAlani, matching test_mcr_achieved (0.3125) within tolerance. Identifies best-predicted (Yer) and worst-predicted (Ağaç) class with data-based reasoning (fewer samples, physical similarity to other habitats). Proposes numeric threshold ('0'a yakın' — as close to 0 as possible, not a specific numeric range but a directional threshold). Cross-target comparison attempted, noting different MCRs for Tur and Cinsiyet due to differing variable relationships, though without citing exact comparative numbers. 4/5 — threshold statement is vague rather than a specific numeric target.",
+    "justification": "YasamAlani için MCR'nin 0.3125 olduğunu belirtir, test_mcr_achieved (0.3125) ile tolerans içinde eşleşir. En iyi tahmin edilen (Yer) ve en kötü tahmin edilen (Ağaç) sınıfı veri tabanlı akıl yürütme ile tanımlar (daha az örnek, habitatlar arasında fiziksel benzerlik). Sayısal eşik önerir ('0'a yakın' — mümkün olduğunca 0'a yakın, belirli bir sayısal aralık değil ancak yönlü bir eşik). Hedefler arasında karşılaştırma deneniyor, Tur ve Cinsiyet için farklı MCR'leri belirtir, değişen değişken ilişkilerinden dolayı, kesin karşılaştırmalı sayıları alıntılamasa da. 4/5 — eşik ifadesi belirsiz, belirli sayısal bir hedef değil.",
     "student_text": "Optimum derinlikte elde ettiğim MCR değeri yaklaşık 0.3125 oldu. Model en iyi Yer sınıfını tahmin etti. En fazla hata ise Ağaç sınıfında görüldü. Bunun nedeni, Ağaç sınıfındaki örnek sayısının daha az olması ve fiziksel özelliklerinin diğer yaşam alanlarıyla benzerlik göstermesidir.\n\nMCR değerim beni genel olarak tatmin etti. 0.3125 değeri modelin çoğu tahmini doğru yaptığını göstermektedir. Bence iyi bir modelde MCR değerinin mümkün olduğunca 0'a yakın olması beklenir. Bu, modelin daha az hata yaptığını gösterir.\n\nEvet, değişirdi. Çünkü her hedef değişkenin tahmin edilme zorluğu farklıdır. Nitekim bu çalışmada Tür ve Cinsiyet için elde edilen MCR değerleri de yaşam alanından farklı çıkmıştır. Bu durum, değişkenlerin veriyle olan ilişkisinin farklı olmasından kaynaklanmaktadır.\n\nModelin başarısız olduğu durumlar, bazı yaşam alanlarının fiziksel özelliklerinin birbirine benzediğini göstermektedir. Bu nedenle model bazı bireyleri doğru sınıflandırmakta zorlanmıştır.",
     "flag": null
   },
@@ -1672,7 +1672,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "Identifies a systematic (non-random) error pattern tied to physical similarity between classes. Proposes data improvement (more data, more features, class balance). Provides a clear lay explanation of decision trees for a friend, including the limitation that they can fail when data is complex or features overlap (touches on overfitting-adjacent limitation but doesn't explicitly use 'overfitting' term here). However, no specific alternative model is named ('different models' mentioned generically without naming one, e.g. random forest). 3/5.",
+    "justification": "Sınıflar arasındaki fiziksel benzerlikle bağlantılı sistematik (rastgele olmayan) hata deseni tanımlar. Veri iyileştirme önerir (daha fazla veri, daha fazla özellik, sınıf dengesi). Bir arkadaş için decision tree'nin açık bir halk açıklamasını sağlar, başarısız olabilecekleri durumu içerir (overfitting ile ilgili sınırlama ele alır ancak açıkça 'overfitting' terimini burada kullanmaz). Ancak, belirli alternatif model adlandırılmaz ('farklı modeller' genel olarak bahsedilir, örn. random forest olmadan). 3/5.",
     "student_text": "Modelin yaptığı hatalar tamamen rastgele görünmüyor. Hatalar daha çok fiziksel özellikleri birbirine benzeyen kertenkelelerde ortaya çıkmıştır.\n\nModelin daha iyi sonuç vermesi için veri sayısı artırılabilir ve daha fazla fiziksel özellik eklenebilir. Ayrıca sınıflar arasındaki veri dengesinin sağlanması modelin doğruluğunu artırabilir.\n\nEvet, değişebilirdi. Çünkü farklı makine öğrenmesi modelleri veriyi farklı şekillerde öğrenir. Bazı modeller bu veri üzerinde karar ağacına göre daha yüksek doğruluk sağlayabilir.\n\nKarar ağacı, verileri belirli kurallara göre sınıflandıran bir makine öğrenmesi yöntemidir. Verileri anlamayı ve tahmin yapmayı kolaylaştırır. Ancak veri çok karmaşık olduğunda veya benzer özellikler bulunduğunda hata yapabilir.",
     "flag": null
   },
@@ -1685,7 +1685,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 3,
-    "justification": "Explains that differing optimal depths result from differing data structure per target — YasamAlani and Tur require fewer rules, while Cinsiyet needs more detail/depth. This is a data-driven reason and references target differences directly, though it does not cite specific MCR values or depth numbers in this comparison text (values are available elsewhere in mcr_values_compared but not tied together in the reasoning narrative). 3/4.",
+    "justification": "Farklı optimal derinliklerin hedef başına farklı veri yapısından kaynaklandığını açıklıyor — YasamAlani ve Tur daha az kural gerektirir, Cinsiyet daha fazla detay/derinlik gerektirir. Bu, veri odaklı bir neden ve hedef farklılıklarına doğrudan referans alır, ancak bu karşılaştırma metninde belirli MCR değerlerini veya derinlik numaralarını alıntılamaz (değerler mcr_values_compared'da mevcut ancak akıl yürütme anlatısında birbirine bağlı değildir). 3/4.",
     "student_text": "Bu farklılığın nedeni, her hedef değişkenin veri içindeki yapısının farklı olmasıdır. Yaşam alanı ve tür değişkenleri daha az sayıda kural ile açıklanabilirken, cinsiyeti doğru tahmin edebilmek için daha fazla ayrıntıya ihtiyaç duyulmuştur. Bu nedenle cinsiyet modeli daha derin bir ağaçla en iyi sonucu vermiştir.",
     "flag": null
   },
@@ -1698,7 +1698,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 3,
-    "justification": "q_root_changed_across_targets explicitly notes different root nodes for each target (Tur_Sceloporus, Kutle, ToplamUzunluk) and interprets this as each target having a different most-informative feature — a data-driven interpretation. Falls short of full biological interpretation of why mass/length distinguishes species vs gender specifically. 3/4.",
+    "justification": "q_root_changed_across_targets açıkça her hedef için farklı kök düğümleri belirtir (Tur_Sceloporus, Kutle, ToplamUzunluk) ve bunu her hedefin farklı en informatif özelliğe sahip olması olarak yorumlar — veri odaklı bir yorum. Kütlenin/uzunluğun türleri ayırt etmesi vs. cinsiyeti neden özel olarak ayırt ettiğini açıklamak için tam biyolojik yorum açısından eksik. 3/4.",
     "student_text": "Bu farklılığın nedeni, her hedef değişkenin veri içindeki yapısının farklı olmasıdır. Yaşam alanı ve tür değişkenleri daha az sayıda kural ile açıklanabilirken, cinsiyeti doğru tahmin edebilmek için daha fazla ayrıntıya ihtiyaç duyulmuştur. Bu nedenle cinsiyet modeli daha derin bir ağaçla en iyi sonucu vermiştir.",
     "flag": null
   },
@@ -1711,7 +1711,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 0,
-    "justification": "q_imbalance_effect_reasoning is null. 0/3.",
+    "justification": "q_imbalance_effect_reasoning boş. 0/3.",
     "student_text": "",
     "flag": null
   },
@@ -1724,7 +1724,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 0,
-    "justification": "q_mass_by_species_reasoning is null (only an average mass value reported, no species reasoning). 0/3.",
+    "justification": "q_mass_by_species_reasoning boş (yalnızca ortalama kütle değeri bildiriliyor, tür akıl yürütme yok). 0/3.",
     "student_text": "",
     "flag": null
   },
@@ -1737,7 +1737,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "No formulated questions present to evaluate. 0/2.",
+    "justification": "Değerlendirilecek formulated question yok. 0/2.",
     "student_text": "(no research questions written)",
     "flag": null
   },
@@ -1750,7 +1750,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "Clearly explains that removing stratify disrupts proportional class representation in train/test, gives a concrete example (test set could end up with no or very few 'Kaya' lizards) and explicitly names 'sınıf dengesizliği' problem worsening and misleading performance evaluation. Fully meets rubric. 2/2.",
+    "justification": "stratify kaldırmanın train/test'te orantılı sınıf temsilini nasıl bozduğunu açıkça açıklıyor, somut bir örnek verir (test seti 'Kaya' kertenkele ile hiçbir veya çok az örnekle bitebilir) ve açıkça 'sınıf dengesizliği' sorununu adlandırır, bu sorunu kötüleştirir ve yanıltıcı performans değerlendirmesine neden olur. Tamamen rubriği karşılar. 2/2.",
     "student_text": "Değişen Durum: stratify=y parametresi kaldırıldığında, veri kümesi eğitim ve test olarak bölünürken hedef değişkenin (YasamAlani) sınıfları rastgele dağıtılır.  Açıklama ve Fark: Bu parametre aktifken, ana verideki yaşam alanı oranları (%80'lik eğitim ve %20'lik test setine) birebir orantılı olarak aktarılır. Eğer bu parametreyi kaldırırsak, rastgele bölünme yüzünden test setine sadece belirli bir yaşam alanındaki kertenkeleler denk gelebilir. Örneğin, test setinde hiç \"Kaya\" kertenkelesi kalmayabilir veya çok az kalabilir. Bu durum, modelin tüm sınıfları dengeli ve adil bir şekilde test edilmesini engeller; \"sınıf dengesizliği\" problemini büyüterek modelin performans ölçümünü yanıltıcı hale getirir.",
     "flag": null
   },
@@ -1763,7 +1763,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "Correctly explains random_state as a seed controlling the shuffle, that changing it (42 to 7) changes which individuals go to train/test, and notes resulting MCR values will shift slightly. Full and correct. 1/1.",
+    "justification": "random_state'i doğru şekilde açıklıyor; shuffle'ı kontrol eden bir seed olarak, bunu değiştirmenin (42'den 7'ye) hangi bireylerin train/test'e gittiğini değiştirdiğini ve ortaya çıkan MCR değerlerinin biraz kaymayacağını belirtir. Tam ve doğru. 1/1.",
     "student_text": "Değişen Durum: Evet, kod çalıştırıldığında elde edilen sayısal sonuçlar ve kertenkelelerin setlere dağılımı değişir.  Açıklama ve Neden: train_test_split fonksiyonu veriyi bölerken arka planda rastgele bir karıştırma algoritması kullanır. random_state parametresi ise bu rastgeleliğin her çalışmada aynı şekilde tekrarlanmasını sağlayan bir \"çekirdek (seed)\" değeridir. 42 yerine 7 yazıldığında, algoritma veriyi yine rastgele ama farklı bir kombinasyonla karıştırıp böler. Eğitim ve test setlerine giden kertenkele bireyleri değiştiği için, modelin bu verilerden öğreneceği kurallar ve dolayısıyla Adım 4'te elde edeceğimiz hata oranları (MCR değerleri) ufak da olsa değişiklik gösterecektir",
     "flag": null
   },
@@ -1776,7 +1776,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "All three environments (data_cards, CODAP, Python) discussed with distinct, substantive observations for each. Error detection explicitly addressed (Python's Traceback errors flagged immediately vs. other environments). Also discusses which tasks were only possible in Python (looping over depths) vs. impossible in others, and identifies CODAP as where 'what is my model doing' was best understood, with clear reasoning distinguishing genuine understanding from mere familiarity. Comprehensive and well-reasoned. 5/5.",
+    "justification": "Üç ortamın tümü (data_cards, CODAP, Python) tartışılıyor, her biri için farklı, önemli gözlemlerle. Hata algılama açıkça ele alınıyor (Python'un Traceback hataları diğer ortamlarla karşılaştırıldığında hemen işaretleniyor). Ayrıca hangi görevlerin yalnızca Python'da mümkün olduğunu (derinlikler üzerinde döngü) tartışır vs. diğerlerinde imkansızdır ve CODAP'ı 'modelim ne yapıyor' sorusunun en iyi anlaşıldığı yer olarak tanımlar, gerçek anlama ile sırf aşinalıktan ayırt etme açıkça akıl yürütüyor. Kapsamlı ve iyi gerekçelenmiş. 5/5.",
     "student_text": "Data Kartları (Elle Analiz): Karar ağacı mantığının tamamen somutlaşmasını sağladı. Verilerin birer \"nesne\" olduğunu, her bölünmede verilerin fiziksel olarak nasıl gruplara ayrıldığını elle dokunarak hissetmek algoritmanın temel felsefesini anlamamı sağladı.\n\nCODAP (Görsel Analiz): Sürükle-bırak mantığıyla grafikler üzerinden sezgisel kararlar almayı öğretti. Verideki yığılmaları görsel olarak fark edip ağacı kendi mantığımla inşa etme becerisi kattı.\n\nPython (Kodlama): İşin matematiksel, istatistiksel ve endüstriyel boyutunu gösterdi. Büyük veri kümelerinin saniyeler içinde hatasız optimizasyon formülleriyle (Gini/MCR) nasıl işlendiğini ve otomasyon süreçlerini öğretti.\n\nHangi ortamda \"modelim ne yapıyor\" sorusunu daha iyi anladınız? Nedeninizi açıklayın.\n\nCevap: CODAP ortamında daha iyi anladım. Çünkü CODAP, ham veri ile ağacın görsel şeması arasında köprü kuruyordu. Bir değişkeni sürükleyip bıraktığımda alt dalların nasıl ayrıştığını ve sınıfların saflık derecesini grafiksel olarak anlık görmek, modelin arka plandaki yönelimini en şeffaf kılan ortamdı.\n\nHangi ortam size daha kolay geldi? Bu kolaylık gerçekten anladığınızı mı, yoksa sadece alıştığınızı mı gösteriyor? Nedeninizi açıklayın.\n\nCevap: CODAP ortamı daha kolay geldi. Bu kolaylık sadece alıştığımı değil, kavramsal tasarımı görselleştirdiği için konuyu daha iyi kavradığımı gösteriyor. Kod yazma kaygısı (syntax hatası vb.) olmadan doğrudan karar ağacının dallanma mantığına odaklanabildiğim için kavramsal öğrenme daha akıcı gerçekleşti.\n\nHangi ortamda en çok zorlandınız ve bu zorluk neden kaynaklanıyordu? Aracın kendisi mi, yoksa karar ağacı kavramının o ortamda daha mı görünmez olması mıydı? Nedeninizi açıklayın.\n\nCevap: En çok Python (Google Colab) ortamında zorlandım. Bu zorluk karar ağacı kavramının görünmez olmasından değil, tamamen aracın kendisinden ve kod yazım dilinden (syntax) kaynaklanıyordu. Girinti (indentation) hataları, kütüphane uyumsuzlukları ve fonksiyon parametrelerini doğru yazma zorunluluğu, algoritmanın teorik mantığından ziyade teknik detaylara odaklanmama neden oldu.\n\nYaptığınız bir hatayı hangi ortamda daha kolay fark ettiniz? Sizi uyaran şey aracın kendisi miydi, yoksa başka bir şey mi?\n\nCevap: Python ortamında daha kolay fark ettim. Çünkü Python'da bir hata yapıldığında (örneğin girinti hatası veya eksik değişken), derleyici anında kırmızı renkli ve hatanın satırını açıkça belirten hata mesajları (Traceback) ile beni doğrudan uyardı. Aracın kendisinin verdiği bu katı kurallı geri bildirimler hatayı düzeltmeyi kolaylaştırdı.\n\nBir ortamda rahatlıkla yapabildiğiniz ama bir diğerinde hiç yapamadığınız bir şey oldu mu?\n\nCevap: Evet oldu. Python'da tek bir for döngüsü yazarak 1'den 10'a kadar olan tüm derinliklerin hata oranlarını (MCR) saniyeler içinde hesaplayıp kıyaslayabildim. Bunu data kartlarıyla elle yapmak günlerce sürerdi, CODAP'ta ise her derinlik için tek tek manuel uğraşmak gerekirdi. Python'un bu otomasyon gücünü diğer ortamlarda gerçekleştirmek imkansızdı.\n\nÜç ortamdan birinin diğerinin yerini tutamayacağı bir durum var mı? Nedeninizi açıklayın.\n\nCevap: Evet, Python'un ürettiği matematiksel kesinlik ve optimizasyonun yerini diğerleri tutamaz. Data kartları ve CODAP tamamen insan sezgisine dayalıdır. Bir değişkeni hangi milimetrik sayısal değerden (Örn: Kutle <= 11.28) böleceğimizi elle veya gözle kusursuzca bulamayız. Python, Gini indeksini hesaplayarak en mükemmel bölünme noktasını matematiksel olarak bulur; bu derinliği ve hassasiyeti diğer ortamlar sağlayamaz.",
     "flag": null
   },
@@ -1789,7 +1789,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Provides thorough biological explanation for root feature (BacakUzunlugu related to locomotion strategy per habitat), addresses expectation/surprise (not surprised, and explicitly discusses prior hypothesis about Kutle being confirmed at a lower split level), AND discusses Kaya/Yer misclassification with a specific biological/ecological reason (habitat transition zone overlap in physical measurements). All three dimensions fully present. 5/5.",
+    "justification": "Kök özelliği için kapsamlı biyolojik açıklama sağlar (BacakUzunlugu, habitat başına yer değiştirme stratejisi ile ilgili), beklenti/şaşkınlığı ele alır (şaşırılmamış, ve Kutle'nin daha düşük split seviyesinde onaylandığına dair önceki hipotezi açıkça tartışır), VE Kaya/Yer yanlış sınıflandırmasını belirli biyolojik/ekolojik bir nedenle tartışır (habitat geçiş bölgesi fiziksel ölçümlerde örtüşme). Üç boyutun tümü tam olarak mevcuttur. 5/5.",
     "student_text": "Cevap: Hayır, şaşırtmadı. Kök düğümde seçilen BacakUzunlugu (veya modelinizde ilk sırada çıkan fiziksel özellik) biyolojik açıdan son derece mantıklıdır. Evrimsel biyolojide kertenkelelerin bacak boyları ve morfolojik yapıları, onların hareket kabiliyetlerini doğrudan belirler. Ağaçta yaşayanların tırmanma, yerde yaşayanların hızlı koşma ve kayalıkta yaşayanların dikey tutunma stratejileri bacak anatomisiyle doğrudan ilişkili olduğundan, bu değişkenin en ayırt edici unsur olması ekolojik gerçeklikle örtüşmektedir.\n\nCevap: Evet, kesinlikle beklerdim. Ağaçta yaşayan bir kertenkelenin yerçekimine karşı koyabilmesi için daha hafif (düşük kütleli) olması ve dalları kavrayabilmek için farklı bacak/gövde oranlarına sahip olması gerekir. Kurduğum karar ağacı da dallanma basamaklarında Kutle ve BacakUzunlugu değişkenlerine sınırlar koyarak (Örn: Kutle <= 10.5 olanları ağaç sınıfına yönlendirerek) bu morfolojik farkı başarıyla yakalamıştır.\n\nCevap: Model genellikle Kaya ve Yer kertenkelelerini birbirine karıştırmış ve buralarda yanlış sınıflandırma yapmıştır. Bunun biyolojik açıklaması; bu iki yaşam alanının fiziksel olarak birbirine çok yakın ve geçişken olmasıdır. Yerde yaşayan bir kertenkele türü beslenmek veya güneşlenmek için sık sık kayaların üzerine çıkabilir ya da tam tersi yaşanabilir. Bu ekolojik geçişkenlik yüzünden, her iki habitattaki kertenkelelerin fiziksel ölçümleri evrimsel olarak birbirine çok benzemiş ve modelin sadece sayılara bakarak aradaki ince çizgiyi ayırt etmesini zorlaştırmıştır.\n\nCevap: Veriyi ilk gördüğümde kertenkelenin ağırlığının (Kutle) en belirleyici değişken olacağını tahmin etmiştim; çünkü yerdeki kertenkelelerin daha ağır, ağaçtakilerin daha hafif olacağını düşünmüştüm. Modelin bulgusuyla bu tahminim büyük oranda örtüştü. Model kök düğüme BacakUzunlugu değişkenini koysa da hemen altındaki ilk dallanmalarda Kutle değişkenini kullanarak ağırlığın ne kadar güçlü bir ayırt edici olduğunu doğrulamış oldu.",
     "flag": null
   },
@@ -1802,7 +1802,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "States MCR value 0.15 (stated as an example range '%15-20 civarı'), which is not verified to match test_mcr_achieved=0.3281 for YasamAlani (mismatch > 0.01) — the actual achieved MCR was 0.3281, not ~0.15-0.20. Best predicted class (Agac) and worst (Kaya) identified with data-property reasoning (overlap with Yer, class imbalance). Proposes a numeric threshold (0.10-0.20). Attempts cross-target comparison, reasoning that Tur would have lower MCR (more separable) and Cinsiyet higher MCR (less distinguishable), though this is speculative rather than data-grounded since Tur/Cinsiyet test_mcr_achieved are both null. Given the MCR value stated does not match actual achieved value, this loses credit despite otherwise strong structure. 3/5.",
+    "justification": "MCR değeri 0.15 belirtir (örnek aralık olarak belirtilir '%15-20 civarı'), bu test_mcr_achieved=0.3281 ile YasamAlani için doğrulanmaz (uyuşmazlık > 0.01) — gerçek ulaşılan MCR ~0.15-0.20 değil 0.3281 idi. En iyi tahmin edilen sınıf (Agac) ve en kötü (Kaya), veri özelliği akıl yürütme ile tanımlanır (Yer ile örtüşme, sınıf dengesizliği). Sayısal eşik önerir (0.10-0.20). Hedefler arasında karşılaştırma deneniyor, Tur'un daha düşük MCR (daha ayrılabilir) ve Cinsiyet'in daha yüksek MCR (daha az ayırt edilebilir) olacağını mantığı yürütür, ancak bu spekülatiftir çünkü Tur/Cinsiyet test_mcr_achieved her ikisi de boştur. Belirtilen MCR değeri gerçek ulaşılan değer ile eşleşmediğinden, diğer yönden güçlü bir yapı olmasına rağmen kredi kaybeder. 3/5.",
     "student_text": "Cevap: En iyi tahmin edilen sınıf Ağaç (Agac) sınıfı oldu; çünkü ağaçta yaşayan kertenkelelerin fiziksel özellikleri (hafif olmaları, bacak yapıları) diğer sınıflardan çok keskin sınırlarla ayrılmaktadır. En kötü tahmin edilen sınıf ise Kaya (Kaya) sınıfı oldu. Bunun açıklaması, yukarıda da değinildiği gibi Kaya sınıfına ait kertenkelelerin fiziksel ölçümlerinin Yer sınıfı ile çok yüksek oranda benzerlik (over-lap) göstermesi ve veri setinde Kaya sınıfına ait gözlem sayısının daha az (sınıf dengesizliği) olmasıdır.\n\nCevap: Optimum derinlikte elde ettiğim Test MCR değeri (Örn: %15-20 civarı bir hata, yani %80-85 doğruluk) beni tatmin etti. \"İyi\" bir model için MCR (Yanlış Sınıflandırma Oranı) değerinin sıfıra yakın olması istenir ancak gerçekçi veri setlerinde 0.10 ile 0.20 arasındaki bir Test MCR değeri oldukça başarılı ve kabul edilebilir bir performansa işaret eder. Önemli olan eğitim hatası ile test hatasının dengeli olmasıdır.\n\nCevap: Evet, MCR değeri kesinlikle değişirdi. Çünkü her hedef değişkenin (Tur veya Cinsiyet) veri setindeki diğer fiziksel özelliklerle olan bağıntı düzeyi farklıdır. Örneğin kertenkelelerin biyolojik türleri (Tur), morfolojik ölçümlerle çok daha net ayrışabileceği için Tür tahmini modelinin MCR değeri (hatası) daha düşük çıkabilir. Ancak Cinsiyet değişkeni erkek ve dişi kertenkeleler arasında çok belirgin bir ölçüm farkı barındırmıyorsa, model cinsiyeti ayırt etmekte zorlanacak ve Cinsiyet modelinin MCR değeri (hatası) çok daha yüksek çıkacaktır.\n\nCevap: Modelin başarısız olduğu durumlar, kertenkeleleri sadece GovdeUzunlugu, Kutle veya BacakUzunlugu gibi kaba fiziksel dış ölçümlerle sınıflandırmanın bazen yetersiz kaldığını gösteriyor. Veri setindeki bazı bireylerin (tür içi varyasyonlar, yaş farkları veya beslenme durumları nedeniyle) genel kalıpların dışına çıktığını ve doğadaki biyolojik çeşitliliğin katı matematiksel kurallara her zaman tam olarak sığdırılamayacağını söylüyor.",
     "flag": null
   },
@@ -1815,7 +1815,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Identifies systematic (non-random) error pattern (morphologically similar/borderline individuals, underrepresented classes). Proposes both data improvements (geographic/temperature/genetic features, class balancing) and model improvements (Random Forest, hyperparameter tuning). Names alternative models with reasoning (Random Forest, Logistic Regression, SVM — explains linear/curved boundaries vs. axis-aligned splits, tradeoff with interpretability). Provides a clear lay explanation of decision trees for a friend, explicitly including overfitting as a limitation. All four dimensions present. 5/5.",
+    "justification": "Sistematik (rastgele olmayan) hata deseni tanımlar (morfolojik olarak benzer/sınır bireyleri, az temsil edilen sınıflar). Hem veri iyileştirmeleri (coğrafi/sıcaklık/genetik özellikler, sınıf dengesi) hem de model iyileştirmeleri (Random Forest, hiperparametre tuning) önerir. Alternatif modelleri akıl yürütme ile adlandırır (Random Forest, Logistic Regression, SVM — doğrusal/eğri sınırları vs. eksen hizalı bölmeler açıklar, yorumlanabilirlik ile tradeoff). Bir arkadaş için decision tree'nin açık bir halk açıklamasını sağlar, açıkça overfitting'i sınırlama olarak içerir. Dört boyutun tümü mevcuttur. 5/5.",
     "student_text": "Cevap: Hatalar rastgele görünmüyor, belirli bir örüntüye sahip. Model sistematik olarak birbirine morfolojik açıdan çok benzeyen, sınır değerlerdeki (örneğin ne çok ağır ne çok hafif olan ara kütledeki) kertenkelelerde ve veri setinde temsil oranı daha az olan sınıflarda yoğun şekilde hata yapıyor.\n\nTeknik Açıdan: Karar ağacı algoritması yerine orman mantığıyla çalışan Random Forest gibi toplu (ensemble) öğrenme yöntemleri kullanılabilir ya da hiperparametre optimizasyonu derinleştirilebilir.\n\nVeri Açısından: Veri setine sadece dış ölçümler değil; kertenkelelerin yakalandığı coğrafi yükseklik, sıcaklık, beslenme alışkanlıkları veya DNA/genetik kodları gibi daha mikro ve ayırt edici yeni sütunlar (özellikler) eklenebilir. Ayrıca azınlıkta kalan sınıflara ait kertenkele sayıları artırılarak veri seti daha dengeli hale getirilebilir.\n\nCevap: Evet, sonuç değişirdi. Örneğin bir Lojistik Regresyon veya Destek Vektör Makineleri (SVM) kullanılsaydı, bu modeller veriyi karar ağaçları gibi dik köşeli kutularla (merdiven basamağı şeklinde) değil, doğrusal veya eğrisel düzlemlerle bölecekti. Bu durum, özellikle sınır değerlerdeki kertenkelelerin daha esnek sınıflandırılmasını sağlayarak hata oranını (MCR) düşürebilirdi ancak modelin \"neden bu kararı verdiği\" sorusunun açıklanabilirliği (görsel takibi) karar ağacına göre daha zor olurdu.\n\nCevap: * Nedir ve Ne İşe Yarar?: Karar ağacı, verinin içindeki karmaşık ilişkileri tıpkı bir insanın \"Evet/Hayır\" soruları sorma mantığına indirgeyen, anlaşılması ve yorumlanması çok kolay bir tahminleme algoritmasıdır. Verilen özelliklere bakarak bir nesnenin sınıfını bulmaya yarar.\n\nNerede Yetersiz Kalır?: Veri setini derinleştirdikçe her şeyi ezberlemeye (Overfitting) çok meyillidir. Sınır değerlerdeki hassas geçişleri kaçırabilir ve veri setindeki küçük değişikliklere karşı çok hassastır (istikrarsızdır). Ayrıca birbirine çok benzeyen sınıfları veya doğrusal ilişkileri çözmekte yetersiz kalır.",
     "flag": null
   },
@@ -1828,7 +1828,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 2,
-    "justification": "Notes optimal depths differ across targets and gives a reason (Tur separates more cleanly with fewer splits due to clear physical boundaries; YasamAlani/Cinsiyet need more depth because separability is less clean). This is a reasonable qualitative explanation, but does not cite specific MCR values or depth numbers for the targets being compared. 2/4.",
+    "justification": "Hedef değişkenler arasında optimal derinliklerin farklı olduğunu ve bir neden sunuyor (Tur daha temiz ayrılıyor çünkü açık fiziksel sınırlar nedeniyle daha az dal gerekli; YasamAlani/Cinsiyet daha fazla derinlik gerektiriyor çünkü ayrılabilirlik daha az temiz). Bu makul bir nitel açıklamadır, ancak karşılaştırılan hedef değişkenler için özel MCR değerleri veya derinlik numaraları alıntılamaz. 2/4.",
     "student_text": "Durum Tespiti: Hayır, optimum derinlik her hedef değişken için (YasamAlani, Tur, Cinsiyet) aynı çıkmamıştır, farklılaşmıştır.\n\nFarklılaşmanın Nedeni: Her sorunun (hedef değişkenin) veri setindeki diğer özelliklerle olan ilişkisi, matematiksel karmaşıklığı ve ayırt edilebilirliği birbirinden tamamen farklıdır.\n\nÖrneğin, kertenkelelerin Türü (Tur), fiziksel ölçümlerle (gövde uzunluğu, kütle vb.) çok net ve keskin sınırlarla ayrılabildiği için daha az dallanma (düşük derinlik) ile çözülebilir.\n\nAncak kertenkelelerin Yaşam Alanı (YasamAlani) veya Cinsiyeti (Cinsiyet) verideki diğer fiziksel özelliklerle o kadar doğrudan ve keskin bir şekilde ayrılmıyor olabilir; bu durum modelin daha fazla ayırt edici soru sormasını (yani daha derin bir ağaç yapısı kurmasını) gerektirir.",
     "flag": null
   },
@@ -1841,7 +1841,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 1,
-    "justification": "root_nodes_compared=true and q_root_changed_across_targets text notes the root changes across targets with a reasoning tied to which physical feature has highest information gain for each specific target (leg/mass for habitat vs. total length for species). However, this reasoning appears in step5_final_tree rather than being reflected substantively in cross_target_comparison.comparison_reasoning, which focuses only on depth differences and does not explicitly discuss root node differences or their biological interpretation. Per the specific evidence fields for S7.3 (root_nodes_compared + comparison_reasoning), the comparison_reasoning text provided is depth-focused, not root-node-focused, so credit here is limited to a vague/partial mention via the boolean flag alone. 1/4.",
+    "justification": "root_nodes_compared=true ve q_root_changed_across_targets metni, kök düğümün her bir hedef için en yüksek bilgi kazancına sahip olan fiziksel özelliğe bağlı bir gerekçe ile hedef değişkenler arasında değiştiğini belirtir (habitat için bacak/kütle vs tür için toplam uzunluk). Ancak bu gerekçe, step5_final_tree içinde görünür ve cross_target_comparison.comparison_reasoning içinde substantif olarak yansıtılmaz; bu alan sadece derinlik farklılıklarına odaklanır ve kök düğüm farklılıklarını veya bunların biyolojik yorumunu açıkça tartışmaz. S7.3 için spesifik kanıt alanlarına göre (root_nodes_compared + comparison_reasoning), sağlanan comparison_reasoning metni derinlik odaklıdır, kök düğüm odaklı değildir, bu nedenle burada kredi sadece bir boolean bayrak aracılığıyla vague/kısmi mention ile sınırlıdır. 1/4.",
     "student_text": "Durum Tespiti: Hayır, optimum derinlik her hedef değişken için (YasamAlani, Tur, Cinsiyet) aynı çıkmamıştır, farklılaşmıştır.\n\nFarklılaşmanın Nedeni: Her sorunun (hedef değişkenin) veri setindeki diğer özelliklerle olan ilişkisi, matematiksel karmaşıklığı ve ayırt edilebilirliği birbirinden tamamen farklıdır.\n\nÖrneğin, kertenkelelerin Türü (Tur), fiziksel ölçümlerle (gövde uzunluğu, kütle vb.) çok net ve keskin sınırlarla ayrılabildiği için daha az dallanma (düşük derinlik) ile çözülebilir.\n\nAncak kertenkelelerin Yaşam Alanı (YasamAlani) veya Cinsiyeti (Cinsiyet) verideki diğer fiziksel özelliklerle o kadar doğrudan ve keskin bir şekilde ayrılmıyor olabilir; bu durum modelin daha fazla ayırt edici soru sormasını (yani daha derin bir ağaç yapısı kurmasını) gerektirir.",
     "flag": null
   },
@@ -1854,7 +1854,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 2,
-    "justification": "States that class imbalance leads the model to focus on the majority class, learning it well while performing poorly on the minority class. Correct direction and mechanism (model bias toward majority class), but does not explicitly name the classes (Yer/Agac) or elaborate further. 2/3.",
+    "justification": "Sınıf dengesizliğinin modeli çoğunluk sınıfına odaklanmaya yönelttiğini, bunu iyi öğrenirken azınlık sınıfında kötü performans gösterdiğini belirtir. Doğru yön ve mekanizm (model tarafından çoğunluk sınıfına doğru önyargı), ancak sınıfları açıkça adlandırmaz (Yer/Agac) veya daha fazla açıklama yapmaz. 2/3.",
     "student_text": "Veri dengesizliği, modelin baskın sınıfa odaklanmasına yol açar;cevap: bu nedenle çoğunluk sınıfını başarılı bir şekilde öğrenirken azınlık sınıfında düşük performans gösterebilir.",
     "flag": null
   },
@@ -1867,7 +1867,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 1,
-    "justification": "States mass differs by species because different species adapt to different habitats. No explicit ordering of Sceloporus (largest) vs Uta (smallest), and reasoning is vague/generic (habitat adaptation rather than specific morphological/biological explanation tied to species). 1/3.",
+    "justification": "Kütle türler arasında farklılık gösteriyor çünkü farklı türler farklı habitatlara uyarlanıyor. Sceloporus (en büyük) vs Uta (en küçük) açık sıralaması yok ve gerekçe vague/jenerik (spesifik morfolojik/biyolojik açıklamadan ziyade habitat uyarlanması). 1/3.",
     "student_text": "Evet farklıdır. Çünk farklı kertenkele türleri, farklı yaşam alanlarına uyum sağlamıştır.",
     "flag": null
   },
@@ -1880,7 +1880,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "All formulated_question fields null. Cannot evaluate quality. 0/2.",
+    "justification": "Tüm formulated_question alanları null. Kalite değerlendirilemez. 0/2.",
     "student_text": "(no research questions written)",
     "flag": null
   },
@@ -1893,7 +1893,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 2,
-    "justification": "test_size=0.2 ✓, stratify=True ✓, random_state=42 ✓. parameters_varied_across_models=False, no conflict. 2/2.",
+    "justification": "test_size=0.2 ✓, stratify=True ✓, random_state=42 ✓. parameters_varied_across_models=False, çelişki yok. 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
     "flag": null
   },
@@ -1906,7 +1906,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "Explains that stratify=y preserves class proportions in train/test, and that removing it caused some classes to be underrepresented, which could make model performance less balanced/reliable. Addresses the specific consequence (class distribution disruption) as required. 2/2.",
+    "justification": "stratify=y'nin train/test içinde sınıf oranlarını koruduğunu ve kaldırılmasının bazı sınıfların temsil edilemez olmasına neden olduğunu, bu da model performansının daha dengesiz/güvenilir olmayabileceğini açıklayır. Gerekli olan spesifik sonucu (sınıf dağılımı bozulması) ele alır. 2/2.",
     "student_text": "stratify=y kullanıldığında sınıfların oranı eğitim ve test verilerinde korunur. Bu parametreyi kaldırdığımda bazı sınıfların eğitim veya test verisinde daha az yer aldığını gördüm. Bu da modelin başarısını etkileyebilir ve sonuçların daha dengesiz olmasına neden olabilir.",
     "flag": null
   },
@@ -1919,7 +1919,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "Explains random_state determines how data is split, so a different value changes which samples go to train/test, affecting accuracy and tree structure slightly, but notes the difference is usually small with larger datasets. Correct and complete. 1/1.",
+    "justification": "random_state'in verilerin nasıl bölündüğünü belirleyerek, farklı bir değerin hangi numunelerin train/test'e gittiğini değiştirdiğini, doğruluk ve ağaç yapısını biraz etkilediğini, ancak daha büyük veri setleriyle farkın genellikle küçük olduğunu açıklar. Doğru ve tam. 1/1.",
     "student_text": "Evet, sonuçlar değişebilir. Çünkü random_state verilerin nasıl bölüneceğini belirler. Farklı bir değer kullanıldığında eğitim ve test kümelerine giden veriler değişir. Bu nedenle modelin doğruluk oranı ve oluşturduğu karar ağacı da biraz farklı olabilir. Ancak veri seti büyükse bu fark genellikle çok fazla olmaz.",
     "flag": null
   },
@@ -1932,7 +1932,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "All three environments (data cards, CODAP, Python/Colab) are discussed with distinct observations: data cards for logic, CODAP for visualizing branching and understanding 'what the model does', Colab for detailed depth/error comparison. Error detection is discussed clearly (Colab errors when results didn't match expectations, code wouldn't run). Response is thorough and well-organized across all 7 sub-questions. Slightly generic in places (e.g. 'kolaylık' discussion is brief) but overall substantive with distinct points per environment. 4/5.",
+    "justification": "Üç ortamın tümü (data cards, CODAP, Python/Colab) tartışılıyor, her biri farklı gözlemlerle: mantık için data cards, dallanmayı görselleştirmek ve 'modelin ne yaptığını' anlamak için CODAP, ayrıntılı derinlik/hata karşılaştırması için Colab. Hata tespiti açıkça tartışılıyor (Colab'da sonuçlar beklentilerle eşleşmediğinde hatalar, kod çalışmaz). Yanıt tüm 7 alt soru arasında kapsamlı ve iyi organize edilmiş. Bazı yerlerde biraz jenerik (örn. 'kolaylık' tartışması kısa) ancak genel olarak ortam başına farklı noktalarla substantif. 4/5.",
     "student_text": "1.  **Her ortam size farklı bir şey kattı mı? Her bir ortamın neler kattığını yazın.**\n    *Cevap: [Evet, her ortam farklı katkılar sağladı. Data kartları karar ağacının mantığını somut olarak görmemi ve karar verme sürecini adım adım anlamamı sağladı.]\n\n2.  **Hangi ortamda \"modelim ne yapıyor\" sorusunu daha iyi anladınız? Nedeninizi açıklayın.**\n    *Cevap: [Modelin ne yaptığını en iyi Codap ortamında anladım. Çünkü karar ağacının nasıl dallandığını ve verileri hangi kurallara göre ayırdığını görsel olarak takip edebildim. Bu sayede modelin karar verme sürecini daha net kavradım.]*\n\n3.  **Hangi ortam size daha kolay geldi? Bu kolaylık gerçekten anladığınızı mı, yoksa sadece alıştığınızı mı gösteriyor? Nedeninizi açıklayın.**\n    *Cevap: [Bana en kolay gelen ortam Codap oldu. Görsel bir yapıya sahip olduğu için ağacın oluşumunu takip etmek daha rahattı. Ancak bu kolaylık sadece alışkanlıktan değil, karar ağacının mantığını daha açık göstermesinden kaynaklanıyordu]*\n\n4.  **Hangi ortamda en çok zorlandınız ve bu zorluk neden kaynaklanıyordu? Aracın kendisi mi, yoksa karar ağacı kavramının o ortamda daha mı görünmez olması mıydı? Nedeninizi açıklayın.**\n    *Cevap: [En çok colap ortamında zorlandım. Çünkü  kodları doğru yazmak ve çıktıları yorumlamak dikkat gerektiriyordu. Ayrıca karar ağacının yapısı doğrudan görünmediği için modelin nasıl çalıştığını anlamak diğer ortamlara göre daha zordu.]*\n    \n\n5.  **Yaptığınız bir hatayı hangi ortamda daha kolay fark ettiniz? Sizi uyaran şey aracın kendisi miydi, yoksa başka bir şey mi?**\n    *Cevap: [Hatalarımı en kolay colab ortamında fark ettim. Çünkü elde ettiğim hata oranları ve performans değerleri beklediğim sonuçlardan farklı çıktığında bir sorun olduğunda hata veriyordu ve çalışmıyordu.]*\n\n6.  **Bir ortamda rahatlıkla yapabildiğiniz ama bir diğerinde hiç yapamadığınız bir şey oldu mu?**\n    *Cevap: [Evet. colab farklı derinlik değerlerini deneyerek eğitim ve test hatalarını ayrıntılı şekilde karşılaştırabildim. Bunu diğer ortamlarda ayrıntılı göremedim.]*\n\n7.  **Üç ortamdan birinin diğerinin yerini tutamayacağı bir durum var mı? Nedeninizi açıklayın.**\n    *Cevap: [Evet. colabın model performansını ayrıntılı olarak analiz etmek için gerekliydi ancak karar ağacının mantığını ilk kez öğrenmek için tek başına yeterli değildi. diğerleri ise veri analizi için yeterli detay veremiyordu. Bu nedenle birbirlerinin yerini tutamazlar]*",
     "flag": null
   },
@@ -1945,7 +1945,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Addresses root feature not being surprising and gives biological reasoning (feature tied to habitat is logical). Discusses expected physical differences between tree-dwelling and ground-dwelling lizards (climbing/gripping traits) and confirms model captured this. Discusses misclassified individuals as those with overlapping/intermediate traits between habitats, with plausible biological explanation (incomplete adaptation or trait similarity). Also discusses prior expectation (body structure/mobility-related trait) matching the model's finding. All dimensions covered substantively. 5/5.",
+    "justification": "Kök özelliğinin şaşırtıcı olmadığını ele alıyor ve biyolojik gerekçe sunuyor (özelliğin habitat ile bağlantılı olması mantıklı). Ağaç yaşayan ve yer yaşayan kertenkeléler arasında beklenen fiziksel farklılıkları (tırmanma/tutma özellikleri) tartışıyor ve modelin bunu yakalamasını doğruluyor. Yanlış sınıflandırılan bireyler olarak habitatlar arasında çakışan/ara özellikler taşıyan biyolojik açıklama (eksik uyarlanma veya özellik benzerliği) sunuyor. Ayrıca önceki beklentiyi (gövde yapısı/mobilite ile ilgili özellik) modelin bulgusu ile eşleştiriyor. Tüm boyutlar substantif olarak ele alınıyor. 5/5.",
     "student_text": "**1)Modelinizin kök düğümde seçtiği değişken sizi şaşırttı mı? Biyolojik açıdan bu seçim mantıklı mı? Cevap:** [hayır şaşırtmadı. Biyolojik açıdan bakıldığında da bu değişkenin yaşam alanıyla ilişkili olması mantıklı geldi Bu nedenle modelin yaptığı seçim biyolojik beklentilerle uyumludur.]\n\n**2)Ağaçta yaşayan bir kertenkelenin yerde yaşayandan fiziksel olarak farklı olmasını bekler miydiniz? Modeliniz bu farkı yakalayabildi mi? Cevap:** [Evet, farklı yaşam alanlarında yaşayan kertenkelelerin fiziksel özelliklerinde bazı farklılıklar olmasını beklerdim. Örneğin ağaçta yaşayan türlerin tutunma veya tırmanma gibi kabiliyeti artıracak özelliklerin olması gerekir. Model de kullandığı değişkenler aracılığıyla bu farklılıkları büyük ölçüde yakalayabilmiş ve yaşam alanlarını ayırt edebilmiştir.]\n\n**3)Modelinizin yanlış sınıflandırdığı bireyler hangi yaşam alanına aitti? Bunun biyolojik bir açıklaması olabilir mi? Cevap:** [Cevap: Yanlış sınıflandırılan bireyler genellikle özellikleri iki yaşam alanı arasında benzerlik gösteren bireylerdi. Bunun biyolojik bir açıklaması olabilir. Bazı kertenkeleler yaşadıkları ortama tam uyum sağlamamış olabilir ya da fiziksel özellikleri diğer yaşam alanındaki bireylerle benzerlik gösterebilir. Bu durum modelin sınıflandırma yaparken hata yapmasına neden olmuş olabilir.]\n\n**4)Veriyi ilk gördüğünüzde kendiniz hangi değişkenin en belirleyici olacağını tahmin etmiştiniz? Modelinizin bulgusuyla örtüştü mü? Cevap:** [Veriyi ilk gördüğümde en belirleyici değişkenin vücut yapısıyla veya hareket kabiliyetiyle ilişkili bir özellik olacağını düşünmüştüm. Modelin seçtiği değişken bu tahminimle büyük ölçüde örtüştü ve yaşam alanlarını ayırt etmede gerçekten etkili bir özellik olduğunu gösterdi.]",
     "flag": null
   },
@@ -1958,7 +1958,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 3,
-    "justification": "States MCR=0.3281, which matches test_mcr_achieved for YasamAlani (0.3281) within tolerance — correct. Identifies best-predicted class as one with distinctive physical traits, worst-predicted as one with overlapping traits — but does not name specific classes (best_predicted_class and worst_predicted_class are null), only describes generically. States threshold reasoning ('as low as possible') which is directional but not a specific numeric threshold as required for full credit. Cross-target comparison attempted, noting MCR would differ if target changed, with reasoning about relationship strength — but no explicit MCR value comparison across the three actual trees. Meets MCR-stated + qualitative best/worst but lacks numeric threshold and explicit cross-target values. 3/5.",
+    "justification": "MCR=0.3281 belirtir, bu YasamAlani için test_mcr_achieved (0.3281) ile tolerans içinde eşleşir — doğru. En iyi tahmin edilen sınıfı ayırt edici fiziksel özellikleri olanlarla tanımlar, en kötü tahmin edileni çakışan özellikleri olanlarla — ancak spesifik sınıfları adlandırmaz (best_predicted_class ve worst_predicted_class null), sadece jenerik olarak açıklar. Eşik gerekçesi ('mümkün olduğu kadar düşük') yönü gösterir ancak tam kredi için gerekli spesifik sayısal eşik değildir. Hedef değişkeni değiştirirse MCR'nin farklı olacağını belirterek hedef değişkenler arası karşılaştırma denenmiş, ilişki gücü hakkında gerekçe — ancak üç gerçek ağaç arasında açık MCR değeri karşılaştırması yok. MCR belirtilen + nitel en iyi/en kötü karşılar ancak sayısal eşik ve açık hedef arası değerler eksik. 3/5.",
     "student_text": "**Seçtiğiniz optimum derinlikte elde ettiğiniz MCR değerini yazın ve gerekçelendirerek yanıtlayın:** mcr değerini 0.3281 olarak buldum. 0.3281 değeri, modelin genelleme performansının en iyi olduğu noktayı temsil etmektedir. Derinlik daha fazla artırıldığında model overfitting yapmaya başlayacağından test hatası artmakta, daha düşük derinliklerde ise verideki önemli örüntüler yeterince öğrenilememektedir.\n\n**Hangi sınıf en iyi, hangisi en kötü tahmin edildi? Bunun bir açıklaması var mı? Cevap:** [Cevap: Model, fiziksel özellikleri diğer sınıflardan daha belirgin olan yaşam alanını daha başarılı tahmin etti. En düşük başarı ise özellikleri diğer sınıflarla daha fazla benzerlik gösteren yaşam alanında görüldü. Bunun nedeni bazı bireylerin fiziksel özelliklerinin birbirine yakın olması ve sınıflar arasındaki sınırların net olmamasıdır.]\n\n**MCR değeriniz sizi tatmin etti mi? \"İyi\" bir model için bu değerin ne olması gerektiğini düşünüyorsunuz? Cevap:** [Cevap: Elde ettiğim MCR değeri genel olarak tatmin ediciydi çünkü model test verilerinin büyük kısmını doğru sınıflandırabildi. Bir modelin iyi kabul edilebilmesi için MCR değerinin mümkün olduğunca düşük olması gerekir. ]\n\n**Aynı veriyle farklı bir hedef değişken seçseydiniz (Tur ya da Cinsiyet) MCR değeri değişir miydi? Değiştiyse neden? (Bu soruyu diğer iki karar ağacını oluşturduktan sonra yanıtlayın.) Cevap:** [Evet, değişebilirdi. Çünkü bazı hedef değişkenler fiziksel özelliklerle daha güçlü ilişkilere sahipken bazıları daha zayıf ilişkilere sahip olabilir. Eğer seçilen hedef değişken veri içerisindeki diğer özelliklerle daha kolay ayırt edilebiliyorsa MCR değeri düşer, aksi durumda ise yükselir.]\n\nModelin başarısız olduğu durumlar size veri hakkında ne söylüyor? Cevap: [Cevap: Modelin hata yaptığı durumlar, veri içerisindeki bazı bireylerin özelliklerinin birbirine çok benzediğini gösteriyor. Ayrıca yaşam alanları arasında tamamen kesin sınırlar olmadığını ve bazı bireylerin birden fazla sınıfın özelliklerini taşıyabildiğini düşündürüyor. Bu durum verinin karmaşık yapısını ve modelin karşılaştığı zorlukları ortaya koymaktadır.]",
     "flag": null
   },
@@ -1971,7 +1971,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "Identifies systematic (non-random) error pattern tied to overlapping/boundary traits. Proposes both data improvements (more data, better features, fixing errors) and model/technical improvements (pruning, depth tuning). Names an alternative model generically ('models where multiple trees work together' — i.e., ensemble/random forest, though not precisely named) with reasoning (lower error rates). Provides a clear lay explanation of decision trees for a friend, including the overfitting limitation. Alternative model name is vague/generic rather than specific (e.g., 'Random Forest'), slightly limiting full credit. 4/5.",
+    "justification": "Çakışan/sınır özelliklerine bağlı sistematik (rastgele olmayan) hata deseni tanımlar. Veri iyileştirmeleri (daha fazla veri, daha iyi özellikler, hataları düzeltme) ve model/teknik iyileştirmeler (budama, derinlik ayarı) önerir. Alternatif modeli jenerik adlandırır ('birden fazla ağacın birlikte çalıştığı modeller' — yani ensemble/random forest, ancak kesin olarak adlandırılmaz) gerekçe ile (daha düşük hata oranları). Bir arkadaşa decision trees için açık bir lay açıklaması sağlar, overfitting sınırlaması da dahil. Alternatif model adı spesifik yerine vague/jenerik (örn. 'Random Forest'), tam kredi biraz sınırlıyor. 4/5.",
     "student_text": "**1)Modelinizin hata yaptığı durumlar rastgele mi görünüyor, yoksa belirli bir örüntü var mı? Cevap:** [Hatalar tamamen rastgele görünmüyor. Model genellikle fiziksel özellikleri birbirine benzeyen veya farklı sınıflar arasında kalan bireyleri yanlış sınıflandırdı. Bu durum, veri içinde belirli bir örüntü bulunduğunu ve modelin özellikle benzer özelliklere sahip bireyleri ayırt etmekte zorlandığını gösteriyor.]\n\n**2)Bu modelin daha iyi sonuç verebilmesi için neler yapılabilir? Yalnızca teknik değil, verinin kendisiyle ilgili ne değişebilir? Cevap:** [Modelin başarısını artırmak için daha fazla veri kullanılabilir ve yaşam alanlarını daha iyi açıklayan yeni değişkenler eklenebilir. Ayrıca eksik veya hatalı verilerin düzeltilmesi de performansı artırabilir. Teknik açıdan ise farklı derinlikler denenebilir veya budama yöntemleri kullanılarak overfitting önlenebilir.]\n\n**3)Karar ağacı yerine farklı bir model kullansaydınız sonuç değişir miydi? Neden? Cevap:** [Cevap: Evet, sonuçlar değişebilirdi. Karar ağaçları basit ve yorumlanabilir modellerdir ancak karmaşık ilişkileri her zaman yeterince iyi öğrenemeyebilirler. Birden fazla ağacın birlikte çalıştığı modeller kullanılsaydı daha düşük hata oranları elde etmek mümkün olabilirdi.]\n\n**4)Bu deneyimden sonra bir arkadaşınıza \"karar ağacı nedir, ne işe yarar, nerede yetersiz kalır?\" diye sorsalar ne söylerdiniz? Cevap:** [Cevap: Karar ağacı, verileri belirli kurallara göre dallara ayırarak tahmin yapan bir makine öğrenmesi modelidir. Hangi özelliklerin karar vermede etkili olduğunu açıkça göstermesi en büyük avantajlarından biridir. Ancak veri karmaşıklaştığında veya sınıflar arasında net farklar bulunmadığında hata yapabilir. Ayrıca ağacın derinliği gereğinden fazla artırılırsa veriyi ezberleyerek yeni veriler üzerinde başarısız sonuçlar verebilir.]",
     "flag": null
   },
@@ -1984,7 +1984,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 2,
-    "justification": "'Optimum derinlik farklı hedef değişkenler için farklı çıktı. Hedef değişkenlerinin verilerdeki durumu farklıdır. Bazı veriler düşük sayıda dal ile çözüme ulaştırırken bazıları daha fazla derinliğe ihtiyaç duyar.' Correctly notes depths differ across targets with a general reason (data structure varies), but does not cite specific depth numbers or MCR values for the different targets in this comparison text. 2/4.",
+    "justification": "'Optimum derinlik farklı hedef değişkenler için farklı çıktı. Hedef değişkenlerinin verilerdeki durumu farklıdır. Bazı veriler düşük sayıda dal ile çözüme ulaştırırken bazıları daha fazla derinliğe ihtiyaç duyar.' Hedef değişkenler arasında derinliklerin farklı olduğunu ve genel bir neden (veri yapısı değişir) belirtir, ancak bu karşılaştırma metninde farklı hedef değişkenler için spesifik derinlik numaraları veya MCR değerleri alıntılamaz. 2/4.",
     "student_text": "Optimum derinlik farklı hedef değişkenler için farklı çıktı. Hedef değişkenlerinin verilerdeki durumu farklıdır. Bazı veriler düşük sayıda dal ile çözüme ulaştırırken bazıları daha fazla derinliğe ihtiyaç duyar.",
     "flag": null
   },
@@ -1997,7 +1997,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 3,
-    "justification": "In q_root_changed_across_targets (used as supporting evidence for root node comparison reasoning), student explains that root node changes because variable importance depends on relationship with target, and that a different feature (e.g. leg length or body length) may become more discriminative than mass when the target changes. This is root_nodes_compared=True with a data-driven interpretation, though not deeply biological (partial reasoning: mentions specific alternative features but doesn't fully tie to biological function). 3/4.",
+    "justification": "q_root_changed_across_targets (kök düğüm karşılaştırması gerekçesi için destekleyici kanıt olarak kullanılan) içinde, öğrenci kök düğümün değiştiğini, değişken önem derecesinin hedef ile ilişkisine bağlı olduğunu ve hedef değiştiğinde farklı bir özelliğin (örn. bacak uzunluğu veya gövde uzunluğu) kütlenin çoğundan daha ayırıcı hale gelebileceğini açıklar. Bu root_nodes_compared=True veri odaklı yorumla, çok biyolojik olmasa da (kısmi gerekçe: spesifik alternatif özellikler belirtir ama biyolojik işlevle tamamen bağlamaz). 3/4.",
     "student_text": "Optimum derinlik farklı hedef değişkenler için farklı çıktı. Hedef değişkenlerinin verilerdeki durumu farklıdır. Bazı veriler düşük sayıda dal ile çözüme ulaştırırken bazıları daha fazla derinliğe ihtiyaç duyar.",
     "flag": null
   },
@@ -2010,7 +2010,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 0,
-    "justification": "q_imbalance_effect_reasoning is null. No response to evaluate.",
+    "justification": "q_imbalance_effect_reasoning null. Değerlendirilecek yanıt yok.",
     "student_text": "",
     "flag": null
   },
@@ -2023,7 +2023,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 0,
-    "justification": "q_mass_by_species_reasoning is null. No response to evaluate.",
+    "justification": "q_mass_by_species_reasoning null. Değerlendirilecek yanıt yok.",
     "student_text": "",
     "flag": null
   },
@@ -2036,7 +2036,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "No questions present to evaluate for quality.",
+    "justification": "Değerlendirilecek soru yok.",
     "student_text": "(no research questions written)",
     "flag": null
   },
@@ -2049,7 +2049,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 2,
-    "justification": "test_size=0.2, stratify_used=true, random_state=42 — all correct and consistent across models (parameters_varied_across_models=false).",
+    "justification": "test_size=0.2, stratify_used=true, random_state=42 — tümü doğru ve modeller arasında tutarlı (parameters_varied_across_models=false).",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
     "flag": null
   },
@@ -2062,7 +2062,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 0,
-    "justification": "q_stratify_removal_effect is null.",
+    "justification": "q_stratify_removal_effect null.",
     "student_text": "",
     "flag": null
   },
@@ -2075,7 +2075,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 0,
-    "justification": "q_random_state_change_effect is null.",
+    "justification": "q_random_state_change_effect null.",
     "student_text": "",
     "flag": null
   },
@@ -2088,7 +2088,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 0,
-    "justification": "raw_text is null. No reflection submitted.",
+    "justification": "raw_text boş. Hiçbir yansıtma gönderilmedi.",
     "student_text": null,
     "flag": null
   },
@@ -2101,7 +2101,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 0,
-    "justification": "raw_text is null. No reflection submitted.",
+    "justification": "raw_text boş. Hiçbir yansıtma gönderilmedi.",
     "student_text": null,
     "flag": null
   },
@@ -2114,7 +2114,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 0,
-    "justification": "raw_text is null. No reflection submitted.",
+    "justification": "raw_text boş. Hiçbir yansıtma gönderilmedi.",
     "student_text": null,
     "flag": null
   },
@@ -2127,7 +2127,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 0,
-    "justification": "raw_text is null. No reflection submitted.",
+    "justification": "raw_text boş. Hiçbir yansıtma gönderilmedi.",
     "student_text": null,
     "flag": null
   },
@@ -2140,7 +2140,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 0,
-    "justification": "optimal_depths_compared and comparison_reasoning are both null. No cross-target discussion present.",
+    "justification": "optimal_depths_compared ve comparison_reasoning her ikisi de boş. Hedefler arası tartışma yok.",
     "student_text": "",
     "flag": null
   },
@@ -2153,7 +2153,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 0,
-    "justification": "root_nodes_compared and comparison_reasoning are both null. No cross-target discussion present.",
+    "justification": "root_nodes_compared ve comparison_reasoning her ikisi de boş. Hedefler arası tartışma yok.",
     "student_text": "",
     "flag": null
   },
@@ -2166,7 +2166,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 3,
-    "justification": "Correctly identifies that classes are not balanced, that the model will learn the Yer class more easily, and will make more errors on the Agac class — direction and mechanism (learning bias due to imbalance) are both present. 3/3.",
+    "justification": "Sınıfların dengesiz olmadığını, modelin Yer sınıfını daha kolay öğreneceğini ve Agac sınıfında daha fazla hata yapacağını doğru tanımlar — yön ve mekanizm (dengesizlikten kaynaklanan öğrenme sapması) her ikisi de mevcuttur. 3/3.",
     "student_text": "Sınıflar tam dengeli değildir.\nModel Yer sınıfını daha kolay öğrenebilir ve\n Agac sınıfında daha fazla hata yapabilir.",
     "flag": null
   },
@@ -2179,7 +2179,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 3,
     "machine_score": 3,
-    "justification": "Correctly orders Sceloporus as heaviest (~19.36g), Uta as lightest (~7.39g), Anolis in between, and explains the difference via species-level biological/morphological adaptation (body size, body length, habitat adaptation). Full ordering and reasoning present. 3/3.",
+    "justification": "Sceloporus'u en ağır (~19.36g) olarak, Uta'yı en hafif (~7.39g) olarak, Anolis'i ortada olarak doğru sıralar ve farkı türe özgü biyolojik/morfolojik uyum (vücut boyutu, vücut uzunluğu, habitat adaptasyonu) yoluyla açıklar. Tam sıralama ve gerekçe mevcuttur. 3/3.",
     "student_text": "Evet, ortalama ağırlık üç tür arasında belirgin şekilde farklıdır. En ağır tür Sceloporus olup ortalama ağırlığı yaklaşık 19,36 gramdır. En hafif tür ise Uta olup ortalama ağırlığı yaklaşık 7,39 gramdır. Anolis türü ise yaklaşık 9,88 gramlık ortalama ağırlığıyla bu iki tür arasında yer almaktadır.\n\nBu farklılığın nedeni türlerin biyolojik özelliklerinin ve vücut yapılarının farklı olmasıdır. Türler farklı boyutlara, gövde uzunluklarına ve yaşam alanlarına uyum sağlamış oldukları için ağırlıkları da birbirinden farklıdır. Bu sonuç, kertenkele türünün ağırlık üzerinde önemli bir etkisi olduğunu göstermektedir.",
     "flag": null
   },
@@ -2192,7 +2192,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "All three questions are clearly framed as predictive/classification questions ('Bu kertenkelenin ... ne olabilir?') referencing the target variable and prediction goal. 2/2.",
+    "justification": "Her üç soru, hedef değişkeni ve tahmin hedefini referans alarak tahmin edici/sınıflandırma soruları olarak açıkça çerçevelenmiştir ('Bu kertenkelenin ... ne olabilir?'). 2/2.",
     "student_text": "Bu kertenkelenin yaşam alanı ne olabilir? | Bu kertenkelenin türü ne olabilir? | Bu kertenkelenin cinsiyeti ne olabilir?",
     "flag": null
   },
@@ -2205,7 +2205,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "hybrid",
     "max": 2,
     "machine_score": 2,
-    "justification": "test_size=0.2, stratify_used=True, random_state=42 — all correct, and parameters_varied_across_models=False confirms consistency. 2/2.",
+    "justification": "test_size=0.2, stratify_used=True, random_state=42 — hepsi doğru ve parameters_varied_across_models=False tutarlılığı doğrular. 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
     "flag": null
   },
@@ -2218,7 +2218,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 2,
     "machine_score": 2,
-    "justification": "Explains that removing stratify disrupts class proportions in train/test sets, specifically noting minority classes (Kaya) could be underrepresented in the test set, making evaluation less reliable, and contrasts with stratify=y balancing proportions. 2/2.",
+    "justification": "stratify'ı kaldırmanın train/test setlerindeki sınıf oranlarını bozduğunu, özellikle azınlık sınıflarının (Kaya) test setinde temsil eksikliğine maruz kalabileceğini, değerlendirmeyi daha az güvenilir hale getirdiğini ve bunu stratify=y ile oranları dengelemenin zıttı ile karşılaştırarak açıklar. 2/2.",
     "student_text": "stratify=y parametresi kaldırıldığında eğitim ve test setlerindeki sınıf oranları değişebilir. Örneğin veri setinde Yer, Kaya ve Ağaç yaşam alanları belirli oranlarda bulunurken, bölme işleminden sonra bazı sınıflar test setinde çok az temsil edilebilir. Bu durum modelin performansını doğru değerlendirmeyi zorlaştırır. stratify=y kullanıldığında ise her sınıf eğitim ve test setlerine orijinal veri setindeki oranlara yakın şekilde dağıtılır ve daha güvenilir sonuçlar elde edilir.",
     "flag": null
   },
@@ -2231,7 +2231,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 1,
     "machine_score": 1,
-    "justification": "Explains random_state controls which observations go to train/test, that different seeds produce different splits and slightly different tree structure/MCR, but results remain generally similar and reproducible on repeat. 1/1.",
+    "justification": "random_state'in hangi gözlemlerin train/test'e gittiğini kontrol ettiğini, farklı seed'lerin farklı bölünmeler ve biraz farklı ağaç yapısı/MCR ürettiğini, ancak sonuçların genel olarak benzer kaldığını ve tekrarda yinelenebilir olduğunu açıklar. 1/1.",
     "student_text": "Evet, sonuçlar değişebilir. Çünkü random_state verinin hangi gözlemlerinin eğitim ve test setine gideceğini belirleyen rastgele seçim sürecini kontrol eder. random_state=42 ve random_state=7 farklı bölünmeler oluşturacağı için eğitim ve test kümeleri değişebilir. Buna bağlı olarak karar ağacının yapısı, doğruluk oranı ve MCR değerleri de farklı çıkabilir. Ancak veri seti aynı olduğu için sonuçlar genellikle birbirine yakın olur. random_state kullanmanın amacı deneylerin tekrarlandığında aynı sonuçların elde edilmesini sağlamaktır.",
     "flag": null
   },
@@ -2244,7 +2244,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 5,
-    "justification": "Discusses all three environments (data cards, CODAP, Python) with distinct, substantive observations for each: physical sorting with data cards, visual/interactive understanding with CODAP as the place understanding was deepest, and detailed error detection discussion in Python (specific example of a typo causing an error, contrast with CODAP's silent visual errors vs Python's explicit error messages). 5/5.",
+    "justification": "Üç ortamın tamamını (data cards, CODAP, Python) tartışır; her biri için farklı, somut gözlemler sunar: data cards ile fiziksel sıralama, CODAP ile görsel/etkileşimli anlayış (anlayışın en derin olduğu yer), ve Python'da ayrıntılı hata tespiti tartışması (bir yazım hatası nedeniyle oluşan hata örneği, CODAP'ın sessiz görsel hataları ile Python'ın açık hata mesajlarının karşılaştırılması). 5/5.",
     "student_text": "Açıkçası bu dönem veri bilimi yolculuğunda üç farklı dünyayı da deneyimlemek bana çok şey kattı. İlk başta Data Kartları ile çalışırken işin tamamen mantığını ve \"Fiziksel olarak veriyi bölmek ne demek?\" sorusunun cevabını dokunarak hissettim. Ancak itiraf etmeliyim ki az sayıda veriyle bile kartları destelemek tam bir sabır işiydi.\n\nArdından CODAP'a geçtiğimde adeta bir oyun alanına girmiş gibi hissettim. Görsel olarak verileri sağa sola çekiştirmek, grafikteki kümelerin nasıl bölündüğünü anlık izlemek muhteşem bir deneyimdi. Modelin arka planda tam olarak neyi amaçladığını, verileri nasıl dilimlediğini kesinlikle en iyi CODAP ortamında anladım. Çünkü her şey gözümün önündeydi, soyut hiçbir şey kalmamıştı.\n\nEn çok zorlandığım yer ise şüphesiz Python ve Colab aşaması oldu. Kod satırları arasında kaybolmak, bir virgülü unuttuğumda ya da küçük-büyük harf hatası yaptığımda (YasamAlani yerine yasamalani yazmak gibi) ekranın kırmızı hata mesajlarıyla dolması ilk başta gözümü korkuttu. Ancak garip bir şekilde, hatamı fark edip çözmemde de en büyük dostum Python oldu. CODAP'ta bir şeyi yanlış yaptığınızda hatayı görsel olarak gözden kaçırabiliyorsunuz, ama Python hiç affetmiyor; satır numarasını verip \"Bak burada IndentationError var\" diyerek beni doğrudan çözüme yönlendirdi. Kod yazmanın o katı ama adil yapısı bana daha çok disiplin kazandırdı diyebilirim.",
     "flag": null
   },
@@ -2257,7 +2257,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "Provides biological explanations for all three root features (ToplamUzunluk for habitat/tail length adaptation, BacakUzunlugu for species leg-length divergence, Kutle for sexual dimorphism), addresses these as expected/logical (implicit surprise handling). However, does not discuss which habitat/class is hardest to misclassify — the misclassified_habitat_discussed field is False, missing this third dimension. 4/5.",
+    "justification": "Üç root özelliğinin tamamı için biyolojik açıklamalar sağlar (ToplamUzunluk habitat/kuyruk uzunluğu adaptasyonu için, BacakUzunlugu türe özgü bacak uzunluğu farklılaşması için, Kutle cinsiyet dimorfizmi için), bunları beklenen/mantıklı olarak ele alır (zımni şaşkınlık yönetimi). Ancak, hangi habitat/sınıfın yanlış sınıflandırılması açısından en zor olduğunu tartışmaz — misclassified_habitat_discussed alanı False, bu üçüncü boyut eksiktir. 4/5.",
     "student_text": "Kurduğum üç farklı modelde de matematiksel algoritmaların doğanın kendi gizli kurallarını nasıl bu kadar net yakalayabildiğine gerçekten hayret ettim.\n\nYaşam Alanı tahmininde kök düğümün ToplamUzunluk seçilmesi harika bir biyolojik adaptasyon örneği. Ağaçta yaşayan bir kertenkelenin daldan düşmemek için upuzun bir kuyruğa ihtiyaç duyması, yerdekilerin ise daha kompakt olması doğanın bir kuralı ve model bu kuralı hiç biyoloji bilmeden matematiksel olarak tak diye önümüze koydu.\n\nTür tahmininde kök düğümün BacakUzunlugu olması da aynı şekilde. Sceloporus, Anolis ve Uta türlerinin evrimsel süreçte birbirlerinden ayrışırken en karakteristik morfolojik farklarının bacak boylarında saklı olduğunu gördüm.\n\nCinsiyet tahmininde ise ilk sıraya Kutle değişkeninin oturması tam bir \"Erkeklik-Dişilik\" (seksüel dimorfizm) yansıması. Doğada erkek kertenkelelerin bölge korumak ve kavga etmek için daha iri ve ağır olması gerçeği, ağacın Kutle > 11.82 ise ve bacakları uzunsa baskın şekilde Erkek tahmini yapmasıyla birebir örtüşüyor.\n\nYani model sadece kuru sayılarla oynamadı; kertenkelelerin hayatta kalma stratejilerini ve evrimsel imzalarını matematiksel kurallara tercüme etti.",
     "flag": null
   },
@@ -2270,7 +2270,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "States MCR value 0.187 (matches Cinsiyet test_mcr_achieved of 0.4375? No — checking: Cinsiyet test_mcr_achieved=0.4375, but Tur test_mcr_achieved is not 0.187 either; closest match not within 0.01 of any single target's test_mcr_achieved value in dt_experiments, though 0.187 appears to reference an internal aggregate/confusion-matrix-based value discussed narratively). Identifies best predicted class (Yer) and worst (Kaya) with data-property reasoning (majority class effect, minority confusion). Cross-target comparison attempted comparing Tur (95.3%), Cinsiyet (18.7% error) narratively. No explicit numeric threshold proposed (ideal_mcr_threshold_stated=null). Three of four dimensions present (MCR stated, best/worst with reason, cross-target comparison), missing explicit threshold. 4/5.",
+    "justification": "MCR değeri 0.187 belirtir (Cinsiyet test_mcr_achieved değeri 0.4375 ile eşleşir mi? Hayır — kontrol: Cinsiyet test_mcr_achieved=0.4375, ancak Tur test_mcr_achieved de 0.187 değildir; en yakın eşleştirme dt_experiments'teki herhangi bir hedefin test_mcr_achieved değerinden 0.01 içinde değildir, ancak 0.187 anlatısal olarak tartışılan bir iç toplam/karmaşıklık-matris tabanlı değeri referans alır). En iyi tahmin edilen sınıfı (Yer) ve en kötüsünü (Kaya) veri özelliği gerekçesiyle tanımlar (çoğunluk sınıfı etkisi, azınlık karışıklığı). Hedefler arası karşılaştırma, Tur (%95.3), Cinsiyet (%18.7 hata) anlatısal olarak karşılaştırarak denendi. Açık sayısal eşik önerilmedi (ideal_mcr_threshold_stated=null). Dört boyuttan üçü mevcuttur (MCR belirtildi, en iyi/en kötü neden ile, hedefler arası karşılaştırma), açık eşik eksiktir. 4/5.",
     "student_text": "Karışıklık matrislerini önüme koyup incelediğimde, derslerde konuştuğumuz \"sınıf dengesizliği\" tehlikesini canlı canlı gözlemlemiş oldum.\n\nÖrneğin Yaşam Alanı modelinde veri setinde en çok bulunan (baskın olan) sınıf \"Yer\" kertenkeleleriydi. Matriste de en yüksek doğru tahmin oranının \"Yer\" sınıfına ait olduğunu gördüm. Model adeta \"Ben en çok Yer kertenkelesi gördüm, o yüzden onları tanımakta çok iyiyim\" diyordu. Buna karşılık sayısı az olan \"Kaya\" kertenkeleleri ise sıklıkla \"Ağaç\" kertenkeleleriyle karıştırılmıştı. Azınlıkta kalan sınıfların model tarafından biraz \"ihmal edildiğini\" hissettim.\n\nTür tahmininde ise performans adeta kusursuzdu (%95.3 doğruluk). Orada Anolis sınıfının 17'de 17 yapması muazzam bir başarıydı. Cinsiyet tahmininde ise hata oranı biraz daha yüksekti (MCR: %18.7). Bunu da şuna bağlıyorum: İki farklı türü ayırmak (biri devasa, diyen minicik) çok kolayken; aynı türün iri bir dişisi ile küçük bir erkeği boyut olarak birbirine çok benzer. Modelin bu ara/gri bölgelerde kafasının karışmasını çok insani ve doğal buluyorum. Genel olarak aldığım MCR değerleri, bu kadar basit ve sadece 2 derinliğe sahip ağaçlar için bence fazlasıyla tatmin edici ve başarılı.",
     "flag": null
   },
@@ -2283,7 +2283,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 5,
     "machine_score": 4,
-    "justification": "Identifies systematic (non-random) error pattern — confusion occurs among morphologically similar borderline cases near decision thresholds. Proposes data-level improvement (adding skin color/pattern, toe/pad structure features). Provides a clear lay explanation of decision trees for a friend, including the overfitting limitation explicitly (mentions ezberleme and test error spiking at depth 5). However, does not name a specific alternative model (alternative_model_named=null; only vaguely references 'farklı bir model' using distance/probability-based logic without naming k-NN, random forest, etc.). Three of four dimensions fully met. 4/5.",
+    "justification": "Sistematik (tesadüfi olmayan) hata modeli tanımlar — karışıklık karar eşikleri yakınında morfolojik olarak benzer sınır durumları arasında oluşur. Veri düzeyinde iyileştirme önerir (cilt rengi/desen, parmak/ped yapısı özelliklerini ekleme). Bir arkadaş için decision tree'nin açık bir halk açıklamasını sağlar, aşırı uyumlanma sınırlamasını açıkça içerir (ezberleme ve test hatasının derinlik 5'te artmasından bahseder). Ancak, belirli bir alternatif model adlandırmaz (alternative_model_named=null; yalnızca 'farklı bir model' yapan k-NN, random forest vb. adlandırmadan mesafe/olasılık tabanlı mantığı vaguely referans alır). Dört boyuttan üçü tam olarak karşılanır. 4/5.",
     "student_text": "Karar ağaçlarının en güçlü yönü kesinlikle \"açıklanabilir\" olması. Ağaca baktığımda modelin hangi kararı neden verdiğini bir insan gibi okuyabiliyorum (\"Kütlesi şundan büyükse erkektir\" gibi). Gizemli bir kara kutu değil, çok şeffaf. Ancak en büyük zayıflığı, sınırları çok keskin çizgilerle (balta keser gibi) ayırması. Doğada hayat her zaman Kutle <= 11.82 gibi net bir çizgiyle ikiye ayrılmıyor; esnek geçişler var.\n\nModelin yaptığı hatalar kesinlikle rastgele değil, çok net bir örüntüsü var: Birbirine fiziksel ölçü olarak çok benzeyen ara formları karıştırıyor. Eğer bu veri setini gelecekte geliştirme şansım olsaydı, sadece boy-kilo gibi kaba morfolojik ölçümlerle yetinmezdim. Veri kümesine kesinlikle \"Deri rengi / Desen türü\" veya \"Parmak yapısı / Vantuz varlığı\" gibi daha ayırt edici kategorik değişkenler eklerdim. Çünkü ağaçta yaşayan bir kertenkelenin parmak yapısı yerdekilerden çok farklıdır ve model bu değişkeni görseydi sıfır hatayla çalışabilirdi.\nBence kesinlikle değişirdi. Derste de gördüğümüz gibi karar ağaçları veriyi hep dikey ve yatay, yani çok keskin çizgilerle (Kutle <= 11.82 veya BacakUzunlugu <= 26.25 gibi) bıçakla keser gibi ayırıyor. Fakat doğadaki canlılar, bu kertenkeleler her zaman böyle katı matematiksel kutuların içine sığmıyorlar. İri bir dişi ile küçük bir erkek kertenkele çok rahat bir şekilde bu keskin sınıra denk gelip modeli yanıltabiliyor (zaten matrislerdeki hatalarımız da hep bu sınırlara yakın yerlerde oldu).\n\nEğer elimizde verileri böyle keskin bir çizgiyle değil de, daha esnek veya yuvarlak geçişlerle gruplayabilen farklı bir model olsaydı sonuçlar değişebilirdi. Örneğin, verileri çizgilerle bölmek yerine aralarındaki benzerlik mesafelerine göre kümeleyen ya da olasılık hesabı yapan başka bir mantık kullansaydık, o sınırda kalan ara formdaki kertenkeleleri daha iyi yönetebilirdik. Cinsiyet tahminindeki %18.7'lik hata oranımız belki daha da aşağı düşebilirdi. Karar ağacı bize çok net ve anlaşılır kurallar veriyor ama bu keskin sınır yapısı yüzünden bazı kertenkeleleri kaçırdığımızı düşünüyorum. O yüzden modelin değişmesi, veriye bakış açımızı ve tahmin esnekliğimizi kesinlikle etkilerdi.\n\nBu yoğun süreçten sonra kahve içerken bir arkadaşım bana bunu sorsa, ona hiç kitabi ve teorik cümlelere girmeden, bu kertenkele ödevindeki maceralarımdan yola çıkarak aynen şunları söylerdim:\n\nKarar Ağacı Nedir? \"Bak dostum, karar ağacı aslında bizim günlük hayatta yaptığımız 'Yol ayrımı' tercihlerinin bilgisayara yaptırılmış halidir. Verinin karşısına geçip sırayla 'Bu kertenkele 11 gramdan ağır mı? Evet ise sağa git, hayır ise sola git' diye mantıklı sorular soran ve bu soruların sonunda veriyi doğru kutulara (türlere veya yaşam alanlarına) yerleştiren bir 'Evet/Hayır' oyunudur.\"\n\nNe İşe Yarar? \"En büyük numarası şeffaf ve anlaşılır olmasıdır. Yapay zekanın neye bakarak karar verdiğini (örneğin kertenkelenin bacak boyuna baktığını) gözünle görebiliyorsun, arkada ne döndüğü belli olmayan bir 'kara kutu' değil. Veriyi hızla sınıflandırmaya ve karmaşık gibi duran tablolardan çok basit, herkesin okuyabileceği kurallar çıkarmaya yarar.\"\n\nNerede Yetersiz Kalır? \"İşte can alıcı yer burası. Bu ağaçlar çok çabuk ezberlemeye (overfitting) meyillidir. Ağacı çok derinleştirirsen (max_depth değerini artırırsan), verideki genel mantığı öğrenmeyi bırakıp kertenkelelerin tek tek şeceresini ezberliyor; sonra önüne hiç görmediği yeni bir kertenkele koyduğunda çuvallıyor (tıpkı test hatamızın 5. derinlikte fırlaması gibi). Bir de hayatı çok keskin çizgilerle ayırdığı için, birbirine çok benzeyen, ara formda kalan verilerde kafası acayip karışıyor ve yetersiz kalıyor.\"",
     "flag": null
   },
@@ -2296,7 +2296,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 1,
-    "justification": "optimal_depths_compared=False and the comparison_reasoning text focuses entirely on MCR/accuracy comparison (Tur is the best model) rather than explaining why optimal depths themselves differ across targets — in fact all three chosen depths are 2, so no depth-difference reasoning is given or needed structurally, but the rubric expects engagement with depth reasoning which is absent. 1/4.",
+    "justification": "optimal_depths_compared=False ve comparison_reasoning metni tamamen MCR/doğruluk karşılaştırmasına odaklanır (Tur en iyi modeldir) — aslında seçilen tüm derinlikler 2'dir, bu nedenle derinlik-farklılığı gerekçesi verilmedi ya da yapısal olarak gerekli değildir, ancak rubrik derinlik göz önüne alınması ile ilgili katılım bekler (bu mevcut değildir). 1/4.",
     "student_text": "Yaptığımız tüm bu modelleme çalışmalarını ve elde ettiğimiz sonuçları karşılaştırdığımızda, en iyi ve en başarılı tahmin kesinlikle \"Tur\" (Kertenkele Türü) tahmini yaptığımız modeldir.\n\nCinsiyet modelinde %18.7, Yaşam Alanı modelinde ise %31 civarında hata (MCR) oranlarıyla boğuşurken; Tur modelinde hata oranımız neredeyse sıfıra yaklaşarak %4.7 (0.047) seviyesine düştü. Test setindeki 64 kertenkeleden 61 tanesini nokta atışı doğru bildik. Hele o Karışıklık Matrisindeki Anolis türünün 17'de 17 yapması, yani sıfır hatayla çalışması modelin ne kadar kusursuz bir başarı yakaladığının en büyük kanıtı.\n\nTürler arasındaki evrimsel boyut farkları o kadar belirgindir ki, kurulan basit bir karar ağacı bile sadece 3 kertenkelede yanılarak şifreyi anında çözebildi. Özetle, sunacağımız en güçlü ve doğanın mantığına en uygun çalışan \"şampiyon\" modelimiz Tur değişkenini hedef aldığımız model oldu.",
     "flag": null
   },
@@ -2309,7 +2309,7 @@ window.COLAB_REVIEW_ITEMS = [
     "mode": "llm",
     "max": 4,
     "machine_score": 4,
-    "justification": "Root nodes explicitly compared across all three targets (ToplamUzunluk, BacakUzunlugu, Kutle) with detailed biological interpretation for each (tail length for habitat/climbing adaptation, leg length for species divergence, body mass for sexual dimorphism) — cited consistently across step5 and q2 reflection. Rich, specific, biologically grounded comparison. 4/4.",
+    "justification": "Root nodlar tüm üç hedef arasında açıkça karşılaştırılır (ToplamUzunluk, BacakUzunlugu, Kutle) ve her biri için ayrıntılı biyolojik yorum sağlanır (tırmanma adaptasyonu için kuyruk uzunluğu, türe özgü farklılaşma için bacak uzunluğu, cinsiyet dimorfizmi için vücut kütlesi) — step5 ve q2 yansıtması arasında tutarlı olarak alıntılanır. Zengin, belirgin, biyolojik olarak temellendirilmiş karşılaştırma. 4/4.",
     "student_text": "Yaptığımız tüm bu modelleme çalışmalarını ve elde ettiğimiz sonuçları karşılaştırdığımızda, en iyi ve en başarılı tahmin kesinlikle \"Tur\" (Kertenkele Türü) tahmini yaptığımız modeldir.\n\nCinsiyet modelinde %18.7, Yaşam Alanı modelinde ise %31 civarında hata (MCR) oranlarıyla boğuşurken; Tur modelinde hata oranımız neredeyse sıfıra yaklaşarak %4.7 (0.047) seviyesine düştü. Test setindeki 64 kertenkeleden 61 tanesini nokta atışı doğru bildik. Hele o Karışıklık Matrisindeki Anolis türünün 17'de 17 yapması, yani sıfır hatayla çalışması modelin ne kadar kusursuz bir başarı yakaladığının en büyük kanıtı.\n\nTürler arasındaki evrimsel boyut farkları o kadar belirgindir ki, kurulan basit bir karar ağacı bile sadece 3 kertenkelede yanılarak şifreyi anında çözebildi. Özetle, sunacağımız en güçlü ve doğanın mantığına en uygun çalışan \"şampiyon\" modelimiz Tur değişkenini hedef aldığımız model oldu.",
     "flag": null
   }
