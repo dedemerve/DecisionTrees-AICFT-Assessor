@@ -9,6 +9,7 @@
 
   const BEHAV = [
     ["EXPLORE_DATA", "Explore data", "Looking at data tables or graphs", "--b1"],
+    ["PREPARE_DATA", "Prepare data", "Reviewing or preparing the data before analysis", "--b0"],
     ["SELECT_TARGET", "Select target", "Choosing the target (dependent) variable", "--b2"],
     ["BUILD_TREE", "Build tree", "Building the decision tree", "--b3"],
     ["TUNE_THRESHOLD", "Tune threshold", "Adjusting a split threshold", "--b4"],
@@ -221,7 +222,7 @@
     if (!keys.length) return "";
     const rows = keys.map((code) => {
       const known = !!BEH[code];
-      const meaning = known ? BEH[code].desc : (kind === "second" ? "Stored as a second label. It is not one of the nine primary codes." : "Not in the nine-code list.");
+      const meaning = known ? BEH[code].desc : (kind === "second" ? "Stored as a second label. It is not one of the ten primary codes." : "Not in the ten-code list.");
       return `<tr><td>${swatch(code)}${h(known ? BEH[code].label : code)}</td><td>${h(meaning)}</td><td class="num">${num(counts[code])}</td><td class="num">${pct(counts[code], denom)}</td></tr>`;
     }).join("");
     return `<div class="table-wrap"><table><thead><tr><th>${kind === "second" ? "Second label" : "Behaviour"}</th><th>Meaning</th><th class="num">Frames</th><th class="num">Share</th></tr></thead><tbody>${rows}</tbody></table></div>`;
