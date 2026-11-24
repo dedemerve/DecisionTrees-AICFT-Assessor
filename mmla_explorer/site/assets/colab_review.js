@@ -30,6 +30,22 @@
   };
   var TR_MODE = { 'llm': 'LLM', 'hybrid': 'Karma', 'auto': 'Otomatik' };
 
+  /* ---- question prompts shown to students (Turkish) ---- */
+  var TR_QUESTIONS = {
+    'S1.3': 'Habitat sınıflarındaki dengesizlik (Yer çok, Ağaç az) modelin tahminlerini nasıl etkiler? Hangi sınıf daha iyi tahmin edilir, neden?',
+    'S1.4': 'Türlere göre vücut kütlesi dağılımına baktığında hangi tür en ağır, hangi tür en hafif? Biyolojik bir açıklama yapabilir misin?',
+    'S2.2': 'Bu veri setiyle test etmek istediğin araştırma sorularını yaz. Her hedef değişken (YaşamAlanı, Tür, Cinsiyet) için ayrı bir araştırma sorusu oluştur.',
+    'S3.1': 'train_test_split fonksiyonunda test_size, stratify ve random_state parametrelerini nasıl ayarladın? (Beklenen: test_size=0.2, stratify=y, random_state=42)',
+    'S3.2': 'Eğer stratify parametresini kaldırırsan ne olur? Sınıf dağılımı üzerindeki etkisini açıkla.',
+    'S3.3': 'random_state parametresini değiştirirsen sonuçlar nasıl değişir? Bu parametrenin rolü nedir?',
+    'S6.1': 'Soru 1 — Bu ödevde veri kartları, CODAP ve Python olmak üç farklı ortamda çalıştın. Her birinde ne öğrendiğini ve hangi hataları fark ettiğini açıkla.',
+    'S6.2': 'Soru 2 — Karar ağacının kök düğümünde hangi özellik yer aldı? Bu seni şaşırttı mı? Hangi habitat sınıfı en zor sınıflandırıldı ve neden?',
+    'S6.3': 'Soru 3 — Modelinin yanlış sınıflandırma oranı (MCR) neydi? En iyi ve en kötü tahmin edilen sınıf hangisiydi? İdeal bir MCR eşiği ne olmalıdır?',
+    'S6.4': 'Soru 4 — Modelindeki sistematik hata örüntüsünü açıkla. Modeli iyileştirmek için ne yapardın? Karar ağacına alternatif hangi modeli kullanırdın ve neden?',
+    'S7.2': 'Üç hedef değişken (YaşamAlanı, Tür, Cinsiyet) için en iyi derinlik değerleri farklı mıydı? Neden farklı olduğunu MCR değerlerine veya veri özelliklerine dayanarak açıkla.',
+    'S7.3': 'Farklı hedef değişkenler için karar ağacının kök düğümü değişti mi? Bu değişimin biyolojik veya istatistiksel bir açıklaması var mı?'
+  };
+
   /* ---- helpers ---- */
   function h(s) {
     return String(s == null ? '' : s)
@@ -236,11 +252,27 @@
         '<p class="cr-label">' + h(TR_LABELS[it.criterion] || it.label) + ' <span class="cr-mode">' + h(TR_MODE[it.mode] || it.mode) + '</span></p>';
       detailEl.append(hdr);
 
+      // Question prompt
+      var qText = TR_QUESTIONS[it.criterion];
+      if (qText) {
+        var qSection = document.createElement('div');
+        qSection.className = 'cr-section cr-question-section';
+        qSection.innerHTML = '<h3>Soru</h3><div class="cr-question-text">' + h(qText) + '</div>';
+        detailEl.append(qSection);
+      }
+
       // Student text
       var textSection = document.createElement('div');
       textSection.className = 'cr-section';
+      var autoCheckHtml = '';
+      if (it.auto_check) {
+        var icon = it.auto_check.condition_met ? '✓' : '✗';
+        var cls = it.auto_check.condition_met ? 'cr-auto-pass' : 'cr-auto-fail';
+        autoCheckHtml = '<p class="cr-auto-check ' + cls + '"><strong>Otomatik kontrol ' + icon + '</strong> ' + h(it.auto_check.detail) + '</p>';
+      }
       textSection.innerHTML = '<h3>Öğrencinin yanıtı</h3>' +
-        '<div class="cr-student-text">' + (it.student_text ? h(it.student_text) : '<em>Metin çıkarılamadı</em>') + '</div>';
+        '<div class="cr-student-text">' + (it.student_text ? h(it.student_text) : '<em>Metin çıkarılamadı</em>') + '</div>' +
+        autoCheckHtml;
       detailEl.append(textSection);
 
       // Machine justification

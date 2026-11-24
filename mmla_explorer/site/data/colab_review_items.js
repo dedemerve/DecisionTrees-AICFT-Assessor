@@ -49,7 +49,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 1,
     "justification": "step3_split_global ilk train_test_split çağrısını kaydeder: test_size=0.3, stratify_used=false, random_state=42. Otomatik kurala göre (stratify=false → 0/2), bu 0 puan alırdı. Ancak parameters_varied_across_models=true: Tur için ana depth-search deneyi test_size=0.2 ile stratify kullanır (o hücrede yazdırılan 256/64 boyutlarıyla kanıtlanır). Öğrenci doğru parametreleri en önemli yerde uygulamıştır. Hibrit puan: 1/2 kısmi kredi.",
     "student_text": "test_size=0.3, stratify=False, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": false,
+      "detail": "stratify_used=false in first recorded call; parameters_varied_across_models=true"
+    }
   },
   {
     "id": "Amy_S3.2",
@@ -205,7 +209,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 2,
     "justification": "test_size=0.2, stratify_used=True, random_state=42 — tümü doğru. 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": true,
+      "detail": "test_size==0.2 AND stratify_used AND random_state set"
+    }
   },
   {
     "id": "Bruno_S3.2",
@@ -361,7 +369,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 2,
     "justification": "test_size=0.2 ✓, stratify=True ✓, random_state=42 ✓. 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": true,
+      "detail": "test_size==0.2 AND stratify_used AND random_state set"
+    }
   },
   {
     "id": "Helena_S3.2",
@@ -517,7 +529,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 2,
     "justification": "test_size=0.2 ✓, stratify_used=True ✓, random_state=42 ✓. Tüm parametreler doğru. 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": true,
+      "detail": "test_size==0.2 AND stratify_used AND random_state set"
+    }
   },
   {
     "id": "Iris_S3.2",
@@ -673,7 +689,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 2,
     "justification": "test_size=0.2, stratify_used=True, random_state=42 — tümü doğru ve split/modeller arasında tutarlı (parameters_varied_across_models=False). 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": true,
+      "detail": "test_size==0.2 AND stratify_used AND random_state set"
+    }
   },
   {
     "id": "Irma_S3.2",
@@ -972,7 +992,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 0,
     "justification": "test_size=0.2 doğru, ancak stratify_used boş (true değil) ve random_state boş. Otomatik kontrol başarısız. stratify_used doğrulanmadığı ve parameters_varied_across_models yanlış olduğu için hibrit kısmi kredi uygulanmaz.",
     "student_text": "test_size=0.2, stratify=None, random_state=None",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": false,
+      "detail": "stratify_used is null, random_state is null"
+    }
   },
   {
     "id": "Marco_S3.2",
@@ -1128,7 +1152,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 2,
     "justification": "test_size=0.2 ✓, stratify=True ✓, random_state=42 ✓. Tümü doğru.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": true,
+      "detail": "test_size==0.2 AND stratify_used AND random_state set"
+    }
   },
   {
     "id": "Marcus_S3.2",
@@ -1284,7 +1312,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 2,
     "justification": "test_size=0.2, stratify_used=true, random_state=42 — tümü doğru. 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": true,
+      "detail": "test_size==0.2 AND stratify_used AND random_state set"
+    }
   },
   {
     "id": "Melinda_S3.2",
@@ -1440,7 +1472,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 2,
     "justification": "test_size=0.2, stratify_used=True, random_state=42 — hepsi doğru.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": true,
+      "detail": "test_size==0.2 AND stratify_used AND random_state set"
+    }
   },
   {
     "id": "Nadia_S3.2",
@@ -1596,7 +1632,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 2,
     "justification": "test_size=0.2 ✓, stratify=True ✓, random_state=42 ✓. Parametreler modeller arasında değiştirilmiyor (tutarlı). 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": true,
+      "detail": "test_size==0.2 AND stratify_used AND random_state set"
+    }
   },
   {
     "id": "Serena_S3.2",
@@ -1895,7 +1935,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 2,
     "justification": "test_size=0.2 ✓, stratify=True ✓, random_state=42 ✓. parameters_varied_across_models=False, çelişki yok. 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": true,
+      "detail": "test_size==0.2 AND stratify_used AND random_state set"
+    }
   },
   {
     "id": "Sheila_S3.2",
@@ -2051,7 +2095,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 2,
     "justification": "test_size=0.2, stratify_used=true, random_state=42 — tümü doğru ve modeller arasında tutarlı (parameters_varied_across_models=false).",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": true,
+      "detail": "test_size==0.2 AND stratify_used AND random_state non-null"
+    }
   },
   {
     "id": "Ulysses_S3.2",
@@ -2207,7 +2255,11 @@ window.COLAB_REVIEW_ITEMS = [
     "machine_score": 2,
     "justification": "test_size=0.2, stratify_used=True, random_state=42 — hepsi doğru ve parameters_varied_across_models=False tutarlılığı doğrular. 2/2.",
     "student_text": "test_size=0.2, stratify=True, random_state=42",
-    "flag": null
+    "flag": null,
+    "auto_check": {
+      "condition_met": true,
+      "detail": "test_size==0.2 AND stratify_used AND random_state set"
+    }
   },
   {
     "id": "Zara_S3.2",

@@ -1859,4 +1859,9 @@ main .hero-lead { max-width: 46ch; }
 .cr-radio { display:flex; align-items:center; gap:5px; padding:8px 14px; border:1px solid var(--rule); border-radius:8px; cursor:pointer; font-size:15px; font-weight:600; }
 .cr-radio:has(input:checked) { background:var(--navy); color:#fff; border-color:var(--navy); }
 .cr-nav { display:flex; gap:10px; margin-top:20px; }
+.cr-question-section { background:var(--pale-2); border:1px solid var(--rule); border-radius:8px; padding:12px 14px; }
+.cr-question-text { font-size:14px; line-height:1.55; color:var(--ink); }
+.cr-auto-check { font-size:13px; margin-top:8px; padding:6px 10px; border-radius:6px; }
+.cr-auto-pass { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
+.cr-auto-fail { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
 @media(max-width:800px){ .cr-layout{grid-template-columns:1fr} .cr-list{max-height:300px} }
