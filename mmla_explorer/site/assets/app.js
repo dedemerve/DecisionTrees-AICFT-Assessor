@@ -2357,7 +2357,7 @@
             <dt>Contains</dt><dd>Sampled screen images and metadata. The card declares no train, validation, or test split.</dd>
             <dt>Licence</dt><dd>CC BY 4.0</dd>
             <dt>Recommended use</dt><dd>Description of sampled screen moments, using the card’s own account of how frames were chosen.</dd>
-            <dt>Caution</dt><dd>The card states 5,825 behaviour-coded frames. This site lists ${num(fr ? fr.integrity.frames_listed : F.length)} frames from the current manifests, of which ${num(fr ? fr.labels.labelled_frames : 0)} have a label. The image folder was not counted again, so the figures are different releases. Neither the card’s coder confidence nor this site’s model confidence is measured accuracy.</dd>
+            <dt>Caution</dt><dd>The card states 5,584 behaviour-coded frames. This site lists ${num(fr ? fr.integrity.frames_listed : F.length)} frames from the current manifests, of which ${num(fr ? fr.labels.labelled_frames : 0)} have a label. Neither the card’s coder confidence nor this site’s model confidence is measured accuracy.</dd>
           </dl>
         </article>
         <article class="dataset-card">
