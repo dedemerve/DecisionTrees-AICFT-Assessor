@@ -15,20 +15,20 @@
  function page(){
   return `<div class="page wide frame-review-page">
    <p class="eyebrow">Behavior coding · human vs machine</p>
-   <h1>Etiketlenmiş frame'ler (651)</h1>
-   <p>Stratified örneklemden insan kodlayıcı kararları ve makine etiketleri. Her satır bir frame'e karşılık gelir.</p>
+   <h1>Labelled frames (651)</h1>
+   <p>Human coder decisions and machine labels from the stratified sample. Each row is one frame.</p>
    <form id="reviewSearch" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem">
-    <input id="reviewFilterId" placeholder="ID ara (örn. R0025)" style="width:9rem">
-    <select id="reviewFilterStudent"><option value="">Tüm öğrenciler</option></select>
-    <select id="reviewFilterMatch"><option value="">Tüm eşleşmeler</option><option value="1">Eşleşti</option><option value="0">Farklı</option></select>
-    <select id="reviewFilterLabel"><option value="">Tüm etiketler</option></select>
-    <button type="submit">Filtrele</button>
-    <button type="button" id="reviewReset">Sıfırla</button>
+    <input id="reviewFilterId" placeholder="Find by ID (e.g. R0025)" style="width:9rem">
+    <select id="reviewFilterStudent"><option value="">All students</option></select>
+    <select id="reviewFilterMatch"><option value="">All matches</option><option value="1">Matched</option><option value="0">Differs</option></select>
+    <select id="reviewFilterLabel"><option value="">All labels</option></select>
+    <button type="submit">Filter</button>
+    <button type="button" id="reviewReset">Reset</button>
     <span id="reviewCount" style="margin-left:auto;align-self:center;font-size:.85rem;color:var(--text-secondary)"></span>
    </form>
    <div class="frame-review-grid">
-    <section><h2>Frame listesi</h2><div id="reviewRecordList"></div></section>
-    <section id="reviewRecordDetail"><h2>Görüntü ve karar</h2><p class="small">Listeden bir frame seçin.</p></section>
+    <section><h2>Frame list</h2><div id="reviewRecordList"></div></section>
+    <section id="reviewRecordDetail"><h2>Image and decision</h2><p class="small">Select a frame from the list.</p></section>
    </div>
   </div>`;
  }
@@ -92,24 +92,24 @@
    const h = document.createElement('h2'); h.textContent = f.id + ' · ' + f.student; detail.append(h);
    if(f.img){
     const img = document.createElement('img');
-    img.src = f.img; img.alt = f.id + ' ekran görüntüsü'; img.loading = 'lazy';
+    img.src = f.img; img.alt = f.id + ' screenshot'; img.loading = 'lazy';
     img.style.maxWidth='100%'; img.style.borderRadius='4px'; img.style.marginBottom='.75rem';
     detail.append(img);
    }
    const matchBadge = f.match
-    ? '<span style="color:var(--green,#2a9d6a);font-weight:600">Eşleşti</span>'
-    : '<span style="color:var(--red,#c0392b);font-weight:600">Farklı</span>';
+    ? '<span style="color:var(--green,#2a9d6a);font-weight:600">Match</span>'
+    : '<span style="color:var(--red,#c0392b);font-weight:600">Differs</span>';
    const rows = [
-    ['Makine etiketi', label(f.ml) + (f.mc ? ' <small>(' + f.mc + ')</small>' : '')],
-    ['İnsan etiketi',  label(f.hl) + (f.hc ? ' <small>(' + f.hc + ')</small>' : '')],
-    ['Eşleşme',        matchBadge],
-    ['Gözlemlenebilirlik', f.obs || '—'],
-    ['İnsan eylemi',   f.act || '—'],
-    ['Kanıt / gerekçe',f.ev  || '—'],
-    ['Abstain',        f.abstain ? 'Evet' : 'Hayır'],
-    ['Orijinal etiket',f.orig_hl || '—'],
-    ['Zaman (s)',      f.t != null ? f.t : '—'],
-    ['Oturum',         f.session || '—'],
+    ['Machine label',  label(f.ml) + (f.mc ? ' <small>(' + f.mc + ')</small>' : '')],
+    ['Human label',    label(f.hl) + (f.hc ? ' <small>(' + f.hc + ')</small>' : '')],
+    ['Match',          matchBadge],
+    ['Observability',  f.obs || '—'],
+    ['Human action',   f.act || '—'],
+    ['Evidence',       f.ev  || '—'],
+    ['Abstain',        f.abstain ? 'Yes' : 'No'],
+    ['Original label', f.orig_hl || '—'],
+    ['Timestamp (s)',  f.t != null ? f.t : '—'],
+    ['Session',        f.session || '—'],
    ];
    rows.forEach(([title,val])=>{
     const p = document.createElement('p');

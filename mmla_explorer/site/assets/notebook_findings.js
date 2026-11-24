@@ -311,6 +311,21 @@
       <p class="small">Not stored means the inspection did not find that evidence. A dash means the measure was not available. 0 of 4 means no answer text was stored. None of these is a score.</p>`;
   }
 
+  function scoringValidationSection() {
+    return `<section class="find-dim">
+      <p class="find-kicker">LLM-based rubric scoring</p>
+      <h2>Scoring validation</h2>
+      <p>A second independent scorer rated a matched set of 178 items (15 students × 12 criteria) drawn from the final homework rubric. These metrics compare the pipeline's scores with that independent set.</p>
+      <div class="stat-row cols-4 find-headline">
+        ${card("80.3%", "Exact agreement", "143 of 178 items matched exactly (0-point difference).")}
+        ${card("0.908", "ICC(2,1)", "Two-way mixed intraclass correlation, single measures. Indicates near-perfect consistency.")}
+        ${card("0.805", "κ<sub>w</sub>", "Quadratic-weighted Cohen's kappa across the full ordinal scale.")}
+        ${card("96.6%", "Adjacent agreement", "172 of 178 items within 1 point. Mean absolute error 0.25 pts.")}
+      </div>
+      <p class="small">Items scored on a 0–1, 0–2, or 0–3 scale depending on the criterion. The independent scorer worked from the same rubric criteria without seeing the pipeline scores. These figures describe agreement between two scoring passes on the same set of items. They are not a measure of rubric validity.</p>
+    </section>`;
+  }
+
   function method(model) {
     const versions = [...new Set(model.scored.map((r) => r.rubricVersion).filter(Boolean))];
     const scorers = [...new Set(model.scored.map((r) => r.scoredBy).filter(Boolean))];
@@ -377,6 +392,7 @@
       ${visualSection(model)}
       ${reflectionSection(model)}
       ${cohort(model)}
+      ${scoringValidationSection()}
       ${table(model)}
       ${method(model)}`;
   }

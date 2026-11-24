@@ -1264,6 +1264,10 @@
       </ul>
       <h2>Where to read the evidence</h2>
       <ul class="ia-list">
+        <li><a href="#/findings/worksheets">Worksheet findings</a><p>Item scores, agreement rates, and patterns across the ${C.worksheets.length} worksheets.</p></li>
+        <li><a href="#/findings/recordings">Screen recording findings</a><p>Behaviour label distributions, session coverage, and the human–machine agreement study.</p></li>
+        <li><a href="#/findings/logs">Platform log findings</a><p>CODAP Arbor action counts, model attempts, last accuracy, and VOTAT rates for the two class sessions.</p></li>
+        <li><a href="#/findings/notebooks">Python notebook findings</a><p>Evidence from the final homework: data exploration, model construction, visualisation, and written responses.</p></li>
         <li><a href="#/explore/worksheets">Collected worksheets</a><p>Responses, answer keys, and stored scores, labelled by how they were produced.</p></li>
         <li><a href="#/methods">Processing and analysis</a><p>How extraction, checks, and notebook inspection were done.</p></li>
         <li><a href="#/docs/evaluation">Evaluation and validation</a><p>What was measured, what the files agree on, and which checks still need a person.</p></li>
