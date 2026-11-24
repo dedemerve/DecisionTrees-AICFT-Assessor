@@ -336,6 +336,7 @@
     const students = results.students || [];
     const max = results.max_adaptation || 12;
     const sorted = students.slice().sort((a, b) => b.adaptation - a.adaptation);
+    const flagHtml = '<span class="adpt-flag">Review<\/span>';
     const dist = {};
     students.forEach((s) => { dist[s.adaptation] = (dist[s.adaptation] || 0) + 1; });
     const lo31ok = students.filter((s) => s.lo31).length;
@@ -349,7 +350,7 @@
         <td class="num">${num(s.adaptation)} / ${num(max)}</td>
         <td><div class="adpt-bar-wrap"><div class="adpt-bar" style="width:${bar}%"></div></div></td>
         <td class="num">${h(lo)}</td>
-        <td class="num">${s.copy_paste_flag ? ‘<span class="adpt-flag">Review</span>’ : ""}</td>
+        <td class="num">${s.copy_paste_flag ? flagHtml : ""}</td>
       </tr>`;
     }).join("");
     return `<section class="find-dim">
