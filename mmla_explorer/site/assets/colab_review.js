@@ -312,10 +312,8 @@
         btn.className = 'cr-item' + (currentId === it.id ? ' cr-item--active' : '') +
           (ratings[it.id] != null ? ' cr-item--done' : '');
         var ratingStr = ratings[it.id] != null ? ratings[it.id] + '/' + it.max : '?/' + it.max;
-        var machineStr = it.machine_score + '/' + it.max;
         btn.innerHTML = '<span class="cr-item-num">' + (its.indexOf(it) + 1) + '</span>' +
-          '<span class="cr-item-score cr-human">' + ratingStr + '</span>' +
-          '<span class="cr-item-score cr-machine">' + machineStr + '</span>';
+          '<span class="cr-item-score cr-human">' + ratingStr + '</span>';
         btn.onclick = function () { currentId = it.id; drawList(); drawDetail(); };
         listEl.append(btn);
       });
@@ -380,8 +378,7 @@
         var checked = currentRating === v ? ' checked' : '';
         radioHtml += '<label class="cr-radio"><input type="radio" name="crRating" value="' + v + '"' + checked + '> ' + v + '</label>';
       }
-      var machineLabel = '<p class="cr-machine-ref">Makine puanı: <strong>' + it.machine_score + ' / ' + it.max + '</strong></p>';
-      ratingSection.innerHTML = '<h3>Değerlendirmeniz</h3><div class="cr-radios">' + radioHtml + '</div>' + machineLabel;
+      ratingSection.innerHTML = '<h3>Değerlendirmeniz</h3><div class="cr-radios">' + radioHtml + '</div>';
       detailEl.append(ratingSection);
 
       // Nav buttons
