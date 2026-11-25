@@ -3,7 +3,7 @@
 Build and upload the MMLA frame dataset to Hugging Face.
 
 Includes:
-  - All 5,825 behaviour-coded frames from the two CODAP Arbor sessions
+  - All 5,584 behaviour-coded frames from 21 recording sessions
   - metadata.csv  (one row per frame, manifest-verified)
   - CODAP platform log CSV (anonymized)
   - Dataset card (README.md)
@@ -29,8 +29,8 @@ SESS_DIR = {
     "codap_28apr": "codap_arbor_28april_audio",
 }
 SESS_LABEL = {
-    "codap_21apr": "CODAP Arbor - 21 April 2026",
-    "codap_28apr": "CODAP Arbor - 28 April 2026",
+    "codap_21apr": "session_1",
+    "codap_28apr": "session_2",
 }
 TRIGGER_DESC = {
     "motion_threshold_exceeded": "Screen changed noticeably while speech was available",
@@ -96,8 +96,7 @@ def build_dataset() -> int:
         rows.append({
             "file_name": f"images/{dest_name}",
             "student": f["s"],
-            "session": f["ss"],
-            "session_label": SESS_LABEL[f["ss"]],
+            "session": SESS_LABEL[f["ss"]],
             "frame_id": f["id"],
             "timestamp_s": round(f["t"], 2),
             "selection_trigger": f["tr"],
@@ -175,7 +174,7 @@ Behaviour-coded screen-recording frames from a 2026 Turkish pre-service teacher 
 | **Students** | 15 pseudonymised pre-service teachers |
 | **Sessions** | 2 x CODAP Arbor sessions (21 April and 28 April 2026) |
 | **Frame selection** | Motion threshold + speech anchor triggers |
-| **Behaviour labels** | 9 categories (see below) |
+| **Behaviour labels** | 10 behaviour codes + 3 abstain codes (see below) |
 | **Coder** | Single researcher; confidence recorded per frame |
 | **Language** | Turkish instruction, English labels |
 
@@ -184,6 +183,7 @@ Behaviour-coded screen-recording frames from a 2026 Turkish pre-service teacher 
 | Code | Label |
 |---|---|
 | `EXPLORE_DATA` | Explore data |
+| `PREPARE_DATA` | Reviewing or preparing the data before analysis |
 | `SELECT_TARGET` | Select target variable |
 | `BUILD_TREE` | Build decision tree |
 | `TUNE_THRESHOLD` | Adjust split threshold |
@@ -192,6 +192,9 @@ Behaviour-coded screen-recording frames from a 2026 Turkish pre-service teacher 
 | `INTERPRET_RESULTS` | Interpret results |
 | `IDLE_THINKING` | Idle / thinking |
 | `OFF_TASK` | Off task |
+| `INSUFFICIENT_EVIDENCE` | Lacks enough evidence to identify the behaviour |
+| `UNOBSERVABLE` | Shows no observable on-screen behaviour |
+| `TAXONOMY_GAP` | Shows a behaviour not covered by the codebook |
 
 ## Files
 
@@ -207,8 +210,7 @@ Behaviour-coded screen-recording frames from a 2026 Turkish pre-service teacher 
 |---|---|
 | `file_name` | Path to the image in this repository |
 | `student` | Pseudonym (Amy, Bruno, Helena, ...) |
-| `session` | `codap_21apr` or `codap_28apr` |
-| `session_label` | Human-readable session name |
+| `session` | `session_1` or `session_2` |
 | `frame_id` | Frame identifier within the session |
 | `timestamp_s` | Time in the recording (seconds) |
 | `selection_trigger` | Machine trigger code that selected this frame |
