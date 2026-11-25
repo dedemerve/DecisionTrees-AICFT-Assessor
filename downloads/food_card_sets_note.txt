@@ -1,0 +1,17 @@
+Derivative food-card tables for the public worksheet pages.
+These files do not replace data/prodabi_food_cards.csv or downloads/food_data_cards.csv.
+
+food_cards_11.csv
+- 11 classroom cards used for the fat-threshold task on worksheets 4 and 5.
+- Source: data/prodabi_food_cards.csv (same rows as downloads/food_data_cards.csv).
+- Names and nutrient values are copied from that file.
+- Labels are the Turkish classroom wording of recommended / not_recommended:
+  Tavsiye edilebilir / Tavsiye edilemez.
+- Encoding: UTF-8 with BOM. Decimal point, not a comma.
+
+food_cards_13.csv
+- The same 11 rows, in the same order, plus Somun Ekmek and Vegan Salam.
+- Those two rows are not in the repository source CSV. Their values are the ones
+  supplied for this archive update. They were not adjusted.
+- A single fat threshold does not classify all 11 source cards correctly.
+  The fewest mistakes on fat is 2 (Ahududu reçeli and Jelibon).

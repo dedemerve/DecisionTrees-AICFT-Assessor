@@ -1,0 +1,230 @@
+{
+  "headers": [
+    "Student Name",
+    "Blank 1 / Instance Classification (Popcorn)",
+    "Blank 2 / Rule Verification (Popcorn)",
+    "Blank 3 / Instance Classification (Apple)",
+    "Blank 4 / Rule Verification (Apple)",
+    "Blank 5 / Instance Classification (French Fries)",
+    "Blank 6 / Rule Verification (French Fries)",
+    "Blank 7 / Left Branching Condition",
+    "Blank 8 / Right Branching Condition"
+  ],
+  "rows": [
+    [
+      "Amy",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—"
+    ],
+    [
+      "Bruno",
+      "tavsiye edilemez",
+      "23,0 ≥ 8,0",
+      "tavsiye edilebilir",
+      "0,2 < 8,0",
+      "tavsiye edilebilir",
+      "24,0 ≥ 8,0",
+      "<= 150",
+      "> 150"
+    ],
+    [
+      "Helena",
+      "tavsiye edilemez",
+      "23,0 gr > 8,0 gr",
+      "tavsiye edilebilir",
+      "0,2 gr < 8,0 gr",
+      "tavsiye edilemez",
+      "24,0 gr > 8,0 gr",
+      "< 150",
+      "> 150"
+    ],
+    [
+      "Iris",
+      "tavsiye edilemez",
+      "23,0 g > 8,0 g",
+      "tavsiye edilebilir",
+      "0,2 g < 8,0 g",
+      "tavsiye edilemez",
+      "24,0 g > 8,0 g",
+      "< 100",
+      "> 100"
+    ],
+    [
+      "Irma",
+      "tavsiye edilmez",
+      "yağ miktarı yüksek",
+      "tavsiye edilebilir",
+      "yağ miktarı az",
+      "tavsiye edilmez",
+      "yağ miktarı yüksek",
+      "<=150",
+      ">150"
+    ],
+    [
+      "Isabel",
+      "tavsiye edilemez",
+      "23,0 g ≥ 8,0 g",
+      "tavsiye edilir",
+      "0,2 g <= 8,0 g",
+      "tavsiye edilemez",
+      "14 g >= 8,0 g",
+      "<= 150",
+      "> 150"
+    ],
+    [
+      "Marco",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—"
+    ],
+    [
+      "Marcus",
+      "tavsiye edilmez",
+      "8 < 23",
+      "tavsiye edilir",
+      "0,2 < 8",
+      "tavsiye edilmez",
+      "8 < 24",
+      "≤ 175",
+      "> 175"
+    ],
+    [
+      "Melinda",
+      "tavsiye edilemez",
+      "23 > 8",
+      "tavsiye edilebilir",
+      "0,2 ≤ 8",
+      "tavsiye edilemez",
+      "14 > 8",
+      "< 100",
+      "> 100"
+    ],
+    [
+      "Nadia",
+      "tavsiye edilemez",
+      "8.0g < 23.0g",
+      "tavsiye edilebilir",
+      "0,2g < 8.0g",
+      "tavsiye edilemez",
+      "8.0g < 14.0g",
+      "≤ 150",
+      "> 150"
+    ],
+    [
+      "Serena",
+      "tavsiye edilemez",
+      "23 g > 8 g",
+      "tavsiye edilebilir",
+      "0,2 g ≤ 8,0",
+      "tavsiye edilemez",
+      "14 > 8 g",
+      "< 200",
+      "> 200"
+    ],
+    [
+      "Shana",
+      "tavsiye edilemez",
+      "> 8,0 g",
+      "tavsiye edilebilir",
+      "< 8,0 g",
+      "tavsiye edilemez",
+      "> 8,0 g",
+      "< 100 kcal",
+      "> 100 kcal"
+    ],
+    [
+      "Sheila",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—",
+      "—"
+    ],
+    [
+      "Ulysses",
+      "tavsiye edilemez",
+      "23 > 8",
+      "tavsiye edilebilir",
+      "8 > 0,2",
+      "tavsiye edilemez",
+      "14 > 8",
+      "≤ 100",
+      "> 100"
+    ],
+    [
+      "Zara",
+      "tavsiye edilemez",
+      "23,0 > 8,0",
+      "tavsiye edilebilir",
+      "0,2 < 8,0",
+      "tavsiye edilemez",
+      "24,0 > 8,0",
+      "10",
+      "250"
+    ]
+  ],
+  "column_info": [
+    {
+      "blank": "Blank 1",
+      "task": "Instance Classification (Popcorn)",
+      "level": "Acquire",
+      "desc": "Applying the established decision rule to predict and assign a target class label to a specific data object (e.g., \"tavsiye edilemez\")."
+    },
+    {
+      "blank": "Blank 2",
+      "task": "Rule Verification (Popcorn)",
+      "level": "Acquire",
+      "desc": "Justifying the classification outcome by mathematically comparing the object's feature value to the threshold (e.g., \"23.0 > 8.0\")."
+    },
+    {
+      "blank": "Blank 3",
+      "task": "Instance Classification (Apple)",
+      "level": "Acquire",
+      "desc": "Applying the established decision rule to predict and assign a target class label to a specific data object (e.g., \"tavsiye edilebilir\")."
+    },
+    {
+      "blank": "Blank 4",
+      "task": "Rule Verification (Apple)",
+      "level": "Acquire",
+      "desc": "Justifying the classification outcome by mathematically comparing the object's feature value to the threshold (e.g., \"8.0 > 0.2\")."
+    },
+    {
+      "blank": "Blank 5",
+      "task": "Instance Classification (French Fries)",
+      "level": "Acquire",
+      "desc": "Applying the established decision rule to predict and assign a target class label to a specific data object (e.g., \"tavsiye edilemez\")."
+    },
+    {
+      "blank": "Blank 6",
+      "task": "Rule Verification (French Fries)",
+      "level": "Acquire",
+      "desc": "Justifying the classification outcome by mathematically comparing the object's feature value to the threshold (e.g., \"14.0 > 8.0\")."
+    },
+    {
+      "blank": "Blank 7",
+      "task": "Left Branching Condition",
+      "level": "Acquire",
+      "desc": "Establishing the mathematical boundary expression (≤) for a split node based on the data distribution of the feature (e.g.,</ ≤ 71 kcal)."
+    },
+    {
+      "blank": "Blank 8",
+      "task": "Right Branching Condition",
+      "level": "Acquire",
+      "desc": "Establishing the corresponding inverse mathematical expression (>) for a split node to partition the remaining instances in the dataset (e.g., ≥/> 71 kcal)."
+    }
+  ]
+}

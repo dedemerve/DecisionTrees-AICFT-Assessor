@@ -1,0 +1,2723 @@
+/* Decision Tree Learning Archive. All content is generated from data/core.js and
+   data/frames.js, which build_site_data.py creates from the project files. */
+(function () {
+  "use strict";
+
+  const C = window.CORE;
+  const F = window.FRAMES || [];
+  const app = document.getElementById("app");
+  const tip = document.getElementById("tip");
+  if (!C) { app.innerHTML = '<p class="empty">Data files are missing. Run build_site_data.py first.</p>'; return; }
+
+  // ------------------------------------------------------------------ helpers
+  const h = (v) => String(v == null ? "" : v)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  const num = (v, d = 0) => (v == null || Number.isNaN(v)) ? "–" :
+    Number(v).toLocaleString("en-GB", { maximumFractionDigits: d, minimumFractionDigits: 0 });
+  const pct = (a, b, d = 0) => b ? num(100 * a / b, d) + "%" : "–";
+  const bytes = (b) => b == null ? "–" : b >= 1e9 ? num(b / 1e9, 2) + " GB" : b >= 1e6 ? num(b / 1e6, 1) + " MB" : num(b / 1e3, 0) + " kB";
+  const dur = (s) => {
+    if (s == null) return "–";
+    const m = Math.round(s / 60);
+    return m >= 60 ? `${Math.floor(m / 60)} h ${m % 60} min` : `${m} min`;
+  };
+  const clock = (s) => {
+    if (s == null) return "–";
+    s = Math.round(s);
+    const hh = Math.floor(s / 3600), mm = Math.floor((s % 3600) / 60), ss = s % 60;
+    return (hh ? hh + ":" + String(mm).padStart(2, "0") : mm) + ":" + String(ss).padStart(2, "0");
+  };
+  const src = (p) => p ? `<div class="src">${h(p)}</div>` : "";
+  const yesno = (b) => b === true ? '<span class="yes">✓ yes</span>' : b === false ? '<span class="no">✗ no</span>' : '<span class="na">–</span>';
+  const result = (b) => b === true ? '<span class="yes">✓ Correct</span>' : b === false ? '<span class="no">✗ Not correct</span>' : '<span class="na">No verdict</span>';
+  const mark = (b) => b === true ? '<span class="yes" title="correct">✓</span>' : b === false ? '<span class="no" title="not correct">✗</span>' : '<span class="na">–</span>';
+  const sum = (arr) => arr.reduce((a, b) => a + (b || 0), 0);
+  const tipAttr = (html) => ` data-tip="${h(html)}"`;
+  const tech = (title, body) => body ? `<details class="tech"><summary>${h(title)}</summary><div class="tech-body">${body}</div></details>` : "";
+
+  // ------------------------------------------------------------------ reference
+  const STUDENTS = C.students;
+  const SESS = C.sessions_meta;
+  // Short session names used throughout. The date is shown once, in the session detail.
+  const SESS_NAME = { codap_21apr: "CODAP 1", codap_28apr: "CODAP 2" };
+  const SESS_DATE = { codap_21apr: "21 April 2026", codap_28apr: "28 April 2026" };
+
+  // Titles come from the answer-key PDFs; dates from the file names of the scanned student PDFs.
+  const WS_INFO = {
+    WS1: { date: "24 March 2026", topic: "Name the parts of a nutrition table: object, feature, value and label." },
+    WS3: { date: "24 March 2026", topic: "Apply a given rule (fat ≤ 8.0 g) to food cards and write each comparison." },
+    WS4: { date: "24 March 2026", topic: "Search for the fat threshold that misclassifies the fewest of the 11 food cards." },
+    WS5: { date: "24 March 2026", topic: "Choose another feature, try threshold values and record the resulting counts." },
+    WS6: { date: "31 March 2026", topic: "Document a two-level decision tree built from the 11 food cards." },
+    WS7: { date: "31 March 2026", topic: "Read the paths A, B and C of a tree and write them as if-then rules." },
+    WS10: { date: "31 March 2026", topic: "Test thresholds between neighbouring energy values and find the one with the fewest errors." },
+    WS11: { date: null, topic: "Feedback on the lesson series (survey items and open questions)." },
+    WS12: { date: "31 March 2026", title: "Decision tree documentation (training & test data)", topic: "Document a two-level decision tree by recording the root variable, thresholds, node counts at each branch, and the number of misclassified items in training and test sets. Unplugged group activity." },
+    WS13: { date: "21–28 April 2026", title: "Decision trees for classification activity", topic: "Choosing variables, reading a tree, TP/FP, sensitivity, misclassification rate and overfitting." },
+    WS14: { date: "7 April 2026", title: "Diagnosis game with trees (Xeno)", topic: "Diagnose an alien disease with a tree in CODAP Arbor. Each student receives a randomly generated case set." },
+    WS15: { date: "7 April 2026", title: "Titanic data in CODAP Arbor", topic: "Build a tree on a Titanic training sample, then check it on a test sample." },
+  };
+  const wsTitle = (w) => (WS_INFO[w.code] && WS_INFO[w.code].title) || (w.printed_title ? w.printed_title.replace(/^Worksheet \d+:\s*/, "") : w.code);
+  const HOW_CHECKED = {
+    deterministic: "Python rules compare each value with the 11 food cards. The language model only reads the handwriting.",
+    llm_rubric: "Each answer is compared with the researcher's rubric and answer key. Python adds up the item scores.",
+  };
+  const howChecked = (w) => {
+    const policy = w.rubric_data && w.rubric_data.scoring_policy;
+    if (policy && policy.basis === "internal_consistency") return "Scores check whether the recorded tree is internally consistent. The rubric says there is no single correct tree.";
+    return w.code === "WS14" ? "Numbers are checked against rules that always hold for this data (the four counts add up, and false positives and false negatives are zero). Open answers use the rubric."
+    : w.code === "WS15" ? "Numbers are compared with the Titanic reference values, within 0.02. Open answers use the rubric."
+      : w.code === "WS10" ? "Python rules check the energy-threshold table. The language model only reads the handwriting. This is not the Titanic worksheet."
+        : w.code === "WS11" ? "No extracted student answers are aligned to this survey, so it is not treated as scored evidence."
+          : HOW_CHECKED[w.pipeline];
+  };
+
+  // Readable labels for worksheet fields.
+  const TOKEN = {
+    threshold_error_table: "", error_count_parsed: "", value_parsed: "", optimal_threshold: "Best threshold",
+    titanic_vs1_egitim: "Sample 1 · training", titanic_vs1_test: "Sample 1 · test", titanic_vs1_interpretation: "Sample 1 · interpretation",
+    titanic_vs2_egitim: "Sample 2 · training", titanic_vs2_test: "Sample 2 · test", titanic_vs2_interpretation: "Sample 2 · interpretation",
+    genel_sorular: "General questions", trials: "Trial", trial_id: "trial number",
+    tree_structure: "", depth_0: "Root", depth_1: "Level 1", depth_2: "Level 2", depth_3: "Level 3", leaf_nodes: "",
+    left_child: "left branch", right_child: "right branch", left_left_child: "left-left branch",
+    parsed_feature: "feature", left_operator: "left operator", right_operator: "right operator",
+    left_threshold: "left threshold", right_threshold: "right threshold",
+    left_threshold_value: "left threshold", right_threshold_value: "right threshold",
+    left_leaf_recommended: "left leaf · recommended", left_leaf_not_recommended: "left leaf · not recommended",
+    right_leaf_recommended: "right leaf · recommended", right_leaf_not_recommended: "right leaf · not recommended",
+    leaf_recommended_count: "recommended", leaf_not_recommended_count: "not recommended",
+    node_recommended_count: "recommended", node_not_recommended_count: "not recommended",
+    student_error_count: "errors counted", student_mcr: "misclassification rate", final_decision_raw: "Final choice",
+    rule_matching: "Rule matching", rule_1_box: "rule 1", rule_2_box: "rule 2", rule_3_box: "rule 3",
+    path_label: "path", leaf_label: "leaf label", leaf_text: "leaf text", is_direct_leaf: "direct leaf", not_applicable: "not applicable",
+    threshold_value_raw: "threshold as written", threshold_value_parsed: "threshold as a number",
+    placement_description: "where the line was drawn", detection_method: "how foods were marked",
+    circled_cards: "circled cards", written_foods: "written foods", foods_parsed: "foods read",
+    response_raw: "answer", agrees_with_pia: "agrees with Pia",
+    left_left_leaf: "left-left leaf", left_right_leaf: "left-right leaf", right_left_leaf: "right-left leaf", right_right_leaf: "right-right leaf",
+    left_left_left_leaf: "left-left-left leaf", left_left_right_leaf: "left-left-right leaf",
+    WS12_root_feature: "Root variable", WS12_root_left_threshold: "Left threshold", WS12_root_right_threshold: "Right threshold",
+    WS12_left_child_label: "Left child", WS12_left_child_rec: "Left · recommended", WS12_left_child_notrec: "Left · not recommended",
+    WS12_right_child_label: "Right child", WS12_right_child_rec: "Right · recommended", WS12_right_child_notrec: "Right · not recommended",
+    WS12_depth1_ll_threshold: "Left-left threshold", WS12_depth1_lr_threshold: "Left-right threshold",
+    WS12_depth1_rl_threshold: "Right-left threshold", WS12_depth1_rr_threshold: "Right-right threshold",
+    WS12_leaf_ll_rec: "Leaf LL · rec", WS12_leaf_ll_notrec: "Leaf LL · not rec",
+    WS12_leaf_lr_rec: "Leaf LR · rec", WS12_leaf_lr_notrec: "Leaf LR · not rec",
+    WS12_leaf_rl_rec: "Leaf RL · rec", WS12_leaf_rl_notrec: "Leaf RL · not rec",
+    WS12_leaf_rr_rec: "Leaf RR · rec", WS12_leaf_rr_notrec: "Leaf RR · not rec",
+    WS12_train_errors: "Training errors", WS12_test_errors: "Test errors",
+  };
+  const itemLabel = (id) => {
+    let m;
+    if ((m = /^WS\d+_B(\d+)([a-z]?)$/.exec(id))) return `Blank ${m[1]}${m[2]}`;
+    if ((m = /^WS7_P1_box(\d)$/.exec(id))) return `Part 1 · box ${m[1]}`;
+    if ((m = /^WS\d+_(\d+)$/.exec(id))) return `Item ${m[1]}`;
+    if ((m = /^DTI_(\d+)$/.exec(id))) return `Question ${Number(m[1])}`;
+    return null;
+  };
+  function rubricItem(code, id) {
+    const w = C.worksheets.find((x) => x.code === code);
+    const items = w && w.rubric_data && w.rubric_data.items;
+    return items && items[id];
+  }
+  function rubricItemLabel(code, id, max) {
+    const it = rubricItem(code, id);
+    if (!it) return null;
+    if (it.label) return it.label;
+    const exp = String(it.expected_answer || "").replace(/\s+/g, " ").trim();
+    const n = it.printed_question;
+    if (exp && exp.length <= max) return (n != null ? n + ". " : "") + exp;
+    if (n != null) return "Question " + n;
+    return null;
+  }
+  function questionLabel(code, raw) {
+    const id = String(raw).replace(/^item_checks\./, "");
+    return rubricItemLabel(code, id, 80) || itemLabel(id) || checkLabel(raw);
+  }
+  const fieldLabel = (path) => {
+    const parts = path.match(/[^.\[\]]+|\[[^\]]+\]/g) || [path];
+    const out = [];
+    parts.forEach((p) => {
+      if (p.startsWith("[")) { out.push(p.slice(1, -1)); return; }
+      const il = itemLabel(p);
+      if (il) { out.push(il); return; }
+      if (p in TOKEN) { if (TOKEN[p]) out.push(TOKEN[p]); return; }
+      out.push(p.replace(/_/g, " "));
+    });
+    return out.join(" · ").replace(/Trial · (\d+)/, "Trial $1") || path;
+  };
+  const checkLabel = (c) => {
+    const k = c.replace(/^item_checks\./, "");
+    const il = itemLabel(k);
+    if (il) return il;
+    if (/^trials\[(\d+)\]$/.test(k)) return "Trial " + k.match(/\d+/)[0];
+    return k.replace(/^xeno_consistency_checks\./, "").replace(/^titanic_numeric_checks\./, "").replace(/_/g, " ");
+  };
+  // Response items that carry a different id from their check.
+  const ITEM_ALIAS = { WS10: { optimal_threshold: "WS10_B8" } };
+
+  const BEHAV = [
+    ["EXPLORE_DATA", "Explore data", "Looking at data tables or graphs", "--b1"],
+    ["PREPARE_DATA", "Prepare data", "Reviewing or preparing the data before analysis", "--b0"],
+    ["SELECT_TARGET", "Select target", "Choosing the target (dependent) variable", "--b2"],
+    ["BUILD_TREE", "Build tree", "Building the decision tree", "--b3"],
+    ["TUNE_THRESHOLD", "Tune threshold", "Adjusting a split threshold", "--b4"],
+    ["EVALUATE_MODEL", "Evaluate model", "Checking model performance", "--b5"],
+    ["COMPARE_MODELS", "Compare models", "Comparing different models", "--b6"],
+    ["INTERPRET_RESULTS", "Interpret results", "Interpreting model output or results", "--b7"],
+    ["IDLE_THINKING", "Idle / thinking", "Working or thinking without visible interaction", "--b-idle"],
+    ["OFF_TASK", "Off task", "Activity unrelated to the task", "--b-off"],
+  ];
+  const ABSTAIN = [
+    ["INSUFFICIENT_EVIDENCE", "Insufficient evidence", "Lacks enough evidence to identify the behaviour", "--rule-strong"],
+    ["UNOBSERVABLE", "Unobservable", "Shows no observable on-screen behaviour", "--rule-strong"],
+    ["TAXONOMY_GAP", "Taxonomy gap", "Shows a behaviour not covered by the codebook", "--rule-strong"],
+  ];
+  const BEH = Object.fromEntries(
+    [...BEHAV, ...ABSTAIN].map((b, i) => [b[0], { i, label: b[1], desc: b[2], color: `var(${b[3]})` }])
+  );
+  const behLabel = (k) => k ? (BEH[k] ? BEH[k].label : k.replace(/_/g, " ").toLowerCase()) : "Not coded";
+  const behColor = (k) => k && BEH[k] ? BEH[k].color : "var(--rule-strong)";
+  const SCREEN = { TREE: "Tree", GRAPH: "Graph", TABLE: "Table", MIXED: "Mixed", MENU: "Menu", CODAP: "CODAP window" };
+  const PHASE = { SETUP: "Setup", BUILDING: "Building", TUNING: "Tuning", EVALUATING: "Evaluating", IDLE: "Idle" };
+  const cap = (v, map) => v ? (map[v] || v.charAt(0) + v.slice(1).toLowerCase()) : "–";
+
+  // On-screen observations recorded by the frame coder (yes/no flags).
+  const EVIDENCE = {
+    tree_has_nodes: "Tree has nodes", dependent_variable_set: "Target variable set", split_values_visible: "Split values visible",
+    accuracy_visible: "Accuracy visible", confusion_matrix_visible: "Confusion matrix visible",
+    systematic_variable_selection: "Variables tried systematically", threshold_reasoning: "Threshold being reasoned about",
+    accuracy_interpretation: "Accuracy being interpreted", overfitting_awareness: "Overfitting addressed",
+    train_test_distinction: "Training vs test distinguished", confusion_matrix_reading: "Confusion matrix being read",
+    iterative_refinement: "Model being refined", technical_difficulty: "Technical difficulty",
+    misconception_detected: "Possible misconception", aha_moment_candidate: "Possible insight moment", is_transition_frame: "Screen in transition",
+  };
+
+  // Meanings checked against scripts/dynamic_video_analytics.py.
+  const TRIGGERS = {
+    motion_threshold_exceeded: "The screen changed noticeably while speech was available.",
+    motion_only_fallback: "The screen changed noticeably in a recording without usable speech.",
+    speech_anchor_midpoint: "Someone was speaking. The frame shows the screen at that moment.",
+    codap_static_gap_fill: "Nothing had been captured for a while on the CODAP screen, so a frame was taken anyway.",
+    silent_screen_gap_fill: "Nothing had been captured for a while in a silent recording, so a frame was taken anyway.",
+  };
+
+  const LOG_DAYS = {
+    "2026-04-21": { name: "CODAP session 1", date: "21 April 2026", ss: "codap_21apr" },
+    "2026-04-28": { name: "CODAP session 2", date: "28 April 2026", ss: "codap_28apr" },
+  };
+  const ACTION = {
+    emit_tree_data: "Submitted model results", drop_attribute: "Added a predictor to the tree",
+    change_split_values: "Threshold edit event (split editor used)", change_tree_type: "Changed the tree type",
+    change_dataset: "Switched between training and test data", data_context_change: "Changed or selected data",
+    set_dependent_variable: "Chose the target variable", set_focus_node: "Selected a node in the tree",
+    refresh_tree: "Refreshed the tree", swap_focus_split: "Swapped a split", session_start: "Opened the session",
+    codap_component_change: "Moved or resized a CODAP window", codap_document_change: "Changed the CODAP document",
+    dragstart: "Started dragging a variable", dragend: "Finished dragging a variable",
+    dragenter: "Dragged a variable over the tree", dragleave: "Dragged a variable away",
+  };
+  const MODEL_ACTIONS = ["emit_tree_data", "drop_attribute", "change_split_values", "change_tree_type", "change_dataset", "data_context_change"];
+  const NB_USES = {
+    "lizard_data.csv": "Loads the lizard data", DecisionTreeClassifier: "Builds a decision tree",
+    train_test_split: "Splits training and test data", max_depth: "Tries different tree depths",
+    get_dummies: "Converts categories to numbers", plot_tree: "Draws the tree",
+  };
+
+  // ------------------------------------------------------------------ derived
+  const allSessions = [];
+  STUDENTS.forEach((s) => SESS.forEach((ss) => allSessions.push(Object.assign({ student: s }, C.sessions[s][ss.id]))));
+  const lengthOf = (r) => r.video_measured_seconds || (r.recording && r.recording.duration_seconds) || null;
+  const lengthSrc = (r) => r.video_measured_seconds ? "measured from the video file" : r.recording ? "from the audio manifest" : "";
+  const uniqueVideo = {};
+  allSessions.forEach((r) => { if (r.video_sha256 && !uniqueVideo[r.video_sha256]) uniqueVideo[r.video_sha256] = r; });
+  const uniqueVideoList = Object.values(uniqueVideo);
+  const uniqueVideoSeconds = sum(uniqueVideoList.map(lengthOf));
+  const videoFilesListed = allSessions.filter((r) => r.video_bytes).length;
+  const logDays = C.logs.per_student;
+  const logEvents = sum(Object.values(logDays).flatMap((d) => Object.values(d).map((x) => x.events)));
+  // Published log: the two food-dataset class sessions only (matches the public CSV).
+  const logEventsClass = C.logs.events_class_days != null ? C.logs.events_class_days : logEvents;
+  const logActionsClass = C.logs.action_types_class_days || C.logs.action_types || {};
+  const logEventsTitanic = sum(Object.values(logDays).map((d) => (d["2026-04-07"] || {}).events || 0));
+  const votatOf = (s, d) => (((logDays[s] || {})[d]) || {}).votat || null;
+  // English glosses for the Turkish column names in the food dataset.
+  const VAR_EN = {
+    "Tuz (g)": "salt", "Şeker (g)": "sugar", "Yağ (g)": "fat", "Doymuş Yağ (g)": "saturated fat",
+    "Enerji (kcal)": "energy", "Karbonhidrat (g)": "carbohydrate", "Ürün Adı": "product name",
+    "Oneri": "recommendation label", "Column 1": "recommendation label, unnamed copy",
+  };
+  const varName = (a) => VAR_EN[a] ? `${a} (${VAR_EN[a]})` : String(a);
+  const SMALL_N = 10;
+  const notebooksPresent = STUDENTS.filter((s) => C.notebooks[s] && C.notebooks[s].file).length;
+  const schemaFields = sum(C.worksheets.map((w) => w.fields_in_schema));
+  const responseRows = sum(STUDENTS.map((s) => sum(Object.values(C.ws[s]).map((r) => r.ocr ? r.ocr.responses.length : 0))));
+  const wsWithAnswers = C.worksheets.filter((w) => STUDENTS.some((s) => C.ws[s][w.code].ocr)).length;
+  const sessionIssues = (r) => {
+    const out = [];
+    if (r.same_video_file_as) out.push(`This video is the same file as the ${r.same_video_file_as.map((x) => SESS_NAME[x]).join(" and ")} video. Only one of them can be the real recording of this day.`);
+    if (r.frame_coverage != null && r.frame_coverage < 0.8) out.push(`Frames cover only the first ${num(r.frame_coverage * 100)}% of the recording.`);
+    return out;
+  };
+
+  document.getElementById("navFooter").innerHTML = "Built " + h(C.built_at.slice(0, 4));
+
+  // ------------------------------------------------------------------ tooltip, theme, menu
+  document.addEventListener("mouseover", (e) => {
+    const el = e.target.closest("[data-tip]");
+    if (!el) { tip.style.display = "none"; return; }
+    tip.innerHTML = el.getAttribute("data-tip");
+    tip.style.display = "block";
+  });
+  document.addEventListener("mousemove", (e) => {
+    if (tip.style.display !== "block") return;
+    const w = tip.offsetWidth, hg = tip.offsetHeight;
+    let x = e.clientX + 14, y = e.clientY + 14;
+    if (x + w > window.innerWidth - 8) x = e.clientX - w - 14;
+    if (y + hg > window.innerHeight - 8) y = e.clientY - hg - 14;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  });
+  document.addEventListener("scroll", () => { tip.style.display = "none"; }, true);
+
+  const themeBtn = document.getElementById("themeBtn");
+  const applyTheme = (t) => { if (t) document.documentElement.setAttribute("data-theme", t); else document.documentElement.removeAttribute("data-theme"); };
+  try { applyTheme(localStorage.getItem("dta-theme")); } catch (e) { /* storage unavailable */ }
+  themeBtn.addEventListener("click", () => {
+    const cur = document.documentElement.getAttribute("data-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const next = cur === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try { localStorage.setItem("dta-theme", next); } catch (e) { /* ignore */ }
+  });
+  const navDrawer = document.getElementById("navDrawer");
+  const navOverlay = document.getElementById("navOverlay");
+  const menuBtn = document.getElementById("menuBtn");
+  const hdrSearch = document.getElementById("hdrSearch");
+  const hdrList = document.getElementById("hdrStudents");
+  if (hdrList) hdrList.innerHTML = STUDENTS.map((s) => `<option value="${h(s)}">`).join("");
+  function goStudent(raw, exact) {
+    const v = (raw || "").trim().toLowerCase();
+    if (!v) return;
+    const s = STUDENTS.find((x) => exact ? x.toLowerCase() === v : x.toLowerCase().startsWith(v));
+    if (s) location.hash = `#/explore/student/${s}`;
+  }
+  if (hdrSearch) {
+    document.getElementById("hdrSearchForm").addEventListener("submit", (e) => { e.preventDefault(); goStudent(hdrSearch.value, false); });
+    hdrSearch.addEventListener("change", () => goStudent(hdrSearch.value, true));
+  }
+  function navItems() {
+    return Array.from(navDrawer.querySelectorAll("a, summary")).filter((el) => {
+      const group = el.closest("details");
+      return !group || group.open || el.tagName === "SUMMARY";
+    });
+  }
+  function openNav() {
+    navDrawer.classList.add("open");
+    navDrawer.inert = false;
+    navDrawer.setAttribute("aria-hidden", "false");
+    navOverlay.hidden = false;
+    navOverlay.classList.add("open");
+    menuBtn.setAttribute("aria-expanded", "true");
+    document.body.classList.add("nav-open");
+    const first = navDrawer.querySelector("a");
+    if (first) first.focus();
+  }
+  function closeNav(restore) {
+    const was = navDrawer.classList.contains("open");
+    navDrawer.classList.remove("open");
+    navDrawer.inert = true;
+    navDrawer.setAttribute("aria-hidden", "true");
+    navOverlay.classList.remove("open");
+    navOverlay.hidden = true;
+    menuBtn.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-open");
+    if (restore && was) menuBtn.focus();
+  }
+  menuBtn.addEventListener("click", () => { navDrawer.classList.contains("open") ? closeNav(true) : openNav(); });
+  navOverlay.addEventListener("click", () => closeNav(true));
+  document.addEventListener("keydown", (e) => {
+    if (!navDrawer.classList.contains("open")) return;
+    if (e.key === "Escape") { e.preventDefault(); closeNav(true); return; }
+    if (e.key !== "Tab") return;
+    const items = navItems();
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  // Lightbox for frame images.
+  const lb = document.createElement("div");
+  lb.className = "lightbox"; lb.setAttribute("role", "dialog"); lb.setAttribute("aria-label", "Enlarged frame");
+  lb.innerHTML = '<figure><img alt=""><figcaption></figcaption></figure><button type="button" class="btn">Close</button>';
+  document.body.appendChild(lb);
+  const closeLb = () => lb.classList.remove("open");
+  lb.addEventListener("click", closeLb);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLb(); });
+  document.addEventListener("click", (e) => {
+    const im = e.target.closest("[data-zoom]");
+    if (!im) return;
+    e.preventDefault(); e.stopPropagation();
+    lb.querySelector("img").src = im.getAttribute("data-zoom");
+    lb.querySelector("img").alt = im.getAttribute("data-cap") || "";
+    lb.querySelector("figcaption").textContent = im.getAttribute("data-cap") || "";
+    lb.classList.add("open");
+  });
+
+  // ------------------------------------------------------------------ components
+  function table(head, rows, opts = {}) {
+    const ths = head.map((c) => `<th class="${c.num ? "num" : ""}">${h(c.t)}</th>`).join("");
+    const trs = rows.map((r) => `<tr${r.href ? ` class="click" data-href="${h(r.href)}"` : ""}${r.attrs || ""}>${r.cells.map((c, i) =>
+      `<td class="${[head[i] && head[i].num ? "num" : "", head[i] && head[i].cls || ""].join(" ")}"${opts.labels ? ` data-label="${h(head[i].t)}"` : ""}>${c}</td>`).join("")}</tr>`).join("");
+    return `<div class="table-wrap"${opts.max ? ` style="max-height:${opts.max}px;overflow:auto"` : ""}><table${opts.cls ? ` class="${h(opts.cls)}"` : ""}><thead><tr>${ths}</tr></thead><tbody>${trs || `<tr><td colspan="${head.length}" class="na">No rows.</td></tr>`}</tbody></table></div>`;
+  }
+  const kv = (pairs) => `<dl class="kv">${pairs.filter(Boolean).map(([k, v]) => `<dt>${h(k)}</dt><dd>${v}</dd>`).join("")}</dl>`;
+  const legend = (keys) => `<div class="legend">${keys.map((k) => `<span><i style="background:${behColor(k)}"></i>${h(behLabel(k))}</span>`).join("")}</div>`;
+  function hbars(counts, label = (k) => k, tipFn) {
+    const ent = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    const max = Math.max(1, ...ent.map((e) => e[1]));
+    return ent.map(([k, v]) => `<div class="hbar"${tipFn ? tipAttr(tipFn(k, v)) : ""}><span>${h(label(k))}</span><span class="track"><span class="fill" style="width:${100 * v / max}%"></span></span><span class="n">${num(v)}</span></div>`).join("");
+  }
+  function behKeys(counts) {
+    const keys = BEHAV.map((b) => b[0]).filter((k) => counts[k]);
+    Object.keys(counts).forEach((k) => { if (!BEH[k]) keys.push(k); });
+    return keys;
+  }
+  function behaviorStack(counts) {
+    const total = sum(Object.values(counts));
+    if (!total) return "";
+    return `<div class="stack" role="img" aria-label="Share of frames by behaviour">${behKeys(counts).map((k) =>
+      `<div style="flex:${counts[k]};background:${behColor(k)}"${tipAttr(`<b>${h(behLabel(k))}</b><br>${num(counts[k])} frames · ${pct(counts[k], total, 1)}`)}></div>`).join("")}</div>`;
+  }
+  function behaviorTable(counts) {
+    const total = sum(Object.values(counts));
+    return table([{ t: "Observed behaviour" }, { t: "Meaning" }, { t: "Frames", num: 1 }, { t: "Share", num: 1 }],
+      behKeys(counts).map((k) => ({ cells: [`<span class="sw" style="background:${behColor(k)}"></span>${h(behLabel(k))}`, h(BEH[k] ? BEH[k].desc : "Not in the codebook"), num(counts[k]), pct(counts[k], total, 1)] })));
+  }
+  const addCounts = (a, b) => { Object.entries(b || {}).forEach(([k, v]) => { a[k] = (a[k] || 0) + v; }); return a; };
+  const evidenceText = (f) => f.ev && f.ev.length ? f.ev.map((k) => EVIDENCE[k] || k).join(" · ") : f.b ? "No flags set" : (TRIGGERS[f.tr] || "");
+  const methodLink = (anchor, text = "How this was processed") => `<a class="more" href="#/methods${anchor ? "/" + anchor : ""}">${h(text)} →</a>`;
+
+  // ------------------------------------------------------------------ 01 Overview
+  const codedFrameCount = F.filter((f) => f.b).length;
+  function pageOverview() {
+    return `<div class="page wide home">
+      <div class="hero">
+        <div class="hero-copy">
+          <h1><span class="hero-line">Documenting the Process of Learning</span> <span class="hero-line">Decision Tree Modeling</span></h1>
+          <p class="hero-lead">A research archive of worksheets, screen recordings, platform logs, and notebooks from a decision-tree unit with ${STUDENTS.length} pre-service teachers, shown only by pseudonym.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="https://github.com/dedemerve/DecisionTrees-AICFT-Assessor" target="_blank" rel="noopener">View the code on GitHub</a>
+            <a class="btn-secondary" href="#/methods">How it was processed</a>
+          </div>
+        </div>
+        <figure class="hero-visual">
+          <svg viewBox="0 0 560 248" role="img" aria-label="A decision tree. Fat is the feature. A rule sends the food card down one branch. The leaf is the prediction: recommended or not recommended.">
+            <path d="M280 78 V118 H150 V162 M280 118 H410 V162" fill="none" stroke="#2458A6" stroke-width="1.5"/>
+            <rect x="168" y="8" width="224" height="70" fill="#172B4D"/>
+            <text x="280" y="30" text-anchor="middle" fill="#8FB4E8" font-size="11" font-weight="600">Feature</text>
+            <text x="280" y="52" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="600">Fat</text>
+            <text x="280" y="68" text-anchor="middle" fill="#D5E3F7" font-size="11">Rule: at or below the cut-off?</text>
+            <text x="188" y="112" text-anchor="middle" fill="#2458A6" font-size="12" font-weight="600">yes</text>
+            <text x="372" y="112" text-anchor="middle" fill="#586579" font-size="12" font-weight="600">no</text>
+            <rect x="40" y="162" width="220" height="70" fill="#EDF3FB" stroke="#2458A6" stroke-width="1"/>
+            <text x="150" y="186" text-anchor="middle" fill="#2458A6" font-size="11" font-weight="600">Prediction</text>
+            <text x="150" y="210" text-anchor="middle" fill="#172B4D" font-size="15" font-weight="600">Recommended</text>
+            <rect x="300" y="162" width="220" height="70" fill="#F6F8FB" stroke="#D8DEE8" stroke-width="1"/>
+            <text x="410" y="186" text-anchor="middle" fill="#586579" font-size="11" font-weight="600">Prediction</text>
+            <text x="410" y="210" text-anchor="middle" fill="#172B4D" font-size="15" font-weight="600">Not recommended</text>
+          </svg>
+        </figure>
+      </div>
+      <div class="metric-row">
+        <a class="metric" href="#/findings/participants"><div class="v">${STUDENTS.length}</div><div class="l">Participants</div><div class="s">Pseudonyms only</div></a>
+        <a class="metric" href="#/explore/worksheets"><div class="v">${C.worksheets.length}</div><div class="l">Worksheets</div><div class="s">${num(schemaFields)} response fields</div></a>
+        <a class="metric" href="#/explore/recordings"><div class="v">${num(F.length)}</div><div class="l">Frames listed</div><div class="s">${num(codedFrameCount)} with a behaviour label</div></a>
+        <a class="metric" href="#/explore/logs"><div class="v">${num(logEventsClass)}</div><div class="l">Log events</div><div class="s">CODAP Arbor, 2 class sessions</div></a>
+      </div>
+      <h2>How the archive is organised</h2>
+      <p class="span-line">Collected data describe what was gathered; Findings present what the analyses reveal.</p>
+      <ol class="explore-path">
+        <li><a href="#/collected"><span class="n">1</span><h3>Collected Data</h3><p>Explore the worksheets, screen-recording frames, platform logs, and other research materials.</p></a></li>
+        <li><a href="#/methods"><span class="n">2</span><h3>Processing</h3><p>Learn how the collected materials were prepared, coded, and analysed.</p></a></li>
+        <li><a href="#/findings"><span class="n">3</span><h3>Findings</h3><p>Explore the results, patterns, and interpretations derived from the data.</p></a></li>
+        <li><a href="#/docs/technical"><span class="n">4</span><h3>Reference</h3><p>Consult documentation, definitions, and supporting resources.</p></a></li>
+      </ol>
+      <p class="small span-line">This is a recommended way to explore the archive. It is not a claim that every research task follows this sequence.</p>
+    </div>`;
+  }
+
+  // ------------------------------------------------------------------ 02 Methods
+  function pageMethods() {
+    let rawEx = null;
+    STUDENTS.some((s) => Object.entries(C.ws[s]).some(([code, r]) => {
+      if (r.ocr && r.ocr.raw_diff && r.ocr.raw_diff.length) { rawEx = { s, code, d: r.ocr.raw_diff[0] }; return true; }
+      return false;
+    }));
+    let checkEx = null;
+    STUDENTS.some((s) => {
+      const r = C.ws[s].WS10 && C.ws[s].WS10.ocr;
+      const chk = r && r.checks.find((c) => c.check === "item_checks.WS10_B8");
+      const resp = r && r.responses.find((x) => x.item === "optimal_threshold");
+      if (chk && resp) { checkEx = { s, v: resp.value, chk }; return true; }
+      return false;
+    });
+    const trigTotals = {};
+    F.forEach((f) => { trigTotals[f.tr] = (trigTotals[f.tr] || 0) + 1; });
+    const params = {};
+    allSessions.forEach((r) => { if (r.manifest) Object.entries(r.manifest.parameters).forEach(([k, v]) => { if (v == null) return; params[k] = params[k] || {}; params[k][String(v)] = (params[k][String(v)] || 0) + 1; }); });
+    const pv = (k) => Object.entries(params[k] || {}).map(([v, n]) => `${h(v)} <span class="small">(${n} sessions)</span>`).join(", ") || "–";
+    const pvOne = (k) => {
+      const entries = Object.entries(params[k] || {});
+      if (entries.length !== 1) return pv(k);
+      const n = Number(entries[0][0]);
+      if (!Number.isFinite(n)) return h(entries[0][0]);
+      const shown = Number.isInteger(n) ? num(n) : String(n);
+      return h(shown);
+    };
+    const tables = { ep: 0, codes: 0 };
+    STUDENTS.forEach((s) => Object.values(C.episodes[s] || {}).forEach((e) => { tables.ep += (e.episodes || []).length; tables.codes += e.code_rows || 0; }));
+    const linkedFrames = F.filter((f) => f.gx).length;
+    const noExtracted = C.worksheets.filter((w) => STUDENTS.every((s) => !C.ws[s][w.code].ocr)).map((w) => w.code);
+    const reportOnly = STUDENTS.filter((s) => C.notebooks[s] && !C.notebooks[s].file && C.notebooks[s].extraction);
+    const missingAnswers = noExtracted.length
+      ? ` ${noExtracted.map(h).join(" and ")} ${noExtracted.length === 1 ? "has" : "have"} no extracted student answers, so ${noExtracted.length === 1 ? "it is" : "they are"} not scored evidence.`
+      : "";
+    const recorded = allSessions.filter((r) => r.manifest);
+    const unrecorded = allSessions.filter((r) => !r.manifest);
+    const slotName = (r) => `${h(r.student)} (${h(SESS_NAME[r.session])})`;
+    const modeCount = (mode) => recorded.filter((r) => r.manifest.extraction_mode === mode);
+    const speechOn = modeCount("full_multimodal");
+    const motionOnly = modeCount("motion_only_fallback");
+    const speechStatus = (status) => recorded.filter((r) => r.speech && r.speech.status === status);
+    const pipeField = (r, key) => {
+      const pipeline = r.speech && r.speech.pipeline;
+      return pipeline && typeof pipeline === "object" ? (pipeline[key] || "") : "";
+    };
+    const asrOf = (r) => pipeField(r, "asr");
+    const fusionSessions = speechStatus("ok").filter((r) => asrOf(r) === "existing_transcript_fusion");
+    const smallAsr = recorded.filter((r) => asrOf(r) === "small");
+    const lexical = recorded.filter((r) => r.speech && r.speech.method === "hybrid_matrix_duration_and_lexical");
+    const postProcessed = recorded.filter((r) => r.coding && r.coding.post_processing);
+    const logCsvUsed = recorded.filter((r) => r.coding && r.coding.log_csv_used);
+    const votatMissing = [];
+    STUDENTS.forEach((s) => Object.entries(LOG_DAYS).forEach(([d, meta]) => {
+      const v = (logDays[s] || {})[d];
+      if (v && !v.votat) votatMissing.push(`${s} (${meta.name})`);
+    }));
+    const tally = (key) => {
+      const out = {};
+      F.forEach((row) => { if (row[key]) out[row[key]] = (out[row[key]] || 0) + 1; });
+      return Object.entries(out).sort((a, b) => b[1] - a[1]);
+    };
+    const screenCounts = tally("sc");
+    const phaseCounts = tally("ph");
+    const behN = (code) => F.filter((row) => row.b === code).length;
+    const actions = logActionsClass;
+    const actionNames = Object.keys(actions).sort();
+    const epCats = {};
+    const decisions = {};
+    let epFiles = 0;
+    let epWithoutRecording = 0;
+    let featureFlagsTrue = 0;
+    STUDENTS.forEach((s) => Object.entries(C.episodes[s] || {}).forEach(([sid, e]) => {
+      epFiles += 1;
+      if (!(C.sessions[s][sid] && C.sessions[s][sid].manifest)) epWithoutRecording += 1;
+      (e.episodes || []).forEach((ep) => { if (ep.category) epCats[ep.category] = (epCats[ep.category] || 0) + 1; });
+      Object.entries(e.code_decisions || {}).forEach(([k, n]) => { decisions[k] = (decisions[k] || 0) + n; });
+      featureFlagsTrue += (e.features_true || []).length;
+    }));
+    const resolutions = {};
+    recorded.forEach((r) => {
+      const res = r.manifest.native_resolution;
+      const key = Array.isArray(res) ? res.join("×") : "not stored";
+      resolutions[key] = (resolutions[key] || 0) + 1;
+    });
+    const resolutionText = Object.entries(resolutions).map(([k, n]) => `${h(k)} (${num(n)} manifests)`).join(", ");
+    const dupeNames = recorded.filter((r) => r.same_video_file_as).map(slotName);
+    const slotOf = (student, session) => allSessions.find((r) => r.student === student && r.session === session);
+    const sessionFileNote = () => {
+      const bits = [];
+      const irma1 = slotOf("Irma", "codap_21apr");
+      const irma2 = slotOf("Irma", "codap_28apr");
+      if (irma1 && irma2 && irma1.video_sha256 && irma2.video_sha256 && irma1.video_sha256 !== irma2.video_sha256) {
+        bits.push(irma1.coding
+          ? "Irma’s two CODAP recordings are different files."
+          : "Irma’s two CODAP recordings are different files. Session 1 frames have no behaviour labels yet, so they are not included in behaviour shares.");
+      }
+      const zara1 = slotOf("Zara", "codap_21apr");
+      const zara2 = slotOf("Zara", "codap_28apr");
+      if (zara1 && zara1.manifest && zara2 && !zara2.manifest) {
+        bits.push("Zara’s stored CODAP recording is session 1. No session 2 recording or frame manifest is published, and frames taken from the session 1 video are not shown as a second session.");
+      }
+      return bits.length ? bits.join(" ") + " " : "";
+    };
+    const linkMethods = {};
+    F.forEach((row) => {
+      const method = row.gx && row.gx.method;
+      if (method) linkMethods[method] = (linkMethods[method] || 0) + 1;
+    });
+    const linkMethodText = Object.entries(linkMethods).map(([k, n]) => `<code>${h(k)}</code> (${num(n)})`).join(", ") || "none stored";
+
+    const STAGE_PANELS = [
+      { id: "collect", num: 1, title: "Collect", summary: "Gather all sources",
+        what: "All four source types are brought together before any processing starts. Each file is inventoried, fingerprinted (SHA-256), and assigned to a student pseudonym. Instructor entries and real-name log rows are removed before further processing.",
+        sources: ["Paper worksheets scanned to PDF", "Screen recording files from CODAP Arbor sessions", "CODAP Arbor interaction log files (CSV/JSON)", "Google Colab notebook files (.ipynb) from the final project"],
+        output: "Raw source material, file-by-file. Each source is counted and assigned. Nothing is modified at this stage." },
+      { id: "extract", num: 2, title: "Extract", summary: "Read handwriting, label frames, parse logs",
+        what: "Extraction works differently for each source. A language model reads defined areas of each worksheet scan. The same model assigns a behaviour label to each selected recording frame. Python parses log lines directly and inspects notebook files cell by cell. The raw reading is always kept alongside any cleaned value.",
+        sources: ["Worksheet scan areas → language model reads handwriting in pre-defined regions", "Recording frames → language model assigns one behaviour label per frame from the codebook", "Log files → Python groups events by student, session, and action type", "Notebook .ipynb files → Python reads cells, outputs, and execution counters"],
+        output: `Extracted response values for every worksheet item; one behaviour label per coded frame; per-session log measures; notebook inspection records.` },
+      { id: "check", num: 3, title: "Check", summary: "Compare with rubric, rule, or codebook",
+        what: "What happens after extraction depends on the question type. Open answers are scored against a researcher-written rubric. Numeric or rule-based answers are checked by Python against a fixed criterion derived from the data. The two paths are not interchangeable, and the distinction is recorded in each worksheet’s pipeline field.",
+        sources: ["Researcher-written rubric PDFs (criteria for open answers, partial credit where defined)", "11 food card reference values (deterministic checks for WS5, WS6, and WS7)", "Titanic reference values (WS15 numeric comparisons, within 0.02)", "Behaviour codebook (ten behaviour codes and three abstain codes, developed from earlier human coding, applied per frame)"],
+        output: "Per-item check results with pass, fail, or no-verdict flags. Rubric scores include the rationale the model used. Behaviour codes include a confidence rating and any observation flags set." },
+      { id: "analyse", num: 4, title: "Analyse", summary: "Organise records, keep source links",
+        what: `Checked material is organised into structured JSON files. Each result stays tied to the file and rule that produced it. Aggregates are built from item-level records. ${num(schemaFields)} response fields are defined across ${C.worksheets.length} worksheets.`,
+        sources: ["Extraction JSON files (one per student per worksheet)", "Frame manifests with coded labels (one per session)", "Log measure tables (per student per day)", "Notebook inspection records (one per student)"],
+        output: "JSON files in students/ folders; per-session and per-student aggregate measures; the processed CSV tables (frames.csv, log_sessions.csv, worksheet_responses.csv) that power this site." },
+      { id: "review", num: 5, title: "Review", summary: "Inspect uncertain cases",
+        what: "The researcher checked every extracted worksheet response against the handwritten original and reports that the reading matched in every case. That check is the transcription, not the rubric score. The researcher also inspected the extracted frames. A behaviour label still comes from the codebook, and this cohort has no second-coder agreement statistic. A score is changed only when the record supports the change, and the rationale is stored.",
+        sources: ["Handwritten pages, compared with each extracted response", "Extracted frame images", "Stored score changes, each with a rationale"],
+        output: "Researcher-confirmed corrections with logged rationale; uncertainty flags preserved in output files; documented limitations accessible from the data notes page." },
+    ];
+
+    const stageButtons = STAGE_PANELS.map((s, i) =>
+      `<button role="tab" class="process-step" data-stage="${h(s.id)}" aria-selected="${i === 0 ? "true" : "false"}" aria-controls="process-panel-${h(s.id)}" id="pstep-${h(s.id)}" tabindex="${i === 0 ? "0" : "-1"}"><span class="ps-num" aria-hidden="true">${s.num}</span><span class="ps-title">${h(s.title)}</span><span class="ps-summary">${h(s.summary)}</span></button>`
+    ).join("");
+
+    const stagePanels = STAGE_PANELS.map((s, i) =>
+      `<div class="process-panel" id="process-panel-${h(s.id)}" role="tabpanel" aria-labelledby="pstep-${h(s.id)}" data-stage="${h(s.id)}"${i !== 0 ? " hidden" : ""}><p>${h(s.what)}</p><div class="process-panel-grid"><div class="process-panel-col"><h4>Sources at this stage</h4><ul>${s.sources.map((src) => `<li>${h(src)}</li>`).join("")}</ul></div><div class="process-panel-col"><div class="process-output"><b>Output</b><br>${h(s.output)}</div></div></div></div>`
+    ).join("");
+
+    return `<div class="page methods">
+      ${crumbs([["Data processing and analysis", "#/methods"], ["Processing workflow"]])}
+      <p class="kicker">Data processing and analysis</p>
+      <h1>From Student Activity to Research Evidence</h1>
+      <p class="lead">Written work, screen recordings, platform logs, and notebooks each show a different part of how the students learned decision trees.</p>
+      <div class="log-metrics">
+        <a class="log-metric" href="#/explore/worksheets"><div class="lm-label">Worksheets</div><div class="lm-name">${C.worksheets.length}</div><div class="lm-desc">${num(schemaFields)} response fields defined</div></a>
+        <a class="log-metric" href="#/explore/recordings"><div class="lm-label">Screen recordings</div><div class="lm-name">${num(recorded.length)} <span style="font-size:0.75em;font-weight:400">of ${num(allSessions.length)}</span></div><div class="lm-desc">${num(F.length)} frames · ${num(codedFrameCount)} labelled</div></a>
+        <a class="log-metric" href="#/explore/logs"><div class="lm-label">Platform logs</div><div class="lm-name">${num(logEventsClass)}</div><div class="lm-desc">Events across 2 class sessions</div></a>
+        <a class="log-metric" href="#/explore/notebooks"><div class="lm-label">Python notebooks</div><div class="lm-name">${notebooksPresent}</div><div class="lm-desc">Students with a notebook in the archive</div></a>
+      </div>
+      <nav class="section-nav" aria-label="On this page">
+        <a href="#/methods/idea" data-sec="idea">Processing</a>
+        <a href="#/methods/worksheets" data-sec="worksheets">Worksheets</a>
+        <a href="#/methods/recordings" data-sec="recordings">Recordings</a>
+        <a href="#/methods/logs" data-sec="logs">Logs</a>
+        <a href="#/methods/notebooks" data-sec="notebooks">Notebooks</a>
+        <a href="#/methods/review" data-sec="review">Quality checks</a>
+      </nav>
+
+      <section class="method-block" id="m-idea">
+        <h2>How the processing works</h2>
+        <p>Select a stage to see what it does, which sources are involved, and what it produces.</p>
+        <div class="process-nav" id="processNav">
+          <div class="process-steps" role="tablist" aria-label="Processing stages">${stageButtons}</div>
+          ${stagePanels}
+        </div>
+        <p class="small">A language model reads handwriting and what is visible on screen. Python reads the logs and notebooks and applies a rule wherever a value can be tested. An original reading is kept beside a cleaned value when both are stored.</p>
+      </section>
+
+      <section class="method-block" id="m-worksheets">
+        <h2>Worksheets</h2>
+        <div class="log-metrics">
+          <div class="log-metric"><div class="lm-label">Worksheets</div><div class="lm-name">${C.worksheets.length}</div><div class="lm-desc">Paper worksheets collected</div></div>
+          <div class="log-metric"><div class="lm-label">Response fields</div><div class="lm-name">${num(schemaFields)}</div><div class="lm-desc">Defined across all worksheets</div></div>
+          <div class="log-metric"><div class="lm-label">Rubric scoring</div><div class="lm-name">Open answers</div><div class="lm-desc">Researcher-written criteria, model applies</div></div>
+          <div class="log-metric"><div class="lm-label">Rule checking</div><div class="lm-name">Numeric answers</div><div class="lm-desc">Python checks against reference data</div></div>
+        </div>
+        <p>Students completed ${C.worksheets.length} paper worksheets. The answers include words, numbers, operators such as ≤, decision-tree drawings, calculations, and survey responses.</p>
+        <div class="method-flow" aria-label="Worksheet processing pipeline" role="img">
+          <div class="flow-node flow-node--accent">Scanned<br>worksheet</div>
+          <div class="flow-arr" aria-hidden="true">→</div>
+          <div class="flow-node">Answer<br>extraction</div>
+          <div class="flow-arr" aria-hidden="true">→</div>
+          <div class="flow-node">Check<br><span class="flow-node-sub">rubric or rule</span></div>
+          <div class="flow-arr" aria-hidden="true">→</div>
+          <div class="flow-node flow-node--output">Scored<br>evidence</div>
+        </div>
+        <p>Each scan was divided into known answer areas. A language model read the handwriting in those areas. The raw reading is kept. Mechanical clean-up, such as storing <code>&lt;=</code> as ≤, is recorded separately.</p>
+        <div class="compare">
+          <div>
+            <h3>Rubric-based scoring</h3>
+            <p>The model compares the answer with criteria from the researcher’s rubric. The rubric sets the score. Python adds the item scores. Partial credit is possible where the rubric defines it.</p>
+          </div>
+          <div>
+            <h3>Rule-based checking</h3>
+            <p>After the handwriting is read, Python checks a value or relationship, such as a threshold, a count, or an error rate, against a fixed rule derived from the data.</p>
+          </div>
+        </div>
+        <p>These records show what was written and how it compares with a rubric or rule. They do not show what a student was thinking.${missingAnswers}</p>
+        ${tech("Which worksheets use which method?", table([{ t: "Worksheets" }, { t: "Reading" }, { t: "Check" }], [
+          { cells: ["WS1, WS3, WS4", "The model reads the handwriting.", "Each item is scored against the rubric. Python adds the item scores."] },
+          { cells: ["WS5, WS6, WS7", "The model reads the handwriting.", "Python applies rules from the 11 food cards. WS7 is checked against the tree drawn on WS6."] },
+          { cells: ["WS10", "The model reads the handwriting.", "Python applies rules for the energy-threshold table. This is not the Titanic worksheet (WS15)."] },
+          { cells: ["WS11", noExtracted.includes("WS11") ? "Not extracted" : "The model reads the written answers.", "A checker exists for some closed survey items. This worksheet is not treated as a validated response set" + (noExtracted.includes("WS11") ? " because no student answers were extracted." : ".") ] },
+          { cells: ["WS12", "Responses are read from the scanned sheet.", "Python checks that the written tree is consistent with itself. The rubric does not set one correct tree."] },
+          { cells: ["WS13", "The model reads the written answers.", "Answers are scored with the rubric. Log measures are added only when that student’s log exists."] },
+          { cells: ["WS14", "The model reads the written answers.", "Open answers are scored with the rubric. Python checks the confusion-matrix counts: false positives and false negatives are zero, and the remaining counts account for every case."] },
+          { cells: ["WS15", "The model reads the written answers.", "Open answers are scored with the rubric. Python compares numerical answers with the Titanic reference, within 0.02."] },
+        ]) + `<p class="small">For a rubric item, the scorer loads the entry with that item’s ID. It does not search across documents.</p>` + (rawEx ? `<p class="small">Clean-up example: in ${h(rawEx.s)}’s ${h(rawEx.code)}, the raw reading <code>${h(rawEx.d.raw)}</code> was stored as <code>${h(rawEx.d.normalized)}</code>.</p>` : "") + (checkEx ? `<p class="small">WS10 check example: ${h(checkEx.s)} wrote <code>${h(checkEx.v)}</code> for the chosen threshold. Result: ${result(checkEx.chk.correct)}.</p>` : "") + `<p class="small">WS14 and WS15 were split from an earlier combined worksheet. They are checked separately. The survey worksheet WS11 has a checker for some closed items, but the item identifiers in that checker have drifted from the rubric, so it is not treated as a validated response set.</p>`)}
+      </section>
+
+      <section class="method-block" id="m-recordings">
+        <h2>Screen recordings</h2>
+        <div class="log-metrics">
+          <div class="log-metric"><div class="lm-label">Sessions recorded</div><div class="lm-name">${num(recorded.length)} <span style="font-size:0.75em;font-weight:400">of ${num(allSessions.length)}</span></div><div class="lm-desc">${num(unrecorded.length)} slots have no manifest</div></div>
+          <div class="log-metric"><div class="lm-label">Frames listed</div><div class="lm-name">${num(F.length)}</div><div class="lm-desc">${num(codedFrameCount)} with a behaviour label</div></div>
+          <div class="log-metric"><div class="lm-label">Behaviour codes</div><div class="lm-name">${BEHAV.length}</div><div class="lm-desc">From the codebook, applied per frame</div></div>
+          <div class="log-metric"><div class="lm-label">With transcript</div><div class="lm-name">${num(speechStatus("ok").length)}</div><div class="lm-desc">Usable speech transcript stored</div></div>
+        </div>
+        <div class="method-flow" aria-label="Implemented recording pipeline. Speech processing, frame selection, and behaviour coding are stored. A frame-level join to the log is not." role="img">
+          <div class="flow-node flow-node--accent">Screen<br>recording</div>
+          <div class="flow-arr" aria-hidden="true">→</div>
+          <div class="flow-node">Speech and<br>frame selection</div>
+          <div class="flow-arr" aria-hidden="true">→</div>
+          <div class="flow-node">Behaviour<br>coding</div>
+          <div class="flow-arr" aria-hidden="true">→</div>
+          <div class="flow-node flow-node--output">Stored<br>labels</div>
+        </div>
+        <p>Three stages are stored: speech processing where a transcript exists, frame selection, and a behaviour label on the kept frames. ${dupeNames.length ? `Some videos are the same file: ${dupeNames.join("; ")}. ` : ""}${sessionFileNote()} Frames and counts are listed under <a href="#/explore/recordings">Screen recording frames</a>. Counts of the ten behaviour codes and three abstain codes are on the <a href="#/findings/recordings">screen recording findings</a> page.</p>
+
+        <h3>Behaviour labels</h3>
+        <div class="code-grid">${BEHAV.map((b) => `<article class="code-card"><h3><span class="sw" style="background:var(${b[3]})"></span> ${h(b[1])}</h3><p><code>${h(b[0])}</code>. ${h(b[2])}.</p></article>`).join("")}</div>
+        <h3>Abstain codes</h3>
+        <div class="code-grid">${ABSTAIN.map((b) => `<article class="code-card"><h3><span class="sw" style="background:var(--rule-strong)"></span> ${h(b[1])}</h3><p><code>${h(b[0])}</code>. ${h(b[2])}.</p></article>`).join("")}</div>
+        <p>${num(F.length)} frames are listed and ${num(codedFrameCount)} have a behaviour label. The ten behaviour codes and three abstain codes were developed from earlier human coding and given to the model as a closed list. They name visible activity — not what the student understood, and a frame count is not time spent.</p>
+        ${tech("Behaviour coding details", `<p class="small">The coding prompt tells the model to prefer building a tree when two labels could fit. The stored counts do not follow that expectation: building a tree is on ${num(behN("BUILD_TREE"))} frames and comparing models is on ${num(behN("COMPARE_MODELS"))}. ${postProcessed.length ? `${num(postProcessed.length)} coding files record a later rule-based change to the label, including a rule that replaces EVALUATE_MODEL with COMPARE_MODELS when an iterative-refinement flag is set. The stored label is not always the model’s first output.` : ""}</p>
+        <p class="small"><code>SELECT_TARGET</code> is stored on ${num(behN("SELECT_TARGET"))} frames. The log of the two class sessions contains ${num(actions.set_dependent_variable || 0)} <code>set_dependent_variable</code> events. A zero frame count does not show that students never chose a target.</p>
+        <p class="small">The prompt allows the screen contexts TREE, GRAPH, TABLE, MIXED, and MENU. The stored frames use ${screenCounts.map(([k, n]) => `<code>${h(k)}</code> (${num(n)})`).join(", ")}. <code>deepen_phase</code> is a label the model wrote beside the behaviour. It is not a validated stage of learning. Stored phases: ${phaseCounts.map(([k, n]) => `${h(k)} ${num(n)}`).join(", ")}.</p>
+        <p class="small"><code>analysis_confidence</code> is the model’s own rating of that label. It is not classification accuracy. This archive does not contain a 2026 frame-by-frame human sign-off, a gold-standard accuracy, or a kappa coefficient.</p>`)}
+
+        ${tech("Speech processing details", `<p class="small">${num(speechStatus("ok").length)} of the ${num(recorded.length)} recordings store a usable transcript. ${fusionSessions.length ? `${num(fusionSessions.length)} of those store speaker grouping as <code>${h(pipeField(fusionSessions[0], "diarization") || "not stored")}</code> and speech-to-text as <code>existing_transcript_fusion</code>: the words were joined to a transcript already on file. Whisper was not run on every recording.` : ""} ${lexical.length ? `${num(lexical.length)} files label speakers with <code>hybrid_matrix_duration_and_lexical</code>, a duration and word-pattern heuristic. The archive does not store a speaker-identification accuracy for that heuristic.` : ""}</p>
+        <p class="small">${num(speechStatus("no_speech").length)} recordings are marked <code>no_speech</code>. ${smallAsr.length ? `${smallAsr.map(slotName).join(", ")} ${smallAsr.length === 1 ? "is" : "are"} marked as a speech-enabled run, with speech-to-text field <code>small</code>, speech status <code>no_speech</code>, and ${smallAsr.map((r) => num((r.manifest.summary || {}).speech_anchor_count || 0)).join(", ")} speech anchor${smallAsr.length === 1 && ((smallAsr[0].manifest.summary || {}).speech_anchor_count || 0) === 1 ? "" : "s"}.` : ""} The frame-analysis files do not contain <code>argumentation_score</code>.</p>`)}
+
+        ${tech("Frame selection details", `<p class="small">Motion is the share of pixels that still differ after each frame is turned to grayscale, narrowed to 960 pixels wide when the recording is wider, blurred with a 5×5 Gaussian kernel, and compared with the previous frame by Otsu’s threshold. It is not a raw pixel-difference ratio. The extractor uses ${pvOne("motion_threshold_fraction")} on the ${num(speechOn.length)} speech-enabled sessions and ${pvOne("silent_motion_threshold")} on the ${num(motionOnly.length)} <code>motion_only_fallback</code> sessions.</p>
+        <p class="small">If no frame has been kept for ${pvOne("codap_gap_fill_seconds")} seconds, one is saved anyway. A speech anchor more than ${pvOne("speech_gap_bypass_seconds")} seconds after the previous kept frame bypasses the duplicate filter. Every manifest also stores a cooldown of ${pvOne("cooldown_ms")} milliseconds and perceptual-hash duplicate removal at threshold ${pvOne("phash_threshold")}. The frame files do not record a check that each log action appears in a picture.${logCsvUsed.length ? "" : " No coding file records that a log CSV was used while the frames were labelled."}</p>
+        <p class="small">${num(linkedFrames)} frames link to a researcher observation step. The stored link methods are ${linkMethodText}. The heuristic places researcher steps in order across the frames. The frame files do not contain <code>synchronized_log_event</code>, a T1 or T2 evidence tier, or a nearest-frame match to a log event.</p>` + kv([
+          ["Speech-enabled sessions", `${num(speechOn.length)} at 0.012`],
+          ["Motion-only sessions", `${num(motionOnly.length)} at 0.008`],
+          ["Gap fill (seconds)", pv("codap_gap_fill_seconds")],
+          ["Cooldown (ms)", pv("cooldown_ms")],
+          ["Perceptual-hash threshold", pv("phash_threshold")],
+        ]) + hbars(trigTotals, (k) => (TRIGGERS[k] || k).replace(/\.$/, ""), (k, v) => `<code>${h(k)}</code><br>${num(v)} frames`))}
+
+        ${tech("Exported session tables", `<p class="small">The pipeline also wrote three tables per session folder: session features, episodes, and episode process codes. ${num(epFiles)} CODAP session folders have those tables, including ${num(epWithoutRecording)} folders with no recording. The ${num(tables.ep)} episodes use ${Object.entries(epCats).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${h(k)} (${num(n)})`).join(", ")}. Those categories are not the ten behaviour codes. Of the process-code rows, ${Object.entries(decisions).map(([k, n]) => `${num(n)} are <code>${h(k)}</code>`).join(", ") || "none are stored"}. ${featureFlagsTrue ? "" : "No session-feature flag whose name ends in <code>_present</code> is stored as true. "}These tables are not validated screen-recording results.</p>`)}
+
+        <p>A frame is one visible moment. It is not elapsed time, and it is not a log event. Missing recordings are omitted rather than treated as empty sessions. Further limits are on <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
+        <p>How log measures are computed is explained in the <a href="#/methods/logs">Platform logs</a> section below.</p>
+      </section>
+
+      <section class="method-block" id="m-logs">
+        <h2>Platform logs</h2>
+        <p>CODAP Arbor writes a time-stamped line each time the software records an action. The two class sessions hold ${num(logEventsClass)} events. This is the published log. The archive also keeps a Titanic activity log (${num(logEventsTitanic)} events). It is not part of the published log or the measures. Python rules turn the lines into measures. No language model reads these files.</p>
+        <p><strong>Log collection server.</strong> A lightweight Python server received the log lines from CODAP Arbor during each class session and wrote them to a CSV file. The server code is published at <a href="https://github.com/dedemerve/CODAP-Arbor-log-server" target="_blank" rel="noopener">github.com/dedemerve/CODAP-Arbor-log-server</a>.</p>
+        <h3>How log measures are computed</h3>
+        <p>Each class session is read on its own. Rows are kept only when their <code>created_at</code> date is that session’s date. Events are ordered by <code>created_at</code>, because <code>timestamp_ms</code> is not always increasing within a session.</p>
+        <div class="log-metrics">
+          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">Model attempts</div><div class="lm-desc">Times the student submitted a tree’s results (<code>emit_tree_data</code>), with accuracy, depth, and confusion-matrix counts.</div></div>
+          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">Time to first attempt</div><div class="lm-desc">Minutes from the first recorded action to the first tree submission.</div></div>
+          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">Predictors tried</div><div class="lm-desc">Distinct variables placed into the tree in the session. The target is left out: any column the student modelled as the target, and the recommendation label columns <code>Oneri</code> and <code>Column 1</code>. The product name <code>Ürün Adı</code> is left out too.</div></div>
+          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">Last accuracy</div><div class="lm-desc">Accuracy on the last submission that scored at least one row. n is the number of rows scored (TP + TN + FP + FN). Students used different copies of the data, so values are not directly comparable.</div></div>
+          <div class="log-metric"><div class="lm-label">Measure</div><div class="lm-name">One kind of edit (VOTAT)</div><div class="lm-desc">Share of steps between two submissions in which only one kind of edit happened: only predictors placed, or only threshold edit events. A step can hold several edits of that kind.</div></div>
+        </div>
+        <p>A step is the stretch between two consecutive <code>emit_tree_data</code> events. ${votatMissing.length ? `No rate is stored for ${votatMissing.map(h).join(", ")}.` : "A rate is stored for every class session that has a log."} The rate describes the log. It does not prove a planned experiment.</p>
+        ${tech("VOTAT and log measure details", `<p class="small">A step counts as one kind of edit when it holds <code>drop_attribute</code> or <code>change_split_values</code> events, but not both. The rate is the number of those steps divided by all steps, rounded to three decimals. A session with fewer than two submissions has no steps, so no rate is shown.</p>
+        <p class="small"><strong>Threshold edit events.</strong> Every stored <code>change_split_values</code> row has the same <code>old_value</code> and <code>new_value</code>. The log shows that the split editor was used, but it cannot show whether a threshold actually changed or by how much.</p>
+        <p class="small">The two class sessions contain ${num(actionNames.length)} action names: ${actionNames.map((name) => `<code>${h(name)}</code>`).join(", ")}. <code>change_dataset</code> is not one of them, so these logs do not record a dataset switch under that name.</p>
+        <p class="small">A measure cannot be calculated when the events it needs are missing. ${C.logs.delete_events_present ? "Delete actions are present, so rebuilding after a deletion can be counted." : "The 2026 logs contain no delete actions, so recovery by deleting a tree and rebuilding cannot be calculated."} ${actions.refresh_tree ? `<code>refresh_tree</code> occurs ${num(actions.refresh_tree)} times. That action is not the missing deletion sequence.` : ""} Logs are not matched to individual screen frames.</p>`)}
+        <p><a href="#/explore/logs">Platform log records</a> · <a href="#/findings/logs">Platform log findings</a></p>
+      </section>
+
+      <section class="method-block" id="m-notebooks">
+        <h2>Python notebooks</h2>
+        <p>For the final project, students analysed lizard data in Google Colab. ${notebooksPresent} notebook files are in the archive.${reportOnly.length ? ` ${reportOnly.map(h).join(" and ")} submitted a report instead, so cell order and errors cannot be read for ${reportOnly.length === 1 ? "that file" : "those files"}.` : ""} This inspection is not the weekly Colab collection. Those files are listed under <a href="#/explore/notebooks">Python notebooks</a> and were not scored here.</p>
+        <div class="nb-stages">
+          <div class="nb-stage"><div class="nb-num">Inspected</div><div class="nb-name">Research questions</div><div class="nb-items">Whether research questions were written out for each target variable.</div></div>
+          <div class="nb-stage"><div class="nb-num">Inspected</div><div class="nb-name">Tree models built</div><div class="nb-items">Count of decision trees, target variables, features used, and depths tried.</div></div>
+          <div class="nb-stage"><div class="nb-num">Inspected</div><div class="nb-name">Train / test split</div><div class="nb-items">Whether the code contains a split between training and test data.</div></div>
+          <div class="nb-stage"><div class="nb-num">Inspected</div><div class="nb-name">Cell execution</div><div class="nb-items">Which cells ran, in what order, and whether any printed an error output.</div></div>
+          <div class="nb-stage"><div class="nb-num">Inspected</div><div class="nb-name">Revisiting earlier code</div><div class="nb-items">How many times the student went back and re-ran an earlier cell.</div></div>
+        </div>
+        <p>These notes describe what is in the file. They are not a grade. A missing step was not found; it does not show the student never considered it.</p>
+        ${tech("Learning objectives and rubric", `<p class="small">In the study design, LO3.3.3 names the goal of posing one’s own questions and LO3.3.2 names changing tool settings such as tree depth. Those codes are learning goals. The notebook inspection records what is present; it does not assign them. Rubric section points are visible on each student’s notebook page.</p>`)}
+      </section>
+
+      <section class="method-block" id="m-review">
+        <h2>Quality checks and limitations</h2>
+        <p>Evidence quality varies across sources. The three columns below distinguish what is verified automatically, what still needs a researcher, and what is documented as incomplete or uncertain.</p>
+        <div class="evidence-grid">
+          <div class="evidence-col evidence-col--auto">
+            <div class="evidence-col-head">Automated checks</div>
+            <ul>
+              <li>Rubric item scores and pass/fail flags generated per item</li>
+              <li>Deterministic Python rules from food card and Titanic reference data</li>
+              <li>WS14 confusion-matrix consistency (false positives and false negatives are zero; the remaining counts account for every case)</li>
+              <li>SHA-256 fingerprints for all source files</li>
+              <li>Build-time test script that compares site values with source files</li>
+            </ul>
+          </div>
+          <div class="evidence-col evidence-col--human">
+            <div class="evidence-col-head">Researcher review</div>
+            <ul>
+              <li>Every extracted worksheet response checked against the handwritten original</li>
+              <li>Extracted frames inspected visually by the researcher</li>
+              <li>WS5 B25 score changes: rationale stored for each one</li>
+              <li>Rubric criteria written before scoring runs</li>
+              <li>Behaviour codebook developed from earlier human-coded recordings</li>
+            </ul>
+          </div>
+          <div class="evidence-col evidence-col--limit">
+            <div class="evidence-col-head">Limitations and uncertainty</div>
+            <ul>
+              <li>WS11: no extracted student answers; not scored evidence</li>
+              <li>Irma’s session 1 frames have no behaviour labels. Zara has no session 2 recording</li>
+              <li>Frame coverage below 80% in some sessions</li>
+              <li>Log–video alignment not recorded at the individual-frame level</li>
+              <li>Episode categories are not the ten behaviour codes and three abstain codes</li>
+            </ul>
+          </div>
+        </div>
+        <p>Written answers, screens, software events, and notebooks are different evidence. None is direct proof of what a student was thinking. Where a stage-score file disagrees with the extracted answers, the site shows the answers. Further limitations are in <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
+        <p class="explore-next"><a href="#/explore/worksheets">Worksheets</a><a href="#/explore/recordings">Screen recording frames</a><a href="#/docs/technical">Technical documentation</a><a href="#/findings">Research findings</a></p>
+      </section>
+    </div>`;
+  }
+
+  let methodsOnScroll = null;
+  function bindMethods() {
+    if (methodsOnScroll) { window.removeEventListener("scroll", methodsOnScroll); methodsOnScroll = null; }
+    const nav = document.querySelector(".section-nav");
+    if (!nav) return;
+    const links = [...nav.querySelectorAll("a[data-sec]")];
+    const blocks = links.map((a) => document.getElementById("m-" + a.dataset.sec)).filter(Boolean);
+    let shown = null;
+    const setCurrent = (id) => {
+      if (id === shown) return;
+      shown = id;
+      links.forEach((a) => {
+        const on = a.dataset.sec === id;
+        a.classList.toggle("active", on);
+        if (on) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+      const live = links.find((a) => a.dataset.sec === id);
+      if (live && nav.scrollWidth > nav.clientWidth + 4) nav.scrollLeft = Math.max(0, live.offsetLeft - 8);
+    };
+    const pick = () => {
+      const marker = 180;
+      let id = "";
+      for (const el of blocks) {
+        if (el.getBoundingClientRect().top <= marker) id = el.id.slice(2);
+      }
+      if (!id) {
+        const vis = blocks.find((el) => el.getBoundingClientRect().bottom > marker);
+        id = vis ? vis.id.slice(2) : "";
+      }
+      setCurrent(id);
+    };
+    methodsOnScroll = pick;
+    window.addEventListener("scroll", pick, { passive: true });
+    pick();
+    bindProcessNav();
+  }
+
+  function bindProcessNav() {
+    const nav = document.getElementById("processNav");
+    if (!nav) return;
+    const steps = [...nav.querySelectorAll(".process-step[role='tab']")];
+    const panels = [...nav.querySelectorAll(".process-panel[data-stage]")];
+    function activate(id) {
+      steps.forEach((btn) => {
+        const on = btn.dataset.stage === id;
+        btn.setAttribute("aria-selected", on ? "true" : "false");
+        btn.tabIndex = on ? 0 : -1;
+      });
+      panels.forEach((panel) => { panel.hidden = panel.dataset.stage !== id; });
+    }
+    steps.forEach((btn) => {
+      btn.addEventListener("click", () => { activate(btn.dataset.stage); btn.focus(); });
+      btn.addEventListener("keydown", (e) => {
+        const i = steps.indexOf(btn);
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); const n = steps[(i + 1) % steps.length]; activate(n.dataset.stage); n.focus(); }
+        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); const n = steps[(i - 1 + steps.length) % steps.length]; activate(n.dataset.stage); n.focus(); }
+        else if (e.key === "Home") { e.preventDefault(); activate(steps[0].dataset.stage); steps[0].focus(); }
+        else if (e.key === "End") { e.preventDefault(); activate(steps[steps.length - 1].dataset.stage); steps[steps.length - 1].focus(); }
+      });
+    });
+  }
+
+  // ------------------------------------------------------------------ 03 Explore
+  function exploreShell(active, body, hideKicker) {
+    return hideKicker ? body : `<p class="kicker">Collected data</p>${body}`;
+  }
+  function pageStudents() {
+    if (window.StudentProfiles) return window.StudentProfiles.page();
+    return `<div class="page wide profile-page"><p class="kicker">Findings</p><h1>Student profiles</h1><p>The profile summary did not load.</p></div>`;
+  }
+
+  // ---- student: worksheets
+  function wsBlock(s, w) {
+    const r = C.ws[s][w.code], o = r.ocr, st = r.stage || {};
+    const info = WS_INFO[w.code] || {};
+    const fixed = w.fixed_responses || {};
+    let status = "no answers on file", body = `<p class="small">${h(info.topic || "")} ${h(howChecked(w))} <a href="#/explore/worksheet/${h(w.code)}?view=student&student=${h(s)}&mode=response">Open in the worksheet explorer</a></p>`;
+    if (!o) {
+      body += `<p class="empty">No extracted answers exist for this worksheet and student.</p>`;
+    } else {
+      const chkBy = Object.fromEntries(o.checks.map((c) => [c.check, c]));
+      const alias = ITEM_ALIAS[w.code] || {};
+      const used = new Set();
+      const hasExpected = o.responses.some((x) => fixed[alias[x.item] || x.item] !== undefined);
+      const rows = o.responses.map((x) => {
+        const id = alias[x.item] || x.item;
+        const c = chkBy["item_checks." + id] || chkBy[id];
+        if (c) used.add(c.check);
+        const v = x.value === null || x.value === "(bos)" ? '<span class="na">blank</span>' : `<span class="orig">${h(x.value)}</span>`;
+        const pathLabel = fieldLabel(x.path);
+        const blank = itemLabel(id);
+        const rub = rubricItemLabel(w.code, id, 64);
+        const label = rub && blank && (pathLabel === blank || pathLabel.startsWith(blank + " · ")) ? pathLabel.replace(blank, rub) : (rub && !blank ? rub : pathLabel);
+        const cells = [h(label), v];
+        if (hasExpected) cells.push(fixed[id] !== undefined ? `<span class="mono">${h(fixed[id])}</span>` : "");
+        cells.push(c ? `<span${c.flag ? tipAttr(h(c.flag)) : ""}>${result(c.correct)}</span>` : "");
+        return { cells };
+      });
+      const passed = o.checks.filter((c) => c.correct === true).length;
+      status = o.checks.length ? `${passed} of ${o.checks.length} items correct` : `${o.responses.length} answers`;
+      const head = [{ t: "Question" }, { t: "Student answer" }].concat(hasExpected ? [{ t: "Expected" }] : []).concat([{ t: "Result" }]);
+      body += table(head, rows, { max: 560 });
+      const rest = o.checks.filter((c) => !used.has(c.check));
+      if (rest.length) body += `<h4>Further checks</h4>` + table([{ t: "Check" }, { t: "Result" }], rest.map((c) => ({ cells: [h(questionLabel(w.code, c.check)), `<span${tipAttr(h([c.flag, c.note, Object.entries(c.detail || {}).map(([k, v]) => `${k}: ${v}`).join(", ")].filter(Boolean).join(" · ")))}>${result(c.correct)}</span>`] })));
+      body += `<p class="small">Answers are shown in the original Turkish. <a href="#/docs/glossary">Common Turkish words →</a></p>`;
+      const named = namesInText(o.snapshot, s);
+      if (named.length) body += `<div class="warn">The model-written page summary also names ${named.map(h).join(", ")}. It is not a verified attribution.</div>`;
+      const notes = [["Page summary written by the model", o.snapshot], ["Reading notes", o.page_notes], ["Check summary", o.system_summary]].filter((n) => n[1] && n[1] !== "(bos)");
+      let t = "";
+      if (o.raw_diff.length) t += `<h4>Raw reading vs. cleaned value</h4>` + table([{ t: "Field" }, { t: "Raw" }, { t: "Cleaned" }], o.raw_diff.map((d) => ({ cells: [h(fieldLabel(d.path)), `<code>${h(d.raw)}</code>`, `<code>${h(d.normalized)}</code>`] })));
+      if (notes.length) t += `<h4>Model-written notes (Turkish, not translated)</h4>` + notes.map((n) => `<p><b class="small">${h(n[0])}</b><br><span class="orig">${h(n[1])}</span></p>`).join("");
+      if (o.checks.some((c) => c.flag)) t += `<h4>Check flags</h4>` + table([{ t: "Check" }, { t: "Flag" }], o.checks.filter((c) => c.flag).map((c) => ({ cells: [h(checkLabel(c.check)), `<code>${h(c.flag)}</code>`] })));
+      if (o.other_validation.length) t += `<h4>Other validation values</h4>` + table([{ t: "Field" }, { t: "Value" }], o.other_validation.map((v) => ({ cells: [h(fieldLabel(v.path)), h(v.value)] })));
+      if (st.scoring) t += `<h4>Stage score file</h4>` + kv([["Total", `${num(st.scoring.total, 2)} of ${num(st.scoring.max, 2)}`], st.scoring.all_zero_with_zero_confidence && ["Note", "All items 0 with confidence 0. This file does not match the answers above."]]) + src(st.scoring.source);
+      t += `<h4>Source</h4>` + src(o.source) + (o.raw_source ? src(o.raw_source) : "");
+      body += tech("Technical details", t);
+    }
+    return `<details class="ws" id="ws-${h(w.code)}"><summary><span class="code">${h(w.code)}</span><span class="t">${h(wsTitle(w))}</span><span class="st">${h(status)}</span></summary><div class="body">${body}</div></details>`;
+  }
+
+  // ---- student: recordings
+  function strip(s, ssid, rec) {
+    const fr = F.filter((f) => f.s === s && f.ss === ssid);
+    if (!fr.length) return "";
+    const total = Math.max(lengthOf(rec) || 0, fr[fr.length - 1].t) || 1;
+    const coded = fr.some((f) => f.b);
+    const ticks = fr.map((f) => {
+      const t = `<b>${clock(f.t)}</b> · ${h(coded ? behLabel(f.b) : "Not coded")}<br>${h(evidenceText(f))}`;
+      return `<a class="tick" href="#/explore/frames?s=${h(s)}&ss=${h(ssid)}&f=${h(f.id)}" style="left:${Math.min(99.6, 100 * f.t / total)}%;background:${coded ? behColor(f.b) : "var(--ink-2)"}"${tipAttr(t)} aria-label="Frame at ${clock(f.t)}"></a>`;
+    }).join("");
+    return `<div class="strip" role="img" aria-label="Frames over the session">${ticks}</div><div class="axis"><span>0:00</span><span>${clock(total / 2)}</span><span>${clock(total)}</span></div>`;
+  }
+  // 21 April only. The extraction summary, the pilot manifest, and the coded list
+  // were checked as separate records: the pilot images are not a subset of the
+  // directory counted by the summary. Other sessions are left unchanged.
+  const SEPARATE_FRAME_COUNTS = new Set(["Sheila|codap_21apr", "Ulysses|codap_21apr", "Zara|codap_21apr"]);
+  function frameCountNote(s, ssid, m, cd) {
+    if (!SEPARATE_FRAME_COUNTS.has(s + "|" + ssid)) return "";
+    const kept = m.summary && m.summary.total_frames_extracted;
+    const listed = m.frames;
+    const coded = cd && cd.frames_coded;
+    if (typeof kept !== "number" || typeof listed !== "number" || kept === listed || coded !== listed) return "";
+    return `<p class="small">The extraction summary reports ${num(kept)} kept frames. The pilot manifest and the coded frame list contain ${num(listed)}. These are separate extraction records.</p>`;
+  }
+  function sessionBlock(s, ss) {
+    const r = C.sessions[s][ss.id];
+    let out = `<section class="session"><h3>${h(SESS_NAME[ss.id])}</h3>`;
+    if (!r.manifest) return out + `<p class="empty">No screen recording from this session.</p></section>`;
+    const cd = r.coding;
+    sessionIssues(r).forEach((m) => { out += `<div class="warn">${h(m)} <a href="#/docs/limitations">Why this matters →</a></div>`; });
+    out += kv([["Length of the source recording", dur(lengthOf(r))], ["Frames listed", num(r.manifest.frames)], ["Frames with a behaviour label", cd ? num(cd.frames_coded) : "No"]]);
+    if (window.StudentProfiles) out += window.StudentProfiles.sessionChart(s, ss.id);
+    out += strip(s, ss.id, r);
+    out += `<p><a class="btn" href="#/explore/recordings?s=${encodeURIComponent(s)}&ss=${encodeURIComponent(ss.id)}">View the frames from this session</a></p>`;
+    // technical
+    const m = r.manifest, sp = r.speech, ep = (C.episodes[s] || {})[ss.id];
+    const SUM = { candidate_frames_considered: "Candidate frames considered", visual_duplicates_filtered: "Removed as near-duplicates", temporal_duplicates_filtered: "Removed as too close in time", non_task_screens_filtered: "Removed as unrelated screens", pruned_frames_removed: "Removed in a later clean-up", total_frames_extracted: "Frames kept" };
+    let t = `<h4>How frames were selected</h4>` + kv(Object.entries(m.summary || {}).filter(([k]) => SUM[k]).map(([k, v]) => [SUM[k], num(v)])) +
+      frameCountNote(s, ss.id, m, cd) +
+      `<h4>Why each frame was taken</h4>` + hbars(m.triggers, (k) => (TRIGGERS[k] || k).replace(/\.$/, ""));
+    if (cd) {
+      t += kv([["Coding model", `<code>${h(cd.model || "–")}</code>`], ["Prompt", `<code>${h(cd.prompt_file || "–")}</code> ${h(cd.prompt_version || "")}`]]);
+    }
+    if (sp) t += `<h4>Speech</h4>` + kv([["Status", h(sp.status)], sp.role_counts && ["Speech segments by role", Object.entries(sp.role_counts).map(([k, v]) => `${h(k)} ${num(v)}`).join(", ")]]);
+    if (ep && ep.episodes) t += `<h4>Episodes</h4>` + table([{ t: "Episode" }, { t: "Category" }, { t: "From" }, { t: "To" }, { t: "Assistance" }], ep.episodes.map((e) => ({ cells: [h(e.id), h(e.category), clock(e.start_ms / 1000), clock(e.end_ms / 1000), h(e.assistance)] })));
+    t += `<h4>Files</h4>` + kv([["Video", r.video_bytes ? `${bytes(r.video_bytes)}, ${lengthSrc(r)}` : "–"]]) + src(r.video_path) + src(m.source) + (cd ? src(cd.source) : "") + (sp ? src(sp.source) : "") + (ep ? src(ep.episodes_source) : "");
+    out += tech("Technical details", t);
+    return out + `</section>`;
+  }
+
+  // ---- student: logs
+  function minutesBetween(a, b) {
+    const t = (x) => { const [hh, mm, ss] = x.split(":").map(Number); return hh * 3600 + mm * 60 + ss; };
+    return (t(b) - t(a)) / 60;
+  }
+  function accuracyText(v) {
+    if (v.last_emit_accuracy == null) return "–";
+    const n = v.last_emit_n;
+    const small = n != null && n < SMALL_N ? ` <span class="na">small sample</span>` : "";
+    return `${num(v.last_emit_accuracy * 100, 1)}% <span class="small">(n = ${n == null ? "?" : num(n)}${v.last_emit_dataset ? `, ${h(v.last_emit_dataset)}` : ""})</span>${small}`;
+  }
+  function accuracyChart(emits, start) {
+    const pts = emits.map((e, i) => ({ i, a: e.accuracy })).filter((p) => typeof p.a === "number" && emits[p.i].n !== 0);
+    if (!pts.length) return "";
+    const W = 640, H = 170, L = 38, R = 10, T = 10, B = 26;
+    const x = (i) => L + (emits.length === 1 ? (W - L - R) / 2 : (i * (W - L - R)) / (emits.length - 1));
+    const y = (a) => T + (1 - a) * (H - T - B);
+    const grid = [0, 0.25, 0.5, 0.75, 1].map((g) => `<line x1="${L}" x2="${W - R}" y1="${y(g)}" y2="${y(g)}" stroke="var(--rule)"/><text x="${L - 6}" y="${y(g) + 4}" text-anchor="end" font-size="10" fill="var(--muted)">${g * 100}%</text>`).join("");
+    const line = pts.map((p, k) => `${k ? "L" : "M"}${x(p.i).toFixed(1)},${y(p.a).toFixed(1)}`).join("");
+    const dots = pts.map((p) => {
+      const e = emits[p.i];
+      return `<circle cx="${x(p.i)}" cy="${y(p.a)}" r="4.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"${tipAttr(`<b>Attempt ${p.i + 1}</b>, ${num(minutesBetween(start, e.t), 0)} min after starting<br>Accuracy ${num(e.accuracy * 100, 1)}%, n = ${e.n == null ? "?" : num(e.n)} rows${e.n != null && e.n < SMALL_N ? " (small sample)" : ""}<br>Tree depth ${h(e.depth)}<br>Data copy ${h(e.dataset || "–")}`)}><title>Attempt ${p.i + 1}: ${num(e.accuracy * 100, 1)}%, n = ${e.n == null ? "?" : num(e.n)}</title></circle>`;
+    }).join("");
+    return `<svg class="profile-chart" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Accuracy of each model attempt">${grid}<path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2"/>${dots}<text x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle" font-size="10.5" fill="var(--muted)">attempt 1 to ${emits.length} →</text></svg>${pts.length < emits.length ? `<p class="small">${num(emits.length - pts.length)} submission${emits.length - pts.length === 1 ? "" : "s"} scored no rows and ${emits.length - pts.length === 1 ? "is" : "are"} not plotted.</p>` : ""}`;
+  }
+  function logBlock(s) {
+    const days = logDays[s] || {};
+    if (!Object.keys(days).length) return `<p class="empty">No platform log for this student.</p>`;
+    const preface = window.StudentProfiles ? window.StudentProfiles.logPreface(s) : "";
+    return preface + Object.entries(LOG_DAYS).map(([d, meta]) => {
+      const v = days[d];
+      let out = `<section class="session"><h3>${h(meta.name)}</h3>`;
+      if (!v) return out + `<p class="empty">No class-session log is stored.</p></section>`;
+      const start = v.first_event.slice(11);
+      const vt = v.votat;
+      const preds = v.predictors_tried || [];
+      out += kv([
+        ["Model attempts", num(v.emit_count)],
+        ["First attempt", v.minutes_to_first_emit == null ? "–" : `${num(v.minutes_to_first_emit, 0)} min after starting`],
+        ["Accuracy of last attempt", accuracyText(v)],
+        ["Target", (v.targets || []).length ? v.targets.map((t) => h(varName(t))).join(", ") : "–"],
+        ["Predictors tried", preds.length ? preds.map((a) => h(varName(a))).join(", ") : "–"],
+        ["Threshold edit events", num(v.modelling_actions.change_split_values)],
+        vt && ["One kind of edit (VOTAT)", `${num(vt.votat_rate * 100, 0)}% of ${vt.intervals} steps between submissions`],
+      ]);
+      if (!vt) out += `<p class="small">No one-kind-of-edit rate: ${v.emit_count < 2 ? "fewer than two submissions, so there are no steps between them." : "no rate is stored for this session."}</p>`;
+      if (v.emits.length) out += `<h4>Accuracy of each attempt</h4>` + accuracyChart(v.emits, start);
+      out += `<h4>What the student did</h4>` + table([{ t: "Action" }, { t: "Times", num: 1 }], MODEL_ACTIONS.filter((a) => v.modelling_actions[a]).map((a) => ({ cells: [h(ACTION[a]), num(v.modelling_actions[a])] })));
+      let t = `<h4>All recorded actions</h4>` + table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(v.actions).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })));
+      t += kv([["Total actions", num(v.events)], ["Session span", `${num(v.span_minutes, 0)} min (UTC ${h(start)} to ${h(v.last_event.slice(11))})`], ["Accuracy spread (SD)", v.accuracy_sd == null ? "–" : num(v.accuracy_sd, 3)], ["Predictor placements", num(v.predictor_drops)], ["All variables placed", v.unique_attributes_dropped.length ? v.unique_attributes_dropped.map((a) => h(varName(a))).join(", ") : "–"]]);
+      if (v.emits.length) t += `<h4>Attempts</h4>` + table([{ t: "#", num: 1 }, { t: "Minutes in", num: 1 }, { t: "Data copy" }, { t: "Target" }, { t: "Depth", num: 1 }, { t: "Accuracy", num: 1 }, { t: "n", num: 1 }, { t: "TP", num: 1 }, { t: "TN", num: 1 }, { t: "FP", num: 1 }, { t: "FN", num: 1 }],
+        v.emits.map((e, i) => ({ cells: [i + 1, num(minutesBetween(start, e.t), 1), h(e.dataset || "–"), h(e.target), h(e.depth), e.accuracy == null || !e.n ? "–" : num(e.accuracy * 100, 1) + "%", e.n == null ? "–" : num(e.n), h(e.TP), h(e.TN), h(e.FP), h(e.FN)] })));
+      if (vt && vt.interval_rows.length) t += `<h4>Steps between submissions (VOTAT)</h4>` + table([{ t: "Step", num: 1 }, { t: "Predictors placed", num: 1 }, { t: "Threshold edit events", num: 1 }, { t: "One kind of edit" }], vt.interval_rows.map((x, i) => ({ cells: [i + 1, num(x.predictor_changes), num(x.threshold_changes), yesno(x.is_votat)] }))) + src(vt.source);
+      t += src(C.logs.source);
+      return out + tech("Technical event details", t) + `</section>`;
+    }).join("") + `<p>${methodLink("logs", "What these measures mean")}</p>`;
+  }
+
+  // ---- student: notebook
+  function notebookBlock(s) {
+    const n = C.notebooks[s] || {};
+    if (!n.file && !n.extraction) return `<p class="empty">No final project file for this student.</p>`;
+    const f = n.file, e = n.extraction;
+    const weekly = ((window.NOTEBOOKS || {}).students || []).find((row) => row.pseudonym === s);
+    const weeklySession = { "5 May": "Colab Session 1", "12 May": "Colab Session 2", "2 June": "Colab Session 3" }[weekly && weekly.stage] || "";
+    const finalNb = ((window.NOTEBOOKS || {}).final || []).find((row) => row.pseudonym === s);
+    let out = window.StudentProfiles ? window.StudentProfiles.notebookTable(s) : "";
+    if (finalNb) out += `<p><a href="${h(finalNb.file)}" download>Download the final notebook</a></p>`;
+    else if (!f && s === "Marco") out += `<p><a href="downloads/notebooks/final/Marco.pdf" download>Download the written report</a></p>`;
+    if (weekly) out += `<p class="small">The guided Colab notebook is a different file${weeklySession ? `, from ${h(weeklySession)}` : ""}. <a href="${h(weekly.file)}" download>Download it</a>.</p>`;
+    if (!f && e && !window.StudentProfiles) out += `<p><b>Written report.</b> Notebook cell counts are not available.</p>`;
+    out += kv([
+      f && ["Errors in the outputs", f.cells_with_error_output ? `Yes, in ${f.cells_with_error_output} cell${f.cells_with_error_output > 1 ? "s" : ""}` : "None"],
+      f && ["Revisiting earlier code", f.order_reversals ? `${f.order_reversals} time${f.order_reversals > 1 ? "s" : ""}` : "Never"],
+    ]);
+    if (e && e.experiments.length) out += `<h4>Trees built</h4>` + table([{ t: "Target" }, { t: "Features used" }, { t: "Depths tried" }, { t: "Tree drawn" }], e.experiments.map((x) => ({ cells: [`<code>${h(x.target)}</code>`, `<span class="small">${h((x.features || []).join(", "))}</span>`, x.depth_min == null ? "–" : `${x.depth_min} to ${x.depth_max}`, yesno(x.checks.tree_visualized)] })));
+    if (n.scoring) out += `<h4>Stored rubric points</h4><p class="small">Pipeline points. Not a reviewed grade.</p>` + table([{ t: "Section" }, { t: "Points", num: 1 }, { t: "Possible", num: 1 }], Object.entries(n.scoring.sections).map(([k, v]) => ({ cells: [h(k), num(v.awarded, 1), num(v.possible, 1)] })));
+    let t = "";
+    if (e) t += kv([
+      ["Target variables", e.targets.map((t) => `<code>${h(t)}</code>`).join(" ")],
+      ["Research questions written out", `${e.questions_written} of ${e.targets.length}`],
+      ["Stored model count", num(e.models)],
+    ]);
+    if (f) t += `<h4>Analysis steps found</h4><ul class="checks">${Object.entries(f.uses).map(([k, v]) => `<li class="${v ? "on" : "off"}">${v ? "✓" : "✗"} ${h(NB_USES[k] || k)}</li>`).join("")}</ul>`;
+    if (f) {
+      const ec = f.execution_counts, max = Math.max(1, ...ec.filter((x) => x != null)), W = Math.max(240, ec.length * 22), H = 120;
+      t += kv([["Cells", `${num(f.cells)} (${num(f.code_cells)} code, ${num(f.markdown_cells)} text)`], ["Code cells run", `${num(f.executed_code_cells)} of ${num(f.code_cells)}`], ["Empty code cells", num(f.empty_code_cells)], ["Highest run counter", num(f.max_execution_count)], ["Cells with a picture output", num(f.cells_with_image_output)]]);
+      t += `<h4>Run counter per code cell</h4><p class="small">A steadily rising line means cells ran in order. A drop means the student went back to earlier code.</p><svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px;display:block;background:var(--surface);border:1px solid var(--rule)" role="img" aria-label="Run counter per code cell">${ec.map((v, i) => {
+        const x = 8 + i * 22;
+        if (v == null) return `<rect x="${x}" y="${H - 22}" width="14" height="2" fill="var(--rule-strong)"${tipAttr(`Code cell ${i + 1}: never run`)}/>`;
+        const bh = Math.max(2, (v / max) * (H - 30));
+        return `<rect x="${x}" y="${H - 20 - bh}" width="14" height="${bh}" rx="2" fill="var(--green)"${tipAttr(`Code cell ${i + 1}: run counter ${v}`)}/>`;
+      }).join("")}<line x1="0" x2="${W}" y1="${H - 20}" y2="${H - 20}" stroke="var(--rule-strong)"/></svg>` + src(f.source);
+    }
+    if (e) t += (e.data_source_note ? `<p class="orig">${h(e.data_source_note)}</p>` : "") + src(e.source);
+    if (n.scoring) t += kv([["Scored by", `<code>${h(n.scoring.scored_by)}</code>`], ["Rubric version", `<code>${h(n.scoring.rubric_version)}</code>`]]) + src(n.scoring.source);
+    return out + tech("Technical details", t) + `<p>${methodLink("notebooks")}</p>`;
+  }
+
+  function pageStudent(s, tab) {
+    if (!STUDENTS.includes(s)) return `<div class="page"><p class="kicker">Findings</p><h1>Not found</h1><p>No participant with the pseudonym “${h(s)}”.</p><p><a href="#/findings/participants">Student profiles</a></p></div>`;
+    tab = tab || "worksheets";
+    const tabs = [["worksheets", "Worksheets"], ["recordings", "Frames"], ["logs", "Platform logs"], ["notebook", "Notebook"]];
+    const i = STUDENTS.indexOf(s);
+    let body = "";
+    if (tab === "worksheets") body = C.worksheets.map((w) => wsBlock(s, w)).join("");
+    if (tab === "recordings") body = (window.StudentProfiles ? window.StudentProfiles.framesNote() : "") + SESS.map((ss) => sessionBlock(s, ss)).join("");
+    if (tab === "logs") body = logBlock(s);
+    if (tab === "notebook") body = notebookBlock(s);
+    const prev = i > 0 ? `<a href="#/explore/student/${h(STUDENTS[i - 1])}/${tab}">← ${h(STUDENTS[i - 1])}</a>` : "";
+    const next = i < STUDENTS.length - 1 ? `<a href="#/explore/student/${h(STUDENTS[i + 1])}/${tab}">${h(STUDENTS[i + 1])} →</a>` : "";
+    const evidence = window.StudentProfiles ? window.StudentProfiles.summary(s) : "";
+    return `<div class="page wide profile-page"><p class="kicker">Findings</p>
+      ${crumbs([["Findings", "#/findings"], ["Student profiles", "#/findings/participants"], [s]])}
+      <h1>${h(s)}</h1>
+      ${evidence}
+      <nav class="tabs profile-tabs" aria-label="Participant sources">${tabs.map(([k, l]) => `<a href="#/explore/student/${h(s)}/${k}" class="${k === tab ? "active" : ""}">${l}</a>`).join("")}</nav>
+      ${body}
+      <p class="small pn">${prev}${prev && next ? " · " : ""}${next}</p></div>`;
+  }
+
+  // ---- cohort views
+  const DOCS = window.WORKSHEET_DOCS || { worksheets: {}, overrides: [] };
+  const OVERRIDE = {};
+  (DOCS.overrides || []).forEach((o) => { OVERRIDE[`${o.student}|${o.worksheet}|${o.item}`] = o; });
+
+  function docOf(code) { return (DOCS.worksheets || {})[code] || {}; }
+  function crumbs(parts) {
+    const last = parts.length - 1;
+    return `<nav class="crumbs" aria-label="Breadcrumb">${parts.map((p, i) => {
+      if (i === last) return `<span aria-current="page">${h(p[0])}</span>`;
+      return `<a href="${h(p[1])}">${h(p[0])}</a><span aria-hidden="true">›</span>`;
+    }).join("")}</nav>`;
+  }
+  function namesInText(text, self) {
+    if (!text) return [];
+    return STUDENTS.filter((n) => n !== self && new RegExp(`(?:^|[^A-Za-z])${n}(?:[^A-Za-z]|$)`).test(text));
+  }
+  function sameResponses(a, b) {
+    if (!a || !b || a.responses.length !== b.responses.length) return false;
+    const mb = new Map(b.responses.map((r) => [r.path, r.value]));
+    return a.responses.every((r) => mb.has(r.path) && String(mb.get(r.path)) === String(r.value));
+  }
+  const WS11_IS_WS14 = STUDENTS.every((s) => sameResponses(C.ws[s].WS11 && C.ws[s].WS11.ocr, C.ws[s].WS14 && C.ws[s].WS14.ocr));
+
+  function isEmptyResponse(v) {
+    return v == null || v === "" || v === "(bos)" || v === "(not_extracted)";
+  }
+  function responseState(v) {
+    if (v == null || v === "") return { kind: "missing", text: "No value in the extraction" };
+    if (v === "(bos)") return { kind: "blank", text: "Blank — the extraction records (bos)" };
+    if (v === "(not_extracted)") return { kind: "missing", text: "Not extracted" };
+    return { kind: "text", text: String(v) };
+  }
+  function answerKeyHref(w) {
+    return w.answer_key_url || docOf(w.code).answer_key_url || "";
+  }
+  function scoreItemForGroup(code, groupId) {
+    return (ITEM_ALIAS[code] || {})[groupId] || groupId;
+  }
+  function groupIdOf(code, response) {
+    if ((code === "WS6" || code === "WS7") && response.item === "tree_structure") {
+      const parts = response.path.split(".");
+      return parts.length >= 2 ? `${parts[0]}.${parts[1]}` : response.item;
+    }
+    if (code === "WS7" && response.path.startsWith("rule_matching.")) return response.path;
+    return response.item;
+  }
+  function itemTitle(code, id) {
+    const it = rubricItem(code, id);
+    if (it && it.label) return it.label;
+    return rubricItemLabel(code, id, 80) || fieldLabel(id);
+  }
+  function fieldDisplay(code, path) {
+    const fld = (docOf(code).fields || []).find((f) => f.field_id === path);
+    if (fld && fld.location_hint) return fld.location_hint;
+    return fieldLabel(path);
+  }
+  function groupLabel(code, id) {
+    const it = rubricItem(code, id);
+    if (it && (it.label || it.expected_answer || it.printed_question != null)) return itemTitle(code, id);
+    return fieldDisplay(code, id);
+  }
+  function sortKey(code, id) {
+    const rub = rubricItem(code, id);
+    const family = id.startsWith("tree_structure") ? 0 : id.startsWith("rule_matching") ? 1 : id.startsWith("final_") ? 2 : 0;
+    const printed = rub && rub.printed_question != null ? Number(rub.printed_question) : null;
+    const numMatch = /(\d+)/.exec(id);
+    const n = printed != null && !Number.isNaN(printed) ? printed : (numMatch ? Number(numMatch[1]) : 10000);
+    return family * 100000 + n;
+  }
+  function explorerModel(code) {
+    const seen = new Map();
+    const responseGroups = [];
+    STUDENTS.forEach((s) => {
+      const o = C.ws[s][code] && C.ws[s][code].ocr;
+      if (!o) return;
+      o.responses.forEach((r) => {
+        const id = groupIdOf(code, r);
+        if (!seen.has(id)) {
+          const g = { id, label: groupLabel(code, id), paths: [] };
+          seen.set(id, g);
+          responseGroups.push(g);
+        }
+        const g = seen.get(id);
+        if (!g.paths.some((p) => p.path === r.path)) g.paths.push({ path: r.path, label: fieldDisplay(code, r.path) });
+      });
+    });
+    responseGroups.sort((a, b) => sortKey(code, a.id) - sortKey(code, b.id) || a.id.localeCompare(b.id));
+    const scoreIds = [];
+    STUDENTS.forEach((s) => {
+      const sc = C.ws[s][code] && C.ws[s][code].scoring;
+      if (!sc) return;
+      (sc.items || []).forEach((it) => { if (!scoreIds.includes(it.item)) scoreIds.push(it.item); });
+    });
+    const aligned = scoreIds.length > 0 && responseGroups.length > 0 && responseGroups.every((g) => scoreIds.includes(scoreItemForGroup(code, g.id)));
+    return { responseGroups, scoreIds, aligned };
+  }
+  function wsHref(code, q) {
+    const p = new URLSearchParams();
+    ["view", "mode", "item", "student"].forEach((k) => { if (q[k]) p.set(k, q[k]); });
+    const s = p.toString();
+    return `#/explore/worksheet/${encodeURIComponent(code)}${s ? `?${s}` : ""}`;
+  }
+  function renderFields(student, code, group) {
+    const o = C.ws[student][code].ocr;
+    if (!o) return `<p class="missing-line">No extraction file for this student.</p>`;
+    const rows = group.paths.map((p) => {
+      const hits = o.responses.filter((r) => r.path === p.path);
+      if (!hits.length) return `<dt>${h(p.label)}</dt><dd><p class="missing-line">Not in this extraction.</p></dd>`;
+      return hits.map((r) => {
+        const st = responseState(r.value);
+        const body = st.kind === "text" ? `<p class="response-text">${h(st.text)}</p>` : `<p class="missing-line">${h(st.text)}</p>`;
+        const dup = hits.length > 1 ? ` <span class="badge badge-flag">Duplicate record</span>` : "";
+        return `<dt>${h(p.label)}${dup}</dt><dd>${body}</dd>`;
+      }).join("");
+    }).join("");
+    return `<dl class="field-list">${rows}</dl>`;
+  }
+  function renderScore(student, code, itemId) {
+    const ov = OVERRIDE[`${student}|${code}|${itemId}`];
+    const rec = C.ws[student][code];
+    const sc = rec.scoring;
+    const stage = rec.stage && rec.stage.scoring;
+    if (!sc) {
+      if (stage && stage.all_zero_with_zero_confidence) {
+        return `<p class="missing-line">A scoring file exists and gives every item 0 with confidence 0. Those numbers are not shown as scores.</p>${src(stage.source)}`;
+      }
+      if (stage) return `<p class="missing-line">A scoring file exists but is not in the published score table.</p>${stage.note ? `<p class="small">${h(stage.note)}</p>` : ""}${src(stage.source)}`;
+      return `<p class="missing-line">No scoring file for this student.</p>`;
+    }
+    const it = (sc.items || []).find((i) => i.item === itemId);
+    if (!it) return `<p class="missing-line">This item is not in the published scoring file.</p>`;
+    let badge = `<span class="badge">Automated preliminary score</span>`;
+    let note = `<p class="small">Produced by the scoring pipeline. A researcher decision is not recorded for this item.</p>`;
+    if (it.review) {
+      badge = `<span class="badge badge-flag">Automated score, flagged for review</span>`;
+      note = `<p class="small">The review flag means the pipeline asked for a person to check this item. The file does not record a later human decision.</p>`;
+    }
+    if (ov) {
+      badge = `<span class="badge">Researcher override recorded</span>`;
+      note = `<p class="small">Override rationale, as stored: ${h(ov.rationale || "No rationale text in the file.")}</p>${src(ov.source)}`;
+    }
+    const rubricMax = rubricItem(code, itemId) && rubricItem(code, itemId).max_score;
+    const maxShown = it.max_score != null ? it.max_score : rubricMax;
+    const max = maxShown == null ? "" : ` of ${h(maxShown)}`;
+    const conf = it.confidence == null ? "" : ` <span class="small">confidence ${h(it.confidence)}</span>`;
+    return `<p>${badge} <strong>${h(it.score)}${max}</strong>${conf}</p>${note}`;
+  }
+  function renderTotal(student, code) {
+    const sc = C.ws[student][code].scoring;
+    if (!sc || sc.total_score == null) return "";
+    return `<p class="small">Stored total ${h(sc.total_score)} of ${h(sc.max_score)}. Copied from the scoring file and not recalculated here.</p>${src(sc.source)}`;
+  }
+  function checkLine(student, code, groupId) {
+    const o = C.ws[student][code].ocr;
+    if (!o) return "";
+    const id = scoreItemForGroup(code, groupId);
+    const c = o.checks.find((x) => x.check === `item_checks.${id}` || x.check === id || x.check === `item_checks.${groupId}` || x.check === groupId);
+    if (!c) return "";
+    const verdict = c.correct === true ? "records this as correct" : c.correct === false ? "records this as not correct" : "records no verdict";
+    const flag = c.flag ? ` Flag: ${h(c.flag)}.` : "";
+    return `<p class="small">Automated check ${verdict}.${flag} This is the pipeline check, not a researcher-reviewed decision.</p>`;
+  }
+  function studentHead(student) {
+    return `<header><h3><a href="#/explore/student/${h(student)}">${h(student)}</a></h3><a class="small" href="#/explore/student/${h(student)}/worksheets">Student profile</a></header>`;
+  }
+
+  function pageCollected() {
+    const sessions = allSessions.filter((r) => r.manifest).length;
+    return `<div class="page">${crumbs([["Collected data"]])}
+      <p class="kicker">Collected data</p>
+      <h1>Collected data</h1>
+      <p class="lead">Material gathered from the ${STUDENTS.length} pre-service teachers in the decision-tree unit. Choose a category. Processing steps and research claims are in the other sections.</p>
+      <div class="cat-grid">
+        <a class="cat-card" href="#/explore/worksheets"><h3>Worksheets</h3><p>${C.worksheets.length} instructional worksheets. Open one for its blank file, answer key, and the scanned student submissions.</p></a>
+        <a class="cat-card" href="#/explore/recordings"><h3>Screen recording frames</h3><p>${num(F.length)} frames extracted from the CODAP sessions. Previews on this site are a spaced subset. Original videos are not published.</p></a>
+        <a class="cat-card" href="#/explore/logs"><h3>Platform logs</h3><p>${num(logEventsClass)} time-stamped CODAP Arbor actions from 2 class sessions. A separate Titanic activity log is described on the page. Logs are not matched to individual frames.</p></a>
+        <a class="cat-card" href="#/explore/notebooks"><h3>Python notebooks</h3><p>The guided Colab notebook, the final homework, and the anonymised student files.</p></a>
+      </div>
+      <p class="small span-line">A worksheet response is not joined to a screen frame or a log event anywhere in the files this site reads.</p>
+    </div>`;
+  }
+  function pageFindings() {
+    const nOverride = (DOCS.overrides || []).length;
+    return `<div class="page">${crumbs([["Findings and research insights"]])}
+      <p class="kicker">Findings and research insights</p>
+      <h1>Findings and research insights</h1>
+      <p class="lead">This section is for results a researcher has reviewed and reported. No findings report is part of the site data, so this page does not state what students learned.</p>
+      <h2>What is not published here</h2>
+      <ul>
+        <li>No competency levels, learning gains, or conclusions about the decision-tree unit.</li>
+        <li>Counts on the overview describe the collection. They are not outcomes.</li>
+        <li>Worksheet scores elsewhere on the site are pipeline outputs. A review flag means the pipeline asked for a person to look. It does not mean a person accepted the score.</li>
+        <li>${nOverride ? `${nOverride} scoring items store a researcher override and a rationale. All of them are WS5 item WS5_B25. They are recorded adjustments to an automated score, not a finding about learning. <a href="#/explore/worksheet/WS5?view=compare&mode=score&item=WS5_B25">See them on worksheet 5</a>.` : "No researcher-override records were found in the scoring files."}</li>
+      </ul>
+      <h2>Where to read the evidence</h2>
+      <ul class="ia-list">
+        <li><a href="#/findings/worksheets">Worksheet findings</a><p>Item scores, agreement rates, and patterns across the ${C.worksheets.length} worksheets.</p></li>
+        <li><a href="#/findings/recordings">Screen recording findings</a><p>Behaviour label distributions, session coverage, and the human–machine agreement study.</p></li>
+        <li><a href="#/findings/logs">Platform log findings</a><p>CODAP Arbor action counts, model attempts, last accuracy, and VOTAT rates for the two class sessions.</p></li>
+        <li><a href="#/findings/notebooks">Python notebook findings</a><p>Evidence from the final homework: data exploration, model construction, visualisation, and written responses.</p></li>
+        <li><a href="#/explore/worksheets">Collected worksheets</a><p>Responses, answer keys, and stored scores, labelled by how they were produced.</p></li>
+        <li><a href="#/methods">Processing and analysis</a><p>How extraction, checks, and notebook inspection were done.</p></li>
+        <li><a href="#/docs/evaluation">Evaluation and validation</a><p>What was measured, what the files agree on, and which checks still need a person.</p></li>
+        <li><a href="#/docs/limitations">Data Quality and Limitations</a><p>How each source was checked, what the item scores and log counts show, and what a single cohort cannot support.</p></li>
+      </ul>
+    </div>`;
+  }
+
+  const WS_GROUPS = [
+    { label: "Conceptual foundations", codes: ["WS1"] },
+    { label: "Manual classification", codes: ["WS3", "WS4", "WS5"] },
+    { label: "Building decision trees", codes: ["WS6", "WS7", "WS10", "WS12"] },
+    { label: "CODAP Arbor sessions", codes: ["WS13", "WS14", "WS15"] },
+  ];
+  function pipelineShort(w) {
+    const policy = w.rubric_data && w.rubric_data.scoring_policy;
+    if (policy && policy.basis === "internal_consistency") return "Consistency check";
+    if (w.code === "WS11") return "Not used as scored evidence";
+    if (w.pipeline === "deterministic") return "Rule-based check";
+    return "Rubric scoring";
+  }
+  function catalogueTopic(code) {
+    const info = WS_INFO[code] || {};
+    if (info.topic) return info.topic;
+    const note = docOf(code).schema_note || "";
+    if (!note) return "";
+    const cut = note.split(/\. (?=[A-Z])/)[0];
+    return cut.endsWith(".") ? cut : `${cut}.`;
+  }
+  function extractedLabel(code) {
+    const n = STUDENTS.filter((s) => C.ws[s][code].ocr).length;
+    if (code === "WS11" && WS11_IS_WS14) return `${n} files, identical to WS14`;
+    if (!n) return "No extraction files";
+    const missing = STUDENTS.filter((s) => !C.ws[s][code].ocr);
+    return missing.length ? `${n} of ${STUDENTS.length}; missing ${missing.join(", ")}` : `${n} of ${STUDENTS.length}`;
+  }
+  function pageWorksheets() {
+    const groups = WS_GROUPS.map((g) => ({ label: g.label, codes: g.codes.filter((c) => C.worksheets.some((w) => w.code === c)) }));
+    const listed = new Set(groups.flatMap((g) => g.codes));
+    const rest = C.worksheets.map((w) => w.code).filter((c) => !listed.has(c));
+    if (rest.length) groups.push({ label: "Other recorded worksheets", codes: rest });
+    const body = groups.map((g) => {
+      const cards = g.codes.map((code) => {
+        const w = C.worksheets.find((x) => x.code === code);
+        if (!w) return "";
+        const topic = catalogueTopic(code);
+        const blob = `${code} ${wsTitle(w)} ${topic} ${g.label}`.toLowerCase();
+        return `<a class="ws-cat ws-card" href="#/explore/worksheet/${h(code)}" data-code="${h(code)}" data-group="${h(g.label)}" data-title="${h(blob)}"><b>${h(code)} · ${h(wsTitle(w))}</b><span>${h(topic)}</span></a>`;
+      }).join("");
+      return `<section class="ws-group" data-codes="${h(g.codes.join(","))}"><h2>${h(g.label)}</h2><div class="ws-catalogue">${cards}</div></section>`;
+    }).join("");
+    const chips = `<div class="ws-filters" role="group" aria-label="Filter by worksheet purpose">${["All"].concat(WS_GROUPS.map((g) => g.label)).map((label, i) =>
+      `<button type="button" class="chip${i === 0 ? " on" : ""}" data-group="${i === 0 ? "" : h(label)}" aria-pressed="${i === 0 ? "true" : "false"}">${h(label)}</button>`).join("")}</div>`;
+    return `<div class="page wide">${crumbs([["Collected data", "#/collected"], ["Worksheets"]])}
+      ${exploreShell("worksheets", `
+      <h1>Worksheets</h1>
+      <p class="lead">${C.worksheets.length} worksheets. Search by code, title, or topic, then open a worksheet for its files and a short description.</p>
+      <div class="ws-search-bar">
+        <label class="sr-only" for="wsSearch">Search worksheets</label>
+        <input type="search" id="wsSearch" placeholder="Search by code, title, or topic" autocomplete="off">
+        <span class="ws-count" id="wsCount">${C.worksheets.length} worksheets</span>
+      </div>
+      ${chips}
+      <div id="wsGroups">${body}</div>
+      <p class="empty" id="wsEmpty" hidden>No worksheets match. Clear the search or choose All.</p>
+      <p>${methodLink("worksheets")}</p>`)}</div>`;
+  }
+  function bindWsSearch() {
+    const inp = document.getElementById("wsSearch");
+    const countEl = document.getElementById("wsCount");
+    if (!inp) return;
+    let group = "";
+    function filterWs() {
+      const q = inp.value.trim().toLowerCase();
+      const cards = document.querySelectorAll(".ws-card");
+      let visible = 0;
+      cards.forEach((card) => {
+        const textOk = !q || card.dataset.title.includes(q) || card.dataset.code.toLowerCase().includes(q);
+        const groupOk = !group || card.dataset.group === group;
+        const match = textOk && groupOk;
+        card.classList.toggle("ws-hidden", !match);
+        if (match) visible++;
+      });
+      document.querySelectorAll(".ws-group").forEach((g) => {
+        const hasVisible = Array.from(g.querySelectorAll(".ws-card")).some((c) => !c.classList.contains("ws-hidden"));
+        g.classList.toggle("ws-hidden", !hasVisible);
+      });
+      const filtering = q || group;
+      if (countEl) countEl.textContent = filtering ? `${visible} of ${cards.length} worksheets` : `${cards.length} worksheets`;
+      const empty = document.getElementById("wsEmpty");
+      if (empty) empty.hidden = visible !== 0;
+    }
+    inp.addEventListener("input", filterWs);
+    document.querySelectorAll(".ws-filters .chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        group = btn.dataset.group || "";
+        document.querySelectorAll(".ws-filters .chip").forEach((b) => {
+          const on = b === btn;
+          b.classList.toggle("on", on);
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+        });
+        filterWs();
+      });
+    });
+  }
+
+  function loSection(code) {
+    const mapping = docOf(code).mapping;
+    if (!mapping) {
+      return `<section class="section-block" id="objectives"><h2>Documented learning objectives</h2><p>No competency mapping file is in <code>mappings/</code> for ${h(code)}. Nothing on this page assigns a learning outcome.</p></section>`;
+    }
+    const by = {};
+    Object.entries(mapping.items || {}).forEach(([id, arr]) => {
+      (arr || []).forEach((x) => {
+        if (!x.lo) return;
+        (by[x.lo] = by[x.lo] || []).push(Object.assign({ id }, x));
+      });
+    });
+    const rows = Object.entries(by).map(([lo, items]) => ({
+      cells: [
+        `<code>${h(lo)}</code>`,
+        h(items.map((x) => x.expected_level).filter((v, i, a) => v && a.indexOf(v) === i).join(", ") || "–"),
+        items.map((x) => `<p><code>${h(x.id)}</code> ${h(x.rationale || "")}</p>`).join(""),
+      ],
+    }));
+    return `<section class="section-block" id="objectives"><h2>Documented learning objectives</h2>
+      <p>From the competency mapping file. These lines say what an item was written to evidence. They are not scores, and they are not findings about what a student achieved.</p>
+      ${mapping.framework ? `<p class="small">${h(mapping.framework)}</p>` : ""}
+      ${table([{ t: "Mapped code" }, { t: "Mapped level in the file" }, { t: "Item note in the mapping" }], rows)}
+      ${src(mapping.source)}</section>`;
+  }
+  function instructionsSection(code) {
+    const doc = docOf(code);
+    const questions = (doc.fields || []).filter((f) => f.question_tr);
+    let q = "";
+    if (questions.length) {
+      q = table([{ t: "Field" }, { t: "Printed question recorded in the schema" }], questions.map((f) => ({
+        cells: [`<code>${h(f.field_id)}</code>`, `<span class="orig">${h(f.question_tr)}</span>`],
+      })));
+    } else {
+      q = `<p>The extraction schema does not store a separate transcription of the student-facing instructions. The wording handed out is the blank PDF, where that file is in the archive.</p>`;
+    }
+    const note = doc.schema_note ? `<h3>Extraction schema note</h3><p>${h(doc.schema_note)}</p>${src(doc.schema)}` : `<p class="missing-line">No extraction schema note is on file for this worksheet.</p>`;
+    return `<section class="section-block" id="instructions"><h2>Purpose and instructions</h2>
+      <p>${h((WS_INFO[code] || {}).topic || "No purpose statement is stored for this worksheet beyond its title.")}</p>
+      ${note}${q}</section>`;
+  }
+  function pdfSection(code) {
+    const doc = docOf(code);
+    const file = doc.worksheet_pdf
+      ? `<p><a href="${h(doc.worksheet_pdf)}" download>Download the blank worksheet PDF</a></p>`
+      : `<p class="missing-line">No blank worksheet PDF is in the site downloads. The build report records it as missing when the source file was not in <code>mmla_explorer/materials/worksheets/</code>.</p>`;
+    return `<section class="section-block" id="source-pdf"><h2>Original worksheet</h2>
+      <p>This is the blank edition, where a file was copied into the site. Scanned student pages are not shown here.</p>
+      ${file}</section>`;
+  }
+  function rubricSection(w) {
+    const href = answerKeyHref(w);
+    const policy = w.rubric_data && w.rubric_data.scoring_policy;
+    const noKey = policy && policy.no_canonical_tree;
+    const link = href
+      ? (noKey
+        ? `<p><a href="${h(href)}" download>Download the printed template PDF</a>. The rubric says scores are not compared with one correct tree.</p>`
+        : `<p><a href="${h(href)}" download>Download the answer-key PDF</a></p>`)
+      : (noKey
+        ? `<p>The rubric records that there is no single correct tree, and no template PDF is on file.</p>`
+        : `<p class="missing-line">No answer-key PDF is on file for this worksheet.</p>`);
+    if (!(w.rubric_data && w.rubric_data.items)) {
+      return `<section class="section-block" id="answer-key"><h2>Answer key and scoring rubric</h2>${link}<p class="missing-line">No rubric file was found for this worksheet, so scoring rules are not shown.</p></section>`;
+    }
+    const items = Object.entries(w.rubric_data.items);
+    const consistency = items.some(([, item]) => item && (item.components || item.label) && !item.scoring_rules);
+    const tableHtml = consistency
+      ? table([{ t: "Item" }, { t: "What the rubric checks" }], items.map(([id, item]) => {
+          const bits = []
+            .concat(item.note ? [item.note] : [])
+            .concat((item.components || []).map((c) => c.idea).filter(Boolean));
+          return { cells: [`<b>${h(item.label || id)}</b><div class="small"><code>${h(id)}</code>${item.max_score == null ? "" : ` · max ${h(item.max_score)}`}</div>`, bits.map((b) => `<p>${h(b)}</p>`).join("") || `<span class="na">No criterion text in the file</span>`] };
+        }))
+      : table([{ t: "Item" }, { t: "Expected answer" }, { t: "Scoring rules" }], items.map(([id, item]) => {
+          const q = rubricItemLabel(w.code, id, 72) || id;
+          const rules = Object.entries(item.scoring_rules || {}).map(([score, rule]) => {
+            const cond = typeof rule === "string" ? rule : (rule && rule.condition) || "";
+            return `<li><b>${h(score)}</b> — ${h(cond)}</li>`;
+          }).join("");
+          return { cells: [`<b>${h(q)}</b><div class="small"><code>${h(id)}</code></div>`, h(item.expected_answer || ""), rules ? `<ul class="scoring-rules">${rules}</ul>` : `<span class="na">No rules in the file</span>`] };
+        }));
+    const intro = w.rubric_data.note ? `<p>${h(w.rubric_data.note)}</p>` : `<p class="small">Expected answers and scoring rules from the rubric file, in the file’s order. Text is shown as written, including Turkish.</p>`;
+    return `<section class="section-block" id="answer-key"><h2>Answer key and scoring rubric</h2>
+      ${link}
+      ${intro}
+      ${tableHtml}
+      ${src(w.rubric)}</section>`;
+  }
+  function summarySection(code, model) {
+    const withOcr = STUDENTS.filter((s) => C.ws[s][code].ocr);
+    const without = STUDENTS.filter((s) => !C.ws[s][code].ocr);
+    let values = 0, blanks = 0;
+    withOcr.forEach((s) => C.ws[s][code].ocr.responses.forEach((r) => { values += 1; if (isEmptyResponse(r.value)) blanks += 1; }));
+    const published = STUDENTS.filter((s) => C.ws[s][code].scoring);
+    const totals = published.map((s) => C.ws[s][code].scoring).filter((sc) => typeof sc.total_score === "number");
+    const maxes = [...new Set(totals.map((sc) => sc.max_score))];
+    let range = "";
+    if (totals.length && maxes.length === 1 && typeof maxes[0] === "number") {
+      const nums = totals.map((sc) => sc.total_score);
+      range = `<p>Stored automated totals for ${totals.length} student${totals.length === 1 ? "" : "s"} range from ${h(Math.min(...nums))} to ${h(Math.max(...nums))} out of ${h(maxes[0])}. Those totals are copied from the scoring files and were not recalculated. They are not a competency measure.</p>`;
+    }
+    const excluded = STUDENTS.filter((s) => !C.ws[s][code].scoring && C.ws[s][code].stage && C.ws[s][code].stage.scoring && C.ws[s][code].stage.scoring.all_zero_with_zero_confidence);
+    const alignNote = model.scoreIds.length && !model.aligned
+      ? `<p>Scoring item identifiers and extracted field identifiers are different for this worksheet, so scores are not placed on individual response fields. Both are shown, in separate views.</p>`
+      : "";
+    const buckets = new Map();
+    withOcr.forEach((s) => {
+      const sig = C.ws[s][code].ocr.responses.map((r) => `${r.path}\u0000${r.value}`).join("\n");
+      if (!buckets.has(sig)) buckets.set(sig, []);
+      buckets.get(sig).push(s);
+    });
+    const dupGroups = [...buckets.values()].filter((g) => g.length > 1);
+    const dupNote = dupGroups.length ? `<p>Identical extracted values: ${dupGroups.map((g) => g.map(h).join(" and ")).join("; ")}.${(C.worksheets.find((x) => x.code === code).rubric_data || {}).scoring_policy && (C.worksheets.find((x) => x.code === code).rubric_data.scoring_policy.group_policy) ? ` The rubric says: ${h(C.worksheets.find((x) => x.code === code).rubric_data.scoring_policy.group_policy)}.` : ""}</p>` : "";
+    return `<section class="section-block" id="summary"><h2>What can be counted</h2>
+      <p>${withOcr.length} of ${STUDENTS.length} students have an extraction file.${without.length ? ` No extraction file: ${without.map(h).join(", ")}.` : ""} Of ${num(values)} extracted values in those files, ${num(blanks)} are blank, empty, or marked not extracted.</p>
+      <p>${published.length ? `Published scoring files: ${published.length}.` : "No published scoring file."}${excluded.length ? ` ${excluded.length} scoring file${excluded.length === 1 ? " is" : "s are"} excluded because every item is 0 with confidence 0 (${excluded.map(h).join(", ")}).` : ""}</p>
+      ${range}${alignNote}${dupNote}
+      ${code === "WS11" && WS11_IS_WS14 ? `<div class="warn">For every student, the WS11 extraction values are identical to that student’s WS14 extraction. They are not counted above as WS11 survey answers. Read them on <a href="#/explore/worksheet/WS14">WS14</a>.</div>` : ""}
+      </section>`;
+  }
+  function provenanceSection(w, model) {
+    const code = w.code;
+    const doc = docOf(code);
+    const clashes = [];
+    STUDENTS.forEach((s) => {
+      const snap = C.ws[s][code].ocr && C.ws[s][code].ocr.snapshot;
+      const others = namesInText(snap, s);
+      if (others.length) clashes.push(`${s} (summary also names ${others.join(", ")})`);
+    });
+    const prohibit = doc.interpretation_prohibited === true
+      ? `<p>The extraction schema sets <code>interpretation_prohibited</code>. The extracted text is not a competency judgement.</p>` : "";
+    return `<section class="section-block" id="provenance"><h2>Data provenance</h2>
+      ${prohibit}
+      ${kv([
+        ["How answers were checked", h(howChecked(w))],
+        ["Pipeline label in the site data", `<code>${h(w.pipeline || "–")}</code>`],
+        ["Response fields in the schema", w.fields_in_schema == null ? "–" : num(w.fields_in_schema)],
+        ["Extracted field groups", num(model.responseGroups.length)],
+        ["Published scoring items", model.scoreIds.length ? num(model.scoreIds.length) : "None"],
+        ["Curriculum status in the schema", h(doc.curriculum_status || "Not recorded")],
+      ])}
+      ${code === "WS11" && WS11_IS_WS14 ? `<p>The extraction files under WS11 repeat WS14 for every student. Field counts above describe that repeated text, not a WS11 survey.</p>` : ""}
+      ${clashes.length ? `<div class="warn">Model-written page summaries name a different pseudonym from the file for: ${clashes.map(h).join("; ")}. Those summaries are not treated as verified attributions, and they are not quoted here.</div>` : ""}
+      <p>There is no verified join from a worksheet item to a screen recording or a CODAP log event. A pseudonym does link to that participant’s <a href="#/findings/participants">student profile</a>.</p>
+      <p>${methodLink("worksheets", "Extraction and scoring methods")} <a href="#/docs/limitations">Data Quality and Limitations</a></p>
+      ${tech("Source paths", [w.schema, w.rubric, w.answer_key || doc.answer_key, doc.schema].filter(Boolean).map(src).join(""))}</section>`;
+  }
+  function ws11ResponseSection() {
+    const doc = docOf("WS11");
+    const fields = doc.fields || [];
+    const rows = fields.map((f) => ({
+      cells: [
+        `<code>${h(f.field_id)}</code>`,
+        f.question_tr ? `<span class="orig">${h(f.question_tr)}</span>` : h(f.location_hint || "No printed question stored"),
+        `<span class="missing-line">No extracted WS11 response</span>`,
+      ],
+    }));
+    return `<section class="section-block" id="responses"><h2>Student responses</h2>
+      <div class="warn">The WS11 extraction files repeat WS14. For all ${STUDENTS.length} students, every extracted path and value matches that student’s WS14 file. The WS11 rubric uses different item identifiers. Those files are not shown again here as survey answers. The WS14 responses are on <a href="#/explore/worksheet/WS14">the WS14 page</a>.</div>
+      <p>Each schema field is listed so the missing WS11 responses stay visible. Published scoring files for WS11 are absent; stage score files that are all zeros with confidence 0 are not shown as scores.</p>
+      ${fields.length ? table([{ t: "Schema field" }, { t: "What the schema records" }, { t: "Extraction" }], rows, { max: 520 }) : `<p class="missing-line">The extraction schema fields could not be loaded.</p>`}
+      </section>`;
+  }
+  function responseExplorer(w, q) {
+    const code = w.code;
+    const model = explorerModel(code);
+    const hasScores = model.scoreIds.length > 0;
+    const view = q.view === "student" ? "student" : "compare";
+    const mode = q.mode === "score" && hasScores ? "score" : "response";
+    const items = mode === "score" && !model.aligned
+      ? model.scoreIds.map((id) => ({ id, label: itemTitle(code, id), paths: [], scoreOnly: true }))
+      : model.responseGroups;
+    let item = q.item && items.some((g) => g.id === q.item) ? q.item : (items[0] && items[0].id);
+    if (q.item && item !== q.item) item = items[0] && items[0].id;
+    const student = STUDENTS.includes(q.student) ? q.student : (STUDENTS.find((s) => C.ws[s][code].ocr) || STUDENTS[0]);
+    const base = { view, mode, item, student: view === "student" ? student : "" };
+    const switcher = `<div class="view-switch">
+      <div class="switch-set" role="group" aria-label="Response arrangement">
+        <a href="${wsHref(code, Object.assign({}, base, { view: "compare", student: "" }))}" ${view === "compare" ? 'aria-current="true"' : ""}>Compare students</a>
+        <a href="${wsHref(code, Object.assign({}, base, { view: "student" }))}" ${view === "student" ? 'aria-current="true"' : ""}>Inspect one student</a>
+      </div>
+      ${hasScores ? `<div class="switch-set" role="group" aria-label="Response or score">
+        <a href="${wsHref(code, Object.assign({}, base, { mode: "response" }))}" ${mode === "response" ? 'aria-current="true"' : ""}>Responses</a>
+        <a href="${wsHref(code, Object.assign({}, base, { mode: "score" }))}" ${mode === "score" ? 'aria-current="true"' : ""}>Scores</a>
+      </div>` : `<span class="small">No published scores for this worksheet.</span>`}
+    </div>`;
+    const tools = `<div class="resp-tools">
+      ${view === "student" ? `<label>Student<select id="respStudent" aria-label="Pseudonym">${STUDENTS.map((s) => `<option value="${h(s)}"${s === student ? " selected" : ""}>${h(s)}${C.ws[s][code].ocr ? "" : " — no extraction"}</option>`).join("")}</select></label>` : `<label>Filter students<input type="search" id="respFilter" placeholder="Pseudonym" autocomplete="off"></label><span class="small" id="respCount"></span>`}
+    </div>`;
+    let detail = "";
+    if (!items.length) {
+      detail = `<p class="empty">No extracted response fields are on file for this worksheet.</p>`;
+    } else if (view === "compare") {
+      const group = items.find((g) => g.id === item) || items[0];
+      const nav = `<nav class="item-nav" aria-label="Worksheet items">${items.map((g) => `<a href="${wsHref(code, { view: "compare", mode, item: g.id })}"${g.id === group.id ? ' aria-current="true"' : ""}>${h(g.label)}</a>`).join("")}</nav>`;
+      const scoreId = group.scoreOnly ? group.id : scoreItemForGroup(code, group.id);
+      const blocks = STUDENTS.map((s) => `<article class="response-block" data-student="${h(s)}">${studentHead(s)}
+          ${group.scoreOnly || mode === "score" ? "" : renderFields(s, code, group)}
+          ${group.scoreOnly || mode === "score" ? "" : checkLine(s, code, group.id)}
+          ${mode === "score" ? renderScore(s, code, scoreId) : ""}
+        </article>`).join("");
+      const align = mode === "score" && !model.aligned ? `<p class="small">These scoring identifiers are not the extracted field identifiers. The score is not attached to a response field.</p>` : "";
+      detail = `<div class="resp-layout">${nav}<div>${align}${blocks}<p class="empty" id="respEmpty" hidden>No students match that pseudonym.</p></div></div>`;
+    } else {
+      const showScore = mode === "score";
+      const blocks = items.map((g) => {
+        const scoreId = g.scoreOnly ? g.id : scoreItemForGroup(code, g.id);
+        return `<article class="response-block" id="item-${h(g.id)}"><h3>${h(g.label)}</h3>
+          ${g.scoreOnly ? "" : renderFields(student, code, g)}
+          ${g.scoreOnly ? "" : checkLine(student, code, g.id)}
+          ${showScore ? renderScore(student, code, scoreId) : ""}
+        </article>`;
+      }).join("");
+      const scoreTable = showScore && !model.aligned ? "" : "";
+      detail = `${renderTotal(student, code)}${!model.aligned && showScore ? `<p class="small">Scores below use the scoring file’s item identifiers. They are not matched onto the extracted fields.</p>` : ""}${blocks}${scoreTable}`;
+      if (showScore && !model.aligned) {
+        const scoreBlocks = model.scoreIds.map((id) => `<article class="response-block"><h3>${h(itemTitle(code, id))}</h3><p class="small"><code>${h(id)}</code></p>${renderScore(student, code, id)}</article>`).join("");
+        const responseBlocks = model.responseGroups.map((g) => `<article class="response-block"><h3>${h(g.label)}</h3>${renderFields(student, code, g)}</article>`).join("");
+        detail = `${renderTotal(student, code)}<h3>Extracted responses</h3>${responseBlocks}<h3>Stored scores</h3><p class="small">These identifiers are not the extracted field identifiers, so the two lists are not joined.</p>${scoreBlocks}`;
+      }
+    }
+    const knownSomewhere = q.item && (model.responseGroups.some((g) => g.id === q.item) || model.scoreIds.includes(q.item));
+    const unknown = q.item && view === "compare" && !items.some((g) => g.id === q.item) && !knownSomewhere
+      ? `<div class="warn">No item “${h(q.item)}” is in this worksheet. Showing the first item.</div>` : "";
+    const badStudent = q.view === "student" && q.student && !STUDENTS.includes(q.student)
+      ? `<div class="warn">No student with the pseudonym “${h(q.student)}”.</div>` : "";
+    return `<section class="section-block" id="responses"><h2>Student responses</h2>
+      <p>Compare one item across students, or read one student’s items in order. Response text is the extracted value, unchanged. Empty and missing values stay visible. Switch to scores only where a published scoring file exists.</p>
+      ${!model.aligned && hasScores && mode === "response" ? `<p class="small">Scoring identifiers differ from the extracted fields on this worksheet. Use the scores view to read the stored scores beside the responses.</p>` : ""}
+      ${unknown}${badStudent}${switcher}${tools}${detail}</section>`;
+  }
+  function bindRespFilter() {
+    const sel = document.getElementById("respStudent");
+    if (sel) {
+      sel.addEventListener("change", () => {
+        const hash = location.hash.replace(/^#\/?/, "");
+        const [path, query] = hash.split("?");
+        const p = new URLSearchParams(query || "");
+        p.set("view", "student");
+        p.set("student", sel.value);
+        location.hash = `#/${path}?${p.toString()}`;
+      });
+    }
+    const inp = document.getElementById("respFilter");
+    if (!inp) return;
+    const apply = () => {
+      const q = inp.value.trim().toLowerCase();
+      const rows = [...document.querySelectorAll("#responses [data-student]")];
+      let shown = 0;
+      rows.forEach((el) => {
+        const ok = !q || (el.dataset.student || "").toLowerCase().includes(q);
+        el.classList.toggle("ws-hidden", !ok);
+        if (ok) shown += 1;
+      });
+      const c = document.getElementById("respCount");
+      if (c) c.textContent = q ? `${shown} of ${rows.length} students` : `${rows.length} students`;
+      const empty = document.getElementById("respEmpty");
+      if (empty) empty.hidden = shown !== 0;
+    };
+    inp.addEventListener("input", apply);
+  }
+  function loBrief(code) {
+    const mapping = docOf(code).mapping;
+    if (!mapping || !mapping.items) return `<p class="small">No competency mapping file is on record for this worksheet.</p>`;
+    const los = [];
+    Object.values(mapping.items).forEach((arr) => (arr || []).forEach((x) => { if (x.lo && !los.includes(x.lo)) los.push(x.lo); }));
+    if (!los.length) return "";
+    return `<p class="small">Documented learning-objective codes: ${los.map((l) => `<code>${h(l)}</code>`).join(", ")}. These name what an item was written to evidence. They are not scores.</p>`;
+  }
+  function uniqueFiles(items) {
+    const seen = new Set();
+    return (items || []).filter((item) => {
+      const key = item.sha256 || item.href;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+  const FOOD_HEADERS = ["YİYECEK ADI", "ENERJİ (KCAL)", "YAĞ (G)", "DOYMUŞ YAĞ (G)", "KARBONHİDRAT (G)", "ŞEKER (G)", "PROTEİN (G)", "TUZ (G)", "ETİKET"];
+  const FOOD_11_ROWS = [
+    ["Salatalık", "12", "0.1", "0", "3.6", "1.7", "0.7", "0", "Tavsiye edilebilir"],
+    ["Patates", "71", "0.1", "0", "15", "0.8", "1.7", "2", "Tavsiye edilebilir"],
+    ["Elma", "52", "0.2", "0", "13.8", "11", "0.3", "0", "Tavsiye edilebilir"],
+    ["Ahududu reçeli", "223", "0.2", "0", "52.2", "51.7", "0.7", "0", "Tavsiye edilemez"],
+    ["Yulaf", "368", "7", "1.5", "58.7", "0.7", "13.5", "0", "Tavsiye edilebilir"],
+    ["Jelibon", "343", "0.1", "0.1", "77", "46", "6.9", "0.1", "Tavsiye edilemez"],
+    ["Avokado", "160", "13", "2.8", "2", "0.7", "1.5", "0.1", "Tavsiye edilebilir"],
+    ["Sütlü çikolata", "530", "29.5", "17.5", "58.5", "57.5", "6.6", "0.2", "Tavsiye edilemez"],
+    ["Kraker", "349", "3", "0.7", "61", "0.7", "12", "0.5", "Tavsiye edilebilir"],
+    ["Patates kızartması", "289", "14", "1.3", "36", "0.3", "3.4", "0.7", "Tavsiye edilemez"],
+    ["Patlamış mısır", "499", "23", "13.8", "57", "3.8", "10.7", "1.8", "Tavsiye edilemez"]
+  ];
+  const FOOD_EXTRA_ROWS = [
+    ["Somun Ekmek", "271", "1.6", "0.5", "55", "1.2", "8", "1.7", "Tavsiye edilemez"],
+    ["Vegan Salam", "345", "33", "23", "5.8", "1.6", "5.7", "1.6", "Tavsiye edilemez"]
+  ];
+  function foodTable(rows) {
+    const NUM = new Set([1, 2, 3, 4, 5, 6, 7]); // numeric cols: all except name (0) and label (8)
+    const head = `<tr>${FOOD_HEADERS.map((c, i) => `<th${NUM.has(i) ? ' class="num"' : ""}>${h(c)}</th>`).join("")}</tr>`;
+    const body = rows.map((r) => `<tr>${r.map((c, i) => `<td${NUM.has(i) ? ' class="num"' : ""}>${h(c)}</td>`).join("")}</tr>`).join("");
+    return `<div class="table-wrap"><table class="food-table"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  }
+  function foodDownload(href, title, size) {
+    return `<ul class="file-list"><li class="file-item"><a href="${h(href)}" download="${h(href.split("/").pop())}">${h(title)}</a><span class="file-meta">CSV, UTF-8 · ${num(size)} bytes</span></li></ul>`;
+  }
+  function foodCardSection(code) {
+    if (code === "WS4" || code === "WS5" || code === "WS6") {
+      return `<section class="section-block" id="food-cards"><h2>Food card dataset</h2>
+        <p>These are the 11 food cards for the task “search for the fat threshold that misclassifies the fewest cards.” The rows are the classroom set used to check worksheets 4 to 7. Names and nutrient values are copied from that source. The label is the Turkish class wording.</p>
+        ${foodDownload("downloads/food_cards_11.csv", "11 food cards", 718)}
+        ${foodTable(FOOD_11_ROWS)}
+      </section>`;
+    }
+    if (code === "WS12") {
+      return `<section class="section-block" id="food-cards"><h2>Extended food card dataset (13 cards)</h2>
+        <p>Worksheet 12 uses the 11 food cards from Worksheets 4 and 5, plus Somun Ekmek and Vegan Salam. The extended dataset supports exploring two-level decision trees.</p>
+        <p>Note: The original 11 cards cannot be perfectly separated by a single fat threshold. The original labels and card values have been preserved.</p>
+        ${foodDownload("downloads/food_cards_13.csv", "13 food cards", 827)}
+        ${foodTable(FOOD_11_ROWS.concat(FOOD_EXTRA_ROWS))}
+      </section>`;
+    }
+    return "";
+  }
+  const LABELING_CODE_MAP = {
+    "WS1": "WS1", "WS3": "WS3", "WS4": "WS4", "WS5": "WS5",
+    "WS6": "WS6", "WS7": "WS7", "WS10": "WS10", "WS-DT-CODAP": "WS12",
+  };
+  function loadLabelingTable(code) {
+    const jsonCode = code === "WS DT - CODAP" ? "WS12" : (LABELING_CODE_MAP[code] || code);
+    const el = document.getElementById(`labeling-table-${code}`);
+    if (!el) return;
+    fetch(`data/labeling/${jsonCode}.json`)
+      .then((r) => r.ok ? r.json() : Promise.reject(r.status))
+      .then(({ headers, rows, column_info }) => {
+        if (!rows.length) { el.innerHTML = `<p class="small muted">No labeling data for this worksheet.</p>`; return; }
+        rows = rows.slice().sort((a, b) => {
+          const ia = STUDENTS.indexOf(a[0]); const ib = STUDENTS.indexOf(b[0]);
+          if (ia === -1 && ib === -1) return (a[0] || "").localeCompare(b[0] || "", "tr");
+          if (ia === -1) return 1; if (ib === -1) return -1;
+          return ia - ib;
+        });
+        const skipCols = new Set();
+        headers.forEach((h, i) => { if (!h || h === "Cohort") skipCols.add(i); });
+        const visHeaders = headers.map((h, i) => skipCols.has(i) ? null : h).filter(Boolean);
+        const visIndices = headers.map((_, i) => i).filter((i) => !skipCols.has(i));
+        const specialCols = new Set(["Overall", "Notes"]);
+        const thRow = `<tr>${visHeaders.map((hd) => `<th${specialCols.has(hd) ? ' class="labeling-special"' : ""}>${h(hd)}</th>`).join("")}</tr>`;
+        const tbRows = rows.map((row) => {
+          const cells = visIndices.map((i) => {
+            const val = row[i] || "";
+            const hd = headers[i] || "";
+            const isEmpty = !val || val === "—";
+            return `<td${specialCols.has(hd) ? ' class="labeling-special"' : ""}${isEmpty ? ' class="labeling-empty"' : ""}>${isEmpty ? `<span class="na">—</span>` : h(val)}</td>`;
+          }).join("");
+          return `<tr>${cells}</tr>`;
+        }).join("");
+        const LEVEL_CLASS = { Acquire: "lcol-acquire", Deepen: "lcol-deepen", Create: "lcol-create" };
+        let colInfoHtml = "";
+        if (column_info && column_info.length) {
+          const grouped = {};
+          column_info.forEach((c) => { (grouped[c.level] = grouped[c.level] || []).push(c); });
+          const order = ["Acquire", "Deepen", "Create"];
+          const inner = order.filter((l) => grouped[l]).map((level) => `<div class="lci-group ${LEVEL_CLASS[level] || ""}"><div class="lci-level">${h(level)}</div><div class="lci-items">${grouped[level].map((c) => `<div class="lci-item"><div class="lci-item-head"><span class="lci-blank">${h(c.blank)}</span><span class="lci-task">${h(c.task)}</span></div>${c.desc ? `<span class="lci-desc">${h(c.desc)}</span>` : ""}</div>`).join("")}</div></div>`).join("");
+          colInfoHtml = `<details class="labeling-col-info-wrap"><summary class="lci-summary">Column descriptions</summary><div class="labeling-col-info">${inner}</div></details>`;
+        }
+        const tableHtml = `<details class="labeling-responses-wrap"><summary class="lci-summary">Student responses</summary><div class="table-wrap labeling-scroll"><table class="labeling-table"><thead>${thRow}</thead><tbody>${tbRows}</tbody></table></div></details>`;
+        el.innerHTML = colInfoHtml + tableHtml;
+      })
+      .catch(() => { el.innerHTML = `<p class="small muted">No labeling data on file for this worksheet.</p>`; });
+  }
+  function fileList(items, empty) {
+    const unique = uniqueFiles(items);
+    if (!unique.length) return `<p class="missing-line">${empty}</p>`;
+    return `<ul class="file-list">${unique.map((item) => {
+      const groups = item.groups || [];
+      const people = groups.reduce((n, g) => n + g.length, 0);
+      const who = groups.length
+        ? `<details class="file-who"><summary>${num(people)} pseudonym${people === 1 ? "" : "s"} in this file</summary><p>${groups.map((g) => g.map(h).join(" and ")).join(", ")}</p></details>`
+        : "";
+      const enc = h(encodeURI(item.href));
+      const dl = h(item.download || "");
+      return `<li class="file-item"><span class="file-actions"><a href="${enc}" target="_blank" rel="noopener">View</a><a href="${enc}" download="${dl}">Download</a></span><span class="file-name">${h(item.title)}</span><span class="file-meta">PDF · ${bytes(item.bytes)}</span>${who}</li>`;
+    }).join("")}</ul>`;
+  }
+  function ws15Card(title, name, rows, role) {
+    return `<article class="ws15-card">
+      <h4>${h(title)}</h4>
+      <code class="ws15-file">${h(name)}</code>
+      <p class="ws15-role">${h(role)}</p>
+      <div class="ws15-foot">
+        <span class="ws15-meta">CSV · ${num(rows)} rows</span>
+        <a class="btn-primary" href="downloads/ws15/${h(name)}" download="${h(name)}" aria-label="Download ${h(name)}">Download</a>
+      </div>
+    </article>`;
+  }
+  function ws15DatasetSection(code) {
+    if (code !== "WS15") return "";
+    return `<section class="section-block" id="ws15-data"><h2>WS15 dataset collection</h2>
+      <p>These datasets were prepared specifically for Worksheet 15. Use the provided files for the activities rather than a generic Titanic dataset.</p>
+      <h3>Training and test samples</h3>
+      <p>Four files provide two separate training and test samples for the worksheet activities.</p>
+      <div class="ws15-pair">
+        <p class="ws15-pair-label">Sample 1</p>
+        <div class="ws15-grid">
+          ${ws15Card("Training Sample 1", "titanic_egitim_veri_seti1.csv", 812, "Use this file to build the first decision tree.")}
+          ${ws15Card("Test Sample 1", "titanic_test_veri_seti1.csv", 231, "Use this file to check the first tree.")}
+        </div>
+      </div>
+      <div class="ws15-pair">
+        <p class="ws15-pair-label">Sample 2</p>
+        <div class="ws15-grid">
+          ${ws15Card("Training Sample 2", "titanic_egitim_veri_seti2.csv", 834, "Use this file to build the second decision tree.")}
+          ${ws15Card("Test Sample 2", "titanic_test_veri_seti2.csv", 209, "Use this file to check the second tree.")}
+        </div>
+      </div>
+      <details class="tech"><summary>Columns in these four files</summary><div class="tech-body">
+        <p>The four files share the columns <code>survived</code>, <code>pclass</code>, <code>sex</code>, <code>age</code>, <code>fare</code>, <code>embarked</code>, and <code>sex_bin</code>. In these files, <code>sex_bin</code> is 1 for female passengers and 0 for male passengers.</p>
+      </div></details>
+      <article class="ws15-card ws15-full">
+        <h3>Full Passenger Dataset</h3>
+        <code class="ws15-file">titanic_veri_seti.csv</code>
+        <p class="ws15-role">This file contains the full passenger records used in the final activity, where the data is randomly split into training and test groups.</p>
+        <details class="tech"><summary>Columns in this file</summary><div class="tech-body">
+          <p>This file does not use the same columns as the four samples. Its columns are <code>survived</code>, <code>pclass</code>, <code>name</code>, <code>sex</code>, <code>age</code>, <code>sibsp</code>, <code>parch</code>, <code>ticket</code>, <code>fare</code>, <code>cabin</code>, <code>embarked</code>, <code>boat</code>, <code>body</code>, and <code>homedest</code>.</p>
+        </div></details>
+        <div class="ws15-foot">
+          <span class="ws15-meta">CSV · ${num(1326)} rows</span>
+          <a class="btn-primary" href="downloads/ws15/titanic_veri_seti.csv" download="titanic_veri_seti.csv" aria-label="Download titanic_veri_seti.csv">Download</a>
+        </div>
+      </article>
+    </section>`;
+  }
+  function pageWorksheet(code) {
+    const w = C.worksheets.find((x) => x.code === code);
+    if (!w) {
+      return `<div class="page">${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], ["Not found"]])}
+        <h1>Worksheet not found</h1><p>No worksheet with the code "${h(code)}" is in this archive.</p><p><a href="#/explore/worksheets">Back to the worksheets</a></p></div>`;
+    }
+    const info = WS_INFO[code] || {};
+    const files = (window.WS_FILES && window.WS_FILES[code]) || { materials: [], completed: [] };
+    const completed = uniqueFiles(files.completed);
+    return `<div class="page wide">
+      <div class="page-header">
+        ${crumbs([["Collected data", "#/collected"], ["Worksheets", "#/explore/worksheets"], [code]])}
+        <p class="kicker">Collected data · Worksheets</p>
+        <h1>${h(code)} · ${h(wsTitle(w))}</h1>
+      </div>
+      <section class="section-block" id="overview"><h2>Worksheet overview</h2>
+        <p>${h(info.topic || "No purpose statement is stored for this worksheet.")}</p>
+        ${loBrief(code)}
+        <p class="small span-line">Extracted answers and item scores are not listed on this page. <a href="#/methods/worksheets">How worksheets were checked \u2192</a></p>
+      </section>
+      ${foodCardSection(code)}
+      ${ws15DatasetSection(code)}
+      <section class="section-block" id="materials"><h2>Worksheet materials</h2>
+        <p class="small">Each distinct blank worksheet or answer key is listed once.</p>
+        ${fileList(files.materials, "No blank worksheet or answer key could be matched to this worksheet.")}
+      </section>
+      <section class="section-block" id="completed"><h2>Completed student worksheets</h2>
+        <p class="small span-line">${completed.length ? `${num(completed.length)} file${completed.length === 1 ? "" : "s"}. ` : ""}The original scans are shown as they were stored. Different students were not merged into a new PDF, and no dates are shown.</p>
+        ${fileList(files.completed, "No completed student PDF is on record for this worksheet.")}
+      </section>
+      <section class="section-block" id="ai-labeling"><h2>AI competency labeling</h2>
+        <p>Extracted responses from the RAG pipeline and researcher competency labels (UNESCO AI-CFT framework) for each student on this worksheet. Each row is one student; each column is one response field.</p>
+        <ul class="file-list" style="margin-bottom:16px">
+          <li class="file-item">
+            <span class="file-actions"><a href="downloads/labeling/${h(code === "WS DT - CODAP" ? "WS12" : (LABELING_CODE_MAP[code] || code))}.xlsx" download="${h((code === "WS DT - CODAP" ? "WS12" : (LABELING_CODE_MAP[code] || code)) + ".xlsx")}">Download</a></span>
+            <span class="file-name">${h(code)} labeling sheet</span>
+            <span class="file-meta">Excel · this worksheet only</span>
+          </li>
+        </ul>
+        <div id="labeling-table-${h(code)}" class="labeling-wrap"><p class="small muted">Loading…</p></div>
+      </section>
+      </div>`;
+  }
+
+  const HF_FRAMES = "https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames";
+  const HF_LOGS = "https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-CODAP-Arbor-LogFile";
+  const CODAP_SCREEN = new Set(["TREE", "GRAPH", "TABLE", "MIXED", "CODAP"]);
+  const frameView = { s: "", ss: "" };
+  const isCodapScreen = (f) => CODAP_SCREEN.has(f.sc);
+  const PREVIEW_CAP = 12;
+  const codapPreviews = (s, ss) => F.filter((f) => f.s === s && (!ss || f.ss === ss) && f.th && isCodapScreen(f));
+  const sessionPreviews = (s, ss) => {
+    const coded = codapPreviews(s, ss);
+    if (coded.length) return coded;
+    return F.filter((f) => f.s === s && (!ss || f.ss === ss) && f.th);
+  };
+  function previewSample(pics) {
+    if (pics.length <= PREVIEW_CAP) return pics;
+    const used = new Set();
+    const picked = [];
+    for (let i = 0; i < PREVIEW_CAP; i++) {
+      let idx = Math.round((i * (pics.length - 1)) / (PREVIEW_CAP - 1));
+      if (used.has(idx)) {
+        for (let d = 1; d < pics.length; d++) {
+          if (idx + d < pics.length && !used.has(idx + d)) { idx += d; break; }
+          if (idx - d >= 0 && !used.has(idx - d)) { idx -= d; break; }
+        }
+      }
+      used.add(idx);
+      picked.push(idx);
+    }
+    picked.sort((a, b) => a - b);
+    return picked.map((i) => pics[i]);
+  }
+  const sessionHasFrames = (s, ss) => !!(C.sessions[s] && C.sessions[s][ss] && C.sessions[s][ss].manifest);
+
+  function firstSessionWithFrames(s) {
+    const withPictures = SESS.find((ss) => sessionPreviews(s, ss.id).length);
+    if (withPictures) return withPictures.id;
+    const hit = SESS.find((ss) => sessionHasFrames(s, ss.id));
+    return hit ? hit.id : (SESS[0] ? SESS[0].id : "");
+  }
+  function pageRecordings(q) {
+    frameView.s = (q && q.s) || "";
+    frameView.ss = (q && q.ss) || "";
+    if (frameView.s && !frameView.ss) frameView.ss = firstSessionWithFrames(frameView.s);
+    const sessionsWithFrames = allSessions.filter((r) => r.manifest).length;
+    const storedPreviews = F.filter((f) => f.th).length;
+    const shownPreviews = F.filter((f) => f.th && isCodapScreen(f)).length;
+    const who = STUDENTS.map((s) => `<button type="button" class="person-card" data-who="${h(s)}" aria-pressed="false"><span class="person-name">${h(s)}</span></button>`).join("");
+    return `<div class="page wide">${exploreShell("recordings", `
+      ${crumbs([["Collected data", "#/collected"], ["Screen recording frames"]])}
+      <h1>Screen recording frames</h1>
+      <p class="lead">Still images from students working in CODAP Arbor. The original videos are not available for download.</p>
+      <div class="stat-row">
+        <div class="stat-card"><div class="v">${num(F.length)}</div><div class="l">Extracted frames</div></div>
+        <div class="stat-card"><div class="v">${num(sessionsWithFrames)}</div><div class="l">Sessions with frames</div></div>
+      </div>
+      <p class="frame-note">Each session view shows up to 12 examples from the CODAP screen, spaced through that session. ${num(storedPreviews)} preview images are stored on this site, ${num(C.thumbs_per_session)} per session. ${num(shownPreviews)} of those are a table, graph, tree, or the CODAP window. Menus and other screens are not shown. A session whose frames have no stored screen type shows its previews without a behaviour label. The full set of frame images is in the dataset below.</p>
+
+      <section class="section-block" id="frame-explore">
+        <h2>Choose a participant</h2>
+        <div class="person-grid" id="whoRow">${who}</div>
+        <div id="frameOut"></div>
+      </section>
+
+      <section class="section-block" id="frame-dataset">
+        <div class="dataset-card frame-dataset">
+          <div class="ds-type">Complete dataset · CC BY 4.0</div>
+          <div class="ds-title">All extracted frames on Hugging Face</div>
+          <p class="ds-desc">The public dataset holds the frame images, <code>metadata.csv</code>, and <code>codap_log_anonymized.csv</code>. It does not include the original videos.</p>
+          <div class="frame-actions">
+            <a class="btn btn-primary frame-dataset-btn" href="${HF_FRAMES}" target="_blank" rel="noopener">Open the complete frame dataset</a>
+            <a class="frame-method" href="#/methods/recordings">How these frames were chosen and labelled</a>
+          </div>
+        </div>
+      </section>
+      `)}</div>`;
+  }
+  function renderFrameBrowse() {
+    const out = document.getElementById("frameOut");
+    if (!out) return;
+    document.querySelectorAll("#whoRow .person-card").forEach((b) => {
+      const on = b.dataset.who === frameView.s;
+      b.classList.toggle("on", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (!frameView.s) {
+      out.innerHTML = `<p class="frame-prompt">Choose a participant, then a session, to see examples from the CODAP screen.</p>`;
+      return;
+    }
+    if (!frameView.ss) frameView.ss = firstSessionWithFrames(frameView.s);
+    const tabs = SESS.map((ss) => {
+      const ready = sessionPreviews(frameView.s, ss.id).length > 0;
+      const sub = !sessionHasFrames(frameView.s, ss.id) ? `No recording` : (ready ? "" : `No previews`);
+      return `<button type="button" role="tab" class="sess-tab" data-ss="${h(ss.id)}" aria-selected="${frameView.ss === ss.id ? "true" : "false"}"><span>${h(SESS_NAME[ss.id])}</span>${sub ? `<span class="when">${h(sub)}</span>` : ""}</button>`;
+    }).join("");
+    const picsAll = sessionPreviews(frameView.s, frameView.ss);
+    const pics = previewSample(picsAll);
+    const other = SESS.find((ss) => ss.id !== frameView.ss && sessionPreviews(frameView.s, ss.id).length);
+    const heading = `<h3 class="preview-heading">${h(frameView.s)} · ${h(SESS_NAME[frameView.ss])}</h3>`;
+    const note = picsAll.length > PREVIEW_CAP ? `<p class="preview-note">12 examples from this session.</p>` : "";
+    const emptyCopy = sessionHasFrames(frameView.s, frameView.ss)
+      ? `No previews are available for ${h(frameView.s)}, ${h(SESS_NAME[frameView.ss])}.`
+      : `No recording is stored for ${h(frameView.s)}, ${h(SESS_NAME[frameView.ss])}.`;
+    const body = pics.length
+      ? `${heading}${note}<div class="thumbs frame-grid">${pics.map((f) => {
+          const capText = `${f.s} · ${SESS_NAME[f.ss]} · ${clock(f.t)} · ${f.b ? behLabel(f.b) : "No label"} · ${f.id}`;
+          return `<figure><button type="button" class="thumb" data-zoom="thumbs/${h(f.th)}" data-cap="${h(capText)}"><img loading="lazy" src="thumbs/${h(f.th)}" alt="${h(capText)}"></button><figcaption><span class="mono">${clock(f.t)}</span><br>${h(f.b ? behLabel(f.b) : "No label")}</figcaption></figure>`;
+        }).join("")}</div>`
+      : `${heading}<div class="empty-session"><p>${emptyCopy}</p>${other ? `<button type="button" class="btn btn-primary" id="openOther" data-ss="${h(other.id)}">Open ${h(SESS_NAME[other.id])}</button>` : ""}</div>`;
+    out.innerHTML = `<h2 class="sess-heading">Choose a session</h2><div class="sess-tabs" role="tablist">${tabs}</div>${body}`;
+    out.querySelectorAll(".sess-tab").forEach((b) => {
+      b.addEventListener("click", () => { frameView.ss = b.dataset.ss; syncFrameQuery(); });
+    });
+    const alt = document.getElementById("openOther");
+    if (alt) alt.addEventListener("click", () => { frameView.ss = alt.dataset.ss; syncFrameQuery(); });
+  }
+  function syncFrameQuery() {
+    const qs = [["s", frameView.s], ["ss", frameView.ss]].filter((x) => x[1]).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join("&");
+    const next = "#/explore/recordings" + (qs ? "?" + qs : "");
+    if (location.hash !== next && window.history && window.history.replaceState) window.history.replaceState(null, "", next);
+    renderFrameBrowse();
+  }
+  function bindFrameBrowse() {
+    document.querySelectorAll("#whoRow .person-card").forEach((b) => {
+      b.addEventListener("click", () => {
+        frameView.s = b.dataset.who;
+        frameView.ss = firstSessionWithFrames(frameView.s);
+        syncFrameQuery();
+      });
+    });
+    renderFrameBrowse();
+  }
+
+
+  // Hand-picked rows from codap_log_anonymized.csv, one per action type: [participant, session, id, timestamp_ms, action, detail].
+  const LOG_SAMPLE = [
+    ["Ulysses", 1, 2847, 886220, "dragstart", "Protein (g)"],
+    ["Nadia", 1, 3754, 2148693, "set_dependent_variable", "Column 1 (recommendation label, unnamed copy)"],
+    ["Irma", 1, 4188, 2706238, "change_split_values", "Tuz (g) (salt) < 0.92. Old and new value are both stored as 0.92."],
+    ["Marcus", 1, 4264, 1285661, "emit_tree_data", "Target Column 1, depth 2, accuracy 52.2% on 46 rows"],
+    ["Zara", 1, 4387, 3009032, "set_focus_node", "Şeker (g) (sugar)"],
+    ["Shana", 1, 4472, 3173223, "data_context_change", "Moved a column in the data table (moveAttribute)"],
+    ["Melinda", 2, 7933, 575295, "drop_attribute", "Yağ (g) (fat)"],
+    ["Marco", 2, 7974, 452229, "swap_focus_split", "Oneri (recommendation label)"],
+    ["Bruno", 2, 9135, 1264732, "change_tree_type", "Set to classification"],
+    ["Isabel", 1, 6854, 4352373, "refresh_tree", "Refresh with type “data”"],
+  ];
+  const mmss = (ms) => { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
+  function pageLogs() {
+    const excludedByDay = C.logs.rows_excluded_unmatched_by_day || {};
+    const sessionDates = Object.keys(LOG_DAYS);
+    const sessionLabel = { "2026-04-21": "CODAP Session 1", "2026-04-28": "CODAP Session 2" };
+    const publicCount = (d) => (C.logs.rows_by_day[d] || 0) - (excludedByDay[d] || 0);
+    const publicRows = sum(sessionDates.map(publicCount));
+    const publicSessionTable = table(
+      [{ t: "Session" }, { t: "Records", num: 1 }],
+      sessionDates.map((d) => ({ cells: [h(sessionLabel[d]), num(publicCount(d))] })).concat([{ cells: [h("Total"), num(publicRows)] }]),
+      { cls: "log-dict log-counts" }
+    );
+    const sampleRows = LOG_SAMPLE.map(([who, ses, , ms, code, detail]) => `<tr>
+        <td data-label="Participant">${h(who)}</td>
+        <td data-label="Session">${num(ses)}</td>
+        <td data-label="Time (mm:ss)">${mmss(ms)}</td>
+        <td data-label="Action">${h(ACTION[code] || code)}</td>
+        <td data-label="Action code"><code>${h(code)}</code></td>
+        <td data-label="Detail">${h(detail)}</td>
+      </tr>`).join("");
+    const pairs = sum(STUDENTS.map((s) => sessionDates.filter((d) => (logDays[s] || {})[d]).length));
+    const people = STUDENTS.filter((s) => sessionDates.some((d) => (logDays[s] || {})[d])).length;
+    return `<div class="page wide">${exploreShell("logs", `
+      ${crumbs([["Collected data", "#/collected"], ["CODAP platform logs"]])}
+      <h1>CODAP platform logs</h1>
+      <p class="lead log-lead">Platform logs record participants’ actions in CODAP Arbor, helping researchers understand how they interact with the decision-tree activity.</p>
+      <dl class="terms compact-terms log-summary">
+        <dt>Sessions</dt><dd>CODAP session 1: ${num(publicCount("2026-04-21"))} records. CODAP session 2: ${num(publicCount("2026-04-28"))} records. Total ${num(publicRows)}.</dd>
+        <dt>Participants</dt><dd>${num(people)} participants, ${num(pairs)} participant–session pairs with a log.</dd>
+        <dt>Activity data</dt><dd>A Turkish food dataset. The target is the recommendation label, stored as <code>Oneri</code> or, in some students’ tables, as an unnamed column CODAP calls <code>Column 1</code>. Its values are “Recommendable” and “Not recommendable”.</dd>
+        <dt>Not included</dt><dd>A Titanic activity log (${num(logEventsTitanic)} events) is kept in the archive but is not part of this dataset.</dd>
+      </dl>
+      <h2 class="log-sample-title">Example log records</h2>
+      <p class="log-caption">Hand-picked examples, one per action type, from the public file. Column names in the food data are Turkish. An English gloss is given in brackets.</p>
+      <div class="table-wrap log-sample-wrap"><table class="log-examples">
+        <thead><tr><th>Participant</th><th>Session</th><th>Time (mm:ss)</th><th>Action</th><th>Action code</th><th>Detail</th></tr></thead>
+        <tbody>${sampleRows}</tbody>
+      </table></div>
+      <p class="small">Time is <code>timestamp_ms</code> shown as minutes and seconds within the participant’s session. A threshold edit event (<code>change_split_values</code>) shows that the split editor was used. The log stores the same old and new value in every such row, so it cannot show whether the threshold changed.</p>
+      <p><a href="#/findings/logs">Platform log findings</a> · <a href="#/methods/logs">How log measures are computed</a></p>
+      <h2>Complete dataset</h2>
+      <section class="section-block" id="log-dataset">
+        <div class="dataset-card log-dataset">
+          <div class="ds-type">CC BY 4.0</div>
+          <div class="ds-title">Complete CODAP Arbor Platform Logs</div>
+          <p class="ds-desc">Explore the complete dataset for CODAP session 1 and CODAP session 2.</p>
+          <a class="btn btn-primary frame-dataset-btn" href="${HF_LOGS}" target="_blank" rel="noopener">Explore the dataset on Hugging Face</a>
+        </div>
+      </section>
+      ${tech("Technical details", `<div class="log-tech">
+        <h3>Sessions and dataset overview</h3>
+        <p class="log-note">The public platform-log dataset is organized into two CODAP sessions. Each record belongs to one of these sessions, allowing visitors to explore participants' actions across the two activities.</p>
+        ${publicSessionTable}
+        <p class="log-note-label">Public dataset</p>
+        <p class="log-note">The public file is <code>codap_log_anonymized.csv</code>. It contains ${num(publicRows)} records organized into CODAP Session 1 and CODAP Session 2. The columns are <code>id</code>, <code>student_id</code>, <code>session</code>, <code>action</code>, <code>timestamp_ms</code>, and <code>parameters</code>. They identify each event, the pseudonymized participant, the session, the recorded action, the elapsed time, and the details stored with that action.</p>
+        <h3>Data fields</h3>
+        ${table([{ t: "Column" }, { t: "Meaning" }], [
+          { cells: ["<code>id</code>", "Unique identifier for a recorded event."] },
+          { cells: ["<code>student_id</code>", "Pseudonymized participant identifier."] },
+          { cells: ["<code>session</code>", "Identifies CODAP Session 1 or CODAP Session 2."] },
+          { cells: ["<code>action</code>", "Code describing the recorded action."] },
+          { cells: ["<code>timestamp_ms</code>", "Elapsed time in milliseconds within the participant's session. It is not always increasing: within a participant’s session it drops between 920 of 9,541 consecutive rows in id order. Neither id nor timestamp_ms gives a strict time order."] },
+          { cells: ["<code>parameters</code>", "Additional details associated with the action, stored as text."] },
+        ], { cls: "log-dict" })}
+        <h3>Action codes</h3>
+        ${table([{ t: "Action code" }, { t: "Meaning" }, { t: "Records", num: 1 }], Object.entries(ACTION).filter(([k]) => logActionsClass[k]).sort((a, b) => logActionsClass[b[0]] - logActionsClass[a[0]]).map(([k, label]) => ({ cells: [`<code>${h(k)}</code>`, h(label), num(logActionsClass[k])] })), { cls: "log-dict log-codes" })}
+      </div>`)}`)}</div>`;
+  }
+  function logFindingsSection() {
+    const rows = [];
+    STUDENTS.forEach((s) => Object.entries(LOG_DAYS).forEach(([d, meta]) => {
+      const v = logDays[s] && logDays[s][d];
+      if (!v) {
+        rows.push({ cells: [h(s), h(meta.name), '<span class="na">no log</span>', "", "", ""] });
+        return;
+      }
+      const vt = v.votat;
+      const acc = v.last_emit_accuracy == null ? "–" : `${num(v.last_emit_accuracy * 100, 1)}% <span class="small">(n = ${v.last_emit_n == null ? "?" : num(v.last_emit_n)})</span>${v.last_emit_n != null && v.last_emit_n < SMALL_N ? " *" : ""}`;
+      rows.push({ href: `#/explore/student/${s}/logs`, cells: [`<a href="#/explore/student/${h(s)}/logs">${h(s)}</a>`, h(meta.name), num(v.emit_count), acc, num((v.predictors_tried || []).length), vt ? num(vt.votat_rate * 100, 0) + "%" : "–"] });
+    }));
+    const present = rows.filter((r) => !String(r.cells[2]).includes("no log"));
+    const totalEmits = STUDENTS.reduce((t, s) => t + Object.entries(LOG_DAYS).reduce((a, [d]) => a + (((logDays[s] || {})[d] || {}).emit_count || 0), 0), 0);
+    const lastRows = STUDENTS.flatMap((s) => Object.keys(LOG_DAYS).map((d) => (logDays[s] || {})[d])).filter((v) => v && typeof v.last_emit_accuracy === "number");
+    const accSorted = lastRows.map((v) => v.last_emit_accuracy).sort((a, b) => a - b);
+    const medAcc = accSorted.length ? (accSorted.length % 2 ? accSorted[(accSorted.length - 1) / 2] : (accSorted[accSorted.length / 2 - 1] + accSorted[accSorted.length / 2]) / 2) : null;
+    const ns = lastRows.map((v) => v.last_emit_n).filter((n) => typeof n === "number");
+    let top = null;
+    STUDENTS.forEach((s) => Object.entries(LOG_DAYS).forEach(([d, meta]) => {
+      const v = (logDays[s] || {})[d];
+      if (v && (!top || v.emit_count > top.n)) top = { s, name: meta.name, n: v.emit_count };
+    }));
+    const sessionsWithData = STUDENTS.reduce((t, s) => t + Object.keys(LOG_DAYS).filter((d) => (logDays[s] || {})[d]).length, 0);
+    const L = C.logs;
+    return `<h2 id="log-summaries">Key findings</h2>
+      <p>These counts cover CODAP session 1 and CODAP session 2 only. A log records actions in CODAP Arbor. It does not show what a participant understood.</p>
+      <div class="log-metrics">
+        <div class="log-metric"><div class="lm-label">Total model attempts</div><div class="lm-name">${num(totalEmits)}</div><div class="lm-desc">Both class sessions</div></div>
+        <div class="log-metric"><div class="lm-label">Median last accuracy</div><div class="lm-name">${medAcc != null ? num(medAcc * 100, 1) + "%" : "–"}</div><div class="lm-desc">${num(lastRows.length)} sessions. Rows scored per last attempt: ${ns.length ? `${num(Math.min(...ns))} to ${num(Math.max(...ns))}` : "–"}. Not comparable across data copies.</div></div>
+        <div class="log-metric"><div class="lm-label">Most attempts in one session</div><div class="lm-name">${top ? num(top.n) : "–"}</div><div class="lm-desc">${top ? `${h(top.s)}, ${h(top.name)}` : ""}</div></div>
+        <div class="log-metric"><div class="lm-label">Sessions with a log</div><div class="lm-name">${num(sessionsWithData)}</div><div class="lm-desc">Participant × class session</div></div>
+      </div>
+      <dl class="terms compact-terms"><dt>Model attempts</dt><dd>Times the participant submitted a tree's results.</dd><dt>Last accuracy</dt><dd>Accuracy on the last submission that scored at least one row. n is the number of rows scored. * marks n below ${SMALL_N}.</dd><dt>Predictors tried</dt><dd>Different variables placed into the tree, not counting the target, the recommendation label, or the product name.</dd><dt>One kind of edit (VOTAT)</dt><dd>Share of steps between two submissions with only one kind of edit: only predictors placed, or only threshold edit events. A step can hold several edits of that kind. This describes the log. It does not prove a planned experiment.</dd></dl>
+      <h2>Results</h2>
+      <p>${num(present.length)} of ${num(rows.length)} participant–session pairs have a log for these two class sessions. “No log” means that pair has no stored log. “–” means the log exists but the value cannot be computed, for example fewer than two submissions.</p>
+      ${table([{ t: "Participant" }, { t: "Session" }, { t: "Model attempts", num: 1 }, { t: "Last accuracy", num: 1 }, { t: "Predictors tried", num: 1 }, { t: "One kind of edit", num: 1 }], rows)}
+      <h2>Interpretation</h2>
+      <p>The table describes recorded interaction with CODAP Arbor. Last accuracy is the accuracy stored on the last model submission in that session. Students worked on different copies of the data, and some last submissions scored few rows. It is not a test score, and it is not evidence that the participant understood the tree.</p>
+      <p>${methodLink("logs", "What these measures mean")}</p>
+      ${tech("Technical details", `<p class="log-note">The archive also stores a Titanic activity log. It is not part of the published food-dataset sessions, so those rows are left out of the counts and the table above.</p>
+        <h3>Actions stored with the log file</h3>
+        <p class="log-note">These totals come from every matched row used to build the site log, including the Titanic activity rows. They are not limited to the two class sessions.</p>
+        ${table([{ t: "Action" }, { t: "Event code" }, { t: "Count", num: 1 }], Object.entries(L.action_types).sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ cells: [h(ACTION[k] || k), `<code>${h(k)}</code>`, num(n)] })))}`)}`;
+  }
+  function pageNotebooks() {
+    const pack = window.NOTEBOOKS || { teacher: null, students: [], final: [] };
+    const guided = (pack.students || []).slice().sort((a, b) => a.pseudonym.localeCompare(b.pseudonym));
+    const finals = (pack.final || []).slice().sort((a, b) => a.pseudonym.localeCompare(b.pseudonym));
+    const guidedMissing = STUDENTS.filter((s) => !guided.some((row) => row.pseudonym === s));
+    const byFinal = {};
+    finals.forEach((s) => { byFinal[s.pseudonym] = s; });
+    const row = (name, href, label) => `<li><span class="nb-who">${h(name)}</span><a class="nb-dl" href="${h(href)}" download>${h(label)}</a></li>`;
+    const guidedRows = guided.map((s) => row(s.pseudonym, s.file, "Download")).join("");
+    const finalRows = STUDENTS.slice().sort((a, b) => a.localeCompare(b)).map((name) => {
+      if (name === "Marco") return `<li><span class="nb-who">Marco</span><span class="nb-kind">PDF</span><a class="nb-dl" href="downloads/notebooks/final/Marco.pdf" download>Download</a></li>`;
+      const file = byFinal[name];
+      if (!file) return "";
+      const kind = String(file.file).toLowerCase().endsWith(".ipynb") ? "Notebook" : "";
+      return `<li><span class="nb-who">${h(name)}</span>${kind ? `<span class="nb-kind">${kind}</span>` : ""}<a class="nb-dl" href="${h(file.file)}" download>Download</a></li>`;
+    }).join("");
+    return `<div class="page wide nb-page">${exploreShell("notebooks", `
+      ${crumbs([["Collected data", "#/collected"], ["Python notebooks"]])}
+      <h1>Python notebooks: learning to build decision trees</h1>
+      <p class="lead">These materials show how the class learned to build a decision tree in Python. The teacher notebook sets out the guided work. The final homework asks students to use that process on a new dataset.</p>
+      <section class="nb-section">
+        <h2>Learning sequence</h2>
+        <p>The three sessions are stages of one guided notebook, not three separate assignments. Weekly student files follow this notebook, so they are not listed as the main collection.</p>
+        <ol class="nb-seq">
+          <li><span class="n">1</span><h3>Colab Session 1</h3><p class="nb-kicker">Python foundations and data exploration</p><p>Students write to the screen, use variables and lists, import the libraries, and load and inspect the food table.</p></li>
+          <li><span class="n">2</span><h3>Colab Session 2</h3><p class="nb-kicker">Preparing data and building a decision tree</p><p>Students separate features from the recommendation label, split training and test rows, and fit a decision tree.</p></li>
+          <li><span class="n">3</span><h3>Colab Session 3</h3><p class="nb-kicker">Exploring tree depth and evaluating performance</p><p>Students compare trees of different depths and look at training and test error, including overfitting.</p></li>
+        </ol>
+      </section>
+      <section class="nb-section">
+        <h2>Teacher instructions for the Colab learning sequence</h2>
+        <div class="nb-pack">
+          <div class="nb-pack-row">
+            <div>
+              <p>This is the teacher's guided notebook used across Colab Sessions 1, 2, and 3. It structures the progression from Python foundations and data exploration to decision-tree construction and model evaluation.</p>
+            </div>
+            ${pack.teacher ? `<a class="nb-dl" href="${h(pack.teacher)}" download>Download teacher instruction notebook</a>` : ""}
+          </div>
+        </div>
+      </section>
+      <section class="nb-section">
+        <h2>Final homework: guided application</h2>
+        <p>The final assignment asks students to apply their Python and decision-tree skills to the lizard dataset. Start with the homework instructions, then use the supplied dataset to complete the activities.</p>
+        <div class="nb-pack">
+          <div class="nb-pack-row">
+            <div>
+              <h3>Homework instructions</h3>
+              <p>The step-by-step assignment. It uses the lizard dataset below.</p>
+            </div>
+            <a class="nb-dl" href="downloads/notebooks/homework/final_homework_instructions.pdf" download>Download homework instructions (PDF)</a>
+          </div>
+          <div class="nb-pack-row">
+            <div>
+              <h3>Dataset for this assignment</h3>
+              <p>The CSV used in the homework. 320 rows and 7 columns.</p>
+            </div>
+            <a class="nb-dl" href="downloads/notebooks/homework/lizard_data.csv" download>Download lizard dataset (CSV)</a>
+          </div>
+        </div>
+      </section>
+      <section class="nb-section">
+        <h2>Student submissions</h2>
+        <p>These files are the students' own work. Names are replaced by pseudonyms.</p>
+        <ul class="nb-files nb-cohort">${finalRows}</ul>
+      </section>
+      <details class="nb-more">
+        <summary>Guided session notebooks</summary>
+        <div class="nb-more-body">
+          <p>The student notebooks follow the teacher's guided activities. Each student is represented by their most recent available notebook; earlier submissions are preserved separately.</p>
+          ${guidedMissing.length ? `<p class="nb-muted">${guidedMissing.map(h).join(", ")}: no notebook was found in the three guided-session folders.</p>` : ""}
+          <ul class="nb-files">${guidedRows}</ul>
+        </div>
+      </details>
+      ${tech("Technical details", `<div class="log-tech">
+        <h3>Guided learning sequence</h3>
+        <p class="log-note">The teacher notebook, used in Google Colab, starts with <code>print()</code>, variables, and lists. It then loads the food table, separates measurements from the recommendation label, fits a decision tree, and compares trees of different depths. A <strong>feature</strong> is a column the tree may use. The <strong>target</strong> is the label it is asked to predict. <strong>Training rows</strong> are used to grow the tree. <strong>Test rows</strong> are held back, so the score is not only a memory of the rows used to fit it.</p>
+        <h3>Python tools and libraries</h3>
+        <p class="log-note"><code>pandas</code> reads a table and selects columns. <code>matplotlib</code> draws charts and the tree. scikit-learn supplies <code>DecisionTreeClassifier</code>, which grows a tree of yes-or-no questions, and the tools that score it. <code>max_depth</code> limits how many questions the tree may ask.</p>
+        <h3>Decision-tree workflow</h3>
+        <p class="log-note">In the food notebook the target column is <code>Öneri</code>. The product name is left out of the features. The homework uses <code>lizard_data.csv</code> instead. Text columns are turned into 0 and 1 columns with <code>get_dummies</code>, because the tree compares numbers, not words. The instruction splits 80% of the rows for training and 20% for testing, and keeps each category in proportion (<code>stratify</code>). <strong>Misclassification rate</strong> is 1 minus accuracy: the share of rows the tree labels incorrectly. Students compare that rate on training rows and test rows as the tree gets deeper. A deeper tree can follow the training rows more closely and then do worse on rows it has not seen. The instruction does not name a best depth.</p>
+        <h3>Final homework</h3>
+        <p class="log-note">The written assignment asks students to inspect the lizard table, write at least three questions of their own, and build a separate tree for each question. A question should point at one column as the target. Worked examples in the document use habitat, and they also name species and sex as columns a question can use. Students then choose a depth, draw the tree, and answer in their own words about the three class settings (data cards, CODAP, and Python), the data, the model's errors, and where a decision tree is not enough. The supplied table is named <code>lizard_data.csv</code>. One code sample in the document types that name with a hyphen. Public notebook copies use pseudonyms. Student code and written answers were not rewritten. The food table is not in this archive.</p>
+      </div>`)}
+    `)}</div>`;
+  }
+  function bindNotebookSearch() {}
+
+
+  // ------------------------------------------------------------------ 04 Documentation
+  const docShell = (active, body) => {
+    const labels = { limitations: "Data Quality and Limitations", evaluation: "Evaluation and validation", glossary: "Glossary", technical: "Technical documentation" };
+    const trail = active ? [["Reference and documentation", "#/docs/technical"], [labels[active] || "Documentation"]] : [["Reference and documentation"]];
+    return `${crumbs(trail)}<p class="kicker">Reference and documentation</p>${body}`;
+  };
+
+  function siteTableDictionaries() {
+    const DICT = {
+      "frames.csv": [`One selected screen frame (${num(F.length)} rows)`, [["student", "Pseudonym"], ["session", "codap_21apr or codap_28apr"], ["frame_id", "Frame name within the session"], ["time_s", "Seconds from the start of the recording"], ["trigger", "Why the frame was selected"], ["pixel_change_pct", "Share of the screen that changed"], ["speaker_role", "Who was speaking at that moment, if known"], ["primary_behavior", "Observed behaviour (one of ten behaviour codes or three abstain codes)"], ["secondary_behavior", "A second behaviour, if any"], ["screen_context", "Tree, graph, table, mixed or menu"], ["deepen_phase", "Setup, building, tuning, evaluating or idle"], ["confidence", "The coder's own confidence"]]],
+      "worksheet_responses.csv": [`One extracted worksheet value (${num(responseRows)} rows)`, [["student", "Pseudonym"], ["worksheet", "WS1 to WS15"], ["item", "Question or blank ID"], ["field_path", "Exact position of the value in the extraction file"], ["extracted_value", "What the student wrote, as read and cleaned"], ["item_check_correct", "Result of the check: True, False or empty"], ["item_check_flag", "Short code describing an error, if any"], ["source_file", "Extraction file the value came from"]]],
+      "log_sessions.csv": ["One student in one CODAP session", [["student", "Pseudonym"], ["date", "Session date"], ["events", "All recorded actions"], ["span_minutes", "Minutes from first to last action"], ["emit_count", "Model attempts"], ["minutes_to_first_emit", "Minutes to the first attempt"], ["last_emit_accuracy", "Accuracy of the last attempt (0 to 1)"], ["accuracy_sd", "Standard deviation of accuracy across attempts"], ["predictor_drops", "Predictor placements"], ["unique_attributes", "Different predictors tried"], ["emit_tree_data … data_context_change", "Counts of the six modelling actions"]]],
+      "episodes.csv": ["One episode of a session (from the video pipeline's Parquet tables)", [["student", "Pseudonym"], ["session", "Session ID"], ["episode_id", "Episode within the session"], ["category", "Episode category"], ["start_ms / end_ms / duration_ms", "Timing in milliseconds"], ["steps", "Observation steps in the episode"], ["assistance", "Independent or assisted"]]],
+    };
+    return Object.entries(DICT).map(([f, [desc, cols]]) => `<section class="dl"><h3><a href="data/${f}" download>${f}</a></h3><p>${h(desc)}</p>${tech("Data dictionary", table([{ t: "Column" }, { t: "Meaning" }], cols.map(([c, m]) => ({ cells: [`<code>${h(c)}</code>`, h(m)] }))))}</section>`).join("");
+  }
+  function pageLimitations() {
+    const Q = window.QUALITY_AUDIT;
+    const flow = (steps) => `<div class="method-flow vq-flow">${steps.map((step, i) => `${i ? `<div class="flow-arr" aria-hidden="true">→</div>` : ""}<div class="flow-node${i === 0 ? " flow-node--accent" : ""}${i === steps.length - 1 ? " flow-node--output" : ""}">${h(step[0])}<span class="flow-node-sub">${h(step[1])}</span></div>`).join("")}</div>`;
+    const jumps = [
+      ["vq-sources", "Four sources"],
+      ["vq-review", "Researcher verification"],
+      ["vq-worksheets", "Worksheets"],
+      ["vq-frames", "Frames"],
+      ["vq-logs", "Platform logs"],
+      ["vq-notebooks", "Final submissions"],
+      ["vq-cross", "Across sources"],
+      ["vq-limits", "Study limitations"],
+      ["vq-hf", "Published datasets"],
+    ];
+    const sourceCards = [
+      ["Worksheets", "Handwritten answers on the instructional worksheets.", "Each extracted response against the original page.", "A matching reading is not a grade."],
+      ["Screen-recording frames", "Selected moments from the two CODAP sessions.", "The researcher inspected the extracted images.", "Inspection is not an independent label check."],
+      ["CODAP platform logs", "Named actions the software recorded.", "Rows were mapped to pseudonyms and the totals reconciled.", "A logged action is not an intention."],
+      ["Final Python submissions", "The file handed in at the end of the unit.", "Saved cells, text, and output were read.", "The files were not run again."],
+    ];
+    const verifyRows = [
+      ["Worksheets", "Every extracted response was compared with the handwritten page. The researcher reports that the reading matched in every case.", "The transcription matches the page. The check does not grade the answer, and it does not confirm a later score."],
+      ["Screen-recording frames", "The researcher inspected the extracted images.", "The images were reviewed. That review does not independently validate the behaviour label. No second coder is stored, so no agreement statistic is available. The completed inspection still stands."],
+      ["CODAP platform logs", "Rows were mapped to pseudonyms, and the kept rows were reconciled with the day totals.", "The file records software events. It does not record what the learner intended."],
+      ["Final submissions", "Saved cells, text, and output were read.", "The inspection records what the file contains. It is not a fresh run of the submitted notebook."],
+    ];
+    const fr = Q && Q.frames;
+    const nb = Q && Q.notebooks;
+    const tri = Q && Q.triangulation;
+    const day = (d) => (Q && Q.logs.rows_by_day[d]) || 0;
+    const drop = (d) => (Q && Q.logs.excluded_unmatched_by_day[d]) || 0;
+    const session1 = day("2026-04-21") - drop("2026-04-21");
+    const session2 = day("2026-04-28") - drop("2026-04-28");
+    const practice = Q ? Q.logs.kept_rows - session1 - session2 : 0;
+    const familyOrder = ["rubric", "rule", "mixed", "consistency"];
+    const familyName = { rubric: "Rubric", rule: "Rule", mixed: "Rubric and rule", consistency: "Consistency" };
+    const familyMeans = {
+      rubric: "A rubric applied by the model.",
+      rule: "A fixed rule applied after the reading.",
+      mixed: "Rubric items and rule checks in one worksheet. Not one combined mark.",
+      consistency: "Whether the written tree agrees with itself. There is no single correct tree.",
+    };
+    const familyRows = familyOrder.map((id) => {
+      const row = (Q && Q.worksheets.by_family || []).find((item) => item.family === id) || {};
+      return { cells: [h(familyName[id]), h((row.worksheets || []).join(", ")), num(row.scored_items || 0), h(familyMeans[id])] };
+    });
+    const scoredItems = familyRows.length && Q ? familyOrder.reduce((sum, id) => sum + (((Q.worksheets.by_family || []).find((item) => item.family === id) || {}).scored_items || 0), 0) : 0;
+    const coverageGroups = [];
+    (Q && Q.worksheets.by_worksheet || []).filter((w) => w.family !== "not_used").forEach((w) => {
+      const last = coverageGroups[coverageGroups.length - 1];
+      if (last && last.n === w.students_in_score_summary) last.codes.push(w.worksheet);
+      else coverageGroups.push({ n: w.students_in_score_summary, codes: [w.worksheet] });
+    });
+    const earlyCodes = ["WS1", "WS3", "WS4", "WS5", "WS6", "WS7", "WS10", "WS12"];
+    const missingSets = earlyCodes.map((code) => STUDENTS.filter((s) => !(C.ws[s] && C.ws[s][code] && C.ws[s][code].ocr)).join("|"));
+    const sameGap = missingSets.length > 0 && missingSets.every((row) => row === missingSets[0]);
+    const taskLabel = {
+      load: "Data table loaded", explore: "Table summary", notes: "Notes on the table", target: "Target recorded",
+      question: "Written question", split: "Train/test split", fitted: "Tree fitted", depth_table: "Depth-search table",
+      drawing: "Tree drawing", reflection: "Written reflection",
+    };
+    const taskOrder = ["load", "explore", "notes", "target", "question", "split", "fitted", "depth_table", "drawing", "reflection"];
+    const taskRows = nb ? taskOrder.filter((id) => id in nb.task_found).map((id) => ({ cells: [h(taskLabel[id] || id), `${num(nb.task_found[id])} of ${num(nb.submissions)}`] })) : [];
+    const cardHtml = sourceCards.map(([title, what, checked, limit]) => `<article class="src-card"><h3>${h(title)}</h3><p class="src-what">${h(what)}</p><dl><div><dt>Checked</dt><dd>${h(checked)}</dd></div><div><dt>Limit</dt><dd>${h(limit)}</dd></div></dl></article>`).join("");
+    const limits = [
+      ["One cohort", "Fifteen pseudonymised participants. The cohort cannot stand for pre-service teachers in general."],
+      ["Incomplete coverage", "Files are not present for every participant at every stage. A missing file is not a confirmed absence and not a score of zero."],
+      ["Sampled frames", "Frames are selected moments, not a continuous record of the recording."],
+      ["No second coder", "No agreement statistic is available for the behaviour labels. The researcher’s image inspection remains the completed visual check."],
+      ["Notebooks were not rerun", "Saved output was read as stored. It was not produced again by running the files."],
+      ["No causal claim", "An association across sources does not establish a cause or a learning gain."],
+    ];
+    return `<div class="page ref-page">${docShell("limitations", `
+      <h1>Data Quality and Limitations</h1>
+      <p class="lead">Four sources were collected and checked. A check establishes what that source can support. It does not, by itself, validate a score, a behaviour label, or a learning gain. Calculated comparisons are on <a href="#/docs/evaluation">Evaluation and validation</a>.</p>
+      <nav class="jump" aria-label="On this page">${jumps.map(([id, label]) => `<a href="#/docs/limitations/${id}">${h(label)}</a>`).join("")}</nav>
+
+      <h2 id="vq-sources">Four sources</h2>
+      <div class="src-grid">${cardHtml}</div>
+
+      <h2 id="vq-review">Researcher verification</h2>
+      ${table([{ t: "Source" }, { t: "What was checked" }, { t: "What the check establishes" }], verifyRows.map((row) => ({ cells: row.map(h) })), { cls: "vq vq-stack", labels: true })}
+
+      <h2 id="vq-worksheets">Worksheets</h2>
+      ${flow([["Collect", "Scanned pages"], ["Read", "Handwriting in known areas"], ["Check the reading", "Researcher, against the page"], ["Score", "Rubric or rule"]])}
+      ${Q ? table([{ t: "Worksheets" }, { t: "Published readings", num: 1 }], coverageGroups.map((group) => ({ cells: [h(group.codes.join(", ")), `${num(group.n)} of ${num(Q.cohort_n)}`] })), { cls: "vq vq-stack", labels: true }) : ""}
+      <p>${sameGap ? "The same participants are missing from each worksheet that is not stored for the full cohort." : "Where a worksheet is not stored for the full cohort, the missing readings are not the same participants on every worksheet."} Worksheet 11 repeats worksheet 14 and is not used as a separate survey. A missing file is left out. It is not entered as zero. Names are in the <a href="#/docs/technical/coverage">coverage table</a>.</p>
+      <p>The score summary contains ${num(scoredItems)} items. The four checks below are different procedures. Their results are not added into one performance score. Full, partial, and no credit for each item are on <a href="#/findings/worksheets">worksheet findings</a>.</p>
+      ${Q ? table([{ t: "Check" }, { t: "Worksheets" }, { t: "Scored items", num: 1 }, { t: "What the stored score is" }], familyRows, { cls: "vq vq-stack", labels: true }) : `<p>The score summary is not loaded.</p>`}
+      <p>${WS11_IS_WS14 ? "The values shown for worksheet 11 match worksheet 14 for every participant, and the zero-confidence score file for worksheet 11 is not used. " : ""}For six participants, a later stage file for worksheet 14 does not repeat the published reading. This site follows the OCR file.</p>
+      <p class="small"><a href="#/methods/worksheets">How worksheet checks are defined</a></p>
+
+      <h2 id="vq-frames">Screen-recording frames</h2>
+      ${flow([["Record", "CODAP session 1 and 2"], ["Select", "Motion, speech, or a gap"], ["Inspect", "Researcher looks at the images"], ["Label", "One behaviour from the codebook"]])}
+      ${fr ? table([
+        { t: "Record" },
+        { t: "Count", num: 1 },
+      ], [
+        { cells: ["Listed frame files, all present and non-empty", num(fr.integrity.frames_listed)] },
+        { cells: ["Files with a behaviour label", num(fr.labels.labelled_frames)] },
+        { cells: ["Session manifests", `${num(fr.integrity.manifests)} of ${num(fr.integrity.possible_slots)}`] },
+        { cells: ["Participants with both sessions", `${num(fr.integrity.participants_with_both_sessions)} of ${num(Q.cohort_n)}`] },
+        { cells: ["Independent annotation file in the active archive", fr.labels.independent_reference_in_active_archive ? "Present" : "None"] },
+      ], { cls: "vq vq-stack", labels: true }) : ""}
+      <p class="small"><a href="#/methods/recordings">How frames are selected and labelled</a> · Label counts are on <a href="#/findings/recordings">screen recording findings</a> and <a href="#/docs/evaluation">Evaluation and validation</a>.</p>
+      ${fr ? `<details class="vq"><summary>Manifest notes</summary>
+        <p>No listed frame identifier is repeated. ${num(fr.integrity.files_present_nonempty)} listed files are present and non-empty. The pixel comparison was not run again.</p>
+        ${fr.integrity.summary_count_mismatches.length ? `<p>On ${num(fr.integrity.summary_count_mismatches.length)} manifests the stored summary count is higher than the listed files. This site uses the listed files. ${fr.integrity.summary_count_mismatches.map((row) => `${h(row.student)}, ${h(row.session)}: summary ${num(row.summary)}, listed ${num(row.listed)}`).join(". ")}.</p>` : ""}
+        ${(fr.labels.unlabelled_sessions || []).length ? `<p>${fr.labels.unlabelled_sessions.map((row) => `${h(row.student)}, ${h(row.session)}: ${num(row.frames)} frames and no behaviour label`).join(". ")}.</p>` : ""}
+        ${(fr.labels.partial_unlabelled || []).length ? `<p>${fr.labels.partial_unlabelled.map((row) => `${h(row.student)}, ${h(row.session)}: ${num(row.unlabelled)} of ${num(row.listed)} frames unlabelled`).join(". ")}.</p>` : ""}
+      </details>` : ""}
+
+      <h2 id="vq-logs">CODAP platform logs</h2>
+      ${flow([["Capture", "A named software action"], ["Map", "Names become pseudonyms"], ["Reconcile", "Rows add up to the day totals"], ["Describe", "Counts, not intentions"]])}
+      ${Q ? table([{ t: "Record" }, { t: "Rows", num: 1 }], [
+        { cells: ["Rows in the source file", num(Q.logs.source_rows)] },
+        { cells: ["Removed: no participant", num(Q.logs.excluded_unmatched)] },
+        { cells: ["Rows kept", num(Q.logs.kept_rows)] },
+        { cells: ["CODAP session 1", num(session1)] },
+        { cells: ["CODAP session 2", num(session2)] },
+        { cells: ["Earlier practice day, kept with the file", num(practice)] },
+      ], { cls: "vq vq-stack", labels: true }) : ""}
+      <p>A kept row is a software event. It does not record what the learner intended. Session 1, session 2, and the practice day sum to the kept rows. Event sequences are on <a href="#/docs/evaluation">Evaluation and validation</a>.</p>
+      <p class="small"><a href="#/methods/logs">How log measures are defined</a></p>
+
+      <h2 id="vq-notebooks">Final submissions</h2>
+      ${flow([["Collect", "The final file"], ["Read", "Cells, text, and saved output"], ["Record", "What the file contains"], ["Leave", "Not run again"]])}
+      ${nb ? `<p>${num(nb.submissions)} final files were inspected: ${num(nb.notebooks)} notebooks and ${num(nb.reports.length)} written report. Saved output was not run again. The table is the record of which traces the inspection found. A missing trace is missing evidence, not a score of zero.</p>
+      ${table([{ t: "Trace in the file" }, { t: "Submissions", num: 1 }], taskRows, { cls: "vq vq-stack", labels: true })}
+      <details class="vq"><summary>File-specific notes</summary>
+        <p>${nb.reports.map(h).join(", ")} submitted the written report, so notebook cell counts do not apply to that file. The traces above were still read where the inspection recorded them.</p>
+        ${nb.files_with_error_output.length ? `<p>Saved error output is present in ${num(nb.files_with_error_output.length)} of ${num(nb.submissions)} files: ${nb.files_with_error_output.map((row) => `${h(row.student)} (${h((row.error_types || []).join(", ") || "error")})`).join("; ")}.</p>` : ""}
+      </details>` : ""}
+      <p class="small"><a href="#/methods/notebooks">How notebooks were inspected</a></p>
+
+      <h2 id="vq-cross">Across sources</h2>
+      <p>A pseudonym links one participant’s worksheet, frames, log, and final file. A session name links frames and the log for CODAP session 1 or CODAP session 2. ${tri ? `${num(tri.sessions_with_both)} of ${num(tri.frame_sessions)} sessions with frames also have a log. ${num(tri.log_sessions)} sessions have a log, so ${num(tri.log_sessions - tri.sessions_with_both)} log session has no frame manifest.` : ""} No frame-by-frame time join is stored, so a frame is not treated as the same moment as a log row.</p>
+
+      <h2 id="vq-limits">Study limitations</h2>
+      <div class="limit-grid">${limits.map(([title, text]) => `<p class="limit-card"><strong>${h(title)}</strong>${h(text)}</p>`).join("")}</div>
+
+      <h2 id="vq-hf">Published datasets</h2>
+      <div class="dataset-grid">
+        <article class="dataset-card">
+          <h3 class="ds-title"><a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-Frames">DecisionTrees-AICFT-Frames</a></h3>
+          <dl class="ds-facts">
+            <dt>Contains</dt><dd>Sampled screen images and metadata. The card declares no train, validation, or test split.</dd>
+            <dt>Licence</dt><dd>CC BY 4.0</dd>
+            <dt>Recommended use</dt><dd>Description of sampled screen moments, using the card’s own account of how frames were chosen.</dd>
+            <dt>Caution</dt><dd>The card states 5,584 behaviour-coded frames. This site lists ${num(fr ? fr.integrity.frames_listed : F.length)} frames from the current manifests, of which ${num(fr ? fr.labels.labelled_frames : 0)} have a label. Neither the card’s coder confidence nor this site’s model confidence is measured accuracy.</dd>
+          </dl>
+        </article>
+        <article class="dataset-card">
+          <h3 class="ds-title"><a href="https://huggingface.co/datasets/dedemerve/DecisionTrees-AICFT-CODAP-Arbor-LogFile">DecisionTrees-AICFT-CODAP-Arbor-LogFile</a></h3>
+          <dl class="ds-facts">
+            <dt>Contains</dt><dd>The CODAP Arbor event table.</dd>
+            <dt>Licence</dt><dd>CC BY 4.0</dd>
+            <dt>Recommended use</dt><dd>Counts of recorded actions under the published action names.</dd>
+            <dt>Caution</dt><dd>The card’s session totals match this archive: ${num(session1)} rows for CODAP session 1 and ${num(session2)} rows for CODAP session 2. A parsed action shows that the software recorded the event. It is not a dataset for predicting a test score, and it does not show what the participant meant to do.</dd>
+          </dl>
+        </article>
+      </div>
+
+      <details class="vq">
+        <summary>Source comparison used by this site</summary>
+        <p>A script re-reads the source files and compares them with this site: a sample of worksheet values, item checks, frame rows, log totals, notebook cell counts, and a privacy scan. That run finished with ${h(Q ? Q.site_fidelity.result : "no result loaded")}. It shows that the site repeats those sources. It does not re-measure the handwriting, and it does not re-measure the behaviour labels.</p>
+        <p><a href="#/methods">Processing</a> · <a href="#/docs/technical">Technical documentation</a></p>
+      </details>
+    `)}</div>`;
+  }
+  function pageGlossary() {
+    const treeFundamentals = [
+      ["Decision tree", "A predictive model that makes decisions by following a sequence of branching rules. Starting at the root, each rule tests whether a value meets a threshold, routing a case left or right until it reaches a leaf that gives the prediction. In this project students built trees to classify food items as recommended or not recommended."],
+      ["Classification", "A task in which each case is assigned to one of a fixed set of categories, called classes. In this project the two classes are “recommended” and “not recommended”. A decision tree that performs classification is called a classification tree."],
+      ["Model", "A representation of a pattern in data used to make predictions about new cases. In this archive “model” usually refers to a decision tree that a student has built and submitted for evaluation."],
+      ["Node, root node, leaf", "A node is any decision point in a tree. The root node is the first and topmost decision point. A leaf is a terminal node with no further splits; it gives the final prediction. In this project leaf labels show whether food is recommended or not recommended."],
+      ["Split", "A single decision rule that divides cases into two groups based on whether a feature value meets a threshold. Choosing a feature and a threshold defines one split."],
+      ["Feature, predictor", "A measurable characteristic used as input to a model. In this project features are the nutritional values on the food cards, such as fat or energy. The terms feature, predictor, and variable are often used interchangeably, though their precise meanings can vary by context."],
+      ["Target", "The variable the model is built to predict. In this project the target is whether a food item is recommended or not recommended. Also called the dependent variable or outcome."],
+      ["Threshold", "A numerical cut-off used in a decision rule. In the rule “fat ≤ 8 g”, the threshold is 8: items at or below 8 g go to the left branch; items above go to the right."],
+    ];
+    const evaluation = [
+      ["Accuracy", "The proportion of predictions that are correct over the evaluated cases. If a tree classifies 90 of 100 items correctly, its accuracy is 90%. Accuracy is calculated over a defined set of cases, usually the test data."],
+      ["Misclassification rate", "The proportion of predictions that are incorrect; the complement of accuracy (1 − accuracy). A misclassification rate of 10% means 1 in 10 predictions is wrong."],
+      ["TP, TN, FP, FN", "Four counts that describe how a model’s predictions compare with actual outcomes. A true positive (TP) is a case the model correctly predicts as the positive class. A true negative (TN) is a case correctly predicted as the negative class. A false positive (FP) is a case incorrectly predicted as positive. A false negative (FN) is a case incorrectly predicted as negative."],
+      ["Confusion matrix", "A table that arranges the four prediction outcomes—TP, TN, FP, and FN—showing at a glance where a model is correct and where it errs. Rows represent actual classes; columns represent predicted classes."],
+      ["Sensitivity", "The proportion of actual positive cases that the model correctly identifies: TP ÷ (TP + FN). High sensitivity means few genuine positives are missed. Sensitivity is different from accuracy, which covers all predictions regardless of class."],
+      ["Overfitting", "A model that has learned the specific details of its training data so closely that it does not generalise well to new data. An overfitted tree may score high accuracy on training data but perform worse on the test set."],
+      ["Training and test data", "The training data are used to build the model. The test data are kept separate and used only to measure performance on unseen cases; they play no part in building the model. In this project students compared training and test accuracy to detect overfitting."],
+    ];
+    const researchData = [
+      ["Screen recording", "A video file that captures everything displayed on a participant’s screen during an activity, along with audio. Students recorded their screens during each CODAP Arbor session in this project."],
+      ["Session", "One period of work by a student on a given date. In this archive each student has records from up to two CODAP Arbor sessions."],
+      ["Frame", "A single still image extracted from a screen recording at a moment of interest, such as when the screen changes or when speech occurs. Frames are not taken at fixed intervals. A frame represents one moment; it is not the full recording."],
+      ["Episode", "A labelled stretch of a screen recording during which a student is engaged in a related sequence of activity, such as building or evaluating a tree. Each episode has a start time, an end time, and a category."],
+      ["Behavioural code", "A category from the codebook assigned to a frame to describe what a student appears to be doing at that moment. Ten behaviour codes and three abstain codes are used in this project, for example building a tree or evaluating a model."],
+      ["Platform log", "A time-stamped record of actions taken in CODAP Arbor during a session, such as adding a predictor, changing a threshold, or submitting results. Log data allow behaviour to be measured without watching the recordings."],
+      ["CODAP Arbor", "A browser-based learning tool in which students explore data and build decision trees by dragging variables into a tree interface. During this project it recorded a time-stamped entry for each platform action, including every tree submission."],
+    ];
+    const computational = [
+      ["Language model", "A computational system that can read, describe, and interpret written or visual content. In this project a language model read handwritten worksheet responses and described screen frames, always working within researcher-defined instructions and output formats."],
+      ["Retrieval-augmented generation (RAG)", "A method that first retrieves passages from a corpus and then asks a language model to generate from those passages. This archive does not do that. Rubrics and examples are written into the prompt, and the page or frame is supplied directly. No retrieval metric was calculated."],
+      ["Rubric", "A set of predefined criteria used to evaluate student responses, specifying what counts as a full, partial, or missing answer. In this project rubrics were used alongside the language model to score worksheet responses that require interpretation."],
+      ["Codebook", "A document that defines the behaviour categories that can be assigned to a screen-recording frame, together with the criteria for choosing one category over another. The codebook was developed from human-coded recordings before being used to guide the language model."],
+    ];
+    const privacyTerms = [
+      ["Pseudonym", "An alternative identifier assigned to a participant in place of their real name. In this archive all students are referred to by pseudonyms. Pseudonymisation reduces identifiability but does not constitute complete anonymisation, as contextual details in the data could potentially still identify an individual."],
+    ];
+    const techTerms = [
+      ["OCR / HTR", "Optical character recognition (OCR) reads printed text from images; handwriting text recognition (HTR) reads handwritten text. Both were used to extract student answers from scanned worksheets."],
+      ["Diarization", "Separating an audio recording into segments by speaker. Used here to distinguish teacher and student speech in screen recordings."],
+      ["VOTAT", "“Vary one thing at a time”: between two model submissions, the log shows either an attribute placement or a threshold change, and not both. The count describes the recorded sequence. It does not establish that the learner intended to experiment systematically."],
+      ["Emit", "Submit a tree’s results in CODAP Arbor. Each submission records the tree’s accuracy, depth, target, and TP / TN / FP / FN counts."],
+      ["Log–video alignment", "Matching platform log events to screen-recording frames by timestamp. In the 2026 data this alignment is not recorded at the individual-frame level."],
+      ["SHA-256", "A hash function that produces a fixed-length fingerprint for a file. Two files with the same SHA-256 value have identical contents."],
+      ["Parquet", "A column-oriented file format used for the analysis tables in this archive. Readable with Python (pandas, polars) or R."],
+      ["AI-CFT", "UNESCO’s AI Competency Framework for Teachers. Codes such as LO3.2.1 label the competencies mapped in this project."],
+    ];
+    const tr = [["Enerji", "Energy"], ["Yağ", "Fat"], ["Doymuş yağ", "Saturated fat"], ["Karbonhidrat", "Carbohydrate"], ["Şeker", "Sugar"], ["Tuz", "Salt"], ["Tavsiye edilebilir", "Recommended"], ["Tavsiye edilemez / edilmez", "Not recommended"], ["Nesne", "Object"], ["Özellik", "Feature"], ["Değişken", "Variable"], ["Etiket", "Label"], ["Değer", "Value"], ["Eşik değer", "Threshold value"], ["Hasta / sağlıklı", "Sick / healthy"], ["Hayatta / öldü", "Survived / died"], ["Eğitim / test", "Training / test"], ["(bos)", "Blank"]];
+    const mkTable = (rows) => table([{ t: "Term" }, { t: "Meaning" }], rows.map(([a, b]) => ({ cells: [`<b>${h(a)}</b>`, h(b)] })));
+    return `<div class="page">${docShell("glossary", `
+      <h1>Glossary</h1>
+      <p class="lead">Terms used on this site, grouped by topic.</p>
+      <nav class="jump" aria-label="On this page">
+        <a href="#g-tree">Decision trees</a>
+        <a href="#g-eval">Evaluation</a>
+        <a href="#g-data">Research data</a>
+        <a href="#g-methods">Methods</a>
+        <a href="#g-privacy">Privacy</a>
+        <a href="#g-tr">Turkish words</a>
+      </nav>
+      <h2 id="g-tree">Decision tree fundamentals</h2>
+      ${mkTable(treeFundamentals)}
+      <h2 id="g-eval">Model evaluation</h2>
+      ${mkTable(evaluation)}
+      <h2 id="g-data">Research data and behavioural analysis</h2>
+      ${mkTable(researchData)}
+      <h2 id="g-methods">Computational methods</h2>
+      ${mkTable(computational)}
+      <h2 id="g-privacy">Privacy</h2>
+      ${mkTable(privacyTerms)}
+      <h2 id="g-tr">Turkish words in student answers</h2>
+      ${table([{ t: "Turkish" }, { t: "English" }], tr.map(([a, b]) => ({ cells: [`<span class="orig">${h(a)}</span>`, h(b)] })))}
+      ${tech("Technical terms", mkTable(techTerms))}`)}</div>`;
+  }
+  function coverageTable() {
+    const tick = (on) => on ? '<span class="yes" title="Stored">✓</span>' : '<span class="na">·</span>';
+    const head = [{ t: "Student" }]
+      .concat(C.worksheets.map((w) => ({ t: w.code })))
+      .concat(SESS.map((s) => ({ t: SESS_NAME[s.id] })))
+      .concat([{ t: "Notebook" }]);
+    const rows = STUDENTS.map((s) => ({
+      cells: [h(s)]
+        .concat(C.worksheets.map((w) => tick(!!(C.ws[s][w.code] && C.ws[s][w.code].ocr))))
+        .concat(SESS.map((ss) => tick(!!(C.sessions[s][ss.id] && C.sessions[s][ss.id].manifest))))
+        .concat([tick(!!(C.notebooks[s] && C.notebooks[s].file))]),
+    }));
+    return table(head, rows, { cls: "coverage" });
+  }
+  function pageTechnical() {
+    const inv = Object.assign({}, C.inventory);
+    // The Python-session screen recordings are not part of this archive.
+    inv.folders = inv.folders.filter((f) => !/Colab Python Screen Recordings/.test(f.folder));
+    inv.file_count = sum(inv.folders.map((f) => f.files));
+    inv.total_bytes = sum(inv.folders.map((f) => f.bytes));
+    return `<div class="page wide">${docShell("technical", `
+      <h1>Technical documentation</h1>
+      <p class="lead">For researchers who want to trace values back to the project files. How each source was read is in <a href="#/methods">Processing</a>. How those readings were checked is in <a href="#/docs/limitations">Data Quality and Limitations</a>.</p>
+      <nav class="jump" aria-label="On this page">
+        <a href="#/docs/technical/rebuild">Rebuilding the site</a>
+        <a href="#/docs/technical/folders">Raw data folders</a>
+        <a href="#/docs/technical/tables">Analysis tables</a>
+        <a href="#/docs/technical/class-data">Class datasets</a>
+        <a href="#/docs/technical/coverage">Coverage by student</a>
+        <a href="#/docs/technical/access">Access</a>
+      </nav>
+      <h2 id="rebuild">Rebuilding the site</h2>
+      <p><code>python3 mmla_explorer/build_site_data.py</code> reads the project files and writes the site data. <code>python3 mmla_explorer/test_site_data.py</code> re-reads the sources and compares them with the site. Last build: ${h(C.built_at.replace("T", " "))}.</p>
+      <h2 id="folders">Raw data folders</h2>
+      <p>From <code>${h(inv.source)}</code> (${h(inv.generated_at.slice(0, 10))}): ${num(inv.file_count)} files, ${bytes(inv.total_bytes)}. The Python-session screen recordings are left out.</p>
+      ${table([{ t: "Folder" }, { t: "Files", num: 1 }, { t: "Size", num: 1 }, { t: "Types" }], inv.folders.map((f) => ({ cells: [`<code>${h(f.folder)}</code>`, num(f.files), bytes(f.bytes), h(Object.entries(f.ext).map(([e, n]) => `${e} ${n}`).join(", "))] })))}
+      <h2 id="tables">Analysis tables</h2>
+      <h3>Session exports</h3>
+      ${table([{ t: "Level" }, { t: "File" }, { t: "Contents" }], [
+        { cells: ["Session", "<code>*_session_ml_features.parquet</code>", "One row per session with yes/no process features."] },
+        { cells: ["Episode", "<code>*_episodes.parquet</code>", "Stretches of related activity with start, end, category and assistance."] },
+        { cells: ["Episode × code", "<code>*_episode_process_codes.parquet</code>", "Each episode and process code: observed or not, with evidence counts."] },
+      ])}
+      <p class="small">Location: <code>training_datasets/2026/&lt;student&gt;/&lt;session&gt;/exports/tabular/</code>.</p>
+      <h3>Site tables</h3>
+      <p>The tables behind this site. Column definitions stay closed until you open them.</p>
+      ${siteTableDictionaries()}
+      <h2 id="class-data">Class datasets</h2>
+      <p>The class datasets (food data, Xeno, Titanic and the lizard data) are not stored as separate files in the project folder. The food data exists only inside the students' saved CODAP documents, and those copies differ because students filtered or edited cases. They are therefore not offered here as a single download.</p>
+      <h2 id="coverage">Coverage by student</h2>
+      ${coverageTable()}
+      <p class="small">A tick means a file is stored. Notebook is the final homework file. Marco’s final submission is a written report, so that cell is empty.</p>
+      <h2 id="access">Access</h2>
+      <p>All tables use pseudonyms only. They still contain student work, so sharing beyond the research team should follow the project's data protection rules (<code>DATA_PROTECTION.md</code> in the repository). The original Parquet tables stay in the repository and are described in the <a href="#/docs/technical">technical documentation</a>.</p>`)}</div>`;
+  }
+
+  // ------------------------------------------------------------------ 05 Findings
+  function findingsCrumb(title) {
+    return `<p class="kicker">Findings &amp; Research Insights</p>${crumbs([["Findings", "#/findings"], [title]])}`;
+  }
+  function relatedCollected(items) {
+    return `<h2>Related collected data</h2><ul class="guide">${items.map(([href, label, note]) => `<li><a href="${href}">${label}</a><span>${note}</span></li>`).join("")}</ul>`;
+  }
+  function pageFindings() {
+    const cards = [
+      ["Worksheet findings", "Extracted responses, item scores, and worksheet summaries. A stored score is a pipeline result, not a reviewed conclusion about learning.", "#/findings/worksheets", "Explore worksheet findings"],
+      ["Screen recording findings", "Coded behaviour on each participant’s session frames. A label names what is visible. It does not name what the participant understood.", "#/findings/recordings", "Explore screen recording findings"],
+      ["Platform log findings", "Recorded actions in CODAP Arbor, including model attempts. A log does not show what a participant understood.", "#/findings/logs", "Explore platform log findings"],
+      ["Python notebook findings", "What the inspection found in the final homework files. Pipeline rubric points are not a reviewed grade.", "#/findings/notebooks", "Explore Python notebook findings"],
+    ];
+    return `<div class="page find-page">
+      ${crumbs([["Findings"]])}
+      <h1>Findings &amp; Research Insights</h1>
+      <p class="lead">Explore the findings derived from the worksheets, screen-recording frames, platform logs, and Python notebooks collected during the learning activities.</p>
+      <div class="find-grid">
+        ${cards.map(([title, text, href, action]) => `<a href="${href}"><h2>${title}</h2><p>${text}</p><span class="find-go">${action}</span></a>`).join("")}
+      </div>
+      <section class="find-profiles">
+        <h2>Student profiles</h2>
+        <p>Explore each participant’s research profile, bringing together the available evidence from worksheets, screen recordings, platform logs, and Python notebooks.</p>
+        <a class="find-profile" href="#/findings/participants">
+          <h3>Student profiles</h3>
+          <p>${STUDENTS.length} pseudonyms. Each profile brings together worksheet scores, extracted frames, class-session logs, and the final Python assignment. These summaries describe the available records. They are not learning outcomes.</p>
+          <span class="find-go">Open student profiles</span>
+        </a>
+      </section>
+    </div>`;
+  }
+  function pageFindingWorksheets() {
+    if (window.WorksheetFindings) return window.WorksheetFindings.index();
+    return `<div class="page"><h1>Worksheet findings</h1><p>The findings script did not load.</p></div>`;
+  }
+  function pageFindingRecordings(q) {
+    if (window.RecordingFindings) return window.RecordingFindings.page(q || {});
+    return `<div class="page"><h1>Screen recording findings</h1><p>The findings script did not load.</p></div>`;
+  }
+  function pageFindingLogs() {
+    return `<div class="page wide">${findingsCrumb("Platform log findings")}
+      <h1>Platform log findings</h1>
+      <p class="lead">CODAP Arbor writes a time-stamped line when it records an action. These summaries describe those lines for the two class sessions.</p>
+      ${logFindingsSection()}
+      ${relatedCollected([["#/explore/logs", "Platform logs", "Example records and the public log file. The full log stays with the collected data."]])}
+    </div>`;
+  }
+  function pageFindingNotebooks() {
+    const body = window.NotebookFindings
+      ? window.NotebookFindings.page()
+      : `<p class="lead">The findings script did not load.</p>`;
+    return `<div class="page wide find-page">${findingsCrumb("Python notebook findings")}
+      <h1>Python notebook findings</h1>
+      ${body}
+      ${relatedCollected([["#/explore/notebooks", "Python notebooks", "The guided notebook, the final homework instructions, the lizard dataset, and the student submissions."]])}
+    </div>`;
+  }
+
+  // ------------------------------------------------------------------ router
+  function parse() {
+    const raw = location.hash.replace(/^#\/?/, "");
+    const [path, query] = raw.split("?");
+    const parts = path.split("/").filter(Boolean).map(decodeURIComponent);
+    const q = {};
+    (query || "").split("&").filter(Boolean).forEach((kvp) => { const [k, v] = kvp.split("="); q[k] = decodeURIComponent(v || ""); });
+    return { parts, q, query };
+  }
+  // Links from earlier versions of the site.
+  const LEGACY = { how: "methods", students: "findings/participants", worksheets: "explore/worksheets", recordings: "explore/recordings", frames: "explore/frames", logs: "explore/logs", notebooks: "explore/notebooks", data: "docs/technical", notes: "docs/limitations", glossary: "docs/glossary", student: "explore/student", worksheet: "explore/worksheet", "explore/worksheet": "explore/worksheet" };
+  function scrollToId(id) {
+    const anchor = id && document.getElementById(id);
+    if (!anchor || !anchor.scrollIntoView) return;
+    anchor.scrollIntoView();
+    const head = document.querySelector(".masthead");
+    const h = head ? head.getBoundingClientRect().height : 0;
+    if (h) window.scrollBy(0, -(h + 12));
+  }
+  function route() {
+    const { parts, q, query } = parse();
+    if (LEGACY[parts[0]]) {
+      const rest = parts.slice(1).join("/");
+      location.replace("#/" + LEGACY[parts[0]] + (rest ? "/" + rest : "") + (query ? "?" + query : ""));
+      return;
+    }
+    const top = parts[0] || "";
+    let html, after = null;
+    if (top === "") html = pageOverview();
+    else if (top === "collected") html = pageCollected();
+    else if (top === "review") { html = window.FrameReview.page(); after = () => window.FrameReview.bind(); }
+    else if (top === "colab-review") { html = window.ColabReview ? window.ColabReview.page() : "<p>Colab review not loaded.</p>"; after = () => { if (window.ColabReview) window.ColabReview.bind(); }; }
+    else if (top === "findings") {
+      const sub = parts[1] || "";
+      if (sub === "participants" || sub === "student-profiles") html = pageStudents();
+      else if (sub === "worksheets") {
+        html = parts[2] && window.WorksheetFindings
+          ? window.WorksheetFindings.page(parts[2], q)
+          : pageFindingWorksheets();
+        after = () => { if (window.WorksheetFindings) window.WorksheetFindings.bind(); if (parts[2]) loadLabelingTable(parts[2]); };
+      }
+      else if (sub === "recordings" || sub === "frames") {
+        html = pageFindingRecordings(q);
+        after = () => { if (window.RecordingFindings) window.RecordingFindings.bind(); };
+      }
+      else if (sub === "logs") html = pageFindingLogs();
+      else if (sub === "notebooks") {
+        html = pageFindingNotebooks();
+        after = () => { if (window.NotebookFindings) window.NotebookFindings.bind(); };
+      }
+      else html = pageFindings();
+    }
+    else if (top === "methods") { html = pageMethods(); after = () => { const a = parts[1] && document.getElementById("m-" + parts[1]); if (a && a.scrollIntoView) a.scrollIntoView(); bindMethods(); }; }
+    else if (top === "explore") {
+      const sub = parts[1] || "";
+      if (sub === "students" || sub === "") { location.replace("#/findings/participants" + (query ? "?" + query : "")); return; }
+      if (sub === "student") html = pageStudent(parts[2], parts[3]);
+      else if (sub === "worksheets") {
+        if (parts[2]) {
+          const wsCode = parts[2];
+          html = pageWorksheet(wsCode, q);
+          after = () => { bindRespFilter(); loadLabelingTable(wsCode); };
+        } else { html = pageWorksheets(); after = bindWsSearch; }
+      }
+      else if (sub === "worksheet") {
+        const wsCode = parts[2];
+        html = pageWorksheet(wsCode, q);
+        after = () => { bindRespFilter(); loadLabelingTable(wsCode); };
+      }
+      else if (sub === "recordings") { html = pageRecordings(q); after = bindFrameBrowse; }
+      else if (sub === "frames") { location.replace("#/explore/recordings" + (query ? "?" + query : "")); return; }
+      else if (sub === "logs") html = pageLogs();
+      else if (sub === "notebooks") { html = pageNotebooks(); after = bindNotebookSearch; }
+      else html = `<div class="page"><h1>Page not found</h1><p><a href="#/">Go to the overview</a></p></div>`;
+    } else if (top === "docs") {
+      const sub = parts[1] || "";
+      if (!sub || sub === "downloads" || sub === "data") {
+        location.replace("#/docs/technical" + (query ? "?" + query : ""));
+        return;
+      }
+      if (sub === "limitations" || sub === "data-quality") {
+        html = pageLimitations();
+        after = () => scrollToId(parts[2]);
+      }
+      else if (sub === "glossary") html = pageGlossary();
+      else if (sub === "evaluation") {
+        html = `<div class="page ref-page">${docShell("evaluation", window.EvaluationPage ? window.EvaluationPage.body() : "<h1>Evaluation and validation</h1><p>The evaluation page did not load.</p>")}</div>`;
+        after = () => scrollToId(parts[2]);
+      }
+      else if (sub === "technical") {
+        html = pageTechnical();
+        after = () => scrollToId(parts[2]);
+      } else html = `<div class="page"><h1>Page not found</h1><p><a href="#/docs/limitations">Data Quality and Limitations</a> · <a href="#/docs/glossary">Glossary</a> · <a href="#/docs/technical">Technical documentation</a></p></div>`;
+    } else html = `<div class="page"><h1>Page not found</h1><p><a href="#/">Go to the overview</a></p></div>`;
+    app.innerHTML = html;
+    tip.style.display = "none";
+    const navKey = top === "explore" ? ({ student: "participants", worksheet: "worksheets" }[parts[1]] || parts[1] || "")
+      : top === "findings" ? ({ worksheets: "findings-worksheets", recordings: "findings-recordings", frames: "findings-recordings", logs: "findings-logs", notebooks: "findings-notebooks", participants: "participants" }[parts[1]] || "findings")
+      : top === "docs" ? ((parts[1] === "data-quality" ? "limitations" : parts[1]) || "docs") : top;
+    const COLLECTED_DATA_KEYS = new Set(["collected", "worksheets", "recordings", "frames", "logs", "notebooks"]);
+    document.querySelectorAll(".nav-link, .top-link").forEach((a) => {
+      let on = false;
+      const r = a.dataset.r;
+      if (a.classList.contains("top-link")) {
+        if (r === "") on = top === "";
+        else if (r === "collected") on = top === "collected" || (top === "explore" && COLLECTED_DATA_KEYS.has(navKey));
+        else if (r === "methods") on = top === "methods";
+        else if (r === "findings") on = top === "findings" || navKey === "participants";
+        else if (r === "docs") on = top === "docs";
+        else on = r === navKey;
+      } else if (r === "collected") on = top === "collected";
+      else if (r === "methods") on = top === "methods";
+      else if (r === "docs") on = top === "docs" && !parts[1];
+      else on = a.dataset.r === navKey || (top === "docs" && r === navKey);
+      a.classList.toggle("active", on);
+      if (on && a.classList.contains("top-link")) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+    document.querySelectorAll(".nav-group").forEach((g) => { if (g.querySelector(".nav-link.active")) g.open = true; });
+    closeNav();
+    window.scrollTo(0, 0);
+    if (after) after();
+    const finder = document.getElementById("finder");
+    if (finder) {
+      const find = (exact) => { const v = finder.value.trim().toLowerCase(); return v && STUDENTS.find((x) => exact ? x.toLowerCase() === v : x.toLowerCase().startsWith(v)); };
+      finder.addEventListener("change", () => { const s = find(true); if (s) location.hash = `#/explore/student/${s}`; });
+      finder.addEventListener("keydown", (e) => { if (e.key === "Enter") { const s = find(false); if (s) location.hash = `#/explore/student/${s}`; } });
+    }
+    const h1 = app.querySelector("h1");
+    document.title = (top && h1 ? h1.textContent + " · " : "") + "Decision Tree Learning Archive";
+  }
+  app.addEventListener("click", (e) => {
+    if (e.target.closest("a, button, summary, input, select, [data-fid]")) return;
+    const tr = e.target.closest("tr[data-href]");
+    if (tr) location.hash = tr.getAttribute("data-href");
+  });
+  window.addEventListener("hashchange", route);
+  route();
+})();

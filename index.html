@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Decision Tree Learning Archive</title>
+<meta name="description" content="A browsable record of the 2026 decision tree unit: worksheets, screen recordings, platform logs and notebooks, and how each was processed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=472b497">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23142B4A'/%3E%3Cpath d='M16 6v8M16 14l-7 6M16 14l7 6M9 20v6M23 20v6' stroke='%23DCE8F5' stroke-width='2.4' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="wordmark" href="#/">
+      <svg class="mark" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4v8M16 12l-8 7M16 12l8 7M8 19v8M24 19v8" stroke="#DCE8F5" stroke-width="2.2" fill="none"/></svg>
+      <span class="wordmark-text">Decision Tree Learning Archive</span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a class="top-link" href="#/" data-r="">Overview</a>
+      <div class="top-drop">
+        <a class="top-link" href="#/collected" data-r="collected">Collected Data</a>
+        <div class="top-menu">
+          <a class="nav-link" href="#/explore/worksheets" data-r="worksheets">Worksheets</a>
+          <a class="nav-link" href="#/explore/recordings" data-r="recordings">Screen recording frames</a>
+          <a class="nav-link" href="#/explore/logs" data-r="logs">Platform logs</a>
+          <a class="nav-link" href="#/explore/notebooks" data-r="notebooks">Python notebooks</a>
+        </div>
+      </div>
+      <div class="top-drop">
+        <a class="top-link" href="#/review" data-r="review">Human review</a>
+        <div class="top-menu">
+          <a class="nav-link" href="#/review" data-r="review">Frame coding review</a>
+          <a class="nav-link sub" href="#/colab-review" data-r="colab-review">Colab scoring review</a>
+        </div>
+      </div>
+      <div class="top-drop">
+        <a class="top-link" href="#/methods" data-r="methods">Processing</a>
+        <div class="top-menu">
+          <a href="#/methods/worksheets">Worksheet processing</a>
+          <a href="#/methods/recordings">Frame selection and coding</a>
+          <a href="#/methods/logs">Platform logs</a>
+          <a href="#/methods/notebooks">Notebook inspection</a>
+        </div>
+      </div>
+      <div class="top-drop">
+        <a class="top-link" href="#/findings" data-r="findings">Findings</a>
+        <div class="top-menu">
+          <a class="nav-link" href="#/findings/worksheets" data-r="findings-worksheets">Worksheet findings</a>
+          <a class="nav-link" href="#/findings/recordings" data-r="findings-recordings">Screen recording findings</a>
+          <a class="nav-link" href="#/findings/logs" data-r="findings-logs">Platform log findings</a>
+          <a class="nav-link" href="#/findings/notebooks" data-r="findings-notebooks">Python notebook findings</a>
+          <a class="nav-link" href="#/findings/participants" data-r="participants">Student profiles</a>
+        </div>
+      </div>
+      <div class="top-drop">
+        <a class="top-link" href="#/docs/technical" data-r="docs">Reference</a>
+        <div class="top-menu">
+          <a class="nav-link" href="#/docs/limitations" data-r="limitations">Data Quality and Limitations</a>
+          <a class="nav-link" href="#/docs/evaluation" data-r="evaluation">Evaluation and validation</a>
+          <a class="nav-link" href="#/docs/glossary" data-r="glossary">Glossary</a>
+          <a class="nav-link" href="#/docs/technical" data-r="technical">Technical documentation</a>
+        </div>
+      </div>
+    </nav>
+    <form class="hdr-search" role="search" id="hdrSearchForm">
+      <label class="sr-only" for="hdrSearch">Find a student</label>
+      <input id="hdrSearch" type="search" list="hdrStudents" placeholder="Find a student" autocomplete="off">
+      <datalist id="hdrStudents"></datalist>
+    </form>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme">Theme</button>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navDrawer" aria-label="Open section directory">
+      <span class="burger-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="burger-label">Sections</span>
+    </button>
+  </div>
+</header>
+
+<div class="nav-overlay" id="navOverlay" hidden></div>
+<nav class="nav-drawer" id="navDrawer" aria-label="Section directory" aria-hidden="true" inert>
+  <div class="nav-drawer-inner">
+    <details class="nav-group" open>
+      <summary>Overview</summary>
+      <a class="nav-link" href="#/" data-r="">Archive overview</a>
+    </details>
+    <details class="nav-group" id="navData">
+      <summary>Collected Data</summary>
+      <a class="nav-link" href="#/collected" data-r="collected">All collected data</a>
+<a class="nav-link sub" href="#/explore/recordings" data-r="recordings">Screen recording frames</a>
+      <a class="nav-link sub" href="#/explore/logs" data-r="logs">Platform logs</a>
+      <a class="nav-link sub" href="#/explore/notebooks" data-r="notebooks">Python notebooks</a>
+    </details>
+    <details class="nav-group" id="navProcess">
+      <summary>Data Processing &amp; Analysis</summary>
+      <a class="nav-link" href="#/methods" data-r="methods">Processing workflow</a>
+      <a class="nav-link sub" href="#/methods/worksheets">Worksheet processing</a>
+      <a class="nav-link sub" href="#/methods/recordings">Frame selection and coding</a>
+      <a class="nav-link sub" href="#/methods/logs">Platform logs</a>
+      <a class="nav-link sub" href="#/methods/notebooks">Notebook inspection</a>
+    </details>
+    <details class="nav-group" id="navValidation">
+      <summary>Validation</summary>
+      <a class="nav-link sub" href="#/review" data-r="review">Frame coding review</a>
+      <a class="nav-link sub" href="#/colab-review" data-r="colab-review">Colab scoring review</a>
+    </details>
+    <details class="nav-group" id="navFindings">
+      <summary>Findings &amp; Research Insights</summary>
+      <a class="nav-link sub" href="#/findings/worksheets" data-r="findings-worksheets">Worksheet findings</a>
+      <a class="nav-link sub" href="#/findings/recordings" data-r="findings-recordings">Screen recording findings</a>
+      <a class="nav-link sub" href="#/findings/logs" data-r="findings-logs">Platform log findings</a>
+      <a class="nav-link sub" href="#/findings/notebooks" data-r="findings-notebooks">Python notebook findings</a>
+      <a class="nav-link sub" href="#/findings/participants" data-r="participants">Student profiles</a>
+    </details>
+    <details class="nav-group" id="navRef">
+      <summary>Reference &amp; Documentation</summary>
+      <a class="nav-link" href="#/docs/limitations" data-r="limitations">Data Quality and Limitations</a>
+      <a class="nav-link" href="#/docs/evaluation" data-r="evaluation">Evaluation and validation</a>
+      <a class="nav-link" href="#/docs/glossary" data-r="glossary">Glossary</a>
+      <a class="nav-link" href="#/docs/technical" data-r="technical">Technical documentation</a>
+    </details>
+    <div class="nav-footer" id="navFooter"></div>
+  </div>
+</nav>
+
+<main id="app" tabindex="-1"><p class="empty">Loading data…</p></main>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script src="data/core.js?v=472b497"></script>
+<script src="data/score_extra.js?v=472b497"></script>
+<script src="data/worksheet_docs.js?v=472b497"></script>
+<script src="data/worksheet_files.js?v=472b497"></script>
+<script src="data/frames.js?v=472b497"></script>
+<script src="data/labeled_frames.js?v=472b497"></script>
+<script src="data/notebooks_public.js?v=472b497"></script>
+<script src="data/ws12_review.js?v=472b497"></script>
+<script src="data/structural_stopping.js?v=472b497"></script>
+<script src="assets/ws12_review.js?v=472b497"></script>
+<script src="assets/structural_stopping.js?v=472b497"></script>
+<script src="data/agreement_summary.js?v=472b497"></script>
+<script src="assets/worksheet_findings.js?v=472b497"></script>
+<script src="assets/recording_findings.js?v=472b497"></script>
+<script src="data/notebook_evidence.js?v=472b497"></script>
+<script src="data/rubric_results.js?v=472b497"></script>
+<script src="assets/notebook_findings.js?v=472b497"></script>
+<script src="data/colab_review_items.js?v=472b497"></script>
+<script src="assets/colab_review.js?v=472b497"></script>
+<script src="data/quality_audit.js?v=472b497"></script>
+<script src="data/evaluation.js?v=472b497"></script>
+<script src="assets/evaluation_page.js?v=472b497"></script>
+<script src="assets/student_profiles.js?v=472b497"></script>
+<script src="assets/frame_review.js?v=472b497"></script>
+<script src="assets/app.js?v=472b497"></script>
+</body>
+</html>

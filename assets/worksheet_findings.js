@@ -1,0 +1,1607 @@
+/* Worksheet findings.
+   Counts are derived from window.CORE (built from extraction and scoring files).
+   Item notes and blocked flags come from window.SCORE_EXTRA.
+   A scoring file that is missing, blocked, or all zeros with confidence 0 is not a score.
+   WS11, WS12 and WS13 boolean checks in the site data are copied from item scores
+   (see read_stage_as_ocr in build_site_data.py) and are not shown as a second method.
+   Participants with a published score but no usable extraction are listed and left
+   out of credit summaries, so a missing extraction is not counted as incorrect. */
+(function (root) {
+  "use strict";
+
+  const GROUPS = [
+    { label: "Conceptual foundations", codes: ["WS1"] },
+    { label: "Manual classification", codes: ["WS3", "WS4", "WS5"] },
+    { label: "Building decision trees", codes: ["WS6", "WS7", "WS10", "WS12"] },
+    { label: "CODAP Arbor sessions", codes: ["WS13", "WS14", "WS15"] },
+    { label: "Feedback survey", codes: ["WS11"] },
+  ];
+  const INFO = {
+    WS1: { title: "Parts of a nutrition table", topic: "Name the parts of a nutrition table: object, feature, value and label." },
+    WS3: { title: "Apply a given rule", topic: "Apply a given rule (fat ≤ 8.0 g) to food cards and write each comparison." },
+    WS4: { title: "Search for a fat threshold", topic: "Search for the fat threshold that misclassifies the fewest of the 11 food cards." },
+    WS5: { title: "Try another feature", topic: "Choose another feature, try threshold values and record the resulting counts." },
+    WS6: { title: "Document a two-level tree", topic: "Document a two-level decision tree built from the 11 food cards." },
+    WS7: { title: "Paths as if-then rules", topic: "Read the paths A, B and C of a tree and write them as if-then rules." },
+    WS10: { title: "Energy thresholds", topic: "Test thresholds between neighbouring energy values and find the one with the fewest errors." },
+    WS11: { title: "Feedback survey", topic: "Feedback on the lesson series (survey items and open questions)." },
+    WS12: { title: "Decision tree documentation (training and test)", topic: "Document a two-level decision tree by recording the root variable, thresholds, node counts and misclassified items. The rubric says there is no single correct tree." },
+    WS13: { title: "Decision trees for classification", topic: "Choosing variables, reading a tree, TP/FP, sensitivity, misclassification rate and overfitting." },
+    WS14: { title: "Diagnosis game with trees (Xeno)", topic: "Diagnose an alien disease with a tree in CODAP Arbor. Each student receives a randomly generated case set." },
+    WS15: { title: "Titanic data in CODAP Arbor", topic: "Build a tree on a Titanic training sample, then check it on a test sample." },
+  };
+  const ALIAS = {
+    WS5: { WS5_row1: "trials[1]", WS5_row2: "trials[2]", WS5_row3: "trials[3]", WS5_B25: "final_decision_raw" },
+    WS6: {
+      WS6_root_feature:   "tree_structure.depth_0.parsed_feature",
+      WS6_root_threshold: "tree_structure.depth_0.left_threshold_value",
+      WS6_inner_feature:  "tree_structure.depth_1.left_child.parsed_feature",
+    },
+    WS10: { WS10_B8: "optimal_threshold" },
+    WS12: {
+      WS12_R1: "WS12_root_feature",
+      WS12_R2: "WS12_root_left_threshold",
+      WS12_R3: "WS12_left_child_label",
+      WS12_R4: "WS12_right_child_label",
+      WS12_R5: "WS12_left_child_rec",
+      WS12_R6: "WS12_train_errors",
+      WS12_R7: "WS12_test_errors",
+    },
+  };
+  // Researcher overrides for display correctness.
+  // acceptTokens: at least one token must appear (case-insensitive, OR logic).
+  // acceptPattern: regex that must match (applied after acceptTokens when both set → AND).
+  // requireToken: a literal string that must also be present (AND with the above).
+  const ITEM_OVERRIDES = {
+    WS1_B4: {
+      expected: "Özellik / Karakteristik / Değişken",
+      acceptTokens: ["özellik", "karakteristik", "değişken"],
+    },
+    // WS3: comparison justification items — accept any answer that shows a numeric
+    // comparison with the threshold 8 (e.g. "23,0 ≥ 8,0", "0,2 ≤ 8", "> 8,0 g").
+    WS3_B2: {
+      expected: "23 > 8  (patlamış mısır yağı 23 g > eşik 8 g)",
+      acceptPattern: "[≥≤><]",
+      requireToken: "8",
+    },
+    WS3_B4: {
+      expected: "0,2 < 8  (elma yağı 0,2 g < eşik 8 g)",
+      acceptPattern: "[≥≤><]",
+      requireToken: "8",
+    },
+    WS3_B6: {
+      expected: "14 > 8  (patates kızartması yağı 14 g > eşik 8 g)",
+      acceptPattern: "[≥≤><]",
+      requireToken: "8",
+    },
+  };
+  const SCORE_DERIVED = new Set(["WS11", "WS12", "WS13"]);
+
+  const h = (v) => String(v == null ? "" : v)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  const num = (v) => {
+    if (v == null || Number.isNaN(Number(v))) return "–";
+    const n = Number(v);
+    return n.toLocaleString("en-GB", { maximumFractionDigits: 2 });
+  };
+  const clip = (v, n) => {
+    const s = String(v == null ? "" : v).replace(/\s+/g, " ").trim();
+    if (!s) return "";
+    return s.length <= n ? s : s.slice(0, n - 1) + "…";
+  };
+  const mean = (xs) => xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null;
+  const median = (xs) => {
+    if (!xs.length) return null;
+    const a = xs.slice().sort((x, y) => x - y);
+    const i = Math.floor(a.length / 2);
+    return a.length % 2 ? a[i] : (a[i - 1] + a[i]) / 2;
+  };
+  const share = (part, whole) => {
+    if (!whole) return "–";
+    const v = 100 * part / whole;
+    return (Math.abs(v - Math.round(v)) < 0.05 ? String(Math.round(v)) : v.toFixed(1)) + "%";
+  };
+  const pctText = (part, whole) => {
+    if (!whole) return "–";
+    const v = 100 * part / whole;
+    const shown = Math.abs(v - Math.round(v)) < 0.05 ? String(Math.round(v)) : v.toFixed(1);
+    return part + " of " + whole + " (" + shown + "%)";
+  };
+
+  function valueKind(v) {
+    if (v == null || v === "" || v === "(not_extracted)") return "missing";
+    if (v === "(bos)") return "blank";
+    return "text";
+  }
+  function sheetOf(core, code) {
+    return (core.worksheets || []).find((w) => w.code === code) || null;
+  }
+  function infoOf(w) {
+    const extra = INFO[w.code] || {};
+    const printed = w.printed_title ? String(w.printed_title).replace(/^Worksheet \d+:\s*/, "") : "";
+    return { title: extra.title || printed || w.code, topic: extra.topic || "" };
+  }
+  function rubricItems(w) {
+    return (w.rubric_data && w.rubric_data.items) || {};
+  }
+  function itemMax(w, item) {
+    if (item && typeof item.max_score === "number") return item.max_score;
+    const rub = rubricItems(w)[item.item];
+    if (!rub) return null;
+    if (typeof rub.max_score === "number") return rub.max_score;
+    const rules = rub.scoring_rules || {};
+    const nums = Object.keys(rules).map(Number).filter((n) => !Number.isNaN(n));
+    return nums.length ? Math.max.apply(null, nums) : null;
+  }
+  function creditOf(score, max) {
+    if (score == null || typeof score !== "number") return "unscored";
+    if (max == null || typeof max !== "number") return "scored";
+    if (score <= 0) return "none";
+    if (score + 1e-9 >= max) return "full";
+    return "partial";
+  }
+  function creditLabel(kind) {
+    return { full: "Full credit", partial: "Partial credit", none: "No credit", scored: "Scored", unscored: "Not scored" }[kind] || kind;
+  }
+  function responsesFor(ocr, code, itemId) {
+    if (!ocr) return [];
+    const alt = (ALIAS[code] || {})[itemId];
+    return ocr.responses.filter((r) => {
+      if (r.item === itemId || r.path === itemId || String(r.path).indexOf(itemId + ".") === 0) return true;
+      if (alt && (r.item === alt || r.path === alt || String(r.path).indexOf(alt + ".") === 0)) return true;
+      return false;
+    });
+  }
+  function extractionState(ocr) {
+    if (!ocr || !ocr.responses) return "absent";
+    if (!ocr.responses.length) return "failed";
+    const kinds = ocr.responses.map((r) => valueKind(r.value));
+    if (kinds.every((k) => k === "missing")) return "failed";
+    return "present";
+  }
+  function sameResponses(a, b) {
+    if (!a || !b || a.responses.length !== b.responses.length) return false;
+    const mb = new Map(b.responses.map((r) => [r.path, String(r.value)]));
+    return a.responses.every((r) => mb.get(r.path) === String(r.value));
+  }
+  function methodOf(w) {
+    const policy = w.rubric_data && w.rubric_data.scoring_policy;
+    if (w.code === "WS11") return { id: "unused", label: "Not used as scored evidence" };
+    if (policy && policy.basis === "internal_consistency") return { id: "consistency", label: "Consistency check" };
+    if (w.code === "WS5" || w.code === "WS6" || w.code === "WS7" || w.code === "WS10") return { id: "rule", label: "Rule-based check" };
+    if (w.code === "WS14" || w.code === "WS15") return { id: "mixed", label: "Rubric scoring and rule-based checks" };
+    return { id: "rubric", label: "Rubric scoring" };
+  }
+  function criterionText(item) {
+    if (!item) return "";
+    if (item.expected_answer) return String(item.expected_answer);
+    if (item.student_specific) return "The rubric marks this item as student-specific. It is not compared with one fixed answer.";
+    const rules = item.scoring_rules || {};
+    const full = rules["1.0"] || rules["1"] || rules[1] || rules["2.0"] || rules["2"];
+    if (typeof full === "string") return full;
+    if (full && full.condition) return String(full.condition);
+    return item.target_logic || item.example_answer || item.note || item.prompt || "";
+  }
+  function ruleTextForScore(item, score) {
+    if (!item || score == null || !item.scoring_rules) return "";
+    const key = Object.keys(item.scoring_rules).find((k) => Number(k) === Number(score));
+    if (!key) return "";
+    const rule = item.scoring_rules[key];
+    if (typeof rule === "string") return rule;
+    return (rule && rule.condition) || "";
+  }
+  function itemTitle(w, id) {
+    const item = rubricItems(w)[id];
+    if (item && item.label) return item.label;
+    if (item && item.printed_question != null) {
+      const q = String(item.printed_question);
+      return /^\d+$/.test(q) ? "Item " + q : q;
+    }
+    const row = /_row(\d+)$/i.exec(id);
+    if (row) return "Row " + row[1];
+    const blank = /(?:^|_)B(\d+)$/i.exec(id);
+    if (blank) return "Item " + blank[1];
+    const ws13map = {DT_A_Q1:"A1",DT_A_Q2:"A2",DT_A_Q3:"A3",DT_A_Q4:"A4",DT_B_Q1:"B1",DT_B_Q2:"B2",DT_B_Q3:"B3",DT_B_Q4:"B4",DT_C_Q1:"C1",DT_C_Q2:"C2",DT_C_Q3:"C3",DT_D_Q1:"D1",DT_D_Q2:"D2",DT_D_Q3:"D3",DT_D_Q4:"D4",DT_E_TP:"EA",DT_E_FP:"EB",DT_E_Q1:"E1",DT_E_Q2:"E2",DT_E_Q3:"E3",DT_E_Q4:"E4",DT_F_Q1:"F1",DT_F_Q2:"F2",DT_G_Q1:"G1",DT_G_Q2:"G2"};
+    if (ws13map[id]) return ws13map[id];
+    const tree = /^DT_([A-G])_(.+)$/.exec(id);
+    if (tree) {
+      const q = /^Q(\d+)$/.exec(tree[2]);
+      return "Tree " + tree[1] + ", " + (q ? "question " + q[1] : tree[2].replace(/_/g, " "));
+    }
+    let s = id;
+    if (w && w.code && s.indexOf(w.code + "_") === 0) s = s.slice(w.code.length + 1);
+    s = s.replace(/_/g, " ");
+    return s ? s.charAt(0).toUpperCase() + s.slice(1) : id;
+  }
+  function sortKey(w, id) {
+    const item = rubricItems(w)[id];
+    if (item && item.label) return item.label;
+    if (item && item.printed_question != null && !Number.isNaN(Number(item.printed_question))) return Number(item.printed_question);
+    const m = /(\d+)/.exec(id);
+    return m ? Number(m[1]) : 10000;
+  }
+
+  function scoreState(rec) {
+    if (rec.scoring) return "published";
+    const stage = rec.stage && rec.stage.scoring;
+    if (stage && stage.all_zero_with_zero_confidence) return "excluded_zero";
+    if (stage) return "unpublished";
+    return "none";
+  }
+
+  function collectRules(core, code, students) {
+    if (SCORE_DERIVED.has(code)) {
+      return { derived: true, rows: [] };
+    }
+    const buckets = new Map();
+    function add(id, family, correct, label, detail) {
+      if (!buckets.has(id)) buckets.set(id, { id, family, label: label || id, pass: 0, fail: 0, open: 0, n: 0, detail: "" });
+      const row = buckets.get(id);
+      row.n += 1;
+      if (correct === true) row.pass += 1;
+      else if (correct === false) row.fail += 1;
+      else row.open += 1;
+      if (detail && !row.detail) row.detail = detail;
+      if (label && row.label === id) row.label = label;
+    }
+    students.forEach((s) => {
+      const ocr = core.ws[s][code] && core.ws[s][code].ocr;
+      if (!ocr) return;
+      (ocr.checks || []).forEach((c) => {
+        const detail = c.detail || {};
+        const bits = [];
+        if (detail.student_value != null && detail.canonical != null) bits.push("One recorded value is " + detail.student_value + " against reference " + detail.canonical + ".");
+        if (c.note) bits.push(String(c.note));
+        if (c.flag) bits.push("Flag: " + c.flag);
+        const id = String(c.check);
+        const structural = id.indexOf("xeno_consistency") === 0 || id.indexOf("titanic_numeric") === 0 || id.indexOf("trials") === 0;
+        const ruleItem = id.indexOf("item_checks") === 0 && (code === "WS5" || code === "WS6" || code === "WS7" || code === "WS10");
+        add(c.check, structural || ruleItem || id.indexOf("item_checks") !== 0 ? "rule" : "boolean", c.correct, detail.check || c.check, bits.join(" "));
+      });
+      (ocr.other_validation || []).forEach((row) => {
+        const path = row.path || "";
+        const value = row.value;
+        const boolPath = path.indexOf(".is_") !== -1 || path.indexOf("is_") === 0 || path === "final_decision_logical";
+        const trap = path.indexOf("student_recognized_contradiction") !== -1 && (value === true || value === false || value === "True" || value === "False");
+        if (boolPath && (typeof value === "boolean" || value == null)) add(path, "rule", value, path, "");
+        else if (trap) add(path, "rule", value === true || value === "True", path, "Whether the stored check says the contradiction was recognised.");
+      });
+    });
+    return { derived: false, rows: Array.from(buckets.values()) };
+  }
+
+  function analyzeWorksheet(core, extra, docs, code) {
+    const w = sheetOf(core, code);
+    const students = core.students || [];
+    const info = w ? infoOf(w) : { title: code, topic: "" };
+    const method = w ? methodOf(w) : { id: "unknown", label: "Not recorded" };
+    const notes = (extra && extra.notes) || {};
+    const status = (extra && extra.status) || {};
+    const overrides = ((docs && docs.overrides) || []).filter((o) => o.worksheet === code);
+    const overrideKey = new Set(overrides.map((o) => o.student + "|" + o.item));
+    const duplicateOf = code === "WS11" && students.length && students.every((s) => sameResponses(core.ws[s].WS11 && core.ws[s].WS11.ocr, core.ws[s].WS14 && core.ws[s].WS14.ocr))
+      ? "WS14" : "";
+
+    const people = students.map((s) => {
+      const rec = (core.ws[s] && core.ws[s][code]) || { ocr: null, scoring: null, stage: null };
+      const ocr = rec.ocr;
+      const state = extractionState(ocr);
+      let nText = 0, nBlank = 0, nMissing = 0;
+      if (ocr) ocr.responses.forEach((r) => {
+        const k = valueKind(r.value);
+        if (k === "text") nText += 1;
+        else if (k === "blank") nBlank += 1;
+        else nMissing += 1;
+      });
+      const scoring = scoreState(rec);
+      const blocked = status[s] && status[s][code];
+      const published = scoring === "published" && rec.scoring;
+      const inCohort = !duplicateOf && published && state === "present";
+      const items = published ? rec.scoring.items || [] : [];
+      const tallies = { full: 0, partial: 0, none: 0, scored: 0 };
+      let review = 0;
+      items.forEach((it) => {
+        const kind = creditOf(typeof it.score === "number" ? it.score : null, itemMax(w, it));
+        if (tallies[kind] != null) tallies[kind] += 1;
+        if (it.review) review += 1;
+      });
+      return {
+        id: s,
+        state: state,
+        nText: nText,
+        nBlank: nBlank,
+        nMissing: nMissing,
+        nFields: ocr ? ocr.responses.length : 0,
+        scoring: scoring,
+        blocked: blocked && blocked.blocked ? blocked.blocked_reason || "blocked" : "",
+        blockedNote: blocked && !blocked.blocked ? blocked.blocked_reason || "" : "",
+        inCohort: inCohort,
+        total: published ? (rec.scoring.total != null ? rec.scoring.total : rec.scoring.total_score) : null,
+        max: published ? (rec.scoring.max != null ? rec.scoring.max : rec.scoring.max_score) : null,
+        percent: published ? (rec.scoring.percent != null ? rec.scoring.percent : null) : null,
+        source: published ? rec.scoring.source : (rec.stage && rec.stage.scoring && rec.stage.scoring.source) || (ocr && ocr.source) || "",
+        ocrSource: ocr ? ocr.source : "",
+        full: published ? tallies.full : null,
+        partial: published ? tallies.partial : null,
+        none: published ? tallies.none : null,
+        scoredOnly: published ? tallies.scored : null,
+        review: published ? review : 0,
+        stageNote: rec.stage && rec.stage.scoring && rec.stage.scoring.note || "",
+        stageExtract: rec.stage && rec.stage.extraction ? rec.stage.extraction.status : "",
+      };
+    });
+
+    const cohort = people.filter((p) => p.inCohort);
+    const scoreIds = [];
+    students.forEach((s) => {
+      const sc = core.ws[s][code] && core.ws[s][code].scoring;
+      if (!sc) return;
+      (sc.items || []).forEach((it) => { if (scoreIds.indexOf(it.item) === -1) scoreIds.push(it.item); });
+    });
+    scoreIds.sort((a, b) => {
+      const ka = sortKey(w || { rubric_data: null }, a);
+      const kb = sortKey(w || { rubric_data: null }, b);
+      const aStr = typeof ka === "string";
+      const bStr = typeof kb === "string";
+      if (aStr && bStr) return String(ka).localeCompare(String(kb)) || a.localeCompare(b);
+      if (aStr) return -1;
+      if (bStr) return 1;
+      return ka - kb || a.localeCompare(b);
+    });
+    const aligned = !duplicateOf && scoreIds.length > 0 && scoreIds.every((id) => students.some((s) => responsesFor(core.ws[s][code] && core.ws[s][code].ocr, code, id).length));
+
+    const itemRows = duplicateOf ? [] : scoreIds.map((id) => {
+      const rub = rubricItems(w)[id];
+      let full = 0, partial = 0, none = 0, scored = 0, review = 0, numeric = [];
+      const texts = [];
+      let blankScore = 0;
+      cohort.forEach((p) => {
+        const sc = core.ws[p.id][code].scoring;
+        const it = (sc.items || []).find((x) => x.item === id);
+        if (!it || typeof it.score !== "number") return;
+        const max = itemMax(w, it);
+        const kind = creditOf(it.score, max);
+        if (kind === "full") full += 1;
+        else if (kind === "partial") partial += 1;
+        else if (kind === "none") none += 1;
+        else scored += 1;
+        if (it.review) review += 1;
+        numeric.push(it.score);
+        if (aligned) {
+          const vals = responsesFor(core.ws[p.id][code].ocr, code, id);
+          const kinds = vals.map((r) => valueKind(r.value));
+          if (kinds.length && kinds.every((k) => k !== "text")) blankScore += 1;
+          vals.forEach((r) => { if (valueKind(r.value) === "text") texts.push(String(r.value)); });
+        }
+      });
+      const denom = full + partial + none + scored;
+      let frequent = null;
+      if (aligned && texts.length) {
+        const counts = new Map();
+        texts.forEach((t) => {
+          const clean = t.replace(/\s+/g, " ").trim();
+          if (clean && clean.length <= 48) counts.set(clean, (counts.get(clean) || 0) + 1);
+        });
+        let best = "", n = 0;
+        counts.forEach((c, t) => { if (c > n) { best = t; n = c; } });
+        if (best && n >= 2) frequent = { text: best, n: n, denom: texts.length };
+      }
+      return {
+        id: id,
+        title: itemTitle(w, id),
+        criterion: clip(criterionText(rub), 180),
+        max: cohort.length ? itemMax(w, { item: id, max_score: null }) : itemMax(w, { item: id }),
+        full: full, partial: partial, none: none, scored: scored, review: review,
+        denom: denom,
+        mean: mean(numeric),
+        blankScore: blankScore,
+        frequent: frequent,
+      };
+    });
+
+    const fields = [];
+    const seen = new Set();
+    if (!duplicateOf) students.forEach((s) => {
+      const ocr = core.ws[s][code] && core.ws[s][code].ocr;
+      if (!ocr) return;
+      ocr.responses.forEach((r) => { if (!seen.has(r.path)) { seen.add(r.path); fields.push(r.path); } });
+    });
+    const fieldRows = fields.map((path) => {
+      let text = 0, blank = 0, missing = 0, absent = 0;
+      students.forEach((s) => {
+        const ocr = core.ws[s][code] && core.ws[s][code].ocr;
+        if (!ocr) { absent += 1; return; }
+        const hits = ocr.responses.filter((r) => r.path === path);
+        if (!hits.length) { missing += 1; return; }
+        const k = valueKind(hits[0].value);
+        if (k === "text") text += 1;
+        else if (k === "blank") blank += 1;
+        else missing += 1;
+      });
+      return { path: path, text: text, blank: blank, missing: missing, absent: absent };
+    });
+
+    const rules = duplicateOf ? { derived: true, rows: [] } : collectRules(core, code, students);
+    const totals = cohort.map((p) => p.total).filter((v) => typeof v === "number");
+    const maxes = Array.from(new Set(cohort.map((p) => p.max).filter((v) => typeof v === "number")));
+    let sumMismatch = [];
+    cohort.forEach((p) => {
+      const sc = core.ws[p.id][code].scoring;
+      const sum = (sc.items || []).reduce((a, it) => a + (typeof it.score === "number" ? it.score : 0), 0);
+      if (typeof sc.total_score === "number" && Math.abs(sum - sc.total_score) > 1e-6) sumMismatch.push(p.id);
+    });
+    const reviewItems = cohort.reduce((a, p) => a + p.review, 0);
+    const scoredItems = cohort.reduce((a, p) => a + (p.full || 0) + (p.partial || 0) + (p.none || 0) + (p.scoredOnly || 0), 0);
+    const cohortOverrides = overrides.filter((o) => cohort.some((p) => p.id === o.student));
+
+    const limits = [];
+    const noFile = people.filter((p) => p.state === "absent").map((p) => p.id);
+    const failed = people.filter((p) => p.state === "failed").map((p) => p.id);
+    const excluded = people.filter((p) => p.scoring === "excluded_zero").map((p) => p.id);
+    const unpublished = people.filter((p) => p.scoring === "unpublished").map((p) => p.id);
+    const noScore = people.filter((p) => p.scoring === "none").map((p) => p.id);
+    const leftOut = people.filter((p) => p.scoring === "published" && !p.inCohort).map((p) => p.id);
+    if (duplicateOf) {
+      limits.push("For all " + students.length + " participants, every extracted path and value in the WS11 site record matches that participant’s WS14 extraction. Those values are not counted as WS11 survey answers.");
+      if (excluded.length) limits.push(excluded.length + " WS11 scoring files set every item to 0 with confidence 0. Those files are not published as scores" + (noScore.length ? ". No scoring file: " + noScore.join(", ") + "." : "."));
+      else if (noScore.length) limits.push("No scoring file for " + noScore.join(", ") + ".");
+      limits.push("The WS11 rubric names survey and closed items, including item identifiers that do not match the repeated WS14 fields. No published WS11 score is on file.");
+    } else {
+      if (noFile.length) limits.push("No extraction file for " + noFile.join(", ") + ".");
+      if (failed.length) limits.push("Extraction file has no readable value for " + failed.join(", ") + ".");
+      if (excluded.length) limits.push(excluded.join(", ") + ": the scoring file sets every item to 0 with confidence 0, so those numbers are not used as scores.");
+      people.filter((p) => p.blocked).forEach((p) => {
+        limits.push(p.id + " scoring file is blocked (" + p.blocked + "). It is not included in the summaries.");
+      });
+      if (leftOut.length) limits.push(leftOut.join(", ") + " have a published score and no usable extraction. Those scores are listed with the participants and left out of the credit summaries, so the zeros are not counted as incorrect answers.");
+      if (unpublished.length) limits.push("A scoring file exists but is not in the published score table for " + unpublished.join(", ") + ".");
+      if (noScore.length) limits.push("No scoring file for " + noScore.join(", ") + ".");
+      if (!aligned && scoreIds.length && fields.length) limits.push("Scoring item identifiers and extracted field identifiers differ, so a score is not placed on an individual blank.");
+      if (reviewItems) limits.push(reviewItems + " of " + scoredItems + " item scores in the summary have review set to true. The flag asks for a person to look. The file does not record a later decision.");
+      if (sumMismatch.length) limits.push("The stored total differs from the sum of item scores for " + sumMismatch.join(", ") + ". The table shows the stored total.");
+    }
+    const sharedBlocked = people.map((p) => p.blockedNote).filter(Boolean);
+    if (!duplicateOf && sharedBlocked.length === students.length && sharedBlocked.every((x) => x === sharedBlocked[0])) {
+      const reason = String(sharedBlocked[0]).replace(/\.$/, "");
+      limits.push("Every scoring file records blocked as false and blocked_reason as “" + reason + "”. The published scores are still listed.");
+    }
+
+    const hasCredit = itemRows.some((r) => r.full || r.partial || r.none);
+    return {
+      code: code,
+      title: info.title,
+      topic: info.topic,
+      method: method,
+      pipeline: w && w.pipeline || "",
+      rubricPath: w && w.rubric || "",
+      rubricNote: w && w.rubric_data && (w.rubric_data.note || (w.rubric_data.scoring_policy && (w.rubric_data.scoring_policy.principle || w.rubric_data.scoring_policy.basis)) || "") || "",
+      policy: w && w.rubric_data && w.rubric_data.scoring_policy || null,
+      rubricCount: Object.keys(rubricItems(w || {})).length,
+      people: people,
+      cohort: cohort,
+      duplicateOf: duplicateOf,
+      aligned: aligned,
+      items: itemRows,
+      fields: fieldRows,
+      rules: rules,
+      totals: totals,
+      sameMax: maxes.length === 1 ? maxes[0] : null,
+      mean: mean(totals),
+      median: median(totals),
+      min: totals.length ? Math.min.apply(null, totals) : null,
+      maxTotal: totals.length ? Math.max.apply(null, totals) : null,
+      totalsMatch: sumMismatch.length === 0,
+      reviewItems: reviewItems,
+      scoredItems: scoredItems,
+      overrides: overrides,
+      cohortOverrides: cohortOverrides,
+      limits: limits,
+      hasCredit: hasCredit,
+      notes: notes,
+      nStudents: students.length,
+    };
+  }
+
+  function analyze(core, extra, docs) {
+    const codes = (core.worksheets || []).map((w) => w.code);
+    const out = {};
+    codes.forEach((code) => { out[code] = analyzeWorksheet(core, extra, docs, code); });
+    return out;
+  }
+
+  function data() {
+    const core = root.CORE;
+    const extra = root.SCORE_EXTRA || { notes: {}, status: {} };
+    const docs = root.WORKSHEET_DOCS || { worksheets: {}, overrides: [] };
+    return { core: core, extra: extra, docs: docs, all: core ? analyze(core, extra, docs) : {} };
+  }
+
+  function table(head, rows) {
+    const th = head.map((c) => `<th${c.num ? ' class="num"' : ""}>${h(c.t)}</th>`).join("");
+    const body = rows.map((r) => `<tr${r.attrs || ""}>${r.cells.map((c, i) => `<td data-label="${h(head[i].t)}"${head[i].num ? ' class="num"' : ""}>${c}</td>`).join("")}</tr>`).join("");
+    return `<div class="table-wrap"><table class="find-table"><thead><tr>${th}</tr></thead><tbody>${body || `<tr><td colspan="${head.length}">No rows.</td></tr>`}</tbody></table></div>`;
+  }
+  function cards(items, extra) {
+    return `<div class="stat-row cols-4${extra ? " " + extra : ""}">${items.filter(Boolean).map((x) => `<div class="stat-card"><div class="v">${x.v}</div><div class="l">${h(x.l)}</div>${x.d ? `<p class="small">${h(x.d)}</p>` : ""}</div>`).join("")}</div>`;
+  }
+  function crumbs(parts) {
+    const last = parts.length - 1;
+    return `<nav class="crumbs" aria-label="Breadcrumb">${parts.map((p, i) => i === last ? `<span aria-current="page">${h(p[0])}</span>` : `<a href="${h(p[1])}">${h(p[0])}</a><span aria-hidden="true">›</span>`).join("")}</nav>`;
+  }
+  function statusText(p) {
+    if (p.scoring === "published" && p.inCohort) return "Published score, included in the summary";
+    if (p.scoring === "published") return "Published score, excluded from the summary";
+    if (p.scoring === "excluded_zero") return "Scoring file excluded: every item is 0 with confidence 0";
+    if (p.scoring === "unpublished") return "Scoring file not published";
+    return "No scoring file";
+  }
+  function extractText(p) {
+    if (p.state === "absent") return "No extraction file";
+    if (p.state === "failed") return "Extraction file has no readable value";
+    return p.nText + " filled, " + p.nBlank + " blank, " + p.nMissing + " not extracted";
+  }
+
+  function distribution(model) {
+    const counts = new Map();
+    model.cohort.forEach((p) => {
+      if (typeof p.total !== "number") return;
+      const key = String(p.total);
+      counts.set(key, (counts.get(key) || 0) + 1);
+    });
+    const rows = Array.from(counts.entries()).sort((a, b) => Number(a[0]) - Number(b[0]));
+    if (rows.length < 2) return "";
+    return `<h3>Stored totals</h3><p class="small">Each total is the number stored in that participant’s scoring file. The denominator is the ${model.cohort.length} participants included in the summary.</p>`
+      + table([{ t: "Stored total" }, { t: "Participants", num: 1 }, { t: "Share of the summary" }], rows.map(([k, n]) => ({
+        cells: [num(Number(k)) + (model.sameMax != null ? " of " + num(model.sameMax) : ""), num(n), pctText(n, model.cohort.length)],
+      })));
+  }
+
+  function personCells(model, p) {
+    const included = p.inCohort && p.scoring === "published" && typeof p.total === "number";
+    let pctVal = null;
+    if (included && typeof p.max === "number" && p.max > 0) {
+      pctVal = p.percent != null ? p.percent : Math.round(1000 * p.total / p.max) / 10;
+    }
+    const score = pctVal != null
+      ? `<span class="find-pct">${h(pctVal.toFixed(1))}%</span><span class="find-scorebar" aria-hidden="true"><span style="width:${Math.max(0, Math.min(100, pctVal))}%"></span></span>`
+      : "–";
+    const cells = [`<b>${h(p.id)}</b>`, score];
+    if (model.hasCredit) {
+      cells.push(included ? num(p.full) : "–", included ? num(p.partial) : "–", included ? num(p.none) : "–");
+    }
+    return cells;
+  }
+
+  function itemTable(model) {
+    if (!model.items.length) return `<p class="missing-line">No published item scores for this worksheet.</p>`;
+    const credit = model.hasCredit;
+    const head = [{ t: "Item" }].concat(credit
+      ? [{ t: "Full credit", num: 1 }, { t: "Partial credit", num: 1 }, { t: "No credit", num: 1 }]
+      : [{ t: "Scored", num: 1 }]).concat([{ t: "Average score", num: 1 }]);
+    return `<p class="small">Each share uses the included participants who have a numeric score on that item. Full credit means the stored score reached the item maximum. Partial credit is above zero and below that maximum. No credit is a stored zero. A missing score is not counted as no credit.</p>`
+      + table(head, model.items.map((it) => ({
+        attrs: ` data-item="${h(it.id)}" data-label="${h((it.id + " " + it.title + " " + it.criterion).toLowerCase())}"`,
+        cells: [
+          `<b>${h(it.title)}</b>${it.criterion ? `<div class="small">${h(it.criterion)}</div>` : ""}`,
+        ].concat(credit
+          ? [pctText(it.full, it.denom), pctText(it.partial, it.denom), pctText(it.none, it.denom)]
+          : [num(it.denom)]).concat([
+          it.mean == null ? "–" : num(it.mean) + (it.max == null ? "" : " of " + num(it.max)),
+        ]),
+      })));
+  }
+
+  function fieldTable(model) {
+    if (!model.fields.length || model.aligned) return "";
+    return `<h3>Extracted fields</h3><p class="small">These counts describe the extraction only. They are not scores. “Not extracted” includes an empty value and the marker (not_extracted). A missing file is counted on its own.</p>`
+      + table([{ t: "Field" }, { t: "Filled", num: 1 }, { t: "Blank", num: 1 }, { t: "Not extracted", num: 1 }, { t: "No file", num: 1 }],
+        model.fields.map((f) => ({ cells: [`<code>${h(f.path)}</code>`, num(f.text), num(f.blank), num(f.missing), num(f.absent)] })));
+  }
+
+  function ruleTable(model) {
+    const rows = model.rules.rows || [];
+    if (model.rules.derived) {
+      return `<p>Boolean flags for this worksheet in the site data were copied from the item scores (1 or above stored as correct, 0 as not correct, and a partial score left without a verdict). They are not a separate rule-based check, so they are not listed again.</p>`;
+    }
+    if (!rows.length) return `<p class="missing-line">No independent rule-based or boolean check records are in the extraction files.</p>`;
+    const ruleRows = rows.filter((r) => r.family === "rule");
+    const boolRows = rows.filter((r) => r.family !== "rule");
+    const draw = (list, intro) => list.length ? `<p>${intro}</p>` + table(
+      [{ t: "Check" }, { t: "Passed", num: 1 }, { t: "Failed", num: 1 }, { t: "No verdict", num: 1 }],
+      list.map((r) => ({
+        cells: [
+          `<b>${h(clip(r.label, 140))}</b><div class="small"><code>${h(r.id)}</code>${r.detail ? " · " + h(clip(r.detail, 160)) : ""}</div>`,
+          pctText(r.pass, r.n),
+          pctText(r.fail, r.n),
+          r.open ? pctText(r.open, r.n) : "0 of " + r.n,
+        ],
+      }))
+    ) : "";
+    return draw(ruleRows, "Each proportion uses the participants who have that check record as the denominator. A pass is the stored boolean, not a reviewed conclusion about understanding.")
+      + draw(boolRows, "Boolean item checks stored beside the extraction. These are not the rubric scores. A partial score can disagree with the boolean.");
+  }
+
+  function rubricBlock(model, core) {
+    const w = sheetOf(core, model.code);
+    const items = w ? Object.entries(rubricItems(w)) : [];
+    if (!items.length) return `<p class="missing-line">No rubric file is in the site data for this worksheet.</p>`;
+    const policy = model.policy;
+    const policyBits = policy ? Object.entries(policy).filter(([, v]) => typeof v === "string").map(([k, v]) => `<li><b>${h(k)}</b> — ${h(v)}</li>`).join("") : "";
+    return `<p>Rubric items on file: ${num(items.length)}.${model.rubricPath ? ` Source: <code>${h(model.rubricPath)}</code>.` : ""}</p>`
+      + (model.rubricNote ? `<p>${h(clip(model.rubricNote, 500))}</p>` : "")
+      + (policyBits ? `<ul class="scoring-rules">${policyBits}</ul>` : "")
+      + `<h3>Criteria on file</h3>${table(
+        [{ t: "Item" }, { t: "Maximum", num: 1 }, { t: "Criterion on file" }],
+        items.map(([id, item]) => ({
+          cells: [`${h(item.label || itemTitle(w, id))}<div class="small"><code>${h(id)}</code></div>`, item.max_score == null ? "–" : num(item.max_score), h(clip(criterionText(item), 220)) || `<span class="na">–</span>`],
+        }))
+      )}`
+      + (model.totalsMatch && model.cohort.length ? `<p class="small">For every participant in the summary, the stored total equals the sum of that file’s item scores. This page copies the stored total.</p>` : "");
+  }
+
+  function responseBody(ocr, code, itemId) {
+    if (!ocr) return `<p class="missing-line">No extraction file for this participant.</p>`;
+    const vals = responsesFor(ocr, code, itemId);
+    if (!vals.length) return `<p class="missing-line">No extracted field is tied to this item identifier.</p>`;
+    return vals.map((r) => {
+      const k = valueKind(r.value);
+      const label = r.path === itemId ? "" : `<span class="small"><code>${h(r.path)}</code></span> `;
+      if (k === "text") return `<p class="response-text">${label}${h(r.value)}</p>`;
+      if (k === "blank") return `<p class="missing-line">${label}Blank. The extraction records (bos).</p>`;
+      return `<p class="missing-line">${label}Not extracted.</p>`;
+    }).join("");
+  }
+
+  function scoreBody(model, core, docs, person, itemId) {
+    const rec = core.ws[person][model.code];
+    const sc = rec.scoring;
+    const w = sheetOf(core, model.code);
+    if (!sc) {
+      if (person && model.people.find((p) => p.id === person).scoring === "excluded_zero") {
+        return `<p class="missing-line">A scoring file exists and gives every item 0 with confidence 0. Those numbers are not shown as a score.</p>`;
+      }
+      return `<p class="missing-line">No published score for this item.</p>`;
+    }
+    const it = (sc.items || []).find((x) => x.item === itemId);
+    if (!it) return `<p class="missing-line">This item is not in the published scoring file.</p>`;
+    const max = itemMax(w, it);
+    const kind = creditOf(typeof it.score === "number" ? it.score : null, max);
+    const rub = rubricItems(w)[itemId];
+    const rule = ruleTextForScore(rub, it.score);
+    const note = ((model.notes[person] || {})[model.code] || {})[itemId] || "";
+    const ov = (docs.overrides || []).find((o) => o.student === person && o.worksheet === model.code && o.item === itemId);
+    const check = rec.ocr && (rec.ocr.checks || []).find((c) => c.check === "item_checks." + itemId || c.check === itemId);
+    const bits = [`<p><span class="badge">${h(creditLabel(kind))}</span> <strong>${h(it.score)}${max == null ? "" : " of " + h(max)}</strong>`
+      + (it.confidence == null ? "" : ` <span class="small">confidence ${h(it.confidence)}</span>`)
+      + (it.review ? ` <span class="badge badge-flag">Flagged for review</span>` : "")
+      + `</p>`];
+    if (ov) bits.push(`<p class="small">Researcher override recorded. ${h(ov.rationale || "No rationale text in the file.")}</p>`);
+    else if (it.review) bits.push(`<p class="small">The review flag means the pipeline asked for a person to check this item. A later decision is not in the file.</p>`);
+    else bits.push(`<p class="small">Published pipeline score. A researcher decision is not recorded for this item.</p>`);
+    if (rule) bits.push(`<p class="small">Rubric text for this score: ${h(rule)}</p>`);
+    if (note) bits.push(`<p class="small">Note stored on the score: ${h(note)}</p>`);
+    if (check && !SCORE_DERIVED.has(model.code)) {
+      const verdict = check.correct === true ? "passed" : check.correct === false ? "failed" : "no verdict";
+      bits.push(`<p class="small">Separate extraction check: ${h(verdict)}${check.flag ? ". Flag: " + h(check.flag) : ""}. This boolean is not the score above.</p>`);
+    }
+    if (sc.source) bits.push(`<div class="src">${h(sc.source)}</div>`);
+    return bits.join("");
+  }
+
+  function personPanel(model, core, docs, person, selected) {
+    const p = model.people.find((x) => x.id === person);
+    if (!p) return "";
+    const rec = core.ws[person][model.code];
+    let scores = "";
+    if (model.items.length) {
+      scores = model.items.map((it) => `<details class="find-item"><summary><code>${h(it.id)}</code> ${h(it.title)}</summary><div class="tech-body">${model.aligned ? responseBody(rec.ocr, model.code, it.id) : ""}${scoreBody(model, core, docs, person, it.id)}</div></details>`).join("");
+    } else if (!model.duplicateOf) {
+      scores = `<p class="missing-line">No published item scores.</p>`;
+    }
+    let fields = "";
+    if (!model.aligned && rec.ocr) {
+      fields = `<h4>Extracted responses</h4>` + rec.ocr.responses.map((r) => {
+        const k = valueKind(r.value);
+        const body = k === "text" ? h(r.value) : k === "blank" ? "Blank. The extraction records (bos)." : "Not extracted.";
+        return `<details class="find-item"><summary><code>${h(r.path)}</code></summary><div class="tech-body"><p class="${k === "text" ? "response-text" : "missing-line"}">${body}</p></div></details>`;
+      }).join("");
+    }
+    const publishedTotal = p.scoring === "published" && typeof p.total === "number";
+    const pctDisplay = publishedTotal && typeof p.max === "number" && p.max > 0
+      ? (p.percent != null ? p.percent : Math.round(1000 * p.total / p.max) / 10).toFixed(1) + "%"
+      : null;
+    const total = publishedTotal
+      ? `<p>Score: ${pctDisplay != null ? h(pctDisplay) : h(p.total) + (typeof p.max === "number" ? " of " + h(p.max) : "")}${p.inCohort ? "." : " Not included in the credit summary."}</p>`
+      : "";
+    const held = p.scoring === "published" && !p.inCohort
+      ? `<p class="small">These item scores are in the scoring file. They are left out of the credit counts because there is no usable extraction.</p>` : "";
+    return `<article class="find-person" data-person="${h(person)}"${person === selected ? "" : " hidden"}><h3>${h(person)}</h3><p class="small">${h(extractText(p))}. ${h(statusText(p))}.</p>${held}${total}${model.aligned ? "" : (model.items.length && rec.ocr ? `<p class="small">Scores and extracted fields use different identifiers, so they are listed separately.</p>` : "")}${scores}${fields}<p class="small"><a href="#/explore/student/${h(person)}">Student profile</a></p></article>`;
+  }
+
+  function agreementSection() {
+    const ag = root.AGREEMENT_SUMMARY;
+    if (!ag) return "";
+    const fmt1 = (v) => v == null ? "—" : v.toFixed(1);
+    const fmt3 = (v) => v == null ? "—" : v.toFixed(3);
+    const fmtPct = (v) => v == null ? "—" : v.toFixed(1) + "%";
+
+    const classRows = ag.classes.map((c) => ({
+      cells: [h(c.label), fmt3(c.precision), fmt3(c.recall), fmt3(c.f1), String(c.support)],
+    }));
+    classRows.push({
+      attrs: ' class="total-row"',
+      cells: ["<strong>Macro average</strong>", "—", "—", `<strong>${fmt3(ag.macro_f1)}</strong>`, `<strong>${ag.n}</strong>`],
+    });
+    const classTable = table(
+      [{ t: "Class" }, { t: "Precision", num: true }, { t: "Recall", num: true }, { t: "F1", num: true }, { t: "Support", num: true }],
+      classRows
+    );
+
+    const wsRows = ag.by_worksheet.map((w) => {
+      const noteMarker = w.note === "rebuilt_key" ? "†" : w.note === "alignment_policy" ? "‡" : "";
+      return {
+        cells: [
+          `<a href="#/findings/worksheets/${h(w.code)}">${h(w.code)}</a>${noteMarker}`,
+          String(w.n),
+          fmtPct(w.agreement),
+          fmt3(w.kappa),
+          fmt3(w.f1_correct),
+          w.f1_wrong != null ? fmt3(w.f1_wrong) : "—",
+          w.f1_blank != null ? fmt3(w.f1_blank) : "—",
+          fmt3(w.macro_f1),
+        ],
+      };
+    });
+    const wsTable = table(
+      [{ t: "WS" }, { t: "n", num: true }, { t: "Agreement", num: true }, { t: "κ", num: true },
+       { t: "F1 correct", num: true }, { t: "F1 wrong", num: true }, { t: "F1 blank", num: true }, { t: "Macro F1", num: true }],
+      wsRows
+    );
+
+    const exclRows = ag.exclusions.map((e) => ({ cells: [h(e.reason), String(e.n)] }));
+    const exclTable = table([{ t: "Exclusion reason" }, { t: "n", num: true }], exclRows);
+
+    return `
+      <h2>Human–system scoring agreement</h2>
+      <p class="small">Human expert annotations compared against published system scoring decisions across all worksheets. Units with system partial or unknown decisions, human partial credit, or absent worksheet labels were excluded before analysis.</p>
+      <div class="stat-row cols-4">
+        <div class="stat-card"><div class="v">${ag.n.toLocaleString()}</div><div class="l">Scoring units compared</div><p class="small">Retained from ${ag.total_rows.toLocaleString()} total rows (${ag.excluded} excluded)</p></div>
+        <div class="stat-card"><div class="v">${fmtPct(ag.percent_agreement)}</div><div class="l">Percent agreement</div><p class="small">95% CI: ${fmtPct(ag.percent_agreement_ci[0])}–${fmtPct(ag.percent_agreement_ci[1])}</p></div>
+        <div class="stat-card"><div class="v">${fmt3(ag.kappa)}</div><div class="l">Cohen's κ (unweighted)</div><p class="small">95% CI: ${fmt3(ag.kappa_ci[0])}–${fmt3(ag.kappa_ci[1])}</p></div>
+        <div class="stat-card"><div class="v">${fmt3(ag.macro_f1)}</div><div class="l">Macro F1</div><p class="small">Unweighted mean across correct, wrong, blank</p></div>
+      </div>
+      <h3>Class-level metrics</h3>
+      ${classTable}
+      <h3>Per-worksheet agreement</h3>
+      ${wsTable}
+      <p class="small">† Human labels for WS13–WS15 were reconstructed from rubric rules (original answer key unavailable).</p>
+      <p class="small">‡ WS15 agreement reflects an alignment policy: system = blank items recoded as human = blank to remove CODAP formula-content noise.</p>
+      <details>
+        <summary class="small">Exclusion breakdown (${ag.excluded} units excluded from ${ag.total_rows.toLocaleString()} total rows)</summary>
+        ${exclTable}
+      </details>
+      <p class="small">CIs from ${ag.bootstrap_reps.toLocaleString()} student-level cluster bootstrap resamples (seed ${ag.bootstrap_seed}).</p>
+    `;
+  }
+
+  function index() {
+    const pack = data();
+    if (!pack.core) return `<div class="page"><h1>Worksheet findings</h1><p>Data files are missing.</p></div>`;
+    const listed = new Set(GROUPS.flatMap((g) => g.codes));
+    const groups = GROUPS.map((g) => ({ label: g.label, codes: g.codes.filter((c) => pack.all[c]) }));
+    const rest = Object.keys(pack.all).filter((c) => !listed.has(c));
+    if (rest.length) groups.push({ label: "Other recorded worksheets", codes: rest });
+    const body = groups.map((g) => {
+      const cardsHtml = g.codes.map((code) => {
+        const m = pack.all[code];
+        const withFile = m.people.filter((p) => p.state !== "absent").length;
+        const limit = m.limits[0] || "";
+        const blob = `${code} ${m.title} ${m.topic} ${g.label} ${m.method.label}`.toLowerCase();
+        return `<a class="find-ws" href="#/findings/worksheets/${h(code)}" data-code="${h(code)}" data-group="${h(g.label)}" data-title="${h(blob)}">
+          <span class="k">${h(code)}</span>
+          <h3>${h(m.title)}</h3>
+          <p>${h(m.topic)}</p>
+          <dl class="find-facts">
+            <dt>Assessment</dt><dd>${h(m.method.label)}</dd>
+            <dt>Extraction files</dt><dd>${h(withFile)} of ${h(m.nStudents)}</dd>
+          </dl>
+          ${limit ? `<p class="small">${h(limit)}</p>` : ""}
+        </a>`;
+      }).join("");
+      return `<section class="ws-group" data-group-block="${h(g.label)}"><h2>${h(g.label)}</h2><div class="find-ws-grid">${cardsHtml}</div></section>`;
+    }).join("");
+    const chips = ["All"].concat(GROUPS.map((g) => g.label)).map((label, i) =>
+      `<button type="button" class="chip${i === 0 ? " on" : ""}" data-group="${i === 0 ? "" : h(label)}" aria-pressed="${i === 0 ? "true" : "false"}">${h(label)}</button>`).join("");
+    return `<div class="page wide find-page">${crumbs([["Findings", "#/findings"], ["Worksheet findings"]])}
+      <p class="kicker">Findings</p>
+      <h1>Worksheet findings</h1>
+      <p class="lead">Results read from the extracted responses and the published scoring files. A stored score is a pipeline result. It is not a reviewed conclusion about learning.</p>
+      <div class="find-board">
+        <div class="find-tools">
+          <label class="sr-only" for="findSearch">Search worksheets</label>
+          <input type="search" id="findSearch" class="find-query" placeholder="Search by code, title, or method" autocomplete="off">
+          <div class="ws-filters" role="group" aria-label="Filter by worksheet purpose">${chips}</div>
+        </div>
+        <div id="findGroups">${body}</div>
+        <p class="empty" id="findEmpty" hidden>No worksheets match.</p>
+      </div>
+      <h2>Collected materials</h2>
+      <p>Blank worksheets, answer keys, and scanned submissions stay with the collected data. <a href="#/explore/worksheets">Open the worksheet files</a>.</p>
+      ${agreementSection()}
+    </div>`;
+  }
+
+  function methodSentence(model) {
+    if (model.method.id === "consistency") return "The score describes whether the recorded tree agrees with itself. A higher score is not a mark for one correct tree.";
+    if (model.method.id === "rule") return "Each score comes from a rule-based check: a stored value is compared with a fixed rule. A result that passes is not, by itself, evidence that the participant understood the idea.";
+    if (model.method.id === "mixed") return "Some items are scored with a rubric. Separate rules check specific counts or numbers. A rule that passes is not, by itself, evidence of understanding.";
+    return "Each item is scored against a rubric, and those item scores are added. The total describes the published scores. It is not a measure of learning.";
+  }
+
+  function headlineCards(model) {
+    const n = model.cohort.length;
+    const out = [{
+      v: n + " of " + model.nStudents,
+      l: "Participants included",
+      d: "A published score and a response that could be read.",
+    }];
+    if (!n || model.mean == null) return out;
+    if (model.sameMax != null) {
+      const max = model.sameMax;
+      const pct = (v) => Math.round(100 * v / max) + "%";
+      const raw = (v) => num(v) + " / " + num(max);
+      const isConsistency = model.method.id === "consistency";
+      const consistencyNote = " Agreement within the recorded tree, not one correct answer.";
+      out.push(
+        { v: pct(model.mean),   l: "Average score", d: raw(model.mean)   + (isConsistency ? consistencyNote : "") },
+        { v: pct(model.median), l: "Median score",  d: raw(model.median) },
+        { v: pct(model.min) + "–" + pct(model.maxTotal), l: "Score range", d: raw(model.min) + " – " + raw(model.maxTotal) }
+      );
+    } else {
+      out.push({ v: num(model.mean), l: "Average score", d: "The files do not share one maximum, so this is not shown as a percentage." });
+    }
+    return out;
+  }
+
+  function distributionSentence(model) {
+    if (!model.cohort.length || model.sameMax == null) return "";
+    const counts = new Map();
+    model.cohort.forEach((p) => {
+      if (typeof p.total !== "number") return;
+      counts.set(p.total, (counts.get(p.total) || 0) + 1);
+    });
+    const rows = Array.from(counts.entries()).sort((a, b) => b[1] - a[1] || a[0] - b[0]);
+    if (!rows.length) return "";
+    const pct = (v) => Math.round(100 * v / model.sameMax) + "%";
+    if (rows.length === 1) return "Every included participant scored " + pct(rows[0][0]) + ".";
+    return rows[0][1] + " of " + model.cohort.length + " included participants scored " + pct(rows[0][0]) + ". Scores range from " + pct(model.min) + " to " + pct(model.maxTotal) + ".";
+  }
+
+  function nameList(ids) {
+    if (ids.length <= 1) return ids.join("");
+    if (ids.length === 2) return ids[0] + " and " + ids[1];
+    return ids.slice(0, -1).join(", ") + ", and " + ids[ids.length - 1];
+  }
+
+  function itemContrast(model) {
+    const rated = model.items.filter((it) => typeof it.mean === "number" && typeof it.max === "number" && it.max > 0 && it.denom > 0);
+    if (rated.length < 2) return "";
+    const rate = (it) => it.mean / it.max;
+    const minR = Math.min.apply(null, rated.map(rate));
+    const maxR = Math.max.apply(null, rated.map(rate));
+    if (Math.abs(maxR - minR) < 0.02) return "";
+    const highs = rated.filter((it) => Math.abs(rate(it) - maxR) < 0.001);
+    const lows = rated.filter((it) => Math.abs(rate(it) - minR) < 0.001);
+    const label = (list) => list.length > 3 ? list.length + " items" : nameList(list.map((it) => it.title));
+    const highBit = highs.length === 1 ? "on " + label(highs) : "shared by " + label(highs);
+    const lowBit = "on " + label(lows);
+    return "The highest average score is " + num(highs[0].mean) + " of " + num(highs[0].max) + ", " + highBit + ". The lowest is " + num(lows[0].mean) + " of " + num(lows[0].max) + ", " + lowBit + ". A lower average describes the stored scores. It is not, by itself, evidence that participants misunderstood the idea.";
+  }
+
+  function checkContrast(model) {
+    const rows = (model.rules && model.rules.rows) || [];
+    if (!rows.length || model.rules.derived) return "";
+    let n = 0;
+    rows.filter((r) => r.family !== "rule").forEach((r) => {
+      const id = String(r.id).replace(/^item_checks\./, "");
+      const it = model.items.find((x) => x.id === id);
+      if (!it || !it.denom) return;
+      if (it.full + it.partial > it.none && r.fail > r.pass) n += 1;
+    });
+    if (!n) return "";
+    return "On " + n + (n === 1 ? " item" : " items") + ", most included participants received partial or full credit, while a separate yes-or-no check failed more often than it passed. That check is not the rubric score.";
+  }
+
+  function getResponse(rec, code, itemId) {
+    if (!rec || !rec.ocr) return null;
+    const vals = responsesFor(rec.ocr, code, itemId);
+    const tv = vals.filter((r) => valueKind(r.value) === "text");
+    if (tv.length) return tv.map((r) => String(r.value)).join("; ");
+    if (vals.some((r) => valueKind(r.value) === "blank")) return "(blank)";
+    return null;
+  }
+
+  // Maps scoring item IDs to check IDs for worksheets that use non-standard check naming.
+  const CHECK_MAP = {
+    WS5: { WS5_row1: "trials[1]", WS5_row2: "trials[2]", WS5_row3: "trials[3]", WS5_B25: "b25_minimum_errors" },
+  };
+
+  function getItemCheck(ocr, itemId, wsCode) {
+    if (!ocr || !ocr.checks) return null;
+    const alias = wsCode && CHECK_MAP[wsCode] && CHECK_MAP[wsCode][itemId];
+    if (alias) return ocr.checks.find((x) => x.check === alias) || null;
+    return ocr.checks.find((x) => x.check === "item_checks." + itemId) || null;
+  }
+
+  function checkFromScore(scoring, itemId) {
+    if (!scoring) return null;
+    const it = (scoring.items || []).find((x) => x.item === itemId);
+    if (!it || typeof it.score !== "number") return null;
+    const max = it.max_score != null ? it.max_score : 1;
+    const frac = max > 0 ? it.score / max : 0;
+    return { correct: frac >= 1 ? true : frac > 0 ? null : false, note: "Score: " + it.score + "/" + max, _fromScore: true };
+  }
+
+  function resolveCheck(ck, response, itemId) {
+    const ov = ITEM_OVERRIDES[itemId];
+    if (!ov) return ck;
+    const r = response || "";
+    const wasBlank = !r || r === "(blank)";
+    let accepted = false;
+    if (!wasBlank) {
+      let ok = true;
+      if (ov.acceptTokens) ok = ok && ov.acceptTokens.some((t) => r.toLowerCase().indexOf(t) !== -1);
+      if (ov.acceptPattern) ok = ok && new RegExp(ov.acceptPattern).test(r);
+      if (ov.requireToken) ok = ok && r.indexOf(ov.requireToken) !== -1;
+      accepted = ok;
+    }
+    const correct = wasBlank ? null : accepted ? true : (ck ? ck.correct : null);
+    const note = ov.expected + (ck && ck.note && !accepted ? " — " + ck.note : "");
+    return { correct: correct, note: note, flag: ck ? ck.flag : null, _override: true };
+  }
+
+  function expectedFor(w, itemId) {
+    const ov = ITEM_OVERRIDES[itemId];
+    if (ov) return ov.expected;
+    const rub = w ? rubricItems(w)[itemId] : null;
+    return rub ? criterionText(rub) : "";
+  }
+
+  // Returns only the short expected_answer value (for the Key badge).
+  // Falls back to null so callers can decide whether to show the badge.
+  function shortExpectedFor(w, itemId) {
+    const ov = ITEM_OVERRIDES[itemId];
+    if (ov) return ov.expected;
+    const rub = w ? rubricItems(w)[itemId] : null;
+    if (!rub) return null;
+    return rub.expected_answer ? String(rub.expected_answer) : null;
+  }
+
+  // WS6: blank-level columns matching the Collected Data view.
+  // paths: response paths whose values are joined with " | "
+  // scoringItem: rubric item whose score drives the verdict (null = no verdict)
+  // Researcher-confirmed display text for B25 when OCR extraction is unavailable.
+  const WS5_B25_DISPLAY = {
+    Serena: "Enerji ve Şeker",
+  };
+
+  const WS5_BLANK_COLS = [
+    { label: "Trial 1\nFeature",       n: 1, fmt: "feature",      scoringItem: "WS5_row1" },
+    { label: "Trial 1\nThreshold",     n: 1, fmt: "threshold",    scoringItem: "WS5_row1" },
+    { label: "Trial 1\nDistribution",  n: 1, fmt: "distribution", scoringItem: "WS5_row1" },
+    { label: "Trial 1\nErrors",        n: 1, fmt: "errors",       scoringItem: "WS5_row1" },
+    { label: "Trial 2\nFeature",       n: 2, fmt: "feature",      scoringItem: "WS5_row2" },
+    { label: "Trial 2\nThreshold",     n: 2, fmt: "threshold",    scoringItem: "WS5_row2" },
+    { label: "Trial 2\nDistribution",  n: 2, fmt: "distribution", scoringItem: "WS5_row2" },
+    { label: "Trial 2\nErrors",        n: 2, fmt: "errors",       scoringItem: "WS5_row2" },
+    { label: "Trial 3\nFeature",       n: 3, fmt: "feature",      scoringItem: "WS5_row3" },
+    { label: "Trial 3\nThreshold",     n: 3, fmt: "threshold",    scoringItem: "WS5_row3" },
+    { label: "Trial 3\nDistribution",  n: 3, fmt: "distribution", scoringItem: "WS5_row3" },
+    { label: "Trial 3\nErrors",        n: 3, fmt: "errors",       scoringItem: "WS5_row3" },
+    { label: "Item 25\nFinal Decision",n: 0, fmt: "b25",          scoringItem: "WS5_B25"  },
+  ];
+
+  function adjustWS5TrialCheck(ck, ocr, scoringItem, fmt) {
+    if (!ck) return ck;
+    const ocrCk = getItemCheck(ocr, scoringItem, "WS5");
+    if (!ocrCk) return ck;
+    const det = ocrCk.detail || {};
+    if (det.is_operator_logic_correct === false) {
+      const n = det.trial_id;
+      if (n && ocr && ocr.responses) {
+        const getv = (p) => { const h = ocr.responses.find((r) => r.path === p); return h ? String(h.value || "").trim() : ""; };
+        const lOp = getv(`trials[${n}].left_operator`);
+        const rOp = getv(`trials[${n}].right_operator`);
+        const isSymmetric = (lOp === "<" && rOp === ">") || (lOp === "<=" && rOp === ">=");
+        if (!isSymmetric) return ck;
+        if (fmt === "threshold") {
+          return { correct: null, note: `Kısmi: eşik doğru, operatör simetrik (${lOp} | ${rOp}).`, _adjusted: true };
+        }
+        if (fmt === "distribution") {
+          const v = det.is_leaf_counts_correct;
+          return v === true  ? { correct: true,  note: "Dağılım doğru.",  _adjusted: true }
+               : v === false ? { correct: false, note: "Dağılım yanlış.", _adjusted: true }
+               : ck;
+        }
+        if (fmt === "errors") {
+          const v = det.is_error_count_correct;
+          return v === true  ? { correct: true,  note: "Hata sayısı doğru.",  _adjusted: true }
+               : v === false ? { correct: false, note: "Hata sayısı yanlış.", _adjusted: true }
+               : ck;
+        }
+        if (fmt === "feature") {
+          return { correct: true, note: "Özellik doğru (yalnızca operatör kısmi).", _adjusted: true };
+        }
+      }
+    }
+    return ck;
+  }
+
+  function extractB25Feature(raw, trialFeatures) {
+    if (!raw) return null;
+    const lower = raw.toLowerCase();
+    const selected = trialFeatures.filter((f) => f && lower.includes(f.toLowerCase()));
+    if (selected.length) return selected.join(" ve ");
+    const m = raw.match(/^(.+?)\s+değişken/i);
+    return m ? m[1].trim() : (raw.trim().split(/\s+/)[0] || null);
+  }
+
+  function getWS5B25Check(ocr) {
+    if (!ocr || !ocr.responses) return null;
+    const get = (path) => {
+      const hit = ocr.responses.find((r) => r.path === path);
+      return (hit && valueKind(hit.value) === "text") ? String(hit.value) : null;
+    };
+    const trials = [1, 2, 3].map((n) => ({
+      feature: get(`trials[${n}].parsed_feature`),
+      errors: get(`trials[${n}].student_error_count`),
+    })).filter((t) => t.feature != null && t.errors != null);
+    if (!trials.length) return null;
+    const minErrors = Math.min(...trials.map((t) => Number(t.errors)));
+    const bestFeatures = trials.filter((t) => Number(t.errors) === minErrors).map((t) => t.feature);
+    const raw = get("final_decision_raw");
+    if (!raw) return null;
+    const chosen = extractB25Feature(raw, trials.map((t) => t.feature));
+    if (!chosen) return null;
+    const correct = bestFeatures.some((f) =>
+      f.toLowerCase() === chosen.toLowerCase() ||
+      f.toLowerCase().includes(chosen.toLowerCase()) ||
+      chosen.toLowerCase().includes(f.toLowerCase())
+    );
+    return {
+      correct,
+      note: "Min-hata: " + bestFeatures.join(", ") + " (" + minErrors + " hata). Öğrenci: " + chosen,
+      _fromB25: true,
+    };
+  }
+
+  function getWS5CellValue(ocr, col) {
+    if (!ocr || !ocr.responses) return null;
+    const get = (path) => {
+      const hit = ocr.responses.find((r) => r.path === path);
+      return (hit && valueKind(hit.value) === "text") ? String(hit.value) : null;
+    };
+    const n = col.n;
+    if (col.fmt === "feature")      return get(`trials[${n}].parsed_feature`);
+    if (col.fmt === "threshold") {
+      const left  = [get(`trials[${n}].left_operator`),  get(`trials[${n}].left_threshold`)].filter(Boolean).join(" ");
+      const right = [get(`trials[${n}].right_operator`), get(`trials[${n}].right_threshold`)].filter(Boolean).join(" ");
+      return [left, right].filter(Boolean).join(" | ") || null;
+    }
+    if (col.fmt === "distribution") {
+      const lr = get(`trials[${n}].left_leaf_recommended`);
+      const ln = get(`trials[${n}].left_leaf_not_recommended`);
+      const rr = get(`trials[${n}].right_leaf_recommended`);
+      const rn = get(`trials[${n}].right_leaf_not_recommended`);
+      const left  = (lr != null && ln != null) ? `Sol: ${lr}R/${ln}NR`  : null;
+      const right = (rr != null && rn != null) ? `Sağ: ${rr}R/${rn}NR` : null;
+      return [left, right].filter(Boolean).join(" | ") || null;
+    }
+    if (col.fmt === "errors")       return get(`trials[${n}].student_error_count`);
+    if (col.fmt === "b25") {
+      const raw = get("final_decision_raw");
+      return extractB25Feature(raw, [1,2,3].map((i) => get(`trials[${i}].parsed_feature`)).filter(Boolean));
+    }
+    return null;
+  }
+
+  function answerGridWS5(model, core) {
+    if (!model.cohort.length) return "";
+    const cols = WS5_BLANK_COLS;
+    const colHeaders = `<th class="gc-student-head">Student</th>` +
+      cols.map((col) => `<th class="gc-head">${h(col.label.replace("\n", " · "))}</th>`).join("");
+    const bodyRows = model.cohort.map((p) => {
+      const rec = core.ws[p.id] && core.ws[p.id]["WS5"];
+      const cells = cols.map((col) => {
+        const rawResponse = getWS5CellValue(rec && rec.ocr, col);
+        const response = col.fmt === "b25" && WS5_B25_DISPLAY[p.id] ? WS5_B25_DISPLAY[p.id] : rawResponse;
+        const display = response ? h(response) : `<span class="na">–</span>`;
+        const ck = col.fmt === "b25"
+          ? (getWS5B25Check(rec && rec.ocr) || checkFromScore(rec && rec.scoring, "WS5_B25"))
+          : (col.scoringItem ? adjustWS5TrialCheck(
+              checkFromScore(rec && rec.scoring, col.scoringItem) || getItemCheck(rec && rec.ocr, col.scoringItem, "WS5"),
+              rec && rec.ocr, col.scoringItem, col.fmt
+            ) : null);
+        const extra = col.fmt === "b25" ? " gc-b25" : "";
+        if (!ck) return `<td class="gc-cell gc-na${extra}">${display}</td>`;
+        const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
+        return `<td class="gc-cell ${cls}${extra}" title="${h(ck.note || "")}">${display}</td>`;
+      }).join("");
+      return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
+    }).join("");
+    const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
+    return `<h3>Answer grid <span class="small grid-toggle-hint">${legend}</span></h3>
+<p class="small">Columns match the Collected Data blank structure. Verdict uses the scoring record.</p>
+<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+  }
+
+  function studentResultsWS5(model, core) {
+    if (!model.cohort.length) return "";
+    const cols = WS5_BLANK_COLS;
+    const blocks = model.cohort.map((p) => {
+      const rec = core.ws[p.id] && core.ws[p.id]["WS5"];
+      let nCorrect = 0, nChecked = 0;
+      const itemRows = cols.map((col) => {
+        const rawResponse = getWS5CellValue(rec && rec.ocr, col);
+        const response = (col.fmt === "b25" && WS5_B25_DISPLAY[p.id] ? WS5_B25_DISPLAY[p.id] : rawResponse) || "–";
+        const ck = col.fmt === "b25"
+          ? (getWS5B25Check(rec && rec.ocr) || checkFromScore(rec && rec.scoring, "WS5_B25"))
+          : (col.scoringItem ? adjustWS5TrialCheck(
+              checkFromScore(rec && rec.scoring, col.scoringItem) || getItemCheck(rec && rec.ocr, col.scoringItem, "WS5"),
+              rec && rec.ocr, col.scoringItem, col.fmt
+            ) : null);
+        let verdictCell, rowCls;
+        if (!ck) {
+          verdictCell = `<span class="na">–</span>`; rowCls = "";
+        } else if (ck.correct === true) {
+          nChecked += 1; nCorrect += 1;
+          verdictCell = `<span class="verdict-pass">✓ Correct</span>`; rowCls = "row-pass";
+        } else if (ck.correct === false) {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-fail">✗ Wrong</span>`; rowCls = "row-fail";
+        } else {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-partial">~ Partial</span>`; rowCls = "row-partial";
+        }
+        return { cells: [`<b>${h(col.label.replace("\n", " · "))}</b>`, `<span class="written-answer">${h(response)}</span>`, verdictCell], attrs: rowCls ? ` class="${rowCls}"` : "" };
+      });
+      const pct = nChecked ? share(nCorrect, nChecked) : "–";
+      const tableHtml = table([{ t: "Blank" }, { t: "Written answer" }, { t: "Result" }], itemRows);
+      return `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(p.id)}</span><span class="sr-badge ${nChecked && nCorrect / nChecked >= 0.7 ? "sr-good" : nChecked && nCorrect / nChecked >= 0.4 ? "sr-mid" : "sr-low"}">${nCorrect} / ${nChecked} correct (${pct})</span></summary><div class="sr-body">${tableHtml}</div></details>`;
+    }).join("");
+    return `<details class="answer-grid-toggle"><summary><h3 class="inline-h3">Student results</h3></summary>
+<p class="small">Click a student to expand their answers. Verdict uses the answer-key check from the extraction file. Notes explain why an answer was marked wrong or partial.</p>
+<div class="student-results">${blocks}</div></details>`;
+  }
+
+  const WS6_BLANK_COLS = [
+    { cellId: "root_feature", label: "Blank 1\nRoot Feature",        paths: ["tree_structure.depth_0.parsed_feature"],                                                                                                                      scoringItem: "WS6_root_feature" },
+    { cellId: "root_split", label: "Blank 2-3\nRoot Split Cond.",  paths: ["tree_structure.depth_0.left_operator","tree_structure.depth_0.left_threshold_value","tree_structure.depth_0.right_operator","tree_structure.depth_0.right_threshold_value"], scoringItem: "WS6_root_threshold", checkThresholdPair: true },
+    { cellId: "inner_left", label: "Blank 4\nInternal Node (L)",   paths: ["tree_structure.depth_1.left_child.parsed_feature"],                                                                                                           scoringItem: "WS6_inner_feature" },
+    { cellId: "threshold_left", label: "Blank 5-6\nSub-Branch (L)",    paths: ["tree_structure.depth_1.left_child.left_operator","tree_structure.depth_1.left_child.left_threshold_value","tree_structure.depth_1.left_child.right_operator","tree_structure.depth_1.left_child.right_threshold_value"],                                           scoringItem: null, checkThresholdPair: true },
+    { cellId: "terminal_left", label: "Blank 7-8\nTerminal (L)",      paths: ["tree_structure.depth_2.leaf_nodes.left_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.left_right_leaf.leaf_label"],                                 scoringItem: "WS6_tree_validity" },
+    { cellId: "inner_right", label: "Blank 9\nInternal Node (R)",   paths: ["tree_structure.depth_1.right_child.parsed_feature"],                                                                                                          scoringItem: "WS6_inner_feature" },
+    { cellId: "threshold_right", label: "Blank 10-11\nSub-Branch (R)",  paths: ["tree_structure.depth_1.right_child.left_operator","tree_structure.depth_1.right_child.left_threshold_value","tree_structure.depth_1.right_child.right_operator","tree_structure.depth_1.right_child.right_threshold_value"],                                         scoringItem: null, checkThresholdPair: true },
+    { cellId: "terminal_right", label: "Blank 12-13\nTerminal (R)",    paths: ["tree_structure.depth_2.leaf_nodes.right_left_leaf.leaf_label","tree_structure.depth_2.leaf_nodes.right_right_leaf.leaf_label"],                               scoringItem: "WS6_tree_validity" },
+  ];
+
+  function getPathValues(ocr, paths) {
+    if (!ocr || !ocr.responses) return null;
+    const vals = paths.map((p) => {
+      const hit = ocr.responses.find((r) => r.path === p);
+      return hit && hit.value != null ? String(hit.value) : null;
+    }).filter(Boolean);
+    if (paths.length === 4 && paths[0].endsWith("left_operator")) {
+      const get = (path) => { const r = ocr.responses.find((x) => x.path === path); return r && r.value != null ? String(r.value) : ""; };
+      return [[get(paths[0]), get(paths[1])].filter(Boolean).join(" "), [get(paths[2]), get(paths[3])].filter(Boolean).join(" ")].filter(Boolean).join(" | ") || null;
+    }
+    return vals.length ? vals.join(" | ") : null;
+  }
+
+  function checkThresholdPairCk(ocr, paths) {
+    if (!ocr || !ocr.responses) return null;
+    const rawVals = paths.map((p) => {
+      const hit = ocr.responses.find((r) => r.path === p);
+      return hit != null ? hit.value : undefined;
+    });
+    if (rawVals.some((v) => v === undefined || v === null)) return null;
+    const normalize = (op) => String(op).replace("≤", "<=").replace("≥", ">=");
+    const complement = { "<": ">=", "<=": ">", ">": "<=", ">=": "<" };
+    const equal = Number(rawVals[1]) === Number(rawVals[3]);
+    const paired = complement[normalize(rawVals[0])] === normalize(rawVals[2]);
+    return { correct: equal && paired, note: equal && paired ? "Aynı eşik ve tamamlayıcı operatörler." : "Eşikler aynı ve operatörler tamamlayıcı olmalıdır." };
+  }
+
+  function ws6StoppingCheck(student, col) {
+    const policy = root.STRUCTURAL_STOPPING;
+    return policy && policy.ws6_display_overrides && policy.ws6_display_overrides[student]
+      && policy.ws6_display_overrides[student][col.cellId];
+  }
+
+  function answerGridWS6(model, core) {
+    if (!model.cohort.length) return "";
+    const cols = WS6_BLANK_COLS;
+    const colHeaders = `<th class="gc-student-head">Student</th>` +
+      cols.map((col) => `<th class="gc-head">${h(col.label.replace("\n", " · "))}</th>`).join("");
+    const bodyRows = model.cohort.map((p) => {
+      const rec = core.ws[p.id] && core.ws[p.id]["WS6"];
+      let nPass = 0, nChecked = 0;
+      const cells = cols.map((col) => {
+        const stopping = ws6StoppingCheck(p.id, col);
+        if (stopping) return `<td class="gc-cell gc-stop" data-verdict="structural_na" data-decision-origin="researcher_confirmed_applicability" title="${h(stopping.reason)}"><span class="gc-legend gc-stop">| · Valid stop</span></td>`;
+        const response = getPathValues(rec && rec.ocr, col.paths);
+        const display = response ? h(clip(response, 40)) : `<span class="na">–</span>`;
+        let ck = null;
+        if (col.checkThresholdPair) {
+          ck = response ? checkThresholdPairCk(rec && rec.ocr, col.paths) : null;
+        } else if (col.scoringItem) {
+          ck = checkFromScore(rec && rec.scoring, col.scoringItem);
+          if (ck && !response) ck = null; // blank response → no check
+        }
+        if (!ck) return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
+        nChecked += 1;
+        if (ck.correct === true) nPass += 1;
+        const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
+        return `<td class="gc-cell ${cls}" title="${h(ck.note || response || "")}">${display}</td>`;
+      }).join("");
+      return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
+    }).join("");
+    const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span> <span class="gc-legend gc-stop">| · Valid stop</span>`;
+    return `<h3>Answer grid <span class="small grid-toggle-hint">${legend}</span></h3>
+<p class="small">Columns match the Collected Data blank structure. Verdict uses the scoring record except documented applicability corrections. | is accepted correct stopping, not an unanswered item; no extra graded points are added. <a href="downloads/stopping_review/policy.json">Stopping review and prior statuses</a>.</p>
+<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+  }
+
+  function studentResultsWS6(model, core) {
+    if (!model.cohort.length) return "";
+    const cols = WS6_BLANK_COLS;
+    const blocks = model.cohort.map((p) => {
+      const rec = core.ws[p.id] && core.ws[p.id]["WS6"];
+      let nCorrect = 0, nChecked = 0, nStops = 0;
+      const itemRows = cols.map((col) => {
+        const rawResponse = getPathValues(rec && rec.ocr, col.paths);
+        const response = rawResponse || "–";
+        let ck = null;
+        if (col.checkThresholdPair) {
+          ck = rawResponse ? checkThresholdPairCk(rec && rec.ocr, col.paths) : null;
+        } else if (col.scoringItem) {
+          const scored = checkFromScore(rec && rec.scoring, col.scoringItem);
+          ck = (scored && rawResponse) ? scored : null; // blank response → no check
+        }
+        let verdictCell, rowCls;
+        const stopping = ws6StoppingCheck(p.id, col);
+        if (stopping) {
+          nStops += 1;
+          verdictCell = `<span class="gc-legend gc-stop">| · Valid stop</span><div class="small">${h(stopping.reason)}</div>`; rowCls = "row-stop";
+        } else if (!ck) {
+          verdictCell = `<span class="na">–</span>`; rowCls = "";
+        } else if (ck.correct === true) {
+          nChecked += 1; nCorrect += 1;
+          verdictCell = `<span class="verdict-pass">✓ Correct</span>`; rowCls = "row-pass";
+        } else if (ck.correct === false) {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-fail">✗ Wrong</span>`; rowCls = "row-fail";
+        } else {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-partial">~ Partial</span>`; rowCls = "row-partial";
+        }
+        const written = `<span class="written-answer">${h(clip(response, 80))}</span>`;
+        return { cells: [`<b>${h(col.label.replace("\n", " · "))}</b>`, written, verdictCell], attrs: rowCls ? ` class="${rowCls}"` : "" };
+      });
+      const pct = nChecked ? share(nCorrect, nChecked) : "–";
+      const summaryLine = `${nCorrect} / ${nChecked} scored correct (${pct})${nStops ? " · " + nStops + " accepted stops (separate)" : ""}`;
+      const tableHtml = table([{ t: "Blank" }, { t: "Written answer" }, { t: "Result" }], itemRows);
+      return `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(p.id)}</span><span class="sr-badge ${nChecked && nCorrect / nChecked >= 0.7 ? "sr-good" : nChecked && nCorrect / nChecked >= 0.4 ? "sr-mid" : "sr-low"}">${summaryLine}</span></summary><div class="sr-body">${tableHtml}</div></details>`;
+    }).join("");
+    return `<details class="answer-grid-toggle"><summary><h3 class="inline-h3">Student results</h3></summary>
+<p class="small">Click a student to expand. Verdict applies only to blanks that have a scoring item in the rubric.</p>
+<div class="student-results">${blocks}</div></details>`;
+  }
+
+  function answerGrid(model, core) {
+    if (model.code === "WS5") return answerGridWS5(model, core);
+    if (model.code === "WS6") return answerGridWS6(model, core);
+    if (!model.items.length || !model.cohort.length) return "";
+    const w = sheetOf(core, model.code);
+    const students = model.cohort;
+    const items = model.items.filter(it => {
+      if (it.max != null && it.max === 0) return false;
+      if (SCORE_DERIVED.has(model.code)) return rubricItems(w)[it.id] && rubricItems(w)[it.id].label != null;
+      return true;
+    });
+    // Column headers: item titles (rotated), with expected answer as subtitle
+    const colHeaders = `<th class="gc-student-head">Student</th>` +
+      items.map((it) => {
+        const exp = expectedFor(w, it.id);
+        return `<th class="gc-head" title="${h(exp)}">${h(it.title)}</th>`;
+      }).join("");
+    // Rows: one per student
+    const bodyRows = students.map((p) => {
+      const rec = core.ws[p.id] && core.ws[p.id][model.code];
+      let nPass = 0, nChecked = 0;
+      const cells = items.map((it) => {
+        const response = getResponse(rec, model.code, it.id);
+        const isBlank = !response || response === "(blank)";
+        const display = isBlank ? `<span class="na">–</span>` : h(clip(response, 35));
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id)
+          || (rec ? checkFromScore(rec.scoring, it.id) : null);
+        if (!ck || isBlank) return `<td class="gc-cell gc-na" title="${h(response || "")}">${display}</td>`;
+        nChecked += 1;
+        if (ck.correct === true) nPass += 1;
+        const cls = ck.correct === true ? "gc-correct" : ck.correct === false ? "gc-wrong" : "gc-partial";
+        const tip = ck.note || (response || "");
+        return `<td class="gc-cell ${cls}" title="${h(tip)}">${display}</td>`;
+      }).join("");
+      return `<tr><th class="gc-student-name">${h(p.id)}</th>${cells}</tr>`;
+    }).join("");
+    const keyRow = `<tr class="gc-key-row"><th class="gc-student-name gc-key-label">KEY</th>${items.map((it) => {
+      const exp = expectedFor(w, it.id);
+      return `<td class="gc-cell gc-key-cell">${exp ? h(clip(exp, 50)) : `<span class="na">–</span>`}</td>`;
+    }).join("")}</tr>`;
+    const legend = `<span class="gc-legend gc-correct">Correct</span> <span class="gc-legend gc-partial">Partial</span> <span class="gc-legend gc-wrong">Wrong</span> <span class="gc-legend gc-na">No check</span>`;
+    return `<h3>Answer grid <span class="small grid-toggle-hint">${legend}</span></h3>
+<p class="small">Rows = students, columns = items. Each cell shows the student's written answer. Hover for the full text or check note. Colors use the answer-key comparison, not the LLM rubric score.</p>
+<div class="table-wrap"><table class="find-table answer-grid transposed"><thead><tr>${colHeaders}</tr></thead><tbody>${keyRow}${bodyRows}</tbody></table></div>`;
+  }
+
+  function studentResultsTable(model, core) {
+    if (model.code === "WS5") return studentResultsWS5(model, core);
+    if (model.code === "WS6") return studentResultsWS6(model, core);
+    if (!model.items.length || !model.cohort.length) return "";
+    const w = sheetOf(core, model.code);
+    const scoredItems = model.items.filter(it => {
+      if (it.max != null && it.max === 0) return false;
+      if (SCORE_DERIVED.has(model.code)) return rubricItems(w)[it.id] && rubricItems(w)[it.id].label != null;
+      return true;
+    });
+    const blocks = model.cohort.map((p) => {
+      const rec = core.ws[p.id] && core.ws[p.id][model.code];
+      let nCorrect = 0, nChecked = 0;
+      const itemRows = scoredItems.map((it) => {
+        const expected = expectedFor(w, it.id) || "–";
+        const response = getResponse(rec, model.code, it.id);
+        const isBlank = !response || response === "(blank)";
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id)
+          || (rec ? checkFromScore(rec.scoring, it.id) : null);
+        let verdictCell, rowCls;
+        if (!ck || isBlank) {
+          verdictCell = `<span class="na">–</span>`;
+          rowCls = "";
+        } else if (ck.correct === true) {
+          nChecked += 1; nCorrect += 1;
+          verdictCell = `<span class="verdict-pass">✓ Correct</span>`;
+          rowCls = "row-pass";
+        } else if (ck.correct === false) {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-fail">✗ Wrong</span>${ck.note ? `<div class="verdict-note">${h(clip(ck.note, 120))}</div>` : ""}`;
+          rowCls = "row-fail";
+        } else {
+          nChecked += 1;
+          verdictCell = `<span class="verdict-partial">~ Partial</span>${ck.note ? `<div class="verdict-note">${h(clip(ck.note, 120))}</div>` : ""}`;
+          rowCls = "row-partial";
+        }
+        const writtenCell = isBlank
+          ? `<span class="na">–</span>`
+          : `<span class="written-answer">${h(clip(response, 80))}</span>`;
+        return {
+          cells: [`<b>${h(it.title)}</b>`, h(clip(expected, 80)), writtenCell, verdictCell],
+          attrs: rowCls ? ` class="${rowCls}"` : "",
+        };
+      });
+      const pct = nChecked ? share(nCorrect, nChecked) : "–";
+      const passIcon = nChecked && nCorrect === nChecked ? "✓" : nCorrect === 0 ? "✗" : "◑";
+      const summaryLine = `${nCorrect} / ${nChecked} correct (${pct})`;
+      const tableHtml = table(
+        [{ t: "Item" }, { t: "Expected answer" }, { t: "Written answer" }, { t: "Result" }],
+        itemRows
+      );
+      return `<details class="sr-accordion"><summary class="sr-summary"><span class="sr-name">${h(p.id)}</span><span class="sr-badge ${nChecked && nCorrect / nChecked >= 0.7 ? "sr-good" : nChecked && nCorrect / nChecked >= 0.4 ? "sr-mid" : "sr-low"}">${summaryLine}</span></summary><div class="sr-body">${tableHtml}</div></details>`;
+    }).join("");
+    return `<details class="answer-grid-toggle"><summary><h3 class="inline-h3">Student results</h3></summary>
+<p class="small">Click a student to expand their answers. Verdict uses the answer-key check from the extraction file. Notes explain why an answer was marked wrong or partial.</p>
+<div class="student-results">${blocks}</div></details>`;
+  }
+
+  function classDiagnostic(model, core) {
+    if (!model.items.length || !model.cohort.length) return "";
+    const w = sheetOf(core, model.code);
+    const bits = [];
+    const itemStats = model.items.map((it) => {
+      let pass = 0, fail = 0, partial = 0, total = 0;
+      const notCorrect = [];
+      const perStudent = {};
+      model.cohort.forEach((p) => {
+        const rec = core.ws[p.id] && core.ws[p.id][model.code];
+        const response = getResponse(rec, model.code, it.id);
+        const ck = resolveCheck(rec ? getItemCheck(rec.ocr, it.id, model.code) : null, response, it.id)
+          || (rec ? checkFromScore(rec.scoring, it.id) : null);
+        if (!ck) { perStudent[p.id] = null; return; }
+        total += 1;
+        if (ck.correct === true) { pass += 1; perStudent[p.id] = "pass"; }
+        else if (ck.correct === false) { fail += 1; notCorrect.push(p.id); perStudent[p.id] = "fail"; }
+        else { partial += 1; notCorrect.push(p.id); perStudent[p.id] = "partial"; }
+      });
+      return { it, pass, fail, partial, total, notCorrect, perStudent };
+    }).filter((x) => x.total > 0);
+    if (!itemStats.length) {
+      return `<p>No answer-key checks are available for this worksheet. Class analysis requires <code>item_checks.*</code> entries in the extraction data.</p>`;
+    }
+    const avgPass = itemStats.reduce((a, x) => a + x.pass / x.total, 0) / itemStats.length;
+    const nGap = itemStats.filter((x) => x.pass / x.total < 0.5).length;
+    const nMastered = itemStats.filter((x) => x.pass === x.total).length;
+
+    // Summary cards
+    bits.push(`<div class="diag-summary"><div class="diag-card"><div class="diag-val">${(avgPass * 100).toFixed(0)}%</div><div class="diag-lbl">Average correct rate</div></div><div class="diag-card"><div class="diag-val diag-val-gap">${nGap}</div><div class="diag-lbl">Gap item${nGap !== 1 ? "s" : ""} &lt; 50%</div></div><div class="diag-card"><div class="diag-val diag-val-ok">${nMastered}</div><div class="diag-lbl">Item${nMastered !== 1 ? "s" : ""} mastered by all</div></div></div>`);
+
+    // Full item table — all items with bar
+    bits.push(`<h3>Item-by-item results</h3><p class="small">Each row is one item. The bar and percentage show the correct rate across all ${model.cohort.length} students.</p>`);
+    const allRows = itemStats.map(({ it, pass, fail, partial, total, notCorrect }) => {
+      const expected = expectedFor(w, it.id);
+      const pct = Math.round(100 * pass / total);
+      const isGap = pass / total < 0.5;
+      const isMastered = pass === total;
+      const barColor = isMastered ? "#16a34a" : isGap ? "#c08000" : "#2878c8";
+      const bar = `<div class="diag-bar-wrap"><div class="diag-bar" style="width:${pct}%;background:${barColor}"></div><span class="diag-bar-pct">${share(pass, total)}</span></div>`;
+      const failNames = notCorrect.length ? notCorrect.map((s) => h(s)).join(", ") : "";
+      const badge = isMastered ? `<span class="diag-badge diag-mastered">All correct</span>` : isGap ? `<span class="diag-badge diag-gap">Gap item</span>` : "";
+      return {
+        cells: [
+          `<b>${h(it.title)}</b>${badge}${expected ? `<div class="small diag-expected">${h(clip(expected, 120))}</div>` : ""}`,
+          bar,
+          `${pass} / ${total}`,
+          failNames ? `<span class="diag-fail-names">${failNames}</span>` : `<span class="verdict-pass">All correct</span>`,
+        ],
+      };
+    });
+    bits.push(table(
+      [{ t: "Item / Expected answer" }, { t: "Correct rate" }, { t: "Correct / Total", num: 1 }, { t: "Students who missed" }],
+      allRows
+    ));
+    return bits.join("");
+  }
+
+  function notesBlock(model) {
+    const lines = [];
+    Object.keys(model.notes || {}).forEach((student) => {
+      const ws = (model.notes[student] || {})[model.code] || {};
+      Object.keys(ws).forEach((item) => {
+        if (ws[item]) lines.push(student + ", " + item + ": " + ws[item]);
+      });
+    });
+    if (!lines.length) return "";
+    return `<h3>Notes stored on scores</h3><ul>${lines.map((line) => `<li>Note stored on the score. ${h(line)}</li>`).join("")}</ul>`;
+  }
+
+  function page(code) {
+    if (code === "WS12" && root.WS12Review) return root.WS12Review.render();
+    const pack = data();
+    if (!pack.core) return `<div class="page"><h1>Worksheet findings</h1><p>Data files are missing.</p></div>`;
+    const model = pack.all[code];
+    if (!model) {
+      return `<div class="page">${crumbs([["Findings", "#/findings"], ["Worksheet findings", "#/findings/worksheets"], ["Not found"]])}
+        <h1>Worksheet not found</h1><p>No worksheet “${h(code)}” is in this archive.</p><p><a href="#/findings/worksheets">Back to worksheet findings</a></p></div>`;
+    }
+    if (model.duplicateOf) return duplicatePage(model);
+    return `<div class="page wide find-page">${crumbs([["Findings", "#/findings"], ["Worksheet findings", "#/findings/worksheets"], [code]])}
+      <p class="kicker">Worksheet findings</p>
+      <h1>${h(code)} · ${h(model.title)}</h1>
+      <p class="lead">${h(model.topic)}</p>
+      ${cards(headlineCards(model), "find-headline")}
+      <section class="section-block" id="answer-grid">
+        <h2>Answer grid and student results</h2>
+        ${answerGrid(model, pack.core)}
+        ${studentResultsTable(model, pack.core)}
+      </section>
+      <section class="section-block" id="class-analysis">
+        <h2>Class analysis</h2>
+        ${classDiagnostic(model, pack.core)}
+      </section>
+      <p><a href="#/findings/worksheets">All worksheet findings</a></p>
+    </div>`;
+  }
+
+  function duplicatePage(model) {
+    return `<div class="page wide find-page">${crumbs([["Findings", "#/findings"], ["Worksheet findings", "#/findings/worksheets"], [model.code]])}
+      <p class="kicker">Worksheet findings</p>
+      <h1>${h(model.code)} · ${h(model.title)}</h1>
+      <p class="lead">${h(model.topic)}</p>
+      ${cards([{ v: "Not scored", l: "Participants included", d: "This worksheet is not used as scored evidence." }], "find-headline")}
+      <section class="section-block" id="overall"><h2>Overall findings</h2>
+        <p>WS11 is not used as scored evidence. The extraction record repeats ${h(model.duplicateOf)} for every participant, and the scoring files are not published.</p>
+        <p>The rubric describes a feedback survey. The files stored under WS11 do not provide a separate response set, so this page does not report a score.</p>
+        <p><a href="#/findings/worksheets/${h(model.duplicateOf)}">${h(model.duplicateOf)} findings</a></p>
+      </section>
+      <details class="find-fold" id="method"><summary>Methodology and data quality</summary>
+        <div class="find-fold-body">
+          <h3>Scoring method</h3>
+          <p>The method is documented. Corresponding published scores are not. Zero-confidence files are not shown as results, and the repeated ${h(model.duplicateOf)} text is not scored again here.</p>
+          <p>Rubric source: <code>${h(model.rubricPath || "–")}</code>. ${model.rubricCount ? h(model.rubricCount) + " rubric entries are on file." : "No rubric entries are on file."}</p>
+          <h3>Data coverage and limitations</h3>
+          <ul>${model.limits.map((x) => `<li>${h(x)}</li>`).join("")}</ul>
+          <p><a href="#/explore/worksheet/${h(model.code)}">Blank worksheet and files in collected data</a></p>
+        </div>
+      </details>
+      <p><a href="#/findings/worksheets">All worksheet findings</a></p>
+    </div>`;
+  }
+
+  function bind() {
+    const search = document.getElementById("findSearch");
+    if (search) {
+      let group = "";
+      const apply = () => {
+        const q = search.value.trim().toLowerCase();
+        const cards = document.querySelectorAll(".find-ws");
+        let visible = 0;
+        cards.forEach((card) => {
+          const ok = (!q || card.dataset.title.indexOf(q) !== -1 || card.dataset.code.toLowerCase().indexOf(q) !== -1) && (!group || card.dataset.group === group);
+          card.hidden = !ok;
+          if (ok) visible += 1;
+        });
+        document.querySelectorAll(".ws-group").forEach((g) => {
+          g.hidden = !Array.from(g.querySelectorAll(".find-ws")).some((c) => !c.hidden);
+        });
+        const empty = document.getElementById("findEmpty");
+        if (empty) empty.hidden = visible !== 0;
+      };
+      search.addEventListener("input", apply);
+      document.querySelectorAll(".ws-filters .chip").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          group = btn.dataset.group || "";
+          document.querySelectorAll(".ws-filters .chip").forEach((b) => {
+            const on = b === btn;
+            b.classList.toggle("on", on);
+            b.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+          apply();
+        });
+      });
+    }
+    const psearch = document.getElementById("findPsearch");
+    if (psearch) {
+      psearch.addEventListener("input", () => {
+        const q = psearch.value.trim().toLowerCase();
+        const rows = document.querySelectorAll("#participants tbody tr");
+        let shown = 0;
+        rows.forEach((row) => {
+          const ok = !q || (row.dataset.student || "").toLowerCase().indexOf(q) !== -1;
+          row.hidden = !ok;
+          if (ok) shown += 1;
+        });
+        const empty = document.getElementById("findPempty");
+        if (empty) empty.hidden = shown !== 0;
+      });
+    }
+    const isearch = document.getElementById("findIsearch");
+    if (isearch) {
+      isearch.addEventListener("input", () => {
+        const q = isearch.value.trim().toLowerCase();
+        document.querySelectorAll("#items tbody tr").forEach((row) => {
+          row.hidden = !!(q && (row.dataset.label || "").indexOf(q) === -1 && (row.dataset.item || "").toLowerCase().indexOf(q) === -1);
+        });
+      });
+    }
+    const sel = document.getElementById("findStudent");
+    if (sel) {
+      const show = () => {
+        document.querySelectorAll(".find-person").forEach((el) => { el.hidden = el.dataset.person !== sel.value; });
+        const empty = document.getElementById("findPersonEmpty");
+        if (empty) empty.hidden = !!sel.value;
+      };
+      sel.addEventListener("change", () => {
+        show();
+        const raw = location.hash.replace(/^#\/?/, "");
+        const parts = raw.split("?");
+        const params = new URLSearchParams(parts[1] || "");
+        if (sel.value) params.set("student", sel.value);
+        else params.delete("student");
+        const next = "#/" + parts[0] + (params.toString() ? "?" + params.toString() : "");
+        if (history.replaceState) history.replaceState(null, "", next);
+      });
+      show();
+    }
+  }
+
+  root.WorksheetFindings = { analyze: analyze, index: index, page: page, bind: bind };
+})(typeof window !== "undefined" ? window : globalThis);

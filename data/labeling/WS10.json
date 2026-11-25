@@ -1,0 +1,98 @@
+{
+  "headers": [
+    "Student Name",
+    "Blank 1 / Iterative Error Calculation",
+    "Blank 2 / Misclassification Count – Threshold 69"
+  ],
+  "rows": [
+    [
+      "Amy",
+      "T1=4, T2=3, T3=2, T4=2, T5=1, T6=0, T7=0",
+      "Optimal: 408.0"
+    ],
+    [
+      "Bruno",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "Optimal: 408.0"
+    ],
+    [
+      "Helena",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "Optimal: 408.0"
+    ],
+    [
+      "Iris",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "Optimal: 408.0"
+    ],
+    [
+      "Irma",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "Optimal: 400.0"
+    ],
+    [
+      "Isabel",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "(boş bırakılmış)"
+    ],
+    [
+      "Marco",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "Optimal: 408.0"
+    ],
+    [
+      "Marcus",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "Optimal: 408.0"
+    ],
+    [
+      "Melinda",
+      "—",
+      "—"
+    ],
+    [
+      "Nadia",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "Optimal: 408.0"
+    ],
+    [
+      "Serena",
+      "—",
+      "—"
+    ],
+    [
+      "Shana",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "Optimal: 408.0"
+    ],
+    [
+      "Sheila",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "—"
+    ],
+    [
+      "Ulysses",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "Optimal: 408.0"
+    ],
+    [
+      "Zara",
+      "T1=4, T2=3, T3=2, T4=3, T5=2, T6=1, T7=2",
+      "Optimal: 408.0"
+    ]
+  ],
+  "column_info": [
+    {
+      "blank": "Blank 1",
+      "task": "Iterative Error Calculation",
+      "level": "Acquire",
+      "desc": "Systematically computing the total number of misclassified instances for each candidate threshold (the computed midpoints between adjacent sorted values). For example, calculating 4 errors when testing the threshold of 28, then iterating to calculate 3 errors for the threshold of 69, and so forth."
+    },
+    {
+      "blank": "Blank 2",
+      "task": "Misclassification Count – Threshold 69",
+      "level": "Acquire",
+      "desc": "Comparing the error rates across all the tested boundaries to identify and select the one that yields the absolute best performance. For example, selecting 408 as the final optimal threshold because it results in the lowest misclassification count (only 1 error)."
+    }
+  ]
+}
