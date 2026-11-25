@@ -14,8 +14,8 @@
 
  function page(){
   return `<div class="page wide frame-review-page">
-   <p class="eyebrow">Behavior coding · human vs machine</p>
-   <h1>Labelled frames (651)</h1>
+   <p class="eyebrow">Human review · screen-recording frames</p>
+   <h1>Frame coding review (651)</h1>
    <p>Human coder decisions and machine labels from the stratified sample. Each row is one frame.</p>
    <form id="reviewSearch" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem">
     <input id="reviewFilterId" placeholder="Find by ID (e.g. R0025)" style="width:9rem">
