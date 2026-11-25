@@ -169,7 +169,14 @@
     ["IDLE_THINKING", "Idle / thinking", "Working or thinking without visible interaction", "--b-idle"],
     ["OFF_TASK", "Off task", "Activity unrelated to the task", "--b-off"],
   ];
-  const BEH = Object.fromEntries(BEHAV.map((b, i) => [b[0], { i, label: b[1], desc: b[2], color: `var(${b[3]})` }]));
+  const ABSTAIN = [
+    ["INSUFFICIENT_EVIDENCE", "Insufficient evidence", "Lacks enough evidence to identify the behaviour", "--rule-strong"],
+    ["UNOBSERVABLE", "Unobservable", "Shows no observable on-screen behaviour", "--rule-strong"],
+    ["TAXONOMY_GAP", "Taxonomy gap", "Shows a behaviour not covered by the codebook", "--rule-strong"],
+  ];
+  const BEH = Object.fromEntries(
+    [...BEHAV, ...ABSTAIN].map((b, i) => [b[0], { i, label: b[1], desc: b[2], color: `var(${b[3]})` }])
+  );
   const behLabel = (k) => k ? (BEH[k] ? BEH[k].label : k.replace(/_/g, " ").toLowerCase()) : "Not coded";
   const behColor = (k) => k && BEH[k] ? BEH[k].color : "var(--rule-strong)";
   const SCREEN = { TREE: "Tree", GRAPH: "Graph", TABLE: "Table", MIXED: "Mixed", MENU: "Menu", CODAP: "CODAP window" };
@@ -384,7 +391,7 @@
   function behaviorTable(counts) {
     const total = sum(Object.values(counts));
     return table([{ t: "Observed behaviour" }, { t: "Meaning" }, { t: "Frames", num: 1 }, { t: "Share", num: 1 }],
-      behKeys(counts).map((k) => ({ cells: [`<span class="sw" style="background:${behColor(k)}"></span>${h(behLabel(k))}`, h(BEH[k] ? BEH[k].desc : "Not in the ten-behaviour-code list"), num(counts[k]), pct(counts[k], total, 1)] })));
+      behKeys(counts).map((k) => ({ cells: [`<span class="sw" style="background:${behColor(k)}"></span>${h(behLabel(k))}`, h(BEH[k] ? BEH[k].desc : "Not in the codebook"), num(counts[k]), pct(counts[k], total, 1)] })));
   }
   const addCounts = (a, b) => { Object.entries(b || {}).forEach(([k, v]) => { a[k] = (a[k] || 0) + v; }); return a; };
   const evidenceText = (f) => f.ev && f.ev.length ? f.ev.map((k) => EVIDENCE[k] || k).join(" · ") : f.b ? "No flags set" : (TRIGGERS[f.tr] || "");
@@ -675,6 +682,8 @@
 
         <h3>Behaviour labels</h3>
         <div class="code-grid">${BEHAV.map((b) => `<article class="code-card"><h3><span class="sw" style="background:var(${b[3]})"></span> ${h(b[1])}</h3><p><code>${h(b[0])}</code>. ${h(b[2])}.</p></article>`).join("")}</div>
+        <h3>Abstain codes</h3>
+        <div class="code-grid">${ABSTAIN.map((b) => `<article class="code-card"><h3><span class="sw" style="background:var(--rule-strong)"></span> ${h(b[1])}</h3><p><code>${h(b[0])}</code>. ${h(b[2])}.</p></article>`).join("")}</div>
         <p>${num(F.length)} frames are listed and ${num(codedFrameCount)} have a behaviour label. The ten behaviour codes and three abstain codes were developed from earlier human coding and given to the model as a closed list. They name visible activity — not what the student understood, and a frame count is not time spent.</p>
         ${tech("Behaviour coding details", `<p class="small">The coding prompt tells the model to prefer building a tree when two labels could fit. The stored counts do not follow that expectation: building a tree is on ${num(behN("BUILD_TREE"))} frames and comparing models is on ${num(behN("COMPARE_MODELS"))}. ${postProcessed.length ? `${num(postProcessed.length)} coding files record a later rule-based change to the label, including a rule that replaces EVALUATE_MODEL with COMPARE_MODELS when an iterative-refinement flag is set. The stored label is not always the model’s first output.` : ""}</p>
         <p class="small"><code>SELECT_TARGET</code> is stored on ${num(behN("SELECT_TARGET"))} frames. The log of the two class sessions contains ${num(actions.set_dependent_variable || 0)} <code>set_dependent_variable</code> events. A zero frame count does not show that students never chose a target.</p>
@@ -2206,7 +2215,7 @@
 
   function siteTableDictionaries() {
     const DICT = {
-      "frames.csv": [`One selected screen frame (${num(F.length)} rows)`, [["student", "Pseudonym"], ["session", "codap_21apr or codap_28apr"], ["frame_id", "Frame name within the session"], ["time_s", "Seconds from the start of the recording"], ["trigger", "Why the frame was selected"], ["pixel_change_pct", "Share of the screen that changed"], ["speaker_role", "Who was speaking at that moment, if known"], ["primary_behavior", "Observed behaviour (one of ten behaviour codes)"], ["secondary_behavior", "A second behaviour, if any"], ["screen_context", "Tree, graph, table, mixed or menu"], ["deepen_phase", "Setup, building, tuning, evaluating or idle"], ["confidence", "The coder's own confidence"]]],
+      "frames.csv": [`One selected screen frame (${num(F.length)} rows)`, [["student", "Pseudonym"], ["session", "codap_21apr or codap_28apr"], ["frame_id", "Frame name within the session"], ["time_s", "Seconds from the start of the recording"], ["trigger", "Why the frame was selected"], ["pixel_change_pct", "Share of the screen that changed"], ["speaker_role", "Who was speaking at that moment, if known"], ["primary_behavior", "Observed behaviour (one of ten behaviour codes or three abstain codes)"], ["secondary_behavior", "A second behaviour, if any"], ["screen_context", "Tree, graph, table, mixed or menu"], ["deepen_phase", "Setup, building, tuning, evaluating or idle"], ["confidence", "The coder's own confidence"]]],
       "worksheet_responses.csv": [`One extracted worksheet value (${num(responseRows)} rows)`, [["student", "Pseudonym"], ["worksheet", "WS1 to WS15"], ["item", "Question or blank ID"], ["field_path", "Exact position of the value in the extraction file"], ["extracted_value", "What the student wrote, as read and cleaned"], ["item_check_correct", "Result of the check: True, False or empty"], ["item_check_flag", "Short code describing an error, if any"], ["source_file", "Extraction file the value came from"]]],
       "log_sessions.csv": ["One student in one CODAP session", [["student", "Pseudonym"], ["date", "Session date"], ["events", "All recorded actions"], ["span_minutes", "Minutes from first to last action"], ["emit_count", "Model attempts"], ["minutes_to_first_emit", "Minutes to the first attempt"], ["last_emit_accuracy", "Accuracy of the last attempt (0 to 1)"], ["accuracy_sd", "Standard deviation of accuracy across attempts"], ["predictor_drops", "Predictor placements"], ["unique_attributes", "Different predictors tried"], ["emit_tree_data … data_context_change", "Counts of the six modelling actions"]]],
       "episodes.csv": ["One episode of a session (from the video pipeline's Parquet tables)", [["student", "Pseudonym"], ["session", "Session ID"], ["episode_id", "Episode within the session"], ["category", "Episode category"], ["start_ms / end_ms / duration_ms", "Timing in milliseconds"], ["steps", "Observation steps in the episode"], ["assistance", "Independent or assisted"]]],
