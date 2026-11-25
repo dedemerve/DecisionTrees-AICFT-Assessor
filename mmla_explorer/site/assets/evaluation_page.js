@@ -118,7 +118,7 @@
       </details>
 
       <h2 id="frames">Screen-recording frames</h2>
-      <p>The counts below are shares of ${num(labelled)} sampled, labelled frames. They are not shares of recording time. 651 frames were independently human-coded from the stratified sample. The human coder used an extended codebook that includes codes outside the machine’s ten-code set (for example, PREPARE_DATA and DRAG_ATTRIBUTE), so the two label sets are not directly comparable across all frames. Exact match on the 651-frame sample is 28.7% overall (41.4% excluding abstain frames). Weighted kappa for behaviour coding was not calculated. The model’s own confidence is not accuracy: ${num(frames.model_confidence.HIGH)} high, ${num(frames.model_confidence.MEDIUM)} medium, and ${num(frames.model_confidence.LOW)} low.</p>
+      <p>The counts below are shares of ${num(labelled)} sampled, labelled frames. They are not shares of recording time. 651 frames were independently human-coded from the stratified sample. The human coder used an extended codebook that includes codes outside the machine’s ten-code set (for example, DRAG_ATTRIBUTE), so the two label sets are not directly comparable across all frames. Exact match on the 651-frame sample is 28.7% overall (41.4% excluding abstain frames). Weighted kappa for behaviour coding was not calculated. The model’s own confidence is not accuracy: ${num(frames.model_confidence.HIGH)} high, ${num(frames.model_confidence.MEDIUM)} medium, and ${num(frames.model_confidence.LOW)} low.</p>
       ${table(
         [{ t: "Behaviour label" }, { t: "Frames", num: 1 }, { t: "Share of labelled frames", num: 1 }],
         labelRows
